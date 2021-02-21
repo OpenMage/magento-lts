@@ -42,7 +42,7 @@ $_colspan = $_colspan > 1 ? 'colspan="' . $_colspan . '"' : '';
             <tr class="headings" id="headings<?php echo $_htmlId ?>">
 <?php foreach ($this->_columns as $columnName => $column):?>
                 <th><?php echo $column['label'] ?></th>
-<?php endforeach;?>
+<?php endforeach ?>
                 <th <?php echo $_colspan?>></th>
             </tr>
 
@@ -76,7 +76,7 @@ var arrayRow<?php echo $_htmlId ?> = {
             +'<td>'
                 +'<?php echo Mage::helper('core')->jsQuoteEscape($this->_renderCellTemplate($columnName)) ?>'
             +'<\/td>'
-<?php endforeach;?>
+<?php endforeach ?>
 <?php if ($this->_addAfter):?>
             +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
 <?php endif ?>
@@ -94,7 +94,7 @@ var arrayRow<?php echo $_htmlId ?> = {
             var templateData = {
 <?php foreach ($this->_columns as $columnName => $column):?>
                 <?php echo $columnName ?> : '',
-<?php endforeach;?>
+<?php endforeach ?>
                 _id : '_' + d.getTime() + '_' + d.getMilliseconds()
             };
         }

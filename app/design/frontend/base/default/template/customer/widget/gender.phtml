@@ -31,6 +31,6 @@
         <?php $value = $this->getGender();?>
         <?php foreach ($options as $option):?>
             <option value="<?php echo $option['value'] ?>"<?php if ($option['value'] == $value) echo ' selected="selected"' ?>><?php echo $this->__($option['label']) ?></option>
-        <?php endforeach;?>
+        <?php endforeach ?>
     </select>
 </div>

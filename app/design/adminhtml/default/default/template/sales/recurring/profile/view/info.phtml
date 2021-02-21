@@ -29,7 +29,7 @@
 
 <?php foreach ($this->getRenderedInfo() as $row):?>
 <address><?php echo nl2br($this->escapeHtml($this->getObjectData($row, 'value')))?></address>
-<?php endforeach;?>
+<?php endforeach ?>
 
 <?php else:?>
 
@@ -43,7 +43,7 @@
         <strong><?php echo $this->renderRowValue($row) ?></strong>
     </td>
     </tr>
-<?php endforeach;?>
+<?php endforeach ?>
 </tbody>
 </table>
 <?php endif ?>

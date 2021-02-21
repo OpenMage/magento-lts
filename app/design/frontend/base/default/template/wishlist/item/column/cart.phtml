@@ -55,7 +55,7 @@ $options = $this->getChild('customer.wishlist.item.options')
 </div>
 <?php foreach($this->getSortedChildren() as $childName):?>
     <?php echo $this->getChildHtml($childName, false);?>
-<?php endforeach;?>
+<?php endforeach ?>
 <?php if ($product->isVisibleInSiteVisibility()): ?>
     <p><a class="link-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
 <?php endif ?>

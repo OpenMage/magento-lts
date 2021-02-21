@@ -39,9 +39,9 @@
                     <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
                         <?php echo $this->renderShippingRateOption($rate)?>
                     </option>
-                <?php endforeach;?>
+                <?php endforeach ?>
                 </optgroup>
-            <?php endforeach;?>
+            <?php endforeach ?>
             </select>
         <?php else: ?>
             <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>

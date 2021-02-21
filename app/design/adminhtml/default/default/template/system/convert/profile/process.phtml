@@ -58,7 +58,7 @@
                     <small>(<?php echo $exceptionInfo['position'];?>)</small>
                 <?php endif ?>
             </li>
-        <?php endforeach;?>
+        <?php endforeach ?>
         <?php if($this->getProfile()->getEntityType() == 'product' && $this->getProfile()->getDirection() == 'import'):?>
             <li id="liBeforeFinish" style="background-color:#FFD; display:none;">
                 <img src="<?php echo $this->getSkinUrl('images/fam_bullet_error.gif');?>" class="v-middle" style="margin-right:5px"/>
@@ -194,7 +194,7 @@
                 <script type="text/javascript">
                     <?php foreach ($importData as  $importValue):?>
                     addImportData(<?php echo $this->jsonEncode($importValue);?>);
-                    <?php endforeach;?>
+                    <?php endforeach ?>
                     execImportData();
                 </script>
                 <?php endif ?>
