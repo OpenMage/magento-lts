@@ -1233,7 +1233,6 @@
 "Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?","Warning!\r\nThis action will remove those users from already assigned roles\r\nAre you sure?"
 "Warning: Please do not close the window during importing/exporting data","Warning: Please do not close the window during importing/exporting data"
 "Watermark File for %s","Watermark File for %s"
-"We appreciate our merchants' feedback, please <a href=""#"" onclick=""surveyAction('yes'); return false;"">take our survey</a> to provide insight on the features you would like included in Magento. <a href=""#"" onclick=""surveyAction('no'); return false;"">Remove this notification</a>","We appreciate our merchants' feedback, please <a href=""#"" onclick=""surveyAction('yes'); return false;"">take our survey</a> to provide insight on the features you would like included in Magento. <a href=""#"" onclick=""surveyAction('no'); return false;"">Remove this notification</a>"
 "We're in our typing table, coding away more features for Magento. Thank you for your patience.","We're in our typing table, coding away more features for Magento. Thank you for your patience."
 "Web Section","Web Section"
 "Web Services","Web Services"

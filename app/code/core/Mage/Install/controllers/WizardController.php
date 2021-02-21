@@ -345,8 +345,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
 
         $this->_getInstaller()->finish();
 
-        Mage_AdminNotification_Model_Survey::saveSurveyViewed(true);
-
         $this->_prepareLayout();
         $this->_initLayoutMessages('install/session');
 
