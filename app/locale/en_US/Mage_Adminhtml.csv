@@ -716,7 +716,7 @@
 "Password","Password"
 "Password Confirmation","Password Confirmation"
 "Password confirmation must be same as password.","Password confirmation must be same as password."
-"Password must be at least of %d characters.","Password must be at least of %d characters."
+"Password must be at least of %d characters.","Password must be at least %d characters."
 "Password must include both numeric and alphabetic characters.","Password must include both numeric and alphabetic characters."
 "Password:","Password:"
 "Path:","Path:"
