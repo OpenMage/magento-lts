@@ -34,6 +34,6 @@ $product = $item->getProduct();
         <?php echo $this->getChildHtml($childName, false);?>
     <?php endforeach;?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 <div class="description std"><div class="inner"><?php echo $this->escapeHtml($this->stripTags($product->getShortDescription()));?></div></div>
 <textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" placeholder="<?php echo Mage::helper('core')->quoteEscape($this->__('Comment')) ?>"><?php echo ($this->escapeHtml($item->getDescription())) ?></textarea>

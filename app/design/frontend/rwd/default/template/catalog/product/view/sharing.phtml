@@ -31,7 +31,7 @@
 <ul class="sharing-links">
     <?php if ($this->canEmailToFriend()): ?>
         <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="link-email-friend" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email to a Friend')) ?>"><?php echo $this->__('Email to a Friend') ?></a></li>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php $_helper = $this->helper('catalog/output'); ?>
     <?php $_productName = urlencode(trim($_helper->productAttribute($_product, $_product->getName(), 'name')))?>

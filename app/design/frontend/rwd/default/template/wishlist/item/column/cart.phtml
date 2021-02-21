@@ -51,8 +51,8 @@ $options = $this->getChild('customer.wishlist.item.options')
             <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
             <span class="value"><?php echo $this->helper('catalog')->__('Out of stock') ?></span>
         </p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 </div>
 <?php if ($product->isVisibleInSiteVisibility()): ?>
     <p><a class="link-edit button button-secondary" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>

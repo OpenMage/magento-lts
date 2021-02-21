@@ -50,7 +50,7 @@
         <strong>T</strong> | <?php echo $_shipping->getTelephone();
         if($_shipping->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_shipping->getFax() ?>
-        <?php endif; ?>
+        <?php endif ?>
         </address>
     </div>
     <div class="col-2">
@@ -63,7 +63,7 @@
         <strong>T</strong> | <?php echo $_billing->getTelephone();
         if($_billing->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_billing->getFax() ?>
-        <?php endif; ?>
+        <?php endif ?>
         </address>
     </div>
 </div>

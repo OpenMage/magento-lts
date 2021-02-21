@@ -29,7 +29,7 @@
     <h1><?php echo $this->__('Billing Agreement # <span>%s</span>', $this->escapeHtml($this->getReferenceId())) ?></h1>
     <?php if ($this->getCanCancel()): ?>
         <a href="<?php echo $this->getCancelUrl() ?>" onclick="if( confirm('<?php echo $this->__('Are you sure you want to do this?') ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><?php echo $this->__('Cancel') ?></a>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="billing-agreements">
@@ -55,7 +55,7 @@
                         <th><?php echo $this->__('Updated:') ?></th>
                         <td><?php echo $this->escapeHtml($this->getAgreementUpdatedAt()); ?></td>
                     </tr>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <tr>
                         <th><?php echo $this->__('Payment Method:') ?></th>
                         <td><?php echo $this->getPaymentMethodTitle() ?></td>
@@ -103,7 +103,7 @@
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('related-orders-table');</script>
-    <?php endif; ?>
+    <?php endif ?>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Agreements') ?></a></p>
     </div>

@@ -46,7 +46,7 @@
                 <?php if($_product->getStoreId()): ?>
                     <input id="sample_title_default" type="checkbox" name="use_default[]" value="samples_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
                     <label class="normal" for="sample_title_default">Use Default Value</label>
-                <?php endif; ?>
+                <?php endif ?>
                 </td>
             </tr>
         </tbody>

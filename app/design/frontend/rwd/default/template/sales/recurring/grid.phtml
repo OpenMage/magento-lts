@@ -29,7 +29,7 @@
 
 <?php if ($caption = $this->getGridCaption()): ?>
 <h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
-<?php endif; ?>
+<?php endif ?>
 
 <?php $gridElements = $this->getGridElements(); ?>
 <?php if ($gridElements): ?>
@@ -76,5 +76,5 @@ if ($linkFormat) {
     <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
 <?php else: ?>
     <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
-<?php endif; ?>
+<?php endif ?>
 </div>

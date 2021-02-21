@@ -26,7 +26,7 @@
 ?>
 <div class="info-box recent-orders">
 <?php $_orders = $this->getOrders(); ?>
-    <h3 class="box-title"><?php echo $this->__('Recent Orders') ?><?php if( sizeof($_orders->getItems()) > 0 ): ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif; ?></h3>
+    <h3 class="box-title"><?php echo $this->__('Recent Orders') ?><?php if( sizeof($_orders->getItems()) > 0 ): ?> <span class="separator">|</span> <a href="<?php echo $this->getUrl('sales/order/history') ?>"><?php echo $this->__('View All') ?></a><?php endif ?></h3>
     <div class="box-content">
     <?php echo $this->getChildHtml()?>
 <?php if( sizeof($_orders->getItems()) > 0 ): ?>
@@ -52,6 +52,6 @@
     </table>
 <?php else: ?>
     <p><?php echo $this->__('You have placed no orders.'); ?></p>
-<?php endif; ?>
+<?php endif ?>
     </div>
 </div>

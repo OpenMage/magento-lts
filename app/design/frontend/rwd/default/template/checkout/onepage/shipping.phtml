@@ -71,7 +71,7 @@
                             <input type="text" id="shipping:vat_id" name="shipping[vat_id]" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()); ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')); ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
                         </div>
                     </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <li class="fields">
                         <div class="field">
                             <label for="shipping:city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -132,7 +132,7 @@
             </div>
         </li>
         <li class="control">
-            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif; ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
+            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
         </li>
     </ul>
     <div class="buttons-set" id="shipping-buttons-container">

@@ -32,7 +32,7 @@
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectAll()"><?php echo $this->__('Unselect All') ?></a>
         <span class="separator">|</span>
-        <?php endif; ?>
+        <?php endif ?>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.selectVisible()"><?php echo $this->__('Select Visible') ?></a>
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectVisible()"><?php echo $this->__('Unselect Visible') ?></a>
@@ -82,5 +82,5 @@
 <script type="text/javascript">
     <?php echo $this->getJsObjectName() ?>.setGridIds('<?php echo $this->getGridIdsJson() ?>');
 </script>
-<?php endif; ?>
+<?php endif ?>
 </div>

@@ -35,7 +35,7 @@
             <?php foreach ($options as $option) : ?>
                 <?php if ($option->getSelections()) : ?>
                     <?php echo $this->getOptionHtml($option); ?>
-                <?php endif; ?>
+                <?php endif ?>
             <?php endforeach; ?>
         </dl>
     </div>
@@ -92,4 +92,4 @@ BundleControl.prototype = {
 ProductConfigure.bundleControl = new BundleControl(<?php echo $this->getJsonConfig() ?>);
 </script>
 
-<?php endif; ?>
+<?php endif ?>

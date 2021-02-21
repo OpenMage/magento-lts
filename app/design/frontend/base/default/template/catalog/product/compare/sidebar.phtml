@@ -35,7 +35,7 @@ $_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
         <strong><span><?php echo $this->__('Compare Products') ?>
             <?php if($_helper->getItemCount() > 0): ?>
                 <small><?php echo $this->__('(%d)', $_helper->getItemCount()) ?></small>
-            <?php endif; ?>
+            <?php endif ?>
         </span></strong>
     </div>
     <div class="block-content">
@@ -56,7 +56,7 @@ $_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
         </div>
     <?php else: ?>
         <p class="empty"><?php echo $this->__('You have no items to compare.') ?></p>
-    <?php endif; ?>
+    <?php endif ?>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

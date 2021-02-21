@@ -33,7 +33,7 @@
 <?php foreach($_results as $shipid => $_result): ?>
     <?php if($shipid): ?>
     <div class="box-header"><?php echo $this->__('Shipment #').$shipid; ?></div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if(sizeof($_result)>0): ?>
         <?php $rowCount = sizeof($_result); $counter = 1; ?>
         <?php foreach($_result as $track): ?>
@@ -48,7 +48,7 @@
                 <td class="first label"><?php echo $this->__('Carrier:'); ?></td>
                 <td><?php echo $track->getCarrierTitle(); ?></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if($track->getErrorMessage()): ?>
             <tr>
                 <td class="first label"><?php echo $this->__('Error:'); ?></td>
@@ -70,58 +70,58 @@
                     <td class="first label"><?php echo $this->__('Status:'); ?></td>
                     <td><?php echo $track->getStatus(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getDeliverydate()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Delivered on:'); ?></td>
                     <td><?php echo $this->formatDeliveryDateTime($track->getDeliverydate(),$track->getDeliverytime()); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getSignedby()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Signed by:'); ?></td>
                     <td><?php echo $track->getSignedby(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getDeliveryLocation()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Delivered to:'); ?></td>
                     <td><?php echo $track->getDeliveryLocation(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getShippedDate()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Shipped or billed on:'); ?></td>
                     <td><?php echo $track->getShippedDate(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getService()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Service Type:'); ?></td>
                     <td><?php echo $track->getService(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <?php if ($track->getWeight()): ?>
                 <tr>
                     <td class="first label"><?php echo $this->__('Weight:'); ?></td>
                     <td><?php echo $track->getWeight(); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
-                <?php endif; ?>
+                <?php endif ?>
                 <?php elseif(isset($track['title']) && isset($track['number']) && $track['number']): ?>
                 <!--if the tracking is custom value-->
                   <tr>
                     <td class="first label"><?php echo ($track['title'] ? $this->escapeHtml($track['title']) : $this->__('N/A')); ?>:</td>
                     <td><?php echo (isset($track['number']) ? $this->escapeHtml($track['number']) : ''); ?></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
 
                 </table>
 
@@ -150,22 +150,22 @@
                 <script type="text/javascript">
                  decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');
                 </script>
-                <?php endif; ?>
+                <?php endif ?>
 
             <?php if($counter!=$rowCount): ?>
             <div class="divider"></div>
-            <?php endif; ?>
+            <?php endif ?>
             <?php $counter++; ?>
         <!--end for each tracking information-->
         <?php endforeach; ?>
     <?php else: ?>
         <div><?php echo $this->__('There is no tracking available for this shipment.'); ?></div>
-    <?php endif; ?>
+    <?php endif ?>
 
 <?php endforeach; ?>
 <?php else: ?>
     <div><?php echo $this->__('There is no tracking available.'); ?></div>
-<?php endif; ?>
+<?php endif ?>
 </div>
 <div class="button-set">
 <button class="form-button" onclick="window.close();window.opener.focus();"><span><?php echo $this->__('Close Window') ?></span></button>

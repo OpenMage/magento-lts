@@ -29,7 +29,7 @@
 <?php if($this->helper('rss/order')->isStatusNotificationAllow()): ?>
     <a href="<?php echo $this->helper('rss/order')->getStatusHistoryRssUrl($_order) ?>" class="link-rss f-none"><?php echo $this->__('Subscribe to Order Status') ?></a>
     <span class="separator">|</span>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($this->helper('sales/reorder')->canReorder($_order)) : ?>
     <a href="<?php echo $this->getReorderUrl($_order) ?>" class="link-reorder"><?php echo $this->__('Reorder') ?></a>
     <span class="separator">|</span>

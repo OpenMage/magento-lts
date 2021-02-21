@@ -54,7 +54,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
                 <small class="date"><?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
             </dd>

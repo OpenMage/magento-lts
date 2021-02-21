@@ -48,14 +48,14 @@
                 <?php echo $this->escapeHtml($rate['title']); ?>
                 <?php if (!is_null($rate['percent'])): ?>
                     (<?php echo (float)$rate['percent']; ?>%)
-                <?php endif; ?>
+                <?php endif ?>
                 <br />
             </td>
             <?php if ($isFirst): ?>
                 <td <?php echo $this->getValueProperties()?> rowspan="<?php echo count($rates); ?>">
                     <?php echo $_order->formatPrice($amount); ?>
                 </td>
-            <?php endif; ?>
+            <?php endif ?>
         </tr>
         <?php $isFirst = 0; ?>
         <?php $isTop = 0; ?>
@@ -69,7 +69,7 @@
 <tr class="show-details">
 <?php else: ?>
 <tr>
-<?php endif; ?>
+<?php endif ?>
     <td>
         <?php if ($this->displayFullSummary()): ?>
             <div class="summary-collapse"><?php echo $this->__('Tax'); ?></div>

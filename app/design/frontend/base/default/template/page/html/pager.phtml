@@ -43,7 +43,7 @@
             <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
         <?php else: ?>
             <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
-        <?php endif; ?>
+        <?php endif ?>
     </p>
     <?php endif ?>
 
@@ -103,7 +103,7 @@
 
         <?php if (!$this->isLastPage()): ?>
             <li>
-                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
+                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
                     <?php if(!$this->getAnchorTextForNext()): ?>
                         <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>" class="v-middle" />
                     <?php else: ?>
@@ -115,7 +115,7 @@
         </ol>
 
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getUseContainer()): ?>
     </div>

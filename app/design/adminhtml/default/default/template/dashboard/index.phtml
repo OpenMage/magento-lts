@@ -87,7 +87,7 @@ function toggleCal(id) {
 }
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
@@ -118,7 +118,7 @@ function toggleCal(id) {
                     <?php echo $this->getChildHtml('diagrams') ?>
                     <?php if (is_array($this->getChild('diagrams')->getTabsIds())) : ?>
                         <div id="diagram_tab_content"></div>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <div style="margin:20px;">
                         <?php echo $this->getChildHtml('totals') ?>
                     </div>

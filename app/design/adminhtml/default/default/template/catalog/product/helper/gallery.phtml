@@ -85,7 +85,7 @@ $_block = $this;
                 <td class="a-center">
                 <?php if($_block->getElement()->canDisplayUseDefault($_attribute)): ?>
                 <input class="default-checkbox" name="use_default[]" type="checkbox" <?php if($_block->getElement()->getAttributeReadonly($_attribute->getAttributeCode())):?> disabled="disabled" <?php endif ?>  onclick="<?php echo $_block->getJsObjectName(); ?>.updateUseDefault()"
-<?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif; ?> value="<?php echo $_attribute->getAttributeCode() ?>" />
+<?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif ?> value="<?php echo $_attribute->getAttributeCode() ?>" />
                 <?php endif ?>
                 </td>
                 <?php endforeach; ?>

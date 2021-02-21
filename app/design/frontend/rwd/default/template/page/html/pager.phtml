@@ -48,7 +48,7 @@
             <p class="amount amount--no-pages">
                 <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
             </p>
-            <?php endif; ?>
+            <?php endif ?>
         <?php endif ?>
 
         <?php if($this->getShowPerPage()): ?>
@@ -64,7 +64,7 @@
         </div>
         <?php endif ?>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getLastPageNum()>1): ?>
     <div class="pages">
@@ -109,7 +109,7 @@
 
         <?php if (!$this->isLastPage()): ?>
             <li>
-                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
+                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
                     <?php if(!$this->getAnchorTextForNext()): ?>
                         <?php echo $this->__('Next') ?>
                     <?php else: ?>
@@ -121,7 +121,7 @@
         </ol>
 
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getUseContainer()): ?>
     </div>

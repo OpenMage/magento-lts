@@ -79,7 +79,7 @@
                         <td class="value">
                             <select id="locale_select" name="locale" class="select required-entry">
                                 <?php foreach ($this->getLocaleOptions() as $_option): ?>
-                                <option value="<?php echo $_option['value'] ?>"<?php if ($_option['value']==$this->getCurrentLocale()): ?> selected="selected"<?php endif; ?>><?php echo $_option['label'] ?></option>
+                                <option value="<?php echo $_option['value'] ?>"<?php if ($_option['value']==$this->getCurrentLocale()): ?> selected="selected"<?php endif ?>><?php echo $_option['label'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </td>

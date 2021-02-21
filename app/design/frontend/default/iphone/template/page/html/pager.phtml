@@ -44,7 +44,7 @@
             <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
         <?php else: ?>
             <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
-        <?php endif; ?>
+        <?php endif ?>
     </p>
     <?php endif ?>
 
@@ -104,7 +104,7 @@
         <?php endif ?>
 
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getUseContainer()): ?>
     </div>

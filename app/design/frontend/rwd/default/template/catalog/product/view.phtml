@@ -42,7 +42,7 @@
         <form action="<?php echo $this->getSubmitUrlCustom($_product, array('_secure' => $this->_isSecure()), false) ?>"
               method="post"
               id="product_addtocart_form"
-              <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif; ?>>
+              <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif ?>>
             <?php echo $this->getBlockHtml('formkey') ?>
             <div class="no-display">
                 <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -101,8 +101,8 @@
                             <?php echo $this->getChildHtml('addtocart') ?>
                             <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
                                 <span class="or"><?php echo $this->__('OR') ?></span>
-                            <?php endif; ?>
-                        <?php endif; ?>
+                            <?php endif ?>
+                        <?php endif ?>
                         <?php echo $this->getChildHtml('addto') ?>
                         <?php echo $this->getChildHtml('sharing') ?>
                     </div>
@@ -112,7 +112,7 @@
                         <?php echo $this->getChildHtml('addto') ?>
                         <?php echo $this->getChildHtml('sharing') ?>
                     </div>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
 
             <?php echo $this->getChildHtml('related_products') ?>
@@ -185,7 +185,7 @@
                     </dd>
                 <?php endforeach;?>
             </dl>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 
     <?php echo $this->getChildHtml('upsell_products') ?>

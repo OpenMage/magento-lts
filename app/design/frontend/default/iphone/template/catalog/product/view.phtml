@@ -38,7 +38,7 @@
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="product-view">
-    <form action="<?php echo $this->getSubmitUrl($_product, array('_secure' => $this->_isSecure())) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+    <form action="<?php echo $this->getSubmitUrl($_product, array('_secure' => $this->_isSecure())) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif ?>>
         <?php echo $this->getBlockHtml('formkey') ?>
         <div class="no-display">
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -65,7 +65,7 @@
                         <div class="add-to-box">
                             <?php if($_product->isSaleable()): ?>
                                 <?php echo $this->getChildHtml('addtocart') ?>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </div>
                         <?php echo $this->getChildHtml('extra_buttons') ?>
                     <?php else:?>
@@ -74,7 +74,7 @@
                                 <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
                             </div>
                         <?php endif ?>
-                    <?php endif; ?>
+                    <?php endif ?>
 
                     <?php echo $this->getChildHtml('other');?>
                 </div>
@@ -92,7 +92,7 @@
             </div>
             <?php if ($alias == 'description'): ?>
                 <div class="product-add-to"><?php echo $this->getChildHtml('addto') ?></div>
-            <?php endif; ?>
+            <?php endif ?>
             <?php endforeach;?>
 
         </div>

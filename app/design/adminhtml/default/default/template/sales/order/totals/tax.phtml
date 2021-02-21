@@ -56,10 +56,10 @@ $taxIter++;
                         </td>
                     <?php else: ?>
                         <td class="label"><?php echo $rate['title']; ?><br/></td>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if ($isFirst): ?>
                         <td rowspan="<?php echo count($rates); ?>"><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </tr>
                 <?php
                 $isFirst = 0;
@@ -83,7 +83,7 @@ $taxIter++;
                         (<?php echo (float)$info['percent']; ?>%)<br/></td>
                 <?php else: ?>
                     <td class="label"><?php echo $this->escapeHtml($info['title']); ?><br/></td>
-                <?php endif; ?>
+                <?php endif ?>
                 <td><?php echo $this->displayAmount($amount, $baseAmount); ?></td>
             </tr>
             <?php
@@ -91,7 +91,7 @@ $taxIter++;
             $isTop = 0;
             ?>
         <?php endforeach; ?>
-    <?php endif; ?>
+    <?php endif ?>
     <?php foreach ($_weees as $weeeTitle => $weeeAmount): ?>
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"
             style="display:none;">
@@ -104,19 +104,19 @@ $taxIter++;
             </td>
         </tr>
     <?php endforeach; ?>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($this->displayFullSummary() && ($_fullInfo || $_weees)): ?>
 <tr class="summary-total" onclick="expandDetails(this, '.summary-details')">
     <?php else: ?>
 <tr>
-    <?php endif; ?>
+    <?php endif ?>
     <td class="label">
         <div class="summary-collapse">
             <?php if ($this->helper('tax')->displayFullSummary()): ?>
                 <?php echo Mage::helper('sales')->__('Total Tax') ?>
             <?php else: ?>
                 <?php echo Mage::helper('sales')->__('Tax') ?>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     </td>
     <td>

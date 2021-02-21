@@ -36,7 +36,7 @@
             </ul>
         </li>
     </ul>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->showSendForm): ?>
     <ul class="messages">
         <li class="note-msg">
@@ -53,7 +53,7 @@
             </ul>
         </li>
     </ul>
-        <?php endif; ?>
+        <?php endif ?>
     <form action="<?php echo "{$this->getBaseUrl(true)}errors/report.php?id={$this->reportId}" ?>" method="post" id="form-validate">
         <fieldset class="fieldset">
             <h2>Personal Information</h2>
@@ -93,7 +93,7 @@
     </form>
     <?php elseif ('' == $this->reportAction): ?>
         <p><em>Exception printing is disabled by default for security reasons.</em></p>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if ($this->reportAction == 'print'): ?>
     <div class="trace-container">
@@ -104,8 +104,8 @@
 </pre>
         </div>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->reportId && $this->reportUrl): ?>
         <p>Error log record number: <a href="<?php echo htmlspecialchars($this->reportUrl) ?>"><?php echo $this->reportId ?></a></p>
-    <?php endif; ?>
+    <?php endif ?>
 </div>

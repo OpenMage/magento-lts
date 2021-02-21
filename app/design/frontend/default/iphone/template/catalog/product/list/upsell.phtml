@@ -39,7 +39,7 @@
                 <h3 class="product-name"><a href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->escapeHtml($_link->getName()) ?></a></h3>
                 <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
             </li><!-
-            <?php endif; ?>
+            <?php endif ?>
         <?php endfor; ?>
     <?php endfor; ?>
     -></ul>

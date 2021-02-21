@@ -57,13 +57,13 @@
                                 $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
                             }
                     ?>
-                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif; ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
                     <?php endforeach; ?>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
-        <?php endif; ?>
+        <?php endif ?>
     </tbody>
 </table>
 <?php foreach ($columns as $column): ?>

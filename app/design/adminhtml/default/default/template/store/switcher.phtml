@@ -30,7 +30,7 @@
 <select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
 <?php if ($this->hasDefaultOption()): ?>
     <option value=""><?php echo $this->escapeHtml($this->getDefaultStoreName()); ?></option>
-<?php endif; ?>
+<?php endif ?>
     <?php foreach ($websites as $website): ?>
         <?php $showWebsite = false; ?>
         <?php foreach ($website->getGroups() as $group): ?>
@@ -39,16 +39,16 @@
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
                     <optgroup label="<?php echo $this->escapeHtml($website->getName()) ?>"></optgroup>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
                     <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()) ?>">
-                <?php endif; ?>
-                <option value="<?php echo $this->escapeHtml($store->getId()) ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()) ?></option>
+                <?php endif ?>
+                <option value="<?php echo $this->escapeHtml($store->getId()) ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()) ?></option>
             <?php endforeach; ?>
             <?php if ($showGroup): ?>
                 </optgroup>
-            <?php endif; ?>
+            <?php endif ?>
         <?php endforeach; ?>
     <?php endforeach; ?>
 </select>
@@ -70,7 +70,7 @@
         return false;
     <?php else: ?>
         setLocation('<?php echo $this->getSwitchUrl() ?>' + storeParam);
-    <?php endif; ?>
+    <?php endif ?>
     }
 </script>
-<?php endif; ?>
+<?php endif ?>
