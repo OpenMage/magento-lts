@@ -586,7 +586,7 @@ class Zend_XmlRpc_Server extends Zend_Server_Abstract
         $signatures = $info->getPrototypes();
         foreach ($signatures as $signature) {
             $sigParams = $signature->getParameters();
-            if ($sigCalled === $sigParams) {
+            if (gettype($sigCalled) === gettype($sigParams)) {
                 $matched = true;
                 break;
             }
