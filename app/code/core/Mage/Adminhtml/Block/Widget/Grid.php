@@ -963,7 +963,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $callback
      * @param array $args additional arguments for callback method
-     * @return $this
      */
     public function _exportIterateCollection($callback, array $args)
     {
@@ -971,17 +970,13 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $count = null;
         $page  = 1;
 
-        while (true) {
+        do {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
 
             $count = $collection->count();
-
-            if ($count < $this->_exportPageSize) {
-                break;
-            }
 
             $page++;
 
@@ -990,9 +985,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             }
             $collection->clear();
             unset($collection);
-        }
-
-        return $this;
+        } while($count == $this->_exportPageSize);
     }
 
     /**
