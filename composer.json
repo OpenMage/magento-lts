@@ -35,10 +35,5 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ],
-  "extra": {
-    "branch-alias": {
-      "dev-main": "1.9.4.x"
-    }
-  }
+  ]
 }
