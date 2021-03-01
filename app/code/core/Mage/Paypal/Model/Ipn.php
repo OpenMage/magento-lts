@@ -167,8 +167,8 @@ class Mage_Paypal_Model_Ipn
             throw new Mage_Paypal_UnavailableException($reason);
         }
 
-        $response = preg_split('/^\r?$/m', $postbackResult, 2);
-        $response = trim($response[1]);
+        $response = preg_split('/^\r?$/m', $postbackResult);
+        $response = trim(end($response));
         if ($response != 'VERIFIED') {
             $this->_debugData['postback'] = $postbackQuery;
             $this->_debugData['postback_result'] = $postbackResult;
