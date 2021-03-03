@@ -334,10 +334,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 ->commit();
             $this->_hasDataChanges = false;
             $dataCommited = true;
-        } catch (Exception $e) {
+        } catch (Throwable $t) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
-            throw $e;
+            throw $t;
         }
         if ($dataCommited) {
             $this->_afterSaveCommit();
