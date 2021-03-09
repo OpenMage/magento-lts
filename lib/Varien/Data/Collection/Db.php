@@ -242,7 +242,15 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $countSelect->columns('COUNT(*)');
+        // Count doesn't work with group by columns keep the group by
+        if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
+            $countSelect->reset(Zend_Db_Select::GROUP);
+            $countSelect->distinct(true);
+            $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
+            $countSelect->columns("COUNT(DISTINCT ".implode(", ", $group).")");
+        } else {
+            $countSelect->columns('COUNT(*)');
+        }
 
         return $countSelect;
     }
