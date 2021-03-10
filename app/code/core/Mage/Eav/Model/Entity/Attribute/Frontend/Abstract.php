@@ -139,7 +139,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      */
     public function getClass()
     {
-        $out    = array();
+        $out    = new ArrayObject();
         $out[]  = $this->getAttribute()->getFrontendClass();
         if ($this->getAttribute()->getIsRequired()) {
             $out[]  = 'required-entry';
@@ -149,6 +149,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         if ($inputRuleClass) {
              $out[] = $inputRuleClass;
         }
+        
+        Mage::dispatchEvent('eav_entity_attribute_frontend_get_class', ['classes' => $out, 'attribute' => $this->getAttribute()]);
+        
         if (!empty($out)) {
             $out = implode(' ', $out);
         } else {
