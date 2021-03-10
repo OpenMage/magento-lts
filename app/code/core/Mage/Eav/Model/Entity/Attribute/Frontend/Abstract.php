@@ -153,7 +153,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
         Mage::dispatchEvent('eav_entity_attribute_frontend_get_class', ['classes' => $out, 'attribute' => $this->getAttribute()]);
         
         if (!empty($out)) {
-            $out = implode(' ', $out);
+            $out = implode(' ', (array) $out);
         } else {
             $out = '';
         }
