@@ -1386,7 +1386,7 @@ class Zend_Db_Select
     {
         try {
             $sql = $this->assemble();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             trigger_error($e->getMessage(), E_USER_WARNING);
             $sql = '';
         }

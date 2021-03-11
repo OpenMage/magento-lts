@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         try {
             $adapter->delete($this->getMainTable(), $whereCond);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             throw $e;
         }
@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
             }
 
             $this->_getWriteAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getWriteAdapter()->rollBack();
             throw $e;
         }

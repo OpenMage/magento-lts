@@ -97,7 +97,7 @@ class Mage_Api2_Model_Dispatcher
         try {
             /** @var Mage_Api2_Model_Resource $modelObj */
             $modelObj = Mage::getModel($class);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // getModel() throws exception when in application is in development mode - skip it to next check
         }
         if (empty($modelObj) || !$modelObj instanceof Mage_Api2_Model_Resource) {
@@ -127,7 +127,7 @@ class Mage_Api2_Model_Dispatcher
     public function getApiUser()
     {
         if (!$this->_apiUser) {
-            throw new Exception('API user is not set.');
+            throw new RuntimeException('API user is not set.');
         }
 
         return $this->_apiUser;

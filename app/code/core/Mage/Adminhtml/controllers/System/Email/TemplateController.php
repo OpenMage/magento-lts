@@ -159,7 +159,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             );
             $this->_redirect('*/*');
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::getSingleton('adminhtml/session')->setData(
                 'email_template_form_data',
                 $this->getRequest()->getParams()
@@ -187,7 +187,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addError(
                     Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.')
                 );

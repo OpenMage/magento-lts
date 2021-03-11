@@ -132,7 +132,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
 
                 try {
                     $this->_handle = fsockopen($hostname, $port, $errno, $errstr);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     throw $e;
                 }
 

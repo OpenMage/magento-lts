@@ -212,7 +212,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             } else {
                 $processedHtml = $html;
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $processedHtml = '{CSS inlining error: ' . $e->getMessage() . '}' . PHP_EOL . $html;
         }
         return $processedHtml;

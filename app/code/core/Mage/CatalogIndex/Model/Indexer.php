@@ -344,7 +344,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $this->updateCatalogProductFlat($store, $products);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $flag->delete();
             throw $e;
         }
@@ -517,7 +517,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 } else {
                     $this->_getResource()->commit();
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getResource()->rollBack();
                 throw $e;
             }

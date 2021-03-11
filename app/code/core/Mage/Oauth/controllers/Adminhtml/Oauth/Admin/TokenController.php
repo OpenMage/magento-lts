@@ -114,7 +114,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('An error occurred on update revoke status.'));
             Mage::logException($e);
         }
@@ -153,7 +153,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
             $this->_getSession()->addSuccess($this->__('Selected entries has been deleted.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('An error occurred on delete action.'));
             Mage::logException($e);
         }

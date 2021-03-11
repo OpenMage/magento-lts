@@ -339,7 +339,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');

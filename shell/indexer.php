@@ -147,7 +147,7 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                     echo $process->getIndexer()->getName() . " index was successfully changed index mode\n";
                 } catch (Mage_Core_Exception $e) {
                     echo $e->getMessage() . "\n";
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     echo $process->getIndexer()->getName() . " index process unknown error:\n";
                     echo $e . "\n";
                 }
@@ -176,13 +176,13 @@ class Mage_Shell_Compiler extends Mage_Shell_Abstract
                             . " index was rebuilt successfully in " . gmdate('H:i:s', $resultTime) . "\n";
                     } catch (Mage_Core_Exception $e) {
                         echo $e->getMessage() . "\n";
-                    } catch (Exception $e) {
+                    } catch (Throwable $e) {
                         echo $process->getIndexer()->getName() . " index process unknown error:\n";
                         echo $e . "\n";
                     }
                 }
                 Mage::dispatchEvent('shell_reindex_finalize_process');
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::dispatchEvent('shell_reindex_finalize_process');
                 echo $e->getMessage() . "\n";
             }

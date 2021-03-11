@@ -1041,7 +1041,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
                 break;
             default:
-                throw new Exception('Not implemented.');
+                throw new RuntimeException('Not implemented.');
         }
         $message = $this->_prependMessage($message);
         if ($transactionId) {

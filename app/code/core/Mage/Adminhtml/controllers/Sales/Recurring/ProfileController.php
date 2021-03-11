@@ -61,7 +61,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         $this->_redirect('*/*/');
@@ -77,7 +77,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         $this->_redirect('*/*/');
@@ -91,7 +91,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
         try {
             $this->_initProfile();
             $this->loadLayout()->renderLayout();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->norouteAction();
         }
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             $this->_getSession()->addSuccess(Mage::helper('sales')->__('The profile state has been updated.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError(Mage::helper('sales')->__('Failed to update the profile.'));
             Mage::logException($e);
         }
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Failed to update the profile.'));
             Mage::logException($e);
         }

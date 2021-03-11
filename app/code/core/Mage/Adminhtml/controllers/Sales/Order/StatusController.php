@@ -145,7 +145,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException(
                     $e,
                     Mage::helper('sales')->__('An error occurred while saving order status. The status has not been added.')
@@ -190,7 +190,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                     return;
                 } catch (Mage_Core_Exception $e) {
                     $this->_getSession()->addError($e->getMessage());
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $this->_getSession()->addException(
                         $e,
                         Mage::helper('sales')->__('An error occurred while assigning order status. Status has not been assigned.')
@@ -222,7 +222,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been unassigned.'));
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException(
                     $e,
                     Mage::helper('sales')->__('An error occurred while unassigning order status.')

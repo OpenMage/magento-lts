@@ -59,7 +59,7 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException(
                 $e,
                 Mage::helper('pagecache')->__('An error occurred while clearing the external full page cache.')

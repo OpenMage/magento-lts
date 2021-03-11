@@ -328,7 +328,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $storageHelper->saveFile($this->_getConfig()->getTmpMediaShortUrl($fileName));
                 $ioAdapter->chmod($this->_getConfig()->getTmpMediaPath($fileName), 0777);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $e->getMessage()));
         }
 
@@ -578,7 +578,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         $destDirectory = dirname($this->_getConfig()->getMediaPath($file));
         try {
             $ioObject->open(array('path'=>$destDirectory));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
             $ioObject->open(array('path'=>$destDirectory));
         }
@@ -648,7 +648,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
             if (!$ioObject->fileExists($this->_getConfig()->getMediaPath($file), true)) {
-                throw new Exception();
+                throw new RuntimeException();
             }
 
             if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
@@ -665,7 +665,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     $this->_getConfig()->getMediaPath($destFile)
                 );
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $file = $this->_getConfig()->getMediaPath($file);
             $io = new Varien_Io_File();
             Mage::throwException(

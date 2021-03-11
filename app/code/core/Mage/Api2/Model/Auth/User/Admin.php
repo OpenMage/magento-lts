@@ -58,7 +58,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     {
         if (!$this->_role) {
             if (!$this->getUserId()) {
-                throw new Exception('Admin identifier is not set');
+                throw new RuntimeException('Admin identifier is not set');
             }
 
             /** @var Mage_Api2_Model_Resource_Acl_Global_Role_Collection $collection */
@@ -68,7 +68,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
             /** @var Mage_Api2_Model_Acl_Global_Role $role */
             $role = $collection->getFirstItem();
             if (!$role->getId()) {
-                throw new Exception('Admin role not found');
+                throw new RuntimeException('Admin role not found');
             }
 
             $this->setRole($role->getId());
@@ -97,7 +97,7 @@ class Mage_Api2_Model_Auth_User_Admin extends Mage_Api2_Model_Auth_User_Abstract
     public function setRole($role)
     {
         if ($this->_role) {
-            throw new Exception('Admin role has been already set');
+            throw new RuntimeException('Admin role has been already set');
         }
         $this->_role = $role;
 

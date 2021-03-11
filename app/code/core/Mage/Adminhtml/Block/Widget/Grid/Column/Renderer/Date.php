@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date
                         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
                     );
                 }
-                catch (Exception $e) {
+                catch (Throwable $e) {
                     Mage::logException($e);
                 }
             }
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date
                         ->date($data, Zend_Date::ISO_8601, null, false)->toString($format);
                 }
             }
-            catch (Exception $e)
+            catch (Throwable $e)
             {
                 if($this->getColumn()->getTimezone()) {
                     $data = Mage::app()->getLocale()

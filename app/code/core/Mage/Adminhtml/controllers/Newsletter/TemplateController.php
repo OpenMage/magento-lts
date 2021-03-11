@@ -199,7 +199,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             $this->_getSession()->setData('newsletter_template_form_data',
                 $this->getRequest()->getParams());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving this template.'));
             $this->_getSession()->setData('newsletter_template_form_data', $this->getRequest()->getParams());
         }
@@ -221,7 +221,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting this template.'));
             }
         }

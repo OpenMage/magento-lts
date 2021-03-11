@@ -149,7 +149,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
             $hasError = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addException($e,
                 Mage::helper('catalog')->__('An error occurred while saving the attribute set.'));
             $hasError = true;
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
             $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }

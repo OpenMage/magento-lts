@@ -543,7 +543,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::dispatchEvent('checkout_submit_all_after', array('orders' => $orders, 'quote' => $this->getQuote()));
 
             return $this;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::dispatchEvent('checkout_multishipping_refund_all', array('orders' => $orders));
             throw $e;
         }

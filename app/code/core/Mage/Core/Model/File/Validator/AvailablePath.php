@@ -221,7 +221,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
         $this->_setValue($value);
 
         if (!$this->_availablePaths && !$this->_protectedPaths) {
-            throw new Exception(Mage::helper('core')->__('Please set available and/or protected paths list(s) before validation.'));
+            throw new RuntimeException(Mage::helper('core')->__('Please set available and/or protected paths list(s) before validation.'));
         }
 
         if (preg_match('#\.\.[\\\/]#', $this->_value)) {

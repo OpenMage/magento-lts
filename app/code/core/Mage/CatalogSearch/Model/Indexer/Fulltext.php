@@ -455,7 +455,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
         try {
             $this->_getIndexer()->rebuildIndex();
             $resourceModel->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $resourceModel->rollBack();
             throw $e;
         }

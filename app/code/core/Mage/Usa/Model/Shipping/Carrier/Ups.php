@@ -394,8 +394,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
 
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($params, $responseBody);
-            }
-            catch (Exception $e) {
+            } catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 $responseBody = '';
             }
@@ -943,7 +942,7 @@ XMLRequest;
                 $debugData['result'] = $xmlResponse;
                 $this->_setCachedQuotes($xmlRequest, $xmlResponse);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 $xmlResponse = '';
             }
@@ -1184,7 +1183,7 @@ XMLAuth;
                 $debugData['result'] = $xmlResponse;
                 curl_close ($ch);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 $xmlResponse = '';
             }
@@ -1583,14 +1582,14 @@ XMLAuth;
 
             $debugData['result'] = $xmlResponse;
             $this->_setCachedQuotes($xmlRequest, $xmlResponse);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $xmlResponse = '';
         }
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
         }
 
@@ -1639,7 +1638,7 @@ XMLAuth;
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->getConfigFlag('verify_peer'));
             $xmlResponse = curl_exec($ch);
             if ($xmlResponse === false) {
-                throw new Exception(curl_error($ch));
+                throw new RuntimeException(curl_error($ch));
             } else {
                 $debugData['result'] = $xmlResponse;
                 $this->_setCachedQuotes($xmlRequest, $xmlResponse);
@@ -1648,7 +1647,7 @@ XMLAuth;
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             $result->setErrors($e->getMessage());
         }

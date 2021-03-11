@@ -64,7 +64,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
                 $this->_redirect('*/poll/edit',
                                  array('id' => $this->getRequest()->getParam('poll_id'), 'tab' => 'answers_section'));
                 return;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
@@ -89,12 +89,12 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
             $data = Zend_Json::decode($post['data']);
             try {
                 if( trim($data['answer_title']) == '' ) {
-                    throw new Exception(Mage::helper('poll')->__('Invalid Answer.'));
+                    throw new RuntimeException(Mage::helper('poll')->__('Invalid Answer.'));
                 }
                 $model = Mage::getModel('poll/poll_answer');
                 $model->setData($data)
                     ->save();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $response->setError(1);
                 $response->setMessage($e->getMessage());
             }
@@ -112,7 +112,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
                 $model = Mage::getModel('poll/poll_answer');
                 $model->setId(Zend_Json::decode($id))
                     ->delete();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $response->setError(1);
                 $response->setMessage($e->getMessage());
             }

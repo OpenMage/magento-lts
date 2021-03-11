@@ -117,7 +117,7 @@ class Mage_Paypal_Model_Ipn
                 }
                 $this->_processOrder();
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_debugData['exception'] = $e->getMessage();
             $this->_debug();
             throw $e;
@@ -148,7 +148,7 @@ class Mage_Paypal_Model_Ipn
 
         try {
             $postbackResult = $httpAdapter->read();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
             throw $e;
         }
@@ -172,7 +172,7 @@ class Mage_Paypal_Model_Ipn
         if ($response != 'VERIFIED') {
             $this->_debugData['postback'] = $postbackQuery;
             $this->_debugData['postback_result'] = $postbackResult;
-            throw new Exception('PayPal IPN postback failure. See ' . self::DEFAULT_LOG_FILE . ' for details.');
+            throw new RuntimeException('PayPal IPN postback failure. See ' . self::DEFAULT_LOG_FILE . ' for details.');
         }
     }
 
@@ -201,7 +201,7 @@ class Mage_Paypal_Model_Ipn
             $methodCode = $this->_order->getPayment()->getMethod();
             $this->_config = Mage::getModel('paypal/config', array($methodCode, $this->_order->getStoreId()));
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
-                throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
+                throw new RuntimeException(sprintf('Method "%s" is not available.', $methodCode));
             }
 
             $this->_verifyOrder();
@@ -223,7 +223,7 @@ class Mage_Paypal_Model_Ipn
             $this->_recurringProfile = Mage::getModel('sales/recurring_profile')
                 ->loadByInternalReferenceId($internalReferenceId);
             if (!$this->_recurringProfile->getId()) {
-                throw new Exception(
+                throw new RuntimeException(
                     sprintf('Wrong recurring profile INTERNAL_REFERENCE_ID: "%s".', $internalReferenceId)
                 );
             }
@@ -233,7 +233,7 @@ class Mage_Paypal_Model_Ipn
                 'paypal/config', array($methodCode, $this->_recurringProfile->getStoreId())
             );
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
-                throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
+                throw new RuntimeException(sprintf('Method "%s" is not available.', $methodCode));
             }
         }
         return $this->_recurringProfile;
@@ -255,7 +255,7 @@ class Mage_Paypal_Model_Ipn
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
-                throw new Exception(
+                throw new RuntimeException(
                     sprintf(
                         'Requested %s and configured %s merchant emails do not match.', $receiverEmail, $merchantEmail
                     )
@@ -386,7 +386,7 @@ class Mage_Paypal_Model_Ipn
                     break;
 
                 default:
-                    throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
+                    throw new RuntimeException("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
             $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
@@ -414,7 +414,7 @@ class Mage_Paypal_Model_Ipn
                     break;
 
                 default:
-                    throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
+                    throw new RuntimeException("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
 // TODO: add to payment profile comments
@@ -624,7 +624,7 @@ class Mage_Paypal_Model_Ipn
             return;
         }
         if ('order' === $reason) {
-            throw new Exception('The "order" authorizations are not implemented.');
+            throw new RuntimeException('The "order" authorizations are not implemented.');
         }
 
         // case when was placed using PayPal standard

@@ -263,7 +263,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/addresses');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getCheckoutSession()->addException(
                 $e,
                 Mage::helper('checkout')->__('Data saving problem')
@@ -377,7 +377,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING
             );
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/shipping');
         }
@@ -498,7 +498,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_getCheckoutSession()->addException($e, $this->__('Cannot open the overview page'));
             $this->_redirect('*/*/billing');
@@ -564,7 +564,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
                 ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');
             $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('*/*/billing');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             Mage::helper('checkout')
                 ->sendPaymentFailedEmail($this->_getCheckout()->getQuote(), $e->getMessage(), 'multi-shipping');

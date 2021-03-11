@@ -138,7 +138,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             }
 
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $writeAdapter->rollBack();
             throw $e;
         }

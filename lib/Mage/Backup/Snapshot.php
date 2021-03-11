@@ -54,7 +54,7 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
 
         try {
             $this->_getDbBackupManager()->rollback();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_removeDbBackup();
             throw $e;
         }
@@ -77,7 +77,7 @@ class Mage_Backup_Snapshot extends Mage_Backup_Filesystem
 
         try {
             $result = parent::create();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_removeDbBackup();
             throw $e;
         }

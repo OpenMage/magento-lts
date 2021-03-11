@@ -245,7 +245,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         try {
             $res =  Mage::getSingleton('admin/session')->isAllowed($resource);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
         return $res;

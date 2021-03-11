@@ -130,7 +130,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
                 )));
                 return;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
         } else {

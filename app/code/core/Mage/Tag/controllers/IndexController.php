@@ -84,7 +84,7 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                         $counter[$relationStatus][] = $tagName;
                     }
                     $this->_fillMessageBox($counter);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::logException($e);
                     $session->addError($this->__('Unable to save tag(s).'));
                 }

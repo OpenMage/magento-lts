@@ -425,7 +425,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $retry = false;
             try {
                 $result = $this->query($sql);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // Convert to PDOException to maintain backwards compatibility with usage of MySQL adapter
                 if ($e instanceof Zend_Db_Statement_Exception) {
                     $e = $e->getPrevious();
@@ -506,7 +506,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->_checkDdlTransaction($sql);
             $this->_prepareQuery($sql, $bind);
             $result = parent::query($sql, $bind);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_debugStat(self::DEBUG_QUERY, $sql, $bind);
 
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
@@ -710,7 +710,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $result[] = $this->raw_query($stmt);
             }
             #$this->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             #$this->rollback();
             throw $e;
         }
@@ -1461,10 +1461,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Write exception and thow
      *
-     * @param Exception $e
-     * @throws Exception
+     * @param Throwable $e
+     * @throws Throwable
      */
-    protected function _debugException(Exception $e)
+    protected function _debugException(Throwable $e)
     {
         if (!$this->_debug) {
             throw $e;
@@ -2761,7 +2761,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             try {
                 $result = $this->raw_query($query);
                 $cycle  = false;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 if (in_array(strtolower($indexType), array('primary', 'unique'))) {
                     $match = array();
                     if (preg_match('#SQLSTATE\[23000\]: [^:]+: 1062[^\']+\'([\d-\.]+)\'#', $e->getMessage(), $match)) {

@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             if (!$write->fetchOne("select * from $table where product_id=".(int)$productId." and store_id=".(int)$storeId)) {
                $write->query("insert into $table (product_id, store_id) values (".(int)$productId.",".(int)$storeId.")");
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw $e;
         }
         return $this;

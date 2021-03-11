@@ -356,7 +356,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
         if (is_string($this->getData('widget_parameters'))) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($this->getData('widget_parameters'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

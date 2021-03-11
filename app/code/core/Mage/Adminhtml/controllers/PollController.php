@@ -85,7 +85,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
@@ -198,7 +198,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                     }
                 }
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_initLayoutMessages('adminhtml/session');
                 $response->setError(true);

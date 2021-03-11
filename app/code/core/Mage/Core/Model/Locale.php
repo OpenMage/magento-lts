@@ -613,7 +613,7 @@ class Mage_Core_Model_Locale
             $options = array();
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 /**
                  * catch specific exceptions like "Currency 'USD' not found"
                  * - back end falls with specific locals as Malaysia and etc.

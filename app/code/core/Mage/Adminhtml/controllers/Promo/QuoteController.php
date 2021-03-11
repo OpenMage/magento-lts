@@ -194,7 +194,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 }
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'));
                 Mage::logException($e);
@@ -228,7 +228,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.'));
                 Mage::logException($e);
@@ -427,7 +427,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 }
             } catch (Mage_Core_Exception $e) {
                 $result['error'] = $e->getMessage();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $result['error'] = Mage::helper('salesrule')->__('An error occurred while generating coupons. Please review the log and try again.');
                 Mage::logException($e);
             }

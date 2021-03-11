@@ -272,7 +272,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                         $this->addCondition($cond);
                         $cond->loadArray($condArr, $key);
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::logException($e);
                 }
             }

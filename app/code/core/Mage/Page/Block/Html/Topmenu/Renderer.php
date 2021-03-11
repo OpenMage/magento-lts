@@ -49,14 +49,14 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         $menuTree = $this->getMenuTree();
         $childrenWrapClass = $this->getChildrenWrapClass();
         if (!$this->getTemplate() || is_null($menuTree) || is_null($childrenWrapClass)) {
-            throw new Exception("Top-menu renderer isn't fully configured.");
+            throw new RuntimeException("Top-menu renderer isn't fully configured.");
         }
 
         $includeFilePath = realpath(Mage::getBaseDir('design') . DS . $this->getTemplateFile());
         if (strpos($this->getTemplateFile(), '..') === FALSE) {
             $this->_templateFile = $includeFilePath;
         } else {
-            throw new Exception('Not valid template file:' . $this->_templateFile);
+            throw new RuntimeException('Not valid template file:' . $this->_templateFile);
         }
         return $this->render($menuTree, $childrenWrapClass);
     }

@@ -90,7 +90,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
         $this->getResponse()->setRedirect($this->getUrl("*/*/"));

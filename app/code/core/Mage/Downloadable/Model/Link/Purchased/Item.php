@@ -95,7 +95,7 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     public function _beforeSave()
     {
         if (null == $this->getOrderItemId()) {
-            throw new Exception(
+            throw new RuntimeException(
                 Mage::helper('downloadable')->__('Order item id cannot be null')
             );
         }

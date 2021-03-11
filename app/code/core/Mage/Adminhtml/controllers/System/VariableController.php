@@ -149,7 +149,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                     $this->_redirect('*/*/', array());
                 }
                 return;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('_current' => true, ));
                 return;
@@ -172,7 +172,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminhtml')->__('The custom variable has been deleted.')
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('_current' => true, ));
                 return;

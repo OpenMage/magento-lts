@@ -166,7 +166,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
     protected function _renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {
-            throw new Exception('Wrong column name specified.');
+            throw new RuntimeException('Wrong column name specified.');
         }
         $column     = $this->_columns[$columnName];
         $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
@@ -202,7 +202,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
             $this->_isPreparedToRender = true;
         }
         if (empty($this->_columns)) {
-            throw new Exception('At least one column must be defined.');
+            throw new RuntimeException('At least one column must be defined.');
         }
         return parent::_toHtml();
     }

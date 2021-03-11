@@ -130,7 +130,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         // Render page
         try {
             $viewHelper->prepareAndRender($productId, $this, $params);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($e->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
                 if (isset($_GET['store'])  && !$this->getResponse()->isRedirect()) {
                     $this->_redirect('');

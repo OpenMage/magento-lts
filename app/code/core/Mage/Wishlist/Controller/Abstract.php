@@ -136,7 +136,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
                 if ($cartItem) {
                     $cart->getQuote()->deleteItem($cartItem);
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $messages[] = Mage::helper('wishlist')->__('Cannot add the item to shopping cart.');
             }
@@ -192,7 +192,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             // save wishlist model for setting date of last update
             try {
                 $wishlist->save();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('wishlist/session')->addError($this->__('Cannot update wishlist'));
                 $redirectUrl = $indexUrl;
             }

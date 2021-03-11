@@ -121,7 +121,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $value = $e->getMessage();
         }
 
@@ -598,7 +598,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function assocToXml(array $array, $rootName = '_')
     {
         if (empty($rootName) || is_numeric($rootName)) {
-            throw new Exception('Root element must not be empty or numeric');
+            throw new RuntimeException('Root element must not be empty or numeric');
         }
 
         $xmlstr = <<<XML
@@ -608,7 +608,7 @@ XML;
         $xml = new SimpleXMLElement($xmlstr);
         foreach ($array as $key => $value) {
             if (is_numeric($key)) {
-                throw new Exception('Array root keys must not be numeric.');
+                throw new RuntimeException('Array root keys must not be numeric.');
             }
         }
         return self::_assocToXml($array, $rootName, $xml);
@@ -631,7 +631,7 @@ XML;
             if (!is_array($value)) {
                 if (is_string($key)) {
                     if ($key === $rootName) {
-                        throw new Exception('Associative key must not be the same as its parent associative key.');
+                        throw new RuntimeException('Associative key must not be the same as its parent associative key.');
                     }
                     $hasStringKey = true;
                     $xml->$key = $value;
@@ -644,7 +644,7 @@ XML;
             }
         }
         if ($hasNumericKey && $hasStringKey) {
-            throw new Exception('Associative and numeric keys must not be mixed at one level.');
+            throw new RuntimeException('Associative and numeric keys must not be mixed at one level.');
         }
         return $xml;
     }
@@ -791,7 +791,7 @@ XML;
             if ($shouldMerge) {
                 if ($targetFile && !is_writeable(dirname($targetFile))) {
                     // no translation intentionally
-                    throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
+                    throw new RuntimeException(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
 
                 // filter by extensions
@@ -810,7 +810,7 @@ XML;
                 }
                 if (empty($srcFiles)) {
                     // no translation intentionally
-                    throw new Exception('No files to compile.');
+                    throw new RuntimeException('No files to compile.');
                 }
 
                 $data = '';
@@ -826,7 +826,7 @@ XML;
                 }
                 if (!$data) {
                     // no translation intentionally
-                    throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
+                    throw new RuntimeException(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
                 if ($targetFile) {
                     file_put_contents($targetFile, $data, LOCK_EX);
@@ -836,7 +836,7 @@ XML;
             }
 
             return true; // no need in merger or merged into file successfully
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         return false;

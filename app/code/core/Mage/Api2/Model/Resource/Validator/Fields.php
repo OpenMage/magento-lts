@@ -72,7 +72,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     public function __construct($options)
     {
         if (!isset($options['resource']) || !$options['resource'] instanceof Mage_Api2_Model_Resource) {
-            throw new Exception("Passed parameter 'resource' is wrong.");
+            throw new RuntimeException("Passed parameter 'resource' is wrong.");
         }
         $this->_resource = $options['resource'];
 
@@ -106,7 +106,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     }
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
-                        throw new Exception("Validator type is not set for {$validatorName}");
+                        throw new RuntimeException("Validator type is not set for {$validatorName}");
                     }
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
@@ -137,7 +137,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     {
         $validatorClass = 'Zend_Validate_' . $type;
         if (!class_exists($validatorClass)) {
-            throw new Exception("Validator {$type} is not exist");
+            throw new RuntimeException("Validator {$type} is not exist");
         }
         return new $validatorClass($options);
     }

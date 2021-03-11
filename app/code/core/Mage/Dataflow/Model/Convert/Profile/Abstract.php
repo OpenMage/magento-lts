@@ -138,7 +138,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
             try {
                 $action->run();
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $dfe = new Mage_Dataflow_Model_Convert_Exception($e->getMessage());
                 $dfe->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
                 $this->addException($dfe);

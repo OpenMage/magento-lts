@@ -222,7 +222,7 @@ class Mage_Index_Model_Indexer
         try {
             $this->_runAll('indexEvents', array($entity, $type));
             $resourceModel->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $resourceModel->rollBack();
             throw $e;
         }
@@ -316,7 +316,7 @@ class Mage_Index_Model_Indexer
             try {
                 $this->indexEvent($event);
                 $resourceModel->commit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $resourceModel->rollBack();
                 if ($allowTableChanges) {
                     $this->_allowTableChanges = true;

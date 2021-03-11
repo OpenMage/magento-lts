@@ -146,7 +146,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
                 $collection->setInterval($from, $to);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
         }

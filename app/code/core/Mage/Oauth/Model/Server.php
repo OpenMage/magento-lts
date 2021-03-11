@@ -197,7 +197,7 @@ class Mage_Oauth_Model_Server
     {
         if (is_object($request)) {
             if (!$request instanceof Zend_Controller_Request_Http) {
-                throw new Exception('Invalid request object passed');
+                throw new RuntimeException('Invalid request object passed');
             }
             $this->_request = $request;
         } else {
@@ -590,7 +590,7 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_TOKEN);
 
             $response = $this->_token->toString();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = $this->reportProblem($e);
         }
         $this->_getResponse()->setBody($response);
@@ -661,7 +661,7 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_INITIATE);
 
             $response = $this->_token->toString() . '&oauth_callback_confirmed=true';
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response = $this->reportProblem($e);
         }
         $this->_getResponse()->setBody($response);
@@ -670,11 +670,11 @@ class Mage_Oauth_Model_Server
     /**
      * Create response string for problem during request and set HTTP error code
      *
-     * @param Exception $e
+     * @param Throwable $e
      * @param Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
      * @return string
      */
-    public function reportProblem(Exception $e, Zend_Controller_Response_Http $response = null)
+    public function reportProblem(Throwable $e, Zend_Controller_Response_Http $response = null)
     {
         $eMsg = $e->getMessage();
 

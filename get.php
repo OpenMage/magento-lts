@@ -148,7 +148,7 @@ try {
     if ($localStorage->lockCreateFile($relativeFilename)) {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // Ignore errors
         }
         if ($remoteStorage->getId()) {
@@ -158,7 +158,7 @@ try {
         }
     }
     sendFile($filePath);
-} catch (Exception $e) {
+} catch (Throwable $e) {
     Mage::logException($e);
 }
 

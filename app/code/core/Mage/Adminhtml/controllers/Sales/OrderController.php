@@ -148,7 +148,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addSuccess($this->__('The order email has been sent.'));
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('Failed to send the order email.'));
                 Mage::logException($e);
             }
@@ -171,7 +171,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('The order has not been cancelled.'));
                 Mage::logException($e);
             }
@@ -195,7 +195,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('The order was not put on hold.'));
             }
             $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addError($this->__('The order was not unheld.'));
             }
             $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
@@ -252,13 +252,13 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     $message = $this->__('Payment update has been made.');
                     break;
                 default:
-                    throw new Exception(sprintf('Action "%s" is not supported.', $action));
+                    throw new RuntimeException(sprintf('Action "%s" is not supported.', $action));
             }
             $order->save();
             $this->_getSession()->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Failed to update the payment.'));
             Mage::logException($e);
         }
@@ -295,7 +295,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     'message'   => $e->getMessage(),
                 );
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $response = array(
                     'error'     => true,
                     'message'   => $this->__('Cannot add order history.')
@@ -647,7 +647,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             $this->_getSession()->addSuccess($this->__('The payment has been voided.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Failed to void the payment.'));
             Mage::logException($e);
         }
@@ -769,7 +769,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException(
                     $e,
                     Mage::helper('sales')->__('An error occurred while updating the order address. The address has not been changed.')

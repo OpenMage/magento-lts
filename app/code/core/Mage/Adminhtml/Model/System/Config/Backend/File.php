@@ -64,7 +64,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $this->addValidators( $uploader );
                 $result = $uploader->save($uploadDir);
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::throwException($e->getMessage());
                 return $this;
             }

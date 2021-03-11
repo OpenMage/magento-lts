@@ -229,7 +229,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 while ($date = $query->fetchColumn()) {
                     $selectResult[] = $date;
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $selectResult = false;
             }
             $selectResultCache[$cacheKey] = $selectResult;
@@ -443,7 +443,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 }
                 $nextPeriod = $tr['time'];
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_logException($e);
         }
 

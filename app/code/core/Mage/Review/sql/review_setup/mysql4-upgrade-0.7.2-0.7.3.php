@@ -53,7 +53,7 @@ try {
             $resource->reAggregateReview($row['review_id'], $row['entity_pk_value']);
         }
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
     $this->run("ALTER TABLE `{$this->getTable('rating_option_vote_aggregated')}` DROP COLUMN `percent_approved`;");
     throw $e;
 }

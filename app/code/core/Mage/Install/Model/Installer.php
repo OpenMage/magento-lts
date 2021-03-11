@@ -95,7 +95,7 @@ class Mage_Install_Model_Installer extends Varien_Object
 
             Mage::getModel('install/installer_env')->install();
             $result = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $result = false;
         }
         $this->setData('server_check_status', $result);
@@ -239,7 +239,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_array($data)) {
             $data = $this->validateAndPrepareAdministrator($data);
             if (is_array(data)) {
-                throw new Exception(Mage::helper('install')->__('Please correct the user data and try again.'));
+                throw new RuntimeException(Mage::helper('install')->__('Please correct the user data and try again.'));
             }
         }
 
@@ -272,7 +272,7 @@ class Mage_Install_Model_Installer extends Varien_Object
             if ($key) {
                 Mage::helper('core')->validateKey($key);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $errors[] = $e->getMessage();
             $this->getDataModel()->addError($e->getMessage());
         }

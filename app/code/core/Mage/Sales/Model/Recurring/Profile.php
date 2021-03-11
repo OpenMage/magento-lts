@@ -156,7 +156,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             $this->getMethodInstance()->submitRecurringProfile($this, $this->getQuote()->getPayment());
             $this->save();
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -654,7 +654,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     {
         $paymentType = $itemInfo->getPaymentType();
         if (!$paymentType) {
-            throw new Exception("Recurring profile payment type is not specified.");
+            throw new RuntimeException("Recurring profile payment type is not specified.");
         }
 
         switch ($paymentType) {
@@ -665,7 +665,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             case self::PAYMENT_TYPE_INITIAL:
                 return $this->_getInitialItem($itemInfo);
             default:
-                new Exception("Invalid recurring profile payment type '{$paymentType}'.");
+                new RuntimeException("Invalid recurring profile payment type '{$paymentType}'.");
         }
     }
 

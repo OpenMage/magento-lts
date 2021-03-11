@@ -95,7 +95,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
             Mage::dispatchEvent('checkout_controller_onepage_save_shipping_method', array('request'=>$request, 'quote'=>$quote));
             $response->result = true;
             $response->error = '';
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $response->result = false;
             $response->error = $e->getMessage();
         }

@@ -57,7 +57,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
     public function interpret($body)
     {
         if (!is_string($body)) {
-            throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
+            throw new RuntimeException(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
         $body = false !== strpos($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 

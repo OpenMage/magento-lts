@@ -152,7 +152,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
             return ;
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 

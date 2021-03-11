@@ -556,7 +556,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ($this->isSerializedArrayOrObject($str)) {
             try {
                 $this->unserialize($str);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return false;
             }
         }

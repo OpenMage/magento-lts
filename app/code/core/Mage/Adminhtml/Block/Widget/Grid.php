@@ -317,7 +317,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $this->_columns[$columnId] = $column;
         }*/
         else {
-            throw new Exception(Mage::helper('adminhtml')->__('Wrong column format.'));
+            throw new RuntimeException(Mage::helper('adminhtml')->__('Wrong column format.'));
         }
 
         $this->_columns[$columnId]->setId($columnId);
@@ -649,7 +649,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         try {
             $this->_prepareGrid();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->resetSavedParametersInSession();
             throw $e;
         }

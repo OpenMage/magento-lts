@@ -107,7 +107,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $importModel->invalidateIndex();
                 $resultBlock->addAction('show', 'import_validation_container')
                     ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $resultBlock->addError($e->getMessage());
                 $this->renderLayout();
                 return;
@@ -189,7 +189,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $resultBlock->addNotice($this->__('Please fix errors and re-upload file'))
                     ->addError($e->getMessage());
             }

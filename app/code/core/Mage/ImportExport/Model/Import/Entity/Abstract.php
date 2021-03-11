@@ -378,7 +378,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // ignore exceptions connected with source models
             }
         }

@@ -280,7 +280,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
         if ($configData) {
             try {
                 $result = Mage::helper('core/unserializeArray')->unserialize($configData);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

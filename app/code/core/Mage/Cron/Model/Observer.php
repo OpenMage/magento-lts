@@ -332,7 +332,7 @@ class Mage_Cron_Model_Observer
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
                 ->setFinishedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
         }

@@ -821,7 +821,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                 $this->_setCachedQuotes($request, $responseBody);
             }
             $this->_debug($debugData);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_errors[$e->getCode()] = $e->getMessage();
         }
         return $this->_parseResponse($responseBody);
@@ -966,7 +966,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                             try {
                                 $labelContent = (string)$xml->LabelImage->OutputImage;
                                 $result->setShippingLabelContent(base64_decode($labelContent));
-                            } catch (Exception $e) {
+                            } catch (Throwable $e) {
                                 Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
                             }
                             return $result;
@@ -1426,7 +1426,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errors[$e->getCode()] = $e->getMessage();
                 $responseBody = '';
             }
@@ -1623,7 +1623,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                 $responseBody = $client->request(Varien_Http_Client::POST)->getBody();
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errors[$e->getCode()] = $e->getMessage();
                 $responseBody = '';
             }

@@ -119,11 +119,11 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             }
 
             if (!($this->_tabs[$tabId] instanceof Mage_Adminhtml_Block_Widget_Tab_Interface)) {
-                throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
+                throw new RuntimeException(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
             }
         }
         else {
-            throw new Exception(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
+            throw new RuntimeException(Mage::helper('adminhtml')->__('Wrong tab configuration.'));
         }
 
         if (is_null($this->_tabs[$tabId]->getUrl())) {

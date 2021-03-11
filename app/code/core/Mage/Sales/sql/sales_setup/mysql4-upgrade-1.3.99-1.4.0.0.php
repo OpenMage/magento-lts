@@ -1181,7 +1181,7 @@ if ($attribute && is_array($attribute) && isset($attribute['backend_type']) && $
         ");
         $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
         $installer->getConnection()->commit();
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         $installer->getConnection()->rollBack();
         throw $e;
     }

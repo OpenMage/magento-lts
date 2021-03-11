@@ -91,7 +91,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                 );
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
                 $this->_getSession()->addError($this->__('No valid data sent'));
             }
@@ -138,7 +138,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
                     )
                 );
                 return $this->renderLayout();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
         } else {

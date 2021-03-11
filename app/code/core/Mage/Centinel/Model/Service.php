@@ -244,7 +244,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     {
         $validationState = $this->_getValidationState();
         if (!$validationState || $data->getTransactionId() != $validationState->getLookupTransactionId()) {
-            throw new Exception('Authentication impossible: transaction id or validation state is wrong.');
+            throw new RuntimeException('Authentication impossible: transaction id or validation state is wrong.');
         }
 
         $api = $this->_getApi();
@@ -355,7 +355,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     {
         $validationState = $this->_getValidationState();
         if (!$validationState && $this->shouldAuthenticate()) {
-            throw new Exception('Authentication impossible: validation state is wrong.');
+            throw new RuntimeException('Authentication impossible: validation state is wrong.');
         }
         $data = array(
             'acs_url' => $validationState->getLookupAcsUrl(),

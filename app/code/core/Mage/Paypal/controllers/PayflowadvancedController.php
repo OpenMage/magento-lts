@@ -131,7 +131,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
             $paymentModel = Mage::getModel('paypal/payflowadvanced');
             try {
                 $paymentModel->process($data);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

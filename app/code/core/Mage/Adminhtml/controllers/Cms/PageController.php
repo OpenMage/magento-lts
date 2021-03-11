@@ -167,7 +167,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $this->_getSession()->addException($e,
                     Mage::helper('cms')->__('An error occurred while saving the page.'));
             }
@@ -201,7 +201,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::dispatchEvent('adminhtml_cmspage_on_delete', array('title' => $title, 'status' => 'fail'));
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());

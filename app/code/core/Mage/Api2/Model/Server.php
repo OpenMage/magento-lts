@@ -74,7 +74,7 @@ class Mage_Api2_Model_Server
         try {
             /** @var Mage_Api2_Model_Response $response */
             $response = Mage::getSingleton('api2/response');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
 
             if (!headers_sent()) {
@@ -89,7 +89,7 @@ class Mage_Api2_Model_Server
             $request = Mage::getSingleton('api2/request');
             /** @var Mage_Api2_Model_Renderer_Interface $renderer */
             $renderer = Mage_Api2_Model_Renderer::factory($request->getAcceptTypes());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
 
             $response->setHttpResponseCode(self::HTTP_INTERNAL_ERROR)
@@ -114,7 +114,7 @@ class Mage_Api2_Model_Server
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $this->_renderException($e, $renderer, $response);
         }
@@ -176,7 +176,7 @@ class Mage_Api2_Model_Server
     protected function _getAuthUser()
     {
         if (!$this->_authUser) {
-            throw new Exception("Mage_Api2_Model_Server::internalCall() seems to be executed "
+            throw new RuntimeException("Mage_Api2_Model_Server::internalCall() seems to be executed "
                 . "before Mage_Api2_Model_Server::run()");
         }
         return $this->_authUser;
@@ -292,7 +292,7 @@ class Mage_Api2_Model_Server
                 $renderer->getMimeType(),
                 Mage_Api2_Model_Response::RESPONSE_CHARSET
             ));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             //tunnelling of 406(Not acceptable) error
             $httpCode = $e->getCode() == self::HTTP_NOT_ACCEPTABLE    //$e->getCode() can result in one more loop
                     ? self::HTTP_NOT_ACCEPTABLE                      // of try..catch

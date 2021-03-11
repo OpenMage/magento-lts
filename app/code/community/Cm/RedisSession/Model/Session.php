@@ -174,7 +174,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
             }
             return TRUE;
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::logException($e);
             $this->_redis = NULL;
             Mage::log('Unable to connect to Redis; falling back to MySQL handler', Zend_Log::EMERG);
@@ -436,7 +436,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
                 }
             }
         }
-        catch(Exception $e) {
+        catch(Throwable $e) {
             if (class_exists('Mage', false)) {
                 Mage::logException($e);
             } else {
@@ -619,7 +619,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function _writeRawSession($id, $data, $lifetime)
     {
         if ( ! $this->_useRedis) {
-            throw new Exception('Not connected to redis!');
+            throw new RuntimeException('Not connected to redis!');
         }
 
         $sessionId = 'sess_' . $id;
@@ -642,7 +642,7 @@ class Cm_RedisSession_Model_Session extends Mage_Core_Model_Mysql4_Session
     public function _inspectSession($id)
     {
         if ( ! $this->_useRedis) {
-            throw new Exception('Not connected to redis!');
+            throw new RuntimeException('Not connected to redis!');
         }
 
         $sessionId = strpos($id, 'sess_') === 0 ? $id : 'sess_' . $id;

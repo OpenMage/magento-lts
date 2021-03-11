@@ -811,10 +811,10 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 ->setIsSecureMode(true);
             $paymentBlock->getMethod()->setStore($storeId);
             $paymentBlockHtml = $paymentBlock->toHtml();
-        } catch (Exception $exception) {
+        } catch (Throwable $e) {
             // Stop store emulation process
             $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
-            throw $exception;
+            throw $e;
         }
 
         // Stop store emulation process

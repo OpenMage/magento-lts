@@ -61,7 +61,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
         } catch (Mage_Oauth_Exception $e) {
             $isException = true;
             $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $isException = true;
             $session->addException($e, $this->__('An error occurred.'));
         }
@@ -136,7 +136,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             $session->addError($e->getMessage());
         } catch (Mage_Oauth_Exception $e) {
             $session->addException($e, $this->__('An error occurred. Your authorization request is invalid.'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('An error occurred on confirm authorize.'));
         }
 
@@ -179,7 +179,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             }
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('An error occurred on reject authorize.'));
         }
 

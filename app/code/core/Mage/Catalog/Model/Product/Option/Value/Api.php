@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
         $optionValueModel->setValues($data);
         try {
             $optionValueModel->saveValues();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('add_option_value_error', $e->getMessage());
         }
         return true;
@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
 
         try {
             $productOptionValue->save()->saveValues();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('update_option_value_error', $e->getMessage());
         }
 

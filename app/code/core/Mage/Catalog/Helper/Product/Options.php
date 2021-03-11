@@ -60,7 +60,7 @@ class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
             $response->sendHeaders();
 
             readfile($filePath);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return false;
         }
         return true;

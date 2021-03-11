@@ -52,7 +52,7 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
             $result['error_message'] = $e->getMessage();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $result['error_message'] = $this->__('There was an error canceling transactions. Please contact us or try again later.');
         }

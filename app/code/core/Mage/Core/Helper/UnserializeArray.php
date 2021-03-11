@@ -43,11 +43,11 @@ class Mage_Core_Helper_UnserializeArray
         try {
             $result = unserialize($str, ['allowed_classes' => false]);
             if ($result === false && $str !== serialize(false)) {
-                throw new Exception('Error unserializing data.');
+                throw new RuntimeException('Error unserializing data.');
             }
             return $result;
         } catch (Error $e) {
-            throw new Exception('Error unserializing data: '.$e->getMessage(), 0, $e);
+            throw new RuntimeException('Error unserializing data: '.$e->getMessage(), 0, $e);
         }
     }
 }

@@ -172,10 +172,10 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $reflection = new ReflectionObject($widget);
                     foreach ($filters as $field => $value) {
                         if (!$reflection->hasProperty($field) || (string)$widget->{$field} != $value) {
-                            throw new Exception();
+                            throw new RuntimeException();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     unset($result->{$code});
                     continue;
                 }

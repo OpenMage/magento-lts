@@ -167,7 +167,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             Mage::helper('catalog/product_compare')->calculate();
         } catch (Mage_Core_Exception $e) {
             $session->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('An error occurred while clearing comparison list.'));
         }
 

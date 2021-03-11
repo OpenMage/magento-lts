@@ -241,7 +241,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $uploader->save($path, $value['name']);
                 $fileName = $uploader->getUploadedFileName();
                 $this->getEntity()->setData($attribute->getAttributeCode(), $fileName);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::logException($e);
             }
         }

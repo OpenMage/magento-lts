@@ -54,7 +54,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         try {
             $this->_getResource()->assignState($this->getStatus(), $state, $isDefault);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -73,7 +73,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         try {
             $this->_getResource()->unassignState($this->getStatus(), $state);
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }

@@ -158,7 +158,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $profile->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been deleted.'));
-            } catch (Exception $e){
+            } catch (Throwable $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -186,7 +186,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The profile has been saved.'));
-            } catch (Exception $e){
+            } catch (Throwable $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setConvertProfileData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', array('id' => $profile->getId())));
@@ -249,7 +249,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 try {
                     $importData = $batchImportModel->getBatchData();
                     $adapter->saveRow($importData);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $errors[] = $e->getMessage();
                     continue;
                 }
@@ -291,7 +291,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $batchModel->beforeFinish();
                 } catch (Mage_Core_Exception $e) {
                     $result['error'] = $e->getMessage();
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     $result['error'] = Mage::helper('adminhtml')->__('An error occurred while finishing process. Please refresh the cache');
                 }
                 $batchModel->delete();

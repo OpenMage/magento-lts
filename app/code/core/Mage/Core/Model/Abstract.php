@@ -334,7 +334,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 ->commit();
             $this->_hasDataChanges = false;
             $dataCommited = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
@@ -493,7 +493,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }

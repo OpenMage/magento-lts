@@ -68,7 +68,7 @@ class Mage_Install_Model_Installer_Abstract
             return 'files';
         }
         if (!in_array($value, array('files', 'db'), true)) {
-            throw new Exception('session_save value must be "files" or "db".');
+            throw new RuntimeException('session_save value must be "files" or "db".');
         }
         return $value;
     }
@@ -87,7 +87,7 @@ class Mage_Install_Model_Installer_Abstract
             return 'admin';
         }
         if (!preg_match('/^[a-z]+[a-z0-9_]+$/i', $value)) {
-            throw new Exception('admin_frontname value must contain only letters (a-z or A-Z), numbers (0-9) or underscore(_), first character should be a letter.');
+            throw new RuntimeException('admin_frontname value must contain only letters (a-z or A-Z), numbers (0-9) or underscore(_), first character should be a letter.');
         }
         return $value;
     }

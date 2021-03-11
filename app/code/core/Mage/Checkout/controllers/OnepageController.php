@@ -518,7 +518,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['error'] = $e->getMessage();
         } catch (Mage_Core_Exception $e) {
             $result['error'] = $e->getMessage();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             $result['error'] = $this->__('Unable to set Payment Method.');
         }
@@ -640,7 +640,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 }
                 $this->getOnepage()->getCheckout()->setUpdateSection(null);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             Mage::helper('checkout')->sendPaymentFailedEmail($this->getOnepage()->getQuote(), $e->getMessage());
             $result['success']  = false;

@@ -85,7 +85,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             $model->save();
             $session->addSuccess($this->__('The alert subscription has been saved.'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();
@@ -116,7 +116,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
             $model->save();
             $session->addSuccess($this->__('Alert subscription has been saved.'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
         $this->_redirectReferer();

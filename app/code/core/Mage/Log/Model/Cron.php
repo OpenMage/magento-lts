@@ -95,7 +95,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 
         try {
             Mage::getModel('log/log')->clean();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_errors[] = $e->getMessage();
             $this->_errors[] = $e->getTrace();
         }

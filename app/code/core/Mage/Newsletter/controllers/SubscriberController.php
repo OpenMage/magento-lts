@@ -69,7 +69,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 }
             } catch (Mage_Core_Exception $e) {
                 $session->addException($e, $this->__('There was a problem with the subscription: %s', $e->getMessage()));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, $this->__('There was a problem with the subscription.'));
             }
         }
@@ -119,7 +119,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 $session->addSuccess($this->__('You have been unsubscribed.'));
             } catch (Mage_Core_Exception $e) {
                 $session->addException($e, $e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, $this->__('There was a problem with the un-subscription.'));
             }
         }

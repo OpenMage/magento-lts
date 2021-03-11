@@ -98,7 +98,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
             $stockItem->save();
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -148,7 +148,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                         'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
                     ));
                 }
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,

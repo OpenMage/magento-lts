@@ -354,7 +354,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
                 }
                 $this->_afterSaveAttribute($object, $attribute);
                 $this->commit();
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->rollBack();
                 throw $e;
             }

@@ -502,7 +502,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     {
         if ($response['RESULT'] != self::RESPONSE_CODE_APPROVED) {
             $message = $response['RESPMSG'];
-            $e = new Exception(sprintf('PayPal gateway errors: %s.', $message));
+            $e = new RuntimeException(sprintf('PayPal gateway errors: %s.', $message));
             Mage::logException($e);
             Mage::throwException(
                 Mage::helper('paypal')->__('PayPal gateway rejected the request. %s', $message)

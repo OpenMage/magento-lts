@@ -322,7 +322,7 @@ abstract class Mage_Api2_Model_Resource
     public function getRequest()
     {
         if (!$this->_request) {
-            throw new Exception('Request is not set.');
+            throw new RuntimeException('Request is not set.');
         }
         return $this->_request;
     }
@@ -404,7 +404,7 @@ abstract class Mage_Api2_Model_Resource
             if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
-                throw new Exception('Can not determine version from class name');
+                throw new RuntimeException('Can not determine version from class name');
             }
         }
         return $this->_version;
@@ -428,7 +428,7 @@ abstract class Mage_Api2_Model_Resource
     public function getResponse()
     {
         if (!$this->_response) {
-            throw new Exception('Response is not set.');
+            throw new RuntimeException('Response is not set.');
         }
         return $this->_response;
     }
@@ -528,7 +528,7 @@ abstract class Mage_Api2_Model_Resource
     public function getApiUser()
     {
         if (!$this->_apiUser) {
-            throw new Exception('API user is not set.');
+            throw new RuntimeException('API user is not set.');
         }
         return $this->_apiUser;
     }
@@ -640,7 +640,7 @@ abstract class Mage_Api2_Model_Resource
         if ($code === null) {
             $errors = $this->_getCriticalErrors();
             if (!isset($errors[$message])) {
-                throw new Exception(
+                throw new RuntimeException(
                     sprintf('Invalid error "%s" or error code missed.', $message),
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
                 );
@@ -791,7 +791,7 @@ abstract class Mage_Api2_Model_Resource
 
             try {
                 $collection->$methodName($attributeCode, $filterEntry);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
             }
         }
@@ -860,7 +860,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
         } catch (Mage_Api2_Exception $e) {
-            throw new Exception('Invalid arguments for isAllowed() call');
+            throw new RuntimeException('Invalid arguments for isAllowed() call');
         }
     }
 

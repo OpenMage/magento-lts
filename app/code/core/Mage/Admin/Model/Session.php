@@ -194,7 +194,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 Mage::helper('adminhtml')->__('You did not sign in correctly or your account is temporarily disabled.')
             );
             $this->_loginFailed($e, $request, $username, $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $message = Mage::helper('adminhtml')->__('An error occurred while logging in.');
             $this->_loginFailed($e, $request, $username, $message);
         }
@@ -247,12 +247,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 try {
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                 }
             }
         }
@@ -327,7 +327,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 'user_name' => $username,
                 'exception' => $e
             ));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
         }
 
         if ($request && !$request->getParam('messageSent')) {

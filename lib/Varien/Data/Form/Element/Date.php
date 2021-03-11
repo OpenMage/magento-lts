@@ -119,7 +119,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         try {
             $this->_value = new Zend_Date($value, $format, $locale);
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             $this->_value = '';
         }
         return $this;

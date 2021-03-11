@@ -141,7 +141,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         } catch (Mage_Backup_Exception_NotEnoughPermissions $e) {
             Mage::log($e->getMessage());
             $errorMessage = Mage::helper('backup')->__('Not enough permissions to create backup.');
-        } catch (Exception  $e) {
+        } catch (Throwable  $e) {
             Mage::log($e->getMessage());
             $errorMessage = Mage::helper('backup')->__('An error occurred while creating the backup.');
         }
@@ -285,7 +285,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         } catch (Mage_Backup_Exception_NotEnoughPermissions $e) {
             Mage::log($e->getMessage());
             $errorMsg = Mage::helper('backup')->__('Not enough permissions to perform rollback');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::log($e->getMessage());
             $errorMsg = Mage::helper('backup')->__('Failed to rollback');
         }
@@ -352,9 +352,9 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 );
             }
             else {
-                throw new Exception($deleteFailMessage);
+                throw new RuntimeException($deleteFailMessage);
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $resultData->setIsSuccess(false);
             $this->_getSession()->addError($deleteFailMessage);
         }

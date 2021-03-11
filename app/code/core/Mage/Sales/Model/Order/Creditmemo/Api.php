@@ -65,7 +65,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             foreach ($creditMemoCollection as $creditmemo) {
                 $creditmemos[] = $this->_getAttributes($creditmemo, 'creditmemo');
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('invalid_filter', $e->getMessage());
         }
         return $creditmemos;
@@ -229,7 +229,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         }
         try {
             $creditmemo->cancel()->save();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo canceling problem.'));
         }
 

@@ -219,7 +219,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             $this->_setFormData($data);
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
             $this->getRequest()->setParam('back', 'edit');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_setFormData(null);
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred on saving consumer data.'));
@@ -298,7 +298,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addSuccess(Mage::helper('oauth')->__('The consumer has been deleted.'));
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $this->_getSession()->addException(
                     $e,
                     Mage::helper('oauth')->__('An error occurred while deleting the consumer.')

@@ -33,7 +33,7 @@ $table = $this->getTable('design_change');
 
 try {
     $conn->addColumn($table, 'design', "varchar(255) not null default ''");
-} catch (Exception $e) {
+} catch (Throwable $e) {
 }
 
 $conn->dropColumn($table, 'package');

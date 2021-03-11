@@ -101,7 +101,7 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     {
         try {
             $this->_validateRequestPath($suffix); // Suffix itself must be a valid request path
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // Make message saying about suffix, not request path
             switch ($e->getCode()) {
                 case self::VERR_MANYSLASHES:

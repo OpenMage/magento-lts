@@ -74,7 +74,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
         try {
             $details = Mage::helper('core/unserializeArray')
                 ->unserialize($this->getInfo()->getAdditionalData());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
         if (is_array($details)) {

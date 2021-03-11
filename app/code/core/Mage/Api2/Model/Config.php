@@ -351,14 +351,14 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     {
         $element = $this->getNode('resources/' . $node . '/versions');
         if (!$element) {
-            throw new Exception(
+            throw new RuntimeException(
                 sprintf('Resource "%s" does not have node <versions> in config.', htmlspecialchars($node))
             );
         }
 
         $versions = explode(',', (string)$element);
         if (count(array_filter($versions, 'is_numeric')) != count($versions)) {
-            throw new Exception(sprintf('Invalid resource "%s" versions in config.', htmlspecialchars($node)));
+            throw new RuntimeException(sprintf('Invalid resource "%s" versions in config.', htmlspecialchars($node)));
         }
 
         rsort($versions, SORT_NUMERIC);

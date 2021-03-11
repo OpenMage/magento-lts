@@ -291,7 +291,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword', array('_nosecret' => true));
         }
@@ -311,7 +311,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
         try {
             $this->_validateResetPasswordLinkToken($userId, $resetPasswordLinkToken);
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/');
             return;
@@ -357,7 +357,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $user->save();
             $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__('Your password has been updated.'));
             $this->_redirect('*/*/login');
-        } catch (Exception $exception) {
+        } catch (Throwable $exception) {
             $this->_getSession()->addError($exception->getMessage());
             $data = array(
                 'userId' => $userId,

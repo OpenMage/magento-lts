@@ -64,7 +64,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $session->addSuccess(Mage::helper('adminnotification')->__('The message has been marked as read.'));
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while marking notification as read.'));
             }
 
@@ -95,7 +95,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while marking the messages as read.'));
             }
         }
@@ -120,7 +120,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $session->addSuccess(Mage::helper('adminnotification')->__('The message has been removed.'));
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while removing the message.'));
             }
 
@@ -151,7 +151,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 );
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while removing messages.'));
             }
         }

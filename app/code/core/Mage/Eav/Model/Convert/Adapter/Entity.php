@@ -50,7 +50,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         if (is_null($this->_store)) {
             try {
                 $this->_store = Mage::app()->getStore($this->getVar('store'));
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $message = Mage::helper('eav')->__('Invalid store specified');
                 $this->addException($message, Varien_Convert_Exception::FATAL);
                 throw $e;
@@ -320,7 +320,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $this->addException($message);
         } catch (Varien_Convert_Exception $e) {
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $e->getMessage());
             $this->addException($message, Varien_Convert_Exception::FATAL);
         }
@@ -368,7 +368,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $this->addException(Mage::helper('eav')->__("Saved %d record(s).", $i));
         } catch (Varien_Convert_Exception $e) {
             throw $e;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->addException(
                 Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
                 Varien_Convert_Exception::FATAL

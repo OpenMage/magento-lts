@@ -96,7 +96,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             Mage::logException($e);
             Mage::throwException(Mage::helper('install')->__($e->getMessage()));
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::logException($e);
             Mage::throwException(Mage::helper('install')->__('Database connection error.'));
         }

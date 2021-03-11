@@ -113,7 +113,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getCheckoutSession()->addError($this->__('Unable to start Express Checkout.'));
             Mage::logException($e);
         }
@@ -132,7 +132,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_initCheckout();
             $response = $this->_checkout->getShippingOptionsCallbackResponse($this->getRequest()->getParams());
             $this->getResponse()->setBody($response);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
         }
     }
@@ -162,7 +162,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getCheckoutSession()->addError($this->__('Unable to cancel Express Checkout.'));
             Mage::logException($e);
         }
@@ -196,7 +196,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
             Mage::logException($e);
         }
@@ -225,7 +225,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
         catch (Mage_Core_Exception $e) {
             Mage::getSingleton('checkout/session')->addError($e->getMessage());
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             Mage::getSingleton('checkout/session')->addError(
                 $this->__('Unable to initialize Express Checkout review.')
             );
@@ -266,7 +266,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             }
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
@@ -294,7 +294,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
@@ -364,7 +364,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $e->getMessage());
             $this->_getSession()->addError($e->getMessage());
             $this->_redirect('*/*/review');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::helper('checkout')->sendPaymentFailedEmail(
                 $this->_getQuote(),
                 $this->__('Unable to place the order.')

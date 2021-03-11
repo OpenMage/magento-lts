@@ -109,7 +109,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $this->printLogQuery($printQuery, $logQuery);
         try {
             $values = $this->_read->fetchAll($this->getSelect()->__toString());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
             throw $e;
         }

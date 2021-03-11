@@ -140,7 +140,7 @@ try {
         exit;
     }
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
     Mage::printException($e);
 }
 

@@ -157,7 +157,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // save data in session
@@ -190,7 +190,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 $this->_redirect('*/*/');
                 return;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form

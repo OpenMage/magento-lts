@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
                         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM
                     );
                 }
-                catch (Exception $e) {
+                catch (Throwable $e) {
                     Mage::logException($e);
                 }
             }
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
             }
-            catch (Exception $e)
+            catch (Throwable $e)
             {
                 $data = Mage::app()->getLocale()
                     ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);

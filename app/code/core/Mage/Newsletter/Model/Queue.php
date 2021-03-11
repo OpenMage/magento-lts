@@ -220,7 +220,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
                 $notification = Mage::helper('newsletter')->__('Please refer to exeption.log');
                 $problem->addSubscriberData($item)
                     ->addQueueData($this)
-                    ->addErrorData(new Exception($notification))
+                    ->addErrorData(new RuntimeException($notification))
                     ->save();
                 $item->received($this);
             }

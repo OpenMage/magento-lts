@@ -139,7 +139,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
             @set_time_limit($timeLimitCalculated);
             try {
                 $response = $this->_getServiceResponse($url);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 ini_restore('max_execution_time');
             }
 
@@ -177,7 +177,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
                 ->getBody();
 
             $response = json_decode($jsonResponse, true);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             if ($retry === 0) {
                 $response = $this->_getServiceResponse($url, 1);
             }

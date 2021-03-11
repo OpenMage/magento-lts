@@ -187,7 +187,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             } catch (Mage_Core_Exception $e) {
                 $session->addError($e->getMessage())
                     ->setUrlrewriteData($data);
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addException($e, Mage::helper('adminhtml')->__('An error occurred while saving URL Rewrite.'))
                     ->setUrlrewriteData($data);
                 // return intentionally omitted
@@ -210,7 +210,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The URL Rewrite has been deleted.')
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting URL Rewrite.'));
                 $this->_redirect('*/*/edit/', array('id'=>Mage::registry('current_urlrewrite')->getId()));

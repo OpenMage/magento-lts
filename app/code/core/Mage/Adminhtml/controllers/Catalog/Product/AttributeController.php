@@ -330,7 +330,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                     $this->_redirect('*/*/', array());
                 }
                 return;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $session->addError($e->getMessage());
                 $session->setAttributeData($data);
                 $this->_redirect('*/*/edit', array('attribute_id' => $id, '_current' => true));
@@ -361,7 +361,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $this->_redirect('*/*/');
                 return;
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('attribute_id' => $this->getRequest()->getParam('attribute_id')));
                 return;

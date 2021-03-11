@@ -83,7 +83,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                         $basePath,
                         $file[0]['file']
                     );
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
                 }
             }
@@ -106,7 +106,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         $destDirectory = dirname($this->getFilePath($basePath, $file));
         try {
             $ioObject->open(array('path'=>$destDirectory));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $ioObject->mkdir($destDirectory, 0777, true);
             $ioObject->open(array('path'=>$destDirectory));
         }

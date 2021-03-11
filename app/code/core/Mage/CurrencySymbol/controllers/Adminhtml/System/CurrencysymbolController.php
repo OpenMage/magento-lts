@@ -72,7 +72,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
             Mage::getSingleton('adminhtml/session')->addSuccess(
                 Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
             );
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
 

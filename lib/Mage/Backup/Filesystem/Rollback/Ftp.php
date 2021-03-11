@@ -78,7 +78,7 @@ class Mage_Backup_Filesystem_Rollback_Ftp extends Mage_Backup_Filesystem_Rollbac
         try {
             $this->_ftpClient = new Mage_System_Ftp();
             $this->_ftpClient->connect($this->_snapshot->getFtpConnectString());
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new Mage_Backup_Exception_FtpConnectionFailed($e->getMessage());
         }
     }

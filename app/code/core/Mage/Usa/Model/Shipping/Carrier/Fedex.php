@@ -410,7 +410,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                 $response = $client->getRates($ratesRequest);
                 $this->_setCachedQuotes($requestString, serialize($response));
                 $debugData['result'] = $response;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 Mage::logException($e);
             }
@@ -673,7 +673,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                 $debugData['result'] = $responseBody;
                 $this->_setCachedQuotes($request, $responseBody);
             }
-            catch (Exception $e) {
+            catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 $responseBody = '';
             }
@@ -759,10 +759,10 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
         try {
             try {
                 return simplexml_load_string($xmlContent);
-            } catch (Exception $e) {
-                throw new Exception(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent));
+            } catch (Throwable $e) {
+                throw new RuntimeException(Mage::helper('usa')->__('Failed to parse xml document: %s', $xmlContent));
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Mage::logException($e);
             return false;
         }
@@ -1047,7 +1047,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                 $response = $client->track($trackRequest);
                 $this->_setCachedQuotes($requestString, serialize($response));
                 $debugData['result'] = $response;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $debugData['result'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
                 Mage::logException($e);
             }
