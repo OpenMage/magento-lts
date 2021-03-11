@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
             if (!is_array($data)) {
                 $data = array();
             }
-            $object->setData($attributeCode, join(',', $data));
+            $object->setData($attributeCode, implode(',', $data));
         }
         if (is_null($object->getData($attributeCode))) {
             $object->setData($attributeCode, false);

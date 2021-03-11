@@ -170,7 +170,7 @@ class Mage_Payment_Model_Observer
                 $methods = '';
                 $spacer  = '';
                 foreach ($titles as $key => $values) {
-                    $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
+                    $methods = $methods . $spacer . $key . ' [' . implode(', ', $values) . ']';
                     $spacer = ', ';
                 }
                 throw new Mage_Core_Exception(Mage::helper('sales')->__(

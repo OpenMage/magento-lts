@@ -84,7 +84,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return sprintf("ALTER TABLE %s\n  %s;\n",
             $this->_getReadAdapter()->quoteIdentifier($tableName),
-            join(",\n  ", $foreignKeys)
+            implode(",\n  ", $foreignKeys)
         );
     }
 

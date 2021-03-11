@@ -188,12 +188,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             )
             ->join(
                 array('website' => $this->getTable('catalog/product_website')),
-                join(' AND ', $websiteConds),
+                implode(' AND ', $websiteConds),
                 array()
             )
             ->join(
                 array('compare' => $this->getTable('catalog/compare_item')),
-                join(' AND ', $compareConds),
+                implode(' AND ', $compareConds),
                 array()
             );
         return $this->getConnection()->fetchCol($select);

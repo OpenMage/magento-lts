@@ -137,8 +137,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         $collection->addPriceData();
         $select     = $collection->getSelect();
-        $response   = $this->_dispatchPreparePriceEvent($select);
-        $additional = join('', $response->getAdditionalCalculations());
+        $response = $this->_dispatchPreparePriceEvent($select);
+        $additional = implode('', $response->getAdditionalCalculations());
 
         foreach ($conditions as $condition) {
             $select->where(sprintf($condition, $additional, $rate));

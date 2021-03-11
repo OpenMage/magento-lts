@@ -63,7 +63,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
             );
-            $cronExprString = join(' ', $cronExprArray);
+            $cronExprString = implode(' ', $cronExprArray);
         }
         else {
             $cronExprString = '';

@@ -460,7 +460,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getWebsiteGroupStore()
     {
-        return join('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
+        return implode('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
     }
 
     /**

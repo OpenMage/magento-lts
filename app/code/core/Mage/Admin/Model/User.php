@@ -563,7 +563,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $startupPage = Mage::getStoreConfig(self::XML_PATH_STARTUP_PAGE);
         $aclResource = 'admin/' . $startupPage;
         if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
-            $nodePath = 'menu/' . join('/children/', explode('/', $startupPage)) . '/action';
+            $nodePath = 'menu/' . implode('/children/', explode('/', $startupPage)) . '/action';
             $url = (string)Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode($nodePath);
             if ($url) {
                 return $url;
