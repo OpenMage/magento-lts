@@ -49,12 +49,6 @@ if (!Mage::isInstalled()) {
     exit;
 }
 
-if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
-    Mage::setIsDeveloperMode(true);
-}
-
-#ini_set('display_errors', 1);
-
 Mage::$headersSentThrowsException = false;
 Mage::init('admin');
 Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
