@@ -87,6 +87,9 @@ There are some new or changed translations, if you want add them to your locale 
 - `app/locale/en_US/Core_LTS.csv`
 - `app/locale/en_US/Sales_LTS.csv`
 
+### Included Modules
+- [`N98_LayoutHelper`](https://github.com/netz98/N98_LayoutHelper)
+
 ### Removed Modules
 - `Mage_Compiler`
 - `Mage_GoogleBase`
