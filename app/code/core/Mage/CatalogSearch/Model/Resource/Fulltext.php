@@ -355,7 +355,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             }
 
             if ($like) {
-                $likeCond = '(' . join(' OR ', $like) . ')';
+                $likeCond = '(' . implode(' OR ', $like) . ')';
             }
         }
 

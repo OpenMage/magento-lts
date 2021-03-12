@@ -191,7 +191,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
             'TDY' => 1, 'XPD' => 0, 'DOX' => 0, 'WPX' => 1, 'ECX' => 0,
             'DOM' => 0
         );
-        if (!key_exists($code, $codes)) {
+        if (!array_key_exists($code, $codes)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product content code is invalid'));
         }
         $font = null;

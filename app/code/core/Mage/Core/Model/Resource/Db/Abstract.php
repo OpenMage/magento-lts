@@ -254,7 +254,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function getTable($entityName)
     {
         if (is_array($entityName)) {
-            $cacheName    = join('@', $entityName);
+            $cacheName = implode('@', $entityName);
             list($entityName, $entitySuffix) = $entityName;
         } else {
             $cacheName    = $entityName;

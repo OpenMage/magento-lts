@@ -407,7 +407,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             flock($fd, LOCK_UN);
         }
         fclose($fd);
-        $metadata = @unserialize(rtrim($metadata, "\n"));
+        $metadata = @unserialize(rtrim($metadata, "\n"), ['allowed_classes' => false]);
         if ($withData) {
             return array($metadata, $data);
         }

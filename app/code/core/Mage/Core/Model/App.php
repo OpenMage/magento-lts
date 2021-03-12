@@ -1430,9 +1430,9 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
-    public function throwStoreException()
+    public function throwStoreException($text = '')
     {
-        throw new Mage_Core_Model_Store_Exception('');
+        throw new Mage_Core_Model_Store_Exception($text);
     }
 
     /**

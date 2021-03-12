@@ -180,7 +180,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -287,7 +287,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importIso2Countries = array();
         $this->_importIso3Countries = array();
 
-        /** @var $collection Mage_Directory_Model_Resource_Country_Collection */
+        /** @var Mage_Directory_Model_Resource_Country_Collection $collection */
         $collection = Mage::getResourceModel('directory/country_collection');
         foreach ($collection->getData() as $row) {
             $this->_importIso2Countries[$row['iso2_code']] = $row['country_id'];
@@ -310,7 +310,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         $this->_importRegions = array();
 
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
         foreach ($collection->getData() as $row) {
             $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];

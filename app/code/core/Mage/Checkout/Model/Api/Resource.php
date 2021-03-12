@@ -118,13 +118,13 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = Mage::getModel("sales/quote");
 
-        if (!(is_string($store) || is_integer($store))) {
+        if (!(is_string($store) || is_int($store))) {
             $quote->loadByIdWithoutStore($quoteId);
         } else {
             $storeId = $this->_getStoreId($store);
 
             $quote->setStoreId($storeId)
-                    ->load($quoteId);
+                ->load($quoteId);
         }
         if (is_null($quote->getId())) {
             $this->_fault('quote_not_exists');

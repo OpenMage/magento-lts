@@ -627,14 +627,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
-                return (int)$field->show_in_default;
-                break;
+                return (bool)(int)$field->show_in_default;
             case self::SCOPE_WEBSITES:
-                return (int)$field->show_in_website;
-                break;
+                return (bool)(int)$field->show_in_website;
             case self::SCOPE_STORES:
-                return (int)$field->show_in_store;
-                break;
+                return (bool)(int)$field->show_in_store;
         }
         return true;
     }

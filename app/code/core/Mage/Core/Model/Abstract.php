@@ -204,7 +204,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
@@ -216,7 +216,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @throws Mage_Core_Exception
      */
     public function getCollection()
     {

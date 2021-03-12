@@ -32,6 +32,9 @@
 class Mage_Rss_Helper_Catalog extends Mage_Core_Helper_Abstract
 {
 
+    /**
+     * @return string
+     */
     public function getTagFeedUrl()
     {
         $url = '';

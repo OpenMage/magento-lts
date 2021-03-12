@@ -30,6 +30,11 @@ define('BP', dirname(dirname(__FILE__)));
 
 Mage::register('original_include_path', get_include_path());
 
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', 1);
+}
+
 /**
  * Set include path
  */
@@ -212,10 +217,28 @@ final class Mage
      */
     public static function getOpenMageVersionInfo()
     {
+        $majorVersion = 19;
+
+        /**
+         * This code construct is to make merging for forward porting of changes easier.
+         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
+         * also as releases are usually done together, this could in theory be done at once.
+         * The major Version then needs to be only changed once per branch.
+         */
+        if ($majorVersion === 20) {
+            return array(
+                'major'     => '20',
+                'minor'     => '0',
+                'patch'     => '6',
+                'stability' => '', // beta,alpha,rc
+                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
+            );
+        }
+
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '3',
+            'patch'     => '11',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -530,7 +553,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Object
+     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public static function getResourceModel($modelClass, $arguments = array())
     {
@@ -905,9 +928,9 @@ final class Mage
     /**
      * Write exception to log
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function logException(Exception $e)
+    public static function logException(Throwable $e)
     {
         if (!self::getConfig()) {
             return;
@@ -941,9 +964,9 @@ final class Mage
     /**
      * Display exception
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function printException(Exception $e, $extra = '')
+    public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';

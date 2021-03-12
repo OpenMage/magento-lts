@@ -62,7 +62,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
         $rowSet = $select->query()->fetchAll();
         foreach ($rowSet as $row) {
-
             /* We need to determine if there are rows with known
                customer for current product.
              */
@@ -95,7 +94,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             }
 
             $adapter->update($this->getMainTable(), $data, $where);
-
         }
         return $this;
     }
@@ -125,8 +123,9 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     /**
      * Save Product Index data (forced save)
      *
-     * @param Mage_Reports_Model_Product_Index_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Reports_Model_Product_Index_Abstract  $object
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
+     * @throws Mage_Core_Exception
      */
     public function save(Mage_Core_Model_Abstract  $object)
     {
@@ -170,7 +169,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
                     'main_table.visitor_id = visitor_table.visitor_id',
-                    array())
+                    array()
+                )
                 ->where('main_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
                 ->limit(100);
@@ -192,7 +192,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      * Add information about product ids to visitor/customer
      *
      *
-     * @param Mage_Reports_Model_Product_Index_Abstract $object
+     * @param Mage_Reports_Model_Product_Index_Abstract|Varien_Object $object
      * @param array $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Abstract
      */

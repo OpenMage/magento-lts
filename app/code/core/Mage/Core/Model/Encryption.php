@@ -77,7 +77,7 @@ class Mage_Core_Model_Encryption
      */
     public function getHash($password, $salt = false)
     {
-        if (is_integer($salt)) {
+        if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
         return $salt === false
@@ -94,7 +94,7 @@ class Mage_Core_Model_Encryption
      */
     public function getHashPassword($password, $salt = null)
     {
-        if (is_integer($salt)) {
+        if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
         return (bool) $salt

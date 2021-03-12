@@ -833,7 +833,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $moduleDepends[$moduleName] = array(
                 'module'    => $moduleName,
                 'depends'   => $depends,
-                'active'    => ('true' === (string)$moduleNode->active ? true : false),
+                'active'    => (string)$moduleNode->active === 'true',
             );
         }
 
@@ -1113,6 +1113,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @todo get global dir config
      * @param string $type
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBaseDir($type = 'base')
     {
@@ -1287,6 +1288,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+        
+        $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name
         if (empty($className)) {
@@ -1416,7 +1419,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $modelClass
      * @param   array $constructArguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public function getResourceModelInstance($modelClass = '', $constructArguments = array())
     {

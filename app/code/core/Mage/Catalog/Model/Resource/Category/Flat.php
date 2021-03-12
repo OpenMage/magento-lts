@@ -1028,7 +1028,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         }
 
         $stores = $this->getStoresRootCategories();
-        $where  = join(' OR ', $pathCond);
+        $where = implode(' OR ', $pathCond);
         $lastId = 0;
         while (true) {
             $select = $write->select()
@@ -1167,7 +1167,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
         foreach ($table as $column => $columnData) {
             if ($column != $idFieldName || null !== $category->getData($column)) {
-                if (key_exists($column, $replaceFields)) {
+                if (array_key_exists($column, $replaceFields)) {
                     $value = $category->getData($replaceFields[$column]);
                 } else {
                     $value = $category->getData($column);

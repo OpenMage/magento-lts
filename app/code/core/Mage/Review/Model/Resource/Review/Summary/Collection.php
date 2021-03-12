@@ -37,7 +37,7 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Enter description here ...
      *
-     * @var unknown
+     * @var string
      */
     protected $_summaryTable;
 
@@ -61,8 +61,8 @@ class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_C
     /**
      * Add entity filter
      *
-     * @param unknown_type $entityId
-     * @param unknown_type $entityType
+     * @param int|array $entityId
+     * @param int $entityType
      * @return $this
      */
     public function addEntityFilter($entityId, $entityType = 1)

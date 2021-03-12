@@ -52,7 +52,7 @@ $rejectJs = "document.location.href='{$this->getRejectUrl()}';";
                             <li>
                                 <label for="pass"><?php echo $this->__('Password') ?></label>
                                 <div class="input-box">
-                                    <input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
+                                    <input type="password" name="login[password]" class="input-text required-entry validate-password min-pass-length-5" id="pass" title="<?php echo $this->__('Password') ?>" />
                                 </div>
                             </li>
                         </ul>

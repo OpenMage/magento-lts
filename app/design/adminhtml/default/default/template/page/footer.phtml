@@ -29,12 +29,9 @@
     <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
 </p>
 <p class="legality">
-    <a href="<?php echo $this->getConnectWithMagentoUrl() ?>" id="footer_connect"><?php echo $this->__('Connect with the Magento Community') ?></a><br/>
-    <img src="<?php echo $this->getSkinUrl('images/varien_logo.gif') ?>" class="v-middle" alt="" />&nbsp;&nbsp;
-    <?php echo $this->__('Magento&trade; is a trademark of Magento Inc.<br/>Copyright &copy; %s Magento Inc.', date('Y')) ?>
+    <a href="<?php echo $this->getConnectWithMagentoUrl() ?>" id="footer_connect"><?php echo $this->__('Connect with the OpenMage Community') ?></a>
 </p>
-<?php echo $this->__('OpenMage ver. %s', Mage::getOpenMageVersion()) ?>
-&nbsp;(<?php echo $this->__('based on Magento ver. %s', Mage::getVersion()) ?>)
+<?php echo $this->__('OpenMage LTS %s', Mage::getOpenMageVersion()) ?>
 <script type="text/javascript">
     $('footer_bug_tracking').target = 'Varien_External';
     $('footer_connect').target = 'Varien_External';

@@ -190,7 +190,7 @@ class Mage_Core_Model_Layout_Update
     public function getCacheId()
     {
         if (!$this->_cacheId) {
-            $this->_cacheId = 'LAYOUT_'.Mage::app()->getStore()->getId().md5(join('__', $this->getHandles()));
+            $this->_cacheId = 'LAYOUT_' . Mage::app()->getStore()->getId() . md5(implode('__', $this->getHandles()));
         }
         return $this->_cacheId;
     }

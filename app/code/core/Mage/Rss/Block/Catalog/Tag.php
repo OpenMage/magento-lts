@@ -45,6 +45,10 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
         //store id is store view id

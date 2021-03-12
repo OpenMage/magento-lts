@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Tax_Model_Resource_Setup */
+/** @var Mage_Tax_Model_Resource_Setup $installer */
 $installer = $this;
 
 /**
@@ -46,16 +46,22 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
         ), 'Item Id')
-    ->addIndex($installer->getIdxName('tax/sales_order_tax_item', array('tax_id')),
-        array('tax_id'))
-    ->addIndex($installer->getIdxName('tax/sales_order_tax_item', array('item_id')),
-        array('item_id'))
+    ->addIndex(
+        $installer->getIdxName('tax/sales_order_tax_item', array('tax_id')),
+        array('tax_id')
+    )
+    ->addIndex(
+        $installer->getIdxName('tax/sales_order_tax_item', array('item_id')),
+        array('item_id')
+    )
     ->addIndex(
         $installer->getIdxName(
-            'tax/sales_order_tax_item', array('tax_id', 'item_id'),
+            'tax/sales_order_tax_item',
+            array('tax_id', 'item_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('tax_id', 'item_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+        array('tax_id', 'item_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
     )
     ->addForeignKey(
         $installer->getFkName(

@@ -83,7 +83,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
                 ->where('layout_update.handle = :layout_update_handle')
                 ->order('layout_update.sort_order ' . Varien_Db_Select::SQL_ASC);
 
-            $result = join('', $readAdapter->fetchCol($select, $bind));
+            $result = implode('', $readAdapter->fetchCol($select, $bind));
         }
         return $result;
     }

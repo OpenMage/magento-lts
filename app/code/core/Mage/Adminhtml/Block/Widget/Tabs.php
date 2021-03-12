@@ -189,6 +189,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     protected function _beforeToHtml()
     {
+        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', array('block' => $this));
         if ($activeTab = $this->getRequest()->getParam('active_tab')) {
             $this->setActiveTab($activeTab);
         } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
