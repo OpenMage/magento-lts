@@ -39,7 +39,6 @@
             </widget>
             <widget_resource>
                 <class>Mage_Widget_Model_Resource</class>
-                <deprecatedNode>widget_mysql4</deprecatedNode>
                 <entities>
                     <widget>
                         <table>widget</table>

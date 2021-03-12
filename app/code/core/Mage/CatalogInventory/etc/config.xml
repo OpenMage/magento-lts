@@ -39,7 +39,6 @@
             </cataloginventory>
             <cataloginventory_resource>
                 <class>Mage_CatalogInventory_Model_Resource</class>
-                <deprecatedNode>cataloginventory_mysql4</deprecatedNode>
                 <entities>
                     <stock>
                         <table>cataloginventory_stock</table>

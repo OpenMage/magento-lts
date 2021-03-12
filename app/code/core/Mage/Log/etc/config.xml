@@ -56,7 +56,6 @@
             </log>
             <log_resource>
                 <class>Mage_Log_Model_Resource</class>
-                <deprecatedNode>log_mysql4</deprecatedNode>
                 <entities>
                     <customer>
                         <table>log_customer</table>

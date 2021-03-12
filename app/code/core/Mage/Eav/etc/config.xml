@@ -39,7 +39,6 @@
             </eav>
             <eav_resource>
                 <class>Mage_Eav_Model_Resource</class>
-                <deprecatedNode>eav_mysql4</deprecatedNode>
                 <entities>
                     <entity>
                         <table>eav_entity</table>

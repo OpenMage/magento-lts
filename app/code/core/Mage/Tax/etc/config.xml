@@ -39,7 +39,6 @@
             </tax>
             <tax_resource>
                 <class>Mage_Tax_Model_Resource</class>
-                <deprecatedNode>tax_mysql4</deprecatedNode>
                 <entities>
                     <tax_class>
                         <table>tax_class</table>

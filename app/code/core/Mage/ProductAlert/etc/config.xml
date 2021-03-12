@@ -39,7 +39,6 @@
             </productalert>
             <productalert_resource>
                 <class>Mage_ProductAlert_Model_Resource</class>
-                <deprecatedNode>productalert_mysql4</deprecatedNode>
                 <entities>
                     <price>
                         <table>product_alert_price</table>

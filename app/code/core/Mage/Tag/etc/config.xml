@@ -39,12 +39,10 @@
             </tag>
             <tag_customer>
                 <class>Mage_Tag_Model_Customer</class>
-                <!-- <resourceModel>tag_customer_mysql4</resourceModel> -->
                 <resourceModel>tag_customer_resource</resourceModel>
             </tag_customer>
             <tag_resource>
                 <class>Mage_Tag_Model_Resource</class>
-                <deprecatedNode>tag_mysql4</deprecatedNode>
                 <entities>
                     <tag>
                         <table>tag</table>

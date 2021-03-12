@@ -39,7 +39,6 @@
             </shipping>
             <shipping_resource>
                 <class>Mage_Shipping_Model_Resource</class>
-                <deprecatedNode>shipping_mysql4</deprecatedNode>
                 <entities>
                     <tablerate>
                         <table>shipping_tablerate</table>

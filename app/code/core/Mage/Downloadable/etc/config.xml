@@ -102,7 +102,6 @@
             </downloadable>
             <downloadable_resource>
                 <class>Mage_Downloadable_Model_Resource</class>
-                <deprecatedNode>downloadable_mysql4</deprecatedNode>
                 <entities>
                     <link>
                         <table>downloadable_link</table>

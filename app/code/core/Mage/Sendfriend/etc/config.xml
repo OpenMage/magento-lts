@@ -39,8 +39,6 @@
             </sendfriend>
             <sendfriend_resource>
                 <class>Mage_Sendfriend_Model_Resource</class>
-                <deprecatedNode>sendfriend_mysql4</deprecatedNode>
-                <resourceModel>sendfriend_mysql4</resourceModel>
                 <entities>
                     <sendfriend>
                         <table>sendfriend_log</table>

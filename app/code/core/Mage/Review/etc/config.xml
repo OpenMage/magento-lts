@@ -39,7 +39,6 @@
             </review>
             <review_resource>
                 <class>Mage_Review_Model_Resource</class>
-                <deprecatedNode>review_mysql4</deprecatedNode>
                 <entities>
                     <review>
                         <table>review</table>

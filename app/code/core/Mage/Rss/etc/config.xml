@@ -39,7 +39,6 @@
             </rss>
             <rss_resource>
                 <class>Mage_Rss_Model_Resource</class>
-                <deprecatedNode>rss_mysql4</deprecatedNode>
             </rss_resource>
         </models>
         <blocks>

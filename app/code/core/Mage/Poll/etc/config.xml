@@ -77,7 +77,6 @@
             </poll>
             <poll_resource>
                 <class>Mage_Poll_Model_Resource</class>
-                <deprecatedNode>poll_mysql4</deprecatedNode>
                 <entities>
                     <poll>
                         <table>poll</table>

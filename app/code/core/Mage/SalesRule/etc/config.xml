@@ -44,7 +44,6 @@
             </salesrule>
             <salesrule_resource>
                 <class>Mage_SalesRule_Model_Resource</class>
-                <deprecatedNode>salesrule_mysql4</deprecatedNode>
                 <entities>
                     <rule>
                         <table>salesrule</table>

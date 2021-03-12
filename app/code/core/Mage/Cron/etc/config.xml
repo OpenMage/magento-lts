@@ -46,7 +46,6 @@
             </cron>
             <cron_resource>
                 <class>Mage_Cron_Model_Resource</class>
-                <deprecatedNode>cron_mysql4</deprecatedNode>
                 <entities>
                     <schedule>
                         <table>cron_schedule</table>

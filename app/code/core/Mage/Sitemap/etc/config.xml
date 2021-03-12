@@ -39,7 +39,6 @@
             </sitemap>
             <sitemap_resource>
                 <class>Mage_Sitemap_Model_Resource</class>
-                <deprecatedNode>sitemap_mysql4</deprecatedNode>
                 <entities>
                     <sitemap>
                         <table>sitemap</table>

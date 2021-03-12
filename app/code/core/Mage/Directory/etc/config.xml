@@ -62,7 +62,6 @@
             </directory>
             <directory_resource>
                 <class>Mage_Directory_Model_Resource</class>
-                <deprecatedNode>directory_mysql4</deprecatedNode>
                 <entities>
                     <country>
                         <table>directory_country</table>

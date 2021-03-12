@@ -44,7 +44,6 @@
             </wishlist>
             <wishlist_resource>
                 <class>Mage_Wishlist_Model_Resource</class>
-                <deprecatedNode>wishlist_mysql4</deprecatedNode>
                 <entities>
                     <wishlist>
                         <table>wishlist</table>

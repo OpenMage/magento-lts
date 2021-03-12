@@ -144,7 +144,6 @@
             </cms>
             <cms_resource>
                 <class>Mage_Cms_Model_Resource</class>
-                <deprecatedNode>cms_mysql4</deprecatedNode>
                 <entities>
                     <page>
                         <table>cms_page</table>

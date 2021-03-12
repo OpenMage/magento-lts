@@ -39,7 +39,6 @@
             </bundle>
             <bundle_resource>
                 <class>Mage_Bundle_Model_Resource</class>
-                <deprecatedNode>bundle_mysql4</deprecatedNode>
                 <entities>
                     <option>
                         <table>catalog_product_bundle_option</table>

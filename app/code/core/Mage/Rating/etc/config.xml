@@ -39,7 +39,6 @@
             </rating>
             <rating_resource>
                 <class>Mage_Rating_Model_Resource</class>
-                <deprecatedNode>rating_mysql4</deprecatedNode>
                 <entities>
                     <rating>
                         <table>rating</table>
