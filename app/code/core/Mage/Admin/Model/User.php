@@ -272,7 +272,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
-        return (is_array($result) && count($result) > 0) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
@@ -294,7 +294,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
-        return (is_array($result) && count($result) > 0) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
