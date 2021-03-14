@@ -586,7 +586,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function setCategoryIds($ids)
     {
-        if (is_string($ids) === true) {
+        if (is_string($ids)) {
             $ids = explode(',', $ids);
         } elseif (is_int($ids) === true) {
             $ids = (array) $ids;
