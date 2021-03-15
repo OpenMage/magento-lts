@@ -3,6 +3,15 @@
 
 ## v20.0.6 - unreleased
 
+## v20.0.7 - 2021-02-14
+
+#1149 add logging to lockfile related Exceptions
+merged changes from v19.4.11
+
+## v20.0.6 - 2021-01-19
+
+merged changes from v19.4.10
+
 ## v20.0.5 - 2020-12-29
 
 merged changes from v19.4.9
@@ -11,7 +20,7 @@ merged changes from v19.4.9
 ## v20.0.4 - 2020-10-20
 
 merged changes from v19.4.8
-including 
+including
 CVE-2020-15244 RCE via PHP Object injection via SOAP Requests
 
 
@@ -23,7 +32,7 @@ merged changes from v19.4.7
 ## v20.0.2 - 2020-08-18
 
 merged changes from v19.4.6
-including 
+including
 CVE-2020-15151 Observable Timing Discrepancy - Improve validation of secret keys (#1138)
 
 ## v20.0.1 - 2020-07-07
