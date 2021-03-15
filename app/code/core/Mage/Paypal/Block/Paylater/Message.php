@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Paypal Pay Later
  *
@@ -7,6 +8,12 @@
  */
 class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
 {
+
+    /**
+     * AU country code
+     */
+    const AU_COUNTRY = 'AU';
+
     /**
      * Valid countries that the feature will work on.
      * Any other country set will disable feature
@@ -15,7 +22,7 @@ class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_validCountryCodes = [Mage_Paypal_Helper_Data::US_COUNTRY];
+    protected $_validCountryCodes = [Mage_Paypal_Helper_Data::US_COUNTRY, self::AU_COUNTRY];
 
     /**
      * Render the block, if enabled
@@ -80,12 +87,12 @@ class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
     }
 
     /**
-     * Prevent the SDK script tag from being inserted to DOM multiple times
+     * Prevent the SDK script tag from being inserted to DOM multiple times, and not load the same resource multiple times.
      * Example, if it was rendered in minicart, don't do so again if message is displayed on page, example cart/products
      */
     public function canRenderScript()
     {
-        if(!Mage::registry('has_render_paylater_script')) {
+        if (!Mage::registry('has_render_paylater_script')) {
             Mage::register('has_render_paylater_script', true);
             return true;
         }

@@ -1,6 +1,19 @@
-<?php if($_quote = $this->getCurrentQuote()): ?>
-    <div class="paypal-paylater-message" data-pp-message data-pp-amount="<?php echo $_quote->getGrandTotal(); ?>"></div>
-    <?php if($this->canRenderScript()): ?>
+<?php if ($_product = $this->getProduct()): ?>
+    <?php if ($this->canRenderScript()): ?>
         <script defer src="https://www.paypal.com/sdk/js?client-id=<?php echo $this->getPaypalSdkClientId(); ?>&components=messages"></script>
     <?php endif; ?>
+    <div class="paypal-paylater-message-cart"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (e) => {
+            if (typeof paypal != "undefined") {
+                paypal
+                    .Messages({
+                        amount: <?php echo $_product->getFinalPrice(); ?>,
+                        placement: "cart"
+                    })
+                    .render(".paypal-paylater-message-cart");
+            }
+        });
+    </script>
 <?php endif; ?>
+

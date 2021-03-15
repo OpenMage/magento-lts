@@ -67,7 +67,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <sort_order>6</sort_order>
-                            <depends><merchant_country>US</merchant_country></depends>
+                            <depends>
+                                <merchant_country separator=",">US,AU</merchant_country>
+                            </depends>
                             <comment><![CDATA[https://www.paypal.com/us/for-you/pay-in-4]]></comment>
                         </enable_paylater>
                         <sdk_client_id translate="label comment">
@@ -78,7 +80,7 @@
                             <show_in_website>1</show_in_website>
                             <sort_order>7</sort_order>
                             <depends>
-                                <merchant_country>US</merchant_country>
+                                <merchant_country separator=",">US,AU</merchant_country>
                                 <enable_paylater>1</enable_paylater>
                             </depends>
                             <comment><![CDATA[https://developer.paypal.com/docs/business/pay-later/integrate/]]></comment>
@@ -267,6 +269,7 @@
                                         <fields>
                                             <business_account translate="label comment tooltip">
                                                 <label>Email Associated with PayPal Merchant Account</label>
+                                                <comment><![CDATA[<a href="http://www.magentocommerce.com/paypal">Start accepting payments via PayPal!</a>]]></comment>
                                                 <tooltip>Don't have a PayPal account? Simply enter your email address.</tooltip>
                                                 <config_path>paypal/general/business_account</config_path>
                                                 <show_in_default>1</show_in_default>
