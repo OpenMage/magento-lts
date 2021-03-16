@@ -323,7 +323,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             return $this;
         }
         $this->_getResource()->beginTransaction();
-        $dataCommited = false;
+
         try {
             $this->_beforeSave();
             if ($this->_dataSaveAllowed) {
@@ -333,15 +333,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
                 ->commit();
             $this->_hasDataChanges = false;
-            $dataCommited = true;
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
         }
-        if ($dataCommited) {
-            $this->_afterSaveCommit();
-        }
+
         return $this;
     }
 
@@ -355,18 +352,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $this->cleanModelCache();
         Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
-        return $this;
-    }
-
-    /**
-     * Processing data save after transaction commit.
-     * When method is called we don't have garantee what transaction was really commited
-     *
-     * @deprecated after 1.4.0.0 - please use afterCommitCallback instead
-     * @return $this
-     */
-    protected function _afterSaveCommit()
-    {
         return $this;
     }
 
