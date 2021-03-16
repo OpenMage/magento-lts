@@ -411,7 +411,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             )
             ->joinLeft(
                 array('otps' => $this->getTable('catalog/product_option_type_price')),
-                'otps.option_type_id = otpd.option_type_id AND otpd.store_id = cs.store_id',
+                'otps.option_type_id = otpd.option_type_id AND otps.store_id = cs.store_id',
                 array()
             )
             ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id', 'o.option_id'));
