@@ -527,6 +527,8 @@
                 <email_confirmation_template>customer_create_account_email_confirmation_template</email_confirmation_template>
                 <email_confirmed_template>customer_create_account_email_confirmed_template</email_confirmed_template>
                 <vat_frontend_visibility>0</vat_frontend_visibility>
+                <viv_vat_number_format>0</viv_vat_number_format>
+                <viv_for_northern_ireland>0</viv_for_northern_ireland>
             </create_account>
             <changed_account>
                 <password_or_email_identity>general</password_or_email_identity>

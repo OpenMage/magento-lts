@@ -463,7 +463,25 @@ class Mage_Sales_Model_Observer
         $customerCountryCode = $quoteAddress->getCountryId();
         $customerVatNumber = $quoteAddress->getVatId();
 
-        if ((empty($customerVatNumber) || !Mage::helper('core')->isCountryInEU($customerCountryCode))
+        /** @var $coreHelper Mage_Core_Helper_Data */
+        $coreHelper = Mage::helper('core');
+        $merchantCountryCode = $coreHelper->getMerchantCountryCode($storeId);
+        $merchantVatNumber = $coreHelper->getMerchantVatNumber($storeId);
+        $merchantPostcode = $coreHelper->getMerchantPostcode($storeId);
+
+        /** @var Mage_Customer_Model_Vies $vies */
+        $vies = Mage::getModel('customer/vies');
+
+        // Prepare vies check
+        $vies->setStore($storeId)
+            ->setVatNumber($customerVatNumber)
+            ->setCountryCode($customerCountryCode)
+            ->setPostcode($quoteAddress->getPostcode())
+            ->setRequesterVatNumber($merchantVatNumber)
+            ->setRequesterCountryCode($merchantCountryCode)
+            ->setRequesterPostcode($merchantPostcode);
+
+        if ((empty($customerVatNumber) || !$vies->shouldValidateVatNumber())
             && !$isDisableAutoGroupChange
         ) {
             $groupId = ($customerInstance->getId()) ? $customerHelper->getDefaultCustomerGroupId($storeId)
@@ -476,35 +494,25 @@ class Mage_Sales_Model_Observer
             return;
         }
 
-        /** @var Mage_Core_Helper_Data $coreHelper */
-        $coreHelper = Mage::helper('core');
-        $merchantCountryCode = $coreHelper->getMerchantCountryCode();
-        $merchantVatNumber = $coreHelper->getMerchantVatNumber();
-
-        $gatewayResponse = null;
+        $viesResponse = null;
         if ($addressHelper->getValidateOnEachTransaction($storeId)
             || $customerCountryCode != $quoteAddress->getValidatedCountryCode()
             || $customerVatNumber != $quoteAddress->getValidatedVatNumber()
         ) {
-            // Send request to gateway
-            $gatewayResponse = $customerHelper->checkVatNumber(
-                $customerCountryCode,
-                $customerVatNumber,
-                ($merchantVatNumber !== '') ? $merchantCountryCode : '',
-                $merchantVatNumber
-            );
+            // Check vat number with vies service
+            $viesResponse = $vies->checkVatNumber();
 
             // Store validation results in corresponding quote address
-            $quoteAddress->setVatIsValid((int)$gatewayResponse->getIsValid())
-                ->setVatRequestId($gatewayResponse->getRequestIdentifier())
-                ->setVatRequestDate($gatewayResponse->getRequestDate())
-                ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
+            $quoteAddress->setVatIsValid((int)$viesResponse->getIsValid())
+                ->setVatRequestId($viesResponse->getRequestIdentifier())
+                ->setVatRequestDate($viesResponse->getRequestDate())
+                ->setVatRequestSuccess($viesResponse->getRequestSuccess())
                 ->setValidatedVatNumber($customerVatNumber)
                 ->setValidatedCountryCode($customerCountryCode)
                 ->save();
         } else {
             // Restore validation results from corresponding quote address
-            $gatewayResponse = new Varien_Object(array(
+            $viesResponse = new Varien_Object(array(
                 'is_valid' => (int)$quoteAddress->getVatIsValid(),
                 'request_identifier' => (string)$quoteAddress->getVatRequestId(),
                 'request_date' => (string)$quoteAddress->getVatRequestDate(),
@@ -516,7 +524,7 @@ class Mage_Sales_Model_Observer
         if (!$isDisableAutoGroupChange) {
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                 $customerCountryCode,
-                $gatewayResponse,
+                $viesResponse,
                 $customerInstance->getStore()
             );
         } else {
