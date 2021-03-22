@@ -104,7 +104,7 @@ Product.Bundle.prototype = {
         //Tax is calculated in a different way for the the TOTAL BASED method
         //We round the taxes at the end. Hence we do the same for consistency
         //This variable is set in the bundle.phtml
-        if (taxCalcMethod == CACL_TOTAL_BASE) {
+        if (taxCalcMethod == CALC_TOTAL_BASE) {
             var calculatedPriceFormatted = calculatedPrice.toFixed(10);
             var includeTaxPriceFormatted = includeTaxPrice.toFixed(10);
             var tax = includeTaxPriceFormatted - calculatedPriceFormatted;
@@ -195,17 +195,17 @@ Product.Bundle.prototype = {
             priceInclTax = price;
         }
 
-        if (this.config.priceType == '1' || taxCalcMethod == CACL_TOTAL_BASE) {
+        if (this.config.priceType == '1' || taxCalcMethod == CALC_TOTAL_BASE) {
             var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
             return result;
         }
-        else if (taxCalcMethod == CACL_UNIT_BASE) {
+        else if (taxCalcMethod == CALC_UNIT_BASE) {
             price = (Math.round(price*100)/100).toString();
             disposition = (Math.round(disposition*100)/100).toString();
             priceInclTax = (Math.round(priceInclTax*100)/100).toString();
             var result = new Array(price*qty, disposition*qty, priceInclTax*qty);
             return result;
-        } else { //taxCalcMethod == CACL_ROW_BASE)
+        } else { //taxCalcMethod == CALC_ROW_BASE)
             price = (Math.round(price*qty*100)/100).toString();
             disposition = (Math.round(disposition*qty*100)/100).toString();
             priceInclTax = (Math.round(priceInclTax*qty*100)/100).toString();
