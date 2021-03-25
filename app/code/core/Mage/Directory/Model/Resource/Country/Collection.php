@@ -30,14 +30,11 @@
  * @category    Mage
  * @package     Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property Mage_Directory_Model_Country[] $_items
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    /**
-     * @var Mage_Directory_Model_Country[]
-     */
-    protected $_items;
-
     /**
      * Define main table
      */
