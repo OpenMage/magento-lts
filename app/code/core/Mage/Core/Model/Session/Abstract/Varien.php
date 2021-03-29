@@ -71,6 +71,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $sessionResource = Mage::getResourceSingleton('core/session');
                 $sessionResource->setSaveHandler();
                 break;
+            case 'redis':
+                /* @var Cm_RedisSession_Model_Session $sessionResource */
+                $sessionResource = Mage::getSingleton('cm_redissession/session');
+                $sessionResource->setSaveHandler();
+                break;
             case 'user':
                 // getSessionSavePath represents static function for custom session handler setup
                 call_user_func($this->getSessionSavePath());
