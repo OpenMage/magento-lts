@@ -139,6 +139,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 ->addFilterByRequiredOptions()
                 ->setPositionOrder()
                 ->addStoreFilter($this->getStoreFilter($product))
+                ->setStoreId($product->getStoreId())
                 ->addAttributeToFilter('status', array('in' => $this->getStatusFilters($product)));
 
             foreach ($collection as $item) {
