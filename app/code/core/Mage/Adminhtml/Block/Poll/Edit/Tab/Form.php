@@ -68,8 +68,7 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Form extends Mage_Adminhtml_Block_Widge
                 'required'  => true,
                 'name'      => 'store_ids[]',
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(),
-                'value'     => Mage::registry('poll_data')->getStoreIds(),
-                'after_element_html' => Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml()
+                'value'     => Mage::registry('poll_data')->getStoreIds()
             ));
         }
         else {
