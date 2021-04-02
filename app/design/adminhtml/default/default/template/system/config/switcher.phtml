@@ -26,7 +26,6 @@
 /* @var $this Mage_Core_Block_Template */ ?>
 <div class="switcher">
     <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
-    <?php echo $this->getHintHtml() ?>
     <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
     <?php foreach ($this->getStoreSelectOptions() as $_value => $_option): ?>
     <?php if (isset($_option['is_group'])): ?>
