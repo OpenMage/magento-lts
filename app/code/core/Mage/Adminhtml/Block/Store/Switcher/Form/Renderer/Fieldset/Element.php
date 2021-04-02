@@ -71,14 +71,4 @@ class Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset_Element
         $this->_element = $element;
         return $this->toHtml();
     }
-
-    /**
-     * Return html for store switcher hint
-     *
-     * @return string
-     */
-    public function getHintHtml()
-    {
-        return Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml();
-    }
 }

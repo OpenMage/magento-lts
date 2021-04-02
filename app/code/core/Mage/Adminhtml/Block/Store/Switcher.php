@@ -223,38 +223,4 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         }
         return $this->_hasDefaultOption;
     }
-
-    /**
-     * Return url for store switcher hint
-     *
-     * @return string
-     */
-    public function getHintUrl()
-    {
-        if (null === $this->_hintUrl) {
-            $this->_hintUrl = Mage::helper('core/hint')->getHintByCode(self::XPATH_HINT_KEY);
-        }
-        return $this->_hintUrl;
-    }
-
-    /**
-     * Return store switcher hint html
-     *
-     * @return string
-     */
-    public function getHintHtml()
-    {
-        $html = '';
-        $url = $this->getHintUrl();
-        if ($url) {
-            $html = '<a'
-                . ' href="'. $this->escapeUrl($url) . '"'
-                . ' onclick="this.target=\'_blank\'"'
-                . ' title="' . Mage::helper('core')->quoteEscape($this->__('What is this?')) . '"'
-                . ' class="link-store-scope">'
-                . $this->__('What is this?')
-                . '</a>';
-        }
-        return $html;
-    }
 }
