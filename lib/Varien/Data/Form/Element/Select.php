@@ -99,7 +99,7 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
             $html = '<option value="'.$this->_escape($option['value']).'"';
             $html.= isset($option['title']) ? 'title="'.$this->_escape($option['title']).'"' : '';
             $html.= isset($option['style']) ? 'style="'.$option['style'].'"' : '';
-            if (in_array($option['value'], $selected)) {
+            if (in_array((string) $option['value'], $selected)) {
                 $html.= ' selected="selected"';
             }
             $html.= '>'.$this->_escape($option['label']). '</option>'."\n";
