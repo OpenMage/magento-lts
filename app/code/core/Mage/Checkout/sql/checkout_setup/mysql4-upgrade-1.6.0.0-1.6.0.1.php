@@ -19,26 +19,31 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
- * @package     Mage_Payment
+ * @package     Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/* @var Mage_Core_Model_Resource_Setup $installer */
+$installer = $this;
+$installer->startSetup();
 
-class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
-{
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('payment/info/purchaseorder.phtml');
-    }
+$connection = $installer->getConnection();
+$table = $installer->getTable('checkout/agreement');
+$column = 'position';
 
-    /**
-     * @return string
-     */
-    public function toPdf()
-    {
-        $this->setTemplate('payment/info/purchaseorder.phtml');
-        return $this->toHtml();
-    }
+if (!$connection->tableColumnExists($table, $column)) {
+    $connection->addColumn(
+        $table,
+        $column,
+        array(
+            'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+            'length'    => 2,
+            'nullable'  => false,
+            'default'   => 0,
+            'comment'   => 'Agreement Position'
+        )
+    );
 }
+
+$installer->endSetup();

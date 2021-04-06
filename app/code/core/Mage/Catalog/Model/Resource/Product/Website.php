@@ -71,9 +71,9 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         $adapter   = $this->_getWriteAdapter();
         $whereCond = array(
             $adapter->quoteInto('website_id IN(?)', $websiteIds),
-           $adapter->quoteInto('product_id IN(?)', $productIds)
+            $adapter->quoteInto('product_id IN(?)', $productIds)
         );
-        $whereCond = join(' AND ', $whereCond);
+        $whereCond = implode(' AND ', $whereCond);
 
         $adapter->beginTransaction();
         try {

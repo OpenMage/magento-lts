@@ -30,6 +30,11 @@ define('BP', dirname(dirname(__FILE__)));
 
 Mage::register('original_include_path', get_include_path());
 
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', 1);
+}
+
 /**
  * Set include path
  */
@@ -212,10 +217,28 @@ final class Mage
      */
     public static function getOpenMageVersionInfo()
     {
+        $majorVersion = 20;
+
+        /**
+         * This code construct is to make merging for forward porting of changes easier.
+         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
+         * also as releases are usually done together, this could in theory be done at once.
+         * The major Version then needs to be only changed once per branch.
+         */
+        if ($majorVersion === 20) {
+            return array(
+                'major'     => '20',
+                'minor'     => '0',
+                'patch'     => '8',
+                'stability' => '', // beta,alpha,rc
+                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
+            );
+        }
+
         return array(
-            'major'     => '20',
-            'minor'     => '0',
-            'patch'     => '7',
+            'major'     => '19',
+            'minor'     => '4',
+            'patch'     => '12',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );

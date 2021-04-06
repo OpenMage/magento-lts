@@ -1194,7 +1194,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function sessionVarCallback($match)
     {
-        if ($this->useSessionIdForUrl($match[2] == 'S' ? true : false)) {
+        if ($this->useSessionIdForUrl($match[2] == 'S')) {
             $session = Mage::getSingleton('core/session');
             /* @var Mage_Core_Model_Session $session */
             return $match[1]

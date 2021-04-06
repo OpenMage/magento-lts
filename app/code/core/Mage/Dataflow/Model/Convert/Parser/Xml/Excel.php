@@ -87,7 +87,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $batchIoAdapter->open(false);
 
-        $isFieldNames = $this->getVar('fieldnames', '') == 'true' ? true : false;
+        $isFieldNames = $this->getVar('fieldnames', '') == 'true';
         if (!$isFieldNames && is_array($this->getVar('map'))) {
             $this->_parseFieldNames = $this->getVar('map');
         }
@@ -490,6 +490,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
         $xmlData[] = '</Row>';
 
-        return join('', $xmlData);
+        return implode('', $xmlData);
     }
 }

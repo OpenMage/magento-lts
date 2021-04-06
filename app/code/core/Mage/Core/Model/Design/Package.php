@@ -828,7 +828,7 @@ class Mage_Core_Model_Design_Package
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
-            return is_writeable($dir) ? $dir : false;
+            return is_writable($dir) ? $dir : false;
         } catch (Exception $e) {
             Mage::logException($e);
         }

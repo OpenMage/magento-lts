@@ -58,9 +58,9 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         $lang          = Mage::getStoreConfig('general/locale/code');
         $title       = Mage::helper('rss')->__('%s - Discounts and Coupons',Mage::app()->getStore($storeId)->getName());
 
-        /** @var $rssObject Mage_Rss_Model_Rss */
+        /** @var Mage_Rss_Model_Rss $rssObject */
         $rssObject = Mage::getModel('rss/rss');
-        /** @var $collection Mage_SalesRule_Model_Resource_Rule_Collection */
+        /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
         $collection = Mage::getModel('salesrule/rule')->getResourceCollection();
 
         $data = array(

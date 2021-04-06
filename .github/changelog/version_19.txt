@@ -1,5 +1,43 @@
 
-## v19.4.12 - unreleased
+## v19.4.13 - unreleased
+
+
+## v19.4.12 - 2021-04-06
+
+#1459 make Mage::getOpenMageVersionInfo() more stable for the release process
+#1468 fix markup in README.md
+#1469 Delete RELEASE_NOTES.txt
+#1436 Remove orphan js/jscolor
+#1201 Fix wrong payment info template paths
+#1439 Fixed syntax error ytheme-magento.css
+#1473 Fix integrity constraint violation when order is canceled (#1220 #1472)
+#1424 Ascending alphabetical sort for Attribute Set Name
+#1464 Updated composer.json branch alias (#1160 #1460)
+#194 fix paypal IPN postback response parsing
+#1446 Better error handling when store is disabled
+#1404 [BUGFIX] Count doesn't work with group by columns. This fix keeps the group by
+#1365 Updating phpstorm meta files with magerun 2.1.0
+#1156 Removed observer adminhtml_sales_order_create_create_order (#1154)
+#1358 Add a new event `adminhtml_block_widget_tabs_html_before`, for adding custom tab (#879)
+#1445 make Developer Mode controllable by environment variable for all execution paths
+#1302 Fix a bug where product media upload via API was not possible anymore (#1178 #1125 #666)
+#1485 New event "init_form_values_after" after data set on a form
+#1394 Replace alias methods (#986)
+#1480 Add checkout agreement position, closes #1288
+#1406 Mage_Rss - DOC block update
+#1398 Simplified true/false
+#1496 Mage_Core_Model_Translate: Removed unused local variable
+#1051 Add features from N98 layout helper (#321 #336 #416)
+#1276 Fix array_key_exists on objects (deprecated notice or fatal error)
+#1495 Removed unnecessary replacing of variable from parent
+#1456 Correct password length message grammar
+#1291 Removed redundant if statement
+#1324 Notification_Security block - private to protected for easier extending
+#1309 Removed unnecessary joins for global attributes
+#1497 Upgrade prototype to version 1.7.3
+#1450 Fixed CRLF to LF
+#1455 Massaction items - removed unused switch
+#1467 _exportIterateCollection performance optimization
 
 
 ## v19.4.11 - 2021-02-14

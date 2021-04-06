@@ -1003,7 +1003,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 }
 
                 // If email change was requested then set flag
-                $isChangeEmail = ($customer->getOldEmail() != $customer->getEmail()) ? true : false;
+                $isChangeEmail = $customer->getOldEmail() != $customer->getEmail();
                 $customer->setIsChangeEmail($isChangeEmail);
 
                 // If password change was requested then add it to common validation scheme

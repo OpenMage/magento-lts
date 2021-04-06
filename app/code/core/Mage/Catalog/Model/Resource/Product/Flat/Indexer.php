@@ -566,7 +566,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
             foreach ($fields as $field) {
                 $fieldSql[] = $this->_getReadAdapter()->quoteIdentifier($field);
             }
-            $fieldSql = join(',', $fieldSql);
+            $fieldSql = implode(',', $fieldSql);
         } else {
             $fieldSql = $this->_getReadAdapter()->quoteIdentifier($fields);
         }

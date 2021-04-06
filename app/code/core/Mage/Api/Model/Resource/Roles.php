@@ -147,6 +147,6 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
                 array('user_id IN(?)' => $users)
             );
         }
-        return ($rowsCount > 0) ? true : false;
+        return $rowsCount > 0;
     }
 }

@@ -53,7 +53,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
             ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
         );
 
-        $cronExprString = join(' ', $cronExprArray);
+        $cronExprString = implode(' ', $cronExprArray);
 
         try {
             Mage::getModel('core/config_data')

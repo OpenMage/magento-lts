@@ -55,7 +55,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
 
             // Execute the request.
             $result = curl_exec($ch);
-            $succeeded = curl_errno($ch) == 0 ? true : false;
+            $succeeded = curl_errno($ch) == 0;
 
             // close cURL resource, and free up system resources
             curl_close($ch);
