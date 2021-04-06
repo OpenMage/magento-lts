@@ -1,7 +1,17 @@
 
 
 
-## v20.0.6 - unreleased
+## v20.0.9 - unreleased
+
+
+## v20.0.8 - 2021-04-06
+
+#1477 Remove invalid branch alias to make the branch importable on packagist.org
+#1252 Directory currency - performance optimalization
+#1325 Move orig data to abstract model (according to Magento 2.x)
+#1502 Remove Deprecated _afterSaveCommit from Mage_Core_Model_Abstract
+
+and merged changes from v19.4.12
 
 ## v20.0.7 - 2021-02-14
 
