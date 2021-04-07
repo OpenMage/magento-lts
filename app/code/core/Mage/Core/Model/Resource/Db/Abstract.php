@@ -403,7 +403,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
 
         if (!isset($fields[$field])) {
-            throw new Exception("Column \"{$field}\" does not exists in table \"{$this->getMainTable()}\"");
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
         }
 
         $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
