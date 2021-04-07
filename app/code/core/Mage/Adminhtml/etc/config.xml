@@ -238,6 +238,9 @@
             <design>
                 <use_legacy_theme>0</use_legacy_theme>
             </design>
+            <global_search>
+                <enable>1</enable>
+            </global_search>
         </admin>
     </default>
     <stores>
