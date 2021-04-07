@@ -1120,7 +1120,7 @@
                     <show_in_store>0</show_in_store>
                     <sort_order>6</sort_order>
                     <fields>
-                        <enable translate="label comment">
+                        <enable translate="label">
                             <label>Enable global search</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
