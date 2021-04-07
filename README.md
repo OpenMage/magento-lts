@@ -95,6 +95,9 @@ There are some new or changed translations, if you want add them to your locale 
 - `Mage_Xmlconnect`
 - `Phoenix_Moneybookers`
 
+### Suggested Modules
+- [FireGento_Logger](https://github.com/firegento/firegento-logger)
+
 ## Development Environment with ddev
 - Install [ddev](https://ddev.com/get-started/)
 - Clone the repository as described in Installation -> Using Git
