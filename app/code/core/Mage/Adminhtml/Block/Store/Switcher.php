@@ -34,11 +34,6 @@
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
     /**
-     * Key in config for store switcher hint
-     */
-    const XPATH_HINT_KEY = 'store_switcher';
-
-    /**
      * @var array
      */
     protected $_storeIds;
