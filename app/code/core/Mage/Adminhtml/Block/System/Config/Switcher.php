@@ -105,14 +105,4 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
 
         return $options;
     }
-
-    /**
-     * Return store switcher hint html
-     *
-     * @return mixed
-     */
-    public function getHintHtml()
-    {
-        return Mage::getBlockSingleton('adminhtml/store_switcher')->getHintHtml();
-    }
 }
