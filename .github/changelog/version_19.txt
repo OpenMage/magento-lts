@@ -1,5 +1,22 @@
 
-## v19.4.13 - unreleased
+## v19.4.14 - unreleased
+
+
+## v19.4.13 - 2021-04-20
+
+2 security updates
+
+CVE-2021-21426 - GHSA-m496-x567-f98c - Fixing a bug in Zend Framework's Stream HTTP Wrapper
+CVE-2021-21427 - GHSA-fvrf-9428-527m - Security Update for SQLi for Magento 2 (a backport of CVE-2021-3007 of laminas-http)
+
+more updates:
+
+#1531 Throw an Exception in resource model if column not exists, instead of E_NOTICE
+#1454 Fix doc getCountry - returning string instead of int
+#1545 Re-add LICENSE.html because of errors during install process (#1542, #1160)
+#1540 Fix PHP8 error in App.php: method_exists() now throws an exception if the first argument is not string|object
+#1391 Fixes core and lib issues for PHP 8.0 compatibility
+#1552 Revert update to Prototype serialize method that breaks OpenMage functionality / Can not select multiple statuses with Prototype 1.7.3 in Reports (#1549, #1497)
 
 
 ## v19.4.12 - 2021-04-06
