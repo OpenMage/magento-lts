@@ -1,7 +1,19 @@
 
+## v20.0.10 - unreleased
 
 
-## v20.0.9 - unreleased
+## v20.0.9 - 2021-04-20
+
+2 security updates
+
+CVE-2021-21426 - GHSA-m496-x567-f98c - Fixing a bug in Zend Framework's Stream HTTP Wrapper
+CVE-2021-21427 - GHSA-fvrf-9428-527m - Security Update for SQLi for Magento 2 (a backport of CVE-2021-3007 of laminas-http)
+
+more updates:
+
+#1536 Remove the documentation Hint "(?)" functionality
+
+and merged changes from v19.4.13
 
 
 ## v20.0.8 - 2021-04-06
