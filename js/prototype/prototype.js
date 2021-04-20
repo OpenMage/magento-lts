@@ -6331,16 +6331,8 @@ var Form = {
       };
     } else {
       initial = '';
-      accumulator = function(result, key, values) {
-        if (!Object.isArray(values)) {values = [values];}
-        if (!values.length) {return result;}
-        var encodedKey = encodeURIComponent(key).gsub(/%20/, '+');
-        return result + (result ? "&" : "") + values.map(function (value) {
-          value = value.gsub(/(\r)?\n/, '\r\n');
-          value = encodeURIComponent(value);
-          value = value.gsub(/%20/, '+');
-          return encodedKey + "=" + value;
-        }).join("&");
+      accumulator = function(result, key, value) {
+        return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + encodeURIComponent(value);
       };
     }
 

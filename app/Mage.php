@@ -229,7 +229,7 @@ final class Mage
             return array(
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '8',
+                'patch'     => '9',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             );
@@ -238,7 +238,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '12',
+            'patch'     => '13',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
