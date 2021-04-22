@@ -47,6 +47,22 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     protected $_map = array('fields' => array('website_id' => 'main_table.website_id'));
 
     /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'core_website_collection';
+
+    /**
+     * Event object prefix
+     *
+     * @see Mage_Core_Model_Resource_Store_Collection::$_eventObject
+     * @var string
+     */
+    protected $_eventObject = 'website_collection';
+
+    /**
      * Define resource model
      *
      */

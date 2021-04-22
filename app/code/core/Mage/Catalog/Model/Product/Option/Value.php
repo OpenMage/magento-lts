@@ -48,6 +48,14 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 
     protected $_option;
 
+    /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_product_option_value';
+
     protected function _construct()
     {
         $this->_init('catalog/product_option_value');

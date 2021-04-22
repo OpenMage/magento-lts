@@ -42,6 +42,14 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     protected $_flagCode = 'catalog_product_flat';
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'catalog_product_flat_flag';
+
+    /**
      * Retrieve flag data array
      *
      * @return array

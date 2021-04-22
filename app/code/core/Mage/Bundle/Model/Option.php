@@ -52,6 +52,14 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
     protected $_defaultSelection = null;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'bundle_option';
+
+    /**
      * Initialize resource model
      *
      */

@@ -43,6 +43,14 @@
  */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract 
 {
+    /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'salesrule_rule_customer';
+
     protected function _construct()
     {
         parent::_construct();

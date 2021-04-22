@@ -48,6 +48,14 @@
  */
 class Mage_Checkout_Model_Agreement extends Mage_Core_Model_Abstract
 {
+    /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'checkout_agreement';
+
     protected function _construct()
     {
         $this->_init('checkout/agreement');

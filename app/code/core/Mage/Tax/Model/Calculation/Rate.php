@@ -67,6 +67,14 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected $_titleModel = null;
 
     /**
+     * Model event prefix
+     *
+     * @see Mage_Core_Model_Abstract::$_eventPrefix
+     * @var string
+     */
+    protected $_eventPrefix = 'tax_calculation_rate';
+
+    /**
      * Varien model constructor
      */
     protected function _construct()

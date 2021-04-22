@@ -114,6 +114,17 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     );
 
     /**
+     * Model event prefix
+     *
+     * This fits default event prefix and is
+     * just to prevent to fire events two time
+     *
+     * @see load()
+     * @var string
+     */
+    protected $_eventPrefix = 'eav_collection_abstract';
+
+    /**
      * Collection constructor
      *
      * @param Mage_Core_Model_Resource_Abstract $resource
@@ -861,6 +872,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         Varien_Profiler::start('__EAV_COLLECTION_BEFORE_LOAD__');
         Mage::dispatchEvent('eav_collection_abstract_load_before', array('collection' => $this));
+
+        if ($this->_eventPrefix !== 'eav_collection_abstract') {
+            Mage::dispatchEvent($this->_eventPrefix . '_load_before', array('collection' => $this));
+        }
+
         $this->_beforeLoad();
         Varien_Profiler::stop('__EAV_COLLECTION_BEFORE_LOAD__');
 
