@@ -708,7 +708,7 @@ class Varien_Object implements ArrayAccess
             return self::$_underscoreCache[$name];
         }
         #Varien_Profiler::start('underscore');
-        $result = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
+        $result = strtolower(preg_replace('/([A-Z])/', "_$1", lcfirst($name)));
         #Varien_Profiler::stop('underscore');
         self::$_underscoreCache[$name] = $result;
         return $result;
