@@ -1,2 +1,6 @@
 docker-magento/
 .env
+Caddyfile
+pub
+!pub/admin
+!pub/default
