@@ -143,7 +143,11 @@ $numColumns = sizeof($this->getColumns());
             <tfoot>
                 <tr class="totals">
                 <?php foreach ($this->getColumns() as $_column): ?>
-                    <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
+                    <th class="<?php echo $_column->getCssProperty() ?>">
+                        <?php if(($_column->getType() != 'action') && ($_column->getType() != 'massaction')): ?>
+                            <?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;
+                        <?php endif; ?>
+                    </th>
                 <?php endforeach; ?>
                 </tr>
             </tfoot>
