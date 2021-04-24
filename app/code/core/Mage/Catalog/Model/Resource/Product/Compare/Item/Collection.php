@@ -245,7 +245,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                     ->order(array('ai.attribute_group_id ASC', 'ai.sort_order ASC'));
                 $attributesData = $this->getConnection()->fetchAll($select);
                 if ($attributesData) {
-                    $entityType = 'catalog_product';
+                    $entityType = Mage_Catalog_Model_Product::ENTITY;
                     Mage::getSingleton('eav/config')
                         ->importAttributesData($entityType, $attributesData);
                     foreach ($attributesData as $data) {
