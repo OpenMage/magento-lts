@@ -8,11 +8,11 @@
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 </p>
 
-# Magento - Long Term Support
+# OpenMage
 
-This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
-to the Magento CE official releases which integrates improvements directly from the community while maintaining a high
-level of backwards compatibility to the official releases.
+This repository is the home of the community-driven project that took over Magento 1 since the end of support by the original vendor.
+It's goal is to be a dependable alternative to the Magento CE official releases which integrates improvements directly
+from the community while maintaining a high level of backwards compatibility to the official releases.
 
 **Pull requests with unofficial bug fixes and security patches from the community are encouraged and welcome!**
 
