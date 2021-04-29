@@ -212,10 +212,10 @@ billing.onSave = function(evt){
         toogleVisibilityOnObjects('allow_gift_messages_for_items', ['allow-gift-messages-for-items-container']);
     //]]>
     </script>
-<?php break; ?>
+<?php break ?>
 <?php case 'multishipping_adress_checkbox': ?>
 
-<?php break; ?>
+<?php break ?>
 <?php case 'multishipping_adress': ?>
     <div class="gift-messages">
         <h3><?php echo $this->__('Do you have any gift items in your order?'); ?></h3>
@@ -329,6 +329,6 @@ billing.onSave = function(evt){
         toogleVisibilityOnObjects('allow_gift_messages_for_items_<?php echo $this->getEntity()->getId() ?>', ['allow-gift-messages-for-items-container-<?php echo $this->getEntity()->getId() ?>']);
     //]]>
     </script>
-    <?php break; ?>
+    <?php break ?>
 <?php endswitch ?>
 <?php endif ?>

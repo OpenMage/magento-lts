@@ -40,7 +40,7 @@
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
         <?php endif ?>
     </a>
-    <?php break; ?>
+    <?php break ?>
 <?php case 'order_item': ?>
     <a class="listen-for-click" href="#">
         <?php if($this->hasGiftMessage()): ?>
@@ -49,7 +49,7 @@
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
         <?php endif ?>
     </a>
-    <?php break; ?>
+    <?php break ?>
 <?php case 'main': ?>
         <?php if($this->hasGiftMessage()): ?>
             <?php if($_giftMessage=$this->getMessage()): ?>
@@ -70,7 +70,7 @@
         <?php else: ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Add'), 'add') ?>
         <?php endif ?>
-    <?php break; ?>
+    <?php break ?>
 <?php case 'order': ?>
         <?php if($this->hasGiftMessage()): ?>
             <?php if($_giftMessage=$this->getMessage()): ?>
@@ -93,7 +93,7 @@
         <?php else: ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Add'), 'add') ?>
         <?php endif ?>
-    <?php break; ?>
+    <?php break ?>
 <?php endswitch ?>
 <?php if($this->getCanDisplayContainer()): ?>
 </div>
