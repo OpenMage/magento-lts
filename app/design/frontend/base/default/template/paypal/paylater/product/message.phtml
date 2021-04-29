@@ -9,7 +9,7 @@
                 paypal
                     .Messages({
                         amount: <?php echo $_product->getFinalPrice(); ?>,
-                        placement: "cart"
+                        placement: "product"
                     })
                     .render(".paypal-paylater-message-product");
             }
