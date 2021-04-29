@@ -38,7 +38,7 @@
     <?php foreach ($_items as $_item): ?>
     <?php if ($_item->getOrderItem()->getParentItem()) continue; ?>
         <?php echo $this->getItemHtml($_item) ?>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 <?php echo $this->getInvoiceCommentsHtml($_invoice)?>
-<?php endforeach; ?>
+<?php endforeach ?>

@@ -63,7 +63,7 @@
         echo $_helper->productAttribute($_product, $_img, 'image');
     ?>
 </p>
-<?php endif; ?>
+<?php endif ?>
 <?php if (count($this->getGalleryImages()) > 0): ?>
 <div class="more-views">
     <h2><?php echo $this->__('More Views') ?></h2>
@@ -72,7 +72,7 @@
         <li>
             <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=300,height=300,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes'); return false;" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(56); ?>" width="56" height="56" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" /></a>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ul>
 </div>
-<?php endif; ?>
+<?php endif ?>

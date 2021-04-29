@@ -95,19 +95,19 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
             <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Paid') ?></strong></td>
             <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalPaid()) ?></strong></td>
         </tr>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($this->getCanDisplayTotalRefunded()): ?>
         <tr>
             <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Refunded') ?></strong></td>
             <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalRefunded()) ?></strong></td>
         </tr>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($this->getCanDisplayTotalDue()): ?>
         <tr>
             <td colspan="6" class="a-right"><strong><?php echo $this->__('Total Due') ?></strong></td>
             <td class="last a-right"><strong><?php echo $_order->formatPrice($_creditmemo->getTotalDue()) ?></strong></td>
         </tr>
-        <?php endif; ?>
+        <?php endif ?>
          */
         return $this;
     }

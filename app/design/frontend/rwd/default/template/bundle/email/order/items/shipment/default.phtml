@@ -37,7 +37,7 @@
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
-<?php endif; ?>
+<?php endif ?>
 
 <?php if ($_item->getParentItem()): ?>
     <?php $attributes = $this->getSelectionAttributes($_item) ?>
@@ -48,8 +48,8 @@
         <td class="bundle-item">&nbsp;</td>
     </tr>
     <?php $_prevOptionId = $attributes['option_id'] ?>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 <tr id="order-item-row-<?php echo $_item->getId() ?>">
     <?php if (!$_item->getParentItem()): ?>
     <td class="bundle-item-parent product-info">
@@ -65,7 +65,7 @@
         <?php echo $this->escapeHtml($_item->getSku()) ?>
     </td>
     <td class="bundle-item align-right">
-    <?php endif; ?>
+    <?php endif ?>
     <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
         <?php if (isset($shipItems[$_item->getId()])): ?>
             <?php echo $shipItems[$_item->getId()]->getQty()*1 ?>
@@ -73,13 +73,13 @@
             <?php echo $this->__('N/A') ?>
         <?php else: ?>
             0
-        <?php endif; ?>
+        <?php endif ?>
     <?php else: ?>
     &nbsp;
-    <?php endif; ?>
+    <?php endif ?>
     </td>
 </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 
 <?php if ($_showlastRow): ?>
 <tr>
@@ -89,12 +89,12 @@
             <?php foreach ($this->getItemOptions() as $option): ?>
             <dt><strong><em><?php echo $option['label'] ?></em></strong>
                         <dd style="margin:0; padding:0 0 0 9px;"><?php echo $option['value'] ?></dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
-        <?php endif; ?>
+        <?php endif ?>
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
     </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
 </tr>
-<?php endif; ?>
+<?php endif ?>

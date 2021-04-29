@@ -44,19 +44,19 @@
                     $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
                     $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
                     </script>
-                <?php endif;?>
-            <?php endif;?>
+                <?php endif ?>
+            <?php endif ?>
             </dd>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </dl>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getLinks()): ?>
         <dl class="item-options">
             <dt><?php echo $this->escapeHtml($this->getLinksTitle()); ?></dt>
             <?php foreach ($this->getLinks()->getPurchasedItems() as $_link): ?>
                 <dd><?php echo $this->escapeHtml($_link->getLinkTitle()) ?> (<?php echo $_link->getNumberOfDownloadsUsed() . ' / ' . ($_link->getNumberOfDownloadsBought()?$_link->getNumberOfDownloadsBought():Mage::helper('downloadable')->__('U')) ?>)</dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
-    <?php endif; ?>
+    <?php endif ?>
     <?php echo $this->escapeHtml($_item->getDescription()) ?>
-<?php endif; ?>
+<?php endif ?>

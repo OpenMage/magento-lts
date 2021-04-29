@@ -64,10 +64,10 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
-                <?php endif; ?>
+                <?php endif ?>
 
 
                 <span class="review-meta">
@@ -76,12 +76,12 @@
                    <?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?>
                 </span>
             </dd>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </dl>
 
         <?php // echo $this->getChildHtml('toolbar') ?>
     <?php elseif($this->getParentBlock()): ?>
         <?php echo $this->getParentBlock()->getReviewsSummaryHtml($this->getProduct(), 'short', true)?>
-    <?php endif;?>
+    <?php endif ?>
     <?php echo $this->getChildHtml('review_form') ?>
 </div>

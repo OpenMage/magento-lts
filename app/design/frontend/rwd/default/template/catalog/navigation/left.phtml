@@ -47,12 +47,12 @@
                 <?php foreach ($_categories as $_category): ?>
                     <?php if($_category->getIsActive()): ?>
                     <li>
-                        <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif; ?>>
+                        <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif ?>>
                             <?php echo $this->escapeHtml($_category->getName()) ?>
                             <span class="count">(<?php echo $_category->getProductCount() ?>)</span>
                         </a>
                     </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                 <?php endforeach ?>
                 </ol>
             </dd>
@@ -60,4 +60,4 @@
         <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

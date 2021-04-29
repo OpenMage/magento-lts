@@ -40,7 +40,7 @@
                                 <?php echo $this->__('Items in your order'); ?>
                             <?php else: ?>
                                 <?php echo $this->__('Item in your order'); ?>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </th>
                         <th class="cell-name align-center">
                             <?php echo $this->__('Qty'); ?>
@@ -53,7 +53,7 @@
             <?php $i=0; foreach ($_order->getAllItems() as $_item): ?>
             <?php if($_item->getParentItem()) continue; else $i++; ?>
                 <?php echo $this->getItemHtml($_item) ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </table>
         </td>
     </tr>
@@ -84,6 +84,6 @@
                     </tr>
                 </tbody>
             </table>
-        <?php endif; ?>
-    <?php endif; ?>
-<?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
+<?php endif ?>

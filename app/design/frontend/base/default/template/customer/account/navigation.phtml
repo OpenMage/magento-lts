@@ -39,8 +39,8 @@
                     <li class="current<?php echo ($_last ? ' last' : '') ?>"><strong><?php echo $_link->getLabel() ?></strong></li>
                 <?php else: ?>
                     <li<?php echo ($_last ? ' class="last"' : '') ?>><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
-                <?php endif; ?>
-            <?php endforeach; ?>
+                <?php endif ?>
+            <?php endforeach ?>
         </ul>
     </div>
 </div>

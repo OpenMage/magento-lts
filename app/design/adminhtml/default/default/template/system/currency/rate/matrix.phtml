@@ -39,7 +39,7 @@ $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
                 <th class="a-right">&nbsp;</th>
                 <?php $_i = 0; foreach( $this->getAllowedCurrencies() as $_currencyCode ): ?>
                     <th class="<?php echo (( ++$_i == (sizeof($this->getAllowedCurrencies())) ) ? 'last' : '' ) ?> a-right"><strong><?php echo $this->escapeHtml($_currencyCode) ?><strong></th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tr>
         </thead>
         <?php $_j = 0; foreach( $this->getDefaultCurrencies() as $_currencyCode ): ?>
@@ -52,20 +52,20 @@ $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
                             <input type="text" name="rate[<?php echo $this->escapeHtml($_currencyCode) ?>][<?php echo $this->escapeHtml($_rate) ?>]" value="<?php echo ( $_currencyCode == $_rate ) ? '1.0000' : ($_value>0 ? $_value : (isset($_oldRates[$_currencyCode][$_rate]) ? $_oldRates[$_currencyCode][$_rate] : '')) ?>" <?php echo ( $_currencyCode == $_rate ) ? 'class="input-text input-text-disabled" readonly="true"' : 'class="input-text"' ?> />
                             <?php if( isset($_newRates) && $_currencyCode != $_rate && isset($_oldRates[$_currencyCode][$_rate]) ): ?>
                             <br /><span class="old-rate"><?php echo $this->__('Old rate:') ?> <?php echo $_oldRates[$_currencyCode][$_rate] ?></span>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </td>
                     <?php else: ?>
                         <td class="a-right">
                             <input type="text" name="rate[<?php echo $this->escapeHtml($_currencyCode) ?>][<?php echo $this->escapeHtml($_rate) ?>]" value="<?php echo ( $_currencyCode == $_rate ) ? '1.0000' : ($_value>0 ? $_value : (isset($_oldRates[$_currencyCode][$_rate]) ? $_oldRates[$_currencyCode][$_rate] : '')) ?>" <?php echo ( $_currencyCode == $_rate ) ? 'class="input-text input-text-disabled" readonly="true"' : 'class="input-text"' ?> />
                             <?php if( isset($_newRates)  && $_currencyCode != $_rate && isset($_oldRates[$_currencyCode][$_rate]) ): ?>
                             <br /><span class="old-rate"><?php echo $this->__('Old rate:') ?> <?php echo $_oldRates[$_currencyCode][$_rate] ?></span>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </td>
-                    <?php endif; ?>
+                    <?php endif ?>
                 <?php endforeach; $_j = 0; ?>
-            <?php endif; ?>
+            <?php endif ?>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
     </div>
 </form>

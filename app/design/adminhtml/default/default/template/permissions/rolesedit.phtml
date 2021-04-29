@@ -61,7 +61,7 @@
 <script type="text/javascript">
 <?php if($this->getEverythingAllowed()): ?>
     $('resources_container').hide();
-<?php endif; ?>
+<?php endif ?>
 Ext.EventManager.onDocumentReady(function() {
     var tree = new Ext.tree.TreePanel('resource-tree', {
         animate:false,

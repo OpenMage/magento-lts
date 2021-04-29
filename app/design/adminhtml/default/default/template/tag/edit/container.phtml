@@ -31,7 +31,7 @@
 </div>
 <?php if( !$this->isSingleStoreMode() ): ?>
     <?php echo $this->getStoreSwitcherHtml() ?>
-<?php endif; ?>
+<?php endif ?>
 
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="edit_form">
     <?php echo $this->getFormHtml() ?>
@@ -51,7 +51,7 @@
     <div class="content-footer">
         <p class="content-buttons form-buttons"><?php echo $this->getButtonsHtml('footer') ?></p>
     </div>
-<?php endif; ?>
+<?php endif ?>
 <script type="text/javascript">
     var editForm = new varienForm('edit_form', '<?php echo $this->getValidationUrl() ?>');
 </script>

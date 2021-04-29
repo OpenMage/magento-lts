@@ -54,13 +54,13 @@ For checkout/onepage/shipping.phtml:
             <?php else: ?>
                 <select id="<?php echo $this->getFieldId('prefix')?>" name="<?php echo $this->getFieldName('prefix')?>" title="<?php echo Mage::helper('core')->quoteEscape($this->getStoreLabel('prefix')) ?>" class="<?php echo $this->helper('customer/address')->getAttributeValidationClass('prefix') ?>" <?php echo $this->getFieldParams() ?>>
                 <?php foreach ($this->getPrefixOptions() as $_option): ?>
-                    <option value="<?php echo $_option?>"<?php if ($this->getObject()->getPrefix()==$_option):?> selected="selected"<?php endif; ?>><?php echo $this->__($_option)?></option>
-                <?php endforeach; ?>
+                    <option value="<?php echo $_option?>"<?php if ($this->getObject()->getPrefix()==$_option):?> selected="selected"<?php endif ?>><?php echo $this->__($_option)?></option>
+                <?php endforeach ?>
                 </select>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
     <div class="field name-firstname">
         <label for="<?php echo $this->getFieldId('firstname')?>" class="required"><em>*</em><?php echo $this->getStoreLabel('firstname') ?></label>
         <div class="input-box">
@@ -75,7 +75,7 @@ For checkout/onepage/shipping.phtml:
             <input type="text" id="<?php echo $this->getFieldId('middlename')?>" name="<?php echo $this->getFieldName('middlename')?>" value="<?php echo $this->escapeHtml($this->getObject()->getMiddlename()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->getStoreLabel('middlename')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('middlename') ?>" <?php echo $this->getFieldParams() ?> />
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
     <div class="field name-lastname">
         <label for="<?php echo $this->getFieldId('lastname')?>" class="required"><em>*</em><?php echo $this->getStoreLabel('lastname') ?></label>
         <div class="input-box">
@@ -91,11 +91,11 @@ For checkout/onepage/shipping.phtml:
         <?php else: ?>
             <select id="<?php echo $this->getFieldId('suffix')?>" name="<?php echo $this->getFieldName('suffix')?>" title="<?php echo Mage::helper('core')->quoteEscape($this->getStoreLabel('suffix')) ?>" class="<?php echo $this->helper('customer/address')->getAttributeValidationClass('suffix') ?>" <?php echo $this->getFieldParams() ?>>
             <?php foreach ($this->getSuffixOptions() as $_option): ?>
-                <option value="<?php echo $_option?>"<?php if ($this->getObject()->getSuffix()==$_option):?> selected="selected"<?php endif; ?>><?php echo $this->__($_option)?></option>
-            <?php endforeach; ?>
+                <option value="<?php echo $_option?>"<?php if ($this->getObject()->getSuffix()==$_option):?> selected="selected"<?php endif ?>><?php echo $this->__($_option)?></option>
+            <?php endforeach ?>
             </select>
-        <?php endif; ?>
+        <?php endif ?>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 </div>

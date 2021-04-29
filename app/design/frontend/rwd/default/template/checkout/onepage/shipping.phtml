@@ -63,7 +63,7 @@
                             <input type="text" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" name="shipping[street][]" id="shipping:street<?php echo $_i ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" class="input-text <?php echo $_streetValidationClass ?>" onchange="shipping.setSameAsBilling(false);" />
                         </div>
                     </li>
-            <?php endfor; ?>
+            <?php endfor ?>
                     <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
                     <li class="wide">
                         <label for="shipping:vat_id"><?php echo $this->__('VAT Number'); ?></label>
@@ -71,7 +71,7 @@
                             <input type="text" id="shipping:vat_id" name="shipping[vat_id]" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()); ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')); ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
                         </div>
                     </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <li class="fields">
                         <div class="field">
                             <label for="shipping:city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -124,15 +124,15 @@
                     </li>
                 <?php if ($this->isCustomerLoggedIn() && $this->customerHasAddresses()):?>
                     <li class="control">
-                        <input type="checkbox" name="shipping[save_in_address_book]" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save in address book')) ?>" id="shipping:save_in_address_book" onchange="shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif;?> class="checkbox" /><label for="shipping:save_in_address_book"><?php echo $this->__('Save in address book') ?></label></li>
-                <?php else:?>
+                        <input type="checkbox" name="shipping[save_in_address_book]" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save in address book')) ?>" id="shipping:save_in_address_book" onchange="shipping.setSameAsBilling(false);"<?php if ($this->getAddress()->getSaveInAddressBook()):?> checked="checked"<?php endif ?> class="checkbox" /><label for="shipping:save_in_address_book"><?php echo $this->__('Save in address book') ?></label></li>
+                <?php else: ?>
                     <li class="no-display"><input type="hidden" name="shipping[save_in_address_book]" value="1" /></li>
-                <?php endif;?>
+                <?php endif ?>
                 </ul>
             </div>
         </li>
         <li class="control">
-            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif; ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
+            <input type="checkbox" name="shipping[same_as_billing]" id="shipping:same_as_billing" value="1"<?php if($this->getAddress()->getSameAsBilling()): ?> checked="checked"<?php endif ?> title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use Billing Address')) ?>" onclick="shipping.setSameAsBilling(this.checked)" class="checkbox" /><label for="shipping:same_as_billing"><?php echo $this->__('Use Billing Address') ?></label>
         </li>
     </ul>
     <div class="buttons-set" id="shipping-buttons-container">

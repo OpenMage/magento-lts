@@ -48,7 +48,7 @@
             <p class="amount amount--no-pages">
                 <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
             </p>
-            <?php endif; ?>
+            <?php endif ?>
         <?php endif ?>
 
         <?php if($this->getShowPerPage()): ?>
@@ -59,12 +59,12 @@
                 <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                     <?php echo $_limit ?>
                 </option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
         </div>
         <?php endif ?>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getLastPageNum()>1): ?>
     <div class="pages">
@@ -72,56 +72,56 @@
         <ol>
         <?php if (!$this->isFirstPage()): ?>
             <li>
-                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous')) ?>">
+                <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif ?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous')) ?>">
                     <?php if(!$this->getAnchorTextForPrevious()): ?>
                         <?php echo $this->__('Previous') ?>
                     <?php else: ?>
                         <?php echo $this->getAnchorTextForPrevious() ?>
-                    <?php endif;?>
+                    <?php endif ?>
                 </a>
             </li>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php if ($this->canShowFirst()): ?>
             <li><a class="first" href="<?php echo $this->getFirstPageUrl() ?>">1</a></li>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php if ($this->canShowPreviousJump()): ?>
             <li><a class="previous_jump" title="" href="<?php echo $this->getPreviousJumpUrl() ?>">...</a></li>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php foreach ($this->getFramePages() as $_page): ?>
             <?php if ($this->isPageCurrent($_page)): ?>
                 <li class="current"><?php echo $_page ?></li>
             <?php else: ?>
                 <li><a href="<?php echo $this->getPageUrl($_page) ?>"><?php echo $_page ?></a></li>
-            <?php endif;?>
-        <?php endforeach;?>
+            <?php endif ?>
+        <?php endforeach ?>
 
 
         <?php if ($this->canShowNextJump()): ?>
             <li><a class="next_jump" title="" href="<?php echo $this->getNextJumpUrl() ?>">...</a></li>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php if ($this->canShowLast()): ?>
           <li><a class="last" href="<?php echo $this->getLastPageUrl() ?>"><?php echo $this->getLastPageNum() ?></a></li>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php if (!$this->isLastPage()): ?>
             <li>
-                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
+                <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next')) ?>">
                     <?php if(!$this->getAnchorTextForNext()): ?>
                         <?php echo $this->__('Next') ?>
                     <?php else: ?>
                         <?php echo $this->getAnchorTextForNext() ?>
-                    <?php endif;?>
+                    <?php endif ?>
                 </a>
             </li>
-        <?php endif;?>
+        <?php endif ?>
         </ol>
 
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->getUseContainer()): ?>
     </div>
