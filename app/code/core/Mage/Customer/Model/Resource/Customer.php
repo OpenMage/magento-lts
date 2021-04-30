@@ -134,8 +134,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId   = $customer->getData('default_billing');
-        $defaultShippingId  = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getData('default_billing');
+        $defaultShippingId = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
@@ -146,10 +146,18 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
                 $address->delete();
             } else {
-                $address->setParentId($customer->getId())
-                    ->setStoreId($customer->getStoreId())
-                    ->setIsCustomerSaveTransaction(true)
-                    ->save();
+                if ($address->getParentId() != $customer->getId())
+                    $address->setParentId($customer->getId());
+
+                if ($address->hasDataChanges()) {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true)
+                        ->save();
+                } else {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true);
+                }
+
                 if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
                     && $address->getId() != $defaultBillingId
                 ) {
