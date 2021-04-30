@@ -146,8 +146,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
                 $address->delete();
             } else {
-                if ($address->getParentId() != $customer->getId())
+                if ($address->getParentId() != $customer->getId()) {
                     $address->setParentId($customer->getId());
+                }
 
                 if ($address->hasDataChanges()) {
                     $address->setStoreId($customer->getStoreId())
