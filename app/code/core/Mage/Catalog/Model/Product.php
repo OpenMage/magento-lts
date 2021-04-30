@@ -2272,6 +2272,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_options             = array();
         $this->_canAffectOptions    = false;
         $this->_errors              = array();
+        $this->_defaultValues       = array();
+        $this->_storeValuesFlags    = array();
+        $this->_lockedAttributes    = array();
 
         return $this;
     }
