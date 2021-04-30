@@ -76,7 +76,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_backgroundColor  = array(255, 255, 255);
+    protected $_backgroundColor    = array(255, 255, 255);
+    protected $_backgroundColorStr = 'ffffff';
 
     /**
      * Absolute path to and original (full resolution) image
@@ -107,6 +108,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected $_watermarkWidth;
     protected $_watermarkHeigth;
     protected $_watermarkImageOpacity = 70;
+
+    /**
+     * @var string directory
+     */
+    protected static $_baseMediaPath;
 
     /**
      * @param int $width
@@ -213,6 +219,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function setBackgroundColor(array $rgbArray)
     {
         $this->_backgroundColor = $rgbArray;
+        $this->_backgroundColorStr = $this->_rgbToString($rgbArray);
         return $this;
     }
 
@@ -347,7 +354,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if (($file) && (0 !== strpos($file, '/', 0))) {
             $file = '/' . $file;
         }
-        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+
+        if (empty(self::$_baseMediaPath)) {
+            self::$_baseMediaPath = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+        }
+        $baseDir = self::$_baseMediaPath;
 
         if ('/no_selection' == $file) {
             $file = null;
@@ -390,7 +401,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // build new filename (most important params)
         $path = array(
-            Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath(),
+            self::$_baseMediaPath,
             'cache',
             Mage::app()->getStore()->getId(),
             $path[] = $this->getDestinationSubdir()
@@ -405,7 +416,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 ($this->_keepFrame        ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
                 ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
-                $this->_rgbToString($this->_backgroundColor),
+                $this->_backgroundColorStr,
                 'angle' . $this->_angle,
                 'quality' . $this->_quality
         );
