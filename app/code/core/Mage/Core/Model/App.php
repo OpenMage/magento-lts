@@ -380,6 +380,23 @@ class Mage_Core_Model_App
 
             $this->getFrontController()->dispatch();
         }
+
+        // Finish the request explicitly, no output allowed beyond this point
+        if (php_sapi_name() == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        } else {
+            flush();
+        }
+        if (isset($_SESSION)) {
+            session_write_close();
+        }
+
+        try {
+            Mage::dispatchEvent('core_app_run_after', ['app' => $this]);
+        } catch (Throwable $e) {
+            Mage::logException($e);
+        }
+
         return $this;
     }
 
