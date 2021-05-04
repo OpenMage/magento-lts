@@ -590,7 +590,7 @@ div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-c
 /* HEADER & FOOTER
 *******************************************************************************/
 
-.logo                                   { float:left; margin:5px 20px 5px 27px; height:43px; }
+.logo                                   { float:left; margin:7px 20px 5px 32px; height:30px; }
 .header-top                             { border-bottom:1px solid #5F767F; }
 
 /* Header right */
@@ -721,7 +721,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 /* LOGIN
 *******************************************************************************/
 #page-login                             { background:#f8f8f8; text-align:center; }
-.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.png) no-repeat; }
+.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.png) no-repeat; background-position-y: 3px; }
 .login-form                             { padding:27px 57px 35px 57px; background:url(images/login_box_bg.jpg) no-repeat; text-align:left; }
 .login-form .input-left                 { float:left; }
 .login-form .input-right                { float:right; }
