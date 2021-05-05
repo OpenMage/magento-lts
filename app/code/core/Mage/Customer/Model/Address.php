@@ -68,8 +68,6 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     {
         $this->setParentId($id);
         $this->setData('customer_id', $id);
-        if (empty($this->getOrigData('customer_id')))
-            $this->setOrigData('customer_id', $id);
         return $this;
     }
 
