@@ -330,7 +330,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Auto-redirect to base url (without SID) if the requested url doesn't match it.
      * By default this feature is enabled in configuration.
      *
-     * @param Zend_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http $request
      */
     protected function _checkBaseUrl($request)
     {
