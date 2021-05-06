@@ -176,7 +176,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param Varien_Simplexml_Element $source
      * @return array
      */
-    public function getChildren($source)
+    public function getChildren($source = null)
     {
         $children = array();
         $namespaces = $source->getNamespaces(true);
