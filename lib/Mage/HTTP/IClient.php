@@ -28,7 +28,7 @@
  * Interface for different HTTP clients
  *
  * @category    Mage
- * @package     Mage_Connect
+ * @package     Mage_HTTP
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 interface Mage_HTTP_IClient
@@ -38,22 +38,22 @@ interface Mage_HTTP_IClient
      * @param int $value
      */
     function setTimeout($value);
-    
-    
+
+
     /**
      * Set request headers from hash
      * @param array $headers
      */
     function setHeaders($headers);
-    
+
     /**
-     * Add header to request 
+     * Add header to request
      * @param string $name
      * @param string $value
      */
     function addHeader($name, $value);
-    
-    
+
+
     /**
      * Remove header from request
      * @param string $name
@@ -68,9 +68,9 @@ interface Mage_HTTP_IClient
      * @param string $pass
      */
     function setCredentials($login, $pass);
-    
+
     /**
-     * Add cookie to request 
+     * Add cookie to request
      * @param string $name
      * @param string $value
      */
@@ -81,11 +81,11 @@ interface Mage_HTTP_IClient
      * @param string $name
      */
     function removeCookie($name);
-    
+
     /**
      * Set request cookies from hash
      * @param array $cookies
-     */ 
+     */
     function setCookies($cookies);
 
     /**
@@ -103,33 +103,33 @@ interface Mage_HTTP_IClient
      * Make POST request
      * @param string $uri full uri
      * @param array $params POST fields array
-     */ 
+     */
     function post($uri, $params);
-    
+
     /**
      * Get response headers
      * @return array
-     */ 
+     */
     function getHeaders();
-    
+
     /**
      * Get response body
      * @return string
      */
-    function getBody(); 
-    
+    function getBody();
+
     /**
      * Get response status code
      * @return int
      */
     function getStatus();
-    
+
     /**
-     * Get response cookies (k=>v) 
+     * Get response cookies (k=>v)
      * @return array
      */
     function getCookies();
-    
+
     /**
      * Set additional option
      * @param string $key

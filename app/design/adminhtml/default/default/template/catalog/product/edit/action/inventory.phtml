@@ -55,7 +55,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                 <td class="label"><label for="inventory_manage_stock"><?php echo Mage::helper('catalog')->__('Manage Stock') ?></label></td>
                 <td class="value"><select id="inventory_manage_stock" name="<?php echo $this->getFieldSuffix() ?>[manage_stock]" class="select" disabled="disabled">
                         <option value="1"><?php echo Mage::helper('catalog')->__('Yes') ?></option>
-                        <option value="0"<?php if ($this->getConfigFieldValue('manage_stock') == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
+                        <option value="0"<?php if ($this->getConfigFieldValue('manage_stock') == 0): ?> selected="selected"<?php endif ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
                     </select>
                     <input name="<?php echo $this->getFieldSuffix() ?>[use_config_manage_stock]" type="checkbox" id="inventory_use_config_manage_stock" onclick="toggleValueElements(this, this.parentNode, $('inventory_manage_stock_checkbox'));" value="1" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_manage_stock" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
@@ -107,7 +107,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                 <td class="label"><label for="inventory_is_qty_decimal"><?php echo Mage::helper('catalog')->__('Qty Uses Decimals') ?></label></td>
                 <td class="value"><select id="inventory_is_qty_decimal" name="<?php echo $this->getFieldSuffix() ?>[is_qty_decimal]" class="select" disabled="disabled">
                         <option value="0"><?php echo Mage::helper('catalog')->__('No') ?></option>
-                        <option value="1"<?php if ($this->getDefaultConfigValue('is_qty_decimal')==1): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('Yes') ?></option>
+                        <option value="1"<?php if ($this->getDefaultConfigValue('is_qty_decimal')==1): ?> selected="selected"<?php endif ?>><?php echo Mage::helper('catalog')->__('Yes') ?></option>
                     </select>
                     <input type="checkbox" id="inventory_is_qty_decimal_checkbox"    onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_is_qty_decimal_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>
@@ -120,7 +120,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                         <?php foreach ($this->getBackordersOption() as $option): ?>
                         <?php $_selected = ($option['value'] == $this->getDefaultConfigValue('backorders')) ? ' selected="selected"' : '' ?>
                         <option value="<?php echo $option['value'] ?>"<?php echo $_selected ?>><?php echo $option['label'] ?></option>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </select>
                     <input type="checkbox" id="inventory_use_config_backorders" name="<?php echo $this->getFieldSuffix() ?>[use_config_backorders]" value="1" onclick="toggleValueElements(this, this.parentNode, $('inventory_backorders_checkbox'));" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_backorders" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
@@ -144,7 +144,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                 <td class="label"><label for="inventory_enable_qty_increments"><?php echo Mage::helper('catalog')->__('Enable Qty Increments') ?></label></td>
                 <td class="value"><select id="inventory_enable_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[enable_qty_increments]" class="select" disabled="disabled">
                         <option value="1"><?php echo Mage::helper('catalog')->__('Yes') ?></option>
-                        <option value="0"<?php if ($this->getDefaultConfigValue('enable_qty_increments') == 0): ?> selected="selected"<?php endif; ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
+                        <option value="0"<?php if ($this->getDefaultConfigValue('enable_qty_increments') == 0): ?> selected="selected"<?php endif ?>><?php echo Mage::helper('catalog')->__('No') ?></option>
                     </select>
                     <input type="checkbox" id="inventory_use_config_enable_qty_increments" name="<?php echo $this->getFieldSuffix() ?>[use_config_enable_qty_increments]" value="1" onclick="toggleValueElements(this, this.parentNode, [$('inventory_enable_qty_increments_checkbox')]);" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_enable_qty_increments" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
@@ -169,7 +169,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
                 <td class="label"><label for="inventory_stock_availability"><?php echo Mage::helper('catalog')->__('Stock Availability') ?></label></td>
                 <td class="value"><select id="inventory_stock_availability" name="<?php echo $this->getFieldSuffix() ?>[is_in_stock]" class="select" disabled="disabled">
                         <option value="1"><?php echo Mage::helper('catalog')->__('In Stock') ?></option>
-                        <option value="0"<?php if ($this->getDefaultConfigValue('is_in_stock')==0): ?> selected<?php endif; ?>><?php echo Mage::helper('catalog')->__('Out of Stock') ?></option>
+                        <option value="0"<?php if ($this->getDefaultConfigValue('is_in_stock')==0): ?> selected<?php endif ?>><?php echo Mage::helper('catalog')->__('Out of Stock') ?></option>
                     </select>
                     <input type="checkbox" id="inventory_stock_availability_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
                     <label for="inventory_stock_availability_checkbox" class="normal"><?php echo Mage::helper('catalog')->__('Change') ?></label>

@@ -24,10 +24,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Rate_Result_Error
+ *
+ * @method $this setCarrier(string $value)
+ * @method $this setCarrierTitle(string $value)
+ * @method $this setErrorMessage(string $value)
+ */
 class Mage_Shipping_Model_Rate_Result_Error extends Mage_Shipping_Model_Rate_Result_Abstract
 {
-
+    /**
+     * @return string
+     */
     public function getErrorMessage()
     {
         if (!$this->getData('error_message')) {

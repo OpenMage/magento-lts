@@ -248,13 +248,13 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get table name for the entity, validated by db adapter
      *
-     * @param string $entityName
+     * @param string|array $entityName
      * @return string
      */
     public function getTable($entityName)
     {
         if (is_array($entityName)) {
-            $cacheName    = join('@', $entityName);
+            $cacheName = implode('@', $entityName);
             list($entityName, $entitySuffix) = $entityName;
         } else {
             $cacheName    = $entityName;
@@ -396,10 +396,16 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @param mixed $value
      * @param Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
+     * @throws Exception
      */
     protected function _getLoadSelect($field, $value, $object)
     {
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
+
+        if (!isset($fields[$field])) {
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
+        }
+
         $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
         $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
         $select = $this->_getReadAdapter()->select()

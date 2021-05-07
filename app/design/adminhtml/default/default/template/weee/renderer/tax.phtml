@@ -34,22 +34,22 @@
     <table cellspacing="0" class="data border" id="<?php echo $_htmlId; ?>_table">
         <?php if ($_multiWebsite): ?>
         <col width="135" />
-        <?php endif; ?>
+        <?php endif ?>
         <col width="140" />
         <col />
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
+                <th <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
                 <th><?php echo Mage::helper('catalog')->__('Country/State') ?> <span class="required">*</span></th>
                 <th><?php echo Mage::helper('catalog')->__('Tax') ?> <span class="required">*</span></th>
                 <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
             </tr>
             <tr id="<?php echo $_htmlId ?>_add_template" class="template no-display">
-                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>>
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>>
                 <select disabled="no-template" class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[__index__][website_id]" id="#{prefix}_weee_tax_row___index___website">
                     <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
-                    <option value="<?php echo $_websiteId ?>"><?php echo $_info['name'] ?><?php if (!empty($_info['currency'])): ?> [<?php echo $_info['currency'] ?>]<?php endif; ?></option>
+                    <option value="<?php echo $_websiteId ?>"><?php echo $_info['name'] ?><?php if (!empty($_info['currency'])): ?> [<?php echo $_info['currency'] ?>]<?php endif ?></option>
                     <?php endforeach ?>
                 </select>
                 </td>
@@ -75,7 +75,7 @@
         </thead>
         <tfoot>
             <tr>
-                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif; ?>></td>
+                <td <?php if (!$_multiWebsite): ?>style="display:none"<?php endif ?>></td>
                 <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
@@ -181,7 +181,7 @@
     }
     <?php foreach ($this->getValues() as $_item): ?>
     weeeTaxControl.addItem('<?php echo $_htmlId ?>', '<?php echo $_item['website_id'] ?>', '<?php echo $_item['country'] ?>', '<?php echo $_item['state'] ?>', '<?php echo sprintf('%.2f', $_item['value']) ?>');
-    <?php endforeach; ?>
+    <?php endforeach ?>
 
     if (typeof weeeEditorPrefixes == 'undefined') {
         var weeeEditorPrefixes = new Array();

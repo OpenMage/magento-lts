@@ -65,25 +65,25 @@
                             </label>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </div>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </td>
                 <?php if ($this->getCanShowProductPrice($_product)): ?>
                 <td class="a-right">
                     <?php if ($this->getCanShowProductPrice($_item)): ?>
                     <?php echo $this->getPriceHtml($_item, true) ?>
                     <?php echo $this->getTierPriceHtml($_item) ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </td>
-                <?php endif; ?>
+                <?php endif ?>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php else: ?>
            <tr>
-               <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+               <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?php echo $this->__('No options of this product are available.') ?></td>
            </tr>
-        <?php endif; ?>
+        <?php endif ?>
         </tbody>
     </table>
 </div>

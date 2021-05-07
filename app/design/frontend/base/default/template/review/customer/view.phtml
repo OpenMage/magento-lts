@@ -34,7 +34,7 @@
         <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
             <p class="label"><?php echo $this->__('Average Customer Rating:') ?></p>
             <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <div class="product-details">
         <h2 class="product-name"><?php echo $this->escapeHtml($this->getProductData()->getName()) ?></h2>
@@ -51,17 +51,17 @@
                     </div>
                 </td>
             </tr>
-        <?php endif; ?>
-        <?php endforeach; ?>
+        <?php endif ?>
+        <?php endforeach ?>
         </table>
-        <?php endif; ?>
+        <?php endif ?>
         <dl>
             <dt>
                 <?php if ($this->isReviewOwner()): ?>
                     <?php echo $this->__('Your Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
-                <?php else :?>
+                <?php else: ?>
                     <?php echo $this->__('Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
-                <?php endif;?>
+                <?php endif ?>
             </dt>
             <dd>
                 <?php echo nl2br($this->escapeHtml($this->getReviewData()->getDetail())) ?>
@@ -72,4 +72,4 @@
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to My Reviews') ?></a></p>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

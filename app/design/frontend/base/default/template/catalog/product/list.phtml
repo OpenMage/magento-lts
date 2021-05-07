@@ -46,7 +46,7 @@
     <?php $_iterator = 0; ?>
     <ol class="products-list" id="products-list">
     <?php foreach ($_productCollection as $_product): ?>
-        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif ?>">
             <?php // Product Image ?>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
             <?php // Product description ?>
@@ -56,7 +56,7 @@
                     <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product) ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php echo $this->getPriceHtml($_product, true) ?>
                     <?php if($_product->isSaleable()): ?>
                         <p class="action">
@@ -72,7 +72,7 @@
                         </p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <div class="desc std">
                         <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
@@ -89,7 +89,7 @@
                                     <?php echo $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                             <li>
                                 <span class="separator">|</span>
@@ -99,12 +99,12 @@
                                     <?php echo $this->__('Add to Compare') ?>
                                 </a>
                             </li>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </ul>
                 </div>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ol>
     <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
 
@@ -118,12 +118,12 @@
         <?php if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
         <?php endif ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
                 <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
                 <?php if($_product->getRatingSummary()): ?>
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php echo $this->getPriceHtml($_product, true) ?>
                 <div class="actions">
                     <?php if($_product->isSaleable()): ?>
@@ -138,7 +138,7 @@
                         </button>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <ul class="add-to-links">
                         <?php if ($this->helper('wishlist')->isAllow()) : ?>
                             <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
@@ -151,7 +151,7 @@
                                     <?php echo $this->__('Add to Wishlist') ?>
                                 </a>
                             </li>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                             <li>
                                 <span class="separator">|</span>
@@ -161,7 +161,7 @@
                                     <?php echo $this->__('Add to Compare') ?>
                                 </a>
                             </li>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </ul>
                 </div>
             </li>
@@ -170,10 +170,10 @@
         <?php endif ?>
         <?php endforeach ?>
         <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
-    <?php endif; ?>
+    <?php endif ?>
 
     <div class="toolbar-bottom">
         <?php echo $this->getToolbarHtml() ?>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

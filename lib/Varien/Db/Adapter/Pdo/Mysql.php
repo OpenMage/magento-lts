@@ -1564,7 +1564,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $cacheId = $this->_getCacheId($tableCacheKey, $ddlType);
             $data = $this->_cacheAdapter->load($cacheId);
             if ($data !== false) {
-                $data = unserialize($data);
+                $data = unserialize($data, ['allowed_classes' => false]);
                 $this->_ddlCache[$ddlType][$tableCacheKey] = $data;
             }
             return $data;
@@ -3001,9 +3001,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _prepareQuotedSqlCondition($text, $value, $fieldName)
     {
-        $sql = $this->quoteInto($text, $value);
-        $sql = str_replace('{{fieldName}}', $fieldName, $sql);
-        return $sql;
+      $text = str_replace('{{fieldName}}', $fieldName, $text);
+      return $this->quoteInto($text, $value);
     }
 
     /**

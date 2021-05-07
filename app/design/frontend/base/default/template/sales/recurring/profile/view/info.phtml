@@ -29,9 +29,9 @@
 
 <?php foreach ($this->getRenderedInfo() as $row):?>
 <address><?php echo nl2br($this->escapeHtml($this->getObjectData($row, 'value')))?></address>
-<?php endforeach;?>
+<?php endforeach ?>
 
-<?php else:?>
+<?php else: ?>
 
 <table class="info-table">
     <tbody>
@@ -41,7 +41,7 @@
             <th><?php echo $this->escapeHtml($this->getObjectData($row, 'label'))?>:</th>
             <td><?php echo $this->renderRowValue($row) ?></td>
         </tr>
-        <?php endforeach;?>
+        <?php endforeach ?>
     </tbody>
 </table>
-<?php endif;?>
+<?php endif ?>

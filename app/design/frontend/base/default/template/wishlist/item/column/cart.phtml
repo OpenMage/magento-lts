@@ -37,7 +37,7 @@ $options = $this->getChild('customer.wishlist.item.options')
 <div class="add-to-cart-alt">
 <?php if ($item->canHaveQty() && $item->getProduct()->isVisibleInSiteVisibility()): ?>
     <input type="text" class="input-text qty validate-not-negative-number" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" />
-<?php endif; ?>
+<?php endif ?>
 <?php if ($product->isSaleable()): ?>
     <button type="button"
         title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
@@ -50,12 +50,12 @@ $options = $this->getChild('customer.wishlist.item.options')
         <p class="availability in-stock"><span><?php echo $this->__('In stock') ?></span></p>
     <?php else: ?>
         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 </div>
 <?php foreach($this->getSortedChildren() as $childName):?>
     <?php echo $this->getChildHtml($childName, false);?>
-<?php endforeach;?>
+<?php endforeach ?>
 <?php if ($product->isVisibleInSiteVisibility()): ?>
     <p><a class="link-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
 <?php endif ?>

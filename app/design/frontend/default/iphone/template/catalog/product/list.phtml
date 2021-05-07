@@ -65,7 +65,7 @@
                             <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="i-send-friend"><i></i><?php echo $this->__('Tell a Friend') ?></a></li>
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
                                 <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="i-send-wishlist"><i></i><?php echo $this->__('Add to Wishlist') ?></a></li>
-                            <?php endif; ?>
+                            <?php endif ?>
                             <li><a href="<?php echo $this->getAddToCartUrl($_product) ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>'); return false;" class="i-add-to-cart"><i></i><?php echo $this->__('Add to Cart') ?></a></li>
                         </ul>
                     </div>
@@ -73,4 +73,4 @@
             <?php endforeach ?>
         </ul>
     </div>
-<?php endif; ?>
+<?php endif ?>

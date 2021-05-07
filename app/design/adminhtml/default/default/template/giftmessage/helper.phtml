@@ -27,10 +27,10 @@
 <?php if($this->getType()!== 'main' && !$this->getScriptIncluded() && $this->getCanDisplayContainer()): ?>
 <?php echo $this->helper('core/js')->includeScript('mage/adminhtml/giftmessage.js') ?>
 <?php $this->setScriptIncluded(true); ?>
-<?php endif; ?>
+<?php endif ?>
 <?php if($this->getCanDisplayContainer()): ?>
 <div id="<?php echo $this->getId() ?>">
-<?php endif; ?>
+<?php endif ?>
 <?php switch ($this->getType()): ?>
 <?php case 'item': ?>
     <a class="listen-for-click" href="#">
@@ -38,18 +38,18 @@
         <?php echo Mage::helper('giftmessage')->__('Edit') ?>
         <?php else: ?>
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
-        <?php endif; ?>
+        <?php endif ?>
     </a>
-    <?php break; ?>
+    <?php break ?>
 <?php case 'order_item': ?>
     <a class="listen-for-click" href="#">
         <?php if($this->hasGiftMessage()): ?>
         <?php echo Mage::helper('giftmessage')->__('Edit') ?>
         <?php else: ?>
         <?php echo Mage::helper('giftmessage')->__('Add') ?>
-        <?php endif; ?>
+        <?php endif ?>
     </a>
-    <?php break; ?>
+    <?php break ?>
 <?php case 'main': ?>
         <?php if($this->hasGiftMessage()): ?>
             <?php if($_giftMessage=$this->getMessage()): ?>
@@ -65,12 +65,12 @@
                 <label><?php echo Mage::helper('giftmessage')->__('Message') ?></label>
                  <div class="f-left"><?php echo $this->prepareAsIs($_giftMessage->getMessage()) ?></div>
             </span>
-            <?php endif; ?>
+            <?php endif ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Edit'), 'edit') ?>
         <?php else: ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Add'), 'add') ?>
-        <?php endif; ?>
-    <?php break; ?>
+        <?php endif ?>
+    <?php break ?>
 <?php case 'order': ?>
         <?php if($this->hasGiftMessage()): ?>
             <?php if($_giftMessage=$this->getMessage()): ?>
@@ -88,12 +88,12 @@
                 <div class="f-left"><?php echo $this->prepareAsIs($_giftMessage->getMessage()) ?></div>
             </span>
 
-            <?php endif; ?>
+            <?php endif ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Edit'), 'edit') ?>
         <?php else: ?>
         <?php echo $this->getWidgetButtonHtml(Mage::helper('giftmessage')->__('Add'), 'add') ?>
-        <?php endif; ?>
-    <?php break; ?>
+        <?php endif ?>
+    <?php break ?>
 <?php endswitch ?>
 <?php if($this->getCanDisplayContainer()): ?>
 </div>
@@ -101,4 +101,4 @@
 var <?php echo $this->getJsObjectName() ?> = new GiftMessage('<?php echo $this->getId() ?>');
 <?php echo $this->getJsObjectName() ?>.url = '<?php echo $this->getEditUrl() ?>';
 </script>
-<?php endif; ?>
+<?php endif ?>

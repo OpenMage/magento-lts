@@ -39,7 +39,7 @@
                     $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
             ?>
                 <th class="<?php echo $_blockName; ?>"><?php echo $column->getTitle();?></th>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tr>
     </thead>
     <tbody>
@@ -57,24 +57,24 @@
                                 $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
                             }
                     ?>
-                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif; ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
-                    <?php endforeach; ?>
+                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                    <?php endforeach ?>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
-        <?php endif; ?>
+        <?php endif ?>
     </tbody>
 </table>
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 <script type="text/javascript">
 //<![CDATA[
     decorateTable('wishlist-table');
 
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getJs();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 //]]>
 </script>

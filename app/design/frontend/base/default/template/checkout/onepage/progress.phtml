@@ -34,25 +34,25 @@
             <div id="billing-progress-opcheckout">
                 <?php echo $this->getChildHtml('billing.progress') ?>
             </div>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php if ($this->getCheckout()->getStepData('shipping', 'is_show')): ?>
             <div id="shipping-progress-opcheckout">
                 <?php echo $this->getChildHtml('shipping.progress') ?>
             </div>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php if ($this->getCheckout()->getStepData('shipping_method', 'is_show')): ?>
             <div id="shipping_method-progress-opcheckout">
                 <?php echo $this->getChildHtml('shippingmethod.progress') ?>
             </div>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php if ($this->getCheckout()->getStepData('payment', 'is_show')): ?>
             <div id="payment-progress-opcheckout">
                 <?php echo $this->getChildHtml('payment.progress') ?>
             </div>
-            <?php endif; ?>
+            <?php endif ?>
         </dl>
     </div>
 </div>

@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
         if (!empty($delete)) {
-            $where = join(' AND ', array(
+            $where = implode(' AND ', array(
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
                 $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete)
             ));

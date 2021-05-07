@@ -26,12 +26,12 @@
 
 class Mage_Shipping_Model_Tracking_Result
 {
-
     protected $_trackings = array();
     protected $_error = null;
 
     /**
      * Reset tracking
+     * @return $this
      */
     public function reset()
     {
@@ -39,17 +39,26 @@ class Mage_Shipping_Model_Tracking_Result
         return $this;
     }
 
+    /**
+     * @param string $error
+     */
     public function setError($error)
     {
         $this->_error = $error;
     }
 
+    /**
+     * @return string
+     */
     public function getError()
     {
         return $this->_error;
     }
+
     /**
      * Add a tracking to the result
+     * @param Mage_Shipping_Model_Tracking_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @return $this
      */
     public function append($result)
     {
@@ -71,5 +80,4 @@ class Mage_Shipping_Model_Tracking_Result
     {
         return $this->_trackings;
     }
-
 }

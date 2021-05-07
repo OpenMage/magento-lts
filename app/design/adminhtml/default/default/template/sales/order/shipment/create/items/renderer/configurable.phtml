@@ -30,17 +30,17 @@
     <td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
 
 
-    <td class="<?php if ($this->isShipmentRegular()): ?>last<?php endif; ?> a-center">
+    <td class="<?php if ($this->isShipmentRegular()): ?>last<?php endif ?> a-center">
         <?php if ($this->canShipPartiallyItem()): ?>
             <input type="text" class="input-text" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
         <?php else: ?>
             <?php echo $_item->getQty()*1 ?>
-        <?php endif; ?>
+        <?php endif ?>
     </td>
     <?php if (!$this->canShipPartiallyItem()): ?>
     <td class="a-center last">
         <input type="hidden" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="0" />
         <input type="checkbox" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" checked />
     </td>
-    <?php endif; ?>
+    <?php endif ?>
 </tr>

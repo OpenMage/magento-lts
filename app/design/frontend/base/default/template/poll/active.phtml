@@ -53,14 +53,14 @@
                     <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
                     <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
             <script type="text/javascript">decorateList('poll-answers');</script>
-            <?php endif; ?>
+            <?php endif ?>
             <div class="actions">
                 <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Vote')) ?>" class="button"><span><span><?php echo $this->__('Vote') ?></span></span></button>
             </div>
         </div>
     </form>
 </div>
-<?php endif; ?>
+<?php endif ?>

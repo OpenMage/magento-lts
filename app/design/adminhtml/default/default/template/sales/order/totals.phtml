@@ -41,7 +41,7 @@
     <?php foreach ($this->getTotals('footer') as $_code => $_total): ?>
         <?php if ($_total->getBlockName()): ?>
             <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
-        <?php else:?>
+        <?php else: ?>
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
                 <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
@@ -50,10 +50,10 @@
                 <strong><?php echo $this->formatValue($_total) ?></strong>
             </td>
         </tr>
-        <?php endif?>
-    <?php endforeach?>
+        <?php endif ?>
+    <?php endforeach ?>
     </tfoot>
-    <?php endif?>
+    <?php endif ?>
 
     <?php $_totals = $this->getTotals('')?>
     <?php if ($_totals):?>
@@ -61,26 +61,26 @@
     <?php foreach ($_totals as $_code => $_total): ?>
         <?php if ($_total->getBlockName()): ?>
             <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
-        <?php else:?>
+        <?php else: ?>
         <tr class="<?php echo $_code?>">
             <td <?php echo $this->getLabelProperties()?> class="label">
                 <?php if ($_total->getStrong()):?>
                 <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
-                <?php else:?>
+                <?php else: ?>
                 <?php echo $this->escapeHtml($_total->getLabel()); ?>
-                <?php endif?>
+                <?php endif ?>
             </td>
             <?php if ($_total->getStrong()):?>
             <td <?php echo $this->getValueProperties()?> class="emph">
                 <strong><?php echo $this->formatValue($_total) ?></strong>
-            <?php else:?>
+            <?php else: ?>
             <td <?php echo $this->getValueProperties()?>>
                 <?php echo $this->formatValue($_total) ?>
-            <?php endif?>
+            <?php endif ?>
             </td>
         </tr>
-        <?php endif?>
-    <?php endforeach?>
+        <?php endif ?>
+    <?php endforeach ?>
     </tbody>
-    <?php endif?>
+    <?php endif ?>
 </table>

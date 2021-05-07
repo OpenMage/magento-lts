@@ -348,7 +348,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if ($buyRequest instanceof Varien_Object) {
             $_buyRequest = $buyRequest;
         } elseif (is_string($buyRequest)) {
-            $_buyRequest = new Varien_Object(unserialize($buyRequest));
+            $_buyRequest = new Varien_Object(unserialize($buyRequest, ['allowed_classes' => false]));
         } elseif (is_array($buyRequest)) {
             $_buyRequest = new Varien_Object($buyRequest);
         } else {

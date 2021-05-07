@@ -53,7 +53,7 @@ store name = $_order->getStore()->getGroup()->getName()
             <br /><?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?>
             <br /><?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?>
             <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
-            <?php endif; ?>
+            <?php endif ?>
             </td>
             <td align="center" valign="top" style="padding:3px 9px"><?php echo $_item->getQtyOrdered()*1 ?></td>
             <td align="right" valign="top" style="padding:3px 9px"><?php echo $_order->formatPrice($_item->getRowTotal()) ?></td>
@@ -71,7 +71,7 @@ store name = $_order->getStore()->getGroup()->getName()
             <br /><?php echo $this->__('Message:'); ?><br /> <?php echo $this->escapeHtml($_giftMessage->getMessage()) ?>
             </td>
         </tr>
-     <?php endif; ?>
+     <?php endif ?>
         <tr>
             <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Subtotal') ?></td>
             <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getSubtotal()) ?></td>
@@ -81,19 +81,19 @@ store name = $_order->getStore()->getGroup()->getName()
                 <td colspan="2" align="right" style="padding:3px 9px"><?php echo (($_order->getCouponCode())? $this->__('Discount (%s)', $this->escapeHtml($_order->getCouponCode())) : $this->__('Discount')) ?></td>
                 <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
             </tr>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($_order->getShippingAmount() || $_order->getShippingDescription()): ?>
             <tr>
                 <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Shipping &amp; Handling') ?></td>
                 <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getShippingAmount()) ?></td>
             </tr>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($_order->getTaxAmount() > 0): ?>
             <tr>
                 <td colspan="2" align="right" style="padding:3px 9px"><?php echo $this->__('Tax') ?></td>
                 <td align="right" style="padding:3px 9px"><?php echo $_order->formatPrice($_order->getTaxAmount()) ?></td>
             </tr>
-        <?php endif; ?>
+        <?php endif ?>
         <tr bgcolor="#DEE5E8">
             <td colspan="2" align="right" style="padding:3px 9px"><strong><big><?php echo $this->__('Grand Total') ?></big></strong></td>
             <td align="right" style="padding:6px 9px"><strong><big><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></big></strong></td>

@@ -72,14 +72,14 @@
                                 <?php $clickAction = "setCacheAction('catalog_action',this)"; ?>
                                 <?php if (isset($_button['warning']) && $_button['warning']): ?>
                                     <?php $clickAction = "if (confirm('".addslashes($_button['warning'])."')) {{$clickAction}}"; ?>
-                                <?php endif; ?>
-                                <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif; ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif; ?>" style=""><span><span><span><?php echo $_button['action'] ?></span></span></span></button>
-                                <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif; ?>
-                            <?php endforeach; ?>
+                                <?php endif ?>
+                                <button <?php if (!isset($_button['disabled']) || !$_button['disabled']):?>onclick="<?php echo $clickAction; ?>"<?php endif ?> id="<?php echo $_button['name'] ?>" type="button" class="scalable <?php if (isset($_button['disabled']) && $_button['disabled']):?>disabled<?php endif ?>" style=""><span><span><span><?php echo $_button['action'] ?></span></span></span></button>
+                                <?php if (isset($_button['comment'])): ?> <br /> <small><?php echo $_button['comment']; ?></small> <?php endif ?>
+                            <?php endforeach ?>
                         </td>
                         <td><small>&nbsp;</small></td>
                     </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </fieldset>

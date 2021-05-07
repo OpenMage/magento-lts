@@ -34,7 +34,7 @@
         <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
              <p class="label"><?php echo $this->__('Average Customer Rating') ?>:</p>
              <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <div class="product-details">
         <h2 class="product-name"><?php echo $this->escapeHtml($this->getProductData()->getName()) ?></h2>
@@ -51,11 +51,11 @@
                             </div>
                         </td>
                     </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
+                <?php endif ?>
+            <?php endforeach ?>
             </table>
             </dl>
-        <?php endif; ?>
+        <?php endif ?>
         <dl>
             <dt>
                 <?php echo $this->__('Product Review (submitted on %s):', $this->dateFormat($this->getReviewData()->getCreatedAt())) ?>
@@ -69,4 +69,4 @@
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Product Reviews') ?></a></p>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

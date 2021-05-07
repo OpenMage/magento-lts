@@ -101,7 +101,7 @@
                         <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet($_i-1)) ?>" title="<?php echo $this->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
-            <?php endfor; ?>
+            <?php endfor ?>
                 <li class="fields">
                     <div class="field">
                         <label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -142,7 +142,7 @@
                     <input type="hidden" name="default_billing" value="1" />
                     <input type="hidden" name="default_shipping" value="1" />
                 </li>
-            <?php endif; ?>
+            <?php endif ?>
                 <li class="fields">
                     <div class="field">
                         <label for="password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
@@ -169,7 +169,7 @@
                 <?php if ($this->isNewsletterEnabled()): ?>
                     <li class="control">
                         <div class="input-box">
-                            <input type="checkbox" name="is_subscribed" title="<?php echo $this->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+                            <input type="checkbox" name="is_subscribed" title="<?php echo $this->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif ?> class="checkbox" />
                         </div>
                         <label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
                     </li>
@@ -184,14 +184,14 @@
         </div>
         <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
             <input name="context" type="hidden" value="checkout" />
-        <?php endif; ?>
+        <?php endif ?>
     </form>
     <script type="text/javascript">
     //<![CDATA[
         var dataForm = new VarienForm('form-validate', true);
         <?php if($this->getShowAddressFields()): ?>
         new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
-        <?php endif; ?>
+        <?php endif ?>
     //]]>
     </script>
 </div>

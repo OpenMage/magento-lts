@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
                 $parts = explode('.', $value);
                 if( count($parts) === 2 ) {
                     $parts[1] = str_pad(rtrim($parts[1], 0), 4, '0', STR_PAD_RIGHT);
-                    $array[$key][$code] = join('.', $parts);
+                    $array[$key][$code] = implode('.', $parts);
                 } elseif( $value > 0 ) {
                     $array[$key][$code] = number_format($value, 4);
                 } else {

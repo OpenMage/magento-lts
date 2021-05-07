@@ -1,0 +1,312 @@
+@charset "UTF-8";
+/* ! Do not edit css files !
+   Edit scss version and compile with sass from scss folder like this:
+   $ sass form.scss ../form.css
+ */
+select, textarea, input.input-text {
+  font: 400 12px/1.33 "Open Sans", sans-serif;
+  display: inline-block;
+  padding: 1px 3px;
+  margin: 0;
+  background-color: #fff;
+  height: 26px;
+  color: #202856;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.form-list td.label label, .form-list td.label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #202856;
+}
+
+.form-button, button {
+  background-image: none;
+  background-color: #71798e;
+  padding: 0 13px;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.form-button:active, .form-button:focus, button:active, button:focus {
+  background: #888;
+  border: 0;
+  outline: thin dotted;
+  outline-offset: -2px;
+}
+
+.form-button[disabled] fieldset[disabled] button, button[disabled], .form-button.disabled, button.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.form-button.ok_button, button.add, button.ok_button, button.save {
+  background-image: none;
+  background-color: #0090FF;
+  padding: 0 13px;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.form-button.ok_button:active, .form-button.ok_button:focus, button.add:active, button.add:focus, button.ok_button:active, button.ok_button:focus, button.save:active, button.save:focus {
+  background-color: #026294;
+  outline: thin dotted;
+  outline-offset: -2px;
+  color: #fff;
+}
+
+fieldset[disabled] button.ok_button, fieldset[disabled] button.add, fieldset[disabled] button.save, button.ok_button[disabled], button.add[disabled], button.save[disabled], button.add.disabled, button.ok_button.disabled, button.save.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.field-100 input.input-text, .field-100 textarea {
+  float: none;
+  border: 1px solid #ccc !important;
+  padding: 1px 3px !important;
+}
+
+input {
+  vertical-align: middle;
+}
+textarea {
+  margin: 0;
+}
+textarea:disabled {
+  background: #f6f6f6;
+}
+textarea.disabled {
+  background: #f6f6f6;
+}
+
+select {
+  height: 26px;
+  margin: 0 0 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  text-transform: none;
+  margin: 0;
+}
+select.disabled {
+  background: #f6f6f6;
+}
+select:disabled {
+  background: #f6f6f6;
+}
+select optgroup {
+  font-weight: 600;
+}
+
+input[type=text].disabled {
+  background: #f6f6f6;
+}
+input[type=text]:disabled {
+  background: #f6f6f6;
+}
+
+select[multiple] {
+  height: auto;
+}
+
+select[size] {
+  height: auto;
+}
+
+button {
+  text-transform: none;
+}
+button span {
+  padding: 0;
+}
+button.cancel {
+  background: #e63a3a;
+  color: #fff;
+  padding: 0 13px;
+}
+button.cancel span {
+  background: none;
+  padding: 0;
+}
+button.cancel:hover {
+  background: #fa4545;
+}
+button.delete {
+  background: #e63a3a;
+  color: #fff;
+  padding: 0 13px;
+}
+button.delete span {
+  background: none;
+  padding: 0;
+}
+button.delete:hover {
+  background: #fa4545;
+}
+button.save {
+  padding: 0 13px;
+}
+button.save span {
+  background: none;
+  padding: 0;
+}
+button.save:hover {
+  background-color: #0090FF;
+}
+button.ok_button {
+  padding: 0 13px;
+}
+button.ok_button span {
+  background: none;
+  padding: 0;
+}
+button.ok_button:hover {
+  background-color: #0090FF;
+}
+button.add {
+  padding: 0 13px;
+}
+button.add span {
+  background: none;
+  padding: 0;
+}
+button.add:hover {
+  background-color: #0090FF;
+}
+button.add.disabled span {
+  background: none;
+}
+button.back {
+  background: none;
+}
+button.back span {
+  background: none;
+  padding: 0;
+}
+button.back:before {
+  content: "«";
+  padding-right: 4px;
+}
+button:hover {
+  background: #888;
+}
+button.disabled {
+  background: #888;
+}
+button.disabled:hover {
+  background: #888;
+}
+button.disabled:active {
+  background: #888;
+}
+button.fail {
+  background: #e63a3a;
+  color: #fff;
+  padding: 0 13px;
+}
+button.fail:hover {
+  background: #fa4545;
+}
+button.cancel_button {
+  background: #e63a3a;
+  color: #fff;
+  padding: 0 13px;
+}
+button.cancel_button:hover {
+  background: #fa4545;
+}
+button.icon-btn {
+  width: auto !important;
+}
+button.icon-btn span {
+  text-indent: 0;
+  width: auto;
+  display: inline;
+}
+button.large {
+  font-size: 22px;
+  padding: 14px 22px 16px;
+}
+button.add-image span {
+  background: none;
+  padding: 0;
+}
+button.add-widget span {
+  background: none;
+  padding: 0;
+}
+button.go span {
+  background: none;
+  padding: 0;
+}
+button.add-variable span {
+  background: none;
+  padding: 0;
+}
+
+.form-button:hover {
+  background: #888;
+}
+.form-button.ok_button:hover {
+  background-color: #0090FF;
+}
+.form-button.large {
+  font-size: 22px;
+  padding: 14px 22px 16px;
+}
+
+.field-100 {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.form-list td.label label {
+  padding: 5px 15px 0 0;
+}
+.form-list td.scope-label {
+  color: #999;
+  font-size: 11px;
+}
+.form-list td.value {
+  padding-left: 0 !important;
+}
+.form-list td.value textarea {
+  width: 324px;
+}
+.form-list td.value select {
+  width: 330px;
+}
+.form-list td.value p.note {
+  color: #202856;
+  font-size: 11px;
+  font-weight: 400;
+}
+.form-list td.value input.input-text {
+  width: 324px;
+}
+
+.input-text.large {
+  padding: 12px 12px 14px;
+  font-size: 18px;
+}
+
+/*# sourceMappingURL=form.css.map */

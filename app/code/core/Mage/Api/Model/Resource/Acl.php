@@ -123,7 +123,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $assert = null;
             if (0!=$rule['assert_id']) {
                 $assertClass = Mage::getSingleton('api/config')->getAclAssert($rule['assert_type'])->getClassName();
-                $assert = new $assertClass(unserialize($rule['assert_data']));
+                $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }
             try {
                 if ($rule['api_permission'] == 'allow') {

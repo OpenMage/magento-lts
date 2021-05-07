@@ -495,6 +495,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
+      if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
+        || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)) {
+          Mage::throwException('Templatepath or block reference contain special characters.');
+      }
+
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, array(
             '_area'    => $this->getArea(),
             '_package' => $this->getPackage(),

@@ -440,7 +440,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     $product->getAttributeSetId()
                 ),
                 'type'          => $product->getTypeId(),
-                'category_ids'  => join(',', $product->getCategoryIds())
+                'category_ids' => implode(',', $product->getCategoryIds())
             );
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {
@@ -449,7 +449,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     $websiteCode = Mage::app()->getWebsite($websiteId)->getCode();
                     $websiteCodes[$websiteCode] = $websiteCode;
                 }
-                $row['websites'] = join(',', $websiteCodes);
+                $row['websites'] = implode(',', $websiteCodes);
             } else {
                 $row['websites'] = $this->getStore()->getWebsite()->getCode();
                 if ($this->getVar('url_field')) {
@@ -477,7 +477,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                         continue;
                     }
                     if (is_array($option)) {
-                        $value = join(self::MULTI_DELIMITER, $option);
+                        $value = implode(self::MULTI_DELIMITER, $option);
                     } else {
                         $value = $option;
                     }

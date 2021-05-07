@@ -548,7 +548,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = array();
         Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
         if ($attributesOption = $this->getProduct($product)->getCustomOption('attributes')) {
-            $data = unserialize($attributesOption->getValue());
+            $data = unserialize($attributesOption->getValue(), ['allowed_classes' => false]);
             $this->getUsedProductAttributeIds($product);
 
             $usedAttributes = $this->getProduct($product)->getData($this->_usedAttributes);
@@ -681,7 +681,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $product = $this->getProduct($product);
         $option = $product->getCustomOption('info_buyRequest');
         if ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
-            $buyRequest = new Varien_Object(unserialize($option->getValue()));
+            $buyRequest = new Varien_Object(unserialize($option->getValue(), ['allowed_classes' => false]));
             $attributes = $buyRequest->getSuperAttribute();
             if (is_array($attributes)) {
                 foreach ($attributes as $key => $val) {
@@ -718,10 +718,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         $options = parent::getOrderOptions($product);
         $options['attributes_info'] = $this->getSelectedAttributesInfo($product);
-        /** @var Mage_Sales_Model_Quote_Item_Option $simpleOption */
+        /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleOption */
         if ($simpleOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            $options['simple_name'] = $simpleOption->getProduct($product)->getName();
-            $options['simple_sku']  = $simpleOption->getProduct($product)->getSku();
+            $options['simple_name'] = $simpleOption->getProduct()->getName();
+            $options['simple_sku']  = $simpleOption->getProduct()->getSku();
         }
 
         $options['product_calculations'] = self::CALCULATE_PARENT;
@@ -784,8 +784,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         if ($this->getProduct($product)->hasCustomOptions() &&
             ($simpleProductOption = $this->getProduct($product)->getCustomOption('simple_product'))
         ) {
-            /** @var Mage_Sales_Model_Quote_Item_Option $simpleProductOption */
-            $simpleProduct = $simpleProductOption->getProduct($product);
+            /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleProductOption */
+            $simpleProduct = $simpleProductOption->getProduct();
             if ($simpleProduct) {
                 return $simpleProduct->getWeight();
             }
@@ -837,10 +837,10 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         /** @var Mage_Sales_Model_Quote_Item_Option $simpleOption */
         $simpleOption = $this->getProduct($product)->getCustomOption('simple_product');
         if ($simpleOption) {
-            $optionProduct = $simpleOption->getProduct($product);
+            $optionProduct = $simpleOption->getProduct();
             $simpleSku = null;
             if ($optionProduct) {
-                $simpleSku =  $simpleOption->getProduct($product)->getSku();
+                $simpleSku =  $simpleOption->getProduct()->getSku();
             }
             $sku = parent::getOptionSku($product, $simpleSku);
         } else {

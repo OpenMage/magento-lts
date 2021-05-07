@@ -31,7 +31,7 @@
             <label><?php echo $this->__('Make Check payable to:') ?></label>
             <?php echo $this->escapeHtml($this->getMethod()->getPayableTo()) ?>
         </li>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($this->getMethod()->getMailingAddress()): ?>
         <li>
             <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
@@ -39,6 +39,6 @@
                 <?php echo nl2br($this->escapeHtml($this->getMethod()->getMailingAddress())) ?>
             </address>
         </li>
-        <?php endif; ?>
+        <?php endif ?>
     </ul>
-<?php endif; ?>
+<?php endif ?>

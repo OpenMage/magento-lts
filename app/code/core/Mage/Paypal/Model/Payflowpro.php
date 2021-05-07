@@ -299,7 +299,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_CREDIT);
         $request->setOrigid($payment->getParentTransactionId());
-        $request->setAmt(round($amount,2));
+        $request->setAmt(round((float)$amount,2));
         $response = $this->_postRequest($request);
         $this->_processErrors($response);
 

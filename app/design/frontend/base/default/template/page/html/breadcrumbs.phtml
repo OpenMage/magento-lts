@@ -35,12 +35,12 @@
                 <strong><?php echo $this->escapeHtml($_crumbInfo['label']) ?></strong>
             <?php else: ?>
                 <?php echo $this->escapeHtml($_crumbInfo['label']) ?>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if(!$_crumbInfo['last']): ?>
                 <span>/ </span>
-            <?php endif; ?>
+            <?php endif ?>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 </div>
-<?php endif; ?>
+<?php endif ?>

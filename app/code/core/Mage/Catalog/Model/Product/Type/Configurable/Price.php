@@ -78,7 +78,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
 
         $selectedAttributes = array();
         if ($product->getCustomOption('attributes')) {
-            $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue());
+            $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue(), ['allowed_classes' => false]);
         }
 
         /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */

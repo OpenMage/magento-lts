@@ -61,13 +61,13 @@
                     <td><em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
                     <td><?php echo $this->getRemainingDownloads($_item) ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>
 <?php else: ?>
     <p><?php echo Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.'); ?></p>
-<?php endif; ?>
+<?php endif ?>
 <?php echo $this->getChildHtml('pager'); ?>
 <div class="buttons-set">
     <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>

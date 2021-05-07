@@ -43,7 +43,7 @@
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
-    <?php endif; ?>
+    <?php endif ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
 </div>
 
@@ -51,13 +51,13 @@
 
 <?php if($_imgUrl): ?>
     <?php echo $_imgHtml ?>
-<?php endif; ?>
+<?php endif ?>
 
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
         <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
 
 <?php if($this->isContentMode()): ?>
     <?php echo $this->getCmsBlockHtml() ?>
@@ -68,4 +68,4 @@
 
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
-<?php endif; ?>
+<?php endif ?>

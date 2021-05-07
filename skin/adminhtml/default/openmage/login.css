@@ -1,0 +1,284 @@
+.form-button {
+  background-image: none;
+  background-color: #71798e;
+  padding: 0 13px;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 26px;
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Light.eot");
+  /* IE9 Compat Modes */
+  src: url("fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("fonts/opensans/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-SemiBold.eot");
+  /* IE9 Compat Modes */
+  src: url("fonts/opensans/OpenSans-SemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: 600;
+  font-style: normal;
+}
+/*
+                           205 = default,
+                             0 = red,
+                            60 = yellow,
+                           120 = green,
+                           180 = turquoise,
+                           240 = blue,
+                           300 = purple
+                           */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #e6e6e6;
+  color: #2f2f2f;
+  font: 400 12px/1.33 Open Sans, sans-serif;
+  background: #ebedef;
+  font-size: 13px;
+  overflow-x: hidden;
+}
+body#page-login {
+  background-color: #3d4f5c;
+  background-image: url(images/login_background.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  height: calc(100vh - 120px);
+}
+body#page-login:after {
+  display: block;
+  position: fixed;
+  content: "";
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+a {
+  display: inline;
+  color: #269de7;
+  text-decoration: none;
+}
+a:visited {
+  color: #269de7;
+}
+a:focus {
+  color: #3378a3;
+  text-decoration: none;
+}
+a:hover {
+  color: #3378a3;
+  text-decoration: none;
+}
+a:active {
+  color: #3378a3;
+  text-decoration: none;
+}
+a.error span {
+  color: #fa4545 !important;
+}
+
+:focus {
+  outline: 0;
+}
+
+h2 {
+  margin-bottom: 0.5em;
+  line-height: 1.4em;
+  font-size: 1.7em;
+}
+
+p {
+  margin-bottom: 0.5em;
+}
+
+form {
+  display: inline;
+}
+
+label {
+  color: #2f2f2f;
+}
+
+input {
+  vertical-align: middle;
+}
+input.input-text {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaa #c8c8c8 #c8c8c8 #aaa;
+  background: #fff;
+  font: 12px Arial, sans-serif, Helvetica;
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #aaa;
+  padding: 2px 2px 3px;
+  line-height: 18px;
+  font-family: Open Sans, Helvetica Neue;
+}
+input.input-text:hover {
+  outline: 2px solid rgba(117, 146, 163, 0.1);
+}
+input.input-text:focus {
+  box-shadow: 0 0 0 2px rgba(117, 146, 163, 0.25);
+}
+input.input-text:disabled {
+  outline: none;
+  opacity: 0.5;
+}
+
+.form-button {
+  background-color: #0090FF;
+}
+
+#page-login {
+  background: #f8f8f8;
+  text-align: center;
+}
+
+.login-container {
+  width: 581px;
+  margin: 170px auto;
+  padding-left: 32px;
+  width: 345px;
+  margin: 120px 0 0;
+  padding-left: 200px;
+  background: url(images/logo.svg) left center no-repeat;
+  margin-left: calc(50vw - 372px);
+}
+.login-container .legal {
+  margin: 0;
+  background: url(images/logo-magento.png) no-repeat;
+  padding: 8px 8px 5px 8px;
+  font-size: 0.95em;
+  background: none;
+  padding: 0;
+  border: none;
+  border-top: none;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.login-form {
+  padding: 27px 57px 35px;
+  background: url(images/icon-error.png) no-repeat;
+  text-align: left;
+  background: white;
+  border: none;
+  padding: 40px 50px;
+  box-shadow: 0 30px 150px rgba(0, 0, 0, 0.5);
+}
+.login-form .input-box {
+  margin: 10px 0;
+}
+.login-form .input-box input.input-text {
+  width: 224px;
+  width: calc(100% - 18px) !important;
+  padding: 8px;
+}
+.login-form h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+.login-form label {
+  font-weight: bold;
+}
+.login-form .form-buttons {
+  margin: 12px 0 0;
+  clear: both;
+  text-align: right;
+  margin: 20px 0 0;
+}
+.login-form .form-buttons:after {
+  display: block;
+  clear: both;
+  content: ".";
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+.login-form .form-buttons .left {
+  line-height: 32px;
+}
+.login-form input[type=submit] {
+  height: 32px;
+}
+
+.left {
+  float: left;
+}
+
+.login-box .bottom {
+  width: 581px;
+  height: 5px;
+  overflow: hidden;
+  display: none;
+}
+
+.clear:after {
+  display: block;
+  clear: both;
+  content: ".";
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+ul.messages {
+  list-style-type: none;
+}
+ul.messages ul {
+  list-style-type: none;
+}
+
+.no-display {
+  display: none;
+}
+
+/*# sourceMappingURL=login.css.map */
