@@ -464,7 +464,7 @@ implements Mage_HTTP_IClient
      */
     protected function validateHttpVersion(array $line)
     {
-        if ($line[0] === 'HTTP/1.1') {
+        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
             if (count($line) !== 3) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }
