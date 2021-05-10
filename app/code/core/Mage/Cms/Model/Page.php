@@ -58,6 +58,8 @@
  * @method $this setMetaDescription(string $value)
  * @method string getMetaKeywords()
  * @method $this setMetaKeywords(string $value)
+ * @method int getMetaRobots()
+ * @method $this setMetaRobots(int $value)
  * @method string getPreviewUrl()
  * @method string getRootTemplate()
  * @method $this setRootTemplate(string $value)
@@ -89,6 +91,17 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
 
     const CACHE_TAG              = 'cms_page';
     protected $_cacheTag         = 'cms_page';
+
+    /**
+     * Page's Robots
+     */
+    const META_ROBOTS_INDEX_FOLLOW               = 1;
+    const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
 
     /**
      * Prefix of model events names
@@ -156,5 +169,26 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         Mage::dispatchEvent('cms_page_get_available_statuses', array('statuses' => $statuses));
 
         return $statuses->getData();
+    }
+
+    /**
+     * Prepare page's robots.
+     * Available event cms_page_get_available_robots to customize robots behaviour.
+     *
+     * @return array
+     */
+    public function getAvailableRobots()
+    {
+        $robots = new Varien_Object(array(
+            self::META_ROBOTS_INDEX_FOLLOW => Mage::helper('cms')->__('INDEX,FOLLOW'),
+            self::META_ROBOTS_INDEX_NOFOLLOW  => Mage::helper('cms')->__('INDEX,NOFOLLOW'),
+            self::META_ROBOTS_NOINDEX_FOLLOW  => Mage::helper('cms')->__('NOINDEX,FOLLOW'),
+            self::META_ROBOTS_NOINDEX_NOFOLLOW  => Mage::helper('cms')->__('NOINDEX,NOFOLLOW'),
+            self::META_ROBOTS_INDEX_FOLLOW_NOARCHIVE => Mage::helper('cms')->__('INDEX,FOLLOW,NOARCHIVE'),
+            self::META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE => Mage::helper('cms')->__('INDEX,NOFOLLOW,NOARCHIVE'),
+            self::META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE => Mage::helper('cms')->__('NOINDEX,NOFOLLOW,NOARCHIVE'),
+        ));
+
+        return $robots->getData();
     }
 }

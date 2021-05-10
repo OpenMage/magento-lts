@@ -214,6 +214,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/checkout'));
         $this->getLayout()->getBlock('head')->setTitle($this->__('Checkout'));
         $this->renderLayout();
     }
@@ -295,6 +296,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($lastOrderId)));
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/checkout'));
         $this->renderLayout();
     }
 
@@ -312,6 +314,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         }
 
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/checkout'));
         $this->renderLayout();
     }
 

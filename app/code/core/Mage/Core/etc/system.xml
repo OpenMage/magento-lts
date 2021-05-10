@@ -1714,6 +1714,157 @@
                         </javascript>
                     </fields>
                 </browser_capabilities>
+                <robots_configuration>
+                    <label>Set Meta Robots Configuration For Non-Content Pages</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>210</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <search translate="label">
+                            <label>Catalog Search Results</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search>
+                    </fields>
+                    <fields>
+                        <searchterms translate="label">
+                            <label>Search terms</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </searchterms>
+                    </fields>
+                    <fields>
+                        <customer translate="label">
+                            <label>Customer Account</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer>
+                    </fields>
+                    <fields>
+                        <checkout translate="label">
+                            <label>Checkout Pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout>
+                    </fields>
+                    <fields>
+                        <contacts translate="label">
+                            <label>Contact Us Form</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </contacts>
+                    </fields>
+                    <fields>
+                        <wishlist translate="label">
+                            <label>Wishlist</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wishlist>
+                    </fields>
+                    <fields>
+                        <compare translate="label">
+                            <label>Product Compare</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </compare>
+                    </fields>
+                    <fields>
+                        <sendfriend translate="label">
+                            <label>Send Friend</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sendfriend>
+                    </fields>
+                    <fields>
+                        <reviews translate="label">
+                            <label>Product Review Pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </reviews>
+                    </fields>
+                    <fields>
+                        <tags translate="label">
+                            <label>Tags</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tags>
+                    </fields>
+                    <fields>
+                        <rss translate="label">
+                            <label>RSS Feeds</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rss>
+                    </fields>
+                    <fields>
+                        <sitemap translate="label">
+                            <label>Sitemap</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sitemap>
+                    </fields>
+                    <fields>
+                        <ordersreturns translate="label">
+                            <label>Order and Returns</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_design_robots</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ordersreturns>
+                    </fields>
+                </robots_configuration>
             </groups>
         </web>
     </sections>

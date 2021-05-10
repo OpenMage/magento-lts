@@ -19,24 +19,20 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
- * @package     Mage_Adminhtml
+ * @package     Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/* @var Mage_Core_Model_Resource_Setup $installer */
+$installer = $this;
 
-class Mage_Adminhtml_Model_System_Config_Source_Design_Robots
-{
-    public function toOptionArray()
-    {
-        return array(
-            array('value'=>'INDEX,FOLLOW', 'label'=>'INDEX, FOLLOW'),
-            array('value'=>'NOINDEX,FOLLOW', 'label'=>'NOINDEX, FOLLOW'),
-            array('value'=>'INDEX,NOFOLLOW', 'label'=>'INDEX, NOFOLLOW'),
-            array('value'=>'NOINDEX,NOFOLLOW', 'label'=>'NOINDEX, NOFOLLOW'),
-            array('value'=>'INDEX,FOLLOW,NOARCHIVE', 'label'=>'INDEX, FOLLOW, NOARCHIVE'),
-            array('value'=>'INDEX,NOINDEX,NOARCHIVE', 'label'=>'INDEX, NOINDEX, NOARCHIVE'),
-            array('value'=>'NOINDEX,NOFOLLOW, NOARCHIVE', 'label'=>'NOINDEX, NOFOLLOW, NOARCHIVE'),
-        );
-    }
-}
+$installer->startSetup();
+
+$installer->getConnection()->addColumn(
+    $installer->getTable('cms/page'),
+    'meta_robots',
+    "INT NOT NULL DEFAULT '0' AFTER `meta_description`"
+);
+
+$installer->endSetup();

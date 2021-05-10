@@ -71,6 +71,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
 
         $this->loadLayout();
         Mage::helper('sales/guest')->getBreadcrumbs($this);
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/ordersreturns'));
         $this->renderLayout();
     }
 
@@ -85,6 +86,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         }
         $this->loadLayout();
         Mage::helper('sales/guest')->getBreadcrumbs($this);
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/ordersreturns'));
         $this->renderLayout();
     }
 

@@ -43,6 +43,7 @@ class Mage_CatalogSearch_TermController extends Mage_Core_Controller_Front_Actio
     public function popularAction()
     {
         $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/searchterms'));
         $this->renderLayout();
     }
 }

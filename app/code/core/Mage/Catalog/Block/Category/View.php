@@ -54,6 +54,13 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
+            if ($robots = $category->getMetaRobots()) {
+                if(Mage::helper('catalog/category')->canUseNoindexFollow() && Mage::helper('catalog/category')->isNotFirstCategoryPage()) {
+                    $headBlock->setRobots(Mage::getSingleton('catalog/category_attribute_source_robots')->getOptionLabel(3));
+                } else {
+                    $headBlock->setRobots(Mage::getSingleton('catalog/category_attribute_source_robots')->getOptionLabel($robots));
+                }
+            }
             if ($this->helper('catalog/category')->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }

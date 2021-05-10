@@ -143,6 +143,7 @@
  * @method array getMediaGallery()
  * @method $this setMediaGallery(array $value)
  * @method string getMessage()
+ * @method int getMetaRobot()
  * @method string getMetaDescription()
  * @method string getMetaKeyword()
  * @method string getMetaTitle()
@@ -276,6 +277,17 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Can be used as part of method name for entity processing
      */
     const ENTITY                 = 'catalog_product';
+
+    /**
+     * Product robots
+     */
+    const META_ROBOTS_INDEX_FOLLOW               = 1;
+    const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
 
     const CACHE_TAG              = 'catalog_product';
     protected $_cacheTag         = 'catalog_product';

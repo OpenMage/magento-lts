@@ -74,6 +74,12 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             } else {
                 $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
             }
+            $robots = $product->getMetaRobots();
+            if ($robots) {
+                $headBlock->setRobots(Mage::getSingleton('catalog/product_attribute_source_robots')->getOptionLabel($robots));
+            } else {
+                $headBlock->setRobots(Mage::getStoreConfig('design/head/default_robots'));
+            }
             if ($this->helper('catalog/product')->canUseCanonicalTag()) {
                 $params = array('_ignore_category' => true);
                 $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));

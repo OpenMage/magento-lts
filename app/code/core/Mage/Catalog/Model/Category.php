@@ -68,6 +68,7 @@
  *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
+ * @method int getMetaRobots()
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
  *
@@ -102,6 +103,18 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     const DM_PAGE               = 'PAGE';
     const DM_MIXED              = 'PRODUCTS_AND_PAGE';
     const TREE_ROOT_ID          = 1;
+
+    /**
+     * Category robots
+     */
+    const META_ROBOTS_INDEX_FOLLOW               = 1;
+    const META_ROBOTS_INDEX_NOFOLLOW             = 2;
+    const META_ROBOTS_NOINDEX_FOLLOW             = 3;
+    const META_ROBOTS_NOINDEX_NOFOLLOW           = 4;
+    const META_ROBOTS_INDEX_FOLLOW_NOARCHIVE     = 5;
+    const META_ROBOTS_INDEX_NOFOLLOW_NOARCHIVE   = 6;
+    const META_ROBOTS_NOINDEX_NOFOLLOW_NOARCHIVE = 7;
+
 
     const CACHE_TAG             = 'catalog_category';
 

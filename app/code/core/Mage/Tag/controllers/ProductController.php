@@ -48,6 +48,7 @@ class Mage_Tag_ProductController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         $this->_initLayoutMessages('tag/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/tags'));
         $this->renderLayout();
     }
 }
