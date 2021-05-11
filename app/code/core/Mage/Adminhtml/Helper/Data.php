@@ -39,6 +39,34 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
     const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
 
+    protected $_pageHelpUrl;
+
+    /**
+     * Get mapped help pages url
+     *
+     * @param null|string $url
+     * @return mixed
+     */
+    public function getPageHelpUrl($url = null)
+    {
+        if (!$this->_pageHelpUrl) {
+            $this->setPageHelpUrl($url);
+        }
+        return $this->_pageHelpUrl;
+    }
+
+    /**
+     * Set help page url
+     *
+     * @param null|string $url
+     * @return $this
+     */
+    public function setPageHelpUrl($url = null)
+    {
+        $this->_pageHelpUrl = $url;
+        return $this;
+    }
+
     public static function getUrl($route='', $params=array())
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
