@@ -59,6 +59,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Set help page url
      *
+     * @deprecated
      * @param null|string $url
      * @return $this
      */
