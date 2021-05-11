@@ -39,6 +39,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
     const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
 
+    /** @deprecated */
     protected $_pageHelpUrl;
 
     /**
