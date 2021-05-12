@@ -969,6 +969,7 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
+            @http_response_code(500);
             print '<pre>';
 
             if (!empty($extra)) {
