@@ -104,7 +104,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         $searchModules = Mage::getConfig()->getNode("adminhtml/global_search");
         $items = array();
 
-        if (!Mage::getSingleton('admin/session')->isAllowed('admin/global_search')) {
+        if (!Mage::getStoreConfigFlag('admin/global_search/enable') || !Mage::getSingleton('admin/session')->isAllowed('admin/global_search')) {
             $items[] = array(
                 'id' => 'error',
                 'type' => Mage::helper('adminhtml')->__('Error'),

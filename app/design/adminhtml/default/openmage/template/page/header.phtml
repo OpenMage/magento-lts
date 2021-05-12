@@ -49,7 +49,7 @@
 		        </ul>
 		    </li>
 		</ul>
-        <?php if ( Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ): ?>
+        <?php if (Mage::getStoreConfigFlag('admin/global_search/enable') && Mage::getSingleton('admin/session')->isAllowed('admin/global_search')): ?>
         <fieldset>
             <legend>Search</legend>
             <span id="global_search_indicator" class="autocomplete-indicator" style="display: none">

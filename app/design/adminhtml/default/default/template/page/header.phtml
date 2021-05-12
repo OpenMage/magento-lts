@@ -32,7 +32,7 @@
         <p class="super">
             <?php echo $this->__("Logged in as %s", $this->escapeHtml($this->getUser()->getUsername())) ?><span class="separator">|</span><?php echo $this->formatDate(null, 'full') ?><span class="separator">|</span><a href="<?php echo $this->getLogoutLink() ?>" class="link-logout"><?php echo $this->__('Log Out') ?></a>
         </p>
-        <?php if ( Mage::getSingleton('admin/session')->isAllowed('admin/global_search') ): ?>
+        <?php if (Mage::getStoreConfigFlag('admin/global_search/enable') && Mage::getSingleton('admin/session')->isAllowed('admin/global_search')): ?>
         <fieldset>
             <legend>Search</legend>
             <span id="global_search_indicator" class="autocomplete-indicator" style="display: none">
