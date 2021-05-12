@@ -29,16 +29,14 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Tag_Customer_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_customer_detail';
-
         $customer = Mage::getModel('customer/customer')->load($this->getRequest()->getParam('id'));
         $customerName = $this->escapeHtml($customer->getName());
         $this->_headerText = Mage::helper('reports')->__('Tags Submitted by %s', $customerName);
@@ -48,4 +46,8 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail extends Mage_Adminhtml_Blo
         $this->_addBackButton();
     }
 
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }
