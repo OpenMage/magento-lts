@@ -1,4 +1,4 @@
-<?php if ($_product = $this->getProduct()): ?>
+<?php if($_quote = $this->getCurrentQuote()): ?>
     <?php if ($this->canRenderScript()): ?>
         <script defer src="https://www.paypal.com/sdk/js?client-id=<?php echo $this->getPaypalSdkClientId(); ?>&components=messages"></script>
     <?php endif; ?>
@@ -8,7 +8,7 @@
             if (typeof paypal != "undefined") {
                 paypal
                     .Messages({
-                        amount: <?php echo $_product->getFinalPrice(); ?>,
+                        amount: <?php echo $_quote->getGrandTotal(); ?>,
                         placement: "cart"
                     })
                     .render(".paypal-paylater-message-cart");
