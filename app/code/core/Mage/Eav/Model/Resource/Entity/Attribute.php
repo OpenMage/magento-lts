@@ -173,12 +173,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
         }
 
         /**
-         * @todo need use default source model of entity type !!!
+         * Set default source model.
          */
-        if (!$object->getId()) {
-            if ($object->getFrontendInput() == 'select') {
-                $object->setSourceModel('eav/entity_attribute_source_table');
-            }
+        if (in_array($object->getFrontendInput(), ['select', 'multiselect']) && !$object->getData('source_model')) {
+            $object->setData('source_model', 'eav/entity_attribute_source_table');
         }
 
         return parent::_beforeSave($object);
