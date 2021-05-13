@@ -1105,7 +1105,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * catalog/seo/create_url_for_disabled is set as false
      *
      * @param int $categoryId
-     * @param int|null $storeId
+     * @param int|Mage_Core_Model_Store|null $storeId
      * @return $this
      */
     public function clearDisabledCategory($categoryId, $storeId = null)
@@ -1119,6 +1119,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 $this->clearDisabledCategory($categoryId, $store);
             }
             return $this;
+        }
+        if ($storeId instanceof Mage_Core_Model_Store) {
+            $storeId = $storeId->getStoreId();
+        } elseif (!is_int($storeId)) {
+            throw new Exception('StoreId must by int or Mage_Core_Model_Store');
         }
 
         $adapter = $this->_getWriteAdapter();
