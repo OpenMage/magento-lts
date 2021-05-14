@@ -44,7 +44,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             return $this;
         }
 
-        foreach ($this->getChildren($source) as $namespace => $children) {
+        foreach (self::_getChildren($source) as $namespace => $children) {
             foreach ($children as $child) {
                 $this->extendChild($child, $overwrite, $namespace);
             }
@@ -70,7 +70,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         $sourceName = $source->getName();
 
         // here we have children of our source node
-        $sourceChildren = $this->getChildren($source);
+        $sourceChildren = self::_getChildren($source);
 
         if ($elmNamespace == '') {
             $elmNamespace = null;
@@ -81,7 +81,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             $elm = $this->getElementByName($source, $elmNamespace);
             if (!is_null($elm)) {
                 // if target already has children return without regard
-                if ($this->getChildren($elm)) {
+                if (self::_getChildren($elm)) {
                     return $this;
                 }
                 if ($overwrite) {
@@ -176,7 +176,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param Varien_Simplexml_Element $source
      * @return array
      */
-    public function getChildren($source)
+    protected static function _getChildren($source)
     {
         $children = array();
         $namespaces = $source->getNamespaces(true);
@@ -200,12 +200,12 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      */
     public function hasChildren()
     {
-        if (!$this->getChildren($this)) {
+        if (!self::_getChildren($this)) {
             return false;
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->getChildren($this) as $namespace => $children) {
+        foreach (self::_getChildren($this) as $namespace => $children) {
             foreach ($children as $k => $child) {
                 return true;
             }
