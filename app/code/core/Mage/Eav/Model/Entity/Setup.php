@@ -489,7 +489,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @param mixed $entityTypeId
      * @param mixed $setId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @return $this
      */
