@@ -325,17 +325,29 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
+     * @param string $connectionName
+     * @return bool
+     */
+    public function hasConnection($connectionName)
+    {
+        return isset($this->_connections[$connectionName]);
+    }
+
+    /**
      * Retrieve connection for read data
      *
      * @return Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getReadAdapter()
     {
-        $writeAdapter = $this->_getWriteAdapter();
-        if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
-            // if transaction is started we should use write connection for reading
-            return $writeAdapter;
+        if ($this->hasConnection('write')) {
+            $writeAdapter = $this->_getWriteAdapter();
+            if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
+                // if transaction is started we should use write connection for reading
+                return $writeAdapter;
+            }
         }
+
         return $this->_getConnection('read');
     }
 
