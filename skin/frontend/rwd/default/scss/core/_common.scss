@@ -963,7 +963,6 @@ a.button:hover {
     font-size: $f-size-xxs;
 
     .notice-inner {
-        padding-left: 120px;
         width: 100%;
         max-width: $max-content-width;
         margin-left: auto;
@@ -972,9 +971,7 @@ a.button:hover {
         min-height: 40px;
         padding-top: (40px - $f-size-xxs) / 2;
         padding-bottom: (40px - $f-size-xxs) / 2;
-        background-image: url('../images/demo-logo.png');
-        background-position: left;
-        background-repeat: no-repeat;
+        text-align: center;
     }
 
     p {

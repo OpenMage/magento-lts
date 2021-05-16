@@ -34,7 +34,7 @@
     </p>
 <?php else: ?>
     <p class="error-msg"><?php echo $this->helper('catalogsearch')->__('No items were found using the following search criteria.');?> <a href="<?php echo $this->getFormUrl(); ?>"><?php echo $this->helper('catalogsearch')->__('Modify your search'); ?></a></p>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="advanced-search-summary">
     <?php $searchCriterias=$this->getSearchCriterias(); ?>
@@ -43,18 +43,18 @@
                 <ul>
                     <?php foreach($searchCriterias[$side] as $criteria): ?>
                         <li><strong><?php echo $this->escapeHtml($this->helper('catalog')->__($criteria['name'])); ?>:</strong> <?php echo $this->escapeHtml($criteria['value']); ?></li>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </ul>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
     <?php if($this->getResultCount()): ?>
         <p>
             <?php echo $this->helper('catalogsearch')->__("Don't see what you're looking for?"); ?>
             <a href="<?php echo $this->getFormUrl(); ?>"><?php echo $this->helper('catalogsearch')->__('Modify your search'); ?></a>
         </p>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
 <?php if($this->getResultCount()): ?>
     <?php echo $this->getProductListHtml() ?>
-<?php endif; ?>
+<?php endif ?>
 <?php $this->getSearchCriterias(); ?>

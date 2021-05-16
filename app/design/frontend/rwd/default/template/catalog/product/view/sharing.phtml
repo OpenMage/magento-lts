@@ -31,7 +31,7 @@
 <ul class="sharing-links">
     <?php if ($this->canEmailToFriend()): ?>
         <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>" class="link-email-friend" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email to a Friend')) ?>"><?php echo $this->__('Email to a Friend') ?></a></li>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php $_helper = $this->helper('catalog/output'); ?>
     <?php $_productName = urlencode(trim($_helper->productAttribute($_product, $_product->getName(), 'name')))?>
@@ -44,7 +44,7 @@
         </a>
     </li>
     <li>
-        <a href="<?php echo 'http://twitter.com/home?status=' . $_productName . '+' . $_productUrl; ?>" target="_blank" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share on Twitter')) ?>" class="link-twitter"><?php echo $this->__('Share on Twitter') ?></a>
+        <a href="<?php echo 'http://twitter.com/intent/tweet?text=' . $_productName . '&url=' . $_productUrl; ?>" target="_blank" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Share on Twitter')) ?>" class="link-twitter"><?php echo $this->__('Share on Twitter') ?></a>
     </li>
 </ul>
 

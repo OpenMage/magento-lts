@@ -41,7 +41,7 @@
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
-<?php endif; ?>
+<?php endif ?>
 
 <?php foreach ($items as $_item): ?>
     <?php $this->setPriceDataObject($_item) ?>
@@ -54,8 +54,8 @@
             <td class="last">&nbsp;</td>
         </tr>
         <?php $_prevOptionId = $attributes['option_id'] ?>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     <tr class="<?php echo (++$_index==$_count && !$_showlastRow)?'border':'' ?>">
         <?php if (!$_item->getOrderItem()->getParentItem()): ?>
         <td><h5 class="title"><?php echo $this->escapeHtml($_item->getName()) ?></h5>
@@ -66,23 +66,23 @@
         </td>
         <?php else: ?>
         <td><div class="option-value"><?php echo $this->getValueHtml($_item)?></div></td>
-        <?php endif; ?>
+        <?php endif ?>
         <td>
             <?php if ($this->isShipmentSeparately($_item)): ?>
                 <?php echo $this->getColumnHtml($_item, 'qty') ?>
             <?php else: ?>
                 &nbsp;
-            <?php endif; ?>
+            <?php endif ?>
         </td>
         <td class="last">
             <?php if ($this->isShipmentSeparately($_item)): ?>
                 <input type="text" class="input-text" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
             <?php else: ?>
                 &nbsp;
-            <?php endif; ?>
+            <?php endif ?>
         </td>
     </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php if($_showlastRow): ?>
     <tr class="border">
         <td>
@@ -102,17 +102,17 @@
                             $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
                             $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
                             </script>
-                        <?php endif;?>
-                    <?php endif;?>
+                        <?php endif ?>
+                    <?php endif ?>
                     </dd>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </dl>
                         <?php else: ?>
                 &nbsp;
-                        <?php endif; ?>
+                        <?php endif ?>
             <?php echo $this->escapeHtml($_item->getDescription()) ?>
         </td>
         <td>&nbsp;</td>
         <td class="last">&nbsp;</td>
     </tr>
-<?php endif; ?>
+<?php endif ?>

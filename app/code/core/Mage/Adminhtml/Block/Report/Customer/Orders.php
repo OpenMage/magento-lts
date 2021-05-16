@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Customer_Orders extends Mage_Adminhtml_Block_Widget_Grid_Container
@@ -40,5 +40,10 @@ class Mage_Adminhtml_Block_Report_Customer_Orders extends Mage_Adminhtml_Block_W
         $this->_headerText = Mage::helper('reports')->__('Customers by number of orders');
         parent::__construct();
         $this->_removeButton('add');
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

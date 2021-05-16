@@ -32,7 +32,7 @@
     <?php $_creditmemos = array($_creditmemo); ?>
 <?php else: ?>
     <?php $_creditmemos = $_order->getCreditmemosCollection() ?>
-<?php endif; ?>
+<?php endif ?>
 <?php foreach ($_creditmemos as $_creditmemo): ?>
     <h2 class="h2"><?php echo $this->__('Refund #%s', $_creditmemo->getIncrementId()) ?></h2>
     <div class="col2-set">
@@ -43,7 +43,7 @@
             <address><?php echo $_shipping->format('html') ?></address>
         </div>
         <div class="col-2">
-        <?php endif; ?>
+        <?php endif ?>
             <h3><?php echo $this->__('Billing Address') ?></h3>
             <?php $_billing = $_creditmemo->getbillingAddress() ?>
             <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
@@ -55,7 +55,7 @@
             <h3><?php echo $this->__('Shipping Method') ?></h3>
              <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
         <div class="col-2">
             <h3><?php echo $this->__('Payment Method') ?></h3>
             <?php echo $this->getPaymentInfoHtml() ?>
@@ -91,8 +91,8 @@
     <tbody>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </table>
 <script type="text/javascript">decorateTable('my-refund-table-<?php echo $_creditmemo->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
-<?php endforeach; ?>
+<?php endforeach ?>
 <script type="text/javascript">window.print();</script>

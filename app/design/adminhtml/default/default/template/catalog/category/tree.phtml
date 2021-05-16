@@ -30,7 +30,7 @@
         <?php if ($this->getRoot()): ?>
             <?php echo $this->getAddRootButtonHtml() ?><br />
             <?php echo $this->getAddSubButtonHtml() ?>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <?php echo $this->getStoreSwitcherHtml();?>
     <div class="tree-actions">
@@ -38,7 +38,7 @@
             <?php //echo $this->getCollapseButtonHtml() ?>
             <?php //echo $this->getExpandButtonHtml() ?>
             <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <?php if ($this->getRoot()): ?>
     <div class="tree-holder">
@@ -267,7 +267,7 @@ function _renderNewTree(config, storeParam)
     if (selectedNode) {
         url = url + 'id/' + config.parameters.category_id;
     }
-    <?php endif;?>
+    <?php endif ?>
     updateContent(url);
 }
 
@@ -374,7 +374,7 @@ Ext.onReady(function()
         parameters : {
             text        : '<?php echo Mage::helper('core')->jsQuoteEscape(htmlentities($this->getRoot()->getName())) ?>',
             draggable   : false,
-            allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else : ?>false<?php endif; ?>,
+            allowDrop   : <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
             id          : <?php echo (int) $this->getRoot()->getId() ?>,
             expanded    : <?php echo (int) $this->getIsWasExpanded() ?>,
             store_id    : <?php echo (int) $this->getStore()->getId() ?>,
@@ -477,4 +477,4 @@ function categoryMove(obj)
 }
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>

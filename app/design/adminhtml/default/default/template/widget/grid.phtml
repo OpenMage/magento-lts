@@ -51,7 +51,7 @@ $numColumns = sizeof($this->getColumns());
         <div id="<?php echo $this->getId() ?>">
     <?php else: ?>
         <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
 <?php if($this->getPagerVisibility() || $this->getExportTypes() || $this->getFilterVisibility()): ?>
     <table cellspacing="0" class="actions">
         <tr>
@@ -65,7 +65,7 @@ $numColumns = sizeof($this->getColumns());
                 <a href="#" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Previous page')) ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage-1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Go to Previous page')) ?>" class="arrow"/></a>
             <?php else: ?>
                 <img src="<?php echo $this->getSkinUrl('images/pager_arrow_left_off.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Go to Previous page')) ?>" class="arrow"/>
-            <?php endif; ?>
+            <?php endif ?>
 
             <input type="text" name="<?php echo $this->getVarNamePage() ?>" value="<?php echo $_curPage ?>" class="input-text page" onkeypress="<?php echo $this->getJsObjectName() ?>.inputPage(event, '<?php echo $_lastPage ?>')"/>
 
@@ -73,17 +73,17 @@ $numColumns = sizeof($this->getColumns());
                 <a href="#" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Next page')) ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage+1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Go to Next page')) ?>" class="arrow"/></a>
             <?php else: ?>
                 <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right_off.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Go to Next page')) ?>" class="arrow"/>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php echo $this->__('of %s pages', $this->getCollection()->getLastPageNumber()) ?>
             <span class="separator">|</span>
             <?php echo $this->__('View') ?>
             <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
-                <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif; ?>>20</option>
-                <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif; ?>>30</option>
-                <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif; ?>>50</option>
-                <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif; ?>>100</option>
-                <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif; ?>>200</option>
+                <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif ?>>20</option>
+                <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif ?>>30</option>
+                <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif ?>>50</option>
+                <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif ?>>100</option>
+                <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif ?>>200</option>
             </select>
             <?php echo $this->__('per page') ?><span class="separator">|</span>
             <?php echo $this->__('Total %d records found', $this->getCollection()->getSize()) ?>
@@ -92,7 +92,7 @@ $numColumns = sizeof($this->getColumns());
                 <?php foreach ($this->getRssLists() as $_rss): ?>
                 <span class="separator">|</span><a href="<?php echo $_rss->getUrl() ?>" class="link-feed"><?php echo $_rss->getLabel() ?></a>
                 <?php endforeach ?>
-            <?php endif; ?>
+            <?php endif ?>
         </td>
     <?php endif ?>
     <?php if($this->getExportTypes()): ?>
@@ -101,17 +101,17 @@ $numColumns = sizeof($this->getColumns());
             <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
             <?php foreach ($this->getExportTypes() as $_type): ?>
                 <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
             <?php echo $this->getExportButtonHtml() ?>
         </td>
-    <?php endif; ?>
+    <?php endif ?>
         <td class="filter-actions a-right">
             <?php echo $this->getMainButtonsHtml() ?>
         </td>
         </tr>
     </table>
-<?php endif; ?>
+<?php endif ?>
 <?php if($this->getMassactionBlock()->isAvailable()): ?>
 <?php echo $this->getMassactionBlockHtml() ?>
 <?php endif ?>
@@ -120,39 +120,39 @@ $numColumns = sizeof($this->getColumns());
     <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?> />
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
                     <?php foreach ($this->getColumns() as $_column): ?>
                         <th<?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if ($this->getFilterVisibility()): ?>
                     <tr class="filter">
                     <?php $i=0;foreach ($this->getColumns() as $_column): ?>
                         <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
                 <?php endif ?>
             </thead>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($this->getCountTotals()): ?>
             <tfoot>
                 <tr class="totals">
                 <?php foreach ($this->getColumns() as $_column): ?>
                     <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
             </tfoot>
-        <?php endif; ?>
+        <?php endif ?>
 
         <tbody>
         <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
         <?php foreach ($this->getCollection() as $_index=>$_item): ?>
-            <tr title="<?php echo $this->getRowUrl($_item) ?>"<?php if ($_class = $this->getRowClass($_item)):?> class="<?php echo $_class; ?>"<?php endif;?> >
+            <tr title="<?php echo $this->getRowUrl($_item) ?>"<?php if ($_class = $this->getRowClass($_item)):?> class="<?php echo $_class; ?>"<?php endif ?> >
             <?php $i=0;foreach ($this->getColumns() as $_column): ?>
 
                 <?php if ($this->shouldRenderCell($_item, $_column)):?>
@@ -162,10 +162,10 @@ $numColumns = sizeof($this->getColumns());
                     </td>
                     <?php if ($this->shouldRenderEmptyCell($_item, $_column)):?>
                         <td colspan="<?php echo $this->getEmptyCellColspan($_item)?>" class="last"><?php echo $this->getEmptyCellLabel()?></td>
-                    <?php endif;?>
-                <?php endif;?>
+                    <?php endif ?>
+                <?php endif ?>
 
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
             <?php if ($_multipleRows = $this->getMultipleRows($_item)):?>
                 <?php foreach ($_multipleRows as $_i):?>
@@ -174,10 +174,10 @@ $numColumns = sizeof($this->getColumns());
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns-1?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_i)) != '' ? $_html : '&nbsp;') ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
-                <?php endforeach;?>
-            <?php endif;?>
+                <?php endforeach ?>
+            <?php endif ?>
 
             <?php if ($this->shouldRenderSubTotal($_item)): ?>
                 <tr class="subtotals">
@@ -188,15 +188,15 @@ $numColumns = sizeof($this->getColumns());
                             );
                             ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         <?php elseif ($this->getEmptyText()): ?>
             <tr>
                 <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns ?>"><?php echo $this->getEmptyText() ?></td>
             </tr>
-        <?php endif; ?>
+        <?php endif ?>
         </tbody>
 
     </table>
@@ -210,19 +210,19 @@ $numColumns = sizeof($this->getColumns());
     <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
     <?php if($this->getRowClickCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getCheckboxCheckCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.checkboxCheckCallback = <?php echo $this->getCheckboxCheckCallback() ?>;
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getRowInitCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.initRowCallback = <?php echo $this->getRowInitCallback() ?>;
         <?php echo $this->getJsObjectName() ?>.initGridRows();
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getMassactionBlock()->isAvailable()): ?>
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
     <?php echo $this->getAdditionalJavaScript(); ?>
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>
 <?php endif ?>

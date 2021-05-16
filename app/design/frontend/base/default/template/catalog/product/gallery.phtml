@@ -31,27 +31,27 @@
         <div class="nav">
           <?php if($_prevUrl = $this->getPreviusImageUrl()): ?>
               <a href="<?php echo $_prevUrl ?>" class="prev">&laquo; <?php echo $this->__('Prev') ?></a>
-          <?php endif; ?>
+          <?php endif ?>
           <?php if($_nextUrl = $this->getNextImageUrl()): ?>
               <a href="<?php echo $_nextUrl ?>" class="next"><?php echo $this->__('Next') ?> &raquo;</a>
-          <?php endif; ?>
+          <?php endif ?>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($_imageTitle = $this->escapeHtml($this->getCurrentImage()->getLabel())): ?>
         <h1 class="image-label"><?php echo $_imageTitle ?></h1>
-    <?php endif; ?>
-    <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $this->getImageFile()); ?>"<?php if($_width): ?> width="<?php echo $_width ?>"<?php endif; ?> alt="<?php echo $this->escapeHtml($this->getCurrentImage()->getLabel()) ?>" title="<?php echo $this->escapeHtml($this->getCurrentImage()->getLabel()) ?>" id="product-gallery-image" class="image" />
+    <?php endif ?>
+    <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $this->getImageFile()); ?>"<?php if($_width): ?> width="<?php echo $_width ?>"<?php endif ?> alt="<?php echo $this->escapeHtml($this->getCurrentImage()->getLabel()) ?>" title="<?php echo $this->escapeHtml($this->getCurrentImage()->getLabel()) ?>" id="product-gallery-image" class="image" />
     <div class="buttons-set"><a href="#" onclick="window.close(); return false;" class="button"><span><?php echo $this->__('Close Window') ?></span></a></div>
     <?php if($this->getPreviusImageUrl() || $this->getNextImageUrl()): ?>
         <div class="nav">
           <?php if($_prevUrl = $this->getPreviusImageUrl()): ?>
               <a href="<?php echo $_prevUrl ?>" class="prev">&laquo; <?php echo $this->__('Prev') ?></a>
-          <?php endif; ?>
+          <?php endif ?>
           <?php if($_nextUrl = $this->getNextImageUrl()): ?>
               <a href="<?php echo $_nextUrl ?>" class="next"><?php echo $this->__('Next') ?> &raquo;</a>
-          <?php endif; ?>
+          <?php endif ?>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
 <script type="text/javascript">
 //<![CDATA[

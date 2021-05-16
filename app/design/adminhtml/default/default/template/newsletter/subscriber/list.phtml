@@ -27,7 +27,7 @@
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3><?php echo Mage::helper('newsletter')->__('Newsletter Subscribers') ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-newsletter"><?php echo Mage::helper('newsletter')->__('Newsletter Subscribers') ?></h3></td>
         </tr>
     </table>
 </div>
@@ -39,7 +39,7 @@
     <select id="queueList" name="queue">
     <?php foreach ($this->getQueueAsOptions() as $_queue): ?>
         <option value="<?php echo $_queue['value'] ?>"><?php echo $_queue['label'] ?> #<?php echo $_queue['value'] ?></option>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </select>
     <button class="scalable" onclick="subscriberController.addToQueue();"><span><span><span><?php echo Mage::helper('newsletter')->__('Add to Queue'); ?></span></span></span></button>
 </div>

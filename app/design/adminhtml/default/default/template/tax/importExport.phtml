@@ -49,8 +49,8 @@
             var importForm = new varienForm('import_form');
         </script>
     </div>
-    <?php endif; ?>
-    <div class="<?php if ($this->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif; ?>">
+    <?php endif ?>
+    <div class="<?php if ($this->getIsReadonly()): ?>box-left<?php else: ?>box-right<?php endif ?>">
         <form id="export_form" action="<?php echo $this->getUrl('*/*/exportPost') ?>" method="post" enctype="multipart/form-data">
             <?php echo $this->getBlockHtml('formkey')?>
             <div class="entry-edit-head">

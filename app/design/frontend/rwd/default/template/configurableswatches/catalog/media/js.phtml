@@ -33,7 +33,7 @@
         ConfigurableMediaImages.init('<?php echo $this->getImageType(); ?>');
         <?php foreach ($this->getProductImageFallbacks() as $imageFallback): ?>
         ConfigurableMediaImages.setImageFallback(<?php echo $imageFallback['product']->getId(); ?>, $j.parseJSON('<?php echo $imageFallback['image_fallback']; ?>'));
-        <?php endforeach; ?>
+        <?php endforeach ?>
         $j(document).trigger('configurable-media-images-init', ConfigurableMediaImages);
     });
 </script>

@@ -33,7 +33,7 @@
     <script type="text/javascript">
         function surveyAction(decision) {
             if (decision == 'yes') {
-                var win = window.open('<?php echo $this->getSurveyUrl() ?>', '', 
+                var win = window.open('<?php echo $this->getSurveyUrl() ?>', '',
                     'width=900,height=600,resizable=1,scrollbars=1');
                 win.focus();
             }
@@ -51,6 +51,6 @@
     </script>
     <div id="survey_notification" class="notification-global notification-global-notice">
         <?php echo $this->helper('adminhtml')->__('We appreciate our merchants\' feedback, please <a href="#" onclick="surveyAction(\'yes\'); return false;">take our survey</a> to provide insight on the features you would like included in Magento. <a href="#" onclick="surveyAction(\'no\'); return false;">Remove this notification</a>') ?>
-        
+
     </div>
-<?php endif; ?>
+<?php endif ?>

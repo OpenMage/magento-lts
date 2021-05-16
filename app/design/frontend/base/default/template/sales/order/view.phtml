@@ -53,12 +53,12 @@
     }
     //]]>
     </script>
-    <?php endif; ?>
+    <?php endif ?>
     <?php $_order = $this->getOrder() ?>
     <h2 class="table-caption"><?php echo $this->__('Items Ordered') ?>
         <?php if ($_order->getTracksCollection()->count()) : ?>
             <span class="separator">|</span> <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_order) ?>','trackorder','top=0,left=0,width=800,height=600,resizable=yes,scrollbars=yes'); return false;" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Track your order')) ?>"><?php echo $this->__('Track your order') ?></a>
-        <?php endif; ?>
+        <?php endif ?>
     </h2>
 
     <?php echo $this->getChildHtml('order_items') ?>
@@ -73,7 +73,7 @@
             <dd><?php echo $this->helper('giftmessage/message')->getEscapedGiftMessage($_order) ?></dd>
         </dl>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php $_history = $this->getOrder()->getVisibleStatusHistory() ?>
     <?php if (count($_history)): ?>
     <div class="order-additional order-comments">
@@ -82,10 +82,10 @@
             <?php foreach ($_history as $_historyItem): ?>
                 <dt><?php echo $this->formatDate($_historyItem->getCreatedAtStoreDate(), 'medium', true) ?></dt>
                 <dd><?php echo $this->escapeHtml($_historyItem->getComment()) ?></dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
     </div>

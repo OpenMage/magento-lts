@@ -55,7 +55,7 @@
                 <td colspan="3">&nbsp;</td>
             </tr>
         </tfoot>
-        <?php endif; ?>
+        <?php endif ?>
         <?php $_items = $this->getInvoice()->getAllItems() ?>
         <?php $_i=0;foreach ($_items as $_item): ?>
         <?php if ($_item->getOrderItem()->getParentItem()) continue; else $_i++; ?>
@@ -63,7 +63,7 @@
             <?php echo $this->getItemHtml($_item) ?>
             <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
         </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
   </div>
 </div>
@@ -108,8 +108,8 @@
             <?php elseif ($this->isGatewayUsed()):?>
                 <input type="hidden" name="invoice[capture_case]" value="offline"/>
                 <p><?php echo Mage::helper('sales')->__('Invoice will be created without communication with payment gateway.') ?></p>
-            <?php endif?>
-          <?php endif; ?>
+            <?php endif ?>
+          <?php endif ?>
           <p>
               <label class="normal" for="notify_customer"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
               <input id="notify_customer" name="invoice[comment_customer_notify]" value="1" type="checkbox" />
@@ -119,7 +119,7 @@
               <label class="normal" for="send_email"><?php echo Mage::helper('sales')->__('Email Copy of Invoice') ?></label>
               <input id="send_email" name="invoice[send_email]" value="1" type="checkbox" />
           </p>
-          <?php endif; ?>
+          <?php endif ?>
           <div class="a-right">
           <?php echo $this->getChildHtml('submit_button') ?>
           </div>

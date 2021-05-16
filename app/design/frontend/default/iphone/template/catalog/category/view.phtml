@@ -46,13 +46,13 @@
 <div class="category-view">
     <?php if($_imgUrl): ?>
         <?php echo $_imgHtml ?>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
         <div class="category-description std">
             <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if($this->isContentMode()): ?>
         <?php echo $_categoryTitle ?>
@@ -66,5 +66,5 @@
     <?php else: ?>
         <?php echo $_categoryTitle ?>
         <?php echo $this->getProductListHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
 </div>

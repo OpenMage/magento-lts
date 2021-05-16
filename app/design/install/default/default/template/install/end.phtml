@@ -35,13 +35,13 @@
 </div>
 <?php if ($this->getIframeSourceUrl()): ?>
     <iframe id="iframe_box" src="<?php echo $this->getIframeSourceUrl() ?>" frameborder="0" width="650" height="600"></iframe>
-<?php endif; ?>
+<?php endif ?>
 <p><?php echo $this->__('Get ready to experience Open-Source eCommerce Evolved.') ?></p>
 <?php if($this->getEncryptionKey()): ?>
 <p><?php echo $this->__('Before you continue to your store, please make a note of your encryption key (OpenMage uses it to encrypt passwords, credit cards and more).') ?></p>
 <p><strong><big><?php echo $this->getEncryptionKey() ?></big></strong></p>
 <p><?php echo $this->__('(Make sure you keep it in a safe place.)') ?></p>
-<?php endif; ?>
+<?php endif ?>
 <div class="button-set">
     <button class="form-button" onclick="window.open('<?php echo $this->getUrl('') ?>')" type="button"><?php echo $this->__('Go to Frontend') ?></button>&nbsp;&nbsp;
     <button class="form-button" onclick="window.open('<?php echo $this->getUrl('adminhtml') ?>')" type="button"><?php echo $this->__('Go to Backend') ?></button>

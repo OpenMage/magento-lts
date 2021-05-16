@@ -38,5 +38,5 @@ $_product = $this->getProduct();
 
     <?php if ($this->helper('catalog')->canApplyMsrp($_product)): ?>
         <a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Click for price'); ?></a>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
