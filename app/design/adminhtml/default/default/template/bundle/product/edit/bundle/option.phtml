@@ -32,7 +32,7 @@ optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="
     '<input class="input-text required-entry" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][title]" id="id_<?php echo $this->getFieldName() ?>_{{index}}_title" value="{{title}}">' +
     <?php else: ?>
     '<input class="input-text required-entry" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][default_title]" id="id_<?php echo $this->getFieldName() ?>_{{index}}_default_title" value="{{default_title}}">' +
-    <?php endif; ?>
+    <?php endif ?>
 '<?php echo $this->jsQuoteEscape($this->getOptionDeleteButtonHtml()) ?>' +
 '</div>' +
     '<table class="option-header" cellpadding="0" cellspacing="0">' +
@@ -40,7 +40,7 @@ optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="
             '<tr>' +
                 <?php if (!$this->isDefaultStore()): ?>
                 '<th class="opt-title"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Store View Title')) ?>  <span class="required">*</span></th>' +
-                <?php endif; ?>
+                <?php endif ?>
                 '<th class="opt-type"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Input Type')) ?></th>' +
                 '<th class="opt-req"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Is Required')) ?></th>' +
                 '<th class="opt-order"><?php echo $this->jsQuoteEscape(Mage::helper('bundle')->__('Position')) ?></th>' +
@@ -53,7 +53,7 @@ optionTemplate = '<div id="<?php echo $this->getFieldId() ?>_{{index}}"  class="
                 '<input type="hidden" name="<?php echo $this->getFieldName() ?>[{{index}}][delete]" value="" class="delete">' +
                 <?php if (!$this->isDefaultStore()): ?>
                 '<td><input class="input-text required-entry" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][title]" id="id_<?php echo $this->getFieldName() ?>_{{index}}_title_store" value="{{title}}"></td>' +
-                <?php endif; ?>
+                <?php endif ?>
                 '<td><?php echo $this->getTypeSelectHtml() ?></td>' +
                 '<td><?php echo $this->getRequireSelectHtml() ?></td>' +
                 '<td><input class="input-text validate-zero-or-greater" type="text" name="<?php echo $this->getFieldName() ?>[{{index}}][position]" value="{{position}}"></td>' +
@@ -217,9 +217,9 @@ bOption = new Bundle.Option(optionTemplate);
         <?php $_selection->setName($this->escapeHtml($_selection->getName())); ?>
         <?php $_selection->setSku($this->escapeHtml($_selection->getSku())); ?>
         bSelection.addRow(optionIndex, <?php echo $_selection->toJson() ?>);
-        <?php endforeach; ?>
-    <?php endif; ?>
-<?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endif ?>
+<?php endforeach ?>
 /**
  * Adding event on price type select box of product to hide or show prices for selections
  */

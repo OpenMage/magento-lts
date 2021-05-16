@@ -160,7 +160,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             foreach ($notSalable as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
-            $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', join(', ', $products));
+            $messages[] = Mage::helper('wishlist')->__('Unable to add the following product(s) to shopping cart: %s.', implode(', ', $products));
         }
 
         if ($hasOptions) {
@@ -168,7 +168,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             foreach ($hasOptions as $item) {
                 $products[] = '"' . $item->getProduct()->getName() . '"';
             }
-            $messages[] = Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', join(', ', $products));
+            $messages[] = Mage::helper('wishlist')->__('Product(s) %s have required options. Each of them can be added to cart separately only.', implode(', ', $products));
         }
 
         if ($messages) {
@@ -203,7 +203,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             }
 
             Mage::getSingleton('checkout/session')->addSuccess(
-                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), join(', ', $products))
+                Mage::helper('wishlist')->__('%d product(s) have been added to shopping cart: %s.', count($addedItems), implode(', ', $products))
             );
 
             // save cart and collect totals

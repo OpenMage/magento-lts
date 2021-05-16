@@ -35,9 +35,9 @@
     <?php if ($showCount): ?>
        <?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?>
        {{pdf_row_separator}}
-    <?php endif;?>
+    <?php endif ?>
 
     <?php foreach ($card as $_label => $_value):?>
         <?php echo $_label ?>: <?php echo implode(' ', $this->getValueAsArray($_value))?>{{pdf_row_separator}}
-     <?php endforeach; ?>
-<?php endforeach; ?>
+     <?php endforeach ?>
+<?php endforeach ?>

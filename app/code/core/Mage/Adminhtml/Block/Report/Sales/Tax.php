@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Sales_Tax extends Mage_Adminhtml_Block_Widget_Grid_Container
@@ -53,4 +53,8 @@ class Mage_Adminhtml_Block_Report_Sales_Tax extends Mage_Adminhtml_Block_Widget_
         return $this->getUrl('*/*/tax', array('_current' => true));
     }
 
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

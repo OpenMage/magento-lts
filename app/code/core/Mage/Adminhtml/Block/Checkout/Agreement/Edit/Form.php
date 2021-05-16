@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'title'     => Mage::helper('checkout')->__('Content'),
             'style'     => 'height:24em;',
             'wysiwyg'   => false,
-            'required'  => true,
+            'required'  => false,
         ));
 
         $fieldset->addField('content_height', 'text', array(
@@ -142,6 +142,15 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'title'     => Mage::helper('checkout')->__('Content Height'),
             'maxlength' => 25,
             'class'     => 'validate-css-length',
+        ));
+
+        $fieldset->addField('position', 'text', array(
+            'label'    => Mage::helper('checkout')->__('Position'),
+            'title'    => Mage::helper('checkout')->__('Position'),
+            'name'     => 'position',
+            'value'    => '0',
+            'required' => true,
+            'class'    => 'validate-digits',
         ));
 
         $form->setValues($model->getData());

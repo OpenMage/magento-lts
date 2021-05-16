@@ -135,7 +135,6 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
 //            ->group('main_table.vote_id')
         ;
 
-        $adapter->fetchAll($this->getSelect());
         return $this;
     }
 

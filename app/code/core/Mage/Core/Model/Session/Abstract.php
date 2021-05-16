@@ -235,17 +235,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function addException(Exception $exception, $alternativeText)
     {
-        // log exception to exceptions log
-        $message = sprintf(
-            'Exception message: %s%sTrace: %s',
-            $exception->getMessage(),
-            "\n",
-            $exception->getTraceAsString()
-        );
-        $file    = Mage::getStoreConfig(self::XML_PATH_LOG_EXCEPTION_FILE);
-        Mage::log($message, Zend_Log::DEBUG, $file);
-
-        $this->addMessage(Mage::getSingleton('core/message')->error($alternativeText));
+        Mage::logException($exception);
+        $this->addError($alternativeText);
         return $this;
     }
 

@@ -54,22 +54,22 @@ $_swatchOuterHeight = $_dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Help
                 <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>" class="<?php echo $_linkClass ?>">
             <?php else: ?>
                 <span class="<?php echo $_linkClass ?>">
-            <?php endif; ?>
+            <?php endif ?>
                 <span class="swatch-label"<?php if ($_hasImage){ echo ' style="' . $_linkCss . '"'; } ?>>
                     <?php if ($_hasImage): ?>
                         <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_label; ?>" title="<?php echo $_label ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
                     <?php else: ?>
                         <?php echo $_label; ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </span>
                 <?php if ($this->shouldDisplayProductCount()): ?>
                     <span class="count">(<?php echo $_item->getCount() ?>)</span>
-                <?php endif; ?>
+                <?php endif ?>
             <?php if ($_hasItems): ?>
                 </a>
             <?php else: ?>
                 </span>
-            <?php endif; ?>
+            <?php endif ?>
         </li>
     <?php endforeach ?>
 </ol>

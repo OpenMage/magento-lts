@@ -360,7 +360,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             Mage::throwException($response->getRespmsg());
         }
 
-        $amountCompared = ($response->getAmt() == $order->getPayment()->getBaseAmountAuthorized()) ? true : false;
+        $amountCompared = $response->getAmt() == $order->getPayment()->getBaseAmountAuthorized();
         if (!$order->getId()
             || $order->getState() != Mage_Sales_Model_Order::STATE_PENDING_PAYMENT
             || !$amountCompared

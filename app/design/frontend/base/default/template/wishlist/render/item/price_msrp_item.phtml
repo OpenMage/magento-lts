@@ -48,7 +48,7 @@
         <?php if($_product->getMsrp()): ?>
             <?php $_msrpPrice = $_coreHelper->currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" ><?php echo $_msrpPrice ?></span>
-        <?php endif; ?>
+        <?php endif ?>
 
         <?php if ($_catalogHelper->isShowPriceOnGesture($_product)): ?>
             <?php $priceElementId = 'product-price-' . $_id . $this->getIdSuffix(); ?>
@@ -92,7 +92,7 @@
             <span class="msrp-price-hide-message">
                 <?php echo $_catalogHelper->getMsrpPriceMessage($_product) ?>
             </span>
-        <?php endif; ?>
+        <?php endif ?>
 
         <?php $helpLinkId = 'msrp-help-' . $_id . $_coreHelper->getRandomString(20); ?>
         <a href="#" id="<?php echo($helpLinkId);?>"><?php echo $this->__("What's this?"); ?></a>

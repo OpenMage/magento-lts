@@ -789,7 +789,7 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
-                if ($targetFile && !is_writeable(dirname($targetFile))) {
+                if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }

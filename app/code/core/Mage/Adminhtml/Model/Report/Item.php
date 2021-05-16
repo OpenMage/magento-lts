@@ -55,7 +55,7 @@ class Mage_Adminhtml_Model_Report_Item extends Varien_Object
 
     public function hasChildren()
     {
-        return (count($this->_children) > 0) ? true : false;
+        return count($this->_children) > 0;
     }
 
     public function addChild($child)

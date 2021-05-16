@@ -535,7 +535,7 @@ class Mage_Core_Model_Translate
             return false;
         }
         $data = Mage::app()->loadCache($this->getCacheId());
-        $data = unserialize($data);
+        $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }
 
@@ -572,7 +572,6 @@ class Mage_Core_Model_Translate
      */
     protected function _getTranslatedString($text, $code)
     {
-        $translated = '';
         if (array_key_exists($code, $this->getData())) {
             $translated = $this->_data[$code];
         } elseif (array_key_exists($text, $this->getData())) {

@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Product_Viewed extends Mage_Adminhtml_Block_Widget_Grid_Container
@@ -47,14 +47,14 @@ class Mage_Adminhtml_Block_Report_Product_Viewed extends Mage_Adminhtml_Block_Wi
         ));
     }
 
-    /**
-     * Get filter url
-     *
-     * @return string
-     */
     public function getFilterUrl()
     {
         $this->getRequest()->setParam('filter', null);
         return $this->getUrl('*/*/viewed', array('_current' => true));
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

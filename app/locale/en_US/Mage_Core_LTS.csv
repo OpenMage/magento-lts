@@ -1,1 +1,4 @@
 "The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter","The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter"
+"Admin","Admin"
+"Frontend","Frontend"
+"The store view #%d is disabled.","The store view #%d is disabled."

@@ -38,7 +38,7 @@ class Mage_Payment_Block_Info_Purchaseorder extends Mage_Payment_Block_Info
      */
     public function toPdf()
     {
-        $this->setTemplate('payment/info/pdf/purchaseorder.phtml');
+        $this->setTemplate('payment/info/purchaseorder.phtml');
         return $this->toHtml();
     }
 }

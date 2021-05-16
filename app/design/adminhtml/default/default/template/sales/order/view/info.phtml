@@ -43,7 +43,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
         <?php else: ?>
             <a href="<?php echo $this->getViewUrl($_order->getId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></a>
             <strong>(<?php echo $_email ?>)</strong>
-        <?php endif; ?>
+        <?php endif ?>
         </div>
         <div class="fieldset">
             <table cellspacing="0" class="form-list">
@@ -56,7 +56,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Date (%s)', $_order->getCreatedAtStoreDate()->getTimezone()) ?></label></td>
                 <td class="value"><strong><?php echo $orderStoreDate ?></strong></td>
             </tr>
-            <?php endif;?>
+            <?php endif ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
                 <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
@@ -72,7 +72,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                     <?php echo $this->escapeHtml($_order->getRelationChildRealId()) ?>
                 </a></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if($_order->getRelationParentId()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Link to the Previous Order') ?></label></td>
@@ -80,25 +80,25 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                     <?php echo $this->escapeHtml($_order->getRelationParentRealId()) ?>
                 </a></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if($_order->getRemoteIp() && $this->shouldDisplayCustomerIp()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Placed from IP') ?></label></td>
                 <td class="value"><strong><?php echo $this->escapeHtml($_order->getRemoteIp()); echo ($_order->getXForwardedFor())?' (' . $this->escapeHtml($_order->getXForwardedFor()) . ')':''; ?></strong></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if($_order->getGlobalCurrencyCode() != $_order->getBaseCurrencyCode()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getGlobalCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
                 <td class="value"><strong><?php echo $_order->getBaseToGlobalRate() ?></strong></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if($_order->getBaseCurrencyCode() != $_order->getOrderCurrencyCode()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getOrderCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
                 <td class="value"><strong><?php echo $_order->getBaseToOrderRate() ?></strong></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             </table>
         </div>
     </div>
@@ -120,7 +120,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                         <a href="<?php echo $_customerUrl ?>" target="_blank"><strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong></a>
                     <?php else: ?>
                         <strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong>
-                    <?php endif; ?>
+                    <?php endif ?>
                     </td>
                 </tr>
                 <tr>
@@ -132,13 +132,13 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Group') ?></label></td>
                     <td class="value"><strong><?php echo $this->escapeHtml($_groupName) ?></strong></td>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php foreach ($this->getCustomerAccountData() as $data):?>
                 <tr>
                     <td class="label"><label><?php echo $data['label'] ?></label></td>
                     <td class="value"><strong><?php echo $data['value'] ?></strong></td>
                 </tr>
-                <?php endforeach;?>
+                <?php endforeach ?>
                 </table>
             </div>
         </div>
@@ -172,4 +172,4 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
     </div>
 </div>
 <div class="clear"></div>
-<?php endif; ?>
+<?php endif ?>

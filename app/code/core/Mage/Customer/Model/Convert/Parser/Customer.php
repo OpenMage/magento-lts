@@ -274,7 +274,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                         continue;
                     }
                     if (is_array($option)) {
-                        $value = join(self::MULTI_DELIMITER, $option);
+                        $value = implode(self::MULTI_DELIMITER, $option);
                     } else {
                         $value = $option;
                     }

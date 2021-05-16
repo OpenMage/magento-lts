@@ -35,7 +35,7 @@
         <div class="col-1">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit') ?></a><?php endif;?></h3>
+                    <h3><?php echo $this->__('Shipping Address') ?><span class="separator"><?php if ($this->getCanEditShippingAddress()):?> | </span><a href="<?php echo $this->getEditUrl() ?>"><?php echo $this->__('Edit') ?></a><?php endif ?></h3>
                 </div>
                 <div class="box-content">
                     <address><?php echo $this->renderAddress($this->getShippingAddress())?></address>
@@ -56,16 +56,16 @@
                                     <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
                                         <?php if (!$currentRate):?>
                                             <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
-                                        <?php endif;?>
+                                        <?php endif ?>
                                         <?php foreach ($groups as $code => $rates):?>
                                             <optgroup label="<?php echo $this->escapeHtml($this->getCarrierName($code)) ?>" style="font-style:normal;">
                                                 <?php foreach ($rates as $rate):?>
                                                     <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
                                                         <?php echo $this->renderShippingRateOption($rate)?>
                                                     </option>
-                                                <?php endforeach;?>
+                                                <?php endforeach ?>
                                             </optgroup>
-                                        <?php endforeach;?>
+                                        <?php endforeach ?>
                                     </select>
                                 </fieldset>
                                 <p class="actions">
@@ -73,16 +73,16 @@
                                 </p>
                             <?php else: ?>
                                 <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
-                            <?php endif;?>
+                            <?php endif ?>
                         <?php else: ?>
                             <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="info-set col2-set">
     <h2 class="legend"><?php echo $this->__('Billing Information') ?></h2>

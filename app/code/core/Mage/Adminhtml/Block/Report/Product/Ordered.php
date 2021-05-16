@@ -29,6 +29,7 @@
  *
  * @deprecated after 1.4.0.1
  */
+
 class Mage_Adminhtml_Block_Report_Product_Ordered extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
@@ -37,5 +38,10 @@ class Mage_Adminhtml_Block_Report_Product_Ordered extends Mage_Adminhtml_Block_W
         $this->_headerText = Mage::helper('reports')->__('Bestsellers');
         parent::__construct();
         $this->_removeButton('add');
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

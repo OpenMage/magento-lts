@@ -205,7 +205,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     public function getParams()
     {
         $data = $this->_data['params'];
-        $data = unserialize($data);
+        $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }
 }

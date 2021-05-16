@@ -63,7 +63,7 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
     public function getBatchData()
     {
         $data = $this->_data['batch_data'];
-        $data = unserialize($data);
+        $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }
 

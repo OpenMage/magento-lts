@@ -81,7 +81,7 @@
                 </address>
                 <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
             </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php else: ?>
             <li class="item empty">
                 <p><?php echo $this->__('You have no additional address entries in your address book.') ?></p>

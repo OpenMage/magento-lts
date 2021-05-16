@@ -195,9 +195,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } else {
                 switch ($this->getProcessMode()) {
                     case Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL:
-                        Mage::throwException(
-                            Mage::helper('catalog')->__('Please specify the product\'s required option(s).')
-                        );
+                        Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
                         break;
                     default:
                         $this->setUserValue(null);
@@ -297,7 +295,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             }
         } else {
             $this->setIsValid(false);
-            Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option(s)'));
+            Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
         return $this;
     }

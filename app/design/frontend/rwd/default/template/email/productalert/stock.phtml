@@ -39,17 +39,17 @@
             <?php $shortDescription = $this->_getFilteredProductShortDescription($product) ?>
             <?php if ($shortDescription): ?>
                 <p><small><?php echo $shortDescription ?></small></p>
-            <?php endif; ?>
+            <?php endif ?>
             <p><?php if ($product->getPrice() != $product->getFinalPrice()): ?>
                 <?php echo $this->__('Regular Price:') ?> <strong style="text-decoration:line-through;"><?php echo Mage::helper('core')->currency($product->getPrice()) ?></strong><br />
                 <strong><?php echo $this->__('Special price:') ?> <span style="color:#FF0000;"><?php echo Mage::helper('core')->currency($product->getFinalPrice()) ?></span></strong>
             <?php else: ?>
                 <strong><?php echo $this->__('Price:') ?></strong> <?php echo Mage::helper('core')->currency($product->getPrice()) ?>
-            <?php endif; ?></p>
+            <?php endif ?></p>
             <p><small><a href="<?php echo $this->getProductUnsubscribeUrl($product->getId()) ?>"><?php echo $this->__('Click here not to receive alerts for this product') ?></a></small></p>
         </td>
     </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 </table>
 <p><a href="<?php echo $this->getUnsubscribeUrl() ?>"><?php echo $this->__('Unsubscribe from all stock alerts') ?></a></p>
-<?php endif; ?>
+<?php endif ?>

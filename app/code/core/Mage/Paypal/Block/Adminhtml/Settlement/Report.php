@@ -31,11 +31,9 @@
  * @package     Mage_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
+
 class Mage_Paypal_Block_Adminhtml_Settlement_Report extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    /**
-     * Prepare grid container, add additional buttons
-     */
     public function __construct()
     {
         $this->_blockGroup = 'paypal';
@@ -52,5 +50,10 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report extends Mage_Adminhtml_Block
             'onclick' => "confirmSetLocation('{$confirmationMessage}', '{$this->getUrl('*/*/fetch')}')",
             'class'   => 'task'
         ));
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

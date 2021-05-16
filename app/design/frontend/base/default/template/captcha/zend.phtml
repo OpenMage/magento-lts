@@ -42,7 +42,7 @@
         <div class="captcha-note">
             <?php echo $this->__('<strong>Attention</strong>: Captcha is case sensitive.') ?>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
     <script type="text/javascript">//<![CDATA[
         $('<?php echo $this->getFormId() ?>').captcha = new Captcha('<?php echo $this->getRefreshUrl() ?>', '<?php echo $this->getFormId() ?>');

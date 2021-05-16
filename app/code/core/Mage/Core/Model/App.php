@@ -1406,7 +1406,7 @@ class Mage_Core_Model_App
      */
     protected function _callObserverMethod($object, $method, $observer)
     {
-        if (method_exists($object, $method)) {
+        if (is_object($object) && method_exists($object, $method)) {
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
             Mage::throwException('Method "'.$method.'" is not defined in "'.get_class($object).'"');
@@ -1430,9 +1430,9 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
-    public function throwStoreException()
+    public function throwStoreException($text = '')
     {
-        throw new Mage_Core_Model_Store_Exception('');
+        throw new Mage_Core_Model_Store_Exception($text);
     }
 
     /**

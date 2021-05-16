@@ -50,7 +50,7 @@
                 <?php if($this->getShipment()->getTracksCollection()->count()): ?>
                 <a href="#" id="linkId" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($this->getShipment()) ?>','trackshipment','width=800,height=600,resizable=yes,scrollbars=yes')" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Track this shipment')) ?>"><?php echo $this->__('Track this shipment') ?></a>
                 <br/>
-                <?php endif; ?>
+                <?php endif ?>
                 <strong><?php echo $this->escapeHtml($_order->getShippingDescription()) ?></strong>
                 <?php echo $this->helper('sales')->__('Total Shipping Charges'); ?>:
 
@@ -58,13 +58,13 @@
                     <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
                 <?php else: ?>
                     <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
                 <?php echo $_excl; ?>
                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                <?php endif; ?>
+                <?php endif ?>
             </div>
             <?php if ($this->canCreateShippingLabel()): ?>
             <div style="text-align: center; margin: 10px 0;">

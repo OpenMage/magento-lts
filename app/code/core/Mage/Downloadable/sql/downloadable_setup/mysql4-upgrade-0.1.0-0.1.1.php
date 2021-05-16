@@ -37,9 +37,9 @@ if (in_array('downloadable', $applyTo)) {
             $newApplyTo[] = $value;
         }
     }
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $newApplyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $newApplyTo));
 } else {
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $applyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $applyTo));
 }
 
 // remove 'weight' values for downloadable products if there were any created

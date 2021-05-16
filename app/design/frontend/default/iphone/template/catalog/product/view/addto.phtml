@@ -31,8 +31,8 @@
 <ul class="add-to-links">
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
     <li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($this->canEmailToFriend()): ?>
     <li><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to Friend') ?></a></li>
-<?php endif; ?>
+<?php endif ?>
 </ul>

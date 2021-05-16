@@ -46,6 +46,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
         $categoryId = $this->getRequest()->getParam('cid');

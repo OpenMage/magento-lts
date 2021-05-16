@@ -85,9 +85,9 @@
 
 /************ 3RD+ LEVEL ************/
 /* Cursors */
-#nav li.parent a,
-#nav li.parent li.parent a,
-#nav li.parent li.parent li.parent a { cursor:default; }
+#nav li.parent a[href="#"],
+#nav li.parent li.parent a[href="#"],
+#nav li.parent li.parent li.parent a[href="#"] { cursor:default; }
 
 #nav li.parent li a,
 #nav li.parent li.parent li a,

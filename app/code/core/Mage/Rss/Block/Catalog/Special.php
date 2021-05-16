@@ -49,6 +49,10 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
          //store id is store view id
@@ -187,8 +191,8 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     /**
      * Function for comparing two items in collection
      *
-     * @param   Varien_Object $item1
-     * @param   Varien_Object $item2
+     * @param   Varien_Object $a
+     * @param   Varien_Object $b
      * @return  boolean
      */
     public function sortByStartDate($a, $b)

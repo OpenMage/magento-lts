@@ -28,11 +28,11 @@
     <?php if ($this->getIsSuccess()):?>
         <h1><?php echo $this->__('Verification Successful');?></h1>
         <p><?php echo $this->__('Please continue with placing order.')?></p>
-    <?php else:?>
+    <?php else: ?>
         <h4><?php echo $this->__('Verification Failed');?></h4>
         <p><?php echo $this->__('The card has failed verification with the issuer bank.')?> <strong><?php echo $this->__('Order cannot be placed.')?></strong></p>
-    <?php endif;?>
-<?php else:?>
+    <?php endif ?>
+<?php else: ?>
     <h4><?php echo $this->__('Verification cannot be processed');?></h4>
     <p><?php echo $this->__('There has been wrong payment information submitted or time limit has expired. Please, try again.')?> <strong><?php echo $this->__('Order cannot be placed.')?></strong></p>
-<?php endif;?>
+<?php endif ?>

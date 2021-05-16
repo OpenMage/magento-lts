@@ -205,7 +205,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
     {
         $creditmemo = $this->_getCreditmemo($creditmemoIncrementId);
         try {
-            $creditmemo->addComment($comment, $notifyCustomer)->save();
+            $creditmemo->addComment($comment, $notifyCustomer);
+            $creditmemo->getCommentsCollection()->save();
             $creditmemo->sendUpdateEmail($notifyCustomer, ($includeComment ? $comment : ''));
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
