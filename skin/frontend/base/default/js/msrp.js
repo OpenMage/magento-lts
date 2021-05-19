@@ -116,8 +116,7 @@ Catalog.Map = {
     },
 
     showHelp: function(event) {
-        var helpBox = $('map-popup'),
-            isIE6 = typeof document.body.style.maxHeight === "undefined";
+        var helpBox = $('map-popup');
         if (!helpBox) {
             return;
         }
@@ -189,7 +188,7 @@ Catalog.Map = {
                     }
                     cartButton.stopObserving('click');
                     cartButton.href = this.cartLink;
-                    Event.observe(cartButton, 'click', function(event) {
+                    Event.observe(cartButton, 'click', function () {
                         productAddToCartForm.action = this.href;
                         productAddToCartForm.submit(this);
                     });
@@ -224,9 +223,6 @@ Catalog.Map = {
             }
 
             $(helpBox).show();
-            if (isIE6) {
-                Catalog.Map.hideSelects();
-            }
             var closeButton = $('map-popup-close');
             if (closeButton) {
                 $(closeButton).stopObserving('click');
@@ -235,9 +231,6 @@ Catalog.Map = {
             }
         } else {
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
 
@@ -247,11 +240,7 @@ Catalog.Map = {
     hideHelp: function(){
         var helpBox = $('map-popup');
         if (helpBox) {
-            var isIE6 = typeof document.body.style.maxHeight === "undefined";
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
     },
@@ -282,7 +271,7 @@ Catalog.Map = {
                 var parentButton = button;
                 new Ajax.Request(this.form.action, {
                     parameters: {isAjax: 1, method: 'GET'},
-                    onSuccess: function(transport) {
+                    onSuccess: function () {
                         window.opener.focus();
                         if (parentButton && parentButton.href) {
                             setPLocation(parentButton.href, true);

@@ -96,8 +96,6 @@
             <action method="removeItem"><type>js</type><name>mage/adminhtml/product.js</name></action>
             <action method="removeItem"><type>js</type><name>mage/adminhtml/rules.js</name></action>
             <action method="removeItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name></action>
-            <action method="removeItem"><type>js</type><name>lib/ds-sleight.js</name></action>
-            <action method="removeItem"><type>js</type><name>varien/iehover-fix.js</name></action>
 
             <action method="removeItem"><type>css</type><name>print.css</name></action>
             <action method="removeItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name></action>
@@ -107,7 +105,6 @@
 
             <action method="removeItem"><type>js</type><name>calendar/calendar.js</name></action>
             <action method="removeItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
-            <action method="removeItem"><type>js</type><name>extjs/fix-defer-before.js</name></action>
             <action method="removeItem"><type>js</type><name>extjs/ext-tree.js</name></action>
             <action method="removeItem"><type>js</type><name>extjs/fix-defer.js</name></action>
             <action method="removeItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name></action>

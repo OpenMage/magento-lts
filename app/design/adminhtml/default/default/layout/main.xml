@@ -56,7 +56,6 @@ Default layout, loads most of the pages
            <block type="adminhtml/page_head" name="head" as="head" template="page/head.phtml">
                 <action method="setTitle" translate="title"><title>OpenMage Admin</title></action>
                 <action method="addJs"><script>prototype/prototype.js</script></action>
-                <action method="addItem"><type>js</type><name>extjs/fix-defer-before.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addJs"><script>prototype/window.js</script></action>
                 <action method="addJs"><script>scriptaculous/builder.js</script></action>
                 <action method="addJs"><script>scriptaculous/effects.js</script></action>
@@ -83,14 +82,7 @@ Default layout, loads most of the pages
                 <action method="addCss"><name>boxes.css</name></action>
                 <action method="addCss"><name>custom.css</name></action>
 
-                <action method="addItem"><type>skin_css</type><name>iestyles.css</name><params/><if>lt IE 8</if></action>
-                <action method="addItem"><type>skin_css</type><name>below_ie7.css</name><params/><if>lt IE 7</if></action>
-                <action method="addItem"><type>skin_css</type><name>ie7.css</name><params/><if>IE 7</if></action>
-
                 <action method="addCss"><name>print.css</name><params>media="print"</params></action>
-
-                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params>defer</params><if>lt IE 7</if></action>
-                <action method="addItem"><type>js</type><name>varien/iehover-fix.js</name><params/><if>lt IE 7</if></action>
 
                 <action method="addItem"><type>skin_css</type><name>menu.css</name><params>media="screen, projection"</params></action>
 

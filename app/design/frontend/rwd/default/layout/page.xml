@@ -52,9 +52,6 @@
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
-                <!-- Remove items which the RWD package is not dependent upon -->
-                <action method="removeItem"><type>skin_js</type><name>js/ie6.js</name></action>
-
                 <!-- Add vendor dependencies -->
                 <action method="addItem"><type>skin_js</type><name>js/lib/modernizr.custom.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/lib/selectivizr.js</name></action>
@@ -69,13 +66,9 @@
                 <action method="addLinkRel"><rel>stylesheet</rel><href><![CDATA[//fonts.googleapis.com/css?family=Raleway:300,400,500,700,600&display=swap]]></href></action>
                 <action method="addItem"><type>skin_js</type><name>js/minicart.js</name></action>
 
-                <!-- Add stylesheets with no media queries for use in IE 8 and below -->
-                <action method="addItem"><type>skin_css</type><name>css/styles-ie8.css</name><params/><if><![CDATA[ (lte IE 8) & (!IEMobile)]]></if></action>
-                <action method="addItem"><type>skin_css</type><name>css/madisonisland-ie8.css</name><params/><if><![CDATA[ (lte IE 8) & (!IEMobile)]]></if></action>
-
                 <!-- Add stylesheets with media queries for use by modern browsers -->
-                <action method="addItem"><type>skin_css</type><name>css/styles.css</name><params/><if><![CDATA[<!--[if (gte IE 9) | (IEMobile)]><!-->]]></if></action>
-                <action method="addItem"><type>skin_css</type><name>css/madisonisland.css</name><params/><if><![CDATA[<!--[if (gte IE 9) | (IEMobile)]><!-->]]></if></action>
+                <action method="addItem"><type>skin_css</type><name>css/styles.css</name></action>
+                <action method="addItem"><type>skin_css</type><name>css/madisonisland.css</name></action>
 
                 <!-- Sets viewport meta tag using text block -->
                 <block type="core/text" name="head.viewport">
@@ -175,9 +168,6 @@
 
                 <action method="addCss"><stylesheet>css/styles.css</stylesheet></action>
                 <action method="addCss"><stylesheet>css/widgets.css</stylesheet></action>
-
-                <action method="addItem"><type>js</type><name>lib/ds-sleight.js</name><params/><if>lt IE 7</if></action>
-                <!--<action method="addItem"><type>skin_js</type><name>js/iehover-fix.js</name><params/><if>lt IE 7</if></action>-->
             </block>
 
             <block type="core/text_list" name="content" as="content" translate="label">
