@@ -184,8 +184,22 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 
     public function deleteAction()
     {
-        if ($id = $this->getRequest()->getParam('user_id')) {
+        $id = $this->getRequest()->getParam('user_id');
 
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/edit', array('user_id' => $id));
+            return;
+        }
+
+        if ($id) {
             try {
                 $model = Mage::getModel('api/user')->load($id);
                 $model->delete();
@@ -195,7 +209,7 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('user_id' => $this->getRequest()->getParam('user_id')));
+                $this->_redirect('*/*/edit', array('user_id' => $id));
                 return;
             }
         }

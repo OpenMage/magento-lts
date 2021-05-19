@@ -147,20 +147,31 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      */
     public function deleteAction()
     {
-        $rid = $this->getRequest()->getParam('rid', false);
-
-        $role = $this->_initRole();
+        $role = $this->_initRole('role_id');
         if (!$role->getId()) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
 
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
+            return;
+        }
+
         $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
 
-        if (in_array($rid, $currentUser->getRoles()) ) {
+        if (in_array($role->getId(), $currentUser->getRoles()) ) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
-            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
             return;
         }
 

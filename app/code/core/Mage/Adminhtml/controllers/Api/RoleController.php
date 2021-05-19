@@ -116,7 +116,20 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
     public function deleteAction()
     {
-        $rid = $this->getRequest()->getParam('rid', false);
+        $rid = $this->getRequest()->getParam('role_id', false);
+
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            return;
+        }
 
         try {
             Mage::getModel("api/roles")->load($rid)->delete();
