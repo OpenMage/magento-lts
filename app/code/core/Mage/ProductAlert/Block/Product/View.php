@@ -38,13 +38,6 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     protected $_product = null;
 
     /**
-     * Helper instance
-     *
-     * @var Mage_ProductAlert_Helper_Data
-     */
-    protected $_helper = null;
-
-    /**
      * Check whether the stock alert data can be shown and prepare related data
      */
     public function prepareStockAlertData()
@@ -92,9 +85,6 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
      */
     protected function _getHelper()
     {
-        if (is_null($this->_helper)) {
-            $this->_helper = Mage::helper('productalert');
-        }
-        return $this->_helper;
+        return Mage::helper('productalert');
     }
 }
