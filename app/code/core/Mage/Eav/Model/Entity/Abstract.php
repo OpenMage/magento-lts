@@ -1454,7 +1454,16 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         try {
             $adapter = $this->_getWriteAdapter();
             foreach ($this->_attributeValuesToSave as $table => $data) {
-                $adapter->insertOnDuplicate($table, $data, array('value'));
+                $eavValueSuffixes = ['int','varchar','text','decimal','datetime'];
+                $words = explode('_', $table);
+                $lastWord = $words[count($words) - 1];
+                if(in_array($lastWord, $eavValueSuffixes, true)){
+                    // Saving an EAV value
+                    $adapter->insertOnDuplicate($table, $data, array('value'));
+                }else{
+                    // Saving a static attribute value in the entity table
+                    $adapter->insertOnDuplicate($table, $data);
+                }
             }
 
             foreach ($this->_attributeValuesToDelete as $table => $valueIds) {
