@@ -238,24 +238,38 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             ));
         }
 
-        $data = new Varien_Object(array(
-            'entity_type_id'    => $attribute->getEntityTypeId(),
-            'attribute_id'      => $attribute->getAttributeId(),
-            'store_id'          => $storeId,
-            'entity_id'         => $object->getEntityId(),
-            'value'             => $this->_prepareValueForSave($value, $attribute)
-        ));
+        $isStatic = $attribute->getBackendType() === 'static';
+        if($isStatic){
+            $data = new Varien_Object(array(
+                'entity_id' => $object->getEntityId(),
+                $attribute->getAttributeCode() => $this->_prepareValueForSave($value, $attribute)
+            ));
+        }else{
+            $data = new Varien_Object(array(
+                'entity_type_id'    => $attribute->getEntityTypeId(),
+                'attribute_id'      => $attribute->getAttributeId(),
+                'store_id'          => $storeId,
+                'entity_id'         => $object->getEntityId(),
+                'value'             => $this->_prepareValueForSave($value, $attribute)
+            ));
+        }
         $bind = $this->_prepareDataForTable($data, $table);
 
         if ($attribute->isScopeStore()) {
             /**
              * Update attribute value for store
              */
+            if($isStatic){
+                Mage::throwException('Cannot update a static attribute value with store scope.');
+            }
             $this->_attributeValuesToSave[$table][] = $bind;
         } elseif ($attribute->isScopeWebsite() && $storeId != $this->getDefaultStoreId()) {
             /**
              * Update attribute value for website
              */
+            if($isStatic){
+                Mage::throwException('Cannot update a static attribute value with website scope.');
+            }
             $storeIds = Mage::app()->getStore($storeId)->getWebsite()->getStoreIds(true);
             foreach ($storeIds as $storeId) {
                 $bind['store_id'] = (int)$storeId;
@@ -265,7 +279,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             /**
              * Update global attribute value
              */
-            $bind['store_id'] = $this->getDefaultStoreId();
+            if(!$isStatic) {
+                $bind['store_id'] = $this->getDefaultStoreId();
+            }
             $this->_attributeValuesToSave[$table][] = $bind;
         }
 
