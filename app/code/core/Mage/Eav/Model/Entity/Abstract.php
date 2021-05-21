@@ -1500,7 +1500,12 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             self::$_attributeBackendTables[$backendTable] = $this->_getReadAdapter()->describeTable($backendTable);
         }
         $describe = self::$_attributeBackendTables[$backendTable];
-        return $this->_getReadAdapter()->prepareColumnValue($describe['value'], $value);
+        if($attribute->getBackendType() === 'static'){
+            $columnInfo = $describe[$attribute->getAttributeCode()];
+        }else{
+            $columnInfo = $describe['value'];
+        }
+        return $this->_getReadAdapter()->prepareColumnValue($columnInfo, $value);
     }
 
     /**
@@ -1561,31 +1566,45 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $newValue = null;
         }
 
-        $whereArr = array();
-        foreach ($row as $field => $value) {
-            $whereArr[] = $adapter->quoteInto($field . '=?', $value);
-        }
-        $where = implode(' AND ', $whereArr);
-
+        $isStatic = $attribute->getBackendType() === 'static';
         $adapter->beginTransaction();
 
         try {
-            $select = $adapter->select()
-                ->from($table, 'value_id')
-                ->where($where);
+            $select = $adapter->select();
+            if($isStatic){
+                $where = $adapter->quoteInto($entityIdField . ' = ?', $object->getData($entityIdField));
+                $select->from($table, $attributeCode)->where($where);
+            }else{
+                $whereArr = [];
+                foreach ($row as $field => $value) {
+                    $whereArr[] = $adapter->quoteInto($field . '=?', $value);
+                }
+                $where = implode(' AND ', $whereArr);
+                $select->from($table, 'value_id')->where($where);
+            }
             $origValueId = $adapter->fetchOne($select);
 
-            if ($origValueId === false && ($newValue !== null)) {
+            if (!$isStatic && $origValueId === false && $newValue !== null) {
                 $this->_insertAttribute($object, $attribute, $newValue);
-            } elseif ($origValueId !== false && ($newValue !== null)) {
+            } elseif ($origValueId !== false && $newValue !== null) {
                 $this->_updateAttribute($object, $attribute, $origValueId, $newValue);
-            } elseif ($origValueId !== false && ($newValue === null)) {
+            } elseif (!$isStatic && $origValueId !== false && ($newValue === null)) {
                 $adapter->delete($table, $where);
             }
             $this->_processAttributeValues();
+
+            // Change the "updated_at" field of the main entity
+            try {
+                $entityTable = $entity->getEntityTable();
+                $where = $adapter->quoteInto($object->getIdFieldName() . ' = ?', $object->getId());
+                $adapter->update($entityTable, ['updated_at' => date('Y-m-d H:i:s')], $where);
+            }catch(Exception $e){
+                Mage::logException($e);
+            }
+
             $adapter->commit();
         } catch (Exception $e) {
-            $adapter->rollBack();
+            $adapter->rollback();
             throw $e;
         }
 
