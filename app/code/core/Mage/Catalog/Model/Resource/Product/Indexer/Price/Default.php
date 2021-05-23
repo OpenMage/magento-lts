@@ -390,11 +390,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                 array()
             )
             ->join(
-                array('cs' => $this->getTable('core/store')),
-                'cs.store_id = csg.default_store_id',
-                array()
-            )
-            ->join(
                 array('o' => $this->getTable('catalog/product_option')),
                 'o.product_id = i.entity_id',
                 array('option_id')
@@ -411,7 +406,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             )
             ->joinLeft(
                 array('otps' => $this->getTable('catalog/product_option_type_price')),
-                'otps.option_type_id = otpd.option_type_id AND otpd.store_id = cs.store_id',
+                'otps.option_type_id = otpd.option_type_id AND otps.store_id = csg.default_store_id',
                 array()
             )
             ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id', 'o.option_id'));
@@ -469,11 +464,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                 array()
             )
             ->join(
-                array('cs' => $this->getTable('core/store')),
-                'cs.store_id = csg.default_store_id',
-                array()
-            )
-            ->join(
                 array('o' => $this->getTable('catalog/product_option')),
                 'o.product_id = i.entity_id',
                 array('option_id')
@@ -485,7 +475,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             )
             ->joinLeft(
                 array('ops' => $this->getTable('catalog/product_option_price')),
-                'ops.option_id = opd.option_id AND ops.store_id = cs.store_id',
+                'ops.option_id = opd.option_id AND ops.store_id = csg.default_store_id',
                 array()
             );
 
