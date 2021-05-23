@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Customer_Wishlist */
@@ -30,7 +30,7 @@
         <div class="page-title title-buttons">
             <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
                 <a href="<?php echo $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
-            <?php endif; ?>
+            <?php endif ?>
             <h1><?php echo $this->getTitle(); ?></h1>
         </div>
         <?php echo $this->getMessagesBlock()->toHtml() ?>

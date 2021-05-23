@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -49,10 +49,10 @@
         <?php $i=0; foreach ($_invoice->getAllItems() as $_item): ?>
         <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
             <?php echo $this->getItemHtml($_item) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
         <tfoot>
             <?php echo $this->getChildHtml('invoice_totals')?>
         </tfoot>
     </table>
-<?php endif; ?>
+<?php endif ?>

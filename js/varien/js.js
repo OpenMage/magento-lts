@@ -19,7 +19,7 @@
  *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -753,4 +753,27 @@ function customFormSubmit(url, parametersArray, method) {
     var createdForm = new Varien.formCreator(url, parametersArray, method);
     Element.insert($$('body')[0], createdForm.form);
     createdForm.form.submit();
+}
+
+function customFormSubmitToParent(url, parametersArray, method) {
+    new Ajax.Request(url, {
+        method: method,
+        parameters: JSON.parse(parametersArray),
+        onSuccess: function (response) {
+            var node = document.createElement('div');
+            node.innerHTML = response.responseText;
+            var responseMessage = node.getElementsByClassName('messages')[0];
+            var pageTitle = window.document.body.getElementsByClassName('page-title')[0];
+            pageTitle.insertAdjacentHTML('afterend', responseMessage.outerHTML);
+            window.opener.focus();
+            window.opener.location.href = response.transport.responseURL;
+        }
+    });
+}
+
+function buttonDisabler() {
+    var buttons = document.querySelectorAll('button.save');
+    buttons.forEach(function(button) {
+        button.disabled = true;
+    });
 }

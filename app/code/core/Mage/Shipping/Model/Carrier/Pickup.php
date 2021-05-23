@@ -20,14 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Shipping_Model_Carrier_Pickup
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     protected $_code = 'pickup';
@@ -36,8 +34,8 @@ class Mage_Shipping_Model_Carrier_Pickup
     /**
      * Enter description here...
      *
-     * @param Mage_Shipping_Model_Rate_Request $data
-     * @return Mage_Shipping_Model_Rate_Result
+     * @param Mage_Shipping_Model_Rate_Request $request
+     * @return Mage_Shipping_Model_Rate_Result|false
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -74,5 +72,4 @@ class Mage_Shipping_Model_Carrier_Pickup
     {
         return array('pickup'=>Mage::helper('shipping')->__('Store Pickup'));
     }
-
 }

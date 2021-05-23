@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Widget_Grid_Container
@@ -51,5 +51,10 @@ class Mage_Adminhtml_Block_Report_Sales_Invoiced extends Mage_Adminhtml_Block_Wi
     {
         $this->getRequest()->setParam('filter', null);
         return $this->getUrl('*/*/invoiced', array('_current' => true));
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

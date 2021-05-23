@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,9 +42,9 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Getawayinfo extends Mage
     {
         $recurringProfile = Mage::registry('current_recurring_profile');
         $information = array();
-        foreach($recurringProfile->getData() as $kay => $value) {
+        foreach ($recurringProfile->getData() as $kay => $value) {
             $information[$recurringProfile->getFieldLabel($kay)] = $value;
-        } 
+        }
         return $information;
     }
 }

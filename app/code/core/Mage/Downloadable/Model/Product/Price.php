@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,11 +36,11 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
     /**
      * Retrieve product final price
      *
-     * @param integer $qty
+     * @param integer|null $qty
      * @param Mage_Catalog_Model_Product $product
      * @return float
      */
-    public function getFinalPrice($qty=null, $product)
+    public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -54,6 +54,7 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
         if ($product->getLinksPurchasedSeparately()) {
             if ($linksIds = $product->getCustomOption('downloadable_link_ids')) {
                 $linkPrice = 0;
+                /** @var Mage_Downloadable_Model_Link[] $links */
                 $links = $product->getTypeInstance(true)
                     ->getLinks($product);
                 foreach (explode(',', $linksIds->getValue()) as $linkId) {

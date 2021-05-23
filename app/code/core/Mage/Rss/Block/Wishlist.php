@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -109,7 +109,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var $rssObj Mage_Rss_Model_Rss */
+        /* @var Mage_Rss_Model_Rss $rssObj */
         $rssObj = Mage::getModel('rss/rss');
 
         if ($this->_getWishlist()->getId()) {
@@ -128,9 +128,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'language'      => $lang
             ));
 
-            /** @var $wishlistItem Mage_Wishlist_Model_Item*/
+            /** @var Mage_Wishlist_Model_Item $wishlistItem */
             foreach ($this->getWishlistItems() as $wishlistItem) {
-                /* @var $product Mage_Catalog_Model_Product */
                 $product = $wishlistItem->getProduct();
                 $productUrl = $this->getProductUrl($product);
                 $product->setAllowedInRss(true);

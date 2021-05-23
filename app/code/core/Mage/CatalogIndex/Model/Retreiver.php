@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Customer group cache
      *
-     * @var Mage_Customer_Model_Mysql4_Group_Collection
+     * @var Mage_Customer_Model_Resource_Group_Collection
      */
     protected $_customerGroups;
 
@@ -79,7 +79,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $config = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
-        foreach ($config as $type=>$data) {
+        foreach ($config as $type => $data) {
             if (isset($data['index_data_retreiver'])) {
                 $this->_retreivers[$type] = $data['index_data_retreiver'];
             }
@@ -106,7 +106,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Return customer group collection
      *
-     * @return Mage_Customer_Model_Entity_Group_Collection
+     * @return Mage_Customer_Model_Resource_Group_Collection
      */
     public function getCustomerGroups()
     {

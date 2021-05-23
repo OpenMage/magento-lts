@@ -20,13 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base payment iformation block
  *
+ * @method bool hasIsSecureMode()
  */
 class Mage_Payment_Block_Info extends Mage_Core_Block_Template
 {
@@ -73,7 +74,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function toPdf()
     {
-        $this->setTemplate('payment/info/pdf/default.phtml');
+        $this->setTemplate('payment/info/default.phtml');
         return $this->toHtml();
     }
 
@@ -110,7 +111,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      *
      * @param mixed $value
      * @param bool $escapeHtml
-     * @return $array
+     * @return array $array
      */
     public function getValueAsArray($value, $escapeHtml = false)
     {

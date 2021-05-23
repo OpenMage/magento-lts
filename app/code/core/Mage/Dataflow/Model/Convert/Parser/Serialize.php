@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ class Mage_Dataflow_Model_Convert_Parser_Serialize extends Mage_Dataflow_Model_C
 
     public function parse()
     {
-        $this->setData(unserialize($this->getData()));
+        $this->setData(unserialize($this->getData(), ['allowed_classes' => false]));
         return $this;
     }
 

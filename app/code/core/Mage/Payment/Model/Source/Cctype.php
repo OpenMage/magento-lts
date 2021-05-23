@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Payment_Model_Source_Cctype
     /**
      * Setter for allowed types
      *
-     * @param $values
+     * @param array $values
      * @return $this
      */
     public function setAllowedTypes(array $values)
@@ -62,6 +62,9 @@ class Mage_Payment_Model_Source_Cctype
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         /**

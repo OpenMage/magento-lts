@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,14 +56,17 @@ class Mage_Authorizenet_Model_Directpost_Response extends Varien_Object
      */
     public function isValidHash($storedHash, $merchantApiLogin)
     {
-        if (empty($this->getData('x_amount'))) {
+        $xAmount = $this->getData('x_amount');
+        if (empty($xAmount)) {
             $this->setData('x_amount', '0.00');
         }
 
-        if (!empty($this->getData('x_SHA2_Hash'))) {
+        $xSHA2Hash = $this->getData('x_SHA2_Hash');
+        $xMD5Hash = $this->getData('x_MD5_Hash');
+        if (!empty($xSHA2Hash)) {
             $hash = $this->generateSha2Hash($storedHash);
             return $hash == $this->getData('x_SHA2_Hash');
-        } elseif (!empty($this->getData('x_MD5_Hash'))) {
+        } elseif (!empty($xMD5Hash)) {
             $hash = $this->generateHash($storedHash, $merchantApiLogin, $this->getXAmount(), $this->getXTransId());
             return $hash == $this->getData('x_MD5_Hash');
         }

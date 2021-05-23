@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,12 +33,15 @@ class Mage_SalesRule_Model_Rule_Condition_Combine extends Mage_Rule_Model_Condit
         $this->setType('salesrule/rule_condition_combine');
     }
 
+    /**
+     * @return array
+     */
     public function getNewChildSelectOptions()
     {
         $addressCondition = Mage::getModel('salesrule/rule_condition_address');
         $addressAttributes = $addressCondition->loadAttributeOptions()->getAttributeOption();
         $attributes = array();
-        foreach ($addressAttributes as $code=>$label) {
+        foreach ($addressAttributes as $code => $label) {
             $attributes[] = array('value'=>'salesrule/rule_condition_address|'.$code, 'label'=>$label);
         }
 

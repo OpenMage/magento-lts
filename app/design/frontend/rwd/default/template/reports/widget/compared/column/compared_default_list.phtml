@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -44,14 +44,14 @@
                             <a href="<?php echo $this->getAddToCartUrl($_product) ?>" class="link-cart"><?php echo $this->__('Add to Cart') ?></a>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                         */ ?>
                     </div>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ol>
             <script type="text/javascript">decorateList('widget-compared-<?php echo $suffix; ?>', 'none-recursive')</script>
         </div>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -257,12 +257,12 @@ $privacyPageData = array(
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();
 
-$footerLinksBlock = Mage::getModel('cms/block')->load('footer_links','identifier');
+$footerLinksBlock = Mage::getModel('cms/block')->load('footer_links', 'identifier');
 
 if ($footerLinksBlock->getId()) {
     $content = $footerLinksBlock->getContent();
-    if (preg_match('/<ul>(.*?)<\\/ul>/ims',$content, $matches)) {
-        $content = preg_replace('/<li class="last">/ims', '<li>',$content);
+    if (preg_match('/<ul>(.*?)<\\/ul>/ims', $content, $matches)) {
+        $content = preg_replace('/<li class="last">/ims', '<li>', $content);
         $replacment = '<li class="last privacy">'
             . "<a href=\"{{store direct_url=\"privacy-policy-cookie-restriction-mode\"}}\">"
             . "Privacy Policy</a></li>\r\n</ul>";

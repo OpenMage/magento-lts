@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -49,7 +49,7 @@ $createDateStore    = $this->getStoreCreateDate();
                 <td><strong><?php echo $this->__('Last Logged In (%s):', $this->getStoreLastLoginDateTimezone()) ?></strong></td>
                 <td><?php echo $lastLoginDateStore ?> (<?php echo $this->getCurrentStatus() ?>)</td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <tr>
                 <td><strong><?php echo $this->__('Confirmed email:') ?></strong></td>
                 <td><?php echo $this->getIsConfirmedStatus() ?></td>
@@ -63,7 +63,7 @@ $createDateStore    = $this->getStoreCreateDate();
                 <td><strong><?php echo $this->__('Account Created on (%s):', $this->getStoreCreateDateTimezone()) ?></strong></td>
                 <td><?php echo $createDateStore ?></td>
             </tr>
-            <?php endif; ?>
+            <?php endif ?>
             <tr>
                 <td><strong><?php echo $this->__('Account Created in:') ?></strong></td>
                 <td><?php echo $this->escapeHtml($this->getCreatedInStore()); ?></td>

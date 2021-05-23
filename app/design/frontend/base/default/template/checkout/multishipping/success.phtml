@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -37,12 +37,12 @@
         <?php foreach ($_orderIds as $orderId=>$incrementId): ?>
             <?php if ($flag): ?>
                 <?php echo ', ' ?>
-            <?php endif; ?>
+            <?php endif ?>
             <?php $flag = true ?>
             <a href="<?php echo $this->getViewOrderUrl($orderId) ?>"><?php echo $incrementId ?></a>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </p>
-    <?php endif; ?>
+    <?php endif ?>
     <?php echo $this->getChildHtml() ?>
     <div class="buttons-set">
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" class="button" onclick="setLocation('<?php echo $this->getContinueUrl() ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>

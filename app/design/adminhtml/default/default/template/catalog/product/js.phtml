@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -89,6 +89,6 @@ varienGlobalEvents.attachEventHandler('showTab', bindActiveProductTab);
 if(<?php echo $tabsBlock->getJsObjectName() ?> && <?php echo $tabsBlock->getJsObjectName() ?>.activeTab && $('store_switcher')){
     $('store_switcher').switchParams = 'active_tab/'+<?php echo $tabsBlock->getJsObjectName() ?>.activeTab.name+'/';
 }
-<?php endif; ?>
+<?php endif ?>
 //]]>
 </script>

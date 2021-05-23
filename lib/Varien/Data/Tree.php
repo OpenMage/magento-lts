@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -73,7 +73,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      */
     public function loadNode($nodeId)
     {
@@ -87,7 +87,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
      */
-    public function appendChild($data=array(), $parentNode, $prevNode=null)
+    public function appendChild($data, $parentNode, $prevNode = null)
     {
         if (is_array($data)) {
             $node = $this->addNode(
@@ -196,7 +196,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function getNodeById($nodeId)

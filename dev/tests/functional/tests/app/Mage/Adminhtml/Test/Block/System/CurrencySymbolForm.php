@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,6 +53,10 @@ class CurrencySymbolForm extends Form
     public function fill(FixtureInterface $fixture, Element $element = null)
     {
         $element = $this->_rootElement->find(sprintf($this->currencyRow, $fixture->getCode()), Locator::SELECTOR_XPATH);
-        return parent::fill($fixture, $element);
+        $data = $fixture->getData();
+        unset($data['code']);
+        $mapping = $this->dataMapping($data);
+        $this->_fill($mapping, $element);
+        return $this;
     }
 }

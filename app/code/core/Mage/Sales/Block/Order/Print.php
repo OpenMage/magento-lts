@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,9 @@
 
 class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
 {
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -44,22 +47,30 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
     }
 
+    /**
+     * @return mixed
+     */
     public function getOrder()
     {
         return Mage::registry('current_order');
     }
 
+    /**
+     * @param Mage_Core_Block_Abstract $renderer
+     * @return Mage_Sales_Block_Items_Abstract
+     */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);
 
         return parent::_prepareItem($renderer);
     }
-
 }
-

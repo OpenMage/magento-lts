@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,9 +39,10 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
      * Return an Array of Object attributes.
      *
      * @param Mixed $data
-     * @return Array
+     * @return array
      */
-    protected function _prepareProductsData($data){
+    protected function _prepareProductsData($data)
+    {
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {

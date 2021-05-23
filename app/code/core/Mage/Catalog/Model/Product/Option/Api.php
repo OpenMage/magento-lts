@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     public function add($productId, $data, $store = null)
     {
         $product = $this->_getProduct($productId, $store, null);
-        if (!(is_array($data['additional_fields']) and count($data['additional_fields']))) {
+        if (!(is_array($data['additional_fields']) && count($data['additional_fields']))) {
             $this->_fault('invalid_data');
         }
         if (!$this->_isTypeAllowed($data['type'])) {
@@ -69,14 +69,14 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function update($optionId, $data, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
-        if (isset($data['type']) and !$this->_isTypeAllowed($data['type'])) {
+        if (isset($data['type']) && !$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
         if (isset($data['additional_fields'])) {
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             );
         }
         foreach ($option->getValues() as $valueId => $value) {
-            if(isset($data['values'][$valueId])) {
+            if (isset($data['values'][$valueId])) {
                 $data['values'][$valueId] = array_merge($value->getData(), $data['values'][$valueId]);
             }
         }
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 // reset can be used as there should be the only
                 // element in 'additional_fields' for options of all types except those from Select group
                 $field = reset($data['additional_fields']);
-                if (!(is_array($field) and count($field))) {
+                if (!(is_array($field) && count($field))) {
                     $this->_fault('invalid_data');
                 } else {
                     foreach ($field as $key => $value) {
@@ -119,7 +119,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
             } else {
                 // convert Select rows array to appropriate format for saving in the model
                 foreach ($data['additional_fields'] as $row) {
-                    if (!(is_array($row) and count($row))) {
+                    if (!(is_array($row) && count($row))) {
                         $this->_fault('invalid_data');
                     } else {
                         foreach ($row as $key => $value) {
@@ -188,8 +188,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         $types = array();
         foreach (Mage::getConfig()->getNode($path)->children() as $group) {
             $groupTypes = Mage::getConfig()->getNode($path . '/' . $group->getName() . '/types')->children();
-            /** @var $type Mage_Core_Model_Config_Element */
-            foreach($groupTypes as $type){
+            /** @var Mage_Core_Model_Config_Element $type */
+            foreach ($groupTypes as $type) {
                 $labelPath = $path . '/' . $group->getName() . '/types/' . $type->getName() . '/label';
                 $types[] = array(
                     'label' => (string) Mage::getConfig()->getNode($labelPath),
@@ -209,12 +209,12 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function info($optionId, $store = null)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
         $result = array(
@@ -272,7 +272,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     {
         $result = array();
         $product = $this->_getProduct($productId, $store, null);
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         foreach ($product->getProductOptionsCollection() as $option) {
             $result[] = array(
                 'option_id' => $option->getId(),
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      */
     public function remove($optionId)
     {
-        /** @var $option Mage_Catalog_Model_Product_Option */
+        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option')->load($optionId);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
@@ -318,7 +318,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     protected function _isTypeAllowed($type)
     {
         $allowedTypes = array();
-        foreach($this->types() as $optionType){
+        foreach ($this->types() as $optionType) {
             $allowedTypes[] = $optionType['value'];
         }
 
@@ -327,5 +327,4 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         }
         return true;
     }
-
 }

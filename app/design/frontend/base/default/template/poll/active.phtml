@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -53,14 +53,14 @@
                     <input type="radio" name="vote" class="radio poll_vote" id="vote_<?php echo $answer->getId() ?>" value="<?php echo $answer->getAnswerId() ?>" />
                     <span class="label"><label for="vote_<?php echo $answer->getId() ?>"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?></label></span>
                 </li>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </ul>
             <script type="text/javascript">decorateList('poll-answers');</script>
-            <?php endif; ?>
+            <?php endif ?>
             <div class="actions">
                 <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Vote')) ?>" class="button"><span><span><?php echo $this->__('Vote') ?></span></span></button>
             </div>
         </div>
     </form>
 </div>
-<?php endif; ?>
+<?php endif ?>

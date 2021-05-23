@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -46,8 +46,8 @@
             <?php if (count($this->getGalleryImages()) > 0): ?>
                 <?php foreach ($this->getGalleryImages() as $_image): ?>
                     --><li><a href="<?php echo $this->getGalleryUrl($_image) ?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(290); ?>" width="145" height="145" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" /></a></li><!--
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php endforeach ?>
+            <?php endif ?>
         --></ul>
     </div>
 </div>

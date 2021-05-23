@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,14 +81,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
 
     protected function _createFromConfig(array $config)
     {
-        $type = isset($config['type']) ? $config['type'] : 'default';
-        switch($type) {
-            default:
-                $blockClass = 'adminhtml/widget_grid_massaction_item_additional_default';
-                break;
-        }
-
-        $block = $this->getLayout()->createBlock($blockClass);
+        $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
         $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
         return $block;
     }

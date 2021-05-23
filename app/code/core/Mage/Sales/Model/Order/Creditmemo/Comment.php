@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,6 +40,7 @@
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setComment(string $value)
  * @method string getCreatedAt()
  * @method Mage_Sales_Model_Order_Creditmemo_Comment setCreatedAt(string $value)
+ * @method Mage_Sales_Model_Order_Creditmemo_Comment setStoreId(int $value)
  *
  * @category    Mage
  * @package     Mage_Sales

@@ -1,0 +1,311 @@
+@import "variables";
+@import "base";
+@import "fonts";
+
+//colors
+$color_mercury_approx: #e6e6e6;
+$color_mine_shaft_approx: #2f2f2f;
+$color_mango_tango_approx: #ea7601;
+$color_silver_chalice_approx: #aaa;
+$color_silver_approx: #c8c8c8;
+$white: #fff;
+$color_clementine_approx: #ed6502;
+$color_oregon_approx: #a04300;
+$color_yellow_orange_approx: #ffac47;
+$color_alabaster_approx: #f8f8f8;
+$black_25: rgba(0, 0, 0, 0.25);
+$black_50: rgba(0, 0, 0, 0.5);
+$color_pizazz_approx: #ff8c00;
+$color_flamingo_approx: #f16221;
+$black_15: rgba(0, 0, 0, 0.15);
+$black_75: rgba(0, 0, 0, 0.75);
+$color_gothic_10_approx: rgba(117, 146, 163, 0.1);
+$color_gothic_25_approx: rgba(117, 146, 163, 0.25);
+
+
+$hue: 205;
+/*
+                           205 = default,
+                             0 = red,
+                            60 = yellow,
+                           120 = green,
+                           180 = turquoise,
+                           240 = blue,
+                           300 = purple
+                           */
+
+$color-main-xs: hsla($hue, 52%, 95%, 1);
+$color-main-s: hsla($hue, 52%, 88%, 1);
+$color-main-m: hsla($hue, 40%, 75%, 1);
+$color-main-l: hsla($hue, 20%, 55%, 1);
+$color-main-xl: hsla($hue, 20%, 35%, 1);
+$color-main-xxl: hsla($hue, 20%, 30%, 1);
+
+$color-gray-xs: hsla($hue, 14%, 97%, 1);
+$color-gray-s: hsla($hue, 11%, 93%, 1);
+$color-gray-m: hsla($hue, 7%, 86%, 1);
+$color-gray-l: hsla($hue, 3%, 68%, 1);
+$color-gray-xl: hsla($hue, 3%, 55%, 1);
+$color-gray-xxl: hsla($hue, 8%, 40%, 1);
+$color-gray-xxxl: hsla($hue, 18%, 25%, 1);
+
+$color-white-010: hsla(0, 0%, 100%, 0.1);
+$color-white-025: hsla(0, 0%, 100%, 0.25);
+$color-white-050: hsla(0, 0%, 100%, 0.5);
+$color-white-075: hsla(0, 0%, 100%, 0.75);
+$color-white-100: hsla(0, 0%, 100%, 1);
+
+$color-black-010: hsla($hue, 13%, 8%, 0.1);
+$color-black-025: hsla($hue, 13%, 8%, 0.25);
+$color-black-050: hsla($hue, 13%, 8%, 0.5);
+$color-black-075: hsla($hue, 13%, 8%, 0.75);
+$color-black-100: hsla($hue, 13%, 8%, 1);
+
+//urls
+$url_login_background: url(images/login_background.jpg);
+$url_logo: url(images/logo.svg);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $color_mercury_approx;
+  color: $color_mine_shaft_approx;
+  font: 400 12px/1.33 $font_0, sans-serif;
+  background: $color-gray-s;
+  font-size: 13px;
+  overflow-x: hidden;
+
+  &#page-login {
+    background-color: $color-main-xxl;
+    background-image: $url_login_background;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    height: calc(100vh - 120px);
+
+    &:after {
+      display: block;
+      position: fixed;
+      content: '';
+      top: 0;
+      left: 0;
+      background-color: $black_25;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  }
+}
+
+a {
+  display: inline;
+  color: $color_curious_blue_approx;
+  text-decoration: none;
+
+  &:visited {
+    color: $color_curious_blue_approx;
+  }
+
+  &:focus {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $color_astral_approx;
+    text-decoration: none;
+  }
+
+  &.error span {
+    color: $color_coral_red_approx !important;
+  }
+}
+
+:focus {
+  outline: 0;
+}
+
+h2 {
+  margin-bottom: .5em;
+  line-height: 1.4em;
+  font-size: 1.7em;
+}
+
+p {
+  margin-bottom: .5em;
+}
+
+form {
+  display: inline;
+}
+
+label {
+  color: $color_mine_shaft_approx;
+}
+
+input {
+  vertical-align: middle;
+
+  &.input-text {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color_silver_chalice_approx $color_silver_approx $color_silver_approx $color_silver_chalice_approx;
+    background: $white;
+    font: 12px $font_3, $font_4, $font_2;
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $color_silver_chalice_approx;
+    padding: 2px 2px 3px;
+    line-height: 18px;
+    font-family: $font_0, $font_1;
+
+    &:hover {
+      outline: 2px solid $color_gothic_10_approx;
+    }
+
+    &:focus {
+      //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+      box-shadow: 0 0 0 2px $color_gothic_25_approx;
+    }
+
+    &:disabled {
+      outline: none;
+      opacity: 0.5;
+    }
+  }
+}
+
+.form-button {
+  @extend %extend_20;
+  background-color: $color_action;
+}
+
+#page-login {
+  background: $color_alabaster_approx;
+  text-align: center;
+}
+
+.login-container {
+  width: 581px;
+  margin: 170px auto;
+  padding-left: 32px;
+  width: 345px;
+  margin: 120px 0 0;
+  padding-left: 200px;
+  background: $url_logo left center no-repeat;
+  margin-left: calc(50vw - 372px);
+
+  .legal {
+    margin: 0;
+    background: $url_4 no-repeat;
+    padding: 8px 8px 5px 8px;
+    font-size: .95em;
+    background: none;
+    padding: 0;
+    border: none;
+    border-top: none;
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    color: $color-white-100;
+    //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    text-shadow: 0 0 5px $black_50;
+  }
+}
+
+.login-form {
+  padding: 27px 57px 35px;
+  background: $url_2 no-repeat;
+  text-align: left;
+  background: $color-white-100;
+  border: none;
+  padding: 40px 50px;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: 0 30px 150px $black_50;
+
+  .input-box {
+    margin: 10px 0;
+
+    input.input-text {
+      width: 224px;
+      width: calc(100% - 18px) !important;
+      padding: 8px;
+    }
+  }
+
+  h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .form-buttons {
+    margin: 12px 0 0;
+    clear: both;
+    text-align: right;
+    margin: 20px 0 0;
+
+    &:after {
+      display: block;
+      clear: both;
+      content: ".";
+      font-size: 0;
+      line-height: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .left {
+      line-height: 32px;
+    }
+  }
+
+  input[type="submit"] {
+    height: 32px;
+  }
+}
+
+.left {
+  float: left;
+}
+
+.login-box .bottom {
+  width: 581px;
+  height: 5px;
+  overflow: hidden;
+  display: none;
+}
+
+.clear:after {
+  display: block;
+  clear: both;
+  content: ".";
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+ul.messages {
+  list-style-type: none;
+  ul {
+    list-style-type: none;
+  }
+}
+
+.no-display {
+  display:none;
+}

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -38,10 +38,10 @@
                     <span class="votes"><?php echo $answer->getVotesCount() ?> (<?php echo $answer->getPercent() ?>%)</span>
                     <span class="answer"><?php echo $this->escapeHtml($answer->getAnswerTitle()) ?>:</span>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('poll-answers');</script>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

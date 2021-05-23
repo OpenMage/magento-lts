@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,6 +46,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _toHtml()
     {
         $categoryId = $this->getRequest()->getParam('cid');

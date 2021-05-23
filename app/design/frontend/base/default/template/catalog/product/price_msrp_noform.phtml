@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -42,13 +42,13 @@
         <?php if ($_product->getMsrp()): ?>
             <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
-        <?php endif; ?>
+        <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
         <a href="#" class="map-link" id="<?php echo($helpLinkId);?>"><?php echo $this->__('Click for price') ?></a>
         <script type="text/javascript">
             <?php if ($this->helper('catalog')->isShowPriceOnGesture($_product)): ?>
                 var productLink = {
-                    url: "<?php echo $_product->isSalable() ? $_product->getAddToCartUrl() : '' ?>",
+                    url: "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, array(), false) : '' ?>",
                     notUseForm: true
                 };
                 var newLink = Catalog.Map.addHelpLink(
@@ -67,7 +67,7 @@
                         null,
                         "<?php echo $_product->getProductUrl() ?>"
                 );
-            <?php endif; ?>
+            <?php endif ?>
 
         </script>
     </div>

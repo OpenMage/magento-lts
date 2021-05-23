@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Simplexml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -143,7 +143,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * @todo    Check if we still need all this and revert to plain XPath if this makes any sense
      * @todo    param string $path Subset of xpath. Example: "child/grand[@attrName='attrValue']/subGrand"
      * @param   string $path Example: "child/grand@attrName=attrValue/subGrand" (to make it faster without regex)
-     * @return  Varien_Simplexml_Element
+     * @return  Varien_Simplexml_Element|false
      */
     public function descend($path)
     {
@@ -202,7 +202,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     /**
      * Returns the node and children as an array
      *
-     * @return array|string
+     * @return array
      */
     public function asArray()
     {
@@ -345,16 +345,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     public function appendChild($source)
     {
         if ($source->children()) {
-            /**
-             * @see http://bugs.php.net/bug.php?id=41867 , fixed in 5.2.4
-             */
-            if (version_compare(phpversion(), '5.2.4', '<')===true) {
-                $name = $source->children()->getName();
-            }
-            else {
-                $name = $source->getName();
-            }
-            $child = $this->addChild($name);
+            $child = $this->addChild($source->getName());
         } else {
             $child = $this->addChild($source->getName(), $this->xmlentities($source));
         }
@@ -477,13 +468,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 $xml->addChild($nodeName, $xml->xmlentities($value));
                 */
                 if (!isset($node->$nodeName) || $overwrite) {
-                    // http://bugs.php.net/bug.php?id=36795
-                    // comment on [8 Feb 8:09pm UTC]
-                    if (isset($node->$nodeName) && (version_compare(phpversion(), '5.2.6', '<')===true)) {
-                        $node->$nodeName = $node->xmlentities($value);
-                    } else {
-                        $node->$nodeName = $value;
-                    }
+                    $node->$nodeName = $value;
                 }
             } else {
                 if (!isset($node->$nodeName)) {

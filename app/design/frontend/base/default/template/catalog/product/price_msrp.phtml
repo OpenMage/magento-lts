@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -42,7 +42,7 @@
         <?php if ($_product->getMsrp()): ?>
             <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
-        <?php endif; ?>
+        <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
         <a href="#" class="map-link" id="<?php echo($helpLinkId);?>"><?php echo $this->__('Click for price') ?></a>
         <script type="text/javascript">
@@ -52,7 +52,7 @@
                         "<?php echo $this->escapeHtml($_product->getName()) ?>",
                         <?php echo $this->getRealPriceJs($_product) ?>,
                         '<?php echo $_msrpPrice ?>',
-                        "<?php echo $_product->isSalable() ? $_product->getAddToCartUrl() : '' ?>"
+                        "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, array(), false) : '' ?>"
                 );
                 newLink.product_id = '<?php echo $_product->getId() ?>';
             <?php else: ?>
@@ -63,7 +63,7 @@
                         null,
                         "<?php echo $_product->getProductUrl() ?>"
                 );
-            <?php endif; ?>
+            <?php endif ?>
 
         </script>
     </div>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -36,7 +36,7 @@
     <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
 <?php else: ?>
     <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
-<?php endif; ?>
+<?php endif ?>
 <?php echo $this->getChildHtml('product_type_data_extra') ?>
 <?php echo $this->getPriceHtml($_product) ?>
 <?php echo $this->getChildHtml('samples') ?>

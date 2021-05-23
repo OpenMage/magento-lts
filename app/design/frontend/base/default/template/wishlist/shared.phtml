@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /* @var $this Mage_Wishlist_Block_Share_Wishlist */
@@ -63,8 +63,17 @@
                         <?php if ($isVisibleProduct): ?>
                             <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php endif ?>
-                    <?php endif; ?>
-                        <p><a href="<?php echo $this->getAddToWishlistUrl($item) ?>" onclick="setLocation(this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></p>
+                    <?php endif ?>
+                        <p>
+                            <a href="#"
+                               onclick="customFormSubmit(
+                                       '<?php echo $this->getAddToWishlistUrlCustom($item, false) ?>',
+                                       '<?php echo $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))) ?>',
+                                       'post')"
+                               class="link-wishlist">
+                                <?php echo $this->__('Add to Wishlist') ?>
+                            </a>
+                        </p>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -76,7 +85,7 @@
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
             <?php if($this->isSaleable()):?>
                 <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', array('_current'=>true)) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
-            <?php endif;?>
+            <?php endif ?>
         </div>
     </form>
     <?php else: ?>

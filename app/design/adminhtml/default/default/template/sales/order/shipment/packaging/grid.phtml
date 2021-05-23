@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -51,7 +51,7 @@
                               || ($_orderItem->isShipSeparately() && !($_orderItem->getParentItemId() || $_orderItem->getParentItem()))
                               || (!$_orderItem->isShipSeparately() && ($_orderItem->getParentItemId() || $_orderItem->getParentItem()))): ?>
                         <?php continue; ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <tr title="#" id="" class="">
                         <td class="name">
                             <?php echo $item->getName(); ?>
@@ -85,7 +85,7 @@
                             </button>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </div>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,9 +103,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Export attribute value to entity model
      *
-     * @param Mage_Core_Model_Abstract $entity
-     * @param array|string $value
-     * @return $this
+     * @inheritDoc
      */
     public function compactValue($value)
     {
@@ -119,7 +117,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      * Restore attribute value from SESSION to entity model
      *
      * @param array|string $value
-     * @return $this
+     * @return Mage_Eav_Model_Attribute_Data_Text
      */
     public function restoreValue($value)
     {
@@ -129,7 +127,9 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,14 @@ class Mage_Core_Helper_UnserializeArray
      */
     public function unserialize($str)
     {
-        $parser = new Unserialize_Parser();
-        return $parser->unserialize($str);
+        try {
+            $result = unserialize($str, ['allowed_classes' => false]);
+            if ($result === false && $str !== serialize(false)) {
+                throw new Exception('Error unserializing data.');
+            }
+            return $result;
+        } catch (Error $e) {
+            throw new Exception('Error unserializing data: '.$e->getMessage(), 0, $e);
+        }
     }
 }

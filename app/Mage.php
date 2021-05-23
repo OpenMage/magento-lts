@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,6 +29,11 @@ define('PS', PATH_SEPARATOR);
 define('BP', dirname(dirname(__FILE__)));
 
 Mage::register('original_include_path', get_include_path());
+
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', 1);
+}
 
 /**
  * Set include path
@@ -104,13 +109,6 @@ final class Mage
     static private $_objects;
 
     /**
-     * Is downloader flag
-     *
-     * @var bool
-     */
-    static private $_isDownloader               = false;
-
-    /**
      * Is developer mode flag
      *
      * @var bool
@@ -172,9 +170,70 @@ final class Mage
             'major'     => '1',
             'minor'     => '9',
             'revision'  => '4',
-            'patch'     => '2',
+            'patch'     => '5',
             'stability' => '',
             'number'    => '',
+        );
+    }
+
+    /**
+     * Gets the current OpenMage version string
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return string
+     */
+    public static function getOpenMageVersion()
+    {
+        $i = self::getOpenMageVersionInfo();
+        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
+        if ( $i['stability'] || $i['number'] ) {
+            $versionString .= "-";
+            if ( $i['stability'] && $i['number'] ) {
+                $versionString .= implode('.', [$i['stability'], $i['number']]);
+            } else {
+                $versionString .= implode('', [$i['stability'], $i['number']]);
+            }
+        }
+        return trim(
+            $versionString,
+            '.-'
+        );
+    }
+
+    /**
+     * Gets the detailed OpenMage version information
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return array
+     */
+    public static function getOpenMageVersionInfo()
+    {
+        $majorVersion = 19;
+
+        /**
+         * This code construct is to make merging for forward porting of changes easier.
+         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
+         * also as releases are usually done together, this could in theory be done at once.
+         * The major Version then needs to be only changed once per branch.
+         */
+        if ($majorVersion === 20) {
+            return array(
+                'major'     => '20',
+                'minor'     => '0',
+                'patch'     => '9',
+                'stability' => '', // beta,alpha,rc
+                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
+            );
+        }
+
+        return array(
+            'major'     => '19',
+            'minor'     => '4',
+            'patch'     => '13',
+            'stability' => '', // beta,alpha,rc
+            'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
     }
 
@@ -201,7 +260,6 @@ final class Mage
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
-        self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
         self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
@@ -274,7 +332,7 @@ final class Mage
 
         $appRoot = realpath($appRoot);
 
-        if (is_dir($appRoot) and is_readable($appRoot)) {
+        if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
             self::throwException($appRoot . ' is not a directory or not readable by this user');
@@ -487,7 +545,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Object
+     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public static function getResourceModel($modelClass, $arguments = array())
     {
@@ -693,7 +751,7 @@ final class Mage
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
         } catch (Exception $e) {
-            if (self::isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled()) {
                 self::printException($e);
                 exit();
             }
@@ -811,19 +869,18 @@ final class Mage
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
-        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-        $_allowedFileExtensions = explode(
-            ',',
-            (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
-        );
-        $logDir = self::getBaseDir('var') . DS . 'log';
-        $validatedFileExtension = pathinfo($file, PATHINFO_EXTENSION);
-        if (!$validatedFileExtension || !in_array($validatedFileExtension, $_allowedFileExtensions)) {
-            return;
-        }
-
         try {
             if (!isset($loggers[$file])) {
+                // Validate file extension before save. Allowed file extensions: log, txt, html, csv
+                $_allowedFileExtensions = explode(
+                    ',',
+                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
+                );
+                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                    return;
+                }
+
+                $logDir = self::getBaseDir('var') . DS . 'log';
                 $logFile = $logDir . DS . $file;
 
                 if (!is_dir($logDir)) {
@@ -863,9 +920,9 @@ final class Mage
     /**
      * Write exception to log
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function logException(Exception $e)
+    public static function logException(Throwable $e)
     {
         if (!self::getConfig()) {
             return;
@@ -899,9 +956,9 @@ final class Mage
     /**
      * Display exception
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function printException(Exception $e, $extra = '')
+    public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';
@@ -996,10 +1053,10 @@ final class Mage
     /**
      * Set is downloader flag
      *
-     * @param bool $flag
+     * @deprecated
      */
-    public static function setIsDownloader($flag = true)
+    public static function setIsDownloader()
     {
-        self::$_isDownloader = $flag;
+
     }
 }

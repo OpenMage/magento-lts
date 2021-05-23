@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,8 +33,16 @@
  */
 class Varien_Image
 {
+    /**
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
+     */
     protected $_adapter;
 
+    /**
+     * Absolute path to an image
+     *
+     * @var string
+     */
     protected $_fileName;
 
     /**

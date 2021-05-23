@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Cache
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,7 +104,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         }
 
         // Don't use parent constructor
-        while (list($name, $value) = each($options)) {
+        foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
 
@@ -407,7 +407,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             flock($fd, LOCK_UN);
         }
         fclose($fd);
-        $metadata = @unserialize(rtrim($metadata, "\n"));
+        $metadata = @unserialize(rtrim($metadata, "\n"), ['allowed_classes' => false]);
         if ($withData) {
             return array($metadata, $data);
         }

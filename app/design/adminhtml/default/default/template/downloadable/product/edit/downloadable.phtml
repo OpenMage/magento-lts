@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -148,7 +148,7 @@ Downloadable.FileUploader.prototype = {
             varienGlobalEvents.attachEventHandler('tabChangeBefore', Downloadable.getUploaderObj(type, key).onContainerHideBefore);
         }
         new Downloadable.FileList(this.idName, Downloadable.getUploaderObj(type, key));
-        <?php endif;?>
+        <?php endif ?>
     }
 }
 
@@ -296,7 +296,7 @@ $('downloadableInfo').select('input', 'select', 'textarea', 'button').each(funct
     }
 });
 </script>
-<?php endif; ?>
+<?php endif ?>
 <!--
 <div><input type="hidden" name="affect_downloadable_information" value="1" /></div>
 -->

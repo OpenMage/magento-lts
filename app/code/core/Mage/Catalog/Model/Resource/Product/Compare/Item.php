@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Load object by product
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Catalog_Model_Product_Compare_Item $object
      * @param mixed $product
      * @return bool
      */
@@ -111,7 +111,8 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 ->joinLeft(
                     array('visitor_table' => $this->getTable('log/visitor')),
                     'visitor_table.visitor_id=compare_table.visitor_id AND compare_table.customer_id IS NULL',
-                    array())
+                    array()
+                )
                 ->where('compare_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
                 ->limit(100);
@@ -194,8 +195,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         foreach ($customer as $row) {
             if (isset($products[$row['product_id']])) {
                 $delete[] = $row[$this->getIdFieldName()];
-            }
-            else {
+            } else {
                 $products[$row['product_id']] = array(
                     'store_id'      => $row['store_id'],
                     'customer_id'   => $object->getCustomerId(),
@@ -206,14 +206,19 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         }
 
         if ($delete) {
-            $this->_getWriteAdapter()->delete($this->getMainTable(),
-                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete));
+            $this->_getWriteAdapter()->delete(
+                $this->getMainTable(),
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete)
+            );
         }
         if ($update) {
             foreach ($update as $itemId => $productId) {
                 $bind = $products[$productId];
-                $this->_getWriteAdapter()->update($this->getMainTable(), $bind,
-                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId));
+                $this->_getWriteAdapter()->update(
+                    $this->getMainTable(),
+                    $bind,
+                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId)
+                );
             }
         }
 

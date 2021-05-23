@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -31,14 +31,14 @@
             <tr>
             <?php foreach( $this->getTotals() as $_total ): ?>
                 <td class="a-center">
-                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif; ?>>
+                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif ?>>
                         <?php echo $_total['label'] ?><br />
                         <?php echo $_total['value'] ?>
                     </div>
                 </td>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
         </table>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

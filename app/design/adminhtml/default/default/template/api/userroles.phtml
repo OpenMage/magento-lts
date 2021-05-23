@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -40,6 +40,6 @@
         }
     ?>
         <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo ($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </fieldset>
 </div>

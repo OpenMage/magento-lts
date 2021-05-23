@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -44,11 +44,11 @@
                             <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
                         </div>
                     </div>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ol>
     <script type="text/javascript">decorateList('my_recent_reviews');</script>
 </div>
-<?php endif; ?>
+<?php endif ?>

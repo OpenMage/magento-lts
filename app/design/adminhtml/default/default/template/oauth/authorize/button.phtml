@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -51,7 +51,7 @@
                     <input type="hidden" name="oauth_token" value="<?php echo $this->escapeHtml($this->getToken()) ?>">
                     <button type="submit" class="button" title="<?php echo $this->quoteEscape($this->__('Reject')) ?>"><span><span><?php echo $this->__('Reject') ?></span></span></button>
                 </form>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
         <p class="legal"><?php echo $this->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?></p>
         <div class="bottom"></div>

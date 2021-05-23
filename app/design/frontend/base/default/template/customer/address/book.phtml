@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -81,7 +81,7 @@
                 </address>
                 <p><a href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
             </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php else: ?>
             <li class="item empty">
                 <p><?php echo $this->__('You have no additional address entries in your address book.') ?></p>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -389,7 +389,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     public function validateResponse()
     {
         $response = $this->getResponse();
-        $hashConfigKey = !empty($response->getData('x_SHA2_Hash')) ? 'signature_key' : 'trans_md5';
+        $xSHA2Hash = $response->getData('x_SHA2_Hash');
+        $hashConfigKey = !empty($xSHA2Hash) ? 'signature_key' : 'trans_md5';
 
         //hash check
         if (!$this->getConfigData($hashConfigKey)

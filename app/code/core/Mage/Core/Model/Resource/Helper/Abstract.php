@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     protected function _getConnection($name)
     {
         $connection = sprintf('%s_%s', $this->_modulePrefix, $name);
-        /** @var $resource Mage_Core_Model_Resource */
+        /** @var Mage_Core_Model_Resource $resource */
         $resource   = Mage::getSingleton('core/resource');
 
         return $resource->getConnection($connection);
@@ -270,6 +270,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 break;
             case 'tinyint':
             case 'smallint':
+            case 'smallint unsigned':
                 $type = Varien_Db_Ddl_Table::TYPE_SMALLINT;
                 break;
             case 'mediumint':

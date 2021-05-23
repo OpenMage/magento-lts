@@ -20,15 +20,22 @@
  *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Rate_Abstract
+ *
+ * @method string getCarrier()
+ */
 abstract class Mage_Shipping_Model_Rate_Abstract extends Mage_Core_Model_Abstract
 {
     static protected $_instances;
 
+    /**
+     * @return Mage_Shipping_Model_Carrier_Abstract
+     */
     public function getCarrierInstance()
     {
         $code = $this->getCarrier();

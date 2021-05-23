@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,7 +33,7 @@ function addProduct(closeAfter) {
         <?php else: ?>
         window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
         window.opener.superProduct.showNoticeMessage();
-        <?php endif; ?>
+        <?php endif ?>
         added = true;
     }
 

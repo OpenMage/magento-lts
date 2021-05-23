@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -40,10 +40,10 @@
             <?php $methodHtml = $this->getMethodHtml($method); ?>
             <?php if ($methodHtml): ?>
             <li><?php echo $methodHtml; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </ul>
-    <?php endif; ?>
+    <?php endif ?>
     <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
         <?php echo $this->getBlockHtml('formkey') ?>
         <fieldset>
@@ -86,9 +86,9 @@
             <?php $methodHtml = $this->getMethodHtml($method); ?>
             <?php if ($methodHtml): ?>
             <li><?php echo $methodHtml; ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </ul>
-    <?php endif; ?>
+    <?php endif ?>
 
 </div>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -107,7 +107,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      */
     public function getOptionList()
     {
-        /* @var $helper Mage_Catalog_Helper_Product_Configuration */
+        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
         $options = $helper->getConfigurableOptions($this->getItem());
         return $options;

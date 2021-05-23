@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,11 +43,19 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
         return Mage::registry('current_order');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return string
+     */
     public function getPrintInvoiceUrl($invoice)
     {
         return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getPrintAllInvoicesUrl($order)
     {
         return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));

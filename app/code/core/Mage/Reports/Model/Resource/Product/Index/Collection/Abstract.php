@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +32,7 @@
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Collection
+abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract extends Mage_Catalog_Model_Resource_Product_Collection
 {
     /**
      * Customer id

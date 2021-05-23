@@ -20,14 +20,17 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping
-    extends Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend
+class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping extends Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend
 {
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return $this
+     */
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getShippingAmount();
@@ -44,5 +47,4 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping
         }
         return $this;
     }
-
 }

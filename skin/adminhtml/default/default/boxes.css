@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -397,6 +397,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 
 .fieldset-wide .form-list { width:100% !important; }
 .fieldset-wide .form-list td.value { width:auto !important; }
+.fieldset-wide .form-list td.value p.note,
 .fieldset-wide .form-list td.value input.input-text,
 .fieldset-wide .form-list td.value textarea { width:98% !important; }
 /*.fieldset-wide .form-list td.value select { display:block; }*/
@@ -678,27 +679,49 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-edit-form                 { background-image:url(images/fam_page_white.gif); }
 .head-customer-view             { background-image:url(images/fam_status_online.gif); padding-left:18px; }
 .head-customer,
-.head-customer-groups           { background-image:url(images/fam_group.gif); }
+.head-customer-groups,
+.head-online-visitors           { background-image:url(images/fam_group.gif); }
 .head-user                      { background-image:url(images/fam_user.gif); }
 .head-user-edit                 { background-image:url(images/fam_user_edit.gif); }
-.head-user-comment              { background-image:url(images/fam_user_comment.gif); }
+.head-poll,
+.head-user-comment,
+.head-review,
+.head-rating,
 .head-comment                   { background-image:url(images/fam_comment.gif); }
+.head-catalog-search            { background-image:url(images/fam_magnifier.png); }
+.head-urlrewrite                { background-image:url(images/fam_link.gif); }
 .head-cart                      { background-image:url(images/fam_cart.gif); }
+.head-system-account,
 .head-account                   { background-image:url(images/fam_account.gif); }
-.head-online-visitors           { background-image:url(images/fam_monitor.gif); }
-.head-products                  { background-image:url(images/fam_package.gif); }
-.head-catalog-product           { background-image:url(images/fam_package.gif); }
-.head-newsletter-queue          { background-image:url(images/fam_newspaper_go.gif); }
-.head-newsletter-list           { background-image:url(images/fam_newspaper.gif); }
-.head-newsletter-report         { background-image:url(images/fam_newspaper_error.gif); }
+.head-products,
+.head-catalog-product,
+.head-sitemap                   { background-image:url(images/fam_package.gif); }
+.head-newsletter                { background-image:url(images/fam_newspaper.gif); }
 .head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); }
 .head-sales-order,
-.head-sales-invoice             { background-image:url(images/fam_folder_table.gif); }
+.head-sales-invoice,
+.head-sales-shipment,
+.head-sales-creditmemo,
+.head-sales-transactions,
+.head-sales-order-shipment,
+.head-sales-order-invoice,
+.head-sales-order-creditmemo,
+.head-adminhtml-recurring-profile,
+.head-adminhtml-billing-agreement,
+.head-checkout-agreement        { background-image:url(images/fam_folder_table.gif); }
+.head-tax,
+.head-tax-rule,
+.head-tax-rate-importExport,
+.head-tax-class,
+.head-system-currency,
+.head-promo-quote,
+.head-promo-catalog             { background-image:url(images/fam_money.gif); }
 .head-categories                { background-image:url(images/fam_folder_database.gif); padding-left:20px; color:#253033 !important; }
 .head-catalog-product-attribute { background-image:url(images/fam_rainbow.gif); padding-left:24px; }
 .head-product-attribute-sets    { background-image:url(images/fam_folder_palette.gif); padding-left:23px; }
-.head-tax                       { background-image:url(images/fam_money_add.gif); }
-.head-cms-page, .head-cms-block { background-image:url(images/application_view_tile.gif); }
+.head-cms-page, .head-cms-block,
+.head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); }
+.head-report,
 .head-backups-control           { background-image:url(images/fam_server_database.gif); }
 .head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); }
 .head-shipping-address,
@@ -720,7 +743,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 /* LOGIN
 *******************************************************************************/
 #page-login                             { background:#f8f8f8; text-align:center; }
-.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.gif) no-repeat; }
+.login-container                        { width:581px; margin:170px auto; padding-left:32px; background:url(images/login_logo.png) no-repeat; }
 .login-form                             { padding:27px 57px 35px 57px; background:url(images/login_box_bg.jpg) no-repeat; text-align:left; }
 .login-form .input-left                 { float:left; }
 .login-form .input-right                { float:right; }
@@ -1485,13 +1508,6 @@ ul.super-product-attributes { padding-left:15px; }
 #page-help-link:link, #page-help-link:visited { text-decoration:none; }
 #page-help-link:hover { color:white; }
 
-/* Magento Connect Package Extensions */
-.table-editable { border:solid 1px #ccc; background:#fafafa; padding:5px; margin-bottom:5px; }
-.table-editable th { border-bottom:solid 1px #ccc; text-align:center; }
-.table-editable th, .table-editable td { padding:1px 3px; vertical-align:middle; }
-.table-editable select { height:19px; }
-
-
 /* CMS
 *******************************************************************************/
 .breadcrumbs { margin: 0 0 10px; }
@@ -1594,6 +1610,7 @@ ul.super-product-attributes { padding-left:15px; }
 .wrap               { white-space:normal !important; }
 .no-float           { float:none !important; }
 .pointer            { cursor:pointer; }
+.half               { width:50%; }
 
 /* Color */
 .emph, .accent      { color:#eb5e00 !important; }

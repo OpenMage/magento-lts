@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base html block
@@ -32,7 +31,6 @@
  */
 class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
 {
-
     protected function _construct()
     {
         parent::_construct();
@@ -41,9 +39,12 @@ class Mage_Core_Block_Text_Tag_Debug extends Mage_Core_Block_Text_Tag
         ));
     }
 
-    function setValue($value)
+    /**
+     * @param mixed $value
+     * @return Mage_Core_Block_Text_Tag_Debug
+     */
+    public function setValue($value)
     {
         return $this->setContents(print_r($value, 1));
     }
-
 }

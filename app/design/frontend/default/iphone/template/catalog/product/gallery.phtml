@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,7 +35,7 @@
         <li>
             <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>" height="300" width="300" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
         </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 </div>
 <div class="buttons-set">

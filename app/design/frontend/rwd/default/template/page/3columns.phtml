@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -54,7 +54,7 @@
                     <?php // This left_first block will display above the main content on smaller viewports ?>
                     <?php if ($_leftContent = $this->getChildHtml('left_first')): ?>
                         <div class="col-left sidebar col-left-first"><?php echo $_leftContent;   ?></div>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <div class="col-main">
                         <?php echo $this->getChildHtml('global_messages') ?>
                         <?php echo $this->getChildHtml('content') ?>

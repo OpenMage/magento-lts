@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
         parent::_afterSave();
 
         //Cleanup old entries
-        /** @var $helper Mage_Oauth_Helper_Data */
+        /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
         if ($helper->isCleanupProbability()) {
             $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());

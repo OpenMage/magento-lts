@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -580,7 +580,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         $info = $item->getOptionByCode('info_buyRequest');
                         if ($info) {
                             $info = new Varien_Object(
-                                unserialize($info->getValue())
+                                unserialize($info->getValue(), ['allowed_classes' => false])
                             );
                             $info->setQty($qty);
                             $info->setOptions($this->_prepareOptionsForRequest($item));
@@ -1511,7 +1511,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
             $addOptions = $item->getOptionByCode('additional_options');
             if ($addOptions) {
-                $options['additional_options'] = unserialize($addOptions->getValue());
+                $options['additional_options'] = unserialize($addOptions->getValue(), ['allowed_classes' => false]);
             }
             $item->setProductOrderOptions($options);
         }
@@ -1549,6 +1549,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $service->setOrderData($orderData);
 
             $oldOrder->cancel();
+
+            if(!$oldOrder->isCanceled()){
+                Mage::throwException('Could not cancel the old order during order edit.');
+            }
         }
 
         /** @var Mage_Sales_Model_Order $order */
@@ -1557,7 +1561,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
         ) {
-            $customer->setCreatedAt($order->getCreatedAt());
+            $customer->setCreatedAt($order->getCreatedAtStoreDate());
             $customer
                 ->save()
                 ->sendNewAccountEmail('registered', '', $quote->getStoreId());
@@ -1565,6 +1569,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($oldOrder->getId()) {
             $oldOrder->setRelationChildId($order->getId());
             $oldOrder->setRelationChildRealId($order->getIncrementId());
+
+            Mage::dispatchEvent('adminhtml_sales_order_create_save_before', ['new_order' => $order, 'old_order' => $oldOrder]);
+
             $oldOrder->save();
             $order->save();
         }

@@ -20,7 +20,7 @@
  *
  * @category    Tests
  * @package     Tests_Functional
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Login extends Form
      * @param Mapper $mapper
      * @param BrowserInterface $browser
      * @param SequenceSorterInterface $sequenceSorter
-     * @param array $config [optional]
+     * @param array $config
      * @param Dashboard $dashboard
      */
     public function __construct(
@@ -70,7 +70,7 @@ class Login extends Form
         Mapper $mapper,
         BrowserInterface $browser,
         SequenceSorterInterface $sequenceSorter,
-        array $config = [],
+        array $config,
         Dashboard $dashboard
     ) {
         parent::__construct($element, $blockFactory, $mapper, $browser, $sequenceSorter, $config);

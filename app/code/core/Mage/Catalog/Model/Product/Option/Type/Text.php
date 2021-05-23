@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
         // Check requires option to have some value
         if (strlen($value) == 0 && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
-            Mage::throwException(Mage::helper('catalog')->__('Please specify the product\'s required option(s).'));
+            Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
 
         // Check maximal length limit
@@ -67,7 +67,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
     /**
      * Prepare option value for cart
      *
-     * @return mixed Prepared option value
+     * @return string|null Prepared option value
      */
     public function prepareForCart()
     {
