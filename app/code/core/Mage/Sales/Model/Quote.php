@@ -1681,7 +1681,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param array $params
      * @return $this
      */
-    public function removeErrorInfosByParams($type = 'error', $params)
+    public function removeErrorInfosByParams($type, $params)
     {
         if ($type && !isset($this->_errorInfoGroups[$type])) {
             return $this;
@@ -1724,7 +1724,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param string $text
      * @return $this
      */
-    public function removeMessageByText($type = 'error', $text)
+    public function removeMessageByText($type, $text)
     {
         $messages = $this->getData('messages');
         if (is_null($messages)) {
