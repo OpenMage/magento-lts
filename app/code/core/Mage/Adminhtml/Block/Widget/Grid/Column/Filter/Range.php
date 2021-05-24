@@ -51,11 +51,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
         }
         return null;
     }
-    
 
     public function getCondition()
     {
         $value = $this->getValue();
+
+        if (isset($value['from']) && isset($value['to']) && $value['from'] === $value['to']) {
+            return ['eq' => $value['from']];
+        }
+
         return $value;
     }
 
