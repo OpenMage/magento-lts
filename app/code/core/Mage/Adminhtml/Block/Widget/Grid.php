@@ -303,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Add column to grid
      *
      * @param   string $columnId
-     * @param   array || Varien_Object $column
+     * @param   array $column
      * @return  Mage_Adminhtml_Block_Widget_Grid
      */
     public function addColumn($columnId, $column)
@@ -423,7 +423,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid column by column id
      *
      * @param   string $columnId
-     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|Varien_Object|false
+     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|false
      */
     public function getColumn($columnId)
     {
