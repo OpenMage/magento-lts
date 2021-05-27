@@ -50,16 +50,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
         $htmlId = $this->_getHtmlId() . microtime(true);
         $format = $this->getLocale()->getDateStrFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         $html = '<div class="range"><div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('From').':</span>'
-            . '<input type="text" name="'.$this->_getHtmlName().'[from]" id="'.$htmlId.'_from"'
+            . '<input type="text" name="' . $this->_getHtmlName() . '[from]" id="' . $htmlId . '_from"'
+                . ' placeholder="' . $this->quoteEscape(Mage::helper('adminhtml')->__('From')) . '" aria-label="' . $this->quoteEscape(Mage::helper('adminhtml')->__('From')) . '"'
                 . ' value="'.$this->getEscapedValue('from').'" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="'.$htmlId.'_from_trig"'
                 . ' title="' . $this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')) . '"/>'
             . '</div>';
-        $html.= '<div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('To').' :</span>'
-            . '<input type="text" name="'.$this->_getHtmlName().'[to]" id="'.$htmlId.'_to"'
+        $html .= '<div class="range-line date">'
+            . '<input type="text" name="' . $this->_getHtmlName() . '[to]" id="' . $htmlId . '_to"'
+                . ' placeholder="' . $this->quoteEscape(Mage::helper('adminhtml')->__('To')) . '" aria-label="' . $this->quoteEscape(Mage::helper('adminhtml')->__('To')) . '"'
                 . ' value="'.$this->getEscapedValue('to').'" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
                 . ' id="'.$htmlId.'_to_trig"'
