@@ -53,8 +53,6 @@ class Mage_Adminhtml_Model_Email_Template extends Mage_Core_Model_Email_Template
         }
         $paths = array();
 
-        $configSections = Mage::getSingleton('adminhtml/config')->getSections();
-
         // find nodes which are using $templateCode value
         $defaultCfgNodes = Mage::getConfig()->getXpath('default/*/*[*="' . $templateCode . '"]');
         if (!is_array($defaultCfgNodes)) {
