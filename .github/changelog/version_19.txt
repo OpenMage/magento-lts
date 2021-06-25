@@ -1,5 +1,49 @@
 
-## v19.4.14 - unreleased
+## v19.4.15 - unreleased
+
+
+
+## v19.4.14 - 2021-06-25
+
+#1202 Fix #1190 - Fix the "$_FILES array is empty" exception when assiging products to a category or creating a category with the XMLRPC-API
+#1227 modified nav-bar padding to prevent the search box hiding menu items
+#1326 Fix notice when there are no sales rules for a given situation
+#1443 Log Exception the right way in Session, no need for custom message formatting anymore
+#1505 Fix the deprecation problem of idn_to_ascii() since php7.2
+#1484 Fix unserialization error when saving dataflow advanced profile.
+#1483 Mage_Core_Model_Abstract: Fix rollback when Throwable is thrown in save/delete method
+#1466 Improve error message of product required option by including option …
+#1035 Code style (endif endforeach endfor and more)
+#1577 Code style (endif and break)
+#1575 Product qty is incremented when comment is added on a Credit Memo from SOAP API v2
+#1557 Mark invoice as last when dummy items included
+#1554 Fix Coments in .htaccess
+#1571 Reduce getId calls
+#1565 Log exceptions when generating images
+#1582 Reset array on product reset
+#1598 fixed twitter share link, issue 1595
+#1591 removed magento logo in demo notice
+#1494 Update default USPS endpoint to HTTPS schema
+#1448 Remove _isDownloader flag
+#1481 DEV: add docker-dde setup
+#1534 Cleanup of getMimeType()
+#1384 Add icons in admin (icon-head)
+#1568 Fixes for #1564 and #1289
+- #1564 Checkout - Agreement content when empty (Terms and Conditions)
+- #1289 Wrong attributes order in comparison window
+#1593 fix documentation updateAttributeGroup()
+#640 add some logging for errors during paypal response validation
+#1169 do not connect to write adapter when getting the read adapter (#1167 )
+#1255 Change lowest PHP version to 7
+#1616 Revert "cleanup - remove orphan js/jscolor/* from XmlConnect package (#1436)" - as its used by MageWorx Advanced Product Options
+#1613 Fix getChildren must be compatible with SimpleXMLElement with PHP 8
+#1392 Fix PHP8 Deprecated: Required parameter $A follows optional parameter
+#1183 Fixes cloning of a collection by also cloning the internal select object
+#802 Fix widgets layout handle on edit
+#1416 Page title for credit memo and shipment
+#1644 Fix fatal error - getRegionCollection() - issue #713
+#1588 Update report.php
+#1674 Resolves the PHP 7 error: Declaration of Mage_Tag_Model_Api_V2::items($productId, $store) should be compatible with Mage_Tag_Model_Api::items($productId, $store = NULL)
 
 
 ## v19.4.13 - 2021-04-20
