@@ -198,12 +198,10 @@
                         <?php endif ?>
                     <?php endif ?>
             </span>
-                <?php endif ?>
-                <?php else: ?>
-                    &nbsp;
-                <?php
-                endif;
-                ?>
+            <?php endif ?>
+        <?php else: ?>
+            &nbsp;
+        <?php endif ?>
     </td>
     <td class="a-center">
         <?php if ($this->canShowPriceInfo($_item)): ?>
@@ -343,14 +341,10 @@
                 </span>
                 <?php else: ?>
                     &nbsp;
-                <?php
-                endif;
-                ?>
-                <?php else: ?>
-                    &nbsp;
-                <?php
-                endif;
-                ?>
+                <?php endif ?>
+            <?php else: ?>
+                &nbsp;
+            <?php endif ?>
     </td>
     <td class="a-right">
         <?php if ($this->canShowPriceInfo($_item)): ?>
