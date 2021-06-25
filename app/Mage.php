@@ -109,13 +109,6 @@ final class Mage
     static private $_objects;
 
     /**
-     * Is downloader flag
-     *
-     * @var bool
-     */
-    static private $_isDownloader               = false;
-
-    /**
      * Is developer mode flag
      *
      * @var bool
@@ -238,7 +231,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '13',
+            'patch'     => '14',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -267,7 +260,6 @@ final class Mage
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
-        self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
         self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
@@ -759,7 +751,7 @@ final class Mage
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
         } catch (Exception $e) {
-            if (self::isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled()) {
                 self::printException($e);
                 exit();
             }
@@ -1062,10 +1054,10 @@ final class Mage
     /**
      * Set is downloader flag
      *
-     * @param bool $flag
+     * @deprecated
      */
-    public static function setIsDownloader($flag = true)
+    public static function setIsDownloader()
     {
-        self::$_isDownloader = $flag;
+
     }
 }

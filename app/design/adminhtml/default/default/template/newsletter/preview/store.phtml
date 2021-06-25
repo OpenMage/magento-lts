@@ -36,18 +36,18 @@
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
                     <optgroup label="<?php echo $this->escapeHtml($website->getName()); ?>"></optgroup>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
                     <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($group->getName()); ?>">
-                <?php endif; ?>
-                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()); ?></option>
-            <?php endforeach; ?>
+                <?php endif ?>
+                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->escapeHtml($store->getName()); ?></option>
+            <?php endforeach ?>
             <?php if ($showGroup): ?>
                 </optgroup>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
 </select>
 <script type="text/javascript">
 //<![CDATA[
@@ -57,4 +57,4 @@ Event.observe($('store_switcher'), 'change', function(event) {
 });
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>

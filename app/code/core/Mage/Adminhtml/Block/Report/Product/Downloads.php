@@ -55,14 +55,16 @@ class Mage_Adminhtml_Block_Report_Product_Downloads extends Mage_Adminhtml_Block
 
     public function getStoreSwitcherHtml()
     {
-        if (!Mage::app()->isSingleStoreMode()) {
-            return $this->getChildHtml('store_switcher');
-        }
-        return '';
+        return Mage::app()->isSingleStoreMode() ? '' : $this->getChildHtml('store_switcher');
     }
 
     public function getGridHtml()
     {
         return $this->getStoreSwitcherHtml() . parent::getGridHtml();
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

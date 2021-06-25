@@ -35,19 +35,19 @@
                 <?php if ($showWebsite == false): ?>
                     <?php $showWebsite = true; ?>
                     <h3><?php echo $this->escapeHtml($_website->getName()) ?></h3>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if ($showGroup == false): ?>
                     <?php $showGroup = true; ?>
                     <h4 style="margin-left:12px;"><?php echo $this->escapeHtml($_group->getName()) ?></h4>
-                <?php endif; ?>
+                <?php endif ?>
                 <span class="field-row" style="margin-left:28px;">
                     <input type="radio" id="store_<?php echo $_store->getId() ?>" class="radio" onclick="order.setStoreId('<?php echo $_store->getId() ?>')"/>
                     <label for="store_<?php echo $_store->getId() ?>" class="inline"><?php echo $this->escapeHtml($_store->getName()) ?></label>
                 </span>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             <?php if ($showGroup): ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
     </div>
 </div>

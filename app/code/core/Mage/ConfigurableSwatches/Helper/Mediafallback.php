@@ -322,9 +322,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         $newMediaGalleryImages = array();
         $configurableImages = array();
+        $productId = $product->getId();
 
         foreach ($mediaGallery['images'] as $mediaGalleryImage) {
-            if ($mediaGalleryImage['product_id'] == $product->getId()) {
+            if ($mediaGalleryImage['product_id'] == $productId) {
                 $newMediaGalleryImages[] = $mediaGalleryImage;
             } else {
                 $configurableImages[] = $mediaGalleryImage;
@@ -368,7 +369,8 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         $relationship = array();
         foreach ($products as $product) {
-            $relationship[$product->getId()] = $product->getId();
+            $productId = $product->getId();
+            $relationship[$productId] = $productId;
 
             if (!is_array($product->getChildrenProducts())) {
                 continue;
@@ -376,13 +378,12 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
             /* @var Mage_Catalog_Model_Product $childProduct */
             foreach ($product->getChildrenProducts() as $childProduct) {
-                $relationship[$childProduct->getId()] = $product->getId();
+                $relationship[$childProduct->getId()] = $productId;
             }
         }
 
         foreach ($images as $image) {
-            $productId = $image['product_id'];
-            $realProductId = $relationship[$productId];
+            $realProductId = $relationship[$image['product_id']];
             $product = $products[$realProductId];
 
             if (is_null($image['label'])) {

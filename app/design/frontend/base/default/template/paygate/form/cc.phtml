@@ -30,7 +30,7 @@
 <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>_before" style="display:none;">
     <?php if ($_formMessage): ?>
     <?php echo $this->showNoticeMessage($_formMessage) ?>
-    <?php endif;?>
+    <?php endif ?>
 
     <?php if ($this->isPartialAuthorization()): ?>
         <?php echo $this->getChildHtml('cards') ?>
@@ -80,13 +80,13 @@
             if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                 cancelPaymentAuthorizations(true, true);
             }
-        <?php endif;?>
+        <?php endif ?>
         //]]>
         </script>
         <span id="cancel-please-wait" class="please-wait" style="display:none">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="" class="v-middle" /> <?php echo $this->__('Processing...') ?>
         </span>
-    <?php endif;?>
+    <?php endif ?>
 </div>
-<?php endif;?>
+<?php endif ?>
 <?php echo $this->getChildHtml('method_form_block') ?>

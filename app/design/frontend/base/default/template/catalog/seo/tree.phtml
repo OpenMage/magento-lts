@@ -35,8 +35,8 @@
         <?php foreach ($_items as $_item): ?>
             <?php if ($_item->getIsActive()): ?>
                 <li class="level-<?php echo $this->getLevel($_item) ?>" <?php echo $this->getLevel($_item)?'style="padding-left:' . $this->getLevel($_item, 2) . '0px;"':'' ?>><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $_item->name ?></a></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
     </ul>
 <?php else: ?>
     <p class="note-msg">

@@ -178,8 +178,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     public function getSwatchUrl(
         $product,
         $value,
-        $width = self::SWATCH_DEFAULT_WIDTH,
-        $height = self::SWATCH_DEFAULT_HEIGHT,
+        $width,
+        $height,
         &$swatchType,
         $fallbackFileExt = null
     ) {

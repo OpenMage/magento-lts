@@ -63,7 +63,7 @@
                                 <?php echo $this->__('Add to Wishlist') ?>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_item, false)) : ?>
                         <li>
                             <span class="separator">|</span>
@@ -76,12 +76,12 @@
                                 <?php echo $this->__('Add to Compare') ?>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </ul>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ul>
     <script type="text/javascript">decorateList('crosssell-products-list', 'none-recursive')</script>
 </div>
-<?php endif; ?>
+<?php endif ?>

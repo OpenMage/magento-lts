@@ -46,7 +46,7 @@
             <?php if($_product->getStoreId()): ?>
                 <input id="link_title_default" type="checkbox" name="use_default[]" value="links_title" onclick="toggleValueElements(this, this.parentNode.parentNode)" <?php echo $this->getUsedDefault()?'checked="checked"':'' ?> />
                 <label class="normal" for="link_title_default"><?php echo Mage::helper('downloadable')->__('Use Default Value'); ?></label>
-            <?php endif; ?>
+            <?php endif ?>
             </td>
         </tr>
     </tbody>
@@ -82,7 +82,7 @@
             <th><?php echo Mage::helper('downloadable')->__('Title')?> <span class="required">*</span></th>
             <?php if ($this->getCanReadPrice() !== false) : ?>
             <th><?php echo Mage::helper('downloadable')->__('Price')?></th>
-            <?php endif; ?>
+            <?php endif ?>
             <th><span class="nobr"><?php echo Mage::helper('downloadable')->__('Max. Downloads')?></span></th>
             <th><?php echo Mage::helper('downloadable')->__('Shareable')?></th>
             <th><?php echo Mage::helper('downloadable')->__('Sample')?></th>
@@ -115,18 +115,18 @@ var linkTemplate = '<tr>'+
     '</td>'+
     <?php if ($this->getCanReadPrice() !== false) : ?>
     '<td class="input-price">'+
-        '<input type="text" id="downloadable_link_{{id}}_price_value" class="input-text validate-number link-prices<?php if ($this->getCanEditPrice() === false) : ?> disabled<?php endif; ?>" name="downloadable[link][{{id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?> /> ' +
+        '<input type="text" id="downloadable_link_{{id}}_price_value" class="input-text validate-number link-prices<?php if ($this->getCanEditPrice() === false) : ?> disabled<?php endif ?>" name="downloadable[link][{{id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?> /> ' +
         '<label>[<?php echo Mage::app()->getStore($_product->getStoreId())->getBaseCurrencyCode() ?>]</label>' +
         <?php if ($_product->getStoreId() && $this->getIsPriceWebsiteScope()) : ?>
-        '<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?> /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>' +
-        <?php endif; ?>
+        '<br /><input type="checkbox" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?> /> <label for="downloadable_link_{{id}}_price">Use Default Value</label>' +
+        <?php endif ?>
     '</td>' +
-    <?php else : ?>
+    <?php else: ?>
     '<input type="hidden" id="downloadable_link_{{id}}_price_value" class="link-prices" name="downloadable[link][{{id}}][price]" value="0" />' +
     <?php if ($_product->getStoreId() && $this->getIsPriceWebsiteScope()) : ?>
     '<input type="hidden" id="downloadable_link_{{id}}_price" name="downloadable[link][{{id}}][use_default_price]" value="1" />' +
-    <?php endif; ?>
-    <?php endif; ?>
+    <?php endif ?>
+    <?php endif ?>
     '<td><input type="text" id="downloadable_link_{{id}}_downloads" name="downloadable[link][{{id}}][number_of_downloads]" class="input-text downloads" value="{{number_of_downloads}}" />'+
     '<p><input type="checkbox" class="checkbox" id="downloadable_link_{{id}}_is_unlimited" name="downloadable[link][{{id}}][is_unlimited]" value="1" {{is_unlimited}} /> <label for="downloadable_link_{{id}}_is_unlimited">Unlimited</label></p></td>'+
     '<td class="a-center">'+
@@ -367,7 +367,7 @@ if($('add_link_item')) {
 
 <?php foreach ($this->getLinkData() as $item): ?>
     linkItems.add(<?php echo $item->toJson()?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 
 Validation.addAllThese([
     ['validate-downloadable-link-sample-file', 'Please specify File.', function(v,element) {

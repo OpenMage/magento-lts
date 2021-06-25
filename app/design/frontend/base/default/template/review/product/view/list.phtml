@@ -51,16 +51,16 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
                 <small class="date"><?php echo $this->__('(Posted on %s)', $this->formatDate($_review->getCreatedAt()), 'long') ?></small>
             </dd>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </dl>
         <?php echo $this->getChildHtml('toolbar') ?>
-    <?php endif;?>
+    <?php endif ?>
     <?php echo $this->getChildHtml('review_form') ?>
 </div>

@@ -187,11 +187,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     {
         $creditmemo = $this->_initCreditmemo();
         if ($creditmemo) {
-            if ($creditmemo->getInvoice()) {
-                $this->_title($this->__("View Memo for #%s", $creditmemo->getInvoice()->getIncrementId()));
-            } else {
-                $this->_title($this->__("View Memo"));
-            }
+            $this->_title(sprintf("#%s", $creditmemo->getIncrementId()));
 
             $this->loadLayout();
             $this->getLayout()->getBlock('sales_creditmemo_view')
