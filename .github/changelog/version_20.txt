@@ -1,6 +1,23 @@
 
-## v20.0.11 - unreleased
+## v20.0.12 - unreleased
 
+
+## v20.0.11 - 2021-06-25
+
+#1567 Fixed incorrect regex in Varien_Object _underscore()
+#1544 Prevent backend_type from being changed automatically on attribute save without the admin realizing
+#1555 Performance improvement for catalog product images
+#1600 Remove "default" themes from 20.x
+#1610 Reinstate getters and setters for $_pageHelpUrl which some third party modules still use
+#1532 add Possibility to disable global search in backend
+#1513 Add redis as a valid option for global/session_save (and activate Cm_RedisSession module by default)
+#1499 Set proper HTTP response code on error
+#1623 steamClose dosent void this->_streamHandler in php8
+#1073 (BC) Removed IE compatibility
+#1523 don't redirect to "downloader" (which doesn't exists)
+
+
+and merged changes from v19.4.14
 
 ## v20.0.10 - 2021-04-20
 
