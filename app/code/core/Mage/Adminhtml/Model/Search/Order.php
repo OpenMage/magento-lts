@@ -56,12 +56,10 @@ class Mage_Adminhtml_Model_Search_Order extends Varien_Object
                 array('attribute' => 'billing_firstname',  'like'=>$query.'%'),
                 array('attribute' => 'billing_lastname',   'like'=>$query.'%'),
                 array('attribute' => 'billing_telephone',  'like'=>$query.'%'),
-                array('attribute' => 'billing_postcode',   'like'=>$query.'%'),
 
                 array('attribute' => 'shipping_firstname', 'like'=>$query.'%'),
                 array('attribute' => 'shipping_lastname',  'like'=>$query.'%'),
                 array('attribute' => 'shipping_telephone', 'like'=>$query.'%'),
-                array('attribute' => 'shipping_postcode',  'like'=>$query.'%'),
             ))
             ->setCurPage($this->getStart())
             ->setPageSize($this->getLimit())
