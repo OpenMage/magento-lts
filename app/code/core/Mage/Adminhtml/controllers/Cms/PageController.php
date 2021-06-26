@@ -172,6 +172,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                     Mage::helper('cms')->__('An error occurred while saving the page.'));
             }
 
+            if (empty($data['identifier'])) {
+                $data['identifier'] = $model->getIdentifier();
+            }
+
             $this->_getSession()->setFormData($data);
             $this->_redirect('*/*/edit', array('page_id' => $this->getRequest()->getParam('page_id')));
             return;

@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $attributeCode
      * @return $this
      */
-    public function saveCategoryAttribute(Varien_Object $category, $attributeCode)
+    public function saveCategoryAttribute(Varien_Object $category, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_categoryAttributes[$attributeCode])) {
@@ -392,7 +392,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if ($attributeData['store_id'] != 0 && !$ignoreDefault) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)
@@ -502,7 +502,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $attributeCode
      * @return $this
      */
-    public function saveProductAttribute(Varien_Object $product, $attributeCode)
+    public function saveProductAttribute(Varien_Object $product, $attributeCode, $ignoreDefault = false)
     {
         $adapter = $this->_getWriteAdapter();
         if (!isset($this->_productAttributes[$attributeCode])) {
@@ -546,7 +546,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $adapter->insert($attributeTable, $attributeData);
         }
 
-        if ($attributeData['store_id'] != 0) {
+        if ($attributeData['store_id'] != 0 && !$ignoreDefault) {
             $attributeData['store_id'] = 0;
             $select = $adapter->select()
                 ->from($attributeTable)
