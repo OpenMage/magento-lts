@@ -95,7 +95,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if (empty($this->_recipients) || !is_array($this->_recipients)) {
+        if (empty($this->_recipients) || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
             Mage::throwException(Mage::helper('core')->__('Message recipients data must be set.'));
         }
         return parent::_beforeSave();
@@ -238,13 +238,13 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 try {
                     $mailer->send();
+                    unset($mailer);
+                    $message->setProcessedAt(Varien_Date::formatDate(true));
+                    $message->save(); // save() is throwing exception when recipient is not set
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
 
-                unset($mailer);
-                $message->setProcessedAt(Varien_Date::formatDate(true));
-                $message->save();
             }
         }
 
