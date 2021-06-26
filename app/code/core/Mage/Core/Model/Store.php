@@ -434,6 +434,32 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Get the basic configuration nodes for this store view
+     * @return array
+     */
+    public function getConfigCache()
+    {
+        $data = [];
+
+        foreach ($this->_configCacheBaseNodes as $node) {
+            $data[$node] = $this->getConfig($node);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Sets the internal configuration cache for this store view
+     * @param array $data
+     * @return $this
+     */
+    public function setConfigCache($data)
+    {
+        $this->_configCache = $data;
+        return $this;
+    }
+
+    /**
      * Set config value for CURRENT model
      *
      * This value don't save in config
