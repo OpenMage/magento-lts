@@ -53,7 +53,7 @@ class Mage_Directory_Model_Region_Api extends Mage_Api_Model_Resource_Abstract
 
         $result = array();
         foreach ($country->getRegions() as $region) {
-            $region->getName();
+            $region->setName($region->getName());
             $result[] = $region->toArray(array('region_id', 'code', 'name'));
         }
 
