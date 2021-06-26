@@ -353,18 +353,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Init mapping array of short fields to
-     * its full names
-     *
-     * @return Varien_Object
-     */
-    protected function _initOldFieldsMap()
-    {
-        $this->_oldFieldsMap = Mage::helper('catalog')->getOldFieldMap();
-        return $this;
-    }
-
-    /**
      * Retrieve Store Id
      *
      * @return int

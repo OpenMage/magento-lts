@@ -225,17 +225,6 @@
                     </weee>
                 </totals>
             </order_creditmemo>
-            <old_fields_map>
-                <order_item>
-                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
-                </order_item>
-                <invoice_item>
-                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
-                </invoice_item>
-                <creditmemo_item>
-                    <base_weee_tax_applied_row_amount>base_weee_tax_applied_row_amnt</base_weee_tax_applied_row_amount>
-                </creditmemo_item>
-            </old_fields_map>
         </sales>
     </global>
     <adminhtml>

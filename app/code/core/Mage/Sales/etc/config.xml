@@ -1198,13 +1198,6 @@
             </product>
         </catalog>
         <sales>
-            <old_fields_map>
-                <order>
-                    <payment_authorization_expiration>payment_auth_expiration</payment_authorization_expiration>
-                    <forced_do_shipment_with_invoice>forced_shipment_with_invoice</forced_do_shipment_with_invoice>
-                    <base_shipping_hidden_tax_amount>base_shipping_hidden_tax_amnt</base_shipping_hidden_tax_amount>
-                </order>
-            </old_fields_map>
             <quote>
                 <totals>
                     <nominal>
