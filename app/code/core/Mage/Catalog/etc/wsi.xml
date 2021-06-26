@@ -62,6 +62,7 @@
                     <xsd:element name="meta_title" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_keyword" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="meta_robot" type="xsd:string" minOccurs="0" />
                     <xsd:element name="custom_design" type="xsd:string" minOccurs="0" />
                     <xsd:element name="custom_layout_update" type="xsd:string" minOccurs="0" />
                     <xsd:element name="options_container" type="xsd:string" minOccurs="0" />
@@ -196,6 +197,7 @@
                     <xsd:element name="display_mode" type="xsd:string" minOccurs="0" />
                     <xsd:element name="is_anchor" type="xsd:int" minOccurs="0" />
                     <xsd:element name="landing_page" type="xsd:int" minOccurs="0" />
+                    <xsd:element name="meta_robots" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_description" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_keywords" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_title" type="xsd:string" minOccurs="0" />
@@ -221,6 +223,7 @@
                     <xsd:element name="meta_title" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_keywords" type="xsd:string" minOccurs="0" />
                     <xsd:element name="meta_description" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="meta_robots" type="xsd:string" minOccurs="0" />
                     <xsd:element name="path" type="xsd:string" minOccurs="0" />
                     <xsd:element name="url_path" type="xsd:string" minOccurs="0" />
                     <xsd:element name="children_count" type="xsd:int" minOccurs="0" />

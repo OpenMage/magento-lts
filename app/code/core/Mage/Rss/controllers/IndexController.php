@@ -53,6 +53,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
     {
         if ($this->_getHelper('rss')->isRssEnabled()) {
             $this->loadLayout();
+            $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/rss'));
             $this->renderLayout();
         } else {
             $this->getResponse()->setHeader('HTTP/1.1','404 Not Found');

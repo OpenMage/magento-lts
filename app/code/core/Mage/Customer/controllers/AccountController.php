@@ -132,6 +132,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/customer'));
         $this->renderLayout();
     }
 
@@ -265,6 +266,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/customer'));
         $this->renderLayout();
     }
 
@@ -722,6 +724,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->_getSession()->unsForgottenEmail();
 
         $this->_initLayoutMessages('customer/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/customer'));
         $this->renderLayout();
     }
 

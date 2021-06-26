@@ -57,6 +57,7 @@
         <field name="is_returnable" is_required="0" group="autosettings"/>
         <field name="manufacturer" is_required="0"/>
         <field name="media_gallery" is_required="0"/>
+        <field name="meta_robot" is_required="0" group="search-engine-optimization"/>
         <field name="meta_description" is_required="0" group="search-engine-optimization"/>
         <field name="meta_keyword" is_required="0" group="search-engine-optimization"/>
         <field name="meta_title" is_required="0" group="search-engine-optimization"/>

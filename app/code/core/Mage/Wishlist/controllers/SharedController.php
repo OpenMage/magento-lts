@@ -81,6 +81,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         $this->loadLayout();
         $this->_initLayoutMessages('checkout/session');
         $this->_initLayoutMessages('wishlist/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/wishlist'));
         $this->renderLayout();
     }
 

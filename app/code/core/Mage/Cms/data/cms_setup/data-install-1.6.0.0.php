@@ -45,6 +45,7 @@ $cmsPages = array(
         'meta_keywords' => 'Page keywords',
         'meta_description'
                         => 'Page description',
+        'meta_robots'   => 1,
         'identifier'    => 'no-route',
         'content'       => "
 <div class=\"page-title\"><h1>Whoops, our bad...</h1></div>

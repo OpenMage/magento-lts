@@ -250,6 +250,8 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                 $breadcrumbsBlock->addCrumb('reviews', array('label' => Mage::helper('review')->__('Product Reviews')));
             }
 
+            $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/reviews'));
+
             $this->renderLayout();
         } elseif (!$this->getResponse()->isRedirect()) {
             $this->_forward('noRoute');
@@ -277,6 +279,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->_initLayoutMessages('review/session');
         $this->_initLayoutMessages('catalog/session');
+        $this->getLayout()->getBlock('head')->setRobots(Mage::getStoreConfig('web/robots_configuration/reviews'));
         $this->renderLayout();
     }
 
