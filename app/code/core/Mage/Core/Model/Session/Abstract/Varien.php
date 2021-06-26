@@ -458,6 +458,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if (!isset($_SESSION[self::VALIDATOR_KEY])) {
             $_SESSION[self::VALIDATOR_KEY] = $this->getValidatorData();
         } else {
+            // Load password timestamp data in case it was not loaded initially (customer was not logged in on first request)
+            if (isset($this->_data['visitor_data']['customer_id']) && ! isset($_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])) {
+                $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] =
+                    Mage::helper('customer')->getPasswordTimestamp($this->_data['visitor_data']['customer_id']);
+            }
+
             if (! self::$isValidated && ! $this->_validate()) {
                 $this->getCookie()->delete(session_name());
                 // throw core session exception
@@ -465,7 +471,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             }
 
             // Refresh expire timestamp
-            if ($this->useValidateSessionExpire()) {
+            if (! self::$isValidated && $this->useValidateSessionExpire()) {
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] = time() + $this->getCookie()->getLifetime();
             }
         }
@@ -514,11 +520,23 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             && $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] < time() ) {
             return false;
         }
+
+        // Validate password was not created after session expiration
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP])
             && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP] - $this->getCookie()->getLifetime()
+            > $sessionData[self::VALIDATOR_SESSION_EXPIRE_TIMESTAMP]
+        ) {
+            return false;
+        }
+
+        // Validate password was not changed since previous request
+        if ($this->useValidateSessionPasswordTimestamp()
+            && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && isset($sessionData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
+            != $sessionData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
         ) {
             return false;
         }
