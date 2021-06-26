@@ -222,16 +222,16 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     protected function _createSearchPostCodeTemplates($postcode)
     {
         $len = Mage::helper('tax')->getPostCodeSubStringLength();
-        $strlen = strlen($postcode);
+        $strlen = mb_strlen($postcode);
         if ($strlen > $len) {
-            $postcode = substr($postcode, 0, $len);
+            $postcode = mb_substr($postcode, 0, $len);
             $strlen = $len;
         }
 
         $strArr = array((string)$postcode, $postcode . '*');
         if ($strlen > 1) {
             for ($i = 1; $i < $strlen; $i++) {
-                $strArr[] = sprintf('%s*', substr($postcode, 0, - $i));
+                $strArr[] = sprintf('%s*', mb_substr($postcode, 0, - $i));
             }
         }
 
