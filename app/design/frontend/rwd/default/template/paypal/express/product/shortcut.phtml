@@ -35,6 +35,7 @@
     <?php $shortcutHtmlId = $this->getShortcutHtmlId() ?>
     <?php $bmlShortcutHtmlId = $this->getBmlShortcutHtmlId() ?>
     <a class="paypal-button" data-action="checkout-form-submit" id="<?php echo $shortcutHtmlId ?>" href="<?php echo $this->getCheckoutUrl()?>"><img src="<?php echo $this->getImageUrl()?>" alt="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')); ?>" title="<?php echo $this->quoteEscape(Mage::helper('paypal')->__('Checkout with PayPal')); ?>" /></a>
+    <?php echo $this->getChildHtml('paylater.message'); ?>
 </p>
 <?php if ($this->getIsBmlEnabled()): ?>
 <p class="paypal-logo">

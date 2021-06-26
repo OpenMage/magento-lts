@@ -1079,6 +1079,20 @@ a.button:hover {
   }
 }
 /* -------------------------------------------- *
+ * PayPal pay later
+ */
+.checkout-types.bottom .paypal-paylater-message {
+  margin-top: 15px;
+}
+.cart .title-buttons .paypal-paylater-message {
+  display: none;
+}
+.checkout-onepage-index .paypal-paylater-message{
+  margin-top: 40px;
+}
+
+
+/* -------------------------------------------- *
  * Button Sets
  */
 .buttons-set {
