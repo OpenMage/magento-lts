@@ -81,14 +81,6 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
-### New Translations
-
-There are some new or changed translations, if you want add them to your locale pack please check:
-
-- `app/locale/en_US/Adminhtml_LTS.csv`
-- `app/locale/en_US/Core_LTS.csv`
-- `app/locale/en_US/Sales_LTS.csv`
-
 ### Removed Modules
 - `Mage_Compiler`
 - `Mage_GoogleBase`
@@ -106,7 +98,7 @@ There are some new or changed translations, if you want add them to your locale 
 
 ### PhpStorm Factory Helper
 
-This repo includes class maps for the core Magento files in `.phpstorm.meta.php`. 
+This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
 and run command:
 
