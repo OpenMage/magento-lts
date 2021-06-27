@@ -469,7 +469,11 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             } else {
                 $cond = $column->getFilter()->getCondition();
                 if ($field && isset($cond)) {
-                    $this->getCollection()->addFieldToFilter($field , $cond);
+                    if (in_array('NULL', array_values($cond), true)) {
+                        $this->getCollection()->addFieldToFilter($field, array('null' => true));
+                    } else {
+                        $this->getCollection()->addFieldToFilter($field, $cond);
+                    }
                 }
             }
         }
