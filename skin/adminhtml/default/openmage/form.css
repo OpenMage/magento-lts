@@ -3,8 +3,8 @@
    Edit scss version and compile with sass from scss folder like this:
    $ sass form.scss ../form.css
  */
-select, textarea, input.input-text {
-  font: 400 12px/1.33 "Open Sans", sans-serif;
+input.input-text, textarea, select {
+  font: 400 12px/1.33 'Open Sans', sans-serif;
   display: inline-block;
   padding: 1px 3px;
   margin: 0;
@@ -15,13 +15,13 @@ select, textarea, input.input-text {
   box-sizing: border-box;
 }
 
-.form-list td.label label, .form-list td.label {
+.form-list td.label, .form-list td.label label {
   font-size: 12px;
   font-weight: 400;
   color: #202856;
 }
 
-.form-button, button {
+button, .form-button {
   background-image: none;
   background-color: #71798e;
   padding: 0 13px;
@@ -38,20 +38,20 @@ select, textarea, input.input-text {
   vertical-align: middle;
 }
 
-.form-button:active, .form-button:focus, button:active, button:focus {
+button:focus, button:active, .form-button:focus, .form-button:active {
   background: #888;
   border: 0;
   outline: thin dotted;
   outline-offset: -2px;
 }
 
-.form-button[disabled] fieldset[disabled] button, button[disabled], .form-button.disabled, button.disabled {
+button.disabled, .form-button.disabled, button[disabled], .form-button[disabled] fieldset[disabled] button {
   cursor: default;
   pointer-events: none;
   opacity: 0.5;
 }
 
-.form-button.ok_button, button.add, button.ok_button, button.save {
+button.save, button.ok_button, button.add, .form-button.ok_button {
   background-image: none;
   background-color: #0090FF;
   padding: 0 13px;
@@ -67,20 +67,20 @@ select, textarea, input.input-text {
   vertical-align: middle;
 }
 
-.form-button.ok_button:active, .form-button.ok_button:focus, button.add:active, button.add:focus, button.ok_button:active, button.ok_button:focus, button.save:active, button.save:focus {
+button.save:focus, button.save:active, button.ok_button:focus, button.ok_button:active, button.add:focus, button.add:active, .form-button.ok_button:focus, .form-button.ok_button:active {
   background-color: #026294;
   outline: thin dotted;
   outline-offset: -2px;
   color: #fff;
 }
 
-fieldset[disabled] button.ok_button, fieldset[disabled] button.add, fieldset[disabled] button.save, button.ok_button[disabled], button.add[disabled], button.save[disabled], button.add.disabled, button.ok_button.disabled, button.save.disabled {
+button.save.disabled, button.ok_button.disabled, button.add.disabled, button.save[disabled], button.add[disabled], button.ok_button[disabled], fieldset[disabled] button.save, fieldset[disabled] button.add, fieldset[disabled] button.ok_button {
   cursor: default;
   pointer-events: none;
   opacity: 0.5;
 }
 
-.field-100 input.input-text, .field-100 textarea {
+.field-100 textarea, .field-100 input.input-text {
   float: none;
   border: 1px solid #ccc !important;
   padding: 1px 3px !important;
@@ -89,6 +89,7 @@ fieldset[disabled] button.ok_button, fieldset[disabled] button.add, fieldset[dis
 input {
   vertical-align: middle;
 }
+
 textarea {
   margin: 0;
 }
@@ -279,8 +280,9 @@ button.add-variable span {
   border: 0;
   padding: 0;
 }
+
 .form-list td.label label {
-  padding: 5px 15px 0 0;
+  padding: 0 15px 0 0;
 }
 .form-list td.scope-label {
   color: #999;
