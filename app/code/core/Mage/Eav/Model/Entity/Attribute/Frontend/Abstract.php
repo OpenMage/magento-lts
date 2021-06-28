@@ -94,10 +94,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      *
      * @return string
      */
-     public function getNote()
-     {
+    public function getNote()
+    {
         return $this->getAttribute()->getNote();
-     }
+    }
 
     /**
      * Retreive attribute value
