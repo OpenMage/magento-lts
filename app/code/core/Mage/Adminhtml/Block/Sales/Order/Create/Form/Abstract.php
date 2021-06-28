@@ -151,6 +151,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
                     'label'     => $this->__($attribute->getStoreLabel()),
                     'class'     => $attribute->getFrontend()->getClass(),
                     'required'  => $attribute->getIsRequired(),
+                    'note'      => $this->escapeHtml($attribute->getNote())
                 ));
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
