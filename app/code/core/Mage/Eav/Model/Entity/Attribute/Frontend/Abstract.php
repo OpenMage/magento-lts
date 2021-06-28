@@ -90,6 +90,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
+     * Retrieve note
+     *
+     * @return string
+     */
+     public function getNote()
+     {
+        return $this->getAttribute()->getNote();
+     }
+
+    /**
      * Retreive attribute value
      *
      * @param Varien_Object $object
