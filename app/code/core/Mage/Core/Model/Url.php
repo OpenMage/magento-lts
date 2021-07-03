@@ -75,6 +75,14 @@
  * @category   Mage
  * @package    Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setType(string $value)
+ * @method $this setSecure(bool $value)
+ * @method $this setSecureIsForced(bool $value)
+ * @method string getScheme()
+ * @method string getHost()
+ * @method string getPort()
+ * @method string getPath()
  */
 class Mage_Core_Model_Url extends Varien_Object
 {
@@ -294,7 +302,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Zend request object
      *
-     * @return Zend_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http
      */
     public function getRequest()
     {
@@ -405,7 +413,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set Route Parameters
      *
-     * @param array $data
+     * @param array|string $data
      * @return $this
      */
     public function setRoutePath($data)
@@ -487,7 +495,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve route path
      *
-     * @param array $routParams
+     * @param array $routeParams
      * @return string
      */
     public function getRoutePath($routeParams = array())
@@ -1000,7 +1008,7 @@ class Mage_Core_Model_Url extends Varien_Object
             if (is_string($query)) {
                 $this->setQuery($query);
             } elseif (is_array($query)) {
-                $this->setQueryParams($query, !empty($routeParams['_current']));
+                $this->setQueryParams($query);
             }
             if ($query === false) {
                 $this->setQueryParams(array());
@@ -1062,13 +1070,13 @@ class Mage_Core_Model_Url extends Varien_Object
             return $this;
         }
 
-        /** @var $session Mage_Core_Model_Session */
+        /** @var Mage_Core_Model_Session $session */
         $session = Mage::getSingleton('core/session', $params);
 
         $sessionId = $session->getSessionIdForHost($url);
         if (Mage::app()->getUseSessionVar() && !$sessionId) {
             $this->setQueryParam('___SID', $this->getSecure() ? 'S' : 'U'); // Secure/Unsecure
-        } else if ($sessionId) {
+        } elseif ($sessionId) {
             $this->setQueryParam($session->getSessionIdQueryParam(), $sessionId);
         }
         return $this;
@@ -1128,7 +1136,8 @@ class Mage_Core_Model_Url extends Varien_Object
      * @param array $params
      * @return string
      */
-    public function getDirectUrl($url, $params = array()) {
+    public function getDirectUrl($url, $params = array())
+    {
         $params['_direct'] = $url;
         return $this->getUrl('', $params);
     }
@@ -1144,8 +1153,11 @@ class Mage_Core_Model_Url extends Varien_Object
         if (strpos($html, '__SID') === false) {
             return $html;
         } else {
-            return preg_replace_callback('#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
-                array($this, "sessionVarCallback"), $html);
+            return preg_replace_callback(
+                '#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
+                array($this, "sessionVarCallback"),
+                $html
+            );
         }
     }
 
@@ -1160,8 +1172,10 @@ class Mage_Core_Model_Url extends Varien_Object
         $key = 'use_session_id_for_url_' . (int) $secure;
         if (is_null($this->getData($key))) {
             $httpHost = Mage::app()->getFrontController()->getRequest()->getHttpHost();
-            $urlHost = parse_url(Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure),
-                PHP_URL_HOST);
+            $urlHost = parse_url(
+                Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, $secure),
+                PHP_URL_HOST
+            );
 
             if ($httpHost != $urlHost) {
                 $this->setData($key, true);
@@ -1180,9 +1194,9 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function sessionVarCallback($match)
     {
-        if ($this->useSessionIdForUrl($match[2] == 'S' ? true : false)) {
+        if ($this->useSessionIdForUrl($match[2] == 'S')) {
             $session = Mage::getSingleton('core/session');
-            /* @var $session Mage_Core_Model_Session */
+            /* @var Mage_Core_Model_Session $session */
             return $match[1]
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()

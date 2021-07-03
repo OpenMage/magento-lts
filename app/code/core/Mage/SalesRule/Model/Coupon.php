@@ -24,28 +24,29 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SalesRule Coupon Model
  *
  * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
+ *
  * @method int getRuleId()
- * @method Mage_SalesRule_Model_Coupon setRuleId(int $value)
+ * @method $this setRuleId(int $value)
  * @method string getCode()
- * @method Mage_SalesRule_Model_Coupon setCode(string $value)
+ * @method $this setCode(string $value)
  * @method int getUsageLimit()
- * @method Mage_SalesRule_Model_Coupon setUsageLimit(int $value)
+ * @method $this setUsageLimit(int $value)
  * @method int getUsagePerCustomer()
- * @method Mage_SalesRule_Model_Coupon setUsagePerCustomer(int $value)
+ * @method $this setUsagePerCustomer(int $value)
  * @method int getTimesUsed()
- * @method Mage_SalesRule_Model_Coupon setTimesUsed(int $value)
- * @method string getExpirationDate()
- * @method Mage_SalesRule_Model_Coupon setExpirationDate(string $value)
+ * @method $this setTimesUsed(int $value)
+ * @method Zend_Date getExpirationDate()
+ * @method $this setExpirationDate(Zend_Date $value)
  * @method int getIsPrimary()
- * @method Mage_SalesRule_Model_Coupon setIsPrimary(int $value)
+ * @method $this setIsPrimary(int $value)
  * @method int getType()
- * @method Mage_SalesRule_Model_Coupon setType(int $value)
+ * @method $this setType(int $value)
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -82,7 +83,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Set rule instance
      *
-     * @param  Mage_SalesRule_Model_Rule
+     * @param  Mage_SalesRule_Model_Rule $rule
      * @return $this
      */
     public function setRule(Mage_SalesRule_Model_Rule $rule)

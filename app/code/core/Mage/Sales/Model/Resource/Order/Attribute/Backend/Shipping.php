@@ -32,13 +32,12 @@
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Perform operation before save
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Sales_Model_Order $object
      */
     public function beforeSave($object)
     {
@@ -51,7 +50,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping
     /**
      * Perform operation after save
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Sales_Model_Order $object
      */
     public function afterSave($object)
     {

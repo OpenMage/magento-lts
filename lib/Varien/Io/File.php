@@ -409,6 +409,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $dir
      * @return boolean
+     * @throws Exception
      */
     public function cd($dir)
     {
@@ -418,7 +419,6 @@ class Varien_Io_File extends Varien_Io_Abstract
             return true;
         } else {
             throw new Exception('Unable to list current working directory.');
-            return false;
         }
     }
 
@@ -486,7 +486,12 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected function _IsValidSource($src)
     {
-        if (is_string($src) || is_resource($src)) {
+        // In case of a string
+        if (is_string($src)) {
+            // If its a file we check for null byte
+            // If it's not a valid path, file_exists() will return a falsey value, and the @ will keep it from complaining about the bad string.
+            return !(@file_exists($src) && strpos($src, chr(0)) !== false);
+        } elseif (is_resource($src)) {
             return true;
         }
 
@@ -505,7 +510,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         $error = false;
         @chdir($this->_cwd);
-         if (file_exists($filename)) {
+        if (file_exists($filename)) {
             if (!is_writeable($filename)) {
                 $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
             }
@@ -532,8 +537,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _checkSrcIsFile($src)
     {
         $result = false;
-        // both is_readable() and is_file() emit E_WARNING if there is a null byte in $src
-        if (is_string($src) && @is_readable($src) && @is_file($src)) {
+        if (is_string($src) && @is_readable($src) && is_file($src)) {
             $result = true;
         }
 
@@ -846,7 +850,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         return $this->getCleanPath(dirname($file));
     }
-    
+
     public function getStreamHandler()
     {
         return $this->_streamHandler;

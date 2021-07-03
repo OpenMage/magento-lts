@@ -82,7 +82,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Load attribute types
      *
-     * @param ind $typeId
+     * @param int $typeId
      * @return array
      */
     protected function _loadTypeAttributes($typeId)

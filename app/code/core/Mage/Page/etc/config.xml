@@ -130,7 +130,7 @@
                 <welcome>Default welcome msg!</welcome>
             </header>
             <footer translate="copyright" module="page">
-                <copyright>&amp;copy; 2020 Magento Demo Store. All Rights Reserved.</copyright>
+                <copyright>&amp;copy; 2020 OpenMage Demo Store. All Rights Reserved.</copyright>
             </footer>
         </design>
         <system>

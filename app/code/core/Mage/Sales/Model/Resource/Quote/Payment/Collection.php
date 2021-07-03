@@ -67,4 +67,3 @@ class Mage_Sales_Model_Resource_Quote_Payment_Collection extends Mage_Core_Model
         return parent::_afterLoad();
     }
 }
-

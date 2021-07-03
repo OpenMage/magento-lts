@@ -42,6 +42,9 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $rssObj = Mage::getModel('rss/rss');

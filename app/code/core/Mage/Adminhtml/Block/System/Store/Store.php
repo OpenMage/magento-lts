@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
      */
     public function getAddNewButtonHtml()
     {
-        return join(' ', array(
+        return implode(' ', array(
             $this->getChildHtml('add_new_website'),
             $this->getChildHtml('add_new_group'),
             $this->getChildHtml('add_new_store')

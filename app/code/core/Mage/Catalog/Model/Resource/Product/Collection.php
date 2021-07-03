@@ -31,6 +31,9 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product getItemById(int|string $value)
+ * @method Mage_Catalog_Model_Product[] getItems()
  */
 class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Collection_Abstract
 {
@@ -89,7 +92,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Is add final price to product collection flag
      *
-     * @var unknown_type
+     * @var bool
      */
     protected $_addFinalPrice                = false;
 
@@ -265,7 +268,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         Mage::dispatchEvent('catalog_prepare_price_select', $eventArgs);
 
-        $additional   = join('', $response->getAdditionalCalculations());
+        $additional = implode('', $response->getAdditionalCalculations());
         $this->_priceExpression = $table . '.min_price';
         $this->_additionalPriceExpression = $additional;
         $this->_catalogPreparePriceSelect = clone $select;
@@ -349,8 +352,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     {
         if ($this->isEnabledFlat()) {
             $this->_init('catalog/product', 'catalog/product_flat');
-        }
-        else {
+        } else {
             $this->_init('catalog/product');
         }
         $this->_initTables();
@@ -369,9 +371,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Standard resource collection initalization
      *
-     * @param string $model
-     * @param unknown_type $entityModel
-     * @return $this
+     * @inheritDoc
      */
     protected function _init($model, $entityModel = null)
     {
@@ -385,7 +385,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Prepare static entity fields
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareStaticFields()
     {
@@ -413,8 +413,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Set entity to use for attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @return $this
+     * @inheritDoc
      */
     public function setEntity($entity)
     {
@@ -468,9 +467,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Load attributes into loaded entities
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function _loadAttributes($printQuery = false, $logQuery = false)
     {
@@ -484,9 +481,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      * Add attribute to entities in collection
      * If $attribute=='*' select all attributes
      *
-     * @param array|string|integer|Mage_Core_Model_Config_Element $attribute
-     * @param false|string $joinType
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToSelect($attribute, $joinType = false)
     {
@@ -520,7 +515,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add tax class id attribute to select and join price rules data if needed
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeLoad()
     {
@@ -538,7 +533,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _afterLoad()
     {
         if ($this->_addUrlRewrite) {
-           $this->_addUrlRewrite($this->_urlRewriteCategory);
+            $this->_addUrlRewrite($this->_urlRewriteCategory);
         }
 
         if (count($this) > 0) {
@@ -547,7 +542,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         foreach ($this as $product) {
             if ($product->isRecurring() && $profile = $product->getRecurringProfile()) {
-                $product->setRecurringProfile(unserialize($profile));
+                $product->setRecurringProfile(Mage::helper('core/unserializeArray')->unserialize($profile));
             }
         }
 
@@ -563,7 +558,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     protected function _prepareUrlDataObject()
     {
         $objects = array();
-        /** @var $item Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $item */
         foreach ($this->_items as $item) {
             if ($this->getFlag('do_not_use_category_id')) {
                 $item->setDoNotUseCategoryId(true);
@@ -601,14 +596,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
         if (is_array($productId)) {
-            if (!empty($productId)) {
-                if ($exclude) {
-                    $condition = array('nin' => $productId);
-                } else {
-                    $condition = array('in' => $productId);
-                }
+            if ($exclude) {
+                $condition = array('nin' => $productId);
             } else {
-                $condition = '';
+                $condition = array('in' => $productId);
             }
         } else {
             if ($exclude) {
@@ -618,6 +609,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
         }
         $this->addFieldToFilter('entity_id', $condition);
+
         return $this;
     }
 
@@ -640,7 +632,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ->join(
                     array('website' => $this->getResource()->getTable('core/website')),
                     'website.website_id = product_website.website_id',
-                    array('name'))
+                    array('name')
+                )
                 ->where('product_website.product_id IN (?)', array_keys($productWebsites))
                 ->where('website.website_id > ?', 0);
 
@@ -683,7 +676,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add website filter to collection
      *
-     * @param unknown_type $websites
+     * @param array|string|int $websites
      * @return $this
      */
     public function addWebsiteFilter($websites = null)
@@ -761,10 +754,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             AND '.$this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
         $select->join(
-                array($tableAlias => $attribute->getBackend()->getTable()),
-                $condition,
-                array($fieldAlias => new Zend_Db_Expr('MAX('.$tableAlias.'.value)'))
-            )
+            array($tableAlias => $attribute->getBackend()->getTable()),
+            $condition,
+            array($fieldAlias => new Zend_Db_Expr('MAX('.$tableAlias.'.value)'))
+        )
             ->group('e.entity_type_id');
 
         $data = $this->getConnection()->fetchRow($select);
@@ -794,14 +787,15 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $select->reset(Zend_Db_Select::GROUP);
         $select->join(
-                array($tableAlias => $attribute->getBackend()->getTable()),
-                $condition,
-                array(
+            array($tableAlias => $attribute->getBackend()->getTable()),
+            $condition,
+            array(
                     'count_' . $attributeCode => new Zend_Db_Expr('COUNT(DISTINCT e.entity_id)'),
                     'range_' . $attributeCode => new Zend_Db_Expr(
-                        'CEIL((' . $tableAlias . '.value+0.01)/' . $range . ')')
+                        'CEIL((' . $tableAlias . '.value+0.01)/' . $range . ')'
+                    )
                  )
-            )
+        )
             ->group('range_' . $attributeCode);
 
         $data   = $this->getConnection()->fetchAll($select);
@@ -831,13 +825,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             AND '.$this->_getConditionSql($tableAlias . '.attribute_id', $attribute->getId());
 
         $select->join(
-                array($tableAlias => $attribute->getBackend()->getTable()),
-                $condition,
-                array(
+            array($tableAlias => $attribute->getBackend()->getTable()),
+            $condition,
+            array(
                     'count_' . $attributeCode => new Zend_Db_Expr('COUNT(DISTINCT e.entity_id)'),
                     'value_' . $attributeCode => new Zend_Db_Expr($tableAlias . '.value')
                  )
-            )
+        )
             ->group('value_' . $attributeCode);
 
         $data   = $this->getConnection()->fetchAll($select);
@@ -866,7 +860,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getAllAttributeValues($attribute)
     {
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select    = clone $this->getSelect();
         $attribute = $this->getEntity()->getAttribute($attribute);
 
@@ -897,6 +891,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Get SQL for get record count
      *
+     * @param null $select
      * @param bool $resetLeftJoins
      * @return Varien_Db_Select
      */
@@ -973,9 +968,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Retrive all ids for collection
      *
-     * @param unknown_type $limit
-     * @param unknown_type $offset
-     * @return array
+     * @inheritDoc
      */
     public function getAllIds($limit = null, $offset = null)
     {
@@ -1000,7 +993,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ->reset(Zend_Db_Select::GROUP)
                 ->reset(Zend_Db_Select::ORDER)
                 ->distinct(false)
-                ->join(array('count_table' => $this->getTable('catalog/category_product_index')),
+                ->join(
+                    array('count_table' => $this->getTable('catalog/category_product_index')),
                     'count_table.product_id = e.entity_id',
                     array(
                         'count_table.category_id',
@@ -1089,7 +1083,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getSetIds()
     {
         $select = clone $this->getSelect();
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('attribute_set_id');
@@ -1104,7 +1098,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getProductTypeIds()
     {
         $select = clone $this->getSelect();
-        /** @var $select Varien_Db_Select */
+        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('type_id');
@@ -1164,13 +1158,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (!($urlRewrites = Mage::app()->loadCache($this->_cacheConf['prefix'] . 'urlrewrite'))) {
                 $urlRewrites = null;
             } else {
-                $urlRewrites = unserialize($urlRewrites);
+                $urlRewrites = unserialize($urlRewrites, ['allowed_classes' => false]);
             }
         }
 
         if (!$urlRewrites) {
             $productIds = array();
-            foreach($this->getItems() as $item) {
+            foreach ($this->getItems() as $item) {
                 $productIds[] = $item->getEntityId();
             }
             if (!count($productIds)) {
@@ -1178,7 +1172,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             $select = $this->_factory->getProductUrlRewriteHelper()
-                ->getTableSelect($productIds, $this->_urlRewriteCategory, Mage::app()->getStore()->getId());
+                ->getTableSelect($productIds, $this->_urlRewriteCategory, Mage::app()->getStore($this->getStoreId())->getId());
 
             $urlRewrites = array();
             foreach ($this->getConnection()->fetchAll($select) as $row) {
@@ -1197,7 +1191,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
         }
 
-        foreach($this->getItems() as $item) {
+        foreach ($this->getItems() as $item) {
             if (empty($this->_urlRewriteCategory)) {
                 $item->setDoNotUseCategoryId(true);
             }
@@ -1384,12 +1378,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Add attribute to filter
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
-     * @param array $condition
-     * @param string $joinType
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')
     {
@@ -1403,7 +1392,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 foreach ($attribute as $condition) {
                     $sqlArr[] = $this->_getAttributeConditionSql($condition['attribute'], $condition, $joinType);
                 }
-                $conditionSql = '('.join(') OR (', $sqlArr).')';
+                $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
                 $this->getSelect()->where($conditionSql);
                 return $this;
             }
@@ -1510,7 +1499,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ->addValuesToResult();
 
             foreach ($options as $option) {
-                if($this->getItemById($option->getProductId())) {
+                if ($this->getItemById($option->getProductId())) {
                     $this->getItemById($option->getProductId())->addOption($option);
                 }
             }
@@ -1547,9 +1536,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Add attribute to sort order
      *
-     * @param string $attribute
-     * @param string $dir
-     * @return $this
+     * @inheritDoc
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {
@@ -1570,7 +1557,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
 
             return $this;
-        } elseif($attribute == 'is_saleable'){
+        } elseif ($attribute == 'is_saleable') {
             $this->getSelect()->order("is_saleable " . $dir);
             return $this;
         }
@@ -1588,8 +1575,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             if ($column) {
                 $this->getSelect()->order("e.{$column} {$dir}");
-            }
-            else if (isset($this->_joinFields[$attribute])) {
+            } elseif (isset($this->_joinFields[$attribute])) {
                 $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
             }
 
@@ -1668,13 +1654,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (!$joinWebsite) {
                 unset($fromPart['product_website']);
             } else {
-                $fromPart['product_website']['joinCondition'] = join(' AND ', $conditions);
+                $fromPart['product_website']['joinCondition'] = implode(' AND ', $conditions);
             }
             $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
         } elseif ($joinWebsite) {
             $this->getSelect()->join(
                 array('product_website' => $this->getTable('catalog/product_website')),
-                join(' AND ', $conditions),
+                implode(' AND ', $conditions),
                 array()
             );
         }
@@ -1723,7 +1709,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!isset($fromPart['store_cat_index'])) {
             $this->getSelect()->joinLeft(
                 array('store_cat_index' => $this->getTable('catalog/category_product_index')),
-                join(' AND ', array(
+                implode(' AND ', array(
                     'store_cat_index.product_id = e.entity_id',
                     'store_cat_index.store_id = ' . $filters['store_table'] . '.store_id',
                     'store_cat_index.category_id=store_group_index.root_category_id'
@@ -1734,7 +1720,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         // Avoid column duplication problems
         Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
 
-        $whereCond = join(' OR ', array(
+        $whereCond = implode(' OR ', array(
             $this->getConnection()->quoteInto('cat_index.visibility IN(?)', $filters['visibility']),
             $this->getConnection()->quoteInto('store_cat_index.visibility IN(?)', $filters['visibility'])
         ));
@@ -1767,8 +1753,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Join Product Price Table with left-join possibility
      *
-     * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
+     * @param bool $joinLeft
      * @return $this
+     * @throws Zend_Db_Exception
+     * @throws Zend_Db_Select_Exception
+     * @see Mage_Catalog_Model_Resource_Product_Collection::_productLimitationJoinPrice()
      */
     protected function _productLimitationPrice($joinLeft = false)
     {
@@ -1780,7 +1769,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $helper     = Mage::getResourceHelper('core');
         $connection = $this->getConnection();
         $select     = $this->getSelect();
-        $joinCond   = join(' AND ', array(
+        $joinCond = implode(' AND ', array(
             'price_index.entity_id = e.entity_id',
             $connection->quoteInto('price_index.website_id = ?', $filters['website_id']),
             $connection->quoteInto('price_index.customer_group_id = ?', $filters['customer_group_id'])
@@ -1789,8 +1778,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $fromPart = $select->getPart(Zend_Db_Select::FROM);
         if (!isset($fromPart['price_index'])) {
             $least       = $connection->getLeastSql(array('price_index.min_price', 'price_index.tier_price'));
-            $minimalExpr = $connection->getCheckSql('price_index.tier_price IS NOT NULL',
-                $least, 'price_index.min_price');
+            $minimalExpr = $connection->getCheckSql(
+                'price_index.tier_price IS NOT NULL',
+                $least,
+                'price_index.min_price'
+            );
             $colls       = array('price', 'tax_class_id', 'final_price',
                 'minimal_price' => $minimalExpr , 'min_price', 'max_price', 'tier_price');
             $tableName = array('price_index' => $this->getTable('catalog/product_index_price'));
@@ -1877,13 +1869,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ->quoteInto('cat_index.is_parent=?', $filters['category_is_anchor']);
         }
 
-        $joinCond = join(' AND ', $conditions);
+        $joinCond = implode(' AND ', $conditions);
         $fromPart = $this->getSelect()->getPart(Zend_Db_Select::FROM);
         if (isset($fromPart['cat_index'])) {
             $fromPart['cat_index']['joinCondition'] = $joinCond;
             $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
-        }
-        else {
+        } else {
             $this->getSelect()->join(
                 array('cat_index' => $this->getTable('catalog/category_product_index')),
                 $joinCond,
@@ -1915,14 +1906,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             'cat_pro.product_id=e.entity_id',
             $this->getConnection()->quoteInto('cat_pro.category_id=?', $filters['category_id'])
         );
-        $joinCond = join(' AND ', $conditions);
+        $joinCond = implode(' AND ', $conditions);
 
         $fromPart = $this->getSelect()->getPart(Zend_Db_Select::FROM);
         if (isset($fromPart['cat_pro'])) {
             $fromPart['cat_pro']['joinCondition'] = $joinCond;
             $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
-        }
-        else {
+        } else {
             $this->getSelect()->join(
                 array('cat_pro' => $this->getTable('catalog/category_product')),
                 $joinCond,
@@ -2003,11 +1993,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
 
-        /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $this->getAttribute('tier_price');
         if ($attribute->isScopeGlobal()) {
             $websiteId = 0;
-        } else if ($this->getStoreId()) {
+        } elseif ($this->getStoreId()) {
             $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
         }
 
@@ -2043,7 +2033,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
 
-        /* @var $backend Mage_Catalog_Model_Product_Attribute_Backend_Tierprice */
+        /* @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
         $backend = $attribute->getBackend();
 
         foreach ($this->getItems() as $item) {
@@ -2086,7 +2076,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     /**
      * Clear collection
      *
-     * @return $this
+     * @inheritDoc
      */
     public function clear()
     {

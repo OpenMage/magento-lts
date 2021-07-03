@@ -27,6 +27,9 @@
 
 class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
 {
+    /**
+     * @return string
+     */
     public function getCouponCode()
     {
         return $this->getQuote()->getCouponCode();
@@ -41,5 +44,4 @@ class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
     {
         return $this->getUrl('checkout/cart/couponPost', array('_secure' => $this->_isSecure()));
     }
-
 }

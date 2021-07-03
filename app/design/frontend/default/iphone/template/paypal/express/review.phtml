@@ -64,7 +64,7 @@ $shippingAddress = $this->getShippingAddress();
                 <?php echo $billingBlock->setShowAsShippingCheckbox(true)->toHtml(); ?>
             <?php else: ?>
                 <?php echo $billingBlock->toHtml(); ?>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     <?php if ($shippingAddress): ?>
         <div class="col-2" id="shipping-address">
@@ -84,7 +84,7 @@ $shippingAddress = $this->getShippingAddress();
                 </div>
             </div>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
     </div>
 
     <div class="info-set">

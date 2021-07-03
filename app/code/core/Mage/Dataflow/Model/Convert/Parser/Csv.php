@@ -87,7 +87,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $batchIoAdapter->open(false);
 
-        $isFieldNames = $this->getVar('fieldnames', '') == 'true' ? true : false;
+        $isFieldNames = $this->getVar('fieldnames', '') == 'true';
         if (!$isFieldNames && is_array($this->getVar('map'))) {
             $fieldNames = $this->getVar('map');
         }
@@ -164,7 +164,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
     public function parseRow($i, $line)
     {
-        if (sizeof($line) == 1) return false;
+        if (count($line) === 1) return false;
 
         if (0==$i) {
             if ($this->getVar('fieldnames')) {
@@ -248,7 +248,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $line[] = $fEnc.$v.$fEnc;
         }
 
-        return join($fDel, $line);
+        return implode($fDel, $line);
     }
 
     /**

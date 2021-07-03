@@ -40,6 +40,10 @@ class Mage_Sales_Model_Entity_Order_Shipment_Item_Collection extends Mage_Eav_Mo
         $this->_init('sales/order_shipment_item');
     }
 
+    /**
+     * @param int $shipmentId
+     * @return $this
+     */
     public function setShipmentFilter($shipmentId)
     {
         $this->addAttributeToFilter('parent_id', $shipmentId);

@@ -47,11 +47,18 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         $this->_init('sales/quote_item');
     }
 
+    /**
+     * @return int
+     */
     public function getStoreId()
     {
         return $this->_quote->getStoreId();
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote $quote
+     * @return $this
+     */
     public function setQuote($quote)
     {
         $this->_quote = $quote;
@@ -59,6 +66,9 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _afterLoad()
     {
         Varien_Profiler::start('TEST1: '.__METHOD__);
@@ -88,8 +98,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
                     $recollectQuote = true;
                     continue;
                 }
-            }
-            else {
+            } else {
                 $superProduct = null;
             }
 
@@ -109,6 +118,9 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     protected function _getProductCollection()
     {
         $productIds = array();

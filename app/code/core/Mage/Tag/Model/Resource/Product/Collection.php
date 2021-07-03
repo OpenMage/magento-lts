@@ -144,7 +144,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         }
 
         $tagsStores = array();
-        if (sizeof($tagIds) > 0) {
+        if (count($tagIds)) {
             $select = $this->getConnection()->select()
                 ->from($this->getTable('tag/relation'), array('store_id', 'tag_id'))
                 ->where('tag_id IN(?)', $tagIds);
@@ -270,14 +270,14 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
         if (!is_null($storeId)) {
             $condition[] = $this->getConnection()->quoteInto('prelation.store_id = ?', $storeId);
         }
-        $condition = join(' AND ', $condition);
+        $condition = implode(' AND ', $condition);
         $innerSelect = $this->getConnection()->select()
-        ->from(
-            array('relation' => $tagRelationTable),
-            array('product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)')
-        )
-        ->where('relation.tag_id = ?', $tagId)
-        ->group(array('product_id', 'store_id'));
+            ->from(
+                array('relation' => $tagRelationTable),
+                array('product_id', 'store_id', 'popularity' => 'COUNT(DISTINCT relation.tag_relation_id)')
+            )
+            ->where('relation.tag_id = ?', $tagId)
+            ->group(array('product_id', 'store_id'));
 
         $this->getSelect()
             ->joinLeft(
@@ -313,7 +313,7 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
             $prodIds[] = $item['product_id'];
         }
 
-        if (sizeof($prodIds) > 0) {
+        if (count($prodIds)) {
             $this->getSelect()->where('e.entity_id IN(?)', $prodIds);
         } else {
             $this->getSelect()->where('e.entity_id IN(0)');

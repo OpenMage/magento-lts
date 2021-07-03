@@ -518,7 +518,7 @@
                 <scope>1</scope>
             </account_share>
             <create_account>
-                <confirm>0</confirm>
+                <confirm>1</confirm>
                 <default_group>1</default_group>
                 <tax_calculation_address_type>billing</tax_calculation_address_type>
                 <email_domain>example.com</email_domain>

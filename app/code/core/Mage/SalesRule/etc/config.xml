@@ -112,6 +112,14 @@
                     </salesrule>
                 </observers>
             </sales_order_place_after>
+            <sales_order_payment_cancel>
+                <observers>
+                    <salesrule>
+                        <class>salesrule/observer</class>
+                        <method>sales_order_paymentCancel</method>
+                    </salesrule>
+                </observers>
+            </sales_order_payment_cancel>
             <sales_quote_config_get_product_attributes>
                 <observers>
                     <salesrule>

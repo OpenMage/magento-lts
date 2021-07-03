@@ -96,7 +96,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
      * Set template type, added at and modified at time
      *
      * @param Mage_Core_Model_Email_Template $object
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -131,7 +131,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('core/config_data'), array('scope', 'scope_id', 'path'))
             ->where('value LIKE :template_id')
-            ->where(join(' OR ', $orWhere));
+            ->where(implode(' OR ', $orWhere));
 
         return $this->_getReadAdapter()->fetchAll($select, $bind);
     }

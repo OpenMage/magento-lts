@@ -143,6 +143,13 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
     {
         $this->_prepareForm();
         $this->_initFormValues();
+        Mage::dispatchEvent(
+            'adminhtml_block_widget_form_init_form_values_after',
+            [
+                'block' => $this,
+                'form' => $this->getForm()
+            ]
+        );
         return parent::_beforeToHtml();
     }
 
@@ -190,7 +197,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                         'label'     => $attribute->getFrontend()->getLabel(),
                         'class'     => $attribute->getFrontend()->getClass(),
                         'required'  => $attribute->getIsRequired(),
-                        'note'      => $attribute->getNote(),
+                        'note'      => $this->escapeHtml($attribute->getNote()),
                     )
                 )
                 ->setEntityAttribute($attribute);

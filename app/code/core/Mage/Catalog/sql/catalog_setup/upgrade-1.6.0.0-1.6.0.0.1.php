@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Catalog_Model_Resource_Setup */
+/** @var Mage_Catalog_Model_Resource_Setup $installer */
 
 $productTypes = array(
     Mage_Catalog_Model_Product_Type::TYPE_SIMPLE,
@@ -33,7 +33,7 @@ $productTypes = array(
     Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE,
     Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL
 );
-$productTypes = join(',', $productTypes);
+$productTypes = implode(',', $productTypes);
 
 $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'msrp_enabled', array(
     'group'         => 'Prices',

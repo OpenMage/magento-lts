@@ -133,10 +133,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Add module definition to routes.
      *
-     * @param string $frontName
-     * @param mixed $moduleName
-     * @param string $routeName
-     * @return $this
+     * @inheritDoc
      */
     public function addModule($frontName, $moduleName, $routeName)
     {
@@ -157,7 +154,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Check if current controller instance is allowed in current router.
      *
      * @param Mage_Core_Controller_Varien_Action $controllerInstance
-     * @return boolean
+     * @return true
      */
     protected function _validateControllerInstance($controllerInstance)
     {

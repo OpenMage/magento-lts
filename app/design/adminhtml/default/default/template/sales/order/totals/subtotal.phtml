@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php 
+<?php
     $_source  = $this->getSource();
     $_order   = $this->getOrder();
     $this->setPriceDataObject($_source);
@@ -49,11 +49,11 @@
         </td>
         <td><?php echo $this->displaySubtotalInclTax() ?></td>
     </tr>
-<?php else : ?>
+<?php else: ?>
     <tr>
         <td class="label">
             <?php echo Mage::helper('sales')->__('Subtotal') ?>
         </td>
         <td><?php echo $this->displaySubtotalExclTax() ?></td>
     </tr>
-<?php endif; ?>
+<?php endif ?>

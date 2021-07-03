@@ -36,11 +36,16 @@
  */
 class Mage_Eav_Model_Entity_Increment_Numeric extends Mage_Eav_Model_Entity_Increment_Abstract
 {
+    /**
+     * @return string
+     */
     public function getNextId()
     {
         $last = $this->getLastId();
 
-        if (strpos($last, $this->getPrefix()) === 0) {
+        if (empty($last)) {
+            $last = 0;
+        } else if (strpos($last, (string)$this->getPrefix()) === 0) {
             $last = (int)substr($last, strlen($this->getPrefix()));
         } else {
             $last = (int)$last;

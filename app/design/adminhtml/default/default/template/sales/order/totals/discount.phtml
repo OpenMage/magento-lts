@@ -35,8 +35,8 @@
                 <?php echo Mage::helper('sales')->__('Discount (%s)', $this->escapeHtml($_order->getCouponCode())) ?>
             <?php else: ?>
                 <?php echo Mage::helper('sales')->__('Discount') ?>
-            <?php endif; ?>
+            <?php endif ?>
         </td>
         <td><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
     </tr>
-<?php endif; ?>
+<?php endif ?>

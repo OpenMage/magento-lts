@@ -48,7 +48,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * Preparing layout
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -68,7 +68,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
             }
 
             if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle(join($this->getTitleSeparator(), array_reverse($title)));
+                $headBlock->setTitle(implode($this->getTitleSeparator(), array_reverse($title)));
             }
         }
         return parent::_prepareLayout();

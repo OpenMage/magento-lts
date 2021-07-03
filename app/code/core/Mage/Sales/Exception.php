@@ -25,7 +25,7 @@
  */
 
 
-class Mage_Sales_Exception extends Zend_Exception 
+class Mage_Sales_Exception extends Zend_Exception
 {
     
 }

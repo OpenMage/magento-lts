@@ -26,7 +26,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -41,4 +41,3 @@ CREATE TABLE `{$this->getTable('catalogrule_affected_product')}` (
 ");
 
 $installer->endSetup();
-

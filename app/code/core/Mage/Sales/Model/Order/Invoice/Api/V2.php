@@ -47,7 +47,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($invoiceIncrementId);
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
-        /* @var $order Mage_Sales_Model_Order */
+        /* @var Mage_Sales_Model_Order $order */
         /**
           * Check order existing
           */

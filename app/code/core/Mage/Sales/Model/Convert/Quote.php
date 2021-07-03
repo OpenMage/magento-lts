@@ -37,15 +37,15 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
     /**
      * Convert quote model to order model
      *
-     * @param   Mage_Sales_Model_Quote $quote
+     * @param Mage_Sales_Model_Quote $quote
+     * @param null|Mage_Sales_Model_Order  $order
      * @return  Mage_Sales_Model_Order
      */
-    public function toOrder(Mage_Sales_Model_Quote $quote, $order=null)
+    public function toOrder(Mage_Sales_Model_Quote $quote, $order = null)
     {
         if (!($order instanceof Mage_Sales_Model_Order)) {
             $order = Mage::getModel('sales/order');
         }
-        /* @var $order Mage_Sales_Model_Order */
 
         $order->setIncrementId($quote->getReservedOrderId())
             ->setStoreId($quote->getStoreId())
@@ -65,7 +65,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      * @param   null|Mage_Sales_Model_Order $order
      * @return  Mage_Sales_Model_Order
      */
-    public function addressToOrder(Mage_Sales_Model_Quote_Address $address, $order=null)
+    public function addressToOrder(Mage_Sales_Model_Quote_Address $address, $order = null)
     {
         if (!($order instanceof Mage_Sales_Model_Order)) {
             $order = $this->toOrder($address->getQuote());
@@ -93,8 +93,10 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
 
         Mage::helper('core')->copyFieldset('sales_convert_quote_address', 'to_order_address', $address, $orderAddress);
 
-        Mage::dispatchEvent('sales_convert_quote_address_to_order_address',
-            array('address' => $address, 'order_address' => $orderAddress));
+        Mage::dispatchEvent(
+            'sales_convert_quote_address_to_order_address',
+            array('address' => $address, 'order_address' => $orderAddress)
+        );
 
         return $orderAddress;
     }
@@ -112,8 +114,10 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             ->setCustomerPaymentId($payment->getCustomerPaymentId());
         Mage::helper('core')->copyFieldset('sales_convert_quote_payment', 'to_order_payment', $payment, $orderPayment);
 
-        Mage::dispatchEvent('sales_convert_quote_payment_to_order_payment',
-            array('order_payment' => $orderPayment, 'quote_payment' => $payment));
+        Mage::dispatchEvent(
+            'sales_convert_quote_payment_to_order_payment',
+            array('order_payment' => $orderPayment, 'quote_payment' => $payment)
+        );
 
         return $orderPayment;
     }
@@ -152,7 +156,8 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
             Mage::helper('core')->copyFieldset('sales_convert_quote_item', 'to_order_item_discount', $item, $orderItem);
         }
 
-        Mage::dispatchEvent('sales_convert_quote_item_to_order_item',
+        Mage::dispatchEvent(
+            'sales_convert_quote_item_to_order_item',
             array('order_item'=>$orderItem, 'item'=>$item)
         );
         return $orderItem;

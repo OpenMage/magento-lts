@@ -36,10 +36,10 @@
         </a>
         <div id="<?php echo $this->getTabId($_tab) ?>_content" style="display:none"><?php echo $this->getTabContent($_tab) ?></div>
     </li>
-<?php endforeach; ?>
+<?php endforeach ?>
 </ul>
 <script type="text/javascript">
 
     <?php echo $this->getId() ?>JsTabs = new varienTabs('<?php echo $this->getId() ?>', '<?php echo $this->getDestElementId() ?>', '<?php echo $this->getActiveTabId() ?>', <?php echo $this->getAllShadowTabs()?>);
 </script>
-<?php endif; ?>
+<?php endif ?>

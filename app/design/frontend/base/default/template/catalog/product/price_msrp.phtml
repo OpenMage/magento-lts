@@ -42,7 +42,7 @@
         <?php if ($_product->getMsrp()): ?>
             <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
-        <?php endif; ?>
+        <?php endif ?>
         <?php $helpLinkId = 'msrp-click-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
         <a href="#" class="map-link" id="<?php echo($helpLinkId);?>"><?php echo $this->__('Click for price') ?></a>
         <script type="text/javascript">
@@ -63,7 +63,7 @@
                         null,
                         "<?php echo $_product->getProductUrl() ?>"
                 );
-            <?php endif; ?>
+            <?php endif ?>
 
         </script>
     </div>

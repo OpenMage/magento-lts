@@ -30,9 +30,16 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCols(int $int)
+ * @method $this setRows(int $int)
  */
 class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstract
 {
+    /**
+     * Varien_Data_Form_Element_Textarea constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
@@ -42,11 +49,17 @@ class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstrac
         $this->setCols(15);
     }
 
+    /**
+     * @return array
+     */
     public function getHtmlAttributes()
     {
         return array('title', 'class', 'style', 'onclick', 'onchange', 'rows', 'cols', 'readonly', 'disabled', 'onkeyup', 'tabindex');
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $this->addClass('textarea');

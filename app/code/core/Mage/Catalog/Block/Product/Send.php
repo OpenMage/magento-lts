@@ -34,7 +34,8 @@
  */
 class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstract
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -49,16 +50,26 @@ class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstrac
         return Mage::getSingleton('customer/session')->getCustomer()->getName();
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return (string)Mage::getSingleton('customer/session')->getCustomer()->getEmail();
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getProductId()
     {
         return $this->getRequest()->getParam('id');
     }
 
+    /**
+     * @return int
+     */
     public function getMaxRecipients()
     {
         $sendToFriendModel = Mage::registry('send_to_friend_model');

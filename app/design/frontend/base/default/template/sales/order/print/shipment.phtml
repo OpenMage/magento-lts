@@ -45,7 +45,7 @@
         <div class="col-1">
             <h3><?php echo $this->__('Shipping Method') ?></h3>
              <?php echo $this->escapeHtml($this->getObjectData($order, 'shipping_description')); ?>
-             <?php $tracks = $this->getShipmentTracks($shipment); 
+             <?php $tracks = $this->getShipmentTracks($shipment);
                 if ($tracks): ?>
                 <table class="data-table" id="my-shipment-tracking">
                     <col />
@@ -62,11 +62,11 @@
                                 <td><?php echo $this->escapeHtml($this->getObjectData($track, 'title')); ?></td>
                                 <td><?php echo $this->escapeHtml($this->getObjectData($track, 'number')); ?></td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('my-shipment-tracking');</script>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
         <div class="col-2">
             <h3><?php echo $this->__('Payment Method') ?></h3>
@@ -89,9 +89,9 @@
         <tbody>
             <?php echo $this->getItemHtml($item) ?>
         </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
     <script type="text/javascript">decorateTable('my-shipment-table-<?php echo $this->getObjectData($shipment, 'id')?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
-<?php endforeach; ?>
-<?php endif; ?>
+<?php endforeach ?>
+<?php endif ?>
 <script type="text/javascript">window.print();</script>

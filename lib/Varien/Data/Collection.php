@@ -123,8 +123,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Add collection filter
      *
      * @param string $field
-     * @param string $value
+     * @param string|array $value
      * @param string $type and|or|string
+     * @return $this
      */
     public function addFilter($field, $value, $type = 'and')
     {
@@ -188,8 +189,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Set collection loading status flag
      *
-     * @param unknown_type $flag
-     * @return unknown
+     * @param bool $flag
+     * @return $this
      */
     protected function _setIsLoaded($flag = true)
     {
@@ -205,7 +206,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getCurPage($displacement = 0)
     {
-        if ($this->_curPage + $displacement < 1) {
+        if ($this->_curPage + $displacement <= 1) {
             return 1;
         }
         elseif ($this->_curPage + $displacement > $this->getLastPageNumber()) {
@@ -344,7 +345,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param   string $column
      * @param   mixed $value
-     * @return  Varien_Object || null
+     * @return  Varien_Object|null
      */
     public function getItemByColumnValue($column, $value)
     {
@@ -362,7 +363,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Adding item to item array
      *
      * @param   Varien_Object $item
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function addItem(Varien_Object $item)
     {
@@ -383,7 +384,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Add item that has no id to collection
      *
      * @param Varien_Object $item
-     * @return Varien_Data_Collection
+     * @return $this
      */
     protected function _addItem($item)
     {
@@ -420,7 +421,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Remove item from collection by item key
      *
      * @param   mixed $key
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function removeItemByKey($key)
     {
@@ -433,7 +434,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Clear collection
      *
-     * @return Varien_Data_Collection
+     * @return $this
      */
     public function clear()
     {
@@ -448,11 +449,11 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * Returns array with results of callback for each item
      *
-     * @param string $method
+     * @param string $callback
      * @param array $args
      * @return array
      */
-    public function walk($callback, array $args=array())
+    public function walk($callback, array $args = array())
     {
         $results = array();
         $useItemCallback = is_string($callback) && strpos($callback, '::')===false;
@@ -468,7 +469,11 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         return $results;
     }
 
-    public function each($obj_method, $args=array())
+    /**
+     * @param string $obj_method
+     * @param array $args
+     */
+    public function each($obj_method, $args = array())
     {
         foreach ($args->_items as $k => $item) {
             $args->_items[$k] = call_user_func($obj_method, $item);
@@ -480,7 +485,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param   mixed $key
      * @param   mixed $value
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function setDataToAll($key, $value=null)
     {
@@ -500,7 +505,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Set current page
      *
      * @param   int $page
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function setCurPage($page)
     {
@@ -512,7 +517,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Set collection page size
      *
      * @param   int $size
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function setPageSize($size)
     {
@@ -525,7 +530,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param   string $field
      * @param   string $direction
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -537,7 +542,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Set collection item class name
      *
      * @param   string $className
-     * @return  Varien_Data_Collection
+     * @return  $this
      */
     function setItemObjectClass($className)
     {
@@ -596,6 +601,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Set select distinct
      *
      * @param bool $flag
+     * @return $this
      */
     public function distinct($flag)
     {
@@ -605,7 +611,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Load data
      *
-     * @return  Varien_Data_Collection
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return $this
      */
     public function loadData($printQuery = false, $logQuery = false)
     {
@@ -615,7 +623,9 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Load data
      *
-     * @return  Varien_Data_Collection
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -645,6 +655,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Convert collection to array
      *
+     * @param array $arrRequiredFields
      * @return array
      */
     public function toArray($arrRequiredFields = array())
@@ -670,12 +681,14 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *      )
      * )
      *
-     * @param   string $valueField
-     * @param   string $labelField
-     * @return  array
+     * @param string $valueField
+     * @param string $labelField
+     * @param array $additional
+     * @return array
      */
-    protected function _toOptionArray($valueField='id', $labelField='name', $additional=array())
+    protected function _toOptionArray($valueField='id', $labelField='name', $additional = array())
     {
+        $data = array();
         $res = array();
         $additional['value'] = $valueField;
         $additional['label'] = $labelField;
@@ -689,11 +702,17 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         return $res;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         return $this->_toOptionArray();
     }
 
+    /**
+     * @return array
+     */
     public function toOptionHash()
     {
         return $this->_toOptionHash();
@@ -722,7 +741,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      * Retrieve item by id
      *
      * @param   mixed $idValue
-     * @return  Varien_Object
+     * @return  Varien_Object|null
      */
     public function getItemById($idValue)
     {
@@ -753,28 +772,45 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         return count($this->_items);
     }
 
+    /**
+     * @param string $key
+     * @return $this
+     */
     public function setCacheKey($key)
     {
         $this->_cacheKey = $key;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCacheKey()
     {
         return $this->_cacheKey;
     }
 
+    /**
+     * @param array $tags
+     * @return $this
+     */
     public function setCacheTags($tags)
     {
         $this->_cacheTags = $tags;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getCacheTags()
     {
         return $this->_cacheTags;
     }
 
+    /**
+     * @return int
+     */
     public function getCacheLifetime()
     {
         return $this->_cacheLifetime;
@@ -796,7 +832,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * @param string $flag
      * @param mixed $value
-     * @return Varien_Data_Collection
+     * @return $this
      */
     public function setFlag($flag, $value = null)
     {

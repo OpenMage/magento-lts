@@ -25,7 +25,7 @@
  */
 
 /**
- * Application area nodel
+ * Application area model
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
@@ -62,6 +62,11 @@ class Mage_Core_Model_App_Area
      */
     protected $_application;
 
+    /**
+     * Mage_Core_Model_App_Area constructor.
+     * @param string $areaCode
+     * @param Mage_Core_Model_App $application
+     */
     public function __construct($areaCode, $application)
     {
         $this->_code = $areaCode;
@@ -84,15 +89,14 @@ class Mage_Core_Model_App_Area
      * @param   string|null $part
      * @return  Mage_Core_Model_App_Area
      */
-    public function load($part=null)
+    public function load($part = null)
     {
         if (is_null($part)) {
             $this->_loadPart(self::PART_CONFIG)
                 ->_loadPart(self::PART_EVENTS)
                 ->_loadPart(self::PART_DESIGN)
                 ->_loadPart(self::PART_TRANSLATE);
-        }
-        else {
+        } else {
             $this->_loadPart($part);
         }
         return $this;
@@ -131,9 +135,11 @@ class Mage_Core_Model_App_Area
 
     protected function _initConfig()
     {
-
     }
 
+    /**
+     * @return $this
+     */
     protected function _initEvents()
     {
         Mage::app()->addEventArea($this->_code);
@@ -141,20 +147,29 @@ class Mage_Core_Model_App_Area
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _initTranslate()
     {
         Mage::app()->getTranslator()->init($this->_code);
         return $this;
     }
 
+    /**
+     * @return $this|void
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _initDesign()
     {
         if (Mage::app()->getRequest()->isStraight()) {
             return $this;
         }
         $designPackage = Mage::getSingleton('core/design_package');
-        if ($designPackage->getArea() != self::AREA_FRONTEND)
+        if ($designPackage->getArea() != self::AREA_FRONTEND) {
             return;
+        }
 
         $currentStore = Mage::app()->getStore()->getStoreId();
 

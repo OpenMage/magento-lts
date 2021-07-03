@@ -25,11 +25,13 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->getConnection()->addColumn($installer->getTable('checkout_agreement'), 'content_height',
+$installer->getConnection()->addColumn(
+    $installer->getTable('checkout_agreement'),
+    'content_height',
     'varchar(25) NULL DEFAULT NULL AFTER `content`'
 );
 

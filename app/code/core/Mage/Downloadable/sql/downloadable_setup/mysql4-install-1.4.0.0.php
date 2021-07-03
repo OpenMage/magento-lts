@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -166,7 +166,7 @@ foreach ($fieldList as $field) {
     $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('downloadable', $applyTo)) {
         $applyTo[] = 'downloadable';
-        $installer->updateAttribute('catalog_product', $field, 'apply_to', join(',', $applyTo));
+        $installer->updateAttribute('catalog_product', $field, 'apply_to', implode(',', $applyTo));
     }
 }
 

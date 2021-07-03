@@ -47,7 +47,7 @@
     <?php $_iterator = 0; ?>
     <ol class="products-list" id="products-list">
     <?php foreach ($_productCollection as $_product): ?>
-        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif ?>">
             <?php // Product Image ?>
             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                 <?php /* Based on the native RWD styling, product images are displayed at a max of ~400px wide when viewed on a
@@ -69,7 +69,7 @@
                         <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
                         <?php if($_product->getRatingSummary()): ?>
                         <?php echo $this->getReviewsSummaryHtml($_product) ?>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php
                         // Provides extra blocks on which to hang some features for products in the list
                         // Features providing UI elements targeting this block will display directly below the product name
@@ -103,7 +103,7 @@
                             <p class="action"><a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a></p>
                         <?php else: ?>
                             <p class="action availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
                                 <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
@@ -116,7 +116,7 @@
                                         <?php echo $this->__('Add to Wishlist') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                             <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                                 <li>
                                     <span class="separator">|</span>
@@ -126,7 +126,7 @@
                                         <?php echo $this->__('Add to Compare') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </ul>
                     </div>
                     <div class="desc std">
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ol>
     <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
 
@@ -150,7 +150,7 @@
         <?php $i=0; foreach ($_productCollection as $_product): ?>
             <?php /*if ($i++%$_columnCount==0): ?>
             <?php endif*/ ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif ?>">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php $_imgSize = 210; ?>
                     <img id="product-collection-image-<?php echo $_product->getId(); ?>"
@@ -174,7 +174,7 @@
                     <?php echo $this->getPriceHtml($_product, true) ?>
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <div class="actions">
                         <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
                             <button type="button"
@@ -190,7 +190,7 @@
                             <a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
                         <?php else: ?>
                             <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
                                 <?php $_wishlistUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
@@ -203,7 +203,7 @@
                                         <?php echo $this->__('Add to Wishlist') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                             <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                                 <li>
                                     <span class="separator">|</span>
@@ -213,7 +213,7 @@
                                         <?php echo $this->__('Add to Compare') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </ul>
                     </div>
                 </div>
@@ -223,13 +223,13 @@
         <?php endforeach ?>
     </ul>
     <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
-    <?php endif; ?>
+    <?php endif ?>
 
     <div class="toolbar-bottom">
         <?php echo $this->getToolbarHtml() ?>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <?php
 // Provides a block where additional page components may be attached, primarily good for in-page JavaScript
 if ($this->getChild('after')) {

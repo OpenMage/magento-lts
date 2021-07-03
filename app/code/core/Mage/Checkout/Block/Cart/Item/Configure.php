@@ -39,7 +39,7 @@ class Mage_Checkout_Block_Cart_Item_Configure extends Mage_Core_Block_Template
     /**
      * Configure product view blocks
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {

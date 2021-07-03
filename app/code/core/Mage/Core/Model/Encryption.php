@@ -69,14 +69,15 @@ class Mage_Core_Model_Encryption
      * $salt can be:
      * false - no salt will be used
      * integer - a random with specified length will be generated
+     * string
      *
      * @param string $password
      * @param mixed $salt
-     * @return bool|string
+     * @return string
      */
     public function getHash($password, $salt = false)
     {
-        if (is_integer($salt)) {
+        if (is_int($salt)) {
             $salt = $this->_helper->getRandomString($salt);
         }
         return $salt === false
@@ -89,7 +90,7 @@ class Mage_Core_Model_Encryption
      *
      * @param string $password
      * @param mixed $salt deprecated
-     * @return bool|string
+     * @return string
      */
     public function getHashPassword($password, $salt = null)
     {

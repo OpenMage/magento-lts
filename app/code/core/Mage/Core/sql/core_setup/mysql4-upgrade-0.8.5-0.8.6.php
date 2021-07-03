@@ -33,7 +33,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -47,7 +47,8 @@ $row = $installer->getConnection()->fetchRow($select);
 
 if ($row) {
     $whereBind = $installer->getConnection()->quoteInto('website_id=?', $row['website_id']);
-    $installer->getConnection()->update($installer->getTable('core_website'),
+    $installer->getConnection()->update(
+        $installer->getTable('core_website'),
         array('is_default' => 1),
         $whereBind
     );

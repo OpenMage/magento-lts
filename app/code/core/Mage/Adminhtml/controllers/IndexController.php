@@ -144,7 +144,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                         ->getResults();
                     $items = array_merge_recursive($items, $results);
                 }
-                $totalCount = sizeof($items);
+                $totalCount = count($items);
             }
         }
 

@@ -35,11 +35,12 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
      * Invoke collector for nominal items
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @param Mage_Sales_Model_Quote_Address_Total_Nominal
+     * @return Mage_Sales_Model_Quote_Address_Total_Nominal
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-        $collector = Mage::getSingleton('sales/quote_address_total_nominal_collector',
+        $collector = Mage::getSingleton(
+            'sales/quote_address_total_nominal_collector',
             array('store' => $address->getQuote()->getStore())
         );
 
@@ -50,7 +51,8 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
 
         // aggregate collected amounts into one to have sort of grand total per item
         foreach ($address->getAllNominalItems() as $item) {
-            $rowTotal = 0; $baseRowTotal = 0;
+            $rowTotal = 0;
+            $baseRowTotal = 0;
             $totalDetails = array();
             foreach ($collector->getCollectors() as $model) {
                 $itemRowTotal = $model->getItemRowTotal($item);

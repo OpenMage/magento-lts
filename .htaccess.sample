@@ -1,12 +1,4 @@
 ############################################
-## uncomment these lines for CGI mode
-## make sure to specify the correct cgi php binary file name
-## it might be /cgi-bin/php-cgi
-
-#    Action php5-cgi /cgi-bin/php5-cgi
-#    AddHandler php5-cgi .php
-
-############################################
 ## GoDaddy specific options
 
 #   Options -MultiViews
@@ -16,27 +8,16 @@
 ## if it still doesn't work, rename php.ini to php5.ini
 
 ############################################
-## this line is specific for 1and1 hosting
-
-    #AddType x-mapp-php5 .php
-    #AddHandler x-mapp-php5 .php
-
-############################################
 ## default index file
 
     DirectoryIndex index.php
 
-<IfModule mod_php5.c>
+<IfModule mod_php7.c>
 
 ############################################
 ## adjust max execution time
 
     php_value max_execution_time 18000
-
-############################################
-## disable magic quotes for php request vars
-
-    php_flag magic_quotes_gpc off
 
 ############################################
 ## disable automatic session start
@@ -53,11 +34,6 @@
 # disable user agent verification to not break multiple image upload
 
     php_flag suhosin.session.cryptua off
-
-###########################################
-# turn off compatibility with PHP4 when dealing with objects
-
-    php_flag zend.ze1_compatibility_mode Off
 
 </IfModule>
 

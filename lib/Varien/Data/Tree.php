@@ -73,7 +73,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      */
     public function loadNode($nodeId)
     {
@@ -87,7 +87,7 @@ class Varien_Data_Tree
      * @param Varien_Data_Tree_Node $prevNode
      * @return Varien_Data_Tree_Node
      */
-    public function appendChild($data=array(), $parentNode, $prevNode=null)
+    public function appendChild($data, $parentNode, $prevNode = null)
     {
         if (is_array($data)) {
             $node = $this->addNode(
@@ -196,7 +196,7 @@ class Varien_Data_Tree
     /**
      * Enter description here...
      *
-     * @param unknown_type $nodeId
+     * @param int $nodeId
      * @return Varien_Data_Tree_Node
      */
     public function getNodeById($nodeId)

@@ -24,21 +24,30 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Core_Controller_Front_Router
 {
     protected $_config = null;
-    
+
+    /**
+     * @param Mage_Core_Model_Config_Element $config
+     */
     public function __construct($config)
     {
         $this->_config = $config;
     }
-    
+
+    /**
+     * @return Mage_Core_Model_Config_Element
+     */
     public function getConfig()
     {
         return $this->_config;
     }
-    
+
+    /**
+     * @param Zend_Controller_Router_Interface $router
+     * @return $this
+     */
     public function addRoutes(Zend_Controller_Router_Interface $router)
     {
         $frontName = $this->_config->getName();
@@ -50,8 +59,12 @@ class Mage_Core_Controller_Front_Router
         
         return $this;
     }
-    
-    public function getUrl($params=array())
+
+    /**
+     * @param array $params
+     * @return string
+     */
+    public function getUrl($params = array())
     {
         static $reservedKeys = array('module'=>1, 'controller'=>1, 'action'=>1, 'array'=>1);
         
@@ -70,7 +83,7 @@ class Mage_Core_Controller_Front_Router
         
         if (!empty($params)) {
             $paramsStr = '';
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 if (!isset($reservedKeys[$key]) && '_'!==$key[0] && !empty($value)) {
                     $paramsStr .= $key.'/'.$value.'/';
                 }

@@ -45,7 +45,7 @@
                 <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
                     <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
                     <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </select>
             </td>
             <td><input class="input-text" type="text" id="tracking_title" name="title" value="" /></td>
@@ -65,13 +65,13 @@
                 <?php else: ?>
                 <a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_track) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a>
                 <div id="shipment_tracking_info_response_<?php echo $_track->getId() ?>"></div>
-                <?php endif; ?>
+                <?php endif ?>
             </td>
             <td class="last"><a href="#" onclick="deleteTrackingNumber('<?php echo $this->getRemoveUrl($_track) ?>'); return false;"><?php echo Mage::helper('sales')->__('Delete') ?></a></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </tbody>
-<?php endif; ?>
+<?php endif ?>
 </table>
 </div>
 <script type="text/javascript">

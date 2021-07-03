@@ -30,6 +30,10 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getRunAt()
+ * @method int getScheduledOperationId()
+ * @method string getOperationType()
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
@@ -86,7 +90,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 
         if (!$this->_logInstance) {
             $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
-            $fileName = join('_', array(
+            $fileName = implode('_', array(
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
                 $this->getOperationType(),

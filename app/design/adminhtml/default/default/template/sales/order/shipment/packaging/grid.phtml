@@ -51,7 +51,7 @@
                               || ($_orderItem->isShipSeparately() && !($_orderItem->getParentItemId() || $_orderItem->getParentItem()))
                               || (!$_orderItem->isShipSeparately() && ($_orderItem->getParentItemId() || $_orderItem->getParentItem()))): ?>
                         <?php continue; ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <tr title="#" id="" class="">
                         <td class="name">
                             <?php echo $item->getName(); ?>
@@ -85,7 +85,7 @@
                             </button>
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </div>

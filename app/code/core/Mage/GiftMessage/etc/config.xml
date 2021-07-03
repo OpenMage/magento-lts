@@ -121,15 +121,6 @@
                     </giftmessage>
                 </observers>
             </sales_convert_quote_to_order>
-            <adminhtml_sales_order_create_create_order>
-                <observers>
-                    <giftmessage>
-                        <type>model</type>
-                        <class>giftmessage/observer</class>
-                        <method>checkoutEventCreateOrder</method>
-                    </giftmessage>
-                </observers>
-            </adminhtml_sales_order_create_create_order>
             <sales_convert_order_to_quote>
                 <observers>
                     <giftmessage>

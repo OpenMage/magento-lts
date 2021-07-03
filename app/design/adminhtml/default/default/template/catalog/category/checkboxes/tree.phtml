@@ -186,7 +186,7 @@ Ext.onReady(function()
         draggable:   false,
         checked:'<?php echo $this->getRoot()->getChecked() ?>',
         uiProvider: Ext.tree.CheckboxNodeUI,
-        allowDrop:   <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else : ?>false<?php endif; ?>,
+        allowDrop:   <?php if ($this->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif ?>,
         id:          <?php echo (int) $this->getRoot()->getId() ?>,
         expanded:    <?php echo (int) $this->getIsWasExpanded() ?>,
         category_id: <?php echo (int) $this->getCategoryId() ?>

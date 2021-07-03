@@ -40,8 +40,8 @@
         <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
     <?php else: ?>
         <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 <?php echo $this->getChildHtml('product_type_data_extra') ?>
 <table class="data-table grouped-items-table" id="super-product-table">
     <col />
@@ -52,10 +52,10 @@
             <th><?php echo $this->__('Product Name') ?></th>
             <?php if ($this->getCanShowProductPrice($_product)): ?>
             <th class="a-right"><?php echo $this->__('Price') ?></th>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if ($_product->isSaleable()): ?>
             <th class="a-center"><?php echo $this->__('Qty') ?></th>
-            <?php endif; ?>
+            <?php endif ?>
         </tr>
     </thead>
     <tbody>
@@ -69,25 +69,25 @@
                 <?php if ($this->getCanShowProductPrice($_item)): ?>
                 <?php echo $this->getPriceHtml($_item, true) ?>
                 <?php echo $this->getTierPriceHtml($_item) ?>
-                <?php endif; ?>
+                <?php endif ?>
             </td>
-            <?php endif; ?>
+            <?php endif ?>
             <?php if ($_product->isSaleable()): ?>
             <td class="a-center">
             <?php if ($_item->isSaleable()) : ?>
                 <input type="text" name="super_group[<?php echo $_item->getId() ?>]" maxlength="12" value="<?php echo $_item->getQty()*1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
             <?php else: ?>
                 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-            <?php endif; ?>
+            <?php endif ?>
             </td>
-            <?php endif; ?>
+            <?php endif ?>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php else: ?>
        <tr>
-           <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else : ?>3<?php endif; ?>"><?php echo $this->__('No options of this product are available.') ?></td>
+           <td colspan="<?php if ($_product->isSaleable()): ?>4<?php else: ?>3<?php endif ?>"><?php echo $this->__('No options of this product are available.') ?></td>
        </tr>
-    <?php endif; ?>
+    <?php endif ?>
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('super-product-table')</script>

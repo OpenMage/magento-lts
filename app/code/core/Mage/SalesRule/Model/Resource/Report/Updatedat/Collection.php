@@ -32,8 +32,7 @@
  * @package     Mage_SalesRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_SalesRule_Model_Resource_Report_Updatedat_Collection
-    extends Mage_SalesRule_Model_Resource_Report_Collection
+class Mage_SalesRule_Model_Resource_Report_Updatedat_Collection extends Mage_SalesRule_Model_Resource_Report_Collection
 {
     /**
      * Aggregated Data Table
