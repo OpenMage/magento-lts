@@ -1,0 +1,61 @@
+############################################
+## For more information about the robots.txt standard, see:
+## http://www.robotstxt.org/orig.html
+##
+## For syntax checking, see:
+## http://tool.motoricerca.info/robots-checker.phtml
+
+############################################
+## Crawl the Sitemap. Set the correct url before uncomment
+
+# Sitemap: https://example.com/sitemap.xml
+
+############################################
+## Crawlers Setup
+
+User-agent: *
+
+############################################
+## Allow to crawl paging (paging inside a listing with more params are disallowed below)
+Allow: /*?p=
+
+############################################
+## Do not crawl non-SEF paths and generated content (if you use a shop id in URL, you must prefix with * or copy for each shop)
+
+Disallow: */index.php/
+Disallow: */catalog/product_compare/
+Disallow: */catalog/category/view/
+Disallow: */catalog/product/view/
+Disallow: */catalog/product/gallery/
+Disallow: */catalogsearch/
+Disallow: */control/
+Disallow: */contacts/
+Disallow: */customer/
+Disallow: */customize/
+Disallow: */newsletter/
+Disallow: */poll/
+Disallow: */review/
+Disallow: */sendfriend/
+Disallow: */tag/
+Disallow: */wishlist/
+
+############################################
+## Do not crawl dynamic filters. Uncomment what you need or add custom filters
+
+Disallow: /*?dir*
+Disallow: /*?limit*
+Disallow: /*?mode*
+Disallow: /*?price=*
+Disallow: /*?___from_store=*
+Disallow: /*?___store=*
+Disallow: /*?q=*
+# Disallow: /*?cat=*
+# Disallow: /*?availability=*
+# Disallow: /*?brand=*
+
+############################################
+## Do not crawl paths that can be safely ignored by search engines (no clean URLs)
+
+Disallow: /*?p=*&
+Disallow: /*.php$
+Disallow: /*?SID=
