@@ -45,6 +45,9 @@
             <fieldset>
                 <?php echo $this->getPaymentHtml() ?>
                 <div><?php echo Mage::helper('sales')->__('Order was placed using %s', $_order->getOrderCurrencyCode()) ?></div>
+                <?php if ($_order->getCouponCode()): ?>
+                    <div><?php echo Mage::helper('sales')->__('Coupon code used: %s (%s)', $this->escapeHtml($_order->getCouponCode()), $this->escapeHtml($_order->getDiscountDescription())); ?></div>
+                <?php endif; ?>
             </fieldset>
         </div>
     </div>
