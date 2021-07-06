@@ -49,6 +49,9 @@ class Mage_Core_Model_Resource_File_Storage_File
     /** @var resource */
     protected $filePointer;
 
+    /** @var null|string[] */
+    protected $_createdDirectories;
+
     /**
      * Files at storage
      *
@@ -242,7 +245,17 @@ class Mage_Core_Model_Resource_File_Storage_File
         $filename = basename($filePath);
         $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
 
+        // Create parent directories as needed and track so they can be cleaned up after
         if (!is_dir($path)) {
+            $created = [];
+            $parent = $path;
+            while ($parent != $this->getMediaBaseDirectory() && !is_dir($parent)) {
+                $created[] = $parent;
+                $parent = dirname($parent);
+            }
+            if ($created) {
+                $this->_createdDirectories = $created;
+            }
             @mkdir($path, 0777, true);
         }
 
@@ -282,6 +295,19 @@ class Mage_Core_Model_Resource_File_Storage_File
             @fclose($fp);
         }
         @unlink($fullPath);
+
+        // Clean up empty directories created by this process when the file was locked
+        if ($this->_createdDirectories) {
+            foreach ($this->_createdDirectories as $directory) {
+                @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
+            }
+            $this->_createdDirectories = NULL;
+        }
+
+        // Clean up all empty directories
+        if (rand() % 1000 === 0) {
+            @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
+        }
     }
 
 }
