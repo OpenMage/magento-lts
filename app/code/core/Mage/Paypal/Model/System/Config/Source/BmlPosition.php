@@ -36,11 +36,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsHP()
     {
-        $bmlPositionsHP = array(
+        return array(
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Sidebar (right)')
         );
-        return $bmlPositionsHP;
     }
 
     /**
@@ -50,11 +49,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCCP()
     {
-        $bmlPositionsCCP = array(
+        return array(
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Sidebar (right)')
         );
-        return $bmlPositionsCCP;
     }
 
     /**
@@ -64,11 +62,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCPP()
     {
-        $bmlPositionsCPP = array(
+        return array(
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
         );
-        return $bmlPositionsCPP;
     }
 
     /**
@@ -78,10 +75,9 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCheckout()
     {
-        $bmlPositionsCheckout = array(
+        return array(
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
         );
-        return $bmlPositionsCheckout;
     }
 }

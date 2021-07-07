@@ -86,7 +86,7 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
     public function getRowClickCallback()
     {
         $chooserJsObject = $this->getId();
-        $js = '
+        return '
             function (grid, event) {
                 var trElement = Event.findElement(event, "tr");
                 var blockId = trElement.down("td").innerHTML.replace(/^\s+|\s+$/g,"");
@@ -96,7 +96,6 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
                 '.$chooserJsObject.'.close();
             }
         ';
-        return $js;
     }
 
     /**

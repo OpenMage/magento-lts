@@ -139,7 +139,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      */
     public function getDefaultEntities()
     {
-        $entities = array(
+        return array(
             'customer'                       => array(
                 'entity_model'                   => 'customer/customer',
                 'attribute_model'                => 'customer/attribute',
@@ -464,6 +464,5 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 )
             )
         );
-        return $entities;
     }
 }

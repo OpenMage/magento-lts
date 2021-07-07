@@ -182,8 +182,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search_
      */
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('selected_products', array());
-        return $products;
+        return $this->getRequest()->getPost('selected_products', array());
     }
 
     /**

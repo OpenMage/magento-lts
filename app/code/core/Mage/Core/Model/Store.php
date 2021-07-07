@@ -785,10 +785,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $urlParts = parse_url($secureBaseUrl);
             $scheme   = isset($urlParts['scheme']) ? ':' . $urlParts['scheme'] : '';
             $port     = isset($urlParts['port']) ? ':' . $urlParts['port'] : '';
-            $isSecure = ($scheme == 'https')
+            return ($scheme == 'https')
                 && isset($_SERVER['SERVER_PORT'])
                 && ($port == $_SERVER['SERVER_PORT']);
-            return $isSecure;
         } else {
             $isSecure = isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT']);
             return $isSecure;
@@ -836,8 +835,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function getDefaultCurrencyCode()
     {
-        $result = $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT);
-        return $result;
+        return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT);
     }
 
     /**

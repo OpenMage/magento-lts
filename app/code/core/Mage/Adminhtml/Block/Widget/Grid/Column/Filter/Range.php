@@ -55,8 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
 
     public function getCondition()
     {
-        $value = $this->getValue();
-        return $value;
+        return $this->getValue();
     }
 
 }

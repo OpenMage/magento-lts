@@ -73,8 +73,7 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         $update->load('checkout_onepage_paymentmethod');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        return $layout->getOutput();
     }
 
     /**

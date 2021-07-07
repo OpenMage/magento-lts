@@ -112,9 +112,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->where('et.entity_type_code in (?)', array('catalog_product', 'catalog_category'))
             ->order('if(not a.is_user_defined, 1, 2)')->order('attribute_code');
 
-        $attributes = $this->getConnection()->fetchAll($select);
-
-        return $attributes;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeSets()
@@ -128,9 +126,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->where('et.entity_type_code in (?)', array('catalog_product', 'catalog_category'))
             ->order('et.entity_type_code')->order('s.sort_order')->order('g.sort_order');
 
-        $sets = $this->getConnection()->fetchAll($select);
-
-        return $sets;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportAttributeOptions()
@@ -151,9 +147,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             );
         }
 
-        $options = $this->getConnection()->fetchAll($select);
-
-        return $options;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductLinks()
@@ -167,9 +161,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(array('sku'=>$skuTable), 'sku.entity_id=l.product_id'.$skuCond, array('sku'=>'value'))
             ->join(array('linked'=>$skuTable), 'linked.entity_id=l.product_id'.$skuCond, array('linked'=>'value'))
             ->order('sku')->order('link_type');
-        $links = $this->getConnection()->fetchAll($select);
-
-        return $links;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInCategories()
@@ -182,9 +174,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(array('sku'=>$skuTable), 'sku.entity_id=cp.product_id'.$skuCond, array('sku'=>'value'))
             ->order('category_id')->order('position')->order('sku');
 
-        $prodCats = $this->getConnection()->fetchAll($select);
-
-        return $prodCats;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportProductsInStores()
@@ -198,9 +188,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             ->join(array('sku'=>$skuTable), 'sku.entity_id=ps.product_id'.$skuCond, array('sku'=>'value'))
             ->order('store')->order('sku');
 
-        $prodStores = $this->getConnection()->fetchAll($select);
-
-        return $prodStores;
+        return $this->getConnection()->fetchAll($select);
     }
 
     public function exportCategories()

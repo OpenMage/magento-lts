@@ -180,14 +180,13 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asArray(array $arrAttributes = array())
     {
-        $out = array(
+        return array(
             'type'               => $this->getType(),
             'attribute'          => $this->getAttribute(),
             'operator'           => $this->getOperator(),
             'value'              => $this->getValue(),
             'is_value_processed' => $this->getIsValueParsed(),
         );
-        return $out;
     }
 
     /**
@@ -195,11 +194,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asXml()
     {
-        $xml = '<type>' . $this->getType() . '</type>'
+        return '<type>' . $this->getType() . '</type>'
             . '<attribute>' . $this->getAttribute() . '</attribute>'
             . '<operator>' . $this->getOperator() . '</operator>'
             . '<value>' . $this->getValue() . '</value>';
-        return $xml;
     }
 
     /**
@@ -473,13 +471,12 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asHtml()
     {
-        $html = $this->getTypeElementHtml()
+        return $this->getTypeElementHtml()
            .$this->getAttributeElementHtml()
            .$this->getOperatorElementHtml()
            .$this->getValueElementHtml()
            .$this->getRemoveLinkHtml()
            .$this->getChooserContainerHtml();
-        return $html;
     }
 
     /**
@@ -487,8 +484,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asHtmlRecursive()
     {
-        $html = $this->asHtml();
-        return $html;
+        return $this->asHtml();
     }
 
     /**
@@ -646,10 +642,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-        $html = '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="'
+        return '<img src="' . $src . '" class="rule-param-add v-middle" alt="" title="'
             . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Add'))
             . '"/>';
-        return $html;
     }
 
     /**
@@ -658,10 +653,9 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
-        $html = ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="'
+        return ' <span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove" title="'
             . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Remove'))
             . '"><img src="' . $src . '"  alt="" class="v-middle" /></a></span>';
-        return $html;
     }
 
     /**
@@ -683,8 +677,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asString($format = '')
     {
-        $str = $this->getAttributeName() . ' ' . $this->getOperatorName() . ' ' . $this->getValueName();
-        return $str;
+        return $this->getAttributeName() . ' ' . $this->getOperatorName() . ' ' . $this->getValueName();
     }
 
     /**
@@ -693,8 +686,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function asStringRecursive($level = 0)
     {
-        $str = str_pad('', $level * 3, ' ', STR_PAD_LEFT) . $this->asString();
-        return $str;
+        return str_pad('', $level * 3, ' ', STR_PAD_LEFT) . $this->asString();
     }
 
     /**

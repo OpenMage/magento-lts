@@ -127,8 +127,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $update->load('checkout_onepage_shippingmethod');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        return $layout->getOutput();
     }
 
     /**
@@ -143,8 +142,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $update->load('checkout_onepage_paymentmethod');
         $layout->generateXml();
         $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
+        return $layout->getOutput();
     }
 
     /**

@@ -136,9 +136,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date
 
     public function getCondition()
     {
-        $value = $this->getValue();
-
-        return $value;
+        return $this->getValue();
     }
 
     public function setValue($value)

@@ -270,6 +270,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      * @param string $entityType
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getAssociatedEntityInfo($entityType)
     {
@@ -277,10 +278,9 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
             return $this->_associatedEntitiesMap[$entityType];
         }
 
-        $e = Mage::exception(
+        throw Mage::exception(
             'Mage_Core',
             Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
-        throw $e;
     }
 }

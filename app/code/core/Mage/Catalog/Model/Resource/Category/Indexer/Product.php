@@ -773,11 +773,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     {
         $isAnchorAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'is_anchor');
-        $info = array(
+        return array(
             'id'    => $isAnchorAttribute->getId() ,
             'table' => $isAnchorAttribute->getBackend()->getTable()
         );
-        return $info;
     }
 
     /**
@@ -789,11 +788,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     {
         $visibilityAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'visibility');
-        $info = array(
+        return array(
             'id'    => $visibilityAttribute->getId() ,
             'table' => $visibilityAttribute->getBackend()->getTable()
         );
-        return $info;
     }
 
     /**
@@ -804,11 +802,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
     protected function _getStatusAttributeInfo()
     {
         $statusAttribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'status');
-        $info = array(
+        return array(
             'id'    => $statusAttribute->getId() ,
             'table' => $statusAttribute->getBackend()->getTable()
         );
-        return $info;
     }
 
     /**

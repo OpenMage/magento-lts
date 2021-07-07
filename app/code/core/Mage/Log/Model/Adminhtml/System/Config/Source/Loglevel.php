@@ -68,7 +68,7 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
      */
     public function toOptionArray()
     {
-        $options = array(
+        return array(
             array(
                 'label' => $this->_helper->__('Yes'),
                 'value' => self::LOG_LEVEL_ALL,
@@ -82,7 +82,5 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
                 'value' => self::LOG_LEVEL_VISITORS,
             ),
         );
-
-        return $options;
     }
 }
