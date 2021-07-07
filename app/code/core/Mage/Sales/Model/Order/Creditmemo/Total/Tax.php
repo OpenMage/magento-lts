@@ -39,14 +39,12 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
     {
         $shippingTaxAmount     = 0;
         $baseShippingTaxAmount = 0;
-        $totalTax              = 0;
-        $baseTotalTax          = 0;
         $totalHiddenTax        = 0;
         $baseTotalHiddenTax    = 0;
-        $weeeTaxAmount         = 0;
-        $baseWeeeTaxAmount     = 0;
 
         $order = $creditmemo->getOrder();
+
+        list($totalTax, $baseTotalTax) = $this->calculateTaxForRefundAdjustment($creditmemo);
 
         foreach ($creditmemo->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
@@ -97,25 +95,18 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $baseShippingTaxAmount       = $invoice->getBaseShippingTaxAmount()*$taxFactor;
                 $totalHiddenTax             += $invoice->getShippingHiddenTaxAmount()*$taxFactor;
                 $baseTotalHiddenTax         += $invoice->getBaseShippingHiddenTaxAmount()*$taxFactor;
-                $shippingHiddenTaxAmount     = $invoice->getShippingHiddenTaxAmount()*$taxFactor;
-                $baseShippingHiddenTaxAmount = $invoice->getBaseShippingHiddenTaxAmount()*$taxFactor;
                 $shippingTaxAmount           = $creditmemo->roundPrice($shippingTaxAmount);
                 $baseShippingTaxAmount       = $creditmemo->roundPrice($baseShippingTaxAmount, 'base');
                 $totalHiddenTax              = $creditmemo->roundPrice($totalHiddenTax);
                 $baseTotalHiddenTax          = $creditmemo->roundPrice($baseTotalHiddenTax, 'base');
-                $shippingHiddenTaxAmount     = $creditmemo->roundPrice($shippingHiddenTaxAmount);
-                $baseShippingHiddenTaxAmount = $creditmemo->roundPrice($baseShippingHiddenTaxAmount, 'base');
                 $totalTax                   += $shippingTaxAmount;
                 $baseTotalTax               += $baseShippingTaxAmount;
             }
         } else {
             $orderShippingAmount = $order->getShippingAmount();
             $baseOrderShippingAmount = $order->getBaseShippingAmount();
-            $orderShippingHiddenTaxAmount = $order->getShippingHiddenTaxAmount();
-            $baseOrderShippingHiddenTaxAmount = $order->getBaseShippingHiddenTaxAmount();
 
             $baseOrderShippingRefundedAmount = $order->getBaseShippingRefunded();
-            $baseOrderShippingHiddenTaxRefunded = $order->getBaseShippingHiddenTaxRefunded();
 
             $shippingTaxAmount = 0;
             $baseShippingTaxAmount = 0;
@@ -139,9 +130,9 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
                 $shippingTaxAmount          = $order->getShippingTaxAmount() - $order->getShippingTaxRefunded();
                 $baseShippingTaxAmount      = $order->getBaseShippingTaxAmount() - $order->getBaseShippingTaxRefunded();
                 $shippingHiddenTaxAmount    = $order->getShippingHiddenTaxAmount()
-                        - $order->getShippingHiddenTaxRefunded();
+                    - $order->getShippingHiddenTaxRefunded();
                 $baseShippingHiddenTaxAmount= $order->getBaseShippingHiddenTaxAmount()
-                        - $order->getBaseShippingHiddenTaxRefunded();
+                    - $order->getBaseShippingHiddenTaxRefunded();
             }
             $totalTax           += $shippingTaxAmount;
             $baseTotalTax       += $baseShippingTaxAmount;
@@ -151,7 +142,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
 
         $allowedTax = $order->getTaxInvoiced() - $order->getTaxRefunded() - $creditmemo->getTaxAmount();
         $allowedBaseTax = $order->getBaseTaxInvoiced() - $order->getBaseTaxRefunded()
-                - $creditmemo->getBaseTaxAmount();
+            - $creditmemo->getBaseTaxAmount();
         $allowedHiddenTax = $order->getHiddenTaxInvoiced() + $order->getShippingHiddenTaxAmount()
             - $order->getHiddenTaxRefunded() - $order->getShippingHiddenTaxRefunded();
         $allowedBaseHiddenTax = $order->getBaseHiddenTaxInvoiced() + $order->getBaseShippingHiddenTaxAmount()
@@ -176,5 +167,28 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         $creditmemo->setGrandTotal($creditmemo->getGrandTotal() + $totalTax + $totalHiddenTax);
         $creditmemo->setBaseGrandTotal($creditmemo->getBaseGrandTotal() + $baseTotalTax + $baseTotalHiddenTax);
         return $this;
+    }
+
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return array
+     */
+    private function calculateTaxForRefundAdjustment(Mage_Sales_Model_Order_Creditmemo $creditmemo)
+    {
+        /** @var Mage_Sales_Model_Order_Item $orderItems */
+        $orderItems = $creditmemo->getOrder()->getItemsCollection();
+        $taxPercentage = 0;
+        foreach ($orderItems as $item) {
+            $taxPercentage = max($taxPercentage, $item->getTaxPercent() / 100);
+        }
+
+        $totalAdjustment = $creditmemo->getAdjustmentPositive() - $creditmemo->getAdjustmentNegative();
+        $baseTotalAdjustment = $creditmemo->getBaseAdjustmentPositive() - $creditmemo->getBaseAdjustmentNegative();
+
+        // Adjustment values already include tax in my case. Modify calculation if you're entering values without tax
+        $totalAdjustmentTax = $totalAdjustment / ($taxPercentage + 1) * $taxPercentage;
+        $baseTotalAdjustmentTax = $baseTotalAdjustment / ($taxPercentage + 1) * $taxPercentage;
+
+        return [$totalAdjustmentTax, $baseTotalAdjustmentTax];
     }
 }
