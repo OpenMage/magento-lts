@@ -276,6 +276,7 @@
 | sales_model_service_quote_submit_failure | 1.9.4.5 |
 | sales_model_service_quote_submit_success | 1.9.4.5 |
 | sales_order_creditmemo_cancel | 1.9.4.5 |
+| sales_order_creditmemo_refund_before | 19.4.15 / 20.0.13 |
 | sales_order_creditmemo_refund | 1.9.4.5 |
 | sales_order_invoice_cancel | 1.9.4.5 |
 | sales_order_invoice_pay | 1.9.4.5 |

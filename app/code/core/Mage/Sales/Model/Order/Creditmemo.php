@@ -464,6 +464,8 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function refund()
     {
+        Mage::dispatchEvent('sales_order_creditmemo_refund_before', array($this->_eventObject=>$this));
+
         $this->setState(self::STATE_REFUNDED);
         $orderRefund = Mage::app()->getStore()->roundPrice(
             $this->getOrder()->getTotalRefunded()+$this->getGrandTotal()
