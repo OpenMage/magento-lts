@@ -230,6 +230,7 @@
                 <Mage_Core>
                     <files>
                         <default>Mage_Core.csv</default>
+                        <openmage>Mage_Core_LTS.csv</openmage>
                     </files>
                 </Mage_Core>
             </modules>
