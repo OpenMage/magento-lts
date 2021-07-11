@@ -237,14 +237,36 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 }
 
                 try {
-                    $mailer->send();
+                    $transport = new Varien_Object();
+                    Mage::dispatchEvent('email_queue_send_before', array(
+                        'mail'      => $mailer,
+                        'message'   => $message,
+                        'transport' => $transport
+                    ));
+
+                    if ($transport->getTransport()) {
+                        $mailer->send($transport->getTransport());
+                    } else {
+                        $mailer->send();
+                    }
+
+                    unset($mailer);
+                    $message->setProcessedAt(Varien_Date::formatDate(true));
+                    $message->save();
+
+                    foreach ($message->getRecipients() as $recipient) {
+                        list($email, $name, $type) = $recipient;
+                        Mage::dispatchEvent('email_queue_send_after', array(
+                            'to'         => $email,
+                            'html'       => !$parameters->getIsPlain(),
+                            'subject'    => $parameters->getSubject(),
+                            'email_body' => $message->getMessageBody()
+                        ));
+                    }
                 } catch (Exception $e) {
+                    unset($mailer);
                     Mage::logException($e);
                 }
-
-                unset($mailer);
-                $message->setProcessedAt(Varien_Date::formatDate(true));
-                $message->save();
             }
         }
 

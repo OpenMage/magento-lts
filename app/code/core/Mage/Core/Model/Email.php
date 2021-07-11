@@ -132,7 +132,8 @@ class Mage_Core_Model_Email extends Varien_Object
             return $this;
         }
 
-        $mail = new Zend_Mail();
+        $mail = new Zend_Mail('utf-8');
+        $transport = new Varien_Object();
 
         if (strtolower($this->getType()) == 'html') {
             $mail->setBodyHtml($this->getBody());
@@ -143,7 +144,25 @@ class Mage_Core_Model_Email extends Varien_Object
         $mail->setFrom($this->getFromEmail(), $this->getFromName())
             ->addTo($this->getToEmail(), $this->getToName())
             ->setSubject($this->getSubject());
-        $mail->send();
+
+        Mage::dispatchEvent('email_send_before', array(
+            'mail'      => $mail,
+            'template'  => $this->getTemplate(),
+            'transport' => $transport,
+            'variables' => $this->getTemplateVars()
+        ));
+
+        if ($transport->getTransport()) {
+            $mail->send($transport->getTransport());
+        } else {
+            $mail->send();
+        }
+
+        Mage::dispatchEvent('email_send_after', array(
+            'to'         => $this->getToEmail(),
+            'subject'    => $this->getSubject(),
+            'email_body' => $this->getBody()
+        ));
 
         return $this;
     }
