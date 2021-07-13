@@ -33,6 +33,18 @@
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
+    const READ_UNCOMMITTED = 0;
+    const READ_COMMITTED = 1;
+    const REPEATABLE_READ = 2;
+    const SERIALIZABLE = 3;
+
+    const SUPPORTED_ISOLATION_LEVELS = [
+        self::READ_UNCOMMITTED => "READ UNCOMMITTED",
+        self::READ_COMMITTED   => "READ COMMITTED",
+        self::REPEATABLE_READ  => "REPEATABLE READ",
+        self::SERIALIZABLE     => "SERIALIZABLE",
+    ];
+
     /**
      * Main constructor
      */
@@ -43,6 +55,24 @@ abstract class Mage_Core_Model_Resource_Abstract
          */
         $this->_construct();
     }
+
+    /**
+     * Default transaction isolation level defined in the database.
+     *
+     * @todo Default this value with whatever the database reports in SELECT @@GLOBAL.TX_ISOLATION
+     *
+     * @var int
+     */
+    static protected $_defaultIsolationLevel = self::READ_COMMITTED;
+
+    /**
+     * Current transaction isolation level changed in prepareTransactionIsolationLevel
+     *
+     * @todo Default this value with whatever the database reports in SELECT @@GLOBAL.TX_ISOLATION
+     *
+     * @var int
+     */
+    static protected $_currentIsolationLevel = self::READ_COMMITTED;
 
     /**
      * Array of callbacks subscribed to commit transaction commit
@@ -71,10 +101,12 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Start resource transaction
      *
+     * @param int $isolationLevel Any of the supported isolation levels defined in this class.
      * @return $this
      */
-    public function beginTransaction()
+    public function beginTransaction($isolationLevel=null)
     {
+        $this->prepareTransactionIsolationLevel($isolationLevel);
         $this->_getWriteAdapter()->beginTransaction();
         return $this;
     }
@@ -100,6 +132,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     public function commit()
     {
         $this->_getWriteAdapter()->commit();
+        $this->restoreTransactionIsolationLevel();
         /**
          * Process after commit callbacks
          */
@@ -124,6 +157,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     public function rollBack()
     {
         $this->_getWriteAdapter()->rollBack();
+        $this->restoreTransactionIsolationLevel();
         if ($this->_getWriteAdapter()->getTransactionLevel() === 0) {
             $adapterKey = spl_object_hash($this->_getWriteAdapter());
             if (isset(self::$_commitCallbacks[$adapterKey])) {
@@ -244,5 +278,32 @@ abstract class Mage_Core_Model_Resource_Abstract
             $value = Mage::app()->getLocale()->getNumber($value);
         }
         return $value;
+    }
+
+    /**
+     * Prepare transaction isolation level for session.
+     *
+     * @param int $isolationLevel Any of the supported isolation levels defined in this class.
+     * @return void
+     */
+    public function prepareTransactionIsolationLevel($isolationLevel)
+    {
+        if( isset(self::SUPPORTED_ISOLATION_LEVELS[$isolationLevel]) && self::$_currentIsolationLevel != $isolationLevel) {
+            $this->_getWriteAdapter()->query('SET SESSION TRANSACTION ISOLATION LEVEL '.self::SUPPORTED_ISOLATION_LEVELS[$isolationLevel].';');
+            self::$_currentIsolationLevel = $isolationLevel;
+        }
+    }
+
+    /**
+     * Restore transaction isolation level for session
+     *
+     * @return void
+     */
+    public function restoreTransactionIsolationLevel()
+    {
+        if( self::$_currentIsolationLevel != self::$_defaultIsolationLevel ) {
+            $this->_getWriteAdapter()->query('SET SESSION TRANSACTION ISOLATION LEVEL '.self::SUPPORTED_ISOLATION_LEVELS[self::$_defaultIsolationLevel].';');
+            self::$_currentIsolationLevel = self::$_defaultIsolationLevel;
+        }
     }
 }
