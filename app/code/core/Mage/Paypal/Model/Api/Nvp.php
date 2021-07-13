@@ -521,7 +521,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_requiredResponseParams = array(
         self::DO_DIRECT_PAYMENT             => array('ACK', 'CORRELATIONID', 'AMT'),
-        self::DO_EXPRESS_CHECKOUT_PAYMENT   => array('ACK', 'CORRELATIONID', 'AMT'),
+        self::DO_EXPRESS_CHECKOUT_PAYMENT   => array('ACK', 'CORRELATIONID'),
     );
 
     /**
