@@ -91,7 +91,7 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
                     $connection->quoteInto(
                         'main_table.rule_id = rule_coupons.rule_id AND main_table.coupon_type != ?',
                         Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON
-                    ),
+                    ) . $connection->quoteInto(' AND rule_coupons.code = ?', $couponCode), // Fixing Performance Issue for Coupon Checkout!
                     array('code')
                 );
 
