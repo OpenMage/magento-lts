@@ -46,7 +46,7 @@
                             </children>
                         </reviews>
                         <ratings translate="title" module="review">
-                            <title>Manage Ratings</title>
+                            <title>Ratings</title>
                             <action>adminhtml/rating/</action>
                         </ratings>
                     </children>

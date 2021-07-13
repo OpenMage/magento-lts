@@ -34,11 +34,11 @@
                     <sort_order>500</sort_order>
                     <children>
                         <rules translate="title" module="tax">
-                            <title>Manage Tax Rules</title>
+                            <title>Tax Rules</title>
                             <action>adminhtml/tax_rule</action>
                         </rules>
                         <rates translate="title" module="tax">
-                            <title>Manage Tax Zones &amp; Rates</title>
+                            <title>Tax Zones &amp; Rates</title>
                             <action>adminhtml/tax_rate</action>
                         </rates>
                         <import_export translate="title" module="tax">
