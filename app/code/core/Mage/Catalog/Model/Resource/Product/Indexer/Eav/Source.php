@@ -116,10 +116,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
             )
             ->joinLeft(
                 array('d' => $this->getValueTable('catalog/product', 'int')),
-                '1 = 1 AND d.store_id = 0',
+                'd.store_id = 0',
                 array('entity_id', 'attribute_id', 'value')
             )
-            ->where('s.store_id != 0');
+            ->where('s.store_id != 0 AND d.`value` IS NOT NULL');
 
         $statusCond = $adapter->quoteInto(' = ?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         $this->_addAttributeToSelect($subSelect, 'status', 'd.entity_id', 's.store_id', $statusCond);
