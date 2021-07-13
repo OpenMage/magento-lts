@@ -249,6 +249,25 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      */
     public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
     {
+        $read_adapter = $this->_getReadAdapter();
+        $select = $read_adapter->select()
+            ->from(
+                $this->_reviewTable,
+                array(
+                    'review_count' => new Zend_Db_Expr('COUNT(*)')
+                )
+            )
+            ->where("entity_id = ?", $object->getEntityId())
+            ->where("entity_pk_value = ?", $object->getEntityPkValue());
+        $total_reviews = $read_adapter->fetchOne($select);
+        if ($total_reviews == 0) {
+            $this->_getWriteAdapter()->delete($this->_aggregateTable, array(
+                'entity_type = ?'   => $object->getEntityId(),
+                'entity_pk_value = ?' => $object->getEntityPkValue()
+            ));
+            return $this;
+        }
+
         $this->aggregate($object);
 
         // reaggregate ratings, that depended on this review
