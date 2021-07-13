@@ -75,7 +75,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
             "{{table}}.is_system=1 AND " .
                 "{{table}}.store_id='{$storeId}' AND " .
                 "{{table}}.category_id IS NOT NULL AND " .
-                "{{table}}.id_path LIKE 'category/%'",
+                "{{table}}.url_type = 'category'",
             'left'
         );
         return $this;
@@ -95,7 +95,7 @@ class Mage_Catalog_Helper_Category_Url_Rewrite implements Mage_Catalog_Helper_Ca
             'url_rewrite.category_id = main_table.entity_id AND url_rewrite.is_system = 1 '.
                 ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.store_id = ?', $storeId).
                 ' AND url_rewrite.category_id IS NOT NULL'.
-                ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.id_path LIKE ?', 'category/%'),
+                ' AND ' . $collection->getConnection()->quoteInto('url_rewrite.url_type = ?', 'category'),
             array('request_path')
         );
         return $this;

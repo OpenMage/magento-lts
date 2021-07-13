@@ -287,7 +287,8 @@ class Mage_Catalog_Model_Url
                 'id_path'       => $idPath,
                 'request_path'  => $requestPath,
                 'target_path'   => $targetPath,
-                'is_system'     => 1
+                'is_system'     => 1,
+                'url_type'      => 'category'
             );
 
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
@@ -358,7 +359,8 @@ class Mage_Catalog_Model_Url
             'id_path'       => $idPath,
             'request_path'  => $requestPath,
             'target_path'   => $targetPath,
-            'is_system'     => 1
+            'is_system'     => 1,
+            'url_type'      => 'product'
         );
 
         $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
