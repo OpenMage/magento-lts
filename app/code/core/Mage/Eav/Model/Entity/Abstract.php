@@ -991,7 +991,12 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
-                $select = $this->_prepareLoadSelect($selects);
+                if (is_array($selects)) {
+                    $select = $this->_prepareLoadSelect($selects);
+                } else {
+                    $select = $selects;
+                }
+                
                 $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
