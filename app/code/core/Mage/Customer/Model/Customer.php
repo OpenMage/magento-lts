@@ -495,8 +495,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function hashPassword($password, $salt = null)
     {
-        return $this->_getHelper('core')
-            ->getHash(trim($password), (bool) $salt ? $salt : Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHashPassword(trim($password));
     }
 
     /**
@@ -538,9 +537,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function validatePassword($password)
     {
         $hash = $this->getPasswordHash();
-        if (!$hash) {
-            return false;
-        }
         return Mage::helper('core')->validateHash($password, $hash);
     }
 

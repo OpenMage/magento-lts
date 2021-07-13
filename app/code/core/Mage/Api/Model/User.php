@@ -252,12 +252,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function authenticate($username, $apiKey)
     {
         $this->loadByUsername($username);
-        if (!$this->getId()) {
-            return false;
-        }
+
         $auth = Mage::helper('core')->validateHash($apiKey, $this->getApiKey());
         if ($auth) {
-            return true;
+            return !empty($this->getId());
         } else {
             $this->unsetData();
             return false;
@@ -354,7 +352,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getEncodedApiKey($apiKey)
     {
-        return $this->_getHelper('core')->getHash($apiKey, Mage_Admin_Model_User::HASH_SALT_LENGTH);
+        return $this->_getHelper('core')->getHashPassword($apiKey);
     }
 
     /**
