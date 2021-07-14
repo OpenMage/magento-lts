@@ -43,6 +43,7 @@ class Mage_Core_Model_Magento_Api extends Mage_Api_Model_Resource_Abstract
         $result = array();
         $result['magento_edition'] = Mage::getEdition();
         $result['magento_version'] = Mage::getVersion();
+        $result['openmage_version'] = Mage::getOpenMageVersion();
 
         return $result;
     }
