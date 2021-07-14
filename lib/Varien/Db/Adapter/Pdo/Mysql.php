@@ -2640,7 +2640,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->quote($tableName),
             $fromDbName
         );
-        $ddl = $this->rawFetchRow($sql, 'tbl_exists');
+        $ddl = $this->raw_FetchRow($sql, 'tbl_exists');
         if ($ddl) {
             return true;
         }
