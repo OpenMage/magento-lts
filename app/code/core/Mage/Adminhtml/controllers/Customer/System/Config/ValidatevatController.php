@@ -40,10 +40,16 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
      */
     protected function _validate()
     {
-        return Mage::helper('customer')->checkVatNumber(
-            $this->getRequest()->getParam('country'),
-            $this->getRequest()->getParam('vat')
-        );
+        /** @var Mage_Customer_Model_Vies $vies */
+        $vies = Mage::getModel('customer/vies');
+
+        // Prepare vies check
+        $vies->enableVatNumberCheckForNorthernIreland()
+            ->setVatNumber($this->getRequest()->getParam('vat'))
+            ->setCountryCode($this->getRequest()->getParam('country'))
+            ->setPostcode($this->getRequest()->getParam('postcode'));
+
+        return $vies->checkVatNumber();
     }
 
     /**

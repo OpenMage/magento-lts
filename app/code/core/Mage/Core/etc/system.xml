@@ -917,6 +917,14 @@
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </merchant_country>
+                        <merchant_postcode translate="label">
+                            <label>Postcode</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </merchant_postcode>
                         <merchant_vat_number translate="label">
                             <label>VAT Number</label>
                             <frontend_type>text</frontend_type>

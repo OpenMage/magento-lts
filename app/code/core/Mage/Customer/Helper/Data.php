@@ -70,6 +70,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * WSDL of VAT validation service
      *
+     * @deprecated Use Mage_Customer_Model_Vies::VAT_VALIDATION_WSDL_URL
      */
     const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
@@ -568,6 +569,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Send request to VAT validation service and return validation result
      *
+     * @deprecated Use Mage_Customer_Model_Vies::checkVatNumber()
+     *
      * @param string $countryCode
      * @param string $vatNumber
      * @param string $requesterCountryCode
@@ -577,53 +580,22 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function checkVatNumber($countryCode, $vatNumber, $requesterCountryCode = '', $requesterVatNumber = '')
     {
-        // Default response
-        $gatewayResponse = new Varien_Object(array(
-            'is_valid' => false,
-            'request_date' => '',
-            'request_identifier' => '',
-            'request_success' => false
-        ));
+        /** @var Mage_Customer_Model_Vies $vies */
+        $vies = Mage::getModel('customer/vies');
 
-        if (!extension_loaded('soap')) {
-            Mage::logException(Mage::exception(
-                'Mage_Core',
-                Mage::helper('core')->__('PHP SOAP extension is required.')
-            ));
-            return $gatewayResponse;
-        }
+        // Prepare vies check
+        $vies->setVatNumber($vatNumber)
+            ->setCountryCode($countryCode)
+            ->setRequesterVatNumber($requesterVatNumber)
+            ->setRequesterCountryCode($requesterCountryCode);
 
-        if (!$this->canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)) {
-            return $gatewayResponse;
-        }
-
-        try {
-            $soapClient = $this->_createVatNumberValidationSoapClient();
-
-            $requestParams = array();
-            $requestParams['countryCode'] = $countryCode;
-            $requestParams['vatNumber'] = str_replace(array(' ', '-'), array('', ''), $vatNumber);
-            $requestParams['requesterCountryCode'] = $requesterCountryCode;
-            $requestParams['requesterVatNumber'] = str_replace(array(' ', '-'), array('', ''), $requesterVatNumber);
-
-            // Send request to service
-            $result = $soapClient->checkVatApprox($requestParams);
-
-            $gatewayResponse->setIsValid((boolean) $result->valid);
-            $gatewayResponse->setRequestDate((string) $result->requestDate);
-            $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
-            $gatewayResponse->setRequestSuccess(true);
-        } catch (Exception $exception) {
-            $gatewayResponse->setIsValid(false);
-            $gatewayResponse->setRequestDate('');
-            $gatewayResponse->setRequestIdentifier('');
-        }
-
-        return $gatewayResponse;
+        return $vies->checkVatNumber();
     }
 
     /**
      * Check if parameters are valid to send to VAT validation service
+     *
+     * @deprecated
      *
      * @param string $countryCode
      * @param string $vatNumber

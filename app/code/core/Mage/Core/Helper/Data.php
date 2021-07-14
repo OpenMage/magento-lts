@@ -52,6 +52,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * Config pathes to merchant country code and merchant VAT number
      */
     const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
+    const XML_PATH_MERCHANT_POSTCODE = 'general/store_information/merchant_postcode';
     const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
     const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
 
@@ -911,6 +912,17 @@ XML;
     public function getMerchantCountryCode($store = null)
     {
         return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_COUNTRY_CODE, $store);
+    }
+
+    /**
+     * Retrieve merchant postcode
+     *
+     * @param Mage_Core_Model_Store|string|int|null $store
+     * @return string
+     */
+    public function getMerchantPostcode($store = null)
+    {
+        return (string) Mage::getStoreConfig(self::XML_PATH_MERCHANT_POSTCODE, $store);
     }
 
     /**

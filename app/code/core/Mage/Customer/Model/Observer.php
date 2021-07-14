@@ -155,8 +155,18 @@ class Mage_Customer_Model_Observer
             /** @var Mage_Customer_Helper_Data $customerHelper */
             $customerHelper = Mage::helper('customer');
 
+            /** @var Mage_Customer_Model_Vies $vies */
+            $vies = Mage::getModel('customer/vies');
+
+            // Prepare vies check
+            $vies->setStore($store)
+                ->setVatNumber($customerAddress->getVatId())
+                ->setCountryCode($customerAddress->getCountryId())
+                ->setPostcode($customerAddress->getPostcode());
+
             if ($customerAddress->getVatId() == ''
-                || !Mage::helper('core')->isCountryInEU($customerAddress->getCountry())) {
+                || !$vies->shouldValidateVatNumber()
+            ) {
                 $defaultGroupId = $customerHelper->getDefaultCustomerGroupId($customer->getStore());
 
                 if (!$customer->getDisableAutoGroupChange() && $customer->getGroupId() != $defaultGroupId) {
@@ -164,10 +174,7 @@ class Mage_Customer_Model_Observer
                     $customer->save();
                 }
             } else {
-                $result = $customerHelper->checkVatNumber(
-                    $customerAddress->getCountryId(),
-                    $customerAddress->getVatId()
-                );
+                $result = $vies->checkVatNumber();
 
                 $newGroupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                     $customerAddress->getCountryId(),
