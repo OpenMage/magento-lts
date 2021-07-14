@@ -422,9 +422,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->_addressesCollection === null) {
             $this->_addressesCollection = $this->getAddressCollection()
                 ->setCustomerFilter($this)
-                ->addAttributeToSelect('*');
+                ->addAttributeToSelect('*')
+                ->setOrder('entity_id', 'desc');
             foreach ($this->_addressesCollection as $address) {
                 $address->setCustomer($this);
+                $address->setDataChanges(false);
             }
         }
 
