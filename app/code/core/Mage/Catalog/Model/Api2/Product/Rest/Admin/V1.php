@@ -121,6 +121,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -180,6 +181,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
 
@@ -225,6 +227,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } catch (Mage_Core_Exception $e) {
             $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_UNKNOWN_ERROR);
         }
     }
