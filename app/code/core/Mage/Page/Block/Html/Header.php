@@ -71,7 +71,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['logo_src'])) {
             $this->_data['logo_src'] = Mage::getStoreConfig('design/header/logo_src');
         }
-        return $this->getSkinUrl($this->_data['logo_src']);
+        return $this->getLogoUrl($this->_data['logo_src']);
     }
 
     /**
@@ -82,7 +82,13 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['logo_src_small'])) {
             $this->_data['logo_src_small'] = Mage::getStoreConfig('design/header/logo_src_small');
         }
-        return $this->getSkinUrl($this->_data['logo_src_small']);
+        return $this->getLogoUrl($this->_data['logo_src_small']);
+    }
+
+    public function getLogoUrl($logoSrc)
+    {
+        $folderName = Mage_Adminhtml_Model_System_Config_Backend_Image_Logo::UPLOAD_DIR;
+        return Mage::getBaseUrl("media"). $folderName. '/' . $logoSrc;
     }
 
     /**

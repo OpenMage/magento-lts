@@ -82,6 +82,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $this->delete();
                 // Prevent record from being saved, since it was just deleted
                 $this->_dataSaveAllowed = false;
+            } elseif (is_array($value) && isset($value["value"])) {
+                $this->setValue($value["value"]);
             } else {
                 $this->unsValue();
             }
