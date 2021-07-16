@@ -252,7 +252,7 @@ class Mage_Core_Model_Design_Package
     {
         switch (func_num_args()) {
             case 1:
-                foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+                foreach (array('layout', 'template', 'skin', 'locale', 'default') as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
                 break;
