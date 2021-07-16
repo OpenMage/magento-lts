@@ -29,12 +29,8 @@
  * @see Mage_Paypal_Block_System_Config_Fieldset_Hint
  */
 ?>
-<?php
-    if ($this->getHelpLink()):
-?>
-<div class="paypal-payment-notice">
-    <?php echo Mage::helper('paypal')->__('Not sure what PayPal payment method to use? Click <a href="%s" target="_blank">here</a> to learn more.', $this->getHelpLink()); ?>
-</div>
-<?php
-    endif;
-?>
+<?php if ($this->getHelpLink()): ?>
+    <div class="paypal-payment-notice">
+        <?php echo Mage::helper('paypal')->__('Not sure what PayPal payment method to use? Click <a href="%s" target="_blank">here</a> to learn more.', $this->getHelpLink()); ?>
+    </div>
+<?php endif ?>

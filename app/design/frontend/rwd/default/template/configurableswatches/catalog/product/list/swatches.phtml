@@ -23,8 +23,7 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php
+
 $_product = $this->getProduct();
 
 if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product->getId()
@@ -68,7 +67,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
             <?php else: ?>
                 <?php echo $_optionLabel; ?>
             <?php endif ?>
-             </span>
+            </span>
             <?php if (isset($_attrStockValues[$_optionValue]) && !$_attrStockValues[$_optionValue]): ?>
                 <span class="x" style="display: none"></span>
             <?php endif ?>
@@ -76,5 +75,4 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
     </li>
     <?php endforeach ?>
 </ul>
-<?php
-endif;
+<?php endif ?>

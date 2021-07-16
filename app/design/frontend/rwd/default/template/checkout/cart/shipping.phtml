@@ -37,7 +37,7 @@
                         <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($this->getEstimateCountryId()) ?>
                     </div>
                 </li>
-            <?php // if($this->getStateActive()): ?>
+            <?php //if ($this->getStateActive()): ?>
                 <li class="shipping-region">
                     <?php /* Removing the conditional check for whether the region is required, because it doesn't work
                     <label for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?><?php echo $this->__('State/Province') ?></label>
@@ -55,8 +55,8 @@
                        <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getEstimateRegion()) ?>"  title="<?php echo $this->quoteEscape($this->__('State/Province')) ?>" class="input-text" style="display:none;" />
                    </div>
                 </li>
-            <?php // endif; ?>
-            <?php if($this->getCityActive()): ?>
+            <?php //endif ?>
+            <?php if ($this->getCityActive()): ?>
                 <li class="shipping-region">
                     <label for="city"<?php if ($this->isCityRequired()) echo ' class="required"' ?>><?php if ($this->isCityRequired()) echo '<em>*</em>' ?><?php echo $this->__('City') ?></label>
                     <div class="input-box">
@@ -98,7 +98,7 @@
                                <?php if ($_rate->getErrorMessage()): ?>
                                     <?php echo $this->escapeHtml($_rate->getErrorMessage()) ?>
                                <?php else: ?>
-                                    <input name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
+                                    <input name="estimate_method" type="radio" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if ($_rate->getCode() === $this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio" />
                                     <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                                     <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                     -

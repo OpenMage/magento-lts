@@ -357,7 +357,7 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
             <?php endif ?>
         <?php endif ?>
 
-    <?php endif; /* if ($_finalPrice == $_price): */ ?>
+    <?php endif /* if ($_finalPrice == $_price): */ ?>
 
     <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
@@ -380,7 +380,7 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
         <?php else: ?>
         </span>
         <?php endif ?>
-    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
+    <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
 </div>
 
 <?php else: /* if (!$_product->isGrouped()): */ ?>
@@ -418,5 +418,5 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
             <?php endif ?>
         </p>
     </div>
-    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
-<?php endif; /* if (!$_product->isGrouped()): */ ?>
+    <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
+<?php endif /* if (!$_product->isGrouped()): */ ?>
