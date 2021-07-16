@@ -49,7 +49,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
      */
     public function prepareStockAlertData()
     {
-        if (!$this->_getHelper()->isStockAlertAllowed() || !$this->_product || $this->_product->isAvailable()) {
+        if (!$this->_getHelper()->isStockAlertAllowed() || !$this->_product || $this->_product->isSalable()) {
             $this->setTemplate('');
             return;
         }
