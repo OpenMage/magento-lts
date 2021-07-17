@@ -38,6 +38,19 @@
 class Varien_File_Uploader
 {
     /**
+     * Text representation of the "error" value in the $_FILES array.
+     */
+    const UPLOAD_ERRORS = array(
+        1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+        2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+        3 => 'The uploaded file was only partially uploaded',
+        4 => 'No file was uploaded',
+        6 => 'Missing a temporary folder',
+        7 => 'Failed to write file to disk.',
+        8 => 'A PHP extension stopped the file upload.',
+    );
+
+    /**
      * Uploaded file handle (copy of $_FILES[] element)
      *
      * @var array
@@ -155,6 +168,10 @@ class Varien_File_Uploader
     {
         $this->_setUploadFileId($fileId);
         if(!file_exists($this->_file['tmp_name'])) {
+            $errorCode = (isset($this->_file['error']) ? $this->_file['error'] : false);
+            if ($errorCode !== false && in_array($errorCode, self::UPLOAD_ERRORS)) {
+                throw new Exception(self::UPLOAD_ERRORS[$errorCode]);
+            }
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
             throw new Exception('File was not uploaded.', $code);
         } else {
