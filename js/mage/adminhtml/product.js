@@ -31,17 +31,18 @@ Product.Gallery.prototype = {
     file2id : {
         'no_selection' :0
     },
-    idIncrement :1,
-    containerId :'',
-    container :null,
+    idIncrement : 1,
+    containerId : '',
+    container : null,
     imageTypes : {},
     initialize : function(containerId, imageTypes) {
-        this.containerId = containerId, this.container = $(this.containerId);
+        this.containerId = containerId;
+        this.container = $(this.containerId);
         this.imageTypes = imageTypes;
 
         document.on('uploader:fileSuccess', function(event) {
             var memo = event.memo;
-            if(memo && this._checkCurrentContainer(memo.containerId)) {
+            if (memo && this._checkCurrentContainer(memo.containerId)) {
                 this.handleUploadComplete([{response: memo.response}]);
             }
         }.bind(this));
@@ -276,7 +277,7 @@ Product.Gallery.prototype = {
 };
 
 Product.AttributesBridge = {
-    tabsObject :false,
+    tabsObject : false,
     bindTabs2Attributes : {},
     bind : function(tabId, attributesObject) {
         this.bindTabs2Attributes[tabId] = attributesObject;
@@ -303,7 +304,7 @@ Product.AttributesBridge = {
 Product.Attributes = Class.create();
 Product.Attributes.prototype = {
     config : {},
-    containerId :null,
+    containerId : null,
     initialize : function(containerId) {
         this.containerId = containerId;
     },
@@ -442,7 +443,6 @@ Product.Configurable.prototype = {
         }
         this.updateSaveInput();
     },
-
     updateLabel : function(event) {
         var li = Event.findElement(event, 'LI');
         var labelEl = li.down('.attribute-label');
@@ -991,6 +991,33 @@ Product.Configurable.prototype = {
         $('assign_product_warrning').show();
     }
 };
+
+Product.EditWin = Class.create(Product.Configurable, {
+    initialize : function(grid) {
+        this.links = $H({});
+        this.grid = grid;
+    },
+    createAttributes : function() {},
+    updateSaveInput : function() {},
+    updateSimpleForm : function() {},
+    updateValues : function() {
+        var uniqueAttributeValues = $H( {});
+        /* Collect unique attributes */
+        this.links.each( function(pair) {
+            for ( var i = 0, length = pair.value.length; i < length; i++) {
+                var attribute = pair.value[i];
+                if (uniqueAttributeValues.keys()
+                        .indexOf(attribute.attribute_id) == -1) {
+                    uniqueAttributeValues.set(attribute.attribute_id, $H( {}));
+                }
+                uniqueAttributeValues.get(attribute.attribute_id).set(
+                        attribute.value_index, attribute);
+            }
+        });
+        this.updateSaveInput();
+        this.updateSimpleForm();
+    }
+});
 
 var onInitDisableFieldsList = [];
 
