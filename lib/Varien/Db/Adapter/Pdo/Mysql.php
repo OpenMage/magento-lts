@@ -221,6 +221,14 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @var array|null
      */
     protected $_queryHook = null;
+    
+    /**
+     * Save if mysql engine is 8 or not.
+     *
+     * @var bool
+     */
+    private $isMysql8Engine;
+
 
     /**
      * Begin new DB transaction for connection
@@ -1057,6 +1065,22 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         return $this;
     }
+    
+    /**
+     * Checks if the engine is mysql 8
+     *
+     * @return bool
+     */
+    private function isMysql8EngineUsed(): bool
+    {
+        if (!$this->isMysql8Engine) {
+            $version = $this->fetchPairs("SHOW variables LIKE 'version'")['version'];
+            $this->isMysql8Engine = (bool) preg_match('/^(8\.)/', $version);
+        }
+
+        return $this->isMysql8Engine;
+    }
+
 
     /**
      * Show table status
@@ -1071,9 +1095,18 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         if ($schemaName !== null) {
             $fromDbName = ' FROM ' . $this->quoteIdentifier($schemaName);
         }
-        $query = sprintf('SHOW TABLE STATUS%s LIKE %s', $fromDbName,  $this->quote($tableName));
+        $query = sprintf('SHOW TABLE STATUS%s LIKE %s', $fromDbName, $this->quote($tableName));
+        //checks which slq engine used
+        if (!$this->isMysql8EngineUsed()) {
+            //if it's not MySQl-8 we just fetch results
+            return $this->rawFetchRow($query);
+        }
+        // Run show table status query in different connection because DDL queries do it in transaction,
+        // and we don't have actual table statistic in this case
+        $connection = $this->_transactionLevel ? $this->createConnection() : $this;
+        $connection->query(sprintf('ANALYZE TABLE %s', $this->quoteIdentifier($tableName)));
 
-        return $this->raw_fetchRow($query);
+        return $connection->query($query)->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
