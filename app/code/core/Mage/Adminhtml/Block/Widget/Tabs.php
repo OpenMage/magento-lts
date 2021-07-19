@@ -38,7 +38,28 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      *
      * @var array
      */
-    protected $_tabs = array();
+    protected $_tabs = [];
+
+    /**
+     * For sorting tabs.
+     *
+     * @var array
+     */
+    protected $_afterTabIds = [];
+
+    /**
+     * For sorting tabs.
+     *
+     * @var array
+     */
+    protected $_tabPositions = [];
+
+    /**
+     * For sorting tabs.
+     *
+     * @var int
+     */
+    protected $_tabPosition = 100;
 
     /**
      * Active tab key
@@ -79,21 +100,21 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Add new tab after another
      *
      * @param   string $tabId new tab Id
-     * @param   array|Varien_Object $tab
+     * @param   string|array|Varien_Object $tab
      * @param   string $afterTabId
      * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTabAfter($tabId, $tab, $afterTabId)
     {
         $this->addTab($tabId, $tab);
-        $this->_tabs[$tabId]->setAfter($afterTabId);
+        $this->_afterTabIds[$tabId] = $afterTabId;
     }
 
     /**
      * Add new tab
      *
      * @param   string $tabId
-     * @param   array|Varien_Object $tab
+     * @param   string|array|Varien_Object $tab
      * @return  Mage_Adminhtml_Block_Widget_Tabs
      */
     public function addTab($tabId, $tab)
@@ -137,8 +158,16 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         $this->_tabs[$tabId]->setId($tabId);
         $this->_tabs[$tabId]->setTabId($tabId);
 
-        if (is_null($this->_activeTab)) $this->_activeTab = $tabId;
-        if (true === $this->_tabs[$tabId]->getActive()) $this->setActiveTab($tabId);
+        if (true === $this->_tabs[$tabId]->getActive()) {
+            $this->setActiveTab($tabId);
+        }
+
+        // For sorting tabs.
+        $this->_tabPositions[$tabId] = $this->_tabPosition;
+        $this->_tabPosition += 100;
+        if ($this->_tabs[$tabId]->getAfter()) {
+            $this->_afterTabIds[$tabId] = $this->_tabs[$tabId]->getAfter();
+        }
 
         return $this;
     }
@@ -160,11 +189,6 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (isset($this->_tabs[$tabId]) && $this->canShowTab($this->_tabs[$tabId])
             && !$this->getTabIsHidden($this->_tabs[$tabId])) {
             $this->_activeTab = $tabId;
-            if (!(is_null($this->_activeTab)) && ($tabId !== $this->_activeTab)) {
-                foreach ($this->_tabs as $id => $tab) {
-                    $tab->setActive($id === $tabId);
-                }
-            }
         }
         return $this;
     }
@@ -196,25 +220,58 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             $this->_setActiveTab($activeTabId);
         }
 
-        $_new = array();
-        foreach( $this->_tabs  as $key => $tab ) {
-            foreach( $this->_tabs  as $k => $t ) {
-                if( $t->getAfter() == $key ) {
-                    $_new[$key] = $tab;
-                    $_new[$k] = $t;
-                } else {
-                    if( !$tab->getAfter() || !in_array($tab->getAfter(), array_keys($this->_tabs)) ) {
-                        $_new[$key] = $tab;
-                    }
-                }
-            }
+        if ($this->_activeTab === null && !empty($this->_tabs)) {
+            $this->_activeTab = (reset($this->_tabs))->getId();
         }
 
-        $this->_tabs = $_new;
-        unset($_new);
+        if (!empty($this->_afterTabIds)) {
+            $this->_tabs = $this->_reorderTabs();
+        }
 
         $this->assign('tabs', $this->_tabs);
         return parent::_beforeToHtml();
+    }
+
+    /**
+     * Find the root parent Tab ID recursively.
+     *
+     * @param string $currentAfterTabId
+     * @param int $degree Degrees of separation between child and root parent.
+     * @return string The parent tab ID.
+     */
+    protected function _getRootParentTabId($currentAfterTabId, &$degree)
+    {
+        if (array_key_exists($currentAfterTabId, $this->_afterTabIds)) {
+            $degree++;
+            return $this->_getRootParentTabId($this->_afterTabIds[$currentAfterTabId], $degree);
+        } else {
+            return $currentAfterTabId;
+        }
+    }
+
+    protected function _reorderTabs()
+    {
+        // Set new position based on $afterTabId.
+        foreach ($this->_afterTabIds as $tabId => $afterTabId) {
+            if (array_key_exists($afterTabId, $this->_tabs)) {
+                $degree = 1; // Initialize to 1 degree of separation.
+                $parentAfterTabId = $this->_getRootParentTabId($afterTabId, $degree);
+                $this->_tabPositions[$tabId] = $this->_tabPositions[$parentAfterTabId] + $degree;
+                $degree++;
+            }
+        }
+
+        asort($this->_tabPositions);
+
+        $ordered = [];
+        foreach ($this->_tabPositions as $tabId => $position) {
+            if (isset($this->_tabs[$tabId])) {
+                $tab = $this->_tabs[$tabId];
+                $ordered[$tabId] = $tab;
+            }
+        }
+
+        return $ordered;
     }
 
     public function getJsObjectName()
