@@ -42,21 +42,21 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     /**
      * For sorting tabs.
-     * 
+     *
      * @var array
      */
     protected $_afterTabIds = [];
 
     /**
      * For sorting tabs.
-     * 
+     *
      * @var array
      */
     protected $_tabPositions = [];
 
     /**
      * For sorting tabs.
-     * 
+     *
      * @var int
      */
     protected $_tabPosition = 100;
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     /**
      * Find the root parent Tab ID recursively.
-     * 
+     *
      * @param string $currentAfterTabId
      * @param int $degree Degrees of separation between child and root parent.
      * @return string The parent tab ID.
