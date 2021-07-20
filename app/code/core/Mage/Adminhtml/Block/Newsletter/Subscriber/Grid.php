@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
-        /* @var $collection Mage_Newsletter_Model_Mysql4_Subscriber_Collection */
+        /* @var $collection Mage_Newsletter_Model_Resource_Subscriber_Collection */
         $collection
             ->showCustomerInfo(true)
             ->addSubscriberTypeField()

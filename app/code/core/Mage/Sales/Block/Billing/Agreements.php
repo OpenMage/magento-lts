@@ -44,7 +44,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Billing agreements collection
      *
-     * @var Mage_Sales_Model_Mysql4_Billing_Agreement_Collection
+     * @var Mage_Sales_Model_Resource_Billing_Agreement_Collection
      */
     protected $_billingAgreements = null;
 
@@ -67,7 +67,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     /**
      * Retrieve billing agreements collection
      *
-     * @return Mage_Sales_Model_Mysql4_Billing_Agreement_Collection
+     * @return Mage_Sales_Model_Resource_Billing_Agreement_Collection
      */
     public function getBillingAgreements()
     {

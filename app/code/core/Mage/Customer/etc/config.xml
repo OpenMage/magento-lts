@@ -355,7 +355,6 @@
             </customer>
             <customer_resource>
                 <class>Mage_Customer_Model_Resource</class>
-                <deprecatedNode>customer_mysql4</deprecatedNode>
                 <entities>
                     <entity>
                         <table>customer_entity</table>

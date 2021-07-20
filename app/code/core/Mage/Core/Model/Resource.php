@@ -236,22 +236,7 @@ class Mage_Core_Model_Resource
      */
     public function getEntity($model, $entity)
     {
-        $modelsNode = Mage::getConfig()->getNode()->global->models;
-        $entityConfig = $modelsNode->$model->entities->{$entity};
-
-        /**
-         * Backwards compatibility for pre-MMDB extensions.
-         * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
-         * to keep name of previously used nodes, that still may be used by non-updated extensions.
-         */
-        if (isset($modelsNode->$model->deprecatedNode)) {
-            $deprecatedNode = $modelsNode->$model->deprecatedNode;
-            if (isset($modelsNode->$deprecatedNode->entities->$entity)) {
-                $entityConfig = $modelsNode->$deprecatedNode->entities->$entity;
-            }
-        }
-
-        return $entityConfig;
+        return Mage::getConfig()->getNode()->global->models->$model->entities->{$entity};
     }
 
     /**

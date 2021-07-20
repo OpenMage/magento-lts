@@ -942,7 +942,6 @@
             </sales_entity>
             <sales_resource>
                 <class>Mage_Sales_Model_Resource</class>
-                <deprecatedNode>sales_mysql4</deprecatedNode>
                 <entities>
                     <quote>
                         <table>sales_flat_quote</table>

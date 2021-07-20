@@ -197,7 +197,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      */
     protected function _addColumnFilterToCollection($column)
     {
-        /* @var $collection Mage_Wishlist_Model_Mysql4_Item_Collection */
+        /* @var $collection Mage_Wishlist_Model_Resource_Item_Collection */
         $collection = $this->getCollection();
         $value = $column->getFilter()->getValue();
         if ($collection && $value) {

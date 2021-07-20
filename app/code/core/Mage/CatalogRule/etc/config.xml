@@ -44,7 +44,6 @@
             </catalogrule>
             <catalogrule_resource>
                 <class>Mage_CatalogRule_Model_Resource</class>
-                <deprecatedNode>catalogrule_mysql4</deprecatedNode>
                 <entities>
                     <rule>
                         <table>catalogrule</table>

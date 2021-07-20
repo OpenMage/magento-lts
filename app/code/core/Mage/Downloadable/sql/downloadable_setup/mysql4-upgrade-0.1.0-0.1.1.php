@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $this */
+/* @var Mage_Catalog_Model_Resource_Setup $this */
 
 $installer->startSetup();
 // make attribute 'weight' not applicable to downloadable products

@@ -227,7 +227,6 @@
             </catalog>
             <catalog_resource>
                 <class>Mage_Catalog_Model_Resource</class>
-                <deprecatedNode>catalog_resource_eav_mysql4</deprecatedNode>
                 <entities>
                     <product>
                         <table>catalog_product_entity</table>

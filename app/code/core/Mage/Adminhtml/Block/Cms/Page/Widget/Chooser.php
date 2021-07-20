@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('cms/page')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
+        /* @var $collection Mage_Cms_Model_Resource_Page_Collection */
         $collection->setFirstStoreFlag(true);
         $this->setCollection($collection);
 

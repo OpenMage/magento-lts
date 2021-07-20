@@ -39,7 +39,6 @@
             </paypaluk>
             <paypaluk_resource>
                 <class>Mage_PaypalUk_Model_Resource</class>
-                <deprecatedNode>paypaluk_mysql4</deprecatedNode>
                 <entities>
                     <api_debug>
                         <table>paypaluk_api_debug</table>

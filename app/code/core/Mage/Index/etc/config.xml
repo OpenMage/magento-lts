@@ -39,7 +39,6 @@
             </index>
             <index_resource>
                 <class>Mage_Index_Model_Resource</class>
-                <deprecatedNode>index_mysql4</deprecatedNode>
                 <entities>
                     <event>
                         <table>index_event</table>
@@ -69,7 +68,7 @@
             </lock>
             <index_model>index/indexer</index_model>
             <indexer>
-                
+
             </indexer>
         </index>
         <events>

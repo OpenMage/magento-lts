@@ -24,7 +24,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $this */
+/* @var Mage_Catalog_Model_Resource_Setup $this */
 $this->startSetup();
 
 $this->getConnection()->addColumn($this->getTable('catalog_category_entity'), 'children_count', 'INT NOT NULL');

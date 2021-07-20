@@ -38,7 +38,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
 {
     /**
      * Entity model name which must be used to retrieve entity specific data.
-     * @var null|Mage_Catalog_Model_Resource_Eav_Mysql4_Abstract
+     * @var null|Mage_Catalog_Model_Resource_Abstract
      */
     protected $_entityResource = null;
 

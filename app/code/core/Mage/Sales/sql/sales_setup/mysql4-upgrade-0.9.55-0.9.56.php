@@ -26,7 +26,7 @@
 
 $installer = $this;
 
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 $installer->startSetup();
 $installer->updateAttribute('order', 'customer_dob', 'backend_model', '');
 $installer->endSetup();

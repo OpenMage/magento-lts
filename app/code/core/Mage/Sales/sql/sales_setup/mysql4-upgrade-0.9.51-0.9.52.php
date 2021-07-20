@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $tableOrder         = $this->getTable('sales_order');
 $tableOrderItem     = $this->getTable('sales_flat_order_item');

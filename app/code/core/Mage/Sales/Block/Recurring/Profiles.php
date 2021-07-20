@@ -36,7 +36,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
     /**
      * Profiles collection
      *
-     * @var Mage_Sales_Model_Mysql4_Recurring_Profile_Collection
+     * @var Mage_Sales_Model_Resource_Recurring_Profile_Collection
      */
     protected $_profiles = null;
 

@@ -52,7 +52,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     protected function _prepareCollection()
     {
-        /* @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
+        /* @var Mage_Widget_Model_Resource_Widget_Instance_Collection $collection */
         $collection = Mage::getModel('widget/widget_instance')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();

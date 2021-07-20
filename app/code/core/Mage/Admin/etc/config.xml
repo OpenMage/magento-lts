@@ -39,7 +39,6 @@
             </admin>
             <admin_resource>
                 <class>Mage_Admin_Model_Resource</class>
-                <deprecatedNode>admin_mysql4</deprecatedNode>
                 <entities>
                     <user>
                         <table>admin_user</table>

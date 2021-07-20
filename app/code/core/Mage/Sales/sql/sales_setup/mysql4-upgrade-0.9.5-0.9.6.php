@@ -25,10 +25,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->run("
-ALTER TABLE `{$installer->getTable('sales_flat_quote_address_item')}` 
+ALTER TABLE `{$installer->getTable('sales_flat_quote_address_item')}`
     ADD COLUMN `parent_item_id` INTEGER UNSIGNED AFTER `address_item_id`,
     ADD KEY `IDX_PARENT_ITEM_ID` (`parent_item_id`);
 ");

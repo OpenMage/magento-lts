@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Core_Model_Mysql4_Variable_Collection */
+        /* @var $collection Mage_Core_Model_Resource_Variable_Collection */
         $collection = Mage::getModel('core/variable')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();

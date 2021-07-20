@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection */
+        /* @var $collection Mage_Shipping_Model_Resource_Carrier_Tablerate_Collection */
         $collection = Mage::getResourceModel('shipping/carrier_tablerate_collection');
         $collection->setConditionFilter($this->getConditionName())
             ->setWebsiteFilter($this->getWebsiteId());

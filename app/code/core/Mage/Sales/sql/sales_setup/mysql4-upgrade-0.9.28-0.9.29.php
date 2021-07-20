@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/* @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'discount_refunded', 'decimal(12,4) default NULL AFTER `subtotal_canceled`');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'discount_canceled', 'decimal(12,4) default NULL AFTER `discount_refunded`');
@@ -95,7 +95,7 @@ $select->join(
 $installer->getConnection()->query(
     $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
 );
- 
+
 $installer->getConnection()->query(
     'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
 );
@@ -134,7 +134,7 @@ $select->join(
 $installer->getConnection()->query(
     $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
 );
- 
+
 $installer->getConnection()->query(
     'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
 );

@@ -49,7 +49,6 @@
             </giftmessage>
             <giftmessage_resource>
                 <class>Mage_GiftMessage_Model_Resource</class>
-                <deprecatedNode>giftmessage_mysql4</deprecatedNode>
                 <entities>
                     <message>
                         <table>gift_message</table>

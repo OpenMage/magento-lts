@@ -39,7 +39,6 @@
             </dataflow>
             <dataflow_resource>
                 <class>Mage_Dataflow_Model_Resource</class>
-                <deprecatedNode>dataflow_mysql4</deprecatedNode>
                 <entities>
                     <session>
                         <table>dataflow_session</table>

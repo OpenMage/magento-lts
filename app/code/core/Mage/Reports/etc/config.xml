@@ -39,7 +39,6 @@
             </reports>
             <reports_resource>
                 <class>Mage_Reports_Model_Resource</class>
-                <deprecatedNode>reports_mysql4</deprecatedNode>
                 <entities>
                     <event>
                         <table>report_event</table>

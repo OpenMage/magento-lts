@@ -134,7 +134,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      * Product event tags collection getter
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Tag_Model_Mysql4_Tag_Collection
+     * @return Mage_Tag_Model_Resource_Tag_Collection
      */
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
     {

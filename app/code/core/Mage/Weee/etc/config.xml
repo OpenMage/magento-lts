@@ -39,7 +39,6 @@
             </weee>
             <weee_resource>
                 <class>Mage_Weee_Model_Resource</class>
-                <deprecatedNode>weee_mysql4</deprecatedNode>
                 <entities>
                     <tax>
                         <table>weee_tax</table>

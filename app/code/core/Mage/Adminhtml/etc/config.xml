@@ -39,7 +39,6 @@
             </adminhtml>
             <adminhtml_resource>
                 <class>Mage_Adminhtml_Model_Resource</class>
-                <deprecatedNode>adminhtml_mysql4</deprecatedNode>
             </adminhtml_resource>
         </models>
         <blocks>

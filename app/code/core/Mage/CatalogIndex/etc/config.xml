@@ -55,7 +55,6 @@
             </catalogindex>
             <catalogindex_resource>
                 <class>Mage_CatalogIndex_Model_Resource</class>
-                <deprecatedNode>catalogindex_mysql4</deprecatedNode>
                 <entities>
                     <eav>
                         <table>catalog_product_index_eav</table>

@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('cms/block')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Block_Collection */
+        /* @var $collection Mage_Cms_Model_Resource_Block_Collection */
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

@@ -39,7 +39,6 @@
             </install>
             <install_resource>
                 <class>Mage_Install_Model_Resource</class>
-                <deprecatedNode>install_mysql4</deprecatedNode>
             </install_resource>
         </models>
         <blocks>

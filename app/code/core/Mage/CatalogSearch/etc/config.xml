@@ -42,7 +42,6 @@
             </catalogsearch>
             <catalogsearch_resource>
                 <class>Mage_CatalogSearch_Model_Resource</class>
-                <deprecatedNode>catalogsearch_mysql4</deprecatedNode>
                 <entities>
                     <search_query>
                         <table>catalogsearch_query</table>

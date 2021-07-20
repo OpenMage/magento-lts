@@ -25,5 +25,5 @@
  */
 
 $installer = $this;
-/* @var Mage_GiftMessage_Model_Mysql4_Setup $installer */
+/* @var Mage_GiftMessage_Model_Resource_Setup $installer */
 $installer->updateAttribute('catalog_product', 'gift_message_available', 'is_configurable', 0);

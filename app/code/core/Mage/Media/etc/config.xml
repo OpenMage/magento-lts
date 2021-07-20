@@ -39,7 +39,6 @@
             </media>
             <media_resource>
                 <class>Mage_Media_Model_File</class>
-                <deprecatedNode>media_file</deprecatedNode>
             </media_resource>
         </models>
     </global>

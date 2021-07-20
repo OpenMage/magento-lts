@@ -39,7 +39,6 @@
             </backup>
             <backup_resource>
                 <class>Mage_Backup_Model_Resource</class>
-                <deprecatedNode>backup_mysql4</deprecatedNode>
             </backup_resource>
         </models>
         <resources>
