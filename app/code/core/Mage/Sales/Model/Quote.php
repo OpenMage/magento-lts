@@ -416,6 +416,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 
@@ -429,6 +431,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadActive($this, $quoteId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 
@@ -442,6 +446,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByIdWithoutStore($this, $quoteId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 
