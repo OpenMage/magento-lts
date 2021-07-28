@@ -260,7 +260,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get sql select string or object
      *
      * @param   bool $stringMode
-     * @return  string || Zend_Db_Select
+     * @return  string|Zend_Db_Select
      */
     function getSelectSql($stringMode = false)
     {
