@@ -55,6 +55,9 @@ class Storefront_MediaStorage_Model_Image_Adapter_Imagick extends Varien_Image_A
         $orientation = $this->_imageHandler->getImageProperty('exif:Orientation');
         if (!empty($orientation)) {
             switch ($orientation) {
+                case 1:
+                    // Do nothing
+                    break;
                 case 3:
                     $this->_imageHandler->rotateImage('#000000', 180);
                     break;
