@@ -196,11 +196,6 @@ class Storefront_MediaStorage_Model_Image_Adapter_Imagick extends Varien_Image_A
             $offsetY = (int)round(($frameHeight - $dstHeight) / 2);
             $canvas->compositeImage($this->_imageHandler, \Imagick::COMPOSITE_OVER, $offsetX, $offsetY);
             $this->_imageHandler = $canvas;
-
-
-        } else {
-            // TODO is this correct?
-            // Do nothing?
         }
 
         $this->refreshImageDimensions();
