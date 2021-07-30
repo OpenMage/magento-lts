@@ -131,6 +131,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->unsIsVisible();
+            
+            // sets store id to attribute, is evaluated in customer country input fields to provide correct allowed countries
+            $attribute->setStoreId($customer->getStore()->getId());
         }
         $this->_setFieldset($attributes, $fieldset);
 
