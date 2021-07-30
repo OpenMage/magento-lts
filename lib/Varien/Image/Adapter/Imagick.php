@@ -188,10 +188,6 @@ class Storefront_MediaStorage_Model_Image_Adapter_Imagick extends Varien_Image_A
             $canvas = new Imagick();
             // TODO support more than just JPG?
             $canvas->newImage($frameWidth, $frameHeight, 'white', 'jpg');
-
-//            $frameWidth = $dstWidth;
-//            $frameHeight = $dstHeight;
-
             $offsetX = (int)round(($frameWidth - $dstWidth) / 2);
             $offsetY = (int)round(($frameHeight - $dstHeight) / 2);
             $canvas->compositeImage($this->_imageHandler, \Imagick::COMPOSITE_OVER, $offsetX, $offsetY);
