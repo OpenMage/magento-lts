@@ -43,7 +43,7 @@
                     <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
                 <?php endif ?>
             </div>
-        <?php endif; ?>
+        <?php endif ?>
         <p class="agree">
             <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" /><label for="agreement-<?php echo $_a->getId()?>"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
         </p>
