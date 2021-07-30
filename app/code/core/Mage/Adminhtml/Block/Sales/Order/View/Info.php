@@ -170,4 +170,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     {
         return !Mage::getStoreConfigFlag('sales/general/hide_customer_ip', $this->getOrder()->getStoreId());
     }
+    
+    public function getAdditionalInfo()
+    {
+        $orderAdditionalInfo = new ArrayObject();
+        Mage::dispatchEvent('adminhtml_block_order_view_collect_additional_info', ['order'=> $this->getOrder(), 'info' => $orderAdditionalInfo]);
+        return $orderAdditionalInfo;
+    }
 }
