@@ -143,9 +143,9 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
             }
             // keep aspect ratio
             if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
-                $dstHeight = round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
+                $dstHeight = (int) round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
             } else {
-                $dstWidth = round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
+                $dstWidth =  (int) round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
             }
         }
 
