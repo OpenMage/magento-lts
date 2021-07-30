@@ -80,6 +80,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - `checkout_cart_product_add_before`
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
+- `adminhtml_block_order_view_collect_additional_info`
 
 ### New Translations
 
