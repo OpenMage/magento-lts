@@ -111,7 +111,7 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
      */
     public function resize($frameWidth = null, $frameHeight = null)
     {
-        if (!$frameWidth || !$frameHeight) {
+        if (!$frameWidth && !$frameHeight) {
             throw new RuntimeException('Invalid image dimensions.');
         }
 
