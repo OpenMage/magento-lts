@@ -245,84 +245,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param null $file
-     * @return bool
-     */
-    protected function _checkMemory($file = null)
-    {
-//        print '$this->_getMemoryLimit() = '.$this->_getMemoryLimit();
-//        print '$this->_getMemoryUsage() = '.$this->_getMemoryUsage();
-//        print '$this->_getNeedMemoryForBaseFile() = '.$this->_getNeedMemoryForBaseFile();
-
-        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
-    }
-
-    /**
-     * @return float|int|string
-     */
-    protected function _getMemoryLimit()
-    {
-        $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
-
-        if (!isset($memoryLimit[0])) {
-            $memoryLimit = "128M";
-        }
-
-        if (substr($memoryLimit, -1) == 'K') {
-            return substr($memoryLimit, 0, -1) * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'M') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024;
-        }
-        if (substr($memoryLimit, -1) == 'G') {
-            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
-        }
-        return $memoryLimit;
-    }
-
-    /**
-     * @return int
-     */
-    protected function _getMemoryUsage()
-    {
-        if (function_exists('memory_get_usage')) {
-            return memory_get_usage();
-        }
-        return 0;
-    }
-
-    /**
-     * @param string $file
-     * @return float|int
-     */
-    protected function _getNeedMemoryForFile($file = null)
-    {
-        $file = is_null($file) ? $this->getBaseFile() : $file;
-        if (!$file) {
-            return 0;
-        }
-
-        if (!file_exists($file) || !is_file($file)) {
-            return 0;
-        }
-
-        $imageInfo = getimagesize($file);
-
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
-            return 0;
-        }
-        if (!isset($imageInfo['channels'])) {
-            // if there is no info about this parameter lets set it for maximum
-            $imageInfo['channels'] = 4;
-        }
-        if (!isset($imageInfo['bits'])) {
-            // if there is no info about this parameter lets set it for maximum
-            $imageInfo['bits'] = 8;
-        }
-        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + pow(2, 16)) * 1.65);
-    }
-
-    /**
      * Convert array of 3 items (decimal r, g, b) to string of their hex values
      *
      * @param array $rgbArray
@@ -364,7 +286,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $file = null;
         }
         if ($file) {
-            if ((!$this->_fileExists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
+            if ((!$this->_fileExists($baseDir . $file))) {
                 $file = null;
             }
         }
@@ -470,10 +392,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getImageProcessor()
     {
         if (!$this->_processor) {
-//            var_dump($this->_checkMemory());
-//            if (!$this->_checkMemory()) {
-//                $this->_baseFile = null;
-//            }
             $this->_processor = new Varien_Image($this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
