@@ -31,7 +31,9 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        $this->_imageHandler->destroy();
+        if($this->_imageHandler) {
+            $this->_imageHandler->destroy();
+        }
     }
 
     /**
