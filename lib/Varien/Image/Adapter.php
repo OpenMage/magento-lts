@@ -44,7 +44,7 @@ class Varien_Image_Adapter
                 break;
 
             case self::ADAPTER_IM:
-                return new Varien_Image_Adapter_Imagemagic();
+                return new Varien_Image_Adapter_Imagick();
                 break;
 
             case self::ADAPTER_IME:
