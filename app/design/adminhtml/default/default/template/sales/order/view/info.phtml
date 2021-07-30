@@ -98,7 +98,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <td class="label"><label><?php echo Mage::helper('sales')->__('%s / %s rate:', $_order->getOrderCurrencyCode(), $_order->getBaseCurrencyCode()) ?></label></td>
                 <td class="value"><strong><?php echo $_order->getBaseToOrderRate() ?></strong></td>
             </tr>
-            <?php endif 
+            <?php endif;
             
             foreach($this->getAdditionalInfo() as $label => $htmlFragment){
                 ?>
