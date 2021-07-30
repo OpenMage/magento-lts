@@ -143,12 +143,15 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
             }
             // keep aspect ratio
             if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
-                $dstHeight = (int) round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
+                $dstHeight = ($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight;
             } else {
-                $dstWidth =  (int) round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
+                $dstWidth =  ($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth;
             }
         }
 
+        $dstWidth = (int) round($dstWidth);
+        $dstHeight = (int) round($dstHeight);
+        
         $filter = \Imagick::FILTER_LANCZOS;
         $this->_imageHandler->resizeImage($dstWidth, $dstHeight, $filter, 1);
 
