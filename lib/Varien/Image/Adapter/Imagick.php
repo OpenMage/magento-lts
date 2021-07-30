@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
+class Storefront_MediaStorage_Model_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
 {
 
     /**
@@ -31,7 +31,7 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        if($this->_imageHandler) {
+        if ($this->_imageHandler) {
             $this->_imageHandler->destroy();
         }
     }
@@ -40,6 +40,8 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
      * Opens image file.
      *
      * @param string $filename
+     * @throws ImagickException
+     * @throws Mage_Core_Exception
      */
     public function open($filename)
     {
@@ -49,6 +51,26 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
 
         $this->_imageHandler = new Imagick();
         $this->_imageHandler->readImage($filename);
+
+        $orientation = $this->_imageHandler->getImageProperty('exif:Orientation');
+        if (!empty($orientation)) {
+            switch ($orientation) {
+                case 3:
+                    $this->_imageHandler->rotateImage('#000000', 180);
+                    break;
+
+                case 6:
+                    $this->_imageHandler->rotateImage('#000000', 90);
+                    break;
+
+                case 8:
+                    $this->_imageHandler->rotateImage('#000000', -90);
+                    break;
+                default:
+                    Mage::throwException('Unsupported EXIF orientation: ' . $orientation);
+            }
+        }
+        $this->refreshImageDimensions();
     }
 
     public function save($destination = null, $newName = null)
@@ -118,23 +140,24 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
         }
 
         // calculate lacking dimension
-        if (!$this->_keepFrame) {
-            if (null === $frameWidth) {
-                $frameWidth = round($frameHeight * ($this->_imageSrcWidth / $this->_imageSrcHeight));
-            } elseif (null === $frameHeight) {
-                $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
-            }
-        } else {
+        if ($this->_keepFrame) {
             if (null === $frameWidth) {
                 $frameWidth = $frameHeight;
             } elseif (null === $frameHeight) {
                 $frameHeight = $frameWidth;
+            }
+        } else {
+            if (null === $frameWidth) {
+                $frameWidth = round($frameHeight * ($this->_imageSrcWidth / $this->_imageSrcHeight));
+            } elseif (null === $frameHeight) {
+                $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
             }
         }
 
         // define coordinates of image inside new frame
         $dstWidth = $frameWidth;
         $dstHeight = $frameHeight;
+
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
             if ($this->_constrainOnly) {
@@ -147,30 +170,37 @@ class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
             if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
                 $dstHeight = ($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight;
             } else {
-                $dstWidth =  ($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth;
+                $dstWidth = ($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth;
             }
         }
 
-        $dstWidth = (int) round($dstWidth);
-        $dstHeight = (int) round($dstHeight);
-        
+        $dstWidth = (int)round($dstWidth);
+        $dstHeight = (int)round($dstHeight);
+        $frameWidth = (int)round($frameWidth);
+        $frameHeight = (int)round($frameHeight);
+
+
         $filter = \Imagick::FILTER_LANCZOS;
         $this->_imageHandler->resizeImage($dstWidth, $dstHeight, $filter, 1);
 
-        if (!$this->_keepFrame) {
+        if ($this->_keepFrame) {
+            // Add borders top+bottom or left+right
             $canvas = new Imagick();
             // TODO support more than just JPG?
             $canvas->newImage($frameWidth, $frameHeight, 'white', 'jpg');
-        }
 
-        if (!$this->_keepFrame) {
-            $frameWidth = $dstWidth;
-            $frameHeight = $dstHeight;
+//            $frameWidth = $dstWidth;
+//            $frameHeight = $dstHeight;
 
-            $offsetX = (int)($frameWidth / 2) - (int)($dstWidth / 2);
-            $offsetY = (int)($frameHeight / 2) - (int)($dstHeight / 2);
+            $offsetX = (int)round(($frameWidth - $dstWidth) / 2);
+            $offsetY = (int)round(($frameHeight - $dstHeight) / 2);
             $canvas->compositeImage($this->_imageHandler, \Imagick::COMPOSITE_OVER, $offsetX, $offsetY);
             $this->_imageHandler = $canvas;
+
+
+        } else {
+            // TODO is this correct?
+            // Do nothing?
         }
 
         $this->refreshImageDimensions();
