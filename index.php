@@ -34,9 +34,6 @@ Whoops, it looks like you have an invalid PHP version.</h3></div><p>Magento supp
     exit;
 }
 
-/**
- * Compilation includes configuration file
- */
 define('MAGENTO_ROOT', getcwd());
 
 $mageFilename = MAGENTO_ROOT . '/app/Mage.php';
