@@ -630,7 +630,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getProductOptions()
     {
         if ($options = $this->_getData('product_options')) {
-            return unserialize($options);
+            return unserialize($options, ['allowed_classes' => false]);
         }
         return array();
     }
@@ -833,7 +833,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getBaseDiscountAppliedForWeeeTax()
     {
-        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied());
+        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied(), ['allowed_classes' => false]);
         $totalDiscount = 0;
         if (!is_array($weeeTaxAppliedAmounts)) {
             return $totalDiscount;
@@ -856,7 +856,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     public function getDiscountAppliedForWeeeTax()
     {
-        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied());
+        $weeeTaxAppliedAmounts = unserialize($this->getWeeeTaxApplied(), ['allowed_classes' => false]);
         $totalDiscount = 0;
         if (!is_array($weeeTaxAppliedAmounts)) {
             return $totalDiscount;

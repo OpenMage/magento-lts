@@ -1,6 +1,179 @@
 
+## v19.4.15 - unreleased
 
-## v19.4.9 - unreleased
+
+
+## v19.4.14 - 2021-06-25
+
+#1202 Fix #1190 - Fix the "$_FILES array is empty" exception when assiging products to a category or creating a category with the XMLRPC-API
+#1227 modified nav-bar padding to prevent the search box hiding menu items
+#1326 Fix notice when there are no sales rules for a given situation
+#1443 Log Exception the right way in Session, no need for custom message formatting anymore
+#1505 Fix the deprecation problem of idn_to_ascii() since php7.2
+#1484 Fix unserialization error when saving dataflow advanced profile.
+#1483 Mage_Core_Model_Abstract: Fix rollback when Throwable is thrown in save/delete method
+#1466 Improve error message of product required option by including option …
+#1035 Code style (endif endforeach endfor and more)
+#1577 Code style (endif and break)
+#1575 Product qty is incremented when comment is added on a Credit Memo from SOAP API v2
+#1557 Mark invoice as last when dummy items included
+#1554 Fix Coments in .htaccess
+#1571 Reduce getId calls
+#1565 Log exceptions when generating images
+#1582 Reset array on product reset
+#1598 fixed twitter share link, issue 1595
+#1591 removed magento logo in demo notice
+#1494 Update default USPS endpoint to HTTPS schema
+#1448 Remove _isDownloader flag
+#1481 DEV: add docker-dde setup
+#1534 Cleanup of getMimeType()
+#1384 Add icons in admin (icon-head)
+#1568 Fixes for #1564 and #1289
+- #1564 Checkout - Agreement content when empty (Terms and Conditions)
+- #1289 Wrong attributes order in comparison window
+#1593 fix documentation updateAttributeGroup()
+#640 add some logging for errors during paypal response validation
+#1169 do not connect to write adapter when getting the read adapter (#1167 )
+#1255 Change lowest PHP version to 7
+#1616 Revert "cleanup - remove orphan js/jscolor/* from XmlConnect package (#1436)" - as its used by MageWorx Advanced Product Options
+#1613 Fix getChildren must be compatible with SimpleXMLElement with PHP 8
+#1392 Fix PHP8 Deprecated: Required parameter $A follows optional parameter
+#1183 Fixes cloning of a collection by also cloning the internal select object
+#802 Fix widgets layout handle on edit
+#1416 Page title for credit memo and shipment
+#1644 Fix fatal error - getRegionCollection() - issue #713
+#1588 Update report.php
+#1674 Resolves the PHP 7 error: Declaration of Mage_Tag_Model_Api_V2::items($productId, $store) should be compatible with Mage_Tag_Model_Api::items($productId, $store = NULL)
+
+
+## v19.4.13 - 2021-04-20
+
+2 security updates
+
+CVE-2021-21426 - GHSA-m496-x567-f98c - Fixing a bug in Zend Framework's Stream HTTP Wrapper
+CVE-2021-21427 - GHSA-fvrf-9428-527m - Security Update for SQLi for Magento 2 (a backport of CVE-2021-3007 of laminas-http)
+
+more updates:
+
+#1531 Throw an Exception in resource model if column not exists, instead of E_NOTICE
+#1454 Fix doc getCountry - returning string instead of int
+#1545 Re-add LICENSE.html because of errors during install process (#1542, #1160)
+#1540 Fix PHP8 error in App.php: method_exists() now throws an exception if the first argument is not string|object
+#1391 Fixes core and lib issues for PHP 8.0 compatibility
+#1552 Revert update to Prototype serialize method that breaks OpenMage functionality / Can not select multiple statuses with Prototype 1.7.3 in Reports (#1549, #1497)
+
+
+## v19.4.12 - 2021-04-06
+
+#1459 make Mage::getOpenMageVersionInfo() more stable for the release process
+#1468 fix markup in README.md
+#1469 Delete RELEASE_NOTES.txt
+#1436 Remove orphan js/jscolor
+#1201 Fix wrong payment info template paths
+#1439 Fixed syntax error ytheme-magento.css
+#1473 Fix integrity constraint violation when order is canceled (#1220 #1472)
+#1424 Ascending alphabetical sort for Attribute Set Name
+#1464 Updated composer.json branch alias (#1160 #1460)
+#194 fix paypal IPN postback response parsing
+#1446 Better error handling when store is disabled
+#1404 [BUGFIX] Count doesn't work with group by columns. This fix keeps the group by
+#1365 Updating phpstorm meta files with magerun 2.1.0
+#1156 Removed observer adminhtml_sales_order_create_create_order (#1154)
+#1358 Add a new event `adminhtml_block_widget_tabs_html_before`, for adding custom tab (#879)
+#1445 make Developer Mode controllable by environment variable for all execution paths
+#1302 Fix a bug where product media upload via API was not possible anymore (#1178 #1125 #666)
+#1485 New event "init_form_values_after" after data set on a form
+#1394 Replace alias methods (#986)
+#1480 Add checkout agreement position, closes #1288
+#1406 Mage_Rss - DOC block update
+#1398 Simplified true/false
+#1496 Mage_Core_Model_Translate: Removed unused local variable
+#1051 Add features from N98 layout helper (#321 #336 #416)
+#1276 Fix array_key_exists on objects (deprecated notice or fatal error)
+#1495 Removed unnecessary replacing of variable from parent
+#1456 Correct password length message grammar
+#1291 Removed redundant if statement
+#1324 Notification_Security block - private to protected for easier extending
+#1309 Removed unnecessary joins for global attributes
+#1497 Upgrade prototype to version 1.7.3
+#1450 Fixed CRLF to LF
+#1455 Massaction items - removed unused switch
+#1467 _exportIterateCollection performance optimization
+
+
+## v19.4.11 - 2021-02-14
+
+#1248 mark trigger_recollect before collectTotals
+#1418 Fix regression in configuration scope code. Refs #1417
+#1281 remove-reference-to-magentocommerce
+#1383 Remove latest occurrences of XmlConnect
+#1429 Revert "Removed 2 unneeded function calls. Local var is already there."
+Ignore media/captcha directory.
+#1412 Update static-code-analyses.yml
+#1441 Fixed menu cursor
+#1160 Updated README.md, closes #985 #992
+#1407 Reduced multiple dispatch events in login form for other themes.
+
+
+## v19.4.10 - 2021-01-21
+
+
+3 security updates
+
+GHSA-jrgf-vfw2-hj26 CMS Editor code execution
+GHSA-hj6w-xrv3-wjj9 Widget instances allows a hacker to inject an executable file on the server
+GHSA-99m6-r53j-4hh2 Layout XML RCE Vulnerability
+
+More Changes:
+#1246 Adds support for "SameSite" cookie property
+#1356 Fixed return type of Mage_Adminhtml_Block_System_Config_Form::_canShowField
+#1275 Add start & stop commands to ddev setup in readme
+#1273 Update static-code-analyses.yml
+#1206 Reduced multiple dispatch events in login form.
+#1140 Github Action Labeler Bot
+#1337 Allow rewrite of Mage_Core_Model_File_Validator_Image
+#1086 Allow debug in admin
+#1378 Declare two variables
+#1330 Allow min pass length to 5 during login
+#1373 Removed 2 unneeded function calls. Local var is already there.
+#1390 Fix class name and filename for case sensitive filesystems
+#1336 Fix getId() on bool when primary billing address is null
+#1370 Fixed adminhtml boxes.css fieldset-wide for note.
+#1168 New event "adminhtml_sales_order_create_save_before" when editing an order.
+#1393 Fixes PHP7.4 deprecated nested ternary operators
+#1403 TypeError: round(): Argument #1 ($num) must be of type int|float
+
+## v19.4.9 - 2020-12-29
+
+increase composer.json php version range to include 8.0
+#1349 Fixed Zend Lib Deprecated Notice PHP8
+#1213 Fix strpos with non-string needle
+add UnitTests to Github Actions
+#1348 Fixed Zend Lib Tool Deprecated Notice
+#1347 Fixed Zend Lib Amf Deprecated Notice
+#1340 Fixed Zend Lib Barcode Deprecated
+#1346 Fixed Zend Lib Validate Deprecated Notice
+#1256 Fix libxml_disable_entity_loader for PHP 8
+#1251 Disable class unserialization where it is not needed.
+#1350 Trim values from XML so auto-formatting our XML does not break the autoloader.
+#1345 Fixed Zend Lib Wildfire Deprecated Notice
+#1344 Fixed Zend Lib View Deprecated Notice
+#1343 Fixed Zend Lib JSON Deprecated Notice
+#1342 Fixed Zend Lib Filter Deprecated Notice
+#1341 fix "Cannot unset $this" error
+#1261 getAttributeRawValue() move operations with store to if statement
+#1274 Removed unused fetchAll in addRatingInfo()
+#1278 Handled the case where the coupon no longer exists
+#1328 Fix phpDoc for set/getStepData in Checkout
+#1323 Improve PHPDoc
+#1319 Fix for currency symbol not saved with fatal PHP error #1318
+#1297 Update SECURITY.md
+allow version 4 of hackathon composer installer
+#1292 Support the logging of Throwables
+#1285 Mage core model url - method call is provided 2 parameters, but the method signature uses 1 parameters
+#1161 cleanup: Remove some files left in previous PRs
+#1207 bugfix: don't cast min_sale_qty to int as it can be a decimal
+#1279 Remove php short open tag
 
 
 ## v19.4.8 - 2020-10-20
@@ -227,4 +400,3 @@ Additionally:
 
 
 ## before
-

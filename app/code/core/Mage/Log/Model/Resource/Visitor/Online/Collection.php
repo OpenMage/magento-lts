@@ -90,7 +90,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
 
                 $this->getSelect()->joinLeft(
                     array($tableAlias => $attribute->getBackend()->getTable()),
-                    join(' AND ', $joinConds),
+                    implode(' AND ', $joinConds),
                     array($alias => 'value')
                 );
 

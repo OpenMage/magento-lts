@@ -29,16 +29,16 @@
 <div class="page-title">
     <?php if ($this->helper('rss/catalog')->getTagFeedUrl()): ?>
         <a href="<?php echo $this->helper('rss/catalog')->getTagFeedUrl() ?>" class="nobr link-rss"><?php echo $this->__('Subscribe to Feed') ?></a>
-    <?php endif; ?>
+    <?php endif ?>
     <h1><?php echo ($this->getHeaderText() || $this->getHeaderText() === false) ? $this->getHeaderText() : $this->__("Search results for '%s'", $this->helper('catalogsearch')->getEscapedQueryText()) ?></h1>
 </div>
     <?php if ($messages = $this->getNoteMessages()):?>
     <p class="note-msg">
         <?php foreach ($messages as $message):?>
             <?php echo $message?><br />
-        <?php endforeach;?>
+        <?php endforeach ?>
     </p>
-    <?php endif; ?>
+    <?php endif ?>
     <?php echo $this->getProductListHtml() ?>
 <?php else: ?>
 <div class="page-title">
@@ -49,7 +49,7 @@
     <?php if ($messages = $this->getNoteMessages()):?>
         <?php foreach ($messages as $message):?>
         <br /><?php echo $message?>
-        <?php endforeach;?>
-    <?php endif; ?>
+        <?php endforeach ?>
+    <?php endif ?>
 </p>
-<?php endif; ?>
+<?php endif ?>

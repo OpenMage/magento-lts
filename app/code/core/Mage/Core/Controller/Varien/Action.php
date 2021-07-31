@@ -496,7 +496,7 @@ abstract class Mage_Core_Controller_Varien_Action
 
         // Prohibit disabled store actions
         if (Mage::isInstalled() && !Mage::app()->getStore()->getIsActive()) {
-            Mage::app()->throwStoreException();
+            Mage::app()->throwStoreException(Mage::helper('core')->__('The store view #%d is disabled.', Mage::app()->getStore()->getId()));
         }
 
         if ($this->_rewrite()) {

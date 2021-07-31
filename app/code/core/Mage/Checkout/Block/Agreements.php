@@ -44,7 +44,8 @@ class Mage_Checkout_Block_Agreements extends Mage_Core_Block_Template
             } else {
                 $agreements = Mage::getModel('checkout/agreement')->getCollection()
                     ->addStoreFilter(Mage::app()->getStore()->getId())
-                    ->addFieldToFilter('is_active', 1);
+                    ->addFieldToFilter('is_active', 1)
+                    ->setOrder('position', Varien_Data_Collection::SORT_ORDER_ASC);
             }
             $this->setAgreements($agreements);
         }

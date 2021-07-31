@@ -50,6 +50,8 @@ You can override some defaults using environment variables defined in a file tha
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD`
+- `MAGE_IS_DEVELOPER_MODE`
+  - Set to 1 by default, set to 0 to disable
 
 Wiping
 ---

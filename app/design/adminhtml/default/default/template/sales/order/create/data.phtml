@@ -29,8 +29,8 @@
 <label for="currency_switcher"><?php echo Mage::helper('sales')->__('Order Currency:') ?></label>
 <select id="currency_switcher" name="order[currency]" onchange="order.setCurrencyId(this.value); order.setCurrencySymbol(this.options[this.selectedIndex].getAttribute('symbol'));">
     <?php foreach ($this->getAvailableCurrencies() as $_code): ?>
-    <option value="<?php echo $_code ?>"<?php if($_code==$this->getCurrentCurrencyCode()): ?> selected="selected"<?php endif; ?> symbol="<?php echo $this->getCurrencySymbol($_code) ?>"><?php echo $this->getCurrencyName($_code) ?></option>
-    <?php endforeach; ?>
+    <option value="<?php echo $_code ?>"<?php if($_code==$this->getCurrentCurrencyCode()): ?> selected="selected"<?php endif ?> symbol="<?php echo $this->getCurrencySymbol($_code) ?>"><?php echo $this->getCurrencyName($_code) ?></option>
+    <?php endforeach ?>
 </select>
 </p>
     <script type="text/javascript">
@@ -42,8 +42,8 @@
     <td class="side-col" style="background:none; padding:0;">
         <div id="order-sidebar"><?php echo $this->getChildHtml('sidebar') ?></div>
     </td>
-    <?php endif; ?>
-    <td <?php if($this->getCustomerId()): ?>class="main-col"<?php endif; ?>>
+    <?php endif ?>
+    <td <?php if($this->getCustomerId()): ?>class="main-col"<?php endif ?>>
        <div id="order-additional_area" style="display:none" class="order-additional-area"><?php echo $this->getChildHtml('additional_area') ?></div>
        <div id="order-search" style="display:none" class="order-search-items"><?php echo $this->getChildHtml('search') ?></div>
         <div id="order-items"><?php echo $this->getChildHtml('items') ?></div>
@@ -64,7 +64,7 @@
         <div id="order-methods">
             <div id="order-card_validation" class="box-left payments"><?php echo $this->getChildHtml('card_validation') ?></div>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
 
         <div class="clear"></div>
         <?php echo $this->getChildHtml('gift_options') ?>

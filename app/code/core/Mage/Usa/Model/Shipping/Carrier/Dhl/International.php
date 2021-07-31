@@ -560,13 +560,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         if ($configWeightUnit != $countryWeightUnit) {
             $weight = Mage::helper('usa')->convertMeasureWeight(
-                round($weight,3),
+                round((float) $weight,3),
                 $configWeightUnit,
                 $countryWeightUnit
             );
         }
 
-        return round($weight, 3);
+        return round((float) $weight, 3);
     }
 
     /**
@@ -748,7 +748,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $countryDimensionUnit = $this->getCode('dimensions_variables', $this->_getDimensionUnit());
 
         if ($configDimensionUnit != $countryDimensionUnit) {
-            $dimension = Mage::helper('usa')->convertMeasureDimension(
+            $dimension = (float) Mage::helper('usa')->convertMeasureDimension(
                 round($dimension, 3),
                 $configDimensionUnit,
                 $countryDimensionUnit

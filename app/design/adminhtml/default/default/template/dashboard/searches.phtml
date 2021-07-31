@@ -28,8 +28,8 @@
 <?php if(count($this->getCollection()->getItems()) > 0): ?>
     <?php foreach ($this->getCollection()->getItems() as $item): ?>
     <span><?php echo $item->getQueryText() ?></span><br />
-    <?php endforeach; ?>
+    <?php endforeach ?>
 <?php else: ?>
 <div class="a-center"><?php echo $this->__('No search keywords.') ?></div>
-<?php endif; ?>
+<?php endif ?>
 </div>

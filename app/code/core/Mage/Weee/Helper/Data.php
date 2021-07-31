@@ -277,7 +277,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($data)) {
             return array();
         }
-        return unserialize($item->getWeeeTaxApplied());
+        return unserialize($item->getWeeeTaxApplied(), ['allowed_classes' => false]);
     }
 
     /**

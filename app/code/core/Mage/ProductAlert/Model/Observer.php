@@ -295,7 +295,7 @@ class Mage_ProductAlert_Model_Observer
                     Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                     null,
-                    array('warnings' => join("\n", $this->_errors))
+                    array('warnings' => implode("\n", $this->_errors))
                 );
 
             $translate->setTranslateInline(true);

@@ -353,6 +353,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         return $filterClass;
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract|false
+     */
     public function getFilter()
     {
         if (!$this->_filter) {

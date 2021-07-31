@@ -266,7 +266,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             // collect start datetime from the product options
             $options = $product->getCustomOption(self::PRODUCT_OPTIONS_KEY);
             if ($options) {
-                $options = unserialize($options->getValue());
+                $options = unserialize($options->getValue(), ['allowed_classes' => false]);
                 if (is_array($options)) {
                     if (isset($options['start_datetime'])) {
                         $startDatetime = new Zend_Date($options['start_datetime'], Varien_Date::DATETIME_INTERNAL_FORMAT);

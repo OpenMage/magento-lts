@@ -349,7 +349,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getMessage($string = true)
     {
         if ($string) {
-            return join("\n", $this->_messages);
+            return implode("\n", $this->_messages);
         }
         return $this->_messages;
     }

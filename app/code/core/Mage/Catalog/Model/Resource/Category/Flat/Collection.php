@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('main_table.path LIKE ?', "$path%");
         }
         if ($cond) {
-            $select->where(join(' OR ', $cond));
+            $select->where(implode(' OR ', $cond));
         }
         return $this;
     }

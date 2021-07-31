@@ -5,7 +5,7 @@
 
 ## you might also need to add this line to php.ini
 ##     cgi.fix_pathinfo = 1
-## if it still doesn't work, rename php.ini to php5.ini
+## if it still doesn't work, rename php.ini to php7.ini
 
 ############################################
 ## default index file
@@ -13,7 +13,7 @@
     DirectoryIndex index.php
 
 ############################################
-## php5 settings
+## php7 settings
 
 <IfModule mod_php7.c>
 
@@ -122,6 +122,12 @@
     RewriteRule .* - [L,R=405]
 
 <IfModule mod_setenvif.c>
+
+############################################
+## Enable Developer Mode based on OS environment variable
+
+    SetEnvIfExpr "osenv('MAGE_IS_DEVELOPER_MODE') == '1'" MAGE_IS_DEVELOPER_MODE=1
+
     <IfModule mod_headers.c>
 
         ############################################

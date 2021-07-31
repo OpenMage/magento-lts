@@ -397,7 +397,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $then = $this->_getWriteAdapter()
                 ->getDateAddSql($column, $offset, Varien_Db_Adapter_Interface::INTERVAL_SECOND);
 
-            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . join(" OR ", $subParts) . " THEN $then ELSE ";
+            $query .= (++$i == $periodsCount) ? $then : "CASE WHEN " . implode(" OR ", $subParts) . " THEN $then ELSE ";
         }
 
         return $query . str_repeat('END ', count($periods) - 1);

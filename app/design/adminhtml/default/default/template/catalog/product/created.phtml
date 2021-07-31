@@ -33,7 +33,7 @@ function addProduct(closeAfter) {
         <?php else: ?>
         window.opener.superProduct.addNewProduct(<?php echo $this->getProductId() ?>, <?php echo $this->getAttributesJson(); ?>);
         window.opener.superProduct.showNoticeMessage();
-        <?php endif; ?>
+        <?php endif ?>
         added = true;
     }
 

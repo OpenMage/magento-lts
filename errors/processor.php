@@ -502,7 +502,7 @@ class Error_Processor
 
         $reportContent = file_get_contents($this->_reportFile);
         if (!preg_match('/[oc]:[+\-]?\d+:"/i', $reportContent )) {
-            $reportData = unserialize($reportContent );
+            $reportData = unserialize($reportContent, ['allowed_classes' => false]);
         }
         if (is_array($reportData)) {
             $this->_setReportData($reportData);

@@ -206,7 +206,7 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
     {
         /** @var Mage_Catalog_Model_Product_Option $option */
         $option = Mage::getModel('catalog/product_option');
-        if (is_string($store) || is_integer($store)) {
+        if (is_string($store) || is_int($store)) {
             $storeId = $this->_getStoreId($store);
             $option->setStoreId($storeId);
         }

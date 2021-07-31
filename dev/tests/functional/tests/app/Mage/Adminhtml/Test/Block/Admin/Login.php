@@ -61,7 +61,7 @@ class Login extends Form
      * @param Mapper $mapper
      * @param BrowserInterface $browser
      * @param SequenceSorterInterface $sequenceSorter
-     * @param array $config [optional]
+     * @param array $config
      * @param Dashboard $dashboard
      */
     public function __construct(
@@ -70,7 +70,7 @@ class Login extends Form
         Mapper $mapper,
         BrowserInterface $browser,
         SequenceSorterInterface $sequenceSorter,
-        array $config = [],
+        array $config,
         Dashboard $dashboard
     ) {
         parent::__construct($element, $blockFactory, $mapper, $browser, $sequenceSorter, $config);

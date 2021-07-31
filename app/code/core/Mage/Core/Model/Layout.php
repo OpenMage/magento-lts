@@ -74,6 +74,14 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      */
     protected $_directOutput = false;
 
+    protected $invalidActions
+        = [
+            // explicitly not using class constant here Mage_Page_Block_Html_Topmenu_Renderer::class
+            // if the class does not exists it breaks.
+            ['block' => 'Mage_Page_Block_Html_Topmenu_Renderer', 'method' => 'render'],
+            ['block' => 'Mage_Core_Block_Template', 'method' => 'fetchview'],
+        ];
+
     /**
      * Class constructor
      *
@@ -345,6 +353,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 }
             }
 
+            Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($block, $method, $args);
+
             $this->_translateLayoutNode($node, $args);
             call_user_func_array(array($block, $method), array_values($args));
         }
@@ -352,6 +362,24 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         Varien_Profiler::stop($_profilerKey);
 
         return $this;
+    }
+
+    /**
+     * @param Mage_Core_Block_Abstract $block
+     * @param string                   $method
+     * @param string[]                 $args
+     *
+     * @throws Mage_Core_Exception
+     */
+    protected function validateAgainstBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
+    {
+        foreach ($this->invalidActions as $action) {
+            if ($block instanceof $action['block'] && $action['method'] === strtolower($method)) {
+                Mage::throwException(
+                    sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method)
+                );
+            }
+        }
     }
 
     /**
