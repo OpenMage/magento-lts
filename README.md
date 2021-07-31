@@ -29,8 +29,12 @@ Note, the branches older than `1.9.4.x` and that were created before this strate
 - MySQL 5.6+ (8.0+ recommended)
 - (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
 
+
 - PHP 7.4 and 8.0 are supported
 - Please be aware that although OpenMage is compatible that 1 or more extensions may not be
+
+
+Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
 
 If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallback on mcryptcompat and phpseclib. mcrypt is deprecated from 7.2+ onwards.
 
