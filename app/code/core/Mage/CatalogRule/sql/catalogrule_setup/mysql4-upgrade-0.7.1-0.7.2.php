@@ -47,7 +47,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
             }
         }
 
-        $conn->update($ruleTable, array('website_ids'=>join(',', array_keys($websiteIds))), "rule_id=".$r['rule_id']);
+        $conn->update($ruleTable, array('website_ids' => implode(',', array_keys($websiteIds))), "rule_id=" . $r['rule_id']);
     }
     $conn->dropColumn($ruleTable, 'store_ids');
 }

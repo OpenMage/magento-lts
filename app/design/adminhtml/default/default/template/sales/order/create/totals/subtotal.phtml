@@ -45,7 +45,7 @@
         <?php echo $this->formatPrice($this->getTotal()->getValueInclTax()) ?>
     </td>
 </tr>
-<?php else : ?>
+<?php else: ?>
 <tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php echo $this->getTotal()->getTitle() ?>
@@ -54,4 +54,4 @@
         <?php echo $this->formatPrice($this->getTotal()->getValue()) ?>
     </td>
 </tr>
-<?php endif;?>
+<?php endif ?>

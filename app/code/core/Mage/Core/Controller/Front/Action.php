@@ -36,7 +36,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
     /**
      * Session namespace to refer in other places
      */
-    const SESSION_NAMESPACE = 'frontend';
+    const SESSION_NAMESPACE = 'om_frontend';
 
     /**
      * Add secret key to url config path

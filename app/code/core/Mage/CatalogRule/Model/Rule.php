@@ -319,6 +319,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         $this->_invalidateCache();
         $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
         if ($indexProcess) {
+            $indexProcess->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
             $indexProcess->reindexAll();
         }
     }

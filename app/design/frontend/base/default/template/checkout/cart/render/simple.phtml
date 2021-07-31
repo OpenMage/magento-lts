@@ -36,8 +36,8 @@
         <h3 class="product-name"><a href="<?php echo $this->getItemUrl($_item) ?>"><?php echo $this->getItemName($_item) ?></a></h3>
         <?php echo $this->getItemDescription($_item) ?>
         <?php if($_item->getMessage()): ?>
-        <p class="item-msg <?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif; ?>">* <?php echo $_item->getMessage() ?></p>
-        <?php endif; ?>
+        <p class="item-msg <?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif ?>">* <?php echo $_item->getMessage() ?></p>
+        <?php endif ?>
     </td>
     <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
     <td class="a-center">
@@ -48,12 +48,12 @@
     <td class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
     </td>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getPriceInclTax($_item)); ?>
     </td>
-    <?php endif; ?>
+    <?php endif ?>
     <td class="a-center">
         <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getItemQty($_item) ?>"
                data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>"
@@ -63,10 +63,10 @@
     <td class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($_item->getRowTotal()) ?>
     </td>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
         <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($_item)); ?>
     </td>
-    <?php endif; ?>
+    <?php endif ?>
 </tr>

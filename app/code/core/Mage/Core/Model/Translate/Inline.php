@@ -386,11 +386,11 @@ class Mage_Core_Model_Translate_Inline
                 $transRegExp = '# data-translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml).']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $m)) {
                     $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
-                    $trAttr  = ' data-translate=' . $quoteHtml
-                        . htmlspecialchars('[' . $m[1] . ',' . join(',', $trArr) . ']') . $quoteHtml;
+                    $trAttr = ' data-translate=' . $quoteHtml
+                        . htmlspecialchars('[' . $m[1] . ',' . implode(',', $trArr) . ']') . $quoteHtml;
                 } else {
-                    $trAttr  = ' data-translate=' . $quoteHtml
-                        . htmlspecialchars('[' . join(',', $trArr) . ']') . $quoteHtml;
+                    $trAttr = ' data-translate=' . $quoteHtml
+                        . htmlspecialchars('[' . implode(',', $trArr) . ']') . $quoteHtml;
                 }
                 $tagHtml = substr_replace($tagHtml, $trAttr, strlen($tagMatch[1][0])+1, 1);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], strlen($tagMatch[0][0]));
@@ -435,7 +435,7 @@ class Mage_Core_Model_Translate_Inline
         return $tagHtml . '<span class="translate-inline-' . $tagName
             . '" data-translate='
             . $this->_getHtmlQuote()
-            . htmlspecialchars('[' . join(',', $trArr) . ']')
+            . htmlspecialchars('[' . implode(',', $trArr) . ']')
             . $this->_getHtmlQuote() . '>'
             . strtoupper($tagName) . '</span>';
     }
@@ -452,7 +452,7 @@ class Mage_Core_Model_Translate_Inline
     {
         return substr($tagHtml, 0, strlen($tagName) + 1)
             . ' data-translate='
-            . $this->_getHtmlQuote() . htmlspecialchars('[' . join(',', $trArr) . ']')
+            . $this->_getHtmlQuote() . htmlspecialchars('[' . implode(',', $trArr) . ']')
             . $this->_getHtmlQuote()
             . substr($tagHtml, strlen($tagName) + 1);
     }

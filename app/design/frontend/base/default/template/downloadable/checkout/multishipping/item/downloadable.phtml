@@ -31,7 +31,7 @@
     <?php foreach ($_options as $_option) : ?>
     <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
     <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
-    <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
+    <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif ?>><?php echo $_formatedOptionValue['value'] ?>
         <?php if (isset($_formatedOptionValue['full_view'])): ?>
         <div class="truncated_full_value">
             <dl class="item-options">
@@ -39,11 +39,11 @@
                 <dd><?php echo $_formatedOptionValue['full_view'] ?></dd>
             </dl>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
     </dd>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </dl>
-<?php endif;?>
+<?php endif ?>
 <!-- / -->
     <!-- downloadable -->
     <?php if ($links = $this->getLinks()): ?>
@@ -51,7 +51,7 @@
         <dt><?php echo $this->escapeHtml($this->getLinksTitle()); ?></dt>
         <?php foreach ($links as $link): ?>
             <dd><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </dl>
-    <?php endif; ?>
+    <?php endif ?>
     <!-- EOF downloadable -->

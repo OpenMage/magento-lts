@@ -131,11 +131,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Update specified button property
      *
      * @param string $id
-     * @param string|null $key
+     * @param string $key
      * @param mixed $data
      * @return $this
      */
-    protected function _updateButton($id, $key=null, $data)
+    protected function _updateButton($id, $key, $data)
     {
         foreach ($this->_buttons as $level => $buttons) {
             if (isset($buttons[$id])) {
@@ -162,11 +162,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Public wrapper for protected _updateButton method
      *
      * @param string $id
-     * @param string|null $key
+     * @param string $key
      * @param mixed $data
      * @return $this
      */
-    public function updateButton($id, $key=null, $data)
+    public function updateButton($id, $key, $data)
     {
         return $this->_updateButton($id, $key, $data);
     }

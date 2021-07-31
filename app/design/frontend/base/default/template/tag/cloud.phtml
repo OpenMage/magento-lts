@@ -31,8 +31,8 @@
     <ul class="tags-list">
         <?php foreach ($this->getTags() as $_tag): ?>
             <li><a href="<?php echo $_tag->getTaggedProductsUrl() ?>" style="font-size:<?php echo $_tag->getRatio()*70+75 ?>%;"><?php echo $this->escapeHtml($_tag->getName()) ?></a></li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
 <?php else: ?>
     <p class="note-msg"><?php echo $this->__('There are no tags available.') ?></p>
-<?php endif; ?>
+<?php endif ?>

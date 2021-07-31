@@ -73,23 +73,23 @@
                                                 <span class="no-display"><input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>" checked="checked"/></span>
                                                 <?php else: ?>
                                                 <input type="radio" name="shipping_method[<?php echo $_address->getId() ?>]" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod($_address)) echo ' checked="checked"' ?> class="radio" />
-                                                <?php endif; ?>
+                                                <?php endif ?>
                                                 <label for="s_method_<?php echo $_address->getId() ?>_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                                                 <?php $_excl = $this->getShippingPrice($_address, $_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                                 <?php $_incl = $this->getShippingPrice($_address, $_rate->getPrice(), true); ?>
                                                 <?php echo $_excl; ?>
                                                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                                                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                                                <?php endif; ?>
+                                                <?php endif ?>
                                                 </label>
                                            <?php endif ?>
                                         </li>
-                                    <?php endforeach; ?>
+                                    <?php endforeach ?>
                                     </ul>
                                 </dd>
-                            <?php endforeach; ?>
+                            <?php endforeach ?>
                         </dl>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
@@ -113,14 +113,14 @@
                             </td>
                             <td class="a-center"><?php echo $_item->getQty() ?></td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                 </table>
                 <script type="text/javascript">decorateTable('shipping-table-<?php echo $_address->getId() ?>')</script>
                 <?php echo $this->helper('giftmessage/message')->getInline('multishipping_adress', $_address); ?>
             </div>
         </div>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php echo $this->getChildHtml('checkout_billing_items') ?>
         <div class="buttons-set">
             <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Select Addresses') ?></a></p>

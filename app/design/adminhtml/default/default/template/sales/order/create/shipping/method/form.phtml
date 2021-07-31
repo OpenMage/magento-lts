@@ -53,15 +53,15 @@
                                 <?php echo $_excl; ?>
                                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                                <?php endif; ?>
+                                <?php endif ?>
                             </strong>
                         </label>
                    <?php endif ?>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ul>
         </dd>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </dl>
     </div>
     <?php if ($_rate = $this->getActiveMethodRate()): ?>
@@ -75,7 +75,7 @@
                 <?php echo $_excl; ?>
                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                     (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                <?php endif; ?>
+                <?php endif ?>
             </strong>
             <!--input type="text" class="input-text" style="width:70px"/-->
             <br/>
@@ -85,7 +85,7 @@
         </div>
     <?php else: ?>
         <script type="text/javascript">$('order-shipping-method-choose').show();</script>
-    <?php endif; ?>
+    <?php endif ?>
 <?php elseif($this->getIsRateRequest()): ?>
     <strong><?php echo Mage::helper('sales')->__('Sorry, no quotes are available for this order at this time.') ?></strong>
 <?php else: ?>
@@ -95,9 +95,9 @@
         </a>
         <input type="hidden" name="order[has_shipping]" value="" class="required-entry" />
     </div>
-<?php endif; ?>
+<?php endif ?>
 <div style="display:none;" id="shipping-method-overlay" class="overlay"><span><?php echo $this->__('Shipping method selection is not applicable') ?></span></div>
 <script type="text/javascript">
-order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
-order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif; ?>);
+order.overlay('shipping-method-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);
+order.overlay('address-shipping-overlay', <?php if ($this->getQuote()->isVirtual()): ?>false<?php else: ?>true<?php endif ?>);
 </script>

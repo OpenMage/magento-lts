@@ -303,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Add column to grid
      *
      * @param   string $columnId
-     * @param   array || Varien_Object $column
+     * @param   array $column
      * @return  Mage_Adminhtml_Block_Widget_Grid
      */
     public function addColumn($columnId, $column)
@@ -313,9 +313,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 ->setData($column)
                 ->setGrid($this);
         }
-        /*elseif ($column instanceof Varien_Object) {
-            $this->_columns[$columnId] = $column;
-        }*/
         else {
             throw new Exception(Mage::helper('adminhtml')->__('Wrong column format.'));
         }
@@ -426,7 +423,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid column by column id
      *
      * @param   string $columnId
-     * @return  Varien_Object || false
+     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|false
      */
     public function getColumn($columnId)
     {
@@ -439,13 +436,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve all grid columns
      *
-     * @return array
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column[]
      */
     public function getColumns()
     {
         return $this->_columns;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     protected function _setFilterValues($data)
     {
         foreach ($this->getColumns() as $columnId => $column) {
@@ -963,36 +965,29 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $callback
      * @param array $args additional arguments for callback method
-     * @return $this
      */
     public function _exportIterateCollection($callback, array $args)
     {
         $originalCollection = $this->getCollection();
         $count = null;
         $page  = 1;
-        $lPage = null;
-        $break = false;
 
-        while ($break !== true) {
+        do {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
-            if (is_null($count)) {
-                $count = $collection->getSize();
-                $lPage = $collection->getLastPageNumber();
-            }
-            if ($lPage == $page) {
-                $break = true;
-            }
-            $page ++;
+
+            $count = $collection->count();
+
+            $page++;
 
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
             }
             $collection->clear();
             unset($collection);
-        }
+        } while($count == $this->_exportPageSize);
     }
 
     /**
@@ -1293,7 +1288,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param   mixed $default
      * @return  mixed
      */
-    public function getParam($paramName, $default=null)
+    public function getParam($paramName, $default = null)
     {
         $session = Mage::getSingleton('adminhtml/session');
         $sessionParamName = $this->getId().$paramName;

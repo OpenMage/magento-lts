@@ -37,15 +37,15 @@
         CentinelAuthenticateController = new CentinelAuthenticate('centinel_authenticate_block', 'centinel_authenticate_iframe');
         <?php foreach ($this->getRelatedBlocks() as $relatedBlockId):?>
             CentinelAuthenticateController.addRelatedBlock('<?php echo $relatedBlockId ?>');
-        <?php endforeach;?>
+        <?php endforeach ?>
         <?php if ($this->getAuthenticationStartMode() == 'instant'): ?>
             CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');
         <?php elseif ($this->getAuthenticationStartMode() == 'window'):?>
             Event.observe(window, 'load', function(){CentinelAuthenticateController.start('<?php echo $this->getFrameUrl() ?>');});
-        <?php endif;?>
+        <?php endif ?>
     //]]>
     </script>
-<?php else:?>
+<?php else: ?>
     <script type="text/javascript">
     //<![CDATA[
         if (typeof CentinelAuthenticateController != 'undefined') {
@@ -53,4 +53,4 @@
         }
     //]]>
     </script>
-<?php endif;?>
+<?php endif ?>

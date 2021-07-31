@@ -1322,7 +1322,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
                 for ($i = 0; $i < $textLength; $i ++) {
                     $leftPosition = $this->getQuietZone() + $space * ($i + 0.5);
                     $this->_addText(
-                        $text{$i},
+                        $text[$i],
                         $this->_fontSize * $this->_factor,
                         $this->_rotate(
                             $leftPosition,

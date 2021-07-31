@@ -726,6 +726,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     public function isLast()
     {
         foreach ($this->getAllItems() as $item) {
+            $orderItem = $item->getOrderItem();
+            if ($orderItem->isDummy()) {
+                continue;
+            }
+
             if (!$item->isLast()) {
                 return false;
             }

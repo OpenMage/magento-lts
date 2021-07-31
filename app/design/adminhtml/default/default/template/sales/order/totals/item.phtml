@@ -29,7 +29,7 @@
 
 <?php if ((float) $_source->getDataUsingMethod($this->getSourceField())): ?>
     <tr>
-        <td class="label"><?php if ($this->getStrong()) : ?><strong><?php endif; ?><?php echo Mage::helper('sales')->__($this->getLabel()) ?><?php if ($this->getStrong()) : ?></strong><?php endif; ?></td>
-        <td <?php echo $this->getHtmlClass() ? ('class="' . $this->getHtmlClass() . '"') : '';?>><?php if ($this->getStrong()) : ?><strong><?php endif; ?><?php echo $this->displayPriceAttribute($this->getSourceField()) ?><?php if ($this->getStrong()) : ?></strong><?php endif; ?></td>
+        <td class="label"><?php if ($this->getStrong()) : ?><strong><?php endif ?><?php echo Mage::helper('sales')->__($this->getLabel()) ?><?php if ($this->getStrong()) : ?></strong><?php endif ?></td>
+        <td <?php echo $this->getHtmlClass() ? ('class="' . $this->getHtmlClass() . '"') : '';?>><?php if ($this->getStrong()) : ?><strong><?php endif ?><?php echo $this->displayPriceAttribute($this->getSourceField()) ?><?php if ($this->getStrong()) : ?></strong><?php endif ?></td>
     </tr>
-<?php endif; ?>
+<?php endif ?>

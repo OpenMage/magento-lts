@@ -34,7 +34,7 @@
                 <?php if ($this->getItemTitle($_item)): ?>
                 <strong><?php echo $this->getItemTitle($_item) ?></strong>
                 <span class="separator">|</span>
-                <?php endif; ?>
+                <?php endif ?>
                 <small>
                     <?php echo $this->helper('sales')->__('Customer') ?>
                     <strong class="subdue">
@@ -45,14 +45,14 @@
                         <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16px" height="16px" alt="" />
                     <?php else: ?>
                         <?php echo $this->helper('sales')->__('Not Notified') ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     </strong>
                 </small>
                 <?php if ($_comment = $this->getItemComment($_item)): ?>
                     <br/><?php echo $_comment ?>
-                <?php endif; ?>
+                <?php endif ?>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ul>
     </fieldset>
 </div>

@@ -415,7 +415,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     $cacheId = 'store_' . $code . '_config_cache';
                     $data = Mage::app()->loadCache($cacheId);
                     if ($data) {
-                        $data = unserialize($data);
+                        $data = unserialize($data, ['allowed_classes' => false]);
                     } else {
                         $data = array();
                         foreach ($this->_configCacheBaseNodes as $node) {
@@ -1001,7 +1001,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function roundPrice($price)
     {
-        return round($price, 2);
+        return round((float)$price, 2);
     }
 
     /**

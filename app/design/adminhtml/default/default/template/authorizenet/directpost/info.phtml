@@ -82,7 +82,7 @@ $_orderUrl = $this->helper('authorizenet')->getPlaceOrderAdminUrl();
             <input type="text" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('payment')->__('Card Verification Number')) ?>" class="required-entry input-text validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" style="width:3em;" value="<?php echo $this->getInfoData('cc_cid')?>" />
         </div>
     </li>
-    <?php endif; ?>
+    <?php endif ?>
 </ul>
 <script type="text/javascript">
 //<![CDATA[
@@ -142,7 +142,7 @@ AdminOrder.prototype.getPaymentData = function(currentMethod) {
 };
 <?php if (!$this->isAjaxRequest()): ?>
 document.observe('dom:loaded', function(){
-<?php endif; ?>
+<?php endif ?>
 directPostModel = new directPost(
         '<?php echo $_code ?>',
         'directpost-iframe',
@@ -152,6 +152,6 @@ directPostModel = new directPost(
         '<?php echo $this->getUrl('*/*/save', array('_secure' => $this->getRequest()->isSecure())) ?>');
 <?php if (!$this->isAjaxRequest()): ?>
 });
-<?php endif; ?>
+<?php endif ?>
 //]]>
 </script>

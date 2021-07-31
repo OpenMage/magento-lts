@@ -447,7 +447,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "$path%");
         }
         if ($cond) {
-            $this->getSelect()->where(join(' OR ', $cond));
+            $this->getSelect()->where(implode(' OR ', $cond));
         }
         return $this;
     }

@@ -93,7 +93,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
         $incrementId = intval($data['increment_id']);
         $customerId = intval($data['customer_id']);
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->load($orderId);
 
         if (!is_null($order->getId())

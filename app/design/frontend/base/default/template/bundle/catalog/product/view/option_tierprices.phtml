@@ -48,7 +48,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
     <ul class="<?php echo ($this->getInGrouped() ? 'tier-prices-grouped product-pricing-grouped' : 'tier-prices product-pricing'); ?>">
     <?php if ($this->getInGrouped()): ?>
         <?php $_tierPrices = $this->getTierPrices($_product); ?>
-    <?php endif; ?>
+    <?php endif ?>
     <?php Mage::helper('weee')->processTierPrices($_product, $_tierPrices, false); ?>
     <?php foreach ($_tierPrices as $_index => $_price): ?>
         <li class="tier-price tier-<?php echo $_index; ?>">
@@ -57,7 +57,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                 <?php echo $this->__('Buy %1$s for', $_price['price_qty']) ?>:
             <?php else: ?>
                 <?php echo $this->__('Buy %1$s', $_price['price_qty']) ?>
-            <?php endif; ?>
+            <?php endif ?>
         <?php else: ?>
 
         <?php if ($this->helper('tax')->displayBothPrices()): ?>
@@ -71,9 +71,9 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                     <?php $separator = ' + '; foreach ($_weeeTaxAttributes as $_attribute): ?>
                         <?php echo $separator; ?>
                         <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </small>)
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php echo $this->__('each') ?>
             <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 4)): ?>
                     <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price_incl_weee_only']); ?>
@@ -83,9 +83,9 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                     <?php $separator = ' + '; foreach ($_weeeTaxAttributes as $_attribute): ?>
                         <?php echo $separator; ?>
                         <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </small>)
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php echo $this->__('each') ?>
             <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 2)): ?>
                     <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price']); ?>
@@ -93,14 +93,14 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                     (<small>
                     <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
                         <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee']); ?>
                     </small>)
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php echo $this->__('each') ?>
             <?php else: ?>
                     <?php echo $this->__('Buy %1$s for %2$s (%3$s incl. tax) each', $_price['price_qty'], $_price['formated_price'], $_price['formated_price_incl_tax']) ?>
-            <?php endif; ?>
+            <?php endif ?>
         <?php else: ?>
             <?php if ($this->helper('tax')->displayPriceIncludingTax()): ?>
                 <?php if (Mage::helper('weee')->typeOfDisplay($_product, 0)): ?>
@@ -114,7 +114,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 4)): ?>
                         <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price_incl_weee']); ?>
@@ -125,7 +125,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 2)): ?>
                         <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price_incl_tax']); ?>
@@ -133,14 +133,14 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                         (<small>
                         <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee']); ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php else: ?>
                         <?php echo $this->__('Buy %1$s for %2$s each', $_price['price_qty'], $_price['formated_price_incl_tax']) ?>
-                <?php endif; ?>
+                <?php endif ?>
             <?php else: ?>
                 <?php if (Mage::helper('weee')->typeOfDisplay($_product, 0)): ?>
                         <?php echo $this->__('Buy %1$s for %2$s each', $_price['price_qty'], $_price['formated_price_incl_weee_only']) ?>
@@ -153,7 +153,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 4)): ?>
                         <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price_incl_weee_only']); ?>
@@ -164,7 +164,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()+$_attribute->getTaxAmount()); ?>
                         <?php $separator = ' + '; endforeach; ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php elseif(Mage::helper('weee')->typeOfDisplay($_product, 2)): ?>
                         <?php echo $this->__('Buy %1$s for %2$s', $_price['price_qty'], $_price['formated_price']); ?>
@@ -172,25 +172,25 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
                         (<small>
                         <?php foreach ($_weeeTaxAttributes as $_attribute): ?>
                             <?php echo $_attribute->getName(); ?>: <?php echo Mage::helper('core')->currency($_attribute->getAmount()); ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         <?php echo $this->__('Total incl. Tax: %1$s', $_price['formated_price_incl_weee_only']); ?>
                         </small>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php echo $this->__('each') ?>
                 <?php else: ?>
                         <?php echo $this->__('Buy %1$s for %2$s each', $_price['price_qty'], $_price['formated_price']) ?>
-                <?php endif; ?>
-            <?php endif; ?>
-        <?php endif; ?>
+                <?php endif ?>
+            <?php endif ?>
+        <?php endif ?>
 
-        <?php endif; // Can apply MSRP ?>
+        <?php endif // Can apply MSRP ?>
 
         <?php if (!$this->getInGrouped()): ?>
             <?php if(($_product->getPrice() == $_product->getFinalPrice() && $_product->getPrice() > $_price['price'])
             || ($_product->getPrice() != $_product->getFinalPrice() &&  $_product->getFinalPrice() > $_price['price'])): ?>
                 <?php echo $this->__('and') ?>&nbsp;<strong class="benefit"><?php echo $this->__('save')?>&nbsp;<span class="percent tier-fixed"><?php echo $_price['savePercent']?></span>%
             <?php endif ?></strong>
-        <?php endif; ?>
+        <?php endif ?>
 
         <?php if ($_catalogHelper->isShowPriceOnGesture($_product)):?>
             <?php $popupId = 'msrp-popup-' . $_product->getId() . $this->helper('core')->getRandomString(20); ?>
@@ -224,11 +224,11 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
             <span class="msrp-price-hide-message">
                 <?php echo $_catalogHelper->getMsrpPriceMessage($_product) ?>
             </span>
-        <?php endif; ?>
+        <?php endif ?>
 
 
         </li>
 
     <?php endforeach ?>
     </ul>
-<?php endif;?>
+<?php endif ?>

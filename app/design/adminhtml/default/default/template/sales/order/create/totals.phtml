@@ -34,14 +34,14 @@
 <div class="order-totals-bottom">
     <p>
         <label for="notify_customer" class="normal"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
-        <input type="checkbox" id="notify_customer" name="order[comment][customer_note_notify]" value="1" <?php if($this->getNoteNotify()): ?>checked="true"<?php endif; ?>/>
+        <input type="checkbox" id="notify_customer" name="order[comment][customer_note_notify]" value="1" <?php if($this->getNoteNotify()): ?>checked="true"<?php endif ?>/>
     </p>
     <?php if ($this->canSendNewOrderConfirmationEmail()): ?>
     <p>
         <label for="send_confirmation" class="normal"><?php echo Mage::helper('sales')->__('Email Order Confirmation') ?></label>
         <input type="checkbox" id="send_confirmation" name="order[send_confirmation]" value="1" checked="checked"/>
     </p>
-    <?php endif; ?>
+    <?php endif ?>
     <p><?php echo $this->getButtonHtml(Mage::helper('sales')->__('Submit Order'),'order.submit()','save'); ?></p>
 </div>
 
