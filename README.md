@@ -52,11 +52,11 @@ git add -A && git commit
 
 ## Requirements
 
-- PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible)
+- PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
 - MySQL 5.6+ (8.0+ recommended)
-- Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
+- (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
 
-* PHP 7.4 support is work in motion https://github.com/OpenMage/magento-lts/projects/6
+* PHP 7.4 and 8.0 are supported
 * Please be aware that although OpenMage is compatible that 1 or more extensions may not be
 
 ## Translations
