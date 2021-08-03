@@ -127,13 +127,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
+
+        $customerStoreId = null;
+        if ($customer->getId()) {
+            $customerStoreId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
+        }
+
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->unsIsVisible();
             
-            // sets store id to attribute, is evaluated in customer country input fields to provide correct allowed countries
-            $attribute->setStoreId($customer->getStore()->getId());
+            /* Sets store id to attribute if select or multiselect because values are loaded store specific.
+               If not set values of default store are loaded which can be undesirable (e.g. country list in customer
+               addresses). */
+            /** @see Mage_Adminhtml_Block_Widget_Form::_setFieldset() lines 208 & 210 */
+            $frontendInputType = $attribute->getFrontend()->getInputType();
+            if ($customerStoreId !== null && ($frontendInputType === 'select' || $frontendInputType === 'multiselect')) {
+                $attribute->setStoreId($customerStoreId);
+            }
         }
         $this->_setFieldset($attributes, $fieldset);
 
@@ -161,11 +173,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
                     $element->setReadonly(true, true);
                 }
             }
-        }
-
-        $customerStoreId = null;
-        if ($customer->getId()) {
-            $customerStoreId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
         }
 
         $prefixElement = $form->getElement('prefix');
