@@ -1128,11 +1128,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param   string $date
      * @param   string $format
      * @param   bool $showTime
+     * @param   bool $useTimezone
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
     {
-        return $this->helper('core')->formatDate($date, $format, $showTime);
+        return $this->helper('core')->formatDate($date, $format, $showTime, $useTimezone);
     }
 
     /**
