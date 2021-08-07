@@ -867,7 +867,7 @@ final class Mage
 
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
 
-        if ($level > $maxLogLevel) {
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
             return;
         }
 
