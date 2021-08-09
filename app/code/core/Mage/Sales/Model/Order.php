@@ -1446,6 +1446,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams(array(
             'order'        => $this,
+            'total'        => $this->formatPriceTxt($this->getGrandTotal()),
             'billing'      => $this->getBillingAddress(),
             'payment_html' => $paymentBlockHtml
         ));
@@ -1540,6 +1541,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams(array(
                 'order'   => $this,
+                'total'   => $this->formatPriceTxt($this->getGrandTotal()),
                 'comment' => $comment,
                 'billing' => $this->getBillingAddress()
             ));
