@@ -1243,6 +1243,7 @@
 "Wrong billing agreement ID specified.","Wrong billing agreement ID specified."
 "Wrong column format.","Wrong column format."
 "Wrong field specified.","Wrong field specified."
+"Wrong field specified in %s/%s/%s","Wrong field specified in %s/%s/%s"
 "Wrong newsletter template.","Wrong newsletter template."
 "Wrong quote item.","Wrong quote item."
 "Wrong tab configuration.","Wrong tab configuration."

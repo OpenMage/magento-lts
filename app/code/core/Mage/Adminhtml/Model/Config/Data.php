@@ -435,7 +435,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
                 if (($groupConfig ? !$groupConfig->dynamic_group : true) && !$this->_isValidField($fieldConfig)) {
-                    Mage::throwException(Mage::helper('adminhtml')->__('Wrong field specified.'));
+                    Mage::throwException(Mage::helper('adminhtml')->__('Wrong field specified in %s/%s/%s', $section, $group, $field));
                 }
                 $groupsSecure[$group]['fields'][$fieldName] = $fieldData;
             }
