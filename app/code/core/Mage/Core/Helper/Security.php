@@ -21,7 +21,10 @@ class Mage_Core_Helper_Security
     public function validateAgainstBlockMethodBlacklist(Mage_Core_Block_Abstract $block, $method, array $args)
     {
         foreach ($this->invalidBlockActions as $action) {
-            if ($block instanceof $action['block'] && strtolower($action['method']) === strtolower($method)) {
+            $calledMethod = strtolower($method);
+            if (($block instanceof $action['block'] && strtolower($action['method']) === $calledMethod)
+                || ($block instanceof $action['block']
+                    && strtolower($action['block'] . '::' . $action['method']) === $calledMethod)) {
                 Mage::throwException(
                     sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method)
                 );
