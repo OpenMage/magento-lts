@@ -1,6 +1,26 @@
 
-## v20.0.12 - unreleased
+## v20.0.14 - unreleased
 
+
+## v20.0.13 - 2021-08-26
+
+2 security updates
+
+CVE-2021-32758 - GHSA-26rr-v2j2-25fh - Layout XML Arbitrary Code Fix
+CVE-2021-32759 - GHSA-xm9f-vxmx-4m58 - Data Flow Sanitation Issue Fix
+
+more updates:
+
+#1735 Fixed origData is empty in a quote
+#1667 Removed orphan directory and code of compiler and downloder.
+#1355 Removed unused variable
+#1525 Fixed incorrect datetime in block.
+
+and merged changes from v19.4.15
+
+## v20.0.12 - 2021-06-25
+
+fix version in getOpenMageVersionInfo()
 
 ## v20.0.11 - 2021-06-25
 
