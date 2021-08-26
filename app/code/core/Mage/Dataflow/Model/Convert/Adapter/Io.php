@@ -49,7 +49,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $isError = false;
 
             $ioConfig = $this->getVars();
-            switch ($this->getVar('type', 'file')) {
+            switch (strtolower($this->getVar('type', 'file'))) {
                 case 'file':
                     //validate export/import path
                     $path = rtrim($ioConfig['path'], '\\/')

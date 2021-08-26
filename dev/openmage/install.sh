@@ -17,7 +17,7 @@ done
 
 HOST_PORT=":${HOST_PORT:-80}"
 test "$HOST_PORT" = ":80" && HOST_PORT=""
-BASE_URL="http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"
+BASE_URL=${BASE_URL:-"http://${HOST_NAME:-openmage-7f000001.nip.io}${HOST_PORT}/"}
 ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
 ADMIN_USERNAME="${ADMIN_USERNAME:-admin}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-veryl0ngpassw0rd}"

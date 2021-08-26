@@ -1020,6 +1020,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                          */
                         $customer->setPassword($newPass);
                         $customer->setPasswordConfirmation($confPass);
+
+                        // Invalidate reset password token when user changes password
+                        $customer->setRpToken(null);
+                        $customer->setRpTokenCreatedAt(null);
+                        $customer->setRpCustomerId(null);
                     } else {
                         $errors[] = $this->__('New password field cannot be empty.');
                     }
