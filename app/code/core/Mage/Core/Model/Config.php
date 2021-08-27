@@ -1558,7 +1558,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get DB table names prefix
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element
      */
     public function getTablePrefix()
     {
