@@ -83,14 +83,16 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     /**
      * @param int $optionId
      * @param string $entityPkValue
+     * @param int $customerId
      * @return $this
      */
-    public function addOptionVote($optionId, $entityPkValue)
+    public function addOptionVote($optionId, $entityPkValue, $customerId = null)
     {
         Mage::getModel('rating/rating_option')->setOptionId($optionId)
             ->setRatingId($this->getId())
             ->setReviewId($this->getReviewId())
             ->setEntityPkValue($entityPkValue)
+            ->setCustomerId($customerId)
             ->addVote();
         return $this;
     }
