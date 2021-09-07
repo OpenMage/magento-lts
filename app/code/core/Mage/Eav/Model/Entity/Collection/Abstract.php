@@ -772,7 +772,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (strpos($tableName, '/') !== false) {
+        if (!is_object($tableName) && strpos($tableName, '/') !== false) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
         if (empty($tableAlias)) {
@@ -823,7 +823,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $cond = '('.implode(') AND (', $condArr).')';
 
-// join table
+        // join table
         $this->getSelect()->$joinMethod(array($tableAlias => $tableName), $cond, $fields);
 
         return $this;
