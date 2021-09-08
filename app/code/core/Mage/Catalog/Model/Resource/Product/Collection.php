@@ -1546,7 +1546,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 return $this;
             }
             if ($this->isEnabledFlat()) {
-                $this->getSelect()->order("cat_index_position {$dir}");
+                $this->getSelect()->order("cat_index.position {$dir}");
             }
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
@@ -1878,7 +1878,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $this->getSelect()->join(
                 array('cat_index' => $this->getTable('catalog/category_product_index')),
                 $joinCond,
-                array('cat_index_position' => 'position')
+                array('cat_index.position' => 'position')
             );
         }
 
@@ -1916,7 +1916,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $this->getSelect()->join(
                 array('cat_pro' => $this->getTable('catalog/category_product')),
                 $joinCond,
-                array('cat_index_position' => 'position')
+                array('cat_index.position' => 'position')
             );
         }
         $this->_joinFields['position'] = array(
