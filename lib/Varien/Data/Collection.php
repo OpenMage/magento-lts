@@ -449,7 +449,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      *
      * Returns array with results of callback for each item
      *
-     * @param string $callback
+     * @param closure $callback
      * @param array $args
      * @return array
      */
@@ -470,7 +470,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * @param string $obj_method
+     * @param closure $obj_method
      * @param array $args
      */
     public function each($obj_method, $args = array())
