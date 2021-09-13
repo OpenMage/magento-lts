@@ -54,7 +54,7 @@ class CredisException extends Exception
  * @method bool|array    config(string $setGet, string $key, string $value = null)
  *
  * Keys:
- * @method int           del(string $key)
+ * @method int           del(string|array $key)
  * @method int           exists(string $key)
  * @method int           expire(string $key, int $seconds)
  * @method int           expireAt(string $key, int $timestamp)
