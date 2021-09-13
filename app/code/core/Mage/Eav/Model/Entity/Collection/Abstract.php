@@ -754,7 +754,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Join a table
      *
-     * @param string|array $table
+     * @param array|string|Zend_Db_Expr $table
      * @param string $bind
      * @param string|array $fields
      * @param null|array $cond
