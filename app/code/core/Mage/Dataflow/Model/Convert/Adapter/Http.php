@@ -74,7 +74,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
             exit;
         }
         if (!empty($_FILES['io_file']['tmp_name'])) {
-            $uploader = Mage::getModel('core/file_uploader','io_file');
+            $uploader = Mage::getModel('core/file_uploader', 'io_file');
             $uploader->setAllowedExtensions(array('csv','xml'));
             $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
             $uploader->save($path);

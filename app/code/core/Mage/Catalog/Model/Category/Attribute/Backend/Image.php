@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Image extends Mage_Eav_Model
         $path = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category' . DS;
 
         try {
-            $uploader = Mage::getModel('core/file_uploader',$this->getAttribute()->getName());
+            $uploader = Mage::getModel('core/file_uploader', $this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->addValidateCallback(

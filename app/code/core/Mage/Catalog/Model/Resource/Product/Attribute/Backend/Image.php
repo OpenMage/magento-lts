@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_E
         }
 
         try {
-            $uploader = Mage::getModel('core/file_uploader',$this->getAttribute()->getName());
+            $uploader = Mage::getModel('core/file_uploader', $this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);

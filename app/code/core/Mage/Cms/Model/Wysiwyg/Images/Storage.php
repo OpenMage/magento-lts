@@ -282,7 +282,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function uploadFile($targetPath, $type = null)
     {
-        $uploader = Mage::getModel('core/file_uploader','image');
+        $uploader = Mage::getModel('core/file_uploader', 'image');
         if ($allowed = $this->getAllowedExtensions($type)) {
             $uploader->setAllowedExtensions($allowed);
         }

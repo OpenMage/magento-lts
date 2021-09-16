@@ -413,7 +413,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 //            if (!$this->_checkMemory()) {
 //                $this->_baseFile = null;
 //            }
-            $this->_processor = Mage::getModel('core/varien_image',$this->getBaseFile());
+            $this->_processor = Mage::getModel('core/varien_image', $this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);
         $this->_processor->keepFrame($this->_keepFrame);

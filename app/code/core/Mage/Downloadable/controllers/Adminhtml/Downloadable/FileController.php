@@ -50,7 +50,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
         }
         $result = array();
         try {
-            $uploader = Mage::getModel('core/file_uploader',$type);
+            $uploader = Mage::getModel('core/file_uploader', $type);
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
             $result = $uploader->save($tmpPath);

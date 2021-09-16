@@ -276,7 +276,7 @@ class Mage_XmlConnect_Model_Images extends Mage_Core_Model_Abstract
                 $filePath = $this->_forcedConvertPng($filePath, $customSizeFile, $originalImageType);
             }
 
-            $image = Mage::getModel('core/varien_image',$filePath);
+            $image = Mage::getModel('core/varien_image', $filePath);
             $widthOriginal = $image->getOriginalWidth();
             $heightOriginal = $image->getOriginalHeight();
 

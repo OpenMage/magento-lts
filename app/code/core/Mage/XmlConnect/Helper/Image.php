@@ -224,7 +224,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
             }
         }
 
-        $image = Mage::getModel('core/varien_image',$file);
+        $image = Mage::getModel('core/varien_image', $file);
         $width = $image->getOriginalWidth();
         $height = $image->getOriginalHeight();
 
@@ -484,7 +484,7 @@ class Mage_XmlConnect_Helper_Image extends Mage_Core_Helper_Abstract
         $file = array_pop($imageUrl);
         $filePath = Mage_XmlConnect_Model_Images::getBasePath() . DS . $file;
         if (!file_exists($customDir . DS . $file)) {
-            $image = Mage::getModel('core/varien_image',$filePath);
+            $image = Mage::getModel('core/varien_image', $filePath);
             $widthOriginal = $image->getOriginalWidth();
             $heightOriginal = $image->getOriginalHeight();
 

@@ -234,7 +234,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         if (!empty($value['tmp_name'])) {
             try {
-                $uploader = Mage::getModel('core/varien_file_uploader',$value);
+                $uploader = Mage::getModel('core/varien_file_uploader', $value);
                 $uploader->setFilesDispersion(true);
                 $uploader->setFilenamesCaseSensitivity(false);
                 $uploader->setAllowRenameFiles(true);
