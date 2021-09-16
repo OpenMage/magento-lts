@@ -27,7 +27,7 @@
 
 /**
  * Filesystem client
- * Instead of creating instances using "new", use Mage::getModel('core/io_file')
+ * Instead of creating instances using "new", use Mage::getModel('core/varien_io_file')
  *
  * @category   Varien
  * @package    Varien_Io
