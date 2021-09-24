@@ -1,5 +1,7 @@
 /app/etc/local.xml
 /media/catalog
 /media/captcha
+/media/sales/store/logo
+/media/sales/store/logo_html
 /dev/tests/functional/generated
 /dev/tests/functional/vendor
