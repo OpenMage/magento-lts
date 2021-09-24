@@ -120,6 +120,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             ),
         ));
 
+        $this->addColumn('times_used', array(
+            'header'    => Mage::helper('salesrule')->__('Times used'),
+            'align'     => 'left',
+            'index'     => 'times_used',
+            'type'      => 'number',
+        ));
+
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', array(
                 'header'    => Mage::helper('salesrule')->__('Website'),
@@ -154,5 +161,4 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getRuleId()));
     }
-
 }
