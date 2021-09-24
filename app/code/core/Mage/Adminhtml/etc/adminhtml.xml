@@ -159,7 +159,7 @@
                                 </children>
                             </acl>
                             <store translate="title">
-                                <title>Manage Stores</title>
+                                <title>Stores</title>
                             </store>
                             <design translate="title">
                                 <title>Design</title>
@@ -212,7 +212,7 @@
                                 </children>
                             </config>
                             <currency translate="title">
-                                <title>Manage Currency Rates</title>
+                                <title>Currency Rates</title>
                                 <sort_order>30</sort_order>
                             </currency>
                             <email_template translate="title">

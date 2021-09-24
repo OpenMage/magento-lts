@@ -41,7 +41,7 @@ use Mage\Catalog\Test\Fixture\CatalogAttributeSet;
  *
  * Steps:
  * 1. Login to the backend.
- * 2. Navigate to Catalog > Manage Products.
+ * 2. Navigate to Catalog > Products.
  * 3. Click "Add Product".
  * 4. Select Configurable Product and Attribute set.
  * 5. Select attribute.

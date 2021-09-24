@@ -43,8 +43,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     protected function _initCategory($getRootInstead = false)
     {
         $this->_title($this->__('Catalog'))
-             ->_title($this->__('Categories'))
-             ->_title($this->__('Manage Categories'));
+             ->_title($this->__('Categories'));
 
         $categoryId = (int) $this->getRequest()->getParam('id',false);
         $storeId    = (int) $this->getRequest()->getParam('store');
@@ -203,8 +202,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true)
             ->setContainerCssClass('catalog-categories');
 
-        $this->_addBreadcrumb(Mage::helper('catalog')->__('Manage Catalog Categories'),
-             Mage::helper('catalog')->__('Manage Categories')
+        $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog Categories'),
+             Mage::helper('catalog')->__('Categories')
         );
 
         $block = $this->getLayout()->getBlock('catalog.wysiwyg.js');

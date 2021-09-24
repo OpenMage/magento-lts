@@ -63,7 +63,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     {
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Attributes'))
-             ->_title($this->__('Manage Attributes'));
+             ->_title($this->__('Attributes'));
 
         if($this->getRequest()->getParam('popup')) {
             $this->loadLayout('popup');
@@ -72,8 +72,8 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 ->_setActiveMenu('catalog/attributes')
                 ->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'))
                 ->_addBreadcrumb(
-                    Mage::helper('catalog')->__('Manage Product Attributes'),
-                    Mage::helper('catalog')->__('Manage Product Attributes'))
+                    Mage::helper('catalog')->__('Product Attributes'),
+                    Mage::helper('catalog')->__('Product Attributes'))
             ;
         }
         return $this;

@@ -151,7 +151,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
     }
 
     /**
-     * Check the permission to Manage Customers
+     * Check the permission to manage Customers
      *
      * @return bool
      */

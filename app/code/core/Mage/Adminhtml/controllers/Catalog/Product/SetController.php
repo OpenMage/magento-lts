@@ -38,7 +38,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
     {
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Attributes'))
-             ->_title($this->__('Manage Attribute Sets'));
+             ->_title($this->__('Attribute Sets'));
 
         $this->_setTypeId();
 
@@ -47,8 +47,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
-            Mage::helper('catalog')->__('Manage Attribute Sets'),
-            Mage::helper('catalog')->__('Manage Attribute Sets'));
+            Mage::helper('catalog')->__('Attribute Sets'),
+            Mage::helper('catalog')->__('Attribute Sets'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_toolbar_main'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_grid'));
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
     {
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Attributes'))
-             ->_title($this->__('Manage Attribute Sets'));
+             ->_title($this->__('Attribute Sets'));
 
         $this->_setTypeId();
         $attributeSet = Mage::getModel('eav/entity_attribute_set')
@@ -81,8 +81,8 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(
-            Mage::helper('catalog')->__('Manage Product Sets'),
-            Mage::helper('catalog')->__('Manage Product Sets'));
+            Mage::helper('catalog')->__('Product Sets'),
+            Mage::helper('catalog')->__('Product Sets'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/catalog_product_attribute_set_main'));
 
@@ -179,7 +179,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
     {
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Attributes'))
-             ->_title($this->__('Manage Attribute Sets'))
+             ->_title($this->__('Attribute Sets'))
              ->_title($this->__('New Set'));
 
         $this->_setTypeId();

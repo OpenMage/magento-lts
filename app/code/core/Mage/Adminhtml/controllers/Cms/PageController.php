@@ -46,7 +46,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
         $this->loadLayout()
             ->_setActiveMenu('cms/page')
             ->_addBreadcrumb(Mage::helper('cms')->__('CMS'), Mage::helper('cms')->__('CMS'))
-            ->_addBreadcrumb(Mage::helper('cms')->__('Manage Pages'), Mage::helper('cms')->__('Manage Pages'))
+            ->_addBreadcrumb(Mage::helper('cms')->__('Pages'), Mage::helper('cms')->__('Pages'))
         ;
         return $this;
     }
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $this->_title($this->__('CMS'))
              ->_title($this->__('Pages'))
-             ->_title($this->__('Manage Content'));
+             ->_title($this->__('Content'));
 
         $this->_initAction();
         $this->renderLayout();
@@ -80,7 +80,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $this->_title($this->__('CMS'))
              ->_title($this->__('Pages'))
-             ->_title($this->__('Manage Content'));
+             ->_title($this->__('Content'));
 
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('page_id');

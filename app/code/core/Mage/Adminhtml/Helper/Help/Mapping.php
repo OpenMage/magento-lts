@@ -135,7 +135,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             /* System → Import/Export */
             'system_convert_gui' => 'store-operations/dataflow.html',
             'system_convert_profile' => 'store-operations/dataflow.html',
-            /* System → Manage Currency */
+            /* System → Currency */
             'system_currency' => 'store-operations/currency-rates.html',
             'system_currencysymbol' => 'store-operations/currency-symbols.html',
             /* System → Transactional emails */

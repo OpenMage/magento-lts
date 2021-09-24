@@ -37,7 +37,7 @@ use Magento\Mtf\TestCase\Injectable;
  *
  * Steps:
  * 1. Log in as default admin user.
- * 2. Go to Sales -> Tax -> Manage Tax Zones and Rates.
+ * 2. Go to Sales -> Tax -> Tax Zones and Rates.
  * 3. Open created tax rate.
  * 4. Click "Delete Rate" button.
  * 5. Perform all assertions.

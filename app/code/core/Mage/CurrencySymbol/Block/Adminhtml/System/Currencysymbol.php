@@ -74,7 +74,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      */
     public function getHeader()
     {
-        return Mage::helper('adminhtml')->__('Manage Currency Symbols');
+        return Mage::helper('adminhtml')->__('Currency Symbols');
     }
 
     /**

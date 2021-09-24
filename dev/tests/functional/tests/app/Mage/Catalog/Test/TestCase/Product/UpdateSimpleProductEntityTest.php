@@ -39,7 +39,7 @@ use Magento\Mtf\TestCase\Injectable;
  *
  * Steps:
  * 1. Login to backend.
- * 2. Navigate to Catalog > Manage Products.
+ * 2. Navigate to Catalog > Products.
  * 3. Select a product in the grid.
  * 4. Edit test value(s) according to dataset.
  * 5. Click "Save".

@@ -42,7 +42,7 @@ use Mage\Adminhtml\Test\Page\AdminLogout;
  *
  * Steps:
  * 1. Open Backend
- * 2. Go to System -> Manage Stores
+ * 2. Go to System -> Stores
  * 3. Click "Create Store View" button
  * 4. Fill data according to dataset
  * 5. Perform all assertions

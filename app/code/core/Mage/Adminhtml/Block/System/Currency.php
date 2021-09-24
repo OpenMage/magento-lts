@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
 
     protected function getHeader()
     {
-        return Mage::helper('adminhtml')->__('Manage Currency Rates');
+        return Mage::helper('adminhtml')->__('Currency Rates');
     }
 
     protected function getSaveButtonHtml()

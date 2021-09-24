@@ -35,7 +35,7 @@ use Magento\Mtf\TestCase\Injectable;
 /**
  * Steps:
  * 1. Log in to Backend.
- * 2. Navigate to Catalog -> Manage Products.
+ * 2. Navigate to Catalog -> Products.
  * 3. Start to create new Downloadable product.
  * 4. Fill in data according to data set.
  * 5. Save product.

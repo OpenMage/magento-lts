@@ -33,7 +33,7 @@ namespace Mage\Sales\Test\TestCase;
  *
  * Steps:
  * 1. Open Backend.
- * 2. Go to Customers -> Manage Customers.
+ * 2. Go to Customers -> Customers.
  * 3. Select customer created in preconditions.
  * 4. Click Create Order button.
  * 5. Add Products according to dataset.

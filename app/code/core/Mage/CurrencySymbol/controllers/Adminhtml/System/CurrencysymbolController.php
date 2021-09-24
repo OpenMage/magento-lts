@@ -46,12 +46,12 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
                 Mage::helper('currencysymbol')->__('System')
             )
             ->_addBreadcrumb(
-                Mage::helper('currencysymbol')->__('Manage Currency Rates'),
-                Mage::helper('currencysymbol')->__('Manage Currency Rates')
+                Mage::helper('currencysymbol')->__('Currency Rates'),
+                Mage::helper('currencysymbol')->__('Currency Rates')
             );
 
         $this->_title($this->__('System'))
-            ->_title($this->__('Manage Currency Rates'));
+            ->_title($this->__('Currency Rates'));
         $this->renderLayout();
     }
 

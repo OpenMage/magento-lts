@@ -37,7 +37,7 @@ use Magento\Mtf\TestCase\Scenario;
  *
  * Steps:
  * 1. Log in to backend.
- * 2. Open Catalog -> Manage Products.
+ * 2. Open Catalog -> Products.
  * 3. Search and open configurable product from preconditions.
  * 4. Fill in data according to dataset.
  * 5. Save product.

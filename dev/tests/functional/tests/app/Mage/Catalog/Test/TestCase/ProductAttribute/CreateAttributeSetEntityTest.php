@@ -39,7 +39,7 @@ use Magento\Mtf\TestCase\Injectable;
  *
  * Steps:
  * 1. Log in to Backend.
- * 2. Navigate to Catalog > Attributes > Manage Attribute Sets.
+ * 2. Navigate to Catalog > Attributes > Attribute Sets.
  * 3. Start to create new Attribute Set.
  * 4. Fill out fields data according to data set.
  * 5. Add created Product Attribute to Attribute Set.

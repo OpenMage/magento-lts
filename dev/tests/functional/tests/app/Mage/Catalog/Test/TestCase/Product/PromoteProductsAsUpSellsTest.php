@@ -32,7 +32,7 @@ namespace Mage\Catalog\Test\TestCase\Product;
  *
  * Steps:
  * 1. Open Backend.
- * 2. Go to Catalog -> Manage Products.
+ * 2. Go to Catalog -> Products.
  * 3. Open simp1 product.
  * 4. For simp1 add as up-sells: config1, simp2.
  * 5. Save product.

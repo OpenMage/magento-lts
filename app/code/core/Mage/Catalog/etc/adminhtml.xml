@@ -90,18 +90,18 @@
                                 <title>Attributes</title>
                                 <children>
                                     <attributes translate="title">
-                                        <title>Manage Attributes</title>
+                                        <title>Attributes</title>
                                     </attributes>
                                     <sets translate="title">
-                                        <title>Manage Attribute Sets</title>
+                                        <title>Attribute Sets</title>
                                     </sets>
                                 </children>
                             </attributes>
                             <categories translate="title">
-                                <title>Manage Categories</title>
+                                <title>Categories</title>
                             </categories>
                             <products translate="title">
-                                <title>Manage Products</title>
+                                <title>Products</title>
                             </products>
                             <update_attributes translate="title">
                                 <title>Update Attributes</title>

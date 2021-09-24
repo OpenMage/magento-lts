@@ -38,7 +38,7 @@ use Mage\Adminhtml\Test\Page\Adminhtml\DeleteStore;
 /**
  * Steps:
  * 1. Log in to backend.
- * 2. Go to System -> Manage Stores.
+ * 2. Go to System -> Stores.
  * 3. Click "Create Store" button.
  * 4. Fill data according to dataset.
  * 5. Click "Save Store" button.

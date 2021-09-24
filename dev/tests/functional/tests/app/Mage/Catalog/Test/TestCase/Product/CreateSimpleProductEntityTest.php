@@ -38,7 +38,7 @@ use Mage\Catalog\Test\Page\Adminhtml\CatalogProduct;
  *
  * Steps:
  * 1. Login to the backend.
- * 2. Navigate to Catalog > Manage Products.
+ * 2. Navigate to Catalog > Products.
  * 3. Click "Add Product".
  * 4. Select "Simple Product" in product type field and click "Continue".
  * 5. Fill in data according to attached data set.

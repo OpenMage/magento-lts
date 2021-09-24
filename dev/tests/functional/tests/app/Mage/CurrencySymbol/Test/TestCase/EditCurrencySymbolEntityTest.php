@@ -41,12 +41,12 @@ use Mage\CurrencySymbol\Test\Page\Adminhtml\SystemCurrencySymbolIndex;
  * Test Flow:
  * Preconditions:
  * 1. Apply custom currency in Config.
- * 2. Navigate to Stores->Manage Currency->Rates and click to Import button.
+ * 2. Navigate to Stores->Currency->Rates and click to Import button.
  * 3. Create simple product.
  *
  * Steps:
  * 1. Login to backend.
- * 2. Navigate to Stores->Manage Currency->Symbols.
+ * 2. Navigate to Stores->Currency->Symbols.
  * 3. Make changes according to dataset.
  * 4. Click 'Save Currency Symbols' button.
  * 5. Perform all asserts.

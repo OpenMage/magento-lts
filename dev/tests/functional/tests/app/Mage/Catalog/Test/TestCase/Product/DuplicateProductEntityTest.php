@@ -39,7 +39,7 @@ use Magento\Mtf\TestCase\Injectable;
  *
  * Steps:
  * 1. Login to backend.
- * 2. Navigate to Catalog > Manage Products.
+ * 2. Navigate to Catalog > Products.
  * 3. Search and open product.
  * 4. Click "Duplicate".
  * 5. Perform asserts.

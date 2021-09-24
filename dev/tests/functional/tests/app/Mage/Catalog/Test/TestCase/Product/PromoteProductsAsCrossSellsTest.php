@@ -32,7 +32,7 @@ namespace Mage\Catalog\Test\TestCase\Product;
  *
  * Steps:
  * 1. Open Backend.
- * 2. Go to Catalog -> Manage Products.
+ * 2. Go to Catalog -> Products.
  * 3. Open config1 product.
  * 4. For config1 add as cross-sells: simp1, simp2.
  * 5. Save product.

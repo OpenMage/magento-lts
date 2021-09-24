@@ -170,7 +170,7 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
             ->_setActiveMenu('sales/tax/tax_class_customer')
             ->_addBreadcrumb(Mage::helper('tax')->__('Sales'), Mage::helper('tax')->__('Sales'))
             ->_addBreadcrumb(Mage::helper('tax')->__('Tax'), Mage::helper('tax')->__('Tax'))
-            ->_addBreadcrumb(Mage::helper('tax')->__('Manage Customer Tax Classes'), Mage::helper('tax')->__('Manage Customer Tax Classes'))
+            ->_addBreadcrumb(Mage::helper('tax')->__('Customer Tax Classes'), Mage::helper('tax')->__('Customer Tax Classes'))
         ;
         return $this;
     }

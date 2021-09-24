@@ -40,7 +40,7 @@ use Mage\Adminhtml\Test\Page\Adminhtml\DeleteStore;
 /**
  * Steps:
  * 1. Open Backend.
- * 2. Go to System -> Manage Stores.
+ * 2. Go to System -> Stores.
  * 3. Click "Create Website" button.
  * 4. Fill data according to dataset.
  * 5. Create Store with created Website.

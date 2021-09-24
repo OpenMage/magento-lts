@@ -35,7 +35,7 @@ use Magento\Mtf\TestCase\Injectable;
  * Steps:
  *
  * 1. Log in to backend.
- * 2. Go to Sales -> Tax -> Manage Tax Rules.
+ * 2. Go to Sales -> Tax -> Tax Rules.
  * 3. Click 'Add New Tax Rule' button.
  * 4. Fill in data according to dataset.
  * 5. Save Tax Rule.

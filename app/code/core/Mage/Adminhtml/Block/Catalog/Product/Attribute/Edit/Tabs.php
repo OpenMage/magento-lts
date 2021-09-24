@@ -54,8 +54,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
         $model = Mage::registry('entity_attribute');
 
         $this->addTab('labels', array(
-            'label'     => Mage::helper('catalog')->__('Manage Label / Options'),
-            'title'     => Mage::helper('catalog')->__('Manage Label / Options'),
+            'label'     => Mage::helper('catalog')->__('Label / Options'),
+            'title'     => Mage::helper('catalog')->__('Label / Options'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_options')->toHtml(),
         ));
         

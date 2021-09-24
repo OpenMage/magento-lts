@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     public function __construct()
     {
         $this->_controller  = 'system_store';
-        $this->_headerText  = Mage::helper('adminhtml')->__('Manage Stores');
+        $this->_headerText  = Mage::helper('adminhtml')->__('Stores');
         $this->setTemplate('system/store/container.phtml');
         parent::__construct();
     }

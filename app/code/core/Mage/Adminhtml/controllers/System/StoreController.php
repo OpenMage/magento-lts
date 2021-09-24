@@ -55,7 +55,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
         $this->loadLayout()
             ->_setActiveMenu('system/store')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'))
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Stores'), Mage::helper('adminhtml')->__('Manage Stores'))
+            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Stores'), Mage::helper('adminhtml')->__('Stores'))
         ;
         return $this;
     }

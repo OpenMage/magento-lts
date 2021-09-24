@@ -57,8 +57,8 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 Mage::helper('widget')->__('CMS')
             )
             ->_addBreadcrumb(
-                Mage::helper('widget')->__('Manage Widget Instances'),
-                Mage::helper('widget')->__('Manage Widget Instances')
+                Mage::helper('widget')->__('Widget Instances'),
+                Mage::helper('widget')->__('Widget Instances')
             );
         return $this;
     }

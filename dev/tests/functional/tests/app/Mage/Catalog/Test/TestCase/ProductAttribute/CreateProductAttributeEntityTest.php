@@ -36,7 +36,7 @@ use Mage\Catalog\Test\Fixture\CatalogAttributeSet;
  *
  * Test Flow:
  * 1. Log in to backend.
- * 2. Navigate to Catalog > Attributes > Manage Attributes.
+ * 2. Navigate to Catalog > Attributes > Attributes.
  * 3. Click 'Add New Attribute' button.
  * 4. Fill out fields data according to data set.
  * 5. Save Product Attribute.

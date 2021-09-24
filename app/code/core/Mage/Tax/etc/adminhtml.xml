@@ -81,11 +81,11 @@
                                         <sort_order>20</sort_order>
                                     </import_export>
                                     <rates translate="title">
-                                        <title>Manage Tax Zones &amp; Rates</title>
+                                        <title>Tax Zones &amp; Rates</title>
                                         <sort_order>30</sort_order>
                                     </rates>
                                     <rules translate="title">
-                                        <title>Manage Tax Rules</title>
+                                        <title>Tax Rules</title>
                                         <sort_order>40</sort_order>
                                     </rules>
                                 </children>

@@ -40,7 +40,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->loadLayout();
 
         $this->_setActiveMenu('catalog/ratings');
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Ratings'), Mage::helper('adminhtml')->__('Manage Ratings'));
+        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Ratings'), Mage::helper('adminhtml')->__('Ratings'));
         $this->_addContent($this->getLayout()->createBlock('adminhtml/rating_rating'));
 
         $this->renderLayout();
@@ -59,7 +59,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         $this->_title($ratingModel->getId() ? $ratingModel->getRatingCode() : $this->__('New Rating'));
 
         $this->_setActiveMenu('catalog/ratings');
-        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Manage Ratings'), Mage::helper('adminhtml')->__('Manage Ratings'));
+        $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Ratings'), Mage::helper('adminhtml')->__('Ratings'));
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/rating_edit'))
             ->_addLeft($this->getLayout()->createBlock('adminhtml/rating_edit_tabs'));
@@ -149,7 +149,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
     {
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Reviews and Ratings'))
-             ->_title($this->__('Manage Ratings'));
+             ->_title($this->__('Ratings'));
 
         Mage::register('entityId', Mage::getModel('rating/rating_entity')->getIdByCode('product'));
     }

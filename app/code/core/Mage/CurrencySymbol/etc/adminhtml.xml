@@ -55,7 +55,7 @@
                     <system>
                         <children>
                             <currency translate="title">
-                                <title>Manage Currency</title>
+                                <title>Currency</title>
                                 <children>
                                     <rates translate="title">
                                         <title>Rates</title>

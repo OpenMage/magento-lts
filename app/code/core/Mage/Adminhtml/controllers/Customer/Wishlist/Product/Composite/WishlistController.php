@@ -137,7 +137,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     }
 
     /**
-     * Check the permission to Manage Customers
+     * Check the permission to manage Customers
      *
      * @return bool
      */
