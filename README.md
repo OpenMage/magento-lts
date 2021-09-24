@@ -28,10 +28,8 @@ Note, the branches older than `1.9.4.x` and that were created before this strate
 - MySQL 5.6+ (8.0+ recommended)
 - (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
 
-
 - PHP 7.4 and 8.0 are supported
 - Please be aware that although OpenMage is compatible that 1 or more extensions may not be
-
 
 Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
 
@@ -40,6 +38,7 @@ If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallbac
 ## Installation
 
 ### Using Composer
+
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```bash
@@ -74,17 +73,62 @@ git add -A && git commit
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
 [release](https://github.com/OpenMage/magento-lts/releases) notes.
 
+### Between Magento 1.9.4.5 and OpenMage 19.x
+
+Bug fixes, PHP 7.x and 8.0 compatibility...
+
+### Between OpenMage 19.x and 20.x
+
+Do not use 20.x.x if you need IE support.
+
+- fixed `_addUrlRewrite` ignoring collection store scope #510
+- prevent duplicate entry when updating salesrule_coupon_usage #1117
+- add logging to lockfile related exceptions #1149
+- performance improvement for directory currency #1252
+- move orig data to abstract model (like M2) #1325
+- removed deprecated `_afterSaveCommit` from Mage_Core_Model_Abstract #1502
+- removed hints and get help in admin theme #1536
+- prevent `backend_type` from being changed automatically on attribute save without the admin realizing #1544
+- performance improvement for catalog products images #1555
+- **removed frontend default themes (default, modern, iphone, german, french, blank, blue)** #1600
+- possibility to disable global search in backend #1532
+- **add redis as a valid option for `global/session_save`** #1513
+- set proper HTTP response code on error #1499
+- `steamClose` dosent void `$this->_streamHandler` in php8 #1623
+- **removed IE conditional comments, IE styles, IE scripts and IE eot files** #1073
+- fixed `origData` is empty in a quote #1735
+- removed includes dir #1667
+- removed unused variable `$configSections` #1355
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
+
+For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/v19.4.15...v20.0.13).
+
+### Between OpenMage 20.x and 21.x
+
+Do not use 21.x.x if you don't known what do you do, or if you don't understand consequences of the following changes.
+
+- removed mysql4 classes #1470
+- removed admin routing compatibility mode for extensions #1551
+
+Future changes:
+- disable decorate javascript functions (*decorateGeneric, decorateTable, decorateList, decorateDataList*)
+- removed scriptaculous #1739 (except effects.js)
+
 ### Performance
+
 <small>ToDo: Please add performance related changes as run-time cache, ...</small>
 
 ### New Config Options
+
 - `admin/design/use_legacy_theme`
+- `admin/global_search/enable`
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `newsletter/security/enable_form_key`
 
 ### New Events
+
 - `adminhtml_block_widget_form_init_form_values_after`
 - `adminhtml_block_widget_tabs_html_before`
 - `adminhtml_sales_order_create_save_before`
@@ -103,12 +147,14 @@ There are some new or changed translations, if you want add them to your locale 
 - `app/locale/en_US/Sales_LTS.csv`
 
 ### Removed Modules
+
 - `Mage_Compiler`
 - `Mage_GoogleBase`
 - `Mage_Xmlconnect`
 - `Phoenix_Moneybookers`
 
 ## Development Environment with ddev
+
 - Install [ddev](https://ddev.com/get-started/)
 - Clone the repository as described in Installation -> Using Git
 - Create a ddev config using ```$ ddev config``` the defaults should be good for you
