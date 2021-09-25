@@ -67,7 +67,7 @@ try {
         foreach ($rows as $row) {
             $whereBind = $conn
                 ->quoteInto('queue_id=?', $row['queue_id']);
-    
+
             $conn
                 ->update(
                     $queueTable,

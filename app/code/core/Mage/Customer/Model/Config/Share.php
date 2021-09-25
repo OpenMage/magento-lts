@@ -38,7 +38,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      *
      */
     const XML_PATH_CUSTOMER_ACCOUNT_SHARE = 'customer/account_share/scope';
-    
+
     /**
      * Possible customer sharing scopes
      *

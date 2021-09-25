@@ -48,7 +48,7 @@ class BottomToolbar extends Block
     public function nextPage()
     {
         $nextPageItem = $this->_rootElement->find($this->nextPageSelector);
-        
+
         if ($nextPageItem->isVisible()) {
             $nextPageItem->click();
             return true;

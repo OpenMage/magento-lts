@@ -43,25 +43,25 @@ class Mage_Admin_Model_Acl extends Zend_Acl
      *
      */
     const ROLE_TYPE_GROUP = 'G';
-    
+
     /**
      * All the user roles are prepended by U
      *
      */
     const ROLE_TYPE_USER = 'U';
-    
+
     /**
      * Permission level to deny access
      *
      */
     const RULE_PERM_DENY = 0;
-    
+
     /**
      * Permission level to inheric access from parent role
      *
      */
     const RULE_PERM_INHERIT = 1;
-    
+
     /**
      * Permission level to allow access
      *
@@ -80,7 +80,7 @@ class Mage_Admin_Model_Acl extends Zend_Acl
         }
         return $this->_roleRegistry;
     }
-    
+
     /**
      * Add parent to role object
      *

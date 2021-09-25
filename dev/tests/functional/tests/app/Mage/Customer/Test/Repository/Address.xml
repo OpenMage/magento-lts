@@ -138,7 +138,7 @@
             <field name="vat_id" xsi:type="string">584451913</field>
             <field name="default_billing" xsi:type="string">Yes</field>
         </dataset>
-        
+
         <dataset name="US_address_without_email">
             <field name="firstname" xsi:type="string">John</field>
             <field name="lastname" xsi:type="string">Doe</field>

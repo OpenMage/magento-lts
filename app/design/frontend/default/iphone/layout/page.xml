@@ -49,7 +49,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/cookies.js</script></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
-                
+
                 <action method="addItem"><type>skin_js</type><name>js/modernizr.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/iphone.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/dnd.js</name></action>

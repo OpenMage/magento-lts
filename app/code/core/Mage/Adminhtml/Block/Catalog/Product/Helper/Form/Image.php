@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image extends Varien_Data
         }
         return $url;
     }
-    
+
     protected function _getDeleteCheckbox()
     {
         $html = '';

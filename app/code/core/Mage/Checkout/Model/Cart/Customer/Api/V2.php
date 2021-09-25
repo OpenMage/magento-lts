@@ -64,7 +64,7 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
             }
             return parent::_prepareCustomerAddressData($dataAddresses);
         }
-        
+
         return null;
     }
 }

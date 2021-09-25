@@ -646,7 +646,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
 
             $store = (int)$store;
-            
+
             foreach ($typedAttributes as $table => $_attributes) {
                 $select = $adapter->select()
                     ->from(array('default_value' => $table), array('attribute_id'))

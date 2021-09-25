@@ -1288,7 +1288,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
-        
+
         $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name

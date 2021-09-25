@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- 
+
 class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     public function render(Varien_Object $row)
@@ -39,13 +39,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
         $str = '';
         if($row->getTemplateSenderName()) {
             $str .= $this->escapeHtml($row->getTemplateSenderName()) . ' ';
-        }        
+        }
         if($row->getTemplateSenderEmail()) {
             $str .= '[' .$this->escapeHtml($row->getTemplateSenderEmail()) . ']';
-        }        
+        }
         if($str == '') {
             $str .= '---';
-        }        
+        }
         return $str;
     }
 }
