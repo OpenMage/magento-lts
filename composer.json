@@ -35,5 +35,11 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ]
+  ],
+  "require-dev": {
+    "macopedia/phpstan-magento1": "^1.0"
+  },
+  "extra": {
+    "magento-root-dir": "."
+  }
 }
