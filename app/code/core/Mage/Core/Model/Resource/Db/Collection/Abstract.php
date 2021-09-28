@@ -354,7 +354,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
 
-        $this->getSelect()->columns(array($alias=>$fullExpression));
+        $this->getSelect()->columns(array($alias=>new Zend_Db_Expr($fullExpression)));
 
         return $this;
     }
