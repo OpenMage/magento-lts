@@ -52,7 +52,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
     protected $service;
     /**
      * The container name of the object list
-     * 
+     *
      * @var string
      */
     protected $container;

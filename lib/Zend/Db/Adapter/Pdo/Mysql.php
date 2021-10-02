@@ -88,7 +88,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $dsn;
     }
-    
+
     /**
      * Creates a PDO object and connects to the database.
      *
