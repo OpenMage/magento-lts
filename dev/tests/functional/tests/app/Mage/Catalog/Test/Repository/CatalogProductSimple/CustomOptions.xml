@@ -45,7 +45,7 @@
                         <item name="price_type" xsi:type="string">Percent</item>
                         <item name="sku" xsi:type="string">sku_drop_down_row_2</item>
                     </item>
-                </item>                
+                </item>
             </field>
         </dataset>
 

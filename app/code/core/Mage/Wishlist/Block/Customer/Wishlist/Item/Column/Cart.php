@@ -56,7 +56,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
             function addWItemToCart(itemId) {
                 addWItemToCartCustom(itemId, true)
             }
-            
+
             function addWItemToCartCustom(itemId, sendGet) {
                 var url = '';
                 if (sendGet) {

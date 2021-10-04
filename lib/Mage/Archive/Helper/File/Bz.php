@@ -50,7 +50,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
 
     /**
      * Write data to bz archive
-     * 
+     *
      * @throws Mage_Exception
      * @param $data
      */

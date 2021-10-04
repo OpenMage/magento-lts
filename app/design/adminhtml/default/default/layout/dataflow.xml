@@ -41,7 +41,7 @@
             <block type="adminhtml/system_convert_profile_run" name="system_convert_profile_run" template="system/convert/profile/process.phtml" output="toHtml"/>
         </block>
     </adminhtml_system_convert_gui_run>
-    
+
     <adminhtml_system_convert_profile_run>
         <remove name="root"/>
         <block type="adminhtml/page" name="convert_root" output="toHtml" template="page.phtml">

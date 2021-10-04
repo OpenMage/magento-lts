@@ -69,7 +69,7 @@
             </lock>
             <index_model>index/indexer</index_model>
             <indexer>
-                
+
             </indexer>
         </index>
         <events>

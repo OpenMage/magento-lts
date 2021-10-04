@@ -34,5 +34,5 @@
  */
 class Varien_Convert_Profile extends Varien_Convert_Profile_Abstract
 {
-    
+
 }

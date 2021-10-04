@@ -42,10 +42,10 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent extends M
     public function afterSave($object)
     {
         parent::afterSave($object);
-        
+
         $object->getItemsCollection()->save();
         $object->getShippingRatesCollection()->save();
-        
+
         return $this;
     }
 }

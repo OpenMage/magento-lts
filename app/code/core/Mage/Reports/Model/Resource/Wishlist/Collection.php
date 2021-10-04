@@ -81,7 +81,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     {
         /** @var Mage_Customer_Model_Resource_Customer_Collection $collection */
         $collection = Mage::getResourceModel('customer/customer_collection');
-        
+
         $customersSelect = $collection->getSelectCountSql();
 
         $countSelect = clone $customersSelect;

@@ -76,7 +76,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 
         return $value;
     }
-    
+
 
     /**
      * Set date value
