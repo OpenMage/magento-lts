@@ -85,7 +85,7 @@ function toggleValueElementsWithCheckbox(checkbox) {
             </tr>
             <tr>
                 <td class="label"><label for="inventory_min_sale_qty"><?php echo Mage::helper('catalog')->__('Minimum Qty Allowed in Shopping Cart') ?></label></td>
-                <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[min_sale_qty]" value="<?php echo $this->getDefaultConfigValue('min_sale_qty')*1 ?>" disabled="disabled" />
+                <td class="value"><input type="text" class="input-text validate-number" id="inventory_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[min_sale_qty]" value="<?php echo Mage::helper('catalog/product')->getDefaultProductValue('min_sale_qty', null) ?>" disabled="disabled" />
                     <input type="checkbox" id="inventory_use_config_min_sale_qty" name="<?php echo $this->getFieldSuffix() ?>[use_config_min_sale_qty]" value="1" onclick="toggleValueElements(this, this.parentNode, $('inventory_min_sale_qty_checkbox'));" checked="checked" disabled="disabled" />
                     <label for="inventory_use_config_min_sale_qty" class="normal"><?php echo Mage::helper('catalog')->__('Use Config Settings') ?></label>
                     <input type="checkbox" id="inventory_min_sale_qty_checkbox" onclick="toggleValueElementsWithCheckbox(this)" />
