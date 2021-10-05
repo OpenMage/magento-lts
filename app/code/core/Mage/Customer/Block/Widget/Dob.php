@@ -77,7 +77,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getDay()
     {
-        return $this->getTime() ? date('d', $this->getTime()) : '';
+        return ($this->getTime() !== null) ? date('d', $this->getTime()) : '';
     }
 
     /**
@@ -85,7 +85,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getMonth()
     {
-        return $this->getTime() ? date('m', $this->getTime()) : '';
+        return ($this->getTime() !== null) ? date('m', $this->getTime()) : '';
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getYear()
     {
-        return $this->getTime() ? date('Y', $this->getTime()) : '';
+        return ($this->getTime() !== null) ? date('Y', $this->getTime()) : '';
     }
 
     /**
