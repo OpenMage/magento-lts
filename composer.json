@@ -38,8 +38,5 @@
   ],
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0"
-  },
-  "extra": {
-    "magento-root-dir": "."
   }
 }
