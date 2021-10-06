@@ -62,38 +62,54 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
     }
 
     /**
-     * @param string $date
+     * @param $date
      * @return $this
      */
     public function setDate($date)
     {
-        $this->setTime($date ? strtotime($date) : false);
+        if ($date) {
+            try {
+                $dateTime = new DateTime($date);
+                $this->setTime($dateTime);
+            } catch (Exception $e) {
+            }
+        }
+
         $this->setData('date', $date);
+
         return $this;
     }
 
     /**
-     * @return false|string
+     * @return bool
+     */
+    public function hasTime()
+    {
+        return ($this->getTime() instanceof DateTime);
+    }
+
+    /**
+     * @return string
      */
     public function getDay()
     {
-        return ($this->getTime() !== null) ? date('d', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('d') : '';
     }
 
     /**
-     * @return false|string
+     * @return string
      */
     public function getMonth()
     {
-        return ($this->getTime() !== null) ? date('m', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('m') : '';
     }
 
     /**
-     * @return false|string
+     * @return string
      */
     public function getYear()
     {
-        return ($this->getTime() !== null) ? date('Y', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
     }
 
     /**
