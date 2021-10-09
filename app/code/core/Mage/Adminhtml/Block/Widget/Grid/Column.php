@@ -206,7 +206,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getRendererByType()
     {
-        $type = strtolower($this->getType());
+        $type = $this->getType();
+        $type = is_string($type) ? strtolower($type) : $type;
         $renderers = $this->getGrid()->getColumnRenderers();
 
         if (is_array($renderers) && isset($renderers[$type])) {
