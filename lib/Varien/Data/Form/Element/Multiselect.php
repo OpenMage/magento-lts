@@ -77,7 +77,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
 
         $value = $this->getValue();
         if (!is_array($value)) {
-            $value = explode(',', $value);
+            $value = is_string($value) ? explode(',', $value) : [];
         }
 
         if ($values = $this->getValues()) {
