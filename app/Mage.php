@@ -421,7 +421,8 @@ final class Mage
      */
     public static function getStoreConfigFlag($path, $store = null)
     {
-        $flag = strtolower(self::getStoreConfig($path, $store));
+        $flag = self::getStoreConfig($path, $store);
+        $flag = is_string($flag) ? strtolower($flag) : $flag;
         if (!empty($flag) && 'false' !== $flag) {
             return true;
         } else {
