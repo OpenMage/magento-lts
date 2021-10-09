@@ -1273,7 +1273,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         // First - check maybe the entity class was rewritten
         $className = null;
         if (isset($config->rewrite->$class)) {
-            $className = (string)$config->rewrite->$class;
+            $className = trim((string) $config->rewrite->$class);
         } else {
             /**
              * Backwards compatibility for pre-MMDB extensions.
@@ -1284,12 +1284,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $deprecatedNode = $config->deprecatedNode;
                 $configOld = $this->_xml->global->{$groupType.'s'}->$deprecatedNode;
                 if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
+                    $className = trim((string) $configOld->rewrite->$class);
                 }
             }
         }
-
-        $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name
         if (empty($className)) {
