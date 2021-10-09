@@ -340,7 +340,7 @@ class Zend_Locale_Data
             $val = implode('_' , $value);
         }
 
-        $val = urlencode($val);
+        $val = is_string($val) ? urlencode($val) : $val;
         $id  = self::_filterCacheId('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val);
 
         // add runtime cache to avoid calling cache backend multiple times during one request
@@ -998,7 +998,8 @@ class Zend_Locale_Data
         if (is_array($value)) {
             $val = implode('_' , $value);
         }
-        $val = urlencode($val);
+
+        $val = is_string($val) ? urlencode($val) : $val;
         $id  = self::_filterCacheId('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val);
 
         // add runtime cache to avoid calling cache backend multiple times during one request
