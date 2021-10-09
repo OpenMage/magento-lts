@@ -107,8 +107,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
     {
         if (false !== $this->getColumn()->getGrid()->getSortable() && false !== $this->getColumn()->getSortable()) {
             $className = 'not-sort';
-            $dir = strtolower($this->getColumn()->getDir());
-            $nDir= ($dir=='asc') ? 'desc' : 'asc';
+            $dir  = $this->getColumn()->getDir();
+            $dir  = is_string($dir) ? strtolower($dir) : $dir;
+            $nDir = ($dir == 'asc') ? 'desc' : 'asc';
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
             }
