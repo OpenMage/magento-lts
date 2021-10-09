@@ -301,7 +301,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
 
     protected function _getFilterByType()
     {
-        $type = strtolower($this->getType());
+        $type = $this->getType();
+        $type = is_string($type) ? strtolower($type) : $type;
         $filters = $this->getGrid()->getColumnFilters();
         if (is_array($filters) && isset($filters[$type])) {
             return $filters[$type];
