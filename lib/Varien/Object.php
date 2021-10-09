@@ -340,7 +340,7 @@ class Varien_Object implements ArrayAccess
         $default = null;
 
         // accept a/b/c as ['a']['b']['c']
-        if (strpos($key,'/')) {
+        if (is_string($key) && strpos($key, '/')) {
             $keyArr = explode('/', $key);
             $data = $this->_data;
             foreach ($keyArr as $i=>$k) {
