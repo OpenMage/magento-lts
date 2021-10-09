@@ -79,11 +79,10 @@ $numColumns = sizeof($this->getColumns());
             <span class="separator">|</span>
             <?php echo $this->__('View') ?>
             <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
-                <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif ?>>20</option>
-                <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif ?>>30</option>
-                <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif ?>>50</option>
-                <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif ?>>100</option>
-                <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif ?>>200</option>
+                <?php $pageSizes = [20, 30, 50, 100, 200, 300, 500, 700, 1000]; ?>
+                <?php foreach ($pageSizes as $pageSize): ?>
+                    <option value="<?php echo $pageSize; ?>"<?php if($this->getCollection()->getPageSize() == $pageSize): ?> selected="selected"<?php endif; ?>><?php echo $pageSize; ?></option>
+                <?php endforeach; ?>
             </select>
             <?php echo $this->__('per page') ?><span class="separator">|</span>
             <?php echo $this->__('Total %d records found', $this->getCollection()->getSize()) ?>
