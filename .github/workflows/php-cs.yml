@@ -1,0 +1,12 @@
+on: [push, pull_request]
+name: PHP-CS-Fixer
+jobs:
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: PHP-CS-Fixer
+      uses: docker://oskarstark/php-cs-fixer-ga
+      with:
+        args: --config=.github/.php-cs-fixer.dist.php --diff --dry-run
