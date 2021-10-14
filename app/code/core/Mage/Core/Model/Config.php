@@ -1315,7 +1315,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getBlockClassName($blockType)
     {
-        if (strpos($blockType, '/')===false) {
+        if (strpos($blockType, '/') === false) {
             return $blockType;
         }
         return $this->getGroupedClassName('block', $blockType);
@@ -1365,11 +1365,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getModelClassName($modelClass)
     {
-        $modelClass = trim($modelClass);
-        if (strpos($modelClass, '/')===false) {
-            return $modelClass;
+        if (empty($modelClass)) {
+            return '';
         }
-        return $this->getGroupedClassName('model', $modelClass);
+        if (strpos($modelClass, '/') === false) {
+            return trim($modelClass);
+        }
+        return $this->getGroupedClassName('model', trim($modelClass));
     }
 
     /**
