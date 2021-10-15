@@ -492,6 +492,9 @@ class Mage_Core_Model_Layout_Update
         if (null === $storeId) {
             $storeId = Mage::app()->getStore()->getId();
         }
+        if ($area === 'adminhtml' && Mage::getStoreConfig('design/theme/layout', $storeId) !== 'openmage' && Mage_Core_Model_App::ADMIN_STORE_ID === (int) $storeId) {
+            $theme = 'openmage';
+        }
         /* @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;
