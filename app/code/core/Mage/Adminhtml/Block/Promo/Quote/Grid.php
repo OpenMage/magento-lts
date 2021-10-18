@@ -115,8 +115,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => array(
-                1 => 'Active',
-                0 => 'Inactive',
+                1 => Mage::helper('salesrule')->__('Active'),
+                0 => Mage::helper('salesrule')->__('Inactive'),
             ),
         ));
 
