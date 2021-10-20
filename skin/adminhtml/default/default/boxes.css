@@ -86,7 +86,7 @@
     text-align:center;
     opacity:0.80;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /* IE8 */
-    z-index:500;
+    z-index:1000;
     }
 #loading-mask .loader {
     position:fixed;
