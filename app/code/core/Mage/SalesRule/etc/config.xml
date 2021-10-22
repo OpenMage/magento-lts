@@ -214,7 +214,7 @@
         <jobs>
             <aggregate_sales_report_coupons_data>
                 <schedule>
-                    <cron_expr>0 0 * * *</cron_expr>
+                    <config_path>reports/crontab/coupons_expr</config_path>
                 </schedule>
                 <run>
                     <model>salesrule/observer::aggregateSalesReportCouponsData</model>
@@ -229,5 +229,10 @@
                 <format>1</format>
             </auto_generated_coupon_codes>
         </promo>
+        <reports>
+            <crontab>
+                <coupons_expr>0 0 * * *</coupons_expr>
+            </crontab>
+        </reports>
     </default>
 </config>
