@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         $collection = Mage::getModel('salesrule/rule')
             ->getResourceCollection();
         $collection->addWebsitesToResult();
+        $collection->addFilterToMap('times_used', 'main_table.times_used');
         $this->setCollection($collection);
 
         parent::_prepareCollection();
