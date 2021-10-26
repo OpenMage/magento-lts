@@ -367,42 +367,6 @@
                             <show_in_store>0</show_in_store>
                             <comment>Order Taxes Report Grouped by Tax Rates</comment>
                         </tax_expr>
-                        <shipping_expr translate="label comment">
-                            <label>Cron definition - Shipping</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>300</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <comment>Total Shipped Report</comment>
-                        </shipping_expr>
-                        <invoiced_expr translate="label comment">
-                            <label>Cron definition - Total Invoiced</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>400</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <comment>Total Invoiced VS Paid Report</comment>
-                        </invoiced_expr>
-                        <refunded_expr translate="label comment">
-                            <label>Cron definition - Total Refunded</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>500</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <comment>Total Refunded Report</comment>
-                        </refunded_expr>
-                        <bestsellers_expr translate="label comment">
-                            <label>Cron definition - Bestsellers</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>700</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <comment>Products Bestsellers Report</comment>
-                        </bestsellers_expr>
                     </fields>
                 </crontab>
             </groups>
