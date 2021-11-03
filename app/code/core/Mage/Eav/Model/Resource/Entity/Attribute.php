@@ -521,7 +521,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $object->addData($result);
             }
         }
-
+        $object->setDataChanges(false);
         return $this;
     }
 
