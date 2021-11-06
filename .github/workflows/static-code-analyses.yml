@@ -30,6 +30,22 @@ jobs:
       - name: Check .phtml files
         run: '! find app/design -type f -name "*.phtml" -exec php -d error_reporting=32767 -l {} \; 2>&1 1> /dev/null | grep "^"'
 
+  php_stan:
+    name: PHP Stan ${{ matrix.directories }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      max-parallel: 2
+      matrix:
+        directories: ['app/', 'lib/']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
+      - name: ensure existance of ./app/code/local
+        run: mkdir -p app/code/local
+      - name: PHPStan Static Analysis
+        run: php vendor/bin/phpstan.phar analyze -c .github/phpstan.neon ${{ matrix.directories }}
+
   php_syntax_experimental:
     name: PHP Syntax ${{ matrix.php-versions }} - experimental
     runs-on: ${{ matrix.operating-system }}
