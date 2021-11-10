@@ -105,7 +105,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 
 ### Between OpenMage 20.x and 21.x
 
-Do not use 21.x.x if you don't known what do you do, or if you don't understand consequences of the following changes.
+Do not use 21.x.x if you don't know what you're doing, or if you don't understand consequences of the following changes.
 
 - removed mysql4 classes #1470
 - removed admin routing compatibility mode for extensions #1551
