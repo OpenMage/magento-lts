@@ -32,6 +32,11 @@
         </Mage_Index>
     </modules>
     <global>
+        <helpers>
+            <index>
+                <class>Mage_Index_Helper</class>
+            </index>
+        </helpers>
         <models>
             <index>
                 <class>Mage_Index_Model</class>
