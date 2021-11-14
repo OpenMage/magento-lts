@@ -134,6 +134,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Important!</strong> Enabling this option means
+                            that your custom templates used for newsletter subscription contain form_key output.
+                            Otherwise newletter subscription will not work.]]></comment>
                         </enable_form_key>
                     </fields>
                 </security>
