@@ -34,6 +34,11 @@
 class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Action
 {
     /**
+     * Use CSRF validation flag from newsletter config
+     */
+    const XML_CSRF_USE_FLAG_CONFIG_PATH = 'newsletter/security/enable_form_key';
+
+    /**
       * New subscription action
       */
     public function newAction()
@@ -129,5 +134,15 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             }
         }
         $this->_redirectReferer();
+    }
+
+    /**
+     * Check if form key validation is enabled in newsletter config.
+     *
+     * @return bool
+     */
+    protected function _isFormKeyEnabled()
+    {
+        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }
