@@ -103,14 +103,13 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
 
-        return $this->_getLocation($website, $product);
+        return $this->_getLocation($website);
     }
 
     /**
      * Product website assign
      *
      * @param array $data
-     * @return string
      */
     protected function _multiCreate(array $data)
     {
