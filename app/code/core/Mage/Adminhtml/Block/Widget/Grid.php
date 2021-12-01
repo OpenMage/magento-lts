@@ -969,7 +969,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     public function _exportIterateCollection($callback, array $args)
     {
         $originalCollection = $this->getCollection();
-        $count = null;
         $page  = 1;
 
         do {
@@ -978,7 +977,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             $collection->setCurPage($page);
             $collection->load();
 
-            $count = $collection->count();
+            $lastPageNumber = $collection->getLastPageNumber();
 
             $page++;
 
@@ -987,7 +986,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             }
             $collection->clear();
             unset($collection);
-        } while($count == $this->_exportPageSize);
+        } while ($page <= $lastPageNumber);
     }
 
     /**
