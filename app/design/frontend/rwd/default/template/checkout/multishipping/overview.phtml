@@ -89,9 +89,9 @@
                             <?php echo $_excl; ?>
                             <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                                 (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                            <?php endif; ?>
+                            <?php endif ?>
                             </p>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -103,12 +103,12 @@
                         <col width="1" />
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                         <col width="1" />
-                        <?php endif; ?>
+                        <?php endif ?>
                         <col width="1" />
                         <col width="1" />
                         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                         <col width="1" />
-                        <?php endif; ?>
+                        <?php endif ?>
                         <thead>
                             <tr>
                                 <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
@@ -123,7 +123,7 @@
                                 <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                                 <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
                             </tr>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </thead>
                         <tfoot>
                             <?php echo $this->renderTotals($this->getShippingAddressTotals($_address)); ?>
@@ -131,15 +131,15 @@
                         <tbody>
                         <?php foreach ($this->getShippingAddressItems($_address) as $_item): ?>
                             <?php echo $this->getRowItemHtml($_item); ?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('overview-table-<?php echo $_address->getId() ?>')</script>
                 </div>
             <?php if($this->getShippingAddressCount()!=$_index+1): ?>
                 <div class="divider"></div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </div>
         <?php if ($this->getQuote()->hasVirtualItems()): ?>
         <div class="col2-set">
@@ -154,12 +154,12 @@
                     <col width="1" />
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <col width="1" />
-                    <?php endif; ?>
+                    <?php endif ?>
                     <col width="1" />
                     <col width="1" />
                     <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
                     <col width="70" />
-                    <?php endif; ?>
+                    <?php endif ?>
                     <thead>
                         <tr>
                             <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
@@ -174,7 +174,7 @@
                             <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
                             <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
                         </tr>
-                        <?php endif; ?>
+                        <?php endif ?>
                     </thead>
                     <tfoot>
                         <?php echo $this->renderTotals($this->getBillinAddressTotals()); ?>
@@ -182,13 +182,13 @@
                     <tbody>
                     <?php foreach ($this->getVirtualItems() as $_item): ?>
                         <?php echo $this->getRowItemHtml($_item); ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                     </table>
                     <script type="text/javascript">decorateTable('virtual-overview-table')</script>
                 </div>
         </div>
-        <?php endif; ?>
+        <?php endif ?>
 
            <?php echo $this->getChildHtml('items_after'); ?>
 

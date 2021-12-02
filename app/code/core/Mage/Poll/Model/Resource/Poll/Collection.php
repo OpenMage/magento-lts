@@ -31,6 +31,9 @@
  * @category    Mage
  * @package     Mage_Poll
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getId()
+ * @method $this setSelectStores(array $value)
  */
 class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {

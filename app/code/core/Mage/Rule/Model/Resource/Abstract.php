@@ -197,16 +197,16 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
      *
      * @return Mage_Rule_Model_Resource_Abstract
      */
-    public function unbindRuleFromEntity($ruleIds = array(), $entityIds = array(), $entityType)
+    public function unbindRuleFromEntity($ruleIds, $entityIds, $entityType)
     {
         $writeAdapter = $this->_getWriteAdapter();
-        $entityInfo   = $this->_getAssociatedEntityInfo($entityType);
+        $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($entityIds)) {
-            $entityIds = array((int) $entityIds);
+            $entityIds = array((int)$entityIds);
         }
         if (!is_array($ruleIds)) {
-            $ruleIds = array((int) $ruleIds);
+            $ruleIds = array((int)$ruleIds);
         }
 
         $where = array();

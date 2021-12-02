@@ -149,12 +149,17 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     public function preDispatch()
     {
-        // override admin store design settings via stores section
+        // get legacy theme choice form backend config
+        if (Mage::getStoreConfigFlag('admin/design/use_legacy_theme')) {
+            $theme = Mage::getConfig()->getNode("stores/admin/design/theme/default");
+        } else {
+            $theme = Mage::getConfig()->getNode("stores/admin/design/theme/openmage");
+        }
+
         Mage::getDesign()
             ->setArea($this->_currentArea)
             ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)Mage::getConfig()->getNode('stores/admin/design/theme/default'))
-        ;
+            ->setTheme((string)$theme);
         foreach (array('layout', 'template', 'skin', 'locale') as $type) {
             if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
@@ -389,7 +394,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         }
 
         if (!($secretKey = $this->getRequest()->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME, null))
-            || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {
+            || !hash_equals(Mage::getSingleton('adminhtml/url')->getSecretKey(), $secretKey)) {
             return false;
         }
         return true;

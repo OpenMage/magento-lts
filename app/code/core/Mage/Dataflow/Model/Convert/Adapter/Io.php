@@ -49,7 +49,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $isError = false;
 
             $ioConfig = $this->getVars();
-            switch ($this->getVar('type', 'file')) {
+            switch (strtolower($this->getVar('type', 'file'))) {
                 case 'file':
                     //validate export/import path
                     $path = rtrim($ioConfig['path'], '\\/')
@@ -84,7 +84,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
                     } elseif (!$isError) {
-                        if ($forWrite && !is_writeable($realPath)) {
+                        if ($forWrite && !is_writable($realPath)) {
                             $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
                             Mage::throwException($message);
                         } else {

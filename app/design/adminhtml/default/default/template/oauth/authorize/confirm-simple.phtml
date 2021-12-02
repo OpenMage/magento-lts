@@ -41,7 +41,7 @@
                 <h2><?php echo $this->__('Authorization confirmed') ?></h2>
                 <p><?php echo $this->__('Give the verifier code to application administrator') ?></p>
                 <p style="font-size: 14px;"><?php echo $this->__('Verifier code: %s', $this->getVerifier()) ?></p>
-            <?php endif; ?>
+            <?php endif ?>
             <button type="submit" class="button"
                     onclick="window.close();"
                     title="<?php echo $this->quoteEscape($this->__('Close')) ?>">

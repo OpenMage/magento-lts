@@ -46,7 +46,7 @@
         <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>
 </tr>
-<?php else:?>
+<?php else: ?>
 <tr>
     <td style="<?php echo $this->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <strong><?php echo $this->getTotal()->getTitle() ?></strong>
@@ -55,4 +55,4 @@
         <strong><?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?></strong>
     </td>
 </tr>
-<?php endif;?>
+<?php endif ?>

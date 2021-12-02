@@ -34,5 +34,5 @@
  */
 class Mage_Admin_Model_Acl_Role_Group extends Mage_Admin_Model_Acl_Role_Generic
 {
-    
+
 }

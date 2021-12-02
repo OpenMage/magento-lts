@@ -57,7 +57,7 @@
                             </button>
                         <?php else: ?>
                                 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <ul class="add-to-links">
                             <?php if ($this->helper('wishlist')->isAllow()) : ?>
                                 <li>
@@ -70,7 +70,7 @@
                                         <?php echo $this->__('Add to Wishlist') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                             <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_product, false)) : ?>
                                 <li>
                                     <span class="separator">|</span>
@@ -83,13 +83,13 @@
                                         <?php echo $this->__('Add to Compare') ?>
                                     </a>
                                 </li>
-                            <?php endif; ?>
+                            <?php endif ?>
                         </ul>
                     </div>
                 </div>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ol>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

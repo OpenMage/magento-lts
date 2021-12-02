@@ -28,7 +28,7 @@
  * Factory for HTTP client classes
  *
  * @category    Mage
- * @package     Mage_Connect
+ * @package     Mage_HTTP
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 

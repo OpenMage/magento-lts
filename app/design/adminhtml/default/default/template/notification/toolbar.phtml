@@ -73,11 +73,11 @@
         <strong class="label clickable" onclick="openMessagePopup()">
     <?php else: ?>
         <strong class="label">
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php echo $this->__('Latest Message:') ?></strong> <?php echo $this->escapeHtml($this->getLatestNotice()); ?>
     <?php if (!empty($latestNoticeUrl)): ?>
         <a href="<?php echo $latestNoticeUrl ?>" onclick="this.target='_blank';"><?php echo $this->__('Read details') ?></a>
-    <?php endif; ?>
+    <?php endif ?>
 </div>
-<?php endif; ?>
+<?php endif ?>

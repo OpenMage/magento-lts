@@ -42,8 +42,8 @@
                 <li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
             <?php else: ?>
                 <li class="current"><?php echo $_link->getLabel() ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </ul>
         <script type="text/javascript">decorateGeneric($('order-info-tabs').select('LI'),['first','last']);</script>
     </dd>
@@ -71,12 +71,12 @@
                     <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
                 <?php else: ?>
                     <p><?php echo $this->helper('sales')->__('No shipping information available'); ?></p>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
         </div>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <div class="col2-set order-info-box">
     <div class="col-1">
         <div class="box">

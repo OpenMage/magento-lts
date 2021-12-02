@@ -25,7 +25,7 @@
  */
 
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer = $this;
 
@@ -42,7 +42,7 @@ $answers  = array(
                 array('Magenta', 2)
                 );
 
-foreach( $answers as $key => $answer ) {
+foreach ($answers as $key => $answer) {
     $answerModel = Mage::getModel('poll/poll_answer');
     $answerModel->setAnswerTitle($answer[0])
                 ->setVotesCount($answer[1]);
@@ -51,4 +51,3 @@ foreach( $answers as $key => $answer ) {
 }
 
 $pollModel->save();
-

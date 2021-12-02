@@ -38,7 +38,7 @@
             <action method="addItem"><type>js</type><name>varien/weee.js</name></action>
         </reference>
     </checkout_onepage_index>
-    
+
     <checkout_multishipping>
         <reference name="head">
             <action method="addItem"><type>js</type><name>varien/weee.js</name></action>

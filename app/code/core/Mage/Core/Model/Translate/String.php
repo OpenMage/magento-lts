@@ -59,7 +59,7 @@ class Mage_Core_Model_Translate_String extends Mage_Core_Model_Abstract
         //$this->setData('string', strtolower($string));
         return $this;
     }
-    
+
     /**
      * Retrieve string
      *

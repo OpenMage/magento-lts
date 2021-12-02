@@ -23,9 +23,17 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+/**
+ * Class Mage_Adminhtml_Block_Checkout_Agreement_Grid
+ *
+ * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
+ */
 class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Checkout_Agreement_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +43,9 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('checkout/agreement')
@@ -43,6 +54,9 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id',
@@ -53,6 +67,14 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
                 'index' => 'agreement_id'
             )
         );
+
+        $this->addColumn('position', array(
+            'header'    => Mage::helper('adminhtml')->__('Position'),
+            'align'     =>'right',
+            'width'     => '50px',
+            'index'     => 'position',
+            'type'      => 'text',
+        ));
 
         $this->addColumn('name',
             array(
@@ -87,12 +109,19 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return void
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->walk('afterLoad');
         parent::_afterLoadCollection();
     }
 
+    /**
+     * @param $collection
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     */
     protected function _filterStoreCondition($collection, $column)
     {
         if (!$value = $column->getFilter()->getValue()) {
@@ -102,9 +131,12 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
         $this->getCollection()->addStoreFilter($value);
     }
 
+    /**
+     * @param Mage_Checkout_Model_Agreement $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
-
 }

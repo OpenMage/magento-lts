@@ -217,7 +217,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'cataloginventory/stock_item',
             'is_in_stock',
             'product_id=entity_id',
-            '(' . join(') OR (', $cond) . ')'
+            '(' . implode(') OR (', $cond) . ')'
         );
         return $this;
     }
@@ -379,12 +379,12 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
         $where = array();
         foreach ($conditions as $k => $part) {
-            $where[$k] = join(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
+            $where[$k] = implode(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
         }
 
         $where = $adapter->prepareSqlCondition('invtr.low_stock_date', array('notnull' => true))
             . ' ' . Zend_Db_Select::SQL_AND . ' (('
-            .  join(') ' . Zend_Db_Select::SQL_OR .' (', $where)
+            . implode(') ' . Zend_Db_Select::SQL_OR . ' (', $where)
             . '))';
 
         $collection->joinTable(

@@ -60,7 +60,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Shipping extends Mage_Eav_M
                     $addressId = $address->getId();
                 }
             }
-            
+
             if ($addressId) {
                 $object->setDefaultShipping($addressId);
                 $this->getAttribute()->getEntity()

@@ -260,7 +260,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         $attributeTable = $attribute->getBackend()->getTable();
         if ($attribute->getBackendType() == 'static') {
             $tableAlias = sprintf('t_%s', $attribute->getAttributeCode());
-            $joinCond   = join(' AND ', array(
+            $joinCond = implode(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias)
             ));
             $select
@@ -272,7 +272,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
                 ->where(sprintf('%s.%s IN(?)', $tableAlias, $attribute->getAttributeCode()), $value);
         } elseif ($attribute->isScopeGlobal()) {
             $tableAlias = sprintf('t_%s', $attribute->getAttributeCode());
-            $joinCond   = join(' AND ', array(
+            $joinCond = implode(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableAlias),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableAlias), $attribute->getAttributeId()),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableAlias), 0)
@@ -287,12 +287,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         } else {
             $tableGlobal    = sprintf('t_global_%s', $attribute->getAttributeCode());
             $tableStore     = sprintf('t_store_%s', $attribute->getAttributeCode());
-            $joinCondGlobal = join(' AND ', array(
+            $joinCondGlobal = implode(' AND ', array(
                 sprintf('`%s`.`%s`=`%s`.`entity_id`', $table, $field, $tableGlobal),
                 $adapter->quoteInto(sprintf('`%s`.`attribute_id`=?', $tableGlobal), $attribute->getAttributeId()),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableGlobal), 0)
             ));
-            $joinCondStore  = join(' AND ', array(
+            $joinCondStore = implode(' AND ', array(
                 sprintf('`%s`.`entity_id`=`%s`.`entity_id`', $tableGlobal, $tableStore),
                 sprintf('`%s`.`attribute_id`=`%s`.`attribute_id`', $tableGlobal, $tableStore),
                 $adapter->quoteInto(sprintf('`%s`.`store_id`=?', $tableStore), $store)

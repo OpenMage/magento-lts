@@ -111,6 +111,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
         $options = array();
         if ($attribute->usesSource()) {
+            $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $options[] = $optionValue;
@@ -233,6 +234,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $model = $this->_getAttribute($attribute);
 
         if ($model->getEntityTypeId() != $this->_entityTypeId) {
+            $this->_fault('can_not_delete');
+        }
+
+        if (!$model->getIsUserDefined()) {
             $this->_fault('can_not_delete');
         }
 

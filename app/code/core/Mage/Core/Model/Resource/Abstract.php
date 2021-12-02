@@ -197,7 +197,7 @@ abstract class Mage_Core_Model_Resource_Abstract
         if (empty($value)) {
             $object->setData($field, $defaultValue);
         } elseif (!is_array($value) && !is_object($value)) {
-            $object->setData($field, unserialize($value));
+            $object->setData($field, unserialize($value, ['allowed_classes' => ['Varien_Object']]));
         }
     }
 

@@ -148,7 +148,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             if ($this->getProduct($product)->hasCustomOptions()) {
                 $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue());
+                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
                 if (!empty($selectionIds)) {
                     $selections = $this->getSelectionsByIds($selectionIds, $product);
                     foreach ($selections->getItems() as $selection) {
@@ -176,7 +176,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             if ($this->getProduct($product)->hasCustomOptions()) {
                 $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-                $selectionIds = unserialize($customOption->getValue());
+                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
                 foreach ($selections->getItems() as $selection) {
                     $qtyOption = $this->getProduct($product)
@@ -202,7 +202,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         if ($this->getProduct($product)->hasCustomOptions()) {
             $customOption = $this->getProduct($product)->getCustomOption('bundle_selection_ids');
-            $selectionIds = unserialize($customOption->getValue());
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
             $selections = $this->getSelectionsByIds($selectionIds, $product);
             $virtualCount = 0;
             foreach ($selections->getItems() as $selection) {
@@ -788,10 +788,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         if ($product->hasCustomOptions()) {
             $customOption = $product->getCustomOption('bundle_option_ids');
-            $optionIds = unserialize($customOption->getValue());
+            $optionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
             $options = $this->getOptionsByIds($optionIds, $product);
             $customOption = $product->getCustomOption('bundle_selection_ids');
-            $selectionIds = unserialize($customOption->getValue());
+            $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
             $selections = $this->getSelectionsByIds($selectionIds, $product);
             foreach ($selections->getItems() as $selection) {
                 if ($selection->isSalable()) {
@@ -934,9 +934,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $productOptionIds   = $this->getOptionsIds($product);
         $productSelections  = $this->getSelectionsCollection($productOptionIds, $product);
         $selectionIds       = $product->getCustomOption('bundle_selection_ids');
-        $selectionIds       = (array) unserialize($selectionIds->getValue());
+        $selectionIds       = (array) unserialize($selectionIds->getValue(), ['allowed_classes' => false]);
         $buyRequest         = $product->getCustomOption('info_buyRequest');
-        $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue()));
+        $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue(), ['allowed_classes' => false]));
         $bundleOption       = $buyRequest->getBundleOption();
 
         if (empty($bundleOption) && empty($selectionIds)) {

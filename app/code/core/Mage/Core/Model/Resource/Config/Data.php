@@ -55,7 +55,7 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
         }
 
         if (is_array($object->getValue())) {
-            $object->setValue(join(',', $object->getValue()));
+            $object->setValue(implode(',', $object->getValue()));
         }
         return parent::_beforeSave($object);
     }

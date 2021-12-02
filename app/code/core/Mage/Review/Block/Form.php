@@ -81,6 +81,10 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
      */
     public function getProductInfo()
     {
+        $product = Mage::registry('current_product');
+        if (is_object($product) && ($product->getId() == $this->getRequest()->getParam('id')))
+            return $product;
+
         $product = Mage::getModel('catalog/product');
         return $product->load($this->getRequest()->getParam('id'));
     }

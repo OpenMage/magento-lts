@@ -34,9 +34,9 @@
         <input type="text" id="options_<?php echo $_option->getId() ?>_text" class="input-text<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-' . $_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>" />
     <?php elseif ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA): ?>
         <textarea id="options_<?php echo $_option->getId() ?>_text" class="<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-' . $_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" rows="5" cols="25" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>"><?php echo $this->escapeHtml($this->getDefaultValue()) ?></textarea>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($_option->getMaxCharacters()): ?>
         <p class="note"><?php echo Mage::helper('catalog')->__('Maximum number of characters:')?> <strong><?php echo $_option->getMaxCharacters() ?></strong></p>
-    <?php endif; ?>
+    <?php endif ?>
     </div>
 </dd>

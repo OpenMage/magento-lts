@@ -42,7 +42,7 @@
     <?php $_showlastRow = true ?>
 <?php else: ?>
     <?php $_showlastRow = false ?>
-<?php endif; ?>
+<?php endif ?>
 
 <?php foreach ($items as $_item): ?>
     <?php $this->setPriceDataObject($_item) ?>
@@ -54,8 +54,8 @@
             <td class="last">&nbsp;</td>
         </tr>
         <?php $_prevOptionId = $attributes['option_id'] ?>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     <tr<?php echo (++$_index==$_count && !$_showlastRow)?' class="border"':'' ?>>
         <?php if (!$_item->getParentItem()): ?>
         <td>
@@ -67,7 +67,7 @@
         </td>
         <?php else: ?>
         <td><div class="option-value"><?php echo $this->getValueHtml($_item)?></div></td>
-        <?php endif; ?>
+        <?php endif ?>
         <td class="a-center last">
             <?php if (($this->isShipmentSeparately() && $_item->getParentItem()) || (!$this->isShipmentSeparately() && !$_item->getParentItem())): ?>
                 <?php if (isset($shipItems[$_item->getId()])): ?>
@@ -76,13 +76,13 @@
                     <?php echo $this->__('N/A') ?>
                 <?php else: ?>
                     0
-                <?php endif; ?>
+                <?php endif ?>
             <?php else: ?>
                 &nbsp;
-            <?php endif; ?>
+            <?php endif ?>
         </td>
     </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php if($_showlastRow): ?>
     <tr class="border">
         <td>
@@ -102,14 +102,14 @@
                             $('<?php echo $_id ?>').up().observe('mouseover', function(){$('<?php echo $_id ?>').show();});
                             $('<?php echo $_id ?>').up().observe('mouseout',  function(){$('<?php echo $_id ?>').hide();});
                             </script>
-                        <?php endif;?>
-                    <?php endif;?>
+                        <?php endif ?>
+                    <?php endif ?>
                     </dd>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </dl>
-            <?php endif; ?>
+            <?php endif ?>
             <?php echo $this->escapeHtml($_item->getDescription()) ?>
         </td>
         <td class="last">&nbsp;</td>
     </tr>
-<?php endif; ?>
+<?php endif ?>

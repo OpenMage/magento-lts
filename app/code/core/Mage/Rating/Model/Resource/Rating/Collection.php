@@ -30,6 +30,8 @@
  * @category    Mage
  * @package     Mage_Rating
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Rating_Model_Rating getItemById()
  */
 class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -58,18 +60,24 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         $adapter = $this->getConnection();
 
         $this->getSelect()
-            ->join($this->getTable('rating_entity'),
+            ->join(
+                $this->getTable('rating_entity'),
                 'main_table.entity_id=' . $this->getTable('rating_entity') . '.entity_id',
-                array('entity_code'));
+                array('entity_code')
+            );
 
         if (is_numeric($entity)) {
-            $this->addFilter('entity',
+            $this->addFilter(
+                'entity',
                 $adapter->quoteInto($this->getTable('rating_entity') . '.entity_id=?', $entity),
-                'string');
+                'string'
+            );
         } elseif (is_string($entity)) {
-            $this->addFilter('entity',
+            $this->addFilter(
+                'entity',
                 $adapter->quoteInto($this->getTable('rating_entity') . '.entity_code=?', $entity),
-                'string');
+                'string'
+            );
         }
         return $this;
     }
@@ -80,7 +88,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
      * @param   string $dir
      * @return  Mage_Rating_Model_Resource_Rating_Collection
      */
-    public function setPositionOrder($dir='ASC')
+    public function setPositionOrder($dir = 'ASC')
     {
         $this->setOrder('main_table.position', $dir);
         return $this;
@@ -89,7 +97,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     /**
      * Set store filter
      *
-     * @param int_type $storeId
+     * @param int $storeId
      * @return $this
      */
     public function setStoreFilter($storeId)
@@ -107,7 +115,8 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 ->join(
                     array('store'=>$this->getTable('rating_store')),
                     'main_table.rating_id = store.rating_id',
-                    array())
+                    array()
+                )
         //        ->group('main_table.rating_id')
                 ;
             $this->_isStoreJoined = true;
@@ -166,23 +175,29 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         $sumCond = new Zend_Db_Expr("SUM(rating_option_vote.{$adapter->quoteIdentifier('percent')})");
         $countCond = new Zend_Db_Expr('COUNT(*)');
         $select = $adapter->select()
-            ->from(array('rating_option_vote'  => $this->getTable('rating/rating_option_vote')),
+            ->from(
+                array('rating_option_vote'  => $this->getTable('rating/rating_option_vote')),
                 array(
                     'rating_id' => 'rating_option_vote.rating_id',
                     'sum'         => $sumCond,
                     'count'       => $countCond
-                ))
+                )
+            )
             ->join(
                 array('review_store' => $this->getTable('review/review_store')),
                 'rating_option_vote.review_id=review_store.review_id AND review_store.store_id = :store_id',
-                array())
+                array()
+            )
             ->join(
                 array('rst' => $this->getTable('rating/rating_store')),
                 'rst.rating_id = rating_option_vote.rating_id AND rst.store_id = :rst_store_id',
-                array())
-            ->join(array('review'              => $this->getTable('review/review')),
+                array()
+            )
+            ->join(
+                array('review'              => $this->getTable('review/review')),
                 'review_store.review_id=review.review_id AND review.status_id=1',
-                array())
+                array()
+            )
             ->where($inCond)
             ->where('rating_option_vote.entity_pk_value=:pk_value')
             ->group('rating_option_vote.rating_id');
@@ -213,9 +228,11 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         $adapter = $this->getConnection();
         $ratingCodeCond = $adapter->getIfNullSql('title.value', 'main_table.rating_code');
         $this->getSelect()
-            ->joinLeft(array('title' => $this->getTable('rating_title')),
+            ->joinLeft(
+                array('title' => $this->getTable('rating_title')),
                 $adapter->quoteInto('main_table.rating_id=title.rating_id AND title.store_id = ?', (int) $storeId),
-                array('rating_code' => $ratingCodeCond));
+                array('rating_code' => $ratingCodeCond)
+            );
         return $this;
     }
 

@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Report Sold Product Content Block
  *
@@ -32,17 +31,19 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
+
 class Mage_Adminhtml_Block_Report_Product_Sold extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-    /**
-     * Initialize container block settings
-     *
-     */
     public function __construct()
     {
         $this->_controller = 'report_product_sold';
         $this->_headerText = Mage::helper('reports')->__('Products Ordered');
         parent::__construct();
         $this->_removeButton('add');
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
     }
 }

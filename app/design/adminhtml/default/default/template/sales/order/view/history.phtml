@@ -32,8 +32,8 @@
             <label class="normal" for="history_status"><?php echo Mage::helper('sales')->__('Status') ?></label><br/>
             <select name="history[status]" class="select" id="history_status">
             <?php foreach ($this->getStatuses() as $_code=>$_label): ?>
-                <option value="<?php echo $_code ?>"<?php if($_code==$this->getOrder()->getStatus()): ?> selected="selected"<?php endif; ?>><?php echo $_label ?></option>
-            <?php endforeach; ?>
+                <option value="<?php echo $_code ?>"<?php if($_code==$this->getOrder()->getStatus()): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
+            <?php endforeach ?>
             </select>
         </span>
         <span class="field-row">
@@ -43,7 +43,7 @@
         <div class="f-left">
             <?php if ($this->canSendCommentEmail()): ?>
                 <input name="history[is_customer_notified]" type="checkbox" id="history_notify" value="1" /><label class="normal" for="history_notify"> <?php echo Mage::helper('sales')->__('Notify Customer by Email') ?></label><br />
-            <?php endif; ?>
+            <?php endif ?>
             <input name="history[is_visible_on_front]" type="checkbox" id="history_visible" value="1" /><label class="normal" for="history_visible"> <?php echo Mage::helper('sales')->__('Visible on Frontend') ?></label>
         </div>
         <div class="f-right">
@@ -52,7 +52,7 @@
         <div class="clear"></div>
     </div>
     <div class="divider"></div>
-    <?php endif;?>
+    <?php endif ?>
     <ul class="note-list">
     <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_item): ?>
         <li>
@@ -66,13 +66,13 @@
                 <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
                 <?php else: ?>
                 <?php echo $this->helper('sales')->__('Not Notified') ?>
-                <?php endif; ?>
+                <?php endif ?>
             </strong></small>
             <?php if ($_item->getComment()): ?>
                 <br/><?php echo $this->escapeHtml($_item->getComment(), array('b', 'br', 'strong', 'i', 'u', 'a')) ?>
-            <?php endif; ?>
+            <?php endif ?>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ul>
     <script type="text/javascript">
         if ($('order_status')) $('order_status').update('<?php echo $this->jsQuoteEscape($this->getOrder()->getStatusLabel()) ?>');

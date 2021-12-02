@@ -95,7 +95,7 @@ $select->join(
 $installer->getConnection()->query(
     $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
 );
- 
+
 $installer->getConnection()->query(
     'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
 );
@@ -134,7 +134,7 @@ $select->join(
 $installer->getConnection()->query(
     $select->crossUpdateFromSelect(array('main_table'=>$ordersTable))
 );
- 
+
 $installer->getConnection()->query(
     'DROP TEMPORARY TABLE ' . $installer->getConnection()->quoteIdentifier($temporaryTableName)
 );

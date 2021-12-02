@@ -24,11 +24,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Shipping_Model_Rate_Abstract
+ *
+ * @method string getCarrier()
+ */
 abstract class Mage_Shipping_Model_Rate_Abstract extends Mage_Core_Model_Abstract
 {
     static protected $_instances;
 
+    /**
+     * @return Mage_Shipping_Model_Carrier_Abstract
+     */
     public function getCarrierInstance()
     {
         $code = $this->getCarrier();

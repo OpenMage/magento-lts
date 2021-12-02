@@ -87,7 +87,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
-            return unserialize($this->getData('flag_data'));
+            return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
         } else {
             return null;
         }
