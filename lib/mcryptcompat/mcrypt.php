@@ -1087,7 +1087,8 @@ if (!function_exists('phpseclib_mcrypt_list_algorithms')) {
          * @return int
          * @access public
          */
-        public function filter($in, $out, &$consumed, $closing): int
+        #[\ReturnTypeWillChange]
+        public function filter($in, $out, &$consumed, $closing)
         {
             $newlen = 0;
             $block_mode = phpseclib_mcrypt_module_is_block_mode($this->cipher->mcrypt_mode);
@@ -1124,7 +1125,8 @@ if (!function_exists('phpseclib_mcrypt_list_algorithms')) {
          * @return bool
          * @access public
          */
-        public function onCreate(): bool
+        #[\ReturnTypeWillChange]
+        public function onCreate()
         {
             if (!isset($this->params) || !is_array($this->params)) {
                 trigger_error('stream_filter_append(): Filter parameters for ' . $this->filtername . ' must be an array');
