@@ -24,6 +24,7 @@ services:
       - ../..:/var/www/html
     environment:
       - ENABLE_SENDMAIL=true
+      - ENABLE_CRON=true
     links:
       - mysql
 
