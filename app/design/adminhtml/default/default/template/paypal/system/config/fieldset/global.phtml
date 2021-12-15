@@ -46,27 +46,27 @@
             <td colspan="2" class="paypal-selection-simplified">
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
-                <?php endif;?>
+                <?php endif ?>
                 <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->escapeHtml($this->getElementComment($element))?></label>
             </td>
-        <?php else:?>
+        <?php else: ?>
             <td>
                 <?php if ($this->hasInheritElement($element)): ?>
                     <div><?php echo $this->getInheritElementHtml($element) ?><?php echo $this->getInheritElementLabelHtml($element) ?></div>
-                <?php endif;?>
+                <?php endif ?>
                 <label for="<?php echo $htmlId?>"><?php echo $this->getElementHtml($element) ?><strong><?php echo $this->getElementLabelTextHtml($element)?></strong>&nbsp;&ndash; <?php echo $this->getElementComment($element)?></label>
             </td>
             <td class="paypal-selection-info">
                 <?php if ($url = $this->getElementOriginalData($element, 'demo_url')):?>
                     <a id="<?php echo $element->getHtmlId()?>_demo_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('View Demo')?></a> |
-                <?php endif;?>
+                <?php endif ?>
                 <?php if ($url = $this->getElementOriginalData($element, 'more_url')):?>
                     <a id="<?php echo $element->getHtmlId()?>_more_url" href="<?php echo $this->escapeHtml($url) ?>"><?php echo Mage::helper('paypal')->__('Learn More')?></a>
-                <?php endif;?>
+                <?php endif ?>
             </td>
-        <?php endif;?>
+        <?php endif ?>
         </tr>
-<?php endforeach;?>
+<?php endforeach ?>
     </tbody>
 </table>
 

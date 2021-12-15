@@ -48,12 +48,12 @@
         <span class="paypal-or"><?php echo $this->__('-OR-');?></span>
     </p>
 </li>
-<?php endif;?>
+<?php endif ?>
 
 <?php if ($this->getConfirmationUrl() || $this->getIsInCatalogProduct()): ?>
     <?php if ($this->getIsInCatalogProduct()): ?>
         <input type="hidden" id="pp_checkout_url" name="return_url" value="" />
-    <?php endif; ?>
+    <?php endif ?>
     <script type="text/javascript">
         //<![CDATA[
         $$('#<?php echo $shortcutHtmlId ?>','#<?php echo $bmlShortcutHtmlId ?>').invoke('observe', 'click', function(event) {
@@ -61,13 +61,13 @@
             if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->getConfirmationMessage())?>')) {
                 this.href = '<?php echo $this->getConfirmationUrl() ?>';
             }
-            <?php endif; ?>
+            <?php endif ?>
             <?php if ($this->getIsInCatalogProduct()): ?>
             $('pp_checkout_url').value = this.href;
             productAddToCartForm.submit(this);
             event.stop();
-            <?php endif; ?>
+            <?php endif ?>
         });
         //]]>
     </script>
-<?php endif; ?>
+<?php endif ?>

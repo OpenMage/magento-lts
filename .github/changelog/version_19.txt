@@ -1,5 +1,115 @@
 
-## v19.4.13 - unreleased
+## v19.4.16 - unreleased
+
+## v19.4.15 - 2021-08-26
+
+2 security updates
+
+CVE-2021-32758 - GHSA-26rr-v2j2-25fh - Layout XML Arbitrary Code Fix
+CVE-2021-32759 - GHSA-xm9f-vxmx-4m58 - Data Flow Sanitation Issue Fi
+
+more updates:
+
+#1478 make composer validation workflow use --strict
+#1687 Removed phpdoc to parent doc take effect
+Bump Version - align version with 20.0 branch
+#1698 Do not load product when it is already loaded
+#1715 Fix as attribute for cookie notice
+#1402 fix ArgumentCountError: array_merge_recursive()
+#1713 Fix retrun type of getColumn in Column_Renderer_Interface
+#1254 Fix undefined offset on redis session
+#1692 Add events list
+#1670 Updated new events in README.md.
+#1689 Fixed phpdoc of Mage_Core_Model_Resource_Db_Collection_Abstract::addExpressionFieldToSelect
+#1665 Removed deprecated flash js (AC_RunActiveContent.js)
+#1718 Handle empty Order increment prefix
+#1684 Enforce specific PNG compression level of 9
+#1628 Do not load captcha.js when disabled
+#1637 Grid range filter - optimize SQL query when from === to
+#1720 rewrite isTableExists for performance reasons
+#1733 fixes regression introduced by PR 1720
+#1746 Fixed phpdoc of Varien_Data_Collection_Db::getSelectSql
+#1711 Allow BASE_URL to be overridden by environment in install script.
+#1449 Add support for maintenance mode bypass via maintenance.ip file
+#1541 Move ahead commits from 1.9.3.x (#447)
+#1541 Move ahead commits from 1.9.3.x (#583)
+#1541 Move ahead commits from 1.9.3.x (#575)
+#1755 removed space after "To" in backend grids
+#1725 Log exception on api
+#1701 Code style (endif)
+#1594 Invalidate reset password token when user changes password.
+#1724 Add event sales_order_creditmemo_refund_before
+#1262 Add instruction to add him-/herself to contributors list.
+#1743 Fixed docblock in addStatusHistoryComment().
+#574 Mark indexProcess as STATUS_REQUIRE_REINDEX; it is cleared after
+#1197 Add redis, and specify in more details + add php7.4 mention
+#1243 Added proof of stability stack
+#1627 Fix README.md contributors badge
+#1380 Add check to avoid js error
+#1676 Add OpenMage version to API 'magento.info'.
+#1760 Update contributors list
+#1770 Add int casting in getLogCleanTime
+#1797 Phpdoc of Mage_Core_Model_Session_Abstract_Varien
+
+
+## v19.4.14 - 2021-06-25
+
+#1202 Fix #1190 - Fix the "$_FILES array is empty" exception when assiging products to a category or creating a category with the XMLRPC-API
+#1227 modified nav-bar padding to prevent the search box hiding menu items
+#1326 Fix notice when there are no sales rules for a given situation
+#1443 Log Exception the right way in Session, no need for custom message formatting anymore
+#1505 Fix the deprecation problem of idn_to_ascii() since php7.2
+#1484 Fix unserialization error when saving dataflow advanced profile.
+#1483 Mage_Core_Model_Abstract: Fix rollback when Throwable is thrown in save/delete method
+#1466 Improve error message of product required option by including option …
+#1035 Code style (endif endforeach endfor and more)
+#1577 Code style (endif and break)
+#1575 Product qty is incremented when comment is added on a Credit Memo from SOAP API v2
+#1557 Mark invoice as last when dummy items included
+#1554 Fix Coments in .htaccess
+#1571 Reduce getId calls
+#1565 Log exceptions when generating images
+#1582 Reset array on product reset
+#1598 fixed twitter share link, issue 1595
+#1591 removed magento logo in demo notice
+#1494 Update default USPS endpoint to HTTPS schema
+#1448 Remove _isDownloader flag
+#1481 DEV: add docker-dde setup
+#1534 Cleanup of getMimeType()
+#1384 Add icons in admin (icon-head)
+#1568 Fixes for #1564 and #1289
+- #1564 Checkout - Agreement content when empty (Terms and Conditions)
+- #1289 Wrong attributes order in comparison window
+#1593 fix documentation updateAttributeGroup()
+#640 add some logging for errors during paypal response validation
+#1169 do not connect to write adapter when getting the read adapter (#1167 )
+#1255 Change lowest PHP version to 7
+#1616 Revert "cleanup - remove orphan js/jscolor/* from XmlConnect package (#1436)" - as its used by MageWorx Advanced Product Options
+#1613 Fix getChildren must be compatible with SimpleXMLElement with PHP 8
+#1392 Fix PHP8 Deprecated: Required parameter $A follows optional parameter
+#1183 Fixes cloning of a collection by also cloning the internal select object
+#802 Fix widgets layout handle on edit
+#1416 Page title for credit memo and shipment
+#1644 Fix fatal error - getRegionCollection() - issue #713
+#1588 Update report.php
+#1674 Resolves the PHP 7 error: Declaration of Mage_Tag_Model_Api_V2::items($productId, $store) should be compatible with Mage_Tag_Model_Api::items($productId, $store = NULL)
+
+
+## v19.4.13 - 2021-04-20
+
+2 security updates
+
+CVE-2021-21426 - GHSA-m496-x567-f98c - Fixing a bug in Zend Framework's Stream HTTP Wrapper
+CVE-2021-21427 - GHSA-fvrf-9428-527m - Security Update for SQLi for Magento 2 (a backport of CVE-2021-3007 of laminas-http)
+
+more updates:
+
+#1531 Throw an Exception in resource model if column not exists, instead of E_NOTICE
+#1454 Fix doc getCountry - returning string instead of int
+#1545 Re-add LICENSE.html because of errors during install process (#1542, #1160)
+#1540 Fix PHP8 error in App.php: method_exists() now throws an exception if the first argument is not string|object
+#1391 Fixes core and lib issues for PHP 8.0 compatibility
+#1552 Revert update to Prototype serialize method that breaks OpenMage functionality / Can not select multiple statuses with Prototype 1.7.3 in Reports (#1549, #1497)
 
 
 ## v19.4.12 - 2021-04-06

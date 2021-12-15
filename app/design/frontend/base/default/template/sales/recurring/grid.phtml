@@ -29,7 +29,7 @@
 
 <?php if ($caption = $this->getGridCaption()): ?>
 <h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
-<?php endif; ?>
+<?php endif ?>
 
 <?php $gridElements = $this->getGridElements(); ?>
 <?php if ($gridElements): ?>
@@ -37,7 +37,7 @@
     <table id="<?php echo $this->getGridHtmlId() ?>" class="data-table">
 <?php foreach ($this->getGridColumns() as $column):?>
         <col <?php $width = $this->getObjectData($column, 'width'); echo $width ? ' width="' . $width . '"' : '' ?>/>
-<?php endforeach; ?>
+<?php endforeach ?>
         <thead>
             <tr>
 <?php foreach ($this->getGridColumns() as $column):
@@ -45,7 +45,7 @@ $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>
 $title = $this->getObjectData($column, 'title');
 ?>
                 <th><?php echo $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
-<?php endforeach; ?>
+<?php endforeach ?>
             </tr>
         </thead>
         <tbody>
@@ -67,14 +67,14 @@ if ($linkFormat) {
     echo sprintf($nobr, $this->escapeHtml($value));
 }
                 ?></td>
-<?php endforeach; ?>
+<?php endforeach ?>
             </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
         </tbody>
     </table>
     <?php echo $this->getChildHtml('pager'); ?>
     <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
 <?php else: ?>
     <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
-<?php endif; ?>
+<?php endif ?>
 </div>

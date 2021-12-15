@@ -33,7 +33,7 @@
         <col width="1" />
         <col width="1" />
         <col width="1" />
-        <?php if ($this->canReturnToStock()) : ?><col width="1" /><?php endif; ?>
+        <?php if ($this->canReturnToStock()) : ?><col width="1" /><?php endif ?>
         <col width="1" />
         <col width="1" />
         <col width="1" />
@@ -45,7 +45,7 @@
                 <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
                 <?php if ($this->canReturnToStock()) : ?>
                 <th><span class="nobr"><?php echo $this->helper('sales')->__('Return to Stock') ?></span></th>
-                <?php endif; ?>
+                <?php endif ?>
                 <th><span class="nobr"><?php echo $this->helper('sales')->__('Qty to Refund') ?></span></th>
                 <th><?php echo $this->helper('sales')->__('Subtotal') ?></th>
                 <th><span class="nobr"><?php echo $this->helper('sales')->__('Tax Amount') ?></span></th>
@@ -63,23 +63,23 @@
                 <td colspan="3" class="last">&nbsp;</td>
             </tr>
         </tfoot>
-        <?php endif; ?>
+        <?php endif ?>
         <?php $i=0;foreach ($_items as $_item): ?>
             <?php if ($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
             <tbody class="<?php echo $i%2?'even':'odd' ?>">
                 <?php echo $this->getItemHtml($_item) ?>
                 <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
             </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
   </div>
 </div>
 <br />
-<?php else : ?>
+<?php else: ?>
     <div class="entry-edit">
         <fieldset><div class="a-center"><?php echo $this->helper('sales')->__('No Items To Refund') ?></div></fieldset>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
 <div class="clear"></div>
 <?php echo $this->getChildHtml('order_totalbar') ?>
@@ -109,7 +109,7 @@
               <label class="normal" for="send_email"><?php echo Mage::helper('sales')->__('Email Copy of Credit Memo') ?></label>
               <input id="send_email" name="creditmemo[send_email]" value="1" type="checkbox" />
           </p>
-          <?php endif; ?>
+          <?php endif ?>
               <?php echo $this->getChildHtml('submit_before') ?>
               <?php echo $this->getChildHtml('submit_offline') ?>
               <?php echo $this->getChildHtml('submit_button') ?>

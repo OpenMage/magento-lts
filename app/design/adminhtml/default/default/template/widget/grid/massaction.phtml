@@ -32,7 +32,7 @@
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectAll()"><?php echo $this->__('Unselect All') ?></a>
         <span class="separator">|</span>
-        <?php endif; ?>
+        <?php endif ?>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.selectVisible()"><?php echo $this->__('Select Visible') ?></a>
         <span class="separator">|</span>
         <a href="#" onclick="return <?php echo $this->getJsObjectName() ?>.unselectVisible()"><?php echo $this->__('Unselect Visible') ?></a>
@@ -53,7 +53,7 @@
                                 <option value=""></option>
                                 <?php foreach($this->getItems() as $_item): ?>
                                     <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </span>
                         <span class="outer-span" id="<?php echo $this->getHtmlId() ?>-form-hiddens"></span>
@@ -72,7 +72,7 @@
                 <div id="<?php echo $this->getHtmlId() ?>-item-<?php echo $_item->getId() ?>-block">
                     <?php echo $_item->getAdditionalActionBlockHtml() ?>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </div>
         </div>
     </td>
@@ -82,5 +82,5 @@
 <script type="text/javascript">
     <?php echo $this->getJsObjectName() ?>.setGridIds('<?php echo $this->getGridIdsJson() ?>');
 </script>
-<?php endif; ?>
+<?php endif ?>
 </div>

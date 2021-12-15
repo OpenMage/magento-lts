@@ -33,11 +33,11 @@
         <?php foreach ($_options as $_option): ?>
             <?php if (!$_option->getSelections()): ?>
                 <?php continue; ?>
-            <?php endif; ?>
+            <?php endif ?>
             <?php echo $this->getOptionHtml($_option) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </dl>
     <?php else: ?>
         <p><?php echo $this->__('No options of this product are available.') ?></p>
-    <?php endif; ?>
-<?php endif;?>
+    <?php endif ?>
+<?php endif ?>

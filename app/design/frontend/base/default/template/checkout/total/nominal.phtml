@@ -44,7 +44,7 @@
         <?php echo $this->formatPrice($this->getItemDetailsRowAmount($row)) ?>
     </td>
 </tr>
-<?php endforeach; ?>
+<?php endforeach ?>
 <tr class="summary-total" onclick="expandDetails(this, '<?php echo ".summary-details-nominal-{$i}"?>')">
     <td colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotalStyle() ?>">
         <div class="summary-collapse"><?php echo $this->escapeHtml($this->getItemName($item)); ?></div>
@@ -53,4 +53,4 @@
         <?php echo $this->helper('checkout')->formatPrice($this->getItemRowTotal($item)) ?>
     </td>
 </tr>
-<?php endforeach; ?>
+<?php endforeach ?>

@@ -121,13 +121,13 @@
             <div id="max_recipient_message" style="display:none;">
                 <?php if ($this->getMaxRecipients()): ?>
                   <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
             <?php if (1 < $this->getMaxRecipients()): ?>
                 <p id="add_recipient_button">
                     <button type="button" onclick="add_recipient();" class="button"><span><span><?php echo $this->__('Add Recipient') ?></span></span></button>
                 </p>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     </form>
     <script type="text/javascript">

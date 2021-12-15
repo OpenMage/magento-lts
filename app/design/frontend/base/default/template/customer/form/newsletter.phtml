@@ -34,7 +34,7 @@
         <?php echo $this->getBlockHtml('formkey')?>
         <h2 class="legend"><?php echo $this->__('Newsletter Subscription') ?></h2>
         <ul class="form-list">
-            <li class="control"><input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('General Subscription')) ?>"<?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" /><label for="subscription"><?php echo $this->__('General Subscription') ?></label></li>
+            <li class="control"><input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('General Subscription')) ?>"<?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif ?> class="checkbox" /><label for="subscription"><?php echo $this->__('General Subscription') ?></label></li>
             <?php /* Extensions placeholder */ ?>
             <?php echo $this->getChildHtml('customer.form.newsletter.extra')?>
         </ul>

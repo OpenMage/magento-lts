@@ -30,7 +30,7 @@
     <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>_before" style="display:none;">
         <?php if ($_formMessage): ?>
         <?php echo $this->showNoticeMessage($_formMessage) ?>
-        <?php endif;?>
+        <?php endif ?>
 
         <?php if ($_isPartialAuthorization): ?>
                 <?php echo $this->getChildHtml('cards') ?>
@@ -65,10 +65,10 @@
                     if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                         cancelPaymentAuthorizations();
                     }
-                    <?php endif;?>
+                    <?php endif ?>
                     //]]>
                     </script>
-        <?php endif;?>
+        <?php endif ?>
     </div>
-<?php endif;?>
+<?php endif ?>
 <?php echo $this->getChildHtml('method_form_block') ?>

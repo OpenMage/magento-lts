@@ -36,7 +36,7 @@
     <div class="col-2">
     <?php else: ?>
     <div class="col-1">
-    <?php endif; ?>
+    <?php endif ?>
         <h2><?php echo $this->__('Billing Address') ?></h2>
         <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
     </div>
@@ -47,7 +47,7 @@
         <h2><?php echo $this->__('Shipping Method') ?></h2>
          <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
     <div class="col-2">
         <h2><?php echo $this->__('Payment Method') ?></h2>
         <?php echo $this->getPaymentInfoHtml() ?>
@@ -79,7 +79,7 @@
     <tbody>
         <?php echo $this->getItemHtml($_item) ?>
     </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
 <script type="text/javascript">window.print();</script>

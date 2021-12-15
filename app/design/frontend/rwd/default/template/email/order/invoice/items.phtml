@@ -49,10 +49,10 @@
         <?php $i=0; foreach ($_invoice->getAllItems() as $_item): ?>
         <?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
             <?php echo $this->getItemHtml($_item) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
         <tfoot>
             <?php echo $this->getChildHtml('invoice_totals')?>
         </tfoot>
     </table>
-<?php endif; ?>
+<?php endif ?>

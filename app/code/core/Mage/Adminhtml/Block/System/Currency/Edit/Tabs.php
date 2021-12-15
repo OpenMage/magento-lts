@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_System_Currency_Edit_Tabs extends Mage_Adminhtml_Bloc
             'label'     => Mage::helper('adminhtml')->__('Rates'),
             'content'   => $this->getLayout()->createBlock('adminhtml/system_currency_edit_tab_rates')->toHtml(),
         ));
-        
+
         return parent::_beforeToHtml();
     }
 }

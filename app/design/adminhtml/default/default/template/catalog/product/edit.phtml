@@ -40,12 +40,12 @@
         <?php echo $this->getDeleteButtonHtml() ?>
         <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
             <?php echo $this->getDuplicateButtonHtml() ?>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     <?php if($this->getProductSetId() && $this->getIsConfigured()): ?>
         <?php echo $this->getSaveButtonHtml() ?>
         <?php echo $this->getSaveAndEditButtonHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
     </p>
 </div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="product_edit_form" enctype="multipart/form-data">

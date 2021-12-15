@@ -48,19 +48,19 @@
                 <?php echo $this->escapeHtml($rate['title']); ?>
                 <?php if (!is_null($rate['percent'])): ?>
                     (<?php echo (float)$rate['percent']; ?>%)
-                <?php endif; ?>
+                <?php endif ?>
                 <br />
             </td>
             <?php if ($isFirst): ?>
                 <td style="<?php echo $_style ?>" class="a-right" rowspan="<?php echo count($rates); ?>">
                     <?php echo $this->helper('checkout')->formatPrice($amount); ?>
                 </td>
-            <?php endif; ?>
+            <?php endif ?>
         </tr>
         <?php $isFirst = 0; ?>
         <?php $isTop = 0; ?>
-        <?php endforeach; ?>
-    <?php endforeach; ?>
+        <?php endforeach ?>
+    <?php endforeach ?>
     <?php $weees = $this->getAllWeee(); ?>
     <?php foreach ($weees as $weeeTitle => $weeeAmount): ?>
     <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>" style="display:none;">
@@ -72,15 +72,15 @@
             <?php echo $this->helper('checkout')->formatPrice($weeeAmount); ?>
         </td>
     </tr>
-    <?php endforeach; ?>
-<?php endif;?>
-<tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif; ?>>
+    <?php endforeach ?>
+<?php endif ?>
+<tr <?php if ($this->helper('tax')->displayFullSummary() && $_value!=0): ?> class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')"<?php endif ?>>
     <td style="<?php echo $_style ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
         <?php if ($this->helper('tax')->displayFullSummary()): ?>
             <div class="summary-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
         <?php else: ?>
             <?php echo $this->getTotal()->getTitle() ?>
-        <?php endif;?>
+        <?php endif ?>
     </td>
     <td style="<?php echo $_style ?>" class="a-right"><?php echo $this->helper('checkout')->formatPrice($_value) ?></td>
 </tr>

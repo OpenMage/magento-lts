@@ -111,8 +111,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         $this->_orderStateValue     = (!is_array($state)) ? array($state) : $state;
         return $this;
     }
-    
-    
+
+
     /**
      * Before load action
      *
@@ -197,7 +197,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }
-        
+
         if ($this->_totals['num_orders']) {
             $this->_totals['avgsale'] = $this->_totals['base_lifetime'] / $this->_totals['num_orders'];
         }

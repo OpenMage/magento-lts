@@ -37,12 +37,12 @@
                     <a href="#" onclick="<?php echo $this->getViewLinkHtml($_number) ?>"><?php echo $_number ?></a>
                     <a href="#" onclick="<?php echo $this->getRemoveLinkHtml($_number) ?>"><?php echo Mage::helper('sales')->__('Delete') ?></a><br/>
                     <span id="order_tracking_info_response_<?php echo $_number ?>"></span>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php endforeach ?>
+            <?php endif ?>
             <input class="input-text" type="text" id="tracking_number" name="tracking_number" value="" style="width:120px;"/>
             <?php echo $this->getSaveButtonHtml() ?>
         </td>
     </tr>
 </table>
 </span>
-<?php endif; ?>
+<?php endif ?>

@@ -31,16 +31,16 @@
  * @package    Varien_Filter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- 
+
 class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_Tokenizer_Abstract
 {
-       
+
     /**
      * Tokenize string and return getted parameters
      *
      * @return array
      */
-    public function tokenize() 
+    public function tokenize()
     {
         $parameters = array();
         $parameterName = '';
@@ -53,32 +53,32 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
                 $parameters[$parameterName] = $this->getValue();
                 $parameterName = '';
             }
-            
-        }       
+
+        }
         return $parameters;
     }
-    
+
     /**
      * Get string value in parameters througth tokenize
-     * 
+     *
      * @return string
      */
     public function getValue() {
         $this->next();
         $value = '';
-        if($this->isWhiteSpace()) { 
+        if($this->isWhiteSpace()) {
             return $value;
         }
         $quoteStart = $this->char() == "'" || $this->char() == '"';
-        
-        
+
+
         if($quoteStart) {
            $breakSymbol = $this->char();
-        } else { 
+        } else {
            $breakSymbol = false;
            $value .= $this->char();
         }
-          
+
         while ($this->next()) {
             if (!$breakSymbol && $this->isWhiteSpace()) {
                 break;
@@ -89,10 +89,10 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
                 $value .= $this->char();
             } else {
                 $value .= $this->char();
-            }                        
+            }
         }
-        
+
         return $value;
     }
-    
+
 }

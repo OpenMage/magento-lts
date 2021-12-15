@@ -32,7 +32,7 @@
     <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(array('class')) ?>>
     <?php if ($_element->getComment()): ?>
         <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
-    <?php endif; ?>
+    <?php endif ?>
     <?php echo $_element->getChildrenHtml() ?>
     </fieldset>
 </div>
@@ -40,5 +40,5 @@
 var <?php echo $_element->getHtmlId() ?> = new VarienRulesForm('<?php echo $_element->getHtmlId() ?>', '<?php echo $this->getNewChildUrl() ?>');
 <?php if ($_element->getReadonly()): ?>
     <?php echo $_element->getHtmlId() ?>.setReadonly(true);
-<?php endif; ?>
+<?php endif ?>
 </script>

@@ -29,18 +29,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Tag_Product_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_product_detail';
-
         $product = Mage::getModel('catalog/product')->load($this->getRequest()->getParam('id'));
-
         $this->_headerText = Mage::helper('reports')->__('Tags submitted to %s', $this->escapeHtml($product->getName()));
         parent::__construct();
         $this->_removeButton('add');
@@ -48,4 +45,8 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail extends Mage_Adminhtml_Bloc
         $this->_addBackButton();
     }
 
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

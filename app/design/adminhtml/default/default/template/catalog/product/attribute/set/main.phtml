@@ -56,7 +56,7 @@
             <?php if (!$this->getIsReadOnly()): ?>
                 <p><?php echo $this->getAddGroupButton() ?>&nbsp;<?php echo $this->getDeleteGroupButton() ?></p>
                 <p class="note-block"><?php echo Mage::helper('catalog')->__('Double click on a group to rename it') ?></p>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php echo $this->getSetsFilterHtml() ?>
             <?php echo $this->getGroupTreeHtml() ?>

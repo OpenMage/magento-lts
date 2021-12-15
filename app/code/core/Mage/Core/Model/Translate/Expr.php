@@ -23,7 +23,7 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Translate expression object
  *
@@ -63,7 +63,7 @@ class Mage_Core_Model_Translate_Expr
         $this->_module = $module;
         return $this;
     }
-    
+
     /**
      * Retrieve expression text
      *
@@ -73,7 +73,7 @@ class Mage_Core_Model_Translate_Expr
     {
         return $this->_text;
     }
-    
+
     /**
      * Retrieve expression module
      *
@@ -83,7 +83,7 @@ class Mage_Core_Model_Translate_Expr
     {
         return $this->_module;
     }
-    
+
     /**
      * Retrieve expression code
      *

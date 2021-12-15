@@ -35,7 +35,7 @@ OptionTemplateSelect = '<table class="border" cellpadding="0" cellspacing="0">'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
             '<th class="type-price"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price')) ?></th>' +
             '<th class="type-type"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Price Type')) ?></th>' +
-            <?php endif; ?>
+            <?php endif ?>
             '<th class="type-sku"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('SKU')) ?></th>'+
             '<th class="type-order"><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Sort Order')) ?></th>'+
             '<th class="type-butt last">&nbsp;</th>'+
@@ -56,12 +56,12 @@ OptionTemplateSelectRow = '<tr id="product_option_{{id}}_select_{{select_id}}">'
             '<input type="hidden" id="product_option_{{id}}_select_{{select_id}}_is_delete" name="product[options][{{id}}][values][{{select_id}}][is_delete]" value="">'+
             '<input type="text" class="required-entry input-text select-type-title" id="product_option_{{id}}_select_{{select_id}}_title" name="product[options][{{id}}][values][{{select_id}}][title]" value="{{title}}">{{checkboxScopeTitle}}</td>'+
             <?php if ($this->getCanReadPrice() !== false) : ?>
-            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif; ?>></td>' +
+            '<td><input type="text" class="input-text validate-number product-option-price" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]" value="{{price}}"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled"<?php endif ?>></td>' +
             '<td><?php echo $this->getPriceTypeSelectHtml() ?>{{checkboxScopePrice}}</td>' +
-            <?php else : ?>
+            <?php else: ?>
             '<input type="hidden" id="product_option_{{id}}_select_{{select_id}}_price" name="product[options][{{id}}][values][{{select_id}}][price]">' +
             '<input type="hidden" name="product[options][{{id}}][values][{{select_id}}][price_type]" id="product_option_{{id}}_select_{{select_id}}_price_type">' +
-            <?php endif; ?>
+            <?php endif ?>
             '<td><input type="text" class="input-text" name="product[options][{{id}}][values][{{select_id}}][sku]" value="{{sku}}"></td>'+
             '<td><input type="text" class="validate-zero-or-greater input-text" name="product[options][{{id}}][values][{{select_id}}][sort_order]" value="{{sort_order}}"></td>'+
             '<td class="last"><span title="Delete row"><?php echo $this->getDeleteButtonHtml() ?></span></td>'+
