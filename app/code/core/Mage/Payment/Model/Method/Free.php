@@ -46,6 +46,8 @@ class Mage_Payment_Model_Method_Free extends Mage_Payment_Model_Method_Abstract
      * @var bool
      */
     protected $_canAuthorize = true;
+    protected $_canRefund = true;
+    protected $_canRefundInvoicePartial = true;
 
     /**
      * Payment code name

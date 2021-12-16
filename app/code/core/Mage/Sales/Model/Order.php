@@ -751,7 +751,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
          * for this we have additional diapason for 0
          * TotalPaid - contains amount, that were not rounded.
          */
-        if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001) {
+        if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001
+            && $this->getPayment()->getMethod() !== 'free') {
             return false;
         }
 
