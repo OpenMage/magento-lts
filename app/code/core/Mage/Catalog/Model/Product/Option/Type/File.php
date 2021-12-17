@@ -733,10 +733,12 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _getOptionDownloadUrl($route, $params)
     {
-        if(!$params['_store']){
-            $websites = Mage::app()->getWebsites();
-            $code = $websites[1]->getDefaultStore()->getCode();
-            $params['_store'] = $code;
+        if (empty($params['_store']) && Mage::app()->getStore()->isAdmin()) {
+            $order = Mage::registry('current_order');
+            if (is_object($order))
+                $params['_store'] = Mage::app()->getStore($order->getStoreId())->getCode();
+            else
+                $params['_store'] = Mage::app()->getDefaultWebsite()->getDefaultStore()->getCode();
         }
         return Mage::getUrl($route, $params);
     }
