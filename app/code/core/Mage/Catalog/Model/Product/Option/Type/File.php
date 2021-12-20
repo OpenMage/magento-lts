@@ -738,7 +738,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             if (is_object($order))
                 $params['_store'] = Mage::app()->getStore($order->getStoreId())->getCode();
             else
-                $params['_store'] = Mage::app()->getDefaultWebsite()->getDefaultStore()->getCode();
+                $params['_store'] = Mage::app()->getDefaultStoreView()->getCode();
         }
         return Mage::getUrl($route, $params);
     }
