@@ -47,7 +47,6 @@
  * @method $this setProductId(int $value)
  * @method string getProductType()
  * @method $this setProductType(string $value)
- * @method $this setWeight(float $value)
  * @method int getIsVirtual()
  * @method $this setIsVirtual(int $value)
  * @method string getSku()
@@ -66,75 +65,20 @@
  * @method $this setIsQtyDecimal(int $value)
  * @method int getNoDiscount()
  * @method $this setNoDiscount(int $value)
- * @method $this setQtyBackordered(float $value)
- * @method $this setQtyCanceled(float $value)
- * @method $this setQtyInvoiced(float $value)
- * @method $this setQtyOrdered(float $value)
- * @method $this setQtyRefunded(float $value)
- * @method $this setQtyShipped(float $value)
- * @method $this setBaseCost(float $value)
- * @method $this setPrice(float $value)
- * @method $this setBasePrice(float $value)
- * @method $this setOriginalPrice(float $value)
- * @method $this setBaseOriginalPrice(float $value)
- * @method $this setTaxPercent(float $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setBaseTaxAmount(float $value)
- * @method $this setTaxInvoiced(float $value)
- * @method $this setBaseTaxInvoiced(float $value)
- * @method $this setDiscountPercent(float $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setBaseDiscountAmount(float $value)
- * @method $this setDiscountInvoiced(float $value)
- * @method $this setBaseDiscountInvoiced(float $value)
- * @method $this setAmountRefunded(float $value)
- * @method $this setBaseAmountRefunded(float $value)
- * @method $this setRowTotal(float $value)
- * @method $this setBaseRowTotal(float $value)
- * @method $this setRowInvoiced(float $value)
- * @method $this setBaseRowInvoiced(float $value)
- * @method $this setRowWeight(float $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
  * @method int getGiftMessageAvailable()
  * @method $this setGiftMessageAvailable(int $value)
- * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method $this setTaxBeforeDiscount(float $value)
  * @method string getExtOrderItemId()
  * @method $this setExtOrderItemId(string $value)
  * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method $this setWeeeTaxDisposition(float $value)
- * @method $this setWeeeTaxRowDisposition(float $value)
- * @method $this setBaseWeeeTaxDisposition(float $value)
- * @method $this setBaseWeeeTaxRowDisposition(float $value)
  * @method int getLockedDoInvoice()
  * @method $this setLockedDoInvoice(int $value)
  * @method int getLockedDoShip()
  * @method $this setLockedDoShip(int $value)
- * @method $this setPriceInclTax(float $value)
- * @method $this setBasePriceInclTax(float $value)
- * @method $this setRowTotalInclTax(float $value)
- * @method $this setBaseRowTotalInclTax(float $value)
- * @method $this setHiddenTaxAmount(float $value)
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method $this setHiddenTaxInvoiced(float $value)
- * @method $this setBaseHiddenTaxInvoiced(float $value)
- * @method $this setHiddenTaxRefunded(float $value)
- * @method $this setBaseHiddenTaxRefunded(float $value)
  * @method int getIsNominal()
  * @method $this setIsNominal(int $value)
- * @method $this setTaxCanceled(float $value)
- * @method $this setHiddenTaxCanceled(float $value)
- * @method $this setTaxRefunded(float $value)
- * @method $this setBaseTaxRefunded(float $value)
- * @method $this setDiscountRefunded(float $value)
- * @method $this setBaseDiscountRefunded(float $value)
- * @method $this setShippingAmount(float $value)
  * @method bool getHasChildren()
  * @method $this setHasChildren(bool $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
@@ -1247,5 +1191,453 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function getBaseDiscountRefunded()
     {
         return (float) $this->_getData('base_discount_refunded');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeight($value)
+    {
+        return $this->setData('weight', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyBackordered($value)
+    {
+        return $this->setData('qty_backordered', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyCanceled($value)
+    {
+        return $this->setData('qty_canceled', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyInvoiced($value)
+    {
+        return $this->setData('qty_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyOrdered($value)
+    {
+        return $this->setData('qty_ordered', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyRefunded($value)
+    {
+        return $this->setData('qty_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQtyShipped($value)
+    {
+        return $this->setData('qty_shipped', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCost($value)
+    {
+        return $this->setData('base_cost', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePrice($value)
+    {
+        return $this->setData('base_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setOriginalPrice($value)
+    {
+        return $this->setData('original_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseOriginalPrice($value)
+    {
+        return $this->setData('base_original_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxPercent($value)
+    {
+        return $this->setData('tax_percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxAmount($value)
+    {
+        return $this->setData('tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxAmount($value)
+    {
+        return $this->setData('base_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxInvoiced($value)
+    {
+        return $this->setData('tax_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxInvoiced($value)
+    {
+        return $this->setData('base_tax_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountPercent($value)
+    {
+        return $this->setData('discount_percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountAmount($value)
+    {
+        return $this->setData('base_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountInvoiced($value)
+    {
+        return $this->setData('discount_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountInvoiced($value)
+    {
+        return $this->setData('base_discount_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountRefunded($value)
+    {
+        return $this->setData('amount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountRefunded($value)
+    {
+        return $this->setData('base_amount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotal($value)
+    {
+        return $this->setData('row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotal($value)
+    {
+        return $this->setData('base_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowInvoiced($value)
+    {
+        return $this->setData('row_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowInvoiced($value)
+    {
+        return $this->setData('base_row_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowWeight($value)
+    {
+        return $this->setData('row_weight', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxBeforeDiscount($value)
+    {
+        return $this->setData('base_tax_before_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxBeforeDiscount($value)
+    {
+        return $this->setData('tax_before_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('weee_tax_applied_row_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_row_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxDisposition($value)
+    {
+        return $this->setData('weee_tax_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxRowDisposition($value)
+    {
+        return $this->setData('weee_tax_row_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxDisposition($value)
+    {
+        return $this->setData('base_weee_tax_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxRowDisposition($value)
+    {
+        return $this->setData('base_weee_tax_row_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPriceInclTax($value)
+    {
+        return $this->setData('price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePriceInclTax($value)
+    {
+        return $this->setData('base_price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotalInclTax($value)
+    {
+        return $this->setData('row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotalInclTax($value)
+    {
+        return $this->setData('base_row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxAmount($value)
+    {
+        return $this->setData('hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxAmount($value)
+    {
+        return $this->setData('base_hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxInvoiced($value)
+    {
+        return $this->setData('hidden_tax_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxInvoiced($value)
+    {
+        return $this->setData('base_hidden_tax_invoiced', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxRefunded($value)
+    {
+        return $this->setData('hidden_tax_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxRefunded($value)
+    {
+        return $this->setData('base_hidden_tax_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxCanceled($value)
+    {
+        return $this->setData('tax_canceled', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxCanceled($value)
+    {
+        return $this->setData('hidden_tax_canceled', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxRefunded($value)
+    {
+        return $this->setData('tax_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxRefunded($value)
+    {
+        return $this->setData('base_tax_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountRefunded($value)
+    {
+        return $this->setData('discount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountRefunded($value)
+    {
+        return $this->setData('base_discount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingAmount($value)
+    {
+        return $this->setData('shipping_amount', (float) $value);
     }
 }

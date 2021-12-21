@@ -56,7 +56,6 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method string getStoreTitle()
- * @method $this setPrice(float $value)
  * @method Mage_Catalog_Model_Product getProduct()
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method array getProductWebsiteIds()
@@ -179,5 +178,13 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     public function getWebsitePrice()
     {
         return (float) $this->_getData('website_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
     }
 }

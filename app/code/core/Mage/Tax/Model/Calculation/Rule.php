@@ -31,7 +31,6 @@
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  *
- * @method $this setCalculateSubtotal(float $value)
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method int getPriority()
@@ -210,5 +209,13 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     public function getTaxRate()
     {
         return (float) $this->_getData('tax_rate');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCalculateSubtotal($value)
+    {
+        return $this->setData('calculate_subtotal', (float) $value);
     }
 }

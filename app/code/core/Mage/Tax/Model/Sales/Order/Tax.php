@@ -37,16 +37,12 @@
  * @method $this setCode(string $value)
  * @method string getTitle()
  * @method $this setTitle(string $value)
- * @method $this setPercent(float $value)
- * @method $this setAmount(float $value)
  * @method int getPriority()
  * @method $this setPriority(int $value)
  * @method int getPosition()
  * @method $this setPosition(int $value)
- * @method $this setBaseAmount(float $value)
  * @method int getProcess()
  * @method $this setProcess(int $value)
- * @method $this setBaseRealAmount(float $value)
  * @method int getHidden()
  * @method $this setHidden(int $value)
  *
@@ -90,5 +86,37 @@ class Mage_Tax_Model_Sales_Order_Tax extends Mage_Core_Model_Abstract
     public function getBaseRealAmount()
     {
         return (float) $this->_getData('base_real_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPercent($value)
+    {
+        return $this->setData('percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmount($value)
+    {
+        return $this->setData('amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmount($value)
+    {
+        return $this->setData('base_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRealAmount($value)
+    {
+        return $this->setData('base_real_amount', (float) $value);
     }
 }

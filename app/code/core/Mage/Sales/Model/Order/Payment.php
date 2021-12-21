@@ -37,24 +37,9 @@
  * @method $this setAdditionalData(string $value)
  * @method string getAddressStatus()
  * @method $this setAddressStatus(string $value)
- * @method $this setAmountAuthorized(float $value)
- * @method $this setAmountCanceled(float $value)
- * @method $this setAmountOrdered(float $value)
- * @method $this setAmountPaid(float $value)
- * @method $this setAmountRefunded(float $value)
  * @method string getAnetTransMethod()
  * @method $this setAnetTransMethod(string $value)
  *
- * @method $this setBaseAmountAuthorized(float $value)
- * @method $this setBaseAmountCanceled(float $value)
- * @method $this setBaseAmountOrdered(float $value)
- * @method $this setBaseAmountPaid(float $value)
- * @method $this setBaseAmountPaidOnline(float $value)
- * @method $this setBaseAmountRefunded(float $value)
- * @method $this setBaseAmountRefundedOnline(float $value)
- * @method $this setBaseShippingAmount(float $value)
- * @method $this setBaseShippingCaptured(float $value)
- * @method $this setBaseShippingRefunded(float $value)
  * @method array getBillingAgreementData()
  *
  * @method string getCcApproval()
@@ -166,9 +151,6 @@
  *
  * @method $this setRefundTransactionId(string $value)
  *
- * @method $this setShippingAmount(float $value)
- * @method $this setShippingCaptured(float $value)
- * @method $this setShippingRefunded(float $value)
  * @method bool getShouldCloseParentTransaction()
  * @method $this setShouldCloseParentTransaction(bool $value)
  * @method bool getSkipOrderProcessing()
@@ -1849,5 +1831,149 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     public function getShippingRefunded()
     {
         return (float) $this->_getData('shipping_refunded');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountAuthorized($value)
+    {
+        return $this->setData('amount_authorized', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountCanceled($value)
+    {
+        return $this->setData('amount_canceled', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountOrdered($value)
+    {
+        return $this->setData('amount_ordered', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountPaid($value)
+    {
+        return $this->setData('amount_paid', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmountRefunded($value)
+    {
+        return $this->setData('amount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountAuthorized($value)
+    {
+        return $this->setData('base_amount_authorized', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountCanceled($value)
+    {
+        return $this->setData('base_amount_canceled', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountOrdered($value)
+    {
+        return $this->setData('base_amount_ordered', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountPaid($value)
+    {
+        return $this->setData('base_amount_paid', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountPaidOnline($value)
+    {
+        return $this->setData('base_amount_paid_online', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountRefunded($value)
+    {
+        return $this->setData('base_amount_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmountRefundedOnline($value)
+    {
+        return $this->setData('base_amount_refunded_online', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingAmount($value)
+    {
+        return $this->setData('base_shipping_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingCaptured($value)
+    {
+        return $this->setData('base_shipping_captured', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingRefunded($value)
+    {
+        return $this->setData('base_shipping_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingAmount($value)
+    {
+        return $this->setData('shipping_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingCaptured($value)
+    {
+        return $this->setData('shipping_captured', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingRefunded($value)
+    {
+        return $this->setData('shipping_refunded', (float) $value);
     }
 }

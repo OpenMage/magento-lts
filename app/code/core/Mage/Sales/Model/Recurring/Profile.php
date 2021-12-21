@@ -62,19 +62,14 @@
  * @method $this setPeriodFrequency(int $value)
  * @method int getPeriodMaxCycles()
  * @method $this setPeriodMaxCycles(int $value)
- * @method $this setBillingAmount(float $value)
  * @method string getTrialPeriodUnit()
  * @method $this setTrialPeriodUnit(string $value)
  * @method int getTrialPeriodFrequency()
  * @method $this setTrialPeriodFrequency(int $value)
  * @method int getTrialPeriodMaxCycles()
  * @method $this setTrialPeriodMaxCycles(int $value)
- * @method $this setTrialBillingAmount(float $value)
  * @method string getCurrencyCode()
  * @method $this setCurrencyCode(string $value)
- * @method $this setShippingAmount(float $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setInitAmount(float $value)
  * @method int getInitMayFail()
  * @method $this setInitMayFail(int $value)
  * @method string getOrderInfo()
@@ -830,5 +825,45 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function getInitAmount()
     {
         return (float) $this->_getData('init_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBillingAmount($value)
+    {
+        return $this->setData('billing_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTrialBillingAmount($value)
+    {
+        return $this->setData('trial_billing_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingAmount($value)
+    {
+        return $this->setData('shipping_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxAmount($value)
+    {
+        return $this->setData('tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setInitAmount($value)
+    {
+        return $this->setData('init_amount', (float) $value);
     }
 }

@@ -41,14 +41,12 @@
  * @method $this setOrderId(int $value)
  * @method int getParentId()
  * @method $this setParentId(int $value)
- * @method $this setQty(float $value)
  * @method $this setStoreId(int $value)
  * @method string getTitle()
  * @method $this setTitle(string $value)
  * @method string getTrackNumber()
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- * @method $this setWeight(float $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -213,5 +211,21 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
     public function getWeight()
     {
         return (float) $this->_getData('weight');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQty($value)
+    {
+        return $this->setData('qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeight($value)
+    {
+        return $this->setData('weight', (float) $value);
     }
 }

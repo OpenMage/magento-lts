@@ -39,7 +39,6 @@
  * @method string getMethod()
  * @method $this setMethod(string $value)
  * @method $this setMethodTitle(string $value)
- * @method $this setCost(float $value)
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {
@@ -60,5 +59,13 @@ class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Re
     public function getPrice()
     {
         return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCost($value)
+    {
+        return $this->setData('cost', (float) $value);
     }
 }

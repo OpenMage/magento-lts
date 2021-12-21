@@ -54,7 +54,6 @@
  * @method bool getCanSaveConfigurableAttributes()
  * @method bool getCanShowPrice()
  * @method bool getCategoriesReadonly()
- * @method $this setCartQty(float $value)
  * @method $this setCategory(Mage_Catalog_Model_Category $value)
  * @method bool hasCategoryIds()
  * @method array getChildAttributeLabelMapping()
@@ -66,7 +65,6 @@
  * @method array getConfigurableAttributesData()
  * @method array getConfigurableImagesFallbackArray()
  * @method $this setConfigurableImagesFallbackArray(array $value)
- * @method $this setConfigurablePrice(float $value)
  * @method array getConfigurableProductsData()
  * @method bool getConfigureMode()
  * @method $this setConfigureMode(bool $value)
@@ -167,7 +165,6 @@
  * @method int getPopularity()
  * @method string getPosition()
  * @method bool hasPreconfiguredValues()
- * @method $this setPrice(float $value)
  * @method int getPriceType()
  * @method int getProductId()
  * @method array getProductOptions()
@@ -175,11 +172,7 @@
  * @method $this setProductTags(Mage_Tag_Model_Resource_Tag_Collection $value)
  * @method $this setProductUrl(string $value)
  *
- * @method $this setQuoteItemPrice(float $value)
- * @method $this setQuoteItemRowTotal(float $value)
  * @method $this setQuoteItemQty(int $value)
- * @method $this setQuoteQty(float $value)
- * @method $this setQty(float $value)
  *
  * @method $this setRatingSummary(Varien_Object $summary)
  * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
@@ -225,7 +218,6 @@
  *
  * @method int getTaxClassId()
  * @method string getThumbnail()
- * @method $this setTaxPercent(float $value)
  * @method $this setTypeId(int $value)
  * @method bool getTypeHasOptions()
  * @method $this setTypeHasOptions(bool $value)
@@ -2398,5 +2390,69 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     public function getTaxPercent()
     {
         return (float) $this->_getData('tax_percent');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCartQty($value)
+    {
+        return $this->setData('cart_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setConfigurablePrice($value)
+    {
+        return $this->setData('configurable_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteItemPrice($value)
+    {
+        return $this->setData('quote_item_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteItemRowTotal($value)
+    {
+        return $this->setData('quote_item_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteQty($value)
+    {
+        return $this->setData('quote_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQty($value)
+    {
+        return $this->setData('qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxPercent($value)
+    {
+        return $this->setData('tax_percent', (float) $value);
     }
 }

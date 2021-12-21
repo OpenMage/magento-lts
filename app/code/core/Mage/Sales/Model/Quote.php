@@ -44,11 +44,6 @@
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
- * @method $this setBaseGrandTotal(float $value)
- * @method $this setBaseSubtotal(float $value)
- * @method $this setBaseSubtotalWithDiscount(float $value)
- * @method $this setBaseToGlobalRate(float $value)
- * @method $this setBaseToQuoteRate(float $value)
  *
  * @method bool hasChangedFlag()
  * @method bool getChangedFlag()
@@ -99,7 +94,6 @@
  * @method $this setGiftMessageId(int $value)
  * @method string getGlobalCurrencyCode()
  * @method $this setGlobalCurrencyCode(string $value)
- * @method $this setGrandTotal(float $value)
  *
  * @method bool getHasError()
  *
@@ -124,7 +118,6 @@
  * @method bool hasItemsCollection()
  * @method int getItemsCount()
  * @method $this setItemsCount(int $value)
- * @method $this setItemsQty(float $value)
  *
  * @method string getMethod()
  *
@@ -148,10 +141,6 @@
  * @method $this setStoreCurrencyCode(string $value)
  * @method bool hasStoreId()
  * @method $this setStoreId(int $value)
- * @method $this setStoreToBaseRate(float $value)
- * @method $this setStoreToQuoteRate(float $value)
- * @method $this setSubtotal(float $value)
- * @method $this setSubtotalWithDiscount(float $value)
  *
  * @method array getTaxesForItems()
  * @method $this setTaxesForItems(array $itemTaxGroups)
@@ -167,7 +156,6 @@
  * @method bool getUseRewardPoints()
  * @method $this setUseRewardPoints(bool $value)
  *
- * @method $this setVirtualItemsQty(float $value)
  *
  * @method Mage_Core_Model_Website getWebsite()
  * @method $this setWebsite(Mage_Core_Model_Website $value)
@@ -2181,5 +2169,101 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getVirtualItemsQty()
     {
         return (float) $this->_getData('virtual_items_qty');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseGrandTotal($value)
+    {
+        return $this->setData('base_grand_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseSubtotal($value)
+    {
+        return $this->setData('base_subtotal', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseSubtotalWithDiscount($value)
+    {
+        return $this->setData('base_subtotal_with_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseToGlobalRate($value)
+    {
+        return $this->setData('base_to_global_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseToQuoteRate($value)
+    {
+        return $this->setData('base_to_quote_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setGrandTotal($value)
+    {
+        return $this->setData('grand_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setItemsQty($value)
+    {
+        return $this->setData('items_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setStoreToBaseRate($value)
+    {
+        return $this->setData('store_to_base_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setStoreToQuoteRate($value)
+    {
+        return $this->setData('store_to_quote_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSubtotal($value)
+    {
+        return $this->setData('subtotal', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSubtotalWithDiscount($value)
+    {
+        return $this->setData('subtotal_with_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setVirtualItemsQty($value)
+    {
+        return $this->setData('virtual_items_qty', (float) $value);
     }
 }

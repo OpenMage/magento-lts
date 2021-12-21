@@ -35,7 +35,6 @@
  * @method $this setCustomerId(int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
- * @method $this setPrice(float $value)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
  * @method string getAddDate()
@@ -93,5 +92,13 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
     public function getPrice()
     {
         return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
     }
 }

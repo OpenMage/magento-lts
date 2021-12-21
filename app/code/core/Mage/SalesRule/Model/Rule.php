@@ -57,8 +57,6 @@
  * @method $this setSortOrder(int $value)
  * @method string getSimpleAction()
  * @method $this setSimpleAction(string $value)
- * @method $this setDiscountAmount(float $value)
- * @method $this setDiscountQty(float $value)
  * @method int getDiscountStep()
  * @method $this setDiscountStep(int $value)
  * @method int getSimpleFreeShipping()
@@ -562,5 +560,21 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getDiscountQty()
     {
         return (float) $this->_getData('discount_qty');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountQty($value)
+    {
+        return $this->setData('discount_qty', (float) $value);
     }
 }
