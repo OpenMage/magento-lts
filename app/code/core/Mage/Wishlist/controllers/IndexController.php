@@ -769,6 +769,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         exit(0);
     }
+
     /**
      * @return float
      */

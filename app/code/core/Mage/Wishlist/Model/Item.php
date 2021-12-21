@@ -739,6 +739,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         $this->setOptions($options->getOptionsByItem($this));
         return $this;
     }
+
     /**
      * @return float
      */

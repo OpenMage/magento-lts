@@ -49,6 +49,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
         }
         return $this->_values;
     }
+
     /**
      * Renders grid column
      *

@@ -74,6 +74,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
 
         return false;
     }
+
     /**
      * Retrieve item collection
      *

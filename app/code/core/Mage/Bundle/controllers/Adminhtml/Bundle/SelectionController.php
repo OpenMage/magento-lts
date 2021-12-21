@@ -67,6 +67,7 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->toHtml()
         );
     }
+
     /**
      * Check for is allowed
      *
