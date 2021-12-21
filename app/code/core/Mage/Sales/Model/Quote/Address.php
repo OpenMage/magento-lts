@@ -122,7 +122,6 @@
  * @method $this setSameAsBilling(int $value)
  * @method int getSaveInAddressBook()
  * @method $this setSaveInAddressBook(int $value)
- * @method $this setShippingAmountForDiscount(float|int $value)
  * @method string getShippingDescription()
  * @method $this setShippingDescription(string $value)
  * @method string getShippingMethod()
@@ -1918,5 +1917,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function setWeight($value)
     {
         return $this->setData('weight', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingAmountForDiscount($value)
+    {
+        return $this->setData('shipping_amount_for_discount', (float) $value);
     }
 }
