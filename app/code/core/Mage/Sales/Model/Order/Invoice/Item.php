@@ -32,7 +32,6 @@
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item getResource()
  * @method int getParentId()
  * @method Mage_Sales_Model_Order_Invoice_Item setParentId(int $value)
-
  * @method int getProductId()
  * @method Mage_Sales_Model_Order_Invoice_Item setProductId(int $value)
  * @method int getOrderItemId()

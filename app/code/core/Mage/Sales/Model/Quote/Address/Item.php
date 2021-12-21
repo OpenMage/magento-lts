@@ -36,8 +36,6 @@
  * @method string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
  *
-
- *
  * @method $this setCustomerAddressId(int $value)
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)

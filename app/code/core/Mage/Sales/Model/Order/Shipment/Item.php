@@ -42,7 +42,6 @@
  * @method $this setParentId(int $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
-
  * @method string getSku()
  * @method $this setStoreId(int $value)
  * @method $this setSku(string $value)

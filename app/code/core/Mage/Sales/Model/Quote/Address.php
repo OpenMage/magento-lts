@@ -39,8 +39,6 @@
  * @method bool getAppliedTaxesReset()
  * @method $this setAppliedTaxesReset(bool $value)
  *
-
-
  * @method $this unsBaseSubtotalInclTax()
  *
  * @method array getCartFixedRules()
@@ -124,7 +122,6 @@
  * @method $this setSameAsBilling(int $value)
  * @method int getSaveInAddressBook()
  * @method $this setSaveInAddressBook(int $value)
-
  * @method $this setShippingAmountForDiscount(float|int $value)
  * @method string getShippingDescription()
  * @method $this setShippingDescription(string $value)

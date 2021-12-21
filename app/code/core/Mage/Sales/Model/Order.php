@@ -48,8 +48,6 @@
  * @method string getBackUrl()
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
-
-
  * @method bool hasBillingAddressId()
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
@@ -176,8 +174,6 @@
  * @method $this unsShippingAddressId()
  * @method string getShippingDescription()
  * @method $this setShippingDescription(string $value)
-
-
  * @method $this setShippingMethod(string $value)
  * @method string getState()
  * @method string getStatus()
@@ -189,7 +185,6 @@
  * @method string getStoreName()
  * @method $this setStoreName(string $value)
  *
-
  * @method int getTotalItemCount()
  * @method $this setTotalItemCount(int $value)
  *

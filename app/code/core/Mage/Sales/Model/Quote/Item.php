@@ -39,7 +39,6 @@
  *
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
-
  *
  * @method string getDescription()
  * @method $this setDescription(string $value)

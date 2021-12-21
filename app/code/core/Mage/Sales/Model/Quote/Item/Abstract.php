@@ -45,18 +45,13 @@
  *
  * @method bool hasBaseCalculationPrice()
  * @method $this unsBasePriceInclTax()
-
  * @method $this unsBaseRowTotalInclTax()
-
-
  * @method int getBaseWeeeTaxDisposition()
  * @method $this setBaseWeeeTaxDisposition(int $value)
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
  *
  * @method bool hasCustomPrice()
- *
- *
  *
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
@@ -77,7 +72,6 @@
  * @method $this unsMessage()
  *
  * @method bool hasOriginalCustomPrice()
-
  *
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)
@@ -86,7 +80,6 @@
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method array getProductOrderOptions()
  * @method string getProductType()
- *
  *
  * @method $this setRowTax(int $rowTax)
  * @method $this unsRowTotalInclTax()

@@ -31,7 +31,6 @@
  * @method Mage_Sales_Model_Resource_Order_Creditmemo getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getCollection()
  *
-
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -78,7 +77,6 @@
  * @method Mage_Sales_Model_Order_Invoice getInvoice()
  * @method bool getDoTransaction()
  * @method Mage_Sales_Model_Order_Invoice setDoTransaction(bool $value)
-
  * @method Mage_Sales_Model_Order_Invoice setCustomerBalanceRefundFlag(bool $value)
  * @method bool hasBaseShippingAmount()
  * @method getCanVoidFlag()
