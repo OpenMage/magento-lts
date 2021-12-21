@@ -1153,4 +1153,12 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         return (float) $this->_getData('weight');
     }
+
+    /**
+     * @return float
+     */
+    public function getQtyToAdd()
+    {
+        return (float) $this->_getData('qty_to_add');
+    }
 }
