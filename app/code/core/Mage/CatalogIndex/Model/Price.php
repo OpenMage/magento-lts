@@ -37,15 +37,10 @@
  * @method $this setWebsiteId(int $value)
  * @method int getTaxClassId()
  * @method $this setTaxClassId(int $value)
- * @method float getPrice()
  * @method $this setPrice(float $value)
- * @method float getFinalPrice()
  * @method $this setFinalPrice(float $value)
- * @method float getMinPrice()
  * @method $this setMinPrice(float $value)
- * @method float getMaxPrice()
  * @method $this setMaxPrice(float $value)
- * @method float getTierPrice()
  * @method $this setTierPrice(float $value)
  *
  * @category    Mage
@@ -121,5 +116,44 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
                 $item->setData('minimal_tax_class_id', $row['tax_class_id']);
             }
         }
+    }
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getFinalPrice()
+    {
+        return (float) $this->_getData('final_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinPrice()
+    {
+        return (float) $this->_getData('min_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaxPrice()
+    {
+        return (float) $this->_getData('max_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTierPrice()
+    {
+        return (float) $this->_getData('tier_price');
     }
 }

@@ -61,7 +61,6 @@
  *
  * @method string getBaseCurrency()
  * @method $this setBaseCurrency(string $value)
- * @method float getBaseSubtotalInclTax()
  * @method $this setBaseSubtotalInclTax(float $value)
  *
  * @method $this setCity(string $value)
@@ -84,7 +83,6 @@
  *
  * @method boolean getFreeShipping()
  * @method $this setFreeShipping(boolean $flag)
- * @method float getFreeMethodWeight()
  * @method $this setFreeMethodWeight(float $value)
  *
  * @method string getLimitCarrier()
@@ -94,11 +92,8 @@
  *
  * @method boolean getOptionInsurance()
  * @method $this setOptionInsurance(boolean $value)
- * @method float getOptionHandling()
  * @method $this setOptionHandling(float $flag)
- * @method float getOrderTotalQty()
  * @method $this setOrderTotalQty(float $value)
- * @method float getOrderSubtotal()
  * @method $this setOrderSubtotal(float $value)
  * @method string getOrigCountryId()
  * @method $this setOrigCountryId(string $value)
@@ -109,15 +104,10 @@
  * @method string getOrigCity()
  * @method $this setOrigCity(string $value)
  *
- * @method float getPackageValue()
  * @method $this setPackageValue(float $value)
- * @method float getPackageValueWithDiscount()
  * @method $this setPackageValueWithDiscount(float $value)
- * @method float getPackagePhysicalValue()
  * @method $this setPackagePhysicalValue(float $value)
- * @method float getPackageQty()
  * @method $this setPackageQty(float $value)
- * @method float getPackageWeight()
  * @method $this setPackageWeight(float $value)
  * @method int getPackageHeight()
  * @method $this setPackageHeight(int $value)
@@ -145,4 +135,83 @@
 class Mage_Shipping_Model_Rate_Request extends Varien_Object
 {
 
+    /**
+     * @return float
+     */
+    public function getBaseSubtotalInclTax()
+    {
+        return (float) $this->_getData('base_subtotal_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getFreeMethodWeight()
+    {
+        return (float) $this->_getData('free_method_weight');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOptionHandling()
+    {
+        return (float) $this->_getData('option_handling');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOrderTotalQty()
+    {
+        return (float) $this->_getData('order_total_qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOrderSubtotal()
+    {
+        return (float) $this->_getData('order_subtotal');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPackageValue()
+    {
+        return (float) $this->_getData('package_value');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPackageValueWithDiscount()
+    {
+        return (float) $this->_getData('package_value_with_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPackagePhysicalValue()
+    {
+        return (float) $this->_getData('package_physical_value');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPackageQty()
+    {
+        return (float) $this->_getData('package_qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPackageWeight()
+    {
+        return (float) $this->_getData('package_weight');
+    }
 }

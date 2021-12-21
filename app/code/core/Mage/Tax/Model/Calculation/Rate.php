@@ -33,7 +33,6 @@
  *
  * @method string getCode()
  * @method $this setCode(string $value)
- * @method float getRate()
  * @method $this setRate(float $value)
  * @method int getTaxCalculationRateId()
  * @method bool hasTaxPostcode()
@@ -262,5 +261,12 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     protected function _isInRule()
     {
         return $this->getResource()->isInRule($this->getId());
+    }
+    /**
+     * @return float
+     */
+    public function getRate()
+    {
+        return (float) $this->_getData('rate');
     }
 }

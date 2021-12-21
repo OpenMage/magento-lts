@@ -33,7 +33,6 @@
  *
  * @method $this setProductId(int $value)
  * @method $this setStockId(int $value)
- * @method float getQty()
  * @method $this setQty(float $value)
  * @method $this setMinQty(float $value)
  * @method int getUseConfigMinQty()
@@ -85,11 +84,9 @@
  * @method bool getIsChildItem()
  * @method $this setIsChildItem(bool $value)
  * @method $this unsIsChildItem()
- * @method float getOrderedItems()
  * @method $this setOrderedItems(float $value)
  * @method $this setStockQty(float $value)
  * @method bool hasStockQty()
- * @method float getQtyCorrection()
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -955,5 +952,28 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $indexer->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
         }
         return $this;
+    }
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOrderedItems()
+    {
+        return (float) $this->_getData('ordered_items');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyCorrection()
+    {
+        return (float) $this->_getData('qty_correction');
     }
 }

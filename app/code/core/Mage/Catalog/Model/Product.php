@@ -42,7 +42,6 @@
  * @method int getAttributeSetId()
  * @method $this setAttributeSetId(int $value)
  *
- * @method float getBaseRowTotal()
  * @method array getBundleOptionsData()
  * @method $this setBundleOptionsData(array $value)
  * @method array getBundleSelectionsData()
@@ -67,12 +66,10 @@
  * @method array getConfigurableAttributesData()
  * @method array getConfigurableImagesFallbackArray()
  * @method $this setConfigurableImagesFallbackArray(array $value)
- * @method float getConfigurablePrice()
  * @method $this setConfigurablePrice(float $value)
  * @method array getConfigurableProductsData()
  * @method bool getConfigureMode()
  * @method $this setConfigureMode(bool $value)
- * @method float getCost()
  * @method string getCustomLayoutUpdate()
  * @method bool hasCustomerGroupId()
  * @method int getCustomerGroupId()
@@ -182,7 +179,6 @@
  * @method $this setQuoteItemRowTotal(float $value)
  * @method $this setQuoteItemQty(int $value)
  * @method $this setQuoteQty(float $value)
- * @method float getQty()
  * @method $this setQty(float $value)
  *
  * @method $this setRatingSummary(Varien_Object $summary)
@@ -205,8 +201,7 @@
  * @method bool getSelectionCanChangeQty()
  * @method string getSelectionId()
  * @method string getSelectionPriceType()
- * @method float getSelectionPriceValue()
- * @method float getSelectionQty()
+
  * @method string getShipmentType()
  * @method string getShortDescription()
  * @method $this setShortDescription(string $value)
@@ -230,7 +225,6 @@
  *
  * @method int getTaxClassId()
  * @method string getThumbnail()
- * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
  * @method $this setTypeId(int $value)
  * @method bool getTypeHasOptions()
@@ -2349,5 +2343,60 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $event;
+    }
+    /**
+     * @return float
+     */
+    public function getBaseRowTotal()
+    {
+        return (float) $this->_getData('base_row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getConfigurablePrice()
+    {
+        return (float) $this->_getData('configurable_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getCost()
+    {
+        return (float) $this->_getData('cost');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSelectionPriceValue()
+    {
+        return (float) $this->_getData('selection_price_value');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSelectionQty()
+    {
+        return (float) $this->_getData('selection_qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxPercent()
+    {
+        return (float) $this->_getData('tax_percent');
     }
 }

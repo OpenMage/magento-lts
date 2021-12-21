@@ -48,7 +48,6 @@
  * @method $this setMethod(string $value)
  * @method string getMethodDescription()
  * @method $this setMethodDescription(string $value)
- * @method float getPrice()
  * @method $this setPrice(float $value)
  * @method string getErrorMessage()
  * @method $this setErrorMessage(string $value)
@@ -123,5 +122,12 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
             ;
         }
         return $this;
+    }
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->_getData('price');
     }
 }

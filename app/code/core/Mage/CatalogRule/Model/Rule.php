@@ -52,7 +52,6 @@
  * @method $this setStopRulesProcessing(int $value)
  * @method bool getSubIsEnable()
  * @method string getSubSimpleAction()
- * @method float getSubDiscountAmount()
  * @method string getToDate()
  * @method $this setToDate(string $value)
  *
@@ -498,5 +497,12 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $product->setMatchedRules($this->getResource()->getProductRuleIds($product->getId()));
         }
         return $this;
+    }
+    /**
+     * @return float
+     */
+    public function getSubDiscountAmount()
+    {
+        return (float) $this->_getData('sub_discount_amount');
     }
 }

@@ -28,7 +28,6 @@
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
  *
- * @method float getBillingAmount()
  * @method string getCurrencyCode()
  * @method bool getStartDateIsEditable()
  * @method $this setImportedStartDatetime(string $value)
@@ -43,7 +42,6 @@
  * @method string getStartDatetime()
  * @method $this setStartDatetime(string $value)
  * @method int getStoreId()
- * @method float getTrialBillingAmount()
  * @method int getTrialPeriodFrequency()
  * @method int getTrialPeriodMaxCycles()
  * @method int getTrialPeriodUnit()
@@ -670,5 +668,20 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             $result[] = Mage::helper('payment')->__('Repeats until suspended or canceled.');
         }
         return $result;
+    }
+    /**
+     * @return float
+     */
+    public function getBillingAmount()
+    {
+        return (float) $this->_getData('billing_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTrialBillingAmount()
+    {
+        return (float) $this->_getData('trial_billing_amount');
     }
 }

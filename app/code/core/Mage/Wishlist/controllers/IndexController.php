@@ -32,7 +32,6 @@
  * @package     Mage_Wishlist
  * @author      Magento Core Team <core@magentocommerce.com>
  *
- * @method float getQty()
  * @method int getProductId()
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
@@ -769,5 +768,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $this->_forward('noRoute');
         }
         exit(0);
+    }
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
     }
 }

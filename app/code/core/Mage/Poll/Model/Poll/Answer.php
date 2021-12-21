@@ -36,7 +36,6 @@
  * @method $this setAnswerOrder(int $value)
  * @method string getAnswerTitle()
  * @method $this setAnswerTitle(string $value)
- * @method float getPercent()
  * @method $this setPercent(float $round)
  * @method int getPollId()
  * @method $this setPollId(int $value)
@@ -96,5 +95,12 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
             ->setId($this->getPollId())
             ->resetVotesCount();
         return parent::_afterDelete();
+    }
+    /**
+     * @return float
+     */
+    public function getPercent()
+    {
+        return (float) $this->_getData('percent');
     }
 }

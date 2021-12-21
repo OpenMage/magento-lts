@@ -58,7 +58,6 @@
  * @method string getSimpleAction()
  * @method $this setSimpleAction(string $value)
  * @method $this setDiscountAmount(float $value)
- * @method float getDiscountQty()
  * @method $this setDiscountQty(float $value)
  * @method int getDiscountStep()
  * @method $this setDiscountStep(int $value)
@@ -556,5 +555,12 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function toArray(array $arrAttributes = array())
     {
         return parent::toArray($arrAttributes);
+    }
+    /**
+     * @return float
+     */
+    public function getDiscountQty()
+    {
+        return (float) $this->_getData('discount_qty');
     }
 }

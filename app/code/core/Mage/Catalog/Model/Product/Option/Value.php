@@ -38,7 +38,6 @@
  * @method $this setSku(string $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
- * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
  *
@@ -266,5 +265,12 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     {
         $this->getResource()->duplicate($this, $oldOptionId, $newOptionId);
         return $this;
+    }
+    /**
+     * @return float
+     */
+    public function getStorePrice()
+    {
+        return (float) $this->_getData('store_price');
     }
 }

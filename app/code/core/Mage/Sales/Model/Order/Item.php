@@ -47,7 +47,6 @@
  * @method $this setProductId(int $value)
  * @method string getProductType()
  * @method $this setProductType(string $value)
- * @method float getWeight()
  * @method $this setWeight(float $value)
  * @method int getIsVirtual()
  * @method $this setIsVirtual(int $value)
@@ -67,126 +66,73 @@
  * @method $this setIsQtyDecimal(int $value)
  * @method int getNoDiscount()
  * @method $this setNoDiscount(int $value)
- * @method float getQtyBackordered()
  * @method $this setQtyBackordered(float $value)
- * @method float getQtyCanceled()
  * @method $this setQtyCanceled(float $value)
- * @method float getQtyInvoiced()
  * @method $this setQtyInvoiced(float $value)
- * @method float getQtyOrdered()
  * @method $this setQtyOrdered(float $value)
- * @method float getQtyRefunded()
  * @method $this setQtyRefunded(float $value)
- * @method float getQtyShipped()
  * @method $this setQtyShipped(float $value)
- * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
- * @method float getPrice()
  * @method $this setPrice(float $value)
- * @method float getBasePrice()
  * @method $this setBasePrice(float $value)
  * @method $this setOriginalPrice(float $value)
- * @method float getBaseOriginalPrice()
  * @method $this setBaseOriginalPrice(float $value)
- * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
- * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
- * @method float getBaseTaxAmount()
  * @method $this setBaseTaxAmount(float $value)
- * @method float getTaxInvoiced()
  * @method $this setTaxInvoiced(float $value)
- * @method float getBaseTaxInvoiced()
  * @method $this setBaseTaxInvoiced(float $value)
- * @method float getDiscountPercent()
  * @method $this setDiscountPercent(float $value)
- * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- * @method float getBaseDiscountAmount()
  * @method $this setBaseDiscountAmount(float $value)
- * @method float getDiscountInvoiced()
  * @method $this setDiscountInvoiced(float $value)
- * @method float getBaseDiscountInvoiced()
  * @method $this setBaseDiscountInvoiced(float $value)
- * @method float getAmountRefunded()
  * @method $this setAmountRefunded(float $value)
- * @method float getBaseAmountRefunded()
  * @method $this setBaseAmountRefunded(float $value)
- * @method float getRowTotal()
  * @method $this setRowTotal(float $value)
- * @method float getBaseRowTotal()
  * @method $this setBaseRowTotal(float $value)
- * @method float getRowInvoiced()
  * @method $this setRowInvoiced(float $value)
- * @method float getBaseRowInvoiced()
  * @method $this setBaseRowInvoiced(float $value)
- * @method float getRowWeight()
  * @method $this setRowWeight(float $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
  * @method int getGiftMessageAvailable()
  * @method $this setGiftMessageAvailable(int $value)
- * @method float getBaseTaxBeforeDiscount()
  * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method float getTaxBeforeDiscount()
  * @method $this setTaxBeforeDiscount(float $value)
  * @method string getExtOrderItemId()
  * @method $this setExtOrderItemId(string $value)
  * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)
- * @method float getWeeeTaxAppliedAmount()
  * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method float getWeeeTaxAppliedRowAmount()
  * @method $this setWeeeTaxAppliedRowAmount(float $value)
- * @method float getBaseWeeeTaxAppliedAmount()
  * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method float getBaseWeeeTaxAppliedRowAmount()
  * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method float getWeeeTaxDisposition()
  * @method $this setWeeeTaxDisposition(float $value)
- * @method float getWeeeTaxRowDisposition()
  * @method $this setWeeeTaxRowDisposition(float $value)
- * @method float getBaseWeeeTaxDisposition()
  * @method $this setBaseWeeeTaxDisposition(float $value)
- * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
  * @method int getLockedDoInvoice()
  * @method $this setLockedDoInvoice(int $value)
  * @method int getLockedDoShip()
  * @method $this setLockedDoShip(int $value)
- * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
- * @method float getBasePriceInclTax()
  * @method $this setBasePriceInclTax(float $value)
- * @method float getRowTotalInclTax()
  * @method $this setRowTotalInclTax(float $value)
- * @method float getBaseRowTotalInclTax()
  * @method $this setBaseRowTotalInclTax(float $value)
- * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
- * @method float getBaseHiddenTaxAmount()
  * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float getHiddenTaxInvoiced()
  * @method $this setHiddenTaxInvoiced(float $value)
- * @method float getBaseHiddenTaxInvoiced()
  * @method $this setBaseHiddenTaxInvoiced(float $value)
- * @method float getHiddenTaxRefunded()
  * @method $this setHiddenTaxRefunded(float $value)
- * @method float getBaseHiddenTaxRefunded()
  * @method $this setBaseHiddenTaxRefunded(float $value)
  * @method int getIsNominal()
  * @method $this setIsNominal(int $value)
- * @method float getTaxCanceled()
  * @method $this setTaxCanceled(float $value)
- * @method float getHiddenTaxCanceled()
  * @method $this setHiddenTaxCanceled(float $value)
- * @method float getTaxRefunded()
  * @method $this setTaxRefunded(float $value)
- * @method float getBaseTaxRefunded()
  * @method $this setBaseTaxRefunded(float $value)
- * @method float getDiscountRefunded()
  * @method $this setDiscountRefunded(float $value)
- * @method float getBaseDiscountRefunded()
  * @method $this setBaseDiscountRefunded(float $value)
  * @method $this setShippingAmount(float $value)
  * @method bool getHasChildren()
@@ -870,5 +816,436 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
             }
         }
         return $totalDiscount;
+    }
+    /**
+     * @return float
+     */
+    public function getWeight()
+    {
+        return (float) $this->_getData('weight');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyBackordered()
+    {
+        return (float) $this->_getData('qty_backordered');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyCanceled()
+    {
+        return (float) $this->_getData('qty_canceled');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyInvoiced()
+    {
+        return (float) $this->_getData('qty_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyOrdered()
+    {
+        return (float) $this->_getData('qty_ordered');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyRefunded()
+    {
+        return (float) $this->_getData('qty_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQtyShipped()
+    {
+        return (float) $this->_getData('qty_shipped');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseCost()
+    {
+        return (float) $this->_getData('base_cost');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBasePrice()
+    {
+        return (float) $this->_getData('base_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseOriginalPrice()
+    {
+        return (float) $this->_getData('base_original_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxPercent()
+    {
+        return (float) $this->_getData('tax_percent');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxAmount()
+    {
+        return (float) $this->_getData('tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxAmount()
+    {
+        return (float) $this->_getData('base_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxInvoiced()
+    {
+        return (float) $this->_getData('tax_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxInvoiced()
+    {
+        return (float) $this->_getData('base_tax_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountPercent()
+    {
+        return (float) $this->_getData('discount_percent');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountAmount()
+    {
+        return (float) $this->_getData('discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountAmount()
+    {
+        return (float) $this->_getData('base_discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountInvoiced()
+    {
+        return (float) $this->_getData('discount_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountInvoiced()
+    {
+        return (float) $this->_getData('base_discount_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmountRefunded()
+    {
+        return (float) $this->_getData('amount_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseAmountRefunded()
+    {
+        return (float) $this->_getData('base_amount_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTotal()
+    {
+        return (float) $this->_getData('row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotal()
+    {
+        return (float) $this->_getData('base_row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowInvoiced()
+    {
+        return (float) $this->_getData('row_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowInvoiced()
+    {
+        return (float) $this->_getData('base_row_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowWeight()
+    {
+        return (float) $this->_getData('row_weight');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxBeforeDiscount()
+    {
+        return (float) $this->_getData('base_tax_before_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxBeforeDiscount()
+    {
+        return (float) $this->_getData('tax_before_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxAppliedAmount()
+    {
+        return (float) $this->_getData('weee_tax_applied_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxAppliedRowAmount()
+    {
+        return (float) $this->_getData('weee_tax_applied_row_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxAppliedAmount()
+    {
+        return (float) $this->_getData('base_weee_tax_applied_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxAppliedRowAmount()
+    {
+        return (float) $this->_getData('base_weee_tax_applied_row_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxDisposition()
+    {
+        return (float) $this->_getData('weee_tax_disposition');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxRowDisposition()
+    {
+        return (float) $this->_getData('weee_tax_row_disposition');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxDisposition()
+    {
+        return (float) $this->_getData('base_weee_tax_disposition');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxRowDisposition()
+    {
+        return (float) $this->_getData('base_weee_tax_row_disposition');
+    }
+
+    /**
+     * @return float
+     */
+    public function getPriceInclTax()
+    {
+        return (float) $this->_getData('price_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBasePriceInclTax()
+    {
+        return (float) $this->_getData('base_price_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTotalInclTax()
+    {
+        return (float) $this->_getData('row_total_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotalInclTax()
+    {
+        return (float) $this->_getData('base_row_total_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getHiddenTaxAmount()
+    {
+        return (float) $this->_getData('hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseHiddenTaxAmount()
+    {
+        return (float) $this->_getData('base_hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getHiddenTaxInvoiced()
+    {
+        return (float) $this->_getData('hidden_tax_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseHiddenTaxInvoiced()
+    {
+        return (float) $this->_getData('base_hidden_tax_invoiced');
+    }
+
+    /**
+     * @return float
+     */
+    public function getHiddenTaxRefunded()
+    {
+        return (float) $this->_getData('hidden_tax_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseHiddenTaxRefunded()
+    {
+        return (float) $this->_getData('base_hidden_tax_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxCanceled()
+    {
+        return (float) $this->_getData('tax_canceled');
+    }
+
+    /**
+     * @return float
+     */
+    public function getHiddenTaxCanceled()
+    {
+        return (float) $this->_getData('hidden_tax_canceled');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxRefunded()
+    {
+        return (float) $this->_getData('tax_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxRefunded()
+    {
+        return (float) $this->_getData('base_tax_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountRefunded()
+    {
+        return (float) $this->_getData('discount_refunded');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountRefunded()
+    {
+        return (float) $this->_getData('base_discount_refunded');
     }
 }
