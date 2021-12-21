@@ -119,7 +119,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             ->distinct(true)
             ->from(
                 array('main_table' => $this->getTable('catalogsearch/search_query')),
-                array('name' => $ifSynonymFor, 'num_results', 'popularity')
+                array('name' => $ifSynonymFor, 'num_results', 'popularity', 'query_id')
             );
         if ($storeIds) {
             $this->addStoreFilter($storeIds);
