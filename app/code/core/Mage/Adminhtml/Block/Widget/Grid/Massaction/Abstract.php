@@ -297,7 +297,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getGroupedItems(): array
     {
-        $groupedItems = [];
+        $groupedItems = [
+            'default' => [],
+        ];
 
         foreach ($this->getItems() as $item) {
             if ($item->getData('group')) {
