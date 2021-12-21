@@ -354,6 +354,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
             $this->callEventHandler($event);
         }
     }
+
     /**
      * @return float
      */

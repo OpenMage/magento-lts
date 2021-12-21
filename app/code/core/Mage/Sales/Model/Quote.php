@@ -2075,6 +2075,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
         return parent::save();
     }
+
     /**
      * @return float
      */

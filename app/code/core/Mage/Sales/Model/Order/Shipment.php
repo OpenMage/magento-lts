@@ -694,6 +694,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
         return $label;
     }
+
     /**
      * @return float
      */

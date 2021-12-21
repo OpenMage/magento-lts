@@ -95,6 +95,7 @@ class Mage_Poll_Model_Poll_Answer extends Mage_Core_Model_Abstract
             ->resetVotesCount();
         return parent::_afterDelete();
     }
+
     /**
      * @return float
      */

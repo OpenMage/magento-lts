@@ -53,6 +53,7 @@ class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Re
         $this->setData('price', Mage::app()->getStore()->roundPrice($price));
         return $this;
     }
+
     /**
      * @return float
      */

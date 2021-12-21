@@ -945,6 +945,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         }
         return $this;
     }
+
     /**
      * @return float
      */

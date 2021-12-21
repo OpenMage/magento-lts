@@ -2365,6 +2365,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $this->_protectFromNonAdmin();
         return parent::_beforeDelete();
     }
+
     /**
      * @return float
      */

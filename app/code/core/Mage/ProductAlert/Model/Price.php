@@ -86,6 +86,7 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
         $this->getResource()->deleteCustomer($this, $customerId, $websiteId);
         return $this;
     }
+
     /**
      * @return float
      */

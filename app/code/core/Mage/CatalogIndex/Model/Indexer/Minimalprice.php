@@ -155,6 +155,7 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
 
         return true;
     }
+
     /**
      * @return float
      */

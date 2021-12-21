@@ -147,6 +147,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
         }
         return $this;
     }
+
     /**
      * @return float
      */

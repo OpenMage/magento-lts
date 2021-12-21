@@ -1405,6 +1405,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return $this->isConfigurable();
     }
+
     /**
      * Check is product grouped
      *
@@ -2336,6 +2337,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 
         return $event;
     }
+
     /**
      * @return float
      */

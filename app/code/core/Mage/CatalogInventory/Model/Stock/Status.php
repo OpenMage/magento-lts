@@ -541,6 +541,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $this->_getResource()->addIsInStockFilterToCollection($collection);
         return $this;
     }
+
     /**
      * @return float
      */

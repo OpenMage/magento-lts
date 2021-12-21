@@ -293,6 +293,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             $this->callEventHandler($event);
         }
     }
+
     /**
      * @return float
      */

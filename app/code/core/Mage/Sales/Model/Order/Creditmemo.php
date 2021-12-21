@@ -969,6 +969,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
         return true;
     }
+
     /**
      * @return float
      */

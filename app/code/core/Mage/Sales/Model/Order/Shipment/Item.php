@@ -176,6 +176,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 
         return $this;
     }
+
     /**
      * @return float
      */

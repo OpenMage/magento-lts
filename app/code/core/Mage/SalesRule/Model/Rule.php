@@ -554,6 +554,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         return parent::toArray($arrAttributes);
     }
+
     /**
      * @return float
      */

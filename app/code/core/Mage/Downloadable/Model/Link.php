@@ -164,6 +164,7 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
     }
+
     /**
      * @return float
      */

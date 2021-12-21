@@ -112,6 +112,7 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
             }
         }
     }
+
     /**
      * @return float
      */

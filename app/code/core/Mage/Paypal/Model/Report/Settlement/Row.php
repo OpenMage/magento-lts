@@ -293,6 +293,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             asort(self::$_eventList);
         }
     }
+
     /**
      * @return float
      */

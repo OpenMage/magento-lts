@@ -123,6 +123,7 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
 
         return $conditions;
     }
+
     /**
      * @return float
      */

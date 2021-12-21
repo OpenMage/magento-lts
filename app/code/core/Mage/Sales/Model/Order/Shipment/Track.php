@@ -197,6 +197,7 @@ class Mage_Sales_Model_Order_Shipment_Track extends Mage_Sales_Model_Abstract
 
         return $this;
     }
+
     /**
      * @return float
      */

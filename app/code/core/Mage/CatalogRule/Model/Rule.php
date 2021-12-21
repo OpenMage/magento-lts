@@ -497,6 +497,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         }
         return $this;
     }
+
     /**
      * @return float
      */

@@ -53,6 +53,7 @@ class Mage_Sales_Model_Order_Tax extends Mage_Core_Model_Abstract
     {
         $this->_init('sales/order_tax');
     }
+
     /**
      * @return float
      */
