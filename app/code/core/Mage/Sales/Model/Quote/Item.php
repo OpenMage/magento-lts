@@ -1161,4 +1161,13 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     {
         return (float) $this->_getData('qty_to_add');
     }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotalWithDiscount()
+    {
+        return (float) $this->_getData('base_row_total_with_discount');
+    }
+
 }
