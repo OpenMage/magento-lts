@@ -266,6 +266,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         $this->getResource()->duplicate($this, $oldOptionId, $newOptionId);
         return $this;
     }
+
     /**
      * @return float
      */
