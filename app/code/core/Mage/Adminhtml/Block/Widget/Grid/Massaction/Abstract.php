@@ -289,4 +289,26 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $this->setData('use_select_all', (bool) $flag);
         return $this;
     }
+
+    /**
+     * Group items for optgroups
+     *
+     * @return array
+     */
+    public function getGroupedItems(): array
+    {
+        $groupedItems = [];
+
+        foreach ($this->getItems() as $item) {
+            if ($item->getData('group')) {
+                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            }
+            else {
+                $groupedItems['default'][$item->getId()] = $item;
+            }
+        }
+
+        return $groupedItems;
+    }
+
 }
