@@ -32,28 +32,7 @@
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item getResource()
  * @method int getParentId()
  * @method Mage_Sales_Model_Order_Invoice_Item setParentId(int $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBasePrice(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxRowDisposition(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxAppliedRowAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxAppliedAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setTaxAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseRowTotal(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setDiscountAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setRowTotal(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxRowDisposition(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseDiscountAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxDisposition(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setPriceInclTax(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxAppliedAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseTaxAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBasePriceInclTax(float $value)
 
- * @method Mage_Sales_Model_Order_Invoice_Item setWeeeTaxDisposition(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseCost(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseWeeeTaxAppliedRowAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setPrice(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseRowTotalInclTax(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setRowTotalInclTax(float $value)
  * @method int getProductId()
  * @method Mage_Sales_Model_Order_Invoice_Item setProductId(int $value)
  * @method int getOrderItemId()
@@ -68,8 +47,6 @@
  * @method Mage_Sales_Model_Order_Invoice_Item setSku(string $value)
  * @method string getName()
  * @method Mage_Sales_Model_Order_Invoice_Item setName(string $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setHiddenTaxAmount(float $value)
- * @method Mage_Sales_Model_Order_Invoice_Item setBaseHiddenTaxAmount(float $value)
  * @method Mage_Sales_Model_Order_Invoice_Item setStoreId(int $value)
  *
  * @category    Mage
@@ -499,5 +476,189 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function getBaseHiddenTaxAmount()
     {
         return (float) $this->_getData('base_hidden_tax_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePrice($value)
+    {
+        return $this->setData('base_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxRowDisposition($value)
+    {
+        return $this->setData('base_weee_tax_row_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('weee_tax_applied_row_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxAmount($value)
+    {
+        return $this->setData('tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotal($value)
+    {
+        return $this->setData('base_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotal($value)
+    {
+        return $this->setData('row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxRowDisposition($value)
+    {
+        return $this->setData('weee_tax_row_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountAmount($value)
+    {
+        return $this->setData('base_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxDisposition($value)
+    {
+        return $this->setData('base_weee_tax_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPriceInclTax($value)
+    {
+        return $this->setData('price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxAmount($value)
+    {
+        return $this->setData('base_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePriceInclTax($value)
+    {
+        return $this->setData('base_price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxDisposition($value)
+    {
+        return $this->setData('weee_tax_disposition', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCost($value)
+    {
+        return $this->setData('base_cost', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_row_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotalInclTax($value)
+    {
+        return $this->setData('base_row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotalInclTax($value)
+    {
+        return $this->setData('row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxAmount($value)
+    {
+        return $this->setData('hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxAmount($value)
+    {
+        return $this->setData('base_hidden_tax_amount', (float) $value);
     }
 }

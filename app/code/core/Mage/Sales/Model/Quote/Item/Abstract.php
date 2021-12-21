@@ -51,7 +51,6 @@
  * @method $this setBaseExtraRowTaxableAmount(float $value)
  * @method $this setBaseExtraTaxableAmount(float $value)
  * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float setBaseOriginalDiscountAmount(float $value)
  * @method $this setBaseOriginalPrice(float $value)
  * @method $this setBasePriceInclTax(float $value)
  * @method $this unsBasePriceInclTax()
@@ -1158,5 +1157,13 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function getWeeeTaxAppliedRowAmount()
     {
         return (float) $this->_getData('weee_tax_applied_row_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseOriginalDiscountAmount($value)
+    {
+        return $this->setData('base_original_discount_amount', (float) $value);
     }
 }

@@ -37,11 +37,6 @@
  * @method Mage_CatalogIndex_Model_Indexer_Price setWebsiteId(int $value)
  * @method int getTaxClassId()
  * @method Mage_CatalogIndex_Model_Indexer_Price setTaxClassId(int $value)
- * @method Mage_CatalogIndex_Model_Indexer_Price setPrice(float $value)
- * @method Mage_CatalogIndex_Model_Indexer_Price setFinalPrice(float $value)
- * @method Mage_CatalogIndex_Model_Indexer_Price setMinPrice(float $value)
- * @method Mage_CatalogIndex_Model_Indexer_Price setMaxPrice(float $value)
- * @method Mage_CatalogIndex_Model_Indexer_Price setTierPrice(float $value)
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -153,5 +148,45 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
     public function getTierPrice()
     {
         return (float) $this->_getData('tier_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setFinalPrice($value)
+    {
+        return $this->setData('final_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMinPrice($value)
+    {
+        return $this->setData('min_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMaxPrice($value)
+    {
+        return $this->setData('max_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTierPrice($value)
+    {
+        return $this->setData('tier_price', (float) $value);
     }
 }

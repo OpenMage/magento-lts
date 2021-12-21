@@ -106,11 +106,8 @@
  * @method bool getDoTransaction()
  * @method Mage_Sales_Model_Order_Invoice setDoTransaction(bool $value)
 
- * @method Mage_Sales_Model_Order_Invoice setBaseCustomerBalanceTotalRefunded(float $value)
- * @method Mage_Sales_Model_Order_Invoice setBsCustomerBalTotalRefunded(float $value)
  * @method Mage_Sales_Model_Order_Invoice setCustomerBalanceRefundFlag(bool $value)
  * @method bool hasBaseShippingAmount()
- * @method Mage_Sales_Model_Order_Invoice setBaseShippingInclTax(float $value)
  * @method getCanVoidFlag()
  * @method $this setCanVoidFlag(bool $value)
  * @method $this setBaseCost(float $value)
@@ -1255,5 +1252,29 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function getBaseCustomerBalanceReturnMax()
     {
         return (float) $this->_getData('base_customer_balance_return_max');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCustomerBalanceTotalRefunded($value)
+    {
+        return $this->setData('base_customer_balance_total_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBsCustomerBalTotalRefunded($value)
+    {
+        return $this->setData('bs_customer_bal_total_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingInclTax($value)
+    {
+        return $this->setData('base_shipping_incl_tax', (float) $value);
     }
 }

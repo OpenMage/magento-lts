@@ -50,12 +50,10 @@
  * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionCompletionDate(string $value)
  * @method string getTransactionDebitOrCredit()
  * @method Mage_Paypal_Model_Report_Settlement_Row setTransactionDebitOrCredit(string $value)
- * @method Mage_Paypal_Model_Report_Settlement_Row setGrossTransactionAmount(float $value)
  * @method string getGrossTransactionCurrency()
  * @method Mage_Paypal_Model_Report_Settlement_Row setGrossTransactionCurrency(string $value)
  * @method string getFeeDebitOrCredit()
  * @method Mage_Paypal_Model_Report_Settlement_Row setFeeDebitOrCredit(string $value)
- * @method Mage_Paypal_Model_Report_Settlement_Row setFeeAmount(float $value)
  * @method string getFeeCurrency()
  * @method Mage_Paypal_Model_Report_Settlement_Row setFeeCurrency(string $value)
  * @method string getCustomField()
@@ -309,5 +307,21 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     public function getFeeAmount()
     {
         return (float) $this->_getData('fee_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setGrossTransactionAmount($value)
+    {
+        return $this->setData('gross_transaction_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setFeeAmount($value)
+    {
+        return $this->setData('fee_amount', (float) $value);
     }
 }

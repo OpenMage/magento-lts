@@ -34,16 +34,12 @@
  * @method Mage_Sales_Model_Order_Tax setCode(string $value)
  * @method string getTitle()
  * @method Mage_Sales_Model_Order_Tax setTitle(string $value)
- * @method Mage_Sales_Model_Order_Tax setPercent(float $value)
- * @method Mage_Sales_Model_Order_Tax setAmount(float $value)
  * @method int getPriority()
  * @method Mage_Sales_Model_Order_Tax setPriority(int $value)
  * @method int getPosition()
  * @method Mage_Sales_Model_Order_Tax setPosition(int $value)
- * @method Mage_Sales_Model_Order_Tax setBaseAmount(float $value)
  * @method int getProcess()
  * @method Mage_Sales_Model_Order_Tax setProcess(int $value)
- * @method Mage_Sales_Model_Order_Tax setBaseRealAmount(float $value)
  * @method int getHidden()
  * @method Mage_Sales_Model_Order_Tax setHidden(int $value)
  *
@@ -87,5 +83,37 @@ class Mage_Sales_Model_Order_Tax extends Mage_Core_Model_Abstract
     public function getBaseRealAmount()
     {
         return (float) $this->_getData('base_real_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPercent($value)
+    {
+        return $this->setData('percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAmount($value)
+    {
+        return $this->setData('amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAmount($value)
+    {
+        return $this->setData('base_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRealAmount($value)
+    {
+        return $this->setData('base_real_amount', (float) $value);
     }
 }
