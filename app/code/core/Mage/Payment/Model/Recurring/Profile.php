@@ -669,7 +669,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         }
         return $result;
     }
-    
+
     /**
      * @return float
      */
