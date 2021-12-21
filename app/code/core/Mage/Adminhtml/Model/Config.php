@@ -34,6 +34,15 @@
  */
 class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
 {
+    /**
+     * @var string
+     */
+    protected $_cacheId = 'mage_adminhtml_config_system_xml';
+
+    /**
+     * @var Mage_Core_Model_Config_Base
+     */
+    protected $_config;
 
     /**
      * Enter description here...
@@ -81,15 +90,61 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
+     * @param array $params
+     */
+    public function __construct(array $params = array())
+    {
+        $this->_cacheChecksum = null;
+        $this->setCache(Mage::app()->getCache());
+        $this->setCacheTags([Mage_Core_Model_Config::CACHE_TAG]);
+        if (!$this->loadCache()) {
+            /** @var Mage_Core_Model_Config_Base $config */
+            $this->_config = Mage::getConfig()->loadModulesConfiguration('system.xml')
+                ->applyExtends();
+            $this->saveCache();
+        }
+    }
+
+    /**
+     * @param $tags
+     * @return $this|Mage_Adminhtml_Model_Config
+     */
+    public function saveCache($tags=null)
+    {
+        if ($this->getCacheSaved()) {
+            return $this;
+        }
+        if (is_null($tags)) {
+            $tags = $this->_cacheTags;
+        }
+        $xmlString = $this->_config->getXmlString();
+        $this->_saveCache($xmlString, $this->getCacheId(), $tags, $this->getCacheLifetime());
+        $this->setCacheSaved(true);
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function loadCache()
+    {
+        $xmlString = $this->_loadCache($this->getCacheId());
+        $class = Mage::getConfig()->getModelClassName('core/config_base');
+        $this->_config = new $class();
+        if ($this->_config->loadString($xmlString)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Init modules configuration
      *
      * @return void
      */
     protected function _initSectionsAndTabs()
     {
-        $config = Mage::getConfig()->loadModulesConfiguration('system.xml')
-            ->applyExtends();
-
+        $config = $this->_config;
         Mage::dispatchEvent('adminhtml_init_system_config', array('config' => $config));
         $this->_sections = $config->getNode('sections');
         $this->_tabs = $config->getNode('tabs');
