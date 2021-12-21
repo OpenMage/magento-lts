@@ -563,6 +563,8 @@ foreach ($todo as $search => $replace) {
 	}
 	else {
 		foreach ($files as $file) {
+			if (stripos($file, 'code/core') !== false)
+				continue;
 			echo '  ',$file,"\n";
 			file_put_contents($file, preg_replace('#[[:<:]]'.$search.'[[:>:]]#', $replace, file_get_contents($file)));
 		}
