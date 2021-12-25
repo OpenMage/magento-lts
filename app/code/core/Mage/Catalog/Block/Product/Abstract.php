@@ -383,15 +383,12 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             ->callParentToHtml();
     }
 
-    /*
+    /**
      * Calls the object's to Html method.
      * This method exists to make the code more testable.
      * By having a protected wrapper for the final method toHtml, we can 'mock' out this method
      * when unit testing
      *
-     *  @return string
-     */
-    /**
      * @return string
      */
     protected function callParentToHtml()
