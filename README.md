@@ -96,7 +96,7 @@ Do not use 21.x.x if you don't know what you're doing, or if you don't understan
 - removed mysql4 classes #1470
 - removed admin routing compatibility mode for extensions #1551
 
-For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/v20.0.13...v21.0.0).
+For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/20.0...21.0).
 
 ### New Config Options
 
