@@ -48,7 +48,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Grand extends Mage_Sales_Model_Ord
         $creditmemo->setAdjustment($creditmemo->getAdjustmentPositive()-$creditmemo->getAdjustmentNegative());
         $creditmemo->setBaseAdjustment($creditmemo->getBaseAdjustmentPositive()-$creditmemo->getBaseAdjustmentNegative());
 
-        if ($creditmemo->getOrder()->getPayment()->getMethod() == 'free') {
+        if ($creditmemo->getOrder()->hasForcedCanCreditmemo()) {
             $creditmemo->setAllowZeroGrandTotal(true);
         }
         

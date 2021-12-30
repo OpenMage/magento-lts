@@ -735,7 +735,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function canCreditmemo()
     {
         if ($this->hasForcedCanCreditmemo()) {
-            return $this->getForcedCanCreditmemo();
+            foreach ($this->getAllItems() as $item) {
+                if ($item->canRefund()) {
+                    return $this->getForcedCanCreditmemo();
+                }
+            }
         }
 
         if ($this->canUnhold() || $this->isPaymentReview()) {
@@ -751,8 +755,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
          * for this we have additional diapason for 0
          * TotalPaid - contains amount, that were not rounded.
          */
-        if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001
-            && $this->getPayment()->getMethod() !== 'free') {
+        if (abs($this->getStore()->roundPrice($this->getTotalPaid()) - $this->getTotalRefunded()) < .0001) {
             return false;
         }
 
@@ -2370,8 +2373,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             && !$this->canInvoice()
             && !$this->canShip()) {
             if (0 == $this->getBaseGrandTotal() || $this->canCreditmemo()) {
-                if ($this->getState() !== self::STATE_COMPLETE) {
-                    $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
+                if (!$this->canCreditmemo() && $this->hasForcedCanCreditmemo()) {
+                    if ($this->getState() !== self::STATE_CLOSED) {
+                        $this->_setState(self::STATE_CLOSED, true, '', $userNotification);
+                    }
+                } else {
+                    if ($this->getState() !== self::STATE_COMPLETE) {
+                        $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
+                    }
                 }
             } /**
              * Order can be closed just in case when we have refunded amount.
