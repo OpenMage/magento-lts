@@ -75,31 +75,17 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-Bug fixes, PHP 7.x and 8.0 compatibility...
+Bug fixes and PHP 7.x and 8.0 compatibility.
 
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
 
-- fixed `_addUrlRewrite` ignoring collection store scope #510
-- prevent duplicate entry when updating salesrule_coupon_usage #1117
-- add logging to lockfile related exceptions #1149
-- performance improvement for directory currency #1252
-- move orig data to abstract model (like M2) #1325
-- removed deprecated `_afterSaveCommit` from Mage_Core_Model_Abstract #1502
-- removed hints and get help in admin theme #1536
-- prevent `backend_type` from being changed automatically on attribute save without the admin realizing #1544
-- performance improvement for catalog products images #1555
-- **removed frontend default themes (default, modern, iphone, german, french, blank, blue)** #1600
-- possibility to disable global search in backend #1532
-- **add redis as a valid option for `global/session_save`** #1513
-- set proper HTTP response code on error #1499
-- `steamClose` dosent void `$this->_streamHandler` in php8 #1623
-- **removed IE conditional comments, IE styles, IE scripts and IE eot files** #1073
-- fixed `origData` is empty in a quote #1735
-- removed includes dir #1667
-- removed unused variable `$configSections` #1355
+- removed IE conditional comments, IE styles, IE scripts and IE eot files #1073
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
+- add redis as a valid option for `global/session_save` #1513
+- possibility to disable global search in backend #1532
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/v19.4.15...v20.0.13).
 
@@ -110,13 +96,7 @@ Do not use 21.x.x if you don't know what you're doing, or if you don't understan
 - removed mysql4 classes #1470
 - removed admin routing compatibility mode for extensions #1551
 
-Future changes:
-- disable decorate javascript functions (*decorateGeneric, decorateTable, decorateList, decorateDataList*)
-- removed scriptaculous #1739 (except effects.js)
-
-### Performance
-
-<small>ToDo: Please add performance related changes as run-time cache, ...</small>
+For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/v20.0.13...v21.0.0).
 
 ### New Config Options
 
