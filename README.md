@@ -87,7 +87,7 @@ Do not use 20.x.x if you need IE support.
 - add redis as a valid option for `global/session_save` #1513
 - possibility to disable global search in backend #1532
 
-For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/v19.4.15...v20.0.13).
+For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### Between OpenMage 20.x and 21.x
 
