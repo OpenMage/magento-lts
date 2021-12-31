@@ -38,7 +38,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::__construct();
         $this->setId('attributeGrid');
-        $this->setDefaultSort('attribute_code');
+        $this->setDefaultSort('frontend_label');
         $this->setDefaultDir('ASC');
     }
 
@@ -51,16 +51,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::_prepareColumns();
 
-        $this->addColumn('attribute_code', array(
-            'header'=>Mage::helper('eav')->__('Attribute Code'),
-            'sortable'=>true,
-            'index'=>'attribute_code'
-        ));
-
         $this->addColumn('frontend_label', array(
             'header'=>Mage::helper('eav')->__('Attribute Label'),
             'sortable'=>true,
             'index'=>'frontend_label'
+        ));
+
+        $this->addColumn('attribute_code', array(
+            'header'=>Mage::helper('eav')->__('Attribute Code'),
+            'sortable'=>true,
+            'index'=>'attribute_code'
         ));
 
         $this->addColumn('is_required', array(
