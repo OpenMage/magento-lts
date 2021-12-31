@@ -97,11 +97,14 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $this->_cacheChecksum = null;
         $this->setCache(Mage::app()->getCache());
         $this->setCacheTags([Mage_Core_Model_Config::CACHE_TAG]);
-        if (!$this->loadCache()) {
+        $usesCache = Mage::app()->useCache('config');
+        if (!$usesCache || !$this->loadCache()) {
             /** @var Mage_Core_Model_Config_Base $config */
             $this->_config = Mage::getConfig()->loadModulesConfiguration('system.xml')
                 ->applyExtends();
-            $this->saveCache();
+            if ($usesCache) {
+                $this->saveCache();
+            }
         }
     }
 
@@ -131,9 +134,11 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $xmlString = $this->_loadCache($this->getCacheId());
         $class = Mage::getConfig()->getModelClassName('core/config_base');
         $this->_config = new $class();
+        libxml_use_internal_errors(true);
         if ($this->_config->loadString($xmlString)) {
             return true;
         }
+        libxml_clear_errors();
         return false;
     }
 
