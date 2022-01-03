@@ -42,14 +42,14 @@ If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallbac
 ### Using Composer
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
-```
-composer require openmage/magento-lts":"^19.4.0"
+```bash
+composer require "openmage/magento-lts":"^19.4.0"
 ```
 
 To get the latest changes use:
 
-```
-composer require openmage/magento-lts":"dev-main"
+```bash
+composer require "openmage/magento-lts":"dev-main"
 ```
 
 <small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
@@ -58,7 +58,7 @@ composer require openmage/magento-lts":"dev-main"
 
 If you want to contribute to the project:
 
-```
+```bash
 git init
 git remote add origin https://github.com/<YOUR GIT USERNAME>/magento-lts
 git pull origin master
