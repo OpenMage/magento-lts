@@ -557,7 +557,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         @chdir($this->_cwd);
         $result = @file_put_contents($filename, $src);
-        chdir($this->_iwd);
+        @chdir($this->_iwd);
 
         return $result;
     }
