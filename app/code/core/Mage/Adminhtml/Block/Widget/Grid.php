@@ -971,23 +971,29 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $originalCollection = $this->getCollection();
         $count = null;
         $page  = 1;
+        $lPage = null;
+        $break = false;
 
-        do {
+        while ($break !== true) {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
-
-            $count = $collection->count();
-
-            $page++;
+            if (is_null($count)) {
+                $count = $collection->getSize();
+                $lPage = $collection->getLastPageNumber();
+            }
+            if ($lPage == $page) {
+                $break = true;
+            }
+            $page ++;
 
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
             }
             $collection->clear();
             unset($collection);
-        } while($count == $this->_exportPageSize);
+        }
     }
 
     /**

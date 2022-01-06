@@ -81,6 +81,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - `admin/design/use_legacy_theme`
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
+- `catalog/search/search_separator`
 
 ### New Events
 - `adminhtml_block_widget_form_init_form_values_after`
