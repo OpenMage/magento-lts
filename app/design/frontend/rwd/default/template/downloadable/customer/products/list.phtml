@@ -52,7 +52,6 @@
             </tr>
         </thead>
         <tbody>
-            <?php $_odd = ''; ?>
             <?php foreach ($_items as $_item): ?>
                 <tr>
                     <td data-rwd-label="<?php echo Mage::helper('downloadable')->__('Order #') ?>"><a href="<?php echo $this->getOrderViewUrl($_item->getPurchased()->getOrderId()) ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('View Order')) ?>"><?php echo $_item->getPurchased()->getOrderIncrementId() ?></a></td>
