@@ -427,7 +427,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerFileName($realModule, $controller)
     {
-        $parts = explode('_', $realModule);
+        $usesNamespaces = preg_match('@\\\\@', $realModule);
+        $parts = explode($usesNamespaces ? '\\' : '_', $realModule);
         $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
         if (count($parts)) {
@@ -456,7 +457,12 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerClassName($realModule, $controller)
     {
-        $class = $realModule.'_'.uc_words($controller).'Controller';
+        $usesNamespaces = preg_match('@\\\\@', $realModule);
+        if ($usesNamespaces) {
+            $class = $realModule . '\\' . str_replace('_', '\\', uc_words($controller)) . 'Controller';
+        } else {
+            $class = $realModule . '_' . uc_words($controller) . 'Controller';
+        }
         return $class;
     }
 

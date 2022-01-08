@@ -62,6 +62,6 @@ class Varien_Autoload
      */
     public function autoload($class)
     {
-        return @include str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $class))) . '.php';
+        return @include str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace(['\\', '_'], [' ', ' '], $class))) . '.php';
     }
 }

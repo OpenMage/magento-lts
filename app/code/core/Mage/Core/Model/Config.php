@@ -1299,10 +1299,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (empty($className)) {
                 $className = 'mage_'.$group.'_'.$groupType;
             }
+            $usesNamespaces = preg_match('@\\\\@', $className);
             if (!empty($class)) {
-                $className .= '_'.$class;
+                $className .= ($usesNamespaces ? '\\' : '_').$class;
             }
             $className = uc_words($className);
+            if ($usesNamespaces) {
+                $className = str_replace('_', '\\', $className);
+            }
         }
 
         $this->_classNameCache[$groupRootNode][$group][$class] = $className;
