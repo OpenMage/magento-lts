@@ -77,6 +77,14 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
+     * @return int
+     */
+    public function getReviewId()
+    {
+        return $this->getReviewData()->getId();
+    }
+
+    /**
      * @return string
      */
     public function getBackUrl()
