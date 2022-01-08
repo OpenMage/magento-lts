@@ -51,7 +51,6 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
         parent::__construct();
         $this->setTemplate('review/customer/view.phtml');
 
-        $this->setReviewId($this->getRequest()->getParam('id', false));
     }
 
     /**
@@ -74,10 +73,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getReviewData()
     {
-        if ($this->getReviewId() && !$this->getReviewCachedData()) {
-            $this->setReviewCachedData(Mage::getModel('review/review')->load($this->getReviewId()));
-        }
-        return $this->getReviewCachedData();
+        return Mage::registry('current_review');
     }
 
     /**

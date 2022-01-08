@@ -47,6 +47,31 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    /**
+     * Load review model with data by passed id.
+     * Return false if review was not loaded or was not created by customer
+     *
+     * @param int $reviewId
+     * @return bool|Mage_Review_Model_Review
+     */
+    protected function _loadReview($reviewId)
+    {
+        if (!$reviewId) {
+            return false;
+        }
+
+        $review = Mage::getModel('review/review')->load($reviewId);
+        /* @var Mage_Review_Model_Review $review */
+        if (!$review->getId() || !$review->getCustomerId() == Mage::getSingleton('customer/session')->getCustomerId()){
+            return false;
+        }
+
+        Mage::register('current_review', $review);
+
+        return $review;
+    }
+
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -66,6 +91,12 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
+        $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));
+        if (!$review) {
+            $this->_forward('noroute');
+            return;
+        }
+
         $this->loadLayout();
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
