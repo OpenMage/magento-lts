@@ -105,7 +105,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
             }
         }
         $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;
-        $isAssoc = !preg_match('/^\d+$/', implode(array_keys($data), ''));
+        $isAssoc = !preg_match('/^\d+$/', implode('', array_keys($data)));
 
         $preparedData = array();
         foreach ($data as $key => $value) {
