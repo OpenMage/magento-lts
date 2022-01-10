@@ -1301,7 +1301,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             }
             $usesNamespaces = preg_match('@\\\\@', $className);
             if (!empty($class)) {
-                $className .= ($usesNamespaces ? '\\' : '_').$class;
+                if ($usesNamespaces) {
+                    $className .= '\\' . uc_words($class);
+                } else {
+                    $className .= '_' . $class;
+                }
             }
             $className = uc_words($className);
             if ($usesNamespaces) {

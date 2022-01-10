@@ -96,7 +96,7 @@ function mageFindClassFile($class)
     $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
     $found = false;
     foreach (explode(PS, get_include_path()) as $path) {
-        $fileName = $path.DS.$classFile;
+        $fileName = str_replace('\\', DS, $path.DS.$classFile);
         if (file_exists($fileName)) {
             $found = $fileName;
             break;
