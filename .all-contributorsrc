@@ -1308,6 +1308,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nimasan",
+      "name": "Benjamin MARROT",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5030086?v=4",
+      "profile": "https://www.developpeur-web-tlse.fr/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
