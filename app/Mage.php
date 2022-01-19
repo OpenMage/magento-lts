@@ -635,7 +635,7 @@ final class Mage
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)
     {
-        if (preg_match('@\\\\@', $module)) {
+        if (false !== strstr($module, '\\')) {
             $className = $module . '\Exception';
         } else {
             $className = $module . '_Exception';
