@@ -1299,7 +1299,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (empty($className)) {
                 $className = 'mage_'.$group.'_'.$groupType;
             }
-            $usesNamespaces = preg_match('@\\\\@', $className);
+            $usesNamespaces = false !== strstr($className, '\\');
             if (!empty($class)) {
                 if ($usesNamespaces) {
                     $className .= '\\' . uc_words($class);
