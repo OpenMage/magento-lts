@@ -339,6 +339,6 @@ class Mage_Core_Model_Cookie
             return $this;
         }
 
-        return $this->set($name, null, null, $path, $domain, $secure, $httponly, $sameSite);
+        return $this->set($name, '', null, $path, $domain, $secure, $httponly, $sameSite);
     }
 }
