@@ -43,7 +43,6 @@
             </tr>
         </thead>
         <tbody>
-            <?php $_odd = ''; ?>
             <?php foreach ($_orders as $_order): ?>
             <tr>
                 <td><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $_order->getRealOrderId() ?></a></td>
