@@ -860,6 +860,7 @@ abstract class Mage_Core_Controller_Varien_Action
         }
         return $this->_realModuleName;
     }
+
     /**
      * Support for controllers rewrites
      *
