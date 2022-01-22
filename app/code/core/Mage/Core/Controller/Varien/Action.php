@@ -844,15 +844,22 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if (empty($this->_realModuleName)) {
             $class = get_class($this);
-            $this->_realModuleName = substr(
-                $class,
-                0,
-                strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
-            );
+            if (false !== strpos($class, '\\')) {
+                 $this->_realModuleName = str_replace('\\', '_', substr(
+                    $class,
+                    0,
+                    strpos(strtolower($class), '\\' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
+                ));
+            } else {
+                $this->_realModuleName = substr(
+                    $class,
+                    0,
+                    strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller'))
+                );
+            }
         }
         return $this->_realModuleName;
     }
-
     /**
      * Support for controllers rewrites
      *
