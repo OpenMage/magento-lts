@@ -165,7 +165,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
             $menuArr['level'] = $level;
 
-            if (in_array($child->target, ["_blank", "_self", "_parent", "_top"])) {
+            if ($child->target) {
                 $menuArr['target'] = $child->target;
             }
 
