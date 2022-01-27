@@ -844,7 +844,7 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if (empty($this->_realModuleName)) {
             $class = get_class($this);
-            if (false !== strpos($class, '\\')) {
+            if (strpos($class, '\\') !== false) {
                  $this->_realModuleName = str_replace('\\', '_', substr(
                     $class,
                     0,
