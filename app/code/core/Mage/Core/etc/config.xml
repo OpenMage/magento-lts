@@ -122,7 +122,7 @@
             <types>
                 <config translate="label,description" module="core">
                     <label>Configuration</label>
-                    <description>System(config.xml, local.xml) and modules configuration files(config.xml, system.xml).</description>
+                    <description>System (config.xml, local.xml) and modules configuration files (config.xml, system.xml).</description>
                     <tags>CONFIG</tags>
                 </config>
                 <layout translate="label,description" module="core">
