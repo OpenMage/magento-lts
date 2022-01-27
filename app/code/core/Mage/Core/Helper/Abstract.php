@@ -124,7 +124,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         if (!$this->_moduleName) {
             $class = get_class($this);
-            if (false !== strpos($class, '\\')) {
+            if (strpos($class, '\\') !== false) {
                 $this->_moduleName = str_replace('\\', '_', substr($class, 0, strpos($class, '\Helper')));
             } else {
                 $this->_moduleName = substr($class, 0, strpos($class, '_Helper'));
