@@ -42,7 +42,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     public function setHandler($handler);
 
     /**
-     * Retrive handler class name for webservice
+     * Retrieve handler class name for webservice
      *
      * @return string
      */
@@ -57,7 +57,7 @@ interface Mage_Api_Model_Server_Adapter_Interface
     public function setController(Mage_Api_Controller_Action $controller);
 
     /**
-     * Retrive webservice api controller
+     * Retrieve webservice api controller
      *
      * @return Mage_Api_Controller_Action
      */

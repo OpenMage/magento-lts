@@ -720,7 +720,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
 
     /**
-     * Retrive Declared Module file list
+     * Retrieve Declared Module file list
      *
      * @return array|false
      */

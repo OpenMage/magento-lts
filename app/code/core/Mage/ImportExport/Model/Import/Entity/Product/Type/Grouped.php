@@ -50,7 +50,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
     protected $_behavior;
 
     /**
-     * Retrive model behavior
+     * Retrieve model behavior
      *
      * @return string
      */

@@ -474,7 +474,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * Retrive image from gallery
+     * Retrieve image from gallery
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $file
@@ -557,7 +557,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * Retrive media config
+     * Retrieve media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */

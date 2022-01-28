@@ -375,7 +375,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Retrive adminhtml session model
+     * Retrieve adminhtml session model
      *
      * @return Mage_Adminhtml_Model_Session
      */
