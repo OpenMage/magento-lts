@@ -131,7 +131,7 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      * Backward compatibility with EAV collection
      *
      * @param int $limit

@@ -923,7 +923,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      *
      * @param int $limit
      * @param int $offset
@@ -935,7 +935,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retrive all ids sql
+     * Retrieve all ids sql
      *
      * @deprecated
      * @return Varien_Db_Select

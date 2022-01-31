@@ -1317,6 +1317,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "tmewes",
+      "name": "Tino Mewes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12640514?v=4",
+      "profile": "https://github.com/tmewes",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

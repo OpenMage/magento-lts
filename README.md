@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-145-orange.svg?style=flat-square)](#contributors-)
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-146-orange.svg?style=flat-square" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
@@ -341,6 +341,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/lemundo-team"><img src="https://avatars.githubusercontent.com/u/61752623?v=4?s=100" width="100px;" alt=""/><br /><sub><b>lemundo-team</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=lemundo-team" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mdlonline"><img src="https://avatars.githubusercontent.com/u/5389528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mdlonline</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=mdlonline" title="Code">💻</a></td>
     <td align="center"><a href="https://www.developpeur-web-tlse.fr/"><img src="https://avatars.githubusercontent.com/u/5030086?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Benjamin MARROT</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=nimasan" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/tmewes"><img src="https://avatars.githubusercontent.com/u/12640514?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tino Mewes</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=tmewes" title="Code">💻</a></td>
   </tr>
 </table>
 

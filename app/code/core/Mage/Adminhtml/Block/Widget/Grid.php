@@ -1396,7 +1396,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block name
+     * Retrieve massaction block name
      *
      * @return string
      */
@@ -1418,7 +1418,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block
+     * Retrieve massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */

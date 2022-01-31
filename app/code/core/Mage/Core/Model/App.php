@@ -1065,7 +1065,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrive layout object
+     * Retrieve layout object
      *
      * @return Mage_Core_Model_Layout
      */

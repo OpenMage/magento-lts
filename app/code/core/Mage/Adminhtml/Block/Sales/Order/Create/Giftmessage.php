@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
     }
 
     /**
-     * Retrive items allowed for gift messages.
+     * Retrieve items allowed for gift messages.
      *
      * If no items available return false.
      *

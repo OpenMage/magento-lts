@@ -45,7 +45,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     }
 
     /**
-     * Retrive invoices list. Filtration could be applied
+     * Retrieve invoices list. Filtration could be applied
      *
      * @param null|object|array $filters
      * @return array
