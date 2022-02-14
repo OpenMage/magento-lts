@@ -404,11 +404,14 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Get prduct Id from sku or from product id
+     * Get the product ID from a product ID or SKU. When $identifierType is left empty the helper will try to
+     * automatically parse the given $productId and determine if it is a SKU or ID value
      *
-     * @param int|string $productId
-     * @param  string $identifierType
+     * @param int|string  $productId      The product ID or SKU
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
+     *
      * @return int
+     * @throws Mage_Api_Exception
      */
     protected function _getProductId($productId, $identifierType = null)
     {
