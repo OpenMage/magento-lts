@@ -33,7 +33,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      *
      * @return array
      */
-    public function getAllOptions($withEmpty = true, $defaultValues = false)
+    public function getAllOptions()
     {
         if (is_null($this->_options)) {
             $this->_options = array(
@@ -46,11 +46,6 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
                     'value' => self::VALUE_NO
                 ),
             );
-        }
-        if ($withEmpty) {
-            $r = $this->_options;
-            array_unshift($r, ['value' => '', 'label' => '']);
-            return $r;
         }
         return $this->_options;
     }
