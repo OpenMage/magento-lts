@@ -30,19 +30,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Boolean extends Varien_Da
     public function __construct($attributes=array())
     {
         parent::__construct($attributes);
-        $this->setValues([
-            [
-                'label' => '',
-                'value' => ''
-            ],
-            [
+        $this->setValues(array(
+            array(
                 'label' => Mage::helper('catalog')->__('No'),
                 'value' => 0,
-            ],
-            [
+            ),
+            array(
                 'label' => Mage::helper('catalog')->__('Yes'),
                 'value' => 1,
-            ],
-        ]);
+            ),
+        ));
     }
 }
