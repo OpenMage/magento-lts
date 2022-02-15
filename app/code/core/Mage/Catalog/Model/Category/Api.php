@@ -459,7 +459,8 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $productId
      * @param int $position
-     * @param null $identifierType
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
+     
      * @return boolean
      * @throws Mage_Api_Exception
      */
