@@ -356,7 +356,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
             if ($like) {
                 $separator = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_SEPARATOR);
-                $likeCond = '(' . implode($separator, $like) . ')';
+                $likeCond = '(' . implode(' '.$separator.' ', $like) . ')';
             }
         }
 
