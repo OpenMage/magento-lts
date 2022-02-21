@@ -34,7 +34,7 @@ jobs:
           composer --version
           composer install --dev -n --prefer-source
       - name: Run Unit Tests
-        run: ./vendor/bin/phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
+        run: phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
       - name: prepare SonarCloud Scan Data
         if: ${{ matrix.php-versions == '8.1' }}
         run: |
