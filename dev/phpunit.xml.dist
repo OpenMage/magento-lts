@@ -16,13 +16,13 @@
 >
     <testsuites>
         <testsuite name="TestfieldUnit">
-            <directory>./dev/testfield/tests/Unit</directory>
+            <directory>./testfield/tests/Unit</directory>
         </testsuite>
         <testsuite name="TestfieldFullstack">
-            <directory>./dev/testfield/tests/MagentoHackathon/Composer/FullStack</directory>
+            <directory>./testfield/tests/MagentoHackathon/Composer/FullStack</directory>
         </testsuite>
         <testsuite name="Unit">
-            <directory>./dev/tests/unit</directory>
+            <directory>./tests/unit</directory>
         </testsuite>
     </testsuites>
 
