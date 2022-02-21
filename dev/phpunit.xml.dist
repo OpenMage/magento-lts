@@ -31,18 +31,18 @@
             processUncoveredFiles="true"
     >
         <include>
-            <directory suffix=".php">app/code</directory>
-            <directory suffix=".php">lib</directory>
+            <directory suffix=".php">../app/code</directory>
+            <directory suffix=".php">../lib</directory>
         </include>
         <exclude>
-            <file>app/bootstrap.php</file>
+            <file>../app/bootstrap.php</file>
         </exclude>
         <report>
-            <clover outputFile="./dev/tests/clover.xml"/>
-            <crap4j outputFile="./dev/tests/crap4j.xml"/>
+            <clover outputFile="./tests/clover.xml"/>
+            <crap4j outputFile="./tests/crap4j.xml"/>
         </report>
     </coverage>
     <logging>
-        <junit outputFile="./dev/tests/junit.xml"/>
+        <junit outputFile="./tests/junit.xml"/>
     </logging>
 </phpunit>
