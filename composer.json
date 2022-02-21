@@ -40,6 +40,9 @@
       "role": "Maintainer"
     }
   ],
+  "autoload-dev": {
+    "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
+  },
   "extra": {
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
