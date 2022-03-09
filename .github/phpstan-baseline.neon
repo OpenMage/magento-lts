@@ -376,11 +376,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
 
 		-
-			message: "#^Access to constant FATAL on an unknown class Mage_Dataflow_Model_Convert_Exceptin\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Validator/Dryrun.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
