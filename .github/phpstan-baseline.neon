@@ -361,11 +361,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
-			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action_Abstract\\:\\:addException\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action_Abstract\\:\\:getClassNameByType\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
