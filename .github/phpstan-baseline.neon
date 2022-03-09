@@ -291,21 +291,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Cannot call abstract method Mage_Core_Model_Resource_Abstract\\:\\:_construct\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Abstract.php
-
-		-
-			message: "#^Method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:_construct\\(\\) should return Mage_Core_Model_Resource_Db_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Attribute.php
-
-		-
-			message: "#^Method Mage_CatalogIndex_Model_Resource_Price\\:\\:_construct\\(\\) should return Mage_Core_Model_Resource_Db_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
-
-		-
 			message: "#^Method Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/System/Config/Backend/Minsaleqty.php
