@@ -266,11 +266,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Media.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\:\\:_unserialize\\(\\) should return \\$this\\(Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Recurring.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Catalog_Model_Product_Attribute_Backend_Recurring\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Backend/Recurring.php
