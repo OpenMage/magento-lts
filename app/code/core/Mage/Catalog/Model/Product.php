@@ -756,7 +756,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**

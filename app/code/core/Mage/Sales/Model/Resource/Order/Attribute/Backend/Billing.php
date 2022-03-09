@@ -45,6 +45,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
         if (is_null($billingAddressId)) {
             $object->unsetBillingAddressId();
         }
+        return $this;
     }
 
     /**
@@ -64,5 +65,6 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
             $object->setBillingAddressId($billingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
 }

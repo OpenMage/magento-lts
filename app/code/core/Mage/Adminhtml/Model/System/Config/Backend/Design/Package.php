@@ -35,5 +35,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Design_Package extends Mage_Cor
         if (!Mage::getDesign()->designPackageExists($value)) {
             throw new Exception('package with this name does not exist and cannot be set.');
         }
+        return $this;
     }
 }
