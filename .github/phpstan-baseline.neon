@@ -71,21 +71,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
-			message: "#^Undefined variable\\: \\$pdf$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Controller/Sales/Creditmemo.php
-
-		-
-			message: "#^Undefined variable\\: \\$pdf$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Controller/Sales/Invoice.php
-
-		-
-			message: "#^Undefined variable\\: \\$pdf$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Controller/Sales/Shipment.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderConfigureResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
