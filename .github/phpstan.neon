@@ -98,6 +98,9 @@ parameters:
         # Dataflow/Model/Convert/Iterator.php
         - */Dataflow/Model/Convert/Iterator.php
 
-    level: 0
+        # Too much noise from "Variable $this might not be defined"
+        - */app/code/core/*/*/data/*
+        - */app/code/core/*/*/sql/*
+    level: 1
 #    universalObjectCratesClasses:
 #        - Varien_Object
