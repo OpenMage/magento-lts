@@ -45,6 +45,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+        return $this;
     }
 
     protected function _prepareForm()

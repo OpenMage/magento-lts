@@ -1,49 +1,9 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Mage_Adminhtml_Block_Backup\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Backup\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Backup_Dialogs\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Backup_Dialogs\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Dialogs.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Checkboxes/Tree.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Attributes.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Category_Tab_General\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/General.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Form\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Form.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/New/Product/Attributes.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/New/Product/Created.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute\\) but return statement is missing\\.$#"
@@ -66,24 +26,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Toolbar/Main/Filter.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Created\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Created\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute/Tab/Attributes.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Attributes.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price\\) but return statement is missing\\.$#"
@@ -96,21 +41,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Settings.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Configurable\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Configurable\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs/Configurable.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Grouped\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Grouped\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tabs/Grouped.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser\\:\\:getCheckboxCheckCallback\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
@@ -121,44 +51,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Cms_Block_Edit_Form\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Block/Edit/Form.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Content.php
-
-		-
 			message: "#^Result of method Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content\\:\\:getDeleteFilesUrl\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Wysiwyg/Images/Content.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Accordion.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Customer_Group_Edit_Form\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Group/Edit/Form.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Dashboard\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Dashboard\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Dashboard_Sales\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Dashboard_Sales\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Sales.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Dashboard_Totals\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Dashboard_Totals\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Totals.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Permissions_Tab_Useredit\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Permissions_Tab_Useredit\\) but return statement is missing\\.$#"
@@ -226,34 +121,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Messages\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Create_Messages\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Messages.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking\\:\\:_prepareLayout\\(\\) should return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create/Tracking.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Payment\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Payment\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Payment.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Form.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking\\:\\:_prepareLayout\\(\\) should return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Tracking.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking\\:\\:_prepareLayout\\(\\) should return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Tracking.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Totalbar\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Totalbar\\) but return statement is missing\\.$#"
@@ -681,11 +551,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Block/Flush.php
 
 		-
-			message: "#^Method Mage_Core_Block_Messages\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Core_Block_Messages\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Messages.php
-
-		-
 			message: "#^Result of method Mage_Core_Block_Abstract\\:\\:__construct\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Store/Switcher.php
@@ -724,11 +589,6 @@ parameters:
 			message: "#^Function mageDebugBacktrace\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/functions.php
-
-		-
-			message: "#^Method Mage_Customer_Block_Address_Edit\\:\\:_prepareLayout\\(\\) should return \\$this\\(Mage_Customer_Block_Address_Edit\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Address/Edit.php
 
 		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Api2_Customer_Address\\:\\:_getDefaultAddressesInfo\\(\\)\\.$#"
@@ -839,16 +699,6 @@ parameters:
 			message: "#^Method Mage_Dataflow_Model_Resource_Profile\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Resource_Profile\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Resource/Profile.php
-
-		-
-			message: "#^Method Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Links.php
-
-		-
-			message: "#^Method Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Samples\\:\\:_prepareLayout\\(\\) should return Mage_Core_Block_Abstract but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable/Samples.php
 
 		-
 			message: "#^Method Mage_Downloadable_Model_Product_Type\\:\\:beforeSave\\(\\) should return Mage_Catalog_Model_Product_Type_Abstract but return statement is missing\\.$#"
