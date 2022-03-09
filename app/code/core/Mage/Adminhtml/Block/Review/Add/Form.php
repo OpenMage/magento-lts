@@ -112,5 +112,6 @@ class Mage_Adminhtml_Block_Review_Add_Form extends Mage_Adminhtml_Block_Widget_F
         $form->setAction($this->getUrl('*/*/post'));
 
         $this->setForm($form);
+        return $this;
     }
 }

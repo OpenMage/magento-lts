@@ -60,5 +60,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter ext
         $form->setUseContainer(true);
         $form->setMethod('post');
         $this->setForm($form);
+        return $this;
     }
 }

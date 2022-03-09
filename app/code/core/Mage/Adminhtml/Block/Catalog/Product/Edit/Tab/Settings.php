@@ -78,6 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
         ));
 
         $this->setForm($form);
+        return $this;
     }
 
     public function getContinueUrl()

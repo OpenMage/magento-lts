@@ -1,46 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/New/Product/Attributes.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main/Formattribute.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main/Formgroup.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Main/Formset.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main_Filter\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Set/Toolbar/Main/Filter.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute/Tab/Attributes.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Settings.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser\\:\\:getCheckboxCheckCallback\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
@@ -54,21 +14,6 @@ parameters:
 			message: "#^Result of method Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content\\:\\:getDeleteFilesUrl\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Wysiwyg/Images/Content.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Permissions_Tab_Useredit\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Permissions_Tab_Useredit\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Useredit.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Poll_Answer_Edit_Form\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Poll_Answer_Edit_Form\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Answer/Edit/Form.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Edit/Tab/Answers/Form.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Report_Customer_Accounts_Grid\\:\\:_prepareCollection\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Report_Customer_Accounts_Grid\\) but return statement is missing\\.$#"
@@ -94,11 +39,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Report_Product_Ordered_Grid\\:\\:_prepareCollection\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Report_Product_Ordered_Grid\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Ordered/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Review_Add_Form\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Review_Add_Form\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Review/Add/Form.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Review_Grid\\:\\:_prepareMassaction\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Review_Grid\\) but return statement is missing\\.$#"
@@ -144,11 +84,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_View_Items\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_View_Items\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_System_Design_Edit_Tab_General\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Adminhtml_Block_System_Design_Edit_Tab_General\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Design/Edit/Tab/General.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Urlrewrite_Link\\:\\:_toHtml\\(\\) should return string but return statement is missing\\.$#"
@@ -349,11 +284,6 @@ parameters:
 			message: "#^Method Mage_Api2_Block_Adminhtml_Attribute_Grid\\:\\:_prepareCollection\\(\\) should return \\$this\\(Mage_Api2_Block_Adminhtml_Attribute_Grid\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Attribute/Grid.php
-
-		-
-			message: "#^Method Mage_Api2_Block_Adminhtml_Roles_Tab_Info\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Api2_Block_Adminhtml_Roles_Tab_Info\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Api2/Block/Adminhtml/Roles/Tab/Info.php
 
 		-
 			message: "#^Method Mage_Api2_Model_Acl_Global_Rule_ResourcePermission\\:\\:setFilterValue\\(\\) should return Mage_Api2_Model_Acl_PermissionInterface but return statement is missing\\.$#"
@@ -989,11 +919,6 @@ parameters:
 			message: "#^Call to an undefined static method Mage_Core_Model_Config_Data\\:\\:afterSave\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Model/Config/Price/Include.php
-
-		-
-			message: "#^Method Mage_Widget_Block_Adminhtml_Widget_Form\\:\\:_prepareForm\\(\\) should return \\$this\\(Mage_Widget_Block_Adminhtml_Widget_Form\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Form.php
 
 		-
 			message: "#^Method Mage_Wishlist_Block_Customer_Wishlist_Item_Column\\:\\:_beforeChildToHtml\\(\\) should return string but return statement is missing\\.$#"
