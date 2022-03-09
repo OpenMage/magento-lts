@@ -11,11 +11,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
 
 		-
-			message: "#^Result of method Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content\\:\\:getDeleteFilesUrl\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Wysiwyg/Images/Content.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Report_Customer_Accounts_Grid\\:\\:_prepareCollection\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Report_Customer_Accounts_Grid\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Customer/Accounts/Grid.php
@@ -196,11 +191,6 @@ parameters:
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
 
 		-
-			message: "#^Result of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:_getSelectedOptions\\(\\) \\(void\\) is used\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
 			message: "#^Call to an undefined method Mage_Bundle_Model_Product_Price\\:\\:getPricesTierPrice\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Bundle/Model/Product/Price.php
@@ -336,24 +326,9 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Model/Session.php
 
 		-
-			message: "#^Result of method Mage_ConfigurableSwatches_Helper_Mediafallback\\:\\:attachProductChildrenAttributeMapping\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ConfigurableSwatches/Helper/Mediafallback.php
-
-		-
 			message: "#^Method Mage_Core_Block_Flush\\:\\:_toHtml\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Flush.php
-
-		-
-			message: "#^Result of method Mage_Core_Block_Abstract\\:\\:__construct\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Store/Switcher.php
-
-		-
-			message: "#^Result of method Zend_Controller_Response_Abstract\\:\\:sendResponse\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Controller/Response/Http.php
 
 		-
 			message: "#^Undefined variable\\: \\$realModule$#"
