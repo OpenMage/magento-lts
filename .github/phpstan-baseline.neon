@@ -51,39 +51,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Comments_View\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Comments_View\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Comments/View.php
-
-		-
 			message: "#^Undefined variable\\: \\$info$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Payment\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Payment\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Payment.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Totalbar\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_Totalbar\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Totalbar.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_View_Giftmessage\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_View_Giftmessage\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_View_Info\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_View_Info\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_View_Items\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Order_View_Items\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Urlrewrite_Link\\:\\:_toHtml\\(\\) should return string but return statement is missing\\.$#"
@@ -804,11 +774,6 @@ parameters:
 			message: "#^Method Mage_Rss_Model_System_Config_Backend_Links\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Rss_Model_System_Config_Backend_Links\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rss/Model/System/Config/Backend/Links.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items\\:\\:_beforeToHtml\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Items\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Recurring/Profile/View/Items.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
