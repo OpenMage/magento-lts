@@ -301,11 +301,6 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Model/Session.php
 
 		-
-			message: "#^Undefined variable\\: \\$realModule$#"
-			count: 2
-			path: ../app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
 			message: "#^Method Mage_Core_Model_Config_Data\\:\\:afterLoad\\(\\) should return \\$this\\(Mage_Core_Model_Config_Data\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Config/Data.php
