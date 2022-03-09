@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     /**
      * Prepares layout of block
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -48,8 +48,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
                     'class'   => 'save',
                     'onclick' => $onclick
                 ))
-
         );
+        return $this;
     }
 
     /**

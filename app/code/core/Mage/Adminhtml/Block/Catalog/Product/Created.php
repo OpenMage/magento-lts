@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                     'onclick' => 'addProduct(true)'
                 ))
         );
+        return $this;
     }
 
 

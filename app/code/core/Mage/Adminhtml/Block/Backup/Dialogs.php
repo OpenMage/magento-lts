@@ -48,6 +48,6 @@ class Mage_Adminhtml_Block_Backup_Dialogs extends Mage_Adminhtml_Block_Template
     protected function _prepareLayout()
     {
         $this->getLayout()->getBlock('head')->addJs('mage/adminhtml/backup.js');
-        parent::_prepareLayout();
+        return parent::_prepareLayout();
     }
 }
