@@ -51,11 +51,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Urlrewrite_Link\\:\\:_toHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Link.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php
@@ -304,11 +299,6 @@ parameters:
 			message: "#^Method Mage_Checkout_Model_Session\\:\\:unsetAll\\(\\) should return \\$this\\(Mage_Checkout_Model_Session\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Model/Session.php
-
-		-
-			message: "#^Method Mage_Core_Block_Flush\\:\\:_toHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Flush.php
 
 		-
 			message: "#^Undefined variable\\: \\$realModule$#"
