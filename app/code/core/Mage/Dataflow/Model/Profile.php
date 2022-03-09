@@ -91,7 +91,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
         $this->setGuiData($guiData);
 
-        parent::_afterLoad();
+        return parent::_afterLoad();
     }
 
     protected function _beforeSave()
@@ -142,6 +142,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
             Mage::throwException(Mage::helper('dataflow')->__("Profile with the same name already exists."));
         }
+        return $this;
     }
 
     protected function _afterSave()

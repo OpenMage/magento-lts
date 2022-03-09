@@ -101,37 +101,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Config.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Baseurl\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Baseurl\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Baseurl.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Cache\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Cache\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Cache.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Currency/Cron.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Datashare\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Datashare\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Datashare.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Design_Package\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Design_Package\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Design/Package.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Encrypted.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Encrypted.php
 
@@ -141,44 +111,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Log_Cron\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Log_Cron\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Log/Cron.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Product_Alert_Cron\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Product_Alert_Cron\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Product/Alert/Cron.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Secure\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Secure\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Secure.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Serialized\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Serialized\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Serialized\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Serialized\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Shipping_Tablerate\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Shipping_Tablerate\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Shipping/Tablerate.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Sitemap/Cron.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Store\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Store\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Store.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_Url\\:\\:renewSecretUrls\\(\\) should return \\$this\\(Mage_Adminhtml_Model_Url\\) but return statement is missing\\.$#"
@@ -276,11 +211,6 @@ parameters:
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
 
 		-
-			message: "#^Method Mage_Backup_Model_Config_Backend_Cron\\:\\:_afterSave\\(\\) should return Mage_Adminhtml_Model_System_Config_Backend_Log_Cron but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Config/Backend/Cron.php
-
-		-
 			message: "#^Result of method Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\\:\\:_getSelectedOptions\\(\\) \\(void\\) is used\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
@@ -336,11 +266,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Validator/Product.php
 
 		-
-			message: "#^Method Mage_Catalog_Model_Category_Attribute_Backend_Image\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Catalog_Model_Category_Attribute_Backend_Image\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Category/Attribute/Backend/Image.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Config\\:\\:_init\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Config.php
@@ -352,11 +277,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:_afterDeleteCommit\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Method Mage_Catalog_Model_Product\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
 
@@ -416,16 +336,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogInventory/Model/System/Config/Backend/Minsaleqty.php
 
 		-
-			message: "#^Method Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/System/Config/Backend/Minsaleqty.php
-
-		-
-			message: "#^Method Mage_CatalogInventory_Model_System_Config_Backend_Qtyincrements\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_CatalogInventory_Model_System_Config_Backend_Qtyincrements\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/System/Config/Backend/Qtyincrements.php
-
-		-
 			message: "#^Method Mage_Checkout_Block_Onepage_Payment_Methods\\:\\:getMethodLabelAfterHtml\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Onepage/Payment/Methods.php
@@ -476,11 +386,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: "#^Method Mage_Core_Model_Resource_Design\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Core_Model_Resource_Design\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/Design.php
-
-		-
 			message: "#^Function mageCoreErrorHandler\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/functions.php
@@ -506,29 +411,9 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Customer.php
 
 		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Billing\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Billing\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Billing.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Billing\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Billing\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Billing.php
-
-		-
 			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Password\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Password\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Password.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Shipping\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Shipping.php
-
-		-
-			message: "#^Method Mage_Customer_Model_Customer_Attribute_Backend_Shipping\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Customer_Model_Customer_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer/Attribute/Backend/Shipping.php
 
 		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:postDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
@@ -547,11 +432,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:_afterDelete\\(\\) should return \\$this\\(Mage_Dataflow_Model_Batch\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Batch\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
 
@@ -581,24 +461,9 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Validator/Dryrun.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Resource_Profile\\:\\:_beforeSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Resource_Profile\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Resource/Profile.php
 
 		-
 			message: "#^Method Mage_Downloadable_Model_Product_Type\\:\\:beforeSave\\(\\) should return Mage_Catalog_Model_Product_Type_Abstract but return statement is missing\\.$#"
@@ -746,11 +611,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/System/Config/Backend/MerchantCountry.php
 
 		-
-			message: "#^Method Mage_Poll_Model_Resource_Poll\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Poll_Model_Resource_Poll\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Poll/Model/Resource/Poll.php
-
-		-
 			message: "#^Method Mage_ProductAlert_UnsubscribeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_ProductAlert_UnsubscribeController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ProductAlert/controllers/UnsubscribeController.php
@@ -771,24 +631,9 @@ parameters:
 			path: ../app/code/core/Mage/Review/controllers/CustomerController.php
 
 		-
-			message: "#^Method Mage_Rss_Model_System_Config_Backend_Links\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Rss_Model_System_Config_Backend_Links\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Model/System/Config/Backend/Links.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Billing/Agreement.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Entity/Order/Attribute/Backend/Shipping.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Entity/Order/Attribute/Backend/Shipping.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Quote_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Sales_Model_Quote_Item\\) but return statement is missing\\.$#"
@@ -799,26 +644,6 @@ parameters:
 			message: "#^Method Mage_Sales_Model_Recurring_Profile\\:\\:_getItem\\(\\) should return Mage_Sales_Model_Order_Item but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Attribute/Backend/Billing.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Attribute/Backend/Billing.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping\\:\\:afterSave\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Attribute/Backend/Shipping.php
-
-		-
-			message: "#^Method Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping\\:\\:beforeSave\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Attribute/Backend/Shipping.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Resource_Order_Invoice_Collection\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Invoice_Collection\\) but return statement is missing\\.$#"
