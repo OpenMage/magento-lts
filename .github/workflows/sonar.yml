@@ -40,7 +40,7 @@ jobs:
         run: |
           ls -la
           sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/coverage.clover
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/clover.xml
           ls -la
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
