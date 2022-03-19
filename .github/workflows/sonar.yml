@@ -38,9 +38,12 @@ jobs:
       - name: prepare SonarCloud Scan Data
         if: ${{ matrix.php-versions == '8.1' }}
         run: |
+          echo $PWD
           ls -la
+          head ./dev/tests/clover.xml
           sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/junit.xml
           sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/clover.xml
+          head ./dev/tests/clover.xml
           ls -la
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
