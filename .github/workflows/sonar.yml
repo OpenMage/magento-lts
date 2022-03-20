@@ -47,7 +47,7 @@ jobs:
           ls -la
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
-        if: ${{ matrix.php-versions == '8.1' }}
+        if: ${{ matrix.php-versions == '8.1' }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=dev/sonar-project.properties
