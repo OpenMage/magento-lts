@@ -62,7 +62,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
     }
 
     /**
-     * @param $date
+     * @param string $date
      * @return $this
      */
     public function setDate($date)
