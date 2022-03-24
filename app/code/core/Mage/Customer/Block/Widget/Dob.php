@@ -25,7 +25,7 @@
  */
 
 /**
- * @method string getTime()
+ * @method DateTime getTime()
  * @method $this setTime(string $value)
  */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
