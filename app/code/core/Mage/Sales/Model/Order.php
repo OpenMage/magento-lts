@@ -1895,8 +1895,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 ->setOrder('entity_id', 'desc');
 
             if ($this->getId()) {
+                /** @var Mage_Sales_Model_Order_Status_History $status */
                 foreach ($this->_statusHistory as $status) {
                     $status->setOrder($this);
+                    $status->setDataChanges(false);
                 }
             }
         }
