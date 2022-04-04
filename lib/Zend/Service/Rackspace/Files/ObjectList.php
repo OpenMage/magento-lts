@@ -23,7 +23,7 @@
 #require_once 'Zend/Service/Rackspace/Files.php';
 
 /**
- * List of servers retrieved from the GoGrid web service
+ * List of servers retrived from the GoGrid web service
  *
  * @uses       ArrayAccess
  * @uses       Countable
@@ -41,7 +41,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
     /**
      * @var array of Zend_Service_Rackspace_Files_Object
      */
-    protected $objects = array();
+    protected $objects = [];
     /**
      * @var int Iterator key
      */
@@ -60,7 +60,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      * Construct
      *
      * @param  array $list
-     * @return boolean
+     * @return void
      */
     public function __construct($service,$list,$container)
     {
@@ -111,7 +111,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->objects);
     }
@@ -122,6 +122,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return Zend_Service_Rackspace_Files_Object
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->objects[$this->iteratorKey];
@@ -133,6 +134,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->iteratorKey;
@@ -144,7 +146,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->iteratorKey += 1;
     }
@@ -155,7 +157,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorKey = 0;
     }
@@ -166,7 +168,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $numItems = $this->count();
         if ($numItems > 0 && $this->iteratorKey < $numItems) {
@@ -183,7 +185,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      * @param   int     $offset
      * @return  bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return ($offset < $this->count());
     }
@@ -196,6 +198,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      * @throws  Zend_Service_Rackspace_Files_Exception
      * @return  Zend_Service_Rackspace_Files_Object
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
@@ -215,7 +218,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      * @param   string  $value
      * @throws  Zend_Service_Rackspace_Files_Exception
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         #require_once 'Zend/Service/Rackspace/Files/Exception.php';
         throw new Zend_Service_Rackspace_Files_Exception('You are trying to set read-only property');
@@ -229,7 +232,7 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      * @param   int     $offset
      * @throws  Zend_Service_Rackspace_Files_Exception
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         #require_once 'Zend/Service/Rackspace/Files/Exception.php';
         throw new Zend_Service_Rackspace_Files_Exception('You are trying to unset read-only property');

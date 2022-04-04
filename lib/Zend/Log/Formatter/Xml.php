@@ -55,16 +55,16 @@ class Zend_Log_Formatter_Xml extends Zend_Log_Formatter_Abstract
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
             $args = func_get_args();
 
-            $options = array(
+            $options = [
             	'rootElement' => array_shift($args)
-            );
+            ];
 
             if (count($args)) {
                 $options['elementMap'] = array_shift($args);
@@ -135,7 +135,7 @@ class Zend_Log_Formatter_Xml extends Zend_Log_Formatter_Abstract
         if ($this->_elementMap === null) {
             $dataToInsert = $event;
         } else {
-            $dataToInsert = array();
+            $dataToInsert = [];
             foreach ($this->_elementMap as $elementName => $fieldKey) {
                 $dataToInsert[$elementName] = $event[$fieldKey];
             }

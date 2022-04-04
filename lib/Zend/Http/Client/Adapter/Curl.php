@@ -52,14 +52,14 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      *
      * @var array
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * What host/port are we connected to?
      *
      * @var array
      */
-    protected $_connected_to = array(null, null);
+    protected $_connected_to = [null, null];
 
     /**
      * The curl session handle
@@ -103,7 +103,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
             #require_once 'Zend/Http/Client/Adapter/Exception.php';
             throw new Zend_Http_Client_Adapter_Exception('cURL extension has to be loaded to use this Zend_Http_Client adapter.');
         }
-        $this->_invalidOverwritableCurlOptions = array(
+        $this->_invalidOverwritableCurlOptions = [
             CURLOPT_HTTPGET,
             CURLOPT_POST,
             CURLOPT_PUT,
@@ -119,7 +119,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
             CURLOPT_CONNECTTIMEOUT,
             CURL_HTTP_VERSION_1_1,
             CURL_HTTP_VERSION_1_0,
-        );
+        ];
     }
 
     /**
@@ -129,7 +129,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      * @param  Zend_Config | array $config
      * @return Zend_Http_Client_Adapter_Curl
      */
-    public function setConfig($config = array())
+    public function setConfig($config = [])
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();
@@ -179,12 +179,12 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      *
      * @param  string|int $option
      * @param  mixed $value
-     * @return Zend_Http_Adapter_Curl
+     * @return Zend_Http_Client_Adapter_Curl
      */
     public function setCurlOption($option, $value)
     {
         if (!isset($this->_config['curloptions'])) {
-            $this->_config['curloptions'] = array();
+            $this->_config['curloptions'] = [];
         }
         $this->_config['curloptions'][$option] = $value;
         return $this;
@@ -217,8 +217,9 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
 
         // Do the actual connection
         $this->_curl = curl_init();
+
         if ($port != 80) {
-            curl_setopt($this->_curl, CURLOPT_PORT, intval($port));
+            curl_setopt($this->_curl, CURLOPT_PORT, (int)$port);
         }
 
         // Set connection timeout
@@ -262,7 +263,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         }
 
         // Update connected_to
-        $this->_connected_to = array($host, $port);
+        $this->_connected_to = [$host, $port];
     }
 
     /**
@@ -276,7 +277,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      * @return string        $request
      * @throws Zend_Http_Client_Adapter_Exception If connection fails, connected to wrong host, no PUT file defined, unsupported method, or unsupported cURL option
      */
-    public function write($method, $uri, $httpVersion = 1.1, $headers = array(), $body = '')
+    public function write($method, $uri, $httpVersion = 1.1, $headers = [], $body = '')
     {
         // Make sure we're properly connected
         if (!$this->_curl) {
@@ -383,7 +384,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         if($this->out_stream) {
             // headers will be read into the response
             curl_setopt($this->_curl, CURLOPT_HEADER, false);
-            curl_setopt($this->_curl, CURLOPT_HEADERFUNCTION, array($this, "readHeader"));
+            curl_setopt($this->_curl, CURLOPT_HEADERFUNCTION, [$this, "readHeader"]);
             // and data will be written into the file
             curl_setopt($this->_curl, CURLOPT_FILE, $this->out_stream);
         } else {
@@ -499,7 +500,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
             curl_close($this->_curl);
         }
         $this->_curl         = null;
-        $this->_connected_to = array(null, null);
+        $this->_connected_to = [null, null];
     }
 
     /**
@@ -516,7 +517,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      * Set output stream for the response
      *
      * @param resource $stream
-     * @return Zend_Http_Client_Adapter_Socket
+     * @return Zend_Http_Client_Adapter_Curl
      */
     public function setOutputStream($stream)
     {

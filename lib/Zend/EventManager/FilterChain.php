@@ -58,7 +58,7 @@ class Zend_EventManager_FilterChain implements Zend_EventManager_Filter
      * @param  mixed $argv Associative array of arguments
      * @return mixed
      */
-    public function run($context, array $argv = array())
+    public function run($context, array $argv = [])
     {
         $chain = clone $this->getFilters();
 
@@ -88,7 +88,7 @@ class Zend_EventManager_FilterChain implements Zend_EventManager_Filter
             #require_once 'Zend/Stdlib/Exception/InvalidCallbackException.php';
             throw new Zend_Stdlib_Exception_InvalidCallbackException('No callback provided');
         }
-        $filter = new Zend_Stdlib_CallbackHandler($callback, array('priority' => $priority));
+        $filter = new Zend_Stdlib_CallbackHandler($callback, ['priority' => $priority]);
         $this->filters->insert($filter, $priority);
         return $filter;
     }

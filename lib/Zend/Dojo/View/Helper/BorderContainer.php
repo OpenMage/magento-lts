@@ -61,7 +61,7 @@ class Zend_Dojo_View_Helper_BorderContainer extends Zend_Dojo_View_Helper_DijitC
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function borderContainer($id = null, $content = '', array $params = array(), array $attribs = array())
+    public function borderContainer($id = null, $content = '', array $params = [], array $attribs = [])
     {
         if (0 === func_num_args()) {
             return $this;

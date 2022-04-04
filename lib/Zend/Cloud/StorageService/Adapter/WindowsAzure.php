@@ -75,7 +75,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      *
      * @param array|Zend_Config  $options   Options for the Zend_Cloud_Storage_WindowsAzure instance
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -183,10 +183,11 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * Store an item in the storage service.
      * WARNING: This operation overwrites any item that is located at
      * $destinationPath.
+     *
      * @param string $destinationPath
      * @param mixed  $data
      * @param  array $options
-     * @return boolean
+     * @return void
      */
     public function storeItem($destinationPath, $data, $options = null)
     {
@@ -350,7 +351,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
             return $blobList;
         }
 
-        $returnValue = array();
+        $returnValue = [];
         foreach ($blobList as $blob) {
             $returnValue[] = $blob->Name;
         }
@@ -368,7 +369,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
     public function fetchMetadata($path, $options = null)
     {
         try {
-            return $this->_storageClient->getBlobMetaData(
+            return $this->_storageClient->getBlobMetadata(
                 $this->_container,
                 $path
             );
@@ -410,7 +411,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
     public function deleteMetadata($path, $options = null)
     {
         try {
-            $this->_storageClient->setBlobMetadata($this->_container, $destinationPath, array());
+            $this->_storageClient->setBlobMetadata($this->_container, $destinationPath, []);
         } catch (Zend_Service_WindowsAzure_Exception $e) {
             if (strpos($e->getMessage(), "could not be accessed") === false) {
                 throw new Zend_Cloud_StorageService_Exception('Error on delete metadata: '.$e->getMessage(), $e->getCode(), $e);
@@ -434,7 +435,8 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
 
     /**
      * Get the concrete adapter.
-     * @return Zend_Service_Azure_Storage_Blob
+     *
+     * @return Zend_Service_WindowsAzure_Storage_Blob|null
      */
     public function getClient()
     {

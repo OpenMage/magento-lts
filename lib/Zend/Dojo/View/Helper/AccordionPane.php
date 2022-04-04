@@ -55,7 +55,7 @@ class Zend_Dojo_View_Helper_AccordionPane extends Zend_Dojo_View_Helper_DijitCon
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function accordionPane($id = null, $content = '', array $params = array(), array $attribs = array())
+    public function accordionPane($id = null, $content = '', array $params = [], array $attribs = [])
     {
         if (0 === func_num_args()) {
             return $this;

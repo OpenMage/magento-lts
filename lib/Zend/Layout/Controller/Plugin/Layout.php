@@ -92,7 +92,7 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
     /**
      * Retrieve layout action helper
      *
-     * @return Zend_Layout_Controller_Action_Helper_Layout
+     * @return Zend_Layout_Controller_Action_Helper_Layout|null
      */
     public function getLayoutActionHelper()
     {

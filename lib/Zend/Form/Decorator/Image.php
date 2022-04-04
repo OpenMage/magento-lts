@@ -45,7 +45,7 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
      * Attributes that should not be passed to helper
      * @var array
      */
-    protected $_attribBlacklist = array('helper', 'placement', 'separator', 'tag');
+    protected $_attribBlacklist = ['helper', 'placement', 'separator', 'tag'];
 
     /**
      * Default placement: append
@@ -139,7 +139,7 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
         if (null !== $tag) {
             #require_once 'Zend/Form/Decorator/HtmlTag.php';
             $decorator = new Zend_Form_Decorator_HtmlTag();
-            $decorator->setOptions(array('tag' => $tag));
+            $decorator->setOptions(['tag' => $tag]);
             $image = $decorator->render($image);
         }
 

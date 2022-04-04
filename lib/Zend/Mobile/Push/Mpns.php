@@ -57,9 +57,9 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
     {
         if (!$this->_httpClient) {
             $this->_httpClient = new Zend_Http_Client();
-            $this->_httpClient->setConfig(array(
+            $this->_httpClient->setConfig([
                 'strictredirects' => true,
-            ));
+            ]);
         }
         return $this->_httpClient;
     }
@@ -98,11 +98,11 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
 
         $client = $this->getHttpClient();
         $client->setUri($message->getToken());
-        $client->setHeaders(array(
+        $client->setHeaders([
             'Context-Type' => 'text/xml',
             'Accept' => 'application/*',
             'X-NotificationClass' => $message->getDelay()
-        ));
+        ]);
         if ($message->getId()) {
             $client->setHeaders('X-MessageID', $message->getId());
         }

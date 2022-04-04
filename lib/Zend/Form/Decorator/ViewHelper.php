@@ -47,11 +47,11 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
      * Element types that represent buttons
      * @var array
      */
-    protected $_buttonTypes = array(
+    protected $_buttonTypes = [
         'Zend_Form_Element_Button',
         'Zend_Form_Element_Reset',
         'Zend_Form_Element_Submit',
-    );
+    ];
 
     /**
      * View helper to use when rendering
@@ -63,7 +63,7 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
      * Set view helper to use when rendering
      *
      * @param  string $helper
-     * @return Zend_Form_Decorator_Element_ViewHelper
+     * @return Zend_Form_Decorator_ViewHelper
      */
     public function setHelper($helper)
     {
@@ -246,7 +246,7 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 
         // Check list separator
         if (isset($attribs['listsep'])
-            && in_array($helper, array('formMulticheckbox', 'formRadio', 'formSelect'))
+            && in_array($helper, ['formMultiCheckbox', 'formRadio', 'formSelect'])
         ) {
             $listsep = $attribs['listsep'];
             unset($attribs['listsep']);

@@ -48,7 +48,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * Class Constructor Args
      * @var array
      */
-    protected $_args = array();
+    protected $_args = [];
 
     /**
      * @var string Encoding
@@ -58,17 +58,17 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * @var array An array of Zend_Server_Reflect_Method
      */
-    protected $_functions = array();
+    protected $_functions = [];
 
     /**
      * @var array Array of headers to send
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * @var array PHP's Magic Methods, these are ignored
      */
-    protected static $magicMethods = array(
+    protected static $magicMethods = [
         '__construct',
         '__destruct',
         '__get',
@@ -81,7 +81,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
         '__tostring',
         '__clone',
         '__set_state',
-    );
+    ];
 
     /**
      * @var string Current Method
@@ -104,7 +104,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     public function __construct()
     {
-        set_exception_handler(array($this, "fault"));
+        set_exception_handler([$this, "fault"]);
         $this->_reflection = new Zend_Server_Reflection();
     }
 
@@ -139,7 +139,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * @param string $key
      * @return string Lower cased string
      */
-    public static function lowerCase(&$value, &$key)
+    public static function lowerCase(&$value, $key)
     {
         return $value = strtolower($value);
     }
@@ -175,7 +175,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     public function handle($request = false)
     {
-        $this->_headers = array('Content-Type: text/xml');
+        $this->_headers = ['Content-Type: text/xml'];
         if (!$request) {
             $request = $_REQUEST;
         }
@@ -189,14 +189,14 @@ class Zend_Rest_Server implements Zend_Server_Interface
                        && $this->_functions[$this->_method]->isPublic()
                 ) {
                     $requestKeys = array_keys($request);
-                    array_walk($requestKeys, array(__CLASS__, "lowerCase"));
+                    array_walk($requestKeys, [__CLASS__, "lowerCase"]);
                     $request = array_combine($requestKeys, $request);
 
                     $funcArgs = $this->_functions[$this->_method]->getParameters();
 
                     // calling_args will be a zero-based array of the parameters
-                    $callingArgs = array();
-                    $missingArgs = array();
+                    $callingArgs = [];
+                    $missingArgs = [];
                     foreach ($funcArgs as $i => $arg) {
                         if (isset($request[strtolower($arg->getName())])) {
                             $callingArgs[$i] = $request[strtolower($arg->getName())];
@@ -207,7 +207,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                         }
                     }
 
-                    $anonymousArgs = array();
+                    $anonymousArgs = [];
                     foreach ($request as $key => $value) {
                         if (substr($key, 0, 3) == 'arg') {
                             $key = str_replace('arg', '', $key);
@@ -329,7 +329,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * @param string $namespace Class namespace (unused)
      * @param array $argv An array of Constructor Arguments
      */
-    public function setClass($classname, $namespace = '', $argv = array())
+    public function setClass($classname, $namespace = '', $argv = [])
     {
         $this->_args = $argv;
         foreach ($this->_reflection->reflectClass($classname, $argv)->getMethods() as $method) {
@@ -623,10 +623,10 @@ class Zend_Rest_Server implements Zend_Server_Interface
     {
         try {
             $result = call_user_func_array(
-                array(
+                [
                     $class,
                     $this->_functions[$this->_method]->getName()
-                ),
+                ],
                 $args
             );
         } catch (Exception $e) {
@@ -640,7 +640,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      *
      * @param  string $class
      * @param  array $args
-     * @return mixed
+     * @return DOMDocument
      * @throws Zend_Rest_Server_Exception For invalid class name
      */
     protected function _callObjectMethod($class, array $args)

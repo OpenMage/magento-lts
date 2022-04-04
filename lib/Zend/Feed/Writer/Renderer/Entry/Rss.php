@@ -81,9 +81,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
     /**
      * Set entry title
      *
-     * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param DOMDocument $dom
+     * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setTitle(DOMDocument $dom, DOMElement $root)
     {
@@ -96,10 +97,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         $title = $dom->createElement('title');
         $root->appendChild($title);
@@ -110,9 +111,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
     /**
      * Set entry description
      *
-     * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param DOMDocument $dom
+     * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setDescription(DOMDocument $dom, DOMElement $root)
     {
@@ -126,10 +128,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         if (!$this->getDataContainer()->getDescription()) {
             return;
@@ -208,9 +210,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
     /**
      * Set entry enclosure
      *
-     * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param DOMDocument $dom
+     * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setEnclosure(DOMDocument $dom, DOMElement $root)
     {
@@ -223,20 +226,20 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
             $exception = new Zend_Feed_Exception('Enclosure "type" is not set');
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         if (!isset($data['length'])) {
             #require_once 'Zend/Feed/Exception.php';
             $exception = new Zend_Feed_Exception('Enclosure "length" is not set');
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         if (isset($data['length']) && (int) $data['length'] <= 0) {
             #require_once 'Zend/Feed/Exception.php';
@@ -244,10 +247,10 @@ class Zend_Feed_Writer_Renderer_Entry_Rss
             . ' indicating the content\'s length in bytes');
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         $enclosure = $this->_dom->createElement('enclosure');
         $enclosure->setAttribute('type', $data['type']);

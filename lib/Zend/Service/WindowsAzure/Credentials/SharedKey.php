@@ -89,7 +89,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 		$queryString = $this->_prepareQueryStringForSigning($queryString);
 
 		// Canonicalized headers
-		$canonicalizedHeaders = array();
+		$canonicalizedHeaders = [];
 
 		// Request date
 		$requestDate = '';
@@ -141,7 +141,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKey
 		}
 
 		// Create string to sign
-		$stringToSign   = array();
+		$stringToSign   = [];
 		$stringToSign[] = strtoupper($httpVerb); 									// VERB
     	$stringToSign[] = $this->_issetOr($headers, 'Content-Encoding', '');		// Content-Encoding
     	$stringToSign[] = $this->_issetOr($headers, 'Content-Language', '');		// Content-Language

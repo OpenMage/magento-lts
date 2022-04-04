@@ -121,7 +121,7 @@ abstract class Zend_Service_Rackspace_Abstract
             #require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception("The key cannot be empty");
         }
-        if (!in_array($authUrl, array(self::US_AUTH_URL, self::UK_AUTH_URL))) {
+        if (!in_array($authUrl, [self::US_AUTH_URL, self::UK_AUTH_URL])) {
             #require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception("The authentication URL should be valid");
         }
@@ -230,7 +230,7 @@ abstract class Zend_Service_Rackspace_Abstract
      */
     public function setAuthUrl($url)
     {
-        if (!empty($url) && in_array($url, array(self::US_AUTH_URL, self::UK_AUTH_URL))) {
+        if (!empty($url) && in_array($url, [self::US_AUTH_URL, self::UK_AUTH_URL])) {
             $this->authUrl = $url;
         } else {
             #require_once 'Zend/Service/Rackspace/Exception.php';
@@ -288,7 +288,7 @@ abstract class Zend_Service_Rackspace_Abstract
     /**
      * Get the error code of the last HTTP call
      *
-     * @return strig
+     * @return string
      */
     public function getErrorCode()
     {
@@ -325,7 +325,7 @@ abstract class Zend_Service_Rackspace_Abstract
      * @param string $body
      * @return Zend_Http_Response
      */
-    protected function httpCall($url,$method,$headers=array(),$data=array(),$body=null)
+    protected function httpCall($url,$method,$headers=[],$data=[],$body=null)
     {
         $client = $this->getHttpClient();
         $client->resetParameters(true);
@@ -369,10 +369,10 @@ abstract class Zend_Service_Rackspace_Abstract
             throw new Zend_Service_Rackspace_Exception("User has not been set");
         }
 
-        $headers = array (
+        $headers = [
             self::AUTHUSER_HEADER => $this->user,
             self::AUTHKEY_HEADER => $this->key
-        );
+        ];
         $result = $this->httpCall($this->authUrl.'/'.self::VERSION,'GET', $headers);
         if ($result->getStatus()==204) {
             $this->token = $result->getHeader(self::AUTHTOKEN);

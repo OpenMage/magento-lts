@@ -257,7 +257,7 @@ abstract class Zend_Pdf_Filter_Compression implements Zend_Pdf_Filter_Interface
 
                 case 4: // Paeth prediction
                     $lastRow    = array_fill(0, $bytesPerRow, 0);
-                    $currentRow = array();
+                    $currentRow = [];
                     for ($count = 0; $count < $rows; $count++) {
                         $output .= chr($predictor);
 
@@ -363,7 +363,7 @@ abstract class Zend_Pdf_Filter_Compression implements Zend_Pdf_Filter_Interface
                         break;
 
                     case 4: // Paeth prediction
-                        $currentRow = array();
+                        $currentRow = [];
                         for ($count2 = 0; $count2 < $bytesPerRow  &&  $offset < strlen($data); $count2++) {
                             $decodedByte = (ord($data[$offset++]) +
                                             self::_paeth($lastSample[$count2 % $bytesPerSample],

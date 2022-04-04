@@ -102,7 +102,7 @@ class Zend_Gdata_MediaMimeStream
         $entry = $this->wrapEntry($xmlString, $fileContentType);
         $closingBoundary = new Zend_Gdata_MimeBodyString("\r\n--{$this->_boundaryString}--\r\n");
         $file = new Zend_Gdata_MimeFile($this->_fileHandle);
-        $this->_parts = array($entry, $file, $closingBoundary);
+        $this->_parts = [$entry, $file, $closingBoundary];
 
         $fileSize = filesize($filePath);
         $this->_totalSize = $entry->getSize() + $fileSize
@@ -113,7 +113,7 @@ class Zend_Gdata_MediaMimeStream
     /**
      * Sandwiches the entry body into a MIME message
      *
-     * @return void
+     * @return Zend_Gdata_MimeBodyString
      */
     private function wrapEntry($entry, $fileMimeType)
     {

@@ -121,7 +121,7 @@ class Zend_Service_Delicious
     public function __construct($uname = null, $pass = null)
     {
         $this->_rest = new Zend_Rest_Client();
-        $this->_rest->getHttpClient()->setConfig(array('ssltransport' => 'ssl'));
+        $this->_rest->getHttpClient()->setConfig(['ssltransport' => 'ssl']);
         $this->setAuth($uname, $pass);
     }
 
@@ -186,7 +186,7 @@ class Zend_Service_Delicious
      */
     public function renameTag($old, $new)
     {
-        $response = $this->makeRequest(self::PATH_TAG_RENAME, array('old' => $old, 'new' => $new));
+        $response = $this->makeRequest(self::PATH_TAG_RENAME, ['old' => $old, 'new' => $new]);
 
         self::_evalXmlResult($response);
 
@@ -219,7 +219,7 @@ class Zend_Service_Delicious
     public function addBundle($bundle, array $tags)
     {
         $tags = implode(' ', (array) $tags);
-        $response = $this->makeRequest(self::PATH_BUNDLE_ADD, array('bundle' => $bundle, 'tags' => $tags));
+        $response = $this->makeRequest(self::PATH_BUNDLE_ADD, ['bundle' => $bundle, 'tags' => $tags]);
 
         self::_evalXmlResult($response);
 
@@ -234,7 +234,7 @@ class Zend_Service_Delicious
      */
     public function deleteBundle($bundle)
     {
-        $response = $this->makeRequest(self::PATH_BUNDLE_DELETE, array('bundle' => $bundle));
+        $response = $this->makeRequest(self::PATH_BUNDLE_DELETE, ['bundle' => $bundle]);
 
         self::_evalXmlResult($response);
 
@@ -249,7 +249,7 @@ class Zend_Service_Delicious
      */
     public function deletePost($url)
     {
-        $response = $this->makeRequest(self::PATH_POST_DELETE, array('url' => $url));
+        $response = $this->makeRequest(self::PATH_POST_DELETE, ['url' => $url]);
 
         self::_evalXmlResult($response);
 
@@ -266,7 +266,7 @@ class Zend_Service_Delicious
      */
     public function getDates($tag = null)
     {
-        $parms = array();
+        $parms = [];
         if ($tag) {
             $parms['tag'] = $tag;
         }
@@ -289,7 +289,7 @@ class Zend_Service_Delicious
      */
     public function getPosts($tag = null, Zend_Date $dt = null, $url = null)
     {
-        $parms = array();
+        $parms = [];
         if ($tag) {
             $parms['tag'] = $tag;
         }
@@ -313,7 +313,7 @@ class Zend_Service_Delicious
      */
     public function getAllPosts($tag = null)
     {
-        $parms = array();
+        $parms = [];
         if ($tag) {
             $parms['tag'] = $tag;
         }
@@ -332,7 +332,7 @@ class Zend_Service_Delicious
      */
     public function getRecentPosts($tag = null, $count = 15)
     {
-        $parms = array();
+        $parms = [];
         if ($tag) {
             $parms['tag'] = $tag;
         }
@@ -352,7 +352,7 @@ class Zend_Service_Delicious
      */
     public function createNewPost($title, $url)
     {
-        return new Zend_Service_Delicious_Post($this, array('title' => $title, 'url' => $url));
+        return new Zend_Service_Delicious_Post($this, ['title' => $title, 'url' => $url]);
     }
 
     /**
@@ -365,7 +365,7 @@ class Zend_Service_Delicious
      */
     public function getUserPosts($user, $count = null, $tag = null)
     {
-        $parms = array();
+        $parms = [];
         if ($count) {
             $parms['count'] = $count;
         }
@@ -389,7 +389,7 @@ class Zend_Service_Delicious
      */
     public function getUserTags($user, $atleast = null, $count = null, $sort = 'alpha')
     {
-        $parms = array();
+        $parms = [];
         if ($atleast) {
             $parms['atleast'] = $atleast;
         }
@@ -414,7 +414,7 @@ class Zend_Service_Delicious
     public function getUserNetwork($user)
     {
         $path = sprintf(self::JSON_NETWORK, $user);
-        return $this->makeRequest($path, array(), 'json');
+        return $this->makeRequest($path, [], 'json');
     }
 
     /**
@@ -426,7 +426,7 @@ class Zend_Service_Delicious
     public function getUserFans($user)
     {
         $path = sprintf(self::JSON_FANS, $user);
-        return $this->makeRequest($path, array(), 'json');
+        return $this->makeRequest($path, [], 'json');
     }
 
     /**
@@ -445,7 +445,7 @@ class Zend_Service_Delicious
      */
     public function getUrlDetails($url)
     {
-        $parms = array('hash' => md5($url));
+        $parms = ['hash' => md5($url)];
 
         $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
 
@@ -462,10 +462,10 @@ class Zend_Service_Delicious
      * @param   string $path  Path
      * @param   array  $parms Array of GET parameters
      * @param   string $type  Type of a request ("xml"|"json")
-     * @return  mixed  decoded response from web service
+     * @return  array|bool|DomDocument|SimpleXMLElement|StdClass|void|null  decoded response from web service
      * @throws  Zend_Service_Delicious_Exception
      */
-    public function makeRequest($path, array $parms = array(), $type = 'xml')
+    public function makeRequest($path, array $parms = [], $type = 'xml')
     {
         // if previous request was made less then 1 sec ago
         // wait until we can make a new request
@@ -537,7 +537,7 @@ class Zend_Service_Delicious
     private static function _xmlResponseToArray(DOMDocument $response, $root, $child, $attKey, $attValue)
     {
         $rootNode = $response->documentElement;
-        $arrOut = array();
+        $arrOut = [];
 
         if ($rootNode->nodeName == $root) {
             $childNodes = $rootNode->childNodes;

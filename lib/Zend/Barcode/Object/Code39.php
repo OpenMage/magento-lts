@@ -44,7 +44,7 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
      * Coding map
      * @var array
      */
-    protected $_codingMap = array(
+    protected $_codingMap = [
         '0' => '000110100',
         '1' => '100100001',
         '2' => '001100001',
@@ -89,7 +89,7 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
         '+' => '010001010',
         '%' => '000101010',
         '*' => '010010100',
-    );
+    ];
 
     /**
      * Partial check of Code39 barcode
@@ -114,8 +114,9 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
 
     /**
      * Set text to encode
+     *
      * @param string $value
-     * @return Zend_Barcode_Object
+     * @return Zend_Barcode_Object_Code39
      */
     public function setText($value)
     {
@@ -153,17 +154,17 @@ class Zend_Barcode_Object_Code39 extends Zend_Barcode_Object_ObjectAbstract
     protected function _prepareBarcode()
     {
         $text         = str_split($this->getText());
-        $barcodeTable = array();
+        $barcodeTable = [];
         foreach ($text as $char) {
             $barcodeChar = str_split($this->_codingMap[$char]);
             $visible     = true;
             foreach ($barcodeChar as $c) {
                 /* visible, width, top, length */
                 $width          = $c ? $this->_barThickWidth : $this->_barThinWidth;
-                $barcodeTable[] = array((int) $visible, $width, 0, 1);
+                $barcodeTable[] = [(int) $visible, $width, 0, 1];
                 $visible = ! $visible;
             }
-            $barcodeTable[] = array(0 , $this->_barThinWidth);
+            $barcodeTable[] = [0 , $this->_barThinWidth];
         }
         return $barcodeTable;
     }

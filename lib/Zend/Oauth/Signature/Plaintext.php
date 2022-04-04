@@ -43,7 +43,7 @@ class Zend_Oauth_Signature_Plaintext extends Zend_Oauth_Signature_SignatureAbstr
         if ($this->_tokenSecret === null) {
             return $this->_consumerSecret . '&';
         }
-        $return = implode('&', array($this->_consumerSecret, $this->_tokenSecret));
-        return $return;
+
+        return implode('&', [$this->_consumerSecret, $this->_tokenSecret]);
     }
 }

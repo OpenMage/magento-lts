@@ -47,13 +47,13 @@ class Zend_Oauth_Http_Utility
         Zend_Oauth_Config_ConfigInterface $config,
         array $serviceProviderParams = null
     ) {
-        $params = array(
+        $params = [
             'oauth_consumer_key'     => $config->getConsumerKey(),
             'oauth_nonce'            => $this->generateNonce(),
             'oauth_signature_method' => $config->getSignatureMethod(),
             'oauth_timestamp'        => $this->generateTimestamp(),
             'oauth_version'          => $config->getVersion(),
-        );
+        ];
 
         if ($config->getToken()->getToken() != null) {
             $params['oauth_token'] = $config->getToken()->getToken();
@@ -94,7 +94,7 @@ class Zend_Oauth_Http_Utility
                 }
             }
         }
-        $encodedParams = array();
+        $encodedParams = [];
         foreach ($params as $key => $value) {
             $encodedParams[] = self::urlEncode($key)
                              . '='
@@ -109,13 +109,13 @@ class Zend_Oauth_Http_Utility
      * @param  array $params
      * @param  null|string $realm
      * @param  bool $excludeCustomParams
-     * @return void
+     * @return string
      */
     public function toAuthorizationHeader(array $params, $realm = null, $excludeCustomParams = true)
     {
-        $headerValue = array(
+        $headerValue = [
             'OAuth realm="' . $realm . '"',
-        );
+        ];
 
         foreach ($params as $key => $value) {
             if ($excludeCustomParams) {
@@ -167,9 +167,9 @@ class Zend_Oauth_Http_Utility
      */
     public function parseQueryString($query)
     {
-        $params = array();
+        $params = [];
         if (empty($query)) {
-            return array();
+            return [];
         }
 
         // Not remotely perfect but beats parse_str() which converts

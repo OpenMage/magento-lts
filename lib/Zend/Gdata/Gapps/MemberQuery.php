@@ -123,7 +123,7 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
      *
      * @param string $value The member id to filter search results by, or
      *          null if disabled.
-     * @return The member id
+     * @return string|null member id
      */
     public function getMemberId()
     {

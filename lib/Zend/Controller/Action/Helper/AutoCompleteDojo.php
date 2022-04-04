@@ -61,9 +61,9 @@ class Zend_Controller_Action_Helper_AutoCompleteDojo extends Zend_Controller_Act
     {
         if (!$data instanceof Zend_Dojo_Data) {
             #require_once 'Zend/Dojo/Data.php';
-            $items = array();
+            $items = [];
             foreach ($data as $key => $value) {
-                $items[] = array('label' => $value, 'name' => $value);
+                $items[] = ['label' => $value, 'name' => $value];
             }
             $data = new Zend_Dojo_Data('name', $items);
         }

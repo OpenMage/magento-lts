@@ -123,7 +123,7 @@ class Zend_Service_Yahoo_VideoResult extends Zend_Service_Yahoo_Result
      */
     public function __construct(DOMElement $result)
     {
-        $this->_fields = array('Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Duration', 'Channels', 'Streaming', 'Thumbnail');
+        $this->_fields = ['Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Duration', 'Channels', 'Streaming', 'Thumbnail'];
 
         parent::__construct($result);
 

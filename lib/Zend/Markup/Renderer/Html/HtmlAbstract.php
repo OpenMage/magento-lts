@@ -50,7 +50,7 @@ abstract class Zend_Markup_Renderer_Html_HtmlAbstract implements Zend_Markup_Ren
      *
      * @param Zend_Markup_Renderer_Html $renderer
      *
-     * @return Zend_Markup_Renderer_Html_HtmlAbstract
+     * @return void
      */
     public function setRenderer(Zend_Markup_Renderer_Html $renderer)
     {

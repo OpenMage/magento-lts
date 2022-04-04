@@ -70,7 +70,7 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
     {
         $this->_query   = $query;
         $this->_reader  = $reader;
-        $this->_weights = array();
+        $this->_weights = [];
 
         $signs = $query->getSigns();
 

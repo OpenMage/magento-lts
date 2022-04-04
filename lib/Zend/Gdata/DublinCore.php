@@ -44,9 +44,9 @@ class Zend_Gdata_DublinCore extends Zend_Gdata
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('dc', 'http://purl.org/dc/terms', 1, 0)
-    );
+    public static $namespaces = [
+        ['dc', 'http://purl.org/dc/terms', 1, 0]
+    ];
 
     /**
      * Create Zend_Gdata_DublinCore object

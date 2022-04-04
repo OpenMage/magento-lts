@@ -112,7 +112,7 @@ class Zend_Gdata_Calendar_Extension_Link extends Zend_Gdata_App_Extension_Link
      * Set the value for this element's WebContent attribute.
      *
      * @param Zend_Gdata_Calendar_Extension_WebContent $value The desired value for this attribute.
-     * @return Zend_Calendar_Extension_Link The element being modified.  Provides a fluent interface.
+     * @return Zend_Gdata_Calendar_Extension_Link The element being modified.  Provides a fluent interface.
      */
     public function setWebContent($value)
     {

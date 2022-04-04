@@ -38,7 +38,7 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      * @param  string $reflectionClass Reflection class to use
      * @return Zend_Reflection_Class
      */
-    public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
+    public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class'): ?\ReflectionClass
     {
         $phpReflection  = parent::getDeclaringClass();
         $zendReflection = new $reflectionClass($phpReflection->getName());
@@ -56,14 +56,22 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      * @param  string $reflectionClass Reflection class to use
      * @return Zend_Reflection_Class
      */
-    public function getClass($reflectionClass = 'Zend_Reflection_Class')
+    public function getClass($reflectionClass = 'Zend_Reflection_Class'): ?\ReflectionClass
     {
-        $phpReflection  = parent::getClass();
-        if($phpReflection == null) {
-            return null;
+        if (PHP_VERSION_ID < 80000) {
+            $phpReflection  = parent::getClass();
+            if ($phpReflection == null) {
+                return null;
+            }
+            $phpReflectionClassName = $phpReflection->getName();
+        } else {
+            if (!parent::hasType()) {
+                return null;
+            }
+            $phpReflectionClassName = parent::getType();
         }
 
-        $zendReflection = new $reflectionClass($phpReflection->getName());
+        $zendReflection = new $reflectionClass($phpReflectionClassName);
         if (!$zendReflection instanceof Zend_Reflection_Class) {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Class');
@@ -78,7 +86,7 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      * @param  string $reflectionClass Reflection class to use
      * @return Zend_Reflection_Function|Zend_Reflection_Method
      */
-    public function getDeclaringFunction($reflectionClass = null)
+    public function getDeclaringFunction($reflectionClass = null): \ReflectionFunctionAbstract
     {
         $phpReflection = parent::getDeclaringFunction();
         if ($phpReflection instanceof ReflectionMethod) {
@@ -107,15 +115,23 @@ class Zend_Reflection_Parameter extends ReflectionParameter
      *
      * @return string
      */
-    public function getType()
+    public function getType(): ?\ReflectionType
     {
-        if ($docblock = $this->getDeclaringFunction()->getDocblock()) {
-            $params = $docblock->getTags('param');
+        try {
+            if ($docblock = $this->getDeclaringFunction()->getDocblock()) {
+                $params = $docblock->getTags('param');
 
-            if (isset($params[$this->getPosition()])) {
-                return $params[$this->getPosition()]->getType();
+                if (isset($params[$this->getPosition()])) {
+                    return $params[$this->getPosition()]->getType();
+                }
+
             }
-
+        } catch (Zend_Reflection_Exception $e) {
+            if (PHP_VERSION_ID >= 80000) {
+                return parent::getType();
+            } else {
+                throw $e;
+            }
         }
 
         return null;

@@ -56,7 +56,7 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
      */
     public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText)
     {
-        $this->_data = array(
+        $this->_data = [
             'messageid'       => $messageId,
             'insertiontime'   => $insertionTime,
             'expirationtime'  => $expirationTime,
@@ -64,6 +64,6 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
             'timenextvisible' => $timeNextVisible,
         	'dequeuecount'    => $dequeueCount,
             'messagetext'     => $messageText
-        );
+        ];
     }
 }

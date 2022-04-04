@@ -42,7 +42,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      *
      * @var callable
      */
-    protected $_yamlEncoder = array('Zend_Config_Writer_Yaml', 'encode');
+    protected $_yamlEncoder = ['Zend_Config_Writer_Yaml', 'encode'];
 
     /**
      * Get callback for decoding YAML
@@ -58,7 +58,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      * Set callback for decoding YAML
      *
      * @param  callable $yamlEncoder the decoder to set
-     * @return Zend_Config_Yaml
+     * @return Zend_Config_Writer_Yaml
      */
     public function setYamlEncoder($yamlEncoder)
     {
@@ -84,7 +84,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
         $extends     = $this->_config->getExtends();
 
         if (is_string($sectionName)) {
-            $data = array($sectionName => $data);
+            $data = [$sectionName => $data];
         }
 
         foreach ($extends as $section => $parentSection) {

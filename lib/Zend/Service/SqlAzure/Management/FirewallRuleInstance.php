@@ -48,10 +48,10 @@ class Zend_Service_SqlAzure_Management_FirewallRuleInstance
 	 */
     public function __construct($name, $startIpAddress, $endIpAddress)
     {
-        $this->_data = array(
+        $this->_data = [
             'name'               => $name,
             'startipaddress'     => $startIpAddress,
             'endipaddress'       => $endIpAddress
-        );
+        ];
     }
 }

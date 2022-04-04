@@ -25,6 +25,9 @@
  */
 #require_once "Zend/Controller/Response/Abstract.php";
 
+/** @see Zend_Crypt_Math */
+#require_once 'Zend/Crypt/Math.php';
+
 /**
  * Static class that contains common utility functions for
  * {@link Zend_OpenId_Consumer} and {@link Zend_OpenId_Provider}.
@@ -72,7 +75,7 @@ class Zend_OpenId
      * selfUrl() response
      *
      * @param string $selfUrl the URL to be set
-     * @return string the old value of overriding URL
+     * @return string|null the old value of overriding URL
      */
     static public function setSelfUrl($selfUrl = null)
     {
@@ -335,11 +338,11 @@ class Zend_OpenId
         }
 
         // RFC 3986,6.2.3.  Scheme-Based Normalization
-        if ($scheme == 'http') {
+        if ($scheme === 'http') {
             if ($port == 80) {
                 $port = '';
             }
-        } else if ($scheme == 'https') {
+        } else if ($scheme === 'https') {
             if ($port == 443) {
                 $port = '';
             }
@@ -411,7 +414,7 @@ class Zend_OpenId
         }
 
         // 7.2.4
-        return self::normalizeURL($id);
+        return self::normalizeUrl($id);
     }
 
     /**
@@ -474,11 +477,7 @@ class Zend_OpenId
      */
     static public function randomBytes($len)
     {
-        $key = '';
-        for($i=0; $i < $len; $i++) {
-            $key .= chr(mt_rand(0, 255));
-        }
-        return $key;
+        return (string) Zend_Crypt_Math::randBytes($len);
     }
 
     /**
@@ -547,7 +546,7 @@ class Zend_OpenId
      * representation.
      *
      * @param string $bin binary representation of big number
-     * @return mixed
+     * @return GMP|int|resource|string
      * @throws Zend_OpenId_Exception
      */
     static protected function binToBigNum($bin)
@@ -581,22 +580,29 @@ class Zend_OpenId
     {
         if (extension_loaded('gmp')) {
             $s = gmp_strval($bn, 16);
+
             if (strlen($s) % 2 != 0) {
                 $s = '0' . $s;
             } else if ($s[0] > '7') {
                 $s = '00' . $s;
             }
             return pack("H*", $s);
-        } else if (extension_loaded('bcmath')) {
+        }
+
+        if (extension_loaded('bcmath')) {
             $cmp = bccomp($bn, 0);
-            if ($cmp == 0) {
+
+            if ($cmp === 0) {
                 return "\0";
-            } else if ($cmp < 0) {
+            }
+
+            if ($cmp < 0) {
                 #require_once "Zend/OpenId/Exception.php";
                 throw new Zend_OpenId_Exception(
                     'Big integer arithmetic error',
                     Zend_OpenId_Exception::ERROR_LONG_MATH);
             }
+
             $bin = "";
             while (bccomp($bn, 0) > 0) {
                 $bin = chr(bcmod($bn, 256)) . $bin;
@@ -607,6 +613,7 @@ class Zend_OpenId
             }
             return $bin;
         }
+
         #require_once "Zend/OpenId/Exception.php";
         throw new Zend_OpenId_Exception(
             'The system doesn\'t have proper big integer extension',
@@ -623,19 +630,19 @@ class Zend_OpenId
      * @param string $p prime number in binary representation
      * @param string $g generator in binary representation
      * @param string $priv_key private key in binary representation
-     * @return mixed
+     * @return array|false|OpenSSLAsymmetricKey
      */
     static public function createDhKey($p, $g, $priv_key = null)
     {
         if (function_exists('openssl_dh_compute_key')) {
-            $dh_details = array(
+            $dh_details = [
                     'p' => $p,
                     'g' => $g
-                );
+                ];
             if ($priv_key !== null) {
                 $dh_details['priv_key'] = $priv_key;
             }
-            return openssl_pkey_new(array('dh'=>$dh_details));
+            return openssl_pkey_new(['dh'=>$dh_details]);
         } else {
             $bn_p        = self::binToBigNum($p);
             $bn_g        = self::binToBigNum($g);
@@ -650,16 +657,16 @@ class Zend_OpenId
             }
             $pub_key     = self::bigNumToBin($bn_pub_key);
 
-            return array(
+            return [
                 'p'        => $bn_p,
                 'g'        => $bn_g,
                 'priv_key' => $bn_priv_key,
                 'pub_key'  => $bn_pub_key,
-                'details'  => array(
+                'details'  => [
                     'p'        => $p,
                     'g'        => $g,
                     'priv_key' => $priv_key,
-                    'pub_key'  => $pub_key));
+                    'pub_key'  => $pub_key]];
         }
     }
 

@@ -84,10 +84,10 @@ class Zend_XmlRpc_Client_ServerIntrospection
             $methods = $this->listMethods();
         }
 
-        $multicallParams = array();
+        $multicallParams = [];
         foreach ($methods as $method) {
-            $multicallParams[] = array('methodName' => 'system.methodSignature',
-                                       'params'     => array($method));
+            $multicallParams[] = ['methodName' => 'system.methodSignature',
+                                       'params'     => [$method]];
         }
 
         $serverSignatures = $this->_system->multicall($multicallParams);
@@ -106,7 +106,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
         }
 
         // Create a new signatures array with the methods name as keys and the signature as value
-        $signatures = array();
+        $signatures = [];
         foreach ($serverSignatures as $i => $signature) {
             $signatures[$methods[$i]] = $signature;
         }
@@ -127,7 +127,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
             $methods = $this->listMethods();
         }
 
-        $signatures = array();
+        $signatures = [];
         foreach ($methods as $method) {
             $signatures[$method] = $this->getMethodSignature($method);
         }

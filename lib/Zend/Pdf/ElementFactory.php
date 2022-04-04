@@ -41,7 +41,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_modifiedObjects = array();
+    private $_modifiedObjects = [];
 
     /**
      * List of the removed objects
@@ -60,7 +60,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_registeredObjects = array();
+    private $_registeredObjects = [];
 
     /**
      * PDF object counter.
@@ -77,7 +77,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_attachedFactories = array();
+    private $_attachedFactories = [];
 
 
     /**
@@ -100,7 +100,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      *
      * @var array
      */
-    private $_shiftCalculationCache = array();
+    private $_shiftCalculationCache = [];
 
 
     /**
@@ -263,7 +263,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function cleanEnumerationShiftCache()
     {
-        $this->_shiftCalculationCache = array();
+        $this->_shiftCalculationCache = [];
 
         foreach ($this->_attachedFactories as $attached) {
             $attached->cleanEnumerationShiftCache();
@@ -271,7 +271,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
     }
 
     /**
-     * Retrieve object enumeration shift.
+     * Retrive object enumeration shift.
      *
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
@@ -373,7 +373,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
 
         ksort($this->_modifiedObjects);
 
-        $result = array();
+        $result = [];
         #require_once 'Zend/Pdf/UpdateInfoContainer.php';
         foreach ($this->_modifiedObjects as $objNum => $obj) {
             if ($this->_removedObjects->contains($obj)) {
@@ -430,7 +430,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function isModified()
     {
-        if (count($this->_modifiedObjects) != 0) {
+        if (count($this->_modifiedObjects) !== 0) {
             return true;
         }
 

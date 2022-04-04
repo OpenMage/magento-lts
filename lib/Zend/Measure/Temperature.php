@@ -49,12 +49,12 @@ class Zend_Measure_Temperature extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'CELSIUS'    => array(array('' => '1', '+' => '273.15'),'°C'),
-        'FAHRENHEIT' => array(array('' => '1', '-' => '32', '/' => '1.8', '+' => '273.15'),'°F'),
-        'RANKINE'    => array(array('' => '1', '/' => '1.8'),'°R'),
-        'REAUMUR'    => array(array('' => '1', '*' => '1.25', '+' => '273.15'),'°r'),
-        'KELVIN'     => array(1,'°K'),
+    protected $_units = [
+        'CELSIUS'    => [['' => '1', '+' => '273.15'],'°C'],
+        'FAHRENHEIT' => [['' => '1', '-' => '32', '/' => '1.8', '+' => '273.15'],'°F'],
+        'RANKINE'    => [['' => '1', '/' => '1.8'],'°R'],
+        'REAUMUR'    => [['' => '1', '*' => '1.25', '+' => '273.15'],'°r'],
+        'KELVIN'     => [1,'°K'],
         'STANDARD'   => 'KELVIN'
-    );
+    ];
 }

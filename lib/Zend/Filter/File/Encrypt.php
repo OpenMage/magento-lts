@@ -55,7 +55,7 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
      * Sets the new filename where the content will be stored
      *
      * @param  string $filename (Optional) New filename to set
-     * @return Zend_Filter_File_Encryt
+     * @return Zend_Filter_File_Encrypt
      */
     public function setFilename($filename = null)
     {
@@ -82,7 +82,7 @@ class Zend_Filter_File_Encrypt extends Zend_Filter_Encrypt
             $this->_filename = $value;
         }
 
-        if (file_exists($this->_filename) and !is_writable($this->_filename)) {
+        if (file_exists($this->_filename) && !is_writable($this->_filename)) {
             #require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception("File '{$this->_filename}' is not writable");
         }

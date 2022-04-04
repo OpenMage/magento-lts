@@ -95,7 +95,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
      * Set left edge of the displayed page
      *
      * @param float $left
-     * @return Zend_Pdf_Action_FitRectangle
+     * @return Zend_Pdf_Destination_FitRectangle
      */
     public function setLeftEdge($left)
     {
@@ -117,7 +117,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
      * Set bottom edge of the displayed page
      *
      * @param float $bottom
-     * @return Zend_Pdf_Action_FitRectangle
+     * @return Zend_Pdf_Destination_FitRectangle
      */
     public function setBottomEdge($bottom)
     {
@@ -139,7 +139,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
      * Set right edge of the displayed page
      *
      * @param float $right
-     * @return Zend_Pdf_Action_FitRectangle
+     * @return Zend_Pdf_Destination_FitRectangle
      */
     public function setRightEdge($right)
     {
@@ -161,7 +161,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
      * Set top edge of the displayed page
      *
      * @param float $top
-     * @return Zend_Pdf_Action_FitRectangle
+     * @return Zend_Pdf_Destination_FitRectangle
      */
     public function setTopEdge($top)
     {

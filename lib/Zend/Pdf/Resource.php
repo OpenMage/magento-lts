@@ -115,10 +115,10 @@ abstract class Zend_Pdf_Resource
      * Clone resource, extract it and dependent objects from the current document,
      * so it can be used within other docs.
      *
-     * @internal
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @param array $processed
-     * @return Zend_Pdf_Page
+     * @return void
+     *@internal
      */
     public function cloneResource($factory, &$processed)
     {

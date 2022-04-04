@@ -55,7 +55,7 @@ class Zend_Db_Statement_Pdo_Oci extends Zend_Db_Statement_Pdo
     public function fetchAll($style = null, $col = null)
     {
         $data = parent::fetchAll($style, $col);
-        $results = array();
+        $results = [];
         $remove = $this->_adapter->foldCase('zend_db_rownum');
 
         foreach ($data as $row) {

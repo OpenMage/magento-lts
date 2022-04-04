@@ -51,7 +51,7 @@ class Zend_Service_Delicious_SimplePost
     /**
      * @var array Post tags
      */
-    protected $_tags = array();
+    protected $_tags = [];
 
     /**
      * Constructor

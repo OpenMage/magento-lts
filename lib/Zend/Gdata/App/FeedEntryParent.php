@@ -97,11 +97,11 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      */
     protected $_etag = NULL;
 
-    protected $_author = array();
-    protected $_category = array();
-    protected $_contributor = array();
+    protected $_author = [];
+    protected $_category = [];
+    protected $_contributor = [];
     protected $_id = null;
-    protected $_link = array();
+    protected $_link = [];
     protected $_rights = null;
     protected $_title = null;
     protected $_updated = null;
@@ -163,17 +163,17 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Gets the HTTP client object. If none is set, a new Zend_Http_Client
      * will be used.
      *
-     * @deprecated Deprecated as of Zend Framework 1.7. Use
+     * @return Zend_Http_Client
+     *@deprecated Deprecated as of Zend Framework 1.7. Use
      *             getService() instead.
-     * @return Zend_Http_Client_Abstract
      */
     public function getHttpClient()
     {
         if (!$this->_service) {
             $this->_service = new Zend_Gdata_App();
         }
-        $client = $this->_service->getHttpClient();
-        return $client;
+
+        return $this->_service->getHttpClient();
     }
 
     /**
@@ -282,7 +282,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Author
+     * @return array
      */
     public function getAuthor()
     {
@@ -351,7 +351,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Id
+     * @return Zend_Gdata_App_Extension_Id|null
      */
     public function getId()
     {
@@ -483,7 +483,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @return Zend_Gdata_AppExtension_Rights
+     * @return Zend_Gdata_AppExtension_Rights|null
      */
     public function getRights()
     {
@@ -505,7 +505,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * short textual representation of this resource and is found as
      * an atom:title element in a feed or entry
      *
-     * @return Zend_Gdata_App_Extension_Title
+     * @return Zend_Gdata_App_Extension_Title|null
      */
     public function getTitle()
     {
@@ -543,7 +543,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Updated
+     * @return Zend_Gdata_App_Extension_Updated|null
      */
     public function getUpdated()
     {
@@ -565,7 +565,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * unsets the Etag.
      *
      * @param string|null $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setEtag($value) {
         $this->_etag = $value;

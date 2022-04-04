@@ -108,7 +108,7 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
      */
     public function getComponents()
     {
-        return array($this->_r->value, $this->_g->value, $this->_b->value);
+        return [$this->_r->value, $this->_g->value, $this->_b->value];
     }
 }
 

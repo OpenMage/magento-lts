@@ -97,16 +97,16 @@
  */
 class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
 {
-    protected $_who = array();
-    protected $_when = array();
-    protected $_where = array();
+    protected $_who = [];
+    protected $_when = [];
+    protected $_where = [];
     protected $_recurrence = null;
     protected $_eventStatus = null;
     protected $_comments = null;
     protected $_transparency = null;
     protected $_visibility = null;
-    protected $_recurrenceException = array();
-    protected $_extendedProperty = array();
+    protected $_recurrenceException = [];
+    protected $_extendedProperty = [];
     protected $_originalEvent = null;
     protected $_entryLink = null;
 
@@ -405,7 +405,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
     /**
      * Get this entry's EntryLink element.
      *
-     * @return Zend_Gdata_Extension_EntryLink The requested entry.
+     * @return Zend_Gdata_Extension_EntryLink|null The requested entry.
      */
     public function getEntryLink()
     {
@@ -416,7 +416,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
      * Set the child's EntryLink element.
      *
      * @param Zend_Gdata_Extension_EntryLink $value The desired value for this attribute.
-     * @return Zend_Gdata_Extension_Who The element being modified.
+     * @return Zend_Gdata_Kind_EventEntry The element being modified.
      */
     public function setEntryLink($value)
     {

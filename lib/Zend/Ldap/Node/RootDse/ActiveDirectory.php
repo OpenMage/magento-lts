@@ -190,7 +190,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
     /**
      * Determines if the capability is supported
      *
-     * @param string|string|array $oids capability(s) to check
+     * @param string|array $oids capability(s) to check
      * @return boolean
      */
     public function supportsCapability($oids)

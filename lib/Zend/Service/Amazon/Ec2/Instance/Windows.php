@@ -59,7 +59,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
      */
     public function bundle($instanceId, $s3Bucket, $s3Prefix, $uploadExpiration = 1440)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'BundleInstance';
         $params['InstanceId'] = $instanceId;
         $params['Storage.S3.AWSAccessKeyId'] = $this->_getAccessKey();
@@ -73,7 +73,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
 
         $xpath = $response->getXPath();
 
-        $return = array();
+        $return = [];
         $return['instanceId'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:instanceId/text())');
         $return['bundleId'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:bundleId/text())');
         $return['state'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:state/text())');
@@ -94,7 +94,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
      */
     public function cancelBundle($bundleId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'CancelBundleTask';
         $params['BundleId'] = $bundleId;
 
@@ -102,7 +102,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
 
         $xpath = $response->getXPath();
 
-        $return = array();
+        $return = [];
         $return['instanceId'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:instanceId/text())');
         $return['bundleId'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:bundleId/text())');
         $return['state'] = $xpath->evaluate('string(//ec2:bundleInstanceTask/ec2:state/text())');
@@ -124,7 +124,7 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
      */
     public function describeBundle($bundleId = '')
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeBundleTasks';
 
         if(is_array($bundleId) && !empty($bundleId)) {
@@ -140,10 +140,10 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
         $xpath = $response->getXPath();
 
         $items = $xpath->evaluate('//ec2:bundleInstanceTasksSet/ec2:item');
-        $return = array();
+        $return = [];
 
         foreach($items as $item) {
-            $i = array();
+            $i = [];
             $i['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $item);
             $i['bundleId'] = $xpath->evaluate('string(ec2:bundleId/text())', $item);
             $i['state'] = $xpath->evaluate('string(ec2:state/text())', $item);
@@ -172,11 +172,11 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
      */
     protected function _getS3UploadPolicy($bucketName, $prefix, $expireInMinutes = 1440)
     {
-        $arrParams = array();
+        $arrParams = [];
         $arrParams['expiration'] = gmdate("Y-m-d\TH:i:s.\\0\\0\\0\\Z", (time() + ($expireInMinutes * 60)));
-        $arrParams['conditions'][] = array('bucket' => $bucketName);
-        $arrParams['conditions'][] = array('acl' => 'ec2-bundle-read');
-        $arrParams['conditions'][] = array('starts-with', '$key', $prefix);
+        $arrParams['conditions'][] = ['bucket' => $bucketName];
+        $arrParams['conditions'][] = ['acl' => 'ec2-bundle-read'];
+        $arrParams['conditions'][] = ['starts-with', '$key', $prefix];
 
         return base64_encode(Zend_Json::encode($arrParams));
     }
@@ -189,7 +189,6 @@ class Zend_Service_Amazon_Ec2_Instance_Windows extends Zend_Service_Amazon_Ec2_A
      */
     protected function _signS3UploadPolicy($policy)
     {
-        $hmac = Zend_Crypt_Hmac::compute($this->_getSecretKey(), 'SHA1', $policy, Zend_Crypt_Hmac::BINARY);
-        return $hmac;
+        return Zend_Crypt_Hmac::compute($this->_getSecretKey(), 'SHA1', $policy, Zend_Crypt_Hmac::BINARY);
     }
 }

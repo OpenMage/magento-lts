@@ -72,7 +72,7 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
         $category = new Zend_Gdata_App_Extension_Category(
             'http://schemas.google.com/photos/2007#tag',
             'http://schemas.google.com/g/2005#kind');
-        $this->setCategory(array($category));
+        $this->setCategory([$category]);
     }
 
     /**
@@ -118,8 +118,8 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:weight attribute.
      *
-     * @see setGphotoWeight
-     * @return string The requested attribute.
+     * @return string|null The requested attribute.
+     *@see setGphotoWeight
      */
     public function getGphotoWeight()
     {
@@ -130,7 +130,7 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
      * Set the value for this element's gphoto:weight attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Weight The element being modified.
+     * @return Zend_Gdata_Photos_TagEntry The element being modified.
      */
     public function setGphotoWeight($value)
     {

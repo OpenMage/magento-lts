@@ -62,7 +62,7 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
      * @param  array|null $options Select options
      * @return string
      */
-    public function comboBox($id, $value = null, array $params = array(), array $attribs = array(), array $options = null)
+    public function comboBox($id, $value = null, array $params = [], array $attribs = [], array $options = null)
     {
         $html = '';
         if (!array_key_exists('id', $attribs)) {
@@ -81,10 +81,10 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
             unset($params['store']);
         } elseif (array_key_exists('store', $params)) {
             if (array_key_exists('storeType', $params)) {
-                $storeParams = array(
+                $storeParams = [
                     'store' => $params['store'],
                     'type'  => $params['storeType'],
-                );
+                ];
                 unset($params['storeType']);
                 if (array_key_exists('storeParams', $params)) {
                     $storeParams['params'] = $params['storeParams'];
@@ -125,11 +125,11 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
 
         $this->dojo->requireModule($params['type']);
 
-        $extraParams = array();
-        $storeParams = array(
+        $extraParams = [];
+        $storeParams = [
             'dojoType' => $params['type'],
             'jsId'     => $params['store'],
-        );
+        ];
 
         if (array_key_exists('params', $params)) {
             $storeParams = array_merge($storeParams, $params['params']);

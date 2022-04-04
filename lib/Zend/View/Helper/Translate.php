@@ -83,7 +83,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
             }
         }
 
-        if ((count($options) === 1) and (is_array($options[0]) === true)) {
+        if ((count($options) === 1) && (is_array($options[0]) === true)) {
             $options = $options[0];
         }
 

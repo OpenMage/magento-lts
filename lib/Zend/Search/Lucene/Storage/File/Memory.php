@@ -86,7 +86,7 @@ class Zend_Search_Lucene_Storage_File_Memory extends Zend_Search_Lucene_Storage_
      *
      * @param integer $offset
      * @param integer $whence
-     * @return integer
+     * @return void
      */
     public function seek($offset, $whence=SEEK_SET)
     {

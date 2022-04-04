@@ -70,7 +70,7 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
             $attribs['id'] = $id;
         }
 
-        $attribs = $this->_prepareDijit($attribs, array(), 'layout');
+        $attribs = $this->_prepareDijit($attribs, [], 'layout');
 
         return $this->getFormHelper()->form($id, $attribs, $content);
     }

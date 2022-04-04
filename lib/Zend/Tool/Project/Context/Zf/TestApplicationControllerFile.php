@@ -70,11 +70,11 @@ class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_To
     /**
      * getPersistentAttributes()
      *
-     * @return unknown
+     * @return array
      */
     public function getPersistentAttributes()
     {
-        $attributes = array();
+        $attributes = [];
 
         if ($this->_forControllerName) {
             $attributes['forControllerName'] = $this->getForControllerName();
@@ -107,23 +107,23 @@ class Zend_Tool_Project_Context_Zf_TestApplicationControllerFile extends Zend_To
                 . '_' . $className;
         }
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'Zend_Test_PHPUnit_ControllerTestCase',
-                    'methods' => array(
-                        new Zend_CodeGenerator_Php_Method(array(
+                    'methods' => [
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'setUp',
                             'body' => <<<EOS
 \$this->bootstrap = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
 parent::setUp();
 EOS
-                            ))
-                        )
-                    ))
-                )
-            ));
+                            ])
+                        ]
+                    ])
+                ]
+            ]);
 
         return $codeGenFile->generate();
     }

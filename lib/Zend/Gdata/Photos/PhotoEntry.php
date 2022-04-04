@@ -226,7 +226,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
         $category = new Zend_Gdata_App_Extension_Category(
             'http://schemas.google.com/photos/2007#photo',
             'http://schemas.google.com/g/2005#kind');
-        $this->setCategory(array($category));
+        $this->setCategory([$category]);
     }
 
     /**
@@ -369,8 +369,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:albumid attribute.
      *
-     * @see setGphotoAlbumId
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_AlbumId|null The requested attribute.
+     *@see setGphotoAlbumId
      */
     public function getGphotoAlbumId()
     {
@@ -381,7 +381,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:albumid attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_AlbumId The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoAlbumId($value)
     {
@@ -392,8 +392,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:id attribute.
      *
-     * @see setGphotoId
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_Id|null The requested attribute.
+     *@see setGphotoId
      */
     public function getGphotoId()
     {
@@ -404,7 +404,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:id attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Id The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoId($value)
     {
@@ -415,8 +415,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:version attribute.
      *
-     * @see setGphotoVersion
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_Version|null The requested attribute.
+     *@see setGphotoVersion
      */
     public function getGphotoVersion()
     {
@@ -427,7 +427,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:version attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Version The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoVersion($value)
     {
@@ -438,8 +438,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:width attribute.
      *
-     * @see setGphotoWidth
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_Width|null The requested attribute.
+     *@see setGphotoWidth
      */
     public function getGphotoWidth()
     {
@@ -450,7 +450,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:width attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Width The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoWidth($value)
     {
@@ -461,8 +461,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:height attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_Height|null The requested attribute.
      * @see setGphotoHeight
-     * @return string The requested attribute.
      */
     public function getGphotoHeight()
     {
@@ -473,7 +473,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:height attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Height The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoHeight($value)
     {
@@ -484,8 +484,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:size attribute.
      *
-     * @see setGphotoSize
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_Size|null The requested attribute.
+     *@see setGphotoSize
      */
     public function getGphotoSize()
     {
@@ -496,7 +496,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:size attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Size The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoSize($value)
     {
@@ -507,8 +507,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:client attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_Client|null The requested attribute.
      * @see setGphotoClient
-     * @return string The requested attribute.
      */
     public function getGphotoClient()
     {
@@ -519,7 +519,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:client attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Client The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoClient($value)
     {
@@ -530,8 +530,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:checksum attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_Checksum|null The requested attribute.
      * @see setGphotoChecksum
-     * @return string The requested attribute.
      */
     public function getGphotoChecksum()
     {
@@ -542,7 +542,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:checksum attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Checksum The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoChecksum($value)
     {
@@ -553,8 +553,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:timestamp attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_Timestamp|null The requested attribute.
      * @see setGphotoTimestamp
-     * @return string The requested attribute.
      */
     public function getGphotoTimestamp()
     {
@@ -565,7 +565,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:timestamp attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Timestamp The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoTimestamp($value)
     {
@@ -576,8 +576,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:commentCount attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_CommentCount|null The requested attribute.
      * @see setGphotoCommentCount
-     * @return string The requested attribute.
      */
     public function getGphotoCommentCount()
     {
@@ -588,7 +588,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:commentCount attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_CommentCount The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoCommentCount($value)
     {
@@ -599,8 +599,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:commentingEnabled attribute.
      *
+     * @return Zend_Gdata_Photos_Extension_CommentingEnabled|null The requested attribute.
      * @see setGphotoCommentingEnabled
-     * @return string The requested attribute.
      */
     public function getGphotoCommentingEnabled()
     {
@@ -611,7 +611,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's gphoto:commentingEnabled attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_CommentingEnabled The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGphotoCommentingEnabled($value)
     {
@@ -622,8 +622,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's exif:tags attribute.
      *
+     * @return Zend_Gdata_Exif_Extension_Tags|null The requested attribute.
      * @see setExifTags
-     * @return string The requested attribute.
      */
     public function getExifTags()
     {
@@ -634,7 +634,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's exif:tags attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Exif_Extension_Tags The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setExifTags($value)
     {
@@ -645,8 +645,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's georss:where attribute.
      *
+     * @return Zend_Gdata_Geo_Extension_GeoRssWhere|null The requested attribute.
      * @see setGeoRssWhere
-     * @return string The requested attribute.
      */
     public function getGeoRssWhere()
     {
@@ -657,7 +657,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's georss:where attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Geo_Extension_GeoRssWhere The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setGeoRssWhere($value)
     {
@@ -668,8 +668,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's media:group attribute.
      *
+     * @return Zend_Gdata_Media_Extension_MediaGroup|null The requested attribute.
      * @see setMediaGroup
-     * @return string The requested attribute.
      */
     public function getMediaGroup()
     {
@@ -680,7 +680,7 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
      * Set the value for this element's media:group attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Media_Extension_MediaGroup The element being modified.
+     * @return Zend_Gdata_Photos_PhotoEntry The element being modified.
      */
     public function setMediaGroup($value)
     {

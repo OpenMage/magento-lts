@@ -142,6 +142,7 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
      * @param DOMDocument $dom
      * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setTitle(DOMDocument $dom, DOMElement $root)
     {
@@ -152,10 +153,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
 
         $title = $dom->createElement('title');
@@ -170,6 +171,7 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
      * @param DOMDocument $dom
      * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setDescription(DOMDocument $dom, DOMElement $root)
     {
@@ -180,10 +182,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         $subtitle = $dom->createElement('description');
         $root->appendChild($subtitle);
@@ -246,6 +248,7 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
      * @param DOMDocument $dom
      * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setLink(DOMDocument $dom, DOMElement $root)
     {
@@ -257,10 +260,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         $link = $dom->createElement('link');
         $root->appendChild($link);
@@ -321,6 +324,7 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
      * @param DOMDocument $dom
      * @param DOMElement $root
      * @return void
+     * @throws Zend_Feed_Exception
      */
     protected function _setImage(DOMDocument $dom, DOMElement $root)
     {
@@ -335,10 +339,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         if (empty($image['link']) || !is_string($image['link'])
         || !Zend_Uri::check($image['link'])) {
@@ -348,10 +352,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
             $exception = new Zend_Feed_Exception($message);
             if (!$this->_ignoreExceptions) {
                 throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
             }
+
+            $this->_exceptions[] = $exception;
+            return;
         }
         $img = $dom->createElement('image');
         $root->appendChild($img);
@@ -375,10 +379,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
                 $exception = new Zend_Feed_Exception($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
-                } else {
-                    $this->_exceptions[] = $exception;
-                    return;
                 }
+
+                $this->_exceptions[] = $exception;
+                return;
             }
             $height = $dom->createElement('height');
             $text = $dom->createTextNode($image['height']);
@@ -393,10 +397,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
                 $exception = new Zend_Feed_Exception($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
-                } else {
-                    $this->_exceptions[] = $exception;
-                    return;
                 }
+
+                $this->_exceptions[] = $exception;
+                return;
             }
             $width = $dom->createElement('width');
             $text = $dom->createTextNode($image['width']);
@@ -411,10 +415,10 @@ class Zend_Feed_Writer_Renderer_Feed_Rss
                 $exception = new Zend_Feed_Exception($message);
                 if (!$this->_ignoreExceptions) {
                     throw $exception;
-                } else {
-                    $this->_exceptions[] = $exception;
-                    return;
                 }
+
+                $this->_exceptions[] = $exception;
+                return;
             }
             $desc = $dom->createElement('description');
             $text = $dom->createTextNode($image['description']);

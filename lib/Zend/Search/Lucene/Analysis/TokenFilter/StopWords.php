@@ -49,7 +49,7 @@ class Zend_Search_Lucene_Analysis_TokenFilter_StopWords extends Zend_Search_Luce
      *
      * @param array $stopwords array (set) of words that will be filtered out
      */
-    public function __construct($stopwords = array()) {
+    public function __construct($stopwords = []) {
         $this->_stopSet = array_flip($stopwords);
     }
 

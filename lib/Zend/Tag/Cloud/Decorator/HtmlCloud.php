@@ -46,9 +46,9 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
      *
      * @var array
      */
-    protected $_htmlTags = array(
-        'ul' => array('class' => 'Zend_Tag_Cloud')
-    );
+    protected $_htmlTags = [
+        'ul' => ['class' => 'Zend_Tag_Cloud']
+    ];
 
     /**
      * Separator for the single tags

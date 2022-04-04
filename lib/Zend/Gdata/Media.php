@@ -44,9 +44,9 @@ class Zend_Gdata_Media extends Zend_Gdata
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('media', 'http://search.yahoo.com/mrss/', 1, 0)
-    );
+    public static $namespaces = [
+        ['media', 'http://search.yahoo.com/mrss/', 1, 0]
+    ];
 
     /**
      * Create Gdata_Media object

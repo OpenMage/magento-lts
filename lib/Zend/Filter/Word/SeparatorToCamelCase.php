@@ -39,11 +39,11 @@ class Zend_Filter_Word_SeparatorToCamelCase extends Zend_Filter_Word_Separator_A
         $pregQuotedSeparator = preg_quote($this->_separator, '#');
 
         if (self::isUnicodeSupportEnabled()) {
-            parent::setMatchPattern(array('#('.$pregQuotedSeparator.')(\p{L}{1})#','#(^\p{Ll}{1})#'));
-            parent::setReplacement(array('Zend_Filter_Word_SeparatorToCamelCase', '_strtoupperArray'));
+            parent::setMatchPattern(['#('.$pregQuotedSeparator.')(\p{L}{1})#','#(^\p{Ll}{1})#']);
+            parent::setReplacement(['Zend_Filter_Word_SeparatorToCamelCase', '_strtoupperArray']);
         } else {
-            parent::setMatchPattern(array('#('.$pregQuotedSeparator.')([A-Za-z]{1})#','#(^[A-Za-z]{1})#'));
-            parent::setReplacement(array('Zend_Filter_Word_SeparatorToCamelCase', '_strtoupperArray'));
+            parent::setMatchPattern(['#('.$pregQuotedSeparator.')([A-Za-z]{1})#','#(^[A-Za-z]{1})#']);
+            parent::setReplacement(['Zend_Filter_Word_SeparatorToCamelCase', '_strtoupperArray']);
         }
 
         return preg_replace_callback($this->_matchPattern, $this->_replacement, $value);

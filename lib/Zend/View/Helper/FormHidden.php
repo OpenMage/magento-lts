@@ -58,7 +58,7 @@ class Zend_View_Helper_FormHidden extends Zend_View_Helper_FormElement
             if (isset($attribs) && is_array($attribs)) {
                 $attribs['id'] = $id;
             } else {
-                $attribs = array('id' => $id);
+                $attribs = ['id' => $id];
             }
         }
         return $this->_hidden($name, $value, $attribs);

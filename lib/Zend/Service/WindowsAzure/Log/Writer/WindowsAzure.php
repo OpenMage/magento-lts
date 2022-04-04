@@ -68,7 +68,7 @@ class Zend_Service_WindowsAzure_Log_Writer_WindowsAzure
      *
      * @var array
      */
-    protected $_messageBuffer = array();
+    protected $_messageBuffer = [];
 
     /**
      * @param Zend_Service_Service_WindowsAzure_Storage_Table|Zend_Service_WindowsAzure_Storage_Table $tableStorageConnection
@@ -138,18 +138,18 @@ class Zend_Service_WindowsAzure_Log_Writer_WindowsAzure
      * Create a new instance of Zend_Service_Log_Writer_WindowsAzure
      *
      * @param  array $config
-     * @return Zend_Service_Log_Writer_WindowsAzure
+     * @return Zend_Service_WindowsAzure_Log_Writer_WindowsAzure
      * @throws Zend_Service_Log_Exception
      */
     static public function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(
-            array(
+            [
                  'connection' => null,
                  'tableName' => null,
                  'createTable' => true,
-            ), $config
+            ], $config
         );
 
         return new self(

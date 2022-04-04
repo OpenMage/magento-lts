@@ -39,7 +39,7 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
      *
      * @var array
      */
-    protected $_dynamicProperties = array();
+    protected $_dynamicProperties = [];
 
     /**
      * Magic overload for setting properties
@@ -96,11 +96,11 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
                 }
 
                 // Set dynamic property
-                $this->_dynamicProperties[strtolower($name)] = (object)array(
+                $this->_dynamicProperties[strtolower($name)] = (object)[
                         'Name'  => $name,
                     	'Type'  => $type,
                     	'Value' => $value,
-                    );
+                    ];
             }
 
             // Set type?
@@ -109,9 +109,9 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
 
             	// Try to convert the type
             	if ($type == 'Edm.Int32' || $type == 'Edm.Int64') {
-            		$value = intval($value);
+            		$value = (int)$value;
             	} else if ($type == 'Edm.Double') {
-            		$value = floatval($value);
+            		$value = (float)$value;
             	} else if ($type == 'Edm.Boolean') {
             		if (!is_bool($value)) {
             			$value = strtolower($value) == 'true';
@@ -152,7 +152,7 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
      * @param string $name Property name
      * @param mixed $value Property value
      * @param string $type Property type (Edm.xxxx)
-     * @return Zend_Service_WindowsAzure_Storage_DynamicTableEntity
+     * @return string
      */
     public function getAzureProperty($name)
     {
@@ -205,7 +205,7 @@ class Zend_Service_WindowsAzure_Storage_DynamicTableEntity extends Zend_Service_
      * @param boolean $throwOnError Throw Zend_Service_WindowsAzure_Exception when a property is not specified in $values?
      * @throws Zend_Service_WindowsAzure_Exception
      */
-    public function setAzureValues($values = array(), $throwOnError = false)
+    public function setAzureValues($values = [], $throwOnError = false)
     {
         // Set parent values
         parent::setAzureValues($values, false);

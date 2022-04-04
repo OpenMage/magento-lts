@@ -86,7 +86,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
             return $this->_data['authors'];
         }
 
-        $authors = array();
+        $authors = [];
         $list = $this->getXpath()->query($this->getXpathPrefix() . '//atom:author');
 
         if (!$list->length) {
@@ -105,7 +105,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
             }
         }
 
-        if (count($authors) == 0) {
+        if (count($authors) === 0) {
             $authors = null;
         } else {
             $authors = new Zend_Feed_Reader_Collection_Author(
@@ -174,10 +174,10 @@ class Zend_Feed_Reader_Extension_Atom_Entry
     protected function _collectXhtml($xhtml, $prefix)
     {
         if (!empty($prefix)) $prefix = $prefix . ':';
-        $matches = array(
+        $matches = [
             "/<\?xml[^<]*>[^<]*<" . $prefix . "div[^<]*/",
             "/<\/" . $prefix . "div>\s*$/"
-        );
+        ];
         $xhtml = preg_replace($matches, '', $xhtml);
         if (!empty($prefix)) {
             $xhtml = preg_replace("/(<[\/]?)" . $prefix . "([a-zA-Z]+)/", '$1$2', $xhtml);
@@ -378,7 +378,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
             return $this->_data['links'];
         }
 
-        $links = array();
+        $links = [];
 
         $list = $this->getXpath()->query(
             $this->getXpathPrefix() . '//atom:link[@rel="alternate"]/@href' . '|' .
@@ -535,11 +535,11 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         if ($list->length) {
             $categoryCollection = new Zend_Feed_Reader_Collection_Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->getAttribute('term'),
                     'scheme' => $category->getAttribute('scheme'),
                     'label' => $category->getAttribute('label')
-                );
+                ];
             }
         } else {
             return new Zend_Feed_Reader_Collection_Category;
@@ -596,11 +596,11 @@ class Zend_Feed_Reader_Extension_Atom_Entry
      * Get an author entry
      *
      * @param DOMElement $element
-     * @return string
+     * @return array|null
      */
     protected function _getAuthor(DOMElement $element)
     {
-        $author = array();
+        $author = [];
 
         $emailNode = $element->getElementsByTagName('email');
         $nameNode  = $element->getElementsByTagName('name');

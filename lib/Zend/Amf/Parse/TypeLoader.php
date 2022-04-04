@@ -60,26 +60,26 @@ final class Zend_Amf_Parse_TypeLoader
     /**
      * @var array AMF class map
      */
-    public static $classMap = array (
+    public static $classMap = [
         'flex.messaging.messages.AcknowledgeMessage' => 'Zend_Amf_Value_Messaging_AcknowledgeMessage',
         'flex.messaging.messages.ErrorMessage'       => 'Zend_Amf_Value_Messaging_AsyncMessage',
         'flex.messaging.messages.CommandMessage'     => 'Zend_Amf_Value_Messaging_CommandMessage',
         'flex.messaging.messages.ErrorMessage'       => 'Zend_Amf_Value_Messaging_ErrorMessage',
         'flex.messaging.messages.RemotingMessage'    => 'Zend_Amf_Value_Messaging_RemotingMessage',
         'flex.messaging.io.ArrayCollection'          => 'Zend_Amf_Value_Messaging_ArrayCollection',
-    );
+    ];
 
     /**
      * @var array Default class map
      */
-    protected static $_defaultClassMap = array(
+    protected static $_defaultClassMap = [
         'flex.messaging.messages.AcknowledgeMessage' => 'Zend_Amf_Value_Messaging_AcknowledgeMessage',
         'flex.messaging.messages.ErrorMessage'       => 'Zend_Amf_Value_Messaging_AsyncMessage',
         'flex.messaging.messages.CommandMessage'     => 'Zend_Amf_Value_Messaging_CommandMessage',
         'flex.messaging.messages.ErrorMessage'       => 'Zend_Amf_Value_Messaging_ErrorMessage',
         'flex.messaging.messages.RemotingMessage'    => 'Zend_Amf_Value_Messaging_RemotingMessage',
         'flex.messaging.io.ArrayCollection'          => 'Zend_Amf_Value_Messaging_ArrayCollection',
-    );
+    ];
 
     /**
      * @var Zend_Loader_PluginLoader_Interface
@@ -91,7 +91,7 @@ final class Zend_Amf_Parse_TypeLoader
      * Load the mapped class type into a callback.
      *
      * @param  string $className
-     * @return object|false
+     * @return array|false|string|string[]
      */
     public static function loadType($className)
     {
@@ -213,7 +213,7 @@ final class Zend_Amf_Parse_TypeLoader
                     throw new Zend_Amf_Exception('Can not serialize resource type: '. get_resource_type($resource));
                 }
                 $parser = new $resclass();
-                if(is_callable(array($parser, 'parse'))) {
+                if(is_callable([$parser, 'parse'])) {
                     $resource = $parser->parse($resource);
                 } else {
                     #require_once 'Zend/Amf/Exception.php';

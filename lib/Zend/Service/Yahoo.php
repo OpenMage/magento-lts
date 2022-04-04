@@ -79,10 +79,10 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_ResultSet  The return set
      * @throws Zend_Service_Exception
      */
-    public function inlinkDataSearch($query, array $options = array())
+    public function inlinkDataSearch($query, array $options = [])
     {
-        static $defaultOptions = array('results'     => '50',
-                                       'start'    => 1);
+        static $defaultOptions = ['results'     => '50',
+                                       'start'    => 1];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validateInlinkDataSearch($options);
@@ -130,13 +130,13 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_ImageResultSet the search results
      * @throws Zend_Service_Exception
      */
-    public function imageSearch($query, array $options = array())
+    public function imageSearch($query, array $options = [])
     {
-        static $defaultOptions = array('type'       => 'all',
+        static $defaultOptions = ['type'       => 'all',
                                        'results'    => 10,
                                        'start'      => 1,
                                        'format'     => 'any',
-                                       'coloration' => 'any');
+                                       'coloration' => 'any'];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -194,12 +194,12 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_LocalResultSet The results
      * @throws Zend_Service_Exception
      */
-    public function localSearch($query, array $options = array())
+    public function localSearch($query, array $options = [])
     {
-        static $defaultOptions = array('results' => 10,
+        static $defaultOptions = ['results' => 10,
                                        'start'   => 1,
                                        'sort'    => 'distance',
-                                       'radius'  => 5);
+                                       'radius'  => 5];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -248,11 +248,11 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_NewsResultSet  The query return set
      * @throws Zend_Service_Exception
      */
-    public function newsSearch($query, array $options = array())
+    public function newsSearch($query, array $options = [])
     {
-        static $defaultOptions = array('type'     => 'all',
+        static $defaultOptions = ['type'     => 'all',
                                        'start'    => 1,
-                                       'sort'     => 'rank');
+                                       'sort'     => 'rank'];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -296,10 +296,10 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_ResultSet  The return set
      * @throws Zend_Service_Exception
      */
-    public function pageDataSearch($query, array $options = array())
+    public function pageDataSearch($query, array $options = [])
     {
-        static $defaultOptions = array('results'     => '50',
-                                       'start'    => 1);
+        static $defaultOptions = ['results'     => '50',
+                                       'start'    => 1];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validatePageDataSearch($options);
@@ -346,12 +346,12 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_VideoResultSet the search results
      * @throws Zend_Service_Exception
      */
-    public function videoSearch($query, array $options = array())
+    public function videoSearch($query, array $options = [])
     {
-        static $defaultOptions = array('type'       => 'all',
+        static $defaultOptions = ['type'       => 'all',
                                        'results'    => 10,
                                        'start'      => 1,
-                                       'format'     => 'any');
+                                       'format'     => 'any'];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
 
@@ -403,12 +403,12 @@ class Zend_Service_Yahoo
      * @return Zend_Service_Yahoo_WebResultSet  The return set
      * @throws Zend_Service_Exception
      */
-    public function webSearch($query, array $options = array())
+    public function webSearch($query, array $options = [])
     {
-        static $defaultOptions = array('type'     => 'all',
+        static $defaultOptions = ['type'     => 'all',
                                        'start'    => 1,
                                        'results'  => 10,
-                                       'format'   => 'any');
+                                       'format'   => 'any'];
 
         $options = $this->_prepareOptions($query, $options, $defaultOptions);
         $this->_validateWebSearch($options);
@@ -458,7 +458,7 @@ class Zend_Service_Yahoo
      */
     protected function _validateInlinkDataSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'results', 'start', 'entire_site', 'omit_inlinks');
+        $validOptions = ['appid', 'query', 'results', 'start', 'entire_site', 'omit_inlinks'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -485,7 +485,7 @@ class Zend_Service_Yahoo
         }
 
         if (isset($options['omit_inlinks'])) {
-            $this->_validateInArray('omit_inlinks', $options['omit_inlinks'], array('none', 'domain', 'subdomain'));
+            $this->_validateInArray('omit_inlinks', $options['omit_inlinks'], ['none', 'domain', 'subdomain']);
         }
     }
 
@@ -499,7 +499,7 @@ class Zend_Service_Yahoo
      */
     protected function _validateImageSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'type', 'results', 'start', 'format', 'coloration', 'adult_ok');
+        $validOptions = ['appid', 'query', 'type', 'results', 'start', 'format', 'coloration', 'adult_ok'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -584,8 +584,8 @@ class Zend_Service_Yahoo
      */
     protected function _validateLocalSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'results', 'start', 'sort', 'radius', 'street',
-                              'city', 'state', 'zip', 'location', 'latitude', 'longitude');
+        $validOptions = ['appid', 'query', 'results', 'start', 'sort', 'radius', 'street',
+                              'city', 'state', 'zip', 'location', 'latitude', 'longitude'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -636,7 +636,7 @@ class Zend_Service_Yahoo
         }
 
         $hasLocation = false;
-        $locationFields = array('street', 'city', 'state', 'zip', 'location');
+        $locationFields = ['street', 'city', 'state', 'zip', 'location'];
         foreach ($locationFields as $field) {
             if (isset($options[$field]) && $options[$field] != '') {
                 $hasLocation = true;
@@ -652,7 +652,7 @@ class Zend_Service_Yahoo
             throw new Zend_Service_Exception('Location data are required but missing');
         }
 
-        if (!in_array($options['sort'], array('relevance', 'title', 'distance', 'rating'))) {
+        if (!in_array($options['sort'], ['relevance', 'title', 'distance', 'rating'])) {
             /**
              * @see Zend_Service_Exception
              */
@@ -671,7 +671,7 @@ class Zend_Service_Yahoo
      */
     protected function _validateNewsSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'results', 'start', 'sort', 'language', 'type', 'site');
+        $validOptions = ['appid', 'query', 'results', 'start', 'sort', 'language', 'type', 'site'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -701,8 +701,8 @@ class Zend_Service_Yahoo
             $this->_validateLanguage($options['language']);
         }
 
-        $this->_validateInArray('sort', $options['sort'], array('rank', 'date'));
-        $this->_validateInArray('type', $options['type'], array('all', 'any', 'phrase'));
+        $this->_validateInArray('sort', $options['sort'], ['rank', 'date']);
+        $this->_validateInArray('type', $options['type'], ['all', 'any', 'phrase']);
     }
 
 
@@ -715,7 +715,7 @@ class Zend_Service_Yahoo
      */
     protected function _validatePageDataSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'results', 'start', 'domain_only');
+        $validOptions = ['appid', 'query', 'results', 'start', 'domain_only'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -752,12 +752,12 @@ class Zend_Service_Yahoo
      */
     protected function _validateVideoSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'type', 'results', 'start', 'format', 'adult_ok');
+        $validOptions = ['appid', 'query', 'type', 'results', 'start', 'format', 'adult_ok'];
 
         $this->_compareOptions($options, $validOptions);
 
         if (isset($options['type'])) {
-            $this->_validateInArray('type', $options['type'], array('all', 'any', 'phrase'));
+            $this->_validateInArray('type', $options['type'], ['all', 'any', 'phrase']);
         }
 
         /**
@@ -783,7 +783,7 @@ class Zend_Service_Yahoo
         }
 
         if (isset($options['format'])) {
-            $this->_validateInArray('format', $options['format'], array('any', 'avi', 'flash', 'mpeg', 'msmedia', 'quicktime', 'realmedia'));
+            $this->_validateInArray('format', $options['format'], ['any', 'avi', 'flash', 'mpeg', 'msmedia', 'quicktime', 'realmedia']);
         }
     }
 
@@ -797,8 +797,8 @@ class Zend_Service_Yahoo
      */
     protected function _validateWebSearch(array $options)
     {
-        $validOptions = array('appid', 'query', 'results', 'start', 'language', 'type', 'format', 'adult_ok',
-                              'similar_ok', 'country', 'site', 'subscription', 'license', 'region');
+        $validOptions = ['appid', 'query', 'results', 'start', 'language', 'type', 'format', 'adult_ok',
+                              'similar_ok', 'country', 'site', 'subscription', 'license', 'region'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -828,19 +828,19 @@ class Zend_Service_Yahoo
             $this->_validateLanguage($options['language']);
         }
 
-        $this->_validateInArray('type', $options['type'], array('all', 'any', 'phrase'));
-        $this->_validateInArray('format', $options['format'], array('any', 'html', 'msword', 'pdf', 'ppt', 'rss',
-                                                                    'txt', 'xls'));
+        $this->_validateInArray('type', $options['type'], ['all', 'any', 'phrase']);
+        $this->_validateInArray('format', $options['format'], ['any', 'html', 'msword', 'pdf', 'ppt', 'rss',
+                                                                    'txt', 'xls']);
         if (isset($options['license'])) {
-            $this->_validateInArray('license', $options['license'], array('any', 'cc_any', 'cc_commercial',
-                                                                      'cc_modifiable'));
+            $this->_validateInArray('license', $options['license'], ['any', 'cc_any', 'cc_commercial',
+                                                                      'cc_modifiable']);
         }
 
         if (isset($options['region'])){
-            $this->_validateInArray('region', $options['region'], array('ar', 'au', 'at', 'br', 'ca', 'ct', 'dk', 'fi',
+            $this->_validateInArray('region', $options['region'], ['ar', 'au', 'at', 'br', 'ca', 'ct', 'dk', 'fi',
                                                                           'fr', 'de', 'in', 'id', 'it', 'my', 'mx',
                                                                           'nl', 'no', 'ph', 'ru', 'sg', 'es', 'se',
-                                                                          'ch', 'th', 'uk', 'us'));
+                                                                          'ch', 'th', 'uk', 'us']);
         }
     }
 
@@ -853,7 +853,7 @@ class Zend_Service_Yahoo
      * @param  array  $defaultOptions Required/Default options
      * @return array
      */
-    protected function _prepareOptions($query, array $options, array $defaultOptions = array())
+    protected function _prepareOptions($query, array $options, array $defaultOptions = [])
     {
         $options['appid'] = $this->appId;
         $options['query'] = (string) $query;
@@ -871,10 +871,10 @@ class Zend_Service_Yahoo
      */
     protected function _validateLanguage($lang)
     {
-        $languages = array('ar', 'bg', 'ca', 'szh', 'tzh', 'hr', 'cs', 'da', 'nl', 'en', 'et', 'fi', 'fr', 'de', 'el',
+        $languages = ['ar', 'bg', 'ca', 'szh', 'tzh', 'hr', 'cs', 'da', 'nl', 'en', 'et', 'fi', 'fr', 'de', 'el',
             'he', 'hu', 'is', 'id', 'it', 'ja', 'ko', 'lv', 'lt', 'no', 'fa', 'pl', 'pt', 'ro', 'ru', 'sk', 'sr', 'sl',
             'es', 'sv', 'th', 'tr'
-            );
+            ];
         if (!in_array($lang, $languages)) {
             /**
              * @see Zend_Service_Exception

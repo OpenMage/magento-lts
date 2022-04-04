@@ -42,14 +42,14 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @var array
      */
-    protected $_pointers = array(self::DEFAULT_NAME =>-1) ;
+    protected $_pointers = [self::DEFAULT_NAME =>-1] ;
 
     /**
      * Array of values
      *
      * @var array
      */
-    protected $_data = array(self::DEFAULT_NAME=>array());
+    protected $_data = [self::DEFAULT_NAME=>[]];
 
     /**
      * Actual name of cycle
@@ -65,7 +65,7 @@ class Zend_View_Helper_Cycle implements Iterator
      * @param string $name
      * @return Zend_View_Helper_Cycle
      */
-    public function cycle(array $data = array(), $name = self::DEFAULT_NAME)
+    public function cycle(array $data = [], $name = self::DEFAULT_NAME)
     {
         if(!empty($data))
            $this->_data[$name] = $data;
@@ -100,7 +100,7 @@ class Zend_View_Helper_Cycle implements Iterator
        $this->_name = $name;
 
        if(!isset($this->_data[$this->_name]))
-         $this->_data[$this->_name] = array();
+         $this->_data[$this->_name] = [];
 
        if(!isset($this->_pointers[$this->_name]))
          $this->rewind();
@@ -154,6 +154,7 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @return Zend_View_Helper_Cycle
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $count = count($this->_data[$this->_name]);
@@ -184,6 +185,7 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         if ($this->_pointers[$this->_name] < 0)
@@ -197,6 +199,7 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @return Zend_View_Helper_Cycle
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->_pointers[$this->_name] = -1;
@@ -208,7 +211,7 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->_data[$this->_name][$this->key()]);
     }
@@ -218,6 +221,7 @@ class Zend_View_Helper_Cycle implements Iterator
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->_data[$this->_name][$this->key()];

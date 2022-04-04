@@ -51,7 +51,7 @@ class Zend_Service_Amazon_ListmaniaList
     {
         $xpath = new DOMXPath($dom->ownerDocument);
         $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
-        foreach (array('ListId', 'ListName') as $el) {
+        foreach (['ListId', 'ListName'] as $el) {
             $this->$el = (string) $xpath->query("./az:$el/text()", $dom)->item(0)->data;
         }
     }

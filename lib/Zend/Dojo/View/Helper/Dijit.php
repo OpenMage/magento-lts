@@ -55,7 +55,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
      * Parameters that should be JSON encoded
      * @var array
      */
-    protected $_jsonParams = array('constraints');
+    protected $_jsonParams = ['constraints'];
 
     /**
      * Dojo module to use
@@ -154,11 +154,10 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
         $attribs = $this->_prepareDijit($attribs, $params, 'layout', $dijit);
 
         $nodeType = $this->getRootNode();
-        $html = '<' . $nodeType . $this->_htmlAttribs($attribs) . '>'
+
+        return '<' . $nodeType . $this->_htmlAttribs($attribs) . '>'
               . $content
               . "</$nodeType>\n";
-
-        return $html;
     }
 
     /**
@@ -182,10 +181,9 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
 
         $attribs = $this->_prepareDijit($attribs, $params, 'element', $dijit);
 
-        $html = '<input'
+        return '<input'
               . $this->_htmlAttribs($attribs)
               . $this->getClosingBracket();
-        return $html;
     }
 
     /**
@@ -205,11 +203,11 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
 
         switch ($type) {
             case 'layout':
-                $stripParams = array('id');
+                $stripParams = ['id'];
                 break;
             case 'element':
-                $stripParams = array('id', 'name', 'value', 'type');
-                foreach (array('checked', 'disabled', 'readonly') as $attrib) {
+                $stripParams = ['id', 'name', 'value', 'type'];
+                foreach (['checked', 'disabled', 'readonly'] as $attrib) {
                     if (array_key_exists($attrib, $attribs)) {
                         if ($attribs[$attrib]) {
                             $attribs[$attrib] = $attrib;
@@ -220,7 +218,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
                 }
                 break;
             case 'textarea':
-                $stripParams = array('id', 'name', 'type', 'degrade');
+                $stripParams = ['id', 'name', 'type', 'degrade'];
                 break;
             default:
         }
@@ -237,7 +235,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
                 #require_once 'Zend/Json.php';
 
                 if (is_array($params[$param])) {
-                    $values = array();
+                    $values = [];
                     foreach ($params[$param] as $key => $value) {
                         if (!is_scalar($value)) {
                             continue;
@@ -247,7 +245,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
                 } elseif (is_string($params[$param])) {
                     $values = (array) $params[$param];
                 } else {
-                    $values = array();
+                    $values = [];
                 }
                 $values = Zend_Json::encode($values);
                 if ($this->_useDeclarative()) {
@@ -283,7 +281,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     {
         $params['dojoType'] = $dijit;
 
-        array_walk_recursive($params, array($this, '_castBoolToString'));
+        array_walk_recursive($params, [$this, '_castBoolToString']);
 
         $this->dojo->setDijit($id, $params);
     }
@@ -312,11 +310,11 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
      */
     protected function _renderHiddenElement($id, $value)
     {
-        $hiddenAttribs = array(
+        $hiddenAttribs = [
             'name'  => $id,
             'value' => (string) $value,
             'type'  => 'hidden',
-        );
+        ];
         return '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
     }
 

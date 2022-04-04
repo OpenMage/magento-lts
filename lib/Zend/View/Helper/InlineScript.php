@@ -54,7 +54,7 @@ class Zend_View_Helper_InlineScript extends Zend_View_Helper_HeadScript
      * @param  string $type Script type and/or array of script attributes
      * @return Zend_View_Helper_InlineScript
      */
-    public function inlineScript($mode = Zend_View_Helper_HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
+    public function inlineScript($mode = Zend_View_Helper_HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = [], $type = 'text/javascript')
     {
         return $this->headScript($mode, $spec, $placement, $attrs, $type);
     }

@@ -85,7 +85,7 @@ class Zend_XmlRpc_Generator_DomDocument extends Zend_XmlRpc_Generator_GeneratorA
      */
     public function saveXml()
     {
-        return $this->_dom->saveXml();
+        return $this->_dom->saveXML();
     }
 
     /**

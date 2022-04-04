@@ -63,7 +63,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
     /**
      * @var array
      */
-    protected $_functions = array();
+    protected $_functions = [];
 
     /**
      * @var boolean
@@ -82,14 +82,14 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
      *
      * @var array
      */
-    protected $_operationBodyStyle = array('use' => 'encoded', 'encodingStyle' => "http://schemas.xmlsoap.org/soap/encoding/");
+    protected $_operationBodyStyle = ['use' => 'encoded', 'encodingStyle' => "http://schemas.xmlsoap.org/soap/encoding/"];
 
     /**
      * soap:operation style
      *
      * @var array
      */
-    protected $_bindingStyle = array('style' => 'rpc', 'transport' => 'http://schemas.xmlsoap.org/soap/http');
+    protected $_bindingStyle = ['style' => 'rpc', 'transport' => 'http://schemas.xmlsoap.org/soap/http'];
 
     /**
      * Name of the class to handle the WSDL creation.
@@ -203,7 +203,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
      * @return Zend_Soap_AutoDiscover
      * @throws Zend_Soap_AutoDiscover_Exception
      */
-    public function setOperationBodyStyle(array $operationStyle=array())
+    public function setOperationBodyStyle(array $operationStyle=[])
     {
         if(!isset($operationStyle['use'])) {
             #require_once "Zend/Soap/AutoDiscover/Exception.php";
@@ -221,7 +221,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
      * @param  array $bindingStyle
      * @return Zend_Soap_AutoDiscover
      */
-    public function setBindingStyle(array $bindingStyle=array())
+    public function setBindingStyle(array $bindingStyle=[])
     {
         if(isset($bindingStyle['style'])) {
             $this->_bindingStyle['style'] = $bindingStyle['style'];
@@ -406,30 +406,30 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
         }
 
         // Add the input message (parameters)
-        $args = array();
+        $args = [];
         if ($this->_bindingStyle['style'] == 'document') {
             // Document style: wrap all parameters in a sequence element
-            $sequence = array();
+            $sequence = [];
             foreach ($prototype->getParameters() as $param) {
-                $sequenceElement = array(
+                $sequenceElement = [
                     'name' => $param->getName(),
                     'type' => $wsdl->getType($param->getType())
-                );
+                ];
                 if ($param->isOptional()) {
                     $sequenceElement['nillable'] = 'true';
                 }
                 $sequence[] = $sequenceElement;
             }
-            $element = array(
+            $element = [
                 'name' => $function->getName(),
                 'sequence' => $sequence
-            );
+            ];
             // Add the wrapper element part, which must be named 'parameters'
-            $args['parameters'] = array('element' => $wsdl->addElement($element));
+            $args['parameters'] = ['element' => $wsdl->addElement($element)];
         } else {
             // RPC style: add each parameter as a typed part
             foreach ($prototype->getParameters() as $param) {
-                $args[$param->getName()] = array('type' => $wsdl->getType($param->getType()));
+                $args[$param->getName()] = ['type' => $wsdl->getType($param->getType())];
             }
         }
         $wsdl->addMessage($function->getName() . 'In', $args);
@@ -441,25 +441,25 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
 
         if($isOneWayMessage == false) {
             // Add the output message (return value)
-            $args = array();
+            $args = [];
             if ($this->_bindingStyle['style'] == 'document') {
                 // Document style: wrap the return value in a sequence element
-                $sequence = array();
+                $sequence = [];
                 if ($prototype->getReturnType() != "void") {
-                    $sequence[] = array(
+                    $sequence[] = [
                         'name' => $function->getName() . 'Result',
                         'type' => $wsdl->getType($prototype->getReturnType())
-                    );
+                    ];
                 }
-                $element = array(
+                $element = [
                     'name' => $function->getName() . 'Response',
                     'sequence' => $sequence
-                );
+                ];
                 // Add the wrapper element part, which must be named 'parameters'
-                $args['parameters'] = array('element' => $wsdl->addElement($element));
+                $args['parameters'] = ['element' => $wsdl->addElement($element)];
             } else if ($prototype->getReturnType() != "void") {
                 // RPC style: add the return value as a typed part
-                $args['return'] = array('type' => $wsdl->getType($prototype->getReturnType()));
+                $args['return'] = ['type' => $wsdl->getType($prototype->getReturnType())];
             }
             $wsdl->addMessage($function->getName() . 'Out', $args);
         }
@@ -547,7 +547,7 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
     public function toXml()
     {
         if($this->_wsdl !== null) {
-            return $this->_wsdl->toXml();
+            return $this->_wsdl->toXML();
         } else {
             /**
              * @see Zend_Soap_AutoDiscover_Exception
@@ -570,7 +570,6 @@ class Zend_Soap_AutoDiscover implements Zend_Server_Interface
     /**
      * Load Functions
      *
-     * @param unknown_type $definition
      * @throws Zend_Soap_AutoDiscover_Exception
      */
     public function loadFunctions($definition)

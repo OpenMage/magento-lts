@@ -182,12 +182,15 @@ class Zend_Pdf_FileParserDataSource_File extends Zend_Pdf_FileParserDataSource
             return;    // Not moving; do nothing.
         }
         parent::moveToOffset($offset);
+
         $result = @fseek($this->_fileResource, $offset, SEEK_SET);
+
         if ($result !== 0) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Error while setting new file position',
                                          Zend_Pdf_Exception::CANT_SET_FILE_POSITION);
         }
+
         if (feof($this->_fileResource)) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Moved beyond the end of the file',

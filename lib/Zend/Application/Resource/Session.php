@@ -71,7 +71,7 @@ class Zend_Application_Resource_Session extends Zend_Application_Resource_Resour
                 if (!array_key_exists('class', $this->_saveHandler)) {
                     throw new Zend_Application_Resource_Exception('Session save handler class not provided in options');
                 }
-                $options = array();
+                $options = [];
                 if (array_key_exists('options', $this->_saveHandler)) {
                     $options = $this->_saveHandler['options'];
                 }

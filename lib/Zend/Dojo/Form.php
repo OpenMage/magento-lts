@@ -64,7 +64,7 @@ class Zend_Dojo_Form extends Zend_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-                 ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form_dojo'))
+                 ->addDecorator('HtmlTag', ['tag' => 'dl', 'class' => 'zend_form_dojo'])
                  ->addDecorator('DijitForm');
         }
     }
@@ -75,7 +75,7 @@ class Zend_Dojo_Form extends Zend_Form
      * Ensures that the view object has the dojo view helper path set.
      *
      * @param  Zend_View_Interface $view
-     * @return Zend_Dojo_Form_Element_Dijit
+     * @return Zend_Dojo_Form
      */
     public function setView(Zend_View_Interface $view = null)
     {

@@ -91,7 +91,7 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
         if (null === self::$_meansEnglishAlphabet) {
             $this->_locale = new Zend_Locale('auto');
             self::$_meansEnglishAlphabet = in_array($this->_locale->getLanguage(),
-                                                    array('ja', 'ko', 'zh')
+                                                    ['ja', 'ko', 'zh']
                                                     );
         }
 

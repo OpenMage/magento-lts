@@ -48,7 +48,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
     /**
      * Render atom entry
      *
-     * @return Zend_Feed_Writer_Renderer_Entry_Atom
+     * @return Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
      */
     public function render()
     {

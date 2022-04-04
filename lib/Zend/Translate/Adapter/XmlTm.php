@@ -41,11 +41,11 @@
 class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     // Internal variables
     private $_file        = false;
-    private $_cleared     = array();
+    private $_cleared     = [];
     private $_lang        = null;
     private $_content     = null;
     private $_tag         = null;
-    private $_data        = array();
+    private $_data        = [];
 
     /**
      * Load translation data (XMLTM file reader)
@@ -57,9 +57,9 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         $this->_lang = $locale;
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
@@ -111,7 +111,7 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     {
         switch (strtolower($name)) {
             case 'tm:tu':
-                if (!empty($this->_tag) and !empty($this->_content) or
+                if (!empty($this->_tag) && !empty($this->_content) ||
                     (isset($this->_data[$this->_lang][$this->_tag]) === false)) {
                     $this->_data[$this->_lang][$this->_tag] = $this->_content;
                 }

@@ -64,7 +64,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * @var array Available buckets
      */
-    private $_bucketList = array();
+    private $_bucketList = [];
 
     /**
      * @var Zend_Service_Amazon_S3
@@ -199,9 +199,9 @@ class Zend_Service_Amazon_S3_Stream
         // OR, the range end position plus 1 is greater than the size of the current
         // object buffer
         if ($this->_objectBuffer === null  ||  $range_end >= strlen($this->_objectBuffer)) {
-            $headers = array(
+            $headers = [
                 'Range' => "bytes=$range_start-$range_end"
-            );
+            ];
 
             $response = $this->_s3->_makeRequest('GET', $this->_objectName, null, $headers);
 
@@ -322,7 +322,7 @@ class Zend_Service_Amazon_S3_Stream
             return false;
         }
 
-        $stat = array();
+        $stat = [];
         $stat['dev'] = 0;
         $stat['ino'] = 0;
         $stat['mode'] = 0777;
@@ -432,7 +432,7 @@ class Zend_Service_Amazon_S3_Stream
      */
     public function url_stat($path, $flags)
     {
-        $stat = array();
+        $stat = [];
         $stat['dev'] = 0;
         $stat['ino'] = 0;
         $stat['mode'] = 0777;
@@ -497,7 +497,7 @@ class Zend_Service_Amazon_S3_Stream
      */
     public function dir_closedir()
     {
-        $this->_bucketList = array();
+        $this->_bucketList = [];
         return true;
     }
 }

@@ -62,7 +62,7 @@ class Zend_Soap_Client
      * Registered fault exceptions
      * @var array
      */
-    protected $_faultExceptions = array();
+    protected $_faultExceptions = [];
 
     /**
      * SOAP version to use; SOAP_1_2 by default, to allow processing of headers
@@ -120,7 +120,7 @@ class Zend_Soap_Client
      *
      * @var array
      */
-    protected $_soapInputHeaders = array();
+    protected $_soapInputHeaders = [];
 
     /**
      * Permanent SOAP request headers (shared between requests).
@@ -129,7 +129,7 @@ class Zend_Soap_Client
      *
      * @var array
      */
-    protected $_permanentSoapInputHeaders = array();
+    protected $_permanentSoapInputHeaders = [];
 
     /**
      * Output SOAP headers.
@@ -138,7 +138,7 @@ class Zend_Soap_Client
      *
      * @var array
      */
-    protected $_soapOutputHeaders = array();
+    protected $_soapOutputHeaders = [];
 
     /**
      * Constructor
@@ -295,7 +295,7 @@ class Zend_Soap_Client
      */
     public function getOptions()
     {
-        $options = array();
+        $options = [];
 
         $options['classmap']       = $this->getClassmap();
         $options['encoding']       = $this->getEncoding();
@@ -326,7 +326,7 @@ class Zend_Soap_Client
              * ugly hack as I don't know if checking for '=== null'
              * breaks some other option
              */
-            if (in_array($key, array('user_agent', 'cache_wsdl', 'compression', 'exceptions'))) {
+            if (in_array($key, ['user_agent', 'cache_wsdl', 'compression', 'exceptions'])) {
                 if ($value === null) {
                     unset($options[$key]);
                 }
@@ -349,7 +349,7 @@ class Zend_Soap_Client
      */
     public function setSoapVersion($version)
     {
-        if (!in_array($version, array(SOAP_1_1, SOAP_1_2))) {
+        if (!in_array($version, [SOAP_1_1, SOAP_1_2])) {
             #require_once 'Zend/Soap/Client/Exception.php';
             throw new Zend_Soap_Client_Exception('Invalid soap version specified. Use SOAP_1_1 or SOAP_1_2 constants.');
         }
@@ -396,7 +396,7 @@ class Zend_Soap_Client
     /**
      * Retrieve classmap
      *
-     * @return mixed
+     * @return array|null
      */
     public function getClassmap()
     {
@@ -475,7 +475,7 @@ class Zend_Soap_Client
     /**
      * Retrieve URI
      *
-     * @return string
+     * @return string|null
      */
     public function getUri()
     {
@@ -504,7 +504,7 @@ class Zend_Soap_Client
     /**
      * Retrieve URI
      *
-     * @return string
+     * @return string|null
      */
     public function getLocation()
     {
@@ -520,7 +520,7 @@ class Zend_Soap_Client
      */
     public function setStyle($style)
     {
-        if (!in_array($style, array(SOAP_RPC, SOAP_DOCUMENT))) {
+        if (!in_array($style, [SOAP_RPC, SOAP_DOCUMENT])) {
             #require_once 'Zend/Soap/Client/Exception.php';
             throw new Zend_Soap_Client_Exception('Invalid request style specified. Use SOAP_RPC or SOAP_DOCUMENT constants.');
         }
@@ -535,7 +535,7 @@ class Zend_Soap_Client
     /**
      * Get request style
      *
-     * @return int
+     * @return int|null
      */
     public function getStyle()
     {
@@ -551,7 +551,7 @@ class Zend_Soap_Client
      */
     public function setEncodingMethod($use)
     {
-        if (!in_array($use, array(SOAP_ENCODED, SOAP_LITERAL))) {
+        if (!in_array($use, [SOAP_ENCODED, SOAP_LITERAL])) {
             #require_once 'Zend/Soap/Client/Exception.php';
             throw new Zend_Soap_Client_Exception('Invalid message encoding method. Use SOAP_ENCODED or SOAP_LITERAL constants.');
         }
@@ -566,7 +566,7 @@ class Zend_Soap_Client
     /**
      * Get message encoding method
      *
-     * @return int
+     * @return int|null
      */
     public function getEncodingMethod()
     {
@@ -591,7 +591,7 @@ class Zend_Soap_Client
     /**
      * Retrieve HTTP Login
      *
-     * @return string
+     * @return string|null
      */
     public function getHttpLogin()
     {
@@ -616,7 +616,7 @@ class Zend_Soap_Client
     /**
      * Retrieve HTTP Password
      *
-     * @return string
+     * @return string|null
      */
     public function getHttpPassword()
     {
@@ -641,7 +641,7 @@ class Zend_Soap_Client
     /**
      * Retrieve proxy host
      *
-     * @return string
+     * @return string|null
      */
     public function getProxyHost()
     {
@@ -666,7 +666,7 @@ class Zend_Soap_Client
     /**
      * Retrieve proxy port
      *
-     * @return int
+     * @return int|null
      */
     public function getProxyPort()
     {
@@ -691,7 +691,7 @@ class Zend_Soap_Client
     /**
      * Retrieve proxy login
      *
-     * @return string
+     * @return string|null
      */
     public function getProxyLogin()
     {
@@ -737,7 +737,7 @@ class Zend_Soap_Client
     /**
      * Get HTTPS client certificate path
      *
-     * @return string
+     * @return string|null
      */
     public function getHttpsCertificate()
     {
@@ -762,7 +762,7 @@ class Zend_Soap_Client
     /**
      * Get HTTPS client certificate passphrase
      *
-     * @return string
+     * @return string|null
      */
     public function getHttpsCertPassphrase()
     {
@@ -789,7 +789,7 @@ class Zend_Soap_Client
     /**
      * Get Compression options
      *
-     * @return int
+     * @return int|null
      */
     public function getCompressionOptions()
     {
@@ -799,7 +799,7 @@ class Zend_Soap_Client
     /**
      * Retrieve proxy password
      *
-     * @return string
+     * @return string|null
      */
     public function getProxyPassword()
     {
@@ -830,7 +830,7 @@ class Zend_Soap_Client
     /**
      * Get Stream Context
      *
-     * @return resource
+     * @return resource|null
      */
     public function getStreamContext()
     {
@@ -854,7 +854,7 @@ class Zend_Soap_Client
     /**
      * Return current SOAP Features options
      *
-     * @return int
+     * @return int|null
      */
     public function getSoapFeatures()
     {
@@ -880,7 +880,7 @@ class Zend_Soap_Client
     /**
      * Get current SOAP Wsdl Caching option
      *
-     * @return int
+     * @return int|null
      */
     public function getWsdlCache()
     {
@@ -1030,9 +1030,9 @@ class Zend_Soap_Client
     {
         // Perform request as is
         if ($one_way == null) {
-            return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version);
+            return call_user_func([$client,'SoapClient::__doRequest'], $request, $location, $action, $version);
         } else {
-            return call_user_func(array($client,'SoapClient::__doRequest'), $request, $location, $action, $version, $one_way);
+            return call_user_func([$client,'SoapClient::__doRequest'], $request, $location, $action, $version, $one_way);
         }
     }
 
@@ -1044,7 +1044,7 @@ class Zend_Soap_Client
     protected function _initSoapClientObject()
     {
         $wsdl = $this->getWsdl();
-        $options = array_merge($this->getOptions(), array('trace' => true));
+        $options = array_merge($this->getOptions(), ['trace' => true]);
 
         if ($wsdl == null) {
             if (!isset($options['location'])) {
@@ -1067,7 +1067,7 @@ class Zend_Soap_Client
         }
         unset($options['wsdl']);
 
-        $this->_soapClient = new Zend_Soap_Client_Common(array($this, '_doRequest'), $wsdl, $options);
+        $this->_soapClient = new Zend_Soap_Client_Common([$this, '_doRequest'], $wsdl, $options);
     }
 
 
@@ -1122,8 +1122,8 @@ class Zend_Soap_Client
      */
     public function resetSoapInputHeaders()
     {
-        $this->_permanentSoapInputHeaders = array();
-        $this->_soapInputHeaders = array();
+        $this->_permanentSoapInputHeaders = [];
+        $this->_soapInputHeaders = [];
 
         return $this;
     }
@@ -1159,7 +1159,7 @@ class Zend_Soap_Client
                                                  $this->_soapOutputHeaders);
 
         // Reset non-permanent input headers
-        $this->_soapInputHeaders = array();
+        $this->_soapInputHeaders = [];
 
         return $this->_preProcessResult($result);
     }

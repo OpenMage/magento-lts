@@ -69,6 +69,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  bool $includeDocComment
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -86,7 +87,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  string $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Class
      */
-    public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
+    public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class'): \ReflectionClass
     {
         $phpReflection  = parent::getDeclaringClass();
         $zendReflection = new $reflectionClass($phpReflection->getName());
@@ -104,12 +105,12 @@ class Zend_Reflection_Method extends ReflectionMethod
      * @param  string $reflectionClass Name of reflection class to use
      * @return array of Zend_Reflection_Parameter objects
      */
-    public function getParameters($reflectionClass = 'Zend_Reflection_Parameter')
+    public function getParameters($reflectionClass = 'Zend_Reflection_Parameter'): array
     {
         $phpReflections  = parent::getParameters();
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
-            $instance = new $reflectionClass(array($this->getDeclaringClass()->getName(), $this->getName()), $phpReflection->getName());
+            $instance = new $reflectionClass([$this->getDeclaringClass()->getName(), $this->getName()], $phpReflection->getName());
             if (!$instance instanceof Zend_Reflection_Parameter) {
                 #require_once 'Zend/Reflection/Exception.php';
                 throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Parameter');
@@ -152,7 +153,7 @@ class Zend_Reflection_Method extends ReflectionMethod
 
         // Strip off lines until we come to a closing bracket
         do {
-            if (count($lines) == 0) break;
+            if (count($lines) === 0) break;
             $firstLine = array_shift($lines);
         } while (strpos($firstLine, ')') === false);
 
@@ -160,7 +161,7 @@ class Zend_Reflection_Method extends ReflectionMethod
         // signature, then we should pop off more lines until we find it
         if (strpos($firstLine,'{') === false) {
             do {
-                if (count($lines) == 0) break;
+                if (count($lines) === 0) break;
                 $firstLine = array_shift($lines);
             } while (strpos($firstLine, '{') === false);
         }

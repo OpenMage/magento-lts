@@ -47,7 +47,7 @@ class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
      * - 1 = complete bar
      * @var array
      */
-    protected $_codingMap = array(
+    protected $_codingMap = [
         0 => "00111",
         1 => "11100",
         2 => "11010",
@@ -58,5 +58,5 @@ class Zend_Barcode_Object_Planet extends Zend_Barcode_Object_Postnet
         7 => "01110",
         8 => "01101",
         9 => "01011"
-    );
+    ];
 }

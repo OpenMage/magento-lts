@@ -33,7 +33,7 @@
 class Zend_Controller_Request_Simple extends Zend_Controller_Request_Abstract
 {
 
-    public function __construct($action = null, $controller = null, $module = null, array $params = array())
+    public function __construct($action = null, $controller = null, $module = null, array $params = [])
     {
         if ($action) {
             $this->setActionName($action);

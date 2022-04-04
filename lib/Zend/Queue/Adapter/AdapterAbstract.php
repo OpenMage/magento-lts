@@ -57,14 +57,14 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Internal array of queues to save on lookups
      *
      * @var array
      */
-    protected $_queues = array();
+    protected $_queues = [];
 
     /**
      * Contains the Zend_Queue that this object
@@ -115,8 +115,8 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
             $this->setQueue($queue);
         }
 
-        $adapterOptions = array();
-        $driverOptions  = array();
+        $adapterOptions = [];
+        $driverOptions  = [];
 
         // Normalize the options and merge with the defaults
         if (array_key_exists('options', $options)) {
@@ -147,7 +147,7 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     /**
      * get the Zend_Queue class that is attached to this object
      *
-     * @return Zend_Queue|null
+     * @return Zend_Queue_Adapter_Abstract|null
      */
     public function getQueue()
     {

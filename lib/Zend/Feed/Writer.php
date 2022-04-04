@@ -66,7 +66,7 @@ class Zend_Feed_Writer
      *
      * @var array
      */
-    protected static $_prefixPaths = array();
+    protected static $_prefixPaths = [];
 
     /**
      * Array of registered extensions by class postfix (after the base class
@@ -75,12 +75,12 @@ class Zend_Feed_Writer
      *
      * @var array
      */
-    protected static $_extensions = array(
-        'entry'         => array(),
-        'feed'          => array(),
-        'entryRenderer' => array(),
-        'feedRenderer'  => array(),
-    );
+    protected static $_extensions = [
+        'entry'         => [],
+        'feed'          => [],
+        'entryRenderer' => [],
+        'feedRenderer'  => [],
+    ];
 
     /**
      * Set plugin loader for use with Extensions
@@ -101,9 +101,9 @@ class Zend_Feed_Writer
     {
         if (!isset(self::$_pluginLoader)) {
             #require_once 'Zend/Loader/PluginLoader.php';
-            self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
+            self::$_pluginLoader = new Zend_Loader_PluginLoader([
                 'Zend_Feed_Writer_Extension_' => 'Zend/Feed/Writer/Extension/',
-            ));
+            ]);
         }
         return self::$_pluginLoader;
     }
@@ -233,13 +233,13 @@ class Zend_Feed_Writer
     public static function reset()
     {
         self::$_pluginLoader = null;
-        self::$_prefixPaths  = array();
-        self::$_extensions   = array(
-            'entry'         => array(),
-            'feed'          => array(),
-            'entryRenderer' => array(),
-            'feedRenderer'  => array(),
-        );
+        self::$_prefixPaths  = [];
+        self::$_extensions   = [
+            'entry'         => [],
+            'feed'          => [],
+            'entryRenderer' => [],
+            'feedRenderer'  => [],
+        ];
     }
 
     /**

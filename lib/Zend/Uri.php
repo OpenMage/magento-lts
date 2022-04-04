@@ -41,9 +41,9 @@ abstract class Zend_Uri
      *
      * @var array
      */
-    static protected $_config = array(
+    static protected $_config = [
         'allow_unwise' => false
-    );
+    ];
 
     /**
      * Return a string representation of this URI.

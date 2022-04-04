@@ -80,14 +80,14 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      * @param array $options
      * @return void
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
 
         if (empty($options)) {
-            $options = array();
+            $options = [];
         }
 
         if (!is_array($options)) {
@@ -214,7 +214,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
     {
         try {
             $tables = $this->_storageClient->listTables();
-            $restables = array();
+            $restables = [];
             foreach ($tables as $table) {
                 $restables[] = $table->name;
             }
@@ -241,12 +241,12 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
                 $rowKey = $document[self::ROW_KEY];
                     unset($document[self::ROW_KEY]);
                 if (isset($document[self::PARTITION_KEY])) {
-                    $key = array($document[self::PARTITION_KEY], $rowKey);
+                    $key = [$document[self::PARTITION_KEY], $rowKey];
                     unset($document[self::PARTITION_KEY]);
                 } elseif (null !== ($partitionKey = $this->getDefaultPartitionKey())) {
-                    $key = array($partitionKey, $rowKey);
+                    $key = [$partitionKey, $rowKey];
                 } elseif (null !== $collectionName) {
-                    $key = array($collectionName, $rowKey);
+                    $key = [$collectionName, $rowKey];
                 }
             }
         } else {
@@ -263,7 +263,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      *
      * @param  string $collectionName
      * @param  null|array $options
-     * @return Zend_Cloud_DocumentService_DocumentSet
+     * @return array
      */
     public function listDocuments($collectionName, array $options = null)
     {
@@ -276,7 +276,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      *
      * @param  array|Zend_Cloud_DocumentService_Document $document
      * @param  array                         $options
-     * @return boolean
+     * @return void
      */
     public function insertDocument($collectionName, $document, $options = null)
     {
@@ -310,7 +310,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      *
      * @param  Zend_Cloud_DocumentService_Document $document
      * @param  array                         $options
-     * @return boolean
+     * @return void
      */
     public function replaceDocument($collectionName, $document, $options = null)
     {
@@ -346,7 +346,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      * @param  mixed|Zend_Cloud_DocumentService_Document $documentId Document identifier or document contaiing updates
      * @param  null|array|Zend_Cloud_DocumentService_Document Fields to update (or new fields))
      * @param  array $options
-     * @return boolean
+     * @return void
      */
     public function updateDocument($collectionName, $documentId, $fieldset = null, $options = null)
     {
@@ -424,7 +424,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
         try {
             $entity = $this->_storageClient->retrieveEntityById($collectionName, $documentId[0], $documentId[1]);
             $documentClass = $this->getDocumentClass();
-            return new $documentClass($this->_resolveAttributes($entity), array($entity->getPartitionKey(), $entity->getRowKey()));
+            return new $documentClass($this->_resolveAttributes($entity), [$entity->getPartitionKey(), $entity->getRowKey()]);
         } catch (Zend_Service_WindowsAzure_Exception $e) {
             if (strpos($e->getMessage(), "does not exist") !== false) {
                 return false;
@@ -452,11 +452,11 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
             }
 
             $documentClass = $this->getDocumentClass();
-            $resultSet     = array();
+            $resultSet     = [];
             foreach ($entities as $entity) {
                 $resultSet[] = new $documentClass(
                     $this->_resolveAttributes($entity),
-                    array($entity->getPartitionKey(), $entity->getRowKey())
+                    [$entity->getPartitionKey(), $entity->getRowKey()]
                 );
             }
         } catch(Zend_Service_WindowsAzure_Exception $e) {
@@ -508,7 +508,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      */
     protected function _resolveAttributes(Zend_Service_WindowsAzure_Storage_TableEntity $entity)
     {
-        $result = array();
+        $result = [];
         foreach ($entity->getAzureValues() as $attr) {
             $result[$attr->Name] = $attr->Value;
         }
@@ -534,7 +534,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      * Validate a composite key
      *
      * @param  array $key
-     * @return throws Zend_Cloud_DocumentService_Exception
+     * @return void Zend_Cloud_DocumentService_Exception
      */
     protected function _validateCompositeKey(array $key)
     {
@@ -574,10 +574,10 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
         $this->_validateKey($documentId);
 
         if (null !== ($partitionKey = $this->getDefaultPartitionKey())) {
-            return array($partitionKey, $documentId);
+            return [$partitionKey, $documentId];
         }
         if (null !== $collectionName) {
-            return array($collectionName, $documentId);
+            return [$collectionName, $documentId];
         }
         throw new Zend_Cloud_DocumentService_Exception('Cannot determine partition name; invalid document identifier');
     }

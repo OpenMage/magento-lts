@@ -37,16 +37,16 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::NOT_LESS => "'%value%' is not less than '%max%'"
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'max' => '_max'
-    );
+    ];
 
     /**
      * Maximum value

@@ -99,13 +99,13 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $db = $this->_initDbAdapter();
         }
 
-        $this->_queueTable = new Zend_Queue_Adapter_Db_Queue(array(
+        $this->_queueTable = new Zend_Queue_Adapter_Db_Queue([
             'db' => $db,
-        ));
+        ]);
 
-        $this->_messageTable = new Zend_Queue_Adapter_Db_Message(array(
+        $this->_messageTable = new Zend_Queue_Adapter_Db_Message([
             'db' => $db,
-        ));
+        ]);
 
     }
 
@@ -236,9 +236,11 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
 
         // if the queue does not exist then it must already be deleted.
         $list = $this->_queueTable->find($id);
+
         if (count($list) === 0) {
             return false;
         }
+
         $queue = $list->current();
 
         if ($queue instanceof Zend_Db_Table_Row_Abstract) {
@@ -269,16 +271,14 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
     public function getQueues()
     {
         $query = $this->_queueTable->select();
-        $query->from($this->_queueTable, array('queue_id', 'queue_name'));
+        $query->from($this->_queueTable, ['queue_id', 'queue_name']);
 
-        $this->_queues = array();
+        $this->_queues = [];
         foreach ($this->_queueTable->fetchAll($query) as $queue) {
             $this->_queues[$queue->queue_name] = (int)$queue->queue_id;
         }
 
-        $list = array_keys($this->_queues);
-
-        return $list;
+        return array_keys($this->_queues);
     }
 
     /**
@@ -288,6 +288,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
      * @return integer
      * @throws Zend_Queue_Exception
      */
+    #[\ReturnTypeWillChange]
     public function count(Zend_Queue $queue = null)
     {
         if ($queue === null) {
@@ -297,7 +298,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
         $info  = $this->_messageTable->info();
         $db    = $this->_messageTable->getAdapter();
         $query = $db->select();
-        $query->from($info['name'], array(new Zend_Db_Expr('COUNT(1)')))
+        $query->from($info['name'], [new Zend_Db_Expr('COUNT(1)')])
               ->where('queue_id=?', $this->getQueueId($queue->getName()));
 
         // return count results
@@ -352,10 +353,10 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        $options = array(
+        $options = [
             'queue' => $queue,
             'data'  => $msg->toArray(),
-        );
+        ];
 
         $classname = $queue->getMessageClass();
         if (!class_exists($classname)) {
@@ -386,7 +387,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             $queue = $this->_queue;
         }
 
-        $msgs      = array();
+        $msgs      = [];
         $info      = $this->_messageTable->info();
         $microtime = microtime(true); // cache microtime
         $db        = $this->_messageTable->getAdapter();
@@ -401,7 +402,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
                     // turn on forUpdate
                     $query->forUpdate();
                 }
-                $query->from($info['name'], array('*'))
+                $query->from($info['name'], ['*'])
                       ->where('queue_id=?', $this->getQueueId($queue->getName()))
                       ->where('handle IS NULL OR timeout+' . (int)$timeout . ' < ' . (int)$microtime)
                       ->limit($maxMessages);
@@ -410,13 +411,13 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
                     // setup our changes to the message
                     $data['handle'] = md5(uniqid(rand(), true));
 
-                    $update = array(
+                    $update = [
                         'handle'  => $data['handle'],
                         'timeout' => $microtime,
-                    );
+                    ];
 
                     // update the database
-                    $where   = array();
+                    $where   = [];
                     $where[] = $db->quoteInto('message_id=?', $data['message_id']);
                     $where[] = 'handle IS NULL OR timeout+' . (int)$timeout . ' < ' . (int)$microtime;
 
@@ -437,11 +438,11 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             throw new Zend_Queue_Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        $options = array(
+        $options = [
             'queue'        => $queue,
             'data'         => $msgs,
             'messageClass' => $queue->getMessageClass(),
-        );
+        ];
 
         $classname = $queue->getMessageSetClass();
         if (!class_exists($classname)) {
@@ -488,7 +489,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
      */
     public function getCapabilities()
     {
-        return array(
+        return [
             'create'        => true,
             'delete'        => true,
             'send'          => true,
@@ -497,7 +498,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
             'getQueues'     => true,
             'count'         => true,
             'isExists'      => true,
-        );
+        ];
     }
 
     /********************************************************************
@@ -519,7 +520,7 @@ class Zend_Queue_Adapter_Db extends Zend_Queue_Adapter_AdapterAbstract
         }
 
         $query = $this->_queueTable->select();
-        $query->from($this->_queueTable, array('queue_id'))
+        $query->from($this->_queueTable, ['queue_id'])
               ->where('queue_name=?', $name);
 
         $queue = $this->_queueTable->fetchRow($query);

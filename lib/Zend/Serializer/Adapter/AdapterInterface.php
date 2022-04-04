@@ -35,7 +35,7 @@ interface Zend_Serializer_Adapter_AdapterInterface
      * @param  array|Zend_Config $opts Serializer options
      * @return void
      */
-    public function __construct($opts = array());
+    public function __construct($opts = []);
 
     /**
      * Set serializer options
@@ -78,7 +78,7 @@ interface Zend_Serializer_Adapter_AdapterInterface
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public function serialize($value, array $options = array());
+    public function serialize($value, array $options = []);
 
     /**
      * Creates a PHP value from a stored representation.
@@ -88,5 +88,5 @@ interface Zend_Serializer_Adapter_AdapterInterface
      * @return mixed
      * @throws Zend_Serializer_Exception
      */
-    public function unserialize($serialized, array $options = array());
+    public function unserialize($serialized, array $options = []);
 }

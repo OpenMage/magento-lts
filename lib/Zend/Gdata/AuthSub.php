@@ -124,7 +124,7 @@ class Zend_Gdata_AuthSub
 
         // Parse Google's response
         if ($response->isSuccessful()) {
-            $goog_resp = array();
+            $goog_resp = [];
             foreach (explode("\n", $response->getBody()) as $l) {
                 $l = chop($l);
                 if ($l) {
@@ -236,10 +236,10 @@ class Zend_Gdata_AuthSub
             throw new Zend_Gdata_App_HttpException('Client is not an instance of Zend_Gdata_HttpClient.');
         }
         $useragent = 'Zend_Framework_Gdata/' . Zend_Version::VERSION;
-        $client->setConfig(array(
+        $client->setConfig([
                 'strictredirects' => true,
                 'useragent' => $useragent
-            )
+            ]
         );
         $client->setAuthSubToken($token);
         return $client;

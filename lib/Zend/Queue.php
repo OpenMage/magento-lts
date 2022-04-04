@@ -54,7 +54,7 @@ class Zend_Queue implements Countable
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Zend_Queue_Message class
@@ -89,7 +89,7 @@ class Zend_Queue implements Countable
      * @param  Zend_Config|array $options Zend_Config or a configuration array
      * @return void
      */
-    public function __construct($spec, $options = array())
+    public function __construct($spec, $options = [])
     {
         $adapter = null;
         if ($spec instanceof Zend_Queue_Adapter_AdapterInterface) {
@@ -114,7 +114,7 @@ class Zend_Queue implements Countable
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } elseif (!is_array($options)) {
-            $options = array();
+            $options = [];
         }
 
         // Make sure we have some defaults to work with
@@ -350,10 +350,10 @@ class Zend_Queue implements Countable
             }
         }
 
-        $options = array(
+        $options = [
             self::NAME  => $name,
             'timeout'   => $timeout
-        );
+        ];
 
         return new self($this->getAdapter(), $options);
     }
@@ -421,7 +421,7 @@ class Zend_Queue implements Countable
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         if ($this->getAdapter()->isSupported('count')) {
             return $this->getAdapter()->count();
@@ -483,10 +483,10 @@ class Zend_Queue implements Countable
      */
     public function isSupported($name)
     {
-        $translation = array(
+        $translation = [
             'deleteQueue' => 'delete',
             'createQueue' => 'create'
-        );
+        ];
 
         if (isset($translation[$name])) {
             $name = $translation[$name];
@@ -552,7 +552,7 @@ class Zend_Queue implements Countable
      */
     public function debugInfo()
     {
-        $info = array();
+        $info = [];
         $info['self']                     = get_class($this);
         $info['adapter']                  = get_class($this->getAdapter());
         foreach ($this->getAdapter()->getCapabilities() as $feature => $supported) {

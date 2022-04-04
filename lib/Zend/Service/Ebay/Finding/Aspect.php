@@ -52,9 +52,9 @@ class Zend_Service_Ebay_Finding_Aspect extends Zend_Service_Ebay_Finding_Abstrac
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->_attributes['valueHistogram'] = array(
+        $this->_attributes['valueHistogram'] = [
             'valueName' => $this->_query(".//$ns:valueHistogram/@valueName", 'string', true)
-        );
+        ];
 
         $nodes = $this->_xPath->query(".//$ns:valueHistogram", $this->_dom);
         if ($nodes->length > 0) {

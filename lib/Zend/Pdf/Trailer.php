@@ -29,7 +29,7 @@
  */
 abstract class Zend_Pdf_Trailer
 {
-    private static $_allowedKeys = array('Size', 'Prev', 'Root', 'Encrypt', 'Info', 'ID', 'Index', 'W', 'XRefStm', 'DocChecksum');
+    private static $_allowedKeys = ['Size', 'Prev', 'Root', 'Encrypt', 'Info', 'ID', 'Index', 'W', 'XRefStm', 'DocChecksum'];
 
     /**
      * Trailer dictionary.
@@ -72,7 +72,7 @@ abstract class Zend_Pdf_Trailer
      * Get handler
      *
      * @param string $property
-     * @return mixed
+     * @return Zend_Pdf_Element|null
      */
     public function __get($property)
     {

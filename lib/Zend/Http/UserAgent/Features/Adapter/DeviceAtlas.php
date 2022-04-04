@@ -71,8 +71,6 @@ class Zend_Http_UserAgent_Features_Adapter_DeviceAtlas implements Zend_Http_User
         //load the device data-tree : e.g. 'json/DeviceAtlas.json
         $tree = Mobi_Mtld_DA_Api::getTreeFromFile($config['deviceatlas_data']);
 
-        $properties = Mobi_Mtld_DA_Api::getProperties($tree, $request['http_user_agent']);
-
-        return $properties;
+        return Mobi_Mtld_DA_Api::getProperties($tree, $request['http_user_agent']);
     }
 }

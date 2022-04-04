@@ -57,11 +57,103 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
         }
         $rand = '';
         $i2 = strlen($maximum) - 1;
-        for ($i = 1;$i < $i2;$i++) {
-            $rand .= mt_rand(0,9);
+        for ($i = 1; $i < $i2; $i++) {
+            $rand .= mt_rand(0, 9);
         }
-        $rand .= mt_rand(0,9);
+        $rand .= mt_rand(0, 9);
         return $rand;
+    }
+
+    /**
+     * Return a random strings of $length bytes
+     *
+     * @param  integer $length
+     * @param  boolean $strong
+     * @return string
+     */
+    public static function randBytes($length, $strong = false)
+    {
+        $length = (int) $length;
+        if ($length <= 0) {
+            return false;
+        }
+        if (function_exists('random_bytes')) { // available in PHP 7
+            return random_bytes($length);
+        }
+        if (function_exists('mcrypt_create_iv')) {
+            $bytes = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+            if ($bytes !== false && strlen($bytes) === $length) {
+                return $bytes;
+            }
+        }
+        if (file_exists('/dev/urandom') && is_readable('/dev/urandom')) {
+            $frandom = fopen('/dev/urandom', 'r');
+            if ($frandom !== false) {
+                return fread($frandom, $length);
+            }
+        }
+        if (true === $strong) {
+            #require_once 'Zend/Crypt/Exception.php';
+            throw new Zend_Crypt_Exception(
+                'This PHP environment doesn\'t support secure random number generation. ' .
+                'Please consider installing the OpenSSL and/or Mcrypt extensions'
+            );
+        }
+        $rand = '';
+        for ($i = 0; $i < $length; $i++) {
+            $rand .= chr(mt_rand(0, 255));
+        }
+        return $rand;
+    }
+
+    /**
+     * Return a random integer between $min and $max
+     *
+     * @param  integer $min
+     * @param  integer $max
+     * @param  boolean $strong
+     * @return integer
+     */
+    public static function randInteger($min, $max, $strong = false)
+    {
+        if ($min > $max) {
+            #require_once 'Zend/Crypt/Exception.php';
+            throw new Zend_Crypt_Exception(
+                'The min parameter must be lower than max parameter'
+            );
+        }
+
+        $range = $max - $min;
+
+        if ($range === 0) {
+            return $max;
+        }
+
+        if ($range > PHP_INT_MAX || is_float($range)) {
+            #require_once 'Zend/Crypt/Exception.php';
+            throw new Zend_Crypt_Exception(
+                'The supplied range is too great to generate'
+            );
+        }
+
+        if (function_exists('random_int')) { // available in PHP 7
+            return random_int($min, $max);
+        }
+        // calculate number of bits required to store range on this machine
+        $r = $range;
+        $bits = 0;
+        while ($r) {
+            $bits++;
+            $r >>= 1;
+        }
+        $bits   = (int) max($bits, 1);
+        $bytes  = (int) max(ceil($bits / 8), 1);
+        $filter = (int) ((1 << $bits) - 1);
+        do {
+            $rnd  = hexdec(bin2hex(self::randBytes($bytes, $strong)));
+            $rnd &= $filter;
+        } while ($rnd > $range);
+        return ($min + $rnd);
     }
 
     /**
@@ -71,7 +163,8 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * @param string $long
      * @return string
      */
-    public function btwoc($long) {
+    public function btwoc($long)
+    {
         if (ord($long[0]) > 127) {
             return "\x00" . $long;
         }
@@ -84,7 +177,8 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * @param string $binary
      * @return string
      */
-    public function fromBinary($binary) {
+    public function fromBinary($binary)
+    {
         return $this->_math->binaryToInteger($binary);
     }
 
@@ -98,5 +192,4 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
     {
         return $this->_math->integerToBinary($integer);
     }
-
 }

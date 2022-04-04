@@ -120,7 +120,7 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
      */
     public function getComponents()
     {
-        return array($this->_c->value, $this->_m->value, $this->_y->value, $this->_k->value);
+        return [$this->_c->value, $this->_m->value, $this->_y->value, $this->_k->value];
     }
 }
 

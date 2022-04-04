@@ -50,10 +50,10 @@ class Zend_Validate_Sitemap_Priority extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::NOT_VALID => "'%value%' is not a valid sitemap priority",
         self::INVALID   => "Invalid type given. Numeric string, integer or float expected",
-    );
+    ];
 
     /**
      * Validates if a string is valid as a sitemap priority

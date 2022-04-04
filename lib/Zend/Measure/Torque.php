@@ -60,23 +60,23 @@ class Zend_Measure_Torque extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'DYNE_CENTIMETER'     => array('0.0000001',          'dyncm'),
-        'GRAM_CENTIMETER'     => array('0.0000980665',       'gcm'),
-        'KILOGRAM_CENTIMETER' => array('0.0980665',          'kgcm'),
-        'KILOGRAM_METER'      => array('9.80665',            'kgm'),
-        'KILONEWTON_METER'    => array('1000',               'kNm'),
-        'KILOPOND_METER'      => array('9.80665',            'kpm'),
-        'MEGANEWTON_METER'    => array('1000000',            'MNm'),
-        'MICRONEWTON_METER'   => array('0.000001',           'µNm'),
-        'MILLINEWTON_METER'   => array('0.001',              'mNm'),
-        'NEWTON_CENTIMETER'   => array('0.01',               'Ncm'),
-        'NEWTON_METER'        => array('1',                  'Nm'),
-        'OUNCE_FOOT'          => array('0.084738622',        'ozft'),
-        'OUNCE_INCH'          => array(array('' => '0.084738622', '/' => '12'), 'ozin'),
-        'POUND_FOOT'          => array(array('' => '0.084738622', '*' => '16'), 'lbft'),
-        'POUNDAL_FOOT'        => array('0.0421401099752144', 'plft'),
-        'POUND_INCH'          => array(array('' => '0.084738622', '/' => '12', '*' => '16'), 'lbin'),
+    protected $_units = [
+        'DYNE_CENTIMETER'     => ['0.0000001',          'dyncm'],
+        'GRAM_CENTIMETER'     => ['0.0000980665',       'gcm'],
+        'KILOGRAM_CENTIMETER' => ['0.0980665',          'kgcm'],
+        'KILOGRAM_METER'      => ['9.80665',            'kgm'],
+        'KILONEWTON_METER'    => ['1000',               'kNm'],
+        'KILOPOND_METER'      => ['9.80665',            'kpm'],
+        'MEGANEWTON_METER'    => ['1000000',            'MNm'],
+        'MICRONEWTON_METER'   => ['0.000001',           'µNm'],
+        'MILLINEWTON_METER'   => ['0.001',              'mNm'],
+        'NEWTON_CENTIMETER'   => ['0.01',               'Ncm'],
+        'NEWTON_METER'        => ['1',                  'Nm'],
+        'OUNCE_FOOT'          => ['0.084738622',        'ozft'],
+        'OUNCE_INCH'          => [['' => '0.084738622', '/' => '12'], 'ozin'],
+        'POUND_FOOT'          => [['' => '0.084738622', '*' => '16'], 'lbft'],
+        'POUNDAL_FOOT'        => ['0.0421401099752144', 'plft'],
+        'POUND_INCH'          => [['' => '0.084738622', '/' => '12', '*' => '16'], 'lbin'],
         'STANDARD'            => 'NEWTON_METER'
-    );
+    ];
 }

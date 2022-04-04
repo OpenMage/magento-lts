@@ -45,7 +45,7 @@ class Zend_Service_Amazon_Ec2_Availabilityzones extends Zend_Service_Amazon_Ec2_
      */
     public function describe($zoneName = null)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeAvailabilityZones';
 
         if(is_array($zoneName) && !empty($zoneName)) {
@@ -61,9 +61,9 @@ class Zend_Service_Amazon_Ec2_Availabilityzones extends Zend_Service_Amazon_Ec2_
         $xpath  = $response->getXPath();
         $nodes  = $xpath->query('//ec2:item');
 
-        $return = array();
+        $return = [];
         foreach ($nodes as $k => $node) {
-            $item = array();
+            $item = [];
             $item['zoneName']   = $xpath->evaluate('string(ec2:zoneName/text())', $node);
             $item['zoneState']  = $xpath->evaluate('string(ec2:zoneState/text())', $node);
 

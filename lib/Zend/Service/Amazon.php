@@ -60,12 +60,12 @@ class Zend_Service_Amazon
      *
      * @var array
      */
-    protected $_baseUriList = array('US' => 'http://webservices.amazon.com',
+    protected $_baseUriList = ['US' => 'http://webservices.amazon.com',
                                     'UK' => 'http://webservices.amazon.co.uk',
                                     'DE' => 'http://webservices.amazon.de',
                                     'JP' => 'http://webservices.amazon.co.jp',
                                     'FR' => 'http://webservices.amazon.fr',
-                                    'CA' => 'http://webservices.amazon.ca');
+                                    'CA' => 'http://webservices.amazon.ca'];
 
     /**
      * Reference to REST client object
@@ -81,7 +81,7 @@ class Zend_Service_Amazon
      * @param  string $appId       Developer's Amazon appid
      * @param  string $countryCode Country code for Amazon service; may be US, UK, DE, JP, FR, CA
      * @throws Zend_Service_Exception
-     * @return Zend_Service_Amazon
+     * @return void
      */
     public function __construct($appId, $countryCode = 'US', $secretKey = null)
     {
@@ -114,7 +114,7 @@ class Zend_Service_Amazon
         $client = $this->getRestClient();
         $client->setUri($this->_baseUri);
 
-        $defaultOptions = array('ResponseGroup' => 'Small');
+        $defaultOptions = ['ResponseGroup' => 'Small'];
         $options = $this->_prepareOptions('ItemSearch', $options, $defaultOptions);
         $client->getHttpClient()->resetParameters();
         $response = $client->restGet('/onca/xml', $options);
@@ -149,13 +149,13 @@ class Zend_Service_Amazon
      * @throws Zend_Service_Exception
      * @return Zend_Service_Amazon_Item|Zend_Service_Amazon_ResultSet
      */
-    public function itemLookup($asin, array $options = array())
+    public function itemLookup($asin, array $options = [])
     {
         $client = $this->getRestClient();
         $client->setUri($this->_baseUri);
         $client->getHttpClient()->resetParameters();
 
-        $defaultOptions = array('ResponseGroup' => 'Small');
+        $defaultOptions = ['ResponseGroup' => 'Small'];
         $options['ItemId'] = (string) $asin;
         $options = $this->_prepareOptions('ItemLookup', $options, $defaultOptions);
         $response = $client->restGet('/onca/xml', $options);
@@ -283,7 +283,7 @@ class Zend_Service_Amazon
     static public function buildRawSignature($baseUri, $options)
     {
         ksort($options);
-        $params = array();
+        $params = [];
         foreach($options AS $k => $v) {
             $params[] = $k."=".rawurlencode($v);
         }

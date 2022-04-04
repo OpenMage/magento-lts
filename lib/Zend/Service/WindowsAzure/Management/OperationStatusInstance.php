@@ -50,11 +50,11 @@ class Zend_Service_WindowsAzure_Management_OperationStatusInstance
 	 */
     public function __construct($id, $status, $errorCode, $errorMessage)
     {
-        $this->_data = array(
+        $this->_data = [
             'id'              => $id,
             'status'          => $status,
             'errorcode'       => $errorCode,
             'errormessage'    => $errorMessage
-        );
+        ];
     }
 }

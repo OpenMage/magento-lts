@@ -53,15 +53,14 @@ class Zend_Tool_Project_Provider_Controller
             } else {
                 $exceptionMessage = 'A controller directory was not found.';
             }
+
             throw new Zend_Tool_Project_Provider_Exception($exceptionMessage);
         }
 
-        $newController = $controllersDirectory->createResource(
+        return $controllersDirectory->createResource(
             'controllerFile',
-            array('controllerName' => $controllerName, 'moduleName' => $moduleName)
+            ['controllerName' => $controllerName, 'moduleName' => $moduleName]
             );
-
-        return $newController;
     }
 
     /**
@@ -79,7 +78,7 @@ class Zend_Tool_Project_Provider_Controller
         }
 
         $controllersDirectory = self::_getControllersDirectoryResource($profile, $moduleName);
-        return ($controllersDirectory &&($controllersDirectory->search(array('controllerFile' => array('controllerName' => $controllerName)))) instanceof Zend_Tool_Project_Profile_Resource);
+        return ($controllersDirectory &&($controllersDirectory->search(['controllerFile' => ['controllerName' => $controllerName]])) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
     /**
@@ -91,10 +90,10 @@ class Zend_Tool_Project_Provider_Controller
      */
     protected static function _getControllersDirectoryResource(Zend_Tool_Project_Profile $profile, $moduleName = null)
     {
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName != null && is_string($moduleName)) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
         }
 
         $profileSearchParams[] = 'controllersDirectory';
@@ -124,7 +123,7 @@ class Zend_Tool_Project_Provider_Controller
             $testingEnabled = false;
             $response->appendContent(
                 'Note: PHPUnit is required in order to generate controller test stubs.',
-                array('color' => array('yellow'))
+                ['color' => ['yellow']]
                 );
         }
 
@@ -162,7 +161,7 @@ class Zend_Tool_Project_Provider_Controller
                 'Note: The canonical controller name that ' . $tense
                     . ' used with other providers is "' . $name . '";'
                     . ' not "' . $originalName . '" as supplied',
-                array('color' => array('yellow'))
+                ['color' => ['yellow']]
                 );
             unset($tense);
         }

@@ -52,22 +52,22 @@ class Zend_Log
      * @var array of priorities where the keys are the
      * priority numbers and the values are the priority names
      */
-    protected $_priorities = array();
+    protected $_priorities = [];
 
     /**
      * @var array of Zend_Log_Writer_Abstract
      */
-    protected $_writers = array();
+    protected $_writers = [];
 
     /**
      * @var array of Zend_Log_Filter_Interface
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * @var array of extra log event
      */
-    protected $_extras = array();
+    protected $_extras = [];
 
     /**
      *
@@ -134,7 +134,7 @@ class Zend_Log
      * @return Zend_Log
      * @throws Zend_Log_Exception
      */
-    static public function factory($config = array())
+    static public function factory($config = [])
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();
@@ -281,7 +281,7 @@ class Zend_Log
             );
         }
 
-        $params    = isset($config[ $type .'Params' ]) ? $config[ $type .'Params' ] : array();
+        $params    = isset($config[ $type .'Params' ]) ? $config[ $type .'Params' ] : [];
         $className = $this->getClassName($config, $type, $namespace);
         if (!class_exists($className)) {
             #require_once 'Zend/Loader.php';
@@ -296,7 +296,7 @@ class Zend_Log
             );
         }
 
-        return call_user_func(array($className, 'factory'), $params);
+        return call_user_func([$className, 'factory'], $params);
     }
 
     /**
@@ -344,12 +344,12 @@ class Zend_Log
      */
     protected function _packEvent($message, $priority)
     {
-        return array_merge(array(
+        return array_merge([
             'timestamp'    => date($this->_timestampFormat),
             'message'      => $message,
             'priority'     => $priority,
             'priorityName' => $this->_priorities[$priority]
-            ),
+            ],
             $this->_extras
         );
     }
@@ -433,7 +433,7 @@ class Zend_Log
 
         // Check to see if any extra information was passed
         if (!empty($extras)) {
-            $info = array();
+            $info = [];
             if (is_array($extras)) {
                 foreach ($extras as $key => $value) {
                     if (is_string($key)) {
@@ -554,7 +554,7 @@ class Zend_Log
      */
     public function setEventItem($name, $value)
     {
-        $this->_extras = array_merge($this->_extras, array($name => $value));
+        $this->_extras = array_merge($this->_extras, [$name => $value]);
         return $this;
     }
 
@@ -580,11 +580,11 @@ class Zend_Log
             return $this;
         }
 
-        $this->_origErrorHandler = set_error_handler(array($this, 'errorHandler'));
+        $this->_origErrorHandler = set_error_handler([$this, 'errorHandler']);
 
         // Contruct a default map of phpErrors to Zend_Log priorities.
         // Some of the errors are uncatchable, but are included for completeness
-        $this->_errorHandlerMap = array(
+        $this->_errorHandlerMap = [
             E_NOTICE            => Zend_Log::NOTICE,
             E_USER_NOTICE       => Zend_Log::NOTICE,
             E_WARNING           => Zend_Log::WARN,
@@ -595,7 +595,7 @@ class Zend_Log
             E_CORE_ERROR        => Zend_Log::ERR,
             E_RECOVERABLE_ERROR => Zend_Log::ERR,
             E_STRICT            => Zend_Log::DEBUG,
-        );
+        ];
         // PHP 5.3.0+
         if (defined('E_DEPRECATED')) {
             $this->_errorHandlerMap['E_DEPRECATED'] = Zend_Log::DEBUG;
@@ -619,7 +619,7 @@ class Zend_Log
      * @param array $errcontext
      * @return boolean
      */
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
         $errorLevel = error_reporting();
 
@@ -629,7 +629,7 @@ class Zend_Log
             } else {
                 $priority = Zend_Log::INFO;
             }
-            $this->log($errstr, $priority, array('errno'=>$errno, 'file'=>$errfile, 'line'=>$errline, 'context'=>$errcontext));
+            $this->log($errstr, $priority, ['errno'=>$errno, 'file'=>$errfile, 'line'=>$errline, 'context'=>$errcontext]);
         }
 
         if ($this->_origErrorHandler !== null) {

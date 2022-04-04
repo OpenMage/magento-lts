@@ -71,7 +71,7 @@ class Zend_EventManager_GlobalEventManager
      * @param  array|object $argv
      * @return Zend_EventManager_ResponseCollection
      */
-    public static function trigger($event, $context, $argv = array())
+    public static function trigger($event, $context, $argv = [])
     {
         return self::getEventCollection()->trigger($event, $context, $argv);
     }
@@ -108,7 +108,7 @@ class Zend_EventManager_GlobalEventManager
      * Detach a callback from a listener
      *
      * @param  Zend_Stdlib_CallbackHandler $listener
-     * @return bool
+     * @return void
      */
     public static function detach(Zend_Stdlib_CallbackHandler $listener)
     {
@@ -129,7 +129,7 @@ class Zend_EventManager_GlobalEventManager
      * Retrieve all listeners for a given event
      *
      * @param  string $event
-     * @return Zend_Stdlib_PriorityQueue|array
+     * @return array|object
      */
     public static function getListeners($event)
     {

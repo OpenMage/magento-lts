@@ -417,14 +417,14 @@ abstract class Zend_Pdf_Font
      * The values are the font objects themselves.
      * @var array
      */
-    private static $_fontNames = array();
+    private static $_fontNames = [];
 
     /**
      * Array whose keys are the md5 hash of the full paths on disk for parsed
      * fonts. The values are the font objects themselves.
      * @var array
      */
-    private static $_fontFilePaths = array();
+    private static $_fontFilePaths = [];
 
 
 
@@ -688,7 +688,7 @@ abstract class Zend_Pdf_Font
      *
      * @param Zend_Pdf_FileParserDataSource $dataSource
      * @param integer $embeddingOptions Options for font embedding.
-     * @return Zend_Pdf_Resource_Font_OpenType_TrueType May also return null if
+     * @return Zend_Pdf_Resource_Font_Simple_Parsed_TrueType|Zend_Pdf_Resource_Font_Type0|null May also return null if
      *   the data source does not appear to contain a TrueType font.
      * @throws Zend_Pdf_Exception
      */

@@ -43,7 +43,7 @@ class Zend_View_Helper_Placeholder extends Zend_View_Helper_Abstract
      * Placeholder items
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * @var Zend_View_Helper_Placeholder_Registry

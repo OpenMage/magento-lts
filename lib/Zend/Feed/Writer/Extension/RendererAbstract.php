@@ -96,7 +96,7 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Get feed encoding
      *
-     * @return void
+     * @return string
      */
     public function getEncoding()
     {

@@ -133,7 +133,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Get the value for this element's height attribute.
      *
-     * @return int The desired value for this attribute.
+     * @return string|null The desired value for this attribute.
      */
     public function getHeight()
     {
@@ -155,7 +155,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Get the value for this element's height attribute.
      *
-     * @return int The desired value for this attribute.
+     * @return string|null The desired value for this attribute.
      */
     public function getWidth()
     {

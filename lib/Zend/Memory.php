@@ -47,9 +47,9 @@ class Zend_Memory
      * @return Zend_Memory_Manager
      * @throws Zend_Memory_Exception
      */
-    public static function factory($backend, $backendOptions = array())
+    public static function factory($backend, $backendOptions = [])
     {
-        if (strcasecmp($backend, 'none') == 0) {
+        if (strcasecmp($backend, 'none') === 0) {
             return new Zend_Memory_Manager();
         }
 
@@ -57,7 +57,7 @@ class Zend_Memory
         // (that allows to specify it in any case)
         $backendIsFound = false;
         foreach (Zend_Cache::$standardBackends as $zendCacheBackend) {
-            if (strcasecmp($backend, $zendCacheBackend) == 0) {
+            if (strcasecmp($backend, $zendCacheBackend) === 0) {
                 $backend = $zendCacheBackend;
                 $backendIsFound = true;
                 break;

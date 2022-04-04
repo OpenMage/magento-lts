@@ -45,7 +45,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      * An array of objects used for recursively deserializing an object.
      * @var array
      */
-    protected $_reference = array();
+    protected $_reference = [];
 
     /**
      * If AMF3 serialization occurs, update to AMF0 0x03
@@ -62,7 +62,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      * the following value.
      *
      * @param  integer $typeMarker
-     * @return mixed whatever the data type is of the marker in php
+     * @return array|bool|DomDocument|float|object|SimpleXMLElement|string|Zend_Date|null whatever the data type is of the marker in php
      * @throws Zend_Amf_Exception for invalid type
      */
     public function readTypeMarker($typeMarker = null)
@@ -82,7 +82,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
 
             // string
             case Zend_Amf_Constants::AMF0_STRING:
-                return $this->_stream->readUTF();
+                return $this->_stream->readUtf();
 
             // object
             case Zend_Amf_Constants::AMF0_OBJECT:
@@ -114,7 +114,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
 
             // longString  strlen(string) > 2^16
             case Zend_Amf_Constants::AMF0_LONGSTRING:
-                return $this->_stream->readLongUTF();
+                return $this->_stream->readLongUtf();
 
             //internal AS object,  not supported
             case Zend_Amf_Constants::AMF0_UNSUPPORTED:
@@ -152,11 +152,11 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
     public function readObject($object = null)
     {
         if ($object === null) {
-            $object = array();
+            $object = [];
         }
 
         while (true) {
-            $key        = $this->_stream->readUTF();
+            $key        = $this->_stream->readUtf();
             $typeMarker = $this->_stream->readByte();
             if ($typeMarker != Zend_Amf_Constants::AMF0_OBJECTTERM ){
                 //Recursivly call readTypeMarker to get the types of properties in the object
@@ -194,10 +194,10 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
      *
      * Called when marker type is 8
      *
-     * @todo   As of Flash Player 9 there is not support for mixed typed arrays
+     * @return object
+     *@todo   As of Flash Player 9 there is not support for mixed typed arrays
      *         so we handle this as an object. With the introduction of vectors
      *         in Flash Player 10 this may need to be reconsidered.
-     * @return array
      */
     public function readMixedArray()
     {
@@ -215,7 +215,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
     public function readArray()
     {
         $length = $this->_stream->readLong();
-        $array = array();
+        $array = [];
         while ($length--) {
             $array[] = $this->readTypeMarker();
         }
@@ -238,19 +238,19 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
         $offset = $this->_stream->readInt();
 
         #require_once 'Zend/Date.php';
-        $date   = new Zend_Date($timestamp);
-        return $date;
+
+        return new Zend_Date($timestamp);
     }
 
     /**
      * Convert XML to SimpleXml
      * If user wants DomDocument they can use dom_import_simplexml
      *
-     * @return SimpleXml Object
+     * @return bool|DomDocument|SimpleXMLElement|null Object
      */
     public function readXmlString()
     {
-        $string = $this->_stream->readLongUTF();
+        $string = $this->_stream->readLongUtf();
         return Zend_Xml_Security::scan($string); //simplexml_load_string($string);
     }
 
@@ -267,7 +267,7 @@ class Zend_Amf_Parse_Amf0_Deserializer extends Zend_Amf_Parse_Deserializer
     {
          #require_once 'Zend/Amf/Parse/TypeLoader.php';
         // get the remote class name
-        $className = $this->_stream->readUTF();
+        $className = $this->_stream->readUtf();
         $loader = Zend_Amf_Parse_TypeLoader::loadType($className);
         $returnObject = new $loader();
         $properties = get_object_vars($this->readObject());

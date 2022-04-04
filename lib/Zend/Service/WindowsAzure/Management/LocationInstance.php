@@ -44,8 +44,8 @@ class Zend_Service_WindowsAzure_Management_LocationInstance
 	 */
     public function __construct($name)
     {
-        $this->_data = array(
+        $this->_data = [
             'name'        => $name
-        );
+        ];
     }
 }

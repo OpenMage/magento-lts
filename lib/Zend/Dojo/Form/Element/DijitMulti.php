@@ -40,7 +40,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Array of options for multi-item
      * @var array
      */
-    public $options = array();
+    public $options = [];
 
     /**
      * Flag: autoregister inArray validator?
@@ -58,12 +58,12 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Which values are translated already?
      * @var array
      */
-    protected $_translated = array();
+    protected $_translated = [];
 
     /**
      * Retrieve separator
      *
-     * @return mixed
+     * @return string
      */
     public function getSeparator()
     {
@@ -90,7 +90,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     protected function _getMultiOptions()
     {
         if (null === $this->options || !is_array($this->options)) {
-            $this->options = array();
+            $this->options = [];
         }
 
         return $this->options;
@@ -101,7 +101,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      *
      * @param  string $option
      * @param  string $value
-     * @return Zend_Form_Element_Multi
+     * @return Zend_Dojo_Form_Element_DijitMulti
      */
     public function addMultiOption($option, $value = '')
     {
@@ -118,7 +118,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Add many options at once
      *
      * @param  array $options
-     * @return Zend_Form_Element_Multi
+     * @return Zend_Dojo_Form_Element_DijitMulti
      */
     public function addMultiOptions(array $options)
     {
@@ -139,7 +139,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Set all options at once (overwrites)
      *
      * @param  array $options
-     * @return Zend_Form_Element_Multi
+     * @return Zend_Dojo_Form_Element_DijitMulti
      */
     public function setMultiOptions(array $options)
     {
@@ -203,12 +203,12 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     /**
      * Clear all options
      *
-     * @return Zend_Form_Element_Multi
+     * @return Zend_Dojo_Form_Element_DijitMulti
      */
     public function clearMultiOptions()
     {
-        $this->options = array();
-        $this->_translated = array();
+        $this->options = [];
+        $this->_translated = [];
         return $this;
     }
 
@@ -216,7 +216,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Set flag indicating whether or not to auto-register inArray validator
      *
      * @param  bool $flag
-     * @return Zend_Form_Element_Multi
+     * @return Zend_Dojo_Form_Element_DijitMulti
      */
     public function setRegisterInArrayValidator($flag)
     {
@@ -251,7 +251,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
                 $this->addValidator(
                     'InArray',
                     true,
-                    array(array_keys($options))
+                    [array_keys($options)]
                 );
             }
         }

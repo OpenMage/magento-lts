@@ -96,6 +96,20 @@ abstract class Zend_Mail_Protocol_Abstract
 
 
     /**
+     * Indicates that verification of SSL certificate is required.
+     * @var bool
+     */
+    protected $_verifyPeer = true;
+
+
+    /**
+     * Indicates that verification of peer name is required.
+     * @var bool
+     */
+    protected $_verifyPeerName = true;
+
+
+    /**
      * Last request sent to server
      * @var string
      */
@@ -121,18 +135,19 @@ abstract class Zend_Mail_Protocol_Abstract
      * Log of mail requests and server responses for a session
      * @var array
      */
-    private $_log = array();
+    private $_log = [];
 
 
     /**
      * Constructor.
      *
-     * @param  string  $host OPTIONAL Hostname of remote connection (default: 127.0.0.1)
-     * @param  integer $port OPTIONAL Port number (default: null)
+     * @param  string  $host   OPTIONAL Hostname of remote connection (default: 127.0.0.1)
+     * @param  integer $port   OPTIONAL Port number (default: null)
+     * @param  array   $config OPTIONAL Further parameters
      * @throws Zend_Mail_Protocol_Exception
      * @return void
      */
-    public function __construct($host = '127.0.0.1', $port = null)
+    public function __construct($host = '127.0.0.1', $port = null, array $config = [])
     {
         $this->_validHost = new Zend_Validate();
         $this->_validHost->addValidator(new Zend_Validate_Hostname(Zend_Validate_Hostname::ALLOW_ALL));
@@ -147,6 +162,13 @@ abstract class Zend_Mail_Protocol_Abstract
 
         $this->_host = $host;
         $this->_port = $port;
+
+        if (array_key_exists('verify_peer', $config)) {
+            $this->_verifyPeer = in_array(strtolower((string)$config['verify_peer']), ['true', 'yes', '1']);
+        }
+        if (array_key_exists('verify_peer_name', $config)) {
+            $this->_verifyPeerName = in_array(strtolower((string)$config['verify_peer_name']), ['true', 'yes', '1']);
+        }
     }
 
 
@@ -231,7 +253,7 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     public function resetLog()
     {
-        $this->_log = array();
+        $this->_log = [];
     }
 
     /**
@@ -285,6 +307,22 @@ abstract class Zend_Mail_Protocol_Abstract
             throw new Zend_Mail_Protocol_Exception('Could not set stream timeout');
         }
 
+        if (($result = $this->_setStreamContextVerifyPeer($this->_verifyPeer)) === false) {
+            /**
+             * @see Zend_Mail_Protocol_Exception
+             */
+            #require_once 'Zend/Mail/Protocol/Exception.php';
+            throw new Zend_Mail_Protocol_Exception('Could not set stream context verify_peer value');
+        }
+
+        if (($result = $this->_setStreamContextVerifyPeerName($this->_verifyPeerName)) === false) {
+            /**
+             * @see Zend_Mail_Protocol_Exception
+             */
+            #require_once 'Zend/Mail/Protocol/Exception.php';
+            throw new Zend_Mail_Protocol_Exception('Could not set stream context verify_peer_name value');
+        }
+
         return $result;
     }
 
@@ -307,7 +345,7 @@ abstract class Zend_Mail_Protocol_Abstract
      *
      * @param  string $request
      * @throws Zend_Mail_Protocol_Exception
-     * @return integer|boolean Number of bytes written to remote host
+     * @return integer|void Number of bytes written to remote host
      */
     protected function _send($request)
     {
@@ -361,10 +399,10 @@ abstract class Zend_Mail_Protocol_Abstract
         }
 
         // Retrieve response
-        $reponse = fgets($this->_socket, 1024);
+        $response = fgets($this->_socket, 1024);
 
         // Save request to internal log
-        $this->_addLog($reponse);
+        $this->_addLog($response);
 
         // Check meta data to ensure connection is still valid
         $info = stream_get_meta_data($this->_socket);
@@ -377,7 +415,7 @@ abstract class Zend_Mail_Protocol_Abstract
             throw new Zend_Mail_Protocol_Exception($this->_host . ' has timed out');
         }
 
-        if ($reponse === false) {
+        if ($response === false) {
             /**
              * @see Zend_Mail_Protocol_Exception
              */
@@ -385,7 +423,7 @@ abstract class Zend_Mail_Protocol_Abstract
             throw new Zend_Mail_Protocol_Exception('Could not read from ' . $this->_host);
         }
 
-        return $reponse;
+        return $response;
     }
 
 
@@ -401,14 +439,14 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected function _expect($code, $timeout = null)
     {
-        $this->_response = array();
+        $this->_response = [];
         $cmd  = '';
         $more = '';
         $msg  = '';
         $errMsg = '';
 
         if (!is_array($code)) {
-            $code = array($code);
+            $code = [$code];
         }
 
         do {
@@ -442,6 +480,28 @@ abstract class Zend_Mail_Protocol_Abstract
      */
     protected function _setStreamTimeout($timeout)
     {
-       return stream_set_timeout($this->_socket, $timeout);
+        return stream_set_timeout($this->_socket, $timeout);
+    }
+
+    /**
+     * Set stream SSL context verify_peer value
+     *
+     * @param bool $value
+     * @return boolean
+     */
+    protected function _setStreamContextVerifyPeer($value)
+    {
+        return stream_context_set_option($this->_socket, 'ssl', 'verify_peer', $value);
+    }
+
+    /**
+     * Set stream SSL context verify_peer_name value
+     *
+     * @param bool $value
+     * @return boolean
+     */
+    protected function _setStreamContextVerifyPeerName($value)
+    {
+        return stream_context_set_option($this->_socket, 'ssl', 'verify_peer_name', $value);
     }
 }

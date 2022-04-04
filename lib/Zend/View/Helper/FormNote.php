@@ -50,7 +50,7 @@ class Zend_View_Helper_FormNote extends Zend_View_Helper_FormElement
      * @param array $value The note to display.  HTML is *not* escaped; the
      * note is displayed as-is.
      *
-     * @return string The element XHTML.
+     * @return array|null The element XHTML.
      */
     public function formNote($name, $value = null)
     {

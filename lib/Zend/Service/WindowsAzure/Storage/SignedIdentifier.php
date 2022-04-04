@@ -50,11 +50,11 @@ class Zend_Service_WindowsAzure_Storage_SignedIdentifier
      */
     public function __construct($id = '', $start = '', $expiry = '', $permissions = '')
     {
-        $this->_data = array(
+        $this->_data = [
             'id'           => $id,
             'start'        => $start,
             'expiry'       => $expiry,
             'permissions'  => $permissions
-        );
+        ];
     }
 }

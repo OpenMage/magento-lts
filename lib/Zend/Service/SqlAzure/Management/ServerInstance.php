@@ -49,11 +49,11 @@ class Zend_Service_SqlAzure_Management_ServerInstance
 	 */
     public function __construct($name, $administratorLogin, $location)
     {
-        $this->_data = array(
+        $this->_data = [
             'name'               => $name,
             'dnsname'            => $name . '.database.windows.net',
             'administratorlogin' => $administratorLogin,
             'location'           => $location
-        );
+        ];
     }
 }

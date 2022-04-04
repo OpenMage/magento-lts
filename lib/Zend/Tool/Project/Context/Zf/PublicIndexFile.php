@@ -61,7 +61,7 @@ class Zend_Tool_Project_Context_Zf_PublicIndexFile extends Zend_Tool_Project_Con
      */
     public function getContents()
     {
-        $codeGenerator = new Zend_CodeGenerator_Php_File(array(
+        $codeGenerator = new Zend_CodeGenerator_Php_File([
             'body' => <<<EOS
 // Define path to application directory
 defined('APPLICATION_PATH')
@@ -88,7 +88,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 \$application->bootstrap()
             ->run();
 EOS
-            ));
+            ]);
         return $codeGenerator->generate();
     }
 

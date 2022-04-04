@@ -27,7 +27,7 @@
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-return array(
+return [
     1  => '/^[\x{002d}0-9\x{0400}-\x{052f}]{1,63}$/iu',
     2  => '/^[\x{002d}0-9\x{0370}-\x{03ff}]{1,63}$/iu',
     3  => '/^[\x{002d}0-9a-z\x{ac00}-\x{d7a3}]{1,17}$/iu',
@@ -193,4 +193,4 @@ return array(
     79 => '/^[\x{20000}-\x{2A6DF}]{1,63}$/iu',
     80 => '/^[\x{2F800}-\x{2FA1F}]{1,63}$/iu'
 
-);
+];

@@ -78,7 +78,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
      */
     public function getPersistentAttributes()
     {
-        return array('type' => $this->_type);
+        return ['type' => $this->_type];
     }
 
     /**
@@ -127,7 +127,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
         $contentLines = preg_split('#[\n\r]#', $this->getContents());
 
-        $newLines = array();
+        $newLines = [];
         $insideSection = false;
 
         foreach ($contentLines as $contentLineIndex => $contentLine) {
@@ -162,9 +162,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
      */
     public function addItem($item, $section = 'production', $quoteValue = true)
     {
-        $stringItems = array();
-        $stringValues = array();
-        $configKeyNames = array();
+        $stringItems = [];
+        $stringValues = [];
+        $configKeyNames = [];
 
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
@@ -196,7 +196,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
     {
         $contentLines = file($this->getPath());
 
-        $newLines = array();
+        $newLines = [];
         $insideSection = false;
 
         foreach ($contentLines as $contentLineIndex => $contentLine) {
@@ -222,9 +222,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
     public function removeItem($item, $section = 'production')
     {
-        $stringItems = array();
-        $stringValues = array();
-        $configKeyNames = array();
+        $stringItems = [];
+        $stringValues = [];
+        $configKeyNames = [];
 
         $rii = new RecursiveIteratorIterator(
             new RecursiveArrayIterator($item),
@@ -254,7 +254,6 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
 
     protected function _getDefaultContents()
     {
-
         $contents =<<<EOS
 [production]
 phpSettings.display_startup_errors = 0

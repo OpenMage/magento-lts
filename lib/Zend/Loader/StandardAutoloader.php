@@ -44,12 +44,12 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
     /**
      * @var array Namespace/directory pairs to search; ZF library added by default
      */
-    protected $namespaces = array();
+    protected $namespaces = [];
 
     /**
      * @var array Prefix/directory pairs to search
      */
-    protected $prefixes = array();
+    protected $prefixes = [];
 
     /**
      * @var bool Whether or not the autoloader should also act as a fallback autoloader
@@ -255,7 +255,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
      */
     public function register()
     {
-        spl_autoload_register(array($this, 'autoload'));
+        spl_autoload_register([$this, 'autoload']);
     }
 
     /**
@@ -284,7 +284,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
     {
         // $class may contain a namespace portion, in  which case we need
         // to preserve any underscores in that portion.
-        $matches = array();
+        $matches = [];
         preg_match('/(?P<namespace>.+\\\)?(?P<class>[^\\\]+$)/', $class, $matches);
 
         $class     = (isset($matches['class'])) ? $matches['class'] : '';
@@ -305,7 +305,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
      */
     protected function loadClass($class, $type)
     {
-        if (!in_array($type, array(self::LOAD_NS, self::LOAD_PREFIX, self::ACT_AS_FALLBACK))) {
+        if (!in_array($type, [self::LOAD_NS, self::LOAD_PREFIX, self::ACT_AS_FALLBACK])) {
             #require_once dirname(__FILE__) . '/Exception/InvalidArgumentException.php';
             throw new Zend_Loader_Exception_InvalidArgumentException();
         }
@@ -322,7 +322,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
                 return false;
             }
             $this->error = false;
-            set_error_handler(array($this, 'handleError'), E_WARNING);
+            set_error_handler([$this, 'handleError'], E_WARNING);
             include $filename;
             restore_error_handler();
             if ($this->error) {
@@ -357,7 +357,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
     protected function normalizeDirectory($directory)
     {
         $last = $directory[strlen($directory) - 1];
-        if (in_array($last, array('/', '\\'))) {
+        if (in_array($last, ['/', '\\'])) {
             $directory[strlen($directory) - 1] = DIRECTORY_SEPARATOR;
             return $directory;
         }

@@ -67,9 +67,9 @@ class Zend_Tool_Project_Context_Zf_ModelFile extends Zend_Tool_Project_Context_Z
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'modelName' => $this->getModelName()
-            );
+            ];
     }
 
     /**
@@ -92,14 +92,14 @@ class Zend_Tool_Project_Context_Zf_ModelFile extends Zend_Tool_Project_Context_Z
 
         $className = $this->getFullClassName($this->_modelName, 'Model');
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
             'fileName' => $this->getPath(),
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
-                    ))
-                )
-            ));
+                    ])
+                ]
+            ]);
         return $codeGenFile->generate();
     }
 

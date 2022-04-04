@@ -56,7 +56,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'ssltransport'  => 'ssl',
         'sslcert'       => null,
         'sslpassphrase' => null,
@@ -67,7 +67,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
         'proxy_pass'    => '',
         'proxy_auth'    => Zend_Http_Client::AUTH_BASIC,
         'persistent'    => false,
-    );
+    ];
 
     /**
      * Whether HTTPS CONNECT was already negotiated with the proxy or not
@@ -125,7 +125,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
      * @throws Zend_Http_Client_Adapter_Exception
      */
     public function write(
-        $method, $uri, $http_ver = '1.1', $headers = array(), $body = ''
+        $method, $uri, $http_ver = '1.1', $headers = [], $body = ''
     )
     {
         // If no proxy is set, fall back to default Socket adapter
@@ -240,7 +240,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
      * @throws Zend_Http_Client_Adapter_Exception
      */
     protected function connectHandshake(
-        $host, $port = 443, $http_ver = '1.1', array &$headers = array()
+        $host, $port = 443, $http_ver = '1.1', array &$headers = []
     )
     {
         $request = "CONNECT $host:$port HTTP/$http_ver\r\n" .
@@ -296,12 +296,12 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
 
         // If all is good, switch socket to secure mode. We have to fall back
         // through the different modes
-        $modes = array(
+        $modes = [
             STREAM_CRYPTO_METHOD_TLS_CLIENT,
             STREAM_CRYPTO_METHOD_SSLv3_CLIENT,
             STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
             STREAM_CRYPTO_METHOD_SSLv2_CLIENT
-        );
+        ];
 
         $success = false;
         foreach($modes as $mode) {

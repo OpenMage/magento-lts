@@ -323,9 +323,9 @@ class Zend_Feed_Builder_Header extends ArrayObject
         if (!$uri->getPort()) {
             $uri->setPort(80);
         }
-        $this->offsetSet('cloud', array('uri' => $uri,
+        $this->offsetSet('cloud', ['uri' => $uri,
                                         'procedure' => $procedure,
-                                        'protocol' => $protocol));
+                                        'protocol' => $protocol]);
         return $this;
     }
 
@@ -341,10 +341,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      */
     public function setTextInput($title, $description, $name, $link)
     {
-        $this->offsetSet('textInput', array('title' => $title,
+        $this->offsetSet('textInput', ['title' => $title,
                                             'description' => $description,
                                             'name' => $name,
-                                            'link' => $link));
+                                            'link' => $link]);
         return $this;
     }
 
@@ -395,7 +395,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             #require_once 'Zend/Feed/Builder/Exception.php';
             throw new Zend_Feed_Builder_Exception("you can not have more than 7 days in the skipDays property");
         }
-        $valid = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+        $valid = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         foreach ($days as $day) {
             if (!in_array(strtolower($day), $valid)) {
                 /**

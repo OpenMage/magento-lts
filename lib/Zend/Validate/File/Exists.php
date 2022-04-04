@@ -42,9 +42,9 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::DOES_NOT_EXIST => "File '%value%' does not exist",
-    );
+    ];
 
     /**
      * Internal list of directories
@@ -55,9 +55,9 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
     /**
      * @var array Error message template variables
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'directory' => '_directory'
-    );
+    ];
 
     /**
      * Sets validator options
@@ -65,7 +65,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
      * @param  string|array|Zend_Config $directory
      * @throws Zend_Validate_Exception
      */
-    public function __construct($directory = array())
+    public function __construct($directory = [])
     {
         if ($directory instanceof Zend_Config) {
             $directory = $directory->toArray();
@@ -100,7 +100,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
      * Sets the file directory which will be checked
      *
      * @param  string|array $directory The directories to validate
-     * @return Zend_Validate_File_Extension Provides a fluent interface
+     * @return Zend_Validate_File_Exists Provides a fluent interface
      */
     public function setDirectory($directory)
     {
@@ -113,8 +113,8 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
      * Adds the file directory which will be checked
      *
      * @param  string|array $directory The directory to add for validation
+     * @return Zend_Validate_File_Exists Provides a fluent interface
      * @throws Zend_Validate_Exception
-     * @return Zend_Validate_File_Extension Provides a fluent interface
      */
     public function addDirectory($directory)
     {
@@ -160,7 +160,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
     public function isValid($value, $file = null)
     {
         $directories = $this->getDirectory(true);
-        if (($file !== null) and (!empty($file['destination']))) {
+        if (($file !== null) && (!empty($file['destination']))) {
             $directories[] = $file['destination'];
         } else if (!isset($file['name'])) {
             $file['name'] = $value;

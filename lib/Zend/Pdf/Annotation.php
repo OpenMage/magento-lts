@@ -206,7 +206,7 @@ abstract class Zend_Pdf_Annotation
             throw new Zend_Pdf_Exception('\'Rect\' dictionary entry is required.');
         }
 
-        if (count($this->_annotationDictionary->Rect->items) != 4 ||
+        if (count($this->_annotationDictionary->Rect->items) !== 4 ||
             $this->_annotationDictionary->Rect->items[0]->getType() != Zend_Pdf_Element::TYPE_NUMERIC ||
             $this->_annotationDictionary->Rect->items[1]->getType() != Zend_Pdf_Element::TYPE_NUMERIC ||
             $this->_annotationDictionary->Rect->items[2]->getType() != Zend_Pdf_Element::TYPE_NUMERIC ||
@@ -219,9 +219,9 @@ abstract class Zend_Pdf_Annotation
     /**
      * Load Annotation object from a specified resource
      *
-     * @internal
      * @param Zend_Pdf_Element $resource
-     * @return Zend_Pdf_Annotation
+     * @return void
+     *@internal
      */
     public static function load(Zend_Pdf_Element $resource)
     {

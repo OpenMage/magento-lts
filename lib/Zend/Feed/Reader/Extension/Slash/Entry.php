@@ -72,7 +72,7 @@ class Zend_Feed_Reader_Extension_Slash_Entry
         }
 
         $stringParade = $this->_getData($name);
-        $hitParade    = array();
+        $hitParade    = [];
 
         if (!empty($stringParade)) {
             $stringParade = explode(',', $stringParade);

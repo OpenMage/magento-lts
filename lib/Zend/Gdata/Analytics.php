@@ -67,10 +67,10 @@ class Zend_Gdata_Analytics extends Zend_Gdata
     const ANALYTICS_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/data';
     const ANALYTICS_ACCOUNT_FEED_URI = 'https://www.googleapis.com/analytics/v2.4/management/accounts';
 
-    public static $namespaces = array(
-        array('analytics', 'http://schemas.google.com/analytics/2009', 1, 0),
-        array('ga', 'http://schemas.google.com/ga/2009', 1, 0)
-     );
+    public static $namespaces = [
+        ['analytics', 'http://schemas.google.com/analytics/2009', 1, 0],
+        ['ga', 'http://schemas.google.com/ga/2009', 1, 0]
+     ];
 
     /**
      * Create Gdata object
@@ -91,7 +91,7 @@ class Zend_Gdata_Analytics extends Zend_Gdata
      * Retrieve account feed object
      *
      * @param string|Zend_Uri_Uri $uri
-     * @return Zend_Gdata_Analytics_AccountFeed
+     * @return string|Zend_Gdata_App_Feed
      */
     public function getAccountFeed($uri = self::ANALYTICS_ACCOUNT_FEED_URI)
     {
@@ -105,7 +105,7 @@ class Zend_Gdata_Analytics extends Zend_Gdata
      * Retrieve data feed object
      *
      * @param string|Zend_Uri_Uri $uri
-     * @return Zend_Gdata_Analytics_DataFeed
+     * @return string|Zend_Gdata_App_Feed
      */
     public function getDataFeed($uri = self::ANALYTICS_FEED_URI)
     {

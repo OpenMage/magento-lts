@@ -90,7 +90,7 @@ class Zend_Service_StrikeIron_Decorator
      */
     public function __call($method, $args)
     {
-        return call_user_func_array(array($this->_object, $method), $args);
+        return call_user_func_array([$this->_object, $method], $args);
     }
 
     /**

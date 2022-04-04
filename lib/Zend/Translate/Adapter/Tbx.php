@@ -41,12 +41,12 @@
 class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
     // Internal variables
     private $_file        = false;
-    private $_cleared     = array();
+    private $_cleared     = [];
     private $_langset     = null;
     private $_termentry   = null;
     private $_content     = null;
     private $_term        = null;
-    private $_data        = array();
+    private $_data        = [];
 
     /**
      * Load translation data (TBX file reader)
@@ -58,9 +58,9 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
@@ -112,7 +112,7 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
                     if (isset($attrib['xml:lang']) === true) {
                         $this->_langset = $attrib['xml:lang'];
                         if (isset($this->_data[$this->_langset]) === false) {
-                            $this->_data[$this->_langset] = array();
+                            $this->_data[$this->_langset] = [];
                         }
                     }
                     break;
@@ -128,7 +128,7 @@ class Zend_Translate_Adapter_Tbx extends Zend_Translate_Adapter {
 
     private function _endElement($file, $name)
     {
-        if (($this->_term !== null) and ($name != "term")) {
+        if (($this->_term !== null) && ($name != "term")) {
             $this->_content .= "</".$name.">";
         } else {
             switch (strtolower($name)) {

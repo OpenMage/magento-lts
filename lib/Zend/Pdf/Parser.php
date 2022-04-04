@@ -379,10 +379,12 @@ class Zend_Pdf_Parser
                 $data .= $nextBlock;
                 $byteCount -= strlen($nextBlock);
             }
-            if ($byteCount != 0) {
+
+            if ($byteCount !== 0) {
                 #require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception( "Error occured while '$source' file reading." );
             }
+
             fclose($pdfFile);
 
             $this->_stringParser = new Zend_Pdf_StringParser($data, $factory);

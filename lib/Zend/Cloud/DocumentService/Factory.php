@@ -55,9 +55,9 @@ class Zend_Cloud_DocumentService_Factory extends Zend_Cloud_AbstractFactory
      * Retrieve an adapter instance
      *
      * @param array $options
-     * @return void
+     * @return Zend_Cloud_DocumentService_Adapter|Zend_Cloud_QueueService_Adapter|Zend_Cloud_StorageService_Adapter
      */
-    public static function getAdapter($options = array())
+    public static function getAdapter($options = [])
     {
         $adapter = parent::_getAdapter(self::DOCUMENT_ADAPTER_KEY, $options);
         if (!$adapter) {

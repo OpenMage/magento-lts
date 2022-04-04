@@ -211,7 +211,7 @@ class Zend_Search_Lucene_LockManager
      * Returns lock object on success and false otherwise (doesn't block execution)
      *
      * @param Zend_Search_Lucene_Storage_Directory $lockDirectory
-     * @return mixed
+     * @return false|Zend_Search_Lucene_Storage_File
      */
     public static function obtainOptimizationLock(Zend_Search_Lucene_Storage_Directory $lockDirectory)
     {

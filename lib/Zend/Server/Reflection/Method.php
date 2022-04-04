@@ -57,7 +57,7 @@ class Zend_Server_Reflection_Method extends Zend_Server_Reflection_Function_Abst
      * @param array $argv
      * @return void
      */
-    public function __construct(Zend_Server_Reflection_Class $class, ReflectionMethod $r, $namespace = null, $argv = array())
+    public function __construct(Zend_Server_Reflection_Class $class, ReflectionMethod $r, $namespace = null, $argv = [])
     {
         $this->_classReflection = $class;
         $this->_reflection      = $r;

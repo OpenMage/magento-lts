@@ -88,7 +88,7 @@ class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destinati
      * Set top edge of the displayed page
      *
      * @param float $top
-     * @return Zend_Pdf_Action_FitBoundingBoxHorizontally
+     * @return Zend_Pdf_Destination_FitBoundingBoxHorizontally
      */
     public function setTopEdge($top)
     {

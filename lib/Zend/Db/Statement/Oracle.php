@@ -204,17 +204,17 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         }
 
         if (isset($error['sqltext'])) {
-            return array(
+            return [
                 $error['code'],
                 $error['message'],
                 $error['offset'],
                 $error['sqltext'],
-            );
+            ];
         } else {
-            return array(
+            return [
                 $error['code'],
                 $error['message'],
-            );
+            ];
         }
     }
 
@@ -236,7 +236,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         if ($params !== null) {
             if (!is_array($params)) {
-                $params = array($params);
+                $params = [$params];
             }
             $error = false;
             foreach (array_keys($params) as $name) {
@@ -263,7 +263,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             throw new Zend_Db_Statement_Oracle_Exception(oci_error($this->_stmt));
         }
 
-        $this->_keys = Array();
+        $this->_keys = [];
         if ($field_num = oci_num_fields($this->_stmt)) {
             for ($i = 1; $i <= $field_num; $i++) {
                 $name = oci_field_name($this->_stmt, $i);
@@ -271,7 +271,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             }
         }
 
-        $this->_values = Array();
+        $this->_values = [];
         if ($this->_keys) {
             $this->_values = array_fill(0, count($this->_keys), null);
         }
@@ -325,10 +325,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                  */
                 #require_once 'Zend/Db/Statement/Oracle/Exception.php';
                 throw new Zend_Db_Statement_Oracle_Exception(
-                    array(
+                    [
                         'code'    => 'HYC00',
                         'message' => "Invalid fetch mode '$style' specified"
-                    )
+                    ]
                 );
                 break;
         }
@@ -376,10 +376,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                  */
                 #require_once 'Zend/Db/Statement/Oracle/Exception.php';
                 throw new Zend_Db_Statement_Oracle_Exception(
-                    array(
+                    [
                         'code'    => 'HYC00',
                         'message' => "OCI8 driver does not support fetchAll(FETCH_BOTH), use fetch() in a loop instead"
-                    )
+                    ]
                 );
                 // notreached
                 $flags |= OCI_NUM;
@@ -404,15 +404,15 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                  */
                 #require_once 'Zend/Db/Statement/Oracle/Exception.php';
                 throw new Zend_Db_Statement_Oracle_Exception(
-                    array(
+                    [
                         'code'    => 'HYC00',
                         'message' => "Invalid fetch mode '$style' specified"
-                    )
+                    ]
                 );
                 break;
         }
 
-        $result = Array();
+        $result = [];
         if ($flags != OCI_FETCHSTATEMENT_BY_ROW) { /* not Zend_Db::FETCH_OBJ */
             if (! ($rows = oci_fetch_all($this->_stmt, $result, 0, -1, $flags) )) {
                 if ($error = oci_error($this->_stmt)) {
@@ -423,7 +423,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
                     throw new Zend_Db_Statement_Oracle_Exception($error);
                 }
                 if (!$rows) {
-                    return array();
+                    return [];
                 }
             }
             if ($style == Zend_Db::FETCH_COLUMN) {
@@ -501,10 +501,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
      *
      * @param string $class  OPTIONAL Name of the class to create.
      * @param array  $config OPTIONAL Constructor arguments for the class.
-     * @return mixed One object instance of the specified class.
+     * @return false|object One object instance of the specified class.
      * @throws Zend_Db_Statement_Exception
      */
-    public function fetchObject($class = 'stdClass', array $config = array())
+    public function fetchObject($class = 'stdClass', array $config = [])
     {
         if (!$this->_stmt) {
             return false;
@@ -540,10 +540,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
          */
         #require_once 'Zend/Db/Statement/Oracle/Exception.php';
         throw new Zend_Db_Statement_Oracle_Exception(
-            array(
+            [
                 'code'    => 'HYC00',
                 'message' => 'Optional feature not implemented'
-            )
+            ]
         );
     }
 

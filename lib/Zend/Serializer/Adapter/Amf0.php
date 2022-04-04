@@ -52,7 +52,7 @@ class Zend_Serializer_Adapter_Amf0 extends Zend_Serializer_Adapter_AdapterAbstra
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public function serialize($value, array $opts = array())
+    public function serialize($value, array $opts = [])
     {
         try  {
             $stream     = new Zend_Amf_Parse_OutputStream();
@@ -70,10 +70,10 @@ class Zend_Serializer_Adapter_Amf0 extends Zend_Serializer_Adapter_AdapterAbstra
      *
      * @param  mixed $value
      * @param  array $opts
-     * @return void
+     * @return array|bool|DomDocument|float|object|SimpleXMLElement|string|Zend_Date|null
      * @throws Zend_Serializer_Exception
      */
-    public function unserialize($value, array $opts = array())
+    public function unserialize($value, array $opts = [])
     {
         try {
             $stream       = new Zend_Amf_Parse_InputStream($value);

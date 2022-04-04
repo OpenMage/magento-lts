@@ -53,7 +53,7 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
     /**
      * init()
      *
-     * @return Zend_Tool_Project_Context_Zf_ControllerFile
+     * @return Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory
      */
     public function init()
     {
@@ -79,9 +79,9 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'forModuleName' => $this->getForModuleName()
-            );
+            ];
     }
 
     /**

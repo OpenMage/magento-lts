@@ -39,12 +39,12 @@ class Zend_Server_Method_Prototype
     /**
      * @var array Map parameter names to parameter index
      */
-    protected $_parameterNameMap = array();
+    protected $_parameterNameMap = [];
 
     /**
      * @var array Method parameters
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * Constructor
@@ -96,9 +96,9 @@ class Zend_Server_Method_Prototype
             }
         } else {
             #require_once 'Zend/Server/Method/Parameter.php';
-            $parameter = new Zend_Server_Method_Parameter(array(
+            $parameter = new Zend_Server_Method_Parameter([
                 'type' => (string) $parameter,
-            ));
+            ]);
             $this->_parameters[] = $parameter;
         }
         return $this;
@@ -126,8 +126,8 @@ class Zend_Server_Method_Prototype
      */
     public function setParameters(array $parameters)
     {
-        $this->_parameters       = array();
-        $this->_parameterNameMap = array();
+        $this->_parameters       = [];
+        $this->_parameterNameMap = [];
         $this->addParameters($parameters);
         return $this;
     }
@@ -139,7 +139,7 @@ class Zend_Server_Method_Prototype
      */
     public function getParameters()
     {
-        $types = array();
+        $types = [];
         foreach ($this->_parameters as $parameter) {
             $types[] = $parameter->getType();
         }
@@ -200,9 +200,9 @@ class Zend_Server_Method_Prototype
      */
     public function toArray()
     {
-        return array(
+        return [
             'returnType' => $this->getReturnType(),
             'parameters' => $this->getParameters(),
-        );
+        ];
     }
 }

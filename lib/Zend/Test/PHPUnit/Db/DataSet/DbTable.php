@@ -47,7 +47,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbTable extends PHPUnit_Extensions_Database_D
     /**
      * @var array
      */
-    protected $_columns = array();
+    protected $_columns = [];
 
     /**
      * @var string

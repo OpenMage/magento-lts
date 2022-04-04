@@ -51,18 +51,18 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     /**
      * @var array
      */
-    protected static $_xmlNamespaces = array(
+    protected static $_xmlNamespaces = [
         self::XMLNS_FINDING => 'http://www.ebay.com/marketplace/search/v1/services',
         self::XMLNS_MS      => 'http://www.ebay.com/marketplace/services'
-    );
+    ];
 
     /**
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         self::OPTION_GLOBAL_ID => 'EBAY-US'
-    );
+    ];
 
     /**
      * @return array
@@ -82,7 +82,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
         // prepare options
         if (is_string($options)) {
             // application id was given
-            $options = array(self::OPTION_APP_ID => $options);
+            $options = [self::OPTION_APP_ID => $options];
         } else {
             // check application id
             $options = parent::optionsToArray($options);
@@ -213,8 +213,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
 
         // prepare options
         $options              = parent::optionsToArray($options);
-        $options['productId'] = array(''     => $productId,
-                                      'type' => $productIdType);
+        $options['productId'] = [''     => $productId,
+                                      'type' => $productIdType];
 
         // do request
         return $this->_findItems($options, 'findItemsByProduct');
@@ -248,10 +248,10 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     {
         // set default output selector value
         if (!array_key_exists('outputSelector', $options)) {
-            $options['outputSelector'] = array('AspectHistogram',
+            $options['outputSelector'] = ['AspectHistogram',
                                                'CategoryHistogram',
                                                'SellerInfo',
-                                               'StoreInfo');
+                                               'StoreInfo'];
         }
 
         // do request
@@ -331,13 +331,13 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     {
         // generate default options
         // constructor load global-id and application-id values
-        $default = array('OPERATION-NAME'       => $operation,
+        $default = ['OPERATION-NAME'       => $operation,
                          'SERVICE-NAME'         => self::SERVICE_NAME,
                          'SERVICE-VERSION'      => self::SERVICE_VERSION,
                          'GLOBAL-ID'            => $this->getOption(self::OPTION_GLOBAL_ID),
                          'SECURITY-APPNAME'     => $this->getOption(self::OPTION_APP_ID),
                          'RESPONSE-DATA-FORMAT' => self::RESPONSE_DATA_FORMAT,
-                         'REST-PAYLOAD'         => '');
+                         'REST-PAYLOAD'         => ''];
 
         // prepare options to ebay syntax
         $options = $default + $this->_optionsToNameValueSyntax($options);

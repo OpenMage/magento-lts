@@ -40,6 +40,7 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Value_Set extends Zend_Service_
      *
      * @return Zend_Service_Ebay_Finding_Aspect_Histogram_Value
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         // check node

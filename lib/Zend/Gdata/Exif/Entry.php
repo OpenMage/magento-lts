@@ -117,7 +117,7 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
      * Retrieve the tags for this entry.
      *
      * @see setTags
-     * @return Zend_Gdata_Exif_Extension_Tags The requested object
+     * @return string|null The requested object
      *              or null if not set.
      */
     public function getTags()

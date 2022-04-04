@@ -102,7 +102,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      *
      * @var array
      */
-    protected $_rel = array();
+    protected $_rel = [];
 
     /**
      * Reverse links to other pages
@@ -111,7 +111,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      *
      * @var array
      */
-    protected $_rev = array();
+    protected $_rev = [];
 
     /**
      * Page order used by parent container
@@ -160,14 +160,14 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      *
      * @var array
      */
-    protected $_properties = array();
+    protected $_properties = [];
 
     /**
      * Custom HTML attributes
      *
      * @var array
      */
-    protected $_customHtmlAttribs = array();
+    protected $_customHtmlAttribs = [];
 
     /**
      * The type of page to use when it wasn't set
@@ -566,7 +566,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      */
     public function setRel($relations = null)
     {
-        $this->_rel = array();
+        $this->_rel = [];
 
         if (null !== $relations) {
             if ($relations instanceof Zend_Config) {
@@ -629,7 +629,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      */
     public function setRev($relations = null)
     {
-        $this->_rev = array();
+        $this->_rev = [];
 
         if (null !== $relations) {
             if ($relations instanceof Zend_Config) {
@@ -763,7 +763,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      * Removes a custom HTML attribute from the page
      *
      * @param  string $name          name of the custom HTML attribute
-     * @return Zend_Navigation_Page  fluent interface, returns self
+     * @return void  fluent interface, returns self
      */
     public function removeCustomHtmlAttrib($name)
     {
@@ -786,7 +786,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
      */
     public function clearCustomHtmlAttribs()
     {
-        $this->_customHtmlAttribs = array();
+        $this->_customHtmlAttribs = [];
 
         return $this;
     }
@@ -1307,8 +1307,8 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
     {
         return array_merge(
             $this->getCustomProperties(),
-            array(
-                'label'             => $this->getlabel(),
+            [
+                'label'             => $this->getLabel(),
                 'fragment'          => $this->getFragment(),
                 'id'                => $this->getId(),
                 'class'             => $this->getClass(),
@@ -1325,7 +1325,7 @@ abstract class Zend_Navigation_Page extends Zend_Navigation_Container
                 'visible'           => $this->isVisible(),
                 'type'              => get_class($this),
                 'pages'             => parent::toArray()
-            )
+            ]
         );
     }
 

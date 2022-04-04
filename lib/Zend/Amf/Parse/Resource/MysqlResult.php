@@ -36,12 +36,12 @@ class Zend_Amf_Parse_Resource_MysqlResult
      *
      * Key => Value is Mysql type (exact string) => PHP type
      */
-    static public $fieldTypes = array(
+    static public $fieldTypes = [
         "int" => "int",
         "timestamp" => "int",
         "year" => "int",
         "real" => "float",
-    );
+    ];
     /**
      * Parse resource into array
      *
@@ -49,9 +49,9 @@ class Zend_Amf_Parse_Resource_MysqlResult
      * @return array
      */
     public function parse($resource) {
-        $result = array();
+        $result = [];
         $fieldcnt = mysql_num_fields($resource);
-        $fields_transform = array();
+        $fields_transform = [];
         for($i=0;$i<$fieldcnt;$i++) {
             $type = mysql_field_type($resource, $i);
             if(isset(self::$fieldTypes[$type])) {

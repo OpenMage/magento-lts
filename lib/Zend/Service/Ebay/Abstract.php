@@ -35,7 +35,7 @@ abstract class Zend_Service_Ebay_Abstract
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * @var mixed
@@ -113,7 +113,7 @@ abstract class Zend_Service_Ebay_Abstract
     public static function optionsToArray($options)
     {
         if (null === $options) {
-            $options = array();
+            $options = [];
         } else if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
@@ -192,7 +192,7 @@ abstract class Zend_Service_Ebay_Abstract
     {
         $options  = self::optionsToArray($options);
         ksort($options);
-        $new      = array();
+        $new      = [];
         $runAgain = false;
         foreach ($options as $name => $value) {
             if (is_array($value)) {
@@ -269,9 +269,9 @@ abstract class Zend_Service_Ebay_Abstract
      *
      * @param  string $value
      * @param  string $type
+     * @return bool|float|string
+     *@throws Zend_Service_Ebay_Finding_Exception When $type is not valid
      * @see    http://developer.ebay.com/DevZone/finding/CallRef/types/simpleTypes.html
-     * @throws Zend_Service_Ebay_Finding_Exception When $type is not valid
-     * @return mixed
      */
     public static function toPhpValue($value, $type)
     {
@@ -283,7 +283,7 @@ abstract class Zend_Service_Ebay_Abstract
 
             // cast for: Amount, decimal, double, float, MeasureType
             case 'float':
-                $value = floatval((string) $value);
+                $value = (float)(string)$value;
                 break;
 
             // cast for: int, long

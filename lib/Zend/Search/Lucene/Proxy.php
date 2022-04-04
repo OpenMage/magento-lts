@@ -73,7 +73,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * -1 means there are no segments files.
      *
      * @param Zend_Search_Lucene_Storage_Directory $directory
-     * @return integer
+     * @return void
      * @throws Zend_Search_Lucene_Exception
      */
     public static function getActualGeneration(Zend_Search_Lucene_Storage_Directory $directory)
@@ -85,7 +85,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      * Get segments file name
      *
      * @param integer $generation
-     * @return string
+     * @return void
      */
     public static function getSegmentFileName($generation)
     {
@@ -129,6 +129,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->_index->count();
@@ -343,7 +344,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
         $parameters = func_get_args();
 
         // invoke $this->_index->find() method with specified parameters
-        return call_user_func_array(array(&$this->_index, 'find'), $parameters);
+        return call_user_func_array([&$this->_index, 'find'], $parameters);
     }
 
     /**
@@ -447,7 +448,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     }
 
     /**
-     * Retrieve similarity used by index reader
+     * Retrive similarity used by index reader
      *
      * @return Zend_Search_Lucene_Search_Similarity
      */

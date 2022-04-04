@@ -50,14 +50,14 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
      * @param string $lastModified  Last modified date
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $etag, $lastModified, $metadata = array())
+    public function __construct($name, $etag, $lastModified, $metadata = [])
     {
-        $this->_data = array(
+        $this->_data = [
             'name'         => $name,
             'etag'         => $etag,
             'lastmodified' => $lastModified,
             'metadata'     => $metadata
-        );
+        ];
     }
 
     /**

@@ -51,7 +51,7 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
     public static function create(Zend_Ldap $ldap)
     {
         $dn = Zend_Ldap_Dn::fromString('');
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         if (isset($data['domainfunctionality'])) {
             /**
              * @see Zend_Ldap_Node_RootDse_ActiveDirectory

@@ -57,30 +57,30 @@ class Zend_Tool_Project_Provider_Module
         // find the appliction directory, it will serve as our module skeleton
         if ($targetModuleResource == null) {
             $targetModuleResource = $profile->search('applicationDirectory');
-            $targetModuleEnabledResources = array(
+            $targetModuleEnabledResources = [
                 'ControllersDirectory', 'ModelsDirectory', 'ViewsDirectory',
                 'ViewScriptsDirectory', 'ViewHelpersDirectory', 'ViewFiltersDirectory'
-                );
+                ];
         }
 
         // find the actual modules directory we will use to house our module
         $modulesDirectory = $profile->search('modulesDirectory');
 
         // if there is a module directory already, except
-        if ($modulesDirectory->search(array('moduleDirectory' => array('moduleName' => $moduleName)))) {
+        if ($modulesDirectory->search(['moduleDirectory' => ['moduleName' => $moduleName]])) {
             throw new Zend_Tool_Project_Provider_Exception('A module named "' . $moduleName . '" already exists.');
         }
 
         // create the module directory
-        $moduleDirectory = $modulesDirectory->createResource('moduleDirectory', array('moduleName' => $moduleName));
+        $moduleDirectory = $modulesDirectory->createResource('moduleDirectory', ['moduleName' => $moduleName]);
 
         // create a context filter so that we can pull out only what we need from the module skeleton
         $moduleContextFilterIterator = new Zend_Tool_Project_Profile_Iterator_ContextFilter(
             $targetModuleResource,
-            array(
-                'denyNames' => array('ModulesDirectory', 'ViewControllerScriptsDirectory'),
+            [
+                'denyNames' => ['ModulesDirectory', 'ViewControllerScriptsDirectory'],
                 'denyType'  => 'Zend_Tool_Project_Context_Filesystem_File'
-                )
+                ]
             );
 
         // the iterator for the module skeleton
@@ -88,7 +88,7 @@ class Zend_Tool_Project_Provider_Module
 
         // initialize some loop state information
         $currentDepth = 0;
-        $parentResources = array();
+        $parentResources = [];
         $currentResource = $moduleDirectory;
 
         // loop through the target module skeleton
@@ -147,7 +147,7 @@ class Zend_Tool_Project_Provider_Module
         if ($this->_registry->getRequest()->isPretend()) {
             $response->appendContent('I would create the following module and artifacts:');
             foreach (new RecursiveIteratorIterator($resources, RecursiveIteratorIterator::SELF_FIRST) as $resource) {
-                if (is_callable(array($resource->getContext(), 'getPath'))) {
+                if (is_callable([$resource->getContext(), 'getPath'])) {
                     $response->appendContent($resource->getContext()->getPath());
                 }
             }

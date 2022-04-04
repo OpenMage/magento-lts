@@ -64,9 +64,9 @@ class Zend_Markup
     public static function getParserLoader()
     {
         if (!(self::$_parserLoader instanceof Zend_Loader_PluginLoader)) {
-            self::$_parserLoader = new Zend_Loader_PluginLoader(array(
+            self::$_parserLoader = new Zend_Loader_PluginLoader([
                 'Zend_Markup_Parser' => 'Zend/Markup/Parser/',
-            ));
+            ]);
         }
 
         return self::$_parserLoader;
@@ -80,9 +80,9 @@ class Zend_Markup
     public static function getRendererLoader()
     {
         if (!(self::$_rendererLoader instanceof Zend_Loader_PluginLoader)) {
-            self::$_rendererLoader = new Zend_Loader_PluginLoader(array(
+            self::$_rendererLoader = new Zend_Loader_PluginLoader([
                 'Zend_Markup_Renderer' => 'Zend/Markup/Renderer/',
-            ));
+            ]);
         }
 
         return self::$_rendererLoader;
@@ -120,7 +120,7 @@ class Zend_Markup
      * @param  array $options
      * @return Zend_Markup_Renderer_RendererAbstract
      */
-    public static function factory($parser, $renderer = 'Html', array $options = array())
+    public static function factory($parser, $renderer = 'Html', array $options = [])
     {
         $parserClass   = self::getParserLoader()->load($parser);
         $rendererClass = self::getRendererLoader()->load($renderer);

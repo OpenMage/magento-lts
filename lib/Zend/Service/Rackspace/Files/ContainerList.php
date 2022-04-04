@@ -23,7 +23,7 @@
 #require_once 'Zend/Service/Rackspace/Files.php';
 
 /**
- * List of servers retrieved from the Rackspace web service
+ * List of servers retrived from the Rackspace web service
  *
  * @uses       ArrayAccess
  * @uses       Countable
@@ -41,7 +41,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
     /**
      * @var array Array of Zend_Service_Rackspace_Files_Container
      */
-    protected $objects = array();
+    protected $objects = [];
     /**
      * @var int Iterator key
      */
@@ -54,9 +54,9 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      * Constructor
      *
      * @param  array $list
-     * @return boolean
+     * @return void
      */
-    public function __construct($service,$list = array())
+    public function __construct($service,$list = [])
     {
         if (!($service instanceof Zend_Service_Rackspace_Files ) || !is_array($list)) {
             #require_once 'Zend/Service/Rackspace/Files/Exception.php';
@@ -95,7 +95,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->objects);
     }
@@ -106,6 +106,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return Zend_Service_Rackspace_Files_Container
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->objects[$this->iteratorKey];
@@ -117,6 +118,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->iteratorKey;
@@ -128,7 +130,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->iteratorKey += 1;
     }
@@ -139,7 +141,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorKey = 0;
     }
@@ -150,7 +152,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $numItems = $this->count();
         if ($numItems > 0 && $this->iteratorKey < $numItems) {
@@ -167,7 +169,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      * @param   int     $offset
      * @return  bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return ($offset < $this->count());
     }
@@ -180,6 +182,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      * @throws  Zend_Service_Rackspace_Files_Exception
      * @return  Zend_Service_Rackspace_Files_Container
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
@@ -199,7 +202,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      * @param   string  $value
      * @throws  Zend_Service_Rackspace_Files_Exception
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         #require_once 'Zend/Service/Rackspace/Files/Exception.php';
         throw new Zend_Service_Rackspace_Files_Exception('You are trying to set read-only property');
@@ -213,7 +216,7 @@ class Zend_Service_Rackspace_Files_ContainerList implements Countable, Iterator,
      * @param   int     $offset
      * @throws  Zend_Service_Rackspace_Files_Exception
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         #require_once 'Zend/Service/Rackspace/Files/Exception.php';
         throw new Zend_Service_Rackspace_Files_Exception('You are trying to unset read-only property');

@@ -82,9 +82,9 @@ class Zend_Controller_Action_HelperBroker
     {
         if (null === self::$_pluginLoader) {
             #require_once 'Zend/Loader/PluginLoader.php';
-            self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
+            self::$_pluginLoader = new Zend_Loader_PluginLoader([
                 'Zend_Controller_Action_Helper' => 'Zend/Controller/Action/Helper/',
-            ));
+            ]);
         }
         return self::$_pluginLoader;
     }
@@ -325,7 +325,7 @@ class Zend_Controller_Action_HelperBroker
             #require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Helper "' . $method . '" does not support overloading via direct()');
         }
-        return call_user_func_array(array($helper, 'direct'), $args);
+        return call_user_func_array([$helper, 'direct'], $args);
     }
 
     /**

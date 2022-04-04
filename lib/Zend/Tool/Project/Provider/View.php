@@ -55,13 +55,13 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
             throw new Zend_Tool_Project_Provider_Exception('Zend_Tool_Project_Provider_View::createResource() expects \"controllerName\" is the name of a controller resource to create.');
         }
 
-        $profileSearchParams = array();
+        $profileSearchParams = [];
 
         if ($moduleName) {
-            $profileSearchParams = array('modulesDirectory', 'moduleDirectory' => array('moduleName' => $moduleName));
+            $profileSearchParams = ['modulesDirectory', 'moduleDirectory' => ['moduleName' => $moduleName]];
             $noModuleSearch = null;
         } else {
-            $noModuleSearch = array('modulesDirectory');
+            $noModuleSearch = ['modulesDirectory'];
         }
 
         $profileSearchParams[] = 'viewsDirectory';
@@ -72,16 +72,14 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
             throw new Zend_Tool_Project_Provider_Exception('This project does not have a viewScriptsDirectory resource.');
         }
 
-        $profileSearchParams['viewControllerScriptsDirectory'] = array('forControllerName' => $controllerName);
+        $profileSearchParams['viewControllerScriptsDirectory'] = ['forControllerName' => $controllerName];
 
         // @todo check if below is failing b/c of above search params
         if (($viewControllerScriptsDirectory = $viewScriptsDirectory->search($profileSearchParams)) === false) {
-            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', array('forControllerName' => $controllerName));
+            $viewControllerScriptsDirectory = $viewScriptsDirectory->createResource('viewControllerScriptsDirectory', ['forControllerName' => $controllerName]);
         }
 
-        $newViewScriptFile = $viewControllerScriptsDirectory->createResource('ViewScriptFile', array('forActionName' => $actionName));
-
-        return $newViewScriptFile;
+        return $viewControllerScriptsDirectory->createResource('ViewScriptFile', ['forActionName' => $actionName]);
     }
 
     /**

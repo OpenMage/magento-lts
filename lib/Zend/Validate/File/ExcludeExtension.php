@@ -43,10 +43,10 @@ class Zend_Validate_File_ExcludeExtension extends Zend_Validate_File_Extension
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::FALSE_EXTENSION => "File '%value%' has a false extension",
         self::NOT_FOUND       => "File '%value%' is not readable or does not exist",
-    );
+    ];
 
     /**
      * Defined by Zend_Validate_Interface
@@ -74,7 +74,7 @@ class Zend_Validate_File_ExcludeExtension extends Zend_Validate_File_Extension
 
         $extensions = $this->getExtension();
 
-        if ($this->_case and (!in_array($info['extension'], $extensions))) {
+        if ($this->_case && (!in_array($info['extension'], $extensions))) {
             return true;
         } else if (!$this->_case) {
             $found = false;

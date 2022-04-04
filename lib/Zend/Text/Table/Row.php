@@ -34,7 +34,7 @@ class Zend_Text_Table_Row
      *
      * @var array
      */
-    protected $_columns = array();
+    protected $_columns = [];
 
     /**
      * Temporary stored column widths
@@ -112,8 +112,8 @@ class Zend_Text_Table_Row
     /**
      * Get the widths of all columns, which were rendered last
      *
-     * @throws Zend_Text_Table_Exception When no columns were rendered yet
-     * @return integer
+     * @return array|null
+     *@throws Zend_Text_Table_Exception When no columns were rendered yet
      */
     public function getColumnWidths()
     {
@@ -139,7 +139,7 @@ class Zend_Text_Table_Row
                            $padding = 0)
     {
         // Prepare an array to store all column widths
-        $this->_columnWidths = array();
+        $this->_columnWidths = [];
 
         // If there is no single column, create a column which spans over the
         // entire row
@@ -149,7 +149,7 @@ class Zend_Text_Table_Row
         }
 
         // First we have to render all columns, to get the maximum height
-        $renderedColumns = array();
+        $renderedColumns = [];
         $maxHeight       = 0;
         $colNum          = 0;
         foreach ($this->_columns as $column) {
@@ -187,7 +187,7 @@ class Zend_Text_Table_Row
             $remainingWidth = (count($columnWidths) - $colNum - 1) +
                                array_sum(array_slice($columnWidths,
                                                      $colNum));
-            $renderedColumns[] = array(str_repeat(' ', $remainingWidth));
+            $renderedColumns[] = [str_repeat(' ', $remainingWidth)];
 
             $this->_columnWidths[] = $remainingWidth;
         }

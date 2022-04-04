@@ -47,7 +47,7 @@ class Zend_Db_Statement_Exception extends Zend_Db_Exception
     }
 
     /**
-     * @return Exception|null
+     * @return Throwable|null
      */
     public function getChainedException()
     {

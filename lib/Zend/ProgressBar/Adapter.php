@@ -34,10 +34,10 @@ abstract class Zend_ProgressBar_Adapter
      *
      * @var array
      */
-    protected $_skipOptions = array(
+    protected $_skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Create a new adapter

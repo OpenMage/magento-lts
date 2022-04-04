@@ -38,7 +38,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
      *
      * @var array
      */
-    protected $_permissionSet = array();
+    protected $_permissionSet = [];
 
 	/**
 	 * Creates a new Zend_Service_WindowsAzure_Credentials_SharedAccessSignature instance
@@ -51,7 +51,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
 	public function __construct(
 		$accountName = Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::DEVSTORE_ACCOUNT,
 		$accountKey  = Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::DEVSTORE_KEY,
-		$usePathStyleUri = false, $permissionSet = array()
+		$usePathStyleUri = false, $permissionSet = []
 	) {
 	    parent::__construct($accountName, $accountKey, $usePathStyleUri);
 	    $this->_permissionSet = $permissionSet;
@@ -79,7 +79,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
 	 * @param  array $value Permission set
 	 * @return void
 	 */
-    public function setPermissionSet($value = array())
+    public function setPermissionSet($value = [])
 	{
 		foreach ($value as $url) {
 			if (strpos($url, $this->_accountName) === false) {
@@ -127,7 +127,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
 		$canonicalizedResource .= $path;
 
 		// Create string to sign
-		$stringToSign   = array();
+		$stringToSign   = [];
 		$stringToSign[] = $permissions;
     	$stringToSign[] = $start;
     	$stringToSign[] = $expiry;
@@ -135,9 +135,8 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
     	$stringToSign[] = $identifier;
 
     	$stringToSign = implode("\n", $stringToSign);
-    	$signature    = base64_encode(hash_hmac('sha256', $stringToSign, $this->_accountKey, true));
 
-    	return $signature;
+        return base64_encode(hash_hmac('sha256', $stringToSign, $this->_accountKey, true));
     }
 
     /**
@@ -162,7 +161,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
     	$identifier = ''
     ) {
         // Parts
-        $parts = array();
+        $parts = [];
         if ($start !== '') {
             $parts[] = 'st=' . urlencode($start);
         }
@@ -190,7 +189,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
 	 * @param string $requestUrl Request URL
 	 * @param string $resourceType Resource type
 	 * @param string $requiredPermission Required permission
-	 * @return string Signed request URL
+	 * @return bool Signed request URL
 	 */
     public function permissionMatchesRequest(
     	$permissionUrl = '',

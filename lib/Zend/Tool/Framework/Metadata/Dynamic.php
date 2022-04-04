@@ -58,16 +58,16 @@ class Zend_Tool_Framework_Metadata_Dynamic
     /**
      * @var array
      */
-    protected $_dynamicAttributes = array();
+    protected $_dynamicAttributes = [];
 
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options) {
             $this->setOptions($options);
         }
     }
 
-    public function setOptions(Array $options = array())
+    public function setOptions(Array $options = [])
     {
         foreach ($options as $optName => $optValue) {
             $methodName = 'set' . $optName;

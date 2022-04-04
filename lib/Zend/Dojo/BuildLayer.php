@@ -66,20 +66,20 @@ class Zend_Dojo_BuildLayer
      * Build profile options
      * @var array
      */
-    protected $_profileOptions = array(
+    protected $_profileOptions = [
         'action'        => 'release',
         'optimize'      => 'shrinksafe',
         'layerOptimize' => 'shrinksafe',
         'copyTests'     => false,
         'loader'        => 'default',
         'cssOptimize'   => 'comments',
-    );
+    ];
 
     /**
      * Associative array of module/path pairs for the build profile
      * @var array
      */
-    protected $_profilePrefixes = array();
+    protected $_profilePrefixes = [];
 
     /**
      * Zend_View reference
@@ -374,7 +374,7 @@ class Zend_Dojo_BuildLayer
      */
     public function clearProfileOptions()
     {
-        $this->_profileOptions = array();
+        $this->_profileOptions = [];
         return $this;
     }
 
@@ -392,7 +392,7 @@ class Zend_Dojo_BuildLayer
         if (null === $path) {
             $path = '../' . $prefix;
         }
-        $this->_profilePrefixes[$prefix] = array($prefix, $path);
+        $this->_profilePrefixes[$prefix] = [$prefix, $path];
         return $this;
     }
 
@@ -497,11 +497,11 @@ class Zend_Dojo_BuildLayer
         }
 
         $profile = $profileOptions;
-        $profile['layers'] = array(array(
+        $profile['layers'] = [[
             'name'              => $layerScriptPath,
-            'layerDependencies' => array(),
-            'dependencies'      => array($layerName),
-        ));
+            'layerDependencies' => [],
+            'dependencies'      => [$layerName],
+        ]];
         $profile['prefixes'] = array_values($profilePrefixes);
 
         return 'dependencies = ' . $this->_filterJsonProfileToJavascript($profile) . ';';
@@ -511,7 +511,7 @@ class Zend_Dojo_BuildLayer
      * Retrieve module prefix
      *
      * @param  string $module
-     * @return void
+     * @return string
      */
     protected function _getPrefix($module)
     {

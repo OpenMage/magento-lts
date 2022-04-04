@@ -83,21 +83,25 @@ class Zend_Xml_Security
         }
 
         if (!self::isPhpFpm()) {
-            $loadEntities = libxml_disable_entity_loader(true);
+            if (LIBXML_VERSION < 20900) {
+                $loadEntities = libxml_disable_entity_loader(true);
+            }
             $useInternalXmlErrors = libxml_use_internal_errors(true);
         }
 
         // Load XML with network access disabled (LIBXML_NONET)
         // error disabled with @ for PHP-FPM scenario
-        set_error_handler(array('Zend_Xml_Security', 'loadXmlErrorHandler'), E_WARNING);
+        set_error_handler(['Zend_Xml_Security', 'loadXmlErrorHandler'], E_WARNING);
 
-        $result = $dom->loadXml($xml, LIBXML_NONET);
+        $result = $dom->loadXML($xml, LIBXML_NONET);
         restore_error_handler();
 
         if (!$result) {
             // Entity load to previous setting
             if (!self::isPhpFpm()) {
-                libxml_disable_entity_loader($loadEntities);
+                if (LIBXML_VERSION < 20900) {
+                    libxml_disable_entity_loader($loadEntities);
+                }
                 libxml_use_internal_errors($useInternalXmlErrors);
             }
             return false;
@@ -117,7 +121,9 @@ class Zend_Xml_Security
 
         // Entity load to previous setting
         if (!self::isPhpFpm()) {
-            libxml_disable_entity_loader($loadEntities);
+            if (LIBXML_VERSION < 20900) {
+                libxml_disable_entity_loader($loadEntities);
+            }
             libxml_use_internal_errors($useInternalXmlErrors);
         }
 
@@ -167,10 +173,10 @@ class Zend_Xml_Security
     public static function isPhpFpm()
     {
         $isVulnerableVersion = (
-            version_compare(PHP_VERSION, '5.5.22', '<')
+            version_compare(PHP_VERSION, '5.5.22', 'lt')
             || (
-                version_compare(PHP_VERSION, '5.6', '>=')
-                && version_compare(PHP_VERSION, '5.6.6', '<')
+                version_compare(PHP_VERSION, '5.6', 'ge')
+                && version_compare(PHP_VERSION, '5.6.6', 'lt')
             )
         );
 
@@ -190,7 +196,7 @@ class Zend_Xml_Security
     {
         $encodingMap = self::getAsciiEncodingMap();
         return array_map(
-            array(__CLASS__, 'generateEntityComparison'),
+            [__CLASS__, 'generateEntityComparison'],
             self::detectXmlEncoding($xml, self::detectStringEncoding($xml))
         );
     }
@@ -273,28 +279,28 @@ class Zend_Xml_Security
 
         $closePos    = strpos($xml, $close);
         if (false === $closePos) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encPos = strpos($xml, $encAttr);
         if (false === $encPos
             || $encPos > $closePos
         ) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encPos   += strlen($encAttr);
         $quotePos = strpos($xml, $quote, $encPos);
         if (false === $quotePos) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encoding = self::substr($xml, $encPos, $quotePos);
-        return array(
+        return [
             // Following line works because we're only supporting 8-bit safe encodings at this time.
             str_replace('\0', '', $encoding), // detected encoding
             $fileEncoding,                    // file encoding
-        );
+        ];
     }
 
     /**
@@ -308,38 +314,38 @@ class Zend_Xml_Security
      */
     protected static function getBomMap()
     {
-        return array(
-            array(
+        return [
+            [
                 'encoding' => 'UTF-32BE',
                 'bom'      => pack('CCCC', 0x00, 0x00, 0xfe, 0xff),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-32LE',
                 'bom'      => pack('CCCC', 0xff, 0xfe, 0x00, 0x00),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'GB-18030',
                 'bom'      => pack('CCCC', 0x84, 0x31, 0x95, 0x33),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-16BE',
                 'bom'      => pack('CC', 0xfe, 0xff),
                 'length'   => 2,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-16LE',
                 'bom'      => pack('CC', 0xff, 0xfe),
                 'length'   => 2,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-8',
                 'bom'      => pack('CCC', 0xef, 0xbb, 0xbf),
                 'length'   => 3,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -353,16 +359,16 @@ class Zend_Xml_Security
      */
     protected static function getAsciiEncodingMap()
     {
-        return array(
-            'UTF-32BE'   => array(__CLASS__, 'encodeToUTF32BE'),
-            'UTF-32LE'   => array(__CLASS__, 'encodeToUTF32LE'),
-            'UTF-32odd1' => array(__CLASS__, 'encodeToUTF32odd1'),
-            'UTF-32odd2' => array(__CLASS__, 'encodeToUTF32odd2'),
-            'UTF-16BE'   => array(__CLASS__, 'encodeToUTF16BE'),
-            'UTF-16LE'   => array(__CLASS__, 'encodeToUTF16LE'),
-            'UTF-8'      => array(__CLASS__, 'encodeToUTF8'),
-            'GB-18030'   => array(__CLASS__, 'encodeToUTF8'),
-        );
+        return [
+            'UTF-32BE'   => [__CLASS__, 'encodeToUTF32BE'],
+            'UTF-32LE'   => [__CLASS__, 'encodeToUTF32LE'],
+            'UTF-32odd1' => [__CLASS__, 'encodeToUTF32odd1'],
+            'UTF-32odd2' => [__CLASS__, 'encodeToUTF32odd2'],
+            'UTF-16BE'   => [__CLASS__, 'encodeToUTF16BE'],
+            'UTF-16LE'   => [__CLASS__, 'encodeToUTF16LE'],
+            'UTF-8'      => [__CLASS__, 'encodeToUTF8'],
+            'GB-18030'   => [__CLASS__, 'encodeToUTF8'],
+        ];
     }
 
     /**

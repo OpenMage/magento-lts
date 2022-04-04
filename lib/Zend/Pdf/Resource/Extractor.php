@@ -69,7 +69,7 @@ class Zend_Pdf_Resource_Extractor
     public function __construct()
     {
         $this->_factory   = Zend_Pdf_ElementFactory::createFactory(1);
-        $this->_processed = array();
+        $this->_processed = [];
     }
 
     /**

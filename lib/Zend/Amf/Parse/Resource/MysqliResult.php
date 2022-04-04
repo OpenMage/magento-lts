@@ -35,7 +35,7 @@ class Zend_Amf_Parse_Resource_MysqliResult
     /**
      * mapping taken from http://forums.mysql.com/read.php?52,255868,255895#msg-255895
      */
-    static public $mysqli_type = array(
+    static public $mysqli_type = [
         0 => "MYSQLI_TYPE_DECIMAL",
         1 => "MYSQLI_TYPE_TINYINT",
         2 => "MYSQLI_TYPE_SMALLINT",
@@ -61,10 +61,10 @@ class Zend_Amf_Parse_Resource_MysqliResult
         253 => "MYSQLI_TYPE_VARCHAR",
         254 => "MYSQLI_TYPE_CHAR",
         255 => "MYSQLI_TYPE_GEOMETRY",
-    );
+    ];
 
     // Build an associative array for a type look up
-    static $mysqli_to_php = array(
+    static $mysqli_to_php = [
         "MYSQLI_TYPE_DECIMAL"     => 'float',
         "MYSQLI_TYPE_NEWDECIMAL"  => 'float',
         "MYSQLI_TYPE_BIT"         => 'integer',
@@ -93,7 +93,7 @@ class Zend_Amf_Parse_Resource_MysqliResult
         "MYSQLI_TYPE_VARCHAR"     => 'string',
         "MYSQLI_TYPE_GEOMETRY"    => 'object',
         "MYSQLI_TYPE_BIT"         => 'integer',
-    );
+    ];
 
     /**
      * Parse resource into array
@@ -103,11 +103,11 @@ class Zend_Amf_Parse_Resource_MysqliResult
      */
     public function parse($resource) {
 
-        $result = array();
+        $result = [];
         $fieldcnt = mysqli_num_fields($resource);
 
 
-        $fields_transform = array();
+        $fields_transform = [];
 
         for($i=0;$i<$fieldcnt;$i++) {
             $finfo = mysqli_fetch_field_direct($resource, $i);

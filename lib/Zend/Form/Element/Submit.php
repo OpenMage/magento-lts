@@ -50,7 +50,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
     public function __construct($spec, $options = null)
     {
         if (is_string($spec) && ((null !== $options) && is_string($options))) {
-            $options = array('label' => $options);
+            $options = ['label' => $options];
         }
 
         if (!isset($options['ignore'])) {

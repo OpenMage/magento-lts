@@ -83,7 +83,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
      */
     public function getPersistentAttributes()
     {
-        $returnAttrs = array();
+        $returnAttrs = [];
         if ($this->_filesystemName !== null) {
             $returnAttrs['filesystemName'] = $this->_filesystemName;
         }
@@ -163,7 +163,7 @@ class Zend_Tool_Project_Context_Filesystem_File extends Zend_Tool_Project_Contex
         if ($this->_resource->hasAttribute('defaultContentCallback')) {
             $contentFunc = $this->_resource->getAttribute('defaultContentCallback');
             if (is_callable($contentFunc)) {
-                $this->_content = call_user_func_array($contentFunc, array($this));
+                $this->_content = call_user_func_array($contentFunc, [$this]);
             }
         }
         if ($this->_filesystemName == null) {

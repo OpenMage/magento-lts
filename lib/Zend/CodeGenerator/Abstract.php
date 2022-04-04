@@ -44,7 +44,7 @@ abstract class Zend_CodeGenerator_Abstract
      *
      * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         $this->_init();
         if ($options != null) {

@@ -46,7 +46,7 @@ class Zend_Cache_Backend_Static
      * Static backend options
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'public_dir'           => null,
         'sub_dir'              => 'html',
         'file_extension'       => '.html',
@@ -57,7 +57,7 @@ class Zend_Cache_Backend_Static
         'debug_header'         => false,
         'tag_cache'            => null,
         'disable_caching'      => false
-    );
+    ];
 
     /**
      * Cache for handling tags
@@ -142,22 +142,26 @@ class Zend_Cache_Backend_Static
         } else {
             $id = $this->_decodeId($id);
         }
+
         if (!$this->_verifyPath($id)) {
             Zend_Cache::throwException('Invalid cache id: does not match expected public_dir path');
         }
+
         if ($doNotTestCacheValidity) {
             $this->_log("Zend_Cache_Backend_Static::load() : \$doNotTestCacheValidity=true is unsupported by the Static backend");
         }
 
         $fileName = basename($id);
+
         if ($fileName === '') {
             $fileName = $this->_options['index_filename'];
         }
+
         $pathName = $this->_options['public_dir'] . dirname($id);
         $file     = rtrim($pathName, '/') . '/' . $fileName . $this->_options['file_extension'];
+
         if (file_exists($file)) {
-            $content = file_get_contents($file);
-            return $content;
+            return file_get_contents($file);
         }
 
         return false;
@@ -212,7 +216,7 @@ class Zend_Cache_Backend_Static
      * @param  int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @return boolean true if no problem
      */
-    public function save($data, $id, $tags = array(), $specificLifetime = false)
+    public function save($data, $id, $tags = [], $specificLifetime = false)
     {
         if ($this->_options['disable_caching']) {
             return true;
@@ -239,7 +243,7 @@ class Zend_Cache_Backend_Static
         $pathName = realpath($this->_options['public_dir']) . dirname($id);
         $this->_createDirectoriesFor($pathName);
 
-        if ($id === null || strlen($id) == 0) {
+        if ($id === null || strlen($id) === 0) {
             $dataUnserialized = unserialize($data);
             $data = $dataUnserialized['data'];
         }
@@ -256,13 +260,13 @@ class Zend_Cache_Backend_Static
         if ($this->_tagged === null && $tagged = $this->getInnerCache()->load(self::INNER_CACHE_NAME)) {
             $this->_tagged = $tagged;
         } elseif ($this->_tagged === null) {
-            $this->_tagged = array();
+            $this->_tagged = [];
         }
         if (!isset($this->_tagged[$id])) {
-            $this->_tagged[$id] = array();
+            $this->_tagged[$id] = [];
         }
         if (!isset($this->_tagged[$id]['tags'])) {
-            $this->_tagged[$id]['tags'] = array();
+            $this->_tagged[$id]['tags'] = [];
         }
         $this->_tagged[$id]['tags'] = array_unique(array_merge($this->_tagged[$id]['tags'], $tags));
         $this->_tagged[$id]['extension'] = $ext;
@@ -360,7 +364,7 @@ class Zend_Cache_Backend_Static
             if (is_dir($directory)) {
                 foreach (new DirectoryIterator($directory) as $file) {
                     if (true === $file->isFile()) {
-                        if (false === unlink($file->getPathName())) {
+                        if (false === unlink($file->getPathname())) {
                             return false;
                         }
                     }
@@ -395,7 +399,7 @@ class Zend_Cache_Backend_Static
      * @return boolean true if no problem
      * @throws Zend_Exception
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         $result = false;
         switch ($mode) {

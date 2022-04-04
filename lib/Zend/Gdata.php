@@ -63,24 +63,24 @@ class Zend_Gdata extends Zend_Gdata_App
      *
      * @var array
      */
-    protected $_registeredPackages = array(
+    protected $_registeredPackages = [
             'Zend_Gdata_Kind',
             'Zend_Gdata_Extension',
             'Zend_Gdata',
             'Zend_Gdata_App_Extension',
-            'Zend_Gdata_App');
+            'Zend_Gdata_App'];
 
     /**
      * Namespaces used for Gdata data
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('gd', 'http://schemas.google.com/g/2005', 1, 0),
-        array('openSearch', 'http://a9.com/-/spec/opensearchrss/1.0/', 1, 0),
-        array('openSearch', 'http://a9.com/-/spec/opensearch/1.1/', 2, 0),
-        array('rss', 'http://blogs.law.harvard.edu/tech/rss', 1, 0)
-    );
+    public static $namespaces = [
+        ['gd', 'http://schemas.google.com/g/2005', 1, 0],
+        ['openSearch', 'http://a9.com/-/spec/opensearchrss/1.0/', 1, 0],
+        ['openSearch', 'http://a9.com/-/spec/opensearch/1.1/', 2, 0],
+        ['rss', 'http://blogs.law.harvard.edu/tech/rss', 1, 0]
+    ];
 
     /**
      * Client object used to communicate
@@ -207,7 +207,7 @@ class Zend_Gdata extends Zend_Gdata_App
      *                                if requests results in one
      * @return Zend_Http_Response The response object
      */
-    public function performHttpRequest($method, $url, $headers = array(), $body = null, $contentType = null, $remainingRedirects = null)
+    public function performHttpRequest($method, $url, $headers = [], $body = null, $contentType = null, $remainingRedirects = null)
     {
         if ($this->_httpClient instanceof Zend_Gdata_HttpClient) {
             $filterResult = $this->_httpClient->filterHttpRequest($method, $url, $headers, $body, $contentType);

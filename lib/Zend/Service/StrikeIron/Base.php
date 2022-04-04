@@ -40,18 +40,18 @@ class Zend_Service_StrikeIron_Base
      * Configuration options
      * @param array
      */
-    protected $_options = array('username' => null,
+    protected $_options = ['username' => null,
                                 'password' => null,
                                 'client'   => null,
                                 'options'  => null,
                                 'headers'  => null,
-                                'wsdl'     => null);
+                                'wsdl'     => null];
 
     /**
      * Output headers returned by the last call to SOAPClient->__soapCall()
      * @param array
      */
-    protected $_outputHeaders = array();
+    protected $_outputHeaders = [];
 
     /**
      * Class constructor
@@ -59,7 +59,7 @@ class Zend_Service_StrikeIron_Base
      * @param  array  $options  Key/value pair options
      * @throws Zend_Service_StrikeIron_Exception
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('soap')) {
             /**
@@ -88,7 +88,7 @@ class Zend_Service_StrikeIron_Base
     {
         // prepare method name and parameters for soap call
         list($method, $params) = $this->_transformCall($method, $params);
-        $params = isset($params[0]) ? array($params[0]) : array();
+        $params = isset($params[0]) ? [$params[0]] : [];
 
         // make soap call, capturing the result and output headers
         try {
@@ -119,7 +119,7 @@ class Zend_Service_StrikeIron_Base
     protected function _initSoapClient()
     {
         if (! isset($this->_options['options'])) {
-            $this->_options['options'] = array();
+            $this->_options['options'] = [];
         }
 
         if (! isset($this->_options['client'])) {
@@ -140,7 +140,7 @@ class Zend_Service_StrikeIron_Base
         $foundLicenseInfo = false;
         if (isset($this->_options['headers'])) {
             if (! is_array($this->_options['headers'])) {
-                $this->_options['headers'] = array($this->_options['headers']);
+                $this->_options['headers'] = [$this->_options['headers']];
             }
 
             foreach ($this->_options['headers'] as $header) {
@@ -150,21 +150,23 @@ class Zend_Service_StrikeIron_Base
                      */
                     #require_once 'Zend/Service/StrikeIron/Exception.php';
                     throw new Zend_Service_StrikeIron_Exception('Header must be instance of SoapHeader');
-                } else if ($header->name == 'LicenseInfo') {
+                }
+
+                if ($header->name == 'LicenseInfo') {
                     $foundLicenseInfo = true;
                     break;
                 }
             }
         } else {
-            $this->_options['headers'] = array();
+            $this->_options['headers'] = [];
         }
 
         // add default LicenseInfo header if a custom one was not supplied
         if (! $foundLicenseInfo) {
             $this->_options['headers'][] = new SoapHeader('http://ws.strikeiron.com',
                             'LicenseInfo',
-                            array('RegisteredUser' => array('UserID'   => $this->_options['username'],
-                                                            'Password' => $this->_options['password'])));
+                            ['RegisteredUser' => ['UserID'   => $this->_options['username'],
+                                                            'Password' => $this->_options['password']]]);
         }
     }
 
@@ -180,7 +182,7 @@ class Zend_Service_StrikeIron_Base
      */
     protected function _transformCall($method, $params)
     {
-        return array(ucfirst($method), $params);
+        return [ucfirst($method), $params];
     }
 
     /**

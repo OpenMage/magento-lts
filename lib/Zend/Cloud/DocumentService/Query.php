@@ -49,7 +49,7 @@ class Zend_Cloud_DocumentService_Query
      *
      * @var array
      */
-    protected $_clauses = array();
+    protected $_clauses = [];
 
     /**
      * Generic clause
@@ -65,7 +65,7 @@ class Zend_Cloud_DocumentService_Query
      */
     public function __call($name, $args)
     {
-        $this->_clauses[] = array(strtolower($name), $args);
+        $this->_clauses[] = [strtolower($name), $args];
         return $this;
     }
 
@@ -84,7 +84,7 @@ class Zend_Cloud_DocumentService_Query
             #require_once 'Zend/Cloud/DocumentService/Exception.php';
             throw new Zend_Cloud_DocumentService_Exception("SELECT argument must be a string or an array of strings");
         }
-        $this->_clauses[] = array(self::QUERY_SELECT, $select);
+        $this->_clauses[] = [self::QUERY_SELECT, $select];
         return $this;
     }
 
@@ -100,7 +100,7 @@ class Zend_Cloud_DocumentService_Query
             #require_once 'Zend/Cloud/DocumentService/Exception.php';
             throw new Zend_Cloud_DocumentService_Exception("FROM argument must be a string");
         }
-        $this->_clauses[] = array(self::QUERY_FROM, $name);
+        $this->_clauses[] = [self::QUERY_FROM, $name];
         return $this;
     }
 
@@ -118,7 +118,7 @@ class Zend_Cloud_DocumentService_Query
             #require_once 'Zend/Cloud/DocumentService/Exception.php';
             throw new Zend_Cloud_DocumentService_Exception("WHERE argument must be a string");
         }
-        $this->_clauses[] = array(self::QUERY_WHERE, array($cond, $value, $op));
+        $this->_clauses[] = [self::QUERY_WHERE, [$cond, $value, $op]];
         return $this;
     }
 
@@ -134,7 +134,7 @@ class Zend_Cloud_DocumentService_Query
             #require_once 'Zend/Cloud/DocumentService/Exception.php';
             throw new Zend_Cloud_DocumentService_Exception("WHEREID argument must be a scalar");
         }
-        $this->_clauses[] = array(self::QUERY_WHEREID, $value);
+        $this->_clauses[] = [self::QUERY_WHEREID, $value];
         return $this;
     }
 
@@ -150,7 +150,7 @@ class Zend_Cloud_DocumentService_Query
             #require_once 'Zend/Cloud/DocumentService/Exception.php';
             throw new Zend_Cloud_DocumentService_Exception("LIMIT argument must be an integer");
         }
-        $this->_clauses[] = array(self::QUERY_LIMIT, $limit);
+        $this->_clauses[] = [self::QUERY_LIMIT, $limit];
         return $this;
     }
 
@@ -163,7 +163,7 @@ class Zend_Cloud_DocumentService_Query
      */
     public function order($sort, $direction = 'asc')
     {
-        $this->_clauses[] = array(self::QUERY_ORDER, array($sort, $direction));
+        $this->_clauses[] = [self::QUERY_ORDER, [$sort, $direction]];
         return $this;
     }
 

@@ -82,7 +82,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getActionName()
      *
-     * @return string
+     * @return string|null
      */
     public function getActionName()
     {
@@ -104,7 +104,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getProviderName()
      *
-     * @return string
+     * @return string|null
      */
     public function getProviderName()
     {
@@ -126,7 +126,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getSpecialtyName()
      *
-     * @return string
+     * @return string|null
      */
     public function getSpecialtyName()
     {
@@ -148,7 +148,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getClientReference()
      *
-     * @return Zend_Tool_Framework_Client_Abstract
+     * @return string|null
      */
     public function getClientReference()
     {
@@ -170,7 +170,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getActionReference()
      *
-     * @return Zend_Tool_Framework_Action_Interface
+     * @return Zend_Tool_Framework_Action_Interface|null
      */
     public function getActionReference()
     {
@@ -192,7 +192,7 @@ class Zend_Tool_Framework_Metadata_Tool extends Zend_Tool_Framework_Metadata_Bas
     /**
      * getProviderReference()
      *
-     * @return Zend_Tool_Framework_Provider_Interface
+     * @return Zend_Tool_Framework_Provider_Interface|null
      */
     public function getProviderReference()
     {

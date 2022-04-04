@@ -35,7 +35,7 @@ abstract class Zend_Loader_AutoloaderFactory
     /**
      * @var array All autoloaders registered using the factory
      */
-    protected static $loaders = array();
+    protected static $loaders = [];
 
     /**
      * @var Zend_Loader_StandardAutoloader StandardAutoloader instance for resolving
@@ -174,7 +174,7 @@ abstract class Zend_Loader_AutoloaderFactory
     public static function unregisterAutoloaders()
     {
         foreach (self::getRegisteredAutoloaders() as $class => $autoloader) {
-            spl_autoload_unregister(array($autoloader, 'autoload'));
+            spl_autoload_unregister([$autoloader, 'autoload']);
             unset(self::$loaders[$class]);
         }
     }
@@ -192,7 +192,7 @@ abstract class Zend_Loader_AutoloaderFactory
         }
 
         $autoloader = self::$loaders[$autoloaderClass];
-        spl_autoload_unregister(array($autoloader, 'autoload'));
+        spl_autoload_unregister([$autoloader, 'autoload']);
         unset(self::$loaders[$autoloaderClass]);
         return true;
     }

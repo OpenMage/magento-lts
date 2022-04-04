@@ -273,7 +273,7 @@ class Zend_Service_Rackspace_Files_Object
      * @param  string $content_type
      * @return boolean
      */
-    public function copyTo($container_dest,$name_dest,$metadata=array(),$content_type=null)
+    public function copyTo($container_dest,$name_dest,$metadata=[],$content_type=null)
     {
         return $this->service->copyObject($this->container,$this->name,$container_dest,$name_dest,$metadata,$content_type);
     }

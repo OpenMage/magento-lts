@@ -54,9 +54,9 @@ class Zend_Tool_Framework_Loader_BasicLoader
     /**
      * @var array
      */
-    protected $_classesToLoad = array();
+    protected $_classesToLoad = [];
 
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options) {
             $this->setOptions($options);
@@ -78,7 +78,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
      * the registry
      *
      * @param Zend_Tool_Framework_Registry_Interface $registry
-     * @return Zend_Tool_Framework_Loader_Abstract
+     * @return Zend_Tool_Framework_Loader_BasicLoader
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
@@ -88,7 +88,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
 
     /**
      * @param  array $classesToLoad
-     * @return Zend_Tool_Framework_Loader_Abstract
+     * @return Zend_Tool_Framework_Loader_BasicLoader
      */
     public function setClassesToLoad(array $classesToLoad)
     {
@@ -101,7 +101,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
         $manifestRegistry = $this->_registry->getManifestRepository();
         $providerRegistry = $this->_registry->getProviderRepository();
 
-        $loadedClasses = array();
+        $loadedClasses = [];
 
         // loop through the loaded classes and ensure that
         foreach ($this->_classesToLoad as $class) {

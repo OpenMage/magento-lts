@@ -116,7 +116,7 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
         $output = '';
 
         //get rid of the whitespaces
-        $whiteSpace = array("\x00", "\x09", "\x0A", "\x0C", "\x0D", "\x20");
+        $whiteSpace = ["\x00", "\x09", "\x0A", "\x0C", "\x0D", "\x20"];
         $data = str_replace($whiteSpace, '', $data);
 
         if (substr($data, -2) != '~>') {

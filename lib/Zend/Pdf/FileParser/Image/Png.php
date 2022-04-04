@@ -255,7 +255,7 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
          switch($this->_color) {
              case Zend_Pdf_Image::PNG_CHANNEL_GRAY:
                   $baseColor = $this->readInt(1);
-                  $this->_transparencyData = array($baseColor, $baseColor);
+                  $this->_transparencyData = [$baseColor, $baseColor];
                   break;
 
              case Zend_Pdf_Image::PNG_CHANNEL_RGB:
@@ -284,7 +284,7 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
                   $this->skipBytes(1);
                   $blue = $this->readInt(1);
 
-                  $this->_transparencyData = array($red, $red, $green, $green, $blue, $blue);
+                  $this->_transparencyData = [$red, $red, $green, $green, $blue, $blue];
 
                   break;
 
@@ -313,7 +313,7 @@ class Zend_Pdf_FileParser_Image_Png extends Zend_Pdf_FileParser_Image
 
                   $tmpData = $this->readBytes($chunkLength);
                   if(($trnsIdx = strpos($tmpData, "\0")) !== false) {
-                       $this->_transparencyData = array($trnsIdx, $trnsIdx);
+                       $this->_transparencyData = [$trnsIdx, $trnsIdx];
                   }
 
                   break;

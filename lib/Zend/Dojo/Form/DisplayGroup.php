@@ -54,7 +54,7 @@ class Zend_Dojo_Form_DisplayGroup extends Zend_Form_DisplayGroup
      * Ensures that the view object has the dojo view helper path set.
      *
      * @param  Zend_View_Interface $view
-     * @return Zend_Dojo_Form_Element_Dijit
+     * @return Zend_Dojo_Form_DisplayGroup
      */
     public function setView(Zend_View_Interface $view = null)
     {

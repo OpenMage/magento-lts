@@ -44,7 +44,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      *
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * HTTP response code to use in headers
@@ -116,11 +116,11 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
                 }
             }
         }
-        $this->_headers[] = array(
+        $this->_headers[] = [
             'name'    => $name,
             'value'   => $value,
             'replace' => $replace,
-        );
+        ];
 
         return $this;
     }
@@ -227,7 +227,7 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
      */
     protected function _normalizeHeader($name)
     {
-        $filtered = str_replace(array('-', '_'), ' ', (string) $name);
+        $filtered = str_replace(['-', '_'], ' ', (string) $name);
         $filtered = ucwords(strtolower($filtered));
         $filtered = str_replace(' ', '-', $filtered);
         return $filtered;

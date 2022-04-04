@@ -102,16 +102,16 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
      * List of the index files.
      * Used for automatic compound file generation
      *
-     * @var unknown_type
+     * @var array
      */
-    protected $_files = array();
+    protected $_files = [];
 
     /**
      * Segment fields. Array of Zend_Search_Lucene_Index_FieldInfo objects for this segment
      *
      * @var array
      */
-    protected $_fields = array();
+    protected $_fields = [];
 
     /**
      * Normalization factors.
@@ -123,7 +123,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
      *
      * @var array
      */
-    protected $_norms = array();
+    protected $_norms = [];
 
 
     /**
@@ -257,6 +257,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->_docCount;
@@ -484,6 +485,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
             $this->_lastIndexPosition = $indexPosition;
 
         }
+
         $this->_termCount++;
     }
 
@@ -526,8 +528,10 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
             // Calculate actual matched UTF-8 pattern
             $prefixBytes = 0;
             $prefixChars = 0;
+
             while ($prefixBytes < $matchedBytes) {
                 $charBytes = 1;
+
                 if ((ord($term->text[$prefixBytes]) & 0xC0) == 0xC0) {
                     $charBytes++;
                     if (ord($term->text[$prefixBytes]) & 0x20 ) {
@@ -593,7 +597,7 @@ abstract class Zend_Search_Lucene_Index_SegmentWriter
         $cfsFile = $this->_directory->createFile($this->_name . '.cfs');
         $cfsFile->writeVInt(count($this->_files));
 
-        $dataOffsetPointers = array();
+        $dataOffsetPointers = [];
         foreach ($this->_files as $fileName) {
             $dataOffsetPointers[$fileName] = $cfsFile->tell();
             $cfsFile->writeLong(0); // write dummy data

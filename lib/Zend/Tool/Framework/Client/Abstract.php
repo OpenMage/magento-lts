@@ -59,7 +59,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
      */
     protected $_debugLogger = null;
 
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         // require autoloader
         Zend_Loader_Autoloader::getInstance();
@@ -135,7 +135,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         }
 
         if ($this instanceof Zend_Tool_Framework_Client_Interactive_OutputInterface) {
-            $this->_registry->getResponse()->setContentCallback(array($this, 'handleInteractiveOutput'));
+            $this->_registry->getResponse()->setContentCallback([$this, 'handleInteractiveOutput']);
         }
 
     }
@@ -295,7 +295,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         $requestParameters = $this->_registry->getRequest()->getProviderParameters();
 
         // @todo This seems hackish, determine if there is a better way
-        $callParameters = array();
+        $callParameters = [];
         foreach ($methodParameters as $methodParameterName => $methodParameterValue) {
             if (!array_key_exists($methodParameterName, $requestParameters) && $methodParameterValue['optional'] == false) {
                 if ($this instanceof Zend_Tool_Framework_Client_Interactive_InputInterface) {
@@ -321,9 +321,9 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
     protected function _handleDispatchExecution($class, $methodName, $callParameters)
     {
         if (method_exists($class, $methodName)) {
-            call_user_func_array(array($class, $methodName), $callParameters);
+            call_user_func_array([$class, $methodName], $callParameters);
         } elseif (method_exists($class, $methodName . 'Action')) {
-            call_user_func_array(array($class, $methodName . 'Action'), $callParameters);
+            call_user_func_array([$class, $methodName . 'Action'], $callParameters);
         } else {
             #require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception('Not a supported method.');

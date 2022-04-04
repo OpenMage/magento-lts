@@ -64,13 +64,14 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
 
     /**
      * Check allowed characters
+     *
      * @param string $value
-     * @return string
+     * @return void
      * @throws Zend_Barcode_Object_Exception
      */
     public function validateText($value)
     {
-        $this->_validateText($value, array('validator' => $this->getType()));
+        $this->_validateText($value, ['validator' => $this->getType()]);
     }
 
     /**
@@ -85,7 +86,7 @@ class Zend_Barcode_Object_Identcode extends Zend_Barcode_Object_Code25interleave
         $checksum = 0;
 
         for ($i = strlen($text); $i > 0; $i --) {
-            $checksum += intval($text[$i - 1]) * (($i % 2) ? 4 : 9);
+            $checksum += (int)$text[$i - 1] * (($i % 2) ? 4 : 9);
         }
 
         $checksum = (10 - ($checksum % 10)) % 10;

@@ -60,8 +60,8 @@ class Zend_Dojo_View_Helper_RadioButton extends Zend_Dojo_View_Helper_Dijit
     public function radioButton(
         $id,
         $value = null,
-        array $params = array(),
-        array $attribs = array(),
+        array $params = [],
+        array $attribs = [],
         array $options = null,
         $listsep = "<br />\n"
     ) {
@@ -80,7 +80,7 @@ class Zend_Dojo_View_Helper_RadioButton extends Zend_Dojo_View_Helper_Dijit
             $filter = new Zend_Filter_Alnum();
             foreach (array_keys($options) as $key) {
                 $optId = $baseId . '-' . $filter->filter($key);
-                $this->_createDijit($this->_dijit, $optId, array());
+                $this->_createDijit($this->_dijit, $optId, []);
             }
         }
 

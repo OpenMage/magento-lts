@@ -35,8 +35,8 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     // Internal variables
     private $_bigEndian   = false;
     private $_file        = false;
-    private $_adapterInfo = array();
-    private $_data        = array();
+    private $_adapterInfo = [];
+    private $_data        = [];
 
     /**
      * Read values from the MO file
@@ -62,9 +62,9 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data      = array();
+        $this->_data      = [];
         $this->_bigEndian = false;
         $this->_file      = @fopen($filename, 'rb');
         if (!$this->_file) {

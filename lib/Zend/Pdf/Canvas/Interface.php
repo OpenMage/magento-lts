@@ -132,7 +132,7 @@ interface Zend_Pdf_Canvas_Interface
      * Phase is shift from the beginning of line.
      *
      * @param mixed $pattern
-     * @param array $phase
+     * @param float $phase
      * @return Zend_Pdf_Canvas_Interface
      */
     public function setLineDashingPattern($pattern, $phase = 0);

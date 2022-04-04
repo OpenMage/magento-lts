@@ -58,7 +58,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      * {@link $_request Request object}.
      * @var array
      */
-    protected $_invokeArgs = array();
+    protected $_invokeArgs = [];
 
     /**
      * Front controller instance
@@ -124,7 +124,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      * @param array $invokeArgs Any additional invocation arguments
      * @return void
      */
-    public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
+    public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = [])
     {
         $this->setRequest($request)
              ->setResponse($response)
@@ -184,7 +184,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
         }
 
         #require_once 'Zend/View.php';
-        $this->view = new Zend_View(array('basePath' => $baseDir));
+        $this->view = new Zend_View(['basePath' => $baseDir]);
 
         return $this->view;
     }
@@ -347,7 +347,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      * @param array $args
      * @return Zend_Controller_Action
      */
-    protected function _setInvokeArgs(array $args = array())
+    protected function _setInvokeArgs(array $args = [])
     {
         $this->_invokeArgs = $args;
         return $this;
@@ -515,7 +515,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
                     }
                     $this->$action();
                 } else {
-                    $this->__call($action, array());
+                    $this->__call($action, []);
                 }
             }
             $this->postDispatch();
@@ -777,7 +777,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      * @deprecated Deprecated as of Zend Framework 1.7. Use
      *             redirect() instead.
      */
-    protected function _redirect($url, array $options = array())
+    protected function _redirect($url, array $options = [])
     {
         $this->redirect($url, $options);
     }
@@ -791,7 +791,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
      * @param array $options Options to be used when redirecting
      * @return void
      */
-    public function redirect($url, array $options = array())
+    public function redirect($url, array $options = [])
     {
         $this->_helper->redirector->gotoUrl($url, $options);
     }

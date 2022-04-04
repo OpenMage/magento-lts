@@ -135,7 +135,7 @@ class Zend_Gdata_Gapps_EmailListRecipientEntry extends Zend_Gdata_Entry
      *
      * @param Zend_Gdata_Extension_Who $value The desired value for this
      *          instance's who property.
-     * @return Zend_Gdata_Gapps_EventEntry Provides a fluent interface.
+     * @return Zend_Gdata_Gapps_EmailListRecipientEntry Provides a fluent interface.
      */
     public function setWho($value)
     {

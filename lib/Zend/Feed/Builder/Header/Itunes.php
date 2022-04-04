@@ -125,7 +125,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
                 throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the itunes owner's email property");
             }
         }
-        $this->offsetSet('owner', array('name' => $name, 'email' => $email));
+        $this->offsetSet('owner', ['name' => $name, 'email' => $email]);
         return $this;
     }
 
@@ -178,7 +178,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
     public function setBlock($block)
     {
         $block = strtolower($block);
-        if (!in_array($block, array('yes', 'no'))) {
+        if (!in_array($block, ['yes', 'no'])) {
             /**
              * @see Zend_Feed_Builder_Exception
              */
@@ -199,7 +199,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
     public function setExplicit($explicit)
     {
         $explicit = strtolower($explicit);
-        if (!in_array($explicit, array('yes', 'no', 'clean'))) {
+        if (!in_array($explicit, ['yes', 'no', 'clean'])) {
             /**
              * @see Zend_Feed_Builder_Exception
              */

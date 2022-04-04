@@ -109,10 +109,10 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      *
      * @var array
      */
-    protected $_validMetrics = array('CPUUtilization', 'NetworkIn', 'NetworkOut',
+    protected $_validMetrics = ['CPUUtilization', 'NetworkIn', 'NetworkOut',
                                     'DiskWriteOps', 'DiskReadBytes', 'DiskReadOps',
                                     'DiskWriteBytes', 'Latency', 'RequestCount',
-                                    'HealthyHostCount', 'UnHealthyHostCount');
+                                    'HealthyHostCount', 'UnHealthyHostCount'];
 
     /**
      * Amazon CloudWatch not only aggregates the raw data coming in, it also computes
@@ -150,7 +150,7 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      *
      * @var array
      */
-    protected $_validStatistics = array('Average', 'Maximum', 'Minimum', 'Samples', 'Sum');
+    protected $_validStatistics = ['Average', 'Maximum', 'Minimum', 'Samples', 'Sum'];
 
     /**
      * Valid Dimention Keys for getMetricStatistics
@@ -181,8 +181,8 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      *
      * @var array
      */
-    protected $_validDimensionsKeys = array('ImageId', 'AvailabilityZone', 'AutoScalingGroupName',
-                                            'InstanceId', 'InstanceType', 'LoadBalancerName');
+    protected $_validDimensionsKeys = ['ImageId', 'AvailabilityZone', 'AutoScalingGroupName',
+                                            'InstanceId', 'InstanceType', 'LoadBalancerName'];
 
     /**
      * Returns data for one or more statistics of given a metric
@@ -230,9 +230,9 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      */
     public function getMetricStatistics(array $options)
     {
-        $_usedStatistics = array();
+        $_usedStatistics = [];
 
-        $params = array();
+        $params = [];
         $params['Action'] = 'GetMetricStatistics';
 
         if (!isset($options['Period'])) {
@@ -293,10 +293,10 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
         $xpath = $response->getXPath();
         $nodes = $xpath->query('//ec2:GetMetricStatisticsResult/ec2:Datapoints/ec2:member');
 
-        $return = array();
+        $return = [];
         $return['label'] = $xpath->evaluate('string(//ec2:GetMetricStatisticsResult/ec2:Label/text())');
         foreach ( $nodes as $node ) {
-            $item = array();
+            $item = [];
 
             $item['Timestamp'] = $xpath->evaluate('string(ec2:Timestamp/text())', $node);
             $item['Unit'] = $xpath->evaluate('string(ec2:Unit/text())', $node);
@@ -323,7 +323,7 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
      */
     public function listMetrics($nextToken = null)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'ListMetrics';
         if (!empty($nextToken)) {
             $params['NextToken'] = $nextToken;
@@ -335,9 +335,9 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
         $xpath = $response->getXPath();
         $nodes = $xpath->query('//ec2:ListMetricsResult/ec2:Metrics/ec2:member');
 
-        $return = array();
+        $return = [];
         foreach ( $nodes as $node ) {
-            $item = array();
+            $item = [];
 
             $item['MeasureName'] = $xpath->evaluate('string(ec2:MeasureName/text())', $node);
             $item['Namespace'] = $xpath->evaluate('string(ec2:Namespace/text())', $node);
@@ -345,7 +345,7 @@ class Zend_Service_Amazon_Ec2_CloudWatch extends Zend_Service_Amazon_Ec2_Abstrac
             $item['Deminsions']['value'] = $xpath->evaluate('string(ec2:Dimensions/ec2:member/ec2:Value/text())', $node);
 
             if (empty($item['Deminsions']['name'])) {
-                $item['Deminsions'] = array();
+                $item['Deminsions'] = [];
             }
 
             $return[] = $item;

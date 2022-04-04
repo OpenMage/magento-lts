@@ -52,7 +52,7 @@ class Zend_Service_Yahoo_PageDataResult extends Zend_Service_Yahoo_Result
      */
     public function __construct(DOMElement $result)
     {
-        $this->_fields = array();
+        $this->_fields = [];
         parent::__construct($result);
     }
 }

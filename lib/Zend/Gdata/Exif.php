@@ -44,9 +44,9 @@ class Zend_Gdata_Exif extends Zend_Gdata
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('exif', 'http://schemas.google.com/photos/exif/2007', 1, 0)
-    );
+    public static $namespaces = [
+        ['exif', 'http://schemas.google.com/photos/exif/2007', 1, 0]
+    ];
 
     /**
      * Create Zend_Gdata_Exif object

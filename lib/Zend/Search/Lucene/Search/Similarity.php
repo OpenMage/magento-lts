@@ -43,7 +43,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
      *
      * @var array
      */
-    private static $_normTable = array( 0   => 0.0,
+    private static $_normTable = [ 0   => 0.0,
                                         1   => 5.820766E-10,
                                         2   => 6.9849193E-10,
                                         3   => 8.1490725E-10,
@@ -298,7 +298,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
                                         252 => 4.2949673E9,
                                         253 => 5.3687091E9,
                                         254 => 6.4424509E9,
-                                        255 => 7.5161928E9 );
+                                        255 => 7.5161928E9 ];
 
 
     /**
@@ -494,7 +494,7 @@ abstract class Zend_Search_Lucene_Search_Similarity
      *
      * @param mixed $input
      * @param Zend_Search_Lucene_Interface $reader
-     * @return a score factor for the term
+     * @return float score factor for the term
      */
     public function idf($input, Zend_Search_Lucene_Interface $reader)
     {

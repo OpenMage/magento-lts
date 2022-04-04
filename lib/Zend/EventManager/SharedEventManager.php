@@ -39,7 +39,7 @@ class Zend_EventManager_SharedEventManager implements Zend_EventManager_SharedEv
      * Identifiers with event connections
      * @var array
      */
-    protected $identifiers = array();
+    protected $identifiers = [];
 
     /**
      * Attach a listener to an event
@@ -100,7 +100,7 @@ class Zend_EventManager_SharedEventManager implements Zend_EventManager_SharedEv
      * Retrieve all registered events for a given resource
      *
      * @param  string|int $id
-     * @return array
+     * @return false
      */
     public function getEvents($id)
     {
@@ -115,7 +115,7 @@ class Zend_EventManager_SharedEventManager implements Zend_EventManager_SharedEv
      *
      * @param  string|int $id
      * @param  string|int $event
-     * @return false|Zend_Stdlib_PriorityQueue
+     * @return false
      */
     public function getListeners($id, $event)
     {

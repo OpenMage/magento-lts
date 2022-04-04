@@ -61,7 +61,7 @@ class Zend_Feed_Reader_Extension_CreativeCommons_Feed
             return $this->_data[$name];
         }
 
-        $licenses = array();
+        $licenses = [];
         $list = $this->_xpath->evaluate('channel/cc:license');
 
         if ($list->length) {

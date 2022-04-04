@@ -41,14 +41,14 @@ class Zend_Json_Encoder
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Array of visited objects; used to prevent cycling.
      *
      * @var array
      */
-    protected $_visited = array();
+    protected $_visited = [];
 
     /**
      * Constructor
@@ -57,7 +57,7 @@ class Zend_Json_Encoder
      * @param array $options Additional options used during encoding
      * @return void
      */
-    protected function __construct($cycleCheck = false, $options = array())
+    protected function __construct($cycleCheck = false, $options = [])
     {
         $this->_cycleCheck = $cycleCheck;
         $this->_options = $options;
@@ -71,7 +71,7 @@ class Zend_Json_Encoder
      * @param array $options Additional options used during encoding
      * @return string  The encoded value
      */
-    public static function encode($value, $cycleCheck = false, $options = array())
+    public static function encode($value, $cycleCheck = false, $options = [])
     {
         $encoder = new self(($cycleCheck) ? true : false, $options);
         return $encoder->_encodeValue($value);
@@ -191,7 +191,7 @@ class Zend_Json_Encoder
      */
     protected function _encodeArray(&$array)
     {
-        $tmpArray = array();
+        $tmpArray = [];
 
         // Check for associative array
         if (!empty($array) && (array_keys($array) !== range(0, count($array) - 1))) {
@@ -256,14 +256,14 @@ class Zend_Json_Encoder
     {
         // Escape these characters with a backslash:
         // " \ / \n \r \t \b \f
-        $search  = array('\\', "\n", "\t", "\r", "\b", "\f", '"', '/');
-        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\"', '\\/');
+        $search  = ['\\', "\n", "\t", "\r", "\b", "\f", '"', '/'];
+        $replace = ['\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\"', '\\/'];
         $string  = str_replace($search, $replace, $string);
 
         // Escape certain ASCII characters:
         // 0x08 => \b
         // 0x0c => \f
-        $string = str_replace(array(chr(0x08), chr(0x0C)), array('\b', '\f'), $string);
+        $string = str_replace([chr(0x08), chr(0x0C)], ['\b', '\f'], $string);
         $string = self::encodeUnicodeString($string);
 
         return '"' . $string . '"';
@@ -282,7 +282,7 @@ class Zend_Json_Encoder
         $result    = "constants : {";
         $constants = $cls->getConstants();
 
-        $tmpArray = array();
+        $tmpArray = [];
         if (!empty($constants)) {
             foreach ($constants as $key => $value) {
                 $tmpArray[] = "$key: " . self::encode($value);
@@ -374,7 +374,7 @@ class Zend_Json_Encoder
         $result = "variables:{";
         $cnt = 0;
 
-        $tmpArray = array();
+        $tmpArray = [];
         foreach ($properties as $prop) {
             if (! $prop->isPublic()) {
                 continue;

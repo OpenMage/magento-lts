@@ -67,7 +67,7 @@ class Zend_Http_UserAgent_Features_Adapter_Browscap
     public static function getFromRequest($request, array $config)
     {
         $browscap = get_browser($request['http_user_agent'], true);
-        $features = array();
+        $features = [];
 
         if (is_array($browscap)) {
             foreach ($browscap as $key => $value) {

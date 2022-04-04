@@ -111,7 +111,7 @@ class Zend_XmlRpc_Client
      * Proxy object for more convenient method calls
      * @var array of Zend_XmlRpc_Client_ServerProxy
      */
-    protected $_proxyCache = array();
+    protected $_proxyCache = [];
 
     /**
      * Flag for skipping system lookup
@@ -272,13 +272,13 @@ class Zend_XmlRpc_Client
             $http->setUri($this->_serverAddress);
         }
 
-        $http->setHeaders(array(
+        $http->setHeaders([
             'Content-Type: text/xml; charset=utf-8',
             'Accept: text/xml',
-        ));
+        ]);
 
         if ($http->getHeader('user-agent') === null) {
-            $http->setHeaders(array('User-Agent: Zend_XmlRpc_Client'));
+            $http->setHeaders(['User-Agent: Zend_XmlRpc_Client']);
         }
 
         $xml = $this->_lastRequest->__toString();
@@ -311,7 +311,7 @@ class Zend_XmlRpc_Client
      * @return mixed
      * @throws Zend_XmlRpc_Client_FaultException
      */
-    public function call($method, $params=array())
+    public function call($method, $params=[])
     {
         if (!$this->skipSystemLookup() && ('system.' != substr($method, 0, 7))) {
             // Ensure empty array/struct params are cast correctly
@@ -323,7 +323,7 @@ class Zend_XmlRpc_Client
                 $success = false;
             }
             if ($success) {
-                $validTypes = array(
+                $validTypes = [
                     Zend_XmlRpc_Value::XMLRPC_TYPE_ARRAY,
                     Zend_XmlRpc_Value::XMLRPC_TYPE_BASE64,
                     Zend_XmlRpc_Value::XMLRPC_TYPE_BOOLEAN,
@@ -334,10 +334,10 @@ class Zend_XmlRpc_Client
                     Zend_XmlRpc_Value::XMLRPC_TYPE_NIL,
                     Zend_XmlRpc_Value::XMLRPC_TYPE_STRING,
                     Zend_XmlRpc_Value::XMLRPC_TYPE_STRUCT,
-                );
+                ];
 
                 if (!is_array($params)) {
-                    $params = array($params);
+                    $params = [$params];
                 }
 
                 foreach ($params as $key => $param)

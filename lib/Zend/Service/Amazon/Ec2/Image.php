@@ -55,16 +55,14 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function register($imageLocation)
     {
-        $params                 = array();
+        $params                 = [];
         $params['Action']       = 'RegisterImage';
         $params['ImageLocation']= $imageLocation;
 
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
 
-        $amiId = $xpath->evaluate('string(//ec2:imageId/text())');
-
-        return $amiId;
+        return $xpath->evaluate('string(//ec2:imageId/text())');
     }
 
     /**
@@ -104,7 +102,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function describe($imageId = null, $owner = null, $executableBy = null)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeImages';
 
         if(is_array($imageId) && !empty($imageId)) {
@@ -136,9 +134,9 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
         $xpath  = $response->getXPath();
         $nodes = $xpath->query('//ec2:imagesSet/ec2:item');
 
-        $return = array();
+        $return = [];
         foreach ($nodes as $node) {
-            $item = array();
+            $item = [];
 
             $item['imageId']        = $xpath->evaluate('string(ec2:imageId/text())', $node);
             $item['imageLocation']  = $xpath->evaluate('string(ec2:imageLocation/text())', $node);
@@ -167,7 +165,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function deregister($imageId)
     {
-        $params                 = array();
+        $params                 = [];
         $params['Action']       = 'DeregisterImage';
         $params['ImageId']      = $imageId;
 
@@ -211,7 +209,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function modifyAttribute($imageId, $attribute, $operationType = 'add', $userId = null, $userGroup = null, $productCode = null)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'ModifyImageAttribute';
         $parmas['ImageId'] = $imageId;
         $params['Attribute'] = $attribute;
@@ -269,7 +267,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function describeAttribute($imageId, $attribute)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeImageAttribute';
         $params['ImageId'] = $imageId;
         $params['Attribute'] = $attribute;
@@ -277,7 +275,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
 
-        $return = array();
+        $return = [];
         $return['imageId'] = $xpath->evaluate('string(//ec2:imageId/text())');
 
         // check for launchPermission
@@ -285,7 +283,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
             $lPnodes = $xpath->query('//ec2:launchPermission/ec2:item');
 
             if($lPnodes->length > 0) {
-                $return['launchPermission'] = array();
+                $return['launchPermission'] = [];
                 foreach($lPnodes as $node) {
                     $return['launchPermission'][] = $xpath->evaluate('string(ec2:userId/text())', $node);
                 }
@@ -296,7 +294,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
         if($attribute == 'productCodes') {
             $pCnodes = $xpath->query('//ec2:productCodes/ec2:item');
             if($pCnodes->length > 0) {
-                $return['productCodes'] = array();
+                $return['productCodes'] = [];
                 foreach($pCnodes as $node) {
                     $return['productCodes'][] = $xpath->evaluate('string(ec2:productCode/text())', $node);
                 }
@@ -318,7 +316,7 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function resetAttribute($imageId, $attribute)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'ResetImageAttribute';
         $params['ImageId'] = $imageId;
         $params['Attribute'] = $attribute;

@@ -93,6 +93,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
      *
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function count();
 
     /**
@@ -336,7 +337,7 @@ interface Zend_Search_Lucene_Interface extends Zend_Search_Lucene_Index_TermsStr
     public function docFreq(Zend_Search_Lucene_Index_Term $term);
 
     /**
-     * Retrieve similarity used by index reader
+     * Retrive similarity used by index reader
      *
      * @return Zend_Search_Lucene_Search_Similarity
      */

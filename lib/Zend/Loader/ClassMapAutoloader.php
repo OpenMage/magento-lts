@@ -36,13 +36,13 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
      * Registry of map files that have already been loaded
      * @var array
      */
-    protected $mapsLoaded = array();
+    protected $mapsLoaded = [];
 
     /**
      * Class name/filename map
      * @var array
      */
-    protected $map = array();
+    protected $map = [];
 
     /**
      * Constructor
@@ -157,9 +157,9 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
     public function register()
     {
         if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            spl_autoload_register(array($this, 'autoload'), true, true);
+            spl_autoload_register([$this, 'autoload'], true, true);
         } else {
-            spl_autoload_register(array($this, 'autoload'), true);
+            spl_autoload_register([$this, 'autoload'], true);
         }
     }
 
@@ -190,9 +190,7 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
             return $this;
         }
 
-        $map = include $path;
-
-        return $map;
+        return include $path;
     }
 
     /**
@@ -208,10 +206,12 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
             return;
         }
 
-        $parts = explode('/', str_replace(array('/','\\'), '/', substr($path, 8)));
-        $parts = array_values(array_filter($parts, array(__CLASS__, 'concatPharParts')));
+        $parts = explode('/', str_replace(['/','\\'], '/', substr($path, 8)));
+        $parts = array_values(array_filter($parts, [__CLASS__, 'concatPharParts']));
 
-        array_walk($parts, array(__CLASS__, 'resolvePharParentPath'), $parts);
+        foreach ($parts as $key => $value) {
+            self::resolvePharParentPath($value, $key, $parts);
+        }
 
         if (file_exists($realPath = 'phar:///' . implode('/', $parts))) {
             return $realPath;

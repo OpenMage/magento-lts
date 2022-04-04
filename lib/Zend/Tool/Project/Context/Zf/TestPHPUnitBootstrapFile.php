@@ -61,7 +61,7 @@ class Zend_Tool_Project_Context_Zf_TestPHPUnitBootstrapFile extends Zend_Tool_Pr
      */
     public function getContents()
     {
-        $codeGenerator = new Zend_CodeGenerator_Php_File(array(
+        $codeGenerator = new Zend_CodeGenerator_Php_File([
             'body' => <<<EOS
 // Define path to application directory
 defined('APPLICATION_PATH')
@@ -81,7 +81,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 Zend_Loader_Autoloader::getInstance();
 
 EOS
-            ));
+            ]);
         return $codeGenerator->generate();
     }
 

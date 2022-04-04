@@ -310,12 +310,12 @@ class Zend_Service_Ebay_Finding_Search_Item extends Zend_Service_Ebay_Finding_Ab
         $this->title                 = $this->_query(".//$ns:title[1]", 'string');
         $this->viewItemURL           = $this->_query(".//$ns:viewItemURL[1]", 'string');
 
-        $this->_attributes['distance'] = array(
+        $this->_attributes['distance'] = [
             'unit' => $this->_query(".//$ns:distance[1]/@unit[1]", 'string')
-        );
-        $this->_attributes['productId'] = array(
+        ];
+        $this->_attributes['productId'] = [
             'type' => $this->_query(".//$ns:productId[1]/@type[1]", 'string')
-        );
+        ];
 
         $node = $this->_xPath->query(".//$ns:listingInfo[1]", $this->_dom)->item(0);
         if ($node) {

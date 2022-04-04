@@ -64,7 +64,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
     /**
      * Returns the actual set seperator to search for
      *
-     * @return  string
+     * @return  string|null
      */
     public function getSearchSeparator()
     {
@@ -86,7 +86,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
     /**
      * Returns the actual set seperator which replaces the searched one
      *
-     * @return  string
+     * @return  string|null
      */
     public function getReplacementSeparator()
     {

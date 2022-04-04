@@ -208,7 +208,7 @@ class Zend_Pdf_Element_Object extends Zend_Pdf_Element
      */
     public function __call($method, $args)
     {
-        return call_user_func_array(array($this->_value, $method), $args);
+        return call_user_func_array([$this->_value, $method], $args);
     }
 
     /**

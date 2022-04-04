@@ -113,7 +113,7 @@ class Zend_XmlRpc_Server_System
      */
     public function multicall($methods)
     {
-        $responses = array();
+        $responses = [];
         foreach ($methods as $method) {
             $fault = false;
             if (!is_array($method)) {
@@ -150,10 +150,10 @@ class Zend_XmlRpc_Server_System
             }
 
             if ($fault) {
-                $responses[] = array(
+                $responses[] = [
                     'faultCode'   => $fault->getCode(),
                     'faultString' => $fault->getMessage()
-                );
+                ];
             }
         }
 

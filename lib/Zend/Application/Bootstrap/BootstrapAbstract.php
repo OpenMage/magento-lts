@@ -70,12 +70,12 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @var array
      */
-    protected $_optionKeys = array();
+    protected $_optionKeys = [];
 
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * @var Zend_Loader_PluginLoader_Interface
@@ -85,17 +85,17 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     /**
      * @var array Class-based resource plugins
      */
-    protected $_pluginResources = array();
+    protected $_pluginResources = [];
 
     /**
      * @var array Initializers that have been run
      */
-    protected $_run = array();
+    protected $_run = [];
 
     /**
      * @var array Initializers that have been started but not yet completed (circular dependency detection)
      */
-    protected $_started = array();
+    protected $_started = [];
 
     /**
      * Constructor
@@ -202,10 +202,10 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
-                if (is_array($array2[$key])) {
+                if (is_array($val)) {
                     $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                                  ? $this->mergeOptions($array1[$key], $val)
+                                  : $val;
                 } else {
                     $array1[$key] = $val;
                 }
@@ -228,7 +228,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
             if (version_compare(PHP_VERSION, '5.2.6') === -1) {
                 $class        = new ReflectionObject($this);
                 $classMethods = $class->getMethods();
-                $methodNames  = array();
+                $methodNames  = [];
 
                 foreach ($classMethods as $method) {
                     $methodNames[] = $method->getName();
@@ -237,7 +237,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 $methodNames = get_class_methods($this);
             }
 
-            $this->_classResources = array();
+            $this->_classResources = [];
             foreach ($methodNames as $method) {
                 if (5 < strlen($method) && '_init' === substr($method, 0, 5)) {
                     $this->_classResources[strtolower(substr($method, 5))] = $method;
@@ -327,7 +327,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      * Get a registered plugin resource
      *
      * @param string $resource
-     * @return Zend_Application_Resource_Resource
+     * @return Zend_Application_Resource_Resource|null
      * @throws Zend_Application_Bootstrap_Exception
      */
     public function getPluginResource($resource)
@@ -425,10 +425,10 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     public function getPluginLoader()
     {
         if ($this->_pluginLoader === null) {
-            $options = array(
+            $options = [
                 'Zend_Application_Resource'  => 'Zend/Application/Resource',
                 'ZendX_Application_Resource' => 'ZendX/Application/Resource'
-            );
+            ];
 
             $this->_pluginLoader = new Zend_Loader_PluginLoader($options);
         }

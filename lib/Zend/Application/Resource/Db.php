@@ -54,7 +54,7 @@ class Zend_Application_Resource_Db extends Zend_Application_Resource_ResourceAbs
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Wether to register the created adapter as default table adapter

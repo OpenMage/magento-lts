@@ -62,7 +62,7 @@ class Zend_Tool_Project_Context_Zf_LayoutScriptFile extends Zend_Tool_Project_Co
     /**
      * init()
      *
-     * @return Zend_Tool_Project_Context_Zf_ViewScriptFile
+     * @return Zend_Tool_Project_Context_Zf_LayoutScriptFile
      */
     public function init()
     {
@@ -79,11 +79,11 @@ class Zend_Tool_Project_Context_Zf_LayoutScriptFile extends Zend_Tool_Project_Co
     /**
      * getPersistentAttributes()
      *
-     * @return unknown
+     * @return array
      */
     public function getPersistentAttributes()
     {
-        $attributes = array();
+        $attributes = [];
 
         if ($this->_layoutName) {
             $attributes['layoutName'] = $this->_layoutName;

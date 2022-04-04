@@ -63,12 +63,12 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * - if set to false (default), an exception is thrown if there is a missing master file
      * @var array available options
      */
-    protected $_specificOptions = array(
+    protected $_specificOptions = [
         'master_file' => null,
         'master_files' => null,
         'master_files_mode' => 'OR',
         'ignore_missing_master_files' => false
-    );
+    ];
 
     /**
      * Master file mtimes
@@ -86,7 +86,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * @throws Zend_Cache_Exception
      * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
@@ -105,10 +105,11 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
     {
         $this->_specificOptions['master_file']  = null; // to keep a compatibility
         $this->_specificOptions['master_files'] = null;
-        $this->_masterFile_mtimes = array();
+        $this->_masterFile_mtimes = [];
 
         clearstatcache();
         $i = 0;
+
         foreach ($masterFiles as $masterFile) {
             if (file_exists($masterFile)) {
                 $mtime = filemtime($masterFile);
@@ -122,6 +123,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
 
             $this->_masterFile_mtimes[$i] = $mtime;
             $this->_specificOptions['master_files'][$i] = $masterFile;
+
             if ($i === 0) { // to keep a compatibility
                 $this->_specificOptions['master_file'] = $masterFile;
             }
@@ -140,7 +142,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      */
     public function setMasterFile($masterFile)
     {
-          $this->setMasterFiles(array($masterFile));
+          $this->setMasterFiles([$masterFile]);
     }
 
     /**

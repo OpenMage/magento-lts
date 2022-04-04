@@ -79,7 +79,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryNamespaceDirectory extends Zend_To
      */
     public function getPersistentAttributes()
     {
-        $attributes = array();
+        $attributes = [];
         $attributes['namespaceName'] = $this->_namespaceName;
 
         return $attributes;

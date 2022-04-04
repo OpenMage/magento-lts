@@ -188,6 +188,7 @@ class Zend_ProgressBar
      * @param  string $text
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function next($diff = 1, $text = null)
     {
         $this->update(max($this->_min, min($this->_max, $this->_current + $diff)), $text);

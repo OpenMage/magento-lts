@@ -73,10 +73,10 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      * Options for the object
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'traceOffset' => null, /* The offset in the trace which identifies the source of the message */
         'includeLineNumbers' => null /* Whether to include line and file info for this message */
-    );
+    ];
 
     /**
      * Creates a new message with the given style and message

@@ -65,7 +65,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
      *
      * @param Zend_Pdf $pdf
      * @param int      $page
-     * @return Zend_Barcode_Renderer
+     * @return Zend_Barcode_Renderer_Pdf
      * @throws Zend_Barcode_Renderer_Exception
      */
     public function setResource($pdf, $page = 0)
@@ -78,7 +78,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
         }
 
         $this->_resource = $pdf;
-        $this->_page     = intval($page);
+        $this->_page     = (int)$page;
 
         if (!count($this->_resource->pages)) {
             $this->_page = 0;
@@ -100,7 +100,8 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Draw the barcode in the PDF, send headers and the PDF
-     * @return mixed
+     *
+     * @return void
      */
     public function render()
     {
@@ -135,15 +136,18 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
     protected function _drawPolygon($points, $color, $filled = true)
     {
         $page = $this->_resource->pages[$this->_page];
+
         foreach ($points as $point) {
             $x[] = $point[0] * $this->_moduleSize + $this->_leftOffset;
             $y[] = $page->getHeight() - $point[1] * $this->_moduleSize - $this->_topOffset;
         }
-        if (count($y) == 4) {
+
+        if (count($y) === 4) {
             if ($x[0] != $x[3] && $y[0] == $y[3]) {
                 $y[0] -= ($this->_moduleSize / 2);
                 $y[3] -= ($this->_moduleSize / 2);
             }
+
             if ($x[1] != $x[2] && $y[1] == $y[2]) {
                 $y[1] += ($this->_moduleSize / 2);
                 $y[2] += ($this->_moduleSize / 2);
@@ -225,6 +229,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Calculate the width of a string:
      * in case of using alignment parameter in drawText
+     *
      * @param string $text
      * @param Zend_Pdf_Font $font
      * @param float $fontSize
@@ -233,13 +238,15 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
     public function widthForStringUsingFontSize($text, $font, $fontSize)
     {
         $drawingString = iconv('UTF-8', 'UTF-16BE//IGNORE', $text);
-        $characters    = array();
+        $characters    = [];
+
         for ($i = 0; $i < strlen($drawingString); $i ++) {
             $characters[] = (ord($drawingString[$i ++]) << 8) | ord($drawingString[$i]);
         }
+
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        $stringWidth = (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
-        return $stringWidth;
+
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
     }
 }

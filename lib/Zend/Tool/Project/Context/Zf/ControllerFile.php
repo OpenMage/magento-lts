@@ -68,9 +68,9 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'controllerName' => $this->getControllerName()
-            );
+            ];
     }
 
     /**
@@ -105,33 +105,33 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
         $className = ($this->_moduleName) ? $filter->filter(ucfirst($this->_moduleName)) . '_' : '';
         $className .= ucfirst($this->_controllerName) . 'Controller';
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
             'fileName' => $this->getPath(),
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'Zend_Controller_Action',
-                    'methods' => array(
-                        new Zend_CodeGenerator_Php_Method(array(
+                    'methods' => [
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'init',
                             'body' => '/* Initialize action controller here */',
-                            ))
-                        )
-                    ))
-                )
-            ));
+                            ])
+                        ]
+                    ])
+                ]
+            ]);
 
 
         if ($className == 'ErrorController') {
 
-            $codeGenFile = new Zend_CodeGenerator_Php_File(array(
+            $codeGenFile = new Zend_CodeGenerator_Php_File([
                 'fileName' => $this->getPath(),
-                'classes' => array(
-                    new Zend_CodeGenerator_Php_Class(array(
+                'classes' => [
+                    new Zend_CodeGenerator_Php_Class([
                         'name' => $className,
                         'extendedClass' => 'Zend_Controller_Action',
-                        'methods' => array(
-                            new Zend_CodeGenerator_Php_Method(array(
+                        'methods' => [
+                            new Zend_CodeGenerator_Php_Method([
                                 'name' => 'errorAction',
                                 'body' => <<<EOS
 \$errors = \$this->_getParam('error_handler');
@@ -171,8 +171,8 @@ if (\$this->getInvokeArg('displayExceptions') == true) {
 
 \$this->view->request   = \$errors->request;
 EOS
-                                )),
-                            new Zend_CodeGenerator_Php_Method(array(
+                                ]),
+                            new Zend_CodeGenerator_Php_Method([
                                 'name' => 'getLog',
                                 'body' => <<<EOS
 \$bootstrap = \$this->getInvokeArg('bootstrap');
@@ -182,11 +182,11 @@ if (!\$bootstrap->hasResource('Log')) {
 \$log = \$bootstrap->getResource('Log');
 return \$log;
 EOS
-                                )),
-                            )
-                        ))
-                    )
-                ));
+                                ]),
+                            ]
+                        ])
+                    ]
+                ]);
 
         }
 
@@ -203,7 +203,7 @@ EOS
     public function addAction($actionName)
     {
         $classCodeGen = $this->getCodeGenerator();
-        $classCodeGen->setMethod(array('name' => $actionName . 'Action', 'body' => '        // action body here'));
+        $classCodeGen->setMethod(['name' => $actionName . 'Action', 'body' => '        // action body here']);
         file_put_contents($this->getPath(), $classCodeGen->generate());
     }
 
@@ -216,8 +216,8 @@ EOS
     {
         $codeGenFile = Zend_CodeGenerator_Php_File::fromReflectedFileName($this->getPath());
         $codeGenFileClasses = $codeGenFile->getClasses();
-        $class = array_shift($codeGenFileClasses);
-        return $class;
+
+        return array_shift($codeGenFileClasses);
     }
 
 }

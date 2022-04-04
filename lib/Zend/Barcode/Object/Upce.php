@@ -41,30 +41,30 @@
 class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
 {
 
-    protected $_parities = array(
-        0 => array(
-            0 => array('B','B','B','A','A','A'),
-            1 => array('B','B','A','B','A','A'),
-            2 => array('B','B','A','A','B','A'),
-            3 => array('B','B','A','A','A','B'),
-            4 => array('B','A','B','B','A','A'),
-            5 => array('B','A','A','B','B','A'),
-            6 => array('B','A','A','A','B','B'),
-            7 => array('B','A','B','A','B','A'),
-            8 => array('B','A','B','A','A','B'),
-            9 => array('B','A','A','B','A','B')),
-        1 => array(
-            0 => array('A','A','A','B','B','B'),
-            1 => array('A','A','B','A','B','B'),
-            2 => array('A','A','B','B','A','B'),
-            3 => array('A','A','B','B','B','A'),
-            4 => array('A','B','A','A','B','B'),
-            5 => array('A','B','B','A','A','B'),
-            6 => array('A','B','B','B','A','A'),
-            7 => array('A','B','A','B','A','B'),
-            8 => array('A','B','A','B','B','A'),
-            9 => array('A','B','B','A','B','A'))
-    );
+    protected $_parities = [
+        0 => [
+            0 => ['B','B','B','A','A','A'],
+            1 => ['B','B','A','B','A','A'],
+            2 => ['B','B','A','A','B','A'],
+            3 => ['B','B','A','A','A','B'],
+            4 => ['B','A','B','B','A','A'],
+            5 => ['B','A','A','B','B','A'],
+            6 => ['B','A','A','A','B','B'],
+            7 => ['B','A','B','A','B','A'],
+            8 => ['B','A','B','A','A','B'],
+            9 => ['B','A','A','B','A','B']],
+        1 => [
+            0 => ['A','A','A','B','B','B'],
+            1 => ['A','A','B','A','B','B'],
+            2 => ['A','A','B','B','A','B'],
+            3 => ['A','A','B','B','B','A'],
+            4 => ['A','B','A','A','B','B'],
+            5 => ['A','B','B','A','A','B'],
+            6 => ['A','B','B','B','A','A'],
+            7 => ['A','B','A','B','A','B'],
+            8 => ['A','B','A','B','B','A'],
+            9 => ['A','B','B','A','B','A']]
+    ];
 
     /**
      * Default options for Postnet barcode
@@ -84,9 +84,11 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
     public function getText()
     {
         $text = parent::getText();
+
         if ($text[0] != 1) {
             $text[0] = 0;
         }
+
         return $text;
     }
 
@@ -109,36 +111,38 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
      */
     protected function _prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
         $height = ($this->_drawText) ? 1.1 : 1;
 
         // Start character (101)
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
 
         $textTable = str_split($this->getText());
         $system = 0;
+
         if ($textTable[0] == 1) {
             $system = 1;
         }
+
         $checksum = $textTable[7];
         $parity = $this->_parities[$system][$checksum];
 
         for ($i = 1; $i < 7; $i++) {
             $bars = str_split($this->_codingMap[$parity[$i - 1]][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b , $this->_barThinWidth , 0 , 1);
+                $barcodeTable[] = [$b , $this->_barThinWidth , 0 , 1];
             }
         }
 
         // Stop character (10101)
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
-        $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [0 , $this->_barThinWidth , 0 , $height];
+        $barcodeTable[] = [1 , $this->_barThinWidth , 0 , $height];
         return $barcodeTable;
     }
 
@@ -152,11 +156,14 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
             $text = $this->getTextToDisplay();
             $characterWidth = (7 * $this->_barThinWidth) * $this->_factor;
             $leftPosition = $this->getQuietZone() - $characterWidth;
+
             for ($i = 0; $i < $this->_barcodeLength; $i ++) {
                 $fontSize = $this->_fontSize;
-                if ($i == 0 || $i == 7) {
+
+                if ($i === 0 || $i === 7) {
                     $fontSize *= 0.8;
                 }
+
                 $this->_addText(
                     $text[$i],
                     $fontSize * $this->_factor,
@@ -193,12 +200,12 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
      * @param array  $options
      * @throws Zend_Barcode_Object_Exception
      */
-    protected function _validateText($value, $options = array())
+    protected function _validateText($value, $options = [])
     {
-        $validator = new Zend_Validate_Barcode(array(
+        $validator = new Zend_Validate_Barcode([
             'adapter'  => 'upce',
             'checksum' => false,
-        ));
+        ]);
 
         $value = $this->_addLeadingZeros($value, true);
 
@@ -222,9 +229,11 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
     public function getChecksum($text)
     {
         $text = $this->_addLeadingZeros($text, true);
+
         if ($text[0] != 1) {
             $text[0] = 0;
         }
+
         return parent::getChecksum($text);
     }
 }

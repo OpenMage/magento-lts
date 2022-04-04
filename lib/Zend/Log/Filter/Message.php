@@ -63,9 +63,9 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     static public function factory($config)
     {
         $config = self::_parseConfig($config);
-        $config = array_merge(array(
+        $config = array_merge([
             'regexp' => null
-        ), $config);
+        ], $config);
 
         return new self(
             $config['regexp']

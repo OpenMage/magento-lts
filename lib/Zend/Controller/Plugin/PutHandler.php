@@ -52,7 +52,7 @@ class Zend_Controller_Plugin_PutHandler extends Zend_Controller_Plugin_Abstract
         }
 
         if ($this->_request->isPut()) {
-            $putParams = array();
+            $putParams = [];
             parse_str($this->_request->getRawBody(), $putParams);
             $request->setParams($putParams);
         }

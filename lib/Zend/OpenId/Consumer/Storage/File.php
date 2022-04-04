@@ -139,7 +139,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
                 fclose($lock);
                 return false;
             }
-            $data = serialize(array($url, $handle, $macFunc, $secret, $expires));
+            $data = serialize([$url, $handle, $macFunc, $secret, $expires]);
             fwrite($f, $data);
             if (function_exists('symlink')) {
                 @unlink($name2);
@@ -344,7 +344,7 @@ class Zend_OpenId_Consumer_Storage_File extends Zend_OpenId_Consumer_Storage
                 fclose($lock);
                 return false;
             }
-            $data = serialize(array($id, $realId, $server, $version, $expires));
+            $data = serialize([$id, $realId, $server, $version, $expires]);
             fwrite($f, $data);
             fclose($f);
             fclose($lock);

@@ -41,7 +41,7 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Indention
      */
     public function decorate($content, $indention)
     {
-        if(strval(intval($indention)) != $indention) {
+        if((string)(int)$indention != $indention) {
             return $content;
         }
 

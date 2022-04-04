@@ -49,7 +49,7 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
      * the translated Unicode code points.
      * @var array
      */
-    protected $_glyphIndexArray = array();
+    protected $_glyphIndexArray = [];
 
 
 
@@ -71,7 +71,7 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
      */
     public function glyphNumbersForCharacters($characterCodes)
     {
-        $glyphNumbers = array();
+        $glyphNumbers = [];
         foreach ($characterCodes as $key => $characterCode) {
 
            if (! isset($this->_glyphIndexArray[$characterCode])) {
@@ -149,7 +149,8 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
         /* Sanity check: This table must be exactly 262 bytes long.
          */
         $actualLength = strlen($cmapData);
-        if ($actualLength != 262) {
+
+        if ($actualLength !== 262) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Insufficient table data',
                                          Zend_Pdf_Exception::CMAP_TABLE_DATA_TOO_SMALL);

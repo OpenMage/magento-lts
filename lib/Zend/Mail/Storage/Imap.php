@@ -85,25 +85,25 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * imap flags to constants translation
      * @var array
      */
-    protected static $_knownFlags = array('\Passed'   => Zend_Mail_Storage::FLAG_PASSED,
+    protected static $_knownFlags = ['\Passed'   => Zend_Mail_Storage::FLAG_PASSED,
                                           '\Answered' => Zend_Mail_Storage::FLAG_ANSWERED,
                                           '\Seen'     => Zend_Mail_Storage::FLAG_SEEN,
                                           '\Unseen'   => Zend_Mail_Storage::FLAG_UNSEEN,
                                           '\Deleted'  => Zend_Mail_Storage::FLAG_DELETED,
                                           '\Draft'    => Zend_Mail_Storage::FLAG_DRAFT,
-                                          '\Flagged'  => Zend_Mail_Storage::FLAG_FLAGGED);
+                                          '\Flagged'  => Zend_Mail_Storage::FLAG_FLAGGED];
 
     /**
      * map flags to search criterias
      * @var array
      */
-    protected static $_searchFlags = array('\Recent'   => 'RECENT',
+    protected static $_searchFlags = ['\Recent'   => 'RECENT',
                                            '\Answered' => 'ANSWERED',
                                            '\Seen'     => 'SEEN',
                                            '\Unseen'   => 'UNSEEN',
                                            '\Deleted'  => 'DELETED',
                                            '\Draft'    => 'DRAFT',
-                                           '\Flagged'  => 'FLAGGED');
+                                           '\Flagged'  => 'FLAGGED'];
 
     /**
      * Count messages all messages in current box
@@ -123,10 +123,10 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
 
         if ($flags === null) {
-            return count($this->_protocol->search(array('ALL')));
+            return count($this->_protocol->search(['ALL']));
         }
 
-        $params = array();
+        $params = [];
         foreach ((array)$flags as $flag) {
             if (isset(self::$_searchFlags[$flag])) {
                 $params[] = self::$_searchFlags[$flag];
@@ -142,7 +142,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      * get a list of messages with number and size
      *
      * @param int $id number of message
-     * @return int|array size of given message of list with all messages as array(num => size)
+     * @return array|string size of given message of list with all messages as array(num => size)
      * @throws Zend_Mail_Protocol_Exception
      */
     public function getSize($id = 0)
@@ -162,15 +162,15 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      */
     public function getMessage($id)
     {
-        $data = $this->_protocol->fetch(array('FLAGS', 'RFC822.HEADER'), $id);
+        $data = $this->_protocol->fetch(['FLAGS', 'RFC822.HEADER'], $id);
         $header = $data['RFC822.HEADER'];
 
-        $flags = array();
+        $flags = [];
         foreach ($data['FLAGS'] as $flag) {
             $flags[] = isset(self::$_knownFlags[$flag]) ? self::$_knownFlags[$flag] : $flag;
         }
 
-        return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $header, 'flags' => $flags));
+        return new $this->_messageClass(['handler' => $this, 'id' => $id, 'headers' => $header, 'flags' => $flags]);
     }
 
     /*
@@ -323,7 +323,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
      */
     public function removeMessage($id)
     {
-        if (!$this->_protocol->store(array(Zend_Mail_Storage::FLAG_DELETED), $id, null, '+')) {
+        if (!$this->_protocol->store([Zend_Mail_Storage::FLAG_DELETED], $id, null, '+')) {
             /**
              * @see Zend_Mail_Storage_Exception
              */
@@ -407,8 +407,8 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
 
         ksort($folders, SORT_STRING);
         $root = new Zend_Mail_Storage_Folder('/', '/', false);
-        $stack = array(null);
-        $folderStack = array(null);
+        $stack = [null];
+        $folderStack = [null];
         $parentFolder = $root;
         $parent = '';
 
@@ -416,11 +416,13 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             do {
                 if (!$parent || strpos($globalName, $parent) === 0) {
                     $pos = strrpos($globalName, $data['delim']);
+
                     if ($pos === false) {
                         $localName = $globalName;
                     } else {
                         $localName = substr($globalName, $pos + 1);
                     }
+
                     $selectable = !$data['flags'] || !in_array('\\Noselect', $data['flags']);
 
                     array_push($stack, $parent);
@@ -474,7 +476,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
     /**
      * get Zend_Mail_Storage_Folder instance for current folder
      *
-     * @return Zend_Mail_Storage_Folder instance of current folder
+     * @return string instance of current folder
      * @throws Zend_Mail_Storage_Exception
      */
     public function getCurrentFolder()
@@ -576,7 +578,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
 
         if ($flags === null) {
-            $flags = array(Zend_Mail_Storage::FLAG_SEEN);
+            $flags = [Zend_Mail_Storage::FLAG_SEEN];
         }
 
         // TODO: handle class instances for $message

@@ -250,6 +250,6 @@ class Zend_XmlRpc_Response
      */
     public function __toString()
     {
-        return $this->saveXML();
+        return $this->saveXml();
     }
 }

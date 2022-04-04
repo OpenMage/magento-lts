@@ -38,27 +38,27 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::INVALID        => "Invalid type given. String expected",
         self::NOT_IP_ADDRESS => "'%value%' does not appear to be a valid IP address",
-    );
+    ];
 
     /**
      * internal options
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'allowipv6' => true,
         'allowipv4' => true
-    );
+    ];
 
     /**
      * Sets validator options
      *
      * @param array $options OPTIONAL Options to set, see the manual for all available options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -178,12 +178,13 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
         }
 
         $colonCount = substr_count($value, ':');
+
         if ($colonCount < 8) {
             return preg_match('/\A(?::|(?:[a-f0-9]{1,4}:)+):(?:(?:[a-f0-9]{1,4}:)*[a-f0-9]{1,4})?\z/i', $value);
         }
 
         // special case with ending or starting double colon
-        if ($colonCount == 8) {
+        if ($colonCount === 8) {
             return preg_match('/\A(?:::)?(?:[a-f0-9]{1,4}:){6}[a-f0-9]{1,4}(?:::)?\z/i', $value);
         }
 

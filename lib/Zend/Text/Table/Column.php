@@ -72,7 +72,7 @@ class Zend_Text_Table_Column
      *
      * @var array
      */
-    protected $_allowedAligns = array(self::ALIGN_LEFT, self::ALIGN_CENTER, self::ALIGN_RIGHT);
+    protected $_allowedAligns = [self::ALIGN_LEFT, self::ALIGN_CENTER, self::ALIGN_RIGHT];
 
     /**
      * Create a column for a Zend_Text_Table_Row object.
@@ -228,7 +228,7 @@ class Zend_Text_Table_Column
 
         $outputCharset = Zend_Text_Table::getOutputCharset();
         $lines         = explode("\n", Zend_Text_MultiByte::wordWrap($this->_content, $columnWidth, "\n", true, $outputCharset));
-        $paddedLines   = array();
+        $paddedLines   = [];
 
         foreach ($lines AS $line) {
             $paddedLines[] = str_repeat(' ', $padding)
@@ -236,8 +236,6 @@ class Zend_Text_Table_Column
                            . str_repeat(' ', $padding);
         }
 
-        $result = implode("\n", $paddedLines);
-
-        return $result;
+        return implode("\n", $paddedLines);
     }
 }

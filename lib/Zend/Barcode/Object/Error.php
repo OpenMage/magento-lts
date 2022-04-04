@@ -72,9 +72,9 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
      */
     public function draw()
     {
-        $this->_instructions = array();
-        $this->_addText('ERROR:', 10, array(5 , 18), $this->_font, 0, 'left');
-        $this->_addText($this->_text, 10, array(5 , 32), $this->_font, 0, 'left');
+        $this->_instructions = [];
+        $this->_addText('ERROR:', 10, [5 , 18], $this->_font, 0, 'left');
+        $this->_addText($this->_text, 10, [5 , 32], $this->_font, 0, 'left');
         return $this->_instructions;
     }
 

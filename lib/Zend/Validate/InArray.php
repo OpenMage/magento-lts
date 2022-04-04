@@ -37,9 +37,9 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::NOT_IN_ARRAY => "'%value%' was not found in the haystack",
-    );
+    ];
 
     /**
      * Haystack of possible values
@@ -77,7 +77,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
             throw new Zend_Validate_Exception('Array expected as parameter');
         } else {
             $count = func_num_args();
-            $temp  = array();
+            $temp  = [];
             if ($count > 1) {
                 $temp['haystack'] = func_get_arg(0);
                 $temp['strict']   = func_get_arg(1);
@@ -85,7 +85,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
             } else {
                 $temp = func_get_arg(0);
                 if (!array_key_exists('haystack', $options)) {
-                    $options = array();
+                    $options = [];
                     $options['haystack'] = $temp;
                 } else {
                     $options = $temp;
@@ -106,7 +106,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Returns the haystack option
      *
-     * @return mixed
+     * @return array
      */
     public function getHaystack()
     {

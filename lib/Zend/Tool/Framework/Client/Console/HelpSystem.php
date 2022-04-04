@@ -64,14 +64,14 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         $errorMessages = explode(PHP_EOL, wordwrap($errorMessage, 70, PHP_EOL, false));
 
         $text = 'An Error Has Occurred';
-        $this->_response->appendContent($text, array('color' => array('hiWhite', 'bgRed'), 'aligncenter' => true));
-        $this->_response->appendContent($errorMessage, array('indention' => 1, 'blockize' => 72, 'color' => array('white', 'bgRed')));
+        $this->_response->appendContent($text, ['color' => ['hiWhite', 'bgRed'], 'aligncenter' => true]);
+        $this->_response->appendContent($errorMessage, ['indention' => 1, 'blockize' => 72, 'color' => ['white', 'bgRed']]);
 
         if ($exception && $this->_registry->getRequest()->isDebug()) {
             $this->_response->appendContent($exception->getTraceAsString());
         }
 
-        $this->_response->appendContent(null, array('separator' => true));
+        $this->_response->appendContent(null, ['separator' => true]);
         return $this;
     }
 
@@ -84,20 +84,20 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     {
         $this->_respondWithHeader();
 
-        $noSeparator = array('separator' => false);
+        $noSeparator = ['separator' => false];
 
-        $this->_response->appendContent('Usage:', array('color' => 'green'))
+        $this->_response->appendContent('Usage:', ['color' => 'green'])
             ->appendContent('    ', $noSeparator)
-            ->appendContent('zf', array_merge(array('color' => 'cyan'), $noSeparator))
+            ->appendContent('zf', array_merge(['color' => 'cyan'], $noSeparator))
             ->appendContent(' [--global-opts]', $noSeparator)
-            ->appendContent(' action-name', array_merge(array('color' => 'cyan'), $noSeparator))
+            ->appendContent(' action-name', array_merge(['color' => 'cyan'], $noSeparator))
             ->appendContent(' [--action-opts]', $noSeparator)
-            ->appendContent(' provider-name', array_merge(array('color' => 'cyan'), $noSeparator))
+            ->appendContent(' provider-name', array_merge(['color' => 'cyan'], $noSeparator))
             ->appendContent(' [--provider-opts]', $noSeparator)
             ->appendContent(' [provider parameters ...]')
-            ->appendContent('    Note: You may use "?" in any place of the above usage string to ask for more specific help information.', array('color'=>'yellow'))
-            ->appendContent('    Example: "zf ? version" will list all available actions for the version provider.', array('color'=>'yellow', 'separator' => 2))
-            ->appendContent('Providers and their actions:', array('color' => 'green'));
+            ->appendContent('    Note: You may use "?" in any place of the above usage string to ask for more specific help information.', ['color'=>'yellow'])
+            ->appendContent('    Example: "zf ? version" will list all available actions for the version provider.', ['color'=>'yellow', 'separator' => 2])
+            ->appendContent('Providers and their actions:', ['color' => 'green']);
 
         $this->_respondWithSystemInformation();
         return $this;
@@ -112,7 +112,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     public function respondWithActionHelp($actionName)
     {
         $this->_respondWithHeader();
-        $this->_response->appendContent('Providers that support the action "' . $actionName . '"', array('color' => 'green'));
+        $this->_response->appendContent('Providers that support the action "' . $actionName . '"', ['color' => 'green']);
         $this->_respondWithSystemInformation(null, $actionName);
         return $this;
     }
@@ -129,7 +129,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         $this->_respondWithHeader();
         $this->_response->appendContent(
             'Details for action "' . $actionName . '" and provider "' . $providerName . '"',
-            array('color' => 'green')
+            ['color' => 'green']
             );
         $this->_respondWithSystemInformation($providerName, $actionName, true);
         return $this;
@@ -144,7 +144,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     public function respondWithProviderHelp($providerName)
     {
         $this->_respondWithHeader();
-        $this->_response->appendContent('Actions supported by provider "' . $providerName . '"', array('color' => 'green'));
+        $this->_response->appendContent('Actions supported by provider "' . $providerName . '"', ['color' => 'green']);
         $this->_respondWithSystemInformation($providerName);
         return $this;
     }
@@ -160,7 +160,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
          * @see Zend_Version
          */
         #require_once 'Zend/Version.php';
-        $this->_response->appendContent('Zend Framework', array('color' => array('hiWhite'), 'separator' => false));
+        $this->_response->appendContent('Zend Framework', ['color' => ['hiWhite'], 'separator' => false]);
         $this->_response->appendContent(' Command Line Console Tool v' . Zend_Version::VERSION . '');
         return $this;
     }
@@ -177,24 +177,24 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     {
         $manifest = $this->_registry->getManifestRepository();
 
-        $providerMetadatasSearch = array(
+        $providerMetadatasSearch = [
             'type'       => 'Tool',
             'name'       => 'providerName',
             'clientName' => 'console'
-            );
+            ];
 
         if (is_string($providerNameFilter)) {
-            $providerMetadatasSearch = array_merge($providerMetadatasSearch, array('providerName' => $providerNameFilter));
+            $providerMetadatasSearch = array_merge($providerMetadatasSearch, ['providerName' => $providerNameFilter]);
         }
 
-        $actionMetadatasSearch = array(
+        $actionMetadatasSearch = [
             'type'       => 'Tool',
             'name'       => 'actionName',
             'clientName' => 'console'
-            );
+            ];
 
         if (is_string($actionNameFilter)) {
-            $actionMetadatasSearch = array_merge($actionMetadatasSearch, array('actionName' => $actionNameFilter));
+            $actionMetadatasSearch = array_merge($actionMetadatasSearch, ['actionName' => $actionNameFilter]);
         }
 
         // get the metadata's for the things to display
@@ -224,31 +224,31 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                     $actionMetadata = $displayActionMetadatas[$foundActionIndex];
                 }
 
-                $specialtyMetadata = $manifest->getMetadata(array(
+                $specialtyMetadata = $manifest->getMetadata([
                     'type'          => 'Tool',
                     'name'          => 'specialtyName',
                     'providerName'  => $providerName,
                     'specialtyName' => '_Global',
                     'clientName'    => 'console'
-                    ));
+                    ]);
 
                 // lets do the main _Global action first
-                $actionableGlobalLongParamMetadata = $manifest->getMetadata(array(
+                $actionableGlobalLongParamMetadata = $manifest->getMetadata([
                     'type'          => 'Tool',
                     'name'          => 'actionableMethodLongParams',
                     'providerName'  => $providerName,
                     'specialtyName' => '_Global',
                     'actionName'    => $actionName,
                     'clientName'    => 'console'
-                    ));
+                    ]);
 
-                $actionableGlobalMetadatas = $manifest->getMetadatas(array(
+                $actionableGlobalMetadatas = $manifest->getMetadatas([
                     'type'          => 'Tool',
                     'name'          => 'actionableMethodLongParams',
                     'providerName'  => $providerName,
                     'actionName'    => $actionName,
                     'clientName'    => 'console'
-                    ));
+                    ]);
 
                 if ($actionableGlobalLongParamMetadata) {
 
@@ -266,7 +266,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
 
                 // check for providers without a _Global action
                 $isSingleSpecialProviderAction = false;
-                if (!$actionIsGlobal && count($actionableGlobalMetadatas) == 1) {
+                if (!$actionIsGlobal && count($actionableGlobalMetadatas) === 1) {
                     $isSingleSpecialProviderAction = true;
                     $this->_respondWithProviderName($providerMetadata);
                     $providerNameDisplayed = true;
@@ -280,22 +280,22 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                             continue;
                         }
 
-                        $specialtyMetadata = $manifest->getMetadata(array(
+                        $specialtyMetadata = $manifest->getMetadata([
                             'type'          => 'Tool',
                             'name'          => 'specialtyName',
                             'providerName'  => $providerMetadata->getProviderName(),
                             'specialtyName' => $specialtyName,
                             'clientName'    => 'console'
-                            ));
+                            ]);
 
-                        $actionableSpecialtyLongMetadata = $manifest->getMetadata(array(
+                        $actionableSpecialtyLongMetadata = $manifest->getMetadata([
                             'type'          => 'Tool',
                             'name'          => 'actionableMethodLongParams',
                             'providerName'  => $providerMetadata->getProviderName(),
                             'specialtyName' => $specialtyName,
                             'actionName'    => $actionName,
                             'clientName'    => 'console'
-                            ));
+                            ]);
 
                         if($actionableSpecialtyLongMetadata) {
                             $this->_respondWithCommand($providerMetadata, $actionMetadata, $specialtyMetadata, $actionableSpecialtyLongMetadata);
@@ -308,18 +308,18 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                 $isSingleSpecialProviderAction = false;
 
                 if (!$includeAllSpecialties && count($actionableGlobalMetadatas) > 1) {
-                    $this->_response->appendContent('    Note: There are specialties, use ', array('color' => 'yellow', 'separator' => false));
+                    $this->_response->appendContent('    Note: There are specialties, use ', ['color' => 'yellow', 'separator' => false]);
                     $this->_response->appendContent(
                         'zf ' . $actionMetadata->getValue() . ' ' . $providerMetadata->getValue() . '.?',
-                        array('color' => 'cyan', 'separator' => false)
+                        ['color' => 'cyan', 'separator' => false]
                         );
-                    $this->_response->appendContent(' to get specific help on them.', array('color' => 'yellow'));
+                    $this->_response->appendContent(' to get specific help on them.', ['color' => 'yellow']);
                 }
 
             }
 
             if ($providerNameDisplayed) {
-                $this->_response->appendContent(null, array('separator' => true));
+                $this->_response->appendContent(null, ['separator' => true]);
             }
         }
         return $this;
@@ -355,11 +355,11 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     {
         $this->_response->appendContent(
             '    zf ' . $actionMetadata->getValue() . ' ' . $providerMetadata->getValue(),
-            array('color' => 'cyan', 'separator' => false)
+            ['color' => 'cyan', 'separator' => false]
             );
 
         if ($specialtyMetadata->getSpecialtyName() != '_Global') {
-            $this->_response->appendContent('.' . $specialtyMetadata->getValue(), array('color' => 'cyan', 'separator' => false));
+            $this->_response->appendContent('.' . $specialtyMetadata->getValue(), ['color' => 'cyan', 'separator' => false]);
         }
 
         foreach ($parameterLongMetadata->getValue() as $paramName => $consoleParamName) {
@@ -368,10 +368,10 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
             if ( ($defaultValue = $methodInfo['parameterInfo'][$paramName]['default']) != null) {
                 $paramString .= '[=' . $defaultValue . ']';
             }
-            $this->_response->appendContent($paramString . '', array('separator' => false));
+            $this->_response->appendContent($paramString . '', ['separator' => false]);
         }
 
-       $this->_response->appendContent(null, array('separator' => true));
+       $this->_response->appendContent(null, ['separator' => true]);
        return $this;
     }
 

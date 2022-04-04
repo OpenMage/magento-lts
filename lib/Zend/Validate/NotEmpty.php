@@ -49,7 +49,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
     const INVALID  = 'notEmptyInvalid';
     const IS_EMPTY = 'isEmpty';
 
-    protected $_constants = array(
+    protected $_constants = [
         self::BOOLEAN       => 'boolean',
         self::INTEGER       => 'integer',
         self::FLOAT         => 'float',
@@ -63,15 +63,15 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         self::OBJECT_STRING => 'objectstring',
         self::OBJECT_COUNT  => 'objectcount',
         self::ALL           => 'all',
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::IS_EMPTY => "Value is required and can't be empty",
         self::INVALID  => "Invalid type given. String, integer, float, boolean or array expected",
-    );
+    ];
 
     /**
      * Internal type to detect
@@ -91,7 +91,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             $options = $options->toArray();
         } else if (!is_array($options)) {
             $options = func_get_args();
-            $temp    = array();
+            $temp    = [];
             if (!empty($options)) {
                 $temp['type'] = array_shift($options);
             }
@@ -107,7 +107,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
     /**
      * Returns the set types
      *
-     * @return array
+     * @return int
      */
     public function getType()
     {
@@ -172,7 +172,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
             $type -= self::OBJECT_COUNT;
             $object = true;
 
-            if (is_object($value) && ($value instanceof Countable) && (count($value) == 0)) {
+            if (is_object($value) && ($value instanceof Countable) && (count($value) === 0)) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }
@@ -223,7 +223,7 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         // EMPTY_ARRAY (array())
         if ($type >= self::EMPTY_ARRAY) {
             $type -= self::EMPTY_ARRAY;
-            if (is_array($value) && ($value == array())) {
+            if (is_array($value) && ($value == [])) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }
@@ -259,7 +259,8 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         // INTEGER (0)
         if ($type >= self::INTEGER) {
             $type -= self::INTEGER;
-            if (is_int($value) && ($value == 0)) {
+
+            if (is_int($value) && ($value === 0)) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }
@@ -268,7 +269,8 @@ class Zend_Validate_NotEmpty extends Zend_Validate_Abstract
         // BOOLEAN (false)
         if ($type >= self::BOOLEAN) {
             $type -= self::BOOLEAN;
-            if (is_bool($value) && ($value == false)) {
+
+            if (is_bool($value) && ($value === false)) {
                 $this->_error(self::IS_EMPTY);
                 return false;
             }

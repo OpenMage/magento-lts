@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -14,38 +13,44 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Gdata
- * @subpackage YouTube
+ * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
 /**
- * @see Zend_Gdata_Extension
+ * @see Zend_Validate_Barcode_AdapterAbstract
  */
-#require_once 'Zend/Gdata/Extension.php';
+#require_once 'Zend/Validate/Barcode/AdapterAbstract.php';
 
 /**
- * Represents the yt:status element
- *
  * @category   Zend
- * @package    Zend_Gdata
- * @subpackage YouTube
+ * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Gdata_YouTube_Extension_Status extends Zend_Gdata_Extension
+class Zend_Validate_Barcode_IntelligentMail extends Zend_Validate_Barcode_AdapterAbstract
 {
+    /**
+     * Allowed barcode lengths
+     * @var integer
+     */
+    protected $_length = [20, 25, 29, 31];
 
-    protected $_rootElement = 'status';
-    protected $_rootNamespace = 'yt';
+    /**
+     * Allowed barcode characters
+     * @var string
+     */
+    protected $_characters = '0123456789';
 
-    public function __construct($text = null)
+    /**
+     * Constructor
+     *
+     * Sets check flag to false.
+     */
+    public function __construct()
     {
-        $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
-        parent::__construct();
-        $this->_text = $text;
+        $this->setCheck(false);
     }
-
 }

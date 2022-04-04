@@ -119,7 +119,8 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
 
     /**
      * Gets the row count for this feed.
-     * @return string The row count for the feed.
+     *
+     * @return Zend_Gdata_Spreadsheets_Extension_RowCount|null The row count for the feed.
      */
     public function getRowCount()
     {
@@ -128,7 +129,8 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
 
     /**
      * Gets the column count for this feed.
-     * @return string The column count for the feed.
+     *
+     * @return Zend_Gdata_Spreadsheets_Extension_ColCount|null The column count for the feed.
      */
     public function getColumnCount()
     {

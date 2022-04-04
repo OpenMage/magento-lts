@@ -67,14 +67,14 @@ class Zend_Form_Decorator_Captcha_ReCaptcha extends Zend_Form_Decorator_Abstract
 
         // Create hidden fields for holding the final recaptcha values
         // Placing "id" in "attribs" to ensure it is not overwritten with the name
-        $hidden = $view->formHidden(array(
+        $hidden = $view->formHidden([
             'name'    => $challengeName,
-            'attribs' => array('id' => $challengeId),
-        ));
-        $hidden .= $view->formHidden(array(
+            'attribs' => ['id' => $challengeId],
+        ]);
+        $hidden .= $view->formHidden([
             'name'    => $responseName,
-            'attribs' => array('id'   => $responseId),
-        ));
+            'attribs' => ['id'   => $responseId],
+        ]);
 
         // Create a window.onload event so that we can bind to the form.
         // Once bound, add an onsubmit event that will replace the hidden field

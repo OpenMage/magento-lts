@@ -53,10 +53,10 @@ class Zend_Tool_Project_Provider_Layout extends Zend_Tool_Project_Provider_Abstr
             $layoutScriptsDirectory = $layoutDirectory->createResource('layoutScriptsDirectory');
         }
 
-        $layoutScriptFile = $layoutScriptsDirectory->search('layoutScriptFile', array('layoutName' => 'layout'));
+        $layoutScriptFile = $layoutScriptsDirectory->search('layoutScriptFile', ['layoutName' => 'layout']);
 
         if ($layoutScriptFile == false) {
-            $layoutScriptFile = $layoutScriptsDirectory->createResource('layoutScriptFile', array('layoutName' => 'layout'));
+            $layoutScriptFile = $layoutScriptsDirectory->createResource('layoutScriptFile', ['layoutName' => 'layout']);
         }
 
         return $layoutScriptFile;

@@ -199,9 +199,9 @@ class Zend_Oauth_Consumer extends Zend_Oauth
 
         // OAuth 1.0a Verifier
         if ($authorizedToken->getParam('oauth_verifier') !== null) {
-            $params = array_merge($request->getParameters(), array(
+            $params = array_merge($request->getParameters(), [
                 'oauth_verifier' => $authorizedToken->getParam('oauth_verifier')
-            ));
+            ]);
             $request->setParameters($params);
         }
         if ($httpMethod !== null) {
@@ -274,6 +274,6 @@ class Zend_Oauth_Consumer extends Zend_Oauth
             #require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception('Method does not exist: '.$method);
         }
-        return call_user_func_array(array($this->_config,$method), $args);
+        return call_user_func_array([$this->_config,$method], $args);
     }
 }

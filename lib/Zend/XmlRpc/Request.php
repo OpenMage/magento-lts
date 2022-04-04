@@ -75,7 +75,7 @@ class Zend_XmlRpc_Request
      * Method parameters
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Fault object, if any
@@ -87,13 +87,13 @@ class Zend_XmlRpc_Request
      * XML-RPC type for each param
      * @var array
      */
-    protected $_types = array();
+    protected $_types = [];
 
     /**
      * XML-RPC request params
      * @var array
      */
-    protected $_xmlRpcParams = array();
+    protected $_xmlRpcParams = [];
 
     /**
      * Create a new XML-RPC request
@@ -187,7 +187,7 @@ class Zend_XmlRpc_Request
             }
         }
         $this->_types[]  = $type;
-        $this->_xmlRpcParams[] = array('value' => $value, 'type' => $type);
+        $this->_xmlRpcParams[] = ['value' => $value, 'type' => $type];
     }
 
     /**
@@ -220,8 +220,8 @@ class Zend_XmlRpc_Request
         }
 
         if ((1 == $argc) && is_array($argv[0])) {
-            $params     = array();
-            $types      = array();
+            $params     = [];
+            $types      = [];
             $wellFormed = true;
             foreach ($argv[0] as $arg) {
                 if (!is_array($arg) || !isset($arg['value'])) {
@@ -242,8 +242,8 @@ class Zend_XmlRpc_Request
                 $this->_types  = $types;
             } else {
                 $this->_params = $argv[0];
-                $this->_types  = array();
-                $xmlRpcParams  = array();
+                $this->_types  = [];
+                $xmlRpcParams  = [];
                 foreach ($argv[0] as $arg) {
                     if ($arg instanceof Zend_XmlRpc_Value) {
                         $type = $arg->getType();
@@ -251,7 +251,7 @@ class Zend_XmlRpc_Request
                         $xmlRpcValue = Zend_XmlRpc_Value::getXmlRpcValue($arg);
                         $type        = $xmlRpcValue->getType();
                     }
-                    $xmlRpcParams[] = array('value' => $arg, 'type' => $type);
+                    $xmlRpcParams[] = ['value' => $arg, 'type' => $type];
                     $this->_types[] = $type;
                 }
                 $this->_xmlRpcParams = $xmlRpcParams;
@@ -260,8 +260,8 @@ class Zend_XmlRpc_Request
         }
 
         $this->_params = $argv;
-        $this->_types  = array();
-        $xmlRpcParams  = array();
+        $this->_types  = [];
+        $xmlRpcParams  = [];
         foreach ($argv as $arg) {
             if ($arg instanceof Zend_XmlRpc_Value) {
                 $type = $arg->getType();
@@ -269,7 +269,7 @@ class Zend_XmlRpc_Request
                 $xmlRpcValue = Zend_XmlRpc_Value::getXmlRpcValue($arg);
                 $type        = $xmlRpcValue->getType();
             }
-            $xmlRpcParams[] = array('value' => $arg, 'type' => $type);
+            $xmlRpcParams[] = ['value' => $arg, 'type' => $type];
             $this->_types[] = $type;
         }
         $this->_xmlRpcParams = $xmlRpcParams;
@@ -330,8 +330,8 @@ class Zend_XmlRpc_Request
 
         // Check for parameters
         if (!empty($xml->params)) {
-            $types = array();
-            $argv  = array();
+            $types = [];
+            $argv  = [];
             foreach ($xml->params->children() as $param) {
                 if (!isset($param->value)) {
                     $this->_fault = new Zend_XmlRpc_Fault(633);
@@ -387,7 +387,7 @@ class Zend_XmlRpc_Request
      */
     protected function _getXmlRpcParams()
     {
-        $params = array();
+        $params = [];
         if (is_array($this->_xmlRpcParams)) {
             foreach ($this->_xmlRpcParams as $param) {
                 $value = $param['value'];
@@ -440,6 +440,6 @@ class Zend_XmlRpc_Request
      */
     public function __toString()
     {
-        return $this->saveXML();
+        return $this->saveXml();
     }
 }

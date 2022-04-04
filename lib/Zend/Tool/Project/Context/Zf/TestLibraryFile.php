@@ -79,27 +79,27 @@ class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Con
 
         $className = $filter->filter($this->_forClassName) . 'Test';
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
-            'requiredFiles' => array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
+            'requiredFiles' => [
                 'PHPUnit/Framework/TestCase.php'
-                ),
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+                ],
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'PHPUnit_Framework_TestCase',
-                    'methods' => array(
-                        new Zend_CodeGenerator_Php_Method(array(
+                    'methods' => [
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'setUp',
                             'body' => '        /* Setup Routine */'
-                            )),
-                        new Zend_CodeGenerator_Php_Method(array(
+                            ]),
+                        new Zend_CodeGenerator_Php_Method([
                             'name' => 'tearDown',
                             'body' => '        /* Tear Down Routine */'
-                            ))
-                        )
-                    ))
-                )
-            ));
+                            ])
+                        ]
+                    ])
+                ]
+            ]);
 
         return $codeGenFile->generate();
     }

@@ -33,7 +33,7 @@ class Zend_Cloud_Infrastructure_Image
      *
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * The Image adapter (if exists)
@@ -47,12 +47,12 @@ class Zend_Cloud_Infrastructure_Image
      *
      * @var array
      */
-    protected $attributeRequired = array(
+    protected $attributeRequired = [
         self::IMAGE_ID,
         self::IMAGE_DESCRIPTION,
         self::IMAGE_PLATFORM,
         self::IMAGE_ARCHITECTURE,
-    );
+    ];
 
     /**
      * Constructor

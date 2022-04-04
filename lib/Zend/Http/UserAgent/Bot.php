@@ -38,7 +38,7 @@ class Zend_Http_UserAgent_Bot extends Zend_Http_UserAgent_AbstractDevice
      *
      * @var array
      */
-    protected static $_uaSignatures = array(
+    protected static $_uaSignatures = [
         // The most common ones.
         'googlebot',
         'msnbot',
@@ -103,7 +103,7 @@ class Zend_Http_UserAgent_Bot extends Zend_Http_UserAgent_AbstractDevice
         'yahoo! slurp',
         'yandex',
         'zyborg',
-    );
+    ];
 
     /**
      * Comparison of the UserAgent chain and browser signatures

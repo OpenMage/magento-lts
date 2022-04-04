@@ -59,7 +59,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      * Arguments to pass to {@link $_class} constructor
      * @var array
      */
-    protected $_classArgs = array();
+    protected $_classArgs = [];
 
     /**
      * Object registered with this server
@@ -103,14 +103,14 @@ class Zend_Soap_Server implements Zend_Server_Interface
      * Registered fault exceptions
      * @var array
      */
-    protected $_faultExceptions = array();
+    protected $_faultExceptions = [];
 
     /**
      * Functions registered with this server; may be either an array or the SOAP_FUNCTIONS_ALL
      * constant
      * @var array|int
      */
-    protected $_functions = array();
+    protected $_functions = [];
 
     /**
      * Persistence mode; should be one of the SOAP persistence constants
@@ -247,7 +247,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      */
     public function getOptions()
     {
-        $options = array();
+        $options = [];
         if (null !== $this->_actor) {
             $options['actor'] = $this->_actor;
         }
@@ -341,7 +341,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      */
     public function setSoapVersion($version)
     {
-        if (!in_array($version, array(SOAP_1_1, SOAP_1_2))) {
+        if (!in_array($version, [SOAP_1_1, SOAP_1_2])) {
             #require_once 'Zend/Soap/Server/Exception.php';
             throw new Zend_Soap_Server_Exception('Invalid soap version specified');
         }
@@ -462,7 +462,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Retrieve classmap
      *
-     * @return mixed
+     * @return array
      */
     public function getClassmap()
     {
@@ -657,7 +657,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      */
     public function getFunctions()
     {
-        $functions = array();
+        $functions = [];
         if (null !== $this->_class) {
             $functions = get_class_methods($this->_class);
         } elseif (null !== $this->_object) {
@@ -688,7 +688,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      */
     public function setPersistence($mode)
     {
-        if (!in_array($mode, array(SOAP_PERSISTENCE_SESSION, SOAP_PERSISTENCE_REQUEST))) {
+        if (!in_array($mode, [SOAP_PERSISTENCE_SESSION, SOAP_PERSISTENCE_REQUEST])) {
             #require_once 'Zend/Soap/Server/Exception.php';
             throw new Zend_Soap_Server_Exception('Invalid persistence mode specified');
         }
@@ -700,7 +700,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Get server persistence
      *
-     * @return Zend_Soap_Server
+     * @return int
      */
     public function getPersistence()
     {
@@ -737,7 +737,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
 
             $dom = new DOMDocument();
             try {
-                if(strlen($xml) == 0 || (!$dom = Zend_Xml_Security::scan($xml, $dom))) {
+                if(strlen($xml) === 0 || (!$dom = Zend_Xml_Security::scan($xml, $dom))) {
                     #require_once 'Zend/Soap/Server/Exception.php';
                     throw new Zend_Soap_Server_Exception('Invalid XML');
                 }
@@ -824,7 +824,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
                 #require_once 'Zend/Soap/Server/Proxy.php';
                 array_unshift($args, 'Zend_Soap_Server_Proxy');
             }
-            call_user_func_array(array($server, 'setClass'), $args);
+            call_user_func_array([$server, 'setClass'], $args);
         }
 
         if (!empty($this->_object)) {
@@ -919,7 +919,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     {
         $displayErrorsOriginalState = ini_get('display_errors');
         ini_set('display_errors', false);
-        set_error_handler(array($this, 'handlePhpErrors'), E_USER_ERROR);
+        set_error_handler([$this, 'handlePhpErrors'], E_USER_ERROR);
         return $displayErrorsOriginalState;
     }
 
@@ -993,10 +993,10 @@ class Zend_Soap_Server implements Zend_Server_Interface
             $message = 'Unknown error';
         }
 
-        $allowedFaultModes = array(
+        $allowedFaultModes = [
             'VersionMismatch', 'MustUnderstand', 'DataEncodingUnknown',
             'Sender', 'Receiver', 'Server'
-        );
+        ];
         if(!in_array($code, $allowedFaultModes)) {
             $code = "Receiver";
         }

@@ -75,7 +75,7 @@ class Zend_Test_PHPUnit_Db_Operation_Insert implements PHPUnit_Extensions_Databa
      */
     protected function buildInsertValues(PHPUnit_Extensions_Database_DataSet_ITable $table, $rowNum)
     {
-        $values = array();
+        $values = [];
         foreach($table->getTableMetaData()->getColumns() as $columnName) {
             $values[$columnName] = $table->getValue($rowNum, $columnName);
         }

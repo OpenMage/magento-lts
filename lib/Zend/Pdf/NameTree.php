@@ -41,7 +41,7 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Object constructor
@@ -55,16 +55,16 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
             throw new Zend_Pdf_Exception('Name tree root must be a dictionary.');
         }
 
-        $intermediateNodes = array();
-        $leafNodes         = array();
+        $intermediateNodes = [];
+        $leafNodes         = [];
         if ($rootDictionary->Kids !== null) {
             $intermediateNodes[] = $rootDictionary;
         } else {
             $leafNodes[] = $rootDictionary;
         }
 
-        while (count($intermediateNodes) != 0) {
-            $newIntermediateNodes = array();
+        while (count($intermediateNodes) !== 0) {
+            $newIntermediateNodes = [];
             foreach ($intermediateNodes as $node) {
                 foreach ($node->Kids->items as $childNode) {
                     if ($childNode->Kids !== null) {
@@ -85,48 +85,53 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return current($this->_items);
     }
 
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->_items);
     }
 
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->_items);
     }
 
 
-    public function valid() {
+    public function valid(): bool
+    {
         return current($this->_items)!==false;
     }
 
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->_items);
     }
 
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->_items);
     }
 
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->_items[$offset];
     }
 
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if ($offset === null) {
             $this->_items[]        = $value;
@@ -136,7 +141,7 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
     }
 
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->_items[$offset]);
     }
@@ -144,10 +149,10 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
 
     public function clear()
     {
-        $this->_items = array();
+        $this->_items = [];
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->_items);
     }

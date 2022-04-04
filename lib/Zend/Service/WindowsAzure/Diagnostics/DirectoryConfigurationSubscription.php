@@ -44,10 +44,10 @@ class Zend_Service_WindowsAzure_Diagnostics_DirectoryConfigurationSubscription
 	 */
     public function __construct($path, $container, $directoryQuotaInMB = 1024)
     {
-        $this->_data = array(
+        $this->_data = [
             'path'      			=> $path,
             'container' 			=> $container,
         	'directoryquotainmb' 	=> $directoryQuotaInMB
-        );
+        ];
     }
 }

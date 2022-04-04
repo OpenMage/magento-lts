@@ -58,9 +58,9 @@ class Zend_Tool_Project_Context_Zf_ApplicationDirectory extends Zend_Tool_Projec
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'classNamePrefix' => $this->getClassNamePrefix()
-            );
+            ];
     }
 
     public function getName()

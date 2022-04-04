@@ -99,14 +99,14 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
 	 * @param string $requiredPermission Required permission
 	 * @return Zend_Http_Response
 	 */
-	public function performBatch($operations = array(), $forTableStorage = false, $isSingleSelect = false, $resourceType = Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN, $requiredPermission = Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::PERMISSION_READ)
+    public function performBatch($operations = [], $forTableStorage = false, $isSingleSelect = false, $resourceType = Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN, $requiredPermission = Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::PERMISSION_READ)
 	{
 	    // Generate boundaries
 	    $batchBoundary = 'batch_' . md5(time() . microtime());
 	    $changesetBoundary = 'changeset_' . md5(time() . microtime());
 
 	    // Set headers
-	    $headers = array();
+	    $headers = [];
 
 		// Add version header
 		$headers['x-ms-version'] = $this->_apiVersion;
@@ -164,11 +164,9 @@ abstract class Zend_Service_WindowsAzure_Storage_BatchStorageAbstract
 		$this->_httpClientChannel->setRawData($rawData);
 
 		// Execute request
-		$response = $this->_retryPolicy->execute(
-		    array($this->_httpClientChannel, 'request'),
-		    array($httpVerb)
+        return $this->_retryPolicy->execute(
+		    [$this->_httpClientChannel, 'request'],
+		    [$httpVerb]
 		);
-
-		return $response;
 	}
 }

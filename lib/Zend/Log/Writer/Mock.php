@@ -38,7 +38,7 @@ class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
      *
      * @var array
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * shutdown called?

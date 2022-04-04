@@ -69,7 +69,7 @@ abstract class Zend_Measure_Abstract
     /**
      * Unit types for this measurement
      */
-    protected $_units = array();
+    protected $_units = [];
 
     /**
      * Zend_Measure_Abstract is an abstract class for the different measurement types
@@ -81,7 +81,7 @@ abstract class Zend_Measure_Abstract
      */
     public function __construct($value, $type = null, $locale = null)
     {
-        if (($type !== null) and (Zend_Locale::isLocale($type, null, false))) {
+        if (($type !== null) && (Zend_Locale::isLocale($type, null, false))) {
             $locale = $type;
             $type = null;
         }
@@ -162,7 +162,7 @@ abstract class Zend_Measure_Abstract
 
         if ($locale !== null) {
             $this->setLocale($locale, true);
-            return Zend_Locale_Format::toNumber($return, array('locale' => $locale));
+            return Zend_Locale_Format::toNumber($return, ['locale' => $locale]);
         }
 
         return $return;
@@ -179,7 +179,7 @@ abstract class Zend_Measure_Abstract
      */
     public function setValue($value, $type = null, $locale = null)
     {
-        if (($type !== null) and (Zend_Locale::isLocale($type, null, false))) {
+        if (($type !== null) && (Zend_Locale::isLocale($type, null, false))) {
             $locale = $type;
             $type = null;
         }
@@ -199,7 +199,7 @@ abstract class Zend_Measure_Abstract
         }
 
         try {
-            $value = Zend_Locale_Format::getNumber($value, array('locale' => $locale));
+            $value = Zend_Locale_Format::getNumber($value, ['locale' => $locale]);
         } catch(Exception $e) {
             #require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception($e->getMessage(), $e->getCode(), $e);
@@ -213,7 +213,7 @@ abstract class Zend_Measure_Abstract
     /**
      * Returns the original type
      *
-     * @return type
+     * @return string
      */
     public function getType()
     {
@@ -239,18 +239,19 @@ abstract class Zend_Measure_Abstract
         } else {
             // Convert to standard value
             $value = $this->_value;
+
             if (is_array($this->_units[$this->getType()][0])) {
                 foreach ($this->_units[$this->getType()][0] as $key => $found) {
                     switch ($key) {
-                        case "/":
+                        case '/':
                             if ($found != 0) {
                                 $value = call_user_func(Zend_Locale_Math::$div, $value, $found, 25);
                             }
                             break;
-                        case "+":
+                        case '+':
                             $value = call_user_func(Zend_Locale_Math::$add, $value, $found, 25);
                             break;
-                        case "-":
+                        case '-':
                             $value = call_user_func(Zend_Locale_Math::$sub, $value, $found, 25);
                             break;
                         default:
@@ -400,7 +401,7 @@ abstract class Zend_Measure_Abstract
      * Compares two units
      *
      * @param  Zend_Measure_Abstract $object object of same unit type
-     * @return boolean
+     * @return int
      */
     public function compare($object)
     {

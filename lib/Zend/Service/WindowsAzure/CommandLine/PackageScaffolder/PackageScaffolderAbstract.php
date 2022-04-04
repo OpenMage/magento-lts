@@ -34,7 +34,7 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
 	 * @param string $root Path Root path.
 	 * @param array $options Options array (key/value).
 	 */
-	abstract public function invoke(Phar $phar, $rootPath, $options = array());
+	abstract public function invoke(Phar $phar, $rootPath, $options = []);
 
 	/**
 	 * Writes output to STDERR, followed by a newline (optional)
@@ -47,6 +47,7 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
 		if (error_reporting() === 0) {
 			return;
 		}
+
 		file_put_contents('php://stderr', $message . ($newLine ? "\r\n" : ''));
 	}
 

@@ -37,7 +37,7 @@ interface Zend_EventManager_Filter
      * @param  array $params
      * @return mixed
      */
-    public function run($context, array $params = array());
+    public function run($context, array $params = []);
 
     /**
      * Attach an intercepting filter

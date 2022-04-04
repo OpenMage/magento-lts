@@ -35,7 +35,7 @@ class Zend_Soap_Server_Proxy
      *
      * @param object $service
      */
-    public function  __construct($className, $classArgs = array())
+    public function  __construct($className, $classArgs = [])
     {
         $class = new ReflectionClass($className);
         $constructor = $class->getConstructor();
@@ -55,8 +55,8 @@ class Zend_Soap_Server_Proxy
      */
     public function __call($name, $arguments)
     {
-        $result = call_user_func_array(array($this->_classInstance, $name), $this->_preProcessArguments($arguments));
-        return array("{$name}Result"=>$result);
+        $result = call_user_func_array([$this->_classInstance, $name], $this->_preProcessArguments($arguments));
+        return ["{$name}Result"=>$result];
     }
     /**
      *  Pre process arguments
@@ -66,10 +66,10 @@ class Zend_Soap_Server_Proxy
      */
     protected function _preProcessArguments($arguments)
     {
-        if (count($arguments) == 1 && is_object($arguments[0])) {
+        if (count($arguments) === 1 && is_object($arguments[0])) {
             return get_object_vars($arguments[0]);
-	} else {
-            return $arguments;
-	}
+	    }
+
+        return $arguments;
     }
 }

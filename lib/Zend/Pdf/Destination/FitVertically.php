@@ -87,7 +87,7 @@ class Zend_Pdf_Destination_FitVertically extends Zend_Pdf_Destination_Explicit
      * Set left edge of the displayed page
      *
      * @param float $left
-     * @return Zend_Pdf_Action_FitVertically
+     * @return Zend_Pdf_Destination_FitVertically
      */
     public function setLeftEdge($left)
     {

@@ -37,21 +37,21 @@ class Zend_Validate implements Zend_Validate_Interface
      *
      * @var array
      */
-    protected $_validators = array();
+    protected $_validators = [];
 
     /**
      * Array of validation failure messages
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
     /**
      * Default Namespaces
      *
      * @var array
      */
-    protected static $_defaultNamespaces = array();
+    protected static $_defaultNamespaces = [];
 
     /**
      * Array of validation failure message codes
@@ -59,7 +59,7 @@ class Zend_Validate implements Zend_Validate_Interface
      * @var array
      * @deprecated Since 1.5.0
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Adds a validator to the end of the chain
@@ -73,10 +73,10 @@ class Zend_Validate implements Zend_Validate_Interface
      */
     public function addValidator(Zend_Validate_Interface $validator, $breakChainOnFailure = false)
     {
-        $this->_validators[] = array(
+        $this->_validators[] = [
             'instance' => $validator,
             'breakChainOnFailure' => (boolean) $breakChainOnFailure
-            );
+            ];
         return $this;
     }
 
@@ -90,8 +90,8 @@ class Zend_Validate implements Zend_Validate_Interface
      */
     public function isValid($value)
     {
-        $this->_messages = array();
-        $this->_errors   = array();
+        $this->_messages = [];
+        $this->_errors   = [];
         $result = true;
         foreach ($this->_validators as $element) {
             $validator = $element['instance'];
@@ -153,7 +153,7 @@ class Zend_Validate implements Zend_Validate_Interface
     public static function setDefaultNamespaces($namespace)
     {
         if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
+            $namespace = [(string) $namespace];
         }
 
         self::$_defaultNamespaces = $namespace;
@@ -168,7 +168,7 @@ class Zend_Validate implements Zend_Validate_Interface
     public static function addDefaultNamespaces($namespace)
     {
         if (!is_array($namespace)) {
-            $namespace = array((string) $namespace);
+            $namespace = [(string) $namespace];
         }
 
         self::$_defaultNamespaces = array_unique(array_merge(self::$_defaultNamespaces, $namespace));
@@ -192,9 +192,9 @@ class Zend_Validate implements Zend_Validate_Interface
      * @return boolean
      * @throws Zend_Validate_Exception
      */
-    public static function is($value, $classBaseName, array $args = array(), $namespaces = array())
+    public static function is($value, $classBaseName, array $args = [], $namespaces = [])
     {
-        $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, array('Zend_Validate'));
+        $namespaces = array_merge((array) $namespaces, self::$_defaultNamespaces, ['Zend_Validate']);
         $className  = ucfirst($classBaseName);
         try {
             if (!class_exists($className, false)) {

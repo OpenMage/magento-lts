@@ -65,7 +65,7 @@ class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
     /**
      * Prepares the data that will be send to the timeserver
      *
-     * @return array
+     * @return string
      */
     protected function _prepare()
     {

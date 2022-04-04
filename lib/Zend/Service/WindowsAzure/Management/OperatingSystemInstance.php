@@ -54,13 +54,13 @@ class Zend_Service_WindowsAzure_Management_OperatingSystemInstance
 	 */
     public function __construct($version, $label, $isDefault, $isActive, $family, $familyLabel)
     {
-        $this->_data = array(
+        $this->_data = [
             'version'        => $version,
             'label'          => base64_decode($label),
             'isdefault'      => $isDefault,
             'isactive'       => $isActive,
             'family'         => $family,
             'familylabel'    => base64_decode($familyLabel)
-        );
+        ];
     }
 }

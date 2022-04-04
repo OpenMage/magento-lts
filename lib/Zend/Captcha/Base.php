@@ -53,16 +53,16 @@ abstract class Zend_Captcha_Base extends Zend_Validate_Abstract implements Zend_
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Options to skip when processing options
      * @var array
      */
-    protected $_skipOptions = array(
+    protected $_skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Get name
@@ -131,7 +131,7 @@ abstract class Zend_Captcha_Base extends Zend_Validate_Abstract implements Zend_
      * Set object state from options array
      *
      * @param  array $options
-     * @return Zend_Form_Element
+     * @return Zend_Captcha_Base
      */
     public function setOptions($options = null)
     {

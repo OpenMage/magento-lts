@@ -48,7 +48,7 @@ abstract class Zend_Db_Adapter_Abstract
      *
      * @var array
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * Fetch mode
@@ -119,11 +119,11 @@ abstract class Zend_Db_Adapter_Abstract
      *
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
-    protected $_numericDataTypes = array(
+    protected $_numericDataTypes = [
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
         Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE
-    );
+    ];
 
     /** Weither or not that object can get serialized
      *
@@ -183,12 +183,12 @@ abstract class Zend_Db_Adapter_Abstract
 
         $this->_checkRequiredOptions($config);
 
-        $options = array(
+        $options = [
             Zend_Db::CASE_FOLDING           => $this->_caseFolding,
             Zend_Db::AUTO_QUOTE_IDENTIFIERS => $this->_autoQuoteIdentifiers,
             Zend_Db::FETCH_MODE             => $this->_fetchMode,
-        );
-        $driverOptions = array();
+        ];
+        $driverOptions = [];
 
         /*
          * normalize the config and merge it with the defaults
@@ -454,7 +454,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param  mixed  $bind An array of data to bind to the placeholders.
      * @return Zend_Db_Statement_Interface
      */
-    public function query($sql, $bind = array())
+    public function query($sql, $bind = [])
     {
         // connect to the database if needed
         $this->_connect();
@@ -472,7 +472,7 @@ abstract class Zend_Db_Adapter_Abstract
         // don't use (array) typecasting because
         // because $bind may be a Zend_Db_Expr object
         if (!is_array($bind)) {
-            $bind = array($bind);
+            $bind = [$bind];
         }
 
         // prepare and execute the statement with profiling
@@ -537,8 +537,8 @@ abstract class Zend_Db_Adapter_Abstract
     public function insert($table, array $bind)
     {
         // extract and quote col names from the array keys
-        $cols = array();
-        $vals = array();
+        $cols = [];
+        $vals = [];
         $i = 0;
         foreach ($bind as $col => $val) {
             $cols[] = $this->quoteIdentifier($col, true);
@@ -573,9 +573,10 @@ abstract class Zend_Db_Adapter_Abstract
         if ($this->supportsParameters('positional')) {
             $bind = array_values($bind);
         }
+
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->rowCount();
-        return $result;
+
+        return $stmt->rowCount();
     }
 
     /**
@@ -593,7 +594,7 @@ abstract class Zend_Db_Adapter_Abstract
          * Build "col = ?" pairs for the statement,
          * except for Zend_Db_Expr which is treated literally.
          */
-        $set = array();
+        $set = [];
         $i = 0;
         foreach ($bind as $col => $val) {
             if ($val instanceof Zend_Db_Expr) {
@@ -636,8 +637,8 @@ abstract class Zend_Db_Adapter_Abstract
         } else {
             $stmt = $this->query($sql, $bind);
         }
-        $result = $stmt->rowCount();
-        return $result;
+
+        return $stmt->rowCount();
     }
 
     /**
@@ -662,8 +663,8 @@ abstract class Zend_Db_Adapter_Abstract
          * Execute the statement and return the number of affected rows
          */
         $stmt = $this->query($sql);
-        $result = $stmt->rowCount();
-        return $result;
+
+        return $stmt->rowCount();
     }
 
     /**
@@ -679,7 +680,7 @@ abstract class Zend_Db_Adapter_Abstract
             return $where;
         }
         if (!is_array($where)) {
-            $where = array($where);
+            $where = [$where];
         }
         foreach ($where as $cond => &$term) {
             // is $cond an int? (i.e. Not a condition)
@@ -727,16 +728,17 @@ abstract class Zend_Db_Adapter_Abstract
      * @param string|Zend_Db_Select $sql  An SQL SELECT statement.
      * @param mixed                 $bind Data to bind into SELECT placeholders.
      * @param mixed                 $fetchMode Override current fetch mode.
-     * @return array
+     * @return array|null
      */
-    public function fetchAll($sql, $bind = array(), $fetchMode = null)
+    public function fetchAll($sql, $bind = [], $fetchMode = null)
     {
         if ($fetchMode === null) {
             $fetchMode = $this->_fetchMode;
         }
+
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetchAll($fetchMode);
-        return $result;
+
+        return $stmt->fetchAll($fetchMode);
     }
 
     /**
@@ -748,14 +750,15 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed                 $fetchMode Override current fetch mode.
      * @return mixed Array, object, or scalar depending on fetch mode.
      */
-    public function fetchRow($sql, $bind = array(), $fetchMode = null)
+    public function fetchRow($sql, $bind = [], $fetchMode = null)
     {
         if ($fetchMode === null) {
             $fetchMode = $this->_fetchMode;
         }
+
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetch($fetchMode);
-        return $result;
+
+        return $stmt->fetch($fetchMode);
     }
 
     /**
@@ -771,10 +774,10 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchAssoc($sql, $bind = array())
+    public function fetchAssoc($sql, $bind = [])
     {
         $stmt = $this->query($sql, $bind);
-        $data = array();
+        $data = [];
         while ($row = $stmt->fetch(Zend_Db::FETCH_ASSOC)) {
             $tmp = array_values(array_slice($row, 0, 1));
             $data[$tmp[0]] = $row;
@@ -789,11 +792,11 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchCol($sql, $bind = array())
+    public function fetchCol($sql, $bind = [])
     {
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 0);
-        return $result;
+
+        return $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 0);
     }
 
     /**
@@ -806,10 +809,10 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return array
      */
-    public function fetchPairs($sql, $bind = array())
+    public function fetchPairs($sql, $bind = [])
     {
         $stmt = $this->query($sql, $bind);
-        $data = array();
+        $data = [];
         while ($row = $stmt->fetch(Zend_Db::FETCH_NUM)) {
             $data[$row[0]] = $row[1];
         }
@@ -823,11 +826,11 @@ abstract class Zend_Db_Adapter_Abstract
      * @param mixed $bind Data to bind into SELECT placeholders.
      * @return string
      */
-    public function fetchOne($sql, $bind = array())
+    public function fetchOne($sql, $bind = [])
     {
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetchColumn(0);
-        return $result;
+
+        return $stmt->fetchColumn(0);
     }
 
     /**
@@ -852,9 +855,9 @@ abstract class Zend_Db_Adapter_Abstract
      * If an array is passed as the value, the array values are quoted
      * and then returned as a comma-separated string.
      *
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
-     * @return string An SQL-safe quoted value (or string of separated values).
+     * @param mixed $value The value to quote.
+     * @param mixed $type  OPTIONAL the SQL datatype name, or constant, or null.
+     * @return mixed An SQL-safe quoted value (or string of separated values).
      */
     public function quote($value, $type = null)
     {
@@ -879,7 +882,7 @@ abstract class Zend_Db_Adapter_Abstract
             $quotedValue = '0';
             switch ($this->_numericDataTypes[$type]) {
                 case Zend_Db::INT_TYPE: // 32-bit integer
-                    $quotedValue = (string) intval($value);
+                    $quotedValue = (string) (int) $value;
                     break;
                 case Zend_Db::BIGINT_TYPE: // 64-bit integer
                     // ANSI SQL-style hex literals (e.g. x'[\dA-F]+')
@@ -920,8 +923,8 @@ abstract class Zend_Db_Adapter_Abstract
      * </code>
      *
      * @param string  $text  The text with a placeholder.
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @param mixed   $value The value to quote.
+     * @param string  $type  OPTIONAL SQL datatype
      * @param integer $count OPTIONAL count of placeholders to replace
      * @return string An SQL-safe quoted value placed into the original text.
      */
@@ -1007,7 +1010,7 @@ abstract class Zend_Db_Adapter_Abstract
                 $ident = explode('.', $ident);
             }
             if (is_array($ident)) {
-                $segments = array();
+                $segments = [];
                 foreach ($ident as $segment) {
                     if ($segment instanceof Zend_Db_Expr) {
                         $segments[] = $segment->__toString();
@@ -1128,7 +1131,7 @@ abstract class Zend_Db_Adapter_Abstract
         $this->_connection = null;
 
         return array_keys(
-            array_diff_key(get_object_vars($this), array('_connection' => null))
+            array_diff_key(get_object_vars($this), ['_connection' => null])
         );
     }
 

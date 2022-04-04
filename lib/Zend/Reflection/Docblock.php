@@ -67,7 +67,7 @@ class Zend_Reflection_Docblock implements Reflector
     /**
      * @var array
      */
-    protected $_tags = array();
+    protected $_tags = [];
 
     /**
      * Export reflection
@@ -236,7 +236,7 @@ class Zend_Reflection_Docblock implements Reflector
             return $this->_tags;
         }
 
-        $returnTags = array();
+        $returnTags = [];
         foreach ($this->_tags as $tag) {
             if ($tag->getName() == $filter) {
                 $returnTags[] = $tag;
@@ -267,9 +267,11 @@ class Zend_Reflection_Docblock implements Reflector
             $lineNumber++;
             $line = substr($parsedDocComment, 0, $newlinePos);
 
-            $matches = array();
+            $matches = [];
 
-            if ((strpos($line, '@') === 0) && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment, $matches))) {
+            if ((strpos($line, '@') === 0)
+                && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment, $matches))
+            ) {
                 $this->_tags[] = Zend_Reflection_Docblock_Tag::factory($matches[1]);
                 $parsedDocComment = str_replace($matches[1] . $matches[2], '', $parsedDocComment);
             } else {

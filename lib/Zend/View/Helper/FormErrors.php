@@ -91,11 +91,9 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
             }
         }
 
-        $html  = $start
+        return $start
                . implode($this->getElementSeparator(), (array) $errors)
                . $this->getElementEnd();
-
-        return $html;
     }
 
     /**

@@ -87,13 +87,13 @@ class Zend_Service_Flickr
      * @return Zend_Service_Flickr_ResultSet
      * @throws Zend_Service_Exception
      */
-    public function tagSearch($query, array $options = array())
+    public function tagSearch($query, array $options = [])
     {
         static $method = 'flickr.photos.search';
-        static $defaultOptions = array('per_page' => 10,
+        static $defaultOptions = ['per_page' => 10,
                                        'page'     => 1,
                                        'tag_mode' => 'or',
-                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server');
+                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server'];
 
         $options['tags'] = is_array($query) ? implode(',', $query) : $query;
 
@@ -147,9 +147,9 @@ class Zend_Service_Flickr
     public function userSearch($query, array $options = null)
     {
         static $method = 'flickr.people.getPublicPhotos';
-        static $defaultOptions = array('per_page' => 10,
+        static $defaultOptions = ['per_page' => 10,
                                        'page'     => 1,
-                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server');
+                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server'];
 
 
         // can't access by username, must get ID first
@@ -197,12 +197,12 @@ class Zend_Service_Flickr
      * @return Zend_Service_Flickr_ResultSet
      * @throws Zend_Service_Exception
      */
-    public function groupPoolGetPhotos($query, array $options = array())
+    public function groupPoolGetPhotos($query, array $options = [])
     {
         static $method = 'flickr.groups.pools.getPhotos';
-        static $defaultOptions = array('per_page' => 10,
+        static $defaultOptions = ['per_page' => 10,
                                        'page'     => 1,
-                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server');
+                                       'extras'   => 'license, date_upload, date_taken, owner_name, icon_server'];
 
         if (empty($query) || !is_string($query)) {
             /**
@@ -258,7 +258,7 @@ class Zend_Service_Flickr
     {
         static $method = 'flickr.people.findByUsername';
 
-        $options = array('api_key' => $this->apiKey, 'method' => $method, 'username' => (string) $username);
+        $options = ['api_key' => $this->apiKey, 'method' => $method, 'username' => (string) $username];
 
         if (empty($username)) {
             /**
@@ -310,7 +310,7 @@ class Zend_Service_Flickr
             throw new Zend_Service_Exception('You must supply an e-mail address');
         }
 
-        $options = array('api_key' => $this->apiKey, 'method' => $method, 'find_email' => (string) $email);
+        $options = ['api_key' => $this->apiKey, 'method' => $method, 'find_email' => (string) $email];
 
         $restClient = $this->getRestClient();
         $restClient->getHttpClient()->resetParameters();
@@ -352,7 +352,7 @@ class Zend_Service_Flickr
             throw new Zend_Service_Exception('You must supply a photo ID');
         }
 
-        $options = array('api_key' => $this->apiKey, 'method' => $method, 'photo_id' => $id);
+        $options = ['api_key' => $this->apiKey, 'method' => $method, 'photo_id' => $id];
 
         $restClient = $this->getRestClient();
         $restClient->getHttpClient()->resetParameters();
@@ -362,7 +362,7 @@ class Zend_Service_Flickr
         $dom = Zend_Xml_Security::scan($response->getBody(), $dom);
         $xpath = new DOMXPath($dom);
         self::_checkErrors($dom);
-        $retval = array();
+        $retval = [];
         /**
          * @see Zend_Service_Flickr_Image
          */
@@ -404,8 +404,8 @@ class Zend_Service_Flickr
      */
     protected function _validateUserSearch(array $options)
     {
-        $validOptions = array('api_key', 'method', 'user_id', 'per_page', 'page', 'extras', 'min_upload_date',
-                              'min_taken_date', 'max_upload_date', 'max_taken_date', 'safe_search');
+        $validOptions = ['api_key', 'method', 'user_id', 'per_page', 'page', 'extras', 'min_upload_date',
+                              'min_taken_date', 'max_upload_date', 'max_taken_date', 'safe_search'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -438,7 +438,7 @@ class Zend_Service_Flickr
         // validate extras, which are delivered in csv format
         if ($options['extras']) {
             $extras = explode(',', $options['extras']);
-            $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
+            $validExtras = ['license', 'date_upload', 'date_taken', 'owner_name', 'icon_server'];
             foreach($extras as $extra) {
                 /**
                  * @todo The following does not do anything [yet], so it is commented out.
@@ -458,12 +458,12 @@ class Zend_Service_Flickr
      */
     protected function _validateTagSearch(array $options)
     {
-        $validOptions = array('method', 'api_key', 'user_id', 'tags', 'tag_mode', 'text', 'min_upload_date',
+        $validOptions = ['method', 'api_key', 'user_id', 'tags', 'tag_mode', 'text', 'min_upload_date',
                               'max_upload_date', 'min_taken_date', 'max_taken_date', 'license', 'sort',
                               'privacy_filter', 'bbox', 'accuracy', 'safe_search', 'content_type', 'machine_tags',
                               'machine_tag_mode', 'group_id', 'contacts', 'woe_id', 'place_id', 'media', 'has_geo',
                               'geo_context', 'lat', 'lon', 'radius', 'radius_units', 'is_commons', 'is_gallery',
-                              'extras', 'per_page', 'page');
+                              'extras', 'per_page', 'page'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -496,7 +496,7 @@ class Zend_Service_Flickr
         // validate extras, which are delivered in csv format
         if ($options['extras']) {
             $extras = explode(',', $options['extras']);
-            $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
+            $validExtras = ['license', 'date_upload', 'date_taken', 'owner_name', 'icon_server'];
             foreach($extras as $extra) {
                 /**
                  * @todo The following does not do anything [yet], so it is commented out.
@@ -517,7 +517,7 @@ class Zend_Service_Flickr
     */
     protected function _validateGroupPoolGetPhotos(array $options)
     {
-        $validOptions = array('api_key', 'tags', 'method', 'group_id', 'per_page', 'page', 'extras', 'user_id');
+        $validOptions = ['api_key', 'tags', 'method', 'group_id', 'per_page', 'page', 'extras', 'user_id'];
 
         $this->_compareOptions($options, $validOptions);
 
@@ -551,7 +551,7 @@ class Zend_Service_Flickr
         // validate extras, which are delivered in csv format
         if (isset($options['extras'])) {
             $extras = explode(',', $options['extras']);
-            $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
+            $validExtras = ['license', 'date_upload', 'date_taken', 'owner_name', 'icon_server'];
             foreach($extras as $extra) {
                 /**
                 * @todo The following does not do anything [yet], so it is commented out.

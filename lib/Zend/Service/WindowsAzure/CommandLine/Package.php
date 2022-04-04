@@ -81,7 +81,7 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 		}
 
 		// Cleanup $argv
-		$options = array();
+		$options = [];
 		foreach ($argv as $arg) {
 			list($key, $value) = explode(':', $arg, 2);
 			while (substr($key, 0, 1) == '-') {
@@ -116,11 +116,11 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 
 		// Find Windows Azure SDK bin folder
 		$windowsAzureSdkFolderCandidates = array_merge(
-			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramFiles'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : array(),
-			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramFiles(x86)'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : array(),
-			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramW6432'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : array()
+			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramFiles'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : [],
+			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramFiles(x86)'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : [],
+			isset($_SERVER['ProgramFiles']) ? glob($_SERVER['ProgramW6432'] . '\Windows Azure SDK\*\bin', GLOB_NOSORT) : []
 		);
-		if (count($windowsAzureSdkFolderCandidates) == 0) {
+		if (count($windowsAzureSdkFolderCandidates) === 0) {
 			throw new Zend_Service_Console_Exception('Could not locate Windows Azure SDK for PHP.');
 		}
 		$cspack = '"' . $windowsAzureSdkFolderCandidates[0] . '\cspack.exe' . '"';
@@ -133,24 +133,24 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 			throw new Zend_Service_Console_Exception('Could not locate ServiceDefinition.csdef at ' . $serviceDefinitionFile . '.');
 		}
 		$serviceDefinition = Zend_Xml_Security::scanFile($serviceDefinitionFile);
-		$xmlRoles = array();
+		$xmlRoles = [];
 		if ($serviceDefinition->WebRole) {
 			if (count($serviceDefinition->WebRole) > 1) {
 	    		$xmlRoles = array_merge($xmlRoles, $serviceDefinition->WebRole);
 			} else {
-	    		$xmlRoles = array_merge($xmlRoles, array($serviceDefinition->WebRole));
+	    		$xmlRoles = array_merge($xmlRoles, [$serviceDefinition->WebRole]);
 	    	}
 		}
 		if ($serviceDefinition->WorkerRole) {
 			if (count($serviceDefinition->WorkerRole) > 1) {
 	    		$xmlRoles = array_merge($xmlRoles, $serviceDefinition->WorkerRole);
 			} else {
-	    		$xmlRoles = array_merge($xmlRoles, array($serviceDefinition->WorkerRole));
+	    		$xmlRoles = array_merge($xmlRoles, [$serviceDefinition->WorkerRole]);
 	    	}
 		}
 
 		// Build '/role:' command parameter
-		$roleArgs = array();
+		$roleArgs = [];
 		foreach ($xmlRoles as $xmlRole) {
 			if ($xmlRole["name"]) {
 				$roleArgs[] = '/role:' . $xmlRole["name"] . ';' . realpath($path . '/' . $xmlRole["name"]);
@@ -159,11 +159,11 @@ class Zend_Service_WindowsAzure_CommandLine_Package
 
 		// Build command
 		$command = $cspack;
-		$args = array(
+		$args = [
 			$path . '\ServiceDefinition.csdef',
 			implode(' ', $roleArgs),
 			'/out:' . $packageOut
-		);
+		];
 		if ($runDevFabric) {
 			$args[] = '/copyOnly';
 		}

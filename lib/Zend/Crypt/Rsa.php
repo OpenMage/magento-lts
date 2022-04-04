@@ -148,17 +148,17 @@ class Zend_Crypt_Rsa
      * @param string $data
      * @param string $signature
      * @param string $format
-     * @return string
+     * @return false|int
      */
     public function verifySignature($data, $signature, $format = null)
     {
         if ($format == self::BASE64) {
             $signature = base64_decode($signature);
         }
-        $result = openssl_verify($data, $signature,
+
+        return openssl_verify($data, $signature,
             $this->getPublicKey()->getOpensslKeyResource(),
             $this->getHashAlgorithm());
-        return $result;
     }
 
     /**
@@ -231,11 +231,14 @@ class Zend_Crypt_Rsa
         $privateKey = new Zend_Crypt_Rsa_Key_Private($private, $passPhrase);
         $details = openssl_pkey_get_details($resource);
         $publicKey = new Zend_Crypt_Rsa_Key_Public($details['key']);
-        $return = new ArrayObject(array(
-           'privateKey'=>$privateKey,
-           'publicKey'=>$publicKey
-        ), ArrayObject::ARRAY_AS_PROPS);
-        return $return;
+
+        return new ArrayObject(
+            [
+                'privateKey' => $privateKey,
+                'publicKey' => $publicKey
+            ],
+            ArrayObject::ARRAY_AS_PROPS
+        );
     }
 
     /**
@@ -322,7 +325,7 @@ class Zend_Crypt_Rsa
 
     protected function _parseConfigArgs(array $config = null)
     {
-        $configs = array();
+        $configs = [];
         if (isset($config['private_key_bits'])) {
             $configs['private_key_bits'] = $config['private_key_bits'];
         }

@@ -52,7 +52,7 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
      * @param  array $options
      * @return Zend_Cloud_StorageService_Adapter
      */
-    public static function getAdapter($options = array())
+    public static function getAdapter($options = [])
     {
         $adapter = parent::_getAdapter(self::STORAGE_ADAPTER_KEY, $options);
         if (!$adapter) {

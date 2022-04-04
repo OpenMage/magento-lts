@@ -57,7 +57,6 @@ abstract class Zend_Tool_Project_Provider_Abstract
     extends Zend_Tool_Framework_Provider_Abstract
     implements Zend_Tool_Framework_Provider_Initializable
 {
-
     const NO_PROFILE_THROW_EXCEPTION = true;
     const NO_PROFILE_RETURN_FALSE    = false;
 
@@ -103,12 +102,11 @@ abstract class Zend_Tool_Project_Provider_Abstract
         if ($contextClasses = $this->getContextClasses()) {
             $this->_loadContextClassesIntoRegistry($contextClasses);
         }
-
     }
 
     public function getContextClasses()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -118,10 +116,12 @@ abstract class Zend_Tool_Project_Provider_Abstract
      *    - if an enpoint variable has been registered in teh client registry - key=workingDirectory
      *    - if an ENV variable with the key ZFPROJECT_PATH is found
      *
-     * @param bool   $loadProfileFlag         Whether or not to throw an exception when no profile is found
-     * @param string $projectDirectory        The project directory to use to search
-     * @param bool   $searchParentDirectories Whether or not to search upper level direcotries
+     * @param bool $loadProfileFlag Whether or not to throw an exception when no profile is found
+     * @param string $projectDirectory The project directory to use to search
+     * @param bool $searchParentDirectories Whether or not to search upper level direcotries
      * @return Zend_Tool_Project_Profile
+     * @throws Zend_Tool_Project_Provider_Exception
+     * @throws Zend_Tool_Project_Exception
      */
     protected function _loadProfile($loadProfileFlag = self::NO_PROFILE_THROW_EXCEPTION, $projectDirectory = null, $searchParentDirectories = true)
     {
@@ -130,9 +130,9 @@ abstract class Zend_Tool_Project_Provider_Abstract
         if ($foundPath == false) {
             if ($loadProfileFlag == self::NO_PROFILE_THROW_EXCEPTION) {
                 throw new Zend_Tool_Project_Provider_Exception('A project profile was not found.');
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         $profile = new Zend_Tool_Project_Profile();
@@ -182,6 +182,8 @@ abstract class Zend_Tool_Project_Provider_Abstract
      * Load the project profile from the current working directory, if not throw exception
      *
      * @return Zend_Tool_Project_Profile
+     * @throws Zend_Tool_Project_Exception
+     * @throws Zend_Tool_Project_Provider_Exception
      */
     protected function _loadProfileRequired()
     {
@@ -196,7 +198,10 @@ abstract class Zend_Tool_Project_Provider_Abstract
     /**
      * Return the currently loaded profile
      *
+     * @param bool $loadProfileFlag
      * @return Zend_Tool_Project_Profile
+     * @throws Zend_Tool_Project_Exception
+     * @throws Zend_Tool_Project_Provider_Exception
      */
     protected function _getProfile($loadProfileFlag = self::NO_PROFILE_THROW_EXCEPTION)
     {
@@ -213,7 +218,6 @@ abstract class Zend_Tool_Project_Provider_Abstract
      * _storeProfile()
      *
      * This method will store the profile into its proper location
-     *
      */
     protected function _storeProfile()
     {

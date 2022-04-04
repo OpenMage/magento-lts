@@ -90,9 +90,9 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Container extends Zend_Service_
         $this->domainDisplayName = $this->_query(".//$ns:domainDisplayName[1]", 'string');
         $this->domainName        = $this->_query(".//$ns:domainName[1]", 'string');
 
-        $this->_attributes['aspect'] = array(
+        $this->_attributes['aspect'] = [
             'name' => $this->_query(".//$ns:aspect/@name", 'string', true)
-        );
+        ];
 
         $nodes = $this->_xPath->query(".//$ns:aspect", $this->_dom);
         if ($nodes->length > 0) {

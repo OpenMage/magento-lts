@@ -102,7 +102,7 @@ class Zend_Service_Yahoo_ImageResult extends Zend_Service_Yahoo_Result
      */
     public function __construct(DOMElement $result)
     {
-        $this->_fields = array('Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Thumbnail');
+        $this->_fields = ['Summary', 'RefererUrl', 'FileSize', 'FileFormat', 'Height', 'Width', 'Thumbnail'];
 
         parent::__construct($result);
 

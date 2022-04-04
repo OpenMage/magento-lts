@@ -138,7 +138,7 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_Timezone $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_EventEntry Provides a fluent interface
      */
     public function setTimezone($value)
     {
@@ -153,7 +153,7 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_QuickAdd $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_EventEntry Provides a fluent interface
      */
     public function setQuickAdd($value)
     {

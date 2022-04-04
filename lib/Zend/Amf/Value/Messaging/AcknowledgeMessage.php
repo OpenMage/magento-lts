@@ -39,17 +39,15 @@ class Zend_Amf_Value_Messaging_AcknowledgeMessage extends Zend_Amf_Value_Messagi
 {
     /**
      * Create a new Acknowledge Message
-     *
-     * @param unknown_type $message
      */
-    public function __construct($message)
+    public function __construct(?\Zend_Amf_Value_Messaging_AbstractMessage $message)
     {
         $this->clientId    = $this->generateId();
         $this->destination = null;
         $this->messageId   = $this->generateId();
         $this->timestamp   = time().'00';
         $this->timeToLive  = 0;
-        $this->headers     = new STDClass();
+        $this->headers     = new stdClass();
         $this->body        = null;
 
         // correleate the two messages

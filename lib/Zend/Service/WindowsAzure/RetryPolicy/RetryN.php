@@ -67,7 +67,7 @@ class Zend_Service_WindowsAzure_RetryPolicy_RetryN extends Zend_Service_WindowsA
      * @param array        $parameters     Parameters for function call
      * @return mixed
      */
-    public function execute($function, $parameters = array())
+    public function execute($function, $parameters = [])
     {
         $returnValue = null;
 
@@ -76,7 +76,7 @@ class Zend_Service_WindowsAzure_RetryPolicy_RetryN extends Zend_Service_WindowsA
                 $returnValue = call_user_func_array($function, $parameters);
                 return $returnValue;
             } catch (Exception $ex) {
-                if ($retriesLeft == 1) {
+                if ($retriesLeft === 1) {
                     #require_once 'Zend/Service/WindowsAzure/RetryPolicy/Exception.php';
                     throw new Zend_Service_WindowsAzure_RetryPolicy_Exception("Exceeded retry count of " . $this->_retryCount . ". " . $ex->getMessage());
                 }

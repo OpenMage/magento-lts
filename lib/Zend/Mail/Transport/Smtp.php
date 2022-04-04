@@ -115,7 +115,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
      * @todo Someone please make this compatible
      *       with the SendMail transport class.
      */
-    public function __construct($host = '127.0.0.1', Array $config = array())
+    public function __construct($host = '127.0.0.1', Array $config = [])
     {
         if (isset($config['name'])) {
             $this->_name = $config['name'];
@@ -166,7 +166,7 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     /**
      * Gets the connection protocol instance
      *
-     * @return Zend_Mail_Protocol|null
+     * @return Zend_Mail_Protocol_Smtp
      */
     public function getConnection()
     {

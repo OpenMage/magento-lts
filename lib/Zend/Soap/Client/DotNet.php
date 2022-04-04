@@ -66,7 +66,7 @@ class Zend_Soap_Client_DotNet extends Zend_Soap_Client
     protected function _preProcessArguments($arguments)
     {
         if (count($arguments) > 1  ||
-            (count($arguments) == 1  &&  !is_array(reset($arguments)))
+            (count($arguments) === 1  &&  !is_array(reset($arguments)))
            ) {
             #require_once 'Zend/Soap/Client/Exception.php';
             throw new Zend_Soap_Client_Exception('.Net webservice arguments have to be grouped into array: array(\'a\' => $a, \'b\' => $b, ...).');

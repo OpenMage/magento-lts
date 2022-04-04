@@ -37,14 +37,14 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Constructor
      *
      * @param array|Zend_Config $opts Serializer options
      */
-    public function __construct($opts = array())
+    public function __construct($opts = [])
     {
         $this->setOptions($opts);
     }

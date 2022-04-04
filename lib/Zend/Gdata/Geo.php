@@ -47,10 +47,10 @@ class Zend_Gdata_Geo extends Zend_Gdata
      *
      * @var array
      */
-    public static $namespaces = array(
-        array('georss', 'http://www.georss.org/georss', 1, 0),
-        array('gml', 'http://www.opengis.net/gml', 1, 0)
-    );
+    public static $namespaces = [
+        ['georss', 'http://www.georss.org/georss', 1, 0],
+        ['gml', 'http://www.opengis.net/gml', 1, 0]
+    ];
 
 
     /**

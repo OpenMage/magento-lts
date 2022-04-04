@@ -64,10 +64,10 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      * @return void
      * @throws Zend_Queue_Exception
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (isset($options['data'])) {
-            if (!($options['data'] instanceof ZendApi_Job)) {
+            if (!($options['data'] instanceof ZendAPI_Job)) {
                 #require_once 'Zend/Queue/Exception.php';
                 throw new Zend_Queue_Exception('Data must be an instance of ZendApi_Job');
             }
@@ -123,7 +123,7 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
     /**
      * Store queue and data in serialized object
      *
-     * @return array
+     * @return string
      */
     public function __sleep()
     {

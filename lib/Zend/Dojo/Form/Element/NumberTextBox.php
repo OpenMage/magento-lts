@@ -44,12 +44,12 @@ class Zend_Dojo_Form_Element_NumberTextBox extends Zend_Dojo_Form_Element_Valida
      * Allowed numeric type formats
      * @var array
      */
-    protected $_allowedTypes = array(
+    protected $_allowedTypes = [
         'decimal',
         'scientific',
         'percent',
         'currency',
-    );
+    ];
 
     /**
      * Set locale

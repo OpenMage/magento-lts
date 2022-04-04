@@ -64,8 +64,9 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Sets the spreadsheet key for this query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
+     * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setSpreadsheetKey($value)
     {
@@ -75,7 +76,8 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Gets the spreadsheet key for this query.
-     * @return string spreadsheet key
+     *
+     * @return string|null spreadsheet key
      */
     public function getSpreadsheetKey()
     {
@@ -84,8 +86,9 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Sets the worksheet id for this query.
+     *
      * @param string $value
-     * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
+     * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setWorksheetId($value)
     {
@@ -95,7 +98,8 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Gets the worksheet id for this query.
-     * @return string worksheet id
+     *
+     * @return string|null worksheet id
      */
     public function getWorksheetId()
     {

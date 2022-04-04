@@ -110,7 +110,7 @@ class Zend_Config_Json extends Zend_Config
             }
         }
 
-        set_error_handler(array($this, '_loadFileErrorHandler')); // Warnings and errors are suppressed
+        set_error_handler([$this, '_loadFileErrorHandler']); // Warnings and errors are suppressed
         if ($json[0] != '{') {
             $json = file_get_contents($json);
         }
@@ -137,14 +137,14 @@ class Zend_Config_Json extends Zend_Config
         }
 
         if ($section === null) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($config as $sectionName => $sectionData) {
                 $dataArray[$sectionName] = $this->_processExtends($config, $sectionName);
             }
 
             parent::__construct($dataArray, $allowModifications);
         } elseif (is_array($section)) {
-            $dataArray = array();
+            $dataArray = [];
             foreach ($section as $sectionName) {
                 if (!isset($config[$sectionName])) {
                     #require_once 'Zend/Config/Exception.php';
@@ -164,7 +164,7 @@ class Zend_Config_Json extends Zend_Config
             $dataArray = $this->_processExtends($config, $section);
             if (!is_array($dataArray)) {
                 // Section in the JSON data contains just one top level string
-                $dataArray = array($section => $dataArray);
+                $dataArray = [$section => $dataArray];
             }
 
             parent::__construct($dataArray, $allowModifications);
@@ -183,7 +183,7 @@ class Zend_Config_Json extends Zend_Config
      * @throws Zend_Config_Exception When $section cannot be found
      * @return array
      */
-    protected function _processExtends(array $data, $section, array $config = array())
+    protected function _processExtends(array $data, $section, array $config = [])
     {
         if (!isset($data[$section])) {
             #require_once 'Zend/Config/Exception.php';

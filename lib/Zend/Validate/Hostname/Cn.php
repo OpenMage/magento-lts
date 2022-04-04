@@ -27,7 +27,7 @@
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-return array(
+return [
     1  => '/^[\x{002d}0-9a-z\x{3447}\x{3473}\x{359E}\x{360E}\x{361A}\x{3918}\x{396E}\x{39CF}\x{39D0}' .
 '\x{39DF}\x{3A73}\x{3B4E}\x{3C6E}\x{3CE0}\x{4056}\x{415F}\x{4337}\x{43AC}' .
 '\x{43B1}\x{43DD}\x{44D6}\x{464C}\x{4661}\x{4723}\x{4729}\x{477C}\x{478D}' .
@@ -2196,4 +2196,4 @@ return array(
 '\x{9F81}\x{9F82}\x{9F83}\x{9F84}\x{9F85}\x{9F86}\x{9F87}\x{9F88}\x{9F89}' .
 '\x{9F8A}\x{9F8B}\x{9F8C}\x{9F8D}\x{9F8E}\x{9F8F}\x{9F90}\x{9F91}\x{9F92}' .
 '\x{9F93}\x{9F94}\x{9F95}\x{9F96}\x{9F97}\x{9F98}\x{9F99}\x{9F9A}\x{9F9B}' .
-'\x{9F9C}\x{9F9D}\x{9F9E}\x{9F9F}\x{9FA0}\x{9FA2}\x{9FA4}\x{9FA5}]{1,20}$/iu');
+'\x{9F9C}\x{9F9D}\x{9F9E}\x{9F9F}\x{9FA0}\x{9FA2}\x{9FA4}\x{9FA5}]{1,20}$/iu'];

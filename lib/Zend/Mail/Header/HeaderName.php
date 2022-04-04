@@ -46,12 +46,15 @@ final class Zend_Mail_Header_HeaderName
     {
         $result = '';
         $tot    = strlen($name);
+
         for ($i = 0; $i < $tot; $i += 1) {
             $ord = ord($name[$i]);
+
             if ($ord > 32 && $ord < 127 && $ord !== 58) {
                 $result .= $name[$i];
             }
         }
+
         return $result;
     }
 
@@ -64,12 +67,15 @@ final class Zend_Mail_Header_HeaderName
     public static function isValid($name)
     {
         $tot = strlen($name);
+
         for ($i = 0; $i < $tot; $i += 1) {
             $ord = ord($name[$i]);
+
             if ($ord < 33 || $ord > 126 || $ord === 58) {
                 return false;
             }
         }
+
         return true;
     }
 

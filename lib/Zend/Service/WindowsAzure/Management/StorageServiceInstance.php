@@ -54,13 +54,13 @@ class Zend_Service_WindowsAzure_Management_StorageServiceInstance
 	 */
     public function __construct($url, $serviceName, $description = '', $affinityGroup = '', $location = '', $label = '')
     {
-        $this->_data = array(
+        $this->_data = [
             'url'              => $url,
             'servicename'      => $serviceName,
             'description'      => $description,
             'affinitygroup'    => $affinityGroup,
             'location'         => $location,
             'label'            => base64_decode($label)
-        );
+        ];
     }
 }

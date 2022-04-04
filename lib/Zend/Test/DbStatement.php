@@ -39,7 +39,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
     /**
      * @var array
      */
-    protected $_fetchStack = array();
+    protected $_fetchStack = [];
 
     /**
      * @var int
@@ -62,7 +62,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * @param array $rows
      * @return Zend_Test_DbStatement
      */
-    static public function createSelectStatement(array $rows=array())
+    static public function createSelectStatement(array $rows=[])
     {
         $stmt = new Zend_Test_DbStatement();
         foreach($rows AS $row) {
@@ -219,7 +219,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * Retrieves the error code, if any, associated with the last operation on
      * the statement handle.
      *
-     * @return string error code.
+     * @return false error code.
      * @throws Zend_Db_Statement_Exception
      */
     public function errorCode()
@@ -231,7 +231,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * Retrieves an array of error information, if any, associated with the
      * last operation on the statement handle.
      *
-     * @return array
+     * @return false
      * @throws Zend_Db_Statement_Exception
      */
     public function errorInfo()
@@ -246,7 +246,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
-    public function execute(array $params = array())
+    public function execute(array $params = [])
     {
         if($this->_queryProfile !== null) {
             $this->_queryProfile->bindParams($params);
@@ -266,12 +266,11 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      */
     public function fetch($style = null, $cursor = null, $offset = null)
     {
-        if(count($this->_fetchStack)) {
-            $row = array_shift($this->_fetchStack);
-            return $row;
-        } else {
-            return false;
+        if (count($this->_fetchStack)) {
+            return array_shift($this->_fetchStack);
         }
+
+        return false;
     }
 
     /**
@@ -285,7 +284,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
     public function fetchAll($style = null, $col = null)
     {
         $rows = $this->_fetchStack;
-        $this->_fetchStack = array();
+        $this->_fetchStack = [];
 
         return $rows;
     }
@@ -324,7 +323,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * @return mixed One object instance of the specified class.
      * @throws Zend_Db_Statement_Exception
      */
-    public function fetchObject($class = 'stdClass', array $config = array())
+    public function fetchObject($class = 'stdClass', array $config = [])
     {
         if(!class_exists($class)) {
             throw new Zend_Db_Statement_Exception("Class '".$class."' does not exist!");
@@ -343,7 +342,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
      * Retrieve a statement attribute.
      *
      * @param string $key Attribute name.
-     * @return mixed      Attribute value.
+     * @return false      Attribute value.
      * @throws Zend_Db_Statement_Exception
      */
     public function getAttribute($key)

@@ -46,7 +46,7 @@ class Zend_EventManager_Event implements Zend_EventManager_EventDescription
     /**
      * @var array|ArrayAccess|object The event parameters
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * @var bool Whether or not to stop propagation
@@ -106,7 +106,7 @@ class Zend_EventManager_Event implements Zend_EventManager_EventDescription
      * Overwrites parameters
      *
      * @param  array|ArrayAccess|object $params
-     * @return Event
+     * @return Zend_EventManager_Event
      */
     public function setParams($params)
     {

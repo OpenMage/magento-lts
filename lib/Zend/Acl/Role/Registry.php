@@ -39,7 +39,7 @@ class Zend_Acl_Role_Registry
      *
      * @var array
      */
-    protected $_roles = array();
+    protected $_roles = [];
 
     /**
      * Adds a Role having an identifier unique to the registry
@@ -72,11 +72,11 @@ class Zend_Acl_Role_Registry
             throw new Zend_Acl_Role_Registry_Exception("Role id '$roleId' already exists in the registry");
         }
 
-        $roleParents = array();
+        $roleParents = [];
 
         if (null !== $parents) {
             if (!is_array($parents)) {
-                $parents = array($parents);
+                $parents = [$parents];
             }
             /**
              * @see Zend_Acl_Role_Registry_Exception
@@ -98,11 +98,11 @@ class Zend_Acl_Role_Registry
             }
         }
 
-        $this->_roles[$roleId] = array(
+        $this->_roles[$roleId] = [
             'instance' => $role,
             'parents'  => $roleParents,
-            'children' => array()
-            );
+            'children' => []
+            ];
 
         return $this;
     }
@@ -258,7 +258,7 @@ class Zend_Acl_Role_Registry
      */
     public function removeAll()
     {
-        $this->_roles = array();
+        $this->_roles = [];
 
         return $this;
     }

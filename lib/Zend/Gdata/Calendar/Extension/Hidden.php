@@ -102,7 +102,7 @@ class Zend_Gdata_Calendar_Extension_Hidden extends Zend_Gdata_Extension
     /**
      * Get the value for this element's value attribute.
      *
-     * @return string The requested attribute.
+     * @return bool|null The requested attribute.
      */
     public function getValue()
     {

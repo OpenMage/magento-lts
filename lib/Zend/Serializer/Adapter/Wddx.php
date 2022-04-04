@@ -43,9 +43,9 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
     /**
      * @var array Default options
      */
-    protected $_options = array(
+    protected $_options = [
         'comment' => null,
-    );
+    ];
 
     /**
      * Constructor
@@ -54,7 +54,7 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
      * @return void
      * @throws Zend_Serializer_Exception if wddx extension not found
      */
-    public function __construct($opts = array())
+    public function __construct($opts = [])
     {
         if (!extension_loaded('wddx')) {
             #require_once 'Zend/Serializer/Exception.php';
@@ -72,7 +72,7 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
      * @return string
      * @throws Zend_Serializer_Exception on wddx error
      */
-    public function serialize($value, array $opts = array())
+    public function serialize($value, array $opts = [])
     {
         $opts = $opts + $this->_options;
 
@@ -98,7 +98,7 @@ class Zend_Serializer_Adapter_Wddx extends Zend_Serializer_Adapter_AdapterAbstra
      * @return mixed
      * @throws Zend_Serializer_Exception on wddx error
      */
-    public function unserialize($wddx, array $opts = array())
+    public function unserialize($wddx, array $opts = [])
     {
         $ret = wddx_deserialize($wddx);
 

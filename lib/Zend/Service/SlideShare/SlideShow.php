@@ -117,7 +117,7 @@ class Zend_Service_SlideShare_SlideShow
      *
      * @var array An array of tags associated with the slide show
      */
-    protected $_tags = array();
+    protected $_tags = [];
 
     /**
      * The location of the slide show

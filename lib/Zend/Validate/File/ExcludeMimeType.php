@@ -41,11 +41,11 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::FALSE_TYPE   => "File '%value%' has a false mimetype of '%type%'",
         self::NOT_DETECTED => "The mimetype of file '%value%' could not be detected",
         self::NOT_READABLE => "File '%value%' is not readable or does not exist",
-    );
+    ];
 
     /**
      * Defined by Zend_Validate_Interface
@@ -61,10 +61,10 @@ class Zend_Validate_File_ExcludeMimeType extends Zend_Validate_File_MimeType
     public function isValid($value, $file = null)
     {
         if ($file === null) {
-            $file = array(
+            $file = [
                 'type' => null,
                 'name' => $value
-            );
+            ];
         }
 
         // Is file readable ?

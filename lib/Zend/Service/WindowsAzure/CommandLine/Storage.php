@@ -71,11 +71,12 @@ class Zend_Service_WindowsAzure_CommandLine_Storage
 		$client = new Zend_Service_WindowsAzure_Management_Client($subscriptionId, $certificate, $certificatePassphrase);
 		$result = $client->listStorageAccounts();
 
-		if (count($result) == 0) {
+		if (count($result) === 0) {
 			echo 'No data to display.';
 		}
+
 		foreach ($result as $object) {
-			$this->_displayObjectInformation($object, array('ServiceName', 'Url'));
+			$this->_displayObjectInformation($object, ['ServiceName', 'Url']);
 		}
 	}
 
@@ -97,7 +98,7 @@ class Zend_Service_WindowsAzure_CommandLine_Storage
 		$client = new Zend_Service_WindowsAzure_Management_Client($subscriptionId, $certificate, $certificatePassphrase);
 		$result = $client->getStorageAccountProperties($accountName);
 
-		$this->_displayObjectInformation($result, array('ServiceName', 'Label', 'AffinityGroup', 'Location'));
+		$this->_displayObjectInformation($result, ['ServiceName', 'Label', 'AffinityGroup', 'Location']);
 	}
 
 	/**
@@ -140,8 +141,8 @@ class Zend_Service_WindowsAzure_CommandLine_Storage
 		$client = new Zend_Service_WindowsAzure_Management_Client($subscriptionId, $certificate, $certificatePassphrase);
 		$result = $client->getStorageAccountKeys($accountName);
 
-		$this->_displayObjectInformation((object)array('Key' => 'primary', 'Value' => $result[0]), array('Key', 'Value'));
-		$this->_displayObjectInformation((object)array('Key' => 'secondary', 'Value' => $result[1]), array('Key', 'Value'));
+		$this->_displayObjectInformation((object)['Key' => 'primary', 'Value' => $result[0]], ['Key', 'Value']);
+		$this->_displayObjectInformation((object)['Key' => 'secondary', 'Value' => $result[1]], ['Key', 'Value']);
 	}
 
 	/**

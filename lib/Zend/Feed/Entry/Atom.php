@@ -70,7 +70,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * Usually the response would be 204 No Content, but the Atom
      * Publishing Protocol permits it to be 200 OK.
      *
-     * @return void
+     * @return bool
      * @throws Zend_Feed_Exception
      */
     public function delete()
@@ -153,15 +153,16 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $client = Zend_Feed::getHttpClient();
             $client->setUri($editUri);
             if (Zend_Feed::getHttpMethodOverride()) {
-                $client->setHeaders(array('X-HTTP-Method-Override: PUT',
-                    'Content-Type: ' . self::CONTENT_TYPE));
-                $client->setRawData($this->saveXML());
+                $client->setHeaders(['X-HTTP-Method-Override: PUT',
+                    'Content-Type: ' . self::CONTENT_TYPE]);
+                $client->setRawData($this->saveXml());
                 $response = $client->request('POST');
             } else {
                 $client->setHeaders('Content-Type', self::CONTENT_TYPE);
-                $client->setRawData($this->saveXML());
+                $client->setRawData($this->saveXml());
                 $response = $client->request('PUT');
             }
+
             if ($response->getStatus() !== 200) {
                 /**
                  * @see Zend_Feed_Exception
@@ -180,7 +181,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $client = Zend_Feed::getHttpClient();
             $client->setUri($postUri);
             $client->setHeaders('Content-Type', self::CONTENT_TYPE);
-            $client->setRawData($this->saveXML());
+            $client->setRawData($this->saveXml());
             $response = $client->request('POST');
 
             if ($response->getStatus() !== 201) {
@@ -194,18 +195,18 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
         }
 
         // Update internal properties using $client->responseBody;
-        @ini_set('track_errors', 1);
         $newEntry = new DOMDocument;
         $newEntry = @Zend_Xml_Security::scan($response->getBody(), $newEntry);
-        @ini_restore('track_errors');
 
         if (!$newEntry) {
+            $err = error_get_last();
+            $phpErrormsg = isset($err) ? $err['message'] : null;
             // prevent the class to generate an undefined variable notice (ZF-2590)
-            if (!isset($php_errormsg)) {
+            if (!isset($phpErrormsg)) {
                 if (function_exists('xdebug_is_enabled')) {
-                    $php_errormsg = '(error message not available, when XDebug is running)';
+                    $phpErrormsg = '(error message not available, when XDebug is running)';
                 } else {
-                    $php_errormsg = '(error message not available)';
+                    $phpErrormsg = '(error message not available)';
                 }
             }
 
@@ -213,7 +214,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
              * @see Zend_Feed_Exception
              */
             #require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('XML cannot be parsed: ' . $php_errormsg);
+            throw new Zend_Feed_Exception('XML cannot be parsed: ' . $phpErrormsg);
         }
 
         $newEntry = $newEntry->getElementsByTagName($this->_rootElement)->item(0);
@@ -261,7 +262,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
         $links = parent::__get('link');
         if (!is_array($links)) {
             if ($links instanceof Zend_Feed_Element) {
-                $links = array($links);
+                $links = [$links];
             } else {
                 return $links;
             }

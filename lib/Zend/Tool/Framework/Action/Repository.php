@@ -43,7 +43,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * setRegistry()
@@ -83,7 +83,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * process() - this is called when the client is done constructing (after init())
      *
-     * @return unknown
+     * @return unknown|null
      */
     public function process()
     {
@@ -120,7 +120,7 @@ class Zend_Tool_Framework_Action_Repository
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_actions);
     }
@@ -128,9 +128,9 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * getIterator() - get all actions, this supports the IteratorAggregate interface
      *
-     * @return array
+     * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_actions);
     }

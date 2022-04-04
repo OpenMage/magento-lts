@@ -61,7 +61,7 @@ class Zend_Dojo_View_Helper_DateTextBox extends Zend_Dojo_View_Helper_Dijit
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function dateTextBox($id, $value = null, array $params = array(), array $attribs = array())
+    public function dateTextBox($id, $value = null, array $params = [], array $attribs = [])
     {
         return $this->_createFormElement($id, $value, $params, $attribs);
     }

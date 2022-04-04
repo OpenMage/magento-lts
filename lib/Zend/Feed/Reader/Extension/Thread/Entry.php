@@ -36,7 +36,7 @@ class Zend_Feed_Reader_Extension_Thread_Entry
     /**
      * Get the "in-reply-to" value
      *
-     * @return string
+     * @return void
      */
     public function getInReplyTo()
     {

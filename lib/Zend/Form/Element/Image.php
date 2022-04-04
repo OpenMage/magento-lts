@@ -68,8 +68,8 @@ class Zend_Form_Element_Image extends Zend_Form_Element_Xhtml
             $this->addDecorator('Tooltip')
                  ->addDecorator('Image')
                  ->addDecorator('Errors')
-                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                 ->addDecorator('Label', array('tag' => 'dt'));
+                 ->addDecorator('HtmlTag', ['tag' => 'dd'])
+                 ->addDecorator('Label', ['tag' => 'dt']);
         }
         return $this;
     }

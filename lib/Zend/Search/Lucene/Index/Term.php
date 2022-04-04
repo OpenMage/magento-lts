@@ -67,6 +67,7 @@ class Zend_Search_Lucene_Index_Term
      *
      * @return string
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->field . chr(0) . $this->text;
@@ -83,10 +84,13 @@ class Zend_Search_Lucene_Index_Term
     {
         $prefixBytes = 0;
         $prefixChars = 0;
+
         while ($prefixBytes < strlen($str)  &&  $prefixChars < $length) {
             $charBytes = 1;
+
             if ((ord($str[$prefixBytes]) & 0xC0) == 0xC0) {
                 $charBytes++;
+
                 if (ord($str[$prefixBytes]) & 0x20 ) {
                     $charBytes++;
                     if (ord($str[$prefixBytes]) & 0x10 ) {
@@ -111,7 +115,7 @@ class Zend_Search_Lucene_Index_Term
      * Get UTF-8 string length
      *
      * @param string $str
-     * @return string
+     * @return int
      */
     public static function getLength($str)
     {

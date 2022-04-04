@@ -163,8 +163,8 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @see $_comments;
-     * @return string comments
+     * @return string|null comments
+     *@see $_comments;
      */
     public function getComments()
     {
@@ -172,8 +172,8 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @see $_event;
-     * @return string event
+     * @return string|null event
+     *@see $_event;
      */
     public function getEvent()
     {
@@ -298,7 +298,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return string sortorder
+     * @return Zend_Gdata_Calendar_EventQuery sortorder
      */
     public function setSortOrder($value)
     {
@@ -323,7 +323,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return string recurrence-expansion-start
+     * @return Zend_Gdata_Calendar_EventQuery recurrence-expansion-start
      */
     public function setRecurrenceExpansionStart($value)
     {
@@ -349,7 +349,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return string recurrence-expansion-end
+     * @return Zend_Gdata_Calendar_EventQuery recurrence-expansion-end
      */
     public function setRecurrenceExpansionEnd($value)
     {
@@ -363,7 +363,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
 
     /**
      * @param string $value Also accepts bools.
-     * @return Zend_Gdata_Calendar_EventQuery Provides a fluent interface
+     * @return bool|null Provides a fluent interface
      */
     public function getSingleEvents()
     {
@@ -411,7 +411,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return string futureevents
+     * @return bool|null futureevents
      */
     public function getFutureEvents()
     {

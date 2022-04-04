@@ -61,7 +61,7 @@ class Zend_Search_Lucene_Search_QueryToken
      */
     public static function getTypes()
     {
-        return array(   self::TT_WORD,
+        return [   self::TT_WORD,
                         self::TT_PHRASE,
                         self::TT_FIELD,
                         self::TT_FIELD_INDICATOR,
@@ -80,7 +80,7 @@ class Zend_Search_Lucene_Search_QueryToken
                         self::TT_NOT_LEXEME,
                         self::TT_TO_LEXEME,
                         self::TT_NUMBER
-                     );
+                     ];
     }
 
 
@@ -214,10 +214,12 @@ class Zend_Search_Lucene_Search_QueryToken
                 }
                 break;
 
+            case self::TC_NUMBER:
+                $this->type = self::TT_NUMBER;
+
             default:
                 #require_once 'Zend/Search/Lucene/Exception.php';
                 throw new Zend_Search_Lucene_Exception('Unrecognized lexeme type: \'' . $tokenCategory . '\'');
-                break;
         }
     }
 }

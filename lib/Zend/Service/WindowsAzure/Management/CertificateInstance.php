@@ -50,11 +50,11 @@ class Zend_Service_WindowsAzure_Management_CertificateInstance
 	 */
     public function __construct($certificateUrl, $thumbprint, $thumbprintAlgorithm, $data)
     {
-        $this->_data = array(
+        $this->_data = [
             'certificateurl'       => $certificateUrl,
             'thumbprint'           => $thumbprint,
             'thumbprintalgorithm'  => $thumbprintAlgorithm,
             'data'                 => base64_decode($data)
-        );
+        ];
     }
 }

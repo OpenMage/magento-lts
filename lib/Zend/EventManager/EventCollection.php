@@ -47,7 +47,7 @@ interface Zend_EventManager_EventCollection
      * @param  null|callback $callback
      * @return Zend_EventManager_ResponseCollection
      */
-    public function trigger($event, $target = null, $argv = array(), $callback = null);
+    public function trigger($event, $target = null, $argv = [], $callback = null);
 
     /**
      * Trigger an event until the given callback returns a boolean false

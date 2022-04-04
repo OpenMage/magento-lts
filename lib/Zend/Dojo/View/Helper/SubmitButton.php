@@ -48,7 +48,7 @@ class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function submitButton($id, $value = null, array $params = array(), array $attribs = array())
+    public function submitButton($id, $value = null, array $params = [], array $attribs = [])
     {
         if (!array_key_exists('label', $params)) {
             $params['label'] = $value;

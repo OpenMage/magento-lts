@@ -88,7 +88,7 @@ class Zend_Service_Yahoo_WebResult extends Zend_Service_Yahoo_Result
      */
     public function __construct(DOMElement $result)
     {
-        $this->_fields = array('Summary', 'MimeType', 'ModificationDate');
+        $this->_fields = ['Summary', 'MimeType', 'ModificationDate'];
         parent::__construct($result);
 
         $this->_xpath = new DOMXPath($result->ownerDocument);

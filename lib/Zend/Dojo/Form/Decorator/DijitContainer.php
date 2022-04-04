@@ -108,7 +108,7 @@ abstract class Zend_Dojo_Form_Decorator_DijitContainer extends Zend_Form_Decorat
             if (array_key_exists('dijitParams', $attribs)) {
                 $this->_dijitParams = $attribs['dijitParams'];
             } else {
-                $this->_dijitParams = array();
+                $this->_dijitParams = [];
             }
 
             $options = $this->getOptions();

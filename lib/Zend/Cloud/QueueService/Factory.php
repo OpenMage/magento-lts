@@ -39,8 +39,6 @@ class Zend_Cloud_QueueService_Factory extends Zend_Cloud_AbstractFactory
 
     /**
      * Constructor
-     *
-     * @return void
      */
     private function __construct()
     {
@@ -51,9 +49,10 @@ class Zend_Cloud_QueueService_Factory extends Zend_Cloud_AbstractFactory
      * Retrieve QueueService adapter
      *
      * @param  array $options
-     * @return void
+     * @return null|Zend_Cloud_DocumentService_Adapter|Zend_Cloud_QueueService_Adapter|Zend_Cloud_StorageService_Adapter
+     * @throws Zend_Cloud_QueueService_Exception
      */
-    public static function getAdapter($options = array())
+    public static function getAdapter($options = [])
     {
         $adapter = parent::_getAdapter(self::QUEUE_ADAPTER_KEY, $options);
         if (!$adapter) {

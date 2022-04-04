@@ -43,7 +43,7 @@ extends Zend_Feed_Reader_Collection_CollectionAbstract
      * @return array
      */
     public function getValues() {
-        $categories = array();
+        $categories = [];
         foreach ($this->getIterator() as $element) {
             if (isset($element['label']) && !empty($element['label'])) {
                 $categories[] = $element['label'];

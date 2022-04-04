@@ -151,8 +151,8 @@ class Zend_Service_Ebay_Finding_Error_Data extends Zend_Service_Ebay_Finding_Abs
         $this->severity    = $this->_query(".//$ns:severity[1]", 'string');
         $this->subdomain   = $this->_query(".//$ns:subdomain[1]", 'string');
 
-        $this->_attributes['parameter'] = array(
+        $this->_attributes['parameter'] = [
             'name' => $this->_query(".//$ns:parameter/@name", 'string', true)
-        );
+        ];
     }
 }

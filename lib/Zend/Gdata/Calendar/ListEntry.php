@@ -80,7 +80,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     protected $_hidden = null;
     protected $_selected = null;
     protected $_timezone = null;
-    protected $_where = array();
+    protected $_where = [];
 
     public function __construct($element = null)
     {
@@ -161,7 +161,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_AccessLevel $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setAccessLevel($value)
     {
@@ -175,7 +175,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_Color $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setColor($value)
     {
@@ -190,7 +190,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_Hidden $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setHidden($value)
     {
@@ -205,7 +205,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_Selected $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setSelected($value)
     {
@@ -220,7 +220,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Calendar_Extension_Timezone $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setTimezone($value)
     {
@@ -235,7 +235,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
 
     /**
      * @param Zend_Gdata_Extension_Where $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @return Zend_Gdata_Calendar_ListEntry Provides a fluent interface
      */
     public function setWhere($value)
     {

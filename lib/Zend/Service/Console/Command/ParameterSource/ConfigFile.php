@@ -45,7 +45,7 @@ class Zend_Service_Console_Command_ParameterSource_ConfigFile
 	 * @param array $argv Argument values passed to the script when run in console.
 	 * @return mixed
 	 */
-	public function getValueForParameter($parameter, $argv = array())
+	public function getValueForParameter($parameter, $argv = [])
 	{
 		// Configuration file path
 		$configurationFilePath = null;

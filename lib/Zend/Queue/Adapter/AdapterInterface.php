@@ -107,6 +107,7 @@ interface Zend_Queue_Adapter_AdapterInterface
      * @param  Zend_Queue|null $queue
      * @return integer
      */
+    #[\ReturnTypeWillChange]
     public function count(Zend_Queue $queue = null);
 
     /********************************************************************

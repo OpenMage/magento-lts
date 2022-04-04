@@ -45,12 +45,12 @@ class Zend_Service_WindowsAzure_Storage_QueueInstance
      * @param string $name          Name
      * @param array  $metadata      Key/value pairs of meta data
      */
-    public function __construct($name, $metadata = array())
+    public function __construct($name, $metadata = [])
     {
-        $this->_data = array(
+        $this->_data = [
             'name'         => $name,
             'metadata'     => $metadata,
             'approximatemessagecount' => 0
-        );
+        ];
     }
 }

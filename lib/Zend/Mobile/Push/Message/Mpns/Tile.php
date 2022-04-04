@@ -235,7 +235,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
      * Set Back Content
      *
      * @param string $content
-     * @return Zend_Mobile_Push_Message_Mpns_Tile
+     * @return void
      * @throws Zend_Mobile_Push_Message_Exception
      */
     public function setBackContent($content)
@@ -294,11 +294,11 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
      */
     public function setDelay($delay)
     {
-        if (!in_array($delay, array(
+        if (!in_array($delay, [
             self::DELAY_IMMEDIATE,
             self::DELAY_450S,
             self::DELAY_900S
-        ))) {
+        ])) {
             throw new Zend_Mobile_Push_Message_Exception('$delay must be one of the DELAY_* constants');
         }
         $this->_delay = $delay;
@@ -354,12 +354,15 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
         if (!isset($this->_token) || strlen($this->_token) === 0) {
             return false;
         }
+
         if (empty($this->_backgroundImage)) {
             return false;
         }
+
         if (empty($this->_title)) {
             return false;
         }
+
         return parent::validate();
     }
 }

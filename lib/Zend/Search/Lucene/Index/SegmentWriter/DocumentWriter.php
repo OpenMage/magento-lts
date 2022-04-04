@@ -58,8 +58,8 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
     {
         parent::__construct($directory, $name);
 
-        $this->_termDocs       = array();
-        $this->_termDictionary = array();
+        $this->_termDocs       = [];
+        $this->_termDictionary = [];
     }
 
 
@@ -74,8 +74,8 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
         /** Zend_Search_Lucene_Search_Similarity */
         #require_once 'Zend/Search/Lucene/Search/Similarity.php';
 
-        $storedFields = array();
-        $docNorms     = array();
+        $storedFields = [];
+        $docNorms     = [];
         $similarity   = Zend_Search_Lucene_Search_Similarity::getDefault();
 
         foreach ($document->getFieldNames() as $fieldName) {
@@ -108,11 +108,11 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                         if (!isset($this->_termDictionary[$termKey])) {
                             // New term
                             $this->_termDictionary[$termKey] = $term;
-                            $this->_termDocs[$termKey] = array();
-                            $this->_termDocs[$termKey][$this->_docCount] = array();
+                            $this->_termDocs[$termKey] = [];
+                            $this->_termDocs[$termKey][$this->_docCount] = [];
                         } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                             // Existing term, but new term entry
-                            $this->_termDocs[$termKey][$this->_docCount] = array();
+                            $this->_termDocs[$termKey][$this->_docCount] = [];
                         }
                         $position += $token->getPositionIncrement();
                         $this->_termDocs[$termKey][$this->_docCount][] = $position;
@@ -139,11 +139,11 @@ class Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter extends Zend_Search_
                     if (!isset($this->_termDictionary[$termKey])) {
                         // New term
                         $this->_termDictionary[$termKey] = $term;
-                        $this->_termDocs[$termKey] = array();
-                        $this->_termDocs[$termKey][$this->_docCount] = array();
+                        $this->_termDocs[$termKey] = [];
+                        $this->_termDocs[$termKey][$this->_docCount] = [];
                     } else if (!isset($this->_termDocs[$termKey][$this->_docCount])) {
                         // Existing term, but new term entry
-                        $this->_termDocs[$termKey][$this->_docCount] = array();
+                        $this->_termDocs[$termKey][$this->_docCount] = [];
                     }
                     $this->_termDocs[$termKey][$this->_docCount][] = 0; // position
 

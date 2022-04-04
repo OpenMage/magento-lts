@@ -55,7 +55,7 @@ class Zend_Dojo_View_Helper_Button extends Zend_Dojo_View_Helper_Dijit
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function button($id, $value = null, array $params = array(), array $attribs = array())
+    public function button($id, $value = null, array $params = [], array $attribs = [])
     {
         $attribs['name'] = $id;
         if (!array_key_exists('id', $attribs)) {

@@ -40,7 +40,7 @@ class Zend_Exception extends Exception
      * @param  Exception $previous
      * @return void
      */
-    public function __construct($msg = '', $code = 0, Exception $previous = null)
+    public function __construct($msg = '', $code = 0, \Throwable $previous = null)
     {
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
             parent::__construct($msg, (int) $code);
@@ -48,23 +48,6 @@ class Zend_Exception extends Exception
         } else {
             parent::__construct($msg, (int) $code, $previous);
         }
-    }
-
-    /**
-     * Overloading
-     *
-     * For PHP < 5.3.0, provides access to the getPrevious() method.
-     *
-     * @param  string $method
-     * @param  array $args
-     * @return mixed
-     */
-    public function __call($method, array $args)
-    {
-        if ('getprevious' == strtolower($method)) {
-            return $this->_getPrevious();
-        }
-        return null;
     }
 
     /**

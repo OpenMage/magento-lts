@@ -36,7 +36,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      * Allowed barcode lengths
      * @var integer
      */
-    protected $_length = array(8, 13);
+    protected $_length = [8, 13];
 
     /**
      * Allowed barcode characters
@@ -58,7 +58,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      */
     public function checkChars($value)
     {
-        if (strlen($value) != 8) {
+        if (strlen($value) !== 8) {
             if (strpos($value, 'X') !== false) {
                 return false;
             }
@@ -75,7 +75,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      */
     public function checksum($value)
     {
-        if (strlen($value) == 8) {
+        if (strlen($value) === 8) {
             $this->_checksum = '_issn';
         } else {
             $this->_checksum = '_gtin';
@@ -108,9 +108,12 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
 
         $check %= 11;
         $check  = 11 - $check;
+
         if ($check == $checksum) {
             return true;
-        } else if (($check == 10) && ($checksum == 'X')) {
+        }
+
+        if (($check == 10) && ($checksum == 'X')) {
             return true;
         }
 

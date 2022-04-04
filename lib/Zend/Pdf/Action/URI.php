@@ -64,7 +64,7 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
      * Validate URI
      *
      * @param string $uri
-     * @return true
+     * @return void
      * @throws Zend_Pdf_Exception
      */
     protected static function _validateUri($uri)

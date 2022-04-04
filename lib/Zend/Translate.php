@@ -68,13 +68,13 @@ class Zend_Translate {
      * @param  string|Zend_Locale [$locale]
      * @throws Zend_Translate_Exception
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (func_num_args() > 1) {
             $args               = func_get_args();
-            $options            = array();
+            $options            = [];
             $options['adapter'] = array_shift($args);
             if (!empty($args)) {
                 $options['content'] = array_shift($args);
@@ -89,7 +89,7 @@ class Zend_Translate {
                 $options = array_merge($opt, $options);
             }
         } else if (!is_array($options)) {
-            $options = array('adapter' => $options);
+            $options = ['adapter' => $options];
         }
 
         $this->setAdapter($options);
@@ -103,13 +103,13 @@ class Zend_Translate {
      * @param  string|Zend_Locale [$locale]
      * @throws Zend_Translate_Exception
      */
-    public function setAdapter($options = array())
+    public function setAdapter($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
         } else if (func_num_args() > 1) {
             $args               = func_get_args();
-            $options            = array();
+            $options            = [];
             $options['adapter'] = array_shift($args);
             if (!empty($args)) {
                 $options['content'] = array_shift($args);
@@ -124,7 +124,7 @@ class Zend_Translate {
                 $options = array_merge($opt, $options);
             }
         } else if (!is_array($options)) {
-            $options = array('adapter' => $options);
+            $options = ['adapter' => $options];
         }
 
         if (Zend_Loader::isReadable('Zend/Translate/Adapter/' . ucfirst($options['adapter']). '.php')) {
@@ -216,7 +216,7 @@ class Zend_Translate {
     public function __call($method, array $options)
     {
         if (method_exists($this->_adapter, $method)) {
-            return call_user_func_array(array($this->_adapter, $method), $options);
+            return call_user_func_array([$this->_adapter, $method], $options);
         }
         #require_once 'Zend/Translate/Exception.php';
         throw new Zend_Translate_Exception("Unknown method '" . $method . "' called!");

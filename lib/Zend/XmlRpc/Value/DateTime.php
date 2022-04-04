@@ -82,7 +82,7 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
     /**
      * Return the value of this object as iso8601 dateTime value
      *
-     * @return int As a Unix timestamp
+     * @return string As a Unix timestamp
      */
     public function getValue()
     {

@@ -37,11 +37,11 @@ class Zend_Http_UserAgent_Text extends Zend_Http_UserAgent_AbstractDevice
      *
      * @var array
      */
-    protected static $_uaSignatures = array(
+    protected static $_uaSignatures = [
         'lynx',
         'retawq',
         'w3m',
-    );
+    ];
 
     /**
      * Comparison of the UserAgent chain and User Agent signatures
@@ -68,7 +68,7 @@ class Zend_Http_UserAgent_Text extends Zend_Http_UserAgent_AbstractDevice
     /**
      * Look for features
      *
-     * @return string
+     * @return array|null
      */
     protected function _defineFeatures()
     {

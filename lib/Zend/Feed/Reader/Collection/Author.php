@@ -41,7 +41,7 @@ extends Zend_Feed_Reader_Collection_CollectionAbstract
      * @return array
      */
     public function getValues() {
-        $authors = array();
+        $authors = [];
         foreach ($this->getIterator() as $element) {
             $authors[] = $element['name'];
         }

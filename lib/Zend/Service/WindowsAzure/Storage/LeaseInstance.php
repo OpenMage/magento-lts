@@ -50,11 +50,11 @@ class Zend_Service_WindowsAzure_Storage_LeaseInstance
      */
     public function __construct($containerName, $name, $leaseId, $leaseTime)
     {
-        $this->_data = array(
+        $this->_data = [
             'container'        => $containerName,
             'name'             => $name,
         	'leaseid'          => $leaseId,
             'leasetime'        => $leaseTime
-        );
+        ];
     }
 }

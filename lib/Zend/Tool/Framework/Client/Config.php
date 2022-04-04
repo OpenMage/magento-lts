@@ -39,7 +39,7 @@ class Zend_Tool_Framework_Client_Config
     /**
      * @param array $options
      */
-    public function __config($options = array())
+    public function __config($options = [])
     {
         if ($options) {
             $this->setOptions($options);
@@ -88,11 +88,11 @@ class Zend_Tool_Framework_Client_Config
         switch ($suffix) {
             case '.ini':
                 #require_once 'Zend/Config/Ini.php';
-                $this->_config = new Zend_Config_Ini($configFilepath, null, array('allowModifications' => true));
+                $this->_config = new Zend_Config_Ini($configFilepath, null, ['allowModifications' => true]);
                 break;
             case '.xml':
                 #require_once 'Zend/Config/Xml.php';
-                $this->_config = new Zend_Config_Xml($configFilepath, null, array('allowModifications' => true));
+                $this->_config = new Zend_Config_Xml($configFilepath, null, ['allowModifications' => true]);
                 break;
             case '.php':
                 #require_once 'Zend/Config.php';
@@ -109,7 +109,7 @@ class Zend_Tool_Framework_Client_Config
     /**
      * Return the filepath of the configuration.
      *
-     * @return string
+     * @return string|null
      */
     public function getConfigFilepath()
     {

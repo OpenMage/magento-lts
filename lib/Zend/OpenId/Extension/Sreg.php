@@ -51,7 +51,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
      * @param array $props associative array of SREG variables
      * @param string $policy_url SREG policy URL
      * @param float $version SREG version
-     * @return array
+     * @return void
      */
     public function __construct(array $props=null, $policy_url=null, $version=1.0)
     {
@@ -69,7 +69,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
         if (is_array($this->_props)) {
             return $this->_props;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -98,7 +98,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
      */
     public static function getSregProperties()
     {
-        return array(
+        return [
             "nickname",
             "email",
             "fullname",
@@ -108,7 +108,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
             "country",
             "language",
             "timezone"
-        );
+        ];
     }
 
     /**
@@ -173,7 +173,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
         } else {
             $this->_policy_url = null;
         }
-        $props = array();
+        $props = [];
         if (!empty($params['openid_sreg_optional'])) {
             foreach (explode(',', $params['openid_sreg_optional']) as $prop) {
                 $prop = trim($prop);
@@ -186,7 +186,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
                 $props[$prop] = true;
             }
         }
-        $props2 = array();
+        $props2 = [];
         foreach (self::getSregProperties() as $prop) {
             if (isset($props[$prop])) {
                 $props2[$prop] = $props[$prop];
@@ -233,7 +233,7 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
         } else {
             $this->_version= 1.0;
         }
-        $props = array();
+        $props = [];
         foreach (self::getSregProperties() as $prop) {
             if (!empty($params['openid_sreg_' . $prop])) {
                 $props[$prop] = $params['openid_sreg_' . $prop];
@@ -276,14 +276,14 @@ class Zend_OpenId_Extension_Sreg extends Zend_OpenId_Extension
     public function checkTrustData($data)
     {
         if (is_array($this->_props) && count($this->_props) > 0) {
-            $props = array();
+            $props = [];
             $name = get_class();
             if (isset($data[$name])) {
                 $props = $data[$name];
             } else {
-                $props = array();
+                $props = [];
             }
-            $props2 = array();
+            $props2 = [];
             foreach ($this->_props as $prop => $req) {
                 if (empty($props[$prop])) {
                     if ($req) {

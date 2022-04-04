@@ -63,7 +63,7 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::CHECKSUM       => "'%value%' seems to contain an invalid checksum",
         self::CONTENT        => "'%value%' must contain only digits",
         self::INVALID        => "Invalid type given. String expected",
@@ -71,60 +71,63 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
         self::PREFIX         => "'%value%' is not from an allowed institute",
         self::SERVICE        => "'%value%' seems to be an invalid creditcard number",
         self::SERVICEFAILURE => "An exception has been raised while validating '%value%'",
-    );
+    ];
 
     /**
      * List of allowed CCV lengths
      *
      * @var array
      */
-    protected $_cardLength = array(
-        self::AMERICAN_EXPRESS => array(15),
-        self::DINERS_CLUB      => array(14),
-        self::DINERS_CLUB_US   => array(16),
-        self::DISCOVER         => array(16),
-        self::JCB              => array(16),
-        self::LASER            => array(16, 17, 18, 19),
-        self::MAESTRO          => array(12, 13, 14, 15, 16, 17, 18, 19),
-        self::MASTERCARD       => array(16),
-        self::SOLO             => array(16, 18, 19),
-        self::UNIONPAY         => array(16, 17, 18, 19),
-        self::VISA             => array(16),
-    );
+    protected $_cardLength = [
+        self::AMERICAN_EXPRESS => [15],
+        self::DINERS_CLUB      => [14],
+        self::DINERS_CLUB_US   => [16],
+        self::DISCOVER         => [16],
+        self::JCB              => [16],
+        self::LASER            => [16, 17, 18, 19],
+        self::MAESTRO          => [12, 13, 14, 15, 16, 17, 18, 19],
+        self::MASTERCARD       => [16],
+        self::SOLO             => [16, 18, 19],
+        self::UNIONPAY         => [16, 17, 18, 19],
+        self::VISA             => [16],
+    ];
 
     /**
      * List of accepted CCV provider tags
      *
      * @var array
      */
-    protected $_cardType = array(
-        self::AMERICAN_EXPRESS => array('34', '37'),
-        self::DINERS_CLUB      => array('300', '301', '302', '303', '304', '305', '36'),
-        self::DINERS_CLUB_US   => array('54', '55'),
-        self::DISCOVER         => array('6011', '622126', '622127', '622128', '622129', '62213',
+    protected $_cardType = [
+        self::AMERICAN_EXPRESS => ['34', '37'],
+        self::DINERS_CLUB      => ['300', '301', '302', '303', '304', '305', '36'],
+        self::DINERS_CLUB_US   => ['54', '55'],
+        self::DISCOVER         => ['6011', '622126', '622127', '622128', '622129', '62213',
                                         '62214', '62215', '62216', '62217', '62218', '62219',
                                         '6222', '6223', '6224', '6225', '6226', '6227', '6228',
                                         '62290', '62291', '622920', '622921', '622922', '622923',
                                         '622924', '622925', '644', '645', '646', '647', '648',
-                                        '649', '65'),
-        self::JCB              => array('3528', '3529', '353', '354', '355', '356', '357', '358'),
-        self::LASER            => array('6304', '6706', '6771', '6709'),
-        self::MAESTRO          => array('5018', '5020', '5038', '6304', '6759', '6761', '6763'),
-        self::MASTERCARD       => array('51', '52', '53', '54', '55'),
-        self::SOLO             => array('6334', '6767'),
-        self::UNIONPAY         => array('622126', '622127', '622128', '622129', '62213', '62214',
+                                        '649', '65'],
+        self::JCB              => ['3528', '3529', '353', '354', '355', '356', '357', '358'],
+        self::LASER            => ['6304', '6706', '6771', '6709'],
+        self::MAESTRO          => ['5018', '5020', '5038', '6304', '6759', '6761', '6763'],
+        self::MASTERCARD       => ['51', '52', '53', '54', '55', '2221', '2222', '2223',
+	                                '2224', '2225', '2226', '2227', '2228', '2229', '223',
+					'224', '225', '226', '227', '228', '229', '23', '24',
+					'25', '26', '271', '2720'],
+        self::SOLO             => ['6334', '6767'],
+        self::UNIONPAY         => ['622126', '622127', '622128', '622129', '62213', '62214',
                                         '62215', '62216', '62217', '62218', '62219', '6222', '6223',
                                         '6224', '6225', '6226', '6227', '6228', '62290', '62291',
-                                        '622920', '622921', '622922', '622923', '622924', '622925'),
-        self::VISA             => array('4'),
-    );
+                                        '622920', '622921', '622922', '622923', '622924', '622925'],
+        self::VISA             => ['4'],
+    ];
 
     /**
      * CCIs which are accepted by validation
      *
      * @var array
      */
-    protected $_type = array();
+    protected $_type = [];
 
     /**
      * Service callback for additional validation
@@ -138,7 +141,7 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
      *
      * @param string|array|Zend_Config $options OPTIONAL Type of CCI to allow
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -180,7 +183,7 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
      */
     public function setType($type)
     {
-        $this->_type = array();
+        $this->_type = [];
         return $this->addType($type);
     }
 
@@ -193,7 +196,7 @@ class Zend_Validate_CreditCard extends Zend_Validate_Abstract
     public function addType($type)
     {
         if (is_string($type)) {
-            $type = array($type);
+            $type = [$type];
         }
 
         foreach($type as $typ) {

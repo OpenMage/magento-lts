@@ -119,8 +119,8 @@ class Zend_Service_Ebay_Finding_ShippingInfo extends Zend_Service_Ebay_Finding_A
         $this->shippingType        = $this->_query(".//$ns:shippingType[1]", 'string');
         $this->shipToLocations     = $this->_query(".//$ns:shipToLocations", 'string', true);
 
-        $this->_attributes['shippingServiceCost'] = array(
+        $this->_attributes['shippingServiceCost'] = [
             'currencyId' => $this->_query(".//$ns:shippingServiceCost[1]/@currencyId[1]", 'string')
-        );
+        ];
     }
 }

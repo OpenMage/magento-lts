@@ -49,7 +49,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     /**
      * @var array
      */
-    protected $_statementStack = array();
+    protected $_statementStack = [];
 
     /**
      * @var boolean
@@ -59,17 +59,17 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     /**
      * @var array
      */
-    protected $_listTables = array();
+    protected $_listTables = [];
 
     /**
      * @var array
      */
-    protected $_lastInsertIdStack = array();
+    protected $_lastInsertIdStack = [];
 
     /**
      * @var array
      */
-    protected $_describeTables = array();
+    protected $_describeTables = [];
 
     /**
      * @var string
@@ -192,7 +192,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
         if(isset($this->_describeTables[$tableName])) {
             return $this->_describeTables[$tableName];
         } else {
-            return array();
+            return [];
         }
     }
 

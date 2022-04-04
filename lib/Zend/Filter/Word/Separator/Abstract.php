@@ -66,7 +66,7 @@ abstract class Zend_Filter_Word_Separator_Abstract extends Zend_Filter_PregRepla
     /**
      * Returns the actual set seperator
      *
-     * @return  string
+     * @return  string|null
      */
     public function getSeparator()
     {

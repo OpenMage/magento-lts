@@ -76,7 +76,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
         extract($info); // name, value, attribs, options, listsep, disable
 
         // retrieve attributes for labels (prefixed with 'label_' or 'label')
-        $label_attribs = array();
+        $label_attribs = [];
         foreach ($attribs as $key => $val) {
             $tmp    = false;
             $keyLen = strlen($key);
@@ -100,7 +100,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
                 case 'placement':
                     unset($label_attribs[$key]);
                     $val = strtolower($val);
-                    if (in_array($val, array('prepend', 'append'))) {
+                    if (in_array($val, ['prepend', 'append'])) {
                         $labelPlacement = $val;
                     }
                     break;
@@ -112,7 +112,7 @@ class Zend_View_Helper_FormRadio extends Zend_View_Helper_FormElement
 
         // build the element
         $xhtml = '';
-        $list  = array();
+        $list  = [];
 
         // should the name affect an array collection?
         $name = $this->view->escape($name);

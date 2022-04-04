@@ -72,7 +72,7 @@ abstract class Zend_Test_PHPUnit_DatabaseTestCase extends PHPUnit_Extensions_Dat
     /**
      * Convenience function to get access to the database connection.
      *
-     * @return Zend_Db_Adapter_Abstract
+     * @return PDO
      */
     protected function getAdapter()
     {
@@ -82,20 +82,20 @@ abstract class Zend_Test_PHPUnit_DatabaseTestCase extends PHPUnit_Extensions_Dat
     /**
      * Returns the database operation executed in test setup.
      *
-     * @return PHPUnit_Extensions_Database_Operation_DatabaseOperation
+     * @return PHPUnit_Extensions_Database_Operation_Composite
      */
     protected function getSetUpOperation()
     {
-        return new PHPUnit_Extensions_Database_Operation_Composite(array(
+        return new PHPUnit_Extensions_Database_Operation_Composite([
             new Zend_Test_PHPUnit_Db_Operation_Truncate(),
             new Zend_Test_PHPUnit_Db_Operation_Insert(),
-        ));
+        ]);
     }
 
     /**
      * Returns the database operation executed in test cleanup.
      *
-     * @return PHPUnit_Extensions_Database_Operation_DatabaseOperation
+     * @return PHPUnit_Extensions_Database_Operation_IDatabaseOperation|PHPUnit_Extensions_Database_Operation_Null
      */
     protected function getTearDownOperation()
     {
@@ -108,7 +108,7 @@ abstract class Zend_Test_PHPUnit_DatabaseTestCase extends PHPUnit_Extensions_Dat
      * @param  array $tables
      * @return Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet
      */
-    protected function createDbTableDataSet(array $tables=array())
+    protected function createDbTableDataSet(array $tables=[])
     {
         $dataSet = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
         foreach($tables AS $table) {

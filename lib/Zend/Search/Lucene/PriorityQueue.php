@@ -50,7 +50,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      *
      * @var array
      */
-    private $_heap = array();
+    private $_heap = [];
 
 
     /**
@@ -65,7 +65,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
         $nodeId   = count($this->_heap);
         $parentId = ($nodeId-1) >> 1;   // floor( ($nodeId-1)/2 )
 
-        while ($nodeId != 0  &&  $this->_less($element, $this->_heap[$parentId])) {
+        while ($nodeId !== 0 && $this->_less($element, $this->_heap[$parentId])) {
             // Move parent node down
             $this->_heap[$nodeId] = $this->_heap[$parentId];
 
@@ -88,7 +88,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function top()
     {
-        if (count($this->_heap) == 0) {
+        if (count($this->_heap) === 0) {
             return null;
         }
 
@@ -105,7 +105,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function pop()
     {
-        if (count($this->_heap) == 0) {
+        if (count($this->_heap) === 0) {
             return null;
         }
 
@@ -153,7 +153,7 @@ abstract class Zend_Search_Lucene_PriorityQueue
      */
     public function clear()
     {
-        $this->_heap = array();
+        $this->_heap = [];
     }
 
 

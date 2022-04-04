@@ -61,7 +61,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @var array
      */
-    protected $_variables = array();
+    protected $_variables = [];
 
     /**
      * Holds Route patterns for all host parts. In case of a variable it stores it's regex
@@ -69,14 +69,14 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @var array
      */
-    protected $_parts = array();
+    protected $_parts = [];
 
     /**
      * Holds user submitted default values for route's variables. Name and value pairs.
      *
      * @var array
      */
-    protected $_defaults = array();
+    protected $_defaults = [];
 
     /**
      * Holds user submitted regular expression patterns for route's variables' values.
@@ -84,7 +84,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @var array
      */
-    protected $_requirements = array();
+    protected $_requirements = [];
 
     /**
      * Default scheme
@@ -99,7 +99,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @var array
      */
-    protected $_values = array();
+    protected $_values = [];
 
     /**
      * Current request object
@@ -149,8 +149,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      */
     public static function getInstance(Zend_Config $config)
     {
-        $reqs   = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
-        $defs   = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+        $reqs   = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : [];
+        $defs   = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : [];
         $scheme = (isset($config->scheme)) ? $config->scheme : null;
 
         return new self($config->route, $defs, $reqs, $scheme);
@@ -166,7 +166,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * @param array  $reqs     Regular expression requirements for variables (keys as variable names)
      * @param string $scheme
      */
-    public function __construct($route, $defaults = array(), $reqs = array(), $scheme = null)
+    public function __construct($route, $defaults = [], $reqs = [], $scheme = null)
     {
         $route               = trim($route, '.');
         $this->_defaults     = (array) $defaults;
@@ -212,7 +212,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
         }
 
         $hostStaticCount = 0;
-        $values          = array();
+        $values          = [];
 
         $host = trim($host, '.');
 
@@ -281,9 +281,9 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * @throws Zend_Controller_Router_Exception
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
+    public function assemble($data = [], $reset = false, $encode = false, $partial = false)
     {
-        $host = array();
+        $host = [];
         $flag = false;
 
         foreach ($this->_parts as $key => $part) {
@@ -347,7 +347,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * Return a single parameter of route's defaults
      *
      * @param string $name Array key of the parameter
-     * @return string Previously set default
+     * @return string|null Previously set default
      */
     public function getDefault($name)
     {

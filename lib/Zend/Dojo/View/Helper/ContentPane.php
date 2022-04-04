@@ -55,7 +55,7 @@ class Zend_Dojo_View_Helper_ContentPane extends Zend_Dojo_View_Helper_DijitConta
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function contentPane($id = null, $content = '', array $params = array(), array $attribs = array())
+    public function contentPane($id = null, $content = '', array $params = [], array $attribs = [])
     {
         if (0 === func_num_args()) {
             return $this;

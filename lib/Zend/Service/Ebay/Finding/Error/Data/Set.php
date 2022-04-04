@@ -40,6 +40,7 @@ class Zend_Service_Ebay_Finding_Error_Data_Set extends Zend_Service_Ebay_Finding
      *
      * @return Zend_Service_Ebay_Finding_Error_Data
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         // check node

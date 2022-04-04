@@ -55,7 +55,7 @@ class Zend_View_Helper_Placeholder_Registry
      * Placeholder containers
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Retrieve or create registry instnace
@@ -81,7 +81,7 @@ class Zend_View_Helper_Placeholder_Registry
      * @param  array $value
      * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
-    public function createContainer($key, array $value = array())
+    public function createContainer($key, array $value = [])
     {
         $key = (string) $key;
 
@@ -98,13 +98,8 @@ class Zend_View_Helper_Placeholder_Registry
     public function getContainer($key)
     {
         $key = (string) $key;
-        if (isset($this->_items[$key])) {
-            return $this->_items[$key];
-        }
 
-        $container = $this->createContainer($key);
-
-        return $container;
+        return $this->_items[$key] ?? $this->createContainer($key);
     }
 
     /**
@@ -115,9 +110,7 @@ class Zend_View_Helper_Placeholder_Registry
      */
     public function containerExists($key)
     {
-        $key = (string) $key;
-        $return =  array_key_exists($key, $this->_items);
-        return $return;
+        return array_key_exists((string)$key, $this->_items);
     }
 
     /**
@@ -125,12 +118,13 @@ class Zend_View_Helper_Placeholder_Registry
      *
      * @param  string $key
      * @param  Zend_View_Placeholder_Container_Abstract $container
-     * @return Zend_View_Placeholder_Registry
+     * @return Zend_View_Helper_Placeholder_Registry
      */
     public function setContainer($key, Zend_View_Helper_Placeholder_Container_Abstract $container)
     {
         $key = (string) $key;
         $this->_items[$key] = $container;
+
         return $this;
     }
 

@@ -104,7 +104,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
             throw new Zend_Service_Delicious_Exception("Date has to be an instance of Zend_Date");
         }
 
-        foreach (array('url', 'title', 'notes', 'others', 'tags', 'date', 'shared', 'hash') as $key) {
+        foreach (['url', 'title', 'notes', 'others', 'tags', 'date', 'shared', 'hash'] as $key) {
             if (isset($values[$key])) {
                 $this->{"_$key"}  = $values[$key];
             }
@@ -171,7 +171,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
      */
     public function removeTag($tag)
     {
-        $this->_tags = array_diff($this->_tags, array((string) $tag));
+        $this->_tags = array_diff($this->_tags, [(string) $tag]);
 
         return $this;
     }
@@ -250,14 +250,14 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
      */
     public function save()
     {
-        $parms = array(
+        $parms = [
             'url'        => $this->_url,
             'description'=> $this->_title,
             'extended'   => $this->_notes,
             'shared'     => ($this->_shared ? 'yes' : 'no'),
             'tags'       => implode(' ', (array) $this->_tags),
             'replace'    => 'yes'
-        );
+        ];
         /*
         if ($this->_date instanceof Zend_Date) {
             $parms['dt'] = $this->_date->get('Y-m-d\TH:i:s\Z');
@@ -275,7 +275,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
      */
     protected static function _parsePostNode(DOMElement $node)
     {
-        return array(
+        return [
             'url'    => $node->getAttribute('href'),
             'title'  => $node->getAttribute('description'),
             'notes'  => $node->getAttribute('extended'),
@@ -287,6 +287,6 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
             'date'   => new Zend_Date(strtotime($node->getAttribute('time'))),
             'shared' => ($node->getAttribute('shared') == 'no' ? false : true),
             'hash'   => $node->getAttribute('hash')
-        );
+        ];
     }
 }

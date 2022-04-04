@@ -166,11 +166,11 @@ class Zend_Pdf_Element_Array extends Zend_Pdf_Element
      *
      * Dictionary is returned as an associative array
      *
-     * @return mixed
+     * @return array
      */
     public function toPhp()
     {
-        $phpArray = array();
+        $phpArray = [];
 
         foreach ($this->items as $item) {
             $phpArray[] = $item->toPhp();

@@ -200,12 +200,12 @@ class Zend_Service_Ebay_Finding_ListingInfo extends Zend_Service_Ebay_Finding_Ab
         $this->listingType            = $this->_query(".//$ns:listingType[1]", 'string');
         $this->startTime              = $this->_query(".//$ns:startTime[1]", 'string');
 
-        $this->_attributes['buyItNowPrice'] = array(
+        $this->_attributes['buyItNowPrice'] = [
             'currencyId' => $this->_query(".//$ns:buyItNowPrice[1]/@currencyId[1]", 'string')
-        );
+        ];
 
-        $this->_attributes['convertedBuyItNowPrice'] = array(
+        $this->_attributes['convertedBuyItNowPrice'] = [
             'currencyId' => $this->_query(".//$ns:convertedBuyItNowPrice[1]/@currencyId[1]", 'string')
-        );
+        ];
     }
 }

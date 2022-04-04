@@ -56,7 +56,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
      *
      * @var array
      */
-    protected $_originalChildOutlines = array();
+    protected $_originalChildOutlines = [];
 
     /**
      * Get outline title.
@@ -214,9 +214,9 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
             $this->_outlineDictionary->C = null;
         } else {
             $components = $color->getComponents();
-            $colorComponentElements = array(new Zend_Pdf_Element_Numeric($components[0]),
+            $colorComponentElements = [new Zend_Pdf_Element_Numeric($components[0]),
                                             new Zend_Pdf_Element_Numeric($components[1]),
-                                            new Zend_Pdf_Element_Numeric($components[2]));
+                                            new Zend_Pdf_Element_Numeric($components[2])];
             $this->_outlineDictionary->C = new Zend_Pdf_Element_Array($colorComponentElements);
         }
 
@@ -285,7 +285,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
      * Set outline options
      *
      * @param array $options
-     * @return Zend_Pdf_Actions_Traceable
+     * @return Zend_Pdf_Outline_Loaded
      * @throws Zend_Pdf_Exception
      */
     public function setOptions(array $options)
@@ -300,13 +300,13 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
     /**
      * Create PDF outline object using specified dictionary
      *
-     * @internal
      * @param Zend_Pdf_Element $dictionary (It's actually Dictionary or Dictionary Object or Reference to a Dictionary Object)
      * @param Zend_Pdf_Action  $parentAction
      * @param SplObjectStorage $processedOutlines  List of already processed Outline dictionaries,
      *                                             used to avoid cyclic references
-     * @return Zend_Pdf_Action
+     * @return void
      * @throws Zend_Pdf_Exception
+     *@internal
      */
     public function __construct(Zend_Pdf_Element $dictionary, SplObjectStorage $processedDictionaries = null)
     {

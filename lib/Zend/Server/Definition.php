@@ -33,7 +33,7 @@ class Zend_Server_Definition implements Countable, Iterator
     /**
      * @var array Array of Zend_Server_Method_Definition objects
      */
-    protected $_methods = array();
+    protected $_methods = [];
 
     /**
      * @var bool Whether or not overwriting existing methods is allowed
@@ -57,7 +57,7 @@ class Zend_Server_Definition implements Countable, Iterator
      * Set flag indicating whether or not overwriting existing methods is allowed
      *
      * @param mixed $flag
-     * @return void
+     * @return Zend_Server_Definition
      */
     public function setOverwriteExistingMethods($flag)
     {
@@ -187,7 +187,7 @@ class Zend_Server_Definition implements Countable, Iterator
      */
     public function clearMethods()
     {
-        $this->_methods = array();
+        $this->_methods = [];
         return $this;
     }
 
@@ -198,7 +198,7 @@ class Zend_Server_Definition implements Countable, Iterator
      */
     public function toArray()
     {
-        $methods = array();
+        $methods = [];
         foreach ($this->getMethods() as $key => $method) {
             $methods[$key] = $method->toArray();
         }
@@ -210,7 +210,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_methods);
     }
@@ -220,6 +220,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return current($this->_methods);
@@ -230,6 +231,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return int|string
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->_methods);
@@ -240,6 +242,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         return next($this->_methods);
@@ -250,6 +253,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->_methods);
@@ -260,7 +264,7 @@ class Zend_Server_Definition implements Countable, Iterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return (bool) $this->current();
     }

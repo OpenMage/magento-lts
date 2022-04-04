@@ -54,9 +54,9 @@ class Zend_Service_WindowsAzure_Storage_Batch
     /**
      * Pending operations
      *
-     * @var unknown_type
+     * @var array
      */
-    protected $_operations = array();
+    protected $_operations = [];
 
     /**
      * Does the batch contain a single select?
@@ -105,7 +105,6 @@ class Zend_Service_WindowsAzure_Storage_Batch
         unset($this->_operations);
         $this->_storageClient->setCurrentBatch(null);
         $this->_storageClient = null;
-        //unset($this); //removing $this is not possible
     }
 
 	/**
@@ -119,7 +118,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 	 * @param mixed $rawData Optional RAW HTTP data to be sent over the wire
 	 * @throws Zend_Service_WindowsAzure_Exception
 	 */
-	public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = array(), $forTableStorage = false, $rawData = null)
+	public function enlistOperation($path = '/', $queryString = '', $httpVerb = Zend_Http_Client::GET, $headers = [], $forTableStorage = false, $rawData = null)
 	{
 	    // Set _forTableStorage
 	    if ($forTableStorage) {
@@ -142,7 +141,7 @@ class Zend_Service_WindowsAzure_Storage_Batch
 
 		// Clean headers
 		if (is_null($headers)) {
-		    $headers = array();
+		    $headers = [];
 		}
 
 		// URL encoding

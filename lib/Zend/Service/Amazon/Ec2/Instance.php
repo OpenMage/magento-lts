@@ -111,11 +111,11 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function run(array $options)
     {
-        $_defaultOptions = array(
+        $_defaultOptions = [
             'minCount'  => 1,
             'maxCount'  => 1,
             'instanceType' => Zend_Service_Amazon_Ec2_Instance::SMALL
-        );
+        ];
 
         // set / override the defualt optoins if they are not passed into the array;
         $options = array_merge($_defaultOptions, $options);
@@ -126,7 +126,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         }
 
 
-        $params = array();
+        $params = [];
         $params['Action'] = 'RunInstances';
         $params['ImageId'] = $options['imageId'];
         $params['MinCount'] = $options['minCount'];
@@ -175,7 +175,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
 
-        $return = array();
+        $return = [];
 
         $return['reservationId'] = $xpath->evaluate('string(//ec2:reservationId/text())');
         $return['ownerId'] = $xpath->evaluate('string(//ec2:ownerId/text())');
@@ -189,7 +189,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $is = $xpath->query('//ec2:instancesSet/ec2:item');
         foreach($is as $is_node) {
-            $item = array();
+            $item = [];
 
             $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $is_node);
             $item['imageId'] = $xpath->evaluate('string(ec2:imageId/text())', $is_node);
@@ -231,7 +231,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function describe($instanceId = null, $ignoreTerminated = false)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'DescribeInstances';
 
         if(is_array($instanceId) && !empty($instanceId)) {
@@ -248,12 +248,12 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $nodes = $xpath->query('//ec2:reservationSet/ec2:item');
 
-        $return = array();
-        $return['instances'] = array();
+        $return = [];
+        $return['instances'] = [];
 
         foreach($nodes as $node) {
             if($xpath->evaluate('string(ec2:instancesSet/ec2:item/ec2:instanceState/ec2:code/text())', $node) == 48 && $ignoreTerminated) continue;
-            $item = array();
+            $item = [];
 
             $item['reservationId'] = $xpath->evaluate('string(ec2:reservationId/text())', $node);
             $item['ownerId'] = $xpath->evaluate('string(ec2:ownerId/text())', $node);
@@ -310,7 +310,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
     {
         $arrInstances = $this->describe(null, $ignoreTerminated);
 
-        $return = array();
+        $return = [];
 
         foreach($arrInstances['instances'] as $instance) {
             if($instance['imageId'] !== $imageId) continue;
@@ -331,7 +331,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function terminate($instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'TerminateInstances';
 
         if(is_array($instanceId) && !empty($instanceId)) {
@@ -347,9 +347,9 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $nodes = $xpath->query('//ec2:instancesSet/ec2:item');
 
-        $return = array();
+        $return = [];
         foreach($nodes as $node) {
-            $item = array();
+            $item = [];
 
             $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $node);
             $item['shutdownState']['code'] = $xpath->evaluate('string(ec2:shutdownState/ec2:code/text())', $node);
@@ -375,7 +375,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function reboot($instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'RebootInstances';
 
         if(is_array($instanceId) && !empty($instanceId)) {
@@ -405,14 +405,14 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function consoleOutput($instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'GetConsoleOutput';
         $params['InstanceId'] = $instanceId;
 
         $response = $this->sendRequest($params);
         $xpath = $response->getXPath();
 
-        $return = array();
+        $return = [];
 
         $return['instanceId'] = $xpath->evaluate('string(//ec2:instanceId/text())');
         $return['timestamp'] = $xpath->evaluate('string(//ec2:timestamp/text())');
@@ -435,7 +435,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function confirmProduct($productCode, $instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'ConfirmProductInstance';
         $params['ProductCode'] = $productCode;
         $params['InstanceId'] = $instanceId;
@@ -463,7 +463,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
     */
     public function monitor($instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'MonitorInstances';
 
         if(is_array($instanceId) && !empty($instanceId)) {
@@ -480,9 +480,9 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $items = $xpath->query('//ec2:instancesSet/ec2:item');
 
-        $arrReturn = array();
+        $arrReturn = [];
         foreach($items as $item) {
-            $i = array();
+            $i = [];
             $i['instanceid'] = $xpath->evaluate('string(//ec2:instanceId/text())', $item);
             $i['monitorstate'] = $xpath->evaluate('string(//ec2:monitoring/ec2:state/text())');
             $arrReturn[] = $i;
@@ -499,7 +499,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
     */
     public function unmonitor($instanceId)
     {
-        $params = array();
+        $params = [];
         $params['Action'] = 'UnmonitorInstances';
 
         if(is_array($instanceId) && !empty($instanceId)) {
@@ -516,9 +516,9 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $items = $xpath->query('//ec2:instancesSet/ec2:item');
 
-        $arrReturn = array();
+        $arrReturn = [];
         foreach($items as $item) {
-            $i = array();
+            $i = [];
             $i['instanceid'] = $xpath->evaluate('string(//ec2:instanceId/text())', $item);
             $i['monitorstate'] = $xpath->evaluate('string(//ec2:monitoring/ec2:state/text())');
             $arrReturn[] = $i;

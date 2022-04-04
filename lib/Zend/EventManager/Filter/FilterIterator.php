@@ -66,7 +66,7 @@ class Zend_EventManager_Filter_FilterIterator extends Zend_Stdlib_SplPriorityQue
 
         // Iterate and remove any matches
         $removed = false;
-        $items   = array();
+        $items   = [];
         $this->rewind();
         while (!$this->isEmpty()) {
             $item = $this->extract();
@@ -96,18 +96,19 @@ class Zend_EventManager_Filter_FilterIterator extends Zend_Stdlib_SplPriorityQue
      * @param  Zend_EventManager_Filter_FilterIterator $chain
      * @return mixed
      */
-    public function next($context = null, array $params = array(), $chain = null)
+    #[\ReturnTypeWillChange]
+    public function next($context = null, array $params = [], $chain = null)
     {
         if (empty($context) || $chain->isEmpty()) {
             return;
         }
 
         $next = $this->extract();
+
         if (!$next instanceof Zend_Stdlib_CallbackHandler) {
             return;
         }
 
-        $return = call_user_func($next->getCallback(), $context, $params, $chain);
-        return $return;
+        return call_user_func($next->getCallback(), $context, $params, $chain);
     }
 }

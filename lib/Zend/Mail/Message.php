@@ -42,7 +42,7 @@ class Zend_Mail_Message extends Zend_Mail_Part implements Zend_Mail_Message_Inte
      * flags for this message
      * @var array
      */
-    protected $_flags = array();
+    protected $_flags = [];
 
     /**
      * Public constructor

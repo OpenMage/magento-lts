@@ -103,7 +103,7 @@ class Zend_Json_Decoder
         $this->_offset       = 0;
 
         // Normalize and set $decodeType
-        if (!in_array($decodeType, array(Zend_Json::TYPE_ARRAY, Zend_Json::TYPE_OBJECT)))
+        if (!in_array($decodeType, [Zend_Json::TYPE_ARRAY, Zend_Json::TYPE_OBJECT]))
         {
             $decodeType = Zend_Json::TYPE_ARRAY;
         }
@@ -138,7 +138,7 @@ class Zend_Json_Decoder
      * @param int $objectDecodeType How objects should be decoded; should be
      * either or {@link Zend_Json::TYPE_ARRAY} or
      * {@link Zend_Json::TYPE_OBJECT}; defaults to TYPE_ARRAY
-     * @return mixed
+     * @return array|StdClass|null
      * @throws Zend_Json_Exception
      */
     public static function decode($source = null, $objectDecodeType = Zend_Json::TYPE_ARRAY)
@@ -146,7 +146,9 @@ class Zend_Json_Decoder
         if (null === $source) {
             #require_once 'Zend/Json/Exception.php';
             throw new Zend_Json_Exception('Must specify JSON encoded source for decoding');
-        } elseif (!is_string($source)) {
+        }
+
+        if (!is_string($source)) {
             #require_once 'Zend/Json/Exception.php';
             throw new Zend_Json_Exception('Can only decode JSON encoded strings');
         }
@@ -160,7 +162,8 @@ class Zend_Json_Decoder
     /**
      * Recursive driving rountine for supported toplevel tops
      *
-     * @return mixed
+     * @return array|StdClass|null
+     * @throws Zend_Json_Exception
      */
     protected function _decodeValue()
     {
@@ -198,7 +201,7 @@ class Zend_Json_Decoder
      */
     protected function _decodeObject()
     {
-        $members = array();
+        $members = [];
         $tok = $this->_getNextToken();
 
         while ($tok && $tok != self::RBRACE) {
@@ -234,7 +237,7 @@ class Zend_Json_Decoder
         switch ($this->_decodeType) {
             case Zend_Json::TYPE_OBJECT:
                 // Create new StdClass and populate with $members
-                $result = new StdClass();
+                $result = new stdClass();
                 foreach ($members as $key => $value) {
                     if ($key === '') {
                         $key = '_empty_';
@@ -260,7 +263,7 @@ class Zend_Json_Decoder
      */
     protected function _decodeArray()
     {
-        $result = array();
+        $result = [];
         $starttok = $tok = $this->_getNextToken(); // Move past the '['
         $index  = 0;
 
@@ -308,6 +311,7 @@ class Zend_Json_Decoder
      * Retrieves the next token from the source stream
      *
      * @return int Token constant value specified in class definition
+     * @throws Zend_Json_Exception
      */
     protected function _getNextToken()
     {
@@ -442,11 +446,11 @@ class Zend_Json_Decoder
                     if (preg_match('/^0\d+$/', $datum)) {
                         #require_once 'Zend/Json/Exception.php';
                         throw new Zend_Json_Exception("Octal notation not supported by JSON (value: $datum)");
-                    } else {
-                        $val  = intval($datum);
-                        $fVal = floatval($datum);
-                        $this->_tokenValue = ($val == $fVal ? $val : $fVal);
                     }
+
+                    $val  = (int)$datum;
+                    $fVal = (float)$datum;
+                    $this->_tokenValue = ($val == $fVal ? $val : $fVal);
                 } else {
                     #require_once 'Zend/Json/Exception.php';
                     throw new Zend_Json_Exception("Illegal number format: $datum");
@@ -578,4 +582,3 @@ class Zend_Json_Decoder
         return '';
     }
 }
-

@@ -79,7 +79,7 @@ class Zend_Server_Reflection_Parameter
     public function __call($method, $args)
     {
         if (method_exists($this->_reflection, $method)) {
-            return call_user_func_array(array($this->_reflection, $method), $args);
+            return call_user_func_array([$this->_reflection, $method], $args);
         }
 
         #require_once 'Zend/Server/Reflection/Exception.php';

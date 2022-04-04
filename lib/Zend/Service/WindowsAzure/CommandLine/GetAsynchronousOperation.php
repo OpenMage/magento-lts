@@ -72,7 +72,7 @@ class Zend_Service_WindowsAzure_CommandLine_GetAsynchronousOperation
 		$client = new Zend_Service_WindowsAzure_Management_Client($subscriptionId, $certificate, $certificatePassphrase);
 		$result = $client->getOperationStatus($requestId);
 
-		$this->_displayObjectInformation($result, array('ID', 'Status', 'ErrorMessage'));
+		$this->_displayObjectInformation($result, ['ID', 'Status', 'ErrorMessage']);
 	}
 
 	/**

@@ -67,10 +67,10 @@ class Zend_Json_Server_Smd
      * Allowed envelope types
      * @var array
      */
-    protected $_envelopeTypes = array(
+    protected $_envelopeTypes = [
         self::ENV_JSONRPC_1,
         self::ENV_JSONRPC_2,
-    );
+    ];
 
     /**
      * Service id
@@ -82,7 +82,7 @@ class Zend_Json_Server_Smd
      * Services offerred
      * @var array
      */
-    protected $_services = array();
+    protected $_services = [];
 
     /**
      * Service target
@@ -100,7 +100,7 @@ class Zend_Json_Server_Smd
      * Allowed transport types
      * @var array
      */
-    protected $_transportTypes = array('POST');
+    protected $_transportTypes = ['POST'];
 
     /**
      * Set object state via options
@@ -225,7 +225,7 @@ class Zend_Json_Server_Smd
      * Set service ID
      *
      * @param  string $Id
-     * @return Zend_Json_Server_Smd
+     * @return string
      */
     public function setId($id)
     {
@@ -247,7 +247,7 @@ class Zend_Json_Server_Smd
      * Set service description
      *
      * @param  string $description
-     * @return Zend_Json_Server_Smd
+     * @return string
      */
     public function setDescription($description)
     {
@@ -291,7 +291,7 @@ class Zend_Json_Server_Smd
      * Add Service
      *
      * @param Zend_Json_Server_Smd_Service|array $service
-     * @return void
+     * @return Zend_Json_Server_Smd
      */
     public function addService($service)
     {
@@ -337,7 +337,7 @@ class Zend_Json_Server_Smd
      */
     public function setServices(array $services)
     {
-        $this->_services = array();
+        $this->_services = [];
         return $this->addServices($services);
     }
 
@@ -406,7 +406,7 @@ class Zend_Json_Server_Smd
 
         $services = $this->getServices();
         if (!empty($services)) {
-            $service['services'] = array();
+            $service['services'] = [];
             foreach ($services as $name => $svc) {
                 $svc->setEnvelope($envelope);
                 $service['services'][$name] = $svc->toArray();
@@ -432,19 +432,19 @@ class Zend_Json_Server_Smd
 
         $services = $this->getServices();
         if (!empty($services)) {
-            $service['methods'] = array();
+            $service['methods'] = [];
             foreach ($services as $name => $svc) {
-                $method = array(
+                $method = [
                     'name'       => $name,
                     'serviceURL' => $target,
-                );
-                $params = array();
+                ];
+                $params = [];
                 foreach ($svc->getParams() as $param) {
                     $paramName = array_key_exists('name', $param) ? $param['name'] : $param['type'];
-                    $params[] = array(
+                    $params[] = [
                         'name' => $paramName,
                         'type' => $param['type'],
-                    );
+                    ];
                 }
                 if (!empty($params)) {
                     $method['parameters'] = $params;

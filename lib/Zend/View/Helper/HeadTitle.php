@@ -95,11 +95,11 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
      */
     public function setDefaultAttachOrder($setType)
     {
-        if (!in_array($setType, array(
+        if (!in_array($setType, [
             Zend_View_Helper_Placeholder_Container_Abstract::APPEND,
             Zend_View_Helper_Placeholder_Container_Abstract::SET,
             Zend_View_Helper_Placeholder_Container_Abstract::PREPEND
-        ))) {
+        ])) {
             #require_once 'Zend/View/Exception.php';
             throw new Zend_View_Exception("You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'");
         }
@@ -111,7 +111,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     /**
      * Get the default attach order, if any.
      *
-     * @return mixed
+     * @return string|null
      */
     public function getDefaultAttachOrder()
     {
@@ -193,7 +193,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
-        $items = array();
+        $items = [];
 
         if($this->_translate && $translator = $this->getTranslator()) {
             foreach ($this as $item) {

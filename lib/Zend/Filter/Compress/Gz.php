@@ -44,11 +44,11 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'level'   => 9,
         'mode'    => 'compress',
         'archive' => null,
-    );
+    ];
 
     /**
      * Class constructor
@@ -182,7 +182,8 @@ class Zend_Filter_Compress_Gz extends Zend_Filter_Compress_CompressAbstract
     {
         $archive = $this->getArchive();
         $mode    = $this->getMode();
-        if (@file_exists($content)) {
+        // check $content for NULL bytes or else file_exists will error out
+        if (strpos($content, '/\0/') === false && @file_exists($content)) {
             $archive = $content;
         }
 

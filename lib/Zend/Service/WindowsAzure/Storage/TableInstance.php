@@ -50,11 +50,11 @@ class Zend_Service_WindowsAzure_Storage_TableInstance
      */
     public function __construct($id, $name, $href, $updated)
     {
-        $this->_data = array(
+        $this->_data = [
             'id'               => $id,
             'name'             => $name,
             'href'             => $href,
             'updated'          => $updated
-        );
+        ];
     }
 }

@@ -55,7 +55,7 @@ class Zend_Dojo_View_Helper_SplitContainer extends Zend_Dojo_View_Helper_DijitCo
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function splitContainer($id = null, $content = '', array $params = array(), array $attribs = array())
+    public function splitContainer($id = null, $content = '', array $params = [], array $attribs = [])
     {
         if (0 === func_num_args()) {
             return $this;

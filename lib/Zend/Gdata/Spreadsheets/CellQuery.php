@@ -79,7 +79,7 @@ class Zend_Gdata_Spreadsheets_CellQuery extends Zend_Gdata_Query
     /**
      * Gets the spreadsheet key for this query.
      *
-     * @return string spreadsheet key
+     * @return string|null spreadsheet key
      */
     public function getSpreadsheetKey()
     {
@@ -123,7 +123,7 @@ class Zend_Gdata_Spreadsheets_CellQuery extends Zend_Gdata_Query
     /**
      * Gets the cell id for this query.
      *
-     * @return string cell id
+     * @return string|null cell id
      */
     public function getCellId()
     {

@@ -89,14 +89,14 @@ class Zend_Feed_Reader_Extension_Podcast_Feed extends Zend_Feed_Reader_Extension
 
         $categoryList = $this->_xpath->query($this->getXpathPrefix() . '/itunes:category');
 
-        $categories = array();
+        $categories = [];
 
         if ($categoryList->length > 0) {
             foreach ($categoryList as $node) {
                 $children = null;
 
                 if ($node->childNodes->length > 0) {
-                    $children = array();
+                    $children = [];
 
                     foreach ($node->childNodes as $childNode) {
                         if (!($childNode instanceof DOMText)) {

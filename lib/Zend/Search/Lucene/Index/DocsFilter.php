@@ -54,6 +54,6 @@ class Zend_Search_Lucene_Index_DocsFilter
      *
      * @var array
      */
-    public $segmentFilters = array();
+    public $segmentFilters = [];
 }
 

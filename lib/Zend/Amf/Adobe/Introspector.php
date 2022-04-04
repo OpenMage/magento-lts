@@ -55,7 +55,7 @@ class Zend_Amf_Adobe_Introspector
     /**
      * @var array Map of the known types
      */
-    protected $_typesMap = array();
+    protected $_typesMap = [];
 
     /**
      * @var DOMDocument XML document to store data
@@ -79,7 +79,7 @@ class Zend_Amf_Adobe_Introspector
      * @param  array $options invocation options
      * @return string XML with service class introspection
      */
-    public function introspect($serviceClass, $options = array())
+    public function introspect($serviceClass, $options = [])
     {
         $this->_options = $options;
 
@@ -116,7 +116,7 @@ class Zend_Amf_Adobe_Introspector
      * Authentication handler
      *
      * @param  Zend_Acl $acl
-     * @return unknown_type
+     * @return false
      */
     public function initAcl(Zend_Acl $acl)
     {
@@ -183,8 +183,10 @@ class Zend_Amf_Adobe_Introspector
                     $arg->setAttribute('name', $param->getName());
 
                     $type = $param->getType();
-                    if ($type == 'mixed' && ($pclass = $param->getClass())) {
-                        $type = $pclass->getName();
+                    if (PHP_VERSION_ID < 80000) {
+                        if ($type == 'mixed' && ($pclass = $param->getClass())) {
+                            $type = $pclass->getName();
+                        }
                     }
 
                     $ptype = $this->_registerType($type);
@@ -239,7 +241,7 @@ class Zend_Amf_Adobe_Introspector
             return $this->_options['directories'];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -279,7 +281,7 @@ class Zend_Amf_Adobe_Introspector
         }
 
         // Standard types
-        if (in_array($typename, array('void', 'null', 'mixed', 'unknown_type'))) {
+        if (in_array($typename, ['void', 'null', 'mixed', 'unknown_type'])) {
             return 'Unknown';
         }
 
@@ -288,7 +290,7 @@ class Zend_Amf_Adobe_Introspector
             return 'Unknown[]';
         }
 
-        if (in_array($typename, array('int', 'integer', 'bool', 'boolean', 'float', 'string', 'object', 'Unknown', 'stdClass'))) {
+        if (in_array($typename, ['int', 'integer', 'bool', 'boolean', 'float', 'string', 'object', 'Unknown', 'stdClass'])) {
             return $typename;
         }
 

@@ -37,11 +37,11 @@ class Zend_Http_UserAgent_Console extends Zend_Http_UserAgent_Desktop
      *
      * @var array
      */
-    protected static $_uaSignatures = array(
+    protected static $_uaSignatures = [
         'playstation',
         'wii',
         'libnup',
-    );
+    ];
 
     /**
      * Comparison of the UserAgent chain and User Agent signatures

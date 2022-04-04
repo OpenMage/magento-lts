@@ -137,7 +137,7 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
         $links = parent::__get('link');
         if (!is_array($links)) {
             if ($links instanceof Zend_Feed_Element) {
-                $links = array($links);
+                $links = [$links];
             } else {
                 return $links;
             }
@@ -385,6 +385,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
 
         header('Content-Type: application/atom+xml; charset=' . $this->_element->ownerDocument->actualEncoding);
 
-        echo $this->saveXML();
+        echo $this->saveXml();
     }
 }

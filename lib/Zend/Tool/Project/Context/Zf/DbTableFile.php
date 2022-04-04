@@ -62,30 +62,30 @@ class Zend_Tool_Project_Context_Zf_DbTableFile extends Zend_Tool_Project_Context
 
     public function getPersistentAttributes()
     {
-        return array('dbTableName' => $this->_dbTableName);
+        return ['dbTableName' => $this->_dbTableName];
     }
 
     public function getContents()
     {
         $className = $this->getFullClassName($this->_dbTableName, 'Model_DbTable');
 
-        $codeGenFile = new Zend_CodeGenerator_Php_File(array(
+        $codeGenFile = new Zend_CodeGenerator_Php_File([
             'fileName' => $this->getPath(),
-            'classes' => array(
-                new Zend_CodeGenerator_Php_Class(array(
+            'classes' => [
+                new Zend_CodeGenerator_Php_Class([
                     'name' => $className,
                     'extendedClass' => 'Zend_Db_Table_Abstract',
-                    'properties' => array(
-                        new Zend_CodeGenerator_Php_Property(array(
+                    'properties' => [
+                        new Zend_CodeGenerator_Php_Property([
                             'name' => '_name',
                             'visibility' => Zend_CodeGenerator_Php_Property::VISIBILITY_PROTECTED,
                             'defaultValue' => $this->_actualTableName
-                            ))
-                        ),
+                            ])
+                        ],
 
-                    ))
-                )
-            ));
+                    ])
+                ]
+            ]);
         return $codeGenFile->generate();
     }
 

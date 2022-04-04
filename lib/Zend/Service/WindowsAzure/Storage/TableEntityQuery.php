@@ -41,14 +41,14 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 *
 	 * @var array
 	 */
-	protected $_where = array();
+	protected $_where = [];
 
 	/**
 	 * Order by
 	 *
 	 * @var array
 	 */
-	protected $_orderBy = array();
+	protected $_orderBy = [];
 
 	/**
 	 * Top
@@ -133,7 +133,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	        $condition = $this->_quoteInto($condition, $value);
 	    }
 
-		if (count($this->_where) == 0) {
+		if (count($this->_where) === 0) {
 			$cond = '';
 		} else if ($cond !== '') {
 			$cond = ' ' . strtolower(trim($cond)) . ' ';
@@ -200,7 +200,7 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
      */
 	public function assembleQueryString($urlEncode = false)
 	{
-		$query = array();
+		$query = [];
 		if (count($this->_where) != 0) {
 		    $filter = implode('', $this->_where);
 			$query[] = '$filter=' . ($urlEncode ? self::encodeQuery($filter) : $filter);
@@ -300,18 +300,10 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 */
 	protected function _replaceOperators($text)
 	{
-	    $text = str_replace('==', 'eq',  $text);
-	    $text = str_replace('>',  'gt',  $text);
-	    $text = str_replace('<',  'lt',  $text);
-	    $text = str_replace('>=', 'ge',  $text);
-	    $text = str_replace('<=', 'le',  $text);
-	    $text = str_replace('!=', 'ne',  $text);
-
-	    $text = str_replace('&&', 'and', $text);
-	    $text = str_replace('||', 'or',  $text);
-	    $text = str_replace('!',  'not', $text);
-
-	    return $text;
+        return str_replace(
+            ['==', '>', '<', '>=', '<=', '!=', '&&', '||', '!'],
+            ['eq', 'gt', 'lt', 'ge', 'le', 'ne', 'and', 'or', 'not'],
+            $text);
 	}
 
 	/**
@@ -322,21 +314,10 @@ class Zend_Service_WindowsAzure_Storage_TableEntityQuery
 	 */
 	public static function encodeQuery($query)
 	{
-		$query = str_replace('/', '%2F', $query);
-		$query = str_replace('?', '%3F', $query);
-		$query = str_replace(':', '%3A', $query);
-		$query = str_replace('@', '%40', $query);
-		$query = str_replace('&', '%26', $query);
-		$query = str_replace('=', '%3D', $query);
-		$query = str_replace('+', '%2B', $query);
-		$query = str_replace(',', '%2C', $query);
-		$query = str_replace('$', '%24', $query);
-		$query = str_replace('{', '%7B', $query);
-		$query = str_replace('}', '%7D', $query);
-
-		$query = str_replace(' ', '%20', $query);
-
-		return $query;
+        return str_replace(
+            ['/', '?', ':', '@', '&', '=', '+', ',', '$', '{', '}', ' '],
+            ['%2F', '%3F', '%3A', '%40', '%26', '%3D', '%2B', '%2C', '%24', '%7B', '%7D', '%20'],
+            $query);
 	}
 
 	/**

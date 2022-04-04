@@ -196,7 +196,7 @@ class Zend_Db
      * @return Zend_Db_Adapter_Abstract
      * @throws Zend_Db_Exception
      */
-    public static function factory($adapter, $config = array())
+    public static function factory($adapter, $config = [])
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();

@@ -46,9 +46,9 @@ class Zend_Service_WindowsAzure_Diagnostics_PerformanceCounterSubscription
 	 */
     public function __construct($counterSpecifier, $sampleRateInSeconds = 1)
     {
-        $this->_data = array(
+        $this->_data = [
             'counterspecifier'      => $counterSpecifier,
             'samplerateinseconds' 	=> $sampleRateInSeconds
-        );
+        ];
     }
 }

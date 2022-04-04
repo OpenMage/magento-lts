@@ -91,7 +91,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
 
         /* Now convert the scalar glyph widths to Zend_Pdf_Element_Numeric objects.
          */
-        $pdfWidths = array();
+        $pdfWidths = [];
         foreach ($this->_glyphWidths as $width) {
             $pdfWidths[] = new Zend_Pdf_Element_Numeric($this->toEmSpace($width));
         }

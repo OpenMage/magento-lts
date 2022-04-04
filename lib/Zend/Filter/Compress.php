@@ -42,7 +42,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
     /**
      * Compression adapter constructor options
      */
-    protected $_adapterOptions = array();
+    protected $_adapterOptions = [];
 
     /**
      * Class constructor
@@ -157,7 +157,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
      * Set adapter options
      *
      * @param  array $options
-     * @return void
+     * @return Zend_Filter_Compress
      */
     public function setAdapterOptions(array $options)
     {
@@ -179,7 +179,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
             throw new Zend_Filter_Exception("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($adapter, $method), $options);
+        return call_user_func_array([$adapter, $method], $options);
     }
 
     /**

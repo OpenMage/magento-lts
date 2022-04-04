@@ -196,7 +196,7 @@ class Zend_Service_Rackspace_Servers_Image
      */
     public function toArray()
     {
-        return array (
+        return [
             'name'     => $this->name,
             'id'       => $this->id,
             'serverId' => $this->serverId,
@@ -204,6 +204,6 @@ class Zend_Service_Rackspace_Servers_Image
             'created'  => $this->created,
             'status'   => $this->status,
             'progress' => $this->progress
-        );
+        ];
     }
 }

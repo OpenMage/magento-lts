@@ -49,7 +49,7 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      *
      * @var array
      */
-    protected $_values = array();
+    protected $_values = [];
 
     /**
      * @var boolean
@@ -101,7 +101,7 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
     {
         $frontController = Zend_Controller_Front::getInstance();
 
-        $defs       = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+        $defs       = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : [];
         $dispatcher = $frontController->getDispatcher();
         $request    = $frontController->getRequest();
 
@@ -116,7 +116,7 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      * @param Zend_Controller_Request_Abstract     $request    Request object
      */
     public function __construct(
-        array $defaults = array(),
+        array $defaults = [],
         Zend_Controller_Dispatcher_Interface $dispatcher = null,
         Zend_Controller_Request_Abstract $request = null
     )
@@ -146,11 +146,11 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
         }
 
         if (null !== $this->_dispatcher) {
-            $this->_defaults += array(
+            $this->_defaults += [
                 $this->_controllerKey => $this->_dispatcher->getDefaultControllerName(),
                 $this->_actionKey     => $this->_dispatcher->getDefaultAction(),
                 $this->_moduleKey     => $this->_dispatcher->getDefaultModule()
-            );
+            ];
         }
 
         $this->_keysSet = true;
@@ -172,8 +172,8 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
     {
         $this->_setRequestKeys();
 
-        $values = array();
-        $params = array();
+        $values = [];
+        $params = [];
 
         if (!$partial) {
             $path = trim($path, self::URI_DELIMITER);
@@ -201,7 +201,7 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
                 for ($i = 0; $i < $numSegs; $i = $i + 2) {
                     $key          = urldecode($path[$i]);
                     $val          = isset($path[$i + 1]) ? urldecode($path[$i + 1]) : null;
-                    $params[$key] = (isset($params[$key]) ? (array_merge((array)$params[$key], array($val))) : $val);
+                    $params[$key] = (isset($params[$key]) ? (array_merge((array)$params[$key], [$val])) : $val);
                 }
             }
         }
@@ -224,13 +224,13 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      * @param boolean $partial
      * @return string Route path with user submitted parameters
      */
-    public function assemble($data = array(), $reset = false, $encode = true, $partial = false)
+    public function assemble($data = [], $reset = false, $encode = true, $partial = false)
     {
         if (!$this->_keysSet) {
             $this->_setRequestKeys();
         }
 
-        $params = (!$reset) ? $this->_values : array();
+        $params = (!$reset) ? $this->_values : [];
 
         foreach ($data as $key => $value) {
             if ($value !== null) {

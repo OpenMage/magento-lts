@@ -84,27 +84,27 @@ class Zend_Service_Amazon_Item
     /**
      * @var Zend_Service_Amazon_CustomerReview[]
      */
-    public $CustomerReviews = array();
+    public $CustomerReviews = [];
 
     /**
      * @var Zend_Service_Amazon_SimilarProducts[]
      */
-    public $SimilarProducts = array();
+    public $SimilarProducts = [];
 
     /**
      * @var Zend_Service_Amazon_Accessories[]
      */
-    public $Accessories = array();
+    public $Accessories = [];
 
     /**
      * @var array
      */
-    public $Tracks = array();
+    public $Tracks = [];
 
     /**
      * @var Zend_Service_Amazon_ListmaniaLists[]
      */
-    public $ListmaniaLists = array();
+    public $ListmaniaLists = [];
 
     protected $_dom;
 
@@ -150,7 +150,7 @@ class Zend_Service_Amazon_Item
                     if (is_array($this->{$v->parentNode->tagName})) {
                         array_push($this->{$v->parentNode->tagName}, (string) $v->data);
                     } else {
-                        $this->{$v->parentNode->tagName} = array($this->{$v->parentNode->tagName}, (string) $v->data);
+                        $this->{$v->parentNode->tagName} = [$this->{$v->parentNode->tagName}, (string) $v->data];
                     }
                 } else {
                     $this->{$v->parentNode->tagName} = (string) $v->data;
@@ -158,7 +158,7 @@ class Zend_Service_Amazon_Item
             }
         }
 
-        foreach (array('SmallImage', 'MediumImage', 'LargeImage') as $im) {
+        foreach (['SmallImage', 'MediumImage', 'LargeImage'] as $im) {
             $result = $xpath->query("./az:ImageSets/az:ImageSet[position() = 1]/az:$im", $dom);
             if ($result->length == 1) {
                 /**

@@ -65,27 +65,27 @@ class Zend_Measure_Acceleration extends Zend_Measure_Abstract
      *
      * @var array
      */
-    protected $_units = array(
-        'CENTIGAL'                     => array('0.0001',   'cgal'),
-        'CENTIMETER_PER_SQUARE_SECOND' => array('0.01',     'cm/s²'),
-        'DECIGAL'                      => array('0.001',    'dgal'),
-        'DECIMETER_PER_SQUARE_SECOND'  => array('0.1',      'dm/s²'),
-        'DEKAMETER_PER_SQUARE_SECOND'  => array('10',       'dam/s²'),
-        'FOOT_PER_SQUARE_SECOND'       => array('0.3048',   'ft/s²'),
-        'G'                            => array('9.80665',  'g'),
-        'GAL'                          => array('0.01',     'gal'),
-        'GALILEO'                      => array('0.01',     'gal'),
-        'GRAV'                         => array('9.80665',  'g'),
-        'HECTOMETER_PER_SQUARE_SECOND' => array('100',      'h/s²'),
-        'INCH_PER_SQUARE_SECOND'       => array('0.0254',   'in/s²'),
-        'KILOMETER_PER_HOUR_SECOND'    => array(array('' => '5','/' => '18'), 'km/h²'),
-        'KILOMETER_PER_SQUARE_SECOND'  => array('1000',     'km/s²'),
-        'METER_PER_SQUARE_SECOND'      => array('1',        'm/s²'),
-        'MILE_PER_HOUR_MINUTE'         => array(array('' => '22', '/' => '15', '*' => '0.3048', '/' => '60'), 'mph/m'),
-        'MILE_PER_HOUR_SECOND'         => array(array('' => '22', '/' => '15', '*' => '0.3048'), 'mph/s'),
-        'MILE_PER_SQUARE_SECOND'       => array('1609.344', 'mi/s²'),
-        'MILLIGAL'                     => array('0.00001',  'mgal'),
-        'MILLIMETER_PER_SQUARE_SECOND' => array('0.001',    'mm/s²'),
+    protected $_units = [
+        'CENTIGAL'                     => ['0.0001',   'cgal'],
+        'CENTIMETER_PER_SQUARE_SECOND' => ['0.01',     'cm/s²'],
+        'DECIGAL'                      => ['0.001',    'dgal'],
+        'DECIMETER_PER_SQUARE_SECOND'  => ['0.1',      'dm/s²'],
+        'DEKAMETER_PER_SQUARE_SECOND'  => ['10',       'dam/s²'],
+        'FOOT_PER_SQUARE_SECOND'       => ['0.3048',   'ft/s²'],
+        'G'                            => ['9.80665',  'g'],
+        'GAL'                          => ['0.01',     'gal'],
+        'GALILEO'                      => ['0.01',     'gal'],
+        'GRAV'                         => ['9.80665',  'g'],
+        'HECTOMETER_PER_SQUARE_SECOND' => ['100',      'h/s²'],
+        'INCH_PER_SQUARE_SECOND'       => ['0.0254',   'in/s²'],
+        'KILOMETER_PER_HOUR_SECOND'    => [['' => '5','/' => '18'], 'km/h²'],
+        'KILOMETER_PER_SQUARE_SECOND'  => ['1000',     'km/s²'],
+        'METER_PER_SQUARE_SECOND'      => ['1',        'm/s²'],
+        'MILE_PER_HOUR_MINUTE'         => [['' => '22', '/' => '15', '*' => '0.3048', '/' => '60'], 'mph/m'],
+        'MILE_PER_HOUR_SECOND'         => [['' => '22', '/' => '15', '*' => '0.3048'], 'mph/s'],
+        'MILE_PER_SQUARE_SECOND'       => ['1609.344', 'mi/s²'],
+        'MILLIGAL'                     => ['0.00001',  'mgal'],
+        'MILLIMETER_PER_SQUARE_SECOND' => ['0.001',    'mm/s²'],
         'STANDARD'                     => 'METER_PER_SQUARE_SECOND'
-    );
+    ];
 }

@@ -60,7 +60,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbRowset extends PHPUnit_Extensions_Database_
 
         $this->data = $rowset->toArray();
 
-        $columns = array();
+        $columns = [];
         if(isset($this->data[0]) > 0) {
             $columns = array_keys($this->data[0]);
         } else if($rowset->getTable() != null) {

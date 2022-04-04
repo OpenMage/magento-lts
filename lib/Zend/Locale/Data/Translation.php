@@ -40,7 +40,7 @@ class Zend_Locale_Data_Translation
      *
      * @var array $localeTranslation
      */
-    public static $languageTranslation = array(
+    public static $languageTranslation = [
         'Afrikaans'         => 'af',
         'Albanian'          => 'sq',
         'Amharic'           => 'am',
@@ -173,9 +173,9 @@ class Zend_Locale_Data_Translation
         'Yiddish'           => 'yi',
         'Yoruba'            => 'yo',
         'Zulu'              => 'zu',
-    );
+    ];
 
-    public static $regionTranslation = array(
+    public static $regionTranslation = [
         'Albania'                    => 'AL',
         'Algeria'                    => 'DZ',
         'Argentina'                  => 'AR',
@@ -281,5 +281,5 @@ class Zend_Locale_Data_Translation
         'Venezuela'                  => 'VE',
         'Yemen'                      => 'YE',
         'Zimbabwe'                   => 'ZW',
-    );
+    ];
 }

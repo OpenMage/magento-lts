@@ -57,18 +57,18 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
     /**
      * @var array Array of exception classes that may define xmlrpc faults
      */
-    protected static $_faultExceptionClasses = array('Zend_XmlRpc_Server_Exception' => true);
+    protected static $_faultExceptionClasses = ['Zend_XmlRpc_Server_Exception' => true];
 
     /**
      * @var array Array of fault observers
      */
-    protected static $_observers = array();
+    protected static $_observers = [];
 
     /**
      * Constructor
      *
      * @param Exception $e
-     * @return Zend_XmlRpc_Server_Fault
+     * @return void
      */
     public function __construct(Exception $e)
     {
@@ -90,7 +90,7 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
         // Notify exception observers, if present
         if (!empty(self::$_observers)) {
             foreach (array_keys(self::$_observers) as $observer) {
-                call_user_func(array($observer, 'observe'), $this);
+                call_user_func([$observer, 'observe'], $this);
             }
         }
     }
@@ -160,7 +160,7 @@ class Zend_XmlRpc_Server_Fault extends Zend_XmlRpc_Fault
     {
         if (!is_string($class)
             || !class_exists($class)
-            || !is_callable(array($class, 'observe')))
+            || !is_callable([$class, 'observe']))
         {
             return false;
         }

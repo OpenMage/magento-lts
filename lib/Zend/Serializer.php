@@ -51,7 +51,7 @@ class Zend_Serializer
      * @param array |Zend_Config $opts Serializer options
      * @return Zend_Serializer_Adapter_AdapterInterface
      */
-    public static function factory($adapterName, $opts = array())
+    public static function factory($adapterName, $opts = [])
     {
         if ($adapterName instanceof Zend_Serializer_Adapter_AdapterInterface) {
             return $adapterName; // $adapterName is already an adapter object
@@ -128,7 +128,7 @@ class Zend_Serializer
      * @param string|Zend_Serializer_Adapter_AdapterInterface $adapter
      * @param array|Zend_Config $options
      */
-    public static function setDefaultAdapter($adapter, $options = array())
+    public static function setDefaultAdapter($adapter, $options = [])
     {
         self::$_defaultAdapter = self::factory($adapter, $options);
     }
@@ -136,7 +136,7 @@ class Zend_Serializer
     /**
      * Get the default adapter.
      *
-     * @return Zend_Serializer_Adapter_AdapterInterface
+     * @return string|Zend_Serializer_AdapterInterface
      */
     public static function getDefaultAdapter()
     {
@@ -154,7 +154,7 @@ class Zend_Serializer
      * @return string
      * @throws Zend_Serializer_Exception
      */
-    public static function serialize($value, array $options = array())
+    public static function serialize($value, array $options = [])
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);
@@ -174,7 +174,7 @@ class Zend_Serializer
      * @return mixed
      * @throws Zend_Serializer_Exception
      */
-    public static function unserialize($serialized, array $options = array())
+    public static function unserialize($serialized, array $options = [])
     {
         if (isset($options['adapter'])) {
             $adapter = self::factory($options['adapter']);

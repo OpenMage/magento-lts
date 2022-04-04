@@ -72,7 +72,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
     /**
      * @var array
      */
-    protected static $SUPPORTED_FILETYPES = array(
+    protected static $SUPPORTED_FILETYPES = [
         'TXT'  => 'text/plain',
         'CSV'  => 'text/csv',
         'TSV'  => 'text/tab-separated-values',
@@ -89,7 +89,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
         'XLSX' => 'application/vnd.ms-excel',
         'PPT'  => 'application/vnd.ms-powerpoint',
         'PPS'  => 'application/vnd.ms-powerpoint'
-    );
+    ];
 
     /**
      * Create Gdata_Docs object
@@ -124,7 +124,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * Retreive feed object containing entries for the user's documents.
      *
      * @param mixed $location The location for the feed, as a URL or Query
-     * @return Zend_Gdata_Docs_DocumentListFeed
+     * @return string|Zend_Gdata_App_Feed
      */
     public function getDocumentListFeed($location = null)
     {
@@ -142,7 +142,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * Retreive entry object representing a single document.
      *
      * @param mixed $location The location for the entry, as a URL or Query
-     * @return Zend_Gdata_Docs_DocumentListEntry
+     * @return string|Zend_Gdata_App_Entry
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getDocumentListEntry($location = null)
@@ -165,11 +165,12 @@ class Zend_Gdata_Docs extends Zend_Gdata
      *
      * This method builds the URL where this item is stored using the type
      * and the id of the document.
+     *
      * @param string $docId The URL key for the document. Examples:
      *     dcmg89gw_62hfjj8m, pKq0CzjiF3YmGd0AIlHKqeg
      * @param string $docType The type of the document as used in the Google
      *     Document List URLs. Examples: document, spreadsheet, presentation
-     * @return Zend_Gdata_Docs_DocumentListEntry
+     * @return string|Zend_Gdata_App_Entry
      */
     public function getDoc($docId, $docType)
     {
@@ -183,7 +184,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * Retreive entry object for the desired word processing document.
      *
      * @param string $id The URL id for the document. Example: dcmg89gw_62hfjj8m
-     * @return Zend_Gdata_Docs_DocumentListEntry
+     * @return string|Zend_Gdata_App_Entry
      */
     public function getDocument($id)
     {
@@ -194,7 +195,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * Retreive entry object for the desired spreadsheet.
      *
      * @param string $id The URL id for the document. Example: pKq0CzjiF3YmGd0AIlHKqeg
-     * @return Zend_Gdata_Docs_DocumentListEntry
+     * @return string|Zend_Gdata_App_Entry
      */
     public function getSpreadsheet($id)
     {
@@ -205,7 +206,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * Retreive entry object for the desired presentation.
      *
      * @param string $id The URL id for the document. Example: dcmg89gw_21gtrjcn
-     * @return Zend_Gdata_Docs_DocumentListEntry
+     * @return string|Zend_Gdata_App_Entry
      */
     public function getPresentation($id)
     {
@@ -231,7 +232,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $uri (optional) The URL to which the upload should be
      *         made.
      *         Example: 'https://docs.google.com/feeds/documents/private/full'.
-     * @return Zend_Gdata_Docs_DocumentListEntry The entry for the newly
+     * @return Zend_Gdata_App_Entry The entry for the newly
      *         created Google Document.
      */
     public function uploadFile($fileLocation, $title = null, $mimeType = null,
@@ -276,7 +277,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $folderName The folder name to create
      * @param string|null $folderResourceId The parent folder to create it in
      *        ("folder%3Amy_parent_folder")
-     * @return Zend_Gdata_Entry The folder entry created.
+     * @return Zend_Gdata_App_Entry The folder entry created.
      * @todo ZF-8732: This should return a *subclass* of Zend_Gdata_Entry, but
      *       the appropriate type doesn't exist yet.
      */
@@ -289,7 +290,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
         $title    = new Zend_Gdata_App_Extension_Title($folderName);
         $entry    = new Zend_Gdata_Entry();
 
-        $entry->setCategory(array($category));
+        $entry->setCategory([$category]);
         $entry->setTitle($title);
 
         $uri = self::DOCUMENTS_LIST_FEED_URI;
@@ -310,7 +311,7 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $uri POST URI
      * @param string $className (optional) The class of entry to be returned.
      *         The default is a 'Zend_Gdata_Docs_DocumentListEntry'.
-     * @return Zend_Gdata_Docs_DocumentListEntry The entry returned by the
+     * @return Zend_Gdata_App_Entry The entry returned by the
      *     service after insertion.
      */
     public function insertDocument($data, $uri,

@@ -122,20 +122,21 @@ class Zend_Ldap_Exception extends Zend_Exception
      */
     public function __construct(Zend_Ldap $ldap = null, $str = null, $code = 0)
     {
-        $errorMessages = array();
+        $errorMessages = [];
         $message = '';
+
         if ($ldap !== null) {
             $oldCode = $code;
             $message = $ldap->getLastError($code, $errorMessages) . ': ';
+
             if ($code === 0) {
                 $message = '';
                 $code = $oldCode;
             }
         }
-        if (empty($message)) {
-            if ($code > 0) {
-                $message = '0x' . dechex($code) . ': ';
-            }
+
+        if (empty($message) && $code > 0) {
+            $message = '0x' . dechex($code) . ': ';
         }
 
         if (!empty($str)) {

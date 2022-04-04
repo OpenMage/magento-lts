@@ -47,12 +47,12 @@ class Zend_Tool_Framework_Client_Request
     /**
      * @var array
      */
-    protected $_actionParameters = array();
+    protected $_actionParameters = [];
 
     /**
      * @var array
      */
-    protected $_providerParameters = array();
+    protected $_providerParameters = [];
 
     /**
      * @var bool

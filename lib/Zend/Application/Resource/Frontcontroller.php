@@ -141,7 +141,7 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                         throw new Zend_Application_Exception('You must specify both ');
                     }
                     if (!isset($value['params'])) {
-                        $value['params'] = array();
+                        $value['params'] = [];
                     }
 
                     $dispatchClass = $value['class'];

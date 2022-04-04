@@ -77,8 +77,8 @@ class Zend_Pdf_Element_Reference_Table
     public function  __construct()
     {
         $this->_parent = null;
-        $this->_free   = array();  $this->_generations = array();
-        $this->_inuse  = array();  $this->_usedObjects = array();
+        $this->_free   = [];  $this->_generations = [];
+        $this->_inuse  = [];  $this->_usedObjects = [];
     }
 
 

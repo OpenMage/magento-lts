@@ -63,7 +63,7 @@ class Zend_Application_Resource_Navigation
                 );
             }
 
-            $pages = isset($options['pages']) ? $options['pages'] : array();
+            $pages = isset($options['pages']) ? $options['pages'] : [];
             $this->_container = new Zend_Navigation($pages);
         }
 

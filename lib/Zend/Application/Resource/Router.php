@@ -68,7 +68,7 @@ class Zend_Application_Resource_Router
 
             $options = $this->getOptions();
             if (!isset($options['routes'])) {
-                $options['routes'] = array();
+                $options['routes'] = [];
             }
 
             if (isset($options['chainNameSeparator'])) {

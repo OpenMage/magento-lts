@@ -116,7 +116,7 @@ class Zend_Gdata_Spreadsheets_WorksheetEntry extends Zend_Gdata_Entry
     /**
      * Gets the row count for this entry.
      *
-     * @return string The row count for the entry.
+     * @return string|null The row count for the entry.
      */
     public function getRowCount()
     {
@@ -126,7 +126,7 @@ class Zend_Gdata_Spreadsheets_WorksheetEntry extends Zend_Gdata_Entry
     /**
      * Gets the column count for this entry.
      *
-     * @return string The column count for the entry.
+     * @return string|null The column count for the entry.
      */
     public function getColumnCount()
     {

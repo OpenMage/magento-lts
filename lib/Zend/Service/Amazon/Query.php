@@ -42,7 +42,7 @@ class Zend_Service_Amazon_Query extends Zend_Service_Amazon
      *
      * @var array
      */
-    protected $_search = array();
+    protected $_search = [];
 
     /**
      * Search index

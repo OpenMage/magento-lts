@@ -75,12 +75,12 @@ class Zend_View_Helper_Currency extends Zend_View_Helper_Abstract
         if (is_string($currency) || ($currency instanceof Zend_Locale)) {
             #require_once 'Zend/Locale.php';
             if (Zend_Locale::isLocale($currency)) {
-                $currency = array('locale' => $currency);
+                $currency = ['locale' => $currency];
             }
         }
 
         if (is_string($currency)) {
-            $currency = array('currency' => $currency);
+            $currency = ['currency' => $currency];
         }
 
         if (is_array($currency)) {

@@ -38,7 +38,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
      * Dijit parameters
      * @var array
      */
-    public $dijitParams = array();
+    public $dijitParams = [];
 
     /**
      * View helper to use
@@ -144,7 +144,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
      */
     public function clearDijitParams()
     {
-        $this->dijitParams = array();
+        $this->dijitParams = [];
         return $this;
     }
 
@@ -163,9 +163,9 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
         if (empty($decorators)) {
             $this->addDecorator('DijitElement')
                  ->addDecorator('Errors')
-                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                 ->addDecorator('Label', array('tag' => 'dt'));
+                 ->addDecorator('Description', ['tag' => 'p', 'class' => 'description'])
+                 ->addDecorator('HtmlTag', ['tag' => 'dd'])
+                 ->addDecorator('Label', ['tag' => 'dt']);
         }
     }
 

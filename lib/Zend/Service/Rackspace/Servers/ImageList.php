@@ -40,7 +40,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
     /**
      * @var array of Zend_Service_Rackspace_Servers_Image
      */
-    protected $images = array();
+    protected $images = [];
     /**
      * @var int Iterator key
      */
@@ -56,7 +56,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * @param  array $list
      * @return void
      */
-    public function __construct($service,$list = array())
+    public function __construct($service,$list = [])
     {
         if (!($service instanceof Zend_Service_Rackspace_Servers) || !is_array($list)) {
             #require_once 'Zend/Service/Rackspace/Servers/Exception.php';
@@ -95,7 +95,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      */
     public function toArray()
     {
-        $array= array();
+        $array= [];
         foreach ($this->images as $image) {
             $array[]= $image->toArray();
         }
@@ -108,7 +108,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->images);
     }
@@ -119,6 +119,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return Zend_Service_Rackspace_Servers_Image
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->images[$this->iteratorKey];
@@ -130,6 +131,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->iteratorKey;
@@ -141,7 +143,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         $this->iteratorKey += 1;
     }
@@ -152,7 +154,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorKey = 0;
     }
@@ -163,7 +165,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $numItems = $this->count();
         if ($numItems > 0 && $this->iteratorKey < $numItems) {
@@ -180,7 +182,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * @param   int     $offset
      * @return  bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return ($offset < $this->count());
     }
@@ -193,6 +195,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * @throws  Zend_Service_Rackspace_Servers_Exception
      * @return  Zend_Service_Rackspace_Servers_Image
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
@@ -212,7 +215,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * @param   string  $value
      * @throws  Zend_Service_Rackspace_Servers_Exception
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         #require_once 'Zend/Service/Rackspace/Servers/Exception.php';
         throw new Zend_Service_Rackspace_Servers_Exception('You are trying to set read-only property');
@@ -226,7 +229,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * @param   int     $offset
      * @throws  Zend_Service_Rackspace_Servers_Exception
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         #require_once 'Zend/Service/Rackspace/Servers/Exception.php';
         throw new Zend_Service_Rackspace_Servers_Exception('You are trying to unset read-only property');

@@ -59,7 +59,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
     /**
      * Get the response as stream
      *
-     * @return resourse
+     * @return resource
      */
     public function getStream()
     {

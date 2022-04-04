@@ -56,7 +56,7 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
      * See {@link encodeString()}.
      * @var array
      */
-    protected $_toFontEncoding = array(
+    protected $_toFontEncoding = [
             0x20 => "\x20", 0x2701 => "\x21", 0x2702 => "\x22", 0x2703 => "\x23",
           0x2704 => "\x24", 0x260e => "\x25", 0x2706 => "\x26", 0x2707 => "\x27",
           0x2708 => "\x28", 0x2709 => "\x29", 0x261b => "\x2a", 0x261e => "\x2b",
@@ -107,14 +107,14 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
           0x27b1 => "\xf1", 0x27b2 => "\xf2", 0x27b3 => "\xf3", 0x27b4 => "\xf4",
           0x27b5 => "\xf5", 0x27b6 => "\xf6", 0x27b7 => "\xf7", 0x27b8 => "\xf8",
           0x27b9 => "\xf9", 0x27ba => "\xfa", 0x27bb => "\xfb", 0x27bc => "\xfc",
-          0x27bd => "\xfd", 0x27be => "\xfe");
+          0x27bd => "\xfd", 0x27be => "\xfe"];
 
     /**
      * Array for conversion from special font encoding to local encoding.
      * See {@link decodeString()}.
      * @var array
      */
-    protected $_fromFontEncoding = array(
+    protected $_fromFontEncoding = [
             0x20 => "\x00\x20",   0x21 => "\x27\x01",   0x22 => "\x27\x02",
             0x23 => "\x27\x03",   0x24 => "\x27\x04",   0x25 => "\x26\x0e",
             0x26 => "\x27\x06",   0x27 => "\x27\x07",   0x28 => "\x27\x08",
@@ -182,7 +182,7 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
             0xf5 => "\x27\xb5",   0xf6 => "\x27\xb6",   0xf7 => "\x27\xb7",
             0xf8 => "\x27\xb8",   0xf9 => "\x27\xb9",   0xfa => "\x27\xba",
             0xfb => "\x27\xbb",   0xfc => "\x27\xbc",   0xfd => "\x27\xbd",
-            0xfe => "\x27\xbe");
+            0xfe => "\x27\xbe"];
 
 
 
@@ -265,7 +265,7 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
          * since this data never makes it to the PDF file. It is only used
          * internally for layout calculations.
          */
-        $this->_glyphWidths = array(
+        $this->_glyphWidths = [
             0x00 => 0x01f4,   0x01 => 0x0116,   0x02 => 0x03ce,   0x03 => 0x03c1,
             0x04 => 0x03ce,   0x05 => 0x03d4,   0x06 => 0x02cf,   0x07 => 0x0315,
             0x08 => 0x0316,   0x09 => 0x0317,   0x0a => 0x02b2,   0x0b => 0x03c0,
@@ -316,11 +316,11 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
             0xbc => 0x036a,   0xbd => 0x036a,   0xbe => 0x02f8,   0xbf => 0x03b2,
             0xc0 => 0x0303,   0xc1 => 0x0361,   0xc2 => 0x0303,   0xc3 => 0x0378,
             0xc4 => 0x03c7,   0xc5 => 0x0378,   0xc6 => 0x033f,   0xc7 => 0x0369,
-            0xc8 => 0x039f,   0xc9 => 0x03ca,   0xca => 0x0396);
+            0xc8 => 0x039f,   0xc9 => 0x03ca,   0xca => 0x0396];
 
         /* The cmap table is similarly synthesized.
          */
-        $cmapData = array(
+        $cmapData = [
             0x20 =>   0x01, 0x2701 =>   0x02, 0x2702 =>   0x03, 0x2703 =>   0x04,
           0x2704 =>   0x05, 0x260e =>   0x06, 0x2706 =>   0x07, 0x2707 =>   0x08,
           0x2708 =>   0x09, 0x2709 =>   0x0a, 0x261b =>   0x0b, 0x261e =>   0x0c,
@@ -371,7 +371,7 @@ class Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats extends Zend_Pdf_Resou
           0x27b1 =>   0xbd, 0x27b2 =>   0xbe, 0x27b3 =>   0xbf, 0x27b4 =>   0xc0,
           0x27b5 =>   0xc1, 0x27b6 =>   0xc2, 0x27b7 =>   0xc3, 0x27b8 =>   0xc4,
           0x27b9 =>   0xc5, 0x27ba =>   0xc6, 0x27bb =>   0xc7, 0x27bc =>   0xc8,
-          0x27bd =>   0xc9, 0x27be =>   0xca);
+          0x27bd =>   0xc9, 0x27be =>   0xca];
         #require_once 'Zend/Pdf/Cmap.php';
         $this->_cmap = Zend_Pdf_Cmap::cmapWithTypeData(
             Zend_Pdf_Cmap::TYPE_BYTE_ENCODING_STATIC, $cmapData);

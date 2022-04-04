@@ -52,7 +52,7 @@ class Zend_Tool_Project_Context_Zf_ModuleDirectory extends Zend_Tool_Project_Con
     /**
      * init()
      *
-     * @return Zend_Tool_Project_Context_Zf_ControllerFile
+     * @return Zend_Tool_Project_Context_Zf_ModuleDirectory
      */
     public function init()
     {
@@ -78,9 +78,9 @@ class Zend_Tool_Project_Context_Zf_ModuleDirectory extends Zend_Tool_Project_Con
      */
     public function getPersistentAttributes()
     {
-        return array(
+        return [
             'moduleName' => $this->getModuleName()
-            );
+            ];
     }
 
     /**

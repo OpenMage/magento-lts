@@ -46,7 +46,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
     /**
      * Render Atom Feed Metadata (Source element)
      *
-     * @return Zend_Feed_Writer_Renderer_Feed_Atom
+     * @return Zend_Feed_Writer_Renderer_Feed_Atom_Source
      */
     public function render()
     {

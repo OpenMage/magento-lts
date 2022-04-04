@@ -43,7 +43,7 @@ abstract class Zend_Cloud_Infrastructure_Adapter_AbstractAdapter implements Zend
      *
      * @var array
      */
-    protected $validMetrics = array(
+    protected $validMetrics = [
         Zend_Cloud_Infrastructure_Instance::MONITOR_CPU,
         Zend_Cloud_Infrastructure_Instance::MONITOR_RAM,
         Zend_Cloud_Infrastructure_Instance::MONITOR_DISK,
@@ -51,7 +51,7 @@ abstract class Zend_Cloud_Infrastructure_Adapter_AbstractAdapter implements Zend
         Zend_Cloud_Infrastructure_Instance::MONITOR_DISK_WRITE,
         Zend_Cloud_Infrastructure_Instance::MONITOR_NETWORK_IN,
         Zend_Cloud_Infrastructure_Instance::MONITOR_NETWORK_OUT,
-    );
+    ];
 
     /**
      * Get the last result of the adapter
@@ -136,7 +136,7 @@ abstract class Zend_Cloud_Infrastructure_Adapter_AbstractAdapter implements Zend
         }
 
         if (is_array($cmd)) {
-            $result = array();
+            $result = [];
             foreach ($cmd as $command) {
                 $stream      = ssh2_exec($conn, $command);
                 $errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);

@@ -44,21 +44,21 @@ class Zend_Dojo_Form_Element_DateTextBox extends Zend_Dojo_Form_Element_Validati
      * Allowed formatLength types
      * @var array
      */
-    protected $_allowedFormatTypes = array(
+    protected $_allowedFormatTypes = [
         'long',
         'short',
         'medium',
         'full',
-    );
+    ];
 
     /**
      * Allowed selector types
      * @var array
      */
-    protected $_allowedSelectorTypes = array(
+    protected $_allowedSelectorTypes = [
         'time',
         'date',
-    );
+    ];
 
     /**
      * Set am,pm flag
@@ -136,7 +136,7 @@ class Zend_Dojo_Form_Element_DateTextBox extends Zend_Dojo_Form_Element_Validati
      * Set date format pattern
      *
      * @param  string $pattern
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_DateTextBox
      */
     public function setDatePattern($pattern)
     {
@@ -157,9 +157,9 @@ class Zend_Dojo_Form_Element_DateTextBox extends Zend_Dojo_Form_Element_Validati
     /**
      * Set numeric format formatLength
      *
-     * @see    $_allowedFormatTypes
      * @param  string $formatLength
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_DateTextBox
+     * @see    $_allowedFormatTypes
      */
     public function setFormatLength($formatLength)
     {
@@ -186,9 +186,9 @@ class Zend_Dojo_Form_Element_DateTextBox extends Zend_Dojo_Form_Element_Validati
     /**
      * Set numeric format Selector
      *
-     * @see    $_allowedSelectorTypes
      * @param  string $selector
-     * @return Zend_Dojo_Form_Element_NumberTextBox
+     * @return Zend_Dojo_Form_Element_DateTextBox
+     * @see    $_allowedSelectorTypes
      */
     public function setSelector($selector)
     {

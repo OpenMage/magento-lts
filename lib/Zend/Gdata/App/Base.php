@@ -60,12 +60,12 @@ abstract class Zend_Gdata_App_Base
     /**
      * @var array Leftover elements which were not handled
      */
-    protected $_extensionElements = array();
+    protected $_extensionElements = [];
 
     /**
      * @var array Leftover attributes which were not handled
      */
-    protected $_extensionAttributes = array();
+    protected $_extensionAttributes = [];
 
     /**
      * @var string XML child text node content
@@ -78,7 +78,7 @@ abstract class Zend_Gdata_App_Base
      *      form 'prefix-majorVersion-minorVersion', and the value is the
      *      output from getGreatestBoundedValue().
      */
-    protected static $_namespaceLookupCache = array();
+    protected static $_namespaceLookupCache = [];
 
     /**
      * List of namespaces, as a three-dimensional array. The first dimension
@@ -95,21 +95,21 @@ abstract class Zend_Gdata_App_Base
      * @see registerAllNamespaces()
      * @var array
      */
-   protected $_namespaces = array(
-        'atom'      => array(
-            1 => array(
+   protected $_namespaces = [
+        'atom'      => [
+            1 => [
                 0 => 'http://www.w3.org/2005/Atom'
-                )
-            ),
-        'app'       => array(
-            1 => array(
+                ]
+            ],
+        'app'       => [
+            1 => [
                 0 => 'http://purl.org/atom/app#'
-                ),
-            2 => array(
+                ],
+            2 => [
                 0 => 'http://www.w3.org/2007/app'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
     public function __construct()
     {
@@ -267,9 +267,9 @@ abstract class Zend_Gdata_App_Base
                 $attribute->namespaceURI . ':' . $attribute->name):
                 $attribute->name;
         $this->_extensionAttributes[$arrayIndex] =
-                array('namespaceUri' => $attribute->namespaceURI,
+                ['namespaceUri' => $attribute->namespaceURI,
                       'name' => $attribute->localName,
-                      'value' => $attribute->nodeValue);
+                      'value' => $attribute->nodeValue];
     }
 
     /**
@@ -302,13 +302,13 @@ abstract class Zend_Gdata_App_Base
     {
         if ($xml) {
             // Load the feed as an XML DOMDocument object
-            @ini_set('track_errors', 1);
             $doc = new DOMDocument();
             $doc = @Zend_Xml_Security::scan($xml, $doc);
-            @ini_restore('track_errors');
             if (!$doc) {
+                $err = error_get_last();
+                $phpErrormsg = isset($err) ? $err['message'] : '';
                 #require_once 'Zend/Gdata/App/Exception.php';
-                throw new Zend_Gdata_App_Exception("DOMDocument cannot parse XML: $php_errormsg");
+                throw new Zend_Gdata_App_Exception("DOMDocument cannot parse XML: $phpErrormsg");
             }
             $element = $doc->getElementsByTagName($this->_rootElement)->item(0);
             if (!$element) {
@@ -444,7 +444,7 @@ abstract class Zend_Gdata_App_Base
      */
     public static function flushNamespaceLookupCache()
     {
-        self::$_namespaceLookupCache = array();
+        self::$_namespaceLookupCache = [];
     }
 
     /**
@@ -479,7 +479,7 @@ abstract class Zend_Gdata_App_Base
     {
         $method = 'get'.ucfirst($name);
         if (method_exists($this, $method)) {
-            return call_user_func(array(&$this, $method));
+            return call_user_func([&$this, $method]);
         } else if (property_exists($this, "_${name}")) {
             return $this->{'_' . $name};
         } else {
@@ -505,7 +505,7 @@ abstract class Zend_Gdata_App_Base
     {
         $method = 'set'.ucfirst($name);
         if (method_exists($this, $method)) {
-            return call_user_func(array(&$this, $method), $val);
+            return call_user_func([&$this, $method], $val);
         } else if (isset($this->{'_' . $name}) || ($this->{'_' . $name} === null)) {
             $this->{'_' . $name} = $val;
         } else {
@@ -554,7 +554,7 @@ abstract class Zend_Gdata_App_Base
     {
         if (isset($this->{'_' . $name})) {
             if (is_array($this->{'_' . $name})) {
-                $this->{'_' . $name} = array();
+                $this->{'_' . $name} = [];
             } else {
                 $this->{'_' . $name} = null;
             }

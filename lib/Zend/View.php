@@ -105,7 +105,7 @@ class Zend_View extends Zend_View_Abstract
      * @param  array $config
      * @return void
      */
-    public function __construct($config = array())
+    public function __construct($config = [])
     {
         $this->_useViewStream = (bool) ini_get('short_open_tag') ? false : true;
         if ($this->_useViewStream) {

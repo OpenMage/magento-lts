@@ -339,8 +339,8 @@ abstract class Zend_Pdf_FileParser
     public function isBitSet($bit, $bitField)
     {
         $bitMask = 1 << $bit;
-        $isSet = (($bitField & $bitMask) == $bitMask);
-        return $isSet;
+
+        return (($bitField & $bitMask) == $bitMask);
     }
 
     /**
@@ -364,13 +364,14 @@ abstract class Zend_Pdf_FileParser
                               $byteOrder = Zend_Pdf_FileParser::BYTE_ORDER_BIG_ENDIAN)
     {
         $bitsToRead = $mantissaBits + $fractionBits;
+
         if (($bitsToRead % 8) !== 0) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Fixed-point numbers are whole bytes',
                                          Zend_Pdf_Exception::BAD_FIXED_POINT_SIZE);
         }
-        $number = $this->readInt(($bitsToRead >> 3), $byteOrder) / (1 << $fractionBits);
-        return $number;
+
+        return $this->readInt(($bitsToRead >> 3), $byteOrder) / (1 << $fractionBits);
     }
 
     /**

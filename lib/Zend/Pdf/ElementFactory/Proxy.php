@@ -151,7 +151,7 @@ class Zend_Pdf_ElementFactory_Proxy implements Zend_Pdf_ElementFactory_Interface
     }
 
     /**
-     * Retrieve object enumeration shift.
+     * Retrive object enumeration shift.
      *
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer

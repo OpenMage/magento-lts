@@ -74,11 +74,11 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
             } elseif(!isset($this->rdf) && $link->getAttribute('type') == 'application/rdf+xml') {
                 $this->rdf = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
             }
-            $this[] = new self(array(
+            $this[] = new self([
                 'rel' => 'alternate',
                 'type' => $link->getAttribute('type'),
                 'href' => $this->_absolutiseUri(trim($link->getAttribute('href')), $uri),
-            ));
+            ]);
         }
     }
 
@@ -110,7 +110,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
     protected function _canonicalizePath($path)
     {
         $parts = array_filter(explode('/', $path));
-        $absolutes = array();
+        $absolutes = [];
         foreach ($parts as $part) {
             if ('.' == $part) {
                 continue;
@@ -132,6 +132,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
      * @return mixed
      * @uses Zend_Feed_Reader
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($offset == 'feed' && !$this->offsetExists('feed')) {

@@ -144,7 +144,7 @@ class Zend_Service_Twitter_Response
     public function getErrors()
     {
         if (!$this->isError()) {
-            return array();
+            return [];
         }
         if (null === $this->jsonBody
             || !isset($this->jsonBody->errors)

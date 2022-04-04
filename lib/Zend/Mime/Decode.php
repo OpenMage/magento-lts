@@ -48,14 +48,14 @@ class Zend_Mime_Decode
         $body = str_replace("\r", '', $body);
 
         $start = 0;
-        $res   = array();
+        $res   = [];
         // find every mime part limiter and cut out the
         // string before it.
         // the part before the first boundary string is discarded:
         $p = strpos($body, '--' . $boundary . "\n", $start);
         if ($p === false) {
             // no parts found!
-            return array();
+            return [];
         }
 
         // position after first boundary line
@@ -96,13 +96,13 @@ class Zend_Mime_Decode
         if (count($parts) <= 0) {
             return null;
         }
-        $result = array();
+        $result = [];
         foreach ($parts as $part) {
             self::splitMessage($part, $headers, $body, $EOL);
-            $result[] = array(
+            $result[] = [
                 'header' => $headers,
                 'body'   => $body
-            );
+            ];
         }
 
         return $result;
@@ -127,16 +127,16 @@ class Zend_Mime_Decode
         // check for valid header at first line
         $firstline = strtok($message, "\n");
         if (!preg_match('%^[^\s]+[^:]*:%', $firstline)) {
-            $headers = array();
+            $headers = [];
             // TODO: we're ignoring \r for now - is this function fast enough and is it safe to asume noone needs \r?
             $body = str_replace(
-                array(
+                [
                     "\r",
                     "\n"
-                ), array(
+                ], [
                     '',
                     $EOL
-                ), $message
+                ], $message
             );
 
             return;
@@ -186,10 +186,10 @@ class Zend_Mime_Decode
                 $headers[$lower][] = $header;
                 continue;
             }
-            $headers[$lower] = array(
+            $headers[$lower] = [
                 $headers[$lower],
                 $header
-            );
+            ];
         }
     }
 
@@ -248,7 +248,7 @@ class Zend_Mime_Decode
             return null;
         }
 
-        $split = array();
+        $split = [];
         foreach ($matches[1] as $key => $name) {
             $name = strtolower($name);
             if ($matches[2][$key][0] == '"') {

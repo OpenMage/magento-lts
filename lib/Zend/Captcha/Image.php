@@ -442,11 +442,13 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
             $id = $this->_generateRandomId();
             $this->_setId($id);
         }
+
         $this->_generateImage($id, $this->getWord());
 
-        if (mt_rand(1, $this->getGcFreq()) == 1) {
+        if (mt_rand(1, $this->getGcFreq()) === 1) {
             $this->_gc();
         }
+
         return $id;
     }
 
@@ -541,16 +543,19 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
 
                 if ($sx < 0 || $sy < 0 || $sx >= $w - 1 || $sy >= $h - 1) {
                     continue;
-                } else {
-                    $color    = (imagecolorat($img, $sx, $sy) >> 16)         & 0xFF;
-                    $color_x  = (imagecolorat($img, $sx + 1, $sy) >> 16)     & 0xFF;
-                    $color_y  = (imagecolorat($img, $sx, $sy + 1) >> 16)     & 0xFF;
-                    $color_xy = (imagecolorat($img, $sx + 1, $sy + 1) >> 16) & 0xFF;
                 }
+
+                $color    = (imagecolorat($img, $sx, $sy) >> 16)         & 0xFF;
+                $color_x  = (imagecolorat($img, $sx + 1, $sy) >> 16)     & 0xFF;
+                $color_y  = (imagecolorat($img, $sx, $sy + 1) >> 16)     & 0xFF;
+                $color_xy = (imagecolorat($img, $sx + 1, $sy + 1) >> 16) & 0xFF;
+
                 if ($color == 255 && $color_x == 255 && $color_y == 255 && $color_xy == 255) {
                     // ignore background
                     continue;
-                } elseif ($color == 0 && $color_x == 0 && $color_y == 0 && $color_xy == 0) {
+                }
+
+                if ($color == 0 && $color_x == 0 && $color_y == 0 && $color_xy == 0) {
                     // transfer inside of the image as-is
                     $newcolor = 0;
                 } else {

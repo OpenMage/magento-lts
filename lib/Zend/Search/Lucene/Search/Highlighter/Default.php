@@ -36,11 +36,11 @@ class Zend_Search_Lucene_Search_Highlighter_Default implements Zend_Search_Lucen
      *
      * @var array
      */
-    protected $_highlightColors = array('#66ffff', '#ff66ff', '#ffff66',
+    protected $_highlightColors = ['#66ffff', '#ff66ff', '#ffff66',
                                         '#ff8888', '#88ff88', '#8888ff',
                                         '#88dddd', '#dd88dd', '#dddd88',
                                         '#aaddff', '#aaffdd', '#ddaaff',
-                                        '#ddffaa', '#ffaadd', '#ffddaa');
+                                        '#ddffaa', '#ffaadd', '#ffddaa'];
 
     /**
      * Index of current color for highlighting

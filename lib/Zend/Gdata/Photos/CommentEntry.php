@@ -96,7 +96,7 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
         $category = new Zend_Gdata_App_Extension_Category(
             'http://schemas.google.com/photos/2007#comment',
             'http://schemas.google.com/g/2005#kind');
-        $this->setCategory(array($category));
+        $this->setCategory([$category]);
     }
 
     /**
@@ -150,8 +150,8 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:photoid attribute.
      *
-     * @see setGphotoPhotoId
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_PhotoId|null The requested attribute.
+     *@see setGphotoPhotoId
      */
     public function getGphotoPhotoId()
     {
@@ -162,7 +162,7 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
      * Set the value for this element's gphoto:photoid attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_PhotoId The element being modified.
+     * @return Zend_Gdata_Photos_CommentEntry The element being modified.
      */
     public function setGphotoPhotoId($value)
     {
@@ -173,8 +173,8 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:id attribute.
      *
-     * @see setGphotoId
-     * @return string The requested attribute.
+     * @return Zend_Gdata_Photos_Extension_Id|null The requested attribute.
+     *@see setGphotoId
      */
     public function getGphotoId()
     {
@@ -185,7 +185,7 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
      * Set the value for this element's gphoto:id attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Photos_Extension_Id The element being modified.
+     * @return Zend_Gdata_Photos_CommentEntry The element being modified.
      */
     public function setGphotoId($value)
     {

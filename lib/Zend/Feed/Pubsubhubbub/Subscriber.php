@@ -42,7 +42,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @var array
      */
-    protected $_hubUrls = array();
+    protected $_hubUrls = [];
 
     /**
      * An array of optional parameters to be included in any
@@ -50,7 +50,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @var array
      */
-    protected $_parameters = array();
+    protected $_parameters = [];
 
     /**
      * The URL of the topic (Rss or Atom feed) which is the subject of
@@ -96,7 +96,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * An array of Hub Server URLs for Hubs operating at this time in
@@ -104,7 +104,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @var array
      */
-    protected $_asyncHubs = array();
+    protected $_asyncHubs = [];
 
     /**
      * An instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface used to background
@@ -121,7 +121,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @var array
      */
-    protected $_authentications = array();
+    protected $_authentications = [];
 
     /**
      * Tells the Subscriber to append any subscription identifier to the path
@@ -249,7 +249,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setLeaseSeconds($seconds)
     {
-        $seconds = intval($seconds);
+        $seconds = (int)$seconds;
         if ($seconds <= 0) {
             #require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('Expected lease seconds'
@@ -639,26 +639,29 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             throw new Zend_Feed_Pubsubhubbub_Exception('No Hub Server URLs'
                 . ' have been set so no subscriptions can be attempted');
         }
-        $this->_errors = array();
-        $this->_asyncHubs = array();
+        $this->_errors = [];
+        $this->_asyncHubs = [];
         foreach ($hubs as $url) {
             if (array_key_exists($url, $this->_authentications)) {
                 $auth = $this->_authentications[$url];
                 $client->setAuth($auth[0], $auth[1]);
             }
+
             $client->setUri($url);
             $client->setRawData(
                 $this->_getRequestParameters($url, $mode),
                 'application/x-www-form-urlencoded'
             );
+
             $response = $client->request();
+
             if ($response->getStatus() !== 204
                 && $response->getStatus() !== 202
             ) {
-                $this->_errors[] = array(
+                $this->_errors[] = [
                     'response' => $response,
                     'hubUrl'   => $url,
-                );
+                ];
             /**
              * At first I thought it was needed, but the backend storage will
              * allow tracking async without any user interference. It's left
@@ -667,10 +670,10 @@ class Zend_Feed_Pubsubhubbub_Subscriber
              * move these to asynchronous processes.
              */
             } elseif ($response->getStatus() == 202) {
-                $this->_asyncHubs[] = array(
+                $this->_asyncHubs[] = [
                     'response' => $response,
                     'hubUrl'   => $url,
-                );
+                ];
             }
         }
     }
@@ -684,8 +687,8 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     {
         $client = Zend_Feed_Pubsubhubbub::getHttpClient();
         $client->setMethod(Zend_Http_Client::POST);
-        $client->setConfig(array('useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
-            . Zend_Version::VERSION));
+        $client->setConfig(['useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
+            . Zend_Version::VERSION]);
         return $client;
     }
 
@@ -695,36 +698,36 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      *
      * @param  string $hubUrl
      * @param  string $mode
-     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return string
+     *@throws Zend_Feed_Pubsubhubbub_Exception
      */
     protected function _getRequestParameters($hubUrl, $mode)
     {
-        if (!in_array($mode, array('subscribe', 'unsubscribe'))) {
+        if (!in_array($mode, ['subscribe', 'unsubscribe'])) {
             #require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('Invalid mode specified: "'
                 . $mode . '" which should have been "subscribe" or "unsubscribe"');
         }
 
-        $params = array(
+        $params = [
             'hub.mode'  => $mode,
             'hub.topic' => $this->getTopicUrl(),
-        );
+        ];
 
         if ($this->getPreferredVerificationMode()
                 == Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_SYNC
         ) {
-            $vmodes = array(
+            $vmodes = [
                 Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_SYNC,
                 Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_ASYNC,
-            );
+            ];
         } else {
-            $vmodes = array(
+            $vmodes = [
                 Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_ASYNC,
                 Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_SYNC,
-            );
+            ];
         }
-        $params['hub.verify'] = array();
+        $params['hub.verify'] = [];
         foreach($vmodes as $vmode) {
             $params['hub.verify'][] = $vmode;
         }
@@ -762,7 +765,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             $expires = $now->add($params['hub.lease_seconds'], Zend_Date::SECOND)
                 ->get('yyyy-MM-dd HH:mm:ss');
         }
-        $data = array(
+        $data = [
             'id'                 => $key,
             'topic_url'          => $params['hub.topic'],
             'hub_url'            => $hubUrl,
@@ -772,7 +775,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             'secret'             => null,
             'expiration_time'    => $expires,
             'subscription_state' => Zend_Feed_Pubsubhubbub::SUBSCRIPTION_NOTVERIFIED,
-        );
+        ];
         $this->getStorage()->setSubscription($data);
 
         return $this->_toByteValueOrderedString(
@@ -806,8 +809,8 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     protected function _generateSubscriptionKey(array $params, $hubUrl)
     {
         $keyBase = $params['hub.topic'] . $hubUrl;
-        $key     = md5($keyBase);
-        return $key;
+
+        return md5($keyBase);
     }
 
     /**
@@ -818,11 +821,11 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      */
     protected function _urlEncode(array $params)
     {
-        $encoded = array();
+        $encoded = [];
         foreach ($params as $key => $value) {
             if (is_array($value)) {
                 $ekey = Zend_Feed_Pubsubhubbub::urlencode($key);
-                $encoded[$ekey] = array();
+                $encoded[$ekey] = [];
                 foreach ($value as $duplicateKey) {
                     $encoded[$ekey][]
                         = Zend_Feed_Pubsubhubbub::urlencode($duplicateKey);
@@ -839,11 +842,11 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      * Order outgoing parameters
      *
      * @param  array $params
-     * @return array
+     * @return string
      */
     protected function _toByteValueOrderedString(array $params)
     {
-        $return = array();
+        $return = [];
         uksort($params, 'strnatcmp');
         foreach ($params as $key => $value) {
             if (is_array($value)) {

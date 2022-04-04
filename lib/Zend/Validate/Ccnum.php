@@ -54,10 +54,10 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::LENGTH   => "'%value%' must contain between 13 and 19 digits",
         self::CHECKSUM => "Luhn algorithm (mod-10 checksum) failed on '%value%'"
-    );
+    ];
 
     public function __construct()
     {

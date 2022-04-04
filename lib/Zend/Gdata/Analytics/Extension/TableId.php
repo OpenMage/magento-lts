@@ -93,7 +93,7 @@ class Zend_Gdata_Analytics_Extension_TableId extends Zend_Gdata_Extension
      * Set the value for this element's value attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Calendar_Extension_Timezone The element being modified.
+     * @return Zend_Gdata_Analytics_Extension_TableId The element being modified.
      */
     public function setValue($value)
     {

@@ -52,7 +52,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Allowed parameter sources
      * @var array
      */
-    protected $_paramSources = array('_GET', '_POST');
+    protected $_paramSources = ['_GET', '_POST'];
 
     /**
      * REQUEST_URI
@@ -82,7 +82,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Instance parameters
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Raw request body
@@ -94,7 +94,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Alias keys for request parameters
      * @var array
      */
-    protected $_aliases = array();
+    protected $_aliases = [];
 
     /**
      * Constructor
@@ -382,7 +382,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * Set the REQUEST_URI on which the instance operates
      *
      * If no request URI is passed, uses the value in $_SERVER['REQUEST_URI'],
-     * $_SERVER['HTTP_X_REWRITE_URL'], or $_SERVER['ORIG_PATH_INFO'] + $_SERVER['QUERY_STRING'].
+     *  or $_SERVER['ORIG_PATH_INFO'] + $_SERVER['QUERY_STRING'].
      *
      * @param string $requestUri
      * @return Zend_Controller_Request_Http
@@ -390,13 +390,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     public function setRequestUri($requestUri = null)
     {
         if ($requestUri === null) {
-            if (isset($_SERVER['HTTP_X_ORIGINAL_URL'])) {
-                // IIS with Microsoft Rewrite Module
-                $requestUri = $_SERVER['HTTP_X_ORIGINAL_URL'];
-            } elseif (isset($_SERVER['HTTP_X_REWRITE_URL'])) {
-                // IIS with ISAPI_Rewrite
-                $requestUri = $_SERVER['HTTP_X_REWRITE_URL'];
-            } elseif (
+            if (
                 // IIS7 with URL Rewrite: make sure we get the unencoded url (double slash problem)
                 isset($_SERVER['IIS_WasUrlRewritten'])
                 && $_SERVER['IIS_WasUrlRewritten'] == '1'
@@ -673,7 +667,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      * @param  array $paramSoures
      * @return Zend_Controller_Request_Http
      */
-    public function setParamSources(array $paramSources = array())
+    public function setParamSources(array $paramSources = [])
     {
         $this->_paramSources = $paramSources;
         return $this;
@@ -1010,7 +1004,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
          * @see https://www.ietf.org/rfc/rfc3875 (4.1.2. and 4.1.3.)
          */
         if (isset($_SERVER[$temp])
-            && in_array($temp, array('CONTENT_TYPE', 'CONTENT_LENGTH'))
+            && in_array($temp, ['CONTENT_TYPE', 'CONTENT_LENGTH'])
         ) {
             return $_SERVER[$temp];
         }
@@ -1066,11 +1060,13 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
         if(null === $name) {
             return '';
         }
-        elseif (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
+
+        if (($scheme == self::SCHEME_HTTP && $port == 80) || ($scheme == self::SCHEME_HTTPS && $port == 443)) {
             return $name;
-        } else {
-            return $name . ':' . $port;
         }
+
+        return $name . ':' . $port;
+
     }
 
     /**

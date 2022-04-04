@@ -66,12 +66,12 @@ class Zend_Cloud_Infrastructure_Instance
      *
      * @var array
      */
-    protected $attributeRequired = array(
+    protected $attributeRequired = [
         self::INSTANCE_ID,
         self::INSTANCE_STATUS,
         self::INSTANCE_IMAGEID,
         self::INSTANCE_ZONE
-    );
+    ];
 
     /**
      * Constructor

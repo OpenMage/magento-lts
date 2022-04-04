@@ -54,7 +54,7 @@ class Zend_Dojo_Form_Element_ComboBox extends Zend_Dojo_Form_Element_DijitMulti
     public function getStoreInfo()
     {
         if (!$this->hasDijitParam('store')) {
-            $this->dijitParams['store'] = array();
+            $this->dijitParams['store'] = [];
         }
         return $this->dijitParams['store'];
     }
@@ -140,7 +140,7 @@ class Zend_Dojo_Form_Element_ComboBox extends Zend_Dojo_Form_Element_DijitMulti
         if (array_key_exists('params', $store)) {
             return $store['params'];
         }
-        return array();
+        return [];
     }
 
     /**

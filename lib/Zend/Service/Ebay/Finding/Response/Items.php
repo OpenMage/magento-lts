@@ -66,7 +66,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
     /**
      * @var Zend_Service_Ebay_Finding_Response_Items[]
      */
-    protected static $_pageCache = array();
+    protected static $_pageCache = [];
 
     /**
      * @return void
@@ -76,9 +76,9 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-        $this->_attributes['searchResult'] = array(
+        $this->_attributes['searchResult'] = [
             'count' => $this->_query(".//$ns:searchResult[1]/@count[1]", 'string')
-        );
+        ];
 
         $node = $this->_xPath->query(".//$ns:searchResult[1]", $this->_dom)->item(0);
         if ($node) {
@@ -118,7 +118,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         }
 
         // prepare arguments
-        $arguments = array();
+        $arguments = [];
         switch ($this->_operation) {
             case 'findItemsAdvanced':
                 $arguments[] = $this->getOption('keywords');
@@ -137,7 +137,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
             case 'findItemsByProduct':
                 $productId = $this->getOption('productId');
                 if (!is_array($productId)) {
-                    $productId = array('' => $productId);
+                    $productId = ['' => $productId];
                 }
                 $arguments[] = array_key_exists('', $productId)
                              ? $productId['']
@@ -172,8 +172,8 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         // set new pagination values
         // see more at http://developer.ebay.com/DevZone/finding/CallRef/types/PaginationInput.html
         $entriesPerPage             = $this->paginationOutput->entriesPerPage;
-        $options['paginationInput'] = array('entriesPerPage' => $entriesPerPage,
-                                            'pageNumber'     => $number);
+        $options['paginationInput'] = ['entriesPerPage' => $entriesPerPage,
+                                            'pageNumber'     => $number];
 
         // add current options as last argument
         ksort($options);
@@ -187,7 +187,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
                 $new = $this;
             } else {
                 // request new page
-                $callback = array($proxy, $this->_operation);
+                $callback = [$proxy, $this->_operation];
                 $new      = call_user_func_array($callback, $arguments);
             }
             self::$_pageCache[$id] = $new;

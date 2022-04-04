@@ -36,11 +36,11 @@ class Zend_Ldap_Ldif_Encoder
      *
      * @var array
      */
-    protected $_options = array(
+    protected $_options = [
         'sort'    => true,
         'version' => 1,
         'wrap'    => 78
-    );
+    ];
 
     /**
      * @var boolean
@@ -53,7 +53,7 @@ class Zend_Ldap_Ldif_Encoder
      * @param  array $options Additional options used during encoding
      * @return void
      */
-    protected function __construct(array $options = array())
+    protected function __construct(array $options = [])
     {
         $this->_options = array_merge($this->_options, $options);
     }
@@ -66,7 +66,7 @@ class Zend_Ldap_Ldif_Encoder
      */
     public static function decode($string)
     {
-        $encoder = new self(array());
+        $encoder = new self([]);
         return $encoder->_decode($string);
     }
 
@@ -78,12 +78,12 @@ class Zend_Ldap_Ldif_Encoder
      */
     protected function _decode($string)
     {
-        $items = array();
-        $item = array();
+        $items = [];
+        $item = [];
         $last = null;
         foreach (explode("\n", $string) as $line) {
             $line = rtrim($line, "\x09\x0A\x0D\x00\x0B");
-            $matches = array();
+            $matches = [];
             if (substr($line, 0, 1) === ' ' && $last !== null) {
                 $last[2] .= substr($line, 1);
             } else if (substr($line, 0, 1) === '#') {
@@ -99,10 +99,10 @@ class Zend_Ldap_Ldif_Encoder
                     continue;
                 } else if (count($item) > 0 && $name === 'dn') {
                     $items[] = $item;
-                    $item = array();
+                    $item = [];
                     $last = null;
                 }
-                $last = array($name, $type, $value);
+                $last = [$name, $type, $value];
             } else if (trim($line) === '') {
                 continue;
             }
@@ -133,7 +133,7 @@ class Zend_Ldap_Ldif_Encoder
         } else if (isset($entry[$name]) && $value !== '') {
             $entry[$name][] = $value;
         } else {
-            $entry[$name] = ($value !== '') ? array($value) : array();
+            $entry[$name] = ($value !== '') ? [$value] : [];
         }
     }
 
@@ -144,7 +144,7 @@ class Zend_Ldap_Ldif_Encoder
      * @param  array $options Additional options used during encoding
      * @return string The encoded value
      */
-    public static function encode($value, array $options = array())
+    public static function encode($value, array $options = [])
     {
         $encoder = new self($options);
         return $encoder->_encode($value);
@@ -193,13 +193,13 @@ class Zend_Ldap_Ldif_Encoder
          *                ; and less-than ("<" , ASCII 60 decimal)
          *
          */
-        $unsafe_init_char = array(0, 10, 13, 32, 58, 60);
+        $unsafe_init_char = [0, 10, 13, 32, 58, 60];
         /*
          * SAFE-CHAR      = %x01-09 / %x0B-0C / %x0E-7F
          *                ; any value <= 127 decimal except NUL, LF,
          *                ; and CR
          */
-        $unsafe_char      = array(0, 10, 13);
+        $unsafe_char      = [0, 10, 13];
 
         $base64 = false;
         for ($i = 0; $i < strlen($string); $i++) {
@@ -207,10 +207,14 @@ class Zend_Ldap_Ldif_Encoder
             if ($char >= 127) {
                 $base64 = true;
                 break;
-            } else if ($i === 0 && in_array($char, $unsafe_init_char)) {
+            }
+
+            if ($i === 0 && in_array($char, $unsafe_init_char)) {
                 $base64 = true;
                 break;
-            } else if (in_array($char, $unsafe_char)) {
+            }
+
+            if (in_array($char, $unsafe_char)) {
                 $base64 = true;
                 break;
             }
@@ -239,7 +243,7 @@ class Zend_Ldap_Ldif_Encoder
     protected function _encodeAttribute($name, $value)
     {
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
         $output = '';
@@ -288,12 +292,12 @@ class Zend_Ldap_Ldif_Encoder
             if (array_key_exists('objectclass', $attributes)) {
                 $oc = $attributes['objectclass'];
                 unset($attributes['objectclass']);
-                $attributes = array_merge(array('objectclass' => $oc), $attributes);
+                $attributes = array_merge(['objectclass' => $oc], $attributes);
             }
             if (array_key_exists('dn', $attributes)) {
                 $dn = $attributes['dn'];
                 unset($attributes['dn']);
-                $attributes = array_merge(array('dn' => $dn), $attributes);
+                $attributes = array_merge(['dn' => $dn], $attributes);
             }
         }
         foreach ($attributes as $key => $value) {

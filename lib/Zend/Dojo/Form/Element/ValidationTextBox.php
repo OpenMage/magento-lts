@@ -134,7 +134,7 @@ class Zend_Dojo_Form_Element_ValidationTextBox extends Zend_Dojo_Form_Element_Te
     {
         $tmp = $this->getConstraints();
         $constraints = array_merge($tmp, $constraints);
-        array_walk_recursive($constraints, array($this, '_castBoolToString'));
+        array_walk_recursive($constraints, [$this, '_castBoolToString']);
         $this->setDijitParam('constraints', $constraints);
         return $this;
     }
@@ -176,7 +176,7 @@ class Zend_Dojo_Form_Element_ValidationTextBox extends Zend_Dojo_Form_Element_Te
         if ($this->hasDijitParam('constraints')) {
             return $this->getDijitParam('constraints');
         }
-        return array();
+        return [];
     }
 
     /**

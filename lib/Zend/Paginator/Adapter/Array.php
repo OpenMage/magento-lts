@@ -74,7 +74,7 @@ class Zend_Paginator_Adapter_Array implements Zend_Paginator_Adapter_Interface
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return $this->_count;
     }

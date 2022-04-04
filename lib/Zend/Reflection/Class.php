@@ -85,6 +85,7 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param bool $includeDocComment
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -118,10 +119,10 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Name of reflection class to use
      * @return array Array of Zend_Reflection_Class
      */
-    public function getInterfaces($reflectionClass = 'Zend_Reflection_Class')
+    public function getInterfaces($reflectionClass = 'Zend_Reflection_Class'): array
     {
         $phpReflections  = parent::getInterfaces();
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($phpReflection->getName());
             if (!$instance instanceof Zend_Reflection_Class) {
@@ -142,7 +143,7 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Reflection class to utilize
      * @return Zend_Reflection_Method
      */
-    public function getMethod($name, $reflectionClass = 'Zend_Reflection_Method')
+    public function getMethod($name, $reflectionClass = 'Zend_Reflection_Method'): \ReflectionMethod
     {
         $phpReflection  = parent::getMethod($name);
         $zendReflection = new $reflectionClass($this->getName(), $phpReflection->getName());
@@ -163,10 +164,10 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Reflection class to use for methods
      * @return array Array of Zend_Reflection_Method objects
      */
-    public function getMethods($filter = -1, $reflectionClass = 'Zend_Reflection_Method')
+    public function getMethods($filter = -1, $reflectionClass = 'Zend_Reflection_Method'): array
     {
         $phpReflections  = parent::getMethods($filter);
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($this->getName(), $phpReflection->getName());
             if (!$instance instanceof Zend_Reflection_Method) {
@@ -186,6 +187,7 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Name of Reflection class to use
      * @return Zend_Reflection_Class
      */
+    #[\ReturnTypeWillChange]
     public function getParentClass($reflectionClass = 'Zend_Reflection_Class')
     {
         $phpReflection = parent::getParentClass();
@@ -209,7 +211,7 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Property
      */
-    public function getProperty($name, $reflectionClass = 'Zend_Reflection_Property')
+    public function getProperty($name, $reflectionClass = 'Zend_Reflection_Property'): \ReflectionProperty
     {
         $phpReflection  = parent::getProperty($name);
         $zendReflection = new $reflectionClass($this->getName(), $phpReflection->getName());
@@ -228,10 +230,10 @@ class Zend_Reflection_Class extends ReflectionClass
      * @param  string $reflectionClass Name of reflection class to use
      * @return array Array of Zend_Reflection_Property
      */
-    public function getProperties($filter = -1, $reflectionClass = 'Zend_Reflection_Property')
+    public function getProperties($filter = -1, $reflectionClass = 'Zend_Reflection_Property'): array
     {
         $phpReflections = parent::getProperties($filter);
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($this->getName(), $phpReflection->getName());
             if (!$instance instanceof Zend_Reflection_Property) {

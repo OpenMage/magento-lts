@@ -70,7 +70,7 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
     {
         $this->_query   = $query;
         $this->_reader  = $reader;
-        $this->_weights = array();
+        $this->_weights = [];
 
         $signs = $query->getSigns();
 

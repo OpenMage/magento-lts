@@ -36,7 +36,7 @@ class Zend_Validate_Barcode_Planet extends Zend_Validate_Barcode_AdapterAbstract
      * Allowed barcode lengths
      * @var integer
      */
-    protected $_length = array(12, 14);
+    protected $_length = [12, 14];
 
     /**
      * Allowed barcode characters

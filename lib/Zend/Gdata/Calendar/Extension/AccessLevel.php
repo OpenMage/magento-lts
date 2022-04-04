@@ -105,7 +105,7 @@ class Zend_Gdata_Calendar_Extension_AccessLevel extends Zend_Gdata_Extension
      * Set the value for this element's value attribute.
      *
      * @param string $value The desired value for this attribute.
-     * @return Zend_Gdata_Calendar_Extension_Selected The element being modified.
+     * @return Zend_Gdata_Calendar_Extension_AccessLevel The element being modified.
      */
     public function setValue($value)
     {

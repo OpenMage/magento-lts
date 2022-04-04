@@ -52,10 +52,10 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * Options that will be passed to the view helper
      * @var array
      */
-    public $options = array(
+    public $options = [
         'checkedValue'   => '1',
         'uncheckedValue' => '0',
-    );
+    ];
 
     /**
      * Value when checked
@@ -82,7 +82,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * value against checked and unchecked values after configuration.
      *
      * @param  array $options
-     * @return Zend_Form_Element_Checkbox
+     * @return Zend_Dojo_Form_Element_CheckBox
      */
     public function setOptions(array $options)
     {
@@ -97,7 +97,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
         parent::setOptions($options);
 
         $curValue = $this->getValue();
-        $test     = array($this->getCheckedValue(), $this->getUncheckedValue());
+        $test     = [$this->getCheckedValue(), $this->getUncheckedValue()];
         if (!in_array($curValue, $test)) {
             $this->setValue($curValue);
         }
@@ -116,7 +116,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      *
      *
      * @param  mixed $value
-     * @return Zend_Form_Element_Checkbox
+     * @return Zend_Dojo_Form_Element_CheckBox
      */
     public function setValue($value)
     {
@@ -134,7 +134,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * Set checked value
      *
      * @param  string $value
-     * @return Zend_Form_Element_Checkbox
+     * @return Zend_Dojo_Form_Element_CheckBox
      */
     public function setCheckedValue($value)
     {
@@ -157,7 +157,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * Set unchecked value
      *
      * @param  string $value
-     * @return Zend_Form_Element_Checkbox
+     * @return Zend_Dojo_Form_Element_CheckBox
      */
     public function setUncheckedValue($value)
     {
@@ -180,7 +180,7 @@ class Zend_Dojo_Form_Element_CheckBox extends Zend_Dojo_Form_Element_Dijit
      * Set checked flag
      *
      * @param  bool $flag
-     * @return Zend_Form_Element_Checkbox
+     * @return Zend_Dojo_Form_Element_CheckBox
      */
     public function setChecked($flag)
     {

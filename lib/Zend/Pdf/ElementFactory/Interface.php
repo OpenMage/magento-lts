@@ -96,7 +96,7 @@ interface Zend_Pdf_ElementFactory_Interface
     public function cleanEnumerationShiftCache();
 
     /**
-     * Retrieve object enumeration shift.
+     * Retrive object enumeration shift.
      *
      * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer

@@ -58,6 +58,7 @@ class Zend_Reflection_Function extends ReflectionFunction
      * @param  bool $includeDocComment
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -93,10 +94,10 @@ class Zend_Reflection_Function extends ReflectionFunction
      * @param  string $reflectionClass Name of reflection class to use
      * @return array Array of Zend_Reflection_Parameter
      */
-    public function getParameters($reflectionClass = 'Zend_Reflection_Parameter')
+    public function getParameters($reflectionClass = 'Zend_Reflection_Parameter'): array
     {
         $phpReflections  = parent::getParameters();
-        $zendReflections = array();
+        $zendReflections = [];
         while ($phpReflections && ($phpReflection = array_shift($phpReflections))) {
             $instance = new $reflectionClass($this->getName(), $phpReflection->getName());
             if (!$instance instanceof Zend_Reflection_Parameter) {
@@ -113,17 +114,19 @@ class Zend_Reflection_Function extends ReflectionFunction
     /**
      * Get return type tag
      *
-     * @return Zend_Reflection_Docblock_Tag_Return
+     * @return Zend_Reflection_Docblock_Tag
      */
     public function getReturn()
     {
         $docblock = $this->getDocblock();
+
         if (!$docblock->hasTag('return')) {
             #require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Function does not specify an @return annotation tag; cannot determine return type');
         }
+
         $tag    = $docblock->getTag('return');
-        $return = Zend_Reflection_Docblock_Tag::factory('@return ' . $tag->getDescription());
-        return $return;
+
+        return Zend_Reflection_Docblock_Tag::factory('@return ' . $tag->getDescription());
     }
 }

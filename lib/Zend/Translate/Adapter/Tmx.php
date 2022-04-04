@@ -47,7 +47,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     private $_tuv     = null;
     private $_seg     = null;
     private $_content = null;
-    private $_data    = array();
+    private $_data    = [];
 
     /**
      * Load translation data (TMX file reader)
@@ -59,9 +59,9 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      * @throws Zend_Translation_Exception
      * @return array
      */
-    protected function _loadTranslationData($filename, $locale, array $options = array())
+    protected function _loadTranslationData($filename, $locale, array $options = [])
     {
-        $this->_data = array();
+        $this->_data = [];
         if (!is_readable($filename)) {
             #require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
@@ -156,7 +156,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                         }
 
                         if (!isset($this->_data[$this->_tuv])) {
-                            $this->_data[$this->_tuv] = array();
+                            $this->_data[$this->_tuv] = [];
                         }
                     }
                     break;
@@ -179,7 +179,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      */
     protected function _endElement($file, $name)
     {
-        if (($this->_seg !== null) and ($name !== 'seg')) {
+        if (($this->_seg !== null) && ($name !== 'seg')) {
             $this->_content .= "</".$name.">";
         } else {
             switch (strtolower($name)) {
@@ -213,7 +213,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      */
     protected function _contentElement($file, $data)
     {
-        if (($this->_seg !== null) and ($this->_tu !== null) and ($this->_tuv !== null)) {
+        if (($this->_seg !== null) && ($this->_tu !== null) && ($this->_tuv !== null)) {
             $this->_content .= $data;
         }
     }

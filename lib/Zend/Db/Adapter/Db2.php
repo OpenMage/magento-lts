@@ -62,7 +62,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      *
      * @var array
      */
-    protected $_config = array(
+    protected $_config = [
         'dbname'       => null,
         'username'     => null,
         'password'     => null,
@@ -72,7 +72,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         'persistent'   => false,
         'os'           => null,
         'schema'       => null
-    );
+    ];
 
     /**
      * Execution mode
@@ -100,7 +100,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      *
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
-    protected $_numericDataTypes = array(
+    protected $_numericDataTypes = [
         Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
         Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
@@ -109,7 +109,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         'BIGINT'             => Zend_Db::BIGINT_TYPE,
         'DECIMAL'            => Zend_Db::FLOAT_TYPE,
         'NUMERIC'            => Zend_Db::FLOAT_TYPE
-    );
+    ];
 
     /**
      * Creates a connection resource.
@@ -146,11 +146,11 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
 
         if (isset($this->_config['options'][Zend_Db::CASE_FOLDING])) {
-            $caseAttrMap = array(
+            $caseAttrMap = [
                 Zend_Db::CASE_NATURAL => DB2_CASE_NATURAL,
                 Zend_Db::CASE_UPPER   => DB2_CASE_UPPER,
                 Zend_Db::CASE_LOWER   => DB2_CASE_LOWER
-            );
+            ];
             $this->_config['driver_options']['DB2_ATTR_CASE'] = $caseAttrMap[$this->_config['options'][Zend_Db::CASE_FOLDING]];
         }
 
@@ -325,7 +325,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             $schema = $this->_config['schema'];
         }
 
-        $tables = array();
+        $tables = [];
 
         if (!$this->_isI5) {
             if ($schema) {
@@ -428,7 +428,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             $sql .= " ORDER BY C.ORDINAL_POSITION FOR FETCH ONLY";
         }
 
-        $desc = array();
+        $desc = [];
         $stmt = $this->query($sql);
 
         /**
@@ -454,7 +454,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $colseq         = 11;
 
         foreach ($result as $key => $row) {
-            list ($primary, $primaryPosition, $identity) = array(false, null, false);
+            list ($primary, $primaryPosition, $identity) = [false, null, false];
             if ($row[$tabconstType] == 'P') {
                 $primary = true;
                 $primaryPosition = $row[$colseq];
@@ -468,7 +468,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             }
 
             // only colname needs to be case adjusted
-            $desc[$this->foldCase($row[$colname])] = array(
+            $desc[$this->foldCase($row[$colname])] = [
                 'SCHEMA_NAME'      => $this->foldCase($row[$tabschema]),
                 'TABLE_NAME'       => $this->foldCase($row[$tabname]),
                 'COLUMN_NAME'      => $this->foldCase($row[$colname]),
@@ -483,7 +483,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 'PRIMARY'          => $primary,
                 'PRIMARY_POSITION' => $primaryPosition,
                 'IDENTITY'         => $identity
-            );
+            ];
         }
 
         return $desc;
@@ -662,7 +662,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      */
     public function limit($sql, $count, $offset = 0)
     {
-        $count = intval($count);
+        $count = (int)$count;
         if ($count <= 0) {
             /**
              * @see Zend_Db_Adapter_Db2_Exception
@@ -671,7 +671,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Db2_Exception("LIMIT argument count=$count is not valid");
         }
 
-        $offset = intval($offset);
+        $offset = (int)$offset;
+
         if ($offset < 0) {
             /**
              * @see Zend_Db_Adapter_Db2_Exception
@@ -680,9 +681,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             throw new Zend_Db_Adapter_Db2_Exception("LIMIT argument offset=$offset is not valid");
         }
 
-        if ($offset == 0) {
-            $limit_sql = $sql . " FETCH FIRST $count ROWS ONLY";
-            return $limit_sql;
+        if ($offset === 0) {
+            return $sql . " FETCH FIRST $count ROWS ONLY";
         }
 
         /**
@@ -691,7 +691,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
          * Unfortunately because we use the column wildcard "*",
          * this puts an extra column into the query result set.
          */
-        $limit_sql = "SELECT z2.*
+        return "SELECT z2.*
             FROM (
                 SELECT ROW_NUMBER() OVER() AS \"ZEND_DB_ROWNUM\", z1.*
                 FROM (
@@ -699,7 +699,6 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 ) z1
             ) z2
             WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
-        return $limit_sql;
     }
 
     /**
@@ -786,7 +785,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     protected function _i5listTables($schema = null)
     {
         //list of i5 libraries.
-        $tables = array();
+        $tables = [];
         if ($schema) {
             $tablesStatement = db2_tables($this->_connection, null, $schema);
             while ($rowTables = db2_fetch_assoc($tablesStatement) ) {
@@ -819,8 +818,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 
         if ($objectName === null) {
             $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM QSYS2.QSQPTABL';
-            $value = $this->fetchOne($sql);
-            return $value;
+
+            return $this->fetchOne($sql);
         }
 
         if (strtoupper($idType) === 'S'){

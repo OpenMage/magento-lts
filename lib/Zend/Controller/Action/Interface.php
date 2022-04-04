@@ -57,7 +57,7 @@ interface Zend_Controller_Action_Interface
      */
     public function __construct(Zend_Controller_Request_Abstract $request,
                                 Zend_Controller_Response_Abstract $response,
-                                array $invokeArgs = array());
+                                array $invokeArgs = []);
 
     /**
      * Dispatch the requested action

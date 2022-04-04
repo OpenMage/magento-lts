@@ -46,12 +46,12 @@ class Zend_Service_WindowsAzure_Management_OperatingSystemFamilyInstance
      * @param string $label             A label for the operating system version.
      * @param array  $operatingSystems  A list of operating systems available under this operating system family.
 	 */
-    public function __construct($name, $label, $operatingSystems = array())
+    public function __construct($name, $label, $operatingSystems = [])
     {
-        $this->_data = array(
+        $this->_data = [
             'name'              => $name,
             'label'             => base64_decode($label),
             'operatingsystems'  => $operatingSystems
-        );
+        ];
     }
 }

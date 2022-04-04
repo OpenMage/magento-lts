@@ -53,14 +53,30 @@ class Zend_Application
      *
      * @var array
      */
-    protected $_optionKeys = array();
+    protected $_optionKeys = [];
 
     /**
      * Options for Zend_Application
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
+
+    /**
+     * For bootstrapping the config we probably need to pass configuration to the config parsers.
+     * Since options are not set up yet, we use this static array to pass configurations to the config parsers.
+     *
+     * @var array|null
+     */
+    protected static $configParserOptions = null;
+
+    /**
+     * Sets a configuration array to be used for the config parsers on loading the configuration from files
+     * @param array $configParserOptions
+     */
+    public static function setConfigParserOptions(array $configParserOptions) {
+        self::$configParserOptions = $configParserOptions;
+    }
 
     /**
      * Constructor
@@ -130,7 +146,7 @@ class Zend_Application
     {
         if (!empty($options['config'])) {
             if (is_array($options['config'])) {
-                $_options = array();
+                $_options = [];
                 foreach ($options['config'] as $tmp) {
                     $_options = $this->mergeOptions(
                         $_options, $this->_loadConfig($tmp)
@@ -251,10 +267,10 @@ class Zend_Application
     {
         if (is_array($array2)) {
             foreach ($array2 as $key => $val) {
-                if (is_array($array2[$key])) {
+                if (is_array($val)) {
                     $array1[$key] = (array_key_exists($key, $array1) && is_array($array1[$key]))
-                                  ? $this->mergeOptions($array1[$key], $array2[$key])
-                                  : $array2[$key];
+                                  ? $this->mergeOptions($array1[$key], $val)
+                                  : $val;
                 } else {
                     $array1[$key] = $val;
                 }
@@ -398,23 +414,24 @@ class Zend_Application
         $suffix      = ($suffix === 'dist')
                      ? pathinfo(basename($file, ".$suffix"), PATHINFO_EXTENSION)
                      : $suffix;
+        $configParserOptions = self::$configParserOptions ?? false;
 
         switch (strtolower($suffix)) {
             case 'ini':
-                $config = new Zend_Config_Ini($file, $environment);
+                $config = new Zend_Config_Ini($file, $environment, $configParserOptions);
                 break;
 
             case 'xml':
-                $config = new Zend_Config_Xml($file, $environment);
+                $config = new Zend_Config_Xml($file, $environment, $configParserOptions);
                 break;
 
             case 'json':
-                $config = new Zend_Config_Json($file, $environment);
+                $config = new Zend_Config_Json($file, $environment, $configParserOptions);
                 break;
 
             case 'yaml':
             case 'yml':
-                $config = new Zend_Config_Yaml($file, $environment);
+                $config = new Zend_Config_Yaml($file, $environment, $configParserOptions);
                 break;
 
             case 'php':

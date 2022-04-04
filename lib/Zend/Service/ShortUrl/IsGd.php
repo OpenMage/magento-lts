@@ -78,7 +78,7 @@ class Zend_Service_ShortUrl_IsGd extends Zend_Service_ShortUrl_AbstractShortener
 
         $this->getHttpClient()->resetParameters(true);
         $this->getHttpClient()->setUri($shortenedUrl);
-        $this->getHttpClient()->setConfig(array('maxredirects' => 0));
+        $this->getHttpClient()->setConfig(['maxredirects' => 0]);
 
         $response = $this->getHttpClient()->request();
         if ($response->isError()) {

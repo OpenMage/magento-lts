@@ -49,7 +49,7 @@ class Zend_Dojo_View_Helper_PasswordTextBox extends Zend_Dojo_View_Helper_Valida
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function passwordTextBox($id, $value = null, array $params = array(), array $attribs = array())
+    public function passwordTextBox($id, $value = null, array $params = [], array $attribs = [])
     {
         return $this->_createFormElement($id, $value, $params, $attribs);
     }

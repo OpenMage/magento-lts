@@ -95,7 +95,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
     {
         if (!empty($value) && !is_array($value)) {
             // fix buglet in Azure - numeric values are quoted unless passed as an array
-            $value = array($value);
+            $value = [$value];
         }
         $this->_azureSelect->where($where, $value, $op);
         return $this;

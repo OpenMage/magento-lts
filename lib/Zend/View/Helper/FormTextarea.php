@@ -93,12 +93,10 @@ class Zend_View_Helper_FormTextarea extends Zend_View_Helper_FormElement
         }
 
         // build the element
-        $xhtml = '<textarea name="' . $this->view->escape($name) . '"'
+        return '<textarea name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
                 . $disabled
                 . $this->_htmlAttribs($attribs) . '>'
                 . $this->view->escape($value) . '</textarea>';
-
-        return $xhtml;
     }
 }

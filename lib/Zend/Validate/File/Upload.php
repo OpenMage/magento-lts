@@ -52,7 +52,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     /**
      * @var array Error message templates
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::INI_SIZE       => "File '%value%' exceeds the defined ini size",
         self::FORM_SIZE      => "File '%value%' exceeds the defined form size",
         self::PARTIAL        => "File '%value%' was only partially uploaded",
@@ -63,13 +63,13 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
         self::ATTACK         => "File '%value%' was illegally uploaded. This could be a possible attack",
         self::FILE_NOT_FOUND => "File '%value%' was not found",
         self::UNKNOWN        => "Unknown error while uploading file '%value%'"
-    );
+    ];
 
     /**
      * Internal array of files
      * @var array
      */
-    protected $_files = array();
+    protected $_files = [];
 
     /**
      * Sets validator options
@@ -80,7 +80,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
      *
      * @param array|Zend_Config $files Array of files in syntax of Zend_File_Transfer
      */
-    public function __construct($files = array())
+    public function __construct($files = [])
     {
         if ($files instanceof Zend_Config) {
             $files = $files->toArray();
@@ -99,7 +99,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     public function getFiles($file = null)
     {
         if ($file !== null) {
-            $return = array();
+            $return = [];
             foreach ($this->_files as $name => $content) {
                 if ($name === $file) {
                     $return[$file] = $this->_files[$name];
@@ -127,7 +127,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
      * @param  array $files The files to check in syntax of Zend_File_Transfer
      * @return Zend_Validate_File_Upload Provides a fluent interface
      */
-    public function setFiles($files = array())
+    public function setFiles($files = [])
     {
         if (count($files) === 0) {
             $this->_files = $_FILES;
@@ -137,7 +137,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
 
         // see ZF-10738
         if (is_null($this->_files)) {
-            $this->_files = array();
+            $this->_files = [];
         }
 
         foreach($this->_files as $file => $content) {
@@ -161,7 +161,9 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
      */
     public function isValid($value, $file = null)
     {
-        $this->_messages = null;
+        $this->_messages = [];
+        $files = [];
+
         if (array_key_exists($value, $this->_files)) {
             $files[$value] = $this->_files[$value];
         } else {
@@ -223,11 +225,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
             }
         }
 
-        if (count($this->_messages) > 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return empty($this->_messages);
     }
 
     /**
@@ -240,7 +238,7 @@ class Zend_Validate_File_Upload extends Zend_Validate_Abstract
     protected function _throw($file, $errorType)
     {
         if ($file !== null) {
-            if (is_array($file) and !empty($file['name'])) {
+            if (is_array($file) && !empty($file['name'])) {
                 $this->_value = $file['name'];
             }
         }

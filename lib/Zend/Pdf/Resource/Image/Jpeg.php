@@ -100,6 +100,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Can not open '$imageFileName' file for reading." );
         }
+
         $byteCount = filesize($imageFileName);
         $this->_resource->value = '';
 
@@ -113,7 +114,8 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
             $this->_resource->value .= $nextBlock;
             $byteCount -= strlen($nextBlock);
         }
-        if ($byteCount != 0) {
+
+        if ($byteCount !== 0) {
             #require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Error occured while '$imageFileName' file reading." );
         }
@@ -122,7 +124,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
 
         $this->_width  = $imageInfo[0];
         $this->_height = $imageInfo[1];
-        $this->_imageProperties = array();
+        $this->_imageProperties = [];
         $this->_imageProperties['bitDepth'] = $imageInfo['bits'];
         $this->_imageProperties['jpegImageType'] = $imageInfo[2];
         $this->_imageProperties['jpegColorType'] = $imageInfo['channels'];

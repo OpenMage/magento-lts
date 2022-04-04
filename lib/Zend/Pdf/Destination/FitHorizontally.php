@@ -87,7 +87,7 @@ class Zend_Pdf_Destination_FitHorizontally extends Zend_Pdf_Destination_Explicit
      * Set top edge of the displayed page
      *
      * @param float $top
-     * @return Zend_Pdf_Action_FitHorizontally
+     * @return Zend_Pdf_Destination_FitHorizontally
      */
     public function setTopEdge($top)
     {
