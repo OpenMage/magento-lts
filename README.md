@@ -24,7 +24,7 @@ Note, the branches older than `1.9.4.x` and that were created before this strate
 
 ## Requirements
 
-- PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
+- PHP 7.1+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
 - MySQL 5.6+ (8.0+ recommended)
 - (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
 
