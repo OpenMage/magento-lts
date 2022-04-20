@@ -70,10 +70,12 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
 function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
