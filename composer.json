@@ -11,7 +11,7 @@
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
   "require-dev": {
-    "macopedia/phpstan-magento1": "^1.0.2",
+    "macopedia/phpstan-magento1": "^1.0.4",
     "phpstan/phpstan": "^1.4.6"
   },
   "authors": [
