@@ -36,6 +36,7 @@ jobs:
       - name: Run Unit Tests
         run: phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
       - name: prepare SonarCloud Scan Data
+        continue-on-error: true
         if: ${{ matrix.php-versions == '8.1' }}
         run: |
           echo $PWD
@@ -47,6 +48,7 @@ jobs:
           ls -la
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
+        continue-on-error: true
         if: ${{ matrix.php-versions == '8.1' }} && SONAR_TOKEN
         with:
           args: >
