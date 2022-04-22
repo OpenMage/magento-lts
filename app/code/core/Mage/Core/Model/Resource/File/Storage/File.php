@@ -55,7 +55,6 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Files at storage
      *
-     * @var array
      * @return string
      */
     public function getMediaBaseDirectory()
@@ -70,7 +69,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param  string$dir
+     * @param string $dir
      * @return array
      */
     public function getStorageData($dir = '')

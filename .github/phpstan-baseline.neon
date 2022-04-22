@@ -1651,21 +1651,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
 
 		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$token\\)\\: Unexpected token \"\\$token\", expected type at offset 57$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Image/Favicon.php
-
-		-
 			message: "#^Cannot call method addPathFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
@@ -4457,16 +4442,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 139$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
 
@@ -7691,11 +7666,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Observer.php
 
 		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Observer.php
-
-		-
 			message: "#^Binary operation \"\\+\\=\" between string and \\-1\\|1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Coupon/Usage.php
@@ -7724,11 +7694,6 @@ parameters:
 			message: "#^PHPDoc tag @use has invalid value \\(\\$this\\-\\>addWebsiteGroupDateFilter\\(\\)\\)\\: Unexpected token \"\\$this\", expected type at offset 330$#"
 			count: 1
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Rule/Collection.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Rule.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
