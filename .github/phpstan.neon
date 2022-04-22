@@ -102,5 +102,8 @@ parameters:
         - */app/code/core/*/*/data/*
         - */app/code/core/*/*/sql/*
     level: 1
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
 #    universalObjectCratesClasses:
 #        - Varien_Object
