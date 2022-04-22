@@ -46,16 +46,6 @@ parameters:
 			path: ../app/code/core/Mage/Admin/Model/Session.php
 
 		-
-			message: "#^PHPDoc tag @var above assignment does not specify variable name\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Admin/Model/Session.php
-
-		-
-			message: "#^Variable \\$user in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Admin/Model/Session.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getHash\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Admin/Model/User.php
@@ -1091,11 +1081,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
 
 		-
-			message: "#^Variable \\$createdAta in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Invoices.php
@@ -1158,11 +1143,6 @@ parameters:
 		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Mage_Core_Model_Config_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
-
-		-
-			message: "#^Variable \\$_configDataObject in PHPDoc tag @var does not exist\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
@@ -3311,11 +3291,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type.php
 
 		-
-			message: "#^Variable \\$simpleOption in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
@@ -5176,22 +5151,7 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Variable \\$delete in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Variable \\$entityRow in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Variable \\$id might not be defined\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Variable \\$insert in PHPDoc tag @var does not exist\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
@@ -5208,11 +5168,6 @@ parameters:
 		-
 			message: "#^Variable \\$part might not be defined\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Variable \\$update in PHPDoc tag @var does not exist\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
@@ -5824,16 +5779,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackendType\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
-
-		-
-			message: "#^Variable \\$customer in PHPDoc tag @var does not exist\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Visitor.php
-
-		-
-			message: "#^Variable \\$quote in PHPDoc tag @var does not exist\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Log/Model/Visitor.php
 
 		-
 			message: "#^Cannot call method prepare\\(\\) on object\\|string\\.$#"
