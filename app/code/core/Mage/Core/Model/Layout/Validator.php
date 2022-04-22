@@ -245,7 +245,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
      */
     public function validateTemplatePath(array $templatePaths)
     {
-        /** @var $path Varien_Simplexml_Element */
+        /** @var Varien_Simplexml_Element $path */
         foreach ($templatePaths as $path) {
             if ($path->hasChildren()) {
                 $path = stripcslashes(trim((string) $path->children(), '"'));

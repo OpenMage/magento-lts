@@ -101,11 +101,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Product.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$groupCollection Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection\\)\\: Unexpected token \"\\$groupCollection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tabs.php
-
-		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
@@ -179,11 +174,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$item Mage_Customer_Model_Group\\)\\: Unexpected token \"\\$item\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Price/Group/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
@@ -321,11 +311,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Block/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$model Mage_Cms_Model_Page\\)\\: Unexpected token \"\\$model\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Page/Edit/Tab/Content.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php
@@ -346,22 +331,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customerForm Mage_Customer_Model_Form\\)\\: Unexpected token \"\\$customerForm\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$addressForm Mage_Customer_Model_Form\\)\\: Unexpected token \"\\$addressForm\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
@@ -382,11 +357,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Cart.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$quote Mage_Sales_Model_Quote\\)\\: Unexpected token \"\\$quote\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Cart.php
 
@@ -451,11 +421,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Online/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$form Varien_Data_Form\\)\\: Unexpected token \"\\$form\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Sales/Order/Address/Form/Renderer/Vat.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Bar\\:\\:\\$_currency\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Bar.php
@@ -514,11 +479,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Media_Editor\\:\\:getConfig\\(\\) has invalid return type Varien_Config\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(void\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 215$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Queue/Edit/Form.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -611,11 +571,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Roles.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$item Mage_Admin_Model_Rules\\)\\: Unexpected token \"\\$item\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Rolesedit.php
-
-		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Tab/Userroles.php
@@ -651,29 +606,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Grid.php
 
 		-
-			message: "#^Cannot call method addWebsitesToResult\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Catalog/Grid.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_CatalogRule_Model_Mysql4_Rule_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Catalog/Grid.php
-
-		-
 			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
-
-		-
-			message: "#^Cannot call method addWebsitesToResult\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Grid.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_SalesRule_Model_Mysql4_Rule_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Grid.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
@@ -771,11 +706,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_Reports_Model_Resource_Report_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -821,11 +751,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_Reports_Model_Resource_Product_Lowstock_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Lowstock/Grid.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Ordered/Grid.php
@@ -846,19 +771,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_Reports_Model_Resource_Quote_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addCartInfo\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_Reports_Model_Resource_Quote_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Product/Grid.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Review_Grid\\:\\:_prepareMassaction\\(\\) should return \\$this\\(Mage_Adminhtml_Block_Review_Grid\\) but return statement is missing\\.$#"
@@ -1091,11 +1006,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Totals/Item.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$source Mage_Sales_Model_Order\\)\\: Unexpected token \"\\$source\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Totals/Tax.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php
@@ -1181,6 +1091,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
 
 		-
+			message: "#^Variable \\$createdAta in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
+
+		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Invoices.php
@@ -1221,11 +1136,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$collection Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection\\)\\: Unexpected token \"\\$collection\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
-
-		-
 			message: "#^Cannot call method addIdFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php
@@ -1251,7 +1161,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_configDataObject Mage_Adminhtml_Model_Config_Data\\)\\: Unexpected token \"\\$_configDataObject\", expected type at offset 9$#"
+			message: "#^Variable \\$_configDataObject in PHPDoc tag @var does not exist\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
@@ -1336,11 +1246,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$template Mage_Core_Model_Email_Template\\)\\: Unexpected token \"\\$template\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
-
-		-
 			message: "#^Variable \\$addLabel might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit.php
@@ -1394,21 +1299,6 @@ parameters:
 			message: "#^Variable \\$websiteModel might not be defined\\.$#"
 			count: 15
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$store Mage_Core_Model_Store\\)\\: Unexpected token \"\\$store\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Tree.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$storeGroup Mage_Core_Model_Store_Group\\)\\: Unexpected token \"\\$storeGroup\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Tree.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$website Mage_Core_Model_Website\\)\\: Unexpected token \"\\$website\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Tree.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
@@ -1671,11 +1561,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Controller/Action.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderConfigureResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
@@ -1709,16 +1594,6 @@ parameters:
 			message: "#^Cannot call method addScopeFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$dataObject Mage_Core_Model_Config_Data\\)\\: Unexpected token \"\\$dataObject\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$configModel Mage_Adminhtml_Model_Config\\)\\: Unexpected token \"\\$configModel\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Email/PathValidator.php
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:load\\(\\) invoked with 1 parameter, 2\\-3 required\\.$#"
@@ -1756,36 +1631,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customer Mage_Customer_Model_Customer\\)\\: Unexpected token \"\\$customer\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customerBillingAddress Mage_Customer_Model_Address\\)\\: Unexpected token \"\\$customerBillingAddress\", expected type at offset 9$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customerShippingAddress Mage_Customer_Model_Address\\)\\: Unexpected token \"\\$customerShippingAddress\", expected type at offset 9$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$quote Mage_Sales_Model_Quote\\)\\: Unexpected token \"\\$quote\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$shippingAddress Mage_Sales_Model_Quote_Address\\)\\: Unexpected token \"\\$shippingAddress\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$store Mage_Core_Model_Store\\)\\: Unexpected token \"\\$store\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -1809,11 +1654,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Sales_Model_Quote\\:\\:addCatalogProduct\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Random.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$adminSession Mage_Admin_Model_Session\\)\\: Unexpected token \"\\$adminSession\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Admin/Observer.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Catalog_Search_Type\\:\\:_afterSave\\(\\) has invalid return type Mage_Adminhtml_Model_System_Config_Catalog_Search_Type\\.$#"
@@ -1896,44 +1736,14 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Url.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$filter Mage_Core_Model_Input_Filter_MaliciousCode\\)\\: Unexpected token \"\\$filter\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/AjaxController.php
-
-		-
 			message: "#^Cannot call method buildNodeName\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$stockItem Mage_CatalogInventory_Model_Stock_Item\\)\\: Unexpected token \"\\$stockItem\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/Action/AttributeController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Catalog_Product_AttributeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Adminhtml_Catalog_Product_AttributeController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helperCatalog Mage_Catalog_Helper_Data\\)\\: Unexpected token \"\\$helperCatalog\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$session Mage_Admin_Model_Session\\)\\: Unexpected token \"\\$session\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$validatorInputType Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator\\)\\: Unexpected token \"\\$validatorInputType\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Adminhtml_Helper_Data\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/SetController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributeIds\\(\\)\\.$#"
@@ -1952,11 +1762,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(array\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 96$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$validatorCustomLayout Mage_Adminhtml_Model_LayoutUpdate_Validator\\)\\: Unexpected token \"\\$validatorCustomLayout\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php
 
@@ -1981,16 +1786,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Cms_Helper_Wysiwyg_Images\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$coreHelper Mage_Core_Helper_Data\\)\\: Unexpected token \"\\$coreHelper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Customer/System/Config/ValidatevatController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_CustomerController\\:\\:cartAction\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
@@ -2001,38 +1796,8 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$addressForm Mage_Customer_Model_Form\\)\\: Unexpected token \"\\$addressForm\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customer Mage_Customer_Model_Customer\\)\\: Unexpected token \"\\$customer\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customerForm Mage_Customer_Model_Form\\)\\: Unexpected token \"\\$customerForm\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:validate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$adminSession Mage_Admin_Model_Session\\)\\: Unexpected token \"\\$adminSession\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$user Mage_Admin_Model_User\\)\\: Unexpected token \"\\$user\", expected type at offset 9$#"
-			count: 2
 			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
 
 		-
@@ -2054,21 +1819,6 @@ parameters:
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Permissions/VariableController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$generator Mage_SalesRule_Model_Coupon_Massgenerator\\)\\: Unexpected token \"\\$generator\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$model Mage_SalesRule_Model_Rule\\)\\: Unexpected token \"\\$model\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$rule Mage_SalesRule_Model_Rule\\)\\: Unexpected token \"\\$rule\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Promo/QuoteController.php
 
 		-
 			message: "#^Cannot call method aggregate\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -2156,11 +1906,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Adminhtml_Helper_Data\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/StatusController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -2174,16 +1919,6 @@ parameters:
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Adminhtml_Helper_Catalog\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/SitemapController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$validator Mage_Core_Model_File_Validator_AvailablePath\\)\\: Unexpected token \"\\$validator\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/SitemapController.php
 
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
@@ -2202,11 +1937,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Adminhtml_System_ConfigController\\:\\:_isSectionAllowed\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$gridBlock Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\\)\\: Unexpected token \"\\$gridBlock\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
 
@@ -2292,11 +2022,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Directory_Model_Country\\:\\:loadByCode\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helper Mage_Adminhtml_Helper_Data\\)\\: Unexpected token \"\\$helper\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
@@ -4706,11 +4431,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Layout/Validator.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$path Varien_Simplexml_Element\\)\\: Unexpected token \"\\$path\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Layout/Validator.php
-
-		-
 			message: "#^Method Mage_Core_Model_Message_Collection\\:\\:getMessageByIdentifier\\(\\) should return Mage_Core_Model_Message_Abstract\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Message/Collection.php
@@ -4837,11 +4557,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$data\\)\\: Unexpected token \"\\$data\", expected type at offset 75$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Address/Renderer/Default.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$maliciousCodeFilter Mage_Core_Model_Input_Filter_MaliciousCode\\)\\: Unexpected token \"\\$maliciousCodeFilter\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Block/Address/Renderer/Default.php
 
@@ -5136,11 +4851,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Action/Abstract.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$validator Mage_Core_Model_File_Validator_AvailablePath\\)\\: Unexpected token \"\\$validator\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Adapter/Io.php
-
-		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Container_Interface\\:\\:getName\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Container/Collection.php
@@ -5171,27 +4881,7 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$region Mage_Directory_Model_Region\\)\\: Unexpected token \"\\$region\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$varNode Varien_Simplexml_Element\\)\\: Unexpected token \"\\$varNode\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Profile/Collection.php
-
-		-
 			message: "#^Method Mage_Dataflow_Model_Profile\\:\\:_afterSave\\(\\) should return \\$this\\(Mage_Dataflow_Model_Profile\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$helperImportExport Mage_ImportExport_Helper_Data\\)\\: Unexpected token \"\\$helperImportExport\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$validator Mage_Core_Model_File_Validator_AvailablePath\\)\\: Unexpected token \"\\$validator\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
@@ -6776,11 +6466,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Direct.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_proType string\\)\\: Unexpected token \"\\$_proType\", expected type at offset 65$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Direct.php
-
-		-
 			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Express.php
@@ -6807,11 +6492,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(Mage_Sales_Model_Quote\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 88$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$_proType string\\)\\: Unexpected token \"\\$_proType\", expected type at offset 65$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Express.php
 
@@ -6857,16 +6537,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$token\\)\\: Unexpected token \"\\$token\", expected type at offset 89$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$customer Mage_Customer_Model_Customer\\)\\: Unexpected token \"\\$customer\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$order Mage_Sales_Model_Order\\)\\: Unexpected token \"\\$order\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
@@ -6922,11 +6592,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$payment$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$order Mage_Sales_Model_Order\\)\\: Unexpected token \"\\$order\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Ipn.php
 
@@ -7176,11 +6841,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Resource/Report/Settlement.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$date Mage_Core_Model_Date\\)\\: Unexpected token \"\\$date\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Resource/Report/Settlement.php
-
-		-
 			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Standard.php
@@ -7219,21 +6879,6 @@ parameters:
 			message: "#^Method Varien_Data_Collection\\:\\:toOptionArray\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$configModel Mage_Paypal_Model_Config\\)\\: Unexpected token \"\\$configModel\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/System/Config/Source/RequireBillingAddress.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$paymentModel Mage_Paypal_Model_Payflowlink\\)\\: Unexpected token \"\\$paymentModel\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/controllers/PayflowController.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$paymentModel Mage_Paypal_Model_Payflowadvanced\\)\\: Unexpected token \"\\$paymentModel\", expected type at offset 9$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/controllers/PayflowadvancedController.php
 
 		-
 			message: "#^Variable \\$key might not be defined\\.$#"
@@ -8242,11 +7887,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Shipping_Model_Shipping\\:\\:setOrigData\\(\\) should return null but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$request Mage_Shipping_Model_Shipment_Request\\)\\: Unexpected token \"\\$request\", expected type at offset 9$#"
 			count: 1
 			path: ../app/code/core/Mage/Shipping/Model/Shipping.php
 

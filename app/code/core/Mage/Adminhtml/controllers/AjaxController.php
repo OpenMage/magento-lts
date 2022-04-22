@@ -43,7 +43,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
         $area = $this->getRequest()->getPost('area');
 
         //filtering
-        /** @var $filter Mage_Core_Model_Input_Filter_MaliciousCode */
+        /** @var Mage_Core_Model_Input_Filter_MaliciousCode $filter */
         $filter = Mage::getModel('core/input_filter_maliciousCode');
         foreach ($translation as &$item) {
             $item['custom'] = $filter->filter($item['custom']);

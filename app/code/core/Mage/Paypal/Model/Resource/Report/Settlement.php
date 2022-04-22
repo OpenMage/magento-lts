@@ -68,7 +68,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                 if ($reportId) {
                     $adapter->delete($this->_rowsTable, array('report_id = ?' => $reportId));
                 }
-                /** @var $date Mage_Core_Model_Date */
+                /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
 
                 foreach ($rows as $key => $row) {
