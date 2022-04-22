@@ -149,7 +149,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
 
     /**
      * Get address template data without url and js code
-     * @param $data
+     * @param string $data
      * @return string
      */
     protected function _prepareAddressTemplateData($data)

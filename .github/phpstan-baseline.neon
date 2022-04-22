@@ -96,11 +96,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
 
 		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Catalog_Model_Product \\|\\| Mage_Catalog_Model_Category\\)\\: Unexpected token \"\\|\", expected type at offset 100$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Form/Renderer/Fieldset/Element.php
-
-		-
 			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Edit/Tab/Main.php
@@ -267,11 +262,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeWebsite\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Catalog_Model_Product \\|\\| Mage_Catalog_Model_Category\\)\\: Unexpected token \"\\|\", expected type at offset 100$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
 
@@ -849,11 +839,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:canConfigure\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Search/Grid/Renderer/Product.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Sales_Model_Quote_Address_Rate \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 110$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Shipping/Method/Form.php
 
 		-
 			message: "#^Variable \\$button might not be defined\\.$#"
@@ -1876,11 +1861,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
 
 		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Sales_Model_Order \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 89$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -2746,11 +2726,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/Price.php
 
 		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Eav_Model_Entity_Attribute_Abstract \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 259$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Price.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addLinkRel\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
@@ -3102,11 +3077,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:_afterDeleteCommit\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(array \\|\\| double\\)\\: Unexpected token \"\\|\", expected type at offset 105$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
 
@@ -3911,11 +3881,6 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
 
 		-
-			message: "#^PHPDoc tag @return has invalid value \\(array \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 70$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getSelectedAttributesInfo\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
@@ -4052,11 +4017,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Sales_Model_Order\\:\\:createFromQuoteAddress\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Model/Type/Abstract.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(Mage_Customer_Model_Address \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 105$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Model/Type/Abstract.php
 
@@ -4436,16 +4396,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource/Email/Queue/Collection.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 128$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 139$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/File/Storage/File.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$callbacks with type array\\|string is not subtype of native type array\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/Iterator.php
@@ -4504,11 +4454,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$data\\)\\: Unexpected token \"\\$data\", expected type at offset 75$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Address/Renderer/Default.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getForgotPasswordUrl\\(\\)\\.$#"
@@ -4732,11 +4677,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(array\\)\\: Unexpected token \"\\\\n     \\* \", expected variable at offset 96$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
@@ -5011,16 +4951,6 @@ parameters:
 			path: ../app/code/core/Mage/Downloadable/controllers/DownloadController.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$resource\\)\\: Unexpected token \"\\$resource\", expected type at offset 18$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$resourceType\\)\\: Unexpected token \"\\$resourceType\", expected type at offset 42$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/controllers/DownloadController.php
-
-		-
 			message: "#^Method Mage_Downloadable_FileController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Downloadable_FileController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/controllers/FileController.php
@@ -5171,11 +5101,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$value\\)\\: Unexpected token \"\\$value\", expected type at offset 18$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
 			message: "#^Variable \\$out in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
@@ -5279,11 +5204,6 @@ parameters:
 			message: "#^Cannot call method getEntityTypes\\(\\) on object\\|string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Form/Type.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(string \\|\\| array \\$code\\)\\: Unexpected token \"\\|\", expected type at offset 82$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
@@ -5709,11 +5629,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:addError\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Install/Model/Installer/Filesystem.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(Varien_Object \\|\\| false\\)\\: Unexpected token \"\\|\", expected type at offset 102$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Wizard.php
 
 		-
 			message: "#^Result of method Mage_Core_Controller_Varien_Action\\:\\:preDispatch\\(\\) \\(void\\) is used\\.$#"
