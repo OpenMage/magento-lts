@@ -586,11 +586,14 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         if (is_array($data)) {
             foreach ($data as $row) {
+                /** @var Mage_Core_Model_Abstract $item */
                 $item = $this->getNewEmptyItem();
                 if ($this->getIdFieldName()) {
                     $item->setIdFieldName($this->getIdFieldName());
                 }
                 $item->addData($row);
+                $item->setOrigData();
+                $item->setLastSavedData();
                 $this->addItem($item);
             }
         }
