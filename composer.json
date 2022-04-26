@@ -46,6 +46,7 @@
   "extra": {
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
-    }
+    },
+    "magento-root-dir": "root"
   }
 }
