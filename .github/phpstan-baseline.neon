@@ -706,7 +706,7 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Config/Data.php
 
 		-
-			message: "#^Cannot unset offset '@attributes' on array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\.$#"
+			message: "#^Cannot unset offset '@attributes' on \\(array\\{\\}\\|array\\{\\000\\*\\000_parent\\: Varien_Simplexml_Element\\}\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Layout.php
 
