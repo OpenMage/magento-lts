@@ -109,6 +109,19 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
     {
         return $item->getId();
     }
+    
+    /**
+     * Retrieve display block availability
+     *
+     * @return bool
+     */
+    public function canDisplay()
+    {
+        if (!Mage::helper('core')->isModuleEnabled('Mage_Wishlist')) {
+            return false;
+        }
+        return parent::canDisplay();
+    }
 
     /**
      * Retrieve possibility to display quantity column in grid of wishlist block
