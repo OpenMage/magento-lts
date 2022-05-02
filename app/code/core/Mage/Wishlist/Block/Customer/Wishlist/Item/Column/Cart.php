@@ -75,7 +75,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
                     }
                 }
                 if (sendGet) {
-                    setLocation(url);
+                    window.location.href = encodeURI(url);
                 } else {
                     customFormSubmit(url, '" . json_encode(array('form_key' => $this->getFormKey())) . "', 'post');
                 }
