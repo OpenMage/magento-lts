@@ -111,9 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
     }
     
     /**
-     * Retrieve display block availability
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canDisplay()
     {
