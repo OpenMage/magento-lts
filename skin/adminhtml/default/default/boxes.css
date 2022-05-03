@@ -553,10 +553,18 @@ td.divider              { font-size:1px; line-height:0; }
 
 
 /**/
-.note-list { width:100%; overflow:hidden; }
-.note-list li { border-top:1px solid #e3e3e3; margin-top:9px !important; background:url(images/icon_note_list.gif) no-repeat 0 4px; padding-bottom:9px; padding-left:18px; }
-
-
+.note-list {
+    width:100%;
+    overflow:hidden;
+}
+.note-list li {
+    border-top: 1px solid #e3e3e3;
+    margin-top: 9px !important;
+    background: url(images/icon_note_list.gif) no-repeat 0 4px;
+    padding-bottom: 9px;
+    padding-left: 18px;
+    word-break: break-all;
+}
 
 /******************************************************************************/
 /********************************** STRUCTURE *********************************/
