@@ -440,7 +440,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $this->setOrderId($order->getId());
+        if ($this->getOrderId() != $order->getId()) {
+            $this->setOrderId($order->getId());
+        }
         return $this;
     }
 

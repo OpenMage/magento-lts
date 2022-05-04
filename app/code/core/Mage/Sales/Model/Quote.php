@@ -297,7 +297,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
-        $this->setStoreId($store->getId());
+        if ($this->getStoreId() != $store->getId()) {
+            $this->setStoreId($store->getId());
+        }
         return $this;
     }
 
