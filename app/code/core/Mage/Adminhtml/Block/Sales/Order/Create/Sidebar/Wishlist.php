@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
     {
         return $item->getId();
     }
-    
+
     /**
      * @inheritDoc
      */
