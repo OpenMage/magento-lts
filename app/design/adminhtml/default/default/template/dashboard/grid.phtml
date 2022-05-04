@@ -33,32 +33,32 @@ $numColumns = sizeof($this->getColumns());
 <table cellspacing="0" style="border:0;" id="<?php echo $this->getId() ?>_table">
     <?php foreach ($this->getColumns() as $_column): ?>
     <col <?php echo $_column->getHtmlProperty() ?> />
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
         <thead>
             <?php if ($this->getHeadersVisibility()): ?>
                 <tr class="headings">
                 <?php foreach ($this->getColumns() as $_column): ?>
                     <th <?php echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span></th>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </tr>
-            <?php endif; ?>
+            <?php endif ?>
         </thead>
-    <?php endif; ?>
+    <?php endif ?>
     <tbody>
     <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
     <?php foreach ($this->getCollection() as $_index=>$_item): ?>
         <tr title="<?php echo $this->getRowId($_item) ?>">
         <?php $i=0;foreach ($this->getColumns() as $_column): ?>
             <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     <?php elseif ($this->getEmptyText()): ?>
         <tr>
             <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="100"><?php echo $this->getEmptyText() ?></td>
         </tr>
-    <?php endif; ?>
+    <?php endif ?>
     </tbody>
 </table>
 </div>
@@ -69,18 +69,18 @@ $numColumns = sizeof($this->getColumns());
     <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
     <?php if($this->getRowClickCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getCheckboxCheckCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.checkboxCheckCallback = <?php echo $this->getCheckboxCheckCallback() ?>;
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getRowInitCallback()): ?>
         <?php echo $this->getJsObjectName() ?>.initRowCallback = <?php echo $this->getRowInitCallback() ?>;
         <?php echo $this->getJsObjectName() ?>.rows.each(function(row){<?php echo $this->getRowInitCallback() ?>(<?php echo $this->getJsObjectName() ?>, row)});
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getMassactionBlock()->isAvailable()): ?>
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>
 <?php endif ?>

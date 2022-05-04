@@ -235,7 +235,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $toDelete = array();
-        $filesToValueIds = array();
         foreach ($value['images'] as &$image) {
             if (!empty($image['removed'])) {
                 if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
@@ -278,6 +277,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean                    $move              if true, it will move source file
      * @param boolean                    $exclude           mark image as disabled in product page view
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function addImage(
         Mage_Catalog_Model_Product $product,
@@ -376,6 +376,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean $move if true, it will move source file
      * @param boolean $exclude mark image as disabled in product page view
      * @return array array of parallel arrays with original and renamed files
+     * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
         Mage_Catalog_Model_Product $product,
@@ -474,7 +475,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * Retrive image from gallery
+     * Retrieve image from gallery
      *
      * @param Mage_Catalog_Model_Product $product
      * @param string $file
@@ -557,7 +558,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     }
 
     /**
-     * Retrive media config
+     * Retrieve media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */
@@ -637,6 +638,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      *
      * @param string $file
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _copyImage($file)
     {

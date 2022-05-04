@@ -33,8 +33,16 @@
  */
 class Varien_Image
 {
+    /**
+     * @var Varien_Image_Adapter_Abstract|Varien_Image_Adapter_Gd2
+     */
     protected $_adapter;
 
+    /**
+     * Absolute path to an image
+     *
+     * @var string
+     */
     protected $_fileName;
 
     /**

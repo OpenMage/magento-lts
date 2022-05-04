@@ -50,7 +50,6 @@
         </tr>
     </thead>
     <tbody>
-        <?php $_odd = ''; ?>
         <?php foreach ($_orders as $_order): ?>
         <tr>
             <td class="number"><?php echo $_order->getRealOrderId() ?></td>
@@ -67,7 +66,7 @@
                 </span>
             </td>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tbody>
 </table>
 <script type="text/javascript">decorateTable('my-orders-table');</script>

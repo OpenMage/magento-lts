@@ -85,19 +85,19 @@
         <?php if (!$_option->getIsRequire()): ?>
             <input type="checkbox" onclick="opFile<?php echo $_rand; ?>.toggleFileDelete($(this), $(this).next('.input-box'))" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>"/>
             <span class="label"><?php echo Mage::helper('catalog')->__('Delete') ?></span>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     <div class="input-box" <?php echo $_fileExists ? 'style="display:none"' : '' ?>>
         <input type="file" name="<?php echo $_fileName; ?>" class="product-custom-option<?php echo $_option->getIsRequire() ? ' required-entry' : '' ?>" price="<?php echo $this->getCurrencyPrice($_option->getPrice(true)) ?>" <?php echo $_fileExists ? 'disabled="disabled"' : '' ?>/>
         <input type="hidden" name="<?php echo $_fieldNameAction; ?>" value="<?php echo $_fieldValueAction; ?>" />
         <?php if ($_option->getFileExtension()): ?>
         <p class="no-margin"><?php echo Mage::helper('catalog')->__('Allowed file extensions to upload')?>: <strong><?php echo $_option->getFileExtension() ?></strong></p>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($_option->getImageSizeX() > 0): ?>
         <p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image width')?>: <strong><?php echo $_option->getImageSizeX() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($_option->getImageSizeY() > 0): ?>
         <p class="no-margin"><?php echo Mage::helper('catalog')->__('Maximum image height')?>: <strong><?php echo $_option->getImageSizeY() ?> <?php echo Mage::helper('catalog')->__('px.')?></strong></p>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 </dd>

@@ -70,10 +70,12 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
 function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
@@ -418,5 +420,50 @@ if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')
         mt_srand();
 
         return mt_rand($min, $max);
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_contains"
+ */
+if (!function_exists('str_contains')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_contains($haystack, $needle)
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_starts_with"
+ */
+if (!function_exists('str_starts_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_starts_with($haystack, $needle)
+    {
+        return 0 === strncmp($haystack, $needle, \strlen($needle));
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_ends_with"
+ */
+if (!function_exists('str_ends_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_ends_with($haystack,  $needle)
+    {
+        return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
     }
 }

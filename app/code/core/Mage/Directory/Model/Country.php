@@ -131,7 +131,7 @@ T: {{telephone}}";
     }
 
     /**
-     * Retrive formats for
+     * Retrieve formats for
      *
      * @return Mage_Directory_Model_Resource_Country_Format_Collection
      */
@@ -152,7 +152,7 @@ T: {{telephone}}";
     }
 
     /**
-     * Retrive format
+     * Retrieve format
      *
      * @param string $type
      * @return Mage_Directory_Model_Country_Format

@@ -34,11 +34,11 @@
 <dd class="<?php echo $completeClass ?>">
     <?php if ($this->getCheckout()->getStepData('shipping', 'complete')): ?>
     <address><?php echo $this->getShipping()->format('html') ?></address>
-    <?php endif; ?>
+    <?php endif ?>
 </dd>
 <?php else: ?>
 <dt>
     <?php echo $this->__('Shipping Address') ?>
 </dt>
-<?php endif; ?>
+<?php endif ?>
 

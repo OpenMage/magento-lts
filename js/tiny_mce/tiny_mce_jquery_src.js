@@ -486,7 +486,7 @@
 			function attr(name, value) {
 				var self = this;
 
-				// Update/retrive data-mce- attribute variants
+				// Update/retrieve data-mce- attribute variants
 				if (attrRegExp.test(name)) {
 					if (value !== undef) {
 						// Use TinyMCE behavior when setting the specifc attributes

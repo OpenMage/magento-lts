@@ -271,5 +271,5 @@ Customer account address edit page
             <block type="customer/address_edit" name="customer_address_edit" template="customer/address/edit.phtml"/>
         </reference>
     </customer_address_form>
-    
+
 </layout>

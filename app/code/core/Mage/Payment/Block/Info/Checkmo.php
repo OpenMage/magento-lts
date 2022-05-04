@@ -92,7 +92,7 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
      */
     public function toPdf()
     {
-        $this->setTemplate('payment/info/pdf/checkmo.phtml');
+        $this->setTemplate('payment/info/checkmo.phtml');
         return $this->toHtml();
     }
 }

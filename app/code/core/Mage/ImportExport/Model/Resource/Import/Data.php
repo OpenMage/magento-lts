@@ -51,6 +51,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      *
      * @return IteratorIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         $adapter = $this->_getWriteAdapter();

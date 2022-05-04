@@ -61,14 +61,14 @@
       <?php else: ?>
           <div id="messages"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
           <?php echo $this->getChildHtml('content') ?>
-      <?php endif; ?>
+      <?php endif ?>
          </div>
     </div>
     <?php if($this->getChildHtml('footer')): ?>
     <div class="footer">
         <?php echo $this->getChildHtml('footer') ?>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <?php echo $this->getChildHtml('js') ?>
     <?php echo $this->getChildHtml('profiler') ?>
     <div id="loading-mask" style="display:none;">

@@ -69,18 +69,18 @@ $_swatchArray = $_config->attributes->$_id;
                 ?>
                 <li class="option-<?php echo $_optionCode; ?><?php echo $_liClass; ?>" id="option<?php echo $_option->id; ?>">
                     <a href="javascript:void(0)" name="<?php echo $_optionCode; ?>" id="swatch<?php echo $_option->id; ?>" class="<?php echo $_aClass ?>" title="<?php echo $_option->label; ?>"
-                       style="height: <?php echo $_swatchOuterHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif; ?>width: <?php echo $_swatchOuterWidth ?>px;">
-                <span class="swatch-label" style="height: <?php echo $_swatchInnerHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif; ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
+                       style="height: <?php echo $_swatchOuterHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchOuterWidth ?>px;">
+                <span class="swatch-label" style="height: <?php echo $_swatchInnerHeight ?>px; <?php if (!$_hasImage): ?>min-<?php endif ?>width: <?php echo $_swatchInnerWidth ?>px; line-height: <?php echo $_swatchInnerHeight ?>px;">
                 <?php if ($_hasImage): ?>
                     <img src="<?php echo $_swatchUrl; ?>" alt="<?php echo $_option->label; ?>" width="<?php echo $_swatchInnerWidth ?>" height="<?php echo $_swatchInnerHeight ?>" />
                 <?php else: ?>
                     <?php echo $_option->label; ?>
-                <?php endif; ?>
+                <?php endif ?>
                  </span>
                         <span class="x">X</span>
                     </a>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
     </div>
 </dd>

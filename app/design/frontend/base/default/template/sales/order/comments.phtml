@@ -37,7 +37,7 @@
             <?php foreach ($this->getComments() as $_commentItem): ?>
                 <dt><?php echo $this->formatDate($_commentItem->getCreatedAtStoreDate(), 'medium', true) ?></dt>
                 <dd><?php echo $this->escapeHtml($_commentItem->getComment()) ?></dd>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </dl>
     </div>
-<?php endif;?>
+<?php endif ?>

@@ -45,7 +45,7 @@ class Mage_ProductAlert_Block_Email_Price extends Mage_ProductAlert_Block_Email_
     }
 
     /**
-     * Retrive unsubscribe url for product
+     * Retrieve unsubscribe url for product
      *
      * @param int $productId
      * @return string

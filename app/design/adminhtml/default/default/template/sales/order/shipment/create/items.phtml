@@ -32,16 +32,16 @@
         <col width="1" />
         <?php if (!$this->canShipPartiallyItem()): ?>
         <col width="20" />
-        <?php endif; ?>
+        <?php endif ?>
         <thead>
             <tr class="headings">
                 <th><?php echo $this->helper('sales')->__('Product') ?></th>
                 <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
-                <th<?php if ($this->isShipmentRegular()): ?> class="last"<?php endif; ?>><span class="nobr"><?php echo $this->helper('sales')->__('Qty to Ship') ?></span></th>
+                <th<?php if ($this->isShipmentRegular()): ?> class="last"<?php endif ?>><span class="nobr"><?php echo $this->helper('sales')->__('Qty to Ship') ?></span></th>
 
                 <?php if (!$this->canShipPartiallyItem()): ?>
                 <th class="a-center last"><span class="nobr"><?php echo $this->helper('sales')->__('Ship') ?></span></th>
-                <?php endif; ?>
+                <?php endif ?>
 
             </tr>
         </thead>
@@ -51,7 +51,7 @@
             <?php echo $this->getItemHtml($_item) ?>
             <?php echo $this->getItemExtraInfoHtml($_item->getOrderItem()) ?>
         </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
   </div>
 </div>
@@ -87,7 +87,7 @@
               <label class="normal" for="send_email"><?php echo Mage::helper('sales')->__('Email Copy of Shipment') ?></label>
               <input id="send_email" name="shipment[send_email]" value="1" type="checkbox" />
           </p>
-          <?php endif; ?>
+          <?php endif ?>
           <div class="a-right">
           <?php echo $this->getChildHtml('submit_button') ?>
           </div>

@@ -34,14 +34,14 @@
                 <span><?php echo $this->escapeHtml($_link['label']) ?></span>
             <?php else: ?>
                 <strong><?php echo $this->escapeHtml($_link['label']) ?></strong>
-            <?php endif; ?>
+            <?php endif ?>
         <?php else: ?>
             <a href="<?php echo $_link['url'] ?>" title="<?php echo $this->escapeHtml($_link['title']) ?>"><?php echo $this->escapeHtml($_link['label']) ?></a>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if($_index!=$_size-1): ?>
             &raquo;
-        <?php endif; ?>
+        <?php endif ?>
     </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </ul>
-<?php endif; ?>
+<?php endif ?>

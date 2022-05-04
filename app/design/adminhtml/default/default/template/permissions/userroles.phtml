@@ -40,6 +40,6 @@
         }
     ?>
         <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo ($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </fieldset>
 </div>

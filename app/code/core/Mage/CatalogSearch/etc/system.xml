@@ -98,6 +98,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </search_type>
+                        <search_separator translate="label">
+                            <label>Fulltext Separator</label>
+                            <frontend_type>select</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_catalog_search_separator</backend_model>
+                            <source_model>adminhtml/system_config_source_catalog_search_separator</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_separator>
                         <use_layered_navigation_count translate="label comment">
                             <label>Apply Layered Navigation if Search Results are Less Than</label>
                             <frontend_type>text</frontend_type>

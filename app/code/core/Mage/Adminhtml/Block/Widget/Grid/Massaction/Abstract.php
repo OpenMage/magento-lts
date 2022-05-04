@@ -191,7 +191,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
     {
         if($selected = $this->getRequest()->getParam($this->getFormFieldNameInternal())) {
             $selected = explode(',', $this->quoteEscape($selected));
-            return join(',', $selected);
+            return implode(',', $selected);
         } else {
             return '';
         }
@@ -243,7 +243,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $gridIds = $this->getParentBlock()->getCollection()->getAllIds();
 
         if(!empty($gridIds)) {
-            return join(",", $gridIds);
+            return implode(",", $gridIds);
         }
         return '';
     }
@@ -289,4 +289,28 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
         $this->setData('use_select_all', (bool) $flag);
         return $this;
     }
+
+    /**
+     * Group items for optgroups
+     *
+     * @return array
+     */
+    public function getGroupedItems(): array
+    {
+        $groupedItems = [
+            'default' => [],
+        ];
+
+        foreach ($this->getItems() as $item) {
+            if ($item->getData('group')) {
+                $groupedItems['grouped'][$item->getData('group')][$item->getId()] = $item;
+            }
+            else {
+                $groupedItems['default'][$item->getId()] = $item;
+            }
+        }
+
+        return $groupedItems;
+    }
+
 }

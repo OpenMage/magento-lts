@@ -38,7 +38,7 @@
         var CACL_TOTAL_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
         //]]>
     </script>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
         <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
@@ -46,8 +46,8 @@
     <?php else: ?>
         <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
             <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 <div class="price-box-bundle">
     <?php echo $this->getPriceHtml($_product) ?>
 </div>

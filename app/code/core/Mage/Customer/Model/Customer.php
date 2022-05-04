@@ -654,7 +654,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $primaryShipping = $this->getPrimaryShippingAddress();
         if ($primaryShipping) {
-            if ($primaryBilling->getId() == $primaryShipping->getId()) {
+            if ($primaryBilling && $primaryBilling->getId() == $primaryShipping->getId()) {
                 $primaryBilling->setIsPrimaryShipping(true);
             } else {
                 $primaryShipping->setIsPrimaryShipping(true);
@@ -939,7 +939,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive shared website ids
+     * Retrieve shared website ids
      *
      * @return array
      */

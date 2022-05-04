@@ -58,12 +58,12 @@
     window_top.document.getElementById('iframe-warning').hide();
     <?php if ($this->getErrorMsg()): ?>
         alert('<?php echo $this->jsQuoteEscape($this->getErrorMsg()) ?>');
-    <?php endif; ?>
+    <?php endif ?>
 <?php elseif ($this->getGotoSuccessPage()) : ?>
     window_top.location="<?php echo $this->getUrl('checkout/onepage/success') ?>";
-<?php else : ?>
+<?php else: ?>
     window_top.location="<?php echo $this->getUrl('checkout/cart') ?>";
-<?php endif; ?>
+<?php endif ?>
 //]]>
 </script>
 </head>

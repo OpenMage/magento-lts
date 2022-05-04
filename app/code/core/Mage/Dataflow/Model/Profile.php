@@ -146,7 +146,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 
     protected function _afterSave()
     {
-        if (is_string($this->getGuiData())) {
+        if ($this->getGuiData() && is_string($this->getGuiData())) {
             try {
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());

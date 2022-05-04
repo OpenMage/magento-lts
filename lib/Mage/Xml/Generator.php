@@ -60,7 +60,7 @@ class Mage_Xml_Generator
         $parentNode = $this->_getCurrentDom();
         if(!$content || !count($content)) {
             return $this;
-        }        
+        }
         foreach ($content as $_key=>$_item) {
             try{
                 $node = $this->getDom()->createElement($_key);

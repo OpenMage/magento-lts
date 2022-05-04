@@ -64,7 +64,7 @@
                         <?php if ($isVisibleProduct): ?>
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" onclick="setLocation('<?php echo $this->getSharedItemAddToCartUrl($item) ?>')" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
                         <?php endif ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                         <p>
                             <?php $_wishlistUrl = $this->getAddToWishlistUrlCustom($item, false); ?>
                             <a href="#"
@@ -86,7 +86,7 @@
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
             <?php if($this->isSaleable()):?>
                 <button type="button" title="<?php echo $this->quoteEscape($this->__('Add All to Cart')) ?>" onclick="setLocation('<?php echo $this->getUrl('*/*/allcart', array('_current'=>true)) ?>')" class="button"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
-            <?php endif;?>
+            <?php endif ?>
         </div>
     </form>
     <?php else: ?>

@@ -42,6 +42,6 @@
         <?php if ($_product->getMsrp()): ?>
             <?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true) ?>
             <span class="old-price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>
-        <?php endif; ?>
+        <?php endif ?>
         <?php echo $this->__('Click for price') ?>
     </div>

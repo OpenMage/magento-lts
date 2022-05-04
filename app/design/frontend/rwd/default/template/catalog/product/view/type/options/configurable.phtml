@@ -57,11 +57,11 @@ $_renderers = $this->getChild('attr_renderers')->getSortedChildren();
                   </select>
               </div>
         </dd>
-        <?php endif; ?>
-    <?php endforeach; ?>
+        <?php endif ?>
+    <?php endforeach ?>
     </dl>
     <script type="text/javascript">
         var spConfig = new Product.Config(<?php echo $_jsonConfig ?>);
     </script>
     <?php echo $this->getChildHtml('after') ?>
-<?php endif;?>
+<?php endif ?>

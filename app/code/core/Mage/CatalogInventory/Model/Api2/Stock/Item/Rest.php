@@ -99,6 +99,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }

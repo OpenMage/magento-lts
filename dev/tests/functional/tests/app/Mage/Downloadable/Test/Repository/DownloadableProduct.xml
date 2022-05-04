@@ -62,7 +62,7 @@
                 </item>
             </field>
         </dataset>
-        
+
         <dataset name="with_two_separately_links">
             <field name="name" xsi:type="string">Downloadable product %isolation%</field>
             <field name="sku" xsi:type="string">downloadable_product_%isolation%</field>

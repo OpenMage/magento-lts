@@ -72,7 +72,7 @@ try{
             'captured_amount' => $payment['base_amount_paid_online'],
             'refunded_amount' => $payment['base_amount_refunded_online']
         );
-        $additionalInformation = unserialize($payment['additional_information']);
+        $additionalInformation = unserialize($payment['additional_information'], ['allowed_classes' => false]);
         if (isset ($additionalInformation['authorize_cards'])) {
             continue;
         }
@@ -120,8 +120,9 @@ try{
     foreach ($transactions as $transaction) {
         $transactionId = $transaction['transaction_id'];
 
-        $realTransactionId = array_shift(explode('-', $transaction['txn_id']));
-        $additionalInformation = unserialize($transaction['additional_information']);
+        $parts = explode('-', $transaction['txn_id']);
+        $realTransactionId = array_shift($parts);
+        $additionalInformation = unserialize($transaction['additional_information'], ['allowed_classes' => false]);
         $additionalInformation['real_transaction_id'] = $realTransactionId;
         $additionalInformation = serialize($additionalInformation);
 

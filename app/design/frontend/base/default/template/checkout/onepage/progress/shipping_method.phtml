@@ -40,18 +40,18 @@
         <?php echo $_incl; ?>
         <?php else: ?>
         <?php echo $_excl; ?>
-        <?php endif; ?>
+        <?php endif ?>
     <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
         (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-        <?php endif; ?>
+        <?php endif ?>
 
     <?php else: ?>
     <?php echo $this->__('Shipping method has not been selected yet') ?>
-    <?php endif; ?>
+    <?php endif ?>
 </dd>
 <?php else: ?>
 <dt>
     <?php echo $this->__('Shipping Method') ?>
 </dt>
-<?php endif; ?>
+<?php endif ?>
 

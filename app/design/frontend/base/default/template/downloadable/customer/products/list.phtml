@@ -52,7 +52,6 @@
             </tr>
         </thead>
         <tbody>
-            <?php $_odd = ''; ?>
             <?php foreach ($_items as $_item): ?>
                 <tr>
                     <td><a href="<?php echo $this->getOrderViewUrl($_item->getPurchased()->getOrderId()) ?>" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('downloadable')->__('View Order')) ?>"><?php echo $_item->getPurchased()->getOrderIncrementId() ?></a></td>
@@ -61,13 +60,13 @@
                     <td><em><?php echo Mage::helper('downloadable')->__(ucfirst($_item->getStatus())) ?></em></td>
                     <td><?php echo $this->getRemainingDownloads($_item) ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
     <script type="text/javascript">decorateTable('my-downloadable-products-table')</script>
 <?php else: ?>
     <p><?php echo Mage::helper('downloadable')->__('You have not purchased any downloadable products yet.'); ?></p>
-<?php endif; ?>
+<?php endif ?>
 <?php echo $this->getChildHtml('pager'); ?>
 <div class="buttons-set">
     <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
