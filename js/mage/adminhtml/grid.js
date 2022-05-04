@@ -291,10 +291,14 @@ varienGrid.prototype = {
             if(filters[i].value && filters[i].value.length) elements.push(filters[i]);
         }
         if (!this.doFilterCallback || (this.doFilterCallback && this.doFilterCallback())) {
+            this.addVarToUrl(this.pageVar, 1);
             this.reload(this.addVarToUrl(this.filterVar, encode_base64(Form.serializeElements(elements))));
         }
     },
     resetFilter : function(){
+        this.addVarToUrl(this.sortVar, '');
+        this.addVarToUrl(this.dirVar, '');
+        this.addVarToUrl(this.pageVar, 1);
         this.reload(this.addVarToUrl(this.filterVar, ''));
     },
     checkCheckboxes : function(element){
