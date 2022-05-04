@@ -2,9 +2,13 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-146-orange.svg?style=flat-square" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-<a href="https://travis-ci.org/openmage/magento-lts"><img src="https://travis-ci.org/openmage/magento-lts.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
+<br />
+<img src="https://github.com/openmage/magento-lts/actions/workflows/php.yml/badge.svg" alt="PHP workflow Badge" />
+<img src="https://github.com/openmage/magento-lts/actions/workflows/sonar.yml/badge.svg" alt="Sonar workflow badge" />
+<img src="https://github.com/openmage/magento-lts/actions/workflows/static-code-analyses.yml/badge.svg" alt="Static Code Analyses workflow badge" />
+<img src="https://github.com/openmage/magento-lts/actions/workflows/unit-tests.yml/badge.svg" alt="Unit Tests workflow badge" />
 </p>
 
 # Magento - Long Term Support
