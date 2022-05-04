@@ -152,7 +152,7 @@ try {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
         } catch (Exception $e) {
-            // Ignore errors
+            Mage::logException($e);
         }
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);
