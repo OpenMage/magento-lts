@@ -89,15 +89,6 @@ Do not use 20.x.x if you need IE support.
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
-### Between OpenMage 20.x and 21.x
-
-Do not use 21.x.x if you don't know what you're doing, or if you don't understand consequences of the following changes.
-
-- removed mysql4 classes #1470
-- removed admin routing compatibility mode for extensions #1551
-
-For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/20.0...21.0).
-
 ### New Config Options
 
 - `admin/design/use_legacy_theme`
