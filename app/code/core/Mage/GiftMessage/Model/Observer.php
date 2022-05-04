@@ -103,10 +103,10 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     /**
      * Operate with gift messages on checkout proccess
      *
-     * @param Varien_Event_Observer $observer
+     * @param Varien_Object $observer
      * @return $this
      */
-    public function checkoutEventCreateGiftMessage(Varien_Event_Observer $observer)
+    public function checkoutEventCreateGiftMessage(Varien_Object $observer)
     {
         $giftMessages = $observer->getEvent()->getRequest()->getParam('giftmessage');
         $quote = $observer->getEvent()->getQuote();
