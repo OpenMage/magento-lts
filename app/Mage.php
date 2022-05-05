@@ -147,7 +147,6 @@ final class Mage
 
     /**
      * Gets the current Magento version string
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
@@ -160,7 +159,6 @@ final class Mage
 
     /**
      * Gets the detailed Magento version information
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return array
      */

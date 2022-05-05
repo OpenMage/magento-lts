@@ -298,9 +298,6 @@
                 <full_summary>0</full_summary>
                 <zero_tax>0</zero_tax>
             </sales_display>
-            <notification>
-                <url>http://www.magentocommerce.com/knowledge-base/entry/magento-ce-18-ee-113-tax-calc</url>
-            </notification>
         </tax>
     </default>
     <crontab>
