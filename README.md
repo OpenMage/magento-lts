@@ -28,10 +28,8 @@ Note, the branches older than `1.9.4.x` and that were created before this strate
 - MySQL 5.6+ (8.0+ recommended)
 - (optional) Redis 5+ (6.x recommended, latest verified compatible 6.0.7 with 20.x)
 
-
 - PHP 7.4 and 8.0 are supported
 - Please be aware that although OpenMage is compatible that 1 or more extensions may not be
-
 
 Installation on PHP 7.2.33 (7.2.x), MySQL 5.7.31-34 (5.7.x) Percona Server and Redis 6.x should work fine and confirmed by users.
 
@@ -40,6 +38,7 @@ If using php 7.2+ then mcrypt needs to be disabled in php.ini or pecl to fallbac
 ## Installation
 
 ### Using Composer
+
 Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
 
 ```bash
@@ -74,17 +73,33 @@ git add -A && git commit
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
 [release](https://github.com/OpenMage/magento-lts/releases) notes.
 
-### Performance
-<small>ToDo: Please add performance related changes as run-time cache, ...</small>
+### Between Magento 1.9.4.5 and OpenMage 19.x
+
+Bug fixes and PHP 7.x and 8.0 compatibility.
+
+### Between OpenMage 19.x and 20.x
+
+Do not use 20.x.x if you need IE support.
+
+- removed IE conditional comments, IE styles, IE scripts and IE eot files #1073
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
+- add redis as a valid option for `global/session_save` #1513
+- possibility to disable global search in backend #1532
+
+For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
 ### New Config Options
+
 - `admin/design/use_legacy_theme`
+- `admin/global_search/enable`
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
 - `newsletter/security/enable_form_key`
 
 ### New Events
+
 - `adminhtml_block_widget_form_init_form_values_after`
 - `adminhtml_block_widget_tabs_html_before`
 - `adminhtml_sales_order_create_save_before`
@@ -103,12 +118,14 @@ There are some new or changed translations, if you want add them to your locale 
 - `app/locale/en_US/Sales_LTS.csv`
 
 ### Removed Modules
+
 - `Mage_Compiler`
 - `Mage_GoogleBase`
 - `Mage_Xmlconnect`
 - `Phoenix_Moneybookers`
 
 ## Development Environment with ddev
+
 - Install [ddev](https://ddev.com/get-started/)
 - Clone the repository as described in Installation -> Using Git
 - Create a ddev config using ```$ ddev config``` the defaults should be good for you
