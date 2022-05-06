@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
             ));
         }
 
-        if (Mage::helper('core')->isModuleEnabled('Mage_Wishlist')) {
+        if (Mage::helper('wishlist')->isAllow()) {
             // count wishlist items
             $wishlistCount = Mage::getModel('wishlist/item')->getCollection()
                 ->addCustomerIdFilter($customer->getId())

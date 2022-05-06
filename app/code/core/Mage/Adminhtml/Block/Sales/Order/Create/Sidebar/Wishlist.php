@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
      */
     public function canDisplay()
     {
-        if (!Mage::helper('core')->isModuleEnabled('Mage_Wishlist')) {
+        if (!Mage::helper('wishlist')->isAllow()) {
             return false;
         }
         return parent::canDisplay();
