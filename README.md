@@ -7,6 +7,8 @@
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
 </p>
 
+<img src="skin/adminhtml/default/default/images/flag-ua.svg?raw=true" width="20" align="top" alt=""> Stop russian war. **Free Ukraine!** ([Read more](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine))
+
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
