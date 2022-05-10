@@ -78,6 +78,7 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         parent::__construct();
     }
+
     /**
      * Set Type for COUNT SQL Select
      *

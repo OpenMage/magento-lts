@@ -40,7 +40,6 @@
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method $this unsProduct()
- * @method float getQty()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method int getWishlistId()
@@ -739,5 +738,13 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
 
         $this->setOptions($options->getOptionsByItem($this));
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
     }
 }

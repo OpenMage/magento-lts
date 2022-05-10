@@ -45,7 +45,6 @@
  * @method array getCustomerGroupIds()
  * @method $this setCustomerGroupIds(array $value)
  * @method bool hasDiscountAmount()
- * @method float getDiscountAmount()
  * @method bool hasWebsiteIds()
  * @method $this setWebsiteIds(array $value)
  */
@@ -522,5 +521,13 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     protected function _prepareWebsiteIds()
     {
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountAmount()
+    {
+        return (float) $this->_getData('discount_amount');
     }
 }

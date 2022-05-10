@@ -35,16 +35,6 @@
  * @method Mage_Catalog_Model_Product_Indexer_Price setWebsiteId(int $value)
  * @method int getTaxClassId()
  * @method Mage_Catalog_Model_Product_Indexer_Price setTaxClassId(int $value)
- * @method float getPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setPrice(float $value)
- * @method float getFinalPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setFinalPrice(float $value)
- * @method float getMinPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMinPrice(float $value)
- * @method float getMaxPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setMaxPrice(float $value)
- * @method float getTierPrice()
- * @method Mage_Catalog_Model_Product_Indexer_Price setTierPrice(float $value)
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -302,5 +292,85 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
         if (empty($data['catalog_product_price_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getFinalPrice()
+    {
+        return (float) $this->_getData('final_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinPrice()
+    {
+        return (float) $this->_getData('min_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaxPrice()
+    {
+        return (float) $this->_getData('max_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTierPrice()
+    {
+        return (float) $this->_getData('tier_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setFinalPrice($value)
+    {
+        return $this->setData('final_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMinPrice($value)
+    {
+        return $this->setData('min_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMaxPrice($value)
+    {
+        return $this->setData('max_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTierPrice($value)
+    {
+        return $this->setData('tier_price', (float) $value);
     }
 }

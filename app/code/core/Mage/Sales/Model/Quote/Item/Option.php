@@ -31,7 +31,6 @@
  * @method Mage_Sales_Model_Resource_Quote_Item_Option getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
  *
- * @method $this setBackorders(float $value)
  * @method $this setHasError(bool $value)
  * @method $this setHasQtyOptionUpdate(bool $value)
  * @method int getItemId()
@@ -154,5 +153,13 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
         $this->setId(null);
         $this->_item    = null;
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBackorders($value)
+    {
+        return $this->setData('backorders', (float) $value);
     }
 }

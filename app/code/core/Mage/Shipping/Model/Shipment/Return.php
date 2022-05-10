@@ -77,8 +77,6 @@
  * @method string getRecipientAddressCountryCode()
  * @method Mage_Shipping_Model_Shipment_Request setShippingMethod(string $value)
  * @method string getShippingMethod()
- * @method Mage_Shipping_Model_Shipment_Request setPackageWeight(float $value)
- * @method float getPackageWeight()
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -86,4 +84,19 @@
  */
 class Mage_Shipping_Model_Shipment_Return extends Varien_Object
 {
+    /**
+     * @return float
+     */
+    public function getPackageWeight()
+    {
+        return (float) $this->_getData('package_weight');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPackageWeight($value)
+    {
+        return $this->setData('package_weight', (float) $value);
+    }
 }

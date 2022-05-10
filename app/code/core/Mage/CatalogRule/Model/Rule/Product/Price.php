@@ -36,8 +36,6 @@
  * @method Mage_CatalogRule_Model_Rule_Product_Price setCustomerGroupId(int $value)
  * @method int getProductId()
  * @method Mage_CatalogRule_Model_Rule_Product_Price setProductId(int $value)
- * @method float getRulePrice()
- * @method Mage_CatalogRule_Model_Rule_Product_Price setRulePrice(float $value)
  * @method int getWebsiteId()
  * @method Mage_CatalogRule_Model_Rule_Product_Price setWebsiteId(int $value)
  * @method string getLatestStartDate()
@@ -93,5 +91,21 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
         );
 
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRulePrice()
+    {
+        return (float) $this->_getData('rule_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRulePrice($value)
+    {
+        return $this->setData('rule_price', (float) $value);
     }
 }

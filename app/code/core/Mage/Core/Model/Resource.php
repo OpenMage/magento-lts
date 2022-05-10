@@ -396,6 +396,7 @@ class Mage_Core_Model_Resource
         #Mage::app()->saveCache($value, self::AUTO_UPDATE_CACHE_KEY);
         return $this;
     }
+
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *

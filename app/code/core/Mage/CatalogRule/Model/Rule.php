@@ -38,7 +38,6 @@
  * @method $this setCollectedAttributes(array $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
  * @method string getFromDate()
  * @method $this setFromDate(string $value)
  * @method string getName()
@@ -52,7 +51,6 @@
  * @method $this setStopRulesProcessing(int $value)
  * @method bool getSubIsEnable()
  * @method string getSubSimpleAction()
- * @method float getSubDiscountAmount()
  * @method string getToDate()
  * @method $this setToDate(string $value)
  *
@@ -498,5 +496,21 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $product->setMatchedRules($this->getResource()->getProductRuleIds($product->getId()));
         }
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSubDiscountAmount()
+    {
+        return (float) $this->_getData('sub_discount_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
     }
 }

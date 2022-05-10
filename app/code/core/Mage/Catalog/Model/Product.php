@@ -42,7 +42,6 @@
  * @method int getAttributeSetId()
  * @method $this setAttributeSetId(int $value)
  *
- * @method float getBaseRowTotal()
  * @method array getBundleOptionsData()
  * @method $this setBundleOptionsData(array $value)
  * @method array getBundleSelectionsData()
@@ -55,7 +54,6 @@
  * @method bool getCanSaveConfigurableAttributes()
  * @method bool getCanShowPrice()
  * @method bool getCategoriesReadonly()
- * @method $this setCartQty(float $value)
  * @method $this setCategory(Mage_Catalog_Model_Category $value)
  * @method bool hasCategoryIds()
  * @method array getChildAttributeLabelMapping()
@@ -67,12 +65,9 @@
  * @method array getConfigurableAttributesData()
  * @method array getConfigurableImagesFallbackArray()
  * @method $this setConfigurableImagesFallbackArray(array $value)
- * @method float getConfigurablePrice()
- * @method $this setConfigurablePrice(float $value)
  * @method array getConfigurableProductsData()
  * @method bool getConfigureMode()
  * @method $this setConfigureMode(bool $value)
- * @method float getCost()
  * @method string getCustomLayoutUpdate()
  * @method bool hasCustomerGroupId()
  * @method int getCustomerGroupId()
@@ -170,7 +165,6 @@
  * @method int getPopularity()
  * @method string getPosition()
  * @method bool hasPreconfiguredValues()
- * @method $this setPrice(float $value)
  * @method int getPriceType()
  * @method int getProductId()
  * @method array getProductOptions()
@@ -178,12 +172,7 @@
  * @method $this setProductTags(Mage_Tag_Model_Resource_Tag_Collection $value)
  * @method $this setProductUrl(string $value)
  *
- * @method $this setQuoteItemPrice(float $value)
- * @method $this setQuoteItemRowTotal(float $value)
  * @method $this setQuoteItemQty(int $value)
- * @method $this setQuoteQty(float $value)
- * @method float getQty()
- * @method $this setQty(float $value)
  *
  * @method $this setRatingSummary(Varien_Object $summary)
  * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
@@ -205,8 +194,7 @@
  * @method bool getSelectionCanChangeQty()
  * @method string getSelectionId()
  * @method string getSelectionPriceType()
- * @method float getSelectionPriceValue()
- * @method float getSelectionQty()
+
  * @method string getShipmentType()
  * @method string getShortDescription()
  * @method $this setShortDescription(string $value)
@@ -230,8 +218,6 @@
  *
  * @method int getTaxClassId()
  * @method string getThumbnail()
- * @method float getTaxPercent()
- * @method $this setTaxPercent(float $value)
  * @method $this setTypeId(int $value)
  * @method bool getTypeHasOptions()
  * @method $this setTypeHasOptions(bool $value)
@@ -1419,6 +1405,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return $this->isConfigurable();
     }
+
     /**
      * Check is product grouped
      *
@@ -2349,5 +2336,125 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $event;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotal()
+    {
+        return (float) $this->_getData('base_row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getConfigurablePrice()
+    {
+        return (float) $this->_getData('configurable_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getCost()
+    {
+        return (float) $this->_getData('cost');
+    }
+
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSelectionPriceValue()
+    {
+        return (float) $this->_getData('selection_price_value');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSelectionQty()
+    {
+        return (float) $this->_getData('selection_qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxPercent()
+    {
+        return (float) $this->_getData('tax_percent');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCartQty($value)
+    {
+        return $this->setData('cart_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setConfigurablePrice($value)
+    {
+        return $this->setData('configurable_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteItemPrice($value)
+    {
+        return $this->setData('quote_item_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteItemRowTotal($value)
+    {
+        return $this->setData('quote_item_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQuoteQty($value)
+    {
+        return $this->setData('quote_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQty($value)
+    {
+        return $this->setData('qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxPercent($value)
+    {
+        return $this->setData('tax_percent', (float) $value);
     }
 }

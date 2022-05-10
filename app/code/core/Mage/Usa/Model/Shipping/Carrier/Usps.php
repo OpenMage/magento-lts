@@ -535,6 +535,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             }
         }
     }
+
     /**
      * Get configuration data of carrier
      *
@@ -909,6 +910,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             return $codes[$type][$code];
         }
     }
+
     /**
      * Get tracking
      *
@@ -986,6 +988,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             $this->_parseXmlTrackingResponse($tracking, $responseBody);
          }
     }
+
     /**
      * Parse xml tracking response
      *

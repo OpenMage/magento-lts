@@ -56,8 +56,6 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method string getStoreTitle()
- * @method float getPrice()
- * @method $this setPrice(float $value)
  * @method Mage_Catalog_Model_Product getProduct()
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method array getProductWebsiteIds()
@@ -67,7 +65,6 @@
  * @method bool getUseDefaultTitle()
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
- * @method float getWebsitePrice()
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -166,5 +163,29 @@ class Mage_Downloadable_Model_Link extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()
             ->getSearchableData($productId, $storeId);
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return (float) $this->_getData('price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWebsitePrice()
+    {
+        return (float) $this->_getData('website_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPrice($value)
+    {
+        return $this->setData('price', (float) $value);
     }
 }

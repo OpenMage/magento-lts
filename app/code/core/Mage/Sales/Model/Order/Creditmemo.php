@@ -31,29 +31,9 @@
  * @method Mage_Sales_Model_Resource_Order_Creditmemo getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getCollection()
  *
- * @method float getAdjustment()
- * @method $this setAdjustment(float $value)
- * @method float getAdjustmentNegative()
- * @method float getAdjustmentPositive()
  *
- * @method float getBaseAdjustment()
- * @method $this setBaseAdjustment(float $value)
- * @method float getBaseAdjustmentNegative()
- * @method $this setBaseAdjustmentNegative(float $value)
- * @method float getBaseAdjustmentPositive()
- * @method $this setBaseAdjustmentPositive(float $value)
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
- * @method float getBaseDiscountAmount()
- * @method $this setBaseDiscountAmount(float $value)
- * @method float getBaseShippingAmount()
- * @method $this setBaseShippingAmount(float $value)
- * @method float getBaseShippingTaxAmount()
- * @method $this setBaseShippingTaxAmount(float $value)
- * @method float getBaseSubtotalInclTax()
- * @method $this setBaseSubtotalInclTax(float $value)
- * @method float getBaseToOrderRate()
- * @method $this setBaseToOrderRate(float $value)
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
  *
@@ -63,45 +43,20 @@
  * @method int getCreditmemoStatus()
  * @method $this setCreditmemoStatus(int $value)
  *
- * @method float getDiscountAmount()
- * @method $this setDiscountAmount(float $value)
  *
  * @method int getEmailSent()
  * @method $this setEmailSent(int $value)
  *
- * @method float getGrandTotal()
- * @method $this setGrandTotal(float $value)
  *
  * @method $this setStoreId(int $value)
- * @method float getStoreToOrderRate()
- * @method $this setStoreToOrderRate(float $value)
- * @method float getShippingAmount()
  * @method int getShippingAddressId()
  * @method $this setShippingAddressId(int $value)
- * @method float getShippingTaxAmount()
- * @method $this setShippingTaxAmount(float $value)
- * @method float getSubtotal()
- * @method $this setSubtotal(float $value)
- * @method float getSubtotalInclTax()
- * @method $this setSubtotalInclTax(float $value)
  * @method int getState()
  * @method $this setState(int $value)
- * @method float getStoreToBaseRate()
- * @method $this setStoreToBaseRate(float $value)
  *
- * @method float getTaxAmount()
- * @method $this setTaxAmount(float $value)
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
  *
- * @method float getBaseToGlobalRate()
- * @method $this setBaseToGlobalRate(float $value)
- * @method float getBaseSubtotal()
- * @method $this setBaseSubtotal(float $value)
- * @method float getBaseGrandTotal()
- * @method $this setBaseGrandTotal(float $value)
- * @method float getBaseTaxAmount()
- * @method $this setBaseTaxAmount(float $value)
  * @method int getOrderId()
  * @method $this setOrderId(int $value)
  * @method int getInvoiceId()
@@ -118,37 +73,18 @@
  * @method $this setIncrementId(string $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- * @method float getHiddenTaxAmount()
- * @method $this setHiddenTaxAmount(float $value)
- * @method float getBaseHiddenTaxAmount()
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float getShippingHiddenTaxAmount()
- * @method $this setShippingHiddenTaxAmount(float $value)
- * @method float getBaseShippingHiddenTaxAmount()
- * @method $this setBaseShippingHiddenTaxAmount(float $value)
- * @method float getShippingInclTax()
- * @method $this setShippingInclTax(float $value)
- * @method float getBaseShippingInclTax()
- * @method $this setPaymentRefundDisallowed(float $value)
  * @method $this setAutomaticallyCreated(bool $value)
  * @method Mage_Sales_Model_Order_Invoice getInvoice()
  * @method bool getDoTransaction()
  * @method Mage_Sales_Model_Order_Invoice setDoTransaction(bool $value)
- * @method float getBaseCost()
- * @method float getBaseCustomerBalanceReturnMax()
- * @method Mage_Sales_Model_Order_Invoice setBaseCustomerBalanceTotalRefunded(float $value)
- * @method Mage_Sales_Model_Order_Invoice setBsCustomerBalTotalRefunded(float $value)
  * @method Mage_Sales_Model_Order_Invoice setCustomerBalanceRefundFlag(bool $value)
  * @method bool hasBaseShippingAmount()
- * @method Mage_Sales_Model_Order_Invoice setBaseShippingInclTax(float $value)
  * @method getCanVoidFlag()
  * @method $this setCanVoidFlag(bool $value)
- * @method $this setBaseCost(float $value)
  * @method $this setCustomerId(int $value)
  * @method $this setInvoice(Mage_Sales_Model_Order_Invoice $value)
  * @method bool getOfflineRequested()
  * @method bool getPaymentRefundDisallowed()
- * @method $this setTotalQty(float $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -1030,5 +966,517 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             }
         }
         return true;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAdjustment()
+    {
+        return (float) $this->_getData('adjustment');
+    }
+
+    /**
+     * @return float
+     */
+    public function getAdjustmentNegative()
+    {
+        return (float) $this->_getData('adjustment_negative');
+    }
+
+    /**
+     * @return float
+     */
+    public function getAdjustmentPositive()
+    {
+        return (float) $this->_getData('adjustment_positive');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseAdjustment()
+    {
+        return (float) $this->_getData('base_adjustment');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseAdjustmentNegative()
+    {
+        return (float) $this->_getData('base_adjustment_negative');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseAdjustmentPositive()
+    {
+        return (float) $this->_getData('base_adjustment_positive');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountAmount()
+    {
+        return (float) $this->_getData('base_discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseShippingAmount()
+    {
+        return (float) $this->_getData('base_shipping_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseShippingTaxAmount()
+    {
+        return (float) $this->_getData('base_shipping_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseSubtotalInclTax()
+    {
+        return (float) $this->_getData('base_subtotal_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseToOrderRate()
+    {
+        return (float) $this->_getData('base_to_order_rate');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountAmount()
+    {
+        return (float) $this->_getData('discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getGrandTotal()
+    {
+        return (float) $this->_getData('grand_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getStoreToOrderRate()
+    {
+        return (float) $this->_getData('store_to_order_rate');
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingAmount()
+    {
+        return (float) $this->_getData('shipping_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingTaxAmount()
+    {
+        return (float) $this->_getData('shipping_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSubtotal()
+    {
+        return (float) $this->_getData('subtotal');
+    }
+
+    /**
+     * @return float
+     */
+    public function getSubtotalInclTax()
+    {
+        return (float) $this->_getData('subtotal_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getStoreToBaseRate()
+    {
+        return (float) $this->_getData('store_to_base_rate');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxAmount()
+    {
+        return (float) $this->_getData('tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseToGlobalRate()
+    {
+        return (float) $this->_getData('base_to_global_rate');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseSubtotal()
+    {
+        return (float) $this->_getData('base_subtotal');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseGrandTotal()
+    {
+        return (float) $this->_getData('base_grand_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxAmount()
+    {
+        return (float) $this->_getData('base_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getHiddenTaxAmount()
+    {
+        return (float) $this->_getData('hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseHiddenTaxAmount()
+    {
+        return (float) $this->_getData('base_hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingHiddenTaxAmount()
+    {
+        return (float) $this->_getData('shipping_hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseShippingHiddenTaxAmount()
+    {
+        return (float) $this->_getData('base_shipping_hidden_tax_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingInclTax()
+    {
+        return (float) $this->_getData('shipping_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseShippingInclTax()
+    {
+        return (float) $this->_getData('base_shipping_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseCost()
+    {
+        return (float) $this->_getData('base_cost');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseCustomerBalanceReturnMax()
+    {
+        return (float) $this->_getData('base_customer_balance_return_max');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCustomerBalanceTotalRefunded($value)
+    {
+        return $this->setData('base_customer_balance_total_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBsCustomerBalTotalRefunded($value)
+    {
+        return $this->setData('bs_customer_bal_total_refunded', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingInclTax($value)
+    {
+        return $this->setData('base_shipping_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAdjustment($value)
+    {
+        return $this->setData('adjustment', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAdjustment($value)
+    {
+        return $this->setData('base_adjustment', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAdjustmentNegative($value)
+    {
+        return $this->setData('base_adjustment_negative', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseAdjustmentPositive($value)
+    {
+        return $this->setData('base_adjustment_positive', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountAmount($value)
+    {
+        return $this->setData('base_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingAmount($value)
+    {
+        return $this->setData('base_shipping_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingTaxAmount($value)
+    {
+        return $this->setData('base_shipping_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseSubtotalInclTax($value)
+    {
+        return $this->setData('base_subtotal_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseToOrderRate($value)
+    {
+        return $this->setData('base_to_order_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setGrandTotal($value)
+    {
+        return $this->setData('grand_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setStoreToOrderRate($value)
+    {
+        return $this->setData('store_to_order_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingTaxAmount($value)
+    {
+        return $this->setData('shipping_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSubtotal($value)
+    {
+        return $this->setData('subtotal', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setSubtotalInclTax($value)
+    {
+        return $this->setData('subtotal_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setStoreToBaseRate($value)
+    {
+        return $this->setData('store_to_base_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxAmount($value)
+    {
+        return $this->setData('tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseToGlobalRate($value)
+    {
+        return $this->setData('base_to_global_rate', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseSubtotal($value)
+    {
+        return $this->setData('base_subtotal', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseGrandTotal($value)
+    {
+        return $this->setData('base_grand_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxAmount($value)
+    {
+        return $this->setData('base_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxAmount($value)
+    {
+        return $this->setData('hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxAmount($value)
+    {
+        return $this->setData('base_hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingHiddenTaxAmount($value)
+    {
+        return $this->setData('shipping_hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingHiddenTaxAmount($value)
+    {
+        return $this->setData('base_shipping_hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setShippingInclTax($value)
+    {
+        return $this->setData('shipping_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPaymentRefundDisallowed($value)
+    {
+        return $this->setData('payment_refund_disallowed', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCost($value)
+    {
+        return $this->setData('base_cost', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTotalQty($value)
+    {
+        return $this->setData('total_qty', (float) $value);
     }
 }

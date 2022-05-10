@@ -106,6 +106,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         $this->_batchModelPrepared = true;
         return $this;
     }
+
     /**
      * Return a batch model instance
      * @return Mage_Dataflow_Model_Batch
@@ -114,6 +115,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return $this->_batchModel;
     }
+
     /**
      * Return a batch model config JSON
      * @return string
@@ -124,6 +126,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
             $this->getBatchConfig()
         );
     }
+
     /**
      * Encoding to JSON
      * @param string $source
@@ -133,6 +136,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::helper('core')->jsonEncode($source);
     }
+
     /**
      * Get a profile
      * @return object
@@ -141,6 +145,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::registry('current_convert_profile');
     }
+
     /**
      * Generating form key
      * @return string
@@ -149,6 +154,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
     /**
      * Return batch model and initialize it if need
      * @return Mage_Dataflow_Model_Batch
@@ -158,6 +164,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
         return $this->_prepareBatchModel()
             ->_getBatchModel();
     }
+
     /**
      * Generating exceptions data
      * @return array

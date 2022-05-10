@@ -66,6 +66,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         return $this;
     }
+
     /**
      * Initialize and check product
      *

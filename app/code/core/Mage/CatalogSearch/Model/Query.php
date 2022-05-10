@@ -45,7 +45,6 @@
  * @method $this setPopularity(int $value)
  * @method string getQueryText()
  * @method $this setQueryText(string $value)
- * @method $this setRatio(float $value)
  * @method string getRedirect()
  * @method $this setRedirect(string $value)
  * @method string getSynonymFor()
@@ -258,5 +257,13 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     public function getMaxQueryWords()
     {
         return Mage::getStoreConfig(self::XML_PATH_MAX_QUERY_WORDS, $this->getStoreId());
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRatio($value)
+    {
+        return $this->setData('ratio', (float) $value);
     }
 }

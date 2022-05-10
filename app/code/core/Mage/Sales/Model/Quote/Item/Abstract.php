@@ -44,64 +44,14 @@
  * @method $this setAppliedRuleIds(string $value)
  *
  * @method bool hasBaseCalculationPrice()
- * @method $this setBaseCalculationPrice(float $value)
- * @method $this setBaseCustomPrice(float $value)
- * @method float getBaseDiscountAmount()
- * @method $this setBaseDiscountAmount(float $value)
- * @method float getBaseDiscountCalculationPrice()
- * @method $this setBaseDiscountCalculationPrice(float $value)
- * @method $this setBaseExtraRowTaxableAmount(float $value)
- * @method $this setBaseExtraTaxableAmount(float $value)
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float getBaseOriginalDiscountAmount()
- * @method float setBaseOriginalDiscountAmount(float $value)
- * @method $this setBaseOriginalPrice(float $value)
- * @method $this setBasePriceInclTax(float $value)
  * @method $this unsBasePriceInclTax()
- * @method float getBaseRowTax()
- * @method float getBaseRowTotal()
- * @method $this setBaseRowTotal(float $value)
- * @method float getBaseRowTotalInclTax()
- * @method $this setBaseRowTotalInclTax(float $value)
  * @method $this unsBaseRowTotalInclTax()
- * @method float getBaseRowTotalWithDiscount()
- * @method $this setBaseRowTotalWithDiscount(float $value)
- * @method float getBaseShippingAmount()
- * @method float getBaseTaxableAmount()
- * @method $this setBaseTaxableAmount(float $value)
- * @method $this setBaseTaxAmount(float $value)
- * @method float getBaseTaxBeforeDiscount()
- * @method $this setBaseTaxBeforeDiscount(float $value)
- * @method $this setBaseTaxCalcPrice(float $value)
- * @method $this setBaseTaxCalcRowTotal(float $value)
- * @method $this setBasePrice(float $value)
- * @method $this setBaseRowTax(float $value)
- * @method $this setBaseShippingAmount(float $value)
- * @method float getBaseWeeeDiscount()
- * @method float getBaseWeeeTaxAppliedAmount()
- * @method $this setBaseWeeeTaxAppliedAmount(float $value)
- * @method float getBaseWeeeTaxAppliedRowAmount()
- * @method $this setBaseWeeeTaxAppliedRowAmount(float $value)
  * @method int getBaseWeeeTaxDisposition()
  * @method $this setBaseWeeeTaxDisposition(int $value)
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
  *
- * @method $this setCalculationPrice(float $value)
  * @method bool hasCustomPrice()
- * @method float getCustomPrice()
- *
- * @method float getDiscountAmount()
- * @method $this setDiscountAmount(float $value)
- * @method float getDiscountCalculationPrice()
- * @method $this setDiscountCalculationPrice(float $value)
- * @method float getDiscountPercent()
- * @method $this setDiscountPercent(float $value)
- * @method float getDiscountTaxCompensation()
- * @method $this setDiscountTaxCompensation(float $value)
- *
- * @method $this setExtraRowTaxableAmount(float $value)
- * @method $this setExtraTaxableAmount(float $value)
  *
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
@@ -111,66 +61,35 @@
  * @method $this setHasError(bool $value)
  * @method bool getHasConfigurationUnavailableError()
  * @method $this unsHasConfigurationUnavailableError()
- * @method $this setHiddenTaxAmount(float $value)
  *
  * @method bool getIsPriceInclTax()
  * @method $this setIsPriceInclTax(bool $value)
  *
  * @method string getName()
  * @method bool getNoDiscount()
- * @method float getNominalRowTotal()
  * @method array getNominalTotalDetails()
  *
  * @method $this unsMessage()
  *
  * @method bool hasOriginalCustomPrice()
- * @method float getOriginalCustomPrice()
- * @method float getOriginalDiscountAmount()
- * @method $this setOriginalDiscountAmount(float $value)
  *
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)
- * @method $this setPriceInclTax(float $value)
  * @method $this unsPriceInclTax()
  * @method int getProductId()
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method array getProductOrderOptions()
  * @method string getProductType()
  *
- * @method $this setQty(float $value)
- *
- * @method float getRowTax()
  * @method $this setRowTax(int $rowTax)
- * @method float getRowTotal()
- * @method $this setRowTotal(float $value)
- * @method $this setRowTotalExcTax(float $value)
- * @method float getRowTotalInclTax()
- * @method $this setRowTotalInclTax(float $value)
  * @method $this unsRowTotalInclTax()
- * @method float getRowTotalWithDiscount()
- * @method $this setRowTotalWithDiscount(float $value)
- * @method float getRowWeight()
  *
  * @method int getStoreId()
  *
- * @method float getTaxableAmount()
- * @method $this setTaxableAmount(float $value)
- * @method float getTaxBeforeDiscount()
- * @method $this setTaxCalcPrice(float $value)
- * @method $this setTaxCalcRowTotal(float $value)
- * @method float getTaxPercent()
  * @method $this setTaxRates(array $value)
- * @method $this setTaxAmount(float $value)
- * @method $this setTaxBeforeDiscount(float $value)
- * @method $this setTaxPercent(float $value)
  *
- * @method float getWeeeDiscount()
  * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)
- * @method float getWeeeTaxAppliedAmount()
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method float getWeeeTaxAppliedRowAmount()
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
  * @method int getWeeeTaxDisposition()
  * @method $this setWeeeTaxDisposition(int $value)
  * @method int getWeeeTaxRowDisposition()
@@ -931,5 +850,629 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         }
 
         return $value;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountAmount()
+    {
+        return (float) $this->_getData('base_discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseDiscountCalculationPrice()
+    {
+        return (float) $this->_getData('base_discount_calculation_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseOriginalDiscountAmount()
+    {
+        return (float) $this->_getData('base_original_discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTax()
+    {
+        return (float) $this->_getData('base_row_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotal()
+    {
+        return (float) $this->_getData('base_row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotalInclTax()
+    {
+        return (float) $this->_getData('base_row_total_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseRowTotalWithDiscount()
+    {
+        return (float) $this->_getData('base_row_total_with_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseShippingAmount()
+    {
+        return (float) $this->_getData('base_shipping_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxableAmount()
+    {
+        return (float) $this->_getData('base_taxable_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseTaxBeforeDiscount()
+    {
+        return (float) $this->_getData('base_tax_before_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeDiscount()
+    {
+        return (float) $this->_getData('base_weee_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxAppliedAmount()
+    {
+        return (float) $this->_getData('base_weee_tax_applied_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseWeeeTaxAppliedRowAmount()
+    {
+        return (float) $this->_getData('base_weee_tax_applied_row_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getCustomPrice()
+    {
+        return (float) $this->_getData('custom_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountAmount()
+    {
+        return (float) $this->_getData('discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountCalculationPrice()
+    {
+        return (float) $this->_getData('discount_calculation_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountPercent()
+    {
+        return (float) $this->_getData('discount_percent');
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountTaxCompensation()
+    {
+        return (float) $this->_getData('discount_tax_compensation');
+    }
+
+    /**
+     * @return float
+     */
+    public function getNominalRowTotal()
+    {
+        return (float) $this->_getData('nominal_row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOriginalCustomPrice()
+    {
+        return (float) $this->_getData('original_custom_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getOriginalDiscountAmount()
+    {
+        return (float) $this->_getData('original_discount_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTax()
+    {
+        return (float) $this->_getData('row_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTotal()
+    {
+        return (float) $this->_getData('row_total');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTotalInclTax()
+    {
+        return (float) $this->_getData('row_total_incl_tax');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowTotalWithDiscount()
+    {
+        return (float) $this->_getData('row_total_with_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getRowWeight()
+    {
+        return (float) $this->_getData('row_weight');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxableAmount()
+    {
+        return (float) $this->_getData('taxable_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxBeforeDiscount()
+    {
+        return (float) $this->_getData('tax_before_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxPercent()
+    {
+        return (float) $this->_getData('tax_percent');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeDiscount()
+    {
+        return (float) $this->_getData('weee_discount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxAppliedAmount()
+    {
+        return (float) $this->_getData('weee_tax_applied_amount');
+    }
+
+    /**
+     * @return float
+     */
+    public function getWeeeTaxAppliedRowAmount()
+    {
+        return (float) $this->_getData('weee_tax_applied_row_amount');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseOriginalDiscountAmount($value)
+    {
+        return $this->setData('base_original_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCalculationPrice($value)
+    {
+        return $this->setData('base_calculation_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseCustomPrice($value)
+    {
+        return $this->setData('base_custom_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountAmount($value)
+    {
+        return $this->setData('base_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseDiscountCalculationPrice($value)
+    {
+        return $this->setData('base_discount_calculation_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseExtraRowTaxableAmount($value)
+    {
+        return $this->setData('base_extra_row_taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseExtraTaxableAmount($value)
+    {
+        return $this->setData('base_extra_taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseHiddenTaxAmount($value)
+    {
+        return $this->setData('base_hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseOriginalPrice($value)
+    {
+        return $this->setData('base_original_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePriceInclTax($value)
+    {
+        return $this->setData('base_price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotal($value)
+    {
+        return $this->setData('base_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotalInclTax($value)
+    {
+        return $this->setData('base_row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTotalWithDiscount($value)
+    {
+        return $this->setData('base_row_total_with_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxableAmount($value)
+    {
+        return $this->setData('base_taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxAmount($value)
+    {
+        return $this->setData('base_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxBeforeDiscount($value)
+    {
+        return $this->setData('base_tax_before_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxCalcPrice($value)
+    {
+        return $this->setData('base_tax_calc_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseTaxCalcRowTotal($value)
+    {
+        return $this->setData('base_tax_calc_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBasePrice($value)
+    {
+        return $this->setData('base_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseRowTax($value)
+    {
+        return $this->setData('base_row_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseShippingAmount($value)
+    {
+        return $this->setData('base_shipping_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setBaseWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('base_weee_tax_applied_row_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setCalculationPrice($value)
+    {
+        return $this->setData('calculation_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountAmount($value)
+    {
+        return $this->setData('discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountCalculationPrice($value)
+    {
+        return $this->setData('discount_calculation_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountPercent($value)
+    {
+        return $this->setData('discount_percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDiscountTaxCompensation($value)
+    {
+        return $this->setData('discount_tax_compensation', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setExtraRowTaxableAmount($value)
+    {
+        return $this->setData('extra_row_taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setExtraTaxableAmount($value)
+    {
+        return $this->setData('extra_taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHiddenTaxAmount($value)
+    {
+        return $this->setData('hidden_tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setOriginalDiscountAmount($value)
+    {
+        return $this->setData('original_discount_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setPriceInclTax($value)
+    {
+        return $this->setData('price_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQty($value)
+    {
+        return $this->setData('qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotal($value)
+    {
+        return $this->setData('row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotalExcTax($value)
+    {
+        return $this->setData('row_total_exc_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotalInclTax($value)
+    {
+        return $this->setData('row_total_incl_tax', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRowTotalWithDiscount($value)
+    {
+        return $this->setData('row_total_with_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxableAmount($value)
+    {
+        return $this->setData('taxable_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxCalcPrice($value)
+    {
+        return $this->setData('tax_calc_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxCalcRowTotal($value)
+    {
+        return $this->setData('tax_calc_row_total', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxAmount($value)
+    {
+        return $this->setData('tax_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxBeforeDiscount($value)
+    {
+        return $this->setData('tax_before_discount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTaxPercent($value)
+    {
+        return $this->setData('tax_percent', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedAmount($value)
+    {
+        return $this->setData('weee_tax_applied_amount', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setWeeeTaxAppliedRowAmount($value)
+    {
+        return $this->setData('weee_tax_applied_row_amount', (float) $value);
     }
 }

@@ -551,6 +551,7 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
         return $canReturnToStock;
     }
+
     /**
      * Whether to show 'Return to stock' column for item parent
      * @param Mage_Sales_Model_Order_Creditmemo_Item $item

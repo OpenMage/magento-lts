@@ -545,6 +545,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         return count($newTimes);
     }
+
     /**
      * Return count of sent in last period by IP address
      *
@@ -566,6 +567,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
 
         return $this->_getResource()->getSendCount($this, $this->getRemoteAddr(), time() - $period, $websiteId);
     }
+
     /**
      * Register self in global register with name send_to_friend_model
      *

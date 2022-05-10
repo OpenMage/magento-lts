@@ -35,10 +35,6 @@
  * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
  * @method $this setCustomerGroupId(int $value)
- * @method float getQty()
- * @method $this setQty(float $value)
- * @method float getValue()
- * @method $this setValue(float $value)
  * @method int getTaxClassId()
  * @method $this setTaxClassId(int $value)
  * @method int getWebsiteId()
@@ -158,5 +154,37 @@ class Mage_CatalogIndex_Model_Indexer_Minimalprice extends Mage_CatalogIndex_Mod
         }
 
         return true;
+    }
+
+    /**
+     * @return float
+     */
+    public function getQty()
+    {
+        return (float) $this->_getData('qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getValue()
+    {
+        return (float) $this->_getData('value');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setQty($value)
+    {
+        return $this->setData('qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setValue($value)
+    {
+        return $this->setData('value', (float) $value);
     }
 }

@@ -34,10 +34,6 @@
  * @method Mage_Bundle_Model_Price_Index setWebsiteId(int $value)
  * @method int getCustomerGroupId()
  * @method Mage_Bundle_Model_Price_Index setCustomerGroupId(int $value)
- * @method float getMinPrice()
- * @method Mage_Bundle_Model_Price_Index setMinPrice(float $value)
- * @method float getMaxPrice()
- * @method Mage_Bundle_Model_Price_Index setMaxPrice(float $value)
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -150,5 +146,37 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                 ->setData('_price_index_max_price', $prices[$product->getId()]['max_price']);
         }
         return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinPrice()
+    {
+        return (float) $this->_getData('min_price');
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaxPrice()
+    {
+        return (float) $this->_getData('max_price');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMinPrice($value)
+    {
+        return $this->setData('min_price', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMaxPrice($value)
+    {
+        return $this->setData('max_price', (float) $value);
     }
 }

@@ -52,10 +52,6 @@
  * @method int getShippingAddressId()
  * @method $this setShippingAddressId(int $value)
  * @method $this setStoreId(int $value)
- * @method float getTotalQty()
- * @method $this setTotalQty(float $value)
- * @method float getTotalWeight()
- * @method $this setTotalWeight(float $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  *
@@ -697,5 +693,37 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             return $this->getResource()->getReadConnection()->decodeVarbinary($label);
         }
         return $label;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalQty()
+    {
+        return (float) $this->_getData('total_qty');
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalWeight()
+    {
+        return (float) $this->_getData('total_weight');
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTotalQty($value)
+    {
+        return $this->setData('total_qty', (float) $value);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTotalWeight($value)
+    {
+        return $this->setData('total_weight', (float) $value);
     }
 }
