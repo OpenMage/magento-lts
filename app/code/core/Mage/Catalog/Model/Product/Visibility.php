@@ -68,7 +68,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInCatalogIds());
         return $this;
     }
-
     /**
      * Add visibility in searchfilter to collection
      *
@@ -81,7 +80,6 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInSearchIds());
         return $this;
     }
-
     /**
      * Add visibility in site filter to collection
      *

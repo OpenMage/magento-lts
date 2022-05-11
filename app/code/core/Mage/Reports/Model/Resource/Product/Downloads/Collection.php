@@ -45,7 +45,6 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
     {
         parent::_construct();
     }
-
     /**
      * Add downloads summary grouping by product
      *

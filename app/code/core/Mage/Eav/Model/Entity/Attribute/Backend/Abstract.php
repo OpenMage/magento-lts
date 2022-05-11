@@ -321,7 +321,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     {
         return $this;
     }
-
     /**
      * After delete method
      *

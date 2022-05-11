@@ -43,7 +43,6 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     {
         return $field;
     }
-
     /**
      * Returns analytic expression for database column
      *

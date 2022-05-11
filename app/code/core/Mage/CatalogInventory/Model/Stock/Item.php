@@ -33,6 +33,9 @@
  *
  * @method $this setProductId(int $value)
  * @method $this setStockId(int $value)
+ * @method float getQty()
+ * @method $this setQty(float $value)
+ * @method $this setMinQty(float $value)
  * @method int getUseConfigMinQty()
  * @method $this setUseConfigMinQty(int $value)
  * @method int getIsQtyDecimal()
@@ -40,13 +43,16 @@
  * @method $this setBackorders(int $value)
  * @method int getUseConfigBackorders()
  * @method $this setUseConfigBackorders(int $value)
+ * @method $this setMinSaleQty(float $value)
  * @method int getUseConfigMinSaleQty()
  * @method $this setUseConfigMinSaleQty(int $value)
+ * @method $this setMaxSaleQty(float $value)
  * @method int getUseConfigMaxSaleQty()
  * @method $this setUseConfigMaxSaleQty(int $value)
  * @method $this setIsInStock(int $value)
  * @method string getLowStockDate()
  * @method $this setLowStockDate(string $value)
+ * @method $this setNotifyStockQty(float $value)
  * @method int getUseConfigNotifyStockQty()
  * @method $this setUseConfigNotifyStockQty(int $value)
  * @method $this setManageStock(int $value)
@@ -58,6 +64,7 @@
  * @method $this setStockStatusChangedAutomatically(int $value)
  * @method int getUseConfigQtyIncrements()
  * @method $this setUseConfigQtyIncrements(int $value)
+ * @method $this setQtyIncrements(float $value)
  * @method int getUseConfigEnableQtyIncrements()
  * @method $this setUseConfigEnableQtyIncrements(int $value)
  * @method $this setEnableQtyIncrements(int $value)
@@ -78,7 +85,11 @@
  * @method bool getIsChildItem()
  * @method $this setIsChildItem(bool $value)
  * @method $this unsIsChildItem()
+ * @method float getOrderedItems()
+ * @method $this setOrderedItems(float $value)
+ * @method $this setStockQty(float $value)
  * @method bool hasStockQty()
+ * @method float getQtyCorrection()
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -944,93 +955,5 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $indexer->logEvent($this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE);
         }
         return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getQty()
-    {
-        return (float) $this->_getData('qty');
-    }
-
-    /**
-     * @return float
-     */
-    public function getOrderedItems()
-    {
-        return (float) $this->_getData('ordered_items');
-    }
-
-    /**
-     * @return float
-     */
-    public function getQtyCorrection()
-    {
-        return (float) $this->_getData('qty_correction');
-    }
-
-    /**
-     * @return $this
-     */
-    public function setQty($value)
-    {
-        return $this->setData('qty', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setMinQty($value)
-    {
-        return $this->setData('min_qty', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setMinSaleQty($value)
-    {
-        return $this->setData('min_sale_qty', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setMaxSaleQty($value)
-    {
-        return $this->setData('max_sale_qty', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setNotifyStockQty($value)
-    {
-        return $this->setData('notify_stock_qty', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setQtyIncrements($value)
-    {
-        return $this->setData('qty_increments', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setOrderedItems($value)
-    {
-        return $this->setData('ordered_items', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setStockQty($value)
-    {
-        return $this->setData('stock_qty', (float) $value);
     }
 }

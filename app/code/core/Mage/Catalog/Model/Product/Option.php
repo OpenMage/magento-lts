@@ -52,6 +52,7 @@
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
  * @method int getStoreId()
+ * @method float getStorePrice()
  * @method string getStoreTitle()
  * @method string getTitle()
  * @method string getType()
@@ -599,13 +600,5 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                 return true;
         }
         return false;
-    }
-
-    /**
-     * @return float
-     */
-    public function getStorePrice()
-    {
-        return (float) $this->_getData('store_price');
     }
 }

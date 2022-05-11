@@ -42,7 +42,6 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
-
     /*
      * Retrieves Grid Url
      *

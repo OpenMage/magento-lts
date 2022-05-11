@@ -125,7 +125,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
         }
         return $result;
     }
-
     /**
      * Category Tree node onClick listener js function
      *

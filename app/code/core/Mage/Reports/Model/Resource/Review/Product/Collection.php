@@ -39,7 +39,6 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
-
     /**
      * Join review table to result
      *

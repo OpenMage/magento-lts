@@ -40,11 +40,18 @@
  * @method $this setOrderItemId(int $value)
  * @method int getParentId()
  * @method $this setParentId(int $value)
+ * @method float getPrice()
+ * @method $this setPrice(float $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
+ * @method float getQty()
+ * @method float getRowTotal()
+ * @method $this setRowTotal(float $value)
  * @method string getSku()
  * @method $this setStoreId(int $value)
  * @method $this setSku(string $value)
+ * @method float getWeight()
+ * @method $this setWeight(float $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -174,61 +181,5 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         }
 
         return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice()
-    {
-        return (float) $this->_getData('price');
-    }
-
-    /**
-     * @return float
-     */
-    public function getQty()
-    {
-        return (float) $this->_getData('qty');
-    }
-
-    /**
-     * @return float
-     */
-    public function getRowTotal()
-    {
-        return (float) $this->_getData('row_total');
-    }
-
-    /**
-     * @return float
-     */
-    public function getWeight()
-    {
-        return (float) $this->_getData('weight');
-    }
-
-    /**
-     * @return $this
-     */
-    public function setPrice($value)
-    {
-        return $this->setData('price', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setRowTotal($value)
-    {
-        return $this->setData('row_total', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setWeight($value)
-    {
-        return $this->setData('weight', (float) $value);
     }
 }

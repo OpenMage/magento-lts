@@ -110,6 +110,7 @@
  * @method int getTagId()
  * @method $this setTaxClassId(bool $value)
  * @method string getTaxvat()
+ * @method $this setTotal(float $value)
  *
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
@@ -1600,13 +1601,5 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $minLength = (int)Mage::getStoreConfig(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setTotal($value)
-    {
-        return $this->setData('total', (float) $value);
     }
 }

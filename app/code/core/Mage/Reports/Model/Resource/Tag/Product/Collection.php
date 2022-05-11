@@ -42,7 +42,6 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
          */
         $this->_useAnalyticFunction = true;
     }
-
     /**
      * Add unique target count to result
      *

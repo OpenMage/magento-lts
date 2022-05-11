@@ -39,7 +39,6 @@ class Mage_Reports_Model_Resource_Customer_Orders_Collection extends Mage_Report
         parent::_construct();
         $this->_useAnalyticFunction = true;
     }
-
     /**
      * Join fields
      *

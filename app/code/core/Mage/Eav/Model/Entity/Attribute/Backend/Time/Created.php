@@ -47,7 +47,6 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Mode
         }
         return null;
     }
-
     /**
      * Set created date
      * Set created date in UTC time zone
