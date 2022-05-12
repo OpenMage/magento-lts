@@ -544,12 +544,12 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         if (($part !== null) && !defined($part)
-            && ($part != 'ee') && ($part != 'ss') && ($part != 'GG') && ($part != 'MM') && ($part != 'EE') && ($part != 'TT')
+            && ($part !== 'ee') && ($part !== 'ss') && ($part !== 'GG') && ($part !== 'MM') && ($part !== 'EE') && ($part !== 'TT')
+            && ($part !== 'U') && ($part !== 'X') && ($part !== 'c')
             && Zend_Locale::isLocale($part, null, false)) {
             $locale = $part;
             $part = null;
         }
-
         if ($part === null) {
             $part = self::TIMESTAMP;
         } else if (self::$_options['format_type'] == 'php') {
