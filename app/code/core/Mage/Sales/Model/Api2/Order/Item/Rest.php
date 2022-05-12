@@ -55,7 +55,6 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
         }
         return $data;
     }
-
     /**
      * Retrieve order items collection
      *

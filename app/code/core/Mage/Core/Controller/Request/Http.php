@@ -385,7 +385,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_module;
     }
-
     /**
      * Retrieve the controller name
      *
@@ -395,7 +394,6 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_controller;
     }
-
     /**
      * Retrieve the action name
      *

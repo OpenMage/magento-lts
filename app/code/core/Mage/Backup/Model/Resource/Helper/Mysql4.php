@@ -110,7 +110,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return $script;
     }
-
     /**
      * Retrieve SQL fragment for create table
      *
@@ -157,7 +156,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return $sql . ';';
     }
-
     /**
      * Returns SQL header data, move from original resource model
      *
@@ -269,7 +267,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
 
         return $sql;
     }
-
     /**
      * Return table data SQL insert
      *
@@ -280,7 +277,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         return $this->getPartInsertSql($tableName);
     }
-
     /**
      * Quote Table Row
      *

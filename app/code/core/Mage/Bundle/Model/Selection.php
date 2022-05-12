@@ -47,6 +47,10 @@
  * @method int getSelectionId()
  * @method int getSelectionPriceType()
  * @method $this setSelectionPriceType(int $value)
+ * @method float getSelectionPriceValue()
+ * @method $this setSelectionPriceValue(float $value)
+ * @method float getSelectionQty()
+ * @method $this setSelectionQty(float $value)
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
  * @method $this unsSelectionPriceValue()
@@ -87,37 +91,5 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
             }
         }
         parent::_afterSave();
-    }
-
-    /**
-     * @return float
-     */
-    public function getSelectionPriceValue()
-    {
-        return (float) $this->_getData('selection_price_value');
-    }
-
-    /**
-     * @return float
-     */
-    public function getSelectionQty()
-    {
-        return (float) $this->_getData('selection_qty');
-    }
-
-    /**
-     * @return $this
-     */
-    public function setSelectionPriceValue($value)
-    {
-        return $this->setData('selection_price_value', (float) $value);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setSelectionQty($value)
-    {
-        return $this->setData('selection_qty', (float) $value);
     }
 }

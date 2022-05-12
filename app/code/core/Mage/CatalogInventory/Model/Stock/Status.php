@@ -35,6 +35,8 @@
  * @method Mage_CatalogInventory_Model_Stock_Status setWebsiteId(int $value)
  * @method int getStockId()
  * @method Mage_CatalogInventory_Model_Stock_Status setStockId(int $value)
+ * @method float getQty()
+ * @method Mage_CatalogInventory_Model_Stock_Status setQty(float $value)
  * @method int getStockStatus()
  * @method Mage_CatalogInventory_Model_Stock_Status setStockStatus(int $value)
  *
@@ -540,21 +542,5 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->addIsInStockFilterToCollection($collection);
         return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getQty()
-    {
-        return (float) $this->_getData('qty');
-    }
-
-    /**
-     * @return $this
-     */
-    public function setQty($value)
-    {
-        return $this->setData('qty', (float) $value);
     }
 }

@@ -55,7 +55,6 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         }
 
     }
-
     /**
      * Customer groups list.
      */

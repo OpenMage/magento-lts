@@ -189,7 +189,6 @@ class Mage_Paygate_Model_Authorizenet_Cards
             throw new Exception('Payment instance is not set');
         }
     }
-
     /**
      * Return total for cards data fields
      *

@@ -53,6 +53,7 @@
  * @method array getStores()
  * @method $this setStores(array $value)
  * @method $this setSum(int $value)
+ * @method $this setSummary(float|int $param)
  * @method int getVoteId()
  *
  * @category   Mage
@@ -161,13 +162,5 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
     public function getEntityIdByCode($entityCode)
     {
         return $this->getResource()->getEntityIdByCode($entityCode);
-    }
-
-    /**
-     * @return $this
-     */
-    public function setSummary($param)
-    {
-        return $this->setData('summary', (float) $param);
     }
 }

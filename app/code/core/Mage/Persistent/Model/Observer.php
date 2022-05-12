@@ -94,7 +94,6 @@ class Mage_Persistent_Model_Observer
 
         return $this;
     }
-
     /**
      * Emulate welcome message with persistent data
      *
@@ -108,7 +107,6 @@ class Mage_Persistent_Model_Observer
         );
         return $this;
     }
-
     /**
      * Emulate 'welcome' block with persistent data
      *
@@ -501,7 +499,6 @@ class Mage_Persistent_Model_Observer
             $customerSession->setCustomerId(null)->setCustomerGroupId(null);
         }
     }
-
     /**
      * Active Persistent Sessions
      */

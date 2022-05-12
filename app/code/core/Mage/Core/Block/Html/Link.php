@@ -44,7 +44,6 @@ class Mage_Core_Block_Html_Link extends Mage_Core_Block_Template
         $this->setTemplate('core/link.phtml');
         parent::_construct();
     }
-
     /**
      * Prepare link attributes as serialized and formated string
      *

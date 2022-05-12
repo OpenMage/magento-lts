@@ -767,7 +767,6 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
         return $sku;
     }
-
     /**
      * Default action to get weight of product
      *
