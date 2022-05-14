@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     }
 
     /**
-     * Retrive attributes for product massupdate
+     * Retrieve attributes for product massupdate
      *
      * @return array
      */

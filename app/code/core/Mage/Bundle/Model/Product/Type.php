@@ -389,7 +389,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     }
 
     /**
-     * Retrive bundle selections collection based on used options
+     * Retrieve bundle selections collection based on used options
      *
      * @param array $optionIds
      * @param Mage_Catalog_Model_Product $product

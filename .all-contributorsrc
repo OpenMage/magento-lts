@@ -9,6 +9,7 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
+  "contributorTemplate": "<a href=\"<%= contributor.profile %>\"><img src=\"<%= contributor.avatar_url %>\" loading=\"lazy\" width=\"<%= options.imageSize %>\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
   "contributors": [
     {
       "login": "sreichel",
@@ -1305,6 +1306,24 @@
       "name": "mdlonline",
       "avatar_url": "https://avatars.githubusercontent.com/u/5389528?v=4",
       "profile": "https://github.com/mdlonline",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nimasan",
+      "name": "Benjamin MARROT",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5030086?v=4",
+      "profile": "https://www.developpeur-web-tlse.fr/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tmewes",
+      "name": "Tino Mewes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12640514?v=4",
+      "profile": "https://github.com/tmewes",
       "contributions": [
         "code"
       ]

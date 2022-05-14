@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive parent massaction block
+     * Retrieve parent massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive additional action block for this item
+     * Retrieve additional action block for this item
      *
      * @return Mage_Core_Block_Abstract
      */
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive additional action block HTML for this item
+     * Retrieve additional action block HTML for this item
      *
      * @return string
      */

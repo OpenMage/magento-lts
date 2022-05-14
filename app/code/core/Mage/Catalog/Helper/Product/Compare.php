@@ -165,7 +165,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to wishlist url
+     * Retrieve add to wishlist url
      *
      * @param Mage_Catalog_Model_Product $product
      * @return string
@@ -176,7 +176,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to cart url
+     * Retrieve add to cart url
      *
      * @param Mage_Catalog_Model_Product $product
      * @return string
@@ -361,7 +361,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to wishlist url with or without Form Key
+     * Retrieve add to wishlist url with or without Form Key
      *
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey
@@ -376,7 +376,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to cart url with or without Form Key
+     * Retrieve add to cart url with or without Form Key
      *
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey

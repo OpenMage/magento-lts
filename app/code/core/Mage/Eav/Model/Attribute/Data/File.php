@@ -172,6 +172,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         if (!$attribute->getIsRequired() && !$toUpload) {
+            if ($toDelete) {
+                $attribute->setAttributeValidationAsPassed();
+            }
             return true;
         }
 

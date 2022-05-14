@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive serialized json with configurable attributes values of simple
+     * Retrieve serialized json with configurable attributes values of simple
      *
      * @return string
      */
@@ -121,7 +121,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive configurable product for created/edited simple
+     * Retrieve configurable product for created/edited simple
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive product
+     * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
      */

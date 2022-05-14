@@ -31,7 +31,7 @@
  * @subpackage Management
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * 
+ *
  * @property string $Url             The address of the storage account.
  * @property string $ServiceName     The name of the storage account.
  * @property string $Description	 A description of the storage account.
@@ -41,10 +41,10 @@
  */
 class Zend_Service_WindowsAzure_Management_StorageServiceInstance
 	extends Zend_Service_WindowsAzure_Management_ServiceEntityAbstract
-{    
+{
     /**
      * Constructor
-     * 
+     *
      * @param string $url             The address of the storage account.
      * @param string $serviceName     The name of the storage account.
 	 * @param string $description	  A description of the storage account.
@@ -52,15 +52,15 @@ class Zend_Service_WindowsAzure_Management_StorageServiceInstance
 	 * @param string $location        The geo-location of the storage account in Windows Azure, if your storage account is not associated with an affinity group.
 	 * @param string $label           The label for the storage account.
 	 */
-    public function __construct($url, $serviceName, $description = '', $affinityGroup = '', $location = '', $label = '') 
-    {	        
+    public function __construct($url, $serviceName, $description = '', $affinityGroup = '', $location = '', $label = '')
+    {
         $this->_data = array(
             'url'              => $url,
             'servicename'      => $serviceName,
             'description'      => $description,
             'affinitygroup'    => $affinityGroup,
             'location'         => $location,
-            'label'            => base64_decode($label)        
+            'label'            => base64_decode($label)
         );
     }
 }

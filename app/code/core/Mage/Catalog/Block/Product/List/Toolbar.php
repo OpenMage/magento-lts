@@ -569,7 +569,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     }
 
     /**
-     * Retrive URL for view mode
+     * Retrieve URL for view mode
      *
      * @param string $mode
      * @return string

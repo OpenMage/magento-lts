@@ -544,12 +544,12 @@ class Zend_Date extends Zend_Date_DateObject
         }
 
         if (($part !== null) && !defined($part)
-            && ($part != 'ee') && ($part != 'ss') && ($part != 'GG') && ($part != 'MM') && ($part != 'EE') && ($part != 'TT')
+            && ($part !== 'ee') && ($part !== 'ss') && ($part !== 'GG') && ($part !== 'MM') && ($part !== 'EE') && ($part !== 'TT')
+            && ($part !== 'U') && ($part !== 'X') && ($part !== 'c')
             && Zend_Locale::isLocale($part, null, false)) {
             $locale = $part;
             $part = null;
         }
-
         if ($part === null) {
             $part = self::TIMESTAMP;
         } else if (self::$_options['format_type'] == 'php') {
@@ -4046,7 +4046,7 @@ class Zend_Date extends Zend_Date_DateObject
      * If a localized dayname is given it will be parsed with the default locale or the optional
      * set locale.
      * Returned is the new date object
-     * Example: addWeekday(3); will add the difference of days from the begining of the month until
+     * Example: addWeekday(3); will add the difference of days from the beginning of the month until
      * wednesday.
      *
      * @param  string|integer|array|Zend_Date  $weekday Weekday to add
@@ -4066,7 +4066,7 @@ class Zend_Date extends Zend_Date_DateObject
      * If a localized dayname is given it will be parsed with the default locale or the optional
      * set locale.
      * Returned is the new date object
-     * Example: subWeekday(3); will subtract the difference of days from the begining of the month until
+     * Example: subWeekday(3); will subtract the difference of days from the beginning of the month until
      * wednesday.
      *
      * @param  string|integer|array|Zend_Date  $weekday Weekday to sub
@@ -4643,7 +4643,7 @@ class Zend_Date extends Zend_Date_DateObject
     }
 
     /**
-     * Returns the week as new date object using monday as begining of the week
+     * Returns the week as new date object using monday as beginning of the week
      * Example: 12.Jan.2007 -> 08.Jan.1970 00:00:00
      *
      * @param Zend_Locale $locale OPTIONAL Locale for parsing input

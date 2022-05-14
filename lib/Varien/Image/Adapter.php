@@ -25,7 +25,7 @@
  */
 
 
-class Varien_Image_Adapter 
+class Varien_Image_Adapter
 {
     const ADAPTER_GD    = 'GD';
     const ADAPTER_GD2   = 'GD2';

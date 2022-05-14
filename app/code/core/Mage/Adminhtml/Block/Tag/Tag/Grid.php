@@ -155,7 +155,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * Retrives row click URL
+     * Retrieves row click URL
      *
      * @param  mixed $row
      * @return string

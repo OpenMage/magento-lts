@@ -116,7 +116,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
     public function getProductIds()
     {
         $this->load();
-        
+
         return array_keys($this->_optionsByProduct);
     }
 

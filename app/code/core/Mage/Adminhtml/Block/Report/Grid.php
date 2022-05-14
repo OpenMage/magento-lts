@@ -614,7 +614,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
         return $this->_currentCurrencyCode;
     }
-    
+
     /**
      * Get currency rate (base to given currency)
      *

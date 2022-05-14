@@ -1855,7 +1855,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $resourceModelName
      * @return Object
-     * @phpstan-ignore-next-line
      */
     protected function getResourceModel($resourceModelName)
     {
@@ -1867,7 +1866,6 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $helperName
      * @return Mage_Core_Helper_Abstract
-     * @phpstan-ignore-next-line
      */
     protected function getHelper($helperName)
     {

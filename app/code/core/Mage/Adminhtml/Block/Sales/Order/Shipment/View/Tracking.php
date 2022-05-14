@@ -73,7 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     }
 
     /**
-     * Retrive save button html
+     * Retrieve save button html
      *
      * @return string
      */

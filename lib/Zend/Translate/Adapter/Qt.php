@@ -77,7 +77,7 @@ class Zend_Translate_Adapter_Qt extends Zend_Translate_Adapter {
         xml_parser_set_option($this->_file, XML_OPTION_CASE_FOLDING, 0);
         xml_set_element_handler($this->_file, "_startElement", "_endElement");
         xml_set_character_data_handler($this->_file, "_contentElement");
-        
+
         try {
             Zend_Xml_Security::scanFile($filename);
         } catch (Zend_Xml_Exception $e) {

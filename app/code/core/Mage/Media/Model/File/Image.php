@@ -207,7 +207,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     }
 
     /**
-     * Retrive image dimensions
+     * Retrieve image dimensions
      *
      * @param Mage_Media_Model_Image $object
      * @return Varien_Object

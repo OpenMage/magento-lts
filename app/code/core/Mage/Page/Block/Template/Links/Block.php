@@ -199,7 +199,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_url;
     }
-    
+
     /**
      * Prepare tag attributes
      *
@@ -219,7 +219,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
         }
         return '';
     }
-    
+
      /**
      * Return Li Params
      *
@@ -229,7 +229,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_prepareParams($this->_liParams);
     }
-    
+
      /**
      * Return Link Tag Params
      *

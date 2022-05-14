@@ -98,7 +98,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrive has verification configuration
+     * Retrieve has verification configuration
      *
      * @return boolean
      */
