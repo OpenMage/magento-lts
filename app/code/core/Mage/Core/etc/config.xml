@@ -327,7 +327,7 @@
                 <use_form_key>1</use_form_key>
             </csrf>
             <cache>
-                <flush_cron_expr>30 3 * * 6</flush_cron_expr>
+                <flush_cron_expr>30 2 * * *</flush_cron_expr>
             </cache>
             <smtp>
                 <disable>0</disable>
