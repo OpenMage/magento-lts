@@ -135,7 +135,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
                 if ($price['price'] < $productPrice) {
                     // use the original prices to determine the percent savings
-                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
+                    $price['savePercent'] = ceil(100 - round((100 / $productPrice) * $price['price']));
 
                     // if applicable, adjust the tier prices
                     if (isset($bundlePriceModel)) {
