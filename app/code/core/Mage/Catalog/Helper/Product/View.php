@@ -117,7 +117,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             $params = new Varien_Object();
         }
 
-        // Standard algorithm to prepare and rendern product view page
+        // Standard algorithm to prepare and render a product view page
         $product = $productHelper->initProduct($productId, $controller, $params);
         if (!$product) {
             throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);

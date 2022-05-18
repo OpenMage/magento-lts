@@ -25,7 +25,7 @@
 
 /**
  * Import Zend_Search_Lucene_Interface_MultiSearcher for BC (see ZF-12067)
- * @see Zend_Search_Lucene_Interface_MultiSearcher 
+ * @see Zend_Search_Lucene_Interface_MultiSearcher
  */
 #require_once 'Zend/Search/Lucene/Interface/MultiSearcher.php';
 
@@ -697,7 +697,7 @@ class Zend_Search_Lucene_MultiSearcher implements Zend_Search_Lucene_Interface
     }
 
     /**
-     * Retrive similarity used by index reader
+     * Retrieve similarity used by index reader
      *
      * @return Zend_Search_Lucene_Search_Similarity
      * @throws Zend_Search_Lucene_Exception

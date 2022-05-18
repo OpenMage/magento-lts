@@ -377,7 +377,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     }
 
     /**
-     * Retrive tier prices in special format
+     * Retrieve tier prices in special format
      *
      * @return array
      */

@@ -462,7 +462,7 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrive translated template file
+     * Retrieve translated template file
      *
      * @param string $file
      * @param string $type

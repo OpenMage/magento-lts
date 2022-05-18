@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtm
             ),
         );
     }
-    
+
     public function getCondition()
     {
         if ($this->getValue()) {

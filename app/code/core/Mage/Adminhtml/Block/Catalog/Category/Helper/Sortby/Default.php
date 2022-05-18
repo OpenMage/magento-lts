@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Helper_Sortby_Default
         $disabled = false;
 
         if (!$this->getValue() || $elementDisabled) {
+            $this->setValue(Mage::getStoreConfig(Mage_Catalog_Model_Config::XML_PATH_LIST_DEFAULT_SORT_BY));
             $this->setData('disabled', 'disabled');
             $disabled = true;
         }

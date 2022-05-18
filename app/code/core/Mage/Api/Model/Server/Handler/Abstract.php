@@ -58,7 +58,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
 
     /**
-     * Retrive webservice session
+     * Retrieve webservice session
      *
      * @return Mage_Api_Model_Session
      */
@@ -68,7 +68,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice configuration
+     * Retrieve webservice configuration
      *
      * @return Mage_Api_Model_Config
      */
@@ -78,7 +78,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice server
+     * Retrieve webservice server
      *
      * @return Mage_Api_Model_Server
      */
@@ -147,7 +147,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice fault as array
+     * Retrieve webservice fault as array
      *
      * @param string $faultName
      * @param string $resourceName

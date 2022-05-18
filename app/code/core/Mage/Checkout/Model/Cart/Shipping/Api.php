@@ -106,7 +106,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                 }
             }
         } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_methods_list_could_not_be_retrived', $e->getMessage());
+            $this->_fault('shipping_methods_list_could_not_be_retrieved', $e->getMessage());
         }
 
         return $ratesResult;

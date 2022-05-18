@@ -971,23 +971,29 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $originalCollection = $this->getCollection();
         $count = null;
         $page  = 1;
+        $lPage = null;
+        $break = false;
 
-        do {
+        while ($break !== true) {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
-
-            $count = $collection->count();
-
-            $page++;
+            if (is_null($count)) {
+                $count = $collection->getSize();
+                $lPage = $collection->getLastPageNumber();
+            }
+            if ($lPage == $page) {
+                $break = true;
+            }
+            $page ++;
 
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
             }
             $collection->clear();
             unset($collection);
-        } while($count == $this->_exportPageSize);
+        }
     }
 
     /**
@@ -1292,12 +1298,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $session = Mage::getSingleton('adminhtml/session');
         $sessionParamName = $this->getId().$paramName;
-        if ($this->getRequest()->has($paramName)) {
-            $param = $this->getRequest()->getParam($paramName);
-            if ($this->_saveParametersInSession) {
-                $session->setData($sessionParamName, $param);
+        $param = $this->getRequest()->getParam($paramName);
+
+        if ($param !== null) {
+            if (trim($param) !== '') {
+                if ($this->_saveParametersInSession) {
+                    $session->setData($sessionParamName, $param);
+                }
+                return $param;
+            } else {
+                $session->unsetData($sessionParamName);
+                return $default;
             }
-            return $param;
         }
         elseif ($this->_saveParametersInSession && ($param = $session->getData($sessionParamName)))
         {
@@ -1390,7 +1402,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block name
+     * Retrieve massaction block name
      *
      * @return string
      */
@@ -1412,7 +1424,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block
+     * Retrieve massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -1725,4 +1737,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $res = parent::getRowUrl($item);
         return ($res ? $res : '#');
     }
+
+    public function getLimitOptions(): array
+    {
+        return [20, 30, 50, 100, 200];
+    }
+
 }

@@ -51,15 +51,11 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      *
      * @param string $qty
      * @return float|int|null
+     * @deprecated
      */
     protected function _processLocalizedQty($qty)
     {
-        if (!$this->_localFilter) {
-            $this->_localFilter = new Zend_Filter_LocalizedToNormalized(
-                array('locale' => Mage::app()->getLocale()->getLocaleCode())
-            );
-        }
-        $qty = $this->_localFilter->filter((float)$qty);
+        $qty = (float)$qty;
         if ($qty < 0) {
             $qty = null;
         }

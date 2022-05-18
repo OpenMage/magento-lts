@@ -159,7 +159,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Retrive tab
+     * Retrieve tab
      *
      * @param string $code
      * @return Varien_Object

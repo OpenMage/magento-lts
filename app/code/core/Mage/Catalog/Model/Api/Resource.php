@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     }
 
     /**
-     * Retrives store id from store code, if no store id specified,
+     * Retrieves store id from store code, if no store id specified,
      * it use seted session or admin store
      *
      * @param string|int $store

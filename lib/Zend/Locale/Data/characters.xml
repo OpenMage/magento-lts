@@ -521,6 +521,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<character value = "￦">
 				<substitute>KRW</substitute>
 			</character>
-		</character-fallback> 
+		</character-fallback>
 	</characters>
 </supplementalData>

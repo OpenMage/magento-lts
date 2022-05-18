@@ -540,7 +540,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product id by sku
+     * Retrieve product id by sku
      *
      * @param   string $sku
      * @return  integer
@@ -1223,7 +1223,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
  ** Media API
  */
     /**
-     * Retrive attributes for media gallery
+     * Retrieve attributes for media gallery
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
@@ -1242,7 +1242,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive media gallery images
+     * Retrieve media gallery images
      *
      * @return Varien_Data_Collection
      */
@@ -1288,7 +1288,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product media config
+     * Retrieve product media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */

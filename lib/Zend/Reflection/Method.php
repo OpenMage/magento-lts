@@ -156,7 +156,7 @@ class Zend_Reflection_Method extends ReflectionMethod
             $firstLine = array_shift($lines);
         } while (strpos($firstLine, ')') === false);
 
-        // If the opening brace isn't on the same line as method 
+        // If the opening brace isn't on the same line as method
         // signature, then we should pop off more lines until we find it
         if (strpos($firstLine,'{') === false) {
             do {

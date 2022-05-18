@@ -43,7 +43,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     }
 
     /**
-     * Retrive customer addresses list
+     * Retrieve customer addresses list
      *
      * @param int $customerId
      * @return array

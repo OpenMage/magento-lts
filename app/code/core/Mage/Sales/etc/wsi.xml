@@ -273,6 +273,7 @@
                     <xsd:element name="is_active" type="xsd:string" minOccurs="0" />
                     <xsd:element name="address_type" type="xsd:string" minOccurs="0" />
                     <xsd:element name="firstname" type="xsd:string" minOccurs="0" />
+                    <xsd:element name="middlename" type="xsd:string" minOccurs="0" />
                     <xsd:element name="lastname" type="xsd:string" minOccurs="0" />
                     <xsd:element name="company" type="xsd:string" minOccurs="0" />
                     <xsd:element name="street" type="xsd:string" minOccurs="0" />
