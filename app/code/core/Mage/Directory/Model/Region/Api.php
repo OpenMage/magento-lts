@@ -59,4 +59,4 @@ class Mage_Directory_Model_Region_Api extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
-}
+} // Class Mage_Directory_Model_Region_Api End
