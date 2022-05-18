@@ -122,4 +122,4 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     {
         throw new Zend_XmlRpc_Server_Exception($message, $code);
     }
-} // Class Mage_Api_Model_Server_Adapter_Xmlrpc End
+}
