@@ -42,8 +42,8 @@ h3                      { margin-bottom:.5em; color:#253033; font-size:1.25em; }
 h4                      { margin-bottom:.6em; color:#494848; font-size:1.05em; }
 h5                      { font-size:1.05em; }
 h6                      { font-size:1em; }
-h1 a, h1 a:hover, 
-h2 a, h2 a:hover, 
+h1 a, h1 a:hover,
+h2 a, h2 a:hover,
 h3 a, h3 a:hover,
 h4 a, h4 a:hover        { font-weight:normal; }
 
@@ -55,7 +55,7 @@ td                      { padding:0; vertical-align:top; }
 p, address              { margin-bottom:.5em; }
 address                 { font-style:normal; }
 cite                    { font-style:normal; font-size:10px; }
-q:before, 
+q:before,
 q:after                 { content:'';}
 
 /* Form */
