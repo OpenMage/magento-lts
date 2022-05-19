@@ -4,8 +4,137 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0ff358bf5d71cda08405eb7f55c4fbd",
+    "content-hash": "95f135b6525e383864a037d9bd1186e4",
     "packages": [
+        {
+            "name": "colinmollenhour/credis",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinmollenhour/credis.git",
+                "reference": "afec8e58ec93d2291c127fa19709a048f28641e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinmollenhour/credis/zipball/afec8e58ec93d2291c127fa19709a048f28641e5",
+                "reference": "afec8e58ec93d2291c127fa19709a048f28641e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "suggest": {
+                "ext-redis": "Improved performance for communicating with redis"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Client.php",
+                    "Cluster.php",
+                    "Sentinel.php",
+                    "Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Mollenhour",
+                    "email": "colin@mollenhour.com"
+                }
+            ],
+            "description": "Credis is a lightweight interface to the Redis key-value store which wraps the phpredis library when available for better performance.",
+            "homepage": "https://github.com/colinmollenhour/credis",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/credis/issues",
+                "source": "https://github.com/colinmollenhour/credis/tree/v1.13.0"
+            },
+            "time": "2022-04-07T14:57:22+00:00"
+        },
+        {
+            "name": "colinmollenhour/magento-redis-session",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
+                "reference": "08025ef8f29242633a9d91e959203fe557d5fed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/08025ef8f29242633a9d91e959203fe557d5fed9",
+                "reference": "08025ef8f29242633a9d91e959203fe557d5fed9",
+                "shasum": ""
+            },
+            "require": {
+                "colinmollenhour/php-redis-session-abstract": "~1.4.0"
+            },
+            "suggest": {
+                "magento-hackathon/magento-composer-installer": "Makes it possible to manage this package as a dependency"
+            },
+            "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Mollenhour"
+                }
+            ],
+            "description": "A Redis-based session handler for Magento with optimistic locking.",
+            "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/2.4.0"
+            },
+            "time": "2022-01-28T20:05:20+00:00"
+        },
+        {
+            "name": "colinmollenhour/php-redis-session-abstract",
+            "version": "v1.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinmollenhour/php-redis-session-abstract.git",
+                "reference": "77ad0c1637ae6ea059f1f8e9fbdac6469242a16d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinmollenhour/php-redis-session-abstract/zipball/77ad0c1637ae6ea059f1f8e9fbdac6469242a16d",
+                "reference": "77ad0c1637ae6ea059f1f8e9fbdac6469242a16d",
+                "shasum": ""
+            },
+            "require": {
+                "colinmollenhour/credis": "~1.6",
+                "php": "^5.5 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cm\\RedisSession\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Mollenhour"
+                }
+            ],
+            "description": "A Redis-based session handler with optimistic locking",
+            "homepage": "https://github.com/colinmollenhour/php-redis-session-abstract",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/php-redis-session-abstract/issues",
+                "source": "https://github.com/colinmollenhour/php-redis-session-abstract/tree/v1.4.5"
+            },
+            "time": "2021-12-01T21:16:01+00:00"
+        },
         {
             "name": "eloquent/enumeration",
             "version": "5.1.1",
@@ -1271,5 +1400,5 @@
         "php": ">=7.0 <7.5 || >=8.0 <8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
