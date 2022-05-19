@@ -60,4 +60,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price extends Mage_Adminhtml
 
         $this->setForm($form);
     }
-}// Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price END
+}

@@ -41,7 +41,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     {
         parent::_construct();
         $this->setId('widgetInstanceGrid');
-        $this->setDefaultSort('instance_id');
+        $this->setDefaultSort('title');
         $this->setDefaultDir('ASC');
     }
 
