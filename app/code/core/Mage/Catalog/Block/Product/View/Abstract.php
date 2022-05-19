@@ -34,7 +34,7 @@
 abstract class Mage_Catalog_Block_Product_View_Abstract extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * Retrive product
+     * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
      */

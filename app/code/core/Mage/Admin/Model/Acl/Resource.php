@@ -34,5 +34,5 @@
  */
 class Mage_Admin_Model_Acl_Resource extends Zend_Acl_Resource
 {
-    
+
 }

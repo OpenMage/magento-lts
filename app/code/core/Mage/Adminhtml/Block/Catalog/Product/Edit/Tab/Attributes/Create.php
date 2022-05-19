@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     protected $_config = null;
 
     /**
-     * Retrive config of new attribute creation
+     * Retrieve config of new attribute creation
      *
      * @return Varien_Object
      */

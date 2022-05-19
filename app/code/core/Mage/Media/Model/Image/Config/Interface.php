@@ -36,21 +36,21 @@ interface Mage_Media_Model_Image_Config_Interface
 {
 
     /**
-     * Retrive base url for media files
+     * Retrieve base url for media files
      *
      * @return string
      */
     public function getBaseMediaUrl();
 
     /**
-     * Retrive base path for media files
+     * Retrieve base path for media files
      *
      * @return string
      */
     public function getBaseMediaPath();
 
     /**
-     * Retrive url for media file
+     * Retrieve url for media file
      *
      * @param string $file
      * @return string
@@ -58,7 +58,7 @@ interface Mage_Media_Model_Image_Config_Interface
     public function getMediaUrl($file);
 
     /**
-     * Retrive file system path for media file
+     * Retrieve file system path for media file
      *
      * @param string $file
      * @return string

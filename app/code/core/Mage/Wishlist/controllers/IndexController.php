@@ -508,8 +508,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $qty = 1;
             }
         }
-        $qty = $this->_processLocalizedQty($qty);
-        if ($qty) {
+        $qty = (float)$qty;
+        if ($qty && $qty>0) {
             $item->setQty($qty);
         }
 

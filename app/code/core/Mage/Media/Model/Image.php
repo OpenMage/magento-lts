@@ -83,7 +83,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive media image config instance
+     * Retrieve media image config instance
      *
      * @return Mage_Media_Model_Image_Config_Interface
      */
@@ -117,7 +117,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive source dimensions object
+     * Retrieve source dimensions object
      *
      * @return Varien_Object
      */
@@ -130,7 +130,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive destanation dimensions object
+     * Retrieve destanation dimensions object
      *
      * @return Varien_Object
      */

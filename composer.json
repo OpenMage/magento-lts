@@ -10,6 +10,10 @@
     "php": ">=7.0 <7.5 || >=8.0 <8.1",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
+  "require-dev": {
+    "macopedia/phpstan-magento1": "^1.0.4",
+    "phpstan/phpstan": "^1.4.6"
+  },
   "authors": [
     {
       "name": "Lee Saferite",
@@ -35,5 +39,14 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ]
+  ],
+  "autoload-dev": {
+    "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.9.4.x-dev"
+    },
+    "magento-root-dir": "root"
+  }
 }

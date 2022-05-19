@@ -63,7 +63,7 @@ class Mage_Core_Model_Message
         }
         $message->setClass($class);
         $message->setMethod($method);
-        
+
         return $message;
     }
 

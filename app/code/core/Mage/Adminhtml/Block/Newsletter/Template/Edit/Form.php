@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'label'     => Mage::helper('newsletter')->__('Sender Name'),
             'title'     => Mage::helper('newsletter')->__('Sender Name'),
             'required'  => true,
-            'value'     => $model->getId() !== null 
+            'value'     => $model->getId() !== null
                 ? $model->getTemplateSenderName()
                 : $identityName,
         ));
@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
             'title'     => Mage::helper('newsletter')->__('Sender Email'),
             'class'     => 'validate-email',
             'required'  => true,
-            'value'     => $model->getId() !== null 
+            'value'     => $model->getId() !== null
                 ? $model->getTemplateSenderEmail()
                 : $identityEmail
         ));

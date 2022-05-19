@@ -102,7 +102,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $condition = array('visitor_id IN (?)' => $visitorIds);
-            
+
             // remove visitors from log/quote
             $writeAdapter->delete($this->getTable('log/quote_table'), $condition);
 

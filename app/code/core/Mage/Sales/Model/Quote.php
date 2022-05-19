@@ -927,7 +927,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 if ($item->getId() == $itemId) {
                     $quoteItem = $item;
                     return $quoteItem;
-                } 
+                }
             }
         }
         return $quoteItem;

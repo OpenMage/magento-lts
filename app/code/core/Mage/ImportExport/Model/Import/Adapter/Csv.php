@@ -81,6 +81,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return void Any returned value is ignored.
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $this->_currentRow = fgetcsv($this->_fileHandler, null, $this->_delimiter, $this->_enclosure);
@@ -92,6 +93,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      *
      * @return void Any returned value is ignored.
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         // rewind resource, reset column names, read first row as current
@@ -111,11 +113,13 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
      * @throws OutOfBoundsException
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function seek($position)
     {
         if ($position != $this->_currentKey) {
             if (0 == $position) {
-                return $this->rewind();
+               $this->rewind();
+               return;
             } elseif ($position > 0) {
                 if ($position < $this->_currentKey) {
                     $this->rewind();

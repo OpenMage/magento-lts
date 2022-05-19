@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     protected $_giftMessage = array();
 
     /**
-     * Retrive default value for giftmessage sender
+     * Retrieve default value for giftmessage sender
      *
      * @deprecated after 1.4.2.0
      * @return string
@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive default value for giftmessage recipient
+     * Retrieve default value for giftmessage recipient
      *
      * @deprecated after 1.4.2.0
      * @return string
@@ -126,7 +126,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive real name for field
+     * Retrieve real name for field
      *
      * @deprecated after 1.4.2.0
      * @param string $name
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive gift message for entity
+     * Retrieve gift message for entity
      *
      * @deprecated after 1.4.2.0
      * @return Mage_GiftMessage_Model_Message
@@ -190,7 +190,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     }
 
     /**
-     * Retrive block html id
+     * Retrieve block html id
      *
      * @deprecated after 1.4.2.0
      * @return string
