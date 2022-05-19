@@ -75,7 +75,6 @@
         <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
                 <tr id="attribute-options-table">
-                    <th style="width:1px" class="a-right">ID&nbsp;&nbsp;</th>
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $this->escapeHtml($_store->getName()); ?></th>
                     <?php endforeach ?>
@@ -88,7 +87,6 @@
                         </th>
                     </tr>
                     <tr class="no-display template" id="row-template">
-                        <td class="a-right">{{_id}}&nbsp;&nbsp;</td>
                         <?php foreach ($this->getStores() as $_store): ?>
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/></td>
                         <?php endforeach ?>
@@ -112,8 +110,7 @@ var optionDefaultInputType = 'radio';
 
 // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
 var templateText =
-        '<tr class="option-row">'+
-            '<td class="a-right">{{_id}}&nbsp;&nbsp;</td>'+
+        '<tr class="option-row" title="ID: {{id}}">'+
 <?php foreach ($this->getStores() as $_store): ?>
             '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif ?>/><\/td>'+
 <?php endforeach ?>
@@ -137,7 +134,6 @@ var attributeOption = {
     add : function(data) {
         this.template = new Template(this.templateText, this.templateSyntax);
         var isNewOption = false;
-        data._id = data.id;
         if(!data.id){
             data = {};
             data.id  = 'option_'+this.itemCount;
