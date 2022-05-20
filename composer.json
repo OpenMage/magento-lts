@@ -9,7 +9,9 @@
   "require": {
     "php": ">=7.0 <7.5 || >=8.0 <8.1",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-    "colinmollenhour/magento-redis-session": "^2.4"
+    "colinmollenhour/magento-redis-session": "^2.4",
+    "shardj/zf1-future": "^1.21.1",
+    "pelago/emogrifier": "^6.0.0"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
