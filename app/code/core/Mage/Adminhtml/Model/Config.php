@@ -135,7 +135,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $class = Mage::getConfig()->getModelClassName('core/config_base');
         $this->_config = new $class();
         libxml_use_internal_errors(true);
-        if ($this->_config->loadString($xmlString)) {
+        if (!empty($xmlString) && $this->_config->loadString($xmlString)) {
             return true;
         }
         libxml_clear_errors();
