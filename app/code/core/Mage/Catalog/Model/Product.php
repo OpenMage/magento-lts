@@ -908,7 +908,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get formated by currency tier price
      *
      * @param   double $qty
-     * @return  array || double
+     * @return  array | double
      */
     public function getFormatedTierPrice($qty = null)
     {

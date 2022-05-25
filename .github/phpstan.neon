@@ -101,7 +101,7 @@ parameters:
         # Too much noise from "Variable $this might not be defined"
         - */app/code/core/*/*/data/*
         - */app/code/core/*/*/sql/*
-    level: 1
+    level: 2
     checkFunctionNameCase: true
     checkInternalClassCaseSensitivity: true
 

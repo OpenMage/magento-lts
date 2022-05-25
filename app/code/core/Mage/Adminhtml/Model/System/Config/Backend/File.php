@@ -154,7 +154,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     /**
      * Return the root part of directory path for uploading
      *
-     * @var string
+     * @param string $token
      * @return string
      */
     protected function _getUploadRoot($token)

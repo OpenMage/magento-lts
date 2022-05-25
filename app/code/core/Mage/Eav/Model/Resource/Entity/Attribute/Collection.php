@@ -404,7 +404,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string || array $code
+     * @param string | array $code
      * @return $this
      */
     public function setCodeFilter($code)
@@ -422,7 +422,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add store label to attribute by specified store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addStoreLabel($storeId)
