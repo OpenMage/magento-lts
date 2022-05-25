@@ -228,6 +228,10 @@ RegionUpdater.prototype = {
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
+                if (!wildCard) {
+                    label.insert(' <span class="required">*</span>');
+                    wildCard = label.down('span.required');
+                }
                 var topElement = label.up('tr') || label.up('li');
                 if (!that.config.show_all_regions && topElement) {
                     if (regionRequired) {
@@ -582,3 +586,32 @@ FormElementDependenceController.prototype = {
         }
     }
 };
+
+// optional_zip_countries.phtml
+function onAddressCountryChanged(countryElement) {
+    var zipElementId = countryElement.id.replace(/country_id/, 'postcode');
+
+    // Ajax-request and normal content load compatibility
+    if ($(zipElementId) != undefined) {
+        setPostcodeOptional($(zipElementId), countryElement.value);
+    } else {
+        Event.observe(window, "load", function () {
+            setPostcodeOptional($(zipElementId), countryElement.value);
+        });
+    }
+}
+
+function setPostcodeOptional(zipElement, country) {
+    if (optionalZipCountries.indexOf(country) != -1) {
+        Validation.reset(zipElement);
+        while (zipElement.hasClassName('required-entry')) {
+            zipElement.removeClassName('required-entry');
+        }
+        zipElement.up(1).down('label > span.required').hide();
+    } else {
+        zipElement.addClassName('required-entry');
+        zipElement.up(1).down('label > span.required').show();
+    }
+}
+
+varienGlobalEvents.attachEventHandler("address_country_changed", onAddressCountryChanged);

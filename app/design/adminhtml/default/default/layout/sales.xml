@@ -491,9 +491,11 @@
             <block type="adminhtml/sales_transactions" name="sales_transactions.grid.container"></block>
         </reference>
     </adminhtml_sales_transactions_index>
+
     <adminhtml_sales_transactions_grid>
         <block type="adminhtml/sales_transactions_grid" name="sales_transactions.grid" output="toHtml"></block>
     </adminhtml_sales_transactions_grid>
+
     <adminhtml_sales_transactions_view>
         <reference name="content">
             <block type="adminhtml/sales_transactions_detail" name="sales_transactions.detail" template="sales/transactions/detail.phtml">
@@ -637,7 +639,6 @@
             <block type="adminhtml/sales_order_create_header" name="header" />
         </reference>
     </adminhtml_sales_order_create_load_block_header>
-
 
     <adminhtml_sales_order_create_load_block_sidebar>
         <reference name="content">
@@ -1057,22 +1058,29 @@
             <block type="adminhtml/sales_order_status" name="sales_order_status.grid.container"></block>
         </reference>
     </adminhtml_sales_order_status_index>
+
     <adminhtml_sales_order_status_new>
         <reference name="content">
             <block type="adminhtml/sales_order_status_new" name="sales_order_status.new.container"></block>
         </reference>
     </adminhtml_sales_order_status_new>
+
     <adminhtml_sales_order_status_edit>
         <reference name="content">
             <block type="adminhtml/sales_order_status_edit" name="sales_order_status.edit.container"></block>
         </reference>
     </adminhtml_sales_order_status_edit>
+
     <adminhtml_sales_order_status_assign>
         <reference name="content">
             <block type="adminhtml/sales_order_status_assign" name="sales_order_status.assign.container"></block>
         </reference>
     </adminhtml_sales_order_status_assign>
+
     <adminhtml_sales_order_address>
+        <reference name="head">
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
         <reference name="content">
             <block type="adminhtml/sales_order_address" name="sales_order_address.form.container"></block>
         </reference>

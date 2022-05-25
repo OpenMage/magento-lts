@@ -35,32 +35,5 @@
 <script type="text/javascript">
 //<![CDATA[
 optionalZipCountries = <?php echo $this->helper('directory')->getCountriesWithOptionalZip(true) ?>;
-
-function onAddressCountryChanged (countryElement) {
-    var zipElementId = countryElement.id.replace(/country_id/, 'postcode');
-
-    // Ajax-request and normal content load compatibility
-    if ($(zipElementId) != undefined) {
-        setPostcodeOptional($(zipElementId), countryElement.value);
-    } else {
-        Event.observe(window, "load", function () {
-            setPostcodeOptional($(zipElementId), countryElement.value);
-        });
-    }
-}
-
-function setPostcodeOptional(zipElement, country) {
-    if (optionalZipCountries.indexOf(country) != -1) {
-        while (zipElement.hasClassName('required-entry')) {
-            zipElement.removeClassName('required-entry');
-        }
-        zipElement.up(1).down('label > span.required').hide();
-    } else {
-        zipElement.addClassName('required-entry');
-        zipElement.up(1).down('label > span.required').show();
-    }
-}
-
-varienGlobalEvents.attachEventHandler("address_country_changed", onAddressCountryChanged);
 //]]>
 </script>

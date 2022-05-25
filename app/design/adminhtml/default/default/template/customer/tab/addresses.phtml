@@ -592,6 +592,10 @@ addressesModel.prototype = {
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
+                if (!wildCard) {
+                    label.insert(' <span class="required">*</span>');
+                    wildCard = label.down('span.required');
+                }
                 if (!that.showAllRegions) {
                     if (regionRequired) {
                         label.up('tr').show();

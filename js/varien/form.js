@@ -22,6 +22,7 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
 VarienForm = Class.create();
 VarienForm.prototype = {
     initialize: function(formId, firstFieldFocus){
@@ -162,8 +163,7 @@ VarienForm.prototype = {
 
 RegionUpdater = Class.create();
 RegionUpdater.prototype = {
-    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl)
-    {
+    initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl){
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
         this.regionSelectEl = $(regionSelectEl);
@@ -182,8 +182,7 @@ RegionUpdater.prototype = {
         Event.observe(this.countryEl, 'change', this.update.bind(this));
     },
 
-    _checkRegionRequired: function()
-    {
+    _checkRegionRequired: function(){
         var label, wildCard;
         var elements = [this.regionTextEl, this.regionSelectEl];
         var that = this;
@@ -197,6 +196,10 @@ RegionUpdater.prototype = {
             label = $$('label[for="' + currentElement.id + '"]')[0];
             if (label) {
                 wildCard = label.down('em') || label.down('span.required');
+                if (!wildCard) {
+                    label.insert(' <span class="required">*</span>');
+                    wildCard = label.down('span.required');
+                }
                 if (!that.config.show_all_regions) {
                     if (regionRequired) {
                         label.up().show();
@@ -240,8 +243,7 @@ RegionUpdater.prototype = {
         });
     },
 
-    update: function()
-    {
+    update: function(){
         if (this.regions[this.countryEl.value]) {
             var i, option, region, def;
 
@@ -338,7 +340,8 @@ RegionUpdater.prototype = {
             }
         }
     },
-    sortSelect : function () {
+
+    sortSelect: function () {
         var elem = this.regionSelectEl;
         var tmpArray = new Array();
         var currentVal = $(elem).value;
@@ -362,14 +365,12 @@ RegionUpdater.prototype = {
 
 ZipUpdater = Class.create();
 ZipUpdater.prototype = {
-    initialize: function(country, zipElement)
-    {
+    initialize: function(country, zipElement){
         this.country = country;
         this.zipElement = $(zipElement);
     },
 
-    update: function()
-    {
+    update: function(){
         // Country ISO 2-letter codes must be pre-defined
         if (typeof optionalZipCountries == 'undefined') {
             return false;
@@ -384,8 +385,7 @@ ZipUpdater.prototype = {
         }
     },
 
-    _setPostcodeOptional: function()
-    {
+    _setPostcodeOptional: function(){
         this.zipElement = $(this.zipElement);
         if (this.zipElement == undefined) {
             return false;
@@ -395,10 +395,17 @@ ZipUpdater.prototype = {
         var label = $$('label[for="' + this.zipElement.id + '"]')[0];
         if (label != undefined) {
             var wildCard = label.down('em') || label.down('span.required');
+            if (!wildCard) {
+                label.insert(' <span class="required">*</span>');
+                wildCard = label.down('span.required');
+            }
         }
 
         // Make Zip and its label required/optional
         if (optionalZipCountries.indexOf(this.country) != -1) {
+            if (label.hasClassName('required')) {
+                label.removeClassName('required');
+            }
             while (this.zipElement.hasClassName('required-entry')) {
                 this.zipElement.removeClassName('required-entry');
             }
@@ -406,6 +413,9 @@ ZipUpdater.prototype = {
                 wildCard.hide();
             }
         } else {
+            if (!label.hasClassName('required')) {
+                label.addClassName('required');
+            }
             this.zipElement.addClassName('required-entry');
             if (wildCard != undefined) {
                 wildCard.show();
