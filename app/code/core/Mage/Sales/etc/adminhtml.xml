@@ -170,11 +170,11 @@
                             <config>
                                 <children>
                                     <sales translate="title">
-                                        <title>Sales Section</title>
+                                        <title>Sales</title>
                                         <sort_order>60</sort_order>
                                     </sales>
                                     <sales_email translate="title">
-                                        <title>Sales Emails Section</title>
+                                        <title>Sales Emails</title>
                                         <sort_order>65</sort_order>
                                     </sales_email>
                                     <sales_pdf translate="title">
