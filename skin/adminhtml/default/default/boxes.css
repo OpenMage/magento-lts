@@ -673,30 +673,30 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 
 
 /* Icon Head */ /* Headings with icon preceding text*/
-.icon-head                      { min-height:18px; background-repeat:no-repeat; background-position:0 0; padding-left:22px; }
-.head-customer-address-list     { background-image:url(images/fam_house.gif); }
-.head-edit-form                 { background-image:url(images/fam_page_white.gif); }
+.icon-head                      { min-height:18px; background-repeat:no-repeat; background-position:0 0; }
+.head-customer-address-list     { background-image:url(images/fam_house.gif); padding-left:22px; }
+.head-edit-form                 { background-image:url(images/fam_page_white.gif); padding-left:22px; }
 .head-customer-view             { background-image:url(images/fam_status_online.gif); padding-left:18px; }
 .head-customer,
 .head-customer-groups,
-.head-online-visitors           { background-image:url(images/fam_group.gif); }
-.head-user                      { background-image:url(images/fam_user.gif); }
-.head-user-edit                 { background-image:url(images/fam_user_edit.gif); }
+.head-online-visitors           { background-image:url(images/fam_group.gif); padding-left:22px; }
+.head-user                      { background-image:url(images/fam_user.gif); padding-left:22px; }
+.head-user-edit                 { background-image:url(images/fam_user_edit.gif); padding-left:22px; }
 .head-poll,
 .head-user-comment,
 .head-review,
 .head-rating,
-.head-comment                   { background-image:url(images/fam_comment.gif); }
-.head-catalog-search            { background-image:url(images/fam_magnifier.png); }
-.head-urlrewrite                { background-image:url(images/fam_link.gif); }
-.head-cart                      { background-image:url(images/fam_cart.gif); }
+.head-comment                   { background-image:url(images/fam_comment.gif); padding-left:22px; }
+.head-catalog-search            { background-image:url(images/fam_magnifier.png); padding-left:22px; }
+.head-urlrewrite                { background-image:url(images/fam_link.gif); padding-left:22px; }
+.head-cart                      { background-image:url(images/fam_cart.gif); padding-left:22px; }
 .head-system-account,
-.head-account                   { background-image:url(images/fam_account.gif); }
+.head-account                   { background-image:url(images/fam_account.gif); padding-left:22px; }
 .head-products,
 .head-catalog-product,
-.head-sitemap                   { background-image:url(images/fam_package.gif); }
-.head-newsletter                { background-image:url(images/fam_newspaper.gif); }
-.head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); }
+.head-sitemap                   { background-image:url(images/fam_package.gif); padding-left:22px; }
+.head-newsletter                { background-image:url(images/fam_newspaper.gif); padding-left:22px; }
+.head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); padding-left:22px; }
 .head-sales-order,
 .head-sales-invoice,
 .head-sales-shipment,
@@ -707,30 +707,30 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-sales-order-creditmemo,
 .head-adminhtml-recurring-profile,
 .head-adminhtml-billing-agreement,
-.head-checkout-agreement        { background-image:url(images/fam_folder_table.gif); }
+.head-checkout-agreement        { background-image:url(images/fam_folder_table.gif); padding-left:22px; }
 .head-tax,
 .head-tax-rule,
 .head-tax-rate-importExport,
 .head-tax-class,
 .head-system-currency,
 .head-promo-quote,
-.head-promo-catalog             { background-image:url(images/fam_money.gif); }
+.head-promo-catalog             { background-image:url(images/fam_money.gif); padding-left:22px; }
 .head-categories                { background-image:url(images/fam_folder_database.gif); padding-left:20px; color:#253033 !important; }
 .head-catalog-product-attribute { background-image:url(images/fam_rainbow.gif); padding-left:24px; }
 .head-product-attribute-sets    { background-image:url(images/fam_folder_palette.gif); padding-left:23px; }
 .head-cms-page, .head-cms-block,
-.head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); }
+.head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); padding-left:22px; }
 .head-report,
-.head-backups-control           { background-image:url(images/fam_server_database.gif); }
-.head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); }
+.head-backups-control           { background-image:url(images/fam_server_database.gif); padding-left:22px; }
+.head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); padding-left:22px; }
 .head-shipping-address,
-.head-billing-address           { background-image:url(images/fam_house.gif); }
-.head-shipping-method           { background-image:url(images/fam_lorry.gif); }
-.head-payment-method            { background-image:url(images/fam_creditcards.gif); }
-.head-order-date                { background-image:url(images/fam_calendar.gif); }
-.head-customer-sales-statistics { background-image:url(images/fam_money.gif); }
-.head-notification              { background-image:url(images/fam_folder_table.gif); }
-.head-compilation               { background-image:url(images/fam_package_go.gif); }
+.head-billing-address           { background-image:url(images/fam_house.gif); padding-left:22px; }
+.head-shipping-method           { background-image:url(images/fam_lorry.gif); padding-left:22px; }
+.head-payment-method            { background-image:url(images/fam_creditcards.gif); padding-left:22px; }
+.head-order-date                { background-image:url(images/fam_calendar.gif); padding-left:22px; }
+.head-customer-sales-statistics { background-image:url(images/fam_money.gif); padding-left:22px; }
+.head-notification              { background-image:url(images/fam_folder_table.gif); padding-left:22px; }
+.head-compilation               { background-image:url(images/fam_package_go.gif); padding-left:22px; }
 
 
 
