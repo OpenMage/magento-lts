@@ -431,3 +431,4 @@
 "You will have to log in after you save your custom admin path.","You will have to log in after you save your custom admin path."
 "Your design change for the specified store intersects with another one, please specify another date range.","Your design change for the specified store intersects with another one, please specify another date range."
 "database ""%s""","database ""%s"""
+"System (config.xml, local.xml) and modules configuration files (config.xml, system.xml).","System (config.xml, local.xml) and modules configuration files (config.xml, system.xml)."
