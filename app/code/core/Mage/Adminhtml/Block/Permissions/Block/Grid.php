@@ -33,32 +33,22 @@
  */
 class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Construct
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsBlockGrid');
         $this->setDefaultSort('block_id');
-        $this->setDefaultDir('asc');
+        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
 
-    /**
-     * @return Mage_Adminhtml_Block_Widget_Grid
-     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('admin/block_collection');
-        $this->setCollection($collection);
+        $this->setCollection(Mage::getResourceModel('admin/block_collection'));
         return parent::_prepareCollection();
     }
 
-    /**
-     * @return $this
-     * @throws Exception
-     */
     protected function _prepareColumns()
     {
         $this->addColumn('block_id', array(
@@ -78,26 +68,22 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_allowed',
             'type'      => 'options',
-            'options'   => array('1' => Mage::helper('adminhtml')->__('Allowed'), '0' => Mage::helper('adminhtml')->__('Not allowed')),
+            'options'   => array(
+                '1' => Mage::helper('adminhtml')->__('Allowed'),
+                '0' => Mage::helper('adminhtml')->__('Not allowed')
+             ),
         ));
 
         return parent::_prepareColumns();
     }
 
-    /**
-     * @param $row
-     * @return string
-     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('block_id' => $row->getId()));
     }
 
-    /**
-     * @return string
-     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/blockGrid', array());
+        return $this->getUrl('*/*/blockGrid');
     }
 }

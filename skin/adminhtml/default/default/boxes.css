@@ -699,6 +699,10 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-catalog-search            { background-image:url(images/fam_magnifier.png); padding-left:22px; }
 .head-urlrewrite                { background-image:url(images/fam_link.gif); padding-left:22px; }
 .head-cart                      { background-image:url(images/fam_cart.gif); padding-left:22px; }
+.head-permissions-block,
+.head-permissions-variable,
+.head-permissions-user,
+.head-permissions-role,
 .head-system-account,
 .head-account                   { background-image:url(images/fam_account.gif); padding-left:22px; }
 .head-products,

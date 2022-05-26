@@ -33,20 +33,15 @@
  */
 class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('customerGroupGrid');
-        $this->setDefaultSort('type');
-        $this->setDefaultDir('asc');
+        $this->setDefaultSort('time');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
     }
 
-    /**
-     * Init customer groups collection
-     * @return void
-     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('customer/group_collection')
@@ -56,27 +51,24 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareCollection();
     }
 
-    /**
-     * Configuration of grid
-     */
     protected function _prepareColumns()
     {
         $this->addColumn('time', array(
             'header' => Mage::helper('customer')->__('ID'),
-            'width' => '50px',
-            'align' => 'right',
-            'index' => 'customer_group_id',
+            'width'  => 50,
+            'align'  => 'right',
+            'index'  => 'customer_group_id',
         ));
 
         $this->addColumn('type', array(
             'header' => Mage::helper('customer')->__('Group Name'),
-            'index' => 'customer_group_code',
+            'index'  => 'customer_group_code',
         ));
 
         $this->addColumn('class_name', array(
             'header' => Mage::helper('customer')->__('Tax Class'),
-            'index' => 'class_name',
-            'width' => '200px'
+            'index'  => 'class_name',
+            'width'  => 200
         ));
 
         return parent::_prepareColumns();
@@ -84,7 +76,6 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
-
 }

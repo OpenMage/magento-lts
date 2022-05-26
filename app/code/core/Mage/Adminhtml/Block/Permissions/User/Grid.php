@@ -33,20 +33,19 @@
  */
 class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('permissionsUserGrid');
-        $this->setDefaultSort('username');
-        $this->setDefaultDir('asc');
+        $this->setDefaultSort('user_id');
+        $this->setDefaultDir('desc');
+        $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('admin/user_collection');
-        $this->setCollection($collection);
+        $this->setCollection(Mage::getResourceModel('admin/user_collection'));
         return parent::_prepareCollection();
     }
 
@@ -86,7 +85,10 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
-            'options'   => array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
+            'options'   => array(
+                '1' => Mage::helper('adminhtml')->__('Active'),
+                '0' => Mage::helper('adminhtml')->__('Inactive')
+            ),
         ));
 
         return parent::_prepareColumns();
@@ -99,8 +101,6 @@ class Mage_Adminhtml_Block_Permissions_User_Grid extends Mage_Adminhtml_Block_Wi
 
     public function getGridUrl()
     {
-        //$uid = $this->getRequest()->getParam('user_id');
-        return $this->getUrl('*/*/roleGrid', array());
+        return $this->getUrl('*/*/roleGrid');
     }
-
 }

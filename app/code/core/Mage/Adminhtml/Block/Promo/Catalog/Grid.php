@@ -25,33 +25,23 @@
  */
 
 /**
- * Catalog Rules Grid
+ * Adminhtml catalog rules grid
  *
- * @category Mage
- * @package Mage_Adminhtml
- * @author Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    /**
-     * Initialize grid
-     * Set sort settings
-     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('promo_catalog_grid');
-        $this->setDefaultSort('name');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('rule_id');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
     }
 
-    /**
-     * Add websites to catalog rules collection
-     * Set collection
-     *
-     * @return $this
-     */
     protected function _prepareCollection()
     {
         /** @var Mage_CatalogRule_Model_Mysql4_Rule_Collection $collection */
@@ -60,34 +50,28 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $collection->addWebsitesToResult();
         $this->setCollection($collection);
 
-        parent::_prepareCollection();
-        return $this;
+        return parent::_prepareCollection();
     }
 
-    /**
-     * Add grid columns
-     *
-     * @return $this
-     */
     protected function _prepareColumns()
     {
         $this->addColumn('rule_id', array(
             'header'    => Mage::helper('catalogrule')->__('ID'),
-            'align'     =>'right',
-            'width'     => '50px',
+            'align'     => 'right',
+            'width'     => 50,
             'index'     => 'rule_id',
         ));
 
         $this->addColumn('name', array(
             'header'    => Mage::helper('catalogrule')->__('Rule Name'),
-            'align'     =>'left',
+            'align'     => 'left',
             'index'     => 'name',
         ));
 
         $this->addColumn('from_date', array(
             'header'    => Mage::helper('catalogrule')->__('Date Start'),
             'align'     => 'left',
-            'width'     => '120px',
+            'width'     => 120,
             'type'      => 'date',
             'index'     => 'from_date',
         ));
@@ -95,7 +79,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('to_date', array(
             'header'    => Mage::helper('catalogrule')->__('Date Expire'),
             'align'     => 'left',
-            'width'     => '120px',
+            'width'     => 120,
             'type'      => 'date',
             'default'   => '--',
             'index'     => 'to_date',
@@ -104,7 +88,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('is_active', array(
             'header'    => Mage::helper('catalogrule')->__('Status'),
             'align'     => 'left',
-            'width'     => '80px',
+            'width'     => 80,
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => array(
@@ -116,7 +100,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('rule_website', array(
                 'header'    => Mage::helper('catalogrule')->__('Website'),
-                'align'     =>'left',
+                'align'     => 'left',
                 'index'     => 'website_ids',
                 'type'      => 'options',
                 'sortable'  => false,
@@ -125,20 +109,11 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
             ));
         }
 
-        parent::_prepareColumns();
-        return $this;
+        return parent::_prepareColumns();
     }
 
-    /**
-     * Retrieve row click URL
-     *
-     * @param Varien_Object $row
-     *
-     * @return string
-     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getRuleId()));
     }
-
 }
