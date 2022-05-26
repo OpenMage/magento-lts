@@ -33,7 +33,7 @@ if ((LIBXML_VERSION < 20900) && function_exists('libxml_disable_entity_loader'))
     libxml_disable_entity_loader(false);
 }
 
-// Polyfill for PHP<7.4
+// Polyfill for PHP<7.3
 if (!function_exists('is_countable')) {
     function is_countable($value) {
         return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXmlElement;
