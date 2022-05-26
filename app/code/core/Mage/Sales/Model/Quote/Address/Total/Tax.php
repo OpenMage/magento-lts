@@ -209,7 +209,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
     protected function _saveAppliedTaxes(Mage_Sales_Model_Quote_Address $address, $applied, $amount, $baseAmount, $rate)
     {
         $previouslyAppliedTaxes = $address->getAppliedTaxes();
-        $process = count($previouslyAppliedTaxes);
+        $process = is_countable($previouslyAppliedTaxes) ? count($previouslyAppliedTaxes) : 0;
 
         foreach ($applied as $row) {
             if (!isset($previouslyAppliedTaxes[$row['id']])) {
