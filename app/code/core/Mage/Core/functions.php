@@ -477,6 +477,6 @@ if (!function_exists('is_countable')) {
      * @return bool
      */
     function is_countable($value) {
-        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXmlElement;
+        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
     }
 }
