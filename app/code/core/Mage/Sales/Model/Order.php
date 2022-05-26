@@ -2349,7 +2349,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->unsShippingAddressId();
         }
 
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        if (!$this->getId()) {
+            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        }
         return $this;
     }
 
