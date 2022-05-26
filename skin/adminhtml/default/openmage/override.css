@@ -497,7 +497,7 @@ ul.tabs {
   border-top: 0;
 }
 ul.tabs dl {
-  background: #68666f;
+  background: #fff;
   border: 1px solid lightgrey;
 }
 ul.tabs a {
