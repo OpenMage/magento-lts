@@ -62,7 +62,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 
         $review = Mage::getModel('review/review')->load($reviewId);
         /* @var Mage_Review_Model_Review $review */
-        if (!$review->getId() || !$review->getCustomerId() == Mage::getSingleton('customer/session')->getCustomerId()){
+        if (!$review->getId() || $review->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()){
             return false;
         }
 
@@ -70,7 +70,6 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 
         return $review;
     }
-
 
     public function indexAction()
     {
@@ -93,7 +92,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));
         if (!$review) {
-            $this->_forward('noroute');
+            $this->_forward('index');
             return;
         }
 
