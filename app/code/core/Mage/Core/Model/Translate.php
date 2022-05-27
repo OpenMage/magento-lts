@@ -422,9 +422,9 @@ class Mage_Core_Model_Translate
             $translated = $this->_getTranslatedString($text, $code);
         }
 
-        try{
+        try {
             $result = !empty($args) ? vsprintf($translated, $args) : false;
-        } catch (ValueError $e){
+        } catch (ValueError $e) {
             $result = false;
         }
 
