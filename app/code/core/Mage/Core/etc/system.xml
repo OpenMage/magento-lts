@@ -729,7 +729,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Log Levels are ordered from highest to lowest priority</comment>
+                            <comment>Messages with a priority lower than the selected one will not be logged. Log Levels are ordered from highest to lowest priority.</comment>
                         </max_level>
                         <file translate="label comment">
                             <label>System Log File Name</label>
