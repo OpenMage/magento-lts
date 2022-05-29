@@ -41,14 +41,14 @@ $_height = $this->getImagesHeight();
         <p class="nm" style="height:<?php echo $_height ?>px;width:<?php echo $_width ?>px;">
         <?php if($this->getFileThumbUrl($file)):?>
             <img src="<?php echo $this->getFileThumbUrl($file) ?>" alt="<?php echo $this->escapeHtml($this->getFileName($file)) ?>"/>
-        <?php endif; ?>
+        <?php endif ?>
         </p>
         <?php if($this->getFileWidth($file)): ?>
             <small><?php echo $this->getFileWidth($file) ?>x<?php echo $this->getFileHeight($file) ?> <?php echo $this->helper('cms')->__('px.') ?></small><br/>
-        <?php endif; ?>
+        <?php endif ?>
         <small><?php echo $this->getFileShortName($file); ?></small>
     </div>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 <?php else: ?>
     <?php echo $this->helper('cms')->__('No files found') ?>
-<?php endif; ?>
+<?php endif ?>

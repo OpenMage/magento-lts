@@ -52,8 +52,8 @@
                     <span class="label"><?php echo $this->__('Cart Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
                     <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
                         <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
-                    <?php endif; ?>
-                <?php endif; ?>
+                    <?php endif ?>
+                <?php endif ?>
             </p>
         </div>
     <?php endif ?>
@@ -63,7 +63,7 @@
         <ol id="cart-sidebar" class="mini-products-list">
         <?php foreach($_items as $_item): ?>
             <?php echo $this->getItemHtml($_item) ?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
     <?php else: ?>
@@ -77,4 +77,4 @@
     <?php endif ?>
     </div>
 </div>
-<?php endif;?>
+<?php endif ?>

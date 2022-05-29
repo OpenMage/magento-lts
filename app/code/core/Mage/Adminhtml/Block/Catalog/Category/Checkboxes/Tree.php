@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
     protected function _prepareLayout()
     {
         $this->setTemplate('catalog/category/checkboxes/tree.phtml');
+        return $this;
     }
 
     public function getCategoryIds()

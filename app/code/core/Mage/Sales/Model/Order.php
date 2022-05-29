@@ -1169,13 +1169,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Different or default status may be specified
      *
      * @param string $comment
-     * @param string $status
+     * @param bool|string $status
      * @return Mage_Sales_Model_Order_Status_History
-     */
-    /**
-     * @param $comment
-     * @param bool $status
-     * @return mixed
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
@@ -2354,7 +2349,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->unsShippingAddressId();
         }
 
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        if (!$this->getId()) {
+            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        }
         return $this;
     }
 

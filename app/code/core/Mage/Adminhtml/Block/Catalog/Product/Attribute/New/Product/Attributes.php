@@ -65,6 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
+        return $this;
     }
 
     protected function _getAdditionalElementTypes()

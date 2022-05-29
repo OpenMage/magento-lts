@@ -25,7 +25,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -71,8 +71,11 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0.0000',
         ), 'Cost')
-    ->addIndex($installer->getIdxName('shipping/tablerate', array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName('shipping/tablerate', array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip', 'condition_name', 'condition_value'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('Shipping Tablerate');
 $installer->getConnection()->createTable($table);
 

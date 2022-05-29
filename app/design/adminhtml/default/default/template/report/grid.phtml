@@ -50,7 +50,7 @@ $numColumns = sizeof($this->getColumns());
         <div id="<?php echo $this->getId() ?>">
     <?php else: ?>
         <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if($this->getStoreSwitcherVisibility() || $this->getDateFilterVisibility()): ?>
         <?php if($this->getStoreSwitcherVisibility()): ?>
             <?php echo $this->getStoreSwitcherHtml() ?>
@@ -73,8 +73,8 @@ $numColumns = sizeof($this->getColumns());
                     <?php echo $this->__('Show By') ?>:
                     <select name="report_period" id="report_period" style="width:6em;">
                     <?php foreach ($this->getPeriods() as $_value=>$_label): ?>
-                        <option value="<?php echo $_value ?>" <?php if($this->getFilter('report_period')==$_value): ?> selected<?php endif; ?>><?php echo $_label ?></option>
-                    <?php endforeach; ?>
+                        <option value="<?php echo $_value ?>" <?php if($this->getFilter('report_period')==$_value): ?> selected<?php endif ?>><?php echo $_label ?></option>
+                    <?php endforeach ?>
                     </select>
                     <?php echo $this->getRefreshButtonHtml() ?>
                 </div>
@@ -97,28 +97,28 @@ $numColumns = sizeof($this->getColumns());
                 //-->
                 </script>
             </td>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if($this->getExportVisibility()): ?>
             <td class="a-right">
                 <img src="<?php echo $this->getSkinUrl('images/icon_export.gif') ?>" alt="" class="v-middle"/>&nbsp; <?php echo $this->__('Export to:') ?>
                 <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
                 <?php foreach ($this->getExportTypes() as $_type): ?>
                     <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </select>
                 <?php echo $this->getExportButtonHtml() ?>
             </td>
-        <?php endif; ?>
+        <?php endif ?>
             </tr>
         </table>
-    <?php endif; ?>
+    <?php endif ?>
 
     <div class="grid">
     <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
         <col/>
         <?php foreach ($this->getColumns() as $_column): ?>
         <col <?php echo $_column->getHtmlProperty() ?>/>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
@@ -126,11 +126,11 @@ $numColumns = sizeof($this->getColumns());
                     <th class="no-link" style="width:100px"><span class="no-br"><?php echo $this->getPeriodText() ?></span></th>
                     <?php foreach ($this->getColumns() as $_column): ?>
                         <th <?php echo $_column->getHeaderHtmlProperty() ?>><span class="no-br"><?php echo $_column->getHeaderHtml() ?></span></th>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
-                <?php endif; ?>
+                <?php endif ?>
             </thead>
-        <?php endif; ?>
+        <?php endif ?>
         <tbody>
         <?php if ($this->getCollection()->getSize()): ?>
         <?php foreach ($this->getCollection()->getIntervals() as $_index => $_item): ?>
@@ -142,45 +142,45 @@ $numColumns = sizeof($this->getColumns());
                 <?php $i=0;foreach ($report as $_subIndex=>$_subItem): ?>
                     <?php if($i>0): ?>
                     <tr>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php $i++; ?>
                     <?php $j=0;foreach ($this->getColumns() as $_column): ?>
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>">
                             <?php echo (($_html = $_column->getRowField($_subItem)) != '' ? $_html : '&nbsp;') ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 <?php if($this->getCountTotals() && $rows > 0 && $this->getSubtotalVisibility()): ?>
                 <tr>
                     <?php $j=0;foreach ($this->getColumns() as $_column): ?>
                         <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?> subtotal">
                             <?php echo ($j==1)?$this->getSubtotalText():$_column->getRowField($this->getTotals()) ?>
                         </td>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </tr>
-                <?php endif; ?>
+                <?php endif ?>
             <?php else: ?>
                 <td><?php echo $_index ?></td>
                 <td colspan="<?php echo $numColumns ?>" class="empty-text <?php echo $this->getEmptyTextClass() ?> last"><?php echo $this->getEmptyText() ?></td>
-            <?php endif; ?>
+            <?php endif ?>
             </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         <?php elseif ($this->getEmptyText()): ?>
             <tr>
               <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns + 1 ?>"><?php echo $this->getEmptyText() ?></td>
             </tr>
-        <?php endif; ?>
+        <?php endif ?>
         </tbody>
         <?php if ($this->getCountTotals() && $this->getCollection()->getSize()): ?>
         <tfoot>
             <tr><th><?php echo $this->getTotalText() ?></th>
             <?php $j=0;foreach ($this->getColumns() as $_column): ?>
                 <th class="<?php echo $_column->getCssProperty() ?> <?php echo ++$j==$numColumns?'last':'' ?>"><?php echo $_column->getRowField($this->getGrandTotals()) ?></th>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
          </tfoot>
-        <?php endif; ?>
+        <?php endif ?>
     </table>
     </div>
 <?php if($this->canDisplayContainer()): ?>
@@ -205,7 +205,7 @@ $numColumns = sizeof($this->getColumns());
             return true;
         }
     }
-    <?php endif;?>
+    <?php endif ?>
     /* Overwrite function from switcher.phtml widget*/
     function switchStore(obj){
         if (obj.options[obj.selectedIndex].getAttribute('website') == 'true') {
@@ -232,5 +232,5 @@ $numColumns = sizeof($this->getColumns());
     }
 //]]>
 </script>
-<?php endif; ?>
-<?php endif; ?>
+<?php endif ?>
+<?php endif ?>

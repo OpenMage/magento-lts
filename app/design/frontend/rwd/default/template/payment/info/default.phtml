@@ -36,8 +36,8 @@
     <?php foreach ($_specificInfo as $_label => $_value):?>
         <dt><?php echo $this->escapeHtml($_label)?></dt>
         <dd><?php echo nl2br(implode("\n", $this->getValueAsArray($_value, true)))?></dd>
-    <?php endforeach; ?>
+    <?php endforeach ?>
 </dl>
-<?php endif;?>
+<?php endif ?>
 
 <?php echo $this->getChildHtml()?>

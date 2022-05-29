@@ -83,6 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
 //        $this->setChild('payment_info', $paymentInfoBlock);
 
 //        return parent::_prepareLayout();
+        return $this;
     }
 
     public function getPaymentHtml()

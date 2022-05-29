@@ -84,23 +84,6 @@ class Mage_Install_Model_Installer extends Varien_Object
     }
 
     /**
-     * Check packages (pear) downloads
-     *
-     * @return boolean
-     */
-    public function checkDownloads()
-    {
-        try {
-            $result = Mage::getModel('install/installer_pear')->checkDownloads();
-            $result = true;
-        } catch (Exception $e) {
-            $result = false;
-        }
-        $this->setDownloadCheckStatus($result);
-        return $result;
-    }
-
-    /**
      * Check server settings
      *
      * @return bool
@@ -122,7 +105,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Retrieve server checking result status
      *
-     * @return unknown
+     * @return bool
      */
     public function getServerCheckStatus()
     {

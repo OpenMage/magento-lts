@@ -35,24 +35,24 @@
         <td><?php echo Mage::helper('sales')->__('Invoiced') ?></td>
         <td><strong><?php echo $_item->getQtyInvoiced()*1 ?></strong></td>
     </tr>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ((float) $_item->getQtyShipped()): ?>
     <tr>
         <td><?php echo Mage::helper('sales')->__('Shipped') ?></td>
         <td><strong><?php echo $_item->getQtyShipped()*1 ?></strong></td>
     </tr>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ((float) $_item->getQtyRefunded()): ?>
     <tr>
         <td><?php echo Mage::helper('sales')->__('Refunded') ?></td>
         <td><strong><?php echo $_item->getQtyRefunded()*1 ?></strong></td>
     </tr>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ((float) $_item->getQtyCanceled()): ?>
     <tr>
         <td><?php echo Mage::helper('sales')->__('Canceled') ?></td>
         <td><strong><?php echo $_item->getQtyCanceled()*1 ?></strong></td>
     </tr>
-    <?php endif; ?>
+    <?php endif ?>
 </table>
-<?php endif; ?>
+<?php endif ?>

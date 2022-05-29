@@ -35,20 +35,70 @@
  */
 class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 {
+    /**
+     * Requested width for the scaled image
+     *
+     * @var int
+     */
     protected $_width;
+
+    /**
+     * Requested height for the scaled image
+     *
+     * @var int
+     */
     protected $_height;
     protected $_quality = 90;
 
+    /**
+     * @var bool
+     */
     protected $_keepAspectRatio  = true;
     protected $_keepFrame        = true;
+
+    /**
+     * If set to true and image format supports transparency (e.g. PNG),
+     * transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
+     * @var bool
+     */
     protected $_keepTransparency = true;
+
+    /**
+     *  If true, images will not be scaled up (when original image is smaller then requested size)
+     *
+     * @var bool
+     */
     protected $_constrainOnly    = false;
+
+    /**
+     * Array with RGB values for background color e.g. [255, 255, 255]
+     * used e.g. when filling transparent color in scaled images
+     *
+     * @var array
+     */
     protected $_backgroundColor  = array(255, 255, 255);
 
+    /**
+     * Absolute path to and original (full resolution) image
+     *
+     * @var string
+     */
     protected $_baseFile;
     protected $_isBaseFilePlaceholder;
+
+    /**
+     * @var string Absolute path to scaled/transformed image
+     */
     protected $_newFile;
+
+    /**
+     * @var Varien_Image
+     */
     protected $_processor;
+
+    /**
+     * @var string e.g. "small_image"
+     */
     protected $_destinationSubdir;
     protected $_angle;
 
@@ -349,7 +399,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $path[] = "{$this->_width}x{$this->_height}";
         }
 
-        // add misk params as a hash
+        // add misc params as a hash
         $miscParams = array(
                 ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
                 ($this->_keepFrame        ? '' : 'no')  . 'frame',

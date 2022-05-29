@@ -36,7 +36,7 @@ class Mage_Paypal_Model_System_Config_Source_RequireBillingAddress
      */
     public function toOptionArray()
     {
-        /** @var $configModel Mage_Paypal_Model_Config */
+        /** @var Mage_Paypal_Model_Config $configModel */
         $configModel = Mage::getModel('paypal/config');
         return $configModel->getRequireBillingAddressOptions();
     }

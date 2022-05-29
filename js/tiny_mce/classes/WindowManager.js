@@ -71,7 +71,7 @@
 		 * @option {Boolean} translate_i18n Specifies whether translation should occur or not of i18 key strings. Default is true. 
 		 * @option {String/bool} close_previous Specifies whether a previously opened popup window is to be closed or not (like when calling the file browser window over the advlink popup). 
 		 * @option {String/bool} scrollbars Specifies whether the popup window can have scrollbars if required (i.e. content larger than the popup size specified). 
-		 * @param {Object} p Optional parameters/arguments collection can be used by the dialogs to retrive custom parameters.
+		 * @param {Object} p Optional parameters/arguments collection can be used by the dialogs to retrieve custom parameters.
 		 * @option {String} plugin_url url to plugin if opening plugin window that calls tinyMCEPopup.requireLangPack() and needs access to the plugin language js files 
 		 */
 		open : function(s, p) {

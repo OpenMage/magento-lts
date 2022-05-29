@@ -62,13 +62,13 @@
                     <td><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
                     <td><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </tbody>
         </table>
         <script type="text/javascript">decorateTable('billing-agreements')</script>
     <?php else: ?>
         <p><?php echo $this->__('There are no billing agreements yet.')?></p>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php $paymentMethods = $this->getWizardPaymentMethodOptions() ?>
     <?php if ($paymentMethods): ?>
@@ -83,7 +83,7 @@
                                 <option value=""><?php echo $this->__('-- Please Select --') ?></option>
                                 <?php foreach ($paymentMethods as $code => $title): ?>
                                     <option value="<?php echo $code ?>"><?php echo $title ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                             <button type="submit" class="button"><span><span><?php echo $this->__('Create...') ?></span></span></button>
                         </li>
@@ -91,7 +91,7 @@
                 </div>
             </form>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->escapeHtml($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>

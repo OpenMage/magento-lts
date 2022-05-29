@@ -32,7 +32,7 @@
     <div class="box-left">
     <?php else: ?>
     <div class="box-right">
-    <?php endif; ?>
+    <?php endif ?>
 
         <div class="entry-edit">
             <div class="entry-edit-head">
@@ -60,13 +60,13 @@
                         <?php $_excl = $this->displayShippingPriceInclTax($_order); ?>
                     <?php else: ?>
                         <?php $_excl = $this->displayPriceAttribute('shipping_amount', false, ' '); ?>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php $_incl = $this->displayShippingPriceInclTax($_order); ?>
 
                     <?php echo $_excl; ?>
                     <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                         (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                    <?php endif; ?>
+                    <?php endif ?>
                 </div>
                 <?php if ($this->canCreateShipment() && $this->canShipPartiallyItem()): ?>
                 <p class="nm">
@@ -75,13 +75,13 @@
                 </p>
                 <?php if ($this->hasInvoiceShipmentTypeMismatch()): ?>
                     <small><?php echo $this->__('Some items in this order have different invoice and shipment types. You can create shipment only after the invoice is created.') ?></small>
-                    <?php endif; ?>
-                <?php endif; ?>
+                    <?php endif ?>
+                <?php endif ?>
                 <div id="tracking" style="display:none;"><?php echo $this->getChildHtml('tracking',false) ?></div>
             </fieldset>
         </div>
     </div>
-    <?php endif; ?>
+    <?php endif ?>
     <div class="clear"></div>
 
     <div class="entry-edit">

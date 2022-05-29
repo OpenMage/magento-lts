@@ -303,7 +303,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Add column to grid
      *
      * @param   string $columnId
-     * @param   array || Varien_Object $column
+     * @param   array $column
      * @return  Mage_Adminhtml_Block_Widget_Grid
      */
     public function addColumn($columnId, $column)
@@ -313,9 +313,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 ->setData($column)
                 ->setGrid($this);
         }
-        /*elseif ($column instanceof Varien_Object) {
-            $this->_columns[$columnId] = $column;
-        }*/
         else {
             throw new Exception(Mage::helper('adminhtml')->__('Wrong column format.'));
         }
@@ -426,7 +423,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * Retrieve grid column by column id
      *
      * @param   string $columnId
-     * @return  Varien_Object || false
+     * @return  Mage_Adminhtml_Block_Widget_Grid_Column|false
      */
     public function getColumn($columnId)
     {
@@ -439,13 +436,18 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve all grid columns
      *
-     * @return array
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column[]
      */
     public function getColumns()
     {
         return $this->_columns;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
     protected function _setFilterValues($data)
     {
         foreach ($this->getColumns() as $columnId => $column) {
@@ -963,7 +965,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      *
      * @param string $callback
      * @param array $args additional arguments for callback method
-     * @return $this
      */
     public function _exportIterateCollection($callback, array $args)
     {
@@ -1293,16 +1294,22 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      * @param   mixed $default
      * @return  mixed
      */
-    public function getParam($paramName, $default=null)
+    public function getParam($paramName, $default = null)
     {
         $session = Mage::getSingleton('adminhtml/session');
         $sessionParamName = $this->getId().$paramName;
-        if ($this->getRequest()->has($paramName)) {
-            $param = $this->getRequest()->getParam($paramName);
-            if ($this->_saveParametersInSession) {
-                $session->setData($sessionParamName, $param);
+        $param = $this->getRequest()->getParam($paramName);
+
+        if ($param !== null) {
+            if (trim($param) !== '') {
+                if ($this->_saveParametersInSession) {
+                    $session->setData($sessionParamName, $param);
+                }
+                return $param;
+            } else {
+                $session->unsetData($sessionParamName);
+                return $default;
             }
-            return $param;
         }
         elseif ($this->_saveParametersInSession && ($param = $session->getData($sessionParamName)))
         {
@@ -1395,7 +1402,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block name
+     * Retrieve massaction block name
      *
      * @return string
      */
@@ -1417,7 +1424,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block
+     * Retrieve massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -1730,4 +1737,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $res = parent::getRowUrl($item);
         return ($res ? $res : '#');
     }
+
+    public function getLimitOptions(): array
+    {
+        return [20, 30, 50, 100, 200];
+    }
+
 }

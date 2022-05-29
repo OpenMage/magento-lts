@@ -224,9 +224,9 @@ function switchDefaultValueField()
             case '<?php echo $type; ?>':
             <?php foreach ($disabled as $one): ?>
                 disableApplyToValue('<?php echo $one; ?>');
-            <?php endforeach; ?>
+            <?php endforeach ?>
             break;
-        <?php endforeach; ?>
+        <?php endforeach ?>
         default:
         for (i=0;i<applyToSelect.options.length;i++) {
             applyToSelect.options[i].disabled = false;
@@ -259,10 +259,10 @@ function switchDefaultValueField()
                         scopeVisibility = false;
                     <?php else: ?>
                         setRowVisibility('<?php echo $one; ?>', false);
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                    <?php endif ?>
+                <?php endforeach ?>
             break;
-        <?php endforeach; ?>
+        <?php endforeach ?>
 
         default:
             $('front_fieldset').previous().show();

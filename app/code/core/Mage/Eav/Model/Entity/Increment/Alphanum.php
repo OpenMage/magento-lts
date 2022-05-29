@@ -77,7 +77,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
                 $p = 0;
                 $bumpNextChar = true;
             }
-            $nextId = $chars{$p}.$nextId;
+            $nextId = $chars[$p] . $nextId;
         }
 
         return $this->format($nextId);

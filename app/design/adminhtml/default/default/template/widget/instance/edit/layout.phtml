@@ -97,7 +97,7 @@ var pageGroupTemplate = '<div class="options-box page_group_container" id="page_
             '<div class="chooser"></div>'+
         '</div>'+
     '</div>'+
-<?php endforeach; ?>
+<?php endforeach ?>
 '<div class="no-display all_pages group_container" id="all_pages_{{id}}">'+
     '<input type="hidden" class="container_name" name="__[container_name]" value="widget_instance[{{id}}][all_pages]" />'+
     '<input type="hidden" name="widget_instance[{{id}}][all_pages][page_id]" value="{{page_id}}" />'+
@@ -291,7 +291,7 @@ var WidgetInstance = {
         blockContainer = container.down('div.block_reference');
         if (blockContainer && blockContainer.innerHTML == '') {
             layoutHandle = '';
-            if (layoutHandleField = container.down('input.layout_handle_pattern')) {
+            if (layoutHandleField = container.down('select#layout_handle')) {
                 layoutHandle = layoutHandleField.value;
             }
             this.loadSelectBoxByType('block_reference', container, layoutHandle, additional);
@@ -451,7 +451,7 @@ var WidgetInstance = {
 Ext.onReady(function(){
     <?php foreach ($this->getPageGroups() as $pageGroup): ?>
         WidgetInstance.addPageGroup(<?php echo Zend_Json::encode($pageGroup) ?>);
-    <?php endforeach; ?>
+    <?php endforeach ?>
     Event.observe(document, 'product:changed', function(event){
         WidgetInstance.checkProduct(event);
     });

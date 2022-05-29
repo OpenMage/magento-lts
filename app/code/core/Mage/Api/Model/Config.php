@@ -306,4 +306,4 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         return Mage::app()->removeCache($id);
     }
-} // Class Mage_Api_Model_Config End
+}

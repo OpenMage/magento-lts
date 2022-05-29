@@ -52,4 +52,9 @@ class Mage_Adminhtml_Block_Report_Sales_Shipping extends Mage_Adminhtml_Block_Wi
         $this->getRequest()->setParam('filter', null);
         return $this->getUrl('*/*/shipping', array('_current' => true));
     }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

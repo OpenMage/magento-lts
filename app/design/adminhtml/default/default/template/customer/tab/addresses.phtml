@@ -44,23 +44,23 @@
             <a href="#" id="select_button_<?php echo $_address->getId() ?>" class="select_button btn-edit-address">
                 <img src="<?php echo $this->getSkinUrl('images/edit_icon.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Edit address')) ?>"/>
             </a>
-            <?php endif;?>
+            <?php endif ?>
             <address>
                 <?php echo $this->maliciousCodeFilter($_address->format('html')) ?>
             </address>
             <div class="address-type">
                 <span class="address-type-line">
-                    <input type="radio" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> value="<?php echo $_address->getId() ?>" id="address_item_billing<?php echo $_address->getId() ?>" name="account[default_billing]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Billing Address')) ?>"<?php if($_address->getId()==$customer->getDefaultBilling()): ?> checked="checked"<?php endif; ?>/>
+                    <input type="radio" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif ?> value="<?php echo $_address->getId() ?>" id="address_item_billing<?php echo $_address->getId() ?>" name="account[default_billing]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Billing Address')) ?>"<?php if($_address->getId()==$customer->getDefaultBilling()): ?> checked="checked"<?php endif ?>/>
                     &nbsp;<label for="address_item_billing<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
                 </span>
                 <span class="address-type-line">
-                    <input type="radio"  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> value="<?php echo $_address->getId() ?>" id="address_item_shipping<?php echo $_address->getId() ?>" name="account[default_shipping]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Shipping Address')) ?>"<?php if($_address->getId()==$customer->getDefaultShipping()): ?> checked="checked"<?php endif; ?>/>
+                    <input type="radio"  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif ?> value="<?php echo $_address->getId() ?>" id="address_item_shipping<?php echo $_address->getId() ?>" name="account[default_shipping]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Shipping Address')) ?>"<?php if($_address->getId()==$customer->getDefaultShipping()): ?> checked="checked"<?php endif ?>/>
                     &nbsp;<label for="address_item_shipping<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
                 </span>
             </div>
         </li>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        <?php endforeach ?>
+    <?php endif ?>
     </ul>
 </td>
 <td>
@@ -74,15 +74,15 @@
         <a href="#" id="select_button_" class="select_button btn-edit-address">
             <img src="<?php echo $this->getSkinUrl('images/edit_icon.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Edit address')) ?>"/>
         </a>
-        <?php endif;?>
+        <?php endif ?>
         <address><?php echo Mage::helper('customer')->__('New Customer Address') ?></address>
         <div class="address-type">
             <span class="address-type-line">
-                <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_billing<?php echo $_templatePrefix ?>" name="account[default_billing]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Billing Address')) ?>"/>
+                <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif ?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_billing<?php echo $_templatePrefix ?>" name="account[default_billing]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Billing Address')) ?>"/>
                 &nbsp;<label for="address_item_billing<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
             </span>
             <span class="address-type-line">
-                <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_shipping<?php echo $_templatePrefix ?>" name="account[default_shipping]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Shipping Address')) ?>"/>
+                <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif ?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_shipping<?php echo $_templatePrefix ?>" name="account[default_shipping]" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('customer')->__('Set as Default Shipping Address')) ?>"/>
                 &nbsp;<label for="address_item_shipping<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
             </span>
         </div>
@@ -115,10 +115,10 @@
             <?php echo $this->getForm()->getHtml() ?>
             <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
             </div>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         <?php else: ?>
             <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 
 <script type="text/javascript">

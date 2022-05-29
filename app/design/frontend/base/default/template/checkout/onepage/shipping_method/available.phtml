@@ -52,29 +52,29 @@
                                 lastPrice = <?php echo (float)$_rate->getPrice(); ?>;
                             //]]>
                         </script>
-                        <?php endif; ?>
+                        <?php endif ?>
 
-                        <?php endif; ?>
+                        <?php endif ?>
                         <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
                         <?php echo $_excl; ?>
                         <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
-                        <?php endif; ?>
+                        <?php endif ?>
                         </label>
                    <?php endif ?>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ul>
         </dd>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </dl>
 <script type="text/javascript">
 //<![CDATA[
     <?php if (!empty($shippingCodePrice)): ?>
         var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
-    <?php endif; ?>
+    <?php endif ?>
 
     $$('input[type="radio"][name="shipping_method"]').each(function(el){
         Event.observe(el, 'click', function(){
@@ -90,7 +90,7 @@
                         quoteBaseGrandTotal += (newPrice-lastPrice);
                         lastPrice = newPrice;
                     }
-                <?php endif; ?>
+                <?php endif ?>
                 checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
                 return false;
             }
@@ -98,4 +98,4 @@
     });
 //]]>
 </script>
-<?php endif; ?>
+<?php endif ?>

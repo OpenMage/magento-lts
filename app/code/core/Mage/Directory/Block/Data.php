@@ -74,7 +74,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         }
         $cacheKey = 'DIRECTORY_COUNTRY_SELECT_STORE_'.Mage::app()->getStore()->getCode();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
-            $options = unserialize($cache);
+            $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
             $options = $this->getCountryCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {
@@ -119,7 +119,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         Varien_Profiler::start('TEST: '.__METHOD__);
         $cacheKey = 'DIRECTORY_REGION_SELECT_STORE'.Mage::app()->getStore()->getId();
         if (Mage::app()->useCache('config') && $cache = Mage::app()->loadCache($cacheKey)) {
-            $options = unserialize($cache);
+            $options = unserialize($cache, ['allowed_classes' => false]);
         } else {
             $options = $this->getRegionCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {

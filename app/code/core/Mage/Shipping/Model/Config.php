@@ -62,7 +62,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * Retrieve all system carriers
      *
      * @param   mixed $store
-     * @return  array
+     * @return  Mage_Shipping_Model_Carrier_Abstract[]
      */
     public function getAllCarriers($store = null)
     {
@@ -82,7 +82,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      *
      * @param   string $carrierCode
      * @param   mixed $store
-     * @return  Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @return  Mage_Usa_Model_Shipping_Carrier_Abstract|false
      */
     public function getCarrierInstance($carrierCode, $store = null)
     {
@@ -99,7 +99,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * @param string $code
      * @param array $config
      * @param mixed $store
-     * @return Mage_Shipping_Model_Carrier_Abstract
+     * @return Mage_Shipping_Model_Carrier_Abstract|false
      */
     protected function _getCarrier($code, $config, $store = null)
     {
@@ -113,6 +113,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
          * Related with module uninstall process
          */
         try {
+            /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
             $carrier = Mage::getModel($modelName);
         } catch (Exception $e) {
             Mage::logException($e);

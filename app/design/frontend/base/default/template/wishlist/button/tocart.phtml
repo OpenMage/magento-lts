@@ -27,4 +27,4 @@
 
 <?php if($this->getWishlist()->getItemsCount() && $this->getWishlist()->isSalable()): ?>
     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Cart')) ?>" onclick="addAllWItemsToCart()" class="button btn-add"><span><span><?php echo $this->__('Add All to Cart') ?></span></span></button>
-<?php endif;?>
+<?php endif ?>

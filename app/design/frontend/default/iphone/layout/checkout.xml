@@ -323,7 +323,7 @@ One page checkout progress block
         <!-- Mage_Checkout -->
         <remove name="right"/>
         <remove name="left"/>
-        
+
     </checkout_onepage_progress>
 
 <!--

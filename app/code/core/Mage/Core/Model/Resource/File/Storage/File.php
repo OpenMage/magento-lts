@@ -49,10 +49,12 @@ class Mage_Core_Model_Resource_File_Storage_File
     /** @var resource */
     protected $filePointer;
 
+    /** @var null|string[] */
+    protected $_createdDirectories;
+
     /**
      * Files at storage
      *
-     * @var array
      * @return string
      */
     public function getMediaBaseDirectory()
@@ -67,7 +69,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Collect files and directories recursively
      *
-     * @param  string$dir
+     * @param string $dir
      * @return array
      */
     public function getStorageData($dir = '')
@@ -234,15 +236,25 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Create a new file already locked by this process and save the handle for later writing by saveFile method.
      *
-     * @param $filePath
+     * @param string $filePath
      * @return bool
      */
     public function lockCreateFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS , dirname($filePath));
 
+        // Create parent directories as needed and track so they can be cleaned up after
         if (!is_dir($path)) {
+            $created = [];
+            $parent = $path;
+            while ($parent != $this->getMediaBaseDirectory() && !is_dir($parent)) {
+                $created[] = $parent;
+                $parent = dirname($parent);
+            }
+            if ($created) {
+                $this->_createdDirectories = $created;
+            }
             @mkdir($path, 0777, true);
         }
 
@@ -268,12 +280,12 @@ class Mage_Core_Model_Resource_File_Storage_File
     /**
      * Unlock, close and remove a locked file (in case the file could not be read from remote storage)
      *
-     * @param $filePath
+     * @param string $filePath
      */
     public function removeLockedFile($filePath)
     {
         $filename = basename($filePath);
-        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS ,dirname($filePath));
+        $path = $this->getMediaBaseDirectory() . DS . str_replace('/', DS , dirname($filePath));
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
             $fp = $this->filePointer;
@@ -282,6 +294,19 @@ class Mage_Core_Model_Resource_File_Storage_File
             @fclose($fp);
         }
         @unlink($fullPath);
+
+        // Clean up empty directories created by this process when the file was locked
+        if ($this->_createdDirectories) {
+            foreach ($this->_createdDirectories as $directory) {
+                @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
+            }
+            $this->_createdDirectories = NULL;
+        }
+
+        // Clean up all empty directories
+        if (rand() % 1000 === 0) {
+            @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
+        }
     }
 
 }

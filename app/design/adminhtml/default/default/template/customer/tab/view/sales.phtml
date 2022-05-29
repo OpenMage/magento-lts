@@ -59,25 +59,25 @@
                         <?php if (!$_websiteRow): ?>
                     <td rowspan="<?php echo $this->getWebsiteCount($_websiteId) ?>"><?php echo $this->escapeHtml($_row->getWebsiteName()); ?></td>
                             <?php $_websiteRow = true; ?>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php if (!$_groupRow): ?>
                     <td rowspan="<?php echo count($_stores) ?>"><?php echo $this->escapeHtml($_row->getGroupName()); ?></td>
                             <?php $_groupRow = true; ?>
-                        <?php endif; ?>
+                        <?php endif ?>
                     <td class="label"><?php echo $this->escapeHtml($_row->getStoreName()); ?></td>
-                        <?php endif; ?>
+                        <?php endif ?>
                     <td><?php echo $this->formatCurrency($_row->getLifetime(), $_row->getWebsiteId()) ?></td>
                     <td><?php echo $this->formatCurrency($_row->getAvgsale(), $_row->getWebsiteId()) ?></td>
                 </tr>
-                        <?php endforeach; ?>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
+                        <?php endforeach ?>
+                    <?php endforeach ?>
+                <?php endforeach ?>
             </tbody>
             <?php else: ?>
             <tbody>
                 <tr class="no-display"><td colspan="5"></td></tr>
             </tbody>
-            <?php endif; ?>
+            <?php endif ?>
         </table>
     </div>
 </div>

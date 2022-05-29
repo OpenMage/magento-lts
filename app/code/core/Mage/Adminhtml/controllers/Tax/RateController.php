@@ -327,7 +327,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             }
         }
         if ($csvData[0] == $csvFields) {
-            /** @var $helper Mage_Adminhtml_Helper_Data */
+            /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
 
             foreach ($csvData as $k => $v) {

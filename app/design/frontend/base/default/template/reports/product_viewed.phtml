@@ -36,9 +36,9 @@
             <li class="item">
                 <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName() , 'name') ?></a></p>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('recently-viewed-items');</script>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

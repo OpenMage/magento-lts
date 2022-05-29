@@ -508,8 +508,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $qty = 1;
             }
         }
-        $qty = $this->_processLocalizedQty($qty);
-        if ($qty) {
+        $qty = (float)$qty;
+        if ($qty && $qty>0) {
             $item->setQty($qty);
         }
 
@@ -755,7 +755,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         try {
-            $info      = unserialize($option->getValue());
+            $info      = unserialize($option->getValue(), ['allowed_classes' => false]);
             $filePath  = Mage::getBaseDir() . $info['quote_path'];
             $secretKey = $this->getRequest()->getParam('key');
 

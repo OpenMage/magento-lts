@@ -39,7 +39,7 @@ class Mage_Admin_Model_Observer
      * Handler for controller_action_predispatch event
      *
      * @param Varien_Event_Observer $observer
-     * @return boolean
+     * @return void
      */
     public function actionPreDispatchAdmin($observer)
     {
@@ -112,7 +112,7 @@ class Mage_Admin_Model_Observer
                             ->setActionName('forbidden')
                             ->setDispatched(false);
                     }
-                    return false;
+                    return;
                 }
             }
         }
@@ -153,7 +153,7 @@ class Mage_Admin_Model_Observer
                 Mage_Core_Model_Encryption::HASH_VERSION_SHA256
             )
         ) {
-            Mage::getModel('admin/user')->load($user->getId())
+            $user
                 ->setNewPassword($password)->setForceNewPassword(true)
                 ->save();
             $user->setPasswordUpgraded(true);

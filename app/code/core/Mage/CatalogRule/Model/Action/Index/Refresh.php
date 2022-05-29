@@ -561,7 +561,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . " <= to_time")
                 )
             )
-            ->group(array('customer_group_id', 'product_id', 'dates.rule_date'));
+            ->group(array('customer_group_id', 'product_id', 'dates.rule_date', 'website_id'));
 
         return $select;
     }
@@ -590,7 +590,9 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_connection->query(
             $this->_connection->insertFromSelect(
                 $this->_prepareIndexSelect($website, $time),
-                $this->_resource->getTable('catalogrule/rule_product_price')
+                $this->_resource->getTable('catalogrule/rule_product_price'),
+                [],
+                Varien_Db_Adapter_Interface::INSERT_IGNORE
             )
         );
     }

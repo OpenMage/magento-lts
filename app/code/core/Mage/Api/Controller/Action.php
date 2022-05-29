@@ -45,7 +45,7 @@ class Mage_Api_Controller_Action extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Retrive webservice server
+     * Retrieve webservice server
      *
      * @return Mage_Api_Model_Server
      */

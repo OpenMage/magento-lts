@@ -41,7 +41,6 @@
  * @method $this setCacheTags(array $value)
  * @method $this setClass(string $value)
  * @method $this setDisabled(bool $value)
- * @method string getFormKey()
  * @method $this setLabel(string $value)
  * @method $this setOnclick(string $value)
  * @method string getPosition()
@@ -537,6 +536,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 $params = $args;
             }
 
+            Mage::helper('core/security')->validateAgainstBlockMethodBlacklist($child, $callback, $params);
             if ($result == call_user_func_array(array(&$child, $callback), $params)) {
                 $this->unsetChild($alias);
             }
@@ -756,6 +756,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function sortChildren($force = false)
     {
+        $this->_sortedChildren = array_values($this->_sortedChildren); // reset indexes which might have gaps after unsetting blocks
         foreach ($this->_sortInstructions as $name => $list) {
             list($siblingName, $after, $exists) = $list;
             if ($exists && !$force) {

@@ -273,7 +273,7 @@
             <wsdl:output message="typens:endSessionResponse" />
         </wsdl:operation>
         <wsdl:operation name="login">
-            <wsdl:documentation>Login user and retrive session id</wsdl:documentation>
+            <wsdl:documentation>Login user and retrieve session id</wsdl:documentation>
             <wsdl:input message="typens:login" />
             <wsdl:output message="typens:loginResponse" />
         </wsdl:operation>

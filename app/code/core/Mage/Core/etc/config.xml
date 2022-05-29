@@ -211,6 +211,7 @@
                 <Mage_Core>
                     <files>
                         <default>Mage_Core.csv</default>
+                        <openmage>Mage_Core_LTS.csv</openmage>
                     </files>
                 </Mage_Core>
             </modules>
@@ -325,6 +326,9 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <cache>
+                <flush_cron_expr>30 2 * * *</flush_cron_expr>
+            </cache>
             <smtp>
                 <disable>0</disable>
                 <host>localhost</host>
@@ -407,6 +411,7 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_samesite>None</cookie_samesite>
                 <cookie_restriction>0</cookie_restriction>
                 <cookie_restriction_lifetime>31536000</cookie_restriction_lifetime>
             </cookie>
@@ -533,7 +538,7 @@
         <jobs>
             <core_clean_cache>
                 <schedule>
-                    <cron_expr>30 2 * * *</cron_expr>
+                    <config_path>system/cache/flush_cron_expr</config_path>
                 </schedule>
                 <run>
                     <model>core/observer::cleanCache</model>
