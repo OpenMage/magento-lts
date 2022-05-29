@@ -99,20 +99,18 @@ class Mage_Admin_Model_Observer
                             ->setControllerName('index')
                             ->setActionName('deniedJson')
                             ->setDispatched(false);
+                    } elseif (Mage::app()->getStore()->isAdmin()) {
+                        $request->setParam('forwarded', true)
+                            ->setRouteName('adminhtml')
+                            ->setControllerName('index')
+                            ->setActionName('login')
+                            ->setDispatched(false);
                     } else {
-                        if ($request->getRouteName() == 'adminhtml') {
-                            $request->setParam('forwarded', true)
-                                ->setRouteName('adminhtml')
-                                ->setControllerName('index')
-                                ->setActionName('login')
-                                ->setDispatched(false);
-                        } else {
-                            $request->setParam('forwarded', true)
-                                ->setRouteName('adminhtml')
-                                ->setControllerName('index')
-                                ->setActionName('forbidden')
-                                ->setDispatched(false);
-                        }
+                        $request->setParam('forwarded', true)
+                            ->setRouteName('adminhtml')
+                            ->setControllerName('index')
+                            ->setActionName('forbidden')
+                            ->setDispatched(false);
                     }
                     return false;
                 }
