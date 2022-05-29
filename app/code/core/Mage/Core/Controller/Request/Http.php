@@ -311,6 +311,20 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     }
 
     /**
+     * Get the request URI scheme
+     *
+     * @return string
+     */
+    public function getScheme()
+    {
+        return $this->getServer('HTTPS') == 'on'
+          || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
+          || (Mage::isInstalled() && Mage::app()->getStore()->isCurrentlySecure()) ?
+            self::SCHEME_HTTPS :
+            self::SCHEME_HTTP;
+    }
+
+    /**
      * Retrieve HTTP HOST
      *
      * @param bool $trimPort
