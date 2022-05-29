@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b192ab4e3a6786db2ff445da886fc87",
+    "content-hash": "aff8ce3f79efad29753431b57a2a7707",
     "packages": [
+        {
+            "name": "colinmollenhour/cache-backend-redis",
+            "version": "1.14.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
+                "reference": "0b042d26b8c2aa093485bdc4bb03a0113a03778d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/0b042d26b8c2aa093485bdc4bb03a0113a03778d",
+                "reference": "0b042d26b8c2aa093485bdc4bb03a0113a03778d",
+                "shasum": ""
+            },
+            "require": {
+                "colinmollenhour/credis": "*"
+            },
+            "type": "magento-module",
+            "autoload": {
+                "classmap": [
+                    "Cm/Cache/Backend/Redis.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Mollenhour"
+                }
+            ],
+            "description": "Zend_Cache backend using Redis with full support for tags.",
+            "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
+            "support": {
+                "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.2"
+            },
+            "time": "2021-03-02T18:36:21+00:00"
+        },
         {
             "name": "colinmollenhour/credis",
             "version": "v1.13.0",
