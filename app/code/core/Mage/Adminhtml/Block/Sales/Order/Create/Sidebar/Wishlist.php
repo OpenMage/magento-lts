@@ -111,6 +111,17 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist
     }
 
     /**
+     * @inheritDoc
+     */
+    public function canDisplay()
+    {
+        if (!Mage::helper('wishlist')->isAllow()) {
+            return false;
+        }
+        return parent::canDisplay();
+    }
+
+    /**
      * Retrieve possibility to display quantity column in grid of wishlist block
      *
      * @return bool

@@ -105,6 +105,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
         $form->setFieldNameSuffix('general');
         $this->setForm($form);
+        return $this;
     }
 
     protected function _getAdditionalElementTypes()

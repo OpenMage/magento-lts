@@ -42,11 +42,10 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Renderer_Checkbox extends 
      */
     public function render(Varien_Object $row)
     {
-        if($row->getSubscriberStatus()==Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED) {
+        if ($row->getSubscriberStatus()==Mage_Newsletter_Model_Subscriber::STATUS_SUBSCRIBED) {
             return '<input type="checkbox" name="subscriber[]" value="' . $row->getId() . '" class="subscriberCheckbox"/>';
         } else {
             return '';
         }
-
     }
-}// Class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Renderer_Checkbox END
+}

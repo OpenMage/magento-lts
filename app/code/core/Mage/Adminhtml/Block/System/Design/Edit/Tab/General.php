@@ -85,6 +85,6 @@ class Mage_Adminhtml_Block_System_Design_Edit_Tab_General extends Mage_Adminhtml
         $form->addValues($formData);
         $form->setFieldNameSuffix('design');
         $this->setForm($form);
+        return $this;
     }
-
 }

@@ -38,5 +38,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Store extends Mage_Core_Model_C
     {
         Mage::app()->getStore()->setConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getValue());
         Mage::app()->cleanCache();
+        return $this;
     }
 }

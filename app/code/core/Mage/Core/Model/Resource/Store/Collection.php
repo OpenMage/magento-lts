@@ -202,4 +202,53 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
 
         return $this;
     }
+
+    /**
+     * Initializes the config cache for each store
+     * @return $this
+     */
+    public function initConfigCache()
+    {
+        if (!Mage::app()->useCache('config')) {
+            return $this;
+        }
+
+        $cacheId = 'store_global_config_cache';
+        $globalConfigCache = Mage::app()->loadCache($cacheId);
+
+        $data = [];
+        $needsRefresh = false;
+
+        if ($globalConfigCache !== false) {
+            try {
+                $data = unserialize($globalConfigCache);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($this as $store) {
+            $code = $store->getCode();
+            if (!$code) {
+                continue;
+            }
+
+            if (!isset($data[$code])) {
+                $data[$code] = $store->getConfigCache();
+                $needsRefresh = true;
+            }
+
+            $store->setConfigCache($data[$code]);
+        }
+
+        if ($needsRefresh) {
+            Mage::app()->saveCache(serialize($data), $cacheId, [
+                Mage_Core_Model_Store::CACHE_TAG,
+                Mage_Core_Model_Config::CACHE_TAG,
+            ]);
+        }
+
+        return $this;
+    }
 }

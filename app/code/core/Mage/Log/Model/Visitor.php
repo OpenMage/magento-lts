@@ -288,7 +288,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindCustomerLogin($observer)
     {
         /** @var Mage_Customer_Model_Customer $customer */
-        if ($customer = $observer->getEvent()->getCustomer()) {
+        $customer = $observer->getEvent()->getCustomer();
+        if ($customer) {
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
@@ -318,7 +319,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteCreate($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             if ($quote->getIsCheckoutCart()) {
                 $this->setQuoteId($quote->getId());
                 $this->setDoQuoteCreate(true);
@@ -334,7 +336,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteDestroy($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
         return $this;

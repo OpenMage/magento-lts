@@ -159,9 +159,9 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
                     ));
                     return;
                 }
-                /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
+                /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                 $validator = Mage::getModel('core/file_validator_availablePath');
-                /** @var $helper Mage_Adminhtml_Helper_Catalog */
+                /** @var Mage_Adminhtml_Helper_Catalog $helper */
                 $helper = Mage::helper('adminhtml/catalog');
                 $validator->setPaths($helper->getSitemapValidPaths());
                 if (!$validator->isValid($path)) {

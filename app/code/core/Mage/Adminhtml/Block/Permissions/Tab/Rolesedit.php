@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $selrids = array();
 
-        /** @var $item Mage_Admin_Model_Rules */
+        /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules_set->getItems() as $item) {
             $itemResourceId = $item->getResource_id();
             if (array_key_exists(strtolower($itemResourceId), $resources)) {

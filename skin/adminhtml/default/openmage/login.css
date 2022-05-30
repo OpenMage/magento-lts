@@ -176,8 +176,6 @@ input.input-text:disabled {
 }
 .login-container .legal {
   margin: 0;
-  background: url(images/logo-magento.png) no-repeat;
-  padding: 8px 8px 5px 8px;
   font-size: 0.95em;
   background: none;
   padding: 0;

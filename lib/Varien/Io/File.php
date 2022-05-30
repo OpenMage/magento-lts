@@ -247,12 +247,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
-
         if ($this->_streamLocked) {
             $this->streamUnlock();
         }
-        @fclose($this->_streamHandler);
-        $this->_streamHandler = null;
+        if ($this->_IsValidSource($this->_streamHandler)) {
+            @fclose($this->_streamHandler);
+        }
         $this->chmod($this->_streamFileName, $this->_streamChmod);
         return true;
     }

@@ -142,6 +142,9 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+if (substr_count($relativeFilename, '/') > 10) {
+    sendNotFoundPage();
+}
 
 $localStorage = Mage::getModel('core/file_storage_file');
 $remoteStorage = Mage::getModel('core/file_storage_database');
@@ -150,7 +153,7 @@ try {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
         } catch (Exception $e) {
-            // Ignore errors
+            Mage::logException($e);
         }
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);

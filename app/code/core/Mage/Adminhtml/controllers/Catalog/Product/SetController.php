@@ -116,7 +116,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $model  = Mage::getModel('eav/entity_attribute_set')
             ->setEntityTypeId($entityTypeId);
 
-        /** @var $helper Mage_Adminhtml_Helper_Data */
+        /** @var Mage_Adminhtml_Helper_Data $helper */
         $helper = Mage::helper('adminhtml');
 
         try {

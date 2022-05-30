@@ -85,5 +85,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
         $form->setAction($this->getUrl('*/*/save'));
         $form->setOnsubmit('return false;');
         $this->setForm($form);
+        return $this;
     }
 }

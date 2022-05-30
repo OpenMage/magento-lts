@@ -64,7 +64,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
      */
     public function validateAdvancedAction()
     {
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         $result = $this->_validate();
