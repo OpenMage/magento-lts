@@ -1248,15 +1248,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Cancel order
-     *
+     * @param string $comment
      * @return $this
      */
-    public function cancel()
+    public function cancel($comment = '')
     {
         if ($this->canCancel()) {
             $this->getPayment()->cancel();
-            $this->registerCancellation();
-
+            $this->registerCancellation($comment);
             Mage::dispatchEvent('order_cancel_after', array('order' => $this));
         }
 
