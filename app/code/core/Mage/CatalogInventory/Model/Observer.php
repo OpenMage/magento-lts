@@ -806,7 +806,7 @@ class Mage_CatalogInventory_Model_Observer
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
                 /* @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
                 $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
-                $qty = $item->getQty();
+                $qty = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
                 if (isset($items[$item->getProductId()])) {
                     $items[$item->getProductId()]['qty'] += $qty;
                 } else {
