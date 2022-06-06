@@ -115,7 +115,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     public function execute()
     {
         $this->_app->dispatchEvent('catalogrule_before_apply', array('resource' => $this->_resource));
-        
+
         /** @var Mage_Core_Model_Date $coreDate */
         $coreDate  = $this->_factory->getModel('core/date');
         $timestamp = $coreDate->gmtTimestamp();
