@@ -590,7 +590,6 @@ FormElementDependenceController.prototype = {
 // optional_zip_countries.phtml
 function onAddressCountryChanged(countryElement) {
     var zipElementId = countryElement.id.replace(/country_id/, 'postcode');
-
     // Ajax-request and normal content load compatibility
     if ($(zipElementId) != undefined) {
         setPostcodeOptional($(zipElementId), countryElement.value);
@@ -602,15 +601,19 @@ function onAddressCountryChanged(countryElement) {
 }
 
 function setPostcodeOptional(zipElement, country) {
+    var spanElement = zipElement.up(1).down('label > span.required');
+    if (!spanElement || (typeof optionalZipCountries == 'undefined')) {
+        return; // nothing to do (for example in system config)
+    }
     if (optionalZipCountries.indexOf(country) != -1) {
         Validation.reset(zipElement);
         while (zipElement.hasClassName('required-entry')) {
             zipElement.removeClassName('required-entry');
         }
-        zipElement.up(1).down('label > span.required').hide();
+        spanElement.hide();
     } else {
         zipElement.addClassName('required-entry');
-        zipElement.up(1).down('label > span.required').show();
+        spanElement.show();
     }
 }
 
