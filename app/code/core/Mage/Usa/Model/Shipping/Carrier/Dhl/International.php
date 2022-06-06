@@ -768,9 +768,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     {
         $sizeChecker = (string)$this->getConfigData('size');
 
-        $height = $this->_getDimension((string)$this->getConfigData('height'));
-        $depth = $this->_getDimension((string)$this->getConfigData('depth'));
-        $width = $this->_getDimension((string)$this->getConfigData('width'));
+        $height = $this->_getDimension((float)$this->getConfigData('height'));
+        $depth = $this->_getDimension((float)$this->getConfigData('depth'));
+        $width = $this->_getDimension((float)$this->getConfigData('width'));
 
         if ($sizeChecker && $height && $depth && $width) {
             $nodePiece->addChild('Height', $height);
