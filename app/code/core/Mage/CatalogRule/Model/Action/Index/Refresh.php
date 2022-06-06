@@ -115,7 +115,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     public function execute()
     {
         $this->_app->dispatchEvent('catalogrule_before_apply', array('resource' => $this->_resource));
-        $timestamp = Mage::app()->getLocale()->date(null, null, null,true)->get(Zend_Date::TIMESTAMP);
+        $timestamp = $coreDate->gmtTimestamp();
 
         foreach ($this->_app->getWebsites(false) as $website) {
             /** @var Mage_Core_Model_Website $website */
