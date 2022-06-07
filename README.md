@@ -100,6 +100,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
+- `dev/log/max_level`
 - `newsletter/security/enable_form_key`
 
 ### New Events
