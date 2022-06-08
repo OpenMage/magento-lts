@@ -865,7 +865,7 @@ final class Mage
 
         try {
             $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $maxLogLevel = Zend_Log::DEBUG;
         }
 
