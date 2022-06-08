@@ -282,4 +282,4 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         }
         return true;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Set_Api End
+}

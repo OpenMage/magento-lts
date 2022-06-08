@@ -55,7 +55,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     protected $_innerCache = array();
 
     /**
-     * Retrive old stule edit button html for editing of giftmessage in popup
+     * Retrieve old stule edit button html for editing of giftmessage in popup
      *
      * @param string $type
      * @param Varien_Object $entity
@@ -75,7 +75,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive inline giftmessage edit form for specified entity
+     * Retrieve inline giftmessage edit form for specified entity
      *
      * @param string $type
      * @param Varien_Object $entity
@@ -190,7 +190,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive escaped and preformated gift message text for specified entity
+     * Retrieve escaped and preformated gift message text for specified entity
      *
      * @param Varien_Object $entity
      * @return string|null
@@ -205,7 +205,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive gift message for entity. If message not exists return null
+     * Retrieve gift message for entity. If message not exists return null
      *
      * @param Varien_Object $entity
      * @return Mage_GiftMessage_Model_Message
@@ -220,7 +220,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive internal cached data with specified key.
+     * Retrieve internal cached data with specified key.
      *
      * If cached data not found return null.
      *
@@ -296,7 +296,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
     }
 
     /**
-     * Retrive gift message with specified id
+     * Retrieve gift message with specified id
      *
      * @param integer $messageId
      * @return Mage_GiftMessage_Model_Message

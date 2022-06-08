@@ -720,7 +720,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
 
     /**
-     * Retrive Declared Module file list
+     * Retrieve Declared Module file list
      *
      * @return array|false
      */
@@ -1271,7 +1271,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $config = $this->_xml->global->{$groupType.'s'}->{$group};
 
         // First - check maybe the entity class was rewritten
-        $className = null;
+        $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
         } else {
@@ -1558,7 +1558,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get DB table names prefix
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element
      */
     public function getTablePrefix()
     {

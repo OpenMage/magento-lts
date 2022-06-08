@@ -634,7 +634,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if ($staticAttributes) {
             $select = $adapter->select()->from($staticTable, $staticAttributes)
                 ->where($this->getEntityIdField() . ' = :entity_id');
-            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId));
+            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId)) ?: [];
         }
 
         /**

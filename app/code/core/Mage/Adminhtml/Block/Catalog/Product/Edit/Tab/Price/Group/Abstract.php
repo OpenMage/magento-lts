@@ -150,7 +150,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             $this->_customerGroups = $this->_getInitialCustomerGroups();
 
             foreach ($collection as $item) {
-                /** @var $item Mage_Customer_Model_Group */
+                /** @var Mage_Customer_Model_Group $item */
                 $this->_customerGroups[$item->getId()] = $item->getCustomerGroupCode();
             }
         }
@@ -211,7 +211,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         );
 
         if (!$this->isScopeGlobal() && $this->getProduct()->getStoreId()) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
             $website = Mage::app()->getStore($this->getProduct()->getStoreId())->getWebsite();
 
             $this->_websites[$website->getId()] = array(
@@ -222,7 +222,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             $websites = Mage::app()->getWebsites(false);
             $productWebsiteIds  = $this->getProduct()->getWebsiteIds();
             foreach ($websites as $website) {
-                /** @var $website Mage_Core_Model_Website */
+                /** @var Mage_Core_Model_Website $website */
                 if (!in_array($website->getId(), $productWebsiteIds)) {
                     continue;
                 }

@@ -264,7 +264,7 @@ class Mage_Core_Model_Cookie
         if (PHP_VERSION_ID >= 70300) {
             setcookie(
                 $name,
-                $value,
+                (string)$value,
                 [
                     'expires'  => $expire,
                     'path'     => $path,
@@ -278,7 +278,7 @@ class Mage_Core_Model_Cookie
             if (!empty($sameSite)) {
                 $path.= "; samesite=${sameSite}";
             }
-            setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
+            setcookie($name, (string)$value, $expire, $path, $domain, $secure, $httponly);
         }
 
         return $this;
@@ -339,6 +339,6 @@ class Mage_Core_Model_Cookie
             return $this;
         }
 
-        return $this->set($name, null, null, $path, $domain, $secure, $httponly, $sameSite);
+        return $this->set($name, '', null, $path, $domain, $secure, $httponly, $sameSite);
     }
 }

@@ -178,7 +178,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Retrive allowed quote items for gift messages
+     * Retrieve allowed quote items for gift messages
      *
      * @return array
      */
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Retrive allowed quote items products for gift messages
+     * Retrieve allowed quote items products for gift messages
      *
      * @return array
      */
@@ -307,7 +307,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     }
 
     /**
-     * Retrive mapped type for entity
+     * Retrieve mapped type for entity
      *
      * @param string $type
      * @return string

@@ -315,6 +315,7 @@
             </translate_inline>
             <log>
                 <active>0</active>
+                <max_level>7</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
@@ -326,6 +327,9 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <cache>
+                <flush_cron_expr>30 2 * * *</flush_cron_expr>
+            </cache>
             <smtp>
                 <disable>0</disable>
                 <host>localhost</host>
@@ -535,7 +539,7 @@
         <jobs>
             <core_clean_cache>
                 <schedule>
-                    <cron_expr>30 2 * * *</cron_expr>
+                    <config_path>system/cache/flush_cron_expr</config_path>
                 </schedule>
                 <run>
                     <model>core/observer::cleanCache</model>

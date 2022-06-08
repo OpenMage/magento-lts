@@ -224,7 +224,7 @@ Flex.Object = Class.create({
         }
     },
     /**
-     * Retrive object attribute value used for generation in html tags
+     * Retrieve object attribute value used for generation in html tags
      *
      * @param Sting name
      * @return Object

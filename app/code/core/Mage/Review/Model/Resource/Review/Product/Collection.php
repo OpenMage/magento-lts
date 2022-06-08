@@ -301,7 +301,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      *
      * @inheritDoc
      */

@@ -147,7 +147,6 @@ final class Mage
 
     /**
      * Gets the current Magento version string
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
@@ -160,7 +159,6 @@ final class Mage
 
     /**
      * Gets the detailed Magento version information
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return array
      */
@@ -222,7 +220,7 @@ final class Mage
             return array(
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '13',
+                'patch'     => '14',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             );
@@ -231,7 +229,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '15',
+            'patch'     => '16',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -865,7 +863,18 @@ final class Mage
 
         static $loggers = array();
 
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
+
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+            return;
+        }
+
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 

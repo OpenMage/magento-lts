@@ -458,7 +458,7 @@ ul {
     border-top: 0;
 
     dl {
-      background: $color_dolphin_approx;
+      background: $white;
       border: 1px solid $color_alto_approx;
     }
 
@@ -692,7 +692,7 @@ div {
 
 #loading-mask {
   background: $black_40;
-  z-index: 999;
+  z-index: 1000;
   color: $color_dolphin_approx;
   opacity: 1;
 

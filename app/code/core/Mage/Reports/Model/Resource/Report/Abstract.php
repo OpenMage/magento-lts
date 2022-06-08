@@ -42,7 +42,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     protected $_flag     = null;
 
     /**
-     * Retrive flag object
+     * Retrieve flag object
      *
      * @return Mage_Reports_Model_Flag
      */

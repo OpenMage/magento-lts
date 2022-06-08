@@ -34,7 +34,7 @@
 
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
-     public function getCondition()
+    public function getCondition()
     {
         return array();
     }
@@ -43,4 +43,4 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Ma
     {
         return '<input type="checkbox" onclick="subscriberController.checkCheckboxes(this)"/>';
     }
-}// Class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox END
+}

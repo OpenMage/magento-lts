@@ -151,10 +151,10 @@ class Varien_File_Uploader
      */
     protected $_result;
 
-    function __construct($fileId)
+    public function __construct($fileId)
     {
         $this->_setUploadFileId($fileId);
-        if(!file_exists($this->_file['tmp_name'])) {
+        if (empty($this->_file['tmp_name']) || !file_exists($this->_file['tmp_name'])) {
             $code = empty($this->_file['tmp_name']) ? self::TMP_NAME_EMPTY : 0;
             throw new Exception('File was not uploaded.', $code);
         } else {

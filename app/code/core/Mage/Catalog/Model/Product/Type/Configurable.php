@@ -719,7 +719,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $options = parent::getOrderOptions($product);
         $options['attributes_info'] = $this->getSelectedAttributesInfo($product);
         /** @var Mage_Sales_Model_Quote_Item_Option|Mage_Catalog_Model_Product_Configuration_Item_Option $simpleOption */
-        if ($simpleOption = $this->getProduct($product)->getCustomOption('simple_product')) {
+        $simpleOption = $this->getProduct($product)->getCustomOption('simple_product');
+        if ($simpleOption) {
             $options['simple_name'] = $simpleOption->getProduct()->getName();
             $options['simple_sku']  = $simpleOption->getProduct()->getSku();
         }

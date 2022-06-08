@@ -55,7 +55,7 @@ class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
      */
     protected function isEncryptedNodePath($path)
     {
-        /** @var $configModel Mage_Adminhtml_Model_Config */
+        /** @var Mage_Adminhtml_Model_Config $configModel */
         $configModel = Mage::getSingleton('adminhtml/config');
 
         return in_array((string)$path, $configModel->getEncryptedNodeEntriesPaths());

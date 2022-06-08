@@ -42,7 +42,7 @@ interface Mage_Customer_Block_Address_Renderer_Interface
     public function setType(Varien_Object $type);
 
     /**
-     * Retrive format type object
+     * Retrieve format type object
      *
      * @return Varien_Object
      */

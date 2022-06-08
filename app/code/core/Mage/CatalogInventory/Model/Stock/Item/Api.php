@@ -140,4 +140,4 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
 
         return true;
     }
-} // Class Mage_CatalogInventory_Model_Stock_Item_Api End
+}

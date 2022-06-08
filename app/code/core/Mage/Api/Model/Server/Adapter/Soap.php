@@ -87,7 +87,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     }
 
     /**
-     * Retrive handler class name for webservice
+     * Retrieve handler class name for webservice
      *
      * @return string
      */
@@ -109,7 +109,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     }
 
     /**
-     * Retrive webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
+     * Retrieve webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
      *
      * @return Varien_Object
      */
