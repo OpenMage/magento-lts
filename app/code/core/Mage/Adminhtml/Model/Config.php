@@ -96,7 +96,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $this->setCacheTags([Mage_Core_Model_Config::CACHE_TAG]);
         $usesCache = Mage::app()->useCache('config');
         if (!$usesCache || !$this->loadCache()) {
-            /** @var Mage_Core_Model_Config_Base $config */
             $this->_config = Mage::getConfig()->loadModulesConfiguration('system.xml')
                 ->applyExtends();
             if ($usesCache) {
@@ -106,7 +105,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param $tags
+     * @param array|null $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
     public function saveCache($tags=null)
