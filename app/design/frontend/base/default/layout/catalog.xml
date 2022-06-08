@@ -148,7 +148,6 @@ Compare products page
             <action method="setTemplate"><template>page/popup.phtml</template></action>
         </reference>
         <reference name="head">
-            <action method="addJs"><script>scriptaculous/scriptaculous.js</script></action>
             <action method="addJs"><script>varien/product.js</script></action>
             <action method="addJs"><script>varien/product_options.js</script></action>
         </reference>

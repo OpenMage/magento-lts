@@ -16,6 +16,12 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+// @todo
+var Sortable = {}
+Sortable.create = function() { };
+Ajax.Autocompleter = function() { };
+
 function popWin(url,win,para) {
     var win = window.open(url,win,para);
     win.focus();
