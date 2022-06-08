@@ -89,10 +89,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         return $this->_tabs;
     }
 
-    /**
-     * @param array $params
-     */
-    public function __construct(array $params = array())
+    public function __construct()
     {
         $this->_cacheChecksum = null;
         $this->setCache(Mage::app()->getCache());
