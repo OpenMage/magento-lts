@@ -14,7 +14,7 @@ jobs:
         operating-system: [ubuntu-latest]
         php-versions: ['7.0', '7.4']
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -44,7 +44,7 @@ jobs:
             '.github/phpstan.neon',
         ]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
       - name: ensure existance of ./app/code/local
@@ -63,7 +63,7 @@ jobs:
         operating-system: [ubuntu-latest]
         php-versions: ['8.0','8.1']
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
@@ -100,7 +100,7 @@ jobs:
           - directories: 'lib/'
             config_files: '.github/phpstan.neon'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
       - name: ensure existance of ./app/code/local

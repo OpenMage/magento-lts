@@ -52,7 +52,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sal
             $this->addTotal($v[0], $v[1], $v[2]);
         }
 
-        parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     protected function getTotals()

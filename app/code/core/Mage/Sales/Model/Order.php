@@ -869,7 +869,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canReorder()
     {
-        return $this->_canReorder(false);
+        return $this->_canReorder(true);
     }
 
     /**
@@ -890,7 +890,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canReorder($ignoreSalable = false)
     {
-        if ($this->canUnhold() || $this->isPaymentReview() || !$this->getCustomerId()) {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
 
@@ -1248,15 +1248,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Cancel order
-     *
+     * @param string $comment
      * @return $this
      */
-    public function cancel()
+    public function cancel($comment = '')
     {
         if ($this->canCancel()) {
             $this->getPayment()->cancel();
-            $this->registerCancellation();
-
+            $this->registerCancellation($comment);
             Mage::dispatchEvent('order_cancel_after', array('order' => $this));
         }
 
@@ -2349,7 +2348,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->unsShippingAddressId();
         }
 
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        if (!$this->getId()) {
+            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        }
         return $this;
     }
 

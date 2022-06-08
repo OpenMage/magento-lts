@@ -135,7 +135,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
                 if ($price['price'] < $productPrice) {
                     // use the original prices to determine the percent savings
-                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
+                    $price['savePercent'] = ceil(100 - round((100 / $productPrice) * $price['price']));
 
                     // if applicable, adjust the tier prices
                     if (isset($bundlePriceModel)) {
@@ -227,7 +227,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * If attribute is not found false is returned
      *
      * @param string|integer|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract || false
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
      */
     public function getProductAttribute($attribute)
     {

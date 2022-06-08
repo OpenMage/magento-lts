@@ -69,22 +69,22 @@ $mq-support: false;
 $mq-fixed-value: 1024;
 
 // Renders at fixed value
-@include bp (min-width, 300px) { 
+@include bp (min-width, 300px) {
     div { color:#000; }
 }
 
 // Doesn't render without MQ support
-@include bp (min-width, 1200px) { 
+@include bp (min-width, 1200px) {
     div { color:#FFF; }
 }
 
 // Doesn't render without MQ support
-@include bp (max-width, 300px) { 
+@include bp (max-width, 300px) {
     div { color:#444; }
 }
 
 // Renders at fixed value
-@include bp (max-width, 1200px) { 
+@include bp (max-width, 1200px) {
     div { color:#888; }
 }
 

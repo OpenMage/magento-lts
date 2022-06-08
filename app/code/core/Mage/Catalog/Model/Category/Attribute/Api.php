@@ -106,4 +106,4 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
 
         return $result;
     }
-} // Class Mage_Catalog_Model_Category_Attribute_Api End
+}
