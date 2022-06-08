@@ -31,7 +31,6 @@
             <groups>
                 <productalert translate="label" module="productalert">
                     <label>Product Alerts</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>250</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -87,7 +86,6 @@
                 </productalert>
                 <productalert_cron translate="label" module="productalert">
                     <label>Product Alerts Run Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>260</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -113,7 +111,6 @@
                         </time>
                         <error_email translate="label">
                             <label>Error Email Recipient</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
