@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -146,6 +146,7 @@
                 <Mage_Adminhtml>
                     <files>
                         <default>Mage_Adminhtml.csv</default>
+                        <openmage_lts>Mage_Adminhtml_LTS.csv</openmage_lts>
                     </files>
                 </Mage_Adminhtml>
             </modules>
@@ -233,6 +234,11 @@
         <help>
             <target_version>ce</target_version>
         </help>
+        <admin>
+            <design>
+                <use_legacy_theme>0</use_legacy_theme>
+            </design>
+        </admin>
     </default>
     <stores>
         <admin>
@@ -242,6 +248,7 @@
                 </package>
                 <theme>
                     <default>default</default>
+                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>

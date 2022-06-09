@@ -20,13 +20,11 @@
  *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- *
  * @deprecated after 1.3.2.4
  * @category   Mage
  * @package    Mage_GiftMessage
@@ -37,7 +35,7 @@ class Mage_GiftMessage_IndexController extends Mage_Core_Controller_Front_Action
     public function saveAction()
     {
         $giftMessage = Mage::getModel('giftmessage/message');
-        if($this->getRequest()->getParam('message')) {
+        if ($this->getRequest()->getParam('message')) {
             $giftMessage->load($this->getRequest()->getParam('message'));
         }
         try {
@@ -56,11 +54,9 @@ class Mage_GiftMessage_IndexController extends Mage_Core_Controller_Front_Action
             $this->getRequest()->setParam('message', $giftMessage->getId());
             $this->getRequest()->setParam('entity', $entity);
         } catch (Exception $e) {
-
         }
 
         $this->loadLayout();
         $this->renderLayout();
     }
-
 }

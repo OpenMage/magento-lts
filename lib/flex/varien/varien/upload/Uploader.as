@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Uploader
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 package varien.upload
@@ -160,7 +160,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file filters as array
+		 * Retrieve file filters as array
 		 */
 		public function getTypeFiltersArray():Array
 		{
@@ -172,7 +172,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file filters as object
+		 * Retrieve file filters as object
 		 */
 		public function getTypeFilters():Object
 		{
@@ -180,7 +180,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file filter with specified id
+		 * Retrieve file filter with specified id
 		 * 
 		 * @param filterId filter unique id
 		 */
@@ -235,7 +235,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file info with specified id
+		 * Retrieve file info with specified id
 		 * 
 		 * @param id file id
 		 */
@@ -249,7 +249,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file info for all files as array
+		 * Retrieve file info for all files as array
 		 */					
 		public function get filesInfo():Array
 		{
@@ -384,7 +384,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file reference by id
+		 * Retrieve file reference by id
 		 * 
 		 * @param id file id
 		 */
@@ -397,7 +397,7 @@ package varien.upload
 		}
 		
 		/**
-		 * Retrive file id by reference
+		 * Retrieve file id by reference
 		 * 
 		 * @param file FileReference
 		 */

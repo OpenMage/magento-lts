@@ -20,13 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/* @var Mage_Checkout_Model_Mysql4_Setup $installer */
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
-
 $installer->startSetup();
 /**
  * Create table 'checkout/agreement'
@@ -73,12 +72,22 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'primary'   => true,
         ), 'Store Id')
-    ->addForeignKey($installer->getFkName('checkout/agreement_store', 'agreement_id', 'checkout/agreement', 'agreement_id'),
-        'agreement_id', $installer->getTable('checkout/agreement'), 'agreement_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('checkout/agreement_store', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('checkout/agreement_store', 'agreement_id', 'checkout/agreement', 'agreement_id'),
+        'agreement_id',
+        $installer->getTable('checkout/agreement'),
+        'agreement_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('checkout/agreement_store', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Checkout Agreement Store');
 $installer->getConnection()->createTable($table);
 
@@ -779,5 +788,13 @@ if ($data) {
         throw $e;
     }
 }
+
+$setup->insert(
+    $this->getTable('core_config_data'),
+    array(
+        'path' => 'admin/security/validate_formkey_checkout',
+        'value' => '1'
+    )
+);
 
 $installer->endSetup();

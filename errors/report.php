@@ -20,9 +20,11 @@
  *
  * @category    Mage
  * @package     Errors
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
+if ($_SERVER['SCRIPT_FILENAME'] == __FILE__ && (!isset($_GET['id']) || strlen($_GET['id']) == 0)) die("Missing parameter: id");
 
 require_once 'processor.php';
 

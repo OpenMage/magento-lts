@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -39,9 +39,9 @@
                 <h3 class="product-name"><a href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->escapeHtml($_link->getName()) ?></a></h3>
                 <?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
             </li><!-
-            <?php endif; ?>
-        <?php endfor; ?>
-    <?php endfor; ?>
+            <?php endif ?>
+        <?php endfor ?>
+    <?php endfor ?>
     -></ul>
 </div>
 <?php endif ?>

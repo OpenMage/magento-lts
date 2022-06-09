@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Image
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,6 +32,10 @@
 abstract class Varien_Image_Adapter_Abstract
 {
     public $fileName = null;
+
+    /**
+     * @var int Color used to fill space when rotating image, do not confuse it with $_backgroundColor
+     */
     public $imageBackgroundColor = 0;
 
     const POSITION_TOP_LEFT = 'top-left';
@@ -42,13 +46,66 @@ abstract class Varien_Image_Adapter_Abstract
     const POSITION_TILE = 'tile';
     const POSITION_CENTER = 'center';
 
+    /**
+     * Image file type of the image $this->_fileName
+     * e.g 2 for IMAGETYPE_JPEG
+     *
+     * @var int
+     */
     protected $_fileType = null;
+
+    /**
+     * Absolute path to an original image
+     *
+     * @var string
+     */
     protected $_fileName = null;
+
+    /**
+     * Image mime type e.g. image/jpeg
+     *
+     * @var string
+     */
     protected $_fileMimeType = null;
+
+    /**
+     * Image file name (without path, with extension)
+     *
+     * @var string
+     */
     protected $_fileSrcName = null;
+
+    /**
+     * Absolute path to a folder containing original image
+     *
+     * @var string
+     */
     protected $_fileSrcPath = null;
+
+    /**
+     * Image resource created e.g. using imagecreatefromjpeg
+     * This resource is being processed, so after open() it contains
+     * original image, but after resize() it's already a scaled version.
+     *
+     * @see Varien_Image_Adapter_Gd2::open()
+     * @var resource
+     */
     protected $_imageHandler = null;
+
+    /**
+     * Width of the image stored in $_imageHandler
+     *
+     * @see getMimeType
+     * @var string|int
+     */
     protected $_imageSrcWidth = null;
+
+    /**
+     * Height of the image stored in $_imageHandler
+     *
+     * @see getMimeType
+     * @var string|int
+     */
     protected $_imageSrcHeight = null;
     protected $_requiredExtensions = null;
     protected $_watermarkPosition = null;
@@ -59,8 +116,24 @@ abstract class Varien_Image_Adapter_Abstract
 
     protected $_keepAspectRatio;
     protected $_keepFrame;
+
+    /**
+     * @var bool If set to true and image format supports transparency (e.g. PNG),
+     * transparency will be kept in scaled images. Otherwise transparent areas will be changed to $_backgroundColor
+     */
     protected $_keepTransparency;
+
+    /**
+     * Array with RGB values for background color e.g. [255, 255, 255]
+     * used e.g. when filling transparent color in scaled images
+     *
+     * @var array
+     */
     protected $_backgroundColor;
+
+    /**
+     * @var bool If true, images will not be scaled up (when original image is smaller then requested size)
+     */
     protected $_constrainOnly;
 
     abstract public function open($fileName);
@@ -81,13 +154,18 @@ abstract class Varien_Image_Adapter_Abstract
 
     public function getMimeType()
     {
-        if( $this->_fileType ) {
-            return $this->_fileType;
-        } else {
-            list($this->_imageSrcWidth, $this->_imageSrcHeight, $this->_fileType, ) = getimagesize($this->_fileName);
-            $this->_fileMimeType = image_type_to_mime_type($this->_fileType);
+        if($this->_fileMimeType){
             return $this->_fileMimeType;
         }
+        $imageInfo = @getimagesize($this->_fileName);
+        if($imageInfo === false){
+            throw new RuntimeException('Failed to read image at ' . $this->_fileName);
+        }
+        $this->_imageSrcWidth = $imageInfo[0];
+        $this->_imageSrcHeight = $imageInfo[1];
+        $this->_fileType = $imageInfo[2];
+        $this->_fileMimeType = $imageInfo['mime'];
+        return $this->_fileMimeType;
     }
 
     /**
@@ -161,7 +239,7 @@ abstract class Varien_Image_Adapter_Abstract
      * Get/set keepAspectRatio
      *
      * @param bool $value
-     * @return bool|Varien_Image_Adapter_Abstract
+     * @return bool
      */
     public function keepAspectRatio($value = null)
     {
@@ -246,7 +324,7 @@ abstract class Varien_Image_Adapter_Abstract
             }
             $this->_backgroundColor = $value;
         }
-        
+
         return $this->_backgroundColor;
     }
 

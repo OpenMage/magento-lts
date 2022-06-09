@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -162,7 +162,7 @@ foreach ($fieldList as $field) {
     $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('bundle', $applyTo)) {
         $applyTo[] = 'bundle';
-        $installer->updateAttribute('catalog_product', $field, 'apply_to', join(',', $applyTo));
+        $installer->updateAttribute('catalog_product', $field, 'apply_to', implode(',', $applyTo));
     }
 }
 

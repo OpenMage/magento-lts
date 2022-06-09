@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +77,8 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
         $this->getSelect()->joinLeft(
             array('rname' => $this->_regionNameTable),
             'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            array('name'));
+            array('name')
+        );
 
         return $this;
     }
@@ -112,7 +113,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             ->joinLeft(
                 array('country' => $this->_countryTable),
                 'main_table.country_id = country.country_id'
-                )
+            )
             ->where('country.iso3_code = ?', $countryCode);
 
         return $this;

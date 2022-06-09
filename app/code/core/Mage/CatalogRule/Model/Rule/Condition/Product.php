@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,7 +114,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     protected function _prepareDatetimeValue($value, $object)
     {
         $attribute = $object->getResource()->getAttribute($this->getAttribute());
-        if ($attribute && $attribute->getBackendType() == 'datetime') {
+        if ($attribute && $attribute->getBackendType() === 'datetime') {
+            if (!$value) {
+                return null;
+            }
             $value = strtotime($value);
         }
         return $value;

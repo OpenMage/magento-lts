@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Method
 {
     public function toOptionArray()
     {
-        /** @var $usps Mage_Usa_Model_Shipping_Carrier_Usps */
+        /** @var Mage_Usa_Model_Shipping_Carrier_Usps $usps */
         $usps = Mage::getSingleton('usa/shipping_carrier_usps');
         $arr = array();
         foreach ($usps->getCode('method') as $k => $v) {

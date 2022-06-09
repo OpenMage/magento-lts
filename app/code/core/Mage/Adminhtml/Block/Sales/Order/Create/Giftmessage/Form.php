@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive entity for form
+     * Retrieve entity for form
      *
      * @return Varien_Object
      */
@@ -252,7 +252,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive gift message for entity
+     * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
      */
@@ -266,7 +266,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive real name for field
+     * Retrieve real name for field
      *
      * @param string $name
      * @return string
@@ -277,7 +277,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive real html id for field
+     * Retrieve real html id for field
      *
      * @param string $id
      * @return string
@@ -288,7 +288,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive field html id prefix
+     * Retrieve field html id prefix
      *
      * @return string
      */

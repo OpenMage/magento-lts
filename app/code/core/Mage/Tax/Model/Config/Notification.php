@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,10 @@
  * @category   Mage
  * @package    Mage_Tax
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item _getResource()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item getResource()
+ * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection getCollection()
  */
 class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
 {
@@ -64,7 +68,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
     /**
      * Prepare and store cron settings after save
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {

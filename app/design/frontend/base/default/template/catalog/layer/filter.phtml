@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,12 +36,12 @@
 <?php foreach ($this->getItems() as $_item): ?>
     <li>
         <?php if ($_item->getCount() > 0): ?>
-        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+        <a href="<?php echo $this->escapeUrl($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
         <?php else: echo $_item->getLabel() ?>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($this->shouldDisplayProductCount()): ?>
         (<?php echo $_item->getCount() ?>)
-        <?php endif; ?>
+        <?php endif ?>
     </li>
 <?php endforeach ?>
 </ol>

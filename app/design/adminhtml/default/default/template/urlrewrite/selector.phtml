@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -41,7 +41,7 @@
             <select class="select" onchange="window.location = this.value;">
             <?php foreach ($this->getModes() as $mode => $label): ?>
                 <option <?php echo ($this->isMode($mode) ? 'selected="selected" ' :'' ) ?>value="<?php echo $url . $mode ?>"><?php echo $label ?></option>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </select>
         </td>
     </tr>

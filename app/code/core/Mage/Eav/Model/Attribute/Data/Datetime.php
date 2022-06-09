@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,10 +47,11 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
             if ($filterCode == 'datetime') {
                 $filter = new $filterClass(
                     $this->_getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                    $this->_getLocale()->getLocale());
-                } else {
-                    $filter = new $filterClass();
-                }
+                    $this->_getLocale()->getLocale()
+                );
+            } else {
+                $filter = new $filterClass();
+            }
             return $filter;
         }
         return false;
@@ -61,7 +62,8 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
      *
      * @return Mage_Core_Model_Locale
      */
-    protected function _getLocale(){
+    protected function _getLocale()
+    {
         return Mage::app()->getLocale();
     }
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         if ($this->getParentBlock() && ($order = $this->getOrder())) {
             $this->setEntity($order);
         }
-        parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     /**
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive save button html
+     * Retrieve save button html
      *
      * @return string
      */
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive entity for form
+     * Retrieve entity for form
      *
      * @return Varien_Object
      */
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive default value for giftmessage sender
+     * Retrieve default value for giftmessage sender
      *
      * @return string
      */
@@ -142,7 +142,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive default value for giftmessage recipient
+     * Retrieve default value for giftmessage recipient
      *
      * @return string
      */
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive real name for field
+     * Retrieve real name for field
      *
      * @param string $name
      * @return string
@@ -181,7 +181,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive real html id for field
+     * Retrieve real html id for field
      *
      * @param string $name
      * @return string
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive field html id prefix
+     * Retrieve field html id prefix
      *
      * @return string
      */
@@ -224,7 +224,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive gift message for entity
+     * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
      */
@@ -249,7 +249,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     }
 
     /**
-     * Retrive block html id
+     * Retrieve block html id
      *
      * @return string
      */

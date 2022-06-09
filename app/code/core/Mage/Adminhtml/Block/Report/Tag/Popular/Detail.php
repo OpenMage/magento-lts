@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,18 +29,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Report_Tag_Popular_Detail extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_popular_detail';
-
         $tag = Mage::getModel('tag/tag')->load($this->getRequest()->getParam('id'));
-
         $this->_headerText = Mage::helper('reports')->__('Tag "%s" details', $this->escapeHtml($tag->getName()));
         parent::__construct();
         $this->_removeButton('add');
@@ -48,4 +45,8 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail extends Mage_Adminhtml_Bloc
         $this->_addBackButton();
     }
 
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

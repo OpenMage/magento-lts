@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -56,7 +56,7 @@
             <?php if (!$this->getIsReadOnly()): ?>
                 <p><?php echo $this->getAddGroupButton() ?>&nbsp;<?php echo $this->getDeleteGroupButton() ?></p>
                 <p class="note-block"><?php echo Mage::helper('catalog')->__('Double click on a group to rename it') ?></p>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php echo $this->getSetsFilterHtml() ?>
             <?php echo $this->getGroupTreeHtml() ?>
@@ -335,7 +335,11 @@
                     },
 
                     beforeRenameGroup : function(obj, after, before) {
-                        return editSet.validateGroupName(after, obj.editNode.id);
+                        if (editSet.validateGroupName(after, obj.editNode.id)) {
+                            return true;
+                        }
+                        obj.field.el.dom.value = before;
+                        return false;
                     },
 
                     validateGroupName : function(name, exceptNodeId) {

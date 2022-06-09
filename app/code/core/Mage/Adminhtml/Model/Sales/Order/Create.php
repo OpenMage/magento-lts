@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -580,7 +580,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                         $info = $item->getOptionByCode('info_buyRequest');
                         if ($info) {
                             $info = new Varien_Object(
-                                unserialize($info->getValue())
+                                unserialize($info->getValue(), ['allowed_classes' => false])
                             );
                             $info->setQty($qty);
                             $info->setOptions($this->_prepareOptionsForRequest($item));
@@ -1378,15 +1378,15 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     public function _prepareCustomer()
     {
-        /** @var $quote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->getQuote();
         if ($quote->getCustomerIsGuest()) {
             return $this;
         }
 
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->getSession()->getCustomer();
-        /** @var $store Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Store $store */
         $store = $this->getSession()->getStore();
 
         $customerIsInStore = $this->_customerIsInStore($store);
@@ -1405,7 +1405,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if ($this->getBillingAddress()->getSaveInAddressBook()) {
-                /** @var $customerBillingAddress Mage_Customer_Model_Address */
+                /** @var Mage_Customer_Model_Address $customerBillingAddress */
                 $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1416,7 +1416,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
-                /** @var $customerShippingAddress Mage_Customer_Model_Address */
+                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $this->getShippingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1444,7 +1444,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         } else {
             // Prepare new customer
-            /** @var $customerBillingAddress Mage_Customer_Model_Address */
+            /** @var Mage_Customer_Model_Address $customerBillingAddress */
             $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
             $customer->addData($customerBillingAddress->getData())
                 ->setPassword($customer->generatePassword())
@@ -1457,13 +1457,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->addAddress($customerBillingAddress);
             }
 
-            /** @var $shippingAddress Mage_Sales_Model_Quote_Address */
+            /** @var Mage_Sales_Model_Quote_Address $shippingAddress */
             $shippingAddress = $this->getShippingAddress();
             if (!$this->getQuote()->isVirtual()
                 && !$shippingAddress->getSameAsBilling()
                 && $shippingAddress->getSaveInAddressBook()
             ) {
-                /** @var $customerShippingAddress Mage_Customer_Model_Address */
+                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $shippingAddress->exportCustomerAddress();
                 $customerShippingAddress->setIsDefaultShipping(true);
                 $customer->addAddress($customerShippingAddress);
@@ -1511,7 +1511,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
             $addOptions = $item->getOptionByCode('additional_options');
             if ($addOptions) {
-                $options['additional_options'] = unserialize($addOptions->getValue());
+                $options['additional_options'] = unserialize($addOptions->getValue(), ['allowed_classes' => false]);
             }
             $item->setProductOrderOptions($options);
         }
@@ -1549,6 +1549,10 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $service->setOrderData($orderData);
 
             $oldOrder->cancel();
+
+            if(!$oldOrder->isCanceled()){
+                Mage::throwException('Could not cancel the old order during order edit.');
+            }
         }
 
         /** @var Mage_Sales_Model_Order $order */
@@ -1557,7 +1561,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ((!$customer->getId() || !$customer->isInStore($this->getSession()->getStore()))
             && !$quote->getCustomerIsGuest()
         ) {
-            $customer->setCreatedAt($order->getCreatedAt());
+            $customer->setCreatedAt($order->getCreatedAtStoreDate());
             $customer
                 ->save()
                 ->sendNewAccountEmail('registered', '', $quote->getStoreId());
@@ -1565,6 +1569,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($oldOrder->getId()) {
             $oldOrder->setRelationChildId($order->getId());
             $oldOrder->setRelationChildRealId($order->getIncrementId());
+
+            Mage::dispatchEvent('adminhtml_sales_order_create_save_before', ['new_order' => $order, 'old_order' => $oldOrder]);
+
             $oldOrder->save();
             $order->save();
         }

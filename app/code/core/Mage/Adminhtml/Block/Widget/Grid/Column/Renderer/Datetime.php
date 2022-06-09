@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,9 +74,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
     {
         if ($data = $this->_getValue($row)) {
             $format = $this->_getFormat();
+            $useTimezone = $this->getColumn()->getUseTimezone() ?? true;
+            $locale = $this->getColumn()->getLocale() ?? null;
             try {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
+                    ->toString($format);
             }
             catch (Exception $e)
             {

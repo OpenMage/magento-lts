@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,11 +69,7 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
     public function getAddress()
     {
         if (is_null($this->_address)) {
-            if ($this->isCustomerLoggedIn()) {
-                $this->_address = $this->getQuote()->getShippingAddress();
-            } else {
-                $this->_address = Mage::getModel('sales/quote_address');
-            }
+            $this->_address = $this->getQuote()->getShippingAddress();
         }
 
         return $this->_address;

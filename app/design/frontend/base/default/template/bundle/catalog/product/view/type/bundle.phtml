@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -38,7 +38,7 @@
         var CACL_TOTAL_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
         //]]>
     </script>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
         <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
@@ -46,8 +46,8 @@
     <?php else: ?>
         <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
             <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php endif ?>
+<?php endif ?>
 <div class="price-box-bundle">
     <?php echo $this->getPriceHtml($_product) ?>
 </div>

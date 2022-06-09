@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -121,15 +121,6 @@
                     </giftmessage>
                 </observers>
             </sales_convert_quote_to_order>
-            <adminhtml_sales_order_create_create_order>
-                <observers>
-                    <giftmessage>
-                        <type>model</type>
-                        <class>giftmessage/observer</class>
-                        <method>checkoutEventCreateOrder</method>
-                    </giftmessage>
-                </observers>
-            </adminhtml_sales_order_create_create_order>
             <sales_convert_order_to_quote>
                 <observers>
                     <giftmessage>

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -74,7 +74,6 @@
         <cms translate="label" module="cms">
             <label>Content Management</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>1001</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -82,7 +81,6 @@
             <groups>
                 <wysiwyg translate="label">
                     <label>WYSIWYG Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV attribute resource collection
@@ -31,6 +30,12 @@
  * @category    Mage
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ *
+ * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
+ * @method Mage_Eav_Model_Entity_Attribute[] getItems()
+ * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -286,7 +291,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             ->joinLeft(
                 array('ao' => $this->getTable('eav/attribute_option')),
                 'ao.attribute_id = main_table.attribute_id',
-                'option_id')
+                'option_id'
+            )
             ->group('main_table.attribute_id')
             ->where($orWhere);
 
@@ -398,7 +404,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string || array $code
+     * @param string | array $code
      * @return $this
      */
     public function setCodeFilter($code)
@@ -416,7 +422,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add store label to attribute by specified store id
      *
-     * @param integer $storeId
+     * @param int $storeId
      * @return $this
      */
     public function addStoreLabel($storeId)

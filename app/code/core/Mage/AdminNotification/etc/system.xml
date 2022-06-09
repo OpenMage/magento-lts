@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -31,7 +31,6 @@
             <groups>
                 <adminnotification translate="label" module="adminnotification">
                     <label>Notifications</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>250</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -57,7 +56,6 @@
                         </last_update>
                         <feed_url>
                             <label>Feed Url</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_protected</backend_model>
                             <sort_order>3</sort_order>
                             <show_in_default>0</show_in_default>

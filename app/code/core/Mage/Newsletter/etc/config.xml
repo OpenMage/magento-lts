@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -196,6 +196,9 @@
             <sending>
                 <set_return_path>0</set_return_path>
             </sending>
+            <security>
+                <enable_form_key>0</enable_form_key>
+            </security>
         </newsletter>
     </default>
     <crontab>

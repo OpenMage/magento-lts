@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::__construct();
         $this->setId('attributeGrid');
-        $this->setDefaultSort('attribute_code');
+        $this->setDefaultSort('frontend_label');
         $this->setDefaultDir('ASC');
     }
 
@@ -51,16 +51,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::_prepareColumns();
 
-        $this->addColumn('attribute_code', array(
-            'header'=>Mage::helper('eav')->__('Attribute Code'),
-            'sortable'=>true,
-            'index'=>'attribute_code'
-        ));
-
         $this->addColumn('frontend_label', array(
             'header'=>Mage::helper('eav')->__('Attribute Label'),
             'sortable'=>true,
             'index'=>'frontend_label'
+        ));
+
+        $this->addColumn('attribute_code', array(
+            'header'=>Mage::helper('eav')->__('Attribute Code'),
+            'sortable'=>true,
+            'index'=>'attribute_code'
         ));
 
         $this->addColumn('is_required', array(
@@ -93,11 +93,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     /**
      * Return url of given row
      *
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
      * @return string
      */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('attribute_id' => $row->getAttributeId()));
     }
-
 }

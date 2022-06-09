@@ -20,15 +20,15 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/* @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->run("
-ALTER TABLE `{$installer->getTable('sales_flat_quote_address_item')}` 
+ALTER TABLE `{$installer->getTable('sales_flat_quote_address_item')}`
     ADD COLUMN `parent_item_id` INTEGER UNSIGNED AFTER `address_item_id`,
     ADD KEY `IDX_PARENT_ITEM_ID` (`parent_item_id`);
 ");

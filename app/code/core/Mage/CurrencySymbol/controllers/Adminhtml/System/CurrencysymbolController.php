@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CurrencySymbol
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
 
         try {
             Mage::getModel('currencysymbol/system_currencysymbol')->setCurrencySymbolsData($symbolsDataArray);
-            Mage::getSingleton('connect/session')->addSuccess(
+            Mage::getSingleton('adminhtml/session')->addSuccess(
                 Mage::helper('currencysymbol')->__('Custom currency symbols were applied successfully.')
             );
         } catch (Exception $e) {

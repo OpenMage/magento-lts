@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Select oblect
      *
-     * @var Zend_Db_Select
+     * @var Varien_Db_Select
      */
     protected $_select;
 
@@ -113,7 +113,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $name
      * @param mixed $value
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function addBindParam($name, $value)
     {
@@ -127,7 +127,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param $object
      * @param string $idPrefix
      * @param array $tags
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function initCache($object, $idPrefix, $tags)
     {
@@ -143,7 +143,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Specify collection objects id field name
      *
      * @param string $fieldName
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     protected function _setIdFieldName($fieldName)
     {
@@ -179,7 +179,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Set database connection adapter
      *
      * @param Zend_Db_Adapter_Abstract $conn
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function setConnection($conn)
     {
@@ -242,8 +242,17 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $countSelect->columns('COUNT(*)');
-
+        if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
+            $countSelect->reset(Zend_Db_Select::GROUP);
+            $countSelect->distinct(true);
+            $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
+            $group = array_map(function($token) {
+                return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
+            }, $group);
+            $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
+        } else {
+            $countSelect->columns('COUNT(*)');
+        }
         return $countSelect;
     }
 
@@ -251,7 +260,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get sql select string or object
      *
      * @param   bool $stringMode
-     * @return  string || Zend_Db_Select
+     * @return  string|Zend_Db_Select
      */
     function getSelectSql($stringMode = false)
     {
@@ -266,7 +275,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param   string $field
      * @param   string $direction
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     public function setOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -278,7 +287,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $field
      * @param string $direction
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function addOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -290,7 +299,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param string $field
      * @param string $direction
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function unshiftOrder($field, $direction = self::SORT_ORDER_DESC)
     {
@@ -303,7 +312,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param string $field
      * @param string $direction
      * @param bool $unshift
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     private function _setOrder($field, $direction, $unshift = false)
     {
@@ -327,7 +336,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select conditions
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderFilters()
     {
@@ -375,9 +384,8 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @see self::_getConditionSql for $condition
      *
      * @param   string|array $field
-     * @param   null|string|array $condition
-     *
-     * @return  Mage_Eav_Model_Entity_Collection_Abstract
+     * @param   int|string|array|null $condition
+     * @return  $this
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -404,7 +412,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Build sql where condition part
      *
      * @param   string|array $field
-     * @param   null|string|array $condition
+     * @param   int|string|array $condition
      *
      * @return  string
      */
@@ -489,6 +497,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         return $this->getConnection()->prepareSqlCondition($fieldName, $condition);
     }
 
+    /**
+     * @param string $fieldName
+     * @return string
+     */
     protected function _getConditionFieldName($fieldName)
     {
         return $fieldName;
@@ -497,7 +509,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select orders
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderOrders()
     {
@@ -514,7 +526,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Render sql select limit
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     protected function _renderLimit()
     {
@@ -530,7 +542,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param   bool $flag
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     public function distinct($flag)
     {
@@ -541,7 +553,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Before load action
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     protected function _beforeLoad()
     {
@@ -554,7 +566,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   bool $printQuery
      * @param   bool $logQuery
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -657,7 +669,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Proces loaded collection data
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     protected function _afterLoadData()
     {
@@ -667,7 +679,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Reset loaded for collection data array
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function resetData()
     {
@@ -675,11 +687,19 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _afterLoad()
     {
         return $this;
     }
 
+    /**
+     * @param bool $printQuery
+     * @param bool $logQuery
+     * @return Varien_Data_Collection|Varien_Data_Collection_Db
+     */
     public function loadData($printQuery = false, $logQuery = false)
     {
         return $this->load($printQuery, $logQuery);
@@ -692,7 +712,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param   bool $logQuery
      * @param   string $sql
      *
-     * @return  Varien_Data_Collection_Db
+     * @return  $this
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null) {
         if ($printQuery) {
@@ -708,7 +728,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Reset collection
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     protected function _reset()
     {
@@ -746,7 +766,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Load cached data for select
      *
      * @param Zend_Db_Select $select
-     * @return string | false
+     * @return string|false
      */
     protected function _loadCache($select)
     {
@@ -763,7 +783,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @param array $data
      * @param Zend_Db_Select $select
-     * @return unknown_type
+     * @return $this
      */
     protected function _saveCache($data, $select)
     {
@@ -775,7 +795,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Check if cache can be used for collection data
      *
-     * @return bool
+     * @return Zend_Cache_Core|false
      */
     protected function _canUseCache()
     {
@@ -800,7 +820,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     /**
      * Retrieve cache instance
      *
-     * @return Zend_Cache_Core
+     * @return Zend_Cache_Core|false
      */
     protected function _getCacheInstance()
     {
@@ -830,7 +850,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * @param string $alias
      * @param string $group default 'fields'
      *
-     * @return Varien_Data_Collection_Db
+     * @return $this
      */
     public function addFilterToMap($filter, $alias, $group = 'fields')
     {
@@ -842,5 +862,17 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_map[$group][$filter] = $alias;
 
         return $this;
+    }
+
+    /**
+     * Magic clone function
+     *
+     * Clone also Zend_Db_Select
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->_select = clone $this->_select;
     }
 }

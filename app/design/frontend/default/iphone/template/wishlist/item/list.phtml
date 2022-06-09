@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,22 +35,22 @@
                     <td>
                         <?php foreach ($columns as $column): ?>
                             <?php $column->setItem($item); echo $column->toHtml($item);?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </td>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
-        <?php endif; ?>
+        <?php endif ?>
     </tbody>
 </table>
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getJs();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 //]]>
 </script>

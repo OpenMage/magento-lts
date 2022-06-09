@@ -20,10 +20,14 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * @method DateTime getTime()
+ * @method $this setTime(string $value)
+ */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
     /**
@@ -41,36 +45,71 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
         $this->setTemplate('customer/widget/dob.phtml');
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return (bool)$this->_getAttribute('dob')->getIsVisible();
     }
 
+    /**
+     * @return bool
+     */
     public function isRequired()
     {
         return (bool)$this->_getAttribute('dob')->getIsRequired();
     }
 
+    /**
+     * @param string $date
+     * @return $this
+     */
     public function setDate($date)
     {
-        $this->setTime($date ? strtotime($date) : false);
+        if ($date) {
+            try {
+                $dateTime = new DateTime($date);
+                $this->setTime($dateTime);
+            } catch (Exception $e) {
+            }
+        }
+
         $this->setData('date', $date);
+
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function hasTime()
+    {
+        return ($this->getTime() instanceof DateTime);
+    }
+
+    /**
+     * @return string
+     */
     public function getDay()
     {
-        return $this->getTime() ? date('d', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('d') : '';
     }
 
+    /**
+     * @return string
+     */
     public function getMonth()
     {
-        return $this->getTime() ? date('m', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('m') : '';
     }
 
+    /**
+     * @return string
+     */
     public function getYear()
     {
-        return $this->getTime() ? date('Y', $this->getTime()) : '';
+        return ($this->hasTime()) ? $this->getTime()->format('o') : '';
     }
 
     /**
@@ -113,7 +152,11 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 
-        return sprintf(strtr($dateFormat, $strtr),
-            $this->_dateInputs['m'], $this->_dateInputs['d'], $this->_dateInputs['y']);
+        return sprintf(
+            strtr($dateFormat, $strtr),
+            $this->_dateInputs['m'],
+            $this->_dateInputs['d'],
+            $this->_dateInputs['y']
+        );
     }
 }

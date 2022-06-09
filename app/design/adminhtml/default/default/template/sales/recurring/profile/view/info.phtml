@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,9 +29,9 @@
 
 <?php foreach ($this->getRenderedInfo() as $row):?>
 <address><?php echo nl2br($this->escapeHtml($this->getObjectData($row, 'value')))?></address>
-<?php endforeach;?>
+<?php endforeach ?>
 
-<?php else:?>
+<?php else: ?>
 
 <table cellspacing="0" class="form-list">
 <tbody>
@@ -43,7 +43,7 @@
         <strong><?php echo $this->renderRowValue($row) ?></strong>
     </td>
     </tr>
-<?php endforeach;?>
+<?php endforeach ?>
 </tbody>
 </table>
-<?php endif;?>
+<?php endif ?>

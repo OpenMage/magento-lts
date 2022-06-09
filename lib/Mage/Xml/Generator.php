@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Xml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_Xml_Generator
@@ -60,7 +60,7 @@ class Mage_Xml_Generator
         $parentNode = $this->_getCurrentDom();
         if(!$content || !count($content)) {
             return $this;
-        }        
+        }
         foreach ($content as $_key=>$_item) {
             try{
                 $node = $this->getDom()->createElement($_key);

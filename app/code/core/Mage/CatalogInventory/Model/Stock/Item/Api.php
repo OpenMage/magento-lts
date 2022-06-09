@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,6 +38,10 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         $this->_storeIdSessionField = 'product_store_id';
     }
 
+    /**
+     * @param array $productIds
+     * @return array
+     */
     public function items($productIds)
     {
         if (!is_array($productIds)) {
@@ -73,6 +77,12 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
         return $result;
     }
 
+    /**
+     * @param int $productId
+     * @param array $data
+     * @return bool
+     * @throws Mage_Api_Exception
+     */
     public function update($productId, $data)
     {
         $product = Mage::getModel('catalog/product');
@@ -130,4 +140,4 @@ class Mage_CatalogInventory_Model_Stock_Item_Api extends Mage_Catalog_Model_Api_
 
         return true;
     }
-} // Class Mage_CatalogInventory_Model_Stock_Item_Api End
+}

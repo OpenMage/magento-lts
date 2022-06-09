@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,6 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
             'value' => $entityType->getDefaultAttributeSetId(),
             'values'=> Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($entityType->getId())
+                ->setOrder('attribute_set_name', 'asc')
                 ->load()
                 ->toOptionArray()
         ));
@@ -77,6 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Settings extends Mage_Adminh
         ));
 
         $this->setForm($form);
+        return $this;
     }
 
     public function getContinueUrl()

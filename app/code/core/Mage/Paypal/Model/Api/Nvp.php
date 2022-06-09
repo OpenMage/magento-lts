@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -521,7 +521,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected $_requiredResponseParams = array(
         self::DO_DIRECT_PAYMENT             => array('ACK', 'CORRELATIONID', 'AMT'),
-        self::DO_EXPRESS_CHECKOUT_PAYMENT   => array('ACK', 'CORRELATIONID', 'AMT'),
+        self::DO_EXPRESS_CHECKOUT_PAYMENT   => array('ACK', 'CORRELATIONID'),
     );
 
     /**
@@ -622,7 +622,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * GetExpressCheckoutDetails call
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetExpressCheckoutDetails
      */
-    function callGetExpressCheckoutDetails()
+    public function callGetExpressCheckoutDetails()
     {
         $this->_prepareExpressCheckoutCallRequest($this->_getExpressCheckoutDetailsRequest);
         $request = $this->_exportToRequest($this->_getExpressCheckoutDetailsRequest);
@@ -1164,6 +1164,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         if (isset($this->_requiredResponseParams[$method])) {
             foreach ($this->_requiredResponseParams[$method] as $param) {
                 if (!isset($response[$param])) {
+                    Mage::log("Expected PayPal field not found in NVP Response: $param");
                     return false;
                 }
             }

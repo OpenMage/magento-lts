@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,9 +126,13 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $select = $this->_read->select()
             ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+            ->where('subscriber_email=:subscriber_email')
+            ->Where('store_id=:store_id');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$customer->getEmail()));
+        $result = $this->_read->fetchRow(
+            $select,
+            array('subscriber_email'=>$customer->getEmail(), 'store_id' => $customer->getStoreId())
+        );
 
         if ($result) {
             return $result;
@@ -164,8 +168,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
                 'queue_id = ?' => $queue->getId()
             ));
             $this->_write->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }

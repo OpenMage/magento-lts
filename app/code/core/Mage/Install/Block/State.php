@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,39 +33,10 @@
  */
 class Mage_Install_Block_State extends Mage_Core_Block_Template
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->setTemplate('install/state.phtml');
         $this->assign('steps', Mage::getSingleton('install/wizard')->getSteps());
     }
-    
-    /**
-     * Get previous downloader steps
-     * 
-     * @return array
-     */
-    public function getDownloaderSteps()
-    {
-        if ($this->isDownloaderInstall()) {
-            $steps = array(
-                Mage::helper('install')->__('Welcome'),
-                Mage::helper('install')->__('Validation'),
-                Mage::helper('install')->__('Magento Connect Manager Deployment'),
-            );
-            return $steps; 
-        } else {
-            return array();
-        }
-    }
 
-    /**
-     * Checks for Magento Connect Manager installation method
-     * 
-     * @return bool
-     */
-    public function isDownloaderInstall() 
-    {
-        $session = Mage::app()->getCookie()->get('magento_downloader_session');
-        return $session ? true : false;
-    }
 }

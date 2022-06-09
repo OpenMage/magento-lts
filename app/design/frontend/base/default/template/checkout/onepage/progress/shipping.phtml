@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -34,11 +34,11 @@
 <dd class="<?php echo $completeClass ?>">
     <?php if ($this->getCheckout()->getStepData('shipping', 'complete')): ?>
     <address><?php echo $this->getShipping()->format('html') ?></address>
-    <?php endif; ?>
+    <?php endif ?>
 </dd>
 <?php else: ?>
 <dt>
     <?php echo $this->__('Shipping Address') ?>
 </dt>
-<?php endif; ?>
+<?php endif ?>
 

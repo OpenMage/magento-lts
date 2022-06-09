@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +33,12 @@
  */
 class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $order = $creditmemo->getOrder();
@@ -80,7 +86,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Shipping extends Mage_Sales_Model_
                     $baseShipping = $baseShippingAmount;
                 }
             } else {
-                $baseAllowedAmount = $order->getBaseCurrency()->format($baseAllowedAmount,null,false);
+                $baseAllowedAmount = $order->getBaseCurrency()->format($baseAllowedAmount, null, false);
                 Mage::throwException(
                     Mage::helper('sales')->__('Maximum shipping amount allowed to refund is: %s', $baseAllowedAmount)
                 );

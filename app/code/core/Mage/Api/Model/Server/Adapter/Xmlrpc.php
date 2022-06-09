@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,16 +31,14 @@
  * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api_Model_Server_Adapter_Xmlrpc
-    extends Varien_Object
-    implements Mage_Api_Model_Server_Adapter_Interface
+class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
 {
      /**
       * XmlRpc Server
       *
       * @var Zend_XmlRpc_Server
       */
-     protected $_xmlRpc = null;
+    protected $_xmlRpc = null;
 
      /**
      * Set handler class name for webservice
@@ -55,7 +53,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
     }
 
     /**
-     * Retrive handler class name for webservice
+     * Retrieve handler class name for webservice
      *
      * @return string
      */
@@ -77,7 +75,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
     }
 
     /**
-     * Retrive webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
+     * Retrieve webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
      *
      * @return Mage_Api_Controller_Action|Varien_Object
      */
@@ -109,7 +107,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
             ->setClass($this->getHandler());
         $this->getController()->getResponse()
             ->clearHeaders()
-            ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+            ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
             ->setBody($this->_xmlRpc->handle());
         return $this;
     }
@@ -124,4 +122,4 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc
     {
         throw new Zend_XmlRpc_Server_Exception($message, $code);
     }
-} // Class Mage_Api_Model_Server_Adapter_Xmlrpc End
+}

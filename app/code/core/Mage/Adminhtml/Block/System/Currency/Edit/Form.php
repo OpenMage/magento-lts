@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_System_Currency_Edit_Form extends Mage_Adminhtml_Bloc
         $this->setId('currency_edit_form');
         $this->setTitle(Mage::helper('adminhtml')->__('Currency Information'));
     }
-    
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(array('id' => 'currency_edit_form', 'action' => $this->getData('action'), 'method' => 'post'));

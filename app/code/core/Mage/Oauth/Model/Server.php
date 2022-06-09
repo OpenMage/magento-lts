@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,7 +162,7 @@ class Mage_Oauth_Model_Server
     /**
      * Request object
      *
-     * @var Mage_Core_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http|Zend_Controller_Request_Http
      */
     protected $_request;
 
@@ -331,7 +331,7 @@ class Mage_Oauth_Model_Server
                 if (!hash_equals($this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
-                if (!hash_equals($this->_token->getConsumerId(), $this->_consumer->getId())) {
+                if (!hash_equals((string)$this->_token->getConsumerId(), (string)$this->_consumer->getId())) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
                 if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->_token->getType()) {
@@ -470,7 +470,7 @@ class Mage_Oauth_Model_Server
         if ($timestamp <= 0 || $timestamp > (time() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
-        /** @var $nonceObj Mage_Oauth_Model_Nonce */
+        /** @var Mage_Oauth_Model_Nonce $nonceObj */
         $nonceObj = Mage::getModel('oauth/nonce');
 
         $nonceObj->load($nonce, 'nonce');

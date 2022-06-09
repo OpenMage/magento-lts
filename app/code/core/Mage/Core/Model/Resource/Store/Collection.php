@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,11 +154,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     }
 
     /**
-     * Load collection data
-     *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return $this
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -202,6 +198,55 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
                 array('root_category_id')
             );
             $this->setFlag('core_store_group_table_joined', true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Initializes the config cache for each store
+     * @return $this
+     */
+    public function initConfigCache()
+    {
+        if (!Mage::app()->useCache('config')) {
+            return $this;
+        }
+
+        $cacheId = 'store_global_config_cache';
+        $globalConfigCache = Mage::app()->loadCache($cacheId);
+
+        $data = [];
+        $needsRefresh = false;
+
+        if ($globalConfigCache !== false) {
+            try {
+                $data = unserialize($globalConfigCache);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($this as $store) {
+            $code = $store->getCode();
+            if (!$code) {
+                continue;
+            }
+
+            if (!isset($data[$code])) {
+                $data[$code] = $store->getConfigCache();
+                $needsRefresh = true;
+            }
+
+            $store->setConfigCache($data[$code]);
+        }
+
+        if ($needsRefresh) {
+            Mage::app()->saveCache(serialize($data), $cacheId, [
+                Mage_Core_Model_Store::CACHE_TAG,
+                Mage_Core_Model_Config::CACHE_TAG,
+            ]);
         }
 
         return $this;

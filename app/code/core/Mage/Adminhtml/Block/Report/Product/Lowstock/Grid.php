@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Product_Lowstock_Grid extends Mage_Adminhtml_B
             $storeId = '';
         }
 
-        /** @var $collection Mage_Reports_Model_Resource_Product_Lowstock_Collection  */
+        /** @var Mage_Reports_Model_Resource_Product_Lowstock_Collection $collection  */
         $collection = Mage::getResourceModel('reports/product_lowstock_collection')
             ->addAttributeToSelect('*')
             ->setStoreId($storeId)

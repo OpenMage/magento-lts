@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
         $url = parent::getSuccessOrderUrl($params);
 
         if ($params['controller_action_name'] === 'sales_order_create'
-            or $params['controller_action_name'] === 'sales_order_edit'
+            || $params['controller_action_name'] === 'sales_order_edit'
         ) {
             /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order');
@@ -66,7 +66,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
     {
         $route = parent::getSaveOrderUrlParams($controller);
 
-        if ($controller === "sales_order_create" or $controller === "sales_order_edit") {
+        if ($controller === "sales_order_create" || $controller === "sales_order_edit") {
             $route['action'] = 'save';
             $route['controller'] = 'sales_order_create';
             $route['module'] = 'admin';

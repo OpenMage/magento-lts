@@ -20,10 +20,10 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
- 
+
 /**
  * Administrator account install block
  *
@@ -31,17 +31,17 @@
  */
 class Mage_Install_Block_Admin extends Mage_Install_Block_Abstract
 {
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
         $this->setTemplate('install/create_admin.phtml');
     }
-    
+
     public function getPostUrl()
     {
         return $this->getUrl('*/*/administratorPost');
     }
-    
+
     public function getFormData()
     {
         $data = $this->getData('form_data');
@@ -50,5 +50,15 @@ class Mage_Install_Block_Admin extends Mage_Install_Block_Abstract
             $this->setData('form_data', $data);
         }
         return $data;
+    }
+
+    /**
+     * Retrieve minimum length of admin password
+     *
+     * @return int
+     */
+    public function getMinAdminPasswordLength()
+    {
+        return Mage::getModel('admin/user')->getMinAdminPasswordLength();
     }
 }

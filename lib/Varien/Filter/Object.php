@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Filter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,7 @@
 class Varien_Filter_Object extends Zend_Filter
 {
     protected $_columnFilters = array();
-    
+
     function addFilter(Zend_Filter_Interface $filter, $column='')
     {
         if (''===$column) {
@@ -40,7 +40,7 @@ class Varien_Filter_Object extends Zend_Filter
             $this->_columnFilters[$column]->addFilter($filter);
         }
     }
-    
+
     function filter($object)
     {
         if (!$object instanceof Varien_Object) {

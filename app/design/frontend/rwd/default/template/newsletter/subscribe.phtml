@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,6 +29,7 @@
         <strong><span><?php echo $this->__('Newsletter') ?></span></strong>
     </div>
     <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <?php echo $this->getBlockHtml('formkey') ?>
         <div class="block-content">
             <div class="form-subscribe-header">
                 <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>

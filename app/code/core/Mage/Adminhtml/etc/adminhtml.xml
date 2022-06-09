@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -128,7 +128,7 @@
                 <title>Allow everything</title>
             </all>
             <admin translate="title" module="adminhtml">
-                <title>Magento Admin</title>
+                <title>OpenMage Admin</title>
                 <children>
                     <dashboard translate="title">
                         <title>Dashboard</title>
@@ -245,19 +245,6 @@
                             <cache translate="title">
                                 <title>Cache Management</title>
                             </cache>
-                            <extensions translate="title">
-                                <title>Magento Connect</title>
-                                <children>
-                                    <local translate="title">
-                                        <title>Magento Connect Manager</title>
-                                        <sort_order>0</sort_order>
-                                    </local>
-                                    <custom translate="title">
-                                        <title>Package Extensions</title>
-                                        <sort_order>5</sort_order>
-                                    </custom>
-                                </children>
-                            </extensions>
                         </children>
                     </system>
                     <global_search translate="title">

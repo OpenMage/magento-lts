@@ -20,11 +20,13 @@
  *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_SalesRule_Model_Quote_Freeshipping
+ */
 class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     /**
@@ -83,7 +85,6 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
                         if ($isItemFree) {
                             $child->setFreeShipping($isItemFree);
                         }
-
                     }
                 }
             }
@@ -105,5 +106,4 @@ class Mage_SalesRule_Model_Quote_Freeshipping extends Mage_Sales_Model_Quote_Add
     {
         return $this;
     }
-
 }

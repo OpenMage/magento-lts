@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      *
      * @return array
      */
-    static public function toOptionArray()
+    public static function toOptionArray()
     {
         return array(
             array(
@@ -65,7 +65,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      *
      * @return array
      */
-    static public function toArray()
+    public static function toArray()
     {
         return array(
             Mage_Api2_Model_Resource::OPERATION_CREATE   => Mage::helper('api2')->__('Create'),

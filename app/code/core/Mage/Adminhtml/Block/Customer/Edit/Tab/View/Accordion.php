@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,16 +69,19 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
             ));
         }
 
-        // count wishlist items
-        $wishlistCount = Mage::getModel('wishlist/item')->getCollection()
-            ->addCustomerIdFilter($customer->getId())
-            ->addStoreData()
-            ->getSize();
-        // add wishlist ajax accordion
-        $this->addItem('wishlist', array(
-            'title' => Mage::helper('customer')->__('Wishlist - %d item(s)', $wishlistCount),
-            'ajax'  => true,
-            'content_url' => $this->getUrl('*/*/viewWishlist', array('_current' => true)),
-        ));
+        if (Mage::helper('wishlist')->isAllow()) {
+            // count wishlist items
+            $wishlistCount = Mage::getModel('wishlist/item')->getCollection()
+                ->addCustomerIdFilter($customer->getId())
+                ->addStoreData()
+                ->getSize();
+            // add wishlist ajax accordion
+            $this->addItem('wishlist', array(
+                'title' => Mage::helper('customer')->__('Wishlist - %d item(s)', $wishlistCount),
+                'ajax'  => true,
+                'content_url' => $this->getUrl('*/*/viewWishlist', array('_current' => true)),
+            ));
+        }
+        return $this;
     }
 }

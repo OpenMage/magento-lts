@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -159,6 +159,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      * @param int $position The position to seek to.
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function seek($position)
     {
         Mage::throwException(Mage::helper('importexport')->__('Not implemented yet'));
@@ -169,6 +170,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return boolean Returns true on success or false on failure.
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return !empty($this->_currentRow);
@@ -182,5 +184,15 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     public function validateSource()
     {
         return $this;
+    }
+
+    /**
+     * Get the source path
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->_source;
     }
 }

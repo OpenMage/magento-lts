@@ -324,7 +324,7 @@ class Zend_Json_Decoder
         $i          = $this->_offset;
         $start      = $i;
 
-        switch ($str{$i}) {
+        switch ($str[$i]) {
             case '{':
                $this->_token = self::LBRACE;
                break;
@@ -351,14 +351,14 @@ class Zend_Json_Decoder
                         break;
                     }
 
-                    $chr = $str{$i};
+                    $chr = $str[$i];
 
                     if ($chr == '\\') {
                         $i++;
                         if ($i >= $str_length) {
                             break;
                         }
-                        $chr = $str{$i};
+                        $chr = $str[$i];
                         switch ($chr) {
                             case '"' :
                                 $result .= '"';
@@ -431,7 +431,7 @@ class Zend_Json_Decoder
             return($this->_token);
         }
 
-        $chr = $str{$i};
+        $chr = $str[$i];
         if ($chr == '-' || $chr == '.' || ($chr >= '0' && $chr <= '9')) {
             if (preg_match('/-?([0-9])*(\.[0-9]*)?((e|E)((-|\+)?)[0-9]+)?/s',
                 $str, $matches, PREG_OFFSET_CAPTURE, $start) && $matches[0][1] == $start) {
@@ -494,7 +494,7 @@ class Zend_Json_Decoder
                     $i += 5;
                     break;
                 case ($ord_chrs_c >= 0x20) && ($ord_chrs_c <= 0x7F):
-                    $utf8 .= $chrs{$i};
+                    $utf8 .= $chrs[$i];
                     break;
                 case ($ord_chrs_c & 0xE0) == 0xC0:
                     // characters U-00000080 - U-000007FF, mask 110XXXXX
@@ -552,7 +552,7 @@ class Zend_Json_Decoder
             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');
         }
 
-        $bytes = (ord($utf16{0}) << 8) | ord($utf16{1});
+        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);
 
         switch (true) {
             case ((0x7F & $bytes) == $bytes):

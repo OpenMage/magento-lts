@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +29,14 @@
  *
  * @method Mage_CatalogSearch_Model_Resource_Fulltext _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Fulltext getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Fulltext_Collection getCollection()
+ *
  * @method int getProductId()
- * @method Mage_CatalogSearch_Model_Fulltext setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getStoreId()
- * @method Mage_CatalogSearch_Model_Fulltext setStoreId(int $value)
+ * @method $this setStoreId(int $value)
  * @method string getDataIndex()
- * @method Mage_CatalogSearch_Model_Fulltext setDataIndex(string $value)
+ * @method $this setDataIndex(string $value)
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -46,6 +48,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     const SEARCH_TYPE_FULLTEXT          = 2;
     const SEARCH_TYPE_COMBINE           = 3;
     const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
+    const XML_PATH_CATALOG_SEARCH_SEPARATOR  = 'catalog/search/search_separator';
 
     /**
      * Whether table changes are allowed

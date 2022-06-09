@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_AdminNotification
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,22 +34,6 @@
  */
 class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const XML_PATH_POPUP_URL    = 'system/adminnotification/popup_url';
-
-    /**
-     * Widget Popup Notification Object URL
-     *
-     * @var string
-     */
-    protected $_popupUrl;
-
-    /**
-     * Is readable Popup Notification Object flag
-     *
-     * @var bool
-     */
-    protected $_popupReadable;
-
     /**
      * Last Notice object
      *
@@ -96,38 +80,10 @@ class Mage_AdminNotification_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param bool $withExt
      * @return string
+     * @deprecated v19.4.16
      */
     public function getPopupObjectUrl($withExt = false)
     {
-        if (is_null($this->_popupUrl)) {
-            $this->_popupUrl = 'https://' . Mage::getStoreConfig(self::XML_PATH_POPUP_URL);
-        }
-        return $this->_popupUrl . ($withExt ? '.swf' : '');
-    }
-
-    /**
-     * Check is readable Popup Notification Object
-     * @deprecated after 1.4.2.0
-     *
-     * @return bool
-     */
-    public function isReadablePopupObject()
-    {
-        if (is_null($this->_popupReadable)) {
-            $this->_popupReadable = false;
-            $curl = new Varien_Http_Adapter_Curl();
-            $curl->setConfig(array(
-                'timeout'   => 2
-            ));
-            $curl->write(Zend_Http_Client::GET, $this->getPopupObjectUrl(true));
-            if ($curl->read()) {
-                if ($curl->getInfo(CURLINFO_HTTP_CODE) == 200) {
-                    $this->_popupReadable = true;
-                }
-            }
-
-            $curl->close();
-        }
-        return $this->_popupReadable;
+        return '';
     }
 }

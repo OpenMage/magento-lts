@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,7 +57,8 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
             $this->join(
                 array('curt' => $this->getTable('core/url_rewrite_tag')),
                 'main_table.url_rewrite_id = curt.url_rewrite_id',
-                array());
+                array()
+            );
             $this->setFlag('tag_table_joined', true);
         }
 

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Rating
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
      * Add rating filter
      *
      * @param   int|array $rating
-     * @return  Mage_Rating_Model_Resource_Rating_Option_Collection
+     * @return  $this
      */
     public function addRatingFilter($rating)
     {
@@ -80,9 +80,9 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
      * Set order by position field
      *
      * @param   string $dir
-     * @return  Mage_Rating_Model_Resource_Rating_Option_Collection
+     * @return  $this
      */
-    public function setPositionOrder($dir='ASC')
+    public function setPositionOrder($dir = 'ASC')
     {
         $this->setOrder('main_table.position', $dir);
         return $this;

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,5 +35,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Design_Package extends Mage_Cor
         if (!Mage::getDesign()->designPackageExists($value)) {
             throw new Exception('package with this name does not exist and cannot be set.');
         }
+        return $this;
     }
 }

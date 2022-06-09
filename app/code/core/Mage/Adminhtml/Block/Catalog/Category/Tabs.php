@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         }
 
         $attributeSetId     = $this->getCategory()->getDefaultAttributeSetId();
-        /** @var $groupCollection Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection */
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection $groupCollection */
         $groupCollection    = Mage::getResourceModel('eav/entity_attribute_group_collection')
             ->setAttributeSetFilter($attributeSetId)
             ->setSortOrder()
@@ -112,7 +112,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         $defaultGroupId = 0;
         foreach ($groupCollection as $group) {
             /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
-            if ($defaultGroupId == 0 or $group->getIsDefault()) {
+            if ($defaultGroupId == 0 || $group->getIsDefault()) {
                 $defaultGroupId = $group->getId();
             }
         }

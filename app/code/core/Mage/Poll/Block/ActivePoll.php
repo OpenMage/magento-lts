@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +82,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
     /**
      * Get current Poll Id
      *
-     * @return int|null
+     * @return int
      */
     public function getPollId()
     {
@@ -144,7 +144,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      * Get Poll related data
      *
      * @param int $pollId
-     * @return array|bool
+     * @return array|false
      */
     public function getPollData($pollId)
     {
@@ -162,6 +162,10 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         // correct rounded percents to be always equal 100
         $percentsSorted = array();
         $answersArr = array();
+        /**
+         * @var int $key
+         * @var Mage_Poll_Model_Poll_Answer $answer
+         */
         foreach ($pollAnswers as $key => $answer) {
             $percentsSorted[$key] = $answer->getPercent();
             $answersArr[$key] = $answer;
@@ -204,7 +208,7 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        /** @var $coreSessionModel Mage_Core_Model_Session */
+        /** @var Mage_Core_Model_Session $coreSessionModel */
         $coreSessionModel = Mage::getSingleton('core/session');
         $justVotedPollId = $coreSessionModel->getJustVotedPoll();
         if ($justVotedPollId && !$this->_pollModel->isVoted($justVotedPollId)) {
@@ -242,5 +246,4 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
 
         return $items;
     }
-
 }

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -239,7 +239,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
                 $this->getContainer($this->getParam('to'))->setData($this->getContainer()->getData());
             }
         } else {
-            $this->addException('No method specified', Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->getContainer()->addException('No method specified', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
         return $this;
     }

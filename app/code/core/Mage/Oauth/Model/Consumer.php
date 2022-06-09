@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,7 +98,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
             $this->setCallbackUrl(trim($this->getCallbackUrl()));
             $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
 
-            /** @var $validatorUrl Mage_Core_Model_Url_Validator */
+            /** @var Mage_Core_Model_Url_Validator $validatorUrl */
             $validatorUrl = Mage::getSingleton('core/url_validator');
 
             if ($this->getCallbackUrl() && !$validatorUrl->isValid($this->getCallbackUrl())) {
@@ -109,7 +109,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
             }
         }
 
-        /** @var $validatorLength Mage_Oauth_Model_Consumer_Validator_KeyLength */
+        /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
         $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', array('length' => self::KEY_LENGTH));
 
         $validatorLength->setName('Consumer Key');

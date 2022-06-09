@@ -20,35 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
-/**
- * Disable magic quotes in runtime if needed
- *
- * @link http://us3.php.net/manual/en/security.magicquotes.disabling.php
- */
-if (get_magic_quotes_gpc()) {
-    function mageUndoMagicQuotes($array, $topLevel=true) {
-        $newArray = array();
-        foreach($array as $key => $value) {
-            if (!$topLevel) {
-                $newKey = stripslashes($key);
-                if ($newKey!==$key) {
-                    unset($array[$key]);
-                }
-                $key = $newKey;
-            }
-            $newArray[$key] = is_array($value) ? mageUndoMagicQuotes($value, false) : stripslashes($value);
-        }
-        return $newArray;
-    }
-    $_GET = mageUndoMagicQuotes($_GET);
-    $_POST = mageUndoMagicQuotes($_POST);
-    $_COOKIE = mageUndoMagicQuotes($_COOKIE);
-    $_REQUEST = mageUndoMagicQuotes($_REQUEST);
-}
 
 /**
  * Object destructor
@@ -68,9 +42,8 @@ function destruct($object)
 /**
  * Translator function
  *
+ * @return string
  * @deprecated 1.3
- * @param string $text the text to translate
- * @param mixed optional parameters to use in sprintf
  */
 function __()
 {
@@ -87,7 +60,7 @@ function __()
  * @param string $srcSep
  * @return string
  */
-function uc_words($str, $destSep='_', $srcSep='_')
+function uc_words($str, $destSep = '_', $srcSep = '_')
 {
     return str_replace(' ', $destSep, ucwords(str_replace($srcSep, ' ', $str)));
 }
@@ -95,12 +68,14 @@ function uc_words($str, $destSep='_', $srcSep='_')
 /**
  * Simple sql format date
  *
- * @param string $format
+ * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
-function now($dayOnly=false)
+function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
@@ -114,6 +89,10 @@ function is_empty_date($date)
     return preg_replace('#[ 0:-]#', '', $date)==='';
 }
 
+/**
+ * @param string $class
+ * @return bool|string
+ */
 function mageFindClassFile($class)
 {
     $classFile = uc_words($class, DIRECTORY_SEPARATOR).'.php';
@@ -135,8 +114,10 @@ function mageFindClassFile($class)
  * @param string $errstr
  * @param string $errfile
  * @param integer $errline
+ * @return bool
  */
-function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
+function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
+{
     if (strpos($errstr, 'DateTimeZone::__construct')!==false) {
         // there's no way to distinguish between caught system exceptions and warnings
         return false;
@@ -175,7 +156,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
 
     $errorMessage = '';
 
-    switch($errno){
+    switch ($errno) {
         case E_ERROR:
             $errorMessage .= "Error";
             break;
@@ -231,19 +212,29 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline){
     }
 }
 
-function mageDebugBacktrace($return=false, $html=true, $showFirst=false)
+/**
+ * @param bool $return
+ * @param bool $html
+ * @param bool $showFirst
+ * @return string
+ */
+function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
     $d = debug_backtrace();
     $out = '';
-    if ($html) $out .= "<pre>";
-    foreach ($d as $i=>$r) {
+    if ($html) {
+        $out .= "<pre>";
+    }
+    foreach ($d as $i => $r) {
         if (!$showFirst && $i==0) {
             continue;
         }
         // sometimes there is undefined index 'file'
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
-    if ($html) $out .= "</pre>";
+    if ($html) {
+        $out .= "</pre>";
+    }
     if ($return) {
         return $out;
     } else {
@@ -271,7 +262,11 @@ function mageSendErrorFooter()
     exit;
 }
 
-function mageDelTree($path) {
+/**
+ * @param string $path
+ */
+function mageDelTree($path)
+{
     if (is_dir($path)) {
         $entries = scandir($path);
         foreach ($entries as $entry) {
@@ -285,7 +280,14 @@ function mageDelTree($path) {
     }
 }
 
-function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
+/**
+ * @param string $string
+ * @param string $delimiter
+ * @param string $enclosure
+ * @param string $escape
+ * @return array
+ */
+function mageParseCsv($string, $delimiter = ",", $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
     for ($i = 0; $i < count($elements); $i++) {
@@ -294,8 +296,12 @@ function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
             for ($j = $i+1; $j < count($elements); $j++) {
                 if (substr_count($elements[$j], $enclosure) > 0) {
                     // Put the quoted string's pieces back together again
-                    array_splice($elements, $i, $j-$i+1,
-                        implode($delimiter, array_slice($elements, $i, $j-$i+1)));
+                    array_splice(
+                        $elements,
+                        $i,
+                        $j-$i+1,
+                        implode($delimiter, array_slice($elements, $i, $j-$i+1))
+                    );
                     break;
                 }
             }
@@ -311,6 +317,10 @@ function mageParseCsv($string, $delimiter=",", $enclosure='"', $escape='\\')
     return $elements;
 }
 
+/**
+ * @param string $dir
+ * @return bool
+ */
 function is_dir_writeable($dir)
 {
     if (is_dir($dir) && is_writable($dir)) {
@@ -332,28 +342,31 @@ function is_dir_writeable($dir)
     return false;
 }
 
-if ( !function_exists('sys_get_temp_dir') ) {
+if (!function_exists('sys_get_temp_dir')) {
     // Based on http://www.phpit.net/
     // article/creating-zip-tar-archives-dynamically-php/2/
+    /**
+     * @return bool|string
+     */
     function sys_get_temp_dir()
     {
         // Try to get from environment variable
-        if ( !empty($_ENV['TMP']) ) {
-            return realpath( $_ENV['TMP'] );
-        } else if ( !empty($_ENV['TMPDIR']) ) {
-            return realpath( $_ENV['TMPDIR'] );
-        } else if ( !empty($_ENV['TEMP']) ) {
-            return realpath( $_ENV['TEMP'] );
+        if (!empty($_ENV['TMP'])) {
+            return realpath($_ENV['TMP']);
+        } elseif (!empty($_ENV['TMPDIR'])) {
+            return realpath($_ENV['TMPDIR']);
+        } elseif (!empty($_ENV['TEMP'])) {
+            return realpath($_ENV['TEMP']);
         } else {
             // Try to use system's temporary directory
             // as random name shouldn't exist
-            $temp_file = tempnam( md5(uniqid(rand(), TRUE)), '' );
-            if ( $temp_file ) {
-                $temp_dir = realpath( dirname($temp_file) );
-                unlink( $temp_file );
+            $temp_file = tempnam(md5(uniqid(rand(), true)), '');
+            if ($temp_file) {
+                $temp_dir = realpath(dirname($temp_file));
+                unlink($temp_file);
                 return $temp_dir;
             } else {
-                return FALSE;
+                return false;
             }
         }
     }
@@ -407,5 +420,63 @@ if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')
         mt_srand();
 
         return mt_rand($min, $max);
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_contains"
+ */
+if (!function_exists('str_contains')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_contains($haystack, $needle)
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_starts_with"
+ */
+if (!function_exists('str_starts_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_starts_with($haystack, $needle)
+    {
+        return 0 === strncmp($haystack, $needle, \strlen($needle));
+    }
+}
+
+/**
+ * polyfill for PHP 8.0 function "str_ends_with"
+ */
+if (!function_exists('str_ends_with')) {
+    /**
+     * @param string $haystack
+     * @param string $needle
+     * @return bool
+     */
+    function str_ends_with($haystack,  $needle)
+    {
+        return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
+    }
+}
+
+/**
+ * polyfill for PHP 7.3 function "is_countable"
+ */
+if (!function_exists('is_countable')) {
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    function is_countable($value) {
+        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
     }
 }

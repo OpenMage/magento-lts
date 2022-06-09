@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     }
 
     /**
-     * Retrive invoices list. Filtration could be applied
+     * Retrieve invoices list. Filtration could be applied
      *
      * @param null|object|array $filters
      * @return array
@@ -53,7 +53,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     public function items($filters = null)
     {
         $invoices = array();
-        /** @var $invoiceCollection Mage_Sales_Model_Mysql4_Order_Invoice_Collection */
+        /** @var Mage_Sales_Model_Mysql4_Order_Invoice_Collection $invoiceCollection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('order_id')
@@ -63,7 +63,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
             ->addAttributeToSelect('grand_total')
             ->addAttributeToSelect('order_currency_code');
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
+        /** @var Mage_Api_Helper_Data $apiHelper */
         $apiHelper = Mage::helper('api');
         try {
             $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['invoice']);
@@ -84,6 +84,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $invoiceIncrementId
      * @return array
+     * @throws Mage_Api_Exception
      */
     public function info($invoiceIncrementId)
     {
@@ -97,6 +98,10 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         $result = $this->_getAttributes($invoice, 'invoice');
         $result['order_increment_id'] = $invoice->getOrderIncrementId();
+        $result['order_created_at'] = $invoice->getOrder()->getCreatedAt();
+        $result['billing_firstname'] = $invoice->getBillingAddress()->getFirstname();
+        $result['billing_middlename'] = $invoice->getBillingAddress()->getMiddlename();
+        $result['billing_lastname'] = $invoice->getBillingAddress()->getLastname();
 
         $result['items'] = array();
         foreach ($invoice->getAllItems() as $item) {
@@ -125,7 +130,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
-        /* @var $order Mage_Sales_Model_Order */
+        /* @var Mage_Sales_Model_Order $order */
         /**
           * Check order existing
           */
@@ -181,7 +186,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var $invoice Mage_Sales_Model_Order_Invoice */
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -209,7 +214,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var $invoice Mage_Sales_Model_Order_Invoice */
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -238,14 +243,15 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Void invoice
      *
-     * @param unknown_type $invoiceIncrementId
-     * @return unknown
+     * @param int $invoiceIncrementId
+     * @return bool
+     * @throws Mage_Api_Exception
      */
     public function void($invoiceIncrementId)
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var $invoice Mage_Sales_Model_Order_Invoice */
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -281,7 +287,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var $invoice Mage_Sales_Model_Order_Invoice */
+        /* @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');

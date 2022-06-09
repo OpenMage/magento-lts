@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,9 +84,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         if (is_array($value)) {
             if (!empty($value['from']) || !empty($value['to'])) { // range
                 $condition = $value;
-            } else if (in_array($attribute->getBackendType(), array('varchar', 'text'))) { // multiselect
+            } elseif (in_array($attribute->getBackendType(), array('varchar', 'text'))) { // multiselect
                 $condition = array('in_set' => $value);
-            } else if (!isset($value['from']) && !isset($value['to'])) { // select
+            } elseif (!isset($value['from']) && !isset($value['to'])) { // select
                 $condition = array('in' => $value);
             }
         } else {
@@ -118,11 +118,17 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $conditions = array();
         if (strlen($value['from']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s >= ?', $value['from'], Zend_Db::FLOAT_TYPE);
+                'price_index.min_price %s * %s >= ?',
+                $value['from'],
+                Zend_Db::FLOAT_TYPE
+            );
         }
         if (strlen($value['to']) > 0) {
             $conditions[] = $adapter->quoteInto(
-                'price_index.min_price %s * %s <= ?', $value['to'], Zend_Db::FLOAT_TYPE);
+                'price_index.min_price %s * %s <= ?',
+                $value['to'],
+                Zend_Db::FLOAT_TYPE
+            );
         }
 
         if (!$conditions) {
@@ -131,8 +137,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
 
         $collection->addPriceData();
         $select     = $collection->getSelect();
-        $response   = $this->_dispatchPreparePriceEvent($select);
-        $additional = join('', $response->getAdditionalCalculations());
+        $response = $this->_dispatchPreparePriceEvent($select);
+        $additional = implode('', $response->getAdditionalCalculations());
 
         foreach ($conditions as $condition) {
             $select->where(sprintf($condition, $additional, $rate));

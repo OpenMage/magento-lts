@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +30,9 @@
  * @category    Mage
  * @package     Mage_Page
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Varien_Data_Tree_Node getMenuTree()
+ * @method string getChildrenWrapClass()
  */
 class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 {
@@ -50,7 +53,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
         }
 
         $includeFilePath = realpath(Mage::getBaseDir('design') . DS . $this->getTemplateFile());
-        if (strpos($includeFilePath, realpath(Mage::getBaseDir('design'))) === 0 || $this->_getAllowSymlinks()) {
+        if (strpos($this->getTemplateFile(), '..') === FALSE) {
             $this->_templateFile = $includeFilePath;
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);
@@ -74,7 +77,7 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
     /**
      * Fetches template. If template has return statement, than its value is used and direct output otherwise.
      * @param Varien_Data_Tree_Node $menuTree
-     * @param $childrenWrapClass
+     * @param string $childrenWrapClass
      * @return string
      */
     public function render(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Paypal_Model_System_Config_Source_RequireBillingAddress
      */
     public function toOptionArray()
     {
-        /** @var $configModel Mage_Paypal_Model_Config */
+        /** @var Mage_Paypal_Model_Config $configModel */
         $configModel = Mage::getModel('paypal/config');
         return $configModel->getRequireBillingAddressOptions();
     }

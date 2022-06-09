@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
     /**
      * Init layout, menu and breadcrumb
      *
-     * @return Mage_Adminhtml_Sales_ShipmentController
+     * @return $this
      */
     protected function _initAction()
     {
@@ -85,12 +85,7 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('entity_id', array('in' => $shipmentIds))
                 ->load();
-            if (!isset($pdf)){
-                $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
-            } else {
-                $pages = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
-                $pdf->pages = array_merge ($pdf->pages, $pages->pages);
-            }
+            $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf($shipments);
 
             return $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
         }

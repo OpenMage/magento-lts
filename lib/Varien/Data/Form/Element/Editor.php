@@ -20,7 +20,7 @@
  *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,10 +30,19 @@
  * @category   Varien
  * @package    Varien_Data
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getTitle()
+ * @method string getForceLoad()
+ * @method $this setConfig(Varien_Object $value)
+ * @method bool getWysiwyg()
  */
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {
-    public function __construct($attributes=array())
+    /**
+     * Varien_Data_Form_Element_Editor constructor.
+     * @param array $attributes
+     */
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
 
@@ -46,6 +55,9 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         }
     }
 
+    /**
+     * @return string
+     */
     public function getElementHtml()
     {
         $js = '
@@ -133,7 +145,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         } else {
             // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url')) {
+            if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 $html = $this->_wrapIntoContainer($html);
                 return $html;
@@ -142,6 +154,9 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
         }
     }
 
+    /**
+     * @return string
+     */
     public function getTheme()
     {
         if(!$this->hasData('theme')) {
@@ -172,6 +187,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     /**
      * Return HTML button to toggling WYSIWYG
      *
+     * @param bool $visible
      * @return string
      */
     protected function _getToggleButtonHtml($visible = true)
@@ -189,7 +205,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Prepare Html buttons for additional WYSIWYG features
      *
      * @param bool $visible Display button or not
-     * @return void
+     * @return string
      */
     protected function _getPluginButtonsHtml($visible = true)
     {
@@ -211,15 +227,15 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $buttonsHtml .= $this->_getButtonHtml(array(
                 'title'     => $this->translate('Insert Image...'),
                 'onclick'   => "MediabrowserUtility.openDialog('" .
-                               $this->getConfig('files_browser_window_url') .
-                               "target_element_id/" . $this->getHtmlId() . "/" .
-                                ((null !== $this->getConfig('store_id'))
-                                    ? ('store/' . $this->getConfig('store_id') . '/')
-                                    : '')
-                               . "')",
-            'class'     => 'add-image plugin',
-            'style'     => $visible ? '' : 'display:none',
-        ));
+                                   $this->getConfig('files_browser_window_url') .
+                                   "target_element_id/" . $this->getHtmlId() . "/" .
+                                   ((null !== $this->getConfig('store_id'))
+                                       ? ('store/' . $this->getConfig('store_id') . '/')
+                                       : '') .
+                               "')",
+                'class'     => 'add-image plugin',
+                'style'     => $visible ? '' : 'display:none',
+            ));
         }
 
         foreach ($this->getConfig('plugins') as $plugin) {

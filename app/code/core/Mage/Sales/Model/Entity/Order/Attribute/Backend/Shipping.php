@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,15 +34,22 @@
 
 class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
+    /**
+     * @param Varien_Object $object
+     */
     public function beforeSave($object)
     {
         $shippingAddressId = $object->getShippingAddressId();
         if (is_null($shippingAddressId)) {
             $object->unsetShippingAddressId();
         }
+        return $this;
     }
 
+    /**
+     * @param Varien_Object $object
+     * @throws Exception
+     */
     public function afterSave($object)
     {
         $shippingAddressId = false;
@@ -55,6 +62,6 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
             $object->setShippingAddressId($shippingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
-
 }

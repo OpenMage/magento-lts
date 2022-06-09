@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,12 +29,8 @@
  * @see Mage_Paypal_Block_System_Config_Fieldset_Hint
  */
 ?>
-<?php
-    if ($this->getHelpLink()):
-?>
-<div class="paypal-payment-notice">
-    <?php echo Mage::helper('paypal')->__('Not sure what PayPal payment method to use? Click <a href="%s" target="_blank">here</a> to learn more.', $this->getHelpLink()); ?>
-</div>
-<?php
-    endif;
-?>
+<?php if ($this->getHelpLink()): ?>
+    <div class="paypal-payment-notice">
+        <?php echo Mage::helper('paypal')->__('Not sure what PayPal payment method to use? Click <a href="%s" target="_blank">here</a> to learn more.', $this->getHelpLink()); ?>
+    </div>
+<?php endif ?>

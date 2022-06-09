@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -116,7 +116,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _initObjects()
     {
-        /** @var $_configDataObject Mage_Adminhtml_Model_Config_Data */
         $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
         $this->_configRoot = $this->_configDataObject->getConfigRoot();
         $this->_configData = $this->_configDataObject->load();
@@ -627,14 +626,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
-                return (int)$field->show_in_default;
-                break;
+                return (bool)(int)$field->show_in_default;
             case self::SCOPE_WEBSITES:
-                return (int)$field->show_in_website;
-                break;
+                return (bool)(int)$field->show_in_website;
             case self::SCOPE_STORES:
-                return (int)$field->show_in_store;
-                break;
+                return (bool)(int)$field->show_in_store;
         }
         return true;
     }

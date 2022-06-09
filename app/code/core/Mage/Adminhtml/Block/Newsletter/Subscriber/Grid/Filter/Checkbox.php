@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@
 
 class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract
 {
-     public function getCondition()
+    public function getCondition()
     {
         return array();
     }
@@ -43,4 +43,4 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox extends Ma
     {
         return '<input type="checkbox" onclick="subscriberController.checkCheckboxes(this)"/>';
     }
-}// Class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Filter_Checkbox END
+}

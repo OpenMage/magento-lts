@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,8 +49,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
             Mage::getConfig()->loadModulesConfiguration('widget.xml', $config);
             $xmlConfig = $config;
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache($config->getXmlString(), 'widget_config',
-                    array(Mage_Core_Model_Config::CACHE_TAG));
+                Mage::app()->saveCache(
+                    $config->getXmlString(),
+                    'widget_config',
+                    array(Mage_Core_Model_Config::CACHE_TAG)
+                );
             }
         }
         return $xmlConfig;
@@ -192,6 +195,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
     {
         if (!$this->_getData('widgets_array')) {
             $result = array();
+            /** @var Varien_Simplexml_Element $widget */
             foreach ($this->getWidgetsXml($filters) as $widget) {
                 $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'widget';
                 $helper = Mage::helper($helper);
@@ -248,10 +252,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
-        $html = sprintf('<img id="%s" src="%s" title="%s">',
+        $html = sprintf(
+            '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
             $image,
-            Mage::helper('core')->urlEscape($directive)
+            Mage::helper('core')->escapeUrl($directive)
         );
         return $html;
     }
@@ -270,8 +275,8 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $result[] = $js;
                 }
             }
-       }
-       return $result;
+        }
+        return $result;
     }
 
     /**

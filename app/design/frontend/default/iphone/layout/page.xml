@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_iphone
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -49,7 +49,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/cookies.js</script></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
-                
+
                 <action method="addItem"><type>skin_js</type><name>js/modernizr.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/iphone.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/dnd.js</name></action>

@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
         $area = $this->getRequest()->getPost('area');
 
         //filtering
-        /** @var $filter Mage_Core_Model_Input_Filter_MaliciousCode */
+        /** @var Mage_Core_Model_Input_Filter_MaliciousCode $filter */
         $filter = Mage::getModel('core/input_filter_maliciousCode');
         foreach ($translation as &$item) {
             $item['custom'] = $filter->filter($item['custom']);

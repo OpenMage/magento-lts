@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,8 +127,9 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      */
     public function viewAction()
     {
-        if ($this->_initShipment()) {
-            $this->_title($this->__('View Shipment'));
+        $shipment = $this->_initShipment();
+        if ($shipment) {
+            $this->_title(sprintf("#%s", $shipment->getIncrementId()));
 
             $this->loadLayout();
             $this->getLayout()->getBlock('sales_shipment_view')

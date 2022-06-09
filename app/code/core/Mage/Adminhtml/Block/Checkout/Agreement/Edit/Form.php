@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'title'     => Mage::helper('checkout')->__('Content'),
             'style'     => 'height:24em;',
             'wysiwyg'   => false,
-            'required'  => true,
+            'required'  => false,
         ));
 
         $fieldset->addField('content_height', 'text', array(
@@ -142,6 +142,15 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
             'title'     => Mage::helper('checkout')->__('Content Height'),
             'maxlength' => 25,
             'class'     => 'validate-css-length',
+        ));
+
+        $fieldset->addField('position', 'text', array(
+            'label'    => Mage::helper('checkout')->__('Position'),
+            'title'    => Mage::helper('checkout')->__('Position'),
+            'name'     => 'position',
+            'value'    => '0',
+            'required' => true,
+            'class'    => 'validate-digits',
         ));
 
         $form->setValues($model->getData());

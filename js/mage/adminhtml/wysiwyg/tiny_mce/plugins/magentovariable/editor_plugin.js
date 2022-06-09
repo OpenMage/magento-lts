@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -56,7 +56,7 @@ tinyMCE.addI18n({en:{
                 longname : 'Magento Variable Manager Plugin for TinyMCE 3.x',
                 author : 'Magento Core Team',
                 authorurl : 'http://magentocommerce.com',
-                infourl : 'http://magentocommerce.com',
+                infourl : 'https://www.openmage.org',
                 version : "1.0"
             };
         }

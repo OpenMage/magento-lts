@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Authorizenet
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,23 +78,13 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      */
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)
     {
-        if (phpversion() >= '5.1.2') {
-            return hash_hmac("md5",
-                $merchantApiLoginId . '^' .
-                $fpSequence . '^' .
-                $fpTimestamp . '^' .
-                $amount . '^' .
-                $currencyCode, $merchantTransactionKey
-            );
-        }
-
-        return bin2hex(mhash(MHASH_MD5,
+        return hash_hmac("md5",
             $merchantApiLoginId . '^' .
             $fpSequence . '^' .
             $fpTimestamp . '^' .
             $amount . '^' .
             $currencyCode, $merchantTransactionKey
-        ));
+        );
     }
 
     /**
@@ -186,7 +176,8 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     public function signRequestData()
     {
         $fpTimestamp = time();
-        if (!empty($this->_getSignatureKey())) {
+        $signatureKey = $this->_getSignatureKey();
+        if (!empty($signatureKey)) {
             $hash = $this->_generateSha2RequestSign(
                 $this->getXLogin(),
                 $this->_getSignatureKey(),

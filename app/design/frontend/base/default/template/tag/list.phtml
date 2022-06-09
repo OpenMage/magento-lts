@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -35,7 +35,7 @@
     <script type="text/javascript">
         decorateGeneric($("<?php echo $this->getUniqueHtmlId('product-tags_'); ?>").select('li'), ['first', 'last']);
     </script>
-    <?php endif; ?>
+    <?php endif ?>
     <form id="addTagForm" action="<?php echo $this->getFormAction(); ?>" method="get">
         <div class="form-add">
             <label for="productTagName"><?php echo $this->__('Add Your Tags:') ?></label>

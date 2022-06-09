@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     public function getSitemapValidPaths()
     {
         $path = Mage::getStoreConfig(self::XML_PATH_SITEMAP_VALID_PATHS);
-        /** @var $helper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $helper */
         $helper = Mage::helper('core');
         $path = array_merge($path, $helper->getPublicFilesValidPath());
         return $path;

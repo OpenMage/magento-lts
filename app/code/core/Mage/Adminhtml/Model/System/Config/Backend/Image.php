@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
     protected function addValidators(Mage_Core_Model_File_Uploader $uploader)
     {
         parent::addValidators($uploader);
-        $validator = new Mage_Core_Model_File_Validator_Image();
+        $validator = Mage::getModel('core/file_validator_image');
         $validator->setAllowedImageTypes($this->_getAllowedExtensions());
         $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
     }

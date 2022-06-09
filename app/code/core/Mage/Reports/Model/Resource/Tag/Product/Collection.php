@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addUniqueTagedCount()
     {
         $select = clone $this->getSelect();
-        
+
         $select->reset()
             ->from(array('rel' => $this->getTable('tag/relation')), 'COUNT(DISTINCT rel.tag_id)')
             ->where('rel.product_id = e.entity_id');
@@ -156,7 +156,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 array('relation' => $this->getTable('tag/relation')),
                 'relation.product_id = e.entity_id',
-                array())
+                array()
+            )
             ->join(
                 array('t' => $this->getTable('tag/tag')),
                 't.tag_id = relation.tag_id',

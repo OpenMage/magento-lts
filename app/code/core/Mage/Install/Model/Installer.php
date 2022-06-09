@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,23 +84,6 @@ class Mage_Install_Model_Installer extends Varien_Object
     }
 
     /**
-     * Check packages (pear) downloads
-     *
-     * @return boolean
-     */
-    public function checkDownloads()
-    {
-        try {
-            $result = Mage::getModel('install/installer_pear')->checkDownloads();
-            $result = true;
-        } catch (Exception $e) {
-            $result = false;
-        }
-        $this->setDownloadCheckStatus($result);
-        return $result;
-    }
-
-    /**
      * Check server settings
      *
      * @return bool
@@ -122,7 +105,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Retrieve server checking result status
      *
-     * @return unknown
+     * @return bool
      */
     public function getServerCheckStatus()
     {

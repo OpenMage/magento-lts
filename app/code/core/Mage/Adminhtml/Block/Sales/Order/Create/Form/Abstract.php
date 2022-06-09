@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -141,7 +141,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
         $renderers = $this->_getAdditionalFormElementRenderers();
 
         foreach ($attributes as $attribute) {
-            /** @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute->setStoreId(Mage::getSingleton('adminhtml/session_quote')->getStoreId());
             $inputType = $attribute->getFrontend()->getInputType();
 
@@ -151,6 +151,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
                     'label'     => $this->__($attribute->getStoreLabel()),
                     'class'     => $attribute->getFrontend()->getClass(),
                     'required'  => $attribute->getIsRequired(),
+                    'note'      => $this->escapeHtml($this->__($attribute->getNote()))
                 ));
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());

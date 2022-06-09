@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,11 +36,11 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
     /**
      * Returns product final price depending on options chosen
      *
-     * @param   double $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getFinalPrice($qty=null, $product)
+    public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -48,12 +48,12 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
 
         $finalPrice = parent::getFinalPrice($qty, $product);
         if ($product->hasCustomOptions()) {
-            /* @var $typeInstance Mage_Catalog_Model_Product_Type_Grouped */
+            /* @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
             $typeInstance = $product->getTypeInstance(true);
             $associatedProducts = $typeInstance->setStoreFilter($product->getStore(), $product)
                 ->getAssociatedProducts($product);
             foreach ($associatedProducts as $childProduct) {
-                /* @var $childProduct Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $childProduct */
                 $option = $product->getCustomOption('associated_product_' . $childProduct->getId());
                 if (!$option) {
                     continue;

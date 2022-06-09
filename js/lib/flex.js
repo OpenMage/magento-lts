@@ -19,7 +19,7 @@
  *
  * @category    Mage
  * @package     js
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -224,7 +224,7 @@ Flex.Object = Class.create({
         }
     },
     /**
-     * Retrive object attribute value used for generation in html tags
+     * Retrieve object attribute value used for generation in html tags
      *
      * @param Sting name
      * @return Object

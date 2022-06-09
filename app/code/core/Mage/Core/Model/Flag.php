@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,11 +31,12 @@
  * @method Mage_Core_Model_Resource_Flag _getResource()
  * @method Mage_Core_Model_Resource_Flag getResource()
  * @method string getFlagCode()
- * @method Mage_Core_Model_Flag setFlagCode(string $value)
+ * @method $this setFlagCode(string $value)
  * @method int getState()
- * @method Mage_Core_Model_Flag setState(int $value)
+ * @method $this setState(int $value)
  * @method string getLastUpdate()
- * @method Mage_Core_Model_Flag setLastUpdate(string $value)
+ * @method $this setLastUpdate(string $value)
+ * @method bool hasFlagData()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -64,9 +65,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing object before save data
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -88,7 +87,7 @@ class Mage_Core_Model_Flag extends Mage_Core_Model_Abstract
     public function getFlagData()
     {
         if ($this->hasFlagData()) {
-            return unserialize($this->getData('flag_data'));
+            return unserialize($this->getData('flag_data'), ['allowed_classes' => false]);
         } else {
             return null;
         }

@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -194,7 +194,7 @@
                 <container>VARIABLE</container>
                 <cutoff_cost/>
                 <free_method/>
-                <gateway_url>http://production.shippingapis.com/ShippingAPI.dll</gateway_url>
+                <gateway_url>https://production.shippingapis.com/ShippingAPI.dll</gateway_url>
                 <gateway_secure_url>https://secure.shippingapis.com/ShippingAPI.dll</gateway_secure_url>
                 <shipment_requesttype>0</shipment_requesttype>
                 <handling/>

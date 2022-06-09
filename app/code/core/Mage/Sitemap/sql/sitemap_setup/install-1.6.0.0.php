@@ -20,12 +20,12 @@
  *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer = $this;
 
@@ -56,12 +56,18 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => '0',
         ), 'Store id')
-    ->addIndex($installer->getIdxName('sitemap/sitemap', array('store_id')),
-        array('store_id'))
-    ->addForeignKey($installer->getFkName('sitemap/sitemap', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
+    ->addIndex(
+        $installer->getIdxName('sitemap/sitemap', array('store_id')),
+        array('store_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('sitemap/sitemap', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE)
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Google Sitemap');
 
 $installer->getConnection()->createTable($table);

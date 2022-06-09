@@ -21,7 +21,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -31,7 +31,7 @@
     <adminhtml_centinel_index_authenticationstart>
         <block type="centinel/authentication_start" name="root" output="toHtml" template="centinel/authentication/start.phtml"/>
     </adminhtml_centinel_index_authenticationstart>
-    
+
     <adminhtml_centinel_index_authenticationcomplete>
         <block type="centinel/authentication_complete" name="root" output="toHtml" template="centinel/authentication/complete.phtml"/>
     </adminhtml_centinel_index_authenticationcomplete>

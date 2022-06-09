@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
      */
     protected function isEncryptedNodePath($path)
     {
-        /** @var $configModel Mage_Adminhtml_Model_Config */
+        /** @var Mage_Adminhtml_Model_Config $configModel */
         $configModel = Mage::getSingleton('adminhtml/config');
 
         return in_array((string)$path, $configModel->getEncryptedNodeEntriesPaths());

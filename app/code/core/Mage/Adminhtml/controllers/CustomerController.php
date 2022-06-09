@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -199,10 +199,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $redirectBack = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
 
-            /** @var $customer Mage_Customer_Model_Customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::registry('current_customer');
 
-            /** @var $customerForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $customerForm */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setEntity($customer)
                 ->setFormCode('adminhtml_customer')
@@ -252,7 +252,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
             $modifiedAddresses = array();
             if (!empty($data['address'])) {
-                /** @var $addressForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
 
@@ -360,9 +360,15 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if (!empty($data['account']['new_password'])) {
-                    $newPassword = $data['account']['new_password'];
+                    $newPassword = trim($data['account']['new_password']);
                     if ($newPassword == 'auto') {
                         $newPassword = $customer->generatePassword();
+                    } else {
+                        $minPasswordLength = Mage::getModel('customer/customer')->getMinPasswordLength();
+                        if (Mage::helper('core/string')->strlen($newPassword) < $minPasswordLength) {
+                            Mage::throwException(Mage::helper('customer')
+                                ->__('The minimum password length is %s', $minPasswordLength));
+                        }
                     }
                     $customer->changePassword($newPassword);
                     $customer->sendPasswordReminderEmail();

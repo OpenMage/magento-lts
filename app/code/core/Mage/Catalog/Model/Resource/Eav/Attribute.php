@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,45 +29,46 @@
  *
  * @method Mage_Catalog_Model_Resource_Attribute _getResource()
  * @method Mage_Catalog_Model_Resource_Attribute getResource()
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getFrontendInputRenderer()
- * @method string setFrontendInputRenderer(string $value)
- * @method int setIsGlobal(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsVisible()
- * @method int setIsVisible(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsSearchable()
- * @method int setIsSearchable(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getSearchWeight()
- * @method int setSearchWeight(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsFilterable()
- * @method int setIsFilterable(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsComparable()
- * @method int setIsComparable(int $value)
- * @method int setIsVisibleOnFront(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsHtmlAllowedOnFront()
- * @method int setIsHtmlAllowedOnFront(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForPriceRules()
- * @method int setIsUsedForPriceRules(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsFilterableInSearch()
- * @method int setIsFilterableInSearch(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getUsedInProductListing()
- * @method int setUsedInProductListing(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getUsedForSortBy()
- * @method int setUsedForSortBy(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsConfigurable()
- * @method int setIsConfigurable(int $value)
- * @method string setApplyTo(string $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsVisibleInAdvancedSearch()
- * @method int setIsVisibleInAdvancedSearch(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getPosition()
- * @method int setPosition(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsWysiwygEnabled()
- * @method int setIsWysiwygEnabled(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForPromoRules()
- * @method int setIsUsedForPromoRules(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForCustomerSegment()
- * @method int setIsUsedForCustomerSegment(int $value)
- * @method Mage_Catalog_Model_Resource_Eav_Attribute getIsUsedForTargetRules()
- * @method int setIsUsedForTargetRules(int $value)
+ * @method string getFrontendInputRenderer()
+ * @method $this setFrontendInputRenderer(string $value)
+ * @method $this setIsGlobal(int $value)
+ * @method int getIsVisible()
+ * @method $this setIsVisible(int $value)
+ * @method int getIsSearchable()
+ * @method $this setIsSearchable(int $value)
+ * @method int getSearchWeight()
+ * @method $this setSearchWeight(int $value)
+ * @method int getIsFilterable()
+ * @method $this setIsFilterable(int $value)
+ * @method int getIsComparable()
+ * @method $this setIsComparable(int $value)
+ * @method $this setIsVisibleOnFront(int $value)
+ * @method int getIsHtmlAllowedOnFront()
+ * @method $this setIsHtmlAllowedOnFront(int $value)
+ * @method int getIsUsedForPriceRules()
+ * @method $this setIsUsedForPriceRules(int $value)
+ * @method int getIsFilterableInSearch()
+ * @method $this setIsFilterableInSearch(int $value)
+ * @method int getUsedInProductListing()
+ * @method $this setUsedInProductListing(int $value)
+ * @method int getUsedForSortBy()
+ * @method $this setUsedForSortBy(int $value)
+ * @method int getIsConfigurable()
+ * @method $this setIsConfigurable(int $value)
+ * @method $this setApplyTo(string $value)
+ * @method int getIsVisibleInAdvancedSearch()
+ * @method $this setIsVisibleInAdvancedSearch(int $value)
+ * @method int getPosition()
+ * @method $this setPosition(int $value)
+ * @method int getIsWysiwygEnabled()
+ * @method $this setIsWysiwygEnabled(int $value)
+ * @method int getIsUsedForPromoRules()
+ * @method $this setIsUsedForPromoRules(int $value)
+ * @method int getIsUsedForCustomerSegment()
+ * @method $this setIsUsedForCustomerSegment(int $value)
+ * @method int getIsUsedForTargetRules()
+ * @method $this setIsUsedForTargetRules(int $value)
+ * @method bool getIsUserDefined()
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -141,7 +142,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Processing object after save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -156,7 +157,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Register indexing event before delete catalog eav attribute
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeDelete()
     {
@@ -164,7 +165,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             Mage::throwException(Mage::helper('catalog')->__('This attribute is used in configurable products.'));
         }
         Mage::getSingleton('index/indexer')->logEvent(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_DELETE
         );
         return parent::_beforeDelete();
     }
@@ -178,7 +181,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     {
         parent::_afterDeleteCommit();
         Mage::getSingleton('index/indexer')->indexEvents(
-            self::ENTITY, Mage_Index_Model_Event::TYPE_DELETE
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_DELETE
         );
         return $this;
     }
@@ -258,7 +262,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve source model
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Source_Abstract
+     * @return string
      */
     public function getSourceModel()
     {
@@ -285,7 +289,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     /**
      * Retrieve don't translated frontend label
      *
-     * @return string
+     * @return string|array
      */
     public function getFrontendLabel()
     {
@@ -359,9 +363,9 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
 
         if ($backendType == 'int' && $frontendInput == 'select') {
             return true;
-        } else if (($backendType == 'varchar' || $backendType == 'text') && $frontendInput == 'multiselect') {
+        } elseif (($backendType == 'varchar' || $backendType == 'text') && $frontendInput == 'multiselect') {
             return true;
-        } else if ($backendType == 'decimal') {
+        } elseif ($backendType == 'decimal') {
             return true;
         }
 

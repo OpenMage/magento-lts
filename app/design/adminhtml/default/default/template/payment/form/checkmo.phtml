@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -29,13 +29,13 @@
         <div class="input-box">
             <?php if ($this->getMethod()->getPayableTo()): ?>
                 <?php echo Mage::helper('payment')->__('<label>Make Check payable to:</label> %s', $this->escapeHtml($this->getMethod()->getPayableTo())) ?><br />
-            <?php endif; ?>
+            <?php endif ?>
             <?php if ($this->getMethod()->getMailingAddress()): ?>
                 <label><?php echo Mage::helper('payment')->__('Send Check to:') ?></label>
                 <div class="checkmo-mailing-address">
                     <?php echo nl2br($this->escapeHtml($this->getMethod()->getMailingAddress())) ?>
                 </div>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
     </li>
 </ul>

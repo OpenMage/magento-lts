@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,7 +98,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
     {
         $data = $this->getRequest()->getPost();
         if (isset($data['INVNUM'])) {
-            /** @var $paymentModel Mage_Paypal_Model_Payflowlink */
+            /** @var Mage_Paypal_Model_Payflowlink $paymentModel */
             $paymentModel = Mage::getModel('paypal/payflowlink');
             try {
                 $paymentModel->process($data);

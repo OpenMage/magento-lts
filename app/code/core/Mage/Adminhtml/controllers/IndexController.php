@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,7 +87,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function logoutAction()
     {
-        /** @var $adminSession Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $adminSession */
         $adminSession = Mage::getSingleton('admin/session');
         $adminSession->unsetAll();
         $adminSession->getCookie()->delete($adminSession->getSessionName());
@@ -144,7 +144,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                         ->getResults();
                     $items = array_merge_recursive($items, $results);
                 }
-                $totalCount = sizeof($items);
+                $totalCount = count($items);
             }
         }
 
@@ -234,7 +234,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     // Validate received data to be an email address
                     if (Zend_Validate::is($email, 'EmailAddress')) {
                         $collection = Mage::getResourceModel('admin/user_collection');
-                        /** @var $collection Mage_Admin_Model_Resource_User_Collection */
+                        /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);
                         $collection->load(false);
 
@@ -287,7 +287,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_validateResetPasswordLinkToken($userId, $resetPasswordLinkToken);
             $data = array(
                 'userId' => $userId,
-                'resetPasswordLinkToken' => $resetPasswordLinkToken
+                'resetPasswordLinkToken' => $resetPasswordLinkToken,
+                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
         } catch (Exception $exception) {
@@ -326,7 +327,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if (iconv_strlen($password) <= 0) {
             array_push($errorMessages, Mage::helper('adminhtml')->__('New password field cannot be empty.'));
         }
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = $this->_getModel('admin/user')->load($userId);
 
         $user->setNewPassword($password);
@@ -342,7 +343,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             }
             $data = array(
                 'userId' => $userId,
-                'resetPasswordLinkToken' => $resetPasswordLinkToken
+                'resetPasswordLinkToken' => $resetPasswordLinkToken,
+                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
             return;
@@ -359,7 +361,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_getSession()->addError($exception->getMessage());
             $data = array(
                 'userId' => $userId,
-                'resetPasswordLinkToken' => $resetPasswordLinkToken
+                'resetPasswordLinkToken' => $resetPasswordLinkToken,
+                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
             return;
@@ -384,7 +387,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
 
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getModel('admin/user')->load($userId);
         if (!$user || !$user->getId()) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Wrong account specified.'));

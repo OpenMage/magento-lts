@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,15 +29,19 @@ class Mage_Tax_Model_System_Config_Source_Tax_Country extends Mage_Adminhtml_Mod
 {
     protected $_options;
 
-    public function toOptionArray($noEmpty=false)
+    /**
+     * @param bool $noEmpty
+     * @return array
+     */
+    public function toOptionArray($noEmpty = false)
     {
         $options = parent::toOptionArray($noEmpty);
 
-        if(!$noEmpty) {
+        if (!$noEmpty) {
             if ($options) {
                 $options[0]['label'] = Mage::helper('tax')->__('None');
             } else {
-                $options = array(array('value'=>'', 'label'=>$this->helper('tax')->__('None')));
+                $options = array(array('value'=>'', 'label'=>Mage::helper('tax')->__('None')));
             }
         }
 
