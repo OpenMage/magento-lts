@@ -86,6 +86,7 @@ Do not use 20.x.x if you need IE support.
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
 - add redis as a valid option for `global/session_save` #1513
 - possibility to disable global search in backend #1532
+- reduce needless saves by avoiding setting `_hasDataChanges` flag #2066
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
