@@ -275,7 +275,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
         $this->_quote = $quote;
-        $this->setQuoteId($quote->getId());
+        if ($this->getQuoteId() != $quote->getId()) {
+            $this->setQuoteId($quote->getId());
+        }
         return $this;
     }
 
