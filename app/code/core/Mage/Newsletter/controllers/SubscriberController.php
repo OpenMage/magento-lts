@@ -100,8 +100,8 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
 
             if ($subscriber->getStatus() == $subscriber::STATUS_SUBSCRIBED) {
                 $session->addNotice($this->__('This email address is already confirmed.'));
-            } elseif($subscriber->getId() && $subscriber->getCode()) {
-                if($subscriber->confirm($code)) {
+            } elseif ($subscriber->getId() && $subscriber->getCode()) {
+                if ($subscriber->confirm($code)) {
                     $subscriber->sendConfirmationSuccessEmail();
                     $session->addSuccess($this->__('Your subscription has been confirmed.'));
                 } else {
