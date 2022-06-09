@@ -516,7 +516,9 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($this->useValidateSessionExpire()
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            && $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + $sessionData[self::VALIDATOR_SESSION_LIFETIME] < time() ) {
+            && ((int)$sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int)$sessionData[self::VALIDATOR_SESSION_LIFETIME])
+            < time()
+        ) {
             return false;
         }
         if ($this->useValidateSessionPasswordTimestamp()
