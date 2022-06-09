@@ -191,7 +191,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     {
         $eventType = $event->getType();
         if ($eventType == Mage_Index_Model_Event::TYPE_SAVE) {
-            /** @var Varien_Object|Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             $product = $event->getDataObject();
             /**
              * Check if product categories data was changed
