@@ -159,7 +159,9 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
         $this->_orderItem = $item;
-        $this->setOrderItemId($item->getId());
+        if ($this->getOrderItemId() != $item->getId()) {
+            $this->setOrderItemId($item->getId());
+        }
         return $this;
     }
 

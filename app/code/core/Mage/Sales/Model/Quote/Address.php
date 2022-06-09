@@ -427,7 +427,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
         $this->_quote = $quote;
-        $this->setQuoteId($quote->getId());
+        if ($this->getQuoteId() != $quote->getId()) {
+            $this->setQuoteId($quote->getId());
+        }
         return $this;
     }
 

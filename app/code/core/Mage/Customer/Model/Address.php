@@ -97,7 +97,9 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
         $this->_customer = $customer;
-        $this->setCustomerId($customer->getId());
+        if ($this->getCustomerId() != $customer->getId()) {
+            $this->setCustomerId($customer->getId());
+        }
         return $this;
     }
 

@@ -83,8 +83,10 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
      */
     public function setItem($item)
     {
-        $this->setItemId($item->getId());
         $this->_item = $item;
+        if ($this->getItemId() != $item->getId()) {
+            $this->setItemId($item->getId());
+        }
         return $this;
     }
 
@@ -106,8 +108,10 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
      */
     public function setProduct($product)
     {
-        $this->setProductId($product->getId());
         $this->_product = $product;
+        if ($this->getProductId() != $product->getId()) {
+            $this->setProductId($product->getId());
+        }
         return $this;
     }
 
