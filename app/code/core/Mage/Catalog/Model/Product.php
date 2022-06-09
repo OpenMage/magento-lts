@@ -579,7 +579,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Replace product's category ID(s)
+     * Set assigned category IDs array to product
      *
      * @param array|int|string $ids the ID(s) as int, comma-separated string or array of ints
      * @return $this
@@ -590,7 +590,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $ids = explode(',', $ids);
         } elseif (is_int($ids)) {
             $ids = (array) $ids;
-        } elseif (is_array($ids) === false) {
+        } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
         $ids = array_filter(array_map('intval', $ids));
