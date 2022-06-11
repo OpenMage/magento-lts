@@ -118,7 +118,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
         /** @var Mage_Core_Model_Date $coreDate */
         $coreDate  = $this->_factory->getModel('core/date');
-        $timestamp = $coreDate->gmtTimestamp('Today');
+        $timestamp = $coreDate->gmtTimestamp();
 
         foreach ($this->_app->getWebsites(false) as $website) {
             /** @var Mage_Core_Model_Website $website */

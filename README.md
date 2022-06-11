@@ -79,7 +79,8 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-Bug fixes and PHP 7.x and 8.0 compatibility.
+- bug fixes and PHP 7.x and 8.0 compatibility
+- added config cache for system.xml #1916
 
 ### Between OpenMage 19.x and 20.x
 
@@ -100,6 +101,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
+- `dev/log/max_level`
 - `newsletter/security/enable_form_key`
 
 ### New Events

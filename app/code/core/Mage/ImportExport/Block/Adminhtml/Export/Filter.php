@@ -55,7 +55,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
 
         $this->setRowClickCallback(null);
         $this->setId('export_filter_grid');
-        $this->setDefaultSort('attribute_code');
+        $this->setDefaultSort('frontend_label');
         $this->setDefaultDir('ASC');
         $this->setPagerVisibility(false);
         $this->setDefaultLimit(null);
@@ -358,8 +358,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         ));
         $this->addColumn('frontend_label', array(
             'header'   => Mage::helper('importexport')->__('Attribute Label'),
-            'index'    => 'frontend_label',
-            'sortable' => false,
+            'index'    => 'frontend_label'
         ));
         $this->addColumn('attribute_code', array(
             'header' => Mage::helper('importexport')->__('Attribute Code'),
