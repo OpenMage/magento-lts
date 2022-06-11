@@ -92,7 +92,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
     {
         $review = $this->_loadReview((int) $this->getRequest()->getParam('id'));
         if (!$review) {
-            $this->_forward('index');
+            $this->_redirect('*/*');
             return;
         }
 
