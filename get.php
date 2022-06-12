@@ -29,7 +29,7 @@ if (version_compare(phpversion(), '7.0.0', '<')===true) {
         . 'text-transform:none; text-align:left; color:#2f2f2f;">Whoops, it looks like you have an invalid PHP version.'
 
         . '</h3></div><p>OpenMage supports PHP 7.0.0 or newer. <a href="https://www.openmage.org/magento-lts/install.html" '
-        . 'target="">Find out</a> how to install</a> Magento using PHP-CGI as a work-around.</p></div>';
+        . 'target="">Find out</a> how to install</a> OpenMage using PHP-CGI as a work-around.</p></div>';
     exit;
 }
 $start = microtime(true);
