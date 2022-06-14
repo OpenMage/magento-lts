@@ -657,7 +657,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     /**
      * Get MIME type by file extension from list of pre-defined MIME types
      *
-     * @param $ext
+     * @param string $ext
      * @return string
      */
     public function getMimeTypeByExtension($ext)

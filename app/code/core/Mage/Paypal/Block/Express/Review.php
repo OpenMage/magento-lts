@@ -101,7 +101,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return carrier name from config, base on carrier code
      *
-     * @param $carrierCode string
+     * @param string $carrierCode
      * @return string
      */
     public function getCarrierName($carrierCode)

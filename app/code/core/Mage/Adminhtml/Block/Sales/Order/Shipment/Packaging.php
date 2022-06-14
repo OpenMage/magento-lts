@@ -211,8 +211,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Get item of shipment by its id
      *
-     * @param  $itemId
-     * @param  $itemsOf
+     * @param int $itemId
+     * @param string $itemsOf
      * @return Varien_Object
      */
     public function getShipmentItem($itemId, $itemsOf)

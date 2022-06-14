@@ -251,8 +251,8 @@ class Mage_Paypal_Model_Cart
     /**
      * Get/Set whether to render the discount total as a line item
      *
-     * @param $setValue
-     * @return bool|Mage_Paypal_Model_Cart
+     * @param bool $setValue
+     * @return bool|$this
      */
     public function isDiscountAsItem($setValue = null)
     {
@@ -262,8 +262,8 @@ class Mage_Paypal_Model_Cart
     /**
      * Get/Set whether to render the discount total as a line item
      *
-     * @param $setValue
-     * @return bool|Mage_Paypal_Model_Cart
+     * @param bool $setValue
+     * @return bool|$this
      */
     public function isShippingAsItem($setValue = null)
     {
@@ -465,8 +465,8 @@ class Mage_Paypal_Model_Cart
      * If the value changes, the re-rendering is commenced
      *
      * @param string $var
-     * @param $setValue
-     * @return bool|Mage_Paypal_Model_Cart
+     * @param mixed $setValue
+     * @return mixed|$this
      */
     private function _totalAsItem($var, $setValue = null)
     {

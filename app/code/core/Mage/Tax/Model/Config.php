@@ -153,7 +153,7 @@ class Mage_Tax_Model_Config
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store)
@@ -164,7 +164,7 @@ class Mage_Tax_Model_Config
     /**
      * Check if product prices inputed include tax
      *
-     * @param   mixed $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return  bool
      */
     public function priceIncludesTax($store = null)
