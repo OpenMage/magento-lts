@@ -40,10 +40,9 @@ class Mage_Directory_Model_Observer
     const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
 
     /**
-     * @param $schedule
      * @throws Mage_Core_Exception
      */
-    public function scheduledUpdateCurrencyRates($schedule)
+    public function scheduledUpdateCurrencyRates()
     {
         $importWarnings = array();
         if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {

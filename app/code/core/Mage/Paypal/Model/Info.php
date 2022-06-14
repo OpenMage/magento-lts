@@ -344,7 +344,7 @@ class Mage_Paypal_Model_Info
     /**
      * Explain the refund or chargeback reason code
      *
-     * @param $code
+     * @param string $code
      * @return string
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_IPNandPDTVariables
      * @link https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetTransactionDetails
@@ -381,7 +381,7 @@ class Mage_Paypal_Model_Info
      * Whether a reversal/refund can be disputed with PayPal
      *
      * @param string $code
-     * @return bool;
+     * @return bool
      */
     public static function isReversalDisputable($code)
     {

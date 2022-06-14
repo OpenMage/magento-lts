@@ -42,7 +42,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param $value
+     * @param array $value
      * @return $this
      */
     public function setTotals($value)
@@ -52,7 +52,7 @@ class Mage_Checkout_Block_Cart_Totals extends Mage_Checkout_Block_Cart_Abstract
     }
 
     /**
-     * @param $code
+     * @param string $code
      * @return false|Mage_Core_Block_Abstract|string
      */
     protected function _getTotalRenderer($code)

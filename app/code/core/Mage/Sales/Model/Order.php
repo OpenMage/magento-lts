@@ -1093,7 +1093,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string|bool $status
      * @param string $comment
      * @param bool $isCustomerNotified
-     * @param $shouldProtectState
+     * @param bool $shouldProtectState
      * @return $this
      */
     protected function _setState(
@@ -1127,7 +1127,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Whether specified state can be set from outside
-     * @param $state
+     * @param string $state
      * @return bool
      */
     public function isStateProtected($state)
@@ -1569,8 +1569,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $configPath
-     * @return array|bool
+     * @param string $configPath
+     * @return array|false
      */
     protected function _getEmails($configPath)
     {
@@ -1603,8 +1603,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $addressId
-     * @return bool|mixed
+     * @param int|string $addressId
+     * @return false|Mage_Sales_Model_Order_Address
      */
     public function getAddressById($addressId)
     {
