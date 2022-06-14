@@ -30,7 +30,6 @@
         <sitemap translate="label" module="sitemap">
             <label>Google Sitemap</label>
             <tab>catalog</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>70</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <category translate="label">
                     <label>Categories Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -55,7 +53,6 @@
                         </changefreq>
                         <priority translate="label comment">
                             <label>Priority</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -67,7 +64,6 @@
                 </category>
                 <product translate="label">
                     <label>Products Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -84,7 +80,6 @@
                         </changefreq>
                         <priority translate="label comment">
                             <label>Priority</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -96,7 +91,6 @@
                 </product>
                 <page translate="label">
                     <label>CMS Pages Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -113,7 +107,6 @@
                         </changefreq>
                         <priority translate="label comment">
                             <label>Priority</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
@@ -125,7 +118,6 @@
                 </page>
                 <generate translate="label">
                     <label>Generation Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -142,7 +134,6 @@
                         </enabled>
                         <error_email translate="label">
                             <label>Error Email Recipient</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>

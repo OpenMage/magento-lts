@@ -30,7 +30,6 @@
         <google translate="label" module="googleanalytics">
             <label>Google API</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>340</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <analytics translate="label">
                     <label>Google Analytics</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -65,7 +63,6 @@
                         </type>
                         <account translate="label">
                             <label>Account Number</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

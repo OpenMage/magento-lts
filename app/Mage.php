@@ -863,7 +863,18 @@ final class Mage
 
         static $loggers = array();
 
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
+
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+            return;
+        }
+
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 

@@ -37,7 +37,6 @@
             <class>separator-top</class>
             <label>Sales</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>300</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -45,7 +44,6 @@
             <groups>
                 <general translate="label">
                     <label>General</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -64,7 +62,6 @@
                 </general>
                 <totals_sort translate="label">
                     <label>Checkout Totals Sort Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -72,7 +69,6 @@
                     <fields>
                         <discount translate="label">
                             <label>Discount</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -80,7 +76,6 @@
                         </discount>
                         <grand_total translate="label">
                             <label>Grand Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -88,7 +83,6 @@
                         </grand_total>
                         <shipping translate="label">
                             <label>Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -96,7 +90,6 @@
                         </shipping>
                         <subtotal translate="label">
                             <label>Subtotal</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -104,7 +97,6 @@
                         </subtotal>
                         <tax translate="label">
                             <label>Tax</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -114,7 +106,6 @@
                 </totals_sort>
                 <reorder translate="label">
                     <label>Reorder</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -267,7 +258,6 @@
         <sales_email translate="label" module="sales">
             <label>Sales Emails</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>301</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -275,7 +265,6 @@
             <groups>
                 <order translate="label">
                     <label>Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -319,7 +308,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Order Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -340,7 +328,6 @@
 
                 <order_comment translate="label">
                     <label>Order Comments</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -384,7 +371,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Order Comment Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -405,7 +391,6 @@
 
                 <invoice translate="label">
                     <label>Invoice</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -449,7 +434,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Invoice Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -469,7 +453,6 @@
                 </invoice>
                 <invoice_comment translate="label">
                     <label>Invoice Comments</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -513,7 +496,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Invoice Comment Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -534,7 +516,6 @@
 
                 <shipment translate="label">
                     <label>Shipment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -578,7 +559,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Shipment Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -598,7 +578,6 @@
                 </shipment>
                 <shipment_comment translate="label">
                     <label>Shipment Comments</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>6</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -642,7 +621,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Shipment Comment Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -663,7 +641,6 @@
 
                 <creditmemo translate="label">
                     <label>Credit Memo</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>7</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -707,7 +684,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Credit Memo Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -727,7 +703,6 @@
                 </creditmemo>
                 <creditmemo_comment translate="label">
                     <label>Credit Memo Comments</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>8</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -771,7 +746,6 @@
                         </guest_template>
                         <copy_to translate="label comment">
                             <label>Send Credit Memo Comment Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -794,7 +768,6 @@
         <sales_pdf translate="label" module="sales">
             <label>PDF Print-outs</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>302</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -802,7 +775,6 @@
             <groups>
                 <invoice translate="label">
                     <label>Invoice</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>10</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -821,7 +793,6 @@
                 </invoice>
                 <shipment translate="label">
                     <label>Shipment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -840,7 +811,6 @@
                 </shipment>
                 <creditmemo translate="label">
                     <label>Credit Memo</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

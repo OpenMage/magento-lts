@@ -128,6 +128,7 @@
 "There was a problem with the subscription: %s","There was a problem with the subscription: %s"
 "There was a problem with the un-subscription.","There was a problem with the un-subscription."
 "This email address is already assigned to another user.","This email address is already assigned to another user."
+"This email address is already registered.","This email address is already registered."
 "Type","Type"
 "Unconfirmed","Unconfirmed"
 "Unsubscribe","Unsubscribe"

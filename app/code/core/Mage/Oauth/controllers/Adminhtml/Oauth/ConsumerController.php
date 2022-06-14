@@ -285,6 +285,20 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     public function deleteAction()
     {
         $consumerId = (int) $this->getRequest()->getParam('id');
+
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/edit', array('id' => $consumerId));
+            return;
+        }
+
         if ($consumerId) {
             try {
                 /** @var Mage_Oauth_Model_Consumer $consumer */

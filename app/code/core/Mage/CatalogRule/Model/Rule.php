@@ -342,6 +342,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $rules */
         $rules = Mage::getModel('catalogrule/rule')->getCollection()
             ->addFieldToFilter('is_active', 1);
+        if ($rules->count() === 0) {
+            return $this;
+        }
         foreach ($rules as $rule) {
             $websiteIds = array_intersect($productWebsiteIds, $rule->getWebsiteIds());
             $this->getResource()->applyToProduct($rule, $product, $websiteIds);
