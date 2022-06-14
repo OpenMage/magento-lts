@@ -222,7 +222,6 @@ table.actions td                { vertical-align:top; }
 /* Dynamic Grid */ /* Used in pages like Catalog -> Attributes */
 .dynamic-grid th                { padding:2px;width:100px; }
 .dynamic-grid td                { padding:2px; }
-.dynamic-grid td input          { width:94px; }
 tr.dynamic-grid td,
 tr.dynamic-grid th { padding:2px 10px 2px 0; width:auto; }
 tr.dynamic-grid input.input-text { width:154px; }

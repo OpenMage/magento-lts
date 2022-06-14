@@ -510,7 +510,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * Syntax: {{inlinecss file=""}}  If this directive is used, the file will be stored on this object so that
      * it can be retrieved later
      *
-     * @param $construction
+     * @param array $construction
      * @return string
      */
     public function inlinecssDirective($construction)
@@ -525,7 +525,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Set filename of CSS file to inline
      *
-     * @param $filename
+     * @param string $filename
      * @return $this
      */
     protected function _setInlineCssFile($filename)

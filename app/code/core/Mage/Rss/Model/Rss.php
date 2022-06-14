@@ -47,7 +47,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param $entries
+     * @param array $entries
      * @return $this
      */
     public function _addEntries($entries)
@@ -57,7 +57,7 @@ class Mage_Rss_Model_Rss
     }
 
     /**
-     * @param $entry
+     * @param array $entry
      * @return $this
      */
     public function _addEntry($entry)

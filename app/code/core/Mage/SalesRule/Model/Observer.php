@@ -135,7 +135,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order payment is canceled
      *
-     * @param $observer
+     * @param Varien_Event_Observer $observer
      */
     public function sales_order_paymentCancel($observer)
     {
