@@ -86,14 +86,14 @@
                             <th><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></th>
                         <?php foreach ($_rating->getOptions() as $_option): ?>
                             <td class="value"><label for="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" class="radio" /></label></td>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                     </tbody>
                 </table>
                 <input type="hidden" name="validate_rating" class="validate-rating" value="" />
                 <script type="text/javascript">decorateTable('product-review-table')</script>
-            <?php endif; ?>
+            <?php endif ?>
 
                 <ul class="form-list">
                     <li>

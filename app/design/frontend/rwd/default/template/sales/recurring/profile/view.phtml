@@ -35,16 +35,16 @@
 <div class="title-buttons recurring-profiles-title-buttons">
     <?php if ($this->getCanCancel()): ?>
         <button type="button" title="<?php echo $this->quoteEscape($this->__('Cancel')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanSuspend()): ?>
         <button type="button" title="<?php echo $this->quoteEscape($this->__('Suspend')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><span><span><?php echo $this->__('Suspend') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanActivate()): ?>
         <button type="button" title="<?php echo $this->quoteEscape($this->__('Activate')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getActivateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Activate') ?></span></span></button>
-    <?php endif; ?>
+    <?php endif ?>
     <?php if ($this->getCanUpdate()):?>
         <button type="button" title="<?php echo $this->quoteEscape($this->__('Get Update')) ?>" class="button" onclick="if( confirm('<?php echo $this->getConfirmationMessage() ?>') ) { window.location.href = '<?php echo $this->getUpdateUrl() ?>'; } return false;"><span><span><?php echo $this->__('Get Update') ?></span></span></button>
-    <?php endif;?>
+    <?php endif ?>
 </div>
 
 <div class="recurring-profiles-messages">
@@ -62,8 +62,8 @@
                 <li class="current"><strong><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></strong></li>
             <?php else: ?>
                 <li><a href="<?php echo $this->escapeHtml($this->getObjectData($block, 'view_url')) ?>"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></a></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            <?php endif ?>
+        <?php endforeach ?>
         </ul>
     </dd>
 </dl>
@@ -87,12 +87,12 @@
             </div>
         </div>
     </div>
-<?php endif; ?>
-            <?php endforeach;?>
-        <?php endfor;?>
+<?php endif ?>
+            <?php endforeach ?>
+        <?php endfor ?>
 </div>
-    <?php endif; ?>
-<?php endfor;?>
+    <?php endif ?>
+<?php endfor ?>
 
 <!-- table data block -->
 <?php $table = $this->getChild('table') ?>
@@ -101,7 +101,7 @@
     <h2 class="table-caption"><?php echo $this->escapeHtml($this->getObjectData($table, 'view_label')) ?></h2>
     <?php echo $this->getChildHtml('table') ?>
 </div>
-<?php endif;?>
+<?php endif ?>
 
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Recurring Profiles') ?></a></p>

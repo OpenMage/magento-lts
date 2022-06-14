@@ -1,12 +1,19 @@
 {
   "name": "openmage/magento-lts",
-  "license": "OSL-3.0",
+  "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
   "type": "magento-source",
   "require": {
-    "php": ">=7.0 <7.5",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1"
+    "php": ">=7.0 <7.5 || >=8.0 <8.1",
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
-  "description": " A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+  "require-dev": {
+    "macopedia/phpstan-magento1": "^1.0.4",
+    "phpstan/phpstan": "^1.7.1"
+  },
   "authors": [
     {
       "name": "Lee Saferite",
@@ -32,5 +39,14 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ]
+  ],
+  "autoload-dev": {
+    "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.9.4.x-dev"
+    },
+    "magento-root-dir": "root"
+  }
 }

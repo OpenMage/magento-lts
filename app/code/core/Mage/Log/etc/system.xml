@@ -31,7 +31,6 @@
             <groups>
                 <log translate="label" module="log">
                     <label>Log</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>200</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -49,7 +48,6 @@
                         </enable_log>
                         <clean_after_day translate="label">
                             <label>Save Log, Days</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -84,7 +82,6 @@
                         </frequency>
                         <error_email translate="label">
                             <label>Error Email Recipient</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>

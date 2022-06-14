@@ -602,7 +602,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     {
         $optionArr = array();
         if ($info = $this->getProduct($product)->getCustomOption('info_buyRequest')) {
-            $optionArr['info_buyRequest'] = unserialize($info->getValue());
+            $optionArr['info_buyRequest'] = unserialize($info->getValue(), ['allowed_classes' => false]);
         }
 
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
@@ -828,7 +828,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrive store filter for associated products
+     * Retrieve store filter for associated products
      *
      * @param null $product
      * @return int|Mage_Core_Model_Store

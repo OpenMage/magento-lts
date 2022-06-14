@@ -19,40 +19,31 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
- * @package     Mage_Adminhtml
+ * @package     Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/* @var Mage_Core_Model_Resource_Setup $installer */
+$installer = $this;
+$installer->startSetup();
 
-/**
- * Adminhtml Survey Action
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author     Magento Core Team <core@magentocommerce.com>
- */
-class Mage_Adminhtml_SurveyController extends Mage_Adminhtml_Controller_Action
-{
-    /**
-     * Index Action
-     *
-     */
-    public function indexAction()
-    {
-        if ($this->getRequest()->getParam('isAjax', false)) {
-            Mage_AdminNotification_Model_Survey::saveSurveyViewed(true);
-        }
-        $this->getResponse()->setBody(Zend_Json::encode(array('survey_decision_saved' => 1)));
-    }
+$connection = $installer->getConnection();
+$table = $installer->getTable('checkout/agreement');
+$column = 'position';
 
-    /**
-     * Check if user has enough privileges
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('all');
-    }
+if (!$connection->tableColumnExists($table, $column)) {
+    $connection->addColumn(
+        $table,
+        $column,
+        array(
+            'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+            'length'    => 2,
+            'nullable'  => false,
+            'default'   => 0,
+            'comment'   => 'Agreement Position'
+        )
+    );
 }
+
+$installer->endSetup();

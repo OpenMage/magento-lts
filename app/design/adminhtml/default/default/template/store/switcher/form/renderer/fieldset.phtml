@@ -27,22 +27,22 @@
 <?php $_element = $this->getElement() ?>
 <?php if ($_element->getFieldsetContainerId()): ?>
 <div id="<?php echo $_element->getFieldsetContainerId(); ?>">
-<?php endif; ?>
+<?php endif ?>
 <?php if ($_element->getLegend()): ?>
 <div class="entry-edit-head">
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
     <div class="form-buttons"><?php echo $_element->getHeaderBar() ?></div>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <?php if (!$_element->getNoContainer()): ?>
     <div class="fieldset <?php echo $_element->getClass() ?>" id="<?php echo $_element->getHtmlId() ?>">
-<?php endif; ?>
+<?php endif ?>
 <div class="store-scope">
     <?php echo $this->getHintHtml() ?>
     <div class="tree-store-scope">
         <?php if ($_element->getComment()): ?>
             <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
-        <?php endif; ?>
+        <?php endif ?>
         <?php if ($_element->hasHtmlContent()): ?>
             <?php echo $_element->getHtmlContent(); ?>
         <?php else: ?>
@@ -51,13 +51,13 @@
                 <?php echo $_element->getChildrenHtml(); ?>
             </tbody>
         </table>
-        <?php endif; ?>
+        <?php endif ?>
     </div>
 </div>
     <?php echo $_element->getSubFieldsetHtml() ?>
 <?php if (!$_element->getNoContainer()): ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 <?php if ($_element->getFieldsetContainerId()): ?>
 </div>
-<?php endif; ?>
+<?php endif ?>

@@ -331,7 +331,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
-        $isConfirmNeed   = (Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1) ? true : false;
+        $isConfirmNeed   = Mage::getStoreConfig(self::XML_PATH_CONFIRMATION_FLAG) == 1;
         $isOwnSubscribes = false;
         $ownerId = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
@@ -354,6 +354,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
                 $this->setStatus(self::STATUS_SUBSCRIBED);
             }
             $this->setSubscriberEmail($email);
+        } elseif ($this->getStatus() == self::STATUS_SUBSCRIBED) {
+            Mage::throwException(Mage::helper('newsletter')->__('This email address is already registered.'));
         }
 
         if ($isSubscribeOwnEmail) {

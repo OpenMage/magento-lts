@@ -31,7 +31,6 @@
             <groups>
                 <downloadable translate="label">
                     <label>Downloadable Product Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>600</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -48,7 +47,6 @@
                         </order_item_status>
                         <downloads_number translate="label">
                             <label>Default Maximum Number of Downloads</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>200</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -65,7 +63,6 @@
                         </shareable>
                         <samples_title translate="label">
                             <label>Default Sample Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>400</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -73,7 +70,6 @@
                         </samples_title>
                         <links_title translate="label">
                             <label>Default Link Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>500</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

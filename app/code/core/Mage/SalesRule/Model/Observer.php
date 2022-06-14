@@ -60,7 +60,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Process quote item (apply discount to item)
      *
-     * @deprecated process call movet to total model
+     * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
      */
     public function sales_quote_address_discount_item($observer)
@@ -120,7 +120,6 @@ class Mage_SalesRule_Model_Observer
                 }
             }
             $coupon = Mage::getModel('salesrule/coupon');
-            /** @var Mage_SalesRule_Model_Coupon */
             $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
                 $coupon->setTimesUsed($coupon->getTimesUsed() + 1);
@@ -149,18 +148,21 @@ class Mage_SalesRule_Model_Observer
             if ($code = $order->getCouponCode()) {
                 // Decrement coupon times_used
                 $coupon = Mage::getModel('salesrule/coupon')->loadByCode($code);
-                $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
-                $coupon->save();
 
+                if ($coupon->getId()) {
+                    $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
+                    $coupon->save();
 
-                if ($customerId = $order->getCustomerId()) {
-                    // Decrement coupon_usage times_used
-                    Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
+                    if ($customerId = $order->getCustomerId()) {
+                        // Decrement coupon_usage times_used
+                        Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
 
-                    // Decrement rule times_used
-                    if ($customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getRuleId())) {
-                        $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
-                        $customerCoupon->save();
+                        // Decrement rule times_used
+                        $customerCoupon = Mage::getModel('salesrule/rule_customer')->loadByCustomerRule($customerId, $coupon->getRuleId());
+                        if ($customerCoupon->getId()) {
+                            $customerCoupon->setTimesUsed($customerCoupon->getTimesUsed() - 1);
+                            $customerCoupon->save();
+                        }
                     }
                 }
             }

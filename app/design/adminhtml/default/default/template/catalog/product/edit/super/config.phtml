@@ -46,7 +46,7 @@
 <div id="<?php echo $this->getHtmlId() ?>_simple_form" class="ignore-validate configurable-simple-product">
 <?php echo $this->getChildHtml('simple'); ?>
 </div>
-<?php endif;?>
+<?php endif ?>
 <div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Super product attributes configuration') ?></h4>
@@ -67,12 +67,12 @@
     </fieldset>
 </div>
 <div class="no-display" id="<?php echo $this->getHtmlId() ?>_attribute_template">
-    <div class="<?php if (!$this->isReadonly()):?>attribute-name-container <?php endif;?>left">
+    <div class="<?php if (!$this->isReadonly()):?>attribute-name-container <?php endif ?>left">
         '{{frontend_label}}'
     </div>
     <div class="values-container right">
         <label for="__id___label" class="bold"><?php echo Mage::helper('catalog')->__('Attribute Name:') ?></label>
-        <input id="__id___label" type="text" <?php if ($this->isAttributesConfigurationReadonly()): ?> disabled="disabled" <?php endif;?> class="input-text attribute-label required-entry template no-display" value="'{{label}}'" readonly="label" />
+        <input id="__id___label" type="text" <?php if ($this->isAttributesConfigurationReadonly()): ?> disabled="disabled" <?php endif ?> class="input-text attribute-label required-entry template no-display" value="'{{label}}'" readonly="label" />
         <input id="__id___label_use_default" type="checkbox" value="1" " checked="use_default" class="attribute-use-default-label">
         <label for="__id___label_use_default"><?php echo Mage::helper('catalog')->__('Use default')?> ('{{store_label}}')</label>
         <ul class="attribute-values">
@@ -87,20 +87,20 @@
 <div class="attribute-values-container-main">
     <div class="attribute-values-container left">
     <?php echo Mage::helper('catalog')->__('Price:') ?>
-    <input id="__id___pricing" type="text" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif;?> class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
+    <input id="__id___pricing" type="text" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif ?> class="input-text attribute-price validate-number template no-display" value="'{{pricing_value}}'"/>
 </div>
 <div class="attribute-values-container left">
-    &nbsp;<select class="attribute-price-type" id="__id___price_type" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif;?>>
+    &nbsp;<select class="attribute-price-type" id="__id___price_type" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif ?>>
         <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
         <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
     </select>
 </div>
 <?php if ($this->getShowUseDefaultPrice()):?>
 <div class="attribute-values-container">
-    &nbsp;<input id="__id___default" type="checkbox" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif;?> class="attribute-use-default-value"> <label for="__id___default" class="normal"><?php echo Mage::helper('catalog')->__('Use Default Value') ?></label>
+    &nbsp;<input id="__id___default" type="checkbox" <?php if ($this->isAttributesPricesReadonly() || $this->getCanEditPrice() === false): ?> disabled="disabled" <?php endif ?> class="attribute-use-default-value"> <label for="__id___default" class="normal"><?php echo Mage::helper('catalog')->__('Use Default Value') ?></label>
 </div>
-<?php endif;?>
-<?php else : ?>
+<?php endif ?>
+<?php else: ?>
 <div class="attribute-values-container-main">
     <div class="attribute-values-container left">
     <input id="__id___pricing" type="hidden"  class="attribute-price template no-display" value="0" />
@@ -110,28 +110,28 @@
 </div>
 <?php if ($this->getShowUseDefaultPrice()) : ?>
 <div class="attribute-values-container no-display">
-    <input id="__id___default" type="checkbox" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif;?> class="attribute-use-default-value">
+    <input id="__id___default" type="checkbox" <?php if ($this->isReadonly() || $this->getCanEditPrice() === false):?> disabled="disabled" <?php endif ?> class="attribute-use-default-value">
 </div>
-<?php endif; ?>
-<?php endif; ?>
+<?php endif ?>
+<?php endif ?>
 </div>
 </div>
 <div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing">
     <?php if ($this->getCanReadPrice() !== false) : ?>
         <div class="attribute-values-container left v-middle">
             &nbsp;<?php echo Mage::helper('catalog')->__('Price:') ?>
-            <input type="text" class="input-text attribute-price validate-number"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled" <?php endif; ?>/>
+            <input type="text" class="input-text attribute-price validate-number"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled" <?php endif ?>/>
         </div>
         <div class="attribute-values-container left v-middle">
-            &nbsp;<select class="attribute-price-type"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled" <?php endif; ?>>
+            &nbsp;<select class="attribute-price-type"<?php if ($this->getCanEditPrice() === false) : ?> disabled="disabled" <?php endif ?>>
                 <option value="0"><?php echo Mage::helper('catalog')->__('Fixed') ?></option>
                 <option value="1"><?php echo Mage::helper('catalog')->__('Percentage') ?></option>
             </select>
         </div>
-    <?php else : ?>
+    <?php else: ?>
         <input type="hidden" class="attribute-price" />
         <input type="hidden" class="attribute-price-type" />
-    <?php endif; ?>
+    <?php endif ?>
 </div>
 <div class="template no-display" id="<?php echo $this->getHtmlId() ?>_simple_pricing_view">
     &nbsp;<?php echo Mage::helper('catalog')->__('Price') ?> <strong>'{{value}}'</strong>

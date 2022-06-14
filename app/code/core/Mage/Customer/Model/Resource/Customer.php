@@ -134,8 +134,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId   = $customer->getData('default_billing');
-        $defaultShippingId  = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getData('default_billing');
+        $defaultShippingId = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
@@ -146,10 +146,19 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
                 $address->delete();
             } else {
-                $address->setParentId($customer->getId())
-                    ->setStoreId($customer->getStoreId())
-                    ->setIsCustomerSaveTransaction(true)
-                    ->save();
+                if ($address->getParentId() != $customer->getId()) {
+                    $address->setParentId($customer->getId());
+                }
+
+                if ($address->hasDataChanges()) {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true)
+                        ->save();
+                } else {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true);
+                }
+
                 if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
                     && $address->getId() != $defaultBillingId
                 ) {
@@ -355,5 +364,24 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $this->saveAttribute($customer, 'rp_customer_id');
         }
         return $this;
+    }
+
+    /**
+     * Get password created at timestamp for a customer by id
+     *
+     * @param int $customerId
+     * @return string
+     */
+    public function getPasswordTimestamp($customerId)
+    {
+        $field = $this->_getReadAdapter()->getIfNullSql('password_created_at', 'created_at');
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getEntityTable(), ['password_created_at' => $field])
+            ->where($this->getEntityIdField() . ' =?', $customerId);
+        $value = $this->_getReadAdapter()->fetchOne($select);
+        if ($value && ! is_numeric($value)) { // Convert created_at string to unix timestamp
+            $value = Varien_Date::toTimestamp($value);
+        }
+        return $value;
     }
 }

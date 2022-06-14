@@ -19,7 +19,7 @@
  * @version    $Id$
  */
 
- 
+
 /**
  * @category   Zend
  * @package    Zend_Xml_SecurityScan
@@ -83,7 +83,9 @@ class Zend_Xml_Security
         }
 
         if (!self::isPhpFpm()) {
-            $loadEntities = libxml_disable_entity_loader(true);
+            if ((LIBXML_VERSION < 20900) && function_exists('libxml_disable_entity_loader')) {
+                $loadEntities = libxml_disable_entity_loader(true);
+            }
             $useInternalXmlErrors = libxml_use_internal_errors(true);
         }
 
@@ -97,7 +99,9 @@ class Zend_Xml_Security
         if (!$result) {
             // Entity load to previous setting
             if (!self::isPhpFpm()) {
-                libxml_disable_entity_loader($loadEntities);
+                if (isset($loadEntities)) {
+                    libxml_disable_entity_loader($loadEntities);
+                }
                 libxml_use_internal_errors($useInternalXmlErrors);
             }
             return false;
@@ -108,7 +112,9 @@ class Zend_Xml_Security
             foreach ($dom->childNodes as $child) {
                 if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
                     if (isset($child->entities) && $child->entities->length > 0) {
-                        libxml_disable_entity_loader($loadEntities);
+                        if (isset($loadEntities)) {
+                            libxml_disable_entity_loader($loadEntities);
+                        }
                         libxml_use_internal_errors($useInternalXmlErrors);
 
                         #require_once 'Exception.php';
@@ -120,7 +126,9 @@ class Zend_Xml_Security
 
         // Entity load to previous setting
         if (!self::isPhpFpm()) {
-            libxml_disable_entity_loader($loadEntities);
+            if (isset($loadEntities)) {
+                libxml_disable_entity_loader($loadEntities);
+            }
             libxml_use_internal_errors($useInternalXmlErrors);
         }
 

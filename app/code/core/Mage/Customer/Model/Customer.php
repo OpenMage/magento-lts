@@ -422,9 +422,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->_addressesCollection === null) {
             $this->_addressesCollection = $this->getAddressCollection()
                 ->setCustomerFilter($this)
-                ->addAttributeToSelect('*');
+                ->addAttributeToSelect('*')
+                ->setOrder('entity_id', 'desc');
             foreach ($this->_addressesCollection as $address) {
                 $address->setCustomer($this);
+                $address->setDataChanges(false);
             }
         }
 
@@ -654,7 +656,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $primaryShipping = $this->getPrimaryShippingAddress();
         if ($primaryShipping) {
-            if ($primaryBilling->getId() == $primaryShipping->getId()) {
+            if ($primaryBilling && $primaryBilling->getId() == $primaryShipping->getId()) {
                 $primaryBilling->setIsPrimaryShipping(true);
             } else {
                 $primaryShipping->setIsPrimaryShipping(true);
@@ -939,7 +941,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive shared website ids
+     * Retrieve shared website ids
      *
      * @return array
      */

@@ -61,7 +61,7 @@ document.observe("dom:loaded", function() {
                             <th><?php echo Mage::helper('sales')->__('Size') ?></th>
                             <th><?php echo Mage::helper('sales')->__('Girth') ?></th>
                             <th>&nbsp;</th>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <th <?php echo $this->displayCustomsValue() ? '' : 'style="display: none;"' ?>>
                             <?php echo Mage::helper('sales')->__('Customs Value') ?>
                         </th>
@@ -72,7 +72,7 @@ document.observe("dom:loaded", function() {
                         <th>&nbsp;</th>
                         <?php if ($this->getDeliveryConfirmationTypes()): ?>
                             <th><?php echo Mage::helper('sales')->__('Signature Confirmation') ?></th>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </thead>
@@ -82,12 +82,12 @@ document.observe("dom:loaded", function() {
                             <select name="package_container" onchange="packaging.changeContainerType(this);packaging.checkSizeAndGirthParameter(this, <?php echo  $girthEnabled ?>);"<?php if (empty($containers)):?>
                                 title="<?php echo Mage::helper('sales')->__('Package types are disregarded for USPS domestic shipments.') ?>"
                                 disabled="" class="disabled"
-                            <?php endif; ?>>
+                            <?php endif ?>>
                                 <?php foreach ($this->getContainers() as $key => $value): ?>
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
                         <?php if ($girthEnabled == 1): ?>
@@ -97,7 +97,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $sizeSource[$key]['value'] ?>">
                                         <?php echo $sizeSource[$key]['label'] ?>
                                     </option>
-                                    <?php endforeach; ?>
+                                    <?php endforeach ?>
                                 </select>
                             </td>
                             <td><input type="text" class="input-text validate-greater-than-zero" name="container_girth" /></td>
@@ -107,7 +107,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo Zend_Measure_Length::CENTIMETER ?>" ><?php echo Mage::helper('sales')->__('cm') ?></option>
                                 </select>
                             </td>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <?php
                             if ($this->displayCustomsValue()) {
                                 $customsValueDisplay = '';
@@ -150,10 +150,10 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <td>
                             <button type="button" class="scalable AddItemsBtn" onclick="packaging.getItemsForPack(this);">
                                 <span><span><span><?php echo Mage::helper('sales')->__('Add Products') ?></span></span></span>
@@ -184,7 +184,7 @@ document.observe("dom:loaded", function() {
                                     <option value="<?php echo $key ?>" >
                                         <?php echo $value ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                         </td>
                         <td>
@@ -192,7 +192,7 @@ document.observe("dom:loaded", function() {
                         </td>
                     </tbody>
                 </table>
-                <?php endif; ?>
+                <?php endif ?>
 
                 <div class="package-add-products">
                     <div class="package_prapare" style="display:none">

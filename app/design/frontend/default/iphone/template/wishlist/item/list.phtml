@@ -35,22 +35,22 @@
                     <td>
                         <?php foreach ($columns as $column): ?>
                             <?php $column->setItem($item); echo $column->toHtml($item);?>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </td>
                 </tr>
             <?php endforeach ?>
         <?php else: ?>
             <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
-        <?php endif; ?>
+        <?php endif ?>
     </tbody>
 </table>
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getAdditionalHtml();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php foreach ($columns as $column): ?>
     <?php echo $column->getJs();?>
-<?php endforeach; ?>
+<?php endforeach ?>
 //]]>
 </script>

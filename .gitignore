@@ -1,4 +1,13 @@
 /app/etc/local.xml
 /media/catalog
+/media/captcha
+/media/css
+/media/css_secure
+/media/email/logo
+/media/favicon
+/media/js
+/media/sales/store/logo
+/media/sales/store/logo_html
+/media/wysiwyg
 /dev/tests/functional/generated
 /dev/tests/functional/vendor

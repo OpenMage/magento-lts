@@ -41,13 +41,13 @@
                         <?php $_i = 0; ?>
                         <ul>
                         <?php foreach( $_item->getProductTags() as $_tag ): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif; ?></li>
-                        <?php endforeach; ?>
+                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif ?></li>
+                        <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ol>
     <script type="text/javascript">decorateList('my_recent_tags', 'none-recursive');</script>
 </div>

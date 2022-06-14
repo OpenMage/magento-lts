@@ -85,4 +85,4 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
     {
         return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
-} // Class Mage_Adminhtml_Catalog_Product_GalleryController End
+}

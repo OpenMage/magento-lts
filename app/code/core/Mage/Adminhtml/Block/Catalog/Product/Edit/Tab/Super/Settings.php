@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Settings extends Mage_
             ));
 
         $this->setChild('back_button', $backButton);
-        parent::_prepareLayout();
+        return parent::_prepareLayout();
     }
 
     /**

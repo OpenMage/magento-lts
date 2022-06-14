@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Retrive uploader block
+     * Retrieve uploader block
      *
      * @return Mage_Uploader_Block_Multiple
      */
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Retrive uploader block html
+     * Retrieve uploader block html
      *
      * @return string
      */

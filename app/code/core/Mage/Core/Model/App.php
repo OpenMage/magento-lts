@@ -655,9 +655,10 @@ class Mage_Core_Model_App
         $websiteGroups = array();
         $groupStores   = array();
 
+        $storeCollection->initConfigCache();
+
         foreach ($storeCollection as $store) {
             /** @var Mage_Core_Model_Store $store */
-            $store->initConfigCache();
             $store->setWebsite($websiteCollection->getItemById($store->getWebsiteId()));
             $store->setGroup($groupCollection->getItemById($store->getGroupId()));
 
@@ -1065,7 +1066,7 @@ class Mage_Core_Model_App
     }
 
     /**
-     * Retrive layout object
+     * Retrieve layout object
      *
      * @return Mage_Core_Model_Layout
      */
@@ -1380,13 +1381,13 @@ class Mage_Core_Model_App
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
-                        $this->_callObserverMethod($object, $method, $observer);
+                        $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                     default:
                         $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
-                        $this->_callObserverMethod($object, $method, $observer);
+                        $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
                 Varien_Profiler::stop('OBSERVER: '.$obsName);
@@ -1401,15 +1402,22 @@ class Mage_Core_Model_App
      * @param object $object
      * @param string $method
      * @param Varien_Event_Observer $observer
+     * @param string $observerName
      * @return $this
      * @throws Mage_Core_Exception
      */
-    protected function _callObserverMethod($object, $method, $observer)
+    protected function _callObserverMethod($object, $method, $observer, $observerName = 'undefined')
     {
-        if (method_exists($object, $method)) {
+        if (is_object($object) && method_exists($object, $method)) {
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "'.$method.'" is not defined in "'.get_class($object).'"');
+            if (is_object($object)) {
+                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+            } else {
+                $message = 'Class from observer "' . $observerName . '" is not initialized';
+            }
+
+            Mage::throwException($message);
         }
         return $this;
     }
@@ -1430,9 +1438,9 @@ class Mage_Core_Model_App
         return $this->_updateMode;
     }
 
-    public function throwStoreException()
+    public function throwStoreException($text = '')
     {
-        throw new Mage_Core_Model_Store_Exception('');
+        throw new Mage_Core_Model_Store_Exception($text);
     }
 
     /**

@@ -123,7 +123,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             }
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
-            /** @var $helper Mage_Cms_Helper_Wysiwyg_Images */
+            /** @var Mage_Cms_Helper_Wysiwyg_Images $helper */
             $helper = Mage::helper('cms/wysiwyg_images');
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {

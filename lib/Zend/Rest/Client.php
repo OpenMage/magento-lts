@@ -50,7 +50,7 @@ class Zend_Rest_Client extends Zend_Service_Abstract
      * @var Zend_Uri_Http
      */
     protected $_uri = null;
-    
+
     /**
      * Flag indicating the Zend_Http_Client is fresh and needs no reset.
      * Must be set explicitly if you want to keep preset parameters.
@@ -126,18 +126,18 @@ class Zend_Rest_Client extends Zend_Service_Abstract
          * because the Zend_Http_Client instance is shared among all Zend_Service_Abstract subclasses.
          */
         if ($this->_noReset) {
-            // if $_noReset we do not want to reset on this request, 
+            // if $_noReset we do not want to reset on this request,
             // but we do on any subsequent request
             $this->_noReset = false;
         } else {
             self::getHttpClient()->resetParameters();
         }
-        
+
         self::getHttpClient()->setUri($this->_uri);
     }
-    
+
     /**
-     * Tells Zend_Rest_Client not to reset all parameters on it's 
+     * Tells Zend_Rest_Client not to reset all parameters on it's
      * Zend_Http_Client. If you want no reset, this must be called explicitly
      * before every request for which you do not want to reset the parameters.
      * Parameters will accumulate between requests, but as soon as you do not

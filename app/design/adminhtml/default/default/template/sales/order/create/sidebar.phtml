@@ -33,10 +33,10 @@
         <div id="order-sidebar_<?php echo $_alias ?>">
             <?php if($this->canDisplay($_child)): ?>
                 <?php echo $this->getChildHtml($_alias) ?>
-            <?php endif; ?>
+            <?php endif ?>
         </div>
-    <?php endif; ?>
-<?php endforeach; ?>
+    <?php endif ?>
+<?php endforeach ?>
 <?php echo $this->getChildHtml('bottom_button'); ?>
 </div>
 <script>

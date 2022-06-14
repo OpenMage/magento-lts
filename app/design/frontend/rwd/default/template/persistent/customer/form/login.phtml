@@ -32,19 +32,20 @@
  */
 /** @var $this Mage_Customer_Block_Form_Login */
 ?>
-<div class="account-login<?php if (!$this->helper('customer')->isRegistrationAllowed()) echo ' login-only' ?>">
+<?php $isRegistrationAllowed = $this->helper('customer')->isRegistrationAllowed() ?>
+<div class="account-login<?php if (!$isRegistrationAllowed) echo ' login-only' ?>">
     <div class="page-title">
-        <h1><?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+        <h1><?php if ($isRegistrationAllowed): ?>
                 <?php echo $this->__('Login or Create an Account') ?>
             <?php else: ?>
                 <?php echo $this->__('Login'); ?>
-            <?php endif; ?></h1>
+            <?php endif ?></h1>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form" class="scaffold-form">
         <?php echo $this->getBlockHtml('formkey'); ?>
         <div class="col2-set">
-            <?php if ($this->helper('customer')->isRegistrationAllowed()): ?>
+            <?php if ($isRegistrationAllowed): ?>
             <div class="col-1 new-users">
                 <div class="content">
                     <h2><?php echo $this->__('New Here?') ?></h2>
@@ -59,9 +60,9 @@
                     <a title="<?php echo $this->quoteEscape($this->__('Create an Account')) ?>" class="button" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><span><span><?php echo $this->__('Create an Account') ?></span></span></a>
                 </div>
             </div>
-            <?php endif; ?>
+            <?php endif ?>
             <?php // This column should be col-1 if the registration column is not displayed ?>
-            <div class="<?php if ($this->helper('customer')->isRegistrationAllowed()): ?>col-2<?php else: ?>col-1<?php endif; ?> registered-users">
+            <div class="<?php if ($isRegistrationAllowed): ?>col-2<?php else: ?>col-1<?php endif ?> registered-users">
                 <div class="content fieldset">
                     <h2><?php echo $this->__('Already registered?') ?></h2>
                     <p class="form-instructions"><?php echo $this->__('If you have an account with us, please log in.') ?></p>
@@ -94,7 +95,7 @@
         </div>
         <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
             <input name="context" type="hidden" value="checkout" />
-        <?php endif; ?>
+        <?php endif ?>
     </form>
     <script type="text/javascript">
     //<![CDATA[

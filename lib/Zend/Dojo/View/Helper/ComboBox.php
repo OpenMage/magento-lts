@@ -100,7 +100,7 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
             return $html;
         }
 
-        // required for correct type casting in declerative mode 
+        // required for correct type casting in declerative mode
         if (isset($params['autocomplete'])) {
             $params['autocomplete'] = ($params['autocomplete']) ? 'true' : 'false';
         }

@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * @param Mage_Catalog_Model_Product $product
      * @return float
      */
-    public function getFinalPrice($qty = null, $product)
+    public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -181,11 +181,11 @@ class Mage_Catalog_Model_Product_Type_Price
     /**
      * Get product tier price by qty
      *
-     * @param   float $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  float|array
      */
-    public function getTierPrice($qty = null, $product)
+    public function getTierPrice($qty, $product)
     {
         $allGroups = Mage_Customer_Model_Group::CUST_GROUP_ALL;
         $prices = $product->getData('tier_price');
@@ -307,11 +307,11 @@ class Mage_Catalog_Model_Product_Type_Price
     /**
      * Get formatted by currency tier price
      *
-     * @param   float $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  array|float
      */
-    public function getFormatedTierPrice($qty = null, $product)
+    public function getFormatedTierPrice($qty, $product)
     {
         $price = $product->getTierPrice($qty);
         if (is_array($price)) {

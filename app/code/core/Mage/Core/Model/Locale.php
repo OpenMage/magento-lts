@@ -575,7 +575,7 @@ class Mage_Core_Model_Locale
      * @param null|string $format
      * @return Zend_Date
      */
-    public function utcDate($store = null, $date, $includeTime = false, $format = null)
+    public function utcDate($store, $date, $includeTime = false, $format = null)
     {
         $dateObj = $this->storeDate($store, $date, $includeTime);
         $dateObj->set($date, $format);

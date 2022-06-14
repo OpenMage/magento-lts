@@ -55,17 +55,17 @@
                     <?php $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey() ?>
                     <?php $params['product'] = $_product->getId(); ?>
                     <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getUrl('checkout/cart/add', $params) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php if ($this->helper('wishlist')->isAllow()) : ?>
                 <ul class="add-to-links">
                     <li>
                         <a href="<?php echo $this->getUrl('wishlist/index/add',array('product'=>$_product->getId())) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a>
                     </li>
                 </ul>
-                <?php endif; ?>
+                <?php endif ?>
             </td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </tbody>
 <?php else: ?>
     <tbody>
@@ -75,7 +75,7 @@
             </td>
         </tr>
     </tbody>
-<?php endif; ?>
+<?php endif ?>
 </table>
 <script type="text/javascript">decorateTable('my-tags-table')</script>
 <?php echo $this->getToolbarHtml() ?>

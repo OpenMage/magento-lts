@@ -30,7 +30,7 @@
         <div class="page-title title-buttons">
             <?php if ($this->helper('wishlist')->isRssAllow() && $this->hasWishlistItems()): ?>
                 <a href="<?php echo $this->helper('wishlist')->getRssUrl($this->getWishlistInstance()->getId()); ?>" class="link-rss"><?php echo $this->__('RSS Feed') ?></a>
-            <?php endif; ?>
+            <?php endif ?>
             <h1><?php echo $this->getTitle(); ?></h1>
         </div>
         <?php echo $this->getMessagesBlock()->toHtml() ?>

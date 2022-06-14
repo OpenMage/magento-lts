@@ -249,7 +249,7 @@ class Mage_Eav_Model_Config
          */
         if ($this->_isCacheEnabled()
             && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))) {
-            $this->_entityData = unserialize($cache);
+            $this->_entityData = unserialize($cache, ['allowed_classes' => false]);
             foreach ($this->_entityData as $typeCode => $data) {
                 $typeId = $data['entity_type_id'];
                 $this->_addEntityTypeReference($typeId, $typeCode);

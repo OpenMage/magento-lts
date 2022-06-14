@@ -415,7 +415,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     $cacheId = 'store_' . $code . '_config_cache';
                     $data = Mage::app()->loadCache($cacheId);
                     if ($data) {
-                        $data = unserialize($data);
+                        $data = unserialize($data, ['allowed_classes' => false]);
                     } else {
                         $data = array();
                         foreach ($this->_configCacheBaseNodes as $node) {
@@ -430,6 +430,32 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 }
             }
         }
+        return $this;
+    }
+
+    /**
+     * Get the basic configuration nodes for this store view
+     * @return array
+     */
+    public function getConfigCache()
+    {
+        $data = [];
+
+        foreach ($this->_configCacheBaseNodes as $node) {
+            $data[$node] = $this->getConfig($node);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Sets the internal configuration cache for this store view
+     * @param array $data
+     * @return $this
+     */
+    public function setConfigCache($data)
+    {
+        $this->_configCache = $data;
         return $this;
     }
 
@@ -769,30 +795,30 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isCurrentlySecure()
     {
-        $standardRule = !empty($_SERVER['HTTPS']) && ('off' != $_SERVER['HTTPS']);
-        $offloaderHeader = trim((string) Mage::getConfig()->getNode(self::XML_PATH_OFFLOADER_HEADER, 'default'));
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        }
 
-        if ((!empty($offloaderHeader) && !empty($_SERVER[$offloaderHeader])) || $standardRule) {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            return true;
+        }
+
+        if (isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT'])) {
             return true;
         }
 
         if (Mage::isInstalled()) {
-            $secureBaseUrl = Mage::getStoreConfig(Mage_Core_Model_Url::XML_PATH_SECURE_URL);
-
-            if (!$secureBaseUrl) {
-                return false;
+            $offloaderHeader = strtoupper(trim((string) Mage::getStoreConfig(self::XML_PATH_OFFLOADER_HEADER)));
+            if ($offloaderHeader) {
+                $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
+                $offloaderHeader = strpos($offloaderHeader, 'HTTP_') === 0 ? $offloaderHeader : 'HTTP_'.$offloaderHeader;
+                if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
+                    return true;
+                }
             }
-            $urlParts = parse_url($secureBaseUrl);
-            $scheme   = isset($urlParts['scheme']) ? ':' . $urlParts['scheme'] : '';
-            $port     = isset($urlParts['port']) ? ':' . $urlParts['port'] : '';
-            $isSecure = ($scheme == 'https')
-                && isset($_SERVER['SERVER_PORT'])
-                && ($port == $_SERVER['SERVER_PORT']);
-            return $isSecure;
-        } else {
-            $isSecure = isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT']);
-            return $isSecure;
         }
+
+        return false;
     }
 
     /*************************************************************************************
@@ -1001,7 +1027,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function roundPrice($price)
     {
-        return round($price, 2);
+        return round((float)$price, 2);
     }
 
     /**

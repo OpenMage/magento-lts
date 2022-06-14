@@ -124,7 +124,7 @@ class Mage_Payment_Model_Observer
         if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
             $payment->setAdditionalInformation(
                 'instructions',
-                $payment->getMethodInstance()->getInstructions()
+                $payment->getMethodInstance()->setStore($payment->getOrder()->getStoreId())->getInstructions()
             );
         }
     }
@@ -170,7 +170,7 @@ class Mage_Payment_Model_Observer
                 $methods = '';
                 $spacer  = '';
                 foreach ($titles as $key => $values) {
-                    $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
+                    $methods = $methods . $spacer . $key . ' [' . implode(', ', $values) . ']';
                     $spacer = ', ';
                 }
                 throw new Mage_Core_Exception(Mage::helper('sales')->__(

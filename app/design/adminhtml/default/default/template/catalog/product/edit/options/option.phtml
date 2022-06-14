@@ -123,7 +123,7 @@ var productOption = {
         }
         <?php else: ?>
             inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
-        <?php endif;?>
+        <?php endif ?>
     }
 }
 
@@ -341,11 +341,11 @@ Validation.addAllThese([
 <?php foreach ($this->getOptionValues() as $_value): ?>
     productOption.add(<?php echo $_value->toJson() ?>);
     productOptionType.addDataToValues(<?php echo $_value->toJson() ?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 
 //bind scope checkboxes
 productOptionScope.bindScopeCheckbox();
 //]]>
 </script>
 
-<div><?php if (!$this->isReadonly()):?><input type="hidden" name="affect_product_custom_options" value="1" /><?php endif;?></div>
+<div><?php if (!$this->isReadonly()):?><input type="hidden" name="affect_product_custom_options" value="1" /><?php endif ?></div>

@@ -202,7 +202,7 @@ class Zend_Config_Yaml extends Zend_Config
                 if (!isset($config[$sectionName])) {
                     #require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception(sprintf(
-                        'Section "%s" cannot be found', 
+                        'Section "%s" cannot be found',
                         implode(' ', (array)$section)
                     ));
                 }
@@ -214,7 +214,7 @@ class Zend_Config_Yaml extends Zend_Config
             if (!isset($config[$section])) {
                 #require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception(sprintf(
-                    'Section "%s" cannot be found', 
+                    'Section "%s" cannot be found',
                     implode(' ', (array)$section)
                 ));
             }
@@ -289,7 +289,7 @@ class Zend_Config_Yaml extends Zend_Config
     {
         $config   = array();
         $inIndent = false;
-        while (list($n, $line) = each($lines)) {
+        foreach($lines as $n => $line) {
             $lineno = $n + 1;
 
             $line = rtrim(preg_replace("/#.*$/", "", $line));

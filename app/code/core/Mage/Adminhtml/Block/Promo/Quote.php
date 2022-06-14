@@ -41,6 +41,6 @@ class Mage_Adminhtml_Block_Promo_Quote extends Mage_Adminhtml_Block_Widget_Grid_
         $this->_headerText = Mage::helper('salesrule')->__('Shopping Cart Price Rules');
         $this->_addButtonLabel = Mage::helper('salesrule')->__('Add New Rule');
         parent::__construct();
-        
+
     }
 }

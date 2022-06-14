@@ -195,7 +195,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _getTableCacheName($tableName)
     {
         if (is_array($tableName)) {
-            return join('_', $tableName);
+            return implode('_', $tableName);
         }
         return $tableName;
     }

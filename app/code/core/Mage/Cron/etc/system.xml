@@ -31,7 +31,6 @@
             <groups>
                 <cron translate="label comment" module="cron">
                     <label>Cron (Scheduled Tasks) - all the times are in minutes</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>15</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -40,7 +39,6 @@
                     <fields>
                         <schedule_generate_every translate="label">
                             <label>Generate Schedules Every</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -48,7 +46,6 @@
                         </schedule_generate_every>
                         <schedule_ahead_for translate="label">
                             <label>Schedule Ahead for</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -56,7 +53,6 @@
                         </schedule_ahead_for>
                         <schedule_lifetime translate="label">
                             <label>Missed if Not Run Within</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -64,7 +60,6 @@
                         </schedule_lifetime>
                         <history_cleanup_every translate="label">
                             <label>History Cleanup Every</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -72,7 +67,6 @@
                         </history_cleanup_every>
                         <history_success_lifetime translate="label">
                             <label>Success History Lifetime</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -80,7 +74,6 @@
                         </history_success_lifetime>
                         <history_failure_lifetime translate="label">
                             <label>Failure History Lifetime</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

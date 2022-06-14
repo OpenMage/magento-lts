@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
 
     - name: php version
       run: php --version
@@ -19,10 +19,10 @@ jobs:
       run: composer --version
 
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: composer validate --strict
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md

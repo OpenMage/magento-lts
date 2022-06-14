@@ -140,7 +140,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     protected function _getRules()
     {
         $key = $this->getWebsiteId() . '_' . $this->getCustomerGroupId() . '_' . $this->getCouponCode();
-        return $this->_rules[$key];
+        return $this->_rules[$key] ?? null;
     }
 
     /**
@@ -522,7 +522,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             }
         }
 
-        $item->setAppliedRuleIds(join(',', $appliedRuleIds));
+        $item->setAppliedRuleIds(implode(',', $appliedRuleIds));
         $address->setAppliedRuleIds($this->mergeIds($address->getAppliedRuleIds(), $appliedRuleIds));
         $quote->setAppliedRuleIds($this->mergeIds($quote->getAppliedRuleIds(), $appliedRuleIds));
 

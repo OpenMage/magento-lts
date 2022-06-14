@@ -53,17 +53,17 @@
                             $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
                         //]]>
                         </script>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <p class="product-name"><a href="<?php echo $_item->getProduct()->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
                 </li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </ol>
             <script type="text/javascript">decorateList('cart-sidebar-reorder')</script>
             <div id="cart-sidebar-reorder-advice-container"></div>
             <div class="actions">
                 <?php if ($_showAddButtonFlag): ?>
                     <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                <?php endif; ?>
+                <?php endif ?>
                 <a href="<?php echo $this->getUrl('customer/account') ?>"><?php echo $this->__('View All'); ?></a>
             </div>
         </div>

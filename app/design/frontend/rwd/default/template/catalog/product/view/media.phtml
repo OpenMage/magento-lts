@@ -50,7 +50,7 @@
                  class="gallery-image"
                  src="<?php echo $this->getGalleryImageUrl($_image); ?>"
                  data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
-            <?php endif; ?>
+            <?php endif ?>
         <?php $i++; endforeach; ?>
     </div>
 </div>
@@ -67,10 +67,10 @@
                      width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
             </a>
         </li>
-        <?php endif; ?>
+        <?php endif ?>
     <?php $i++; endforeach; ?>
     </ul>
 </div>
-<?php endif; ?>
+<?php endif ?>
 
 <?php echo $this->getChildHtml('after'); ?>

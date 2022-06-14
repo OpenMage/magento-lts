@@ -42,7 +42,7 @@
         <form action="<?php echo $this->getSubmitUrlCustom($_product, array('_secure' => $this->_isSecure()), false) ?>"
               method="post"
               id="product_addtocart_form"
-            <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif; ?>>
+            <?php if ($_product->getOptions()): ?> enctype="multipart/form-data" <?php endif ?>>
             <?php echo $this->getBlockHtml('formkey') ?>
         <div class="no-display">
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
@@ -56,7 +56,7 @@
 
             <?php if ($this->canEmailToFriend()): ?>
                 <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
             <?php echo $this->getChildHtml('alert_urls') ?>
@@ -70,8 +70,8 @@
                         <?php echo $this->getChildHtml('addtocart') ?>
                         <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
                             <span class="or"><?php echo $this->__('OR') ?></span>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                        <?php endif ?>
+                    <?php endif ?>
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
                 <?php echo $this->getChildHtml('extra_buttons') ?>
@@ -79,20 +79,20 @@
                 <div class="add-to-box">
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
-            <?php endif;?>
+            <?php endif ?>
 
             <?php echo $this->getChildHtml('other');?>
 
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
                 <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-            <?php endif;?>
+            <?php endif ?>
 
         </div>
 
@@ -103,7 +103,7 @@
         <div class="clearer"></div>
         <?php if ($_product->isSaleable() && $this->hasOptions()):?>
             <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-        <?php endif;?>
+        <?php endif ?>
     </form>
     <script type="text/javascript">
     //<![CDATA[
@@ -163,10 +163,10 @@
         <div class="box-collateral <?php echo "box-{$alias}"?>">
             <?php if ($title = $this->getChildData($alias, 'title')):?>
             <h2><?php echo $this->escapeHtml($title); ?></h2>
-            <?php endif;?>
+            <?php endif ?>
             <?php echo $html; ?>
         </div>
-<?php endforeach;?>
+<?php endforeach ?>
         <?php echo $this->getChildHtml('upsell_products') ?>
         <?php echo $this->getChildHtml('product_additional_data') ?>
     </div>

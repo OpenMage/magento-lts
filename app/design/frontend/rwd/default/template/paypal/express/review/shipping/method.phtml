@@ -32,22 +32,22 @@
             <select name="shipping_method" id="shipping_method" style="width:250px;" class="required-entry">
             <?php if (!$currentRate):?>
                 <option value=""><?php echo $this->__('Please select a shipping method...') ?></option>
-            <?php endif;?>
+            <?php endif ?>
             <?php foreach ($groups as $code => $rates):?>
                 <optgroup label="<?php echo $this->escapeHtml($this->getCarrierName($code)) ?>" style="font-style:normal;">
                 <?php foreach ($rates as $rate):?>
                     <option value="<?php echo $this->renderShippingRateValue($rate)?>"<?php echo ($currentRate === $rate) ? ' selected="selected"' : '' ;?>>
                         <?php echo $this->renderShippingRateOption($rate)?>
                     </option>
-                <?php endforeach;?>
+                <?php endforeach ?>
                 </optgroup>
-            <?php endforeach;?>
+            <?php endforeach ?>
             </select>
         <?php else: ?>
             <p><strong><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></strong></p>
-        <?php endif;?>
+        <?php endif ?>
 <?php else: ?>
     <p><strong><?php echo $this->renderShippingRateOption($this->getCurrentShippingRate())?></strong></p>
-<?php endif; ?>
+<?php endif ?>
 </div>
 <div style="display:none" id="shipping_method_update"><p><?php echo $this->__('Please update order data to get shipping methods and rates') ?></p></div>

@@ -54,8 +54,8 @@
             <tbody>
             <?php echo $this->getItemHtml($_item) ?>
             </tbody>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </table>
     <script type="text/javascript">decorateTable('my-invoice-table-<?php echo $_invoice->getId(); ?>', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
     <?php echo $this->getInvoiceCommentsHtml($_invoice)?>
-<?php endforeach; ?>
+<?php endforeach ?>

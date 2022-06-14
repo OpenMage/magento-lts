@@ -40,7 +40,7 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Attribute_Backend_Parent extends 
         foreach ($object->getAllItems() as $item) {
             $item->save();
         }
-        
+
         foreach ($object->getCommentsCollection() as $comment) {
             $comment->save();
         }

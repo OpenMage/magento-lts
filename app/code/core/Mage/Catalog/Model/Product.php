@@ -540,7 +540,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product id by sku
+     * Retrieve product id by sku
      *
      * @param   string $sku
      * @return  integer
@@ -581,22 +581,19 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set assigned category IDs array to product
      *
-     * @param array|string $ids
+     * @param array|int|string $ids the ID(s) as int, comma-separated string or array of ints
      * @return $this
      */
     public function setCategoryIds($ids)
     {
         if (is_string($ids)) {
             $ids = explode(',', $ids);
+        } elseif (is_int($ids)) {
+            $ids = (array) $ids;
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        foreach ($ids as $i => $v) {
-            if (empty($v)) {
-                unset($ids[$i]);
-            }
-        }
-
+        $ids = array_filter(array_map('intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }
@@ -756,7 +753,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**
@@ -908,7 +905,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get formated by currency tier price
      *
      * @param   double $qty
-     * @return  array || double
+     * @return  array | double
      */
     public function getFormatedTierPrice($qty = null)
     {
@@ -1223,7 +1220,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
  ** Media API
  */
     /**
-     * Retrive attributes for media gallery
+     * Retrieve attributes for media gallery
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
@@ -1242,7 +1239,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive media gallery images
+     * Retrieve media gallery images
      *
      * @return Varien_Data_Collection
      */
@@ -1288,7 +1285,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product media config
+     * Retrieve product media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */
@@ -2272,6 +2269,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_options             = array();
         $this->_canAffectOptions    = false;
         $this->_errors              = array();
+        $this->_defaultValues       = array();
+        $this->_storeValuesFlags    = array();
+        $this->_lockedAttributes    = array();
 
         return $this;
     }

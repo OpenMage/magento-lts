@@ -31,14 +31,14 @@
             <tr>
             <?php foreach( $this->getTotals() as $_total ): ?>
                 <td class="a-center">
-                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif; ?>>
+                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif ?>>
                         <?php echo $_total['label'] ?><br />
                         <?php echo $_total['value'] ?>
                     </div>
                 </td>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tr>
         </table>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>
