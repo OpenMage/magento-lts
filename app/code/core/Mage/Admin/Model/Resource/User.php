@@ -196,7 +196,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Core_Model_Abstract $user
      * @return $this
-     * @throws Throwable
+     * @throws Exception
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
