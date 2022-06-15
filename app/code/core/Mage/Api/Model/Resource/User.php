@@ -248,7 +248,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $dbh->delete($this->getTable('api/user'), array('user_id = ?' => $uid));
             $dbh->delete($this->getTable('api/role'), array('user_id = ?' => $uid));
             $dbh->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $dbh->rollBack();
             throw $e;
         }
