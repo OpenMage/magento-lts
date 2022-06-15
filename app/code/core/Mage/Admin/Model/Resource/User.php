@@ -196,7 +196,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param Mage_Core_Model_Abstract $user
      * @return $this
-     * @throws Exception
+     * @throws Throwable
      */
     public function delete(Mage_Core_Model_Abstract $user)
     {
@@ -213,8 +213,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getMainTable(), $conditions);
             $adapter->delete($this->getTable('admin/role'), $conditions);
             $adapter->commit();
-        }
-        catch (Exception $e) {
+        } catch (Throwable $e) {
             $adapter->rollBack();
             throw $e;
         }
