@@ -81,6 +81,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 - bug fixes and PHP 7.x and 8.0 compatibility
 - added config cache for system.xml #1916
+- more flexible sitemap generation #1854
 
 ### Between OpenMage 19.x and 20.x
 
