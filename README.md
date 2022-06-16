@@ -115,14 +115,6 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 
 [Full list of events](EVENTS.md)
 
-### New Translations
-
-There are some new or changed translations, if you want add them to your locale pack please check:
-
-- `app/locale/en_US/Adminhtml_LTS.csv`
-- `app/locale/en_US/Core_LTS.csv`
-- `app/locale/en_US/Sales_LTS.csv`
-
 ### Removed Modules
 
 - `Mage_Compiler`
