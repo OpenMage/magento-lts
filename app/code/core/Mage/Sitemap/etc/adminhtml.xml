@@ -53,7 +53,7 @@
                             <config>
                                 <children>
                                     <sitemap translate="title" module="shipping">
-                                        <title>Google Sitemap Section</title>
+                                        <title>Google Sitemap</title>
                                     </sitemap>
                                 </children>
                             </config>
