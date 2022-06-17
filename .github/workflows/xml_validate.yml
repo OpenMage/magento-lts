@@ -9,4 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - name: "Checkout repository"
+      uses: actions/checkout@master
+    - name: "Validate XMLs"
+      uses: anyone-developer/anyone-validate-xml@master
+      with:
+        file-extension: ".xml"
+        ignore-directories: ".git"
+        read-path: "."
