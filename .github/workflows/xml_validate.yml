@@ -18,4 +18,4 @@ jobs:
       with:
         file-extension: ".xml"
         ignore-directories: ".git"
-        read-path: "."
+        read-path: "/home/runner/work/magento-lts/magento-lts"
