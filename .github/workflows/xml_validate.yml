@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: "Checkout repository"
       uses: actions/checkout@master
+    - name: "test"
+      run: "pwd; ls -lah"
     - name: "Validate XMLs"
       uses: anyone-developer/anyone-validate-xml@0.9.2
       with:
