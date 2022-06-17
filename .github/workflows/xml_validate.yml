@@ -12,7 +12,7 @@ jobs:
     - name: "Checkout repository"
       uses: actions/checkout@master
     - name: "Validate XMLs"
-      uses: anyone-developer/anyone-validate-xml@master
+      uses: anyone-developer/anyone-validate-xml@0.9.2
       with:
         file-extension: ".xml"
         ignore-directories: ".git"
