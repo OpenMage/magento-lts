@@ -103,6 +103,9 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `catalog/search/search_separator`
 - `dev/log/max_level`
 - `newsletter/security/enable_form_key`
+- `sitemap/category/lastmod`
+- `sitemap/page/lastmod`
+- `sitemap/product/lastmod`
 
 ### New Events
 
