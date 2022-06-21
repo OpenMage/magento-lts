@@ -1327,6 +1327,12 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cebe",
+      "name": "Carsten Brandt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/189796?v=4",
+      "profile": "http://cebe.cc/",
     }
   ],
   "contributorsPerLine": 7
