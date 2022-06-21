@@ -3051,6 +3051,11 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Flat/Indexer.php
 
 		-
+			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
+			count: 3
+			path: ../app/code/core/Mage/Catalog/Model/Product/Image.php
+
+		-
 			message: "#^Cannot call method isIndexable\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Indexer/Eav.php
@@ -4176,7 +4181,7 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource/Setup.php
 
 		-
-			message: "#^Binary operation \"\\.\" between \\(string\\|false\\) and array results in an error\\.$#"
+			message: "#^Binary operation \"\\.\" between string and array results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/Setup/Query/Modifier.php
 
@@ -5636,7 +5641,7 @@ parameters:
 			path: ../app/code/core/Mage/Payment/Model/Method/Abstract.php
 
 		-
-			message: "#^Binary operation \"\\-\" between string and int\\<\\-9, 9\\> results in an error\\.$#"
+			message: "#^Binary operation \"\\*\\=\" between string and 2 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Model/Method/Cc.php
 
@@ -7519,6 +7524,26 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:jsonEncode\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Uploader/Block/Abstract.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Uploader/Helper/File.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 1048576 results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Uploader/Helper/File.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 1073741824 results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Uploader/Helper/File.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 1099511627776 results in an error\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Uploader/Helper/File.php
 
 		-
 			message: "#^Variable \\$options might not be defined\\.$#"
