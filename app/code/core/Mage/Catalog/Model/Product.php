@@ -362,7 +362,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('catalog')->getOldFieldMap();
         return $this;
     }
 
@@ -710,10 +709,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
      * @return $this
      */
-    public function setStockItem(Mage_CatalogInventory_Model_Stock_Item $stockItem)
+    public function setStockItem($stockItem)
     {
         $this->_stockItem = $stockItem;
         return $this;
