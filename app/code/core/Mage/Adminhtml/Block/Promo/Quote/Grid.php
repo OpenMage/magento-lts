@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         $collection = Mage::getModel('salesrule/rule')
             ->getResourceCollection();
         $collection->addWebsitesToResult();
+        $collection->addFilterToMap('times_used', 'main_table.times_used');
         $this->setCollection($collection);
 
         parent::_prepareCollection();
@@ -115,9 +116,16 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => array(
-                1 => 'Active',
-                0 => 'Inactive',
+                1 => Mage::helper('salesrule')->__('Active'),
+                0 => Mage::helper('salesrule')->__('Inactive'),
             ),
+        ));
+
+        $this->addColumn('times_used', array(
+            'header'    => Mage::helper('salesrule')->__('Times used'),
+            'align'     => 'left',
+            'index'     => 'times_used',
+            'type'      => 'number',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -154,5 +162,4 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/*/edit', array('id' => $row->getRuleId()));
     }
-
 }
