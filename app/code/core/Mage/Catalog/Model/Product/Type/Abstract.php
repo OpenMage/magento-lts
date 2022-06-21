@@ -828,7 +828,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrive store filter for associated products
+     * Retrieve store filter for associated products
      *
      * @param null $product
      * @return int|Mage_Core_Model_Store

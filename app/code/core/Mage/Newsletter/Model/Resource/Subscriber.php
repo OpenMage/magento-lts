@@ -126,9 +126,13 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $select = $this->_read->select()
             ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+            ->where('subscriber_email=:subscriber_email')
+            ->Where('store_id=:store_id');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$customer->getEmail()));
+        $result = $this->_read->fetchRow(
+            $select,
+            array('subscriber_email'=>$customer->getEmail(), 'store_id' => $customer->getStoreId())
+        );
 
         if ($result) {
             return $result;

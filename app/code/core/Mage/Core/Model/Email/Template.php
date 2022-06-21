@@ -210,7 +210,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Retrive default templates from config
+     * Retrieve default templates from config
      *
      * @return array
      */
@@ -224,7 +224,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     }
 
     /**
-     * Retrive default templates as options array
+     * Retrieve default templates as options array
      *
      * @return array
      */

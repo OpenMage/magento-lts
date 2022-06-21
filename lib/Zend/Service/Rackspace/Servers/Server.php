@@ -29,7 +29,7 @@ class Zend_Service_Rackspace_Servers_Server
     const ERROR_PARAM_NO_ID     = 'You must pass the server\'s id in the array (id)';
     /**
      * Server's name
-     * 
+     *
      * @var string
      */
     protected $name;
@@ -47,38 +47,38 @@ class Zend_Service_Rackspace_Servers_Server
     protected $imageId;
     /**
      * Flavor id of the server
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $flavorId;
     /**
      * Host id
-     * 
+     *
      * @var string
      */
     protected $hostId;
     /**
      * Server's status
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $status;
     /**
      * Progress of the status
-     * 
+     *
      * @var integer
      */
     protected $progress;
     /**
      * Admin password, generated on a new server
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $adminPass;
     /**
      * Public and private IP addresses
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $addresses = array();
     /**
@@ -138,7 +138,7 @@ class Zend_Service_Rackspace_Servers_Server
         }
         if (isset($data['metadata']) && is_array($data['metadata'])) {
             $this->metadata= $data['metadata'];
-        } 
+        }
     }
     /**
      * Get the name of the server
@@ -151,8 +151,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the server's id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getId()
     {
@@ -160,8 +160,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the server's image Id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getImageId()
     {
@@ -169,8 +169,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the server's flavor Id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getFlavorId()
     {
@@ -178,8 +178,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the server's host Id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getHostId()
     {
@@ -187,8 +187,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Ge the server's admin password
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getAdminPass()
     {
@@ -196,7 +196,7 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the server's status
-     * 
+     *
      * @return string|boolean
      */
     public function getStatus()
@@ -211,7 +211,7 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the progress's status
-     * 
+     *
      * @return integer|boolean
      */
     public function getProgress()
@@ -226,7 +226,7 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the private IPs
-     * 
+     *
      * @return array|boolean
      */
     public function getPrivateIp()
@@ -238,7 +238,7 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Get the public IPs
-     * 
+     *
      * @return array|boolean
      */
     public function getPublicIp()
@@ -265,11 +265,11 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Change the name of the server
-     * 
+     *
      * @param string $name
-     * @return boolean 
+     * @return boolean
      */
-    public function changeName($name) 
+    public function changeName($name)
     {
         $result= $this->service->changeServerName($this->id, $name);
         if ($result!==false) {
@@ -280,9 +280,9 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Change the admin password of the server
-     * 
+     *
      * @param string $password
-     * @return boolean 
+     * @return boolean
      */
     public function changePassword($password)
     {
@@ -295,8 +295,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * Reboot the server
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function reboot($hard=false)
     {
@@ -304,8 +304,8 @@ class Zend_Service_Rackspace_Servers_Server
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

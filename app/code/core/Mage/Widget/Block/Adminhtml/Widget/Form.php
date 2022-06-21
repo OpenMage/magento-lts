@@ -59,6 +59,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/*/buildWidget'));
         $this->setForm($form);
+        return $this;
     }
 
     /**

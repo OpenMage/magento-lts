@@ -87,7 +87,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      */
     public function logoutAction()
     {
-        /** @var $adminSession Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $adminSession */
         $adminSession = Mage::getSingleton('admin/session');
         $adminSession->unsetAll();
         $adminSession->getCookie()->delete($adminSession->getSessionName());
@@ -234,7 +234,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     // Validate received data to be an email address
                     if (Zend_Validate::is($email, 'EmailAddress')) {
                         $collection = Mage::getResourceModel('admin/user_collection');
-                        /** @var $collection Mage_Admin_Model_Resource_User_Collection */
+                        /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);
                         $collection->load(false);
 
@@ -327,7 +327,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if (iconv_strlen($password) <= 0) {
             array_push($errorMessages, Mage::helper('adminhtml')->__('New password field cannot be empty.'));
         }
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = $this->_getModel('admin/user')->load($userId);
 
         $user->setNewPassword($password);
@@ -387,7 +387,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
 
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getModel('admin/user')->load($userId);
         if (!$user || !$user->getId()) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Wrong account specified.'));

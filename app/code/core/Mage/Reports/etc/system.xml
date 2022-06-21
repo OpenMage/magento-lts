@@ -31,7 +31,6 @@
             <groups>
                 <recently_products translate="label" module="reports">
                     <label>Recently Viewed/Compared Products</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>350</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -48,7 +47,6 @@
                         </scope>
                         <viewed_count translate="label">
                             <label>Default Recently Viewed Products Count</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -56,7 +54,6 @@
                         </viewed_count>
                         <compared_count translate="label">
                             <label>Default Recently Compared Products Count</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -69,7 +66,6 @@
         <reports translate="label" module="reports">
             <label>Reports</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>0</show_in_website>
@@ -77,7 +73,6 @@
             <groups>
                 <general translate="label">
                     <label>General</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -96,7 +91,6 @@
                 </general>
                 <dashboard translate="label">
                     <label>Dashboard</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>

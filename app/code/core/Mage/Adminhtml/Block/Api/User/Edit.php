@@ -43,6 +43,9 @@ class Mage_Adminhtml_Block_Api_User_Edit extends Mage_Adminhtml_Block_Widget_For
 
         $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save User'));
         $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete User'));
+        $this->_updateButton('delete', 'onclick', 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
+                Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+            ) . '\')) editForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;');
     }
 
     public function getHeaderText()

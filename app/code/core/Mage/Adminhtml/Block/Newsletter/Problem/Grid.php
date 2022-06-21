@@ -99,4 +99,4 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid extends Mage_Adminhtml_Block_
         ));
         return parent::_prepareColumns();
     }
-}// Class Mage_Adminhtml_Block_Newsletter_Problem_Grid END
+}

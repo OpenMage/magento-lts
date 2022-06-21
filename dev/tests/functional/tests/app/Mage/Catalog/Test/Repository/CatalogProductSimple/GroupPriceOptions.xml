@@ -30,7 +30,7 @@
         <dataset name="for_not_logged_users">
             <field name="0" xsi:type="array">
                 <item name="price" xsi:type="string">90.00</item>
-                <item name="customer_group" xsi:type="string">NOT LOGGED IN</item>                
+                <item name="customer_group" xsi:type="string">NOT LOGGED IN</item>
             </field>
         </dataset>
 

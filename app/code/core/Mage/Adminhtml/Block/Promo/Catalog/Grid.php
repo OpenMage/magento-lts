@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_CatalogRule_Model_Mysql4_Rule_Collection */
+        /** @var Mage_CatalogRule_Model_Mysql4_Rule_Collection $collection */
         $collection = Mage::getModel('catalogrule/rule')
             ->getResourceCollection();
         $collection->addWebsitesToResult();

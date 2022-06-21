@@ -237,7 +237,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                         array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
                     )
                     ->joinLeft(
-                        array('ai' => $this->getTable('eav/entity_attribute')), 
+                        array('ai' => $this->getTable('eav/entity_attribute')),
                         'ai.attribute_id = main_table.attribute_id'
                     )
                     ->where('additional_table.is_comparable=?', 1)

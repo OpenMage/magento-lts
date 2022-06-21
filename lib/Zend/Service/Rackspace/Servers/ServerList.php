@@ -91,8 +91,8 @@ class Zend_Service_Rackspace_Servers_ServerList implements Countable, Iterator, 
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

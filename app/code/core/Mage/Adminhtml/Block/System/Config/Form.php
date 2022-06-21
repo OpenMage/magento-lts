@@ -116,7 +116,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _initObjects()
     {
-        /** @var $_configDataObject Mage_Adminhtml_Model_Config_Data */
         $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
         $this->_configRoot = $this->_configDataObject->getConfigRoot();
         $this->_configData = $this->_configDataObject->load();

@@ -193,7 +193,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * Retrive product object from object if not from registry
+     * Retrieve product object from object if not from registry
      *
      * @return Mage_Catalog_Model_Product
      */

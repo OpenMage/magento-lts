@@ -580,7 +580,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
-     * @param  $amount
+     * @param mixed $amount
      * @return $this
      */
     protected function _initialize(Varien_Object $payment, $amount)
@@ -592,7 +592,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * Check whether order review has enough data to initialize
      *
      * @deprecated since 1.6.2.0
-     * @param $token
+     * @param string $token
      * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)

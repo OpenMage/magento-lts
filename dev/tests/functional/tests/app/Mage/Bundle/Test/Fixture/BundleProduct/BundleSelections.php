@@ -41,7 +41,7 @@ class BundleSelections extends DataSource
      * @var RepositoryFactory
      */
     protected $repositoryFactory;
-    
+
     /**
      * Object manager.
      *

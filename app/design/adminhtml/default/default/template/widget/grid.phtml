@@ -27,6 +27,7 @@
 <?php
 /**
  * Template for Mage_Adminhtml_Block_Widget_Grid
+ * @var Mage_Adminhtml_Block_Widget_Grid $this
  *
  *  getId()
  *  getCollection()
@@ -79,11 +80,9 @@ $numColumns = sizeof($this->getColumns());
             <span class="separator">|</span>
             <?php echo $this->__('View') ?>
             <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
-                <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif ?>>20</option>
-                <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif ?>>30</option>
-                <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif ?>>50</option>
-                <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif ?>>100</option>
-                <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif ?>>200</option>
+                <?php foreach ($this->getLimitOptions() as $pageSize): ?>
+                    <option value="<?php echo $pageSize; ?>"<?php if($this->getCollection()->getPageSize() == $pageSize): ?> selected="selected"<?php endif ?>><?php echo $pageSize; ?></option>
+                <?php endforeach ?>
             </select>
             <?php echo $this->__('per page') ?><span class="separator">|</span>
             <?php echo $this->__('Total %d records found', $this->getCollection()->getSize()) ?>
@@ -143,7 +142,11 @@ $numColumns = sizeof($this->getColumns());
             <tfoot>
                 <tr class="totals">
                 <?php foreach ($this->getColumns() as $_column): ?>
-                    <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
+                    <th class="<?php echo $_column->getCssProperty() ?>">
+                        <?php if (($_column->getType() != 'action') && ($_column->getType() != 'massaction')): ?>
+                            <?php echo $_column->hasTotalsLabel() ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;
+                        <?php endif ?>
+                    </th>
                 <?php endforeach ?>
                 </tr>
             </tfoot>

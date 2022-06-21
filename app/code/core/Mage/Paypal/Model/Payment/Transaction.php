@@ -92,7 +92,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object before loading by by specified transaction ID
-     * @param $txnId
+     * @param string $txnId
      * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
@@ -121,7 +121,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object after loading by by specified transaction ID
-     * @param $txnId
+     *
      * @return $this
      */
     protected function _afterLoadByTxnId()

@@ -35,7 +35,7 @@
                             <config>
                                 <children>
                                     <wishlist translate="title" module="wishlist">
-                                        <title>Wishlist Section</title>
+                                        <title>Wishlist</title>
                                     </wishlist>
                                 </children>
                             </config>

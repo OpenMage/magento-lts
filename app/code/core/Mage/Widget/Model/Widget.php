@@ -256,7 +256,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
             $image,
-            Mage::helper('core')->urlEscape($directive)
+            Mage::helper('core')->escapeUrl($directive)
         );
         return $html;
     }

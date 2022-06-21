@@ -398,7 +398,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     }
 
     /**
-     * @param $items
+     * @param array $items
      */
     public function setInventoryItems($items)
     {

@@ -1,0 +1,58 @@
+name: OpenMage LTS - Sonar - Full Analyses
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+
+
+jobs:
+  unit:
+    name: Unit Tests on ${{ matrix.php-versions }}
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      max-parallel: 5
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.4', '8.1']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring
+          tools: composer, pecl, phpcs, phpstan, phpunit:9.5
+          ini-values-csv: pcov.directory=api, post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+          coverage: pcov #optional, setup coverage driver
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare
+        run: |
+          php -v
+          composer --version
+          composer install --dev -n --prefer-source --ignore-platform-req=php
+      - name: Run Unit Tests
+        run: phpunit --configuration ./dev/phpunit.xml.dist --testsuite=Unit;
+      - name: prepare SonarCloud Scan Data
+        continue-on-error: true
+        if: ${{ matrix.php-versions == '8.1' }}
+        run: |
+          echo $PWD
+          ls -la
+          head ./dev/tests/clover.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/junit.xml
+          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' ./dev/tests/clover.xml
+          head ./dev/tests/clover.xml
+          ls -la
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        continue-on-error: true
+        if: ${{ matrix.php-versions == '8.1' }} && SONAR_TOKEN
+        with:
+          args: >
+            -Dproject.settings=dev/sonar-project.properties
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

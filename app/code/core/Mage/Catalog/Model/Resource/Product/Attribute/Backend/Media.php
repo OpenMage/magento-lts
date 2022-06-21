@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     }
 
     /**
-     * Insert gallery value to db and retrive last id
+     * Insert gallery value to db and retrieve last id
      *
      * @param array $data
      * @return int

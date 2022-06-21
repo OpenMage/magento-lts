@@ -34,7 +34,7 @@
 class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
 {
     /**
-     * Retrive gift message save url
+     * Retrieve gift message save url
      *
      * @param Varien_Object $item
      * @param string $type
@@ -53,7 +53,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive gift message button block url
+     * Retrieve gift message button block url
      *
      * @param integer $itemId
      * @param string $type
@@ -67,7 +67,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive gift message remove url
+     * Retrieve gift message remove url
      *
      * @param integer $itemId
      * @param string $type
@@ -81,7 +81,7 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive gift message save url
+     * Retrieve gift message save url
      *
      * @param integer $itemId
      * @param string $type
