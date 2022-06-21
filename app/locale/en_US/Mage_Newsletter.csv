@@ -51,7 +51,6 @@
 "Newsletter Message Preview","Newsletter Message Preview"
 "Newsletter Problem Reports","Newsletter Problem Reports"
 "Newsletter Queue","Newsletter Queue"
-"Newsletter Section","Newsletter Section"
 "Newsletter Sign-up:","Newsletter Sign-up:"
 "Newsletter Styles","Newsletter Styles"
 "Newsletter Subscribers","Newsletter Subscribers"
@@ -140,3 +139,4 @@
 "Website","Website"
 "You have been unsubscribed.","You have been unsubscribed."
 "Your subscription has been confirmed.","Your subscription has been confirmed."
+"This email address is already confirmed.","This email address is already confirmed."
