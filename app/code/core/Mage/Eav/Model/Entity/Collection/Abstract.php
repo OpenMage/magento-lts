@@ -772,7 +772,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (!is_object($tableName) && strpos($tableName, '/') !== false) {
+        if (is_string($tableName) && strpos($tableName, '/') !== false) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
         if (empty($tableAlias)) {
