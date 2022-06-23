@@ -30,7 +30,6 @@
         <customer translate="title" module="customer">
             <title>Customers</title>
             <sort_order>40</sort_order>
-            <!-- action>adminhtml/customer/</action -->
             <children>
                 <manage translate="title" module="customer">
                     <title>Manage Customers</title>
@@ -47,6 +46,20 @@
                     <action>adminhtml/customer_online/</action>
                     <sort_order>100</sort_order>
                 </online>
+                <attributes translate="title">
+                    <title>Attributes</title>
+                    <sort_order>200</sort_order>
+                    <children>
+                        <customer_attributes translate="title">
+                            <title>Manage Customer Attributes</title>
+                            <action>adminhtml/customer_attribute</action>
+                        </customer_attributes>
+                        <customer_address_attributes translate="title">
+                            <title>Manage Customer Address Attributes</title>
+                            <action>adminhtml/customer_address_attribute</action>
+                        </customer_address_attributes>
+                    </children>
+                </attributes>
             </children>
          </customer>
     </menu>
