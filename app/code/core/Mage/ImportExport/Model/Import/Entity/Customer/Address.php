@@ -230,12 +230,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     || $rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS
                 ) {
                     // entity table data
+                    $now = Varien_Date::now();
                     $entityRows[] = array(
                         'entity_id'      => $entityId,
                         'entity_type_id' => $this->_entityTypeId,
                         'parent_id'      => $customerId,
-                        'created_at'     => now(),
-                        'updated_at'     => now()
+                        'created_at'     => $now,
+                        'updated_at'     => $now
                     );
                     // attribute values
                     foreach ($this->_attributes as $attrAlias => $attrParams) {
