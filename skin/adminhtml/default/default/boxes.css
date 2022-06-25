@@ -255,10 +255,8 @@ img.accordion-btn       { float:right; margin-top:1px; margin-right:5px; }
 ul.tabs                         { border-top:1px solid #bebebe; background-color:#e7efef; }
 ul.tabs a, ul.tabs span         { display:block; }
 ul.tabs a, ul.tabs a:hover      { text-decoration:none; }
-/* ul.tabs a.notloaded             { color:#999; } */
 ul.tabs a, ul.tabs a:hover      { color:#000; }
-ul.tabs, ul.tabs a              { background:url(images/tabs_link_bg.gif) repeat-y 100% #E7EFEF; }
-ul.tabs a:hover                 { background-color:#D8E6E6; background-image:url(images/tabs_link_over_bg.gif); }
+ul.tabs a:hover                 { background-color:#D8E6E6; }
 ul.tabs a.active                { padding:0; border-bottom:1px solid #bebebe; background:none; }
 ul.tabs a:hover.active          { padding:0; }
 ul.tabs span                    { background:url(images/tabs_span_bg.gif) repeat-x 0 100%; padding:.3em 0.5em .28em 1.5em; cursor:pointer; }
@@ -579,8 +577,10 @@ td.divider              { font-size:1px; line-height:0; }
 .middle-popup { border-bottom:3px solid #fff; background:url(images/middle_bg.gif) repeat-x 0 100% #fff; padding:0 0 0 0; background:yellow; }
 .container-collapsed { padding:1.8em 2.2em 1.8em 2em; padding-top:0; }
 
-div.side-col { float:left; width:280px; margin-right:-280px; padding-bottom:25px; }
-div.main-col { margin-left:280px; min-height:450px; padding:0 0 25px 25px; border-left: 2px solid #dedede; }
+div.side-col { float:left; width:220px; margin-right:-220px; padding-bottom:25px; }
+div.main-col { margin-left:220px; min-height:450px; padding:0 0 25px 25px; border-left: 2px solid #dedede; }
+body.adminhtml-catalog-category-edit div.side-col { width:280px; margin-right:-280px; }
+body.adminhtml-catalog-category-edit div.main-col { margin-left:280px; }
 div.main-col-inner { float:left; /* Fixes some inner clears in the liquid main-col */ width:100%; }
 
 .footer { clear:both; background:url(images/footer_bg.gif) repeat-x #e6e6e6; padding:105px 2.8em 2.8em 2.8em; font-size:.95em; text-align:center; }
