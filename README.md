@@ -68,6 +68,28 @@ git add -A && git commit
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
 
+## Secure your installation
+
+Do not use /admin (or /nimda...) for backend url. Do not add it into your _robots.txt_, keep it secret. You can change it from your backend (System / Configuration / Admin / Admin Base Url) or from your _app/etc/local.xml_:
+
+```xml
+<config>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[admin]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+```
+
+Do not use /api.php (or /ipa.php...) for OpenMage API url. Do not add it into your _robots.txt_, keep it secret with your partners. You can rename the file as you want. Don't forgot to also update server configuration:
+* htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
+* nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+
 ## Changes
 
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
