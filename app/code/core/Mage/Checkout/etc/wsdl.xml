@@ -5,7 +5,7 @@
              xmlns="http://schemas.xmlsoap.org/wsdl/"
              name="OpenMage" targetNamespace="urn:OpenMage">
     <types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <complexType name="shoppingCartAddressEntity">
                 <all>
                     <element name="address_id" type="xsd:string" minOccurs="0"/>
