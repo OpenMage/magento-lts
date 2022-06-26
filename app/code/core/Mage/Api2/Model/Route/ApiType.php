@@ -57,6 +57,6 @@ class Mage_Api2_Model_Route_ApiType extends Mage_Api2_Model_Route_Abstract imple
         Zend_Translate $translator = null,
         $locale = null
     ) {
-        parent::__construct(array(Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))).'/:api_type'));
+        parent::__construct(array(Mage_Api2_Model_Route_Abstract::PARAM_ROUTE => str_replace('.php', '', basename(getenv('SCRIPT_FILENAME'))) . '/:api_type'));
     }
 }
