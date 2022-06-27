@@ -37,7 +37,8 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
 
     protected function _initAction()
     {
-        $this->_title($this->__('Customer'))
+        $this
+            ->_title($this->__('Customer'))
             ->_title($this->__('Attributes'))
             ->_title($this->__('Manage Customer Attributes'));
 
@@ -48,8 +49,8 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
                 ->_setActiveMenu('customer/attributes')
                 ->_addBreadcrumb(Mage::helper('customer')->__('Customer'), Mage::helper('customer')->__('Customer'))
                 ->_addBreadcrumb(
-                    Mage::helper('catalog')->__('Manage Customer Attributes'),
-                    Mage::helper('catalog')->__('Manage Customer Attributes'))
+                    Mage::helper('customer')->__('Manage Customer Attributes'),
+                    Mage::helper('customer')->__('Manage Customer Attributes'))
             ;
         }
         return $this;
@@ -60,5 +61,44 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('adminhtml/customer_attribute'))
             ->renderLayout();
+    }
+
+    public function editAction()
+    {
+        $id = $this->getRequest()->getParam('attribute_id');
+        $model = Mage::getModel('customer/attribute')
+            ->setEntityTypeId($this->_entityTypeId);
+
+        if ($id) {
+            $model->load($id);
+            if (!$model->getId()) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('customer')->__('This attribute no longer exists'));
+                $this->_redirect('*/*/');
+                return;
+            }
+
+            // entity type check
+            if ($model->getEntityTypeId() != $this->_entityTypeId) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('customer')->__('This attribute cannot be edited.'));
+                $this->_redirect('*/*/');
+                return;
+            }
+        }
+
+        // set entered data if was error when we do save
+        $data = Mage::getSingleton('adminhtml/session')->getAttributeData(true);
+        if (!empty($data)) {
+            $model->addData($data);
+        }
+
+        Mage::register('entity_attribute', $model);
+        $this->_initAction();
+        $this->_title($id ? $model->getName() : $this->__('New Attribute'));
+        $item = $id ? Mage::helper('customer')->__('Edit Customer Attribute')
+            : Mage::helper('customer')->__('New Customer Attribute');
+        $this->_addBreadcrumb($item, $item);
+        $this->renderLayout();
     }
 }
