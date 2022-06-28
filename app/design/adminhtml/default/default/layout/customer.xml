@@ -32,21 +32,32 @@
             <block type="adminhtml/customer_edit" name="customer_edit"></block>
         </reference>
         <reference name="head">
-            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
-            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
-            <action method="addJs"><file>varien/configurable.js</file></action>
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries"
+                   template="directory/js/optional_zip_countries.phtml"/>
+            <action method="addJs">
+                <file>mage/adminhtml/product/composite/configure.js</file>
+            </action>
+            <action method="addJs">
+                <file>varien/configurable.js</file>
+            </action>
         </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
-                <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">
-                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-" />
-                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion" />
+                <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view"
+                       template="customer/tab/view.phtml">
+                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales"
+                           template="customer/tab/view/sales.phtml" before="-"/>
+                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion"/>
                 </block>
-                <action method="addTab"><name>customer_edit_tab_view</name><block>customer_edit_tab_view</block></action>
+                <action method="addTab">
+                    <name>customer_edit_tab_view</name>
+                    <block>customer_edit_tab_view</block>
+                </action>
             </block>
         </reference>
         <reference name="js">
-            <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js" as="customer_edit_js"></block>
+            <block type="adminhtml/template" template="customer/edit/js.phtml" name="customer.edit.js"
+                   as="customer_edit_js"></block>
         </reference>
     </adminhtml_customer_edit>
     <adminhtml_customer_group_index>
@@ -55,7 +66,7 @@
         </reference>
     </adminhtml_customer_group_index>
     <adminhtml_customer_wishlist>
-        <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml" />
+        <block type="adminhtml/customer_edit_tab_wishlist" name="customer.wishlist.edit.tab" output="toHtml"/>
     </adminhtml_customer_wishlist>
 
     <adminhtml_customer_orders>
@@ -120,18 +131,24 @@
 
     <adminhtml_customer_cart>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="adminhtml/customer_edit_tab_cart" name="admin.customer.view.edit.cart" />
+            <block type="adminhtml/customer_edit_tab_cart" name="admin.customer.view.edit.cart"/>
         </block>
     </adminhtml_customer_cart>
 
     <adminhtml_customer_attribute_edit>
         <reference name="left">
-            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml" />
+            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml"/>
             <block type="adminhtml/customer_attribute_edit_tabs" name="attribute_edit_tabs">
-                <block type="adminhtml/customer_attribute_edit_tab_main" name="customer_attribute_edit_tab_general" />
-                <action method="addTab"><name>general</name><block>customer_attribute_edit_tab_general</block></action>
-                <block type="adminhtml/customer_attribute_edit_tab_options" name="customer_attribute_edit_tab_options" />
-                <action method="addTab"><name>options</name><block>customer_attribute_edit_tab_options</block></action>
+                <block type="adminhtml/customer_attribute_edit_tab_main" name="customer_attribute_edit_tab_general"/>
+                <action method="addTab">
+                    <name>general</name>
+                    <block>customer_attribute_edit_tab_general</block>
+                </action>
+                <block type="adminhtml/customer_attribute_edit_tab_options" name="customer_attribute_edit_tab_options"/>
+                <action method="addTab">
+                    <name>options</name>
+                    <block>customer_attribute_edit_tab_options</block>
+                </action>
             </block>
         </reference>
         <reference name="content">
@@ -141,4 +158,28 @@
             <block type="adminhtml/template" name="attribute_edit_js" template="customer/attribute/js.phtml"></block>
         </reference>
     </adminhtml_customer_attribute_edit>
+
+    <adminhtml_customer_address_attribute_edit>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml"/>
+            <block type="adminhtml/customer_address_attribute_edit_tabs" name="attribute_edit_tabs">
+                <block type="adminhtml/customer_address_attribute_edit_tab_main" name="customer_address_attribute_edit_tab_general"/>
+                <action method="addTab">
+                    <name>general</name>
+                    <block>customer_address_attribute_edit_tab_general</block>
+                </action>
+                <block type="adminhtml/customer_address_attribute_edit_tab_options" name="customer_address_attribute_edit_tab_options"/>
+                <action method="addTab">
+                    <name>options</name>
+                    <block>customer_address_attribute_edit_tab_options</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/customer_address_attribute_edit" name="attribute_edit_content"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="attribute_edit_js" template="customer/address/attribute/js.phtml"></block>
+        </reference>
+    </adminhtml_customer_address_attribute_edit>
 </layout>
