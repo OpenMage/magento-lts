@@ -63,6 +63,12 @@ class Mage_Adminhtml_Customer_Address_AttributeController extends Mage_Adminhtml
             ->renderLayout();
     }
 
+    public function newAction()
+    {
+        $this->addActionLayoutHandles();
+        $this->_forward('edit');
+    }
+
     public function editAction()
     {
         $id = $this->getRequest()->getParam('attribute_id');
