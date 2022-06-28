@@ -309,8 +309,7 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
                     Mage::helper('customer')->__('The product attribute has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->_redirect('*/*/edit', array('attribute_id' => $this->getRequest()->getParam('attribute_id')));
                 return;
@@ -323,7 +322,6 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
 
     protected function _isAllowed()
     {
-        return true;
-        return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/attributes');
+        return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/customer_attributes');
     }
 }

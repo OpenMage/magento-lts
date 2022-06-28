@@ -107,4 +107,9 @@ class Mage_Adminhtml_Customer_Address_AttributeController extends Mage_Adminhtml
         $this->_addBreadcrumb($item, $item);
         $this->renderLayout();
     }
+
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('customer/attributes/customer_address_attributes');
+    }
 }

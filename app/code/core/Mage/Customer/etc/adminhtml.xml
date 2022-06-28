@@ -83,6 +83,20 @@
                                 <title>Online Customers</title>
                                 <sort_order>100</sort_order>
                             </online>
+                            <attributes>
+                                <title>Attributes</title>
+                                <sort_order>110</sort_order>
+                                <children>
+                                    <customer_attributes>
+                                        <title>Customer Attributes</title>
+                                        <sort_order>10</sort_order>
+                                    </customer_attributes>
+                                    <customer_address_attributes>
+                                        <title>Customer Address Attributes</title>
+                                        <sort_order>20</sort_order>
+                                    </customer_address_attributes>
+                                </children>
+                            </attributes>
                         </children>
                     </customer>
                     <system>
