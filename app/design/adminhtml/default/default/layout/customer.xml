@@ -39,8 +39,8 @@
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
                 <block type="adminhtml/customer_edit_tab_view" name="customer_edit_tab_view" template="customer/tab/view.phtml">
-                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-" />
-                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion" />
+                    <block type="adminhtml/customer_edit_tab_view_sales" name="sales" template="customer/tab/view/sales.phtml" before="-"/>
+                    <block type="adminhtml/customer_edit_tab_view_accordion" name="accordion"/>
                 </block>
                 <action method="addTab"><name>customer_edit_tab_view</name><block>customer_edit_tab_view</block></action>
             </block>
