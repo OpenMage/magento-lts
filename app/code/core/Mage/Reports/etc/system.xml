@@ -112,7 +112,7 @@
                     </fields>
                 </dashboard>
                 <crontab translate="label">
-                    <label>Cron settings</label>
+                    <label>Cron Settings</label>
                     <sort_order>3</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
