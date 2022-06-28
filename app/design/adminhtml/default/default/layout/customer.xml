@@ -33,12 +33,8 @@
         </reference>
         <reference name="head">
             <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml"/>
-            <action method="addJs">
-                <file>mage/adminhtml/product/composite/configure.js</file>
-            </action>
-            <action method="addJs">
-                <file>varien/configurable.js</file>
-            </action>
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
         </reference>
         <reference name="left">
             <block type="adminhtml/customer_edit_tabs" name="customer_edit_tabs">
