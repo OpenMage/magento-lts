@@ -411,6 +411,7 @@
 "Use Secure URLs in Frontend","Use Secure URLs in Frontend"
 "Use Web Server Rewrites","Use Web Server Rewrites"
 "VAT Number","VAT Number"
+"Valid format: minute hour day(month) month day(week). Recommended value is 30 3 * * 6. Never run value is 0 0 30 2 0.","Valid format: minute hour day(month) month day(week). Recommended value is 30 3 * * 6. Never run value is 0 0 30 2 0."
 "Validate HTTP_USER_AGENT","Validate HTTP_USER_AGENT"
 "Validate HTTP_VIA","Validate HTTP_VIA"
 "Validate HTTP_X_FORWARDED_FOR","Validate HTTP_X_FORWARDED_FOR"
