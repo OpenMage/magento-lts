@@ -57,6 +57,7 @@ class Mage_Adminhtml_Catalog_Category_AttributeController extends Mage_Adminhtml
         $this->_setForcedFormKeyActions('delete');
         parent::preDispatch();
         $this->_entityTypeId = Mage::getModel('eav/entity')->setType(Mage_Catalog_Model_Category::ENTITY)->getTypeId();
+        return $this;
     }
 
     protected function _initAction()
