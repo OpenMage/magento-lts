@@ -33,6 +33,7 @@ class Mage_Adminhtml_Customer_Address_AttributeController extends Mage_Adminhtml
         $this->_setForcedFormKeyActions('delete');
         parent::preDispatch();
         $this->_entityTypeId = Mage::getModel('eav/entity')->setType(Mage_Customer_Model_Address::ENTITY)->getTypeId();
+        return $this;
     }
 
     protected function _initAction()
