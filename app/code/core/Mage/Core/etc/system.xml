@@ -61,14 +61,14 @@
                         </use_form_key>
                     </fields>
                 </csrf>
-                <cache>
+                <cache translate="label" module="core">
                     <label>Advanced Cache Settings</label>
                     <sort_order>1000</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <flush_cron_expr>
+                        <flush_cron_expr translate="label comment">
                             <label>Cron Expression for Flushing Cache</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
