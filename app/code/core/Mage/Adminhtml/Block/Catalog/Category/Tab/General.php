@@ -24,8 +24,16 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Category edit general tab
+ *
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_Block_Catalog_Form
 {
+
     protected $_category;
 
     public function __construct()
@@ -52,6 +60,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
 
         if (!$this->getCategory()->getId()) {
+//            $fieldset->addField('path', 'select', array(
+//                'name'  => 'path',
+//                'label' => Mage::helper('catalog')->__('Parent Category'),
+//                'value' => base64_decode($this->getRequest()->getParam('parent')),
+//                'values'=> $this->_getParentCategoryOptions(),
+//                //'required' => true,
+//                //'class' => 'required-entry'
+//                ),
+//                'name'
+//            );
             $parentId = $this->getRequest()->getParam('parent');
             if (!$parentId) {
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
@@ -115,5 +133,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         }
         return $options;
     }
+
 }
 
