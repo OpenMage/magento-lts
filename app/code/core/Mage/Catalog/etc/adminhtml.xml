@@ -56,6 +56,10 @@
                             <title>Manage Attribute Sets</title>
                             <action>adminhtml/catalog_product_set/</action>
                         </sets>
+                        <category_attributes translate="title" module="catalog">
+                            <title>Manage Category Attributes</title>
+                            <action>adminhtml/catalog_category_attribute/</action>
+                        </category_attributes>
                     </children>
                     <sort_order>20</sort_order>
                 </attributes>
@@ -95,6 +99,9 @@
                                     <sets translate="title">
                                         <title>Manage Attribute Sets</title>
                                     </sets>
+                                    <category_attributes translate="title">
+                                        <title>Manage Category Attributes</title>
+                                    </category_attributes>
                                 </children>
                             </attributes>
                             <categories translate="title">
