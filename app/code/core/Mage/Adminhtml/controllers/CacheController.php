@@ -66,7 +66,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     {
         Mage::app()->cleanCache();
         Mage::dispatchEvent('adminhtml_cache_flush_system');
-        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The Magento cache storage has been flushed."));
+        $this->_getSession()->addSuccess(Mage::helper('adminhtml')->__("The OpenMage cache storage has been flushed."));
         $this->_redirect('*/*');
     }
 
