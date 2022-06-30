@@ -578,8 +578,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $itemId
-     * @return bool|mixed
+     * @param int|string $itemId
+     * @return false|Mage_Sales_Model_Order_Invoice_Item
      */
     public function getItemById($itemId)
     {

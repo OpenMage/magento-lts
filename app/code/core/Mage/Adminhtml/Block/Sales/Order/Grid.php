@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
 
         $this->addColumn('real_order_id', array(
             'header' => Mage::helper('sales')->__('Order #'),
-            'width'  => '80px',
+            'width'  => '100px',
             'type'   => 'text',
             'index'  => 'increment_id',
             'escape' => true,
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',
-            'width' => '100px',
+            'width' => '150px',
         ));
 
         $this->addColumn('billing_name', array(
@@ -118,7 +118,7 @@ class Mage_Adminhtml_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_Widget_
             'header' => Mage::helper('sales')->__('Status'),
             'index' => 'status',
             'type'  => 'options',
-            'width' => '70px',
+            'width' => '150px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
         ));
 

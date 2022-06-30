@@ -29,8 +29,8 @@
 
 /************** ALL LEVELS  *************/ /* Style consistent throughout all nav levels */
 #nav li { position:relative; text-align:left; }
-#nav li.over { z-index:99; }
-#nav li.active { z-index:100; } /* to prevent the li separator from showing through on mouseover on li */
+#nav li.over { z-index:999; }
+#nav li.active { z-index:1000; } /* to prevent the li separator from showing through on mouseover on li */
 #nav a,
 #nav a:hover { display:block; text-decoration:none; }
 #nav span { display:block; /*cursor:pointer;*/ }

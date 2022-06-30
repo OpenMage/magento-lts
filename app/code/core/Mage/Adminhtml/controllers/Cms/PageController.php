@@ -271,7 +271,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $errorNo = true;
         if (!empty($data['layout_update_xml']) || !empty($data['custom_layout_update_xml'])) {
-            /** @var $validatorCustomLayout Mage_Adminhtml_Model_LayoutUpdate_Validator */
+            /** @var Mage_Adminhtml_Model_LayoutUpdate_Validator $validatorCustomLayout */
             $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
             if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
                 $errorNo = false;

@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
             $this->setDataUsingMethod($k, $v);
         }
 
-        parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     public function getOrderStoreName()

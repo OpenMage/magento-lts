@@ -215,7 +215,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $item = Mage::getModel('wishlist/item');
             $item->setProductId($product->getId())
                 ->setWishlistId($this->getId())
-                ->setAddedAt(now())
+                ->setAddedAt(Varien_Date::now())
                 ->setStoreId($storeId)
                 ->setOptions($product->getCustomOptions())
                 ->setProduct($product)

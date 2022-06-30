@@ -57,7 +57,6 @@
                     <fields>
                         <configurable_page_size translate="label,comment">
                             <label>Page size for import configurable products</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number</validate>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>

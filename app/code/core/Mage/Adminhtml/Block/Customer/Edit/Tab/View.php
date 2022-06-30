@@ -136,8 +136,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     public function getCurrentStatus()
     {
         $log = $this->getCustomerLog();
-        if ($log->getLogoutAt() ||
-            strtotime(now())-strtotime($log->getLastVisitAt())>Mage_Log_Model_Visitor::getOnlineMinutesInterval()*60) {
+        if ($log->getLogoutAt()
+            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+        ) {
             return Mage::helper('customer')->__('Offline');
         }
         return Mage::helper('customer')->__('Online');

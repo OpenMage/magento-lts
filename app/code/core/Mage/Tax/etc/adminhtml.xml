@@ -97,7 +97,7 @@
                             <config>
                                 <children>
                                     <tax translate="title">
-                                        <title>Tax Section</title>
+                                        <title>Tax</title>
                                         <sort_order>55</sort_order>
                                     </tax>
                                 </children>

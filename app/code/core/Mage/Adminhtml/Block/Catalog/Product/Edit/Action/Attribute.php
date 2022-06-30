@@ -62,6 +62,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
                     'class'     => 'save'
                 ))
         );
+        return $this;
     }
 
     /**

@@ -31,7 +31,6 @@
             <groups>
                 <authorizenet translate="label" module="paygate">
                     <label>Authorize.net (Deprecated)</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>34</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -85,7 +84,6 @@
                         </login>
                         <merchant_email translate="label">
                             <label>Merchant's Email</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-email</validate>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
@@ -103,7 +101,6 @@
                         </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>95</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -129,7 +126,6 @@
                         </debug>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -155,7 +151,6 @@
                         </payment_action>
                         <cgi_url>
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -163,7 +158,6 @@
                         </cgi_url>
                         <cgi_url_td>
                             <label>Payment Update URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>35</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -198,7 +192,6 @@
                         </specificcountry>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>85</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -206,7 +199,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -249,7 +241,6 @@
                         <centinel_api_url translate="label comment">
                             <label>Centinel API URL</label>
                             <comment>If empty, a default value will be used. Custom URL may be provided by CardinalCommerce agreement.</comment>
-                            <frontend_type>text</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>135</sort_order>
                             <show_in_default>1</show_in_default>

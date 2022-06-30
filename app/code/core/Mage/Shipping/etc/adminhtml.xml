@@ -35,11 +35,11 @@
                             <config>
                                 <children>
                                     <shipping translate="title" module="shipping">
-                                        <title>Shipping Settings Section</title>
+                                        <title>Shipping Settings</title>
                                         <sort_order>0</sort_order>
                                     </shipping>
                                     <carriers translate="title" module="shipping">
-                                        <title>Shipping Methods Section</title>
+                                        <title>Shipping Methods</title>
                                         <sort_order>0</sort_order>
                                     </carriers>
                                 </children>

@@ -127,7 +127,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     {
         if ($this->getRequest()->getPost()) {
             try {
-                /** @var $model Mage_SalesRule_Model_Rule */
+                /** @var Mage_SalesRule_Model_Rule $model */
                 $model = Mage::getModel('salesrule/rule');
                 Mage::dispatchEvent(
                     'adminhtml_controller_salesrule_prepare_save',
@@ -401,7 +401,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $result = array();
         $this->_initRule();
 
-        /** @var $rule Mage_SalesRule_Model_Rule */
+        /** @var Mage_SalesRule_Model_Rule $rule */
         $rule = Mage::registry('current_promo_quote_rule');
 
         if (!$rule->getId()) {
@@ -413,7 +413,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     $data = array_merge($data, $this->_filterDates($data, array('to_date')));
                 }
 
-                /** @var $generator Mage_SalesRule_Model_Coupon_Massgenerator */
+                /** @var Mage_SalesRule_Model_Coupon_Massgenerator $generator */
                 $generator = $rule::getCouponMassGenerator();
                 if (!$generator->validateData($data)) {
                     $result['error'] = Mage::helper('salesrule')->__('Not valid data provided');

@@ -85,7 +85,7 @@
     font-weight:bold;
     text-align:center;
     opacity:0.80;
-    z-index:500;
+    z-index:1000;
     }
 #loading-mask .loader {
     position:fixed;
@@ -102,8 +102,8 @@
     z-index:1000;
     }
 
-#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:980; background-color:#efefef; opacity:.5; }
-.message-popup { position:absolute; z-index:990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
+#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:1980; background-color:#efefef; opacity:.5; }
+.message-popup { position:absolute; z-index:1990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
 .message-popup.show { top:280px; }
 .message-popup .message-popup-head { padding:1px 0; }
 .message-popup .message-popup-head h2 { padding:0 10px; margin:0; font:bold 12px/19px Arial, Helvetica, sans-serif; color:#644f3b; }
@@ -222,7 +222,6 @@ table.actions td                { vertical-align:top; }
 /* Dynamic Grid */ /* Used in pages like Catalog -> Attributes */
 .dynamic-grid th                { padding:2px;width:100px; }
 .dynamic-grid td                { padding:2px; }
-.dynamic-grid td input          { width:94px; }
 tr.dynamic-grid td,
 tr.dynamic-grid th { padding:2px 10px 2px 0; width:auto; }
 tr.dynamic-grid input.input-text { width:154px; }
@@ -473,7 +472,7 @@ button.success:active { background:url(images/btn_gr_on.gif) repeat-x 0 0 #3fa05
 
 button.disabled,
 button.disabled:hover,
-button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; }
+button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; }
 button.add.disabled span { background-image:url(images/add_btn_icon-disabled.gif); }
 
 button.loading > span { padding-left:20px; background-image: url(images/btn_loading-icon.gif) !important;}
@@ -549,7 +548,7 @@ td.divider              { font-size:1px; line-height:0; }
 .scrollContent              { position:absolute; left:0; top:0; }
 
 /* Horizontal scroll */
-.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; }
+.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; } /* IE has personal style, see iestyles.css */
 
 
 /**/
@@ -656,7 +655,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .left-col-block { width:200px; }
 
 /* Floating Content Header */ /* Used to make action buttons always within reach */
-.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; opacity:.85; }
+.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"/* IE8 */; opacity:.85; }
 .content-header-floating .content-header { padding:6px 8px 4px 8px; margin-bottom:0; border:0; }
 .content-header-floating td     { padding-right:20px; }
 .content-header-floating button { margin-top:3px; }

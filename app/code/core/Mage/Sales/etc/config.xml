@@ -1558,7 +1558,6 @@
                 <Mage_Sales>
                     <files>
                         <default>Mage_Sales.csv</default>
-                        <openmage_lts>Mage_Sales_LTS.csv</openmage_lts>
                     </files>
                 </Mage_Sales>
             </modules>

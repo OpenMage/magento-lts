@@ -30,7 +30,6 @@
         <api translate="label" module="api">
             <label>Magento Core API</label>
             <tab>service</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>101</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                  <config translate="label">
                     <label>General Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -46,7 +44,6 @@
                     <fields>
                         <charset translate="label">
                             <label>Default Response Charset</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -54,7 +51,6 @@
                         </charset>
                         <session_timeout translate="label">
                             <label>Client Session Timeout (sec.)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

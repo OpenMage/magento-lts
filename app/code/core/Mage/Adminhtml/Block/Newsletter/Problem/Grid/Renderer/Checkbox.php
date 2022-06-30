@@ -44,4 +44,4 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid_Renderer_Checkbox extends Mag
     {
         return '<input type="checkbox" name="problem[]" value="' . $row->getId() . '" class="problemCheckbox"/>';
     }
-}// Class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid_Renderer_Checkbox END
+}

@@ -399,7 +399,7 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Set option product with Qty
      *
-     * @param  $qtyOptions
+     * @param array $qtyOptions
      * @return $this
      */
     public function setQtyOptions($qtyOptions)

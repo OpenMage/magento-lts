@@ -131,8 +131,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content extends Mage_Adminhtml_Blo
     /**
      * Description goes here...
      *
-     * @param none
-     * @return void
+     * @return string
      */
     public function getDeleteFilesUrl()
     {
