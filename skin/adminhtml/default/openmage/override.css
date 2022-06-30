@@ -485,7 +485,7 @@ ul.tabs {
   border-top: 0;
 }
 ul.tabs dl {
-  background: #68666f;
+  background: #fff;
   border: 1px solid lightgrey;
 }
 ul.tabs a {
@@ -648,7 +648,7 @@ div.autocomplete ul li.selected {
 
 #loading-mask {
   background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  z-index: 1000;
   color: #68666f;
   opacity: 1;
 }

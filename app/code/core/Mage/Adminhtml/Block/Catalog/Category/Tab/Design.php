@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         $form->addValues($this->getCategory()->getData());
         $form->setFieldNameSuffix('general');
         $this->setForm($form);
+        return $this;
     }
 
 }

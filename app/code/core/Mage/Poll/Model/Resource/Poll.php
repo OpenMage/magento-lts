@@ -219,6 +219,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
             $answer->setPollId($object->getId());
             $answer->save();
         }
+        return $this;
     }
 
     /**

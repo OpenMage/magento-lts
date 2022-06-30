@@ -934,7 +934,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if tax can be applied to custom price
      *
-     * @param $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function applyTaxOnCustomPrice($store = null)
@@ -945,7 +945,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if tax should be applied just to original price
      *
-     * @param $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function applyTaxOnOriginalPrice($store = null)
@@ -958,8 +958,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      * This sequence depends on "Catalog price include tax", "Apply Tax After Discount"
      * and "Apply Discount On Prices Including Tax" configuration options.
      *
-     * @param   null|int|string|Mage_Core_Model_Store $store
-     * @return  string
+     * @param null|int|string|Mage_Core_Model_Store $store
+     * @return string
      */
     public function getCalculationSequence($store = null)
     {

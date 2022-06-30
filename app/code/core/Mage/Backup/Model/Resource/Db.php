@@ -138,7 +138,7 @@ class Mage_Backup_Model_Resource_Db
      * Retrieve table status
      *
      * @param string $tableName
-     * @return Varien_Object
+     * @return Varien_Object|false
      */
     public function getTableStatus($tableName)
     {
@@ -168,7 +168,7 @@ class Mage_Backup_Model_Resource_Db
      *
      * @param string $tableName
      * @param array $row
-     * @return string
+     * @return array
      */
     protected function _quoteRow($tableName, array $row)
     {
@@ -191,9 +191,9 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Enter description here...
      *
-     * @param unknown_type $tableName
-     * @param unknown_type $addDropIfExists
-     * @return unknown
+     * @param string $tableName
+     * @param bool $addDropIfExists
+     * @return string
      */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
@@ -203,7 +203,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Retrieve table header comment
      *
-     * @param unknown_type $tableName
+     * @param string $tableName
      * @return string
      */
     public function getTableHeader($tableName)
@@ -306,7 +306,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Run sql code
      *
-     * @param $command
+     * @param string|Zend_Db_Select $command
      * @return $this
      */
     public function runCommand($command){

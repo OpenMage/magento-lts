@@ -990,7 +990,7 @@ class Mage_Paypal_Model_Config
     /**
      * Get url that allows to edit checkout details on paypal side
      *
-     * @param $token
+     * @param string $token
      * @return string
      */
     public function getExpressCheckoutEditUrl($token)
@@ -1611,7 +1611,7 @@ class Mage_Paypal_Model_Config
     /**
      * Check wheter specified country code is supported by build notation codes for specific countries
      *
-     * @param $code
+     * @param string $code
      * @return string|null
      */
     private function _matchBnCountryCode($code)
@@ -1890,7 +1890,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Get Display option from stored config
-     * @param $section
+     * @param string $section
      *
      * @return mixed
      */
@@ -1906,7 +1906,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Get Position option from stored config
-     * @param $section
+     * @param string $section
      *
      * @return mixed
      */
@@ -1917,7 +1917,7 @@ class Mage_Paypal_Model_Config
 
     /**
      * Get Size option from stored config
-     * @param $section
+     * @param string $section
      *
      * @return mixed
      */

@@ -156,4 +156,4 @@ class Mage_Api_Model_Server
     {
         return $this->_adapter;
     }
-} // Class Mage_Api_Model_Server_Abstract End
+}

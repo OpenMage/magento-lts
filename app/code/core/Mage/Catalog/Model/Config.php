@@ -281,7 +281,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     }
 
     /**
-     * @param $source
+     * @param Mage_Eav_Model_Entity_Attribute_Source_Interface $source
      * @param string $value
      * @return string|null
      */

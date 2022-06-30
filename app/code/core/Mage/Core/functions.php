@@ -451,3 +451,16 @@ if (!function_exists('str_ends_with')) {
         return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
     }
 }
+
+/**
+ * polyfill for PHP 7.3 function "is_countable"
+ */
+if (!function_exists('is_countable')) {
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    function is_countable($value) {
+        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
+    }
+}

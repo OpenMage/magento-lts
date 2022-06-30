@@ -147,7 +147,6 @@ final class Mage
 
     /**
      * Gets the current Magento version string
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
@@ -160,7 +159,6 @@ final class Mage
 
     /**
      * Gets the detailed Magento version information
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return array
      */
@@ -404,7 +402,7 @@ final class Mage
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -865,7 +863,18 @@ final class Mage
 
         static $loggers = array();
 
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
+
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+            return;
+        }
+
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 

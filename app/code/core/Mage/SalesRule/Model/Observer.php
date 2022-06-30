@@ -60,7 +60,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Process quote item (apply discount to item)
      *
-     * @deprecated process call movet to total model
+     * @deprecated process call moved to total model
      * @param Varien_Event_Observer $observer
      */
     public function sales_quote_address_discount_item($observer)
@@ -120,7 +120,6 @@ class Mage_SalesRule_Model_Observer
                 }
             }
             $coupon = Mage::getModel('salesrule/coupon');
-            /** @var Mage_SalesRule_Model_Coupon */
             $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
                 $coupon->setTimesUsed($coupon->getTimesUsed() + 1);
@@ -136,7 +135,7 @@ class Mage_SalesRule_Model_Observer
     /**
      * Registered callback: called after an order payment is canceled
      *
-     * @param $observer
+     * @param Varien_Event_Observer $observer
      */
     public function sales_order_paymentCancel($observer)
     {
@@ -154,6 +153,14 @@ class Mage_SalesRule_Model_Observer
                     $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
                     $coupon->save();
 
+                    // Decrement times_used on rule
+                    $rule = Mage::getModel('salesrule/rule');
+                    $rule->load($coupon->getRuleId());
+                    if ($rule->getId()) {
+                        $rule->setTimesUsed($rule->getTimesUsed() - 1);
+                        $rule->save();
+                    }
+                    
                     if ($customerId = $order->getCustomerId()) {
                         // Decrement coupon_usage times_used
                         Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);

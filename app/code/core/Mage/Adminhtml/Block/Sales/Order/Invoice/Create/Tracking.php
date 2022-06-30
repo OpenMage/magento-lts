@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
     /**
      * Prepares layout of block
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_View_Giftmessage
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
                     'onclick' => 'trackingControl.add()'
                 ))
         );
+        return $this;
     }
 
     /**

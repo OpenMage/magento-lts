@@ -91,7 +91,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
         $this->setGuiData($guiData);
 
-        parent::_afterLoad();
+        return parent::_afterLoad();
     }
 
     protected function _beforeSave()
@@ -121,9 +121,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 //validate export available path
                 $path = rtrim($guiData['file']['path'], '\\/')
                       . DS . $guiData['file']['filename'];
-                /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
+                /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                 $validator = Mage::getModel('core/file_validator_availablePath');
-                /** @var $helperImportExport Mage_ImportExport_Helper_Data */
+                /** @var Mage_ImportExport_Helper_Data $helperImportExport */
                 $helperImportExport = Mage::helper('importexport');
                 $validator->setPaths($helperImportExport->getLocalValidPaths());
                 if (!$validator->isValid($path)) {
@@ -142,6 +142,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
             Mage::throwException(Mage::helper('dataflow')->__("Profile with the same name already exists."));
         }
+        return $this;
     }
 
     protected function _afterSave()

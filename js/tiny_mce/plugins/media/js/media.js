@@ -78,6 +78,7 @@
 			get('video_altsource2_filebrowser').innerHTML = getBrowserHTML('video_filebrowser_altsource2','video_altsource2','media','media');
 			get('audio_altsource1_filebrowser').innerHTML = getBrowserHTML('audio_filebrowser_altsource1','audio_altsource1','media','media');
 			get('audio_altsource2_filebrowser').innerHTML = getBrowserHTML('audio_filebrowser_altsource2','audio_altsource2','media','media');
+			get('video_track1_filebrowser').innerHTML = getBrowserHTML('video_filebrowser_track1','video_track1','media','media');
 			get('video_poster_filebrowser').innerHTML = getBrowserHTML('filebrowser_poster','video_poster','image','media');
 
 			html = self.getMediaListHTML('medialist', 'src', 'media', 'media');
@@ -100,6 +101,9 @@
 
 			if (isVisible('audio_filebrowser_altsource2'))
 				get('audio_altsource2').style.width = '220px';
+
+			if (isVisible('video_filebrowser_track1'))
+				get('video_track1').style.width = '220px';
 
 			if (isVisible('filebrowser_poster'))
 				get('video_poster').style.width = '220px';
@@ -226,10 +230,17 @@
 				}
 
 				if (data.type == "video" || data.type == "audio") {
-					if (!data.video.sources)
+					if (!data.video.sources) {
 						data.video.sources = [];
+					}
 
 					data.video.sources[0] = {src: getVal('src')};
+
+					if (data.type == "video") {
+						if (!data.video.tracks) {
+							data.video.tracks = [];
+						}
+					}
 				}
 			}
 
@@ -260,16 +271,24 @@
 
 			if (to_form) {
 				if (data.type == 'video') {
-					if (data.video.sources[0])
+					if (data.video.sources[0]) {
 						setVal('src', data.video.sources[0].src);
+					}
 
 					src = data.video.sources[1];
-					if (src)
+					if (src) {
 						setVal('video_altsource1', src.src);
+					}
 
 					src = data.video.sources[2];
-					if (src)
+					if (src) {
 						setVal('video_altsource2', src.src);
+					}
+
+					src = data.video.tracks[0];
+					if (src) {
+						setVal('video_track1', src.src);
+					}
                 } else if (data.type == 'audio') {
                     if (data.video.sources[0])
                         setVal('src', data.video.sources[0].src);
@@ -377,12 +396,25 @@
 					data.video.sources[0] = {src : src};
 
 					src = getVal("video_altsource1");
-					if (src)
-						data.video.sources[1] = {src : src};
+					if (src) {
+						data.video.sources[1] = {src: src};
+					}
 
 					src = getVal("video_altsource2");
-					if (src)
-						data.video.sources[2] = {src : src};
+					if (src) {
+						data.video.sources[2] = {src: src};
+					}
+
+					src = getVal("video_track1");
+					if (src) {
+						//Only one track is supported by editor
+						if (typeof data.video.tracks[0] != "undefined") {
+							//keep original video track data
+							data.video.tracks[0].src = src;
+						} else {
+							data.video.tracks[0] = {src: src};
+						}
+					}
                 } else if (data.type == 'audio') {
                     if (!data.video.sources)
                         data.video.sources = [];

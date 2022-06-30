@@ -365,4 +365,36 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
         return $this;
     }
+
+    /**
+     * Get password created at timestamp for a customer by id
+     * If attribute password_created_at is empty, return created_at timestamp
+     *
+     * @param int $customerId
+     * @return int|false
+     */
+    public function getPasswordTimestamp($customerId)
+    {
+        $field = $this->_getReadAdapter()->getIfNullSql('t2.value', 't0.created_at');
+        $select = $this->_getReadAdapter()->select()
+            ->from(['t0' => $this->getEntityTable()], ['password_created_at' => $field])
+            ->joinLeft(
+                ['t1' => $this->getTable('eav/attribute')],
+                't0.entity_type_id = t1.entity_type_id',
+                []
+            )
+            ->joinLeft(
+                ['t2' => $this->getTable(['customer/entity', 'datetime'])],
+                't1.attribute_id = t2.attribute_id',
+                []
+            )
+            ->where('t0.entity_id = ?', $customerId)
+            ->where('t1.attribute_code = ?', 'password_created_at');
+
+        $value = $this->_getReadAdapter()->fetchOne($select);
+        if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
+            $value = Varien_Date::toTimestamp($value);
+        }
+        return $value;
+    }
 }

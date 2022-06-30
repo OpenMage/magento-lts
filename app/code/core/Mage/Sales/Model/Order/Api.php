@@ -279,4 +279,4 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         }
         return true;
     }
-} // Class Mage_Sales_Model_Order_Api End
+}

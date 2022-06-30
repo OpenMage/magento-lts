@@ -44,5 +44,6 @@ class Mage_Adminhtml_Block_Catalog_Form extends Mage_Adminhtml_Block_Widget_Form
         Varien_Data_Form::setFieldsetElementRenderer(
             $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_fieldset_element')
         );
+        return $this;
     }
 }

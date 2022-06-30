@@ -114,7 +114,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             $statusCode = $this->getRequest()->getParam('status');
 
             //filter tags in labels/status
-            /** @var $helper Mage_Adminhtml_Helper_Data */
+            /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
             if ($isNew) {
                 $statusCode = $data['status'] = $helper->stripTags($data['status']);

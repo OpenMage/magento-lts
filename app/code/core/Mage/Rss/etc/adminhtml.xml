@@ -35,7 +35,7 @@
                             <config>
                                 <children>
                                     <rss translate="title">
-                                        <title>RSS Feeds Section</title>
+                                        <title>RSS Feeds</title>
                                         <sort_order>135</sort_order>
                                     </rss>
                                 </children>

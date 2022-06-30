@@ -73,7 +73,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             );
         }
 
-        parent::_beforeSave($object);
+        return parent::_beforeSave($object);
     }
 
 
