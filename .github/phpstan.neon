@@ -43,7 +43,6 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/Newsletter
          - %currentWorkingDirectory%/app/code/core/Mage/Oauth
          - %currentWorkingDirectory%/app/code/core/Mage/Page
-         - %currentWorkingDirectory%/app/code/core/Mage/PageCache
          - %currentWorkingDirectory%/app/code/core/Mage/Paygate
          - %currentWorkingDirectory%/app/code/core/Mage/Payment
          - %currentWorkingDirectory%/app/code/core/Mage/Paypal
