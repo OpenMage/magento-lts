@@ -1,8 +1,8 @@
 ############################################
-## For more information about the robots.txt standard, see:
+## For more information about the robots.txt standard visit:
 ## http://www.robotstxt.org/orig.html
 ##
-## For syntax checking, see:
+## For syntax checking visit:
 ## http://tool.motoricerca.info/robots-checker.phtml
 
 ############################################
@@ -15,8 +15,14 @@
 
 User-agent: *
 
+## How many seconds a crawler should wait before loading and crawling page content
+## Set a custom crawl rate if you are experiencing traffic issues with your server
+
+Crawl-delay: 60
+
 ############################################
 ## Allow to crawl paging (paging inside a listing with more params are disallowed below)
+
 Allow: /*?p=
 
 ############################################
@@ -27,7 +33,11 @@ Disallow: */catalog/product_compare/
 Disallow: */catalog/category/view/
 Disallow: */catalog/product/view/
 Disallow: */catalog/product/gallery/
-Disallow: */catalogsearch/
+Disallow: */catalogsearch/advanced
+Disallow: */catalogsearch/result
+Disallow: */catalogsearch/seo_sitemap
+Disallow: */catalogsearch/term/popular
+Disallow: */checkout/
 Disallow: */control/
 Disallow: */contacts/
 Disallow: */customer/
@@ -35,6 +45,7 @@ Disallow: */customize/
 Disallow: */newsletter/
 Disallow: */poll/
 Disallow: */review/
+Disallow: */sales/
 Disallow: */sendfriend/
 Disallow: */tag/
 Disallow: */wishlist/
@@ -59,3 +70,16 @@ Disallow: /*?q=*
 Disallow: /*?p=*&
 Disallow: /*.php$
 Disallow: /*?SID=
+
+############################################
+## Do not allow media indexing for the following bots
+# User-agent: baiduspider-image
+# Disallow: /
+# User-agent: baiduspider-video
+# Disallow: /
+# User-agent: msnbot-media
+# Disallow: /
+# User-agent: Googlebot-Image
+# Disallow: /
+# User-agent: Googlebot-Video
+# Disallow: /
