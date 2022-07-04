@@ -34,6 +34,8 @@ Whoops, it looks like you have an invalid PHP version.</h3></div><p>OpenMage sup
     exit;
 }
 
+chdir(__DIR__);
+
 /**
  * Compilation includes configuration file
  */
