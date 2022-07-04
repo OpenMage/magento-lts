@@ -28,6 +28,11 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
 {
     protected $_entityTypeId;
 
+    /**
+     * List of tags from setting
+     */
+    const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
+
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions('delete');
@@ -128,6 +133,16 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
         }
 
         $this->getResponse()->setBody($response->toJson());
+    }
+
+    /**
+     * Get list of allowed text formatted as array
+     *
+     * @return array
+     */
+    protected function _getAllowedTags()
+    {
+        return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
     }
 
     /**
