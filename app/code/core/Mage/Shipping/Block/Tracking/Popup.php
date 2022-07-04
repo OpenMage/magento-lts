@@ -248,10 +248,10 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         if (!empty($date)) {
             $time = $date . ' ' . $time;
         }
-        
+
         /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
-        
+
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
         return $locale->date(strtotime($time), Zend_Date::TIMESTAMP, null, false)
             ->toString($format);

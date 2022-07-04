@@ -25,7 +25,7 @@
  * @package    Zend_Service_WindowsAzure_CommandLine
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Scaffolder
 	extends Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageScaffolderAbstract
 {
@@ -43,18 +43,18 @@ class Scaffolder
 			#require_once 'Zend/Service/Console/Exception.php';
 			throw new Zend_Service_Console_Exception('Missing argument for scaffolder: DiagnosticsConnectionString');
 		}
-		
+
 		// Extract to disk
 		$this->log('Extracting resources...');
 		$this->createDirectory($rootPath);
 		$this->extractResources($phar, $rootPath);
 		$this->log('Extracted resources.');
-		
+
 		// Apply transforms
 		$this->log('Applying transforms...');
 		$this->applyTransforms($rootPath, $options);
 		$this->log('Applied transforms.');
-		
+
 		// Show "to do" message
 		$contentRoot = realpath($rootPath . '/PhpOnAzure.Web');
 		echo "\r\n";

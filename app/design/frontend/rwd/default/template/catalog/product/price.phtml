@@ -388,7 +388,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
             <?php endif ?>
         <?php endif ?>
 
-    <?php endif; /* if ($_finalPrice == $_price): */ ?>
+    <?php endif /* if ($_finalPrice == $_price): */ ?>
 
     <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_convertedFinalPrice): ?>
 
@@ -411,7 +411,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
         <?php else: ?>
             </span>
         <?php endif ?>
-    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
+    <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
     </div>
 
 <?php else: /* if (!$_product->isGrouped()): */ ?>
@@ -459,5 +459,5 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <?php endif ?>
             </p>
         </div>
-    <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
-<?php endif; /* if (!$_product->isGrouped()): */ ?>
+    <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
+<?php endif /* if (!$_product->isGrouped()): */ ?>

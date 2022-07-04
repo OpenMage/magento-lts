@@ -291,7 +291,7 @@ var WidgetInstance = {
         blockContainer = container.down('div.block_reference');
         if (blockContainer && blockContainer.innerHTML == '') {
             layoutHandle = '';
-            if (layoutHandleField = container.down('input.layout_handle_pattern')) {
+            if (layoutHandleField = container.down('select#layout_handle')) {
                 layoutHandle = layoutHandleField.value;
             }
             this.loadSelectBoxByType('block_reference', container, layoutHandle, additional);

@@ -271,7 +271,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
      * We are using price include tax just in case when catalog prices are including tax
      * and customer tax request is same as store tax request
      *
-     * @param $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     protected function _usePriceIncludeTax($store)
@@ -379,9 +379,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Tax calculation for shipping price
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @param   Varien_Object $taxRateRequest
-     * @return  $this
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Varien_Object $taxRateRequest
+     * @return $this
      */
     protected function _calculateShippingTax(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {
@@ -409,8 +409,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Calculate address tax amount based on one unit price and tax amount
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @param $taxRateRequest
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Varien_Object $taxRateRequest
      * @return $this
      */
     protected function _unitBaseCalculation(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
@@ -688,9 +688,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Calculate address total tax based on row total
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @param   Varien_Object $taxRateRequest
-     * @return  $this
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param Varien_Object $taxRateRequest
+     * @return $this
      */
     protected function _rowBaseCalculation(Mage_Sales_Model_Quote_Address $address, $taxRateRequest)
     {

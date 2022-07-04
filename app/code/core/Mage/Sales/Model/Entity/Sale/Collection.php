@@ -190,6 +190,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      *
      * @return ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->_items);

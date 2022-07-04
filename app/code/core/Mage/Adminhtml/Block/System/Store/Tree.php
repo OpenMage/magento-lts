@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
     {
         $data = array();
         foreach (Mage::getModel('core/website')->getCollection() as $website) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
             $groupCollection = $website->getGroupCollection();
             $data[$website->getId()] = array(
                 'object' => $website,
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
             );
             $defaultGroupId = $website->getDefaultGroupId();
             foreach ($groupCollection as $storeGroup) {
-                /** @var $storeGroup Mage_Core_Model_Store_Group */
+                /** @var Mage_Core_Model_Store_Group $storeGroup */
                 $storeCollection = $storeGroup->getStoreCollection();
                 $storeGroupCount = max(1, $storeCollection->count());
                 $data[$website->getId()]['storeGroups'][$storeGroup->getId()] = array(
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
                 }
                 $defaultStoreId = $storeGroup->getDefaultStoreId();
                 foreach ($storeCollection as $store) {
-                    /** @var $store Mage_Core_Model_Store */
+                    /** @var Mage_Core_Model_Store $store */
                     $data[$website->getId()]['storeGroups'][$storeGroup->getId()]['stores'][$store->getId()] = array(
                         'object' => $store
                     );

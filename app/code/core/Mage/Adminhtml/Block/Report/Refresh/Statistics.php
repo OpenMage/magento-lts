@@ -41,4 +41,9 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics extends Mage_Adminhtml_Bloc
         parent::__construct();
         $this->_removeButton('add');
     }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

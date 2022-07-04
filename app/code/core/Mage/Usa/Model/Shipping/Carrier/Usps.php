@@ -112,7 +112,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      *
      * @var string
      */
-    protected $_defaultGatewayUrl = 'http://production.shippingapis.com/ShippingAPI.dll';
+    protected $_defaultGatewayUrl = 'https://production.shippingapis.com/ShippingAPI.dll';
 
     /**
      * Container types that could be customized for USPS carrier

@@ -44,7 +44,7 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
     /**
      * Cron settings after save
      *
-     * @return Mage_Adminhtml_Model_System_Config_Backend_Log_Cron
+     * @return $this
      */
     protected function _afterSave()
     {
@@ -85,5 +85,6 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
         catch (Exception $e) {
             Mage::throwException(Mage::helper('backup')->__('Unable to save the cron expression.'));
         }
+        return $this;
     }
 }

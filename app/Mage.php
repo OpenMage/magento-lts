@@ -109,13 +109,6 @@ final class Mage
     static private $_objects;
 
     /**
-     * Is downloader flag
-     *
-     * @var bool
-     */
-    static private $_isDownloader               = false;
-
-    /**
      * Is developer mode flag
      *
      * @var bool
@@ -154,7 +147,6 @@ final class Mage
 
     /**
      * Gets the current Magento version string
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
@@ -167,7 +159,6 @@ final class Mage
 
     /**
      * Gets the detailed Magento version information
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return array
      */
@@ -229,7 +220,7 @@ final class Mage
             return array(
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '9',
+                'patch'     => '14',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             );
@@ -238,7 +229,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '13',
+            'patch'     => '16',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -267,7 +258,6 @@ final class Mage
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
-        self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
         self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
@@ -412,7 +402,7 @@ final class Mage
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -759,7 +749,7 @@ final class Mage
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
         } catch (Exception $e) {
-            if (self::isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled()) {
                 self::printException($e);
                 exit();
             }
@@ -873,7 +863,18 @@ final class Mage
 
         static $loggers = array();
 
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
+
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+            return;
+        }
+
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
@@ -1061,10 +1062,10 @@ final class Mage
     /**
      * Set is downloader flag
      *
-     * @param bool $flag
+     * @deprecated
      */
-    public static function setIsDownloader($flag = true)
+    public static function setIsDownloader()
     {
-        self::$_isDownloader = $flag;
+
     }
 }

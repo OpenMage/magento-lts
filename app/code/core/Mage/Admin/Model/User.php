@@ -733,7 +733,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getDateNow($dayOnly = false)
     {
-        return now($dayOnly);
+        return Varien_Date::now($dayOnly);
     }
 
     /**

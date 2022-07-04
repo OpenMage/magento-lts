@@ -333,13 +333,13 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
 
     /**
      * Add attribute expression (SUM, COUNT, etc)
-     * Example: ('sub_total', 'SUM({{attribute}})', 'revenue')
+     * Example: ('sub_total', 'SUM({{attribute}})', array('attribute' => 'revenue'))
      * Example: ('sub_total', 'SUM({{revenue}})', 'revenue')
      * For some functions like SUM use groupByAttribute.
      *
      * @param string $alias
      * @param string $expression
-     * @param array $fields
+     * @param array|string $fields
      * @return $this
      */
     public function addExpressionFieldToSelect($alias, $expression, $fields)
@@ -354,7 +354,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
             $fullExpression = str_replace('{{' . $fieldKey . '}}', $fieldItem, $fullExpression);
         }
 
-        $this->getSelect()->columns(array($alias=>$fullExpression));
+        $this->getSelect()->columns(array($alias=>new Zend_Db_Expr($fullExpression)));
 
         return $this;
     }

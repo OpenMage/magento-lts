@@ -45,11 +45,12 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+        return $this;
     }
 
     protected function _prepareForm()
     {
-        /** @var $model Mage_Cms_Model_Page */
+        /** @var Mage_Cms_Model_Page $model */
         $model = Mage::registry('cms_page');
 
         /*

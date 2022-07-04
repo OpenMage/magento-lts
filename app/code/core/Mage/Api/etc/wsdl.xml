@@ -83,7 +83,7 @@
             <output message="typens:endSessionResponse" />
         </operation>
         <operation name="login">
-            <documentation>Login user and retrive session id</documentation>
+            <documentation>Login user and retrieve session id</documentation>
             <input message="typens:login" />
             <output message="typens:loginResponse" />
         </operation>

@@ -318,7 +318,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     }
 
     /**
-     * Retrive product instance
+     * Retrieve product instance
      *
      * @return Mage_Catalog_Model_Product
      */

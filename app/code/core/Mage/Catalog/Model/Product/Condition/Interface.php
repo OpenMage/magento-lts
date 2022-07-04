@@ -34,7 +34,7 @@ interface Mage_Catalog_Model_Product_Condition_Interface
 
     /**
      * @param Magento_Db_Adapter_Pdo_Mysql $dbAdapter
-     * @return string
+     * @return string|Varien_Db_Select
      */
     public function getIdsSelect($dbAdapter);
 }

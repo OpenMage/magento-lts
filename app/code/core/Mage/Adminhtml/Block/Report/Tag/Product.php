@@ -29,11 +29,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
+
 class Mage_Adminhtml_Block_Report_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'report_tag_product';
@@ -42,4 +42,8 @@ class Mage_Adminhtml_Block_Report_Tag_Product extends Mage_Adminhtml_Block_Widge
         $this->_removeButton('add');
     }
 
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-report';
+    }
 }

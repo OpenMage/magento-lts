@@ -367,7 +367,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if ($this->_coupons === null) {
             $collection = Mage::getResourceModel('salesrule/coupon_collection');
-            /** @var Mage_SalesRule_Model_Resource_Coupon_Collection */
             $collection->addRuleToFilter($this);
             $this->_coupons = $collection->getItems();
         }
@@ -415,7 +414,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
             return $this->getPrimaryCoupon();
         }
-        /** @var Mage_SalesRule_Model_Coupon $coupon */
         $coupon = Mage::getModel('salesrule/coupon');
         $coupon->setRule($this)
             ->setIsPrimary(false)

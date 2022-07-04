@@ -60,7 +60,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     {
         return $this->_nodes;
     }
-    
+
     /**
     * Implementation of IteratorAggregate::getIterator()
     */

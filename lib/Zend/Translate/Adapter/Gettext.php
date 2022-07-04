@@ -133,7 +133,7 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
                 }
             }
         }
-        
+
         @fclose($this->_file);
 
         $this->_data[$locale][''] = trim($this->_data[$locale]['']);

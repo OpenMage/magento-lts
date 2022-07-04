@@ -31,7 +31,7 @@
     <adminhtml_centinel_index_authenticationstart>
         <block type="centinel/authentication_start" name="root" output="toHtml" template="centinel/authentication/start.phtml"/>
     </adminhtml_centinel_index_authenticationstart>
-    
+
     <adminhtml_centinel_index_authenticationcomplete>
         <block type="centinel/authentication_complete" name="root" output="toHtml" template="centinel/authentication/complete.phtml"/>
     </adminhtml_centinel_index_authenticationcomplete>

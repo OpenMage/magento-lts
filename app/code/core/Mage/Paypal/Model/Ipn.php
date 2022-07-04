@@ -441,7 +441,7 @@ class Mage_Paypal_Model_Ipn
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $this->_recurringProfile->createOrder($productItemInfo);
 
         $payment = $order->getPayment();
@@ -532,6 +532,11 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentFailure()
     {
         $this->_importPaymentInformation();
+
+        foreach ($this->_order->getInvoiceCollection() as $invoice){
+            $invoice->cancel()->save();
+        }
+
         $this->_order
             ->registerCancellation($this->_createIpnComment(''), false)
             ->save();

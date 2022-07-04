@@ -814,8 +814,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param $store
-     * @param mixed $products
+     * @param Mage_Core_Model_Store|int $store
+     * @param Mage_Catalog_Model_Product|int|array|null $products
      * @param string $resourceTable
      * @return $this
      */

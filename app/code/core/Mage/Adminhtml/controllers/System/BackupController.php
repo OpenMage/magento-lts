@@ -315,7 +315,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             return $this->_redirect('*/*/index');
         }
 
-        /** @var $backupModel Mage_Backup_Model_Backup */
+        /** @var Mage_Backup_Model_Backup $backupModel */
         $backupModel = Mage::getModel('backup/backup');
         $resultData = new Varien_Object();
         $resultData->setIsSuccess(false);
@@ -375,7 +375,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Retrive adminhtml session model
+     * Retrieve adminhtml session model
      *
      * @return Mage_Adminhtml_Model_Session
      */

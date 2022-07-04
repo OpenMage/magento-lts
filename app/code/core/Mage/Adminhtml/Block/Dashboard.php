@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
                 $this->getLayout()->createBlock('adminhtml/dashboard_grids')
         );
 
-        parent::_prepareLayout();
+        return parent::_prepareLayout();
     }
 
     public function getSwitchUrl()

@@ -966,7 +966,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      *
      * @inheritDoc
      */
@@ -1378,10 +1378,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Add attribute to filter
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string $attribute
-     * @param array $condition
      * @inheritDoc
      */
     public function addAttributeToFilter($attribute, $condition = null, $joinType = 'inner')

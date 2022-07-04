@@ -31,7 +31,6 @@
             <class>separator-top</class>
             <label>Promotions</label>
             <tab>customer</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>400</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>0</show_in_website>
@@ -44,7 +43,6 @@
                     <fields>
                         <length translate="label comment" module="salesrule">
                             <label>Code Length</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -63,7 +61,6 @@
                         </format>
                         <prefix translate="label" module="salesrule">
                             <label>Code Prefix</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -71,7 +68,6 @@
                         </prefix>
                         <suffix translate="label" module="salesrule">
                             <label>Code Suffix</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -79,7 +75,6 @@
                         </suffix>
                         <dash translate="label comment" module="salesrule">
                             <label>Dash Every X Characters</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

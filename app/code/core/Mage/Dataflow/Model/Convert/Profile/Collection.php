@@ -160,7 +160,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
             $country = '';
 
-            /** @var $varNode Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $varNode */
             foreach ($actionNode->var as $key => $varNode) {
                 if ($varNode['name'] == 'map') {
                     $mapData = array();
@@ -184,7 +184,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                         /**
                          * Get state name by iso for US
                          */
-                        /** @var $region Mage_Directory_Model_Region */
+                        /** @var Mage_Directory_Model_Region $region */
                         $region = Mage::getModel('directory/region');
 
                         $state = $region->loadByCode($value, $country)->getDefaultName();

@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Product_Type
     }
 
     /**
-     * @param $optionId
+     * @param string $optionId
      * @return mixed|null
      */
     public static function getOptionText($optionId)

@@ -30,7 +30,6 @@
         <payment_services translate="label" module="payment">
             <label>Payment Services</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>450</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <centinel translate="label">
                     <label>3D Secure Credit Card Validation</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -46,7 +44,6 @@
                     <fields>
                         <processor_id translate="label">
                             <label>Processor ID</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -54,7 +51,6 @@
                         </processor_id>
                         <merchant_id translate="label">
                             <label>Merchant ID</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

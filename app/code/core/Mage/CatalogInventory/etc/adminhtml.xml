@@ -35,7 +35,7 @@
                             <config>
                                 <children>
                                     <cataloginventory translate="title" module="cataloginventory">
-                                        <title>Inventory Section</title>
+                                        <title>Inventory</title>
                                     </cataloginventory>
                                 </children>
                             </config>

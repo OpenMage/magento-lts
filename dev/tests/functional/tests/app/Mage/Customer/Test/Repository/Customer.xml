@@ -106,7 +106,7 @@
             <field name="dob" xsi:type="string">01/01/1990</field>
             <field name="gender" xsi:type="string">Male</field>
         </dataset>
-        
+
         <dataset name="customer_with_two_addresses">
             <field name="firstname" xsi:type="string">John</field>
             <field name="lastname" xsi:type="string">Doe</field>

@@ -672,15 +672,16 @@ class Mage_Core_Model_Design_Package
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
         foreach ($rules as $rule) {
-            if (!empty(self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']])) {
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            if (!empty(self::$_regexMatchCache[$rule['regexp']][$userAgent])) {
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
 
             $regexp = '/' . trim($rule['regexp'], '/') . '/';
 
-            if (@preg_match($regexp, $_SERVER['HTTP_USER_AGENT'])) {
-                self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']] = true;
+            if (@preg_match($regexp, $userAgent)) {
+                self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }

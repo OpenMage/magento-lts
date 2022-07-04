@@ -35,7 +35,7 @@
                             <config>
                                 <children>
                                     <downloadable translate="title" module="downloadable">
-                                        <title>Downloadable Product Section</title>
+                                        <title>Downloadable Product Options</title>
                                     </downloadable>
                                 </children>
                             </config>

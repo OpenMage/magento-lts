@@ -35,6 +35,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Datashare extends Mage_Core_Mod
 {
     protected function _afterSave()
     {
-#echo "<pre>".print_r($configData,1)."</pre>"; die;
+        return $this;
     }
 }

@@ -163,6 +163,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Useredit extends Mage_Adminhtml_Block
         $form->setValues($data);
 
         $this->setForm($form);
+        return $this;
     }
 
 }
