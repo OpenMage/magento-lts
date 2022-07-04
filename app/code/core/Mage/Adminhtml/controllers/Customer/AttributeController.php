@@ -307,7 +307,7 @@ class Mage_Adminhtml_Customer_AttributeController extends Mage_Adminhtml_Control
             try {
                 $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('customer')->__('The product attribute has been deleted.'));
+                    Mage::helper('customer')->__('The customer attribute has been deleted.'));
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {
