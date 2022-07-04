@@ -154,6 +154,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn('name',
             array(
                 'header'=> Mage::helper('catalog')->__('Name'),
+                'width' => '300px',
                 'index' => 'name',
         ));
 
@@ -169,7 +170,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn('type',
             array(
                 'header'=> Mage::helper('catalog')->__('Type'),
-                'width' => '60px',
+                'width' => '150px',
                 'index' => 'type_id',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
@@ -177,13 +178,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
 
         $sets = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->setEntityTypeFilter(Mage::getModel('catalog/product')->getResource()->getTypeId())
+            ->setOrder('attribute_set_name', 'asc')
             ->load()
             ->toOptionHash();
 
         $this->addColumn('set_name',
             array(
                 'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
-                'width' => '100px',
+                'width' => '150px',
                 'index' => 'attribute_set_id',
                 'type'  => 'options',
                 'options' => $sets,
@@ -192,7 +194,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn('sku',
             array(
                 'header'=> Mage::helper('catalog')->__('SKU'),
-                'width' => '80px',
+                'width' => '150px',
                 'index' => 'sku',
         ));
 
@@ -218,7 +220,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn('visibility',
             array(
                 'header'=> Mage::helper('catalog')->__('Visibility'),
-                'width' => '70px',
+                'width' => '150px',
                 'index' => 'visibility',
                 'type'  => 'options',
                 'options' => Mage::getModel('catalog/product_visibility')->getOptionArray(),

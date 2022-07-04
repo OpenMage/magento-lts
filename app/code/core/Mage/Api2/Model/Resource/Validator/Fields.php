@@ -58,7 +58,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @var array
      */
-    protected $_requiredFields;
+    protected $_requiredFields = array();
 
     /**
      * Construct. Set all depends.

@@ -25,10 +25,13 @@
  */
 
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
-$installer->getConnection()->modifyColumn($installer->getTable('reports/compared_product_index'), 'visitor_id',
-    'INT(10) UNSIGNED NULL');
+$installer->getConnection()->modifyColumn(
+    $installer->getTable('reports/compared_product_index'),
+    'visitor_id',
+    'INT(10) UNSIGNED NULL'
+);
 $installer->endSetup();

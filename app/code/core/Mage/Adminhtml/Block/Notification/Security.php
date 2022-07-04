@@ -33,20 +33,20 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      * File path for verification
      * @var string
      */
-    private $_filePath = 'app/etc/local.xml';
+    protected $_filePath = 'app/etc/local.xml';
 
     /**
      * Time out for HTTP verification request
      * @var int
      */
-    private $_verificationTimeOut  = 2;
+    protected $_verificationTimeOut  = 2;
 
     /**
      * Check verification result and return true if system must to show notification message
      *
      * @return bool
      */
-    private function _canShowNotification()
+    protected function _canShowNotification()
     {
         if (Mage::app()->loadCache(self::VERIFICATION_RESULT_CACHE_KEY)) {
             return false;
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      *
      * @return bool
      */
-    private function _isFileAccessible()
+    protected function _isFileAccessible()
     {
         $defaultUnsecureBaseURL = (string) Mage::getConfig()->getNode('default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
 

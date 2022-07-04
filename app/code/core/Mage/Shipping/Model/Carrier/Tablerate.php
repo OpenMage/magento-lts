@@ -27,9 +27,7 @@
 /*
  * Class Mage_Shipping_Model_Carrier_Tablerate
  */
-class Mage_Shipping_Model_Carrier_Tablerate
-    extends Mage_Shipping_Model_Carrier_Abstract
-    implements Mage_Shipping_Model_Carrier_Interface
+class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
 
     /**
@@ -75,7 +73,7 @@ class Mage_Shipping_Model_Carrier_Tablerate
      * Collect and get rates
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return bool|Mage_Core_Model_Abstract
      */
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -276,5 +274,4 @@ class Mage_Shipping_Model_Carrier_Tablerate
     {
         return array('bestway' => $this->getConfigData('name'));
     }
-
 }

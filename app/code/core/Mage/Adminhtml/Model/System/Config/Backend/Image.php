@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
     protected function addValidators(Mage_Core_Model_File_Uploader $uploader)
     {
         parent::addValidators($uploader);
-        $validator = new Mage_Core_Model_File_Validator_Image();
+        $validator = Mage::getModel('core/file_validator_image');
         $validator->setAllowedImageTypes($this->_getAllowedExtensions());
         $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
     }

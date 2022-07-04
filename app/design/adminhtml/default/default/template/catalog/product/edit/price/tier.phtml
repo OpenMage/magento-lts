@@ -42,14 +42,14 @@
     <table cellspacing="0" class="data border" id="tiers_table">
         <?php if ($_showWebsite): ?>
         <col width="135" />
-        <?php endif; ?>
+        <?php endif ?>
         <col width="120" />
         <col width="95" />
         <col />
         <col width="1" />
         <thead>
             <tr class="headings">
-                <th <?php if (!$_showWebsite): ?>style="display:none"<?php endif; ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
+                <th <?php if (!$_showWebsite): ?>style="display:none"<?php endif ?>><?php echo Mage::helper('sales')->__('Website') ?></th>
                 <th><?php echo Mage::helper('catalog')->__('Customer Group') ?></th>
                 <th><?php echo Mage::helper('catalog')->__('Qty') ?></th>
                 <th><?php echo $this->getPriceColumnHeader(Mage::helper('catalog')->__('Price')) ?></th>
@@ -59,7 +59,7 @@
         <tbody id="<?php echo $_htmlId ?>_container"></tbody>
         <tfoot>
             <tr>
-                <td <?php if (!$_showWebsite): ?>style="display:none"<?php endif; ?>></td>
+                <td <?php if (!$_showWebsite): ?>style="display:none"<?php endif ?>></td>
                 <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
             </tr>
         </tfoot>
@@ -68,10 +68,10 @@
 <script type="text/javascript">
 //<![CDATA[
 var tierPriceRowTemplate = '<tr>'
-    + '<td<?php if (!$_showWebsite): ?> style="display:none"<?php endif; ?>>'
+    + '<td<?php if (!$_showWebsite): ?> style="display:none"<?php endif ?>>'
     + '<select class="<?php echo $_htmlClass ?> required-entry" name="<?php echo $_htmlName ?>[{{index}}][website_id]" id="tier_price_row_{{index}}_website">'
     <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
-    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_info['name'])) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->escapeHtml($_info['currency']) ?>]<?php endif; ?></option>'
+    + '<option value="<?php echo $_websiteId ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_info['name'])) ?><?php if (!empty($_info['currency'])): ?> [<?php echo $this->escapeHtml($_info['currency']) ?>]<?php endif ?></option>'
     <?php endforeach ?>
     + '</select></td>'
     + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][cust_group]" id="tier_price_row_{{index}}_cust_group">'
@@ -95,7 +95,7 @@ var tierPriceControl = {
         if (arguments.length < 4) {
             return;
         }
-        <?php endif; ?>
+        <?php endif ?>
         var data = {
             website_id: '<?php echo $this->getDefaultWebsite() ?>',
             group: '<?php echo $this->getDefaultCustomerGroup() ?>',
@@ -128,7 +128,7 @@ var tierPriceControl = {
 
         wss.insert({after:'<span class="website-name">' + txt + '</span>'});
         wss.hide();
-        <?php endif;?>
+        <?php endif ?>
 
         if (data.readOnly == '1') {
             ['website', 'cust_group', 'qty', 'price', 'delete'].each(function(idx){
@@ -142,7 +142,7 @@ var tierPriceControl = {
         $('<?php echo $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
         <?php else: ?>
         $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
-        <?php endif; ?>
+        <?php endif ?>
     },
     disableElement: function(el) {
         el.disabled = true;
@@ -161,11 +161,11 @@ var tierPriceControl = {
 };
 <?php foreach ($this->getValues() as $_item): ?>
 tierPriceControl.addItem('<?php echo $_item['website_id'] ?>', '<?php echo $_item['cust_group'] ?>', '<?php echo $_item['price_qty']*1 ?>', '<?php echo sprintf('%.2f', $_item['price']) ?>', <?php echo (int)!empty($_item['readonly'])?>);
-<?php endforeach; ?>
+<?php endforeach ?>
 <?php if ($_readonly): ?>
 $('<?php echo $_htmlId ?>_container').up('table').select('button')
     .each(tierPriceControl.disableElement);
-<?php endif; ?>
+<?php endif ?>
 //]]>
 </script>
 </td></tr>

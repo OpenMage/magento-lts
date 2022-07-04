@@ -124,7 +124,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
         uasort($parentArr, array($this, '_sortMenu'));
 
-        while (list($key, $value) = each($parentArr)) {
+        foreach ($parentArr as $key => $value) {
             $last = $key;
         }
         if (isset($last)) {

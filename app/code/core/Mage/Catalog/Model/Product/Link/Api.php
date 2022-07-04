@@ -346,4 +346,4 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
 
         return $result;
     }
-} // Class Mage_Catalog_Model_Product_Link_Api End
+}

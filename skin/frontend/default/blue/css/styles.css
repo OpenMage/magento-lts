@@ -188,11 +188,11 @@ input.input-text:focus,select:focus,textarea:focus { background-color:#fafaec; }
 .form-list li.additional-row .btn-remove { float:right; margin:5px 0 0; }
 .form-list .input-range input.input-text { width:74px; }
 
-.form-list-narrow li  { margin-bottom:0; } 
-.form-list-narrow li .input-box { margin-bottom:6px; } 
-.form-list-narrow li.wide .input-box { width:260px; } 
-.form-list-narrow li.wide input.input-text, 
-.form-list-narrow li.wide textarea { width:254px } 
+.form-list-narrow li  { margin-bottom:0; }
+.form-list-narrow li .input-box { margin-bottom:6px; }
+.form-list-narrow li.wide .input-box { width:260px; }
+.form-list-narrow li.wide input.input-text,
+.form-list-narrow li.wide textarea { width:254px }
 .form-list-narrow li.wide select { width:260px; }
 
 /* Customer */

@@ -56,7 +56,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Allow extends Mage_Adm
         }
 
         if ($exceptions) {
-            Mage::throwException(join("\n", $exceptions));
+            Mage::throwException(implode("\n", $exceptions));
         }
 
         return $this;

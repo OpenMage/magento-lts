@@ -35,7 +35,7 @@
 class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
     /**
-     * @param $object
+     * @param Varien_Object $object
      * @param string $size
      * @return bool|string
      */

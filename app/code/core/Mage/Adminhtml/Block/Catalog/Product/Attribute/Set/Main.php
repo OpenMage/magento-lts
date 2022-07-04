@@ -246,6 +246,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
             ->setAttributesExcludeFilter($attributesIds)
             ->addVisibleFilter()
+            ->setOrder('attribute_code', 'asc')
             ->load();
 
         foreach ($attributes as $child) {

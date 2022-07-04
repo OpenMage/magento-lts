@@ -45,29 +45,29 @@
                                 <strong title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php echo $_label ?></strong>
                             <?php else: ?>
                                 <a href="<?php echo $this->getModeUrl($_code) ?>" title="<?php echo $_label ?>" class="<?php echo strtolower($_code); ?>"><?php echo $_label ?></a>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
                 </p>
-            <?php endif; ?>
+            <?php endif ?>
 
             <div class="sort-by">
                 <label><?php echo $this->__('Sort By') ?></label>
                 <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sort By')) ?>">
                     <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
-                        <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif; ?>>
+                        <option value="<?php echo $this->getOrderUrl($_key, 'asc') ?>"<?php if($this->isOrderCurrent($_key)): ?> selected="selected"<?php endif ?>>
                             <?php echo $this->__($_order) ?>
                         </option>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </select>
                 <?php if($this->getCurrentDirection() == 'desc'): ?>
                     <a href="<?php echo $this->getOrderUrl(null, 'asc') ?>" class="sort-by-switcher sort-by-switcher--desc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Ascending Direction')) ?>"><?php echo $this->__('Set Ascending Direction') ?></a>
                 <?php else: ?>
                     <a href="<?php echo $this->getOrderUrl(null, 'desc') ?>" class="sort-by-switcher sort-by-switcher--asc" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Set Descending Direction')) ?>"><?php echo $this->__('Set Descending Direction') ?></a>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
     <div class="pager">
         <div class="count-container">
             <?php if($this->getLastPageNum()>1): ?>
@@ -78,7 +78,7 @@
                 <p class="amount amount--no-pages">
                     <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
                 </p>
-            <?php endif; ?>
+            <?php endif ?>
 
             <div class="limiter">
                 <label><?php echo $this->__('Show') ?></label>
@@ -87,7 +87,7 @@
                     <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                         <?php echo $_limit ?>
                     </option>
-                <?php endforeach; ?>
+                <?php endforeach ?>
                 </select>
             </div>
         </div>

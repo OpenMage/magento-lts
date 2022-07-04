@@ -33,7 +33,7 @@
     <?php echo $this->getCancelButtonHtml() ?>
     <?php if($this->getMessage()->getGiftMessageId()): ?>
     <?php echo $this->getRemoveButtonHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
 </form>
 <?php elseif($this->getSaveMode()=='save'): ?>
 <h3><?php echo Mage::helper('giftmessage')->__('The gift message has been saved') ?></h3>
@@ -41,7 +41,7 @@
 <?php else: ?>
 <h3><?php echo Mage::helper('giftmessage')->__('The gift message has been removed') ?></h3>
 <br /><?php echo $this->getCloseButtonHtml() ?>
-<?php endif; ?>
+<?php endif ?>
 <script type="text/javascript">
 <!--
 <?php if(!$this->getSaveMode()): ?>
@@ -52,6 +52,6 @@
     Event.observe(window, 'load', function(evt) {
         giftMessageWindowObject.updateParent('<?php echo $this->getEditUrl() ?>', '<?php echo $this->getButtonUrl() ?>');
     });
-<?php endif; ?>
+<?php endif ?>
 //-->
 </script>

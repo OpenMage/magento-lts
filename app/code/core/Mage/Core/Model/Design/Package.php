@@ -465,10 +465,18 @@ class Mage_Core_Model_Design_Package
      * @param string $file
      * @param array $params
      * @return string
+     * @throws Exception
      */
     public function getFilename($file, array $params)
     {
         Varien_Profiler::start(__METHOD__);
+
+        // Prevent reading files outside of the proper directory while still allowing symlinked files
+        if (strpos($file, '..') !== false) {
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            throw new Exception('Invalid path requested.');
+        }
+
         $this->updateParamDefaults($params);
         $result = $this->_fallback(
             $file,
@@ -522,10 +530,18 @@ class Mage_Core_Model_Design_Package
      * @param string $file
      * @param array $params
      * @return string
+     * @throws Exception
      */
     public function getSkinUrl($file = null, array $params = array())
     {
         Varien_Profiler::start(__METHOD__);
+
+        // Prevent reading files outside of the proper directory while still allowing symlinked files
+        if (strpos($file, '..') !== false) {
+            Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
+            throw new Exception('Invalid path requested.');
+        }
+
         if (empty($params['_type'])) {
             $params['_type'] = 'skin';
         }
@@ -656,15 +672,16 @@ class Mage_Core_Model_Design_Package
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
         foreach ($rules as $rule) {
-            if (!empty(self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']])) {
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            if (!empty(self::$_regexMatchCache[$rule['regexp']][$userAgent])) {
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
 
             $regexp = '/' . trim($rule['regexp'], '/') . '/';
 
-            if (@preg_match($regexp, $_SERVER['HTTP_USER_AGENT'])) {
-                self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']] = true;
+            if (@preg_match($regexp, $userAgent)) {
+                self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
@@ -812,7 +829,7 @@ class Mage_Core_Model_Design_Package
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
-            return is_writeable($dir) ? $dir : false;
+            return is_writable($dir) ? $dir : false;
         } catch (Exception $e) {
             Mage::logException($e);
         }

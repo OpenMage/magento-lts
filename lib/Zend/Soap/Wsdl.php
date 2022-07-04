@@ -103,7 +103,7 @@ class Zend_Soap_Wsdl
         if (!$this->_dom = Zend_Xml_Security::scan($wsdl, $this->_dom)) {
             #require_once 'Zend/Server/Exception.php';
             throw new Zend_Server_Exception('Unable to create DomDocument');
-        } 
+        }
         $this->_wsdl = $this->_dom->documentElement;
 
         $this->setComplexTypeStrategy($strategy);

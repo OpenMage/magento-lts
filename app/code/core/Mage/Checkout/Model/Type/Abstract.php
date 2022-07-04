@@ -96,7 +96,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default shipping address
      *
-     * @return Mage_Customer_Model_Address || false
+     * @return Mage_Customer_Model_Address | false
      */
     public function getCustomerDefaultShippingAddress()
     {

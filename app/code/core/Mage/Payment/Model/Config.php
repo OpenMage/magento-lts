@@ -40,10 +40,10 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param   mixed $store
-     * @return  array
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return array
      */
-    public function getActiveMethods($store=null)
+    public function getActiveMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
@@ -63,10 +63,10 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
-    public function getAllMethods($store=null)
+    public function getAllMethods($store = null)
     {
         $methods = array();
         $config = Mage::getStoreConfig('payment', $store);
@@ -79,7 +79,13 @@ class Mage_Payment_Model_Config
         return $methods;
     }
 
-    protected function _getMethod($code, $config, $store=null)
+    /**
+     * @param string $code
+     * @param array $config
+     * @param null $store
+     * @return false|Mage_Payment_Model_Method_Abstract
+     */
+    protected function _getMethod($code, $config, $store = null)
     {
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
@@ -171,11 +177,10 @@ class Mage_Payment_Model_Config
 
         if ($a['order'] == $b['order']) {
             return 0;
-        } else if ($a['order'] > $b['order']) {
+        } elseif ($a['order'] > $b['order']) {
             return 1;
         } else {
             return -1;
         }
-
     }
 }

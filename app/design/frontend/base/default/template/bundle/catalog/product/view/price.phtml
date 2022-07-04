@@ -61,14 +61,14 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                             <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
                         <?php else: ?>
                             <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
-                        <?php endif; ?>
+                        <?php endif ?>
 
                         <?php echo $_weeeSeparator; ?>
                         <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
                         <?php $_weeeSeparator = ' + '; ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </small>)</span>
-            <?php endif; ?>
+            <?php endif ?>
             <span class="price-including-tax">
                 <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
@@ -91,24 +91,24 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                         <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
                     <?php else: ?>
                         <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
-                    <?php endif; ?>
+                    <?php endif ?>
 
                     <?php echo $_weeeSeparator; ?>
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
                     <?php $_weeeSeparator = ' + '; ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </small>)</span>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     </span>
     <?php endif ?>
     </p>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <?php if($_product->isSaleable()): ?>
 <script type="text/javascript">
 document.observe("dom:loaded", function() {
     bundle.reloadPrice();
 });
 </script>
-<?php endif; ?>
+<?php endif ?>

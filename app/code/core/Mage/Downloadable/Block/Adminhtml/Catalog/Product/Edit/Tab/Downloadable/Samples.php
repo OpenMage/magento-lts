@@ -165,6 +165,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             'container' => $this->getHtmlId() . '-new',
             'delete'    => $this->getHtmlId() . '-delete'
         ));
+        return $this;
     }
 
     /**
@@ -188,7 +189,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             ->setFileParameterName('samples')
             ->setTarget(
                 Mage::getModel('adminhtml/url')
-                    ->addSessionParam()
                     ->getUrl('*/downloadable_file/upload', array('type' => 'samples', '_secure' => true))
             );
         $this->getMiscConfig()

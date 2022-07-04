@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-interface Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface 
+interface Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface
 {
     public function getColumn();
     public function setColumn($column);

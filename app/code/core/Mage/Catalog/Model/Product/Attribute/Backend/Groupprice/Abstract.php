@@ -129,7 +129,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if (!empty($priceRow['delete'])) {
                 continue;
             }
-            $compare = join('-', array_merge(
+            $compare = implode('-', array_merge(
                 array($priceRow['website_id'], $priceRow['cust_group']),
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
@@ -145,7 +145,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             $origGroupPrices = $object->getOrigData($attribute->getName());
             foreach ($origGroupPrices as $price) {
                 if ($price['website_id'] == 0) {
-                    $compare = join('-', array_merge(
+                    $compare = implode('-', array_merge(
                         array($price['website_id'], $price['cust_group']),
                         $this->_getAdditionalUniqueFields($price)
                     ));
@@ -165,7 +165,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 continue;
             }
 
-            $globalCompare = join('-', array_merge(
+            $globalCompare = implode('-', array_merge(
                 array(0, $priceRow['cust_group']),
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
@@ -193,7 +193,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         $data   = array();
         $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {
-            $key = join('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
+            $key = implode('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {
                 $data[$key] = $v;
                 $data[$key]['website_price'] = $v['price'];
@@ -280,7 +280,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
         foreach ($origGroupPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
-                $key = join('-', array_merge(
+                $key = implode('-', array_merge(
                     array($data['website_id'], $data['cust_group']),
                     $this->_getAdditionalUniqueFields($data)
                 ));
@@ -308,7 +308,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 continue;
             }
 
-            $key = join('-', array_merge(
+            $key = implode('-', array_merge(
                 array($data['website_id'], $data['cust_group']),
                 $this->_getAdditionalUniqueFields($data)
             ));

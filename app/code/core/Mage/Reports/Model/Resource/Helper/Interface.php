@@ -35,6 +35,7 @@ interface Mage_Reports_Model_Resource_Helper_Interface
      *
      * @param string $mainTable
      * @param array $data
+     * @param mixed $matchFields
      * @return string
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields);

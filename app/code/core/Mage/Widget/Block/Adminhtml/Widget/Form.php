@@ -59,6 +59,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/*/buildWidget'));
         $this->setForm($form);
+        return $this;
     }
 
     /**
@@ -93,6 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Return array of available widgets based on configuration
      *
+     * @param bool $withEmptyElement
      * @return array
      */
     protected function _getAvailableWidgets($withEmptyElement = false)

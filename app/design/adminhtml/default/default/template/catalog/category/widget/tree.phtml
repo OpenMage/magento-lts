@@ -61,7 +61,7 @@ Ext.extend(Ext.tree.TreePanel.Enhanced, Ext.tree.TreePanel, {
         if (firstLoad) {
             <?php if ($this->getNodeClickListener()): ?>
                 this.addListener('click', <?php echo $this->getNodeClickListener() ?>.createDelegate(this));
-            <?php endif; ?>
+            <?php endif ?>
         }
 
         this.loader.buildCategoryTree(root, data);

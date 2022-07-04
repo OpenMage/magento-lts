@@ -80,14 +80,17 @@
             <page>
                 <priority>0.25</priority>
                 <changefreq>daily</changefreq>
+                <lastmod>1</lastmod>
             </page>
             <category>
                 <priority>0.5</priority>
                 <changefreq>daily</changefreq>
+                <lastmod>1</lastmod>
             </category>
             <product>
                 <priority>1</priority>
                 <changefreq>daily</changefreq>
+                <lastmod>1</lastmod>
             </product>
             <generate>
                 <enabled>0</enabled>

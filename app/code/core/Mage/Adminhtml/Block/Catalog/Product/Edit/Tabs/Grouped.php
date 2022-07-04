@@ -42,5 +42,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Grouped extends Mage_Adminh
             'url'       => $this->getUrl('*/*/superGroup', array('_current'=>true)),
             'class'     => 'ajax',
         ));
+        return $this;
     }
 }

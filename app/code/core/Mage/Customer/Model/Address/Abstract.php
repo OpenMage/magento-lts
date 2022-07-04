@@ -324,7 +324,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getCountry()
     {
@@ -338,7 +338,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive country model
+     * Retrieve country model
      *
      * @return Mage_Directory_Model_Country
      */
@@ -353,7 +353,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive country model
+     * Retrieve country model
      *
      * @param int|null $region
      * @return Mage_Directory_Model_Country
@@ -405,7 +405,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive address config object
+     * Retrieve address config object
      *
      * @return Mage_Customer_Model_Address_Config
      */

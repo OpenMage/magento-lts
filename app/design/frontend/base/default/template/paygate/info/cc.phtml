@@ -27,7 +27,7 @@
 
 <?php if (!$this->getHideTitle()): ?>
     <p><strong><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></strong></p>
-<?php endif;?>
+<?php endif ?>
 
 <?php
     $cards = $this->getCards();
@@ -38,9 +38,9 @@
 <?php foreach ($cards as $key => $card): ?>
     <?php if ($showCount): ?>
         <dt><?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?></dt>
-    <?php endif;?>
+    <?php endif ?>
 
-    <dd <?php if ($showCount):?> class="offset"<?php endif;?>>
+    <dd <?php if ($showCount):?> class="offset"<?php endif ?>>
     <table class="info-table">
         <tbody>
         <?php foreach ($card as $_label => $_value):?>
@@ -48,9 +48,9 @@
             <th><?php echo $this->escapeHtml($_label)?>:</th>
             <td><?php echo nl2br(implode("\n", $this->getValueAsArray($_value, true)))?></td>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </tbody>
     </table>
     </dd>
-<?php endforeach; ?>
+<?php endforeach ?>
 </dl>

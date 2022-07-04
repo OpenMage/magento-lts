@@ -205,14 +205,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         // set quality param for PNG file type
         if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_PNG)
         {
-            $quality = round(($this->quality() / 100) * 10);
-            if ($quality < 1) {
-                $quality = 1;
-            } elseif ($quality > 10) {
-                $quality = 10;
-            }
-            $quality = 10 - $quality;
-            $functionParameters[] = $quality;
+            $functionParameters[] = 9;
         }
 
         call_user_func_array($this->_getCallback('output'), $functionParameters);
@@ -275,7 +268,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fill image with indexed non-alpha transparency
                 elseif (false !== $transparentIndex) {
                     $transparentColor = false;
-                    if ($transparentIndex >=0 && $transparentIndex <= imagecolorstotal($this->_imageHandler)) {
+                    if ($transparentIndex >=0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
                     }

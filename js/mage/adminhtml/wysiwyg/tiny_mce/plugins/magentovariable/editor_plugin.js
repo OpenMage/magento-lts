@@ -56,7 +56,7 @@ tinyMCE.addI18n({en:{
                 longname : 'Magento Variable Manager Plugin for TinyMCE 3.x',
                 author : 'Magento Core Team',
                 authorurl : 'http://magentocommerce.com',
-                infourl : 'http://magentocommerce.com',
+                infourl : 'https://www.openmage.org',
                 version : "1.0"
             };
         }

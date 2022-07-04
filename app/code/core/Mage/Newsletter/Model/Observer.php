@@ -31,7 +31,11 @@
  */
 class Mage_Newsletter_Model_Observer
 {
-    public function subscribeCustomer($observer)
+    /**
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function subscribeCustomer(Varien_Event_Observer $observer)
     {
         $customer = $observer->getEvent()->getCustomer();
         if (($customer instanceof Mage_Customer_Model_Customer)) {
@@ -43,19 +47,22 @@ class Mage_Newsletter_Model_Observer
     /**
      * Customer delete handler
      *
-     * @param Varien_Object $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function customerDeleted($observer)
+    public function customerDeleted(Varien_Event_Observer $observer)
     {
         $subscriber = Mage::getModel('newsletter/subscriber')
             ->loadByEmail($observer->getEvent()->getCustomer()->getEmail());
-        if($subscriber->getId()) {
+        if ($subscriber->getId()) {
             $subscriber->delete();
         }
         return $this;
     }
 
+    /**
+     * @param Varien_Event_Observer $schedule
+     */
     public function scheduledSend($schedule)
     {
         $countOfQueue  = 3;

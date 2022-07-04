@@ -59,7 +59,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      * Prepare layout.
      * Adding save_and_continue button
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _preparelayout()
     {
@@ -88,8 +88,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
     {
         if ($this->getWidgetInstance()->getId()) {
             return Mage::helper('widget')->__('Widget "%s"', $this->escapeHtml($this->getWidgetInstance()->getTitle()));
-        }
-        else {
+        } else {
             return Mage::helper('widget')->__('New Widget Instance');
         }
     }

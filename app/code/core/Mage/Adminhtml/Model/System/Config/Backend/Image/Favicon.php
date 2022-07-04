@@ -83,7 +83,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
     /**
      * Get real media dir path
      *
-     * @param  $token
+     * @param string $token
      * @return string
      */
     protected function _getUploadRoot($token)

@@ -687,7 +687,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Prepare JSON formatted data for response to client
      *
-     * @param $response
+     * @param mixed $response
      * @return Zend_Controller_Response_Abstract
      */
     protected function _prepareDataJSON($response)

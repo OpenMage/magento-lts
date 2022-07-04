@@ -720,7 +720,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
 
     /**
-     * Retrive Declared Module file list
+     * Retrieve Declared Module file list
      *
      * @return array|false
      */
@@ -833,7 +833,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $moduleDepends[$moduleName] = array(
                 'module'    => $moduleName,
                 'depends'   => $depends,
-                'active'    => ('true' === (string)$moduleNode->active ? true : false),
+                'active'    => (string)$moduleNode->active === 'true',
             );
         }
 
@@ -1050,8 +1050,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param $data
-     * @return mixed
+     * @param string|array $data
+     * @return array|string
      */
     public function substDistroServerVars($data)
     {
@@ -1113,6 +1113,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @todo get global dir config
      * @param string $type
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBaseDir($type = 'base')
     {
@@ -1270,7 +1271,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $config = $this->_xml->global->{$groupType.'s'}->{$group};
 
         // First - check maybe the entity class was rewritten
-        $className = null;
+        $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
         } else {
@@ -1287,6 +1288,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
+        $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name
         if (empty($className)) {
@@ -1416,7 +1419,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      *
      * @param   string $modelClass
      * @param   array $constructArguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public function getResourceModelInstance($modelClass = '', $constructArguments = array())
     {
@@ -1555,7 +1558,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get DB table names prefix
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element
      */
     public function getTablePrefix()
     {

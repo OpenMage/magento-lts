@@ -74,7 +74,6 @@
         <cms translate="label" module="cms">
             <label>Content Management</label>
             <tab>general</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>1001</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -82,7 +81,6 @@
             <groups>
                 <wysiwyg translate="label">
                     <label>WYSIWYG Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

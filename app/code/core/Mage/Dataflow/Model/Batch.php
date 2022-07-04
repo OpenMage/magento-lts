@@ -132,6 +132,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
         if (is_null($this->getData('created_at'))) {
             $this->setData('created_at', Mage::getSingleton('core/date')->gmtDate());
         }
+        return $this;
     }
 
     protected function _afterDelete()
@@ -205,7 +206,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     public function getParams()
     {
         $data = $this->_data['params'];
-        $data = unserialize($data);
+        $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }
 }

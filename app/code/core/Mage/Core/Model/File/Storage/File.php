@@ -277,7 +277,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      * @return bool
      */
     public function lockCreateFile($filePath)
@@ -286,7 +286,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      */
     public function removeLockedFile($filePath)
     {

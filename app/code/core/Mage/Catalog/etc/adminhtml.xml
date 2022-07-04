@@ -76,7 +76,7 @@
                             <config>
                                 <children>
                                     <catalog translate="title" module="catalog">
-                                        <title>Catalog Section</title>
+                                        <title>Catalog</title>
                                     </catalog>
                                 </children>
                             </config>

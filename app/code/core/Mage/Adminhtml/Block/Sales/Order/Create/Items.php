@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items extends Mage_Adminhtml_Block
     /**
      * Add button to the items header
      *
-     * @param $args array
+     * @param array $args
      */
     public function addButton($args)
     {

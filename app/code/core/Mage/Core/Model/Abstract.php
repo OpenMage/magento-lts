@@ -204,7 +204,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
@@ -216,7 +216,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     }
 
     /**
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @throws Mage_Core_Exception
      */
     public function getCollection()
     {
@@ -309,6 +310,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Save object data
      *
      * @return $this
+     * @throws Throwable
      */
     public function save()
     {
@@ -333,7 +335,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 ->commit();
             $this->_hasDataChanges = false;
             $dataCommited = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
@@ -482,6 +484,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Delete object from database
      *
      * @return $this
+     * @throws Throwable
      */
     public function delete()
     {
@@ -492,7 +495,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }

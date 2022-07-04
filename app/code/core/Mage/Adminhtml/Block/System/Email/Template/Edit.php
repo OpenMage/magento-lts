@@ -271,7 +271,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Retrive email template model
+     * Retrieve email template model
      *
      * @return Mage_Core_Model_Email_Template
      */

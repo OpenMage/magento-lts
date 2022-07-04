@@ -95,7 +95,6 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             } else {
                 $item->remove();
             }
-
         }
         return $this;
     }
@@ -127,9 +126,11 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
         }
 
         $this->getSelect()
-            ->joinLeft(array('orders' => $this->getTable('sales/order')),
+            ->joinLeft(
+                array('orders' => $this->getTable('sales/order')),
                 "orders.customer_id = e.entity_id".$dateFilter,
-            array());
+                array()
+            );
 
         return $this;
     }
@@ -192,7 +193,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Add order statistics
      *
-     * @param boolean $isFilter
+     * @param int|bool $isFilter
      * @return $this
      */
     public function addOrdersStatistics($isFilter = false)

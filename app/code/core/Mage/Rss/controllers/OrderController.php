@@ -42,6 +42,10 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
         }
     }
 
+    /**
+     * @return $this|void
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function customerAction()
     {
         if ($this->checkFeedEnable('order/customer')) {

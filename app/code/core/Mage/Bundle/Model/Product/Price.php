@@ -88,7 +88,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         if ($product->hasCustomOptions()) {
             $customOption = $product->getCustomOption('bundle_selection_ids');
             if ($customOption) {
-                $selectionIds = unserialize($customOption->getValue());
+                $selectionIds = unserialize($customOption->getValue(), ['allowed_classes' => false]);
                 /** @var Mage_Bundle_Model_Resource_Selection_Collection $selections */
                 $selections = $product->getTypeInstance(true)->getSelectionsByIds($selectionIds, $product);
                 $selections->addTierPriceData();
@@ -117,11 +117,11 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     /**
      * Get product final price
      *
-     * @param   double $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  double
      */
-    public function getFinalPrice($qty = null, $product)
+    public function getFinalPrice($qty, $product)
     {
         if (is_null($qty) && !is_null($product->getCalculatedFinalPrice())) {
             return $product->getCalculatedFinalPrice();
@@ -688,11 +688,11 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     /**
      * Get product tier price by qty
      *
-     * @param   float $qty
-     * @param   Mage_Catalog_Model_Product $product
+     * @param float|null $qty
+     * @param Mage_Catalog_Model_Product $product
      * @return  float|array
      */
-    public function getTierPrice($qty = null, $product)
+    public function getTierPrice($qty, $product)
     {
         $allGroups = Mage_Customer_Model_Group::CUST_GROUP_ALL;
         $prices = $product->getData('tier_price');

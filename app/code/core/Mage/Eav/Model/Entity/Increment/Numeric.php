@@ -43,8 +43,10 @@ class Mage_Eav_Model_Entity_Increment_Numeric extends Mage_Eav_Model_Entity_Incr
     {
         $last = $this->getLastId();
 
-        if (strpos($last, $this->getPrefix()) === 0) {
-            $last = (int)substr($last, strlen($this->getPrefix()));
+        if (empty($last)) {
+            $last = 0;
+        } else if (!empty($prefix = (string)$this->getPrefix()) && strpos($last, $prefix) === 0) {
+            $last = (int)substr($last, strlen($prefix));
         } else {
             $last = (int)$last;
         }

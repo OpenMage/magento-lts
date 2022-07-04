@@ -37,7 +37,7 @@ class Mage_Dataflow_Model_Convert_Parser_Serialize extends Mage_Dataflow_Model_C
 
     public function parse()
     {
-        $this->setData(unserialize($this->getData()));
+        $this->setData(unserialize($this->getData(), ['allowed_classes' => false]));
         return $this;
     }
 

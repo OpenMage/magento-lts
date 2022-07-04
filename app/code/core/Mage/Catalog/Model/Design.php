@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Apply custom design
      *
      * @param string $design
-     * @return bool
+     * @return null|false
      */
     public function applyCustomDesign($design)
     {

@@ -193,7 +193,7 @@ $regionsToIns = array(
     array('LV', 'Ērgļu novads', 'Ērgļu novads'),
     array('LV', 'Ķeguma novads', 'Ķeguma novads'),
     array('LV', 'Ķekavas novads', 'Ķekavas novads'),
-    
+
     //ISO-3166-2:LT
     array('LT', 'LT-AL', 'Alytaus Apskritis'),
     array('LT', 'LT-KU', 'Kauno Apskritis'),

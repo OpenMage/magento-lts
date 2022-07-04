@@ -309,7 +309,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         $createdAtA = $a['created_at'];
         $createdAtB = $b['created_at'];
 
-        /** @var $createdAta Zend_Date */
+        /** @var Zend_Date $createdAtA */
         if ($createdAtA->getTimestamp() == $createdAtB->getTimestamp()) {
             return 0;
         }

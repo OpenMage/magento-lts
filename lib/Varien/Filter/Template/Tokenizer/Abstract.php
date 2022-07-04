@@ -39,48 +39,48 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      * @var int
      */
     protected $_currentIndex;
-    
+
     /**
      * String for tokenize
      */
     protected $_string;
-    
+
     /**
-     * Move current index to next char. 
+     * Move current index to next char.
      *
      * If index out of bounds returns false
      *
      * @return boolean
      */
-    public function next() 
+    public function next()
     {
         if($this->_currentIndex + 1 >= strlen($this->_string)) {
             return false;
         }
-        
+
         $this->_currentIndex++;
-        return true; 
+        return true;
     }
-    
+
     /**
-     * Move current index to previus char. 
+     * Move current index to previus char.
      *
      * If index out of bounds returns false
      *
      * @return boolean
      */
-    public function prev() 
+    public function prev()
     {
         if($this->_currentIndex - 1 < 0) {
             return false;
         }
-        
+
         $this->_currentIndex--;
-        return true; 
+        return true;
     }
-    
+
     /**
-     * Return current char 
+     * Return current char
      *
      * @return string
      */
@@ -88,8 +88,8 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
     {
         return $this->_string[$this->_currentIndex];
     }
-    
-    
+
+
     /**
      * Set string for tokenize
      */
@@ -98,15 +98,15 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
         $this->_string = $value;
         $this->reset();
     }
-    
+
     /**
      * Move char index to begin of string
      */
-    public function reset() 
+    public function reset()
     {
         $this->_currentIndex = 0;
     }
-    
+
     /**
      * Return true if current char is white-space
      *
@@ -115,7 +115,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
     public function isWhiteSpace() {
         return trim($this->char()) != $this->char();
     }
-    
+
     abstract public function tokenize();
-    
+
 }

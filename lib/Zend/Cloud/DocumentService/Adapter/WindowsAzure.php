@@ -525,7 +525,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure
      */
     protected function _validateKey($key)
     {
-        if (preg_match('@[/#?' . preg_quote('\\') . ']@', $key)) {
+        if (preg_match('@[/#?' . preg_quote('\\', '@') . ']@', $key)) {
             throw new Zend_Cloud_DocumentService_Exception('Invalid partition or row key provided; must not contain /, \\,  #, or ? characters');
         }
     }

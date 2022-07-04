@@ -262,6 +262,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
            'container' => $this->getHtmlId() . '-new',
            'delete'    => $this->getHtmlId() . '-delete'
         ));
+        return $this;
     }
 
     /**
@@ -275,7 +276,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Retrive config json
+     * Retrieve config json
      *
      * @param string $type
      * @return string
@@ -287,7 +288,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->setFileParameterName($type)
             ->setTarget(
                 Mage::getModel('adminhtml/url')
-                    ->addSessionParam()
                     ->getUrl('*/downloadable_file/upload', array('type' => $type, '_secure' => true))
             );
         $this->getMiscConfig()

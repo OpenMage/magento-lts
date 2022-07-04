@@ -422,10 +422,12 @@ class Mage_Core_Model_Translate
             $translated = $this->_getTranslatedString($text, $code);
         }
 
-        //array_unshift($args, $translated);
-        //$result = @call_user_func_array('sprintf', $args);
+        try {
+            $result = !empty($args) ? vsprintf($translated, $args) : false;
+        } catch (ValueError $e) {
+            $result = false;
+        }
 
-        $result = !empty($args) ? @vsprintf($translated, $args) : false;
         if ($result === false) {
             $result = $translated;
         }
@@ -462,7 +464,7 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrive translated template file
+     * Retrieve translated template file
      *
      * @param string $file
      * @param string $type
@@ -535,7 +537,7 @@ class Mage_Core_Model_Translate
             return false;
         }
         $data = Mage::app()->loadCache($this->getCacheId());
-        $data = unserialize($data);
+        $data = unserialize($data, ['allowed_classes' => false]);
         return $data;
     }
 
@@ -572,7 +574,6 @@ class Mage_Core_Model_Translate
      */
     protected function _getTranslatedString($text, $code)
     {
-        $translated = '';
         if (array_key_exists($code, $this->getData())) {
             $translated = $this->_data[$code];
         } elseif (array_key_exists($text, $this->getData())) {

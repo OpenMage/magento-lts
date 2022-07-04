@@ -122,8 +122,8 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
     /**
      * Perform actions before object save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Newsletter_Model_Template $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {

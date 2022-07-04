@@ -28,9 +28,9 @@
 /**
  * Product image attribute backend
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
@@ -52,15 +52,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Image extends Mage_E
         }
 
         try {
+            $validator = Mage::getModel('core/file_validator_image');
             $uploader = new Mage_Core_Model_File_Uploader($this->getAttribute()->getName());
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
-            $uploader->addValidateCallback(
-                Mage_Core_Model_File_Validator_Image::NAME,
-                new Mage_Core_Model_File_Validator_Image(),
-                "validate"
-            );
+            $uploader->addValidateCallback(Mage_Core_Model_File_Validator_Image::NAME, $validator, 'validate');
             $uploader->save(Mage::getBaseDir('media') . '/catalog/product');
 
             $fileName = $uploader->getUploadedFileName();

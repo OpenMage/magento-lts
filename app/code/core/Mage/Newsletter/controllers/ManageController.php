@@ -60,6 +60,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return Mage_Newsletter_ManageController
+     */
     public function saveAction()
     {
         if (!$this->_validateFormKey()) {
@@ -75,8 +78,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');

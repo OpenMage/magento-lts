@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
                         }
                     }
                 }
-                $defText = join(', ', $defTextArr);
+                $defText = implode(', ', $defTextArr);
             }
 
             // default value

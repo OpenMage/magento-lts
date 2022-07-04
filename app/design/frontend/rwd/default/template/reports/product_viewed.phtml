@@ -35,7 +35,7 @@
         <?php foreach ($_products as $_item): ?>
             <li class="item">
                 <a href="<?php echo $this->getProductUrl($_item) ?>">
-                    <span class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
+                    <span class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></span>
                 </a>
                 <div class="product-details">
                     <p class="product-name">
@@ -45,9 +45,9 @@
                     </p>
                 </div>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('recently-viewed-items');</script>
     </div>
 </div>
-<?php endif; ?>
+<?php endif ?>

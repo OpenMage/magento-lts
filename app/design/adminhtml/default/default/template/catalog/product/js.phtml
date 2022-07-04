@@ -89,6 +89,6 @@ varienGlobalEvents.attachEventHandler('showTab', bindActiveProductTab);
 if(<?php echo $tabsBlock->getJsObjectName() ?> && <?php echo $tabsBlock->getJsObjectName() ?>.activeTab && $('store_switcher')){
     $('store_switcher').switchParams = 'active_tab/'+<?php echo $tabsBlock->getJsObjectName() ?>.activeTab.name+'/';
 }
-<?php endif; ?>
+<?php endif ?>
 //]]>
 </script>

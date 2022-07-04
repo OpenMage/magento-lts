@@ -36,7 +36,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Form extends Mage_Adminht
     /**
      * Prepare form before rendering HTML
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -45,5 +45,4 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Form extends Mage_Adminht
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 }

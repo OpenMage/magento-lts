@@ -35,7 +35,7 @@
 <div class="page-title">
     <h1><?php echo $this->getTitle() ?></h1>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
     <div class="fieldset">
@@ -88,7 +88,7 @@
                     <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Street Address %s', $_i)) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
                 </div>
             </li>
-        <?php endfor; ?>
+        <?php endfor ?>
             <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
             <li class="wide">
                 <label for="vat_id"><?php echo $this->__('VAT Number') ?></label>
@@ -96,7 +96,7 @@
                     <input type="text" name="vat_id" value="<?php echo $this->escapeHtml($this->getAddress()->getVatId()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')) ?>" id="vat_id" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>" />
                 </div>
             </li>
-            <?php endif; ?>
+            <?php endif ?>
             <li class="fields">
                 <div class="field">
                     <label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -140,7 +140,7 @@
                     <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use as My Default Billing Address')) ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_billing" value="1" />
-                <?php endif; ?>
+                <?php endif ?>
             </li>
             <li<?php if($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
                 <?php if($this->isDefaultShipping()): ?>
@@ -149,7 +149,7 @@
                     <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Use as My Default Shipping Address')) ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
                 <?php else: ?>
                     <input type="hidden" name="default_shipping" value="1" />
-                <?php endif; ?>
+                <?php endif ?>
             </li>
         </ul>
     </div>
