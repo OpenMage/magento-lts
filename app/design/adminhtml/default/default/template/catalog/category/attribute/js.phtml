@@ -26,23 +26,23 @@
 ?>
 <script type="text/javascript">
 //<![CDATA[
-function saveAndContinueEdit(){
+function saveAndContinueEdit() {
     disableElements('save');
     var activeTab = category_attribute_tabsJsTabs.activeTab.id;
-    if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
+    if (editForm.submit($('edit_form').action + 'back/edit/tab/' + activeTab) == false) {
         enableElements('save');
-     }
-    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+    }
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function () {
         enableElements('save');
     });
 }
 
-function saveAttribute(){
+function saveAttribute() {
     disableElements('save');
-    if (editForm.submit() == false){
+    if (editForm.submit() == false) {
         enableElements('save');
     }
-    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+    varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function () {
         enableElements('save');
     });
 }
@@ -56,60 +56,56 @@ function toggleApplyVisibility(select) {
         $(select).next('select').addClassName('no-display');
         $(select).next('select').addClassName('ignore-validate');
         var options = $(select).next('select').options;
-        for( var i=0; i < options.length; i++) {
+        for (var i = 0; i < options.length; i++) {
             options[i].selected = false;
         }
     }
 }
 
-function checkOptionsPanelVisibility(){
-    if($('matage-options-panel')){
+function checkOptionsPanelVisibility() {
+    if ($('matage-options-panel')) {
         var panel = $('matage-options-panel');
-        if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect')){
+        if ($('frontend_input') && ($('frontend_input').value == 'select' || $('frontend_input').value == 'multiselect')) {
             panel.show();
-        }
-        else {
+        } else {
             panel.hide();
         }
     }
 }
 
-function bindAttributeInputType()
-{
+function bindAttributeInputType() {
     checkOptionsPanelVisibility();
     switchDefaultValueField();
     checkIsConfigurableVisibility();
-    if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')){
-        if($('is_filterable') && !$('is_filterable').getAttribute('readonly')){
+    if ($('frontend_input') && ($('frontend_input').value == 'select' || $('frontend_input').value == 'multiselect' || $('frontend_input').value == 'price')) {
+        if ($('is_filterable') && !$('is_filterable').getAttribute('readonly')) {
             $('is_filterable').disabled = false;
         }
-        if($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')){
+        if ($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')) {
             $('is_filterable_in_search').disabled = false;
         }
-        if($('backend_type') && $('backend_type').options){
-            for(var i=0;i<$('backend_type').options.length;i++){
-                if($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
+        if ($('backend_type') && $('backend_type').options) {
+            for (var i = 0; i < $('backend_type').options.length; i++) {
+                if ($('backend_type').options[i].value == 'int') $('backend_type').selectedIndex = i;
             }
         }
-    }
-    else {
-        if($('is_filterable')){
-            $('is_filterable').selectedIndex=0;
+    } else {
+        if ($('is_filterable')) {
+            $('is_filterable').selectedIndex = 0;
             $('is_filterable').disabled = true;
         }
-        if($('is_filterable_in_search')){
+        if ($('is_filterable_in_search')) {
             $('is_filterable_in_search').disabled = true;
         }
     }
 
-    if ($('frontend_input') && ($('frontend_input').value=='multiselect'
-        || $('frontend_input').value=='gallery'
-        || $('frontend_input').value=='textarea')) {
+    if ($('frontend_input') && ($('frontend_input').value == 'multiselect'
+        || $('frontend_input').value == 'gallery'
+        || $('frontend_input').value == 'textarea')) {
         if ($('used_for_sort_by')) {
             $('used_for_sort_by').disabled = true;
         }
-    }
-    else {
+    } else {
         if ($('used_for_sort_by') && !$('used_for_sort_by').getAttribute('readonly')) {
             $('used_for_sort_by').disabled = false;
         }
@@ -139,23 +135,21 @@ function bindAttributeInputType()
     switchIsFilterable();
 }
 
-function switchIsFilterable()
-{
+function switchIsFilterable() {
     if ($('is_filterable')) {
         if ($('is_filterable').selectedIndex == 0) {
             $('position').disabled = true;
         } else {
-            if (!$('position').getAttribute('readonly')){
+            if (!$('position').getAttribute('readonly')) {
                 $('position').disabled = false;
             }
         }
     }
 }
 
-function disableApplyToValue(value)
-{
+function disableApplyToValue(value) {
     var applyToSelect = $('apply_to');
-    for (i=0;i<applyToSelect.options.length;i++) {
+    for (i = 0; i < applyToSelect.options.length; i++) {
         if (value == applyToSelect.options[i].value) {
             applyToSelect.options[i].disabled = true;
             applyToSelect.options[i].selected = false;
@@ -163,8 +157,7 @@ function disableApplyToValue(value)
     }
 }
 
-function switchDefaultValueField()
-{
+function switchDefaultValueField() {
     if (!$('frontend_input')) {
         return;
     }
@@ -216,27 +209,27 @@ function switchDefaultValueField()
             setRowVisibility('is_required', false);
             setRowVisibility('is_unique', false);
             setRowVisibility('frontend_class', false);
-        break;
-
-        <?php foreach (Mage::helper('catalog')->getAttributeHiddenFields() as $type=>$fields): ?>
-            case '<?php echo $type; ?>':
-                <?php foreach ($fields as $one): ?>
-                    <?php if ($one == '_front_fieldset'): ?>
-                        $('front_fieldset').previous().hide();
-                        $('front_fieldset').hide();
-                    <?php elseif ($one == '_default_value'): ?>
-                        defaultValueTextVisibility =
-                        defaultValueTextareaVisibility =
-                        defaultValueDateVisibility =
-                        defaultValueYesnoVisibility = false;
-                    <?php elseif ($one == '_scope'): ?>
-                        scopeVisibility = false;
-                    <?php else: ?>
-                        setRowVisibility('<?php echo $one; ?>', false);
-                    <?php endif ?>
-                <?php endforeach ?>
             break;
+
+    <?php foreach (Mage::helper('catalog')->getAttributeHiddenFields() as $type=>$fields): ?>
+        case '<?php echo $type; ?>':
+        <?php foreach ($fields as $one): ?>
+        <?php if ($one == '_front_fieldset'): ?>
+            $('front_fieldset').previous().hide();
+            $('front_fieldset').hide();
+        <?php elseif ($one == '_default_value'): ?>
+            defaultValueTextVisibility =
+                defaultValueTextareaVisibility =
+                    defaultValueDateVisibility =
+                        defaultValueYesnoVisibility = false;
+        <?php elseif ($one == '_scope'): ?>
+            scopeVisibility = false;
+        <?php else: ?>
+            setRowVisibility('<?php echo $one; ?>', false);
+        <?php endif ?>
         <?php endforeach ?>
+            break;
+    <?php endforeach ?>
 
         default:
             $('front_fieldset').previous().show();
@@ -245,7 +238,7 @@ function switchDefaultValueField()
             setRowVisibility('is_unique', true);
             setRowVisibility('frontend_class', true);
             setRowVisibility('is_configurable', true);
-        break;
+            break;
     }
 
     setRowVisibility('default_value_text', defaultValueTextVisibility);
@@ -260,8 +253,7 @@ function switchDefaultValueField()
     }
 }
 
-function setRowVisibility(id, isVisible)
-{
+function setRowVisibility(id, isVisible) {
     if ($(id)) {
         var td = $(id).parentNode;
         var tr = $(td.parentNode);
@@ -275,26 +267,24 @@ function setRowVisibility(id, isVisible)
     }
 }
 
-function checkIsConfigurableVisibility()
-{
+function checkIsConfigurableVisibility() {
     if (!$('is_configurable') || !$('is_global') || !$('frontend_input')) return;
-    if ($F('is_global')==1 && $F('frontend_input')=='select') {
+    if ($F('is_global') == 1 && $F('frontend_input') == 'select') {
         setRowVisibility('is_configurable', true);
     } else {
         setRowVisibility('is_configurable', false);
     }
 }
 
-function updateRequriedOptions()
-{
-    if ($F('frontend_input')=='select' && $F('is_required')==1) {
+function updateRequriedOptions() {
+    if ($F('frontend_input') == 'select' && $F('is_required') == 1) {
         $('option-count-check').addClassName('required-options-count');
     } else {
         $('option-count-check').removeClassName('required-options-count');
     }
 }
 
-if($('frontend_input')){
+if ($('frontend_input')) {
     Event.observe($('frontend_input'), 'change', updateRequriedOptions);
     Event.observe($('frontend_input'), 'change', bindAttributeInputType);
     Event.observe($('is_global'), 'change', checkIsConfigurableVisibility);
