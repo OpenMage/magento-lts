@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Edit extends Mage_Adminhtm
 
         parent::__construct();
 
-        if($this->getRequest()->getParam('popup')) {
+        if ($this->getRequest()->getParam('popup')) {
             $this->_removeButton('back');
             $this->_addButton(
                 'close',
