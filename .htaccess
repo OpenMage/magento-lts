@@ -1,240 +1,558 @@
 ############################################
+## Default index file
+
+	DirectoryIndex index.php
+
+############################################
+## Custom error pages
+
+	#ErrorDocument 401 /errors/401.php
+	#ErrorDocument 403 /errors/403.php
+	#ErrorDocument 404 /errors/404.php
+	#ErrorDocument 405 /errors/405.php
+	#ErrorDocument 410 /errors/410.php
+	#ErrorDocument 500 /errors/500.php
+	#ErrorDocument 503 /errors/503.php
+
+############################################
+## Prevent character encoding issues from server overrides
+## If you still have issues use the second line instead
+
+	AddDefaultCharset Off
+	#AddDefaultCharset UTF-8
+
+############################################
+## Uncomment if running in cluster environment
+## http://developer.yahoo.com/performance/rules.html#etags
+
+	#FileETag none
+
+############################################
 ## GoDaddy specific options
+## You might also need to add this line to php.ini
+##    cgi.fix_pathinfo = 1
 
-#   Options -MultiViews
-
-## you might also need to add this line to php.ini
-##     cgi.fix_pathinfo = 1
-## if it still doesn't work, rename php.ini to php7.ini
-
-############################################
-## default index file
-
-    DirectoryIndex index.php
-
-############################################
-## php7 settings
+	#Options -MultiViews
 
 <IfModule mod_php7.c>
 
 ############################################
-## adjust max execution time
-
-    php_value max_execution_time 18000
+## PHP7 Settings
 
 ############################################
-## disable automatic session start
-## before autoload was initialized
+## Adjust max execution time
 
-    php_flag session.auto_start off
+	#php_value max_execution_time 18000
 
 ############################################
-## enable resulting html compression
+## Disable automatic session start before autoload was initialized
 
-    #php_flag zlib.output_compression on
+	php_flag session.auto_start off
+
+############################################
+## Enable resulting html compression
+
+	#php_flag zlib.output_compression on
 
 ###########################################
-# disable user agent verification to not break multiple image upload
+## Disable user agent verification to not break multiple image upload
 
-    php_flag suhosin.session.cryptua off
+	php_flag suhosin.session.cryptua off
+
+</IfModule>
+
+<IfModule mod_php8.c>
+
+############################################
+## PHP8 Settings
+
+############################################
+## Adjust maximum execution time
+
+	#php_value max_execution_time 18000
+
+############################################
+## Disable automatic session start before autoload was initialized
+
+	php_flag session.auto_start off
+
+############################################
+## Enable resulting html compression
+
+	#php_flag zlib.output_compression on
+
+###########################################
+## Disable user agent verification to not break multiple image upload
+
+	php_flag suhosin.session.cryptua off
 
 </IfModule>
 
 <IfModule mod_security.c>
+
 ###########################################
-# disable POST processing to not break multiple image upload
+## Disable POST processing to avoid breaking multiple image upload
 
-    SecFilterEngine Off
-    SecFilterScanPOST Off
-</IfModule>
-
-<IfModule mod_deflate.c>
-
-############################################
-## enable apache served files compression
-## http://developer.yahoo.com/performance/rules.html#gzip
-
-    # Insert filter on all content
-    ###SetOutputFilter DEFLATE
-    # Insert filter on selected content types only
-    #AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
-
-    # Netscape 4.x has some problems...
-    #BrowserMatch ^Mozilla/4 gzip-only-text/html
-
-    # Netscape 4.06-4.08 have some more problems
-    #BrowserMatch ^Mozilla/4\.0[678] no-gzip
-
-    # MSIE masquerades as Netscape, but it is fine
-    #BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-
-    # Don't compress images
-    #SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
-
-    # Make sure proxies don't deliver the wrong content
-    #Header append Vary User-Agent env=!dont-vary
+	SecFilterEngine Off
+	SecFilterScanPOST Off
 
 </IfModule>
 
 <IfModule mod_ssl.c>
 
 ############################################
-## make HTTPS env vars available for CGI mode
+## Make HTTPS env vars available for CGI mode
 
-    SSLOptions StdEnvVars
+	SSLOptions StdEnvVars
+
+</IfModule>
+
+<IfModule mod_deflate.c>
+
+############################################
+## Enable Apache served files compression
+## http://developer.yahoo.com/performance/rules.html#gzip
+
+############################################
+## Insert filter on all content
+
+	#SetOutputFilter DEFLATE
+
+############################################
+## Insert filter on selected content types only
+
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+
+############################################
+## Do not compress images
+## Apache Module mod_setenvif must be enabled
+
+	SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+############################################
+## Please make sure proxies don't deliver the wrong content
+## Apache Module mod_headers must be enabled
+
+	#Header append Vary User-Agent env=!dont-vary
+
+</IfModule>
+
+<IfModule mod_expires.c>
+
+############################################
+## Control the setting of the Expires HTTP header
+## http://developer.yahoo.com/performance/rules.html#expires
+
+	ExpiresActive On
+
+	ExpiresByType audio/midi "access plus 1 month"
+	ExpiresByType audio/mpeg "access plus 1 month"
+	ExpiresByType audio/ogg "access plus 1 month"
+	ExpiresByType audio/wav "access plus 1 month"
+	ExpiresByType audio/webm "access plus 1 month"
+	ExpiresByType application/pdf "access plus 1 month"
+	ExpiresByType application/zip "access plus 1 month"
+	ExpiresByType font/woff "access plus 1 year"
+	ExpiresByType font/woff2 "access plus 1 year"
+	ExpiresByType image/bmp "access plus 1 year"
+	ExpiresByType image/gif "access plus 1 year"
+	ExpiresByType image/jpeg "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 year"
+	ExpiresByType image/tiff "access plus 1 year"
+	ExpiresByType image/webp "access plus 1 year"
+	ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType text/csv "access plus 1 month"
+	ExpiresByType text/html "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType text/plain "access plus 1 month"
+	ExpiresByType video/mp4 "access plus 1 month"
+	ExpiresByType video/mpeg "access plus 1 month"
+	ExpiresByType video/ogg "access plus 1 month"
+	ExpiresByType video/x-msvideo "access plus 1 month"
+
+	ExpiresDefault "access plus 2 days"
+
+</IfModule>
+
+<IfModule mod_headers.c>
+
+############################################
+## Inform a client that the domain must only be accessed using HTTPS protocol
+## https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+
+	Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+############################################
+## Protect against page-framing and click-jacking
+
+	Header always set X-Frame-Options SAMEORIGIN
+
+############################################
+## Protect against content-sniffing
+
+	Header set X-Content-Type-Options nosniff
+
+</IfModule>
+
+<IfModule mod_access_compat.c>
+
+############################################
+## By default allow access to all
+
+	Order allow,deny
+	Allow from all
 
 </IfModule>
 
 <IfModule mod_rewrite.c>
 
 ############################################
-## enable rewrites
+## Enable rewriting engine to rewrite requested URLs on the fly
 
-    Options +FollowSymLinks
-    RewriteEngine on
-
-############################################
-## you can put here your magento root folder
-## path relative to web root
-
-    #RewriteBase /magento/
+	Options +FollowSymLinks
+	RewriteEngine on
 
 ############################################
-## uncomment next line to enable light API calls processing
+## Set the OpenMage directory path if it is relative to the Apache document root
 
-#    RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]
-
-############################################
-## rewrite API2 calls to api.php (by now it is REST only)
-
-    RewriteRule ^api/rest api.php?type=rest [QSA,L]
+	#RewriteBase /openmage/
 
 ############################################
-## workaround for HTTP authorization
-## in CGI environment
+## Enable light API calls processing
 
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	#RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]
 
 ############################################
-## TRACE and TRACK HTTP methods disabled to prevent XSS attacks
+## Rewrite API2 calls to api.php (by now it is REST only)
 
-    RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
-    RewriteRule .* - [L,R=405]
+	RewriteRule ^api/rest api.php?type=rest [QSA,L]
+
+############################################
+## Workaround for HTTP authorization in CGI environment
+
+	RewriteRule (.*) - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+############################################
+## Block unnecessary request methods to prevent XSS attacks
+## Please make sure the domain doesn't rely on any of these methods
+
+	RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK) [NC]
+	RewriteRule (.*) - [L,R=405]
+
+############################################
+## Redirect for mobile user agents
+## Before use set the MOBILE_DIRECTORY_NAME value
+
+	#RewriteCond %{REQUEST_URI} !^/MOBILE_DIRECTORY_NAME/(.*)$
+	#RewriteCond %{HTTP_USER_AGENT} "android|blackberry|ipad|iphone|ipod|iemobile|opera mobile|palmos|webos|googlebot-mobile" [NC]
+	#RewriteRule ^(.*)$ /MOBILE_DIRECTORY_NAME/ [L,R=302]
+
+############################################
+## Always send 404 Not Found status code on missing files in these directories
+
+	RewriteCond %{REQUEST_URI} !^/(js|media|skin)/
+
+############################################
+## Never rewrite for existing files, directories and links
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+############################################
+## Rewrite everything else to index.php
+
+	RewriteRule (.*) index.php [L]
+
+</IfModule>
 
 <IfModule mod_setenvif.c>
 
 ############################################
+## Enable Developer Mode
+
+	#SetEnv MAGE_IS_DEVELOPER_MODE "1"
+
+############################################
 ## Enable Developer Mode based on OS environment variable
 
-    SetEnvIfExpr "osenv('MAGE_IS_DEVELOPER_MODE') == '1'" MAGE_IS_DEVELOPER_MODE=1
-
-    <IfModule mod_headers.c>
-
-        ############################################
-        # X-Content-Type-Options: nosniff disable content-type sniffing on some browsers.
-        Header set X-Content-Type-Options: nosniff
-
-        ############################################
-        # This header forces to enables the Cross-site scripting (XSS) filter in browsers (if disabled)
-        BrowserMatch \bMSIE\s8 ie8
-        Header set X-XSS-Protection: "1; mode=block" env=!ie8
-
-    </IfModule>
-</IfModule>
+	#SetEnvIfExpr "osenv('MAGE_IS_DEVELOPER_MODE') == '1'" MAGE_IS_DEVELOPER_MODE=1
 
 ############################################
-## redirect for mobile user agents
+## If using SSL Offloading use the Offloader Header value set in 
+## Backend > System > Configuration > General > Secure. If the value is SSL_OFFLOADED
+## For HAProxy configuration: http-request add-header Ssl-Offloaded on
+## For Pound configuration: AddHeader "Ssl-Offloaded: on"
 
-    #RewriteCond %{REQUEST_URI} !^/mobiledirectoryhere/.*$
-    #RewriteCond %{HTTP_USER_AGENT} "android|blackberry|ipad|iphone|ipod|iemobile|opera mobile|palmos|webos|googlebot-mobile" [NC]
-    #RewriteRule ^(.*)$ /mobiledirectoryhere/ [L,R=302]
-
-############################################
-## always send 404 on missing files in these folders
-
-    RewriteCond %{REQUEST_URI} !^/(media|skin|js)/
+	#SetEnvIf Ssl-Offloaded on HTTPS=on
 
 ############################################
-## never rewrite for existing files, directories and links
+## Uncomment if the Apache server is behind a load balancer to get the client's IPv4 address in the access log
+## Use the environment variable set bellow in the Apache server configuration
+## For example: LogFormat "%{HTTP_X_REMOTE_ADDR}e %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-
-############################################
-## rewrite everything else to index.php
-
-    RewriteRule .* index.php [L]
+	#SetEnvIf X-Forwarded-For "^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$" HTTP_X_REMOTE_ADDR=$1
 
 </IfModule>
 
+<Files "cron.php">
 
 ############################################
-## Prevent character encoding issues from server overrides
-## If you still have problems, use the second line instead
-
-    AddDefaultCharset Off
-    #AddDefaultCharset UTF-8
-
-<IfModule mod_expires.c>
-
-############################################
-## Add default Expires header
-## http://developer.yahoo.com/performance/rules.html#expires
-    ExpiresActive On
-    ExpiresByType image/jpg "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/pdf "access plus 1 month"
-    ExpiresByType text/x-javascript "access plus 1 month"
-    ExpiresByType application/x-shockwave-flash "access plus 1 month"
-    ExpiresByType image/x-icon "access plus 1 year"
-    ExpiresDefault "access plus 2 days"
-</IfModule>
-
-############################################
-## By default allow all access
-
-    Order allow,deny
-    Allow from all
-
-###########################################
-## Deny access to release notes to prevent disclosure of the installed Magento version
-
-    <Files RELEASE_NOTES.txt>
-        order allow,deny
-        deny from all
-    </Files>
-
-############################################
-## If running in cluster environment, uncomment this
-## http://developer.yahoo.com/performance/rules.html#etags
-
-    #FileETag none
-
-###########################################
-## Deny access to cron.php
-    <Files cron.php>
-
-############################################
-## uncomment next lines to enable cron access with base HTTP authorization
-## http://httpd.apache.org/docs/2.2/howto/auth.html
+## Enable cron access with base HTTP authorization
+## https://httpd.apache.org/docs/2.4/howto/auth.html
 ##
-## Warning: .htpasswd file should be placed somewhere not accessible from the web.
-## This is so that folks cannot download the password file.
-## For example, if your documents are served out of /usr/local/apache/htdocs
-## you might want to put the password file(s) in /usr/local/apache/.
+## Warning: .htpasswd file must be placed in a secure place to prevent outside access
+## If the document root is located in /usr/local/apache/htdocs
+## you might want to put the password file(s) in /usr/local/apache/
 
-        #AuthName "Cron auth"
-        #AuthUserFile ../.htpasswd
-        #AuthType basic
-        #Require valid-user
+	#AuthName "Cron Authorization"
+	#AuthUserFile ../.htpasswd
+	#AuthType basic
+	#Require valid-user
 
 ############################################
+## The next methods must be comment if you enable cron access with base HTTP authorization
+##
+## Deny access (Default)
+## Comment the lines if you use the alternative method
 
-        Order allow,deny
-        Deny from all
+	Order allow,deny
+	Deny from all
 
-    </Files>
+###########################################
+## Redirect to external location (Alternative)
+## Apache Module mod_rewrite must be enabled
+
+	#RewriteRule ^(.*)$ https://www.example.com/ [L,R=301]
+
+</Files>
+
+<FilesMatch "\.(all-contributorsrc|git.*/?)">
+	
+###########################################
+## Deny access (Default)
+## Comment the lines if you use the alternative method
+
+	Order allow,deny
+	Deny from all
+
+###########################################
+## Redirect to external location (Alternative)
+## Apache Module mod_rewrite must be enabled
+
+	#RewriteRule ^(.*)$ https://www.example.com/ [L,R=301]
+
+</FilesMatch>
+
+<FilesMatch "(.*)\.(json|lock|md|sh|txt|sample)$">
+
+###########################################
+## Deny access (Default)
+## Comment the lines if you use the alternative method
+	
+	Order allow,deny
+	Deny from all
+
+###########################################
+## Redirect to external location (Alternative)
+## Apache Module mod_rewrite must be enabled
+	
+	#RewriteRule ^(.*)$ https://www.example.com/ [L,R=301]
+
+</FilesMatch>
+
+<IfModule mod_setenvif.c>
+
+############################################
+## Block abusive bot traffic to reduce the performance impact
+##
+## Create an alias for this command and check periodically the Apache access log file for bots
+##    awk -F\" '/GET/ {print $6}' /var/log/apache2/access.log | sort | uniq -c | sort -fn | grep -wviE '(Android|iPad|iPhone|Macintosh|Windows NT|X11)'
+## In AWStats check Robots/Spiders visitor page
+## https://www.the-art-of-web.com/system/logs/
+##
+## Limit the REGEX expression to a few words and do not mention the bot version
+## For information about known bots visit https://user-agents.net/bots
+
+	BrowserMatchNoCase "19(.*)" BAD_BOT
+	BrowserMatchNoCase "AhrefsBot(.*)" BAD_BOT
+	BrowserMatchNoCase "ApacheBench(.*)" BAD_BOT
+	BrowserMatchNoCase "BlackWidow(.*)" BAD_BOT
+	BrowserMatchNoCase "BLEXBot(.*)" BAD_BOT
+	BrowserMatchNoCase "Bot(.*)" BAD_BOT
+	BrowserMatchNoCase "CensysInspect(.*)" BAD_BOT
+	BrowserMatchNoCase "CFNetwork(.*)" BAD_BOT
+	BrowserMatchNoCase "ChinaClaw(.*)" BAD_BOT
+	BrowserMatchNoCase "Crawlson(.*)" BAD_BOT
+	BrowserMatchNoCase "coccocbot(.*)" BAD_BOT
+	BrowserMatchNoCase "Custo(.*)" BAD_BOT
+	BrowserMatchNoCase "curl(.*)" BAD_BOT
+	BrowserMatchNoCase "Dalvik(.*)" BAD_BOT
+	BrowserMatchNoCase "DataForSeoBot(.*)" BAD_BOT
+	BrowserMatchNoCase "Dataprovider(.*)" BAD_BOT
+	BrowserMatchNoCase "DISCo(.*)" BAD_BOT
+	BrowserMatchNoCase "DotBot(.*)" BAD_BOT
+	BrowserMatchNoCase "Download Demon(.*)" BAD_BOT
+	BrowserMatchNoCase "eCatch(.*)" BAD_BOT
+	BrowserMatchNoCase "EirGrabber(.*)" BAD_BOT
+	BrowserMatchNoCase "EmailSiphon(.*)" BAD_BOT
+	BrowserMatchNoCase "EmailWolf(.*)" BAD_BOT
+	BrowserMatchNoCase "ev-crawler(.*)" BAD_BOT
+	BrowserMatchNoCase "Expanse(.*)" BAD_BOT
+	BrowserMatchNoCase "Express WebPictures(.*)" BAD_BOT
+	BrowserMatchNoCase "ExtractorPro(.*)" BAD_BOT
+	BrowserMatchNoCase "EyeNetIE(.*)" BAD_BOT
+	BrowserMatchNoCase "FlashGet(.*)" BAD_BOT
+	BrowserMatchNoCase "GetRight(.*)" BAD_BOT
+	BrowserMatchNoCase "GetWeb!(.*)" BAD_BOT
+	BrowserMatchNoCase "Go!Zilla(.*)" BAD_BOT
+	BrowserMatchNoCase "Go-Ahead-Got-It(.*)" BAD_BOT
+	BrowserMatchNoCase "Go-http-client(.*)" BAD_BOT
+	BrowserMatchNoCase "GrabNet(.*)" BAD_BOT
+	BrowserMatchNoCase "Grafula(.*)" BAD_BOT
+	BrowserMatchNoCase "HMView(.*)" BAD_BOT
+	BrowserMatchNoCase "HTTrack" BAD_BOT
+	BrowserMatchNoCase "Image Stripper(.*)" BAD_BOT
+	BrowserMatchNoCase "Image Sucker(.*)" BAD_BOT
+	BrowserMatchNoCase "Indy Library(.*)" BAD_BOT
+	BrowserMatchNoCase "InterGET(.*)" BAD_BOT
+	BrowserMatchNoCase "Internet Ninja(.*)" BAD_BOT
+	BrowserMatchNoCase "Java(.*)" BAD_BOT
+	BrowserMatchNoCase "JetCar(.*)" BAD_BOT
+	BrowserMatchNoCase "JOC Web Spider(.*)" BAD_BOT
+	BrowserMatchNoCase "larbin(.*)" BAD_BOT
+	BrowserMatchNoCase "LeechFTP(.*)" BAD_BOT
+	BrowserMatchNoCase "libwww-perl(.*)" BAD_BOT
+	BrowserMatchNoCase "Mail.RU(.*)" BAD_BOT
+	BrowserMatchNoCase "Mass Downloader(.*)" BAD_BOT
+	BrowserMatchNoCase "masscan(.*)" BAD_BOT
+	BrowserMatchNoCase "MIDown tool(.*)" BAD_BOT
+	BrowserMatchNoCase "Mister PiX(.*)" BAD_BOT
+	BrowserMatchNoCase "MJ12bot(.*)" BAD_BOT
+	BrowserMatchNoCase "Mozilla/4(.*)" BAD_BOT
+	BrowserMatchNoCase "masscan(.*)" BAD_BOT
+	BrowserMatchNoCase "Navroad(.*)" BAD_BOT
+	BrowserMatchNoCase "NearSite(.*)" BAD_BOT
+	BrowserMatchNoCase "Neevabot(.*)" BAD_BOT
+	BrowserMatchNoCase "NetAnts(.*)" BAD_BOT
+	BrowserMatchNoCase "NetSpider(.*)" BAD_BOT
+	BrowserMatchNoCase "Net Vampire(.*)" BAD_BOT
+	BrowserMatchNoCase "NetZIP(.*)" BAD_BOT
+	BrowserMatchNoCase "Octopus(.*)" BAD_BOT
+	BrowserMatchNoCase "Offline Explorer(.*)" BAD_BOT
+	BrowserMatchNoCase "Offline Navigator(.*)" BAD_BOT
+	BrowserMatchNoCase "PageGrabber(.*)" BAD_BOT
+	BrowserMatchNoCase "Papa Foto(.*)" BAD_BOT
+	BrowserMatchNoCase "pavuk(.*)" BAD_BOT
+	BrowserMatchNoCase "pcBrowser(.*)" BAD_BOT
+	BrowserMatchNoCase "python(.*)" BAD_BOT
+	BrowserMatchNoCase "Qwantify(.*)" BAD_BOT
+	BrowserMatchNoCase "RealDownload(.*)" BAD_BOT
+	BrowserMatchNoCase "ReGet(.*)" BAD_BOT
+	BrowserMatchNoCase "SeekportBot(.*)" BAD_BOT
+	BrowserMatchNoCase "SemrushBot(.*)" BAD_BOT
+	BrowserMatchNoCase "SeznamBot(.*)" BAD_BOT
+	BrowserMatchNoCase "SiteAuditBot(.*)" BAD_BOT
+	BrowserMatchNoCase "SiteSnagger(.*)" BAD_BOT
+	BrowserMatchNoCase "SmartDownload(.*)" BAD_BOT
+	BrowserMatchNoCase "SuperBot(.*)" BAD_BOT
+	BrowserMatchNoCase "SuperHTTP(.*)" BAD_BOT
+	BrowserMatchNoCase "Surfbot(.*)" BAD_BOT
+	BrowserMatchNoCase "tAkeOut" BAD_BOT
+	BrowserMatchNoCase "Teleport Pro(.*)" BAD_BOT
+	BrowserMatchNoCase "TprAdsTxtCrawler(.*)" BAD_BOT
+	BrowserMatchNoCase "VoidEYE(.*)" BAD_BOT
+	BrowserMatchNoCase "Web Sucker(.*)" BAD_BOT
+	BrowserMatchNoCase "WebAuto(.*)" BAD_BOT
+	BrowserMatchNoCase "WebCopier(.*)" BAD_BOT
+	BrowserMatchNoCase "WebFetch(.*)" BAD_BOT
+	BrowserMatchNoCase "WebGo IS(.*)" BAD_BOT
+	BrowserMatchNoCase "WebLeacher(.*)" BAD_BOT
+	BrowserMatchNoCase "WebReaper(.*)" BAD_BOT
+	BrowserMatchNoCase "WebSauger(.*)" BAD_BOT
+	BrowserMatchNoCase "Website eXtractor(.*)" BAD_BOT
+	BrowserMatchNoCase "Website Quester(.*)" BAD_BOT
+	BrowserMatchNoCase "WebStripper(.*)" BAD_BOT
+	BrowserMatchNoCase "WebWhacker(.*)" BAD_BOT
+	BrowserMatchNoCase "WebZIP(.*)" BAD_BOT
+	BrowserMatchNoCase "Wget(.*)" BAD_BOT
+	BrowserMatchNoCase "Widow(.*)" BAD_BOT
+	BrowserMatchNoCase "WWWOFFLE(.*)" BAD_BOT
+	BrowserMatchNoCase "Xaldon WebSpider(.*)" BAD_BOT
+	BrowserMatchNoCase "Zeus(.*)" BAD_BOT
+	BrowserMatchNoCase "zgrab(.*)" BAD_BOT
+	BrowserMatchNoCase "ZoominfoBot(.*)" BAD_BOT
+
+###########################################
+## Deny access (Default)
+## Comment the lines if you use the alternative method
+
+	Order allow,deny
+	Deny from env=BAD_BOT
+
+###########################################
+## Redirect to external location (Alternative)
+## Apache Module mod_rewrite must be enabled
+
+	#RewriteCond %{env:BAD_BOT} !^$
+	#RewriteRule ^(.*)$ https://www.example.com/ [L,R=301]
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+
+############################################
+## The ultimate hotlink protection
+## Before use set the YOUR_DOMAIN_NAME value in the last condition 
+## https://perishablepress.com/creating-the-ultimate-htaccess-anti-hotlinking-strategy/
+
+	RewriteEngine on
+	RewriteCond %{HTTP_REFERER} !^$
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteCond %{REQUEST_FILENAME} \.(gif|jpe?g?|png)$ [NC]
+	RewriteCond %{HTTP_REFERER} !^https?://([^.]+\.)?YOUR_DOMAIN_NAME\. [NC]
+	
+###########################################
+## Always response 403 Forbidden status code (Default)
+## Comment the line if you use the alternative method
+
+	#RewriteRule \.(gif|jpe?g?|png)$ - [NC,L,R=403]
+
+###########################################
+## Use a generic image for all requests (Alternative)
+## Before use change the DOMAIN.TLD and HOTLINK values
+
+	#RewriteRule \.(gif|jpe?g?|png)$ https://DOMAIN.TLD/HOTLINK.jpg [NC,L,R=301]
+
+</IfModule>
+
+<IfModule mod_alias.c>
+
+###########################################
+## Redirect access to catalog feeds pages
+
+	#RedirectMatch 301 /rss/catalog/catalog/review(.*)$	https://www.example.com
+	#RedirectMatch 301 /rss/catalog/notifystock(.*)$	https://www.example.com
+	#RedirectMatch 301 /rss/catalog/order/new(.*)$		https://www.example.com
+
+###########################################
+## Redirect access to Categories and Products pages based on IDs
+
+	#RedirectMatch 301 /catalog/category/view/id(.*)$	https://www.example.com
+	#RedirectMatch 301 /catalog/product/view/id(.*)$	https://www.example.com
+
+###########################################
+## Redirect access to Categories and Products sitemap pages 
+	
+	#RedirectMatch 301 /catalog/seo_sitemap/category(.*)$	https://www.example.com
+	#RedirectMatch 301 /catalog/seo_sitemap/product(.*)$	https://www.example.com
+
+###########################################
+## Redirect access to Advanced Search and Popular Search Terms pages
+
+	#RedirectMatch 301 /catalogsearch/advanced(.*)$		https://www.example.com
+	#RedirectMatch 301 /catalogsearch/term/popular(.*)$	https://www.example.com
+
+</IfModule>
