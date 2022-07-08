@@ -48,5 +48,10 @@
       "dev-main": "1.9.4.x-dev"
     },
     "magento-root-dir": "root"
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true
+    }
   }
 }
