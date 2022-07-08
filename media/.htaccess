@@ -1,7 +1,7 @@
 Options All -Indexes
 
 ############################################
-## Disable PHP7/PHP8 code execution for media directory
+## Disable PHP code execution
 
 <IfModule mod_php7.c>
     php_flag engine 0
@@ -11,8 +11,11 @@ Options All -Indexes
     php_flag engine 0
 </IfModule>
 
-AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi
-Options -ExecCGI
+############################################
+## Don't permit execution of CGI scripts
+
+    AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
+    Options -ExecCGI
 
 <IfModule mod_rewrite.c>
 
