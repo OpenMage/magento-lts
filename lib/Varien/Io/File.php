@@ -134,9 +134,13 @@ class Varien_Io_File extends Varien_Io_Abstract
             ini_set('auto_detect_line_endings', 1);
         }
 
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $this->_streamHandler = @fopen($fileName, $mode);
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         if ($this->_streamHandler === false) {
             throw new Exception('Error write to file ' . $this->getFilteredPath($fileName));
         }
@@ -367,7 +371,9 @@ class Varien_Io_File extends Varien_Io_Abstract
             @chdir($this->_cwd);
         }
         $result = self::rmdirRecursive($dir, $recursive);
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         return $result;
     }
 
@@ -512,7 +518,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     protected function _isFilenameWriteable($filename)
     {
         $error = false;
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         if (file_exists($filename)) {
             if (!is_writeable($filename)) {
                 $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
@@ -523,7 +531,9 @@ class Varien_Io_File extends Varien_Io_Abstract
                 $error = "Folder '{$this->getFilteredPath($folder)}' isn't writeable";
             }
         }
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
 
         if ($error) {
             throw new Varien_Io_Exception($error);
@@ -557,29 +567,41 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function filePutContent($filename, $src)
     {
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $result = @file_put_contents($filename, $src);
-        chdir($this->_iwd);
+        if ($this->_iwd) {
+            chdir($this->_iwd);
+        }
 
         return $result;
     }
 
     public function fileExists($file, $onlyFile = true)
     {
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $result = file_exists($file);
         if ($result && $onlyFile) {
             $result = is_file($file);
         }
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         return $result;
     }
 
     public function isWriteable($path)
     {
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $result = is_writeable($path);
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         return $result;
     }
 
@@ -636,9 +658,13 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function rm($filename)
     {
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $result = @unlink($filename);
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         return $result;
     }
 
@@ -651,9 +677,13 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function mv($src, $dest)
     {
-        chdir($this->_cwd);
+        if ($this->_cwd) {
+            chdir($this->_cwd);
+        }
         $result = @rename($src, $dest);
-        chdir($this->_iwd);
+        if ($this->_iwd) {
+            chdir($this->_iwd);
+        }
         return $result;
     }
 
@@ -666,9 +696,13 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function cp($src, $dest)
     {
-        @chdir($this->_cwd);
+        if ($this->_cwd) {
+            @chdir($this->_cwd);
+        }
         $result = @copy($src, $dest);
-        @chdir($this->_iwd);
+        if ($this->_iwd) {
+            @chdir($this->_iwd);
+        }
         return $result;
     }
 
@@ -684,7 +718,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             chdir($this->_cwd);
         }
-        $result = @chmod($filename, $mode);
+        $result = file_exists($filename) ? @chmod($filename, $mode) : false;
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
