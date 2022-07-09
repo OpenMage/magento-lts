@@ -100,8 +100,10 @@
 
 <IfModule mod_ssl.c>
 
+
 ############################################
-## Make HTTPS env vars available for CGI mode
+## Create the standard set of SSL related CGI/SSI environment variables
+## This per default is disabled for performance reasons
 
 	SSLOptions StdEnvVars
 
