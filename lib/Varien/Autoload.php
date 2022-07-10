@@ -66,7 +66,7 @@ class Varien_Autoload
         /** @see https://stackoverflow.com/a/5504486/716029 */
         $found = stream_resolve_include_path($path);
         if ($found !== FALSE) {
-            include $found;
+            return include $found;
         }
     }
 }
