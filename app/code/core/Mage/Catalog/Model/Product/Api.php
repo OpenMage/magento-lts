@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     public function items($filters = null, $store = null)
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addStoreFilter($this->_getStoreId($store))
+            ->setStoreId($this->_getStoreId($store))
             ->addAttributeToSelect('name');
 
         $apiHelper = Mage::helper('api');
