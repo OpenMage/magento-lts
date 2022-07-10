@@ -226,7 +226,7 @@
         </general>
         <hints>
             <store_switcher>
-                <url><![CDATA[http://merch.docs.magento.com/ce/user_guide/configuration/scope.html]]></url>
+                <url><![CDATA[https://web.archive.org/web/20170529192915/http://docs.magento.com/m1/ce/user_guide/configuration/scope.html]]></url>
                 <enabled>1</enabled>
             </store_switcher>
         </hints>

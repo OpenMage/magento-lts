@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
         }
 
         $html = '<div class="range"><div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('From').':</span>'
+            . '<span class="label">' . Mage::helper('adminhtml')->__('From').'</span>'
             . '<input type="text" name="'.$this->_getHtmlName().'[from]" id="'.$htmlId.'_from"'
                 . ' value="'.$this->getEscapedValue('from').'" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 . ' title="'.$this->escapeHtml(Mage::helper('adminhtml')->__('Date selector')).'"/>'
             . '</div>';
         $html.= '<div class="range-line date">'
-            . '<span class="label">' . Mage::helper('adminhtml')->__('To').' :</span>'
+            . '<span class="label">' . Mage::helper('adminhtml')->__('To').'</span>'
             . '<input type="text" name="'.$this->_getHtmlName().'[to]" id="'.$htmlId.'_to"'
                 . ' value="'.$this->getEscapedValue('to').'" class="input-text no-changes"/>'
             . '<img src="' . Mage::getDesign()->getSkinUrl('images/grid-cal.gif') . '" alt="" class="v-middle"'

@@ -616,6 +616,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xxlc' => 'application/vnd.ms-excel',
             'xxlm' => 'application/vnd.ms-excel',
             'xxls' => 'application/vnd.ms-excel',
+            'xxlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'xxlt' => 'application/vnd.ms-excel',
             'xxlw' => 'application/vnd.ms-excel',
             'xxml' => 'application/xml',
