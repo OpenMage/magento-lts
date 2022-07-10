@@ -57,6 +57,7 @@ class Mage_Backup_Filesystem_Iterator_Filter extends FilterIterator
      *
      * @return bool
      */
+    #[ReturnTypeWillChange]
     public function accept()
     {
         $current = $this->current()->__toString();
