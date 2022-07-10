@@ -68,5 +68,6 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Form extends Mage_Adminhtml_Blo
         );
 
         $this->setForm($form);
+        return $this;
     }
 }

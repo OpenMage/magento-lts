@@ -1050,8 +1050,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param $data
-     * @return mixed
+     * @param string|array $data
+     * @return array|string
      */
     public function substDistroServerVars($data)
     {

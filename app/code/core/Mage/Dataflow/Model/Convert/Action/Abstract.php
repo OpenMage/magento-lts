@@ -239,7 +239,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
                 $this->getContainer($this->getParam('to'))->setData($this->getContainer()->getData());
             }
         } else {
-            $this->addException('No method specified', Mage_Dataflow_Model_Convert_Exception::FATAL);
+            $this->getContainer()->addException('No method specified', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
         return $this;
     }

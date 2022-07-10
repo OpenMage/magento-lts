@@ -659,8 +659,8 @@ class Mage_Catalog_Model_Url
             }
             // match request_url abcdef1234(-12)(.html) pattern
             $match = array();
-            $regularExpression = '#(?P<prefix>(.*/)?' . preg_quote($urlKey) . ')(-(?P<increment>[0-9]+))?(?P<suffix>'
-                . preg_quote($suffix) . ')?$#i';
+            $regularExpression = '#(?P<prefix>(.*/)?' . preg_quote($urlKey, '#') . ')(-(?P<increment>[0-9]+))?(?P<suffix>'
+                . preg_quote($suffix, '#') . ')?$#i';
             if (!preg_match($regularExpression, $requestPath, $match)) {
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }

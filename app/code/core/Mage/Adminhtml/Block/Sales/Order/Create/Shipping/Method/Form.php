@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form
     /**
      * Retrieve rate of active shipping method
      *
-     * @return Mage_Sales_Model_Quote_Address_Rate || false
+     * @return Mage_Sales_Model_Quote_Address_Rate | false
      */
     public function getActiveMethodRate()
     {

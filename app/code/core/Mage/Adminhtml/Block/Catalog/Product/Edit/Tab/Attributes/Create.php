@@ -100,4 +100,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     {
         return $this->getId() . 'JsObject';
     }
-} // Class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create End
+}

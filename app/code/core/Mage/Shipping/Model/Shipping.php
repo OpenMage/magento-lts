@@ -466,7 +466,7 @@ class Mage_Shipping_Model_Shipping
             );
         }
 
-        /** @var $request Mage_Shipping_Model_Shipment_Request */
+        /** @var Mage_Shipping_Model_Shipment_Request $request */
         $request = Mage::getModel('shipping/shipment_request');
         $request->setOrderShipment($orderShipment);
         $request->setShipperContactPersonName($admin->getName());

@@ -117,12 +117,13 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
             try {
                 $pollModel = Mage::getModel('poll/poll');
 
+                $now = Varien_Date::now();
                 if( !$this->getRequest()->getParam('id') ) {
-                    $pollModel->setDatePosted(now());
+                    $pollModel->setDatePosted($now);
                 }
 
                 if( $this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed') ) {
-                    $pollModel->setDateClosed(now());
+                    $pollModel->setDateClosed($now);
                 }
 
                 if( !$this->getRequest()->getParam('closed') ) {

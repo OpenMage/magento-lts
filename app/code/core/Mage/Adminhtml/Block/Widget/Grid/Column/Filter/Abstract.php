@@ -111,8 +111,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
 
     /**
      * @deprecated after 1.5.0.0
-     * @param  $value
-     * @return mixed
+     * @param array|string $value
+     * @return array|string
      */
     protected function _escapeValue($value)
     {

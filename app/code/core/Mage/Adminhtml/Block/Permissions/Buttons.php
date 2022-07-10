@@ -65,13 +65,9 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
-                    'onclick'   => 'deleteConfirm(\''
-                        . Mage::helper('core')->jsQuoteEscape(
+                    'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
                             Mage::helper('adminhtml')->__('Are you sure you want to do this?')
-                        )
-                        . '\', \''
-                        . $this->getUrlSecure('*/*/delete', array('rid' => $this->getRequest()->getParam('rid')))
-                        . '\')',
+                        ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
                     'class' => 'delete'
                 ))
         );

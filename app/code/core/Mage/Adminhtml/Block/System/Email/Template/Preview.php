@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
         $appEmulation = Mage::getSingleton('core/app_emulation');
         $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($defaultStoreId);
 
-        /** @var $template Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $template */
         $template = Mage::getModel('core/email_template');
         $id = (int)$this->getRequest()->getParam('id');
         if ($id) {

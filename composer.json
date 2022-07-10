@@ -24,7 +24,7 @@
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
-    "phpstan/phpstan": "^1.4.6"
+    "phpstan/phpstan": "^1.7.1"
   },
   "authors": [
     {
@@ -58,6 +58,12 @@
   "extra": {
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
+    },
+    "magento-root-dir": "root"
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true
     }
   }
 }

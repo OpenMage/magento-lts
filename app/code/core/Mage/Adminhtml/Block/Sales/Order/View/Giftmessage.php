@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
         if ($this->getParentBlock() && ($order = $this->getOrder())) {
             $this->setEntity($order);
         }
-        parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     /**

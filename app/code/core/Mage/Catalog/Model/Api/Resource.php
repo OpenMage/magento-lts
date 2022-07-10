@@ -145,4 +145,4 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         return $this->_getStoreId();
     }
-} // Class Mage_Catalog_Model_Api_Resource End
+}

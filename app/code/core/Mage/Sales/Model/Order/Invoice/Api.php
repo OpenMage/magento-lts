@@ -98,6 +98,10 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         $result = $this->_getAttributes($invoice, 'invoice');
         $result['order_increment_id'] = $invoice->getOrderIncrementId();
+        $result['order_created_at'] = $invoice->getOrder()->getCreatedAt();
+        $result['billing_firstname'] = $invoice->getBillingAddress()->getFirstname();
+        $result['billing_middlename'] = $invoice->getBillingAddress()->getMiddlename();
+        $result['billing_lastname'] = $invoice->getBillingAddress()->getLastname();
 
         $result['items'] = array();
         foreach ($invoice->getAllItems() as $item) {

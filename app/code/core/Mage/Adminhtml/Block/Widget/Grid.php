@@ -450,8 +450,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _setFilterValues($data)
     {
-        foreach ($this->getColumns() as $columnId => $column) {
-            if (isset($data[$columnId])
+        foreach ($data as $columnId => $value) {
+            $column = $this->getColumn($columnId);
+            if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
                 && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
                 && $column->getFilter()
             ) {
@@ -459,6 +460,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_addColumnFilterToCollection($column);
             }
         }
+
         return $this;
     }
 
@@ -1298,18 +1300,12 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $session = Mage::getSingleton('adminhtml/session');
         $sessionParamName = $this->getId().$paramName;
-        $param = $this->getRequest()->getParam($paramName);
-
-        if ($param !== null) {
-            if (trim($param) !== '') {
-                if ($this->_saveParametersInSession) {
-                    $session->setData($sessionParamName, $param);
-                }
-                return $param;
-            } else {
-                $session->unsetData($sessionParamName);
-                return $default;
+        if ($this->getRequest()->has($paramName)) {
+            $param = $this->getRequest()->getParam($paramName);
+            if ($this->_saveParametersInSession) {
+                $session->setData($sessionParamName, $param);
             }
+            return $param;
         }
         elseif ($this->_saveParametersInSession && ($param = $session->getData($sessionParamName)))
         {

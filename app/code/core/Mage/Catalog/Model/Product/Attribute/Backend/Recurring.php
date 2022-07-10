@@ -57,5 +57,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
                 $product->unsRecurringProfile();
             }
         }
+        return $this;
     }
 }

@@ -209,7 +209,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $formattedFromPrice;
         } else {
             if ($fromPrice != $toPrice) {
-                $toPrice -= .01;
+                $toPrice = (float)$toPrice - .01;
             }
             return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
         }
