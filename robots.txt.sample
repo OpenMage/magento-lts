@@ -34,10 +34,9 @@ Disallow: */catalog/product_compare/
 Disallow: */catalog/category/view/
 Disallow: */catalog/product/view/
 Disallow: */catalog/product/gallery/
-Disallow: */catalogsearch/advanced
-Disallow: */catalogsearch/result
-Disallow: */catalogsearch/seo_sitemap
-Disallow: */catalogsearch/term/popular
+Disallow: */catalogsearch/
+#Allow: */catalogsearch/seo_sitemap
+#Allow: */catalogsearch/term/popular
 Disallow: */checkout/
 Disallow: */control/
 Disallow: */contacts/
