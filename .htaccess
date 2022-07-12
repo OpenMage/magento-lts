@@ -393,9 +393,9 @@
 	BrowserMatchNoCase "cortex(.*)" BAD_BOT
 	BrowserMatchNoCase "^Custo(.*)" BAD_BOT
 	BrowserMatchNoCase "^curl(.*)" BAD_BOT
+	BrowserMatchNoCase "Dalvik(.*)" BAD_BO
 	BrowserMatchNoCase "DataForSeoBot(.*)" BAD_BOT
 	BrowserMatchNoCase "Dataprovider(.*)" BAD_BOT
-	BrowserMatchNoCase "Dalvik(.*)" BAD_BOT
 	BrowserMatchNoCase "DISCo(.*)" BAD_BOT
 	BrowserMatchNoCase "Download Demon(.*)" BAD_BOT
 	BrowserMatchNoCase "eCatch(.*)" BAD_BOT
