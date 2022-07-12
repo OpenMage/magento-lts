@@ -179,9 +179,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Set_Main extends Mage_Admi
             ->setSortOrder()
             ->load();
 
-        $configurable = Mage::getResourceModel('catalog/category_type_configurable_attribute')
-            ->getUsedAttributes($setId);
-
         /* @var $node Mage_Eav_Model_Entity_Attribute_Group */
         foreach ($groups as $node) {
             $item = array();
@@ -193,8 +190,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Set_Main extends Mage_Admi
 
             $nodeChildren = Mage::getResourceModel('catalog/category_attribute_collection')
                 ->setAttributeGroupFilter($node->getId())
-                ->addVisibleFilter()
-                ->checkConfigurableCategorys()
                 ->load();
 
             if ($nodeChildren->getSize() > 0) {
@@ -209,7 +204,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Set_Main extends Mage_Admi
                         'allowDrag'         => true,
                         'leaf'              => true,
                         'is_user_defined'   => $child->getIsUserDefined(),
-                        'is_configurable'   => (int)in_array($child->getAttributeId(), $configurable),
                         'entity_id'         => $child->getEntityAttributeId()
                     );
 
@@ -245,7 +239,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Set_Main extends Mage_Admi
 
         $attributes = Mage::getResourceModel('catalog/category_attribute_collection')
             ->setAttributesExcludeFilter($attributesIds)
-            ->addVisibleFilter()
             ->setOrder('attribute_code', 'asc')
             ->load();
 
@@ -258,7 +251,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Attribute_Set_Main extends Mage_Admi
                 'allowDrag'         => true,
                 'leaf'              => true,
                 'is_user_defined'   => $child->getIsUserDefined(),
-                'is_configurable'   => false,
                 'entity_id'         => $child->getEntityId()
             );
 
