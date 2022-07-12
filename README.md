@@ -86,7 +86,7 @@ Do not use /admin (or /nimda...) for backend url. Do not add it into your _robot
 </config>
 ```
 
-Do not use /api.php (or /ipa.php...) for OpenMage API url. Do not add it into your _robots.txt_, keep it secret with your partners. You can rename the file as you want. Don't forgot to also update server configuration:
+Do not use /api.php (or /ipa.php...) for OpenMage API url. Do not add it into your _robots.txt_, keep it secret with your partners. You can rename the file as you want. Don't forget to update the server configuration:
 * htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
 * nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
 
