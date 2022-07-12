@@ -378,20 +378,21 @@
 ## Limit the REGEX expression to a few words and do not mention the bot version
 ## For information about known bots visit https://user-agents.net/bots
 
-	BrowserMatchNoCase "19(.*)" BAD_BOT
+	BrowserMatchNoCase "^19(.*)" BAD_BOT
+	BrowserMatchNoCase "adidxbot(.*)" BAD_BOT
 	BrowserMatchNoCase "AhrefsBot(.*)" BAD_BOT
 	BrowserMatchNoCase "ApacheBench(.*)" BAD_BOT
 	BrowserMatchNoCase "BlackWidow(.*)" BAD_BOT
 	BrowserMatchNoCase "BLEXBot(.*)" BAD_BOT
-	BrowserMatchNoCase "Bot(.*)" BAD_BOT
+	BrowserMatchNoCase "^Bot(.*)" BAD_BOT
 	BrowserMatchNoCase "CensysInspect(.*)" BAD_BOT
 	BrowserMatchNoCase "CFNetwork(.*)" BAD_BOT
 	BrowserMatchNoCase "ChinaClaw(.*)" BAD_BOT
 	BrowserMatchNoCase "Crawlson(.*)" BAD_BOT
 	BrowserMatchNoCase "coccocbot(.*)" BAD_BOT
-	BrowserMatchNoCase "Custo(.*)" BAD_BOT
-	BrowserMatchNoCase "curl(.*)" BAD_BOT
-	BrowserMatchNoCase "Dalvik(.*)" BAD_BOT
+	BrowserMatchNoCase "cortex(.*)" BAD_BOT
+	BrowserMatchNoCase "^Custo(.*)" BAD_BOT
+	BrowserMatchNoCase "^curl(.*)" BAD_BOT
 	BrowserMatchNoCase "DataForSeoBot(.*)" BAD_BOT
 	BrowserMatchNoCase "Dataprovider(.*)" BAD_BOT
 	BrowserMatchNoCase "DISCo(.*)" BAD_BOT
@@ -424,17 +425,15 @@
 	BrowserMatchNoCase "Java(.*)" BAD_BOT
 	BrowserMatchNoCase "JetCar(.*)" BAD_BOT
 	BrowserMatchNoCase "JOC Web Spider(.*)" BAD_BOT
+	BrowserMatchNoCase "Konturbot(.*)" BAD_BOT
 	BrowserMatchNoCase "larbin(.*)" BAD_BOT
 	BrowserMatchNoCase "LeechFTP(.*)" BAD_BOT
-	BrowserMatchNoCase "libwww-perl(.*)" BAD_BOT
 	BrowserMatchNoCase "Mail.RU(.*)" BAD_BOT
 	BrowserMatchNoCase "Mass Downloader(.*)" BAD_BOT
-	BrowserMatchNoCase "masscan(.*)" BAD_BOT
 	BrowserMatchNoCase "MIDown tool(.*)" BAD_BOT
 	BrowserMatchNoCase "Mister PiX(.*)" BAD_BOT
 	BrowserMatchNoCase "MJ12bot(.*)" BAD_BOT
-	BrowserMatchNoCase "Mozilla/4(.*)" BAD_BOT
-	BrowserMatchNoCase "masscan(.*)" BAD_BOT
+	BrowserMatchNoCase "^Mozilla/4(.*)" BAD_BOT
 	BrowserMatchNoCase "Navroad(.*)" BAD_BOT
 	BrowserMatchNoCase "NearSite(.*)" BAD_BOT
 	BrowserMatchNoCase "Neevabot(.*)" BAD_BOT
@@ -453,6 +452,7 @@
 	BrowserMatchNoCase "Qwantify(.*)" BAD_BOT
 	BrowserMatchNoCase "RealDownload(.*)" BAD_BOT
 	BrowserMatchNoCase "ReGet(.*)" BAD_BOT
+	BrowserMatchNoCase "serpstatbot(.*)" BAD_BOT
 	BrowserMatchNoCase "SeekportBot(.*)" BAD_BOT
 	BrowserMatchNoCase "SemrushBot(.*)" BAD_BOT
 	BrowserMatchNoCase "SeznamBot(.*)" BAD_BOT
@@ -464,8 +464,9 @@
 	BrowserMatchNoCase "Surfbot(.*)" BAD_BOT
 	BrowserMatchNoCase "tAkeOut" BAD_BOT
 	BrowserMatchNoCase "Teleport Pro(.*)" BAD_BOT
-	BrowserMatchNoCase "TprAdsTxtCrawler(.*)" BAD_BOT
+	BrowserMatchNoCase "Turnitin(.*)" BAD_BOT
 	BrowserMatchNoCase "VoidEYE(.*)" BAD_BOT
+	BrowserMatchNoCase "Web Image Collector(.*)" BAD_BOT
 	BrowserMatchNoCase "Web Sucker(.*)" BAD_BOT
 	BrowserMatchNoCase "WebAuto(.*)" BAD_BOT
 	BrowserMatchNoCase "WebCopier(.*)" BAD_BOT
