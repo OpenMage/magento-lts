@@ -103,6 +103,9 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `catalog/search/search_separator`
 - `dev/log/max_level`
 - `newsletter/security/enable_form_key`
+- `sitemap/category/lastmod`
+- `sitemap/page/lastmod`
+- `sitemap/product/lastmod`
 
 ### New Events
 
@@ -358,6 +361,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mdlonline"><img src="https://avatars.githubusercontent.com/u/5389528?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mdlonline</b></sub></a></td>
     <td align="center"><a href="https://www.developpeur-web-tlse.fr/"><img src="https://avatars.githubusercontent.com/u/5030086?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Benjamin MARROT</b></sub></a></td>
     <td align="center"><a href="https://github.com/tmewes"><img src="https://avatars.githubusercontent.com/u/12640514?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tino Mewes</b></sub></a></td>
+    <td align="center"><a href="http://cebe.cc/"><img src="https://avatars.githubusercontent.com/u/189796?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Carsten Brandt</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=cebe" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
   </tr>
 </table>
 

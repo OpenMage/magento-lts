@@ -153,6 +153,14 @@ class Mage_SalesRule_Model_Observer
                     $coupon->setTimesUsed($coupon->getTimesUsed() - 1);
                     $coupon->save();
 
+                    // Decrement times_used on rule
+                    $rule = Mage::getModel('salesrule/rule');
+                    $rule->load($coupon->getRuleId());
+                    if ($rule->getId()) {
+                        $rule->setTimesUsed($rule->getTimesUsed() - 1);
+                        $rule->save();
+                    }
+                    
                     if ($customerId = $order->getCustomerId()) {
                         // Decrement coupon_usage times_used
                         Mage::getResourceModel('salesrule/coupon_usage')->updateCustomerCouponTimesUsed($customerId, $coupon->getId(), true);
