@@ -308,6 +308,7 @@
                 <title>Order Comments</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
