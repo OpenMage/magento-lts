@@ -11,7 +11,6 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/Api
          - %currentWorkingDirectory%/app/code/core/Mage/Api2
          - %currentWorkingDirectory%/app/code/core/Mage/Authorizenet
-         - %currentWorkingDirectory%/app/code/core/Mage/Backup
          - %currentWorkingDirectory%/app/code/core/Mage/Bundle
          - %currentWorkingDirectory%/app/code/core/Mage/Captcha
          - %currentWorkingDirectory%/app/code/core/Mage/Catalog
@@ -91,9 +90,6 @@ parameters:
 
         # Class phpseclib\Net\SSH2 not found.
         - */Paypal/Model/Report/Settlement.php
-
-        # Class backup/db was not found while trying to analyse it
-        - */Adminhtml/controllers/System/BackupController.php
 
         # Dataflow/Model/Convert/Iterator.php
         - */Dataflow/Model/Convert/Iterator.php
