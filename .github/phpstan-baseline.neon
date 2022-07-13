@@ -71,16 +71,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
 
 		-
-			message: "#^Cannot call method addJs\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Dialogs.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:\\$_category\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
@@ -2129,91 +2119,6 @@ parameters:
 			message: "#^Variable \\$params might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(string fileName\\)\\: Unexpected token \"fileName\", expected variable at offset 61$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(string filePath\\)\\: Unexpected token \"filePath\", expected variable at offset 91$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Variable \\$filePath might not be defined\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Backup/Model/Backup.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addTargetDir\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Fs/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:setRootDir\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Observer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getFooter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getHeader\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getPartInsertSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableCreateScript\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableCreateSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDataAfterSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDataBeforeSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDropSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableForeignKeysSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:turnOnReadCommittedMode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:turnOnSerializableMode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getOptionsCollection\\(\\)\\.$#"

@@ -95,12 +95,6 @@
   - app/design/frontend/*/*/template/authorizenet/*
   - app/design/frontend/*/*/template/authorizenet/**/*
 
-'Component: Backup':
-  - app/code/core/Mage/Backup/*
-  - app/code/core/Mage/Backup/**/*
-  - app/design/adminhtml/*/*/template/backup/*
-  - app/design/adminhtml/*/*/template/backup/**/*
-
 'Component: Bundle':
   - app/code/core/Mage/Bundle/*
   - app/code/core/Mage/Bundle/**/*
