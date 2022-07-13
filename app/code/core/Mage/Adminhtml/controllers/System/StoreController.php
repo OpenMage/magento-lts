@@ -368,8 +368,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             return ;
         }
 
-        $this->_backupDatabase('*/*/editWebsite', array('website_id' => $itemId));
-
         try {
             $model->delete();
             $this->_getSession()->addSuccess(Mage::helper('core')->__('The website has been deleted.'));
@@ -399,8 +397,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/editGroup', array('group_id' => $model->getId()));
             return ;
         }
-
-        $this->_backupDatabase('*/*/editGroup', array('group_id' => $itemId));
 
         try {
             $model->delete();
@@ -436,8 +432,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             return ;
         }
 
-        $this->_backupDatabase('*/*/editStore', array('store_id' => $itemId));
-
         try {
             $model->delete();
 
@@ -459,41 +453,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('system/store');
-    }
-
-    /**
-     * Backup database
-     *
-     * @param string $failPath redirect path if backup failed
-     * @param array $arguments
-     * @return $this
-     */
-    protected function _backupDatabase($failPath, $arguments=array())
-    {
-        if (! $this->getRequest()->getParam('create_backup')) {
-            return $this;
-        }
-        try {
-            $backupDb = Mage::getModel('backup/db');
-            $backup   = Mage::getModel('backup/backup')
-                ->setTime(time())
-                ->setType('db')
-                ->setPath(Mage::getBaseDir('var') . DS . 'backups');
-
-            $backupDb->createBackup($backup);
-            $this->_getSession()->addSuccess(Mage::helper('backup')->__('Database was successfuly backed up.'));
-        }
-        catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-            $this->_redirect($failPath, $arguments);
-            return ;
-        }
-        catch (Exception $e) {
-            $this->_getSession()->addException($e, Mage::helper('backup')->__('Unable to create backup. Please, try again later.'));
-            $this->_redirect($failPath, $arguments);
-            return ;
-        }
-        return $this;
     }
 
     /**
