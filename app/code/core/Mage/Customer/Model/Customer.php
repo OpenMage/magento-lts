@@ -121,6 +121,8 @@
  */
 class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 {
+    const ENTITY = 'customer';
+
     /**#@+
      * Configuration pathes for email templates and identities
      */
@@ -155,7 +157,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     const SUBSCRIBED_NO  = 'no';
     /**#@-*/
 
-    const CACHE_TAG = 'customer';
+    const CACHE_TAG = self::ENTITY;
 
     /**
      * Minimum Password Length
@@ -178,14 +180,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @var string
      */
-    protected $_eventPrefix = 'customer';
+    protected $_eventPrefix = self::ENTITY;
 
     /**
      * Name of the event object
      *
      * @var string
      */
-    protected $_eventObject = 'customer';
+    protected $_eventObject = self::ENTITY;
 
     /**
      * List of errors

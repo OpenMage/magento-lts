@@ -30,7 +30,6 @@
         <customer translate="title" module="customer">
             <title>Customers</title>
             <sort_order>40</sort_order>
-            <!-- action>adminhtml/customer/</action -->
             <children>
                 <manage translate="title" module="customer">
                     <title>Manage Customers</title>
@@ -42,6 +41,28 @@
                     <action>adminhtml/customer_group/</action>
                     <sort_order>10</sort_order>
                 </group>
+                <attributes translate="title" module="customer">
+                    <title>Attributes</title>
+                    <children>
+                        <customer_attributes translate="title" module="customer">
+                            <title>Manage Customer Attributes</title>
+                            <action>adminhtml/customer_attribute/</action>
+                        </customer_attributes>
+                        <customer_sets translate="title" module="customer">
+                            <title>Manage Customer Attribute Sets</title>
+                            <action>adminhtml/customer_set/</action>
+                        </customer_sets>
+                        <customer_address_attributes translate="title" module="customer">
+                            <title>Manage Customer Address Attributes</title>
+                            <action>adminhtml/customer_address_attribute/</action>
+                        </customer_address_attributes>
+                        <customer_address_sets translate="title" module="customer">
+                            <title>Manage Customer Address Attribute Sets</title>
+                            <action>adminhtml/customer_address_set/</action>
+                        </customer_address_sets>
+                    </children>
+                    <sort_order>20</sort_order>
+                </attributes>
                 <online translate="title" module="customer">
                     <title>Online Customers</title>
                     <action>adminhtml/customer_online/</action>
@@ -66,6 +87,23 @@
                                 <title>Manage Customers</title>
                                 <sort_order>0</sort_order>
                             </manage>
+                            <attributes translate="title">
+                                <title>Attributes</title>
+                                <children>
+                                    <customer_attributes translate="title">
+                                        <title>Manage Customer Attributes</title>
+                                    </customer_attributes>
+                                    <customer_sets translate="title">
+                                        <title>Manage Customer Attribute Sets</title>
+                                    </customer_sets>
+                                    <customer_address_attributes translate="title">
+                                        <title>Manage Customer Address Attributes</title>
+                                    </customer_address_attributes>
+                                    <customer_address_sets translate="title">
+                                        <title>Manage Customer Address Attribute Sets</title>
+                                    </customer_address_sets>
+                                </children>
+                            </attributes>
                             <online translate="title">
                                 <title>Online Customers</title>
                                 <sort_order>100</sort_order>
