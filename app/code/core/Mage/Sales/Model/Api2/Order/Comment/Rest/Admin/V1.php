@@ -55,9 +55,10 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Admin_V1 extends Mage_Sales_Model
             ->save();
 
         try {
+            $oldStore = Mage::getDesign()->getStore();
+            $oldArea = Mage::getDesign()->getArea();
+
             if ($notifyCustomer && $comment) {
-                $oldStore = Mage::getDesign()->getStore();
-                $oldArea = Mage::getDesign()->getArea();
                 Mage::getDesign()->setStore($order->getStoreId());
                 Mage::getDesign()->setArea('frontend');
             }
