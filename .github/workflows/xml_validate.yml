@@ -14,4 +14,4 @@ jobs:
     - name: "test"
       run: "pwd; ls -lah;"
     - name: "Validate XMLs"
-      uses: pipeline-components/xmllint@v0.1.0
+      run: "find . -type f -iname '*.xml' | xargs -I '{}' xmllint --noout '{}'"
