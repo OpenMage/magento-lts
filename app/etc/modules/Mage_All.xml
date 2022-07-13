@@ -233,13 +233,6 @@
                 <Mage_Customer/>
             </depends>
         </Mage_Log>
-        <Mage_Backup>
-            <active>false</active>
-            <codePool>core</codePool>
-            <depends>
-                <Mage_Core/>
-            </depends>
-        </Mage_Backup>
         <Mage_Poll>
             <active>true</active>
             <codePool>core</codePool>
