@@ -14,6 +14,6 @@ jobs:
     - name: "test"
       run: "pwd; ls -lah;"
     - name: "Install xmllint"
-      run: "apt -y install libxml2-utils"
+      run: "sudo apt-get -y install libxml2-utils"
     - name: "Validate XMLs"
       run: "find . -type f -iname '*.xml' | xargs -I '{}' xmllint --noout '{}'"
