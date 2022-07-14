@@ -74,7 +74,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>The default value is "30 2 * * *". An empty value disables automatic cache flushing.</comment>
+                            <comment>The default value is "30 2 * * *". An empty value disables automatic flushing cache.</comment>
                         </flush_cron_expr>
                     </fields>
                 </cache>
