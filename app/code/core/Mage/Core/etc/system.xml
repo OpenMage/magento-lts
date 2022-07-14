@@ -69,12 +69,12 @@
                     <show_in_store>0</show_in_store>
                     <fields>
                         <flush_cron_expr translate="label comment">
-                            <label>Cron Expression for Flushing Cache</label>
+                            <label>Cron Expression for Cache Flushing</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>The default value is "30 2 * * *". An empty value disables automatic flushing cache.</comment>
+                            <comment>The default value is "30 2 * * *". An empty value disables automatic cache flushing.</comment>
                         </flush_cron_expr>
                     </fields>
                 </cache>
