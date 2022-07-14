@@ -70,7 +70,7 @@ git add -A && git commit
 
 ## Secure your installation
 
-Do not use /admin (or /nimda...) for backend url. Do not add it into your _robots.txt_, keep it secret. You can change it from your backend (System / Configuration / Admin / Admin Base Url) or from your _app/etc/local.xml_:
+Do not use /admin (or /nimda...) for backend url. Don't add it into your _robots.txt_, keep it secret. You can change it from your backend (System / Configuration / Admin / Admin Base Url) or from your _app/etc/local.xml_:
 
 ```xml
 <config>
@@ -86,9 +86,10 @@ Do not use /admin (or /nimda...) for backend url. Do not add it into your _robot
 </config>
 ```
 
-Do not use /api.php (or /ipa.php...) for OpenMage API url. Do not add it into your _robots.txt_, keep it secret with your partners. You can rename the file as you want. Don't forget to update the server configuration:
-* htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
-* nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
+
+* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
+* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
 
 ## Changes
 
