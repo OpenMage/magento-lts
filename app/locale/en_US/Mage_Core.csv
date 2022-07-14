@@ -411,7 +411,7 @@
 "Use Secure URLs in Frontend","Use Secure URLs in Frontend"
 "Use Web Server Rewrites","Use Web Server Rewrites"
 "VAT Number","VAT Number"
-"The default value is ""30 2 * * *"". Leave the box empty and the cron will no longer run.","The default value is ""30 2 * * *"". Leave the box empty and the cron will no longer run."
+"The default value is ""30 2 * * *"". An empty value disables automatic cache flushing.","The default value is ""30 2 * * *"". An empty value disables automatic cache flushing."
 "Validate HTTP_USER_AGENT","Validate HTTP_USER_AGENT"
 "Validate HTTP_VIA","Validate HTTP_VIA"
 "Validate HTTP_X_FORWARDED_FOR","Validate HTTP_X_FORWARDED_FOR"
