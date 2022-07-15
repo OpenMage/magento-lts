@@ -152,7 +152,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), array('title', 'sort_order', 'children', 'disabled'))) {
+            if (!in_array($resource->getName(), array('title', 'sort_order', 'children', 'disabled', 'acl'))) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
@@ -160,16 +160,22 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                     $module = (string)$resource->getAttribute('module');
                 }
 
+                if ($resource->acl) {
+                    $aclpath = (string)$resource->acl;
+                } else {
+                    $aclpath = $resourceName;
+                }
+
                 if ($rawNodes) {
-                    $resource->addAttribute("aclpath", $resourceName);
+                    $resource->addAttribute("aclpath", $aclpath);
                     $resource->addAttribute("module_c", $module);
                 }
 
                 if (is_null($represent2Darray)) {
-                    $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
-                    $result[$resourceName]['level'] = $level;
+                    $result[$aclpath]['name']  = Mage::helper($module)->__((string)$resource->title);
+                    $result[$aclpath]['level'] = $level;
                 } else {
-                    $result[] = $resourceName;
+                    $result[] = $aclpath;
                 }
             }
         }
