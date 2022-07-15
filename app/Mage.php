@@ -527,15 +527,15 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Mage_Core_Model_Abstract
+     * @return  Mage_Core_Model_Abstract|false
      */
-    public static function getSingleton($modelClass='', array $arguments=array())
+    public static function getSingleton($modelClass = '', array $arguments=array())
     {
         $registryKey = '_singleton/'.$modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -577,7 +577,7 @@ final class Mage
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -605,7 +605,7 @@ final class Mage
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass);
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -622,7 +622,7 @@ final class Mage
             self::register($registryKey, $helperClass);
         }
 
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
