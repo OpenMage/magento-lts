@@ -308,6 +308,7 @@
                 <title>Order Comments</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
@@ -328,6 +329,10 @@
                     </customer>
                 </force_attributes>
                 <routes>
+                    <route_entity>
+                        <route>/orders/comments/:comment_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
                     <route_collection>
                         <route>/orders/:id/comments</route>
                         <action_type>collection</action_type>
