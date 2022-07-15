@@ -380,7 +380,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $uri = Zend_Uri_Http::fromString($url);
         $uri->setHost($request->getHttpHost());
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/api.php', '/'));
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }
