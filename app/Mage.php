@@ -531,7 +531,7 @@ final class Mage
      */
     public static function getSingleton($modelClass = '', array $arguments=array())
     {
-        $registryKey = '_singleton/'.$modelClass;
+        $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
@@ -573,7 +573,7 @@ final class Mage
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = array())
     {
-        $registryKey = '_resource_singleton/'.$modelClass;
+        $registryKey = '_resource_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
@@ -621,7 +621,6 @@ final class Mage
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
-
         return self::$_registry[$registryKey];
     }
 
