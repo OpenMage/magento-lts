@@ -305,10 +305,7 @@ final class Mage
      */
     public static function registry($key)
     {
-        if (isset(self::$_registry[$key])) {
-            return self::$_registry[$key];
-        }
-        return null;
+        return self::$_registry[$key] ?? null;
     }
 
     /**
