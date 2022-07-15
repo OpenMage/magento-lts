@@ -7011,11 +7011,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			message: "#^Variable \\$attribute in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
-
-		-
 			message: "#^Cannot call method updateOnRelatedRecordChanged\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Address.php
