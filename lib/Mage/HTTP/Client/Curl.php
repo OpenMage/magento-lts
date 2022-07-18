@@ -440,8 +440,8 @@ implements Mage_HTTP_IClient
                 list($name, $value) = $out;
             }
 
-            if ('' !== $name) {
-                if ('Set-Cookie' === $name) {
+            if ($name !== '') {
+                if ($name === 'Set-Cookie') {
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
