@@ -7,32 +7,27 @@ Options All -Indexes
     php_flag engine 0
 </IfModule>
 
-<IfModule mod_php8.c>
+<IfModule mod_php.c>
     php_flag engine 0
 </IfModule>
 
 ############################################
-## Don't permit execution of CGI scripts
+## Forbid execution of CGI scripts
 
-    AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
-    Options -ExecCGI
-
-<IfModule mod_rewrite.c>
+AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
+Options -ExecCGI
 
 ############################################
-## Enable rewrites
+## URL rewrite configurations
 
+<IfModule mod_rewrite.c>
+    # Enable rewrites
     Options +FollowSymLinks
     RewriteEngine on
 
-############################################
-## Never rewrite for existing files
-
+    # Never rewrite for existing files
     RewriteCond %{REQUEST_FILENAME} !-f
 
-############################################
-## Rewrite everything else to get.php
-
+    # Rewrite everything else to get.php
     RewriteRule (.*) ../get.php [L]
-
 </IfModule>

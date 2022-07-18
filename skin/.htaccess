@@ -5,12 +5,12 @@
     php_flag engine 0
 </IfModule>
 
-<IfModule mod_php8.c>
+<IfModule mod_php.c>
     php_flag engine 0
 </IfModule>
 
 ############################################
-## Don't permit execution of CGI scripts
+## Forbid execution of CGI scripts
 
-    AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
-    Options -ExecCGI
+AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
+Options -ExecCGI
