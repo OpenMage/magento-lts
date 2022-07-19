@@ -524,7 +524,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @return  Mage_Core_Model_Abstract
      */
     public static function getSingleton($modelClass = '', array $arguments=array())
     {
