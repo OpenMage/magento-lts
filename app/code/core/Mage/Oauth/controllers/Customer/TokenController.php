@@ -57,13 +57,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     public function preDispatch()
     {
         parent::preDispatch();
-        /**
-         * PHPStan can't infer type because $this_sessionName is dynamic. Type hint prevents '|false' return type case.
-         * Temp variable $session is therefore necessary.
-         * @var Mage_Customer_Model_Session $session
-         */
-        $session = Mage::getSingleton($this->_sessionName);
-        $this->_session = $session;
+        $this->_session = Mage::getSingleton($this->_sessionName);
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
