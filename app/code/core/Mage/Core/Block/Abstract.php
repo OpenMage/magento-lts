@@ -758,7 +758,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $this->_sortedChildren = array_values($this->_sortedChildren); // reset indexes which might have gaps after unsetting blocks
         foreach ($this->_sortInstructions as $name => $list) {
-            [$siblingName, $after, $exists] = $list;
+            list($siblingName, $after, $exists) = $list;
             if ($exists && !$force) {
                 continue;
             }
