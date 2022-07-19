@@ -758,7 +758,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $this->_sortedChildren = array_values($this->_sortedChildren); // reset indexes which might have gaps after unsetting blocks
         foreach ($this->_sortInstructions as $name => $list) {
-            list($siblingName, $after, $exists) = $list;
+            [$siblingName, $after, $exists] = $list;
             if ($exists && !$force) {
                 continue;
             }
@@ -1304,7 +1304,13 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($this->_getApp()->useCache(self::CACHE_GROUP)) {
             $this->_getApp()->setUseSessionVar(false);
             Varien_Profiler::start('CACHE_URL');
-            $html = Mage::getSingleton($this->_getUrlModelClass())->sessionUrlVar($html);
+            /**
+             * PHPStan can't infer type because $this->_getUrlModelClass() depends on implementation. Type hint
+             * prevents '|false' return type case.
+             * @var Mage_Core_Model_Url $urlModelClass
+             */
+            $urlModelClass = Mage::getSingleton($this->_getUrlModelClass());
+            $html = $urlModelClass->sessionUrlVar($html);
             Varien_Profiler::stop('CACHE_URL');
         }
         return $html;

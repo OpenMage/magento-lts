@@ -105,8 +105,12 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     {
         if (is_null($this->_flagObject)) {
             $className = (string)Mage::getConfig()->getNode(self::XML_PATH_FLAT_FLAG);
-            $this->_flagObject = Mage::getSingleton($className)
-                ->loadSelf();
+            /**
+             * PHPStan can't infer type because $className is dynamic. Type hint prevents '|false' return type case.
+             * @var Mage_Catalog_Model_Product_Flat_Flag $flagObjectSingleton
+             */
+            $flagObjectSingleton = Mage::getSingleton($className);
+            $this->_flagObject = $flagObjectSingleton->loadSelf();
         }
         return $this->_flagObject;
     }

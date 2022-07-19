@@ -442,10 +442,14 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $method = false;
                     if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
                         array_shift($matches);
-                        list($factoryName, $method) = array_values($matches);
+                        [$factoryName, $method] = array_values($matches);
                     }
 
-                    /** @var Mage_Core_Model_Abstract $sourceModel */
+                    /**
+                     * PHPStan can't infer type because $factoryName is dynamic. Type hint prevents '|false' return
+                     * type case.
+                     * @var Mage_Core_Model_Abstract $sourceModel
+                     */
                     $sourceModel = Mage::getSingleton($factoryName);
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
