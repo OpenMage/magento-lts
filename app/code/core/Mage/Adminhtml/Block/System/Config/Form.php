@@ -445,6 +445,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                         list($factoryName, $method) = array_values($matches);
                     }
 
+                    /** @var Mage_Core_Model_Abstract $sourceModel */
                     $sourceModel = Mage::getSingleton($factoryName);
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
