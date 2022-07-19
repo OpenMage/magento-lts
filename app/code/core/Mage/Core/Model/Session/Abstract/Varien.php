@@ -574,7 +574,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
     /**
      * @return array
      */
-    public function getValidatorResult()
+    public function getSessionValidatorData()
     {
         return $_SESSION[self::VALIDATOR_KEY];
     }
