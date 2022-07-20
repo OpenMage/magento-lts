@@ -62,7 +62,7 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 explode("\n", shell_exec("grep -Frl --exclude-dir='.git' --include=*.xml 'translate=' ."))
             );
         }
-        return array_filter($files);
+        return array_filter(array_map('trim', $files));
     }
 
     /**
