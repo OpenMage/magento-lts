@@ -18,6 +18,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+// DO NOT RUN DIRECTLY IN YOUR PRODUCTION ENVIRONMENT!
+// This script is distributed in the hope that it will be useful, but without any warranty.
+
 require_once 'abstract.php';
 chdir(dirname(__DIR__, 1));
 
@@ -110,8 +113,8 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
             if ($ext === 'php' || $ext === 'phtml') {
                 // Regex to get first argument of __ function
                 // https://stackoverflow.com/a/5696141
-                $re_dq = '/__\s?\(\s*"([^"\\\\]*(?:\\\\.[^"\\\\]*)*\s*)"/s';
-                $re_sq = "/__\s?\(\s*'([^'\\\\]*(?:\\\\.[^'\\\\]*)*\s*)'/s";
+                $re_dq = '/__\s*\(\s*"([^"\\\\]*(?:\\\\.[^"\\\\]*)*\s*)"/s';
+                $re_sq = "/__\s*\(\s*'([^'\\\\]*(?:\\\\.[^'\\\\]*)*\s*)'/s";
 
                 if (preg_match_all($re_dq, $contents, $_matches)) {
                     $matches = array_merge($matches, str_replace('\"', '"', $_matches[1]));
@@ -142,6 +145,59 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
         return $map;
     }
 
+    /**
+     * Find deprecated usage of global __ function
+     *
+     */
+    protected function findDeprecated()
+    {
+        $files = $this->getFiles();
+        foreach ($files as $file) {
+
+            // Ignore this file
+            if ($file === './shell/translations.php') {
+                continue;
+            }
+
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            $contents = file_get_contents($file);
+
+            if ($contents === false) {
+                echo "ERROR: File not found $file\n";
+                continue;
+            }
+
+            if ($ext === 'php' || $ext === 'phtml') {
+                // Capture what precedes a __() call
+                $re = '/(\S*\s*)(__\s*\()/';
+
+                $found = false; // If we found deprecated usage in this file
+                $insert = "Mage::helper('core')->"; // String to insert before global __ usage
+                $offset = 0; // Keep track of extra offset from adding strings
+
+                if (preg_match_all($re, $contents, $matches, PREG_OFFSET_CAPTURE)) {
+                    for ($i = 0; $i < count($matches[0]); $i++) {
+                        $word = trim($matches[1][$i][0]);
+                         if (substr($word, -2) !== '->' && substr($word, -6) !== 'self::' && $word !== 'function') {
+                            $found = true;
+                            if ($this->getArg('fix')) {
+                                $contents = substr_replace($contents, $insert, $matches[2][$i][1] + $offset, 0);
+                                $offset += strlen($insert);
+                            }
+                        }
+                    }
+                }
+                if ($found) {
+                    if ($this->getArg('fix')) {
+                        echo "DEPRECATED: Global __ function fixed in: $file\n";
+                        file_put_contents($file, $contents);
+                    } else {
+                        echo "DEPRECATED: Global __ function found in: $file\n";
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Run script
@@ -195,6 +251,8 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 echo implode("\n", $unused) . "\n";
             }
 
+        } else if ($this->getArg('deprecated')) {
+            $this->findDeprecated();
         } else {
             echo $this->usageHelp();
         }
@@ -213,7 +271,9 @@ Usage:  php -f translations.php -- [options]
   missing           Display used translations strings that are missing from csv files
   unused            Display defined translations strings that are not used in templates
   --verbose         Include filename with output
-  --lang <lang>     Specify which language pack to check in app/locale. Default is en_US
+  --lang <lang>     Specify which language pack to check in app/locale, default is en_US
+  deprecated        Find deprecated usage of the global __() function
+  --fix             Overwrite files to fix deprecated usage DO NOT RUN IN PRODUCTION!
   help              This help
 
 Note: By default, this script will check all files in this repository. However,
