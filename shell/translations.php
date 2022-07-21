@@ -178,7 +178,7 @@ class Mage_Shell_Translation extends Mage_Shell_Abstract
                 if (preg_match_all($re, $contents, $matches, PREG_OFFSET_CAPTURE)) {
                     for ($i = 0; $i < count($matches[0]); $i++) {
                         $word = trim($matches[1][$i][0]);
-                         if (substr($word, -2) !== '->' && substr($word, -2) !== '::' && $word !== 'function') {
+                        if (substr($word, -2) !== '->' && substr($word, -2) !== '::' && $word !== 'function') {
                             $found = true;
                             if ($this->getArg('fix')) {
                                 $contents = substr_replace($contents, $insert, $matches[2][$i][1] + $offset, 0);
