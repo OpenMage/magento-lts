@@ -890,7 +890,7 @@ class Mage_Core_Model_Design_Package
     protected function _cssMergerUrlCallback($match)
     {
         $quote = ($match[1][0] == "'" || $match[1][0] == '"') ? $match[1][0] : '';
-        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, strlen($match[1]) - 2);
+        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, -1);
         $uri = $this->_prepareUrl($uri);
 
         return "url({$quote}{$uri}{$quote})";

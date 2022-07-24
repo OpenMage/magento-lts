@@ -585,7 +585,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         if (strrpos($file, '.tmp') == strlen($file)-4) {
-            $file = substr($file, 0, strlen($file)-4);
+            $file = substr($file, 0, -4);
         }
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
