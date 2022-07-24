@@ -76,14 +76,14 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_storeIds = array();
+    protected $_storeIds = [];
 
     /**
      * Group store codes array
      *
      * @var array
      */
-    protected $_storeCodes = array();
+    protected $_storeCodes = [];
 
     /**
      * The number of stores in a group
@@ -125,14 +125,15 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      */
     protected function _loadStores()
     {
-        $this->_stores = array();
+        $this->_stores = [];
         $this->_storesCount = 0;
         /** @var Mage_Core_Model_Store $store */
         foreach ($this->getStoreCollection() as $store) {
-            $this->_stores[$store->getId()] = $store;
-            $this->_storeIds[$store->getId()] = $store->getId();
-            $this->_storeCodes[$store->getId()] = $store->getCode();
-            if ($this->getDefaultStoreId() == $store->getId()) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
             $this->_storesCount ++;
@@ -146,13 +147,14 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      */
     public function setStores($stores)
     {
-        $this->_stores = array();
+        $this->_stores = [];
         $this->_storesCount = 0;
         foreach ($stores as $store) {
-            $this->_stores[$store->getId()] = $store;
-            $this->_storeIds[$store->getId()] = $store->getId();
-            $this->_storeCodes[$store->getId()] = $store->getCode();
-            if ($this->getDefaultStoreId() == $store->getId()) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
             $this->_storesCount ++;
@@ -267,7 +269,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      */
     public function getStoresByLocale($locale)
     {
-        $stores = array();
+        $stores = [];
         foreach ($this->getStores() as $store) {
             if ($store->getLocaleCode() == $locale) {
                 array_push($stores, $store);
