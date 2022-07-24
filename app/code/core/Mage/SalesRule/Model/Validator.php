@@ -1098,7 +1098,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             foreach ($items as $itemKey => $itemValue) {
                 if ($rule->getActions()->validate($itemValue)) {
                     unset($items[$itemKey]);
-                    array_push($itemsSorted, $itemValue);
+                    $itemsSorted[] = $itemValue;
                 }
             }
         }

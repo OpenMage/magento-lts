@@ -344,7 +344,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 } else {
                     foreach ($resourceAcl->getResources() as $resource) {
                         if ($resourceAcl->isAllowed($roleTypeId, $resource)) {
-                            array_push($selectedResourceIds, $resource);
+                            $selectedResourceIds[] = $resource;
                         }
                     }
                 }
