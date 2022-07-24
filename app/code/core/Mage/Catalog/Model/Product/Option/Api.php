@@ -100,7 +100,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      *
      * @param array $data
      * @param string $groupType
-     * @return void
      */
     protected function _prepareAdditionalFields(&$data, $groupType)
     {
@@ -145,7 +144,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $data
-     * @return void
      */
     protected function _saveProductCustomOption($product, $data)
     {

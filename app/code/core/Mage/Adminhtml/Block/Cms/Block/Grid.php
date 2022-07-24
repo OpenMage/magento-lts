@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,18 +41,23 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
         $this->setDefaultDir('ASC');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('cms/block')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Block_Collection */
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
-
         $this->addColumn('title', array(
             'header'    => Mage::helper('cms')->__('Title'),
             'align'     => 'left',
@@ -104,10 +108,13 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
         return parent::_prepareColumns();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->walk('afterLoad');
-        parent::_afterLoadCollection();
+        return parent::_afterLoadCollection();
     }
 
     protected function _filterStoreCondition($collection, $column)

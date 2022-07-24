@@ -35,8 +35,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
 {
     /**
      * Draw item line
-     *
-     * @return void
      */
     public function draw()
     {

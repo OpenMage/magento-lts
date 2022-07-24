@@ -29,8 +29,6 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
 {
     /**
      * Prepare block for chooser
-     *
-     * @return void
      */
     public function chooserAction()
     {
@@ -78,6 +76,9 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         return Mage::getSingleton('admin/session')->isAllowed('promo/catalog');

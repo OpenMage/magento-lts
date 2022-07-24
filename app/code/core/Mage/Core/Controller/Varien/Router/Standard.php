@@ -492,7 +492,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param Mage_Core_Controller_Request_Http $request
      * @param string $path
-     * @return void
      */
     protected function _checkShouldBeSecure($request, $path = '')
     {

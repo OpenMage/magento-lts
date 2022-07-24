@@ -204,6 +204,9 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('review_id');

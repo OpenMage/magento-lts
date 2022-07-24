@@ -66,7 +66,6 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
      *
      * @throws Exception
      * @param array $fileInfo
-     * @return void
      */
     private function _setUploadFile($fileInfo)
     {

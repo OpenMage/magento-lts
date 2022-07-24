@@ -343,7 +343,6 @@ class Mage_Index_Model_Indexer
      *
      * @param string $method
      * @param array $args
-     * @return void
      */
     protected function _runAll($method, $args)
     {

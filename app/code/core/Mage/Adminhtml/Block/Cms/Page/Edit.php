@@ -35,8 +35,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
 {
     /**
      * Initialize cms page edit block
-     *
-     * @return void
      */
     public function __construct()
     {

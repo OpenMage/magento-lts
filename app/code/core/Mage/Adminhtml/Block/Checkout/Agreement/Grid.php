@@ -110,12 +110,12 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->walk('afterLoad');
-        parent::_afterLoadCollection();
+        return parent::_afterLoadCollection();
     }
 
     /**

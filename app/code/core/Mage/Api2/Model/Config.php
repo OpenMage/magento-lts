@@ -111,7 +111,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 continue;
             }
 
-            /** @var Varien_Simplexml_Element $routes */
+            /** @var Varien_Simplexml_Element $route */
             foreach ($resource->routes->children() as $route) {
                 $arguments = array(
                     Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string)$route->route,

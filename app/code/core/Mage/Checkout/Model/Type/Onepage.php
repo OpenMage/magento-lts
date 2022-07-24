@@ -703,8 +703,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer registration and customer order submit
-     *
-     * @return void
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -740,8 +738,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer order submit
-     *
-     * @return void
      */
     protected function _prepareCustomerQuote()
     {
@@ -889,7 +885,6 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Validate quote state to be able submitted from one page checkout page
      *
-     * @return void
      * @throws Mage_Core_Exception
      * @deprecated after 1.4 - service model doing quote validation
      */

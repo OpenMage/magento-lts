@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
     /**
      * Register grid column input name to serialize
      *
-     * @param string $name
+     * @param array|string $names
      */
     public function addColumnInputName($names)
     {
@@ -75,7 +75,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
     /**
      * Get grid column input names to serialize
      *
-     * @return unknown
+     * @param bool $asJSON
+     * @return array
      */
     public function getColumnInputNames($asJSON = false)
     {

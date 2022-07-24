@@ -242,7 +242,6 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $productData
-     * @return void
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */

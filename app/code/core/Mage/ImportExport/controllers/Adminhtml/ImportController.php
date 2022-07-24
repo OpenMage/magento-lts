@@ -35,8 +35,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 {
     /**
      * Custom constructor.
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -70,8 +68,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -88,8 +84,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Start import process action.
-     *
-     * @return void
      */
     public function startAction()
     {
@@ -122,8 +116,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Validate uploaded files action.
-     *
-     * @return void
      */
     public function validateAction()
     {

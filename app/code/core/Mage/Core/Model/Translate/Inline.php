@@ -364,7 +364,6 @@ class Mage_Core_Model_Translate_Inline
      * Prepare tags inline translates for the content
      *
      * @param string $content
-     * @return void
      */
     protected function _prepareTagAttributesForContent(&$content)
     {

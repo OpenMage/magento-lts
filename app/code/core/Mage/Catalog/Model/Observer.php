@@ -182,7 +182,6 @@ class Mage_Catalog_Model_Observer
      * Checking whether the using static urls in WYSIWYG allowed event
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {

@@ -36,7 +36,7 @@
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_Block_Abstract
 {
-    /*
+    /**
      * List of product options rendering configurations by product type
      *
      * @var array

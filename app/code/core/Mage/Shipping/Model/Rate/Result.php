@@ -56,7 +56,6 @@ class Mage_Shipping_Model_Rate_Result
      * Set Error
      *
      * @param bool $error
-     * @return void
      */
     public function setError($error)
     {

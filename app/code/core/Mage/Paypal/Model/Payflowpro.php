@@ -118,7 +118,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     /**
      * Check whether payment method can be used
      *
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -344,7 +344,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
     /**
      * Check whether the transaction is in payment review status
      *
-     * @param string $statusCode
+     * @param string $status
      * @return bool
      */
     protected static function _isTransactionUnderReview($status)

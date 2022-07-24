@@ -133,7 +133,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Check whether payment method can be used
      *
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -569,7 +569,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      * @deprecated since 1.6.2.0
      * @param Varien_Object $payment
      * @param string $txnId
-     * @return void
      */
     protected function _addTransaction($payment, $txnId)
     {

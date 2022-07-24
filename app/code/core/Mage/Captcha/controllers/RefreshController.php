@@ -36,8 +36,6 @@ class Mage_Captcha_RefreshController extends Mage_Core_Controller_Front_Action
     /**
      * Refreshes captcha and returns JSON encoded URL to image (AJAX action)
      * Example: {'imgSrc': 'http://example.com/media/captcha/67842gh187612ngf8s.png'}
-     *
-     * @return null
      */
     public function indexAction()
     {

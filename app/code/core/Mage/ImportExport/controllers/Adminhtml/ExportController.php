@@ -35,8 +35,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 {
     /**
      * Custom constructor.
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -103,8 +101,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -117,8 +113,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
 
     /**
      * Get grid-filter of entity attributes action.
-     *
-     * @return void
      */
     public function getFilterAction()
     {

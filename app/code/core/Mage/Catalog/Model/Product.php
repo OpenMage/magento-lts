@@ -454,7 +454,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
-     * @return void
      */
     public function setPriceCalculation($calculate = true)
     {
@@ -1691,7 +1690,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $code  Attribute code
      * @param mixed  $value New attribute value
      * @param int    $store Store ID
-     * @return void
      */
     public function addAttributeUpdate($code, $value, $store)
     {
@@ -1937,7 +1935,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Sets custom options for the product
      *
      * @param array $options Array of options
-     * @return void
      */
     public function setCustomOptions(array $options)
     {

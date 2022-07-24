@@ -245,7 +245,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
      * New condition HTML action
      *
      * @throws Mage_Core_Exception
-     * @return void
      */
     public function newConditionHtmlAction()
     {
@@ -324,8 +323,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export coupon codes as excel xml file
-     *
-     * @return void
      */
     public function exportCouponsXmlAction()
     {
@@ -345,8 +342,6 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
 
     /**
      * Export coupon codes as CSV file
-     *
-     * @return void
      */
     public function exportCouponsCsvAction()
     {

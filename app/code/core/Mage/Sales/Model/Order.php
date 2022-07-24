@@ -437,7 +437,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     const REPORT_DATE_TYPE_CREATED = 'created';
     const REPORT_DATE_TYPE_UPDATED = 'updated';
-    /*
+    /**
      * Identifier for history item
      */
     const HISTORY_ENTITY_NAME = 'order';
@@ -503,7 +503,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_canSendNewEmailFlag = true;
 
-    /*
+    /**
      * Identifier for history item
      *
      * @var string
@@ -1164,7 +1164,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    /*
+    /**
      * Add a comment to order
      * Different or default status may be specified
      *

@@ -35,8 +35,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Constructor
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -144,7 +142,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
-    /*
+    /**
      * Retrieves Grid Url
      *
      * @return string
@@ -157,7 +155,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieves row click URL
      *
-     * @param  mixed $row
+     * @param  Varien_Object $row
      * @return string
      */
     public function getRowUrl($row)

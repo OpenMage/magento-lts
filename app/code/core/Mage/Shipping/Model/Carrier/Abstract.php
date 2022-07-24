@@ -345,7 +345,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
 
     /**
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return null
      */
     protected function _updateFreeMethodQuote($request)
     {

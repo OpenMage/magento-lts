@@ -35,8 +35,6 @@ class Mage_Oauth_Model_Resource_Consumer_Collection extends Mage_Core_Model_Reso
 {
     /**
      * Initialize collection model
-     *
-     * @return void
      */
     protected function _construct()
     {

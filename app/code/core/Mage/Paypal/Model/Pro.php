@@ -78,6 +78,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param string $code
      * @param int|null $storeId
+     * @return $this
      */
     public function setMethod($code, $storeId = null)
     {
@@ -101,6 +102,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param Mage_Paypal_Model_Config $instace
      * @param int $storeId
+     * @return $this
      */
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
     {
@@ -437,8 +439,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
     {
@@ -449,8 +451,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param bool $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)

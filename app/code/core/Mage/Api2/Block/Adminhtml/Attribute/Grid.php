@@ -46,6 +46,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
 
     /**
      * Collection object set up
+     * @return void
      */
     protected function _prepareCollection()
     {

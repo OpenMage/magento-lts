@@ -34,7 +34,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
     /**
      * Recurring profiles list
      *
-     * @return void
+     * @return $this
      */
     public function indexAction()
     {

@@ -37,7 +37,6 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      * Draw header for item table
      *
      * @param Zend_Pdf_Page $page
-     * @return void
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {

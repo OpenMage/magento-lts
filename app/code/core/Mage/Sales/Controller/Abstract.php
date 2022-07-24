@@ -54,8 +54,6 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Init layout, messages and set active block for customer
-     *
-     * @return null
      */
     protected function _viewAction()
     {

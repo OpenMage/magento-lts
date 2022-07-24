@@ -183,7 +183,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     /**
      * Retrieve real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
      */
     public function getFieldId($id)

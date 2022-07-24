@@ -117,8 +117,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -590,7 +588,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         //Execution time may be very long
         set_time_limit(0);
 
-        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $validAttrCodes  = $this->_getExportAttrCodes();
         $writer          = $this->getWriter();
         $defaultStoreId  = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;

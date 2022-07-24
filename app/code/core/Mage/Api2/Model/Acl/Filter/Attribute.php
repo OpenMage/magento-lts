@@ -54,8 +54,6 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {

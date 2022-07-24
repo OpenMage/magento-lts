@@ -198,7 +198,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param mixed (array|string|object) $columns
+     * @param array|string|object $columns
      * @param bool $isRow
      * @param string $txnType
      * @return array|string

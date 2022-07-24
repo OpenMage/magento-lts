@@ -34,7 +34,7 @@
  */
 class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
 {
-    /*
+    /**
      * List of product options rendering configurations by product type
      */
     protected $_optionsCfg = array();

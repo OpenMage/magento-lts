@@ -200,7 +200,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @return void
      * @throws Mage_Exception
      */
     public function addAction()
@@ -562,8 +561,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Estimate update action
-     *
-     * @return null
      */
     public function estimateUpdatePostAction()
     {

@@ -123,7 +123,6 @@ class Mage_Paypal_Model_Observer
      * Load country dependent PayPal solutions system configuration
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function loadCountryDependentSolutionsConfig(Varien_Event_Observer $observer)
     {

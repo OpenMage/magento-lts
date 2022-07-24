@@ -37,8 +37,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Backend_OriginShipment
 {
     /**
      * Set source model to get allowed values
-     *
-     * @return void
      */
     protected function _setSourceModelData()
     {
@@ -47,8 +45,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Backend_OriginShipment
 
     /**
      * Set field name to display in error block
-     *
-     * @return void
      */
     protected function _setNameErrorField()
     {

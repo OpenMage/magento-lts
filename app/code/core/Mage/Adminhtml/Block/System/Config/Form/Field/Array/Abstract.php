@@ -51,7 +51,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
     /**
      * Label of add button
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_addButtonLabel;
 
@@ -121,7 +121,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
     /**
      * Prepare existing row data object
      *
-     * @param Varien_Object
+     * @param Varien_Object $row
      */
     protected function _prepareArrayRow(Varien_Object $row)
     {

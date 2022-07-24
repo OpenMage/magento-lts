@@ -72,7 +72,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
     const XML_PATH_CUSTOM_CURRENCY_SYMBOL = 'currency/options/customsymbol';
     const XML_PATH_ALLOWED_CURRENCIES     = 'currency/options/allow';
 
-    /*
+    /**
      * Separator used in config in allowed currencies list
      */
     const ALLOWED_CURRENCIES_CONFIG_SEPARATOR = ',';

@@ -247,7 +247,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data for default store
      *
-     * @param object Varien_Db_Select|null $subSelect
+     * @param Varien_Db_Select|null $subSelect
      * @return $this
      */
     protected function _aggregateDefault($subSelect = null)

@@ -43,8 +43,6 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
 
     /**
      * Constructor
-     *
-     * @return null
      */
     protected function _construct()
     {
@@ -112,7 +110,6 @@ class Mage_Rss_Block_Catalog_NotifyStock extends Mage_Rss_Block_Abstract
      * Adds single product to feed
      *
      * @param array $args
-     * @return void
      */
     public function addNotifyItemXmlCallback($args)
     {

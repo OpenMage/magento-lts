@@ -355,7 +355,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      * Reset information about FPT for shopping cart item
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return void
      */
     protected function _resetItemData($item)
     {

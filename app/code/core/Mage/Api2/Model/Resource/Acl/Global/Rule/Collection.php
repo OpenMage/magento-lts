@@ -35,8 +35,6 @@ class Mage_Api2_Model_Resource_Acl_Global_Rule_Collection extends Mage_Core_Mode
 {
     /**
      * Initialize collection model
-     *
-     * @return void
      */
     protected function _construct()
     {

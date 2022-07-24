@@ -411,7 +411,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -562,7 +561,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      *
      * @param  $shipment
      * @param  $shipKey
-     * @return void
      */
     protected function _createShipmentXml($shipment, $shipKey)
     {
@@ -930,7 +928,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Parse xml and add rates to instance property
      *
      * @param mixed $shipXml
-     * @return void
      */
     protected function _addRate($shipXml)
     {

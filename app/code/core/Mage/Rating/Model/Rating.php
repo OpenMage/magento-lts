@@ -72,8 +72,6 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
 
     /**
      * Define resource model
-     *
-     * @return void
      */
     protected function _construct()
     {

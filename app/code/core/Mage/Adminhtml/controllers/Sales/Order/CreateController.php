@@ -581,7 +581,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         return $aclResource;
     }
 
-    /*
+    /**
      * Ajax handler to response configuration fieldset of composite product in order
      *
      * @return $this
@@ -606,7 +606,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         return $this;
     }
 
-    /*
+    /**
      * Ajax handler to response configuration fieldset of composite product in quote items
      *
      * @return $this

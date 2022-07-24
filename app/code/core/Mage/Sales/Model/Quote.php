@@ -319,9 +319,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return void
+     * @inheritDoc
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
@@ -375,7 +373,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setCustomerId($this->_customer->getId());
         }
 
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**
@@ -1042,7 +1040,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Advanced func to add product to quote - processing mode can be specified there.
      * Returns error message if product type instance can't prepare product.
      *
-     * @param mixed $product
+     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @param null|string $processMode
      * @return Mage_Sales_Model_Quote_Item|string
@@ -1127,7 +1125,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * return error message if product type instance can't prepare product
      *
-     * @param mixed $product
+     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @return Mage_Sales_Model_Quote_Item|string
      */

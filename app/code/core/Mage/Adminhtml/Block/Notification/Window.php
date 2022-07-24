@@ -47,7 +47,6 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
 
     /**
      * Initialize block window
-     *
      */
     protected function _construct()
     {
@@ -168,7 +167,6 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
     /**
      * Check if current block allowed in ACL
      *
-     * @param string $resourcePath
      * @return bool
      */
     protected function _isAllowed()

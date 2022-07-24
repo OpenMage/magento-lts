@@ -37,7 +37,6 @@ interface Mage_Captcha_Model_Interface
      * Generates captcha
      *
      * @abstract
-     * @return void
      */
     public function generate();
 

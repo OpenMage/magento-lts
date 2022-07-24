@@ -319,7 +319,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Set placeholder
      *
      * @param string $fileName
-     * @return void
      */
     public function placeholder($fileName)
     {

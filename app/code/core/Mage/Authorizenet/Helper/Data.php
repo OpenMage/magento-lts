@@ -115,7 +115,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve place order url
      *
-     * @param array params
+     * @param array $params
      * @return  string
      */
     public function getSuccessOrderUrl($params)

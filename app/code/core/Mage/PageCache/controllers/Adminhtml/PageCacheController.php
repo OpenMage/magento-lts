@@ -45,8 +45,6 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
 
     /**
      * Clean external cache action
-     *
-     * @return void
      */
     public function cleanAction()
     {
@@ -69,9 +67,7 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
     }
 
     /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

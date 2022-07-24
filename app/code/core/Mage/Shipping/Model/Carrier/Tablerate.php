@@ -58,7 +58,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      */
     protected $_conditionNames = array();
 
-    /*
+    /**
      * Constructor
      */
     public function __construct()

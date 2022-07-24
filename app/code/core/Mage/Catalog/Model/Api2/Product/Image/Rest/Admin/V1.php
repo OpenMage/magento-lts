@@ -153,7 +153,6 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      * Update product image
      *
      * @param array $data
-     * @return void
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)

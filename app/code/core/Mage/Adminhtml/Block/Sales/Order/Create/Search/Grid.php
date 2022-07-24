@@ -33,7 +33,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -90,7 +89,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     /**
      * Prepare collection to be displayed in the grid
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -114,9 +113,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     }
 
     /**
-     * Prepare columns
-     *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -175,6 +172,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/loadBlock', array('block'=>'search_grid', '_current' => true, 'collapse' => null));
@@ -198,12 +198,13 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
         return Mage::getSingleton('adminhtml/giftmessage_save');
     }
 
-    /*
+    /**
      * Add custom options to product collection
      *
-     * return Mage_Adminhtml_Block_Widget_Grid
+     * @inheritDoc
      */
-    protected function _afterLoadCollection() {
+    protected function _afterLoadCollection()
+    {
         $this->getCollection()->addOptionsToResult();
         return parent::_afterLoadCollection();
     }

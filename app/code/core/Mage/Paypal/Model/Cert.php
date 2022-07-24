@@ -96,8 +96,6 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
 
     /**
      * Check and remove outdated certificate file by website
-     *
-     * @return void
      */
     protected function _removeOutdatedCertFile()
     {

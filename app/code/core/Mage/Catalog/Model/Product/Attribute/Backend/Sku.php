@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Sku extends Mage_Eav_Model_En
     /**
      * Maximum SKU string length
      *
-     * @var string
+     * @var int
      */
     const SKU_MAX_LENGTH = 64;
 

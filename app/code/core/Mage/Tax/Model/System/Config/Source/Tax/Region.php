@@ -37,7 +37,6 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
      */
     public function __construct($arguments = array())
     {
-        /** @var Mage_Directory_Model_Region _optionsModel */
         $this->_optionsModel = !empty($arguments['region_model'])
             ? $arguments['region_model'] : Mage::getModel('directory/region');
     }

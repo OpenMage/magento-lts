@@ -237,8 +237,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Set Free Method Request
      *
-     * @param  string $freeMethod
-     * @return void
+     * @param string $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -657,7 +656,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Make pieces
      *
      * @param SimpleXMLElement $nodeBkgDetails
-     * @return void
      */
     protected function _makePieces(SimpleXMLElement $nodeBkgDetails)
     {
@@ -762,7 +760,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Add dimension to piece
      *
      * @param SimpleXMLElement $nodePiece
-     * @return void
      */
     protected function _addDimension($nodePiece)
     {
@@ -1442,7 +1439,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * @param SimpleXMLElement $xml
      * @param Mage_Shipping_Model_Rate_Request $rawRequest
      * @param string $originRegion
-     * @return void
      */
     protected function _shipmentDetails($xml, $rawRequest, $originRegion = '')
     {
@@ -1564,7 +1560,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Send request for tracking
      *
      * @param array $trackings
-     * @return void
      */
     protected function _getXMLTracking($trackings)
     {
@@ -1638,7 +1633,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      *
      * @param array $trackings
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {

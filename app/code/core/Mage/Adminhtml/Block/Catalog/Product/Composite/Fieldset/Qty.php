@@ -35,8 +35,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_C
 {
     /**
      * Constructor for our block with options
-     *
-     * @return void
      */
     public function _construct()
     {

@@ -79,6 +79,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Initialize requested invoice instance
      * @param unknown_type $order
+     * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _initInvoice($order)
     {
@@ -166,6 +167,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Save creditmemo and related order, invoice in one transaction
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return $this
      */
     protected function _saveCreditmemo($creditmemo)
     {

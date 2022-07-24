@@ -191,8 +191,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * Index action.
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -203,8 +201,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
     /**
      * OAuth authorize or allow decline access simple page
-     *
-     * @return void
      */
     public function simpleAction()
     {

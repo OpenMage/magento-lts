@@ -112,8 +112,6 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
     /**
      * Delete file from media storage
-     *
-     * @return void
      */
     public function deleteFilesAction()
     {

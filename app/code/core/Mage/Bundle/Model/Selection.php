@@ -73,9 +73,7 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing object after save data
-     *
-     * @return void
+     * @inheritDoc
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterSave()
@@ -90,6 +88,6 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
                 $this->unsSelectionPriceType();
             }
         }
-        parent::_afterSave();
+        return parent::_afterSave();
     }
 }

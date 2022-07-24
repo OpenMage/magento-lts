@@ -286,7 +286,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Check whether girth is allowed for current carrier
      *
-     * @return void
+     * @return bool
      */
     public function isGirthAllowed()
     {

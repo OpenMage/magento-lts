@@ -35,8 +35,6 @@ class Mage_ImportExport_Model_Import_Proxy_Product extends Mage_Catalog_Model_Pr
 {
     /**
      * DO NOT Initialize resources.
-     *
-     * @return void
      */
     protected function _construct()
     {

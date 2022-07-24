@@ -33,13 +33,16 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('grid');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         //TODO: add full name logic
@@ -51,11 +54,18 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return void
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addCartInfo();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(

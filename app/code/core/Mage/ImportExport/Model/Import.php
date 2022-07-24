@@ -342,8 +342,6 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
     /**
      * Import source file structure to DB.
-     *
-     * @return void
      */
     public function expandSource()
     {

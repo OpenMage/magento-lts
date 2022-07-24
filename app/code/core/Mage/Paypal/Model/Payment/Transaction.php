@@ -192,7 +192,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool $failsafe
+     * @param bool|null $setFailsafe
+     * @return bool|$this
      */
     public function isFailsafe($setFailsafe = null)
     {

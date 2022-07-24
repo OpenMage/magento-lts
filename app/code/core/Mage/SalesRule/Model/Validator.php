@@ -861,7 +861,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param int $ruleId
      * @param int $itemId
-     * @return void
      */
     public function setCartFixedRuleUsedForAddress($ruleId, $itemId)
     {

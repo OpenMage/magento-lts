@@ -93,7 +93,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array|null $preValues
-     * @return void
      */
     public function indexProductImages($product, $preValues = null)
     {

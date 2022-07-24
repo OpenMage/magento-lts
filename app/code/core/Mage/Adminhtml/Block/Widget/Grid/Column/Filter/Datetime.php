@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
         return $value;
     }
 
-    /*
+    /**
      * Convert given date to default (UTC) timezone
      *
      * @param string $date

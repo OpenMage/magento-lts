@@ -382,8 +382,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $skipUnmatched = true
     ) {
         // We can't reload the collection because of transaction
-        /** @var Mage_Index_Model_Event $event */
         while ($event = $eventsCollection->fetchItem()) {
+            /** @var Mage_Index_Model_Event $event */
             try {
                 $this->processEvent($event);
                 if (!$skipUnmatched) {

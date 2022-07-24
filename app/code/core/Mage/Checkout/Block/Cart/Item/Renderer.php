@@ -32,9 +32,9 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method bool hasProductName()
- * @method $this setProductName(string)
+ * @method $this setProductName(string $value)
  * @method bool hasDeleteUrl()
- * @method $this setDeleteUrl(string)
+ * @method $this setDeleteUrl(string $value)
  * @method string getIdSuffix()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template

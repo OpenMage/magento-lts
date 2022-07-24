@@ -33,8 +33,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_A
     /**
      * Check object existence in incoming data and unset array element with '__empty' key
      *
+     * @inheritDoc
      * @throws Mage_Core_Exception
-     * @return void
      */
     protected function _beforeSave()
     {
@@ -49,6 +49,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_A
             unset($value['__empty']);
         }
         $this->setValue($value);
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 }

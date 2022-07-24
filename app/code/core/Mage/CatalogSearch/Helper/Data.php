@@ -36,7 +36,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const QUERY_VAR_NAME = 'q';
 
-    /*
+    /**
      * Maximum query length
      */
     const MAX_QUERY_LEN  = 200;
@@ -290,7 +290,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
-     * @return void
      */
     public function checkNotes($store = null)
     {

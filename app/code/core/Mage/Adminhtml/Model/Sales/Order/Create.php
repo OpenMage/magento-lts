@@ -894,8 +894,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse additional options and sync them with product options
      *
-     * @param Mage_Sales_Model_Quote_Item $product
-     * @param array $options
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @param array $additionalOptions
+     * @return array
      */
     protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
     {
@@ -962,6 +963,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param Mage_Sales_Model_Quote_Item $item
      * @param array $options
+     * @return $this
      */
     protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
     {

@@ -662,7 +662,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     /**
      * If exists price template block, retrieve price blocks from it
      *
-     * @return Mage_Catalog_Block_Product_Abstract
+     * @return $this
      */
     protected function _prepareLayout()
     {

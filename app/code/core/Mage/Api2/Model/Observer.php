@@ -37,7 +37,6 @@ class Mage_Api2_Model_Observer
      * Save relation of admin user to API2 role
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function saveAdminToRoleRelation(Varien_Event_Observer $observer)
     {

@@ -136,7 +136,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Check void availability
      *
-     * @param   Varien_Object $invoicePayment
+     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -232,7 +232,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * refund the amount with transaction id
      *
-     * @param string $payment Varien_Object object
+     * @param Varien_Object $payment
+     * @param string $amount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -326,7 +327,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      * Instantiate state and set it to state object
      *
      * @param string $paymentAction
-     * @param Varien_Object
+     * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -353,7 +354,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Generate request object and fill its fields from Quote or Order object
      *
-     * @param Mage_Core_Model_Abstract $entity Quote or order object.
+     * @param Mage_Sales_Model_Order $order Quote or order object.
      * @return Mage_Authorizenet_Model_Directpost_Request
      */
     public function generateRequestFromOrder(Mage_Sales_Model_Order $order)

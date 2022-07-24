@@ -118,7 +118,6 @@ class Mage_Catalog_Model_Url
      * in this case category is loaded with empty url_path and we should generate it manually.
      *
      * @param Varien_Object|Mage_Catalog_Model_Category $category
-     * @return void
      */
     protected function _addCategoryUrlPath($category)
     {

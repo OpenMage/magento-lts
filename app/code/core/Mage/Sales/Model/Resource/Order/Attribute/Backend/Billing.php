@@ -38,6 +38,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
      * Perform operation before save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -52,6 +53,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
      * Perform operation after save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function afterSave($object)
     {

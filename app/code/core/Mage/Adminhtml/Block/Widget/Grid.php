@@ -85,14 +85,14 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Empty grid text
      *
-     * @var sting|null
+     * @var string|null
      */
     protected $_emptyText;
 
      /**
      * Empty grid text CSS class
      *
-     * @var sting|null
+     * @var string|null
      */
     protected $_emptyTextCss    = 'a-center';
 
@@ -563,7 +563,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Decode URL encoded filter value recursive callback method
      *
-     * @var string $value
+     * @param string $value
      */
     protected function _decodeFilter(&$value)
     {
@@ -576,6 +576,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareColumns()
     {
         $this->sortColumnsByOrder();
@@ -611,7 +614,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare grid massaction column
      *
-     * @return unknown
+     * @return $this
      */
     protected function _prepareMassactionColumn()
     {
@@ -641,6 +644,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareGrid()
     {
         $this->_prepareColumns();
@@ -661,6 +667,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return $this
+     */
     protected function _afterLoadCollection()
     {
         return $this;
@@ -1481,7 +1490,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set count totals
      *
-     * @param boolean $visible
+     * @param boolean $count
      */
     public function setCountTotals($count=true)
     {
@@ -1501,7 +1510,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Set totals
      *
-     * @param boolean $visible
+     * @param Varien_Object $totals
      */
     public function setTotals(Varien_Object $totals)
     {
@@ -1593,9 +1602,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve columns to render
      *
-     * @return unknown
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column[]
      */
-    public function getSubTotalColumns() {
+    public function getSubTotalColumns()
+    {
         return $this->getColumns();
     }
 
@@ -1647,7 +1657,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve columns for multiple rows
      *
-     * @param Varien_Object $item
      * @return array
      */
     public function getMultipleRowColumns()
@@ -1692,7 +1701,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Retrieve colspan for empty cell
      *
-     * @param Varien_Object $item
      * @return integer
      */
     public function getEmptyCellColspan()
@@ -1725,7 +1733,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Return row url for js event handlers
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object
+     * @param Mage_Catalog_Model_Product|Varien_Object $item
      * @return string
      */
     public function getRowUrl($item)

@@ -47,6 +47,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Recurring extends Mage_Eav_Mo
     /**
      * Unserialize or remove on failure
      * @param Varien_Object|Mage_Catalog_Model_Product $product
+     * @return $this
      */
     protected function _unserialize(Varien_Object $product)
     {

@@ -146,8 +146,6 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Delete attempts with expired in update_at time
-     *
-     * @return void
      */
     public function deleteOldAttempts()
     {

@@ -50,8 +50,6 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
 
     /**
      * Define grid properties
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -88,7 +86,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
+     * @param int $name
      * @return $this
      */
     public function setConditionName($name)

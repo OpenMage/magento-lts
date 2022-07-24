@@ -37,7 +37,6 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
      * Draw table header for product items
      *
      * @param  Zend_Pdf_Page $page
-     * @return void
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {

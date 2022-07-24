@@ -67,8 +67,6 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {

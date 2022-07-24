@@ -52,7 +52,6 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      * Inits query modifier
      *
      * @param Varien_Db_Adapter_Pdo_Mysql|array $args
-     * @return void
      */
     public function __construct($args)
     {

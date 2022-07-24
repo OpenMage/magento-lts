@@ -161,8 +161,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
 
     /**
      * Mark current attribute as passed validation
-     *
-     * @return void
      */
     public function setAttributeValidationAsPassed()
     {

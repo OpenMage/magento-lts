@@ -216,8 +216,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {

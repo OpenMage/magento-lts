@@ -35,8 +35,6 @@ class Mage_Oauth_Model_Resource_Consumer extends Mage_Core_Model_Resource_Db_Abs
 {
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {

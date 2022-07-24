@@ -433,8 +433,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Grid Action
      * Display list of products related to current category
-     *
-     * @return void
      */
     public function gridAction()
     {
@@ -450,8 +448,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Tree Action
      * Retrieve category tree
-     *
-     * @return void
      */
     public function treeAction()
     {
