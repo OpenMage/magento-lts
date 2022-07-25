@@ -122,8 +122,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * ACL check
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

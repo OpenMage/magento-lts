@@ -363,9 +363,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Check Permissions for all actions
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

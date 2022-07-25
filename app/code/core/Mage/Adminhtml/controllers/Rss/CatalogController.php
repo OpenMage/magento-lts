@@ -35,9 +35,7 @@
 class Mage_Adminhtml_Rss_CatalogController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
     /**
-     * Check is allowed access to action
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

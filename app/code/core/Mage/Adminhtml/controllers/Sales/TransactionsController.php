@@ -125,7 +125,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     }
 
     /**
-     * Check currently called action by permissions for current user
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

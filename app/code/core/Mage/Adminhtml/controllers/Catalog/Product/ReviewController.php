@@ -376,16 +376,17 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'pending':
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings/reviews/pending');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings/reviews/all');
-                break;
         }
     }
 }
