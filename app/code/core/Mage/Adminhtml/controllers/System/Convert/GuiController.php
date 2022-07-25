@@ -36,6 +36,12 @@ include_once "ProfileController.php";
 class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_Convert_ProfileController
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'admin/system/convert/gui';
+
+    /**
      * Profiles list action
      */
     public function indexAction()
@@ -130,25 +136,5 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         }
         $this->_initProfile();
         $profile = Mage::registry('current_convert_profile');
-    }
-
-    protected function _isAllowed()
-    {
-//        switch ($this->getRequest()->getActionName()) {
-//            case 'index':
-//                $aclResource = 'admin/system/convert/gui';
-//                break;
-//            case 'grid':
-//                $aclResource = 'admin/system/convert/gui';
-//                break;
-//            case 'run':
-//                $aclResource = 'admin/system/convert/gui/run';
-//                break;
-//            default:
-//                $aclResource = 'admin/system/convert/gui/edit';
-//                break;
-//        }
-
-        return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/gui');
     }
 }

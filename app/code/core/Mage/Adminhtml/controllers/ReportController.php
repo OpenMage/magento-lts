@@ -40,41 +40,6 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
         return $this;
     }
 
-
-/*
-    public function wishlistAction()
-    {
-        $this->_initAction()
-            ->_setActiveMenu('report/wishlist')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Wishlist Report'), Mage::helper('adminhtml')->__('Wishlist Report'))
-            ->_addContent($this->getLayout()->createBlock('adminhtml/report_wishlist'))
-            ->renderLayout();
-    }
-
-    /**
-     * Export wishlist report grid to CSV format
-     * /
-    public function exportWishlistCsvAction()
-    {
-        $fileName   = 'wishlist.csv';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getCsvFile();
-
-        $this->_prepareDownloadResponse($fileName, $content);
-    }
-
-    /**
-     * Export wishlist report to Excel XML format
-     * /
-    public function exportWishlistExcelAction()
-    {
-        $fileName   = 'wishlist.xml';
-        $content    = $this->getLayout()->createBlock('adminhtml/report_wishlist_grid')
-            ->getExcelFile($fileName);
-
-        $this->_prepareDownloadResponse($fileName, $content);
-    }
-*/
     public function searchAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('Search Terms'));
@@ -111,23 +76,6 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
 
         $this->_prepareDownloadResponse($fileName, $content);
     }
-/*
-    public function ordersAction()
-    {
-        $this->_initAction()
-            ->_setActiveMenu('report/orders')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Recent Orders'), Mage::helper('adminhtml')->__('Recent Orders'))
-            ->renderLayout();
-    }
-
-    public function totalsAction()
-    {
-        $this->_initAction()
-            ->_setActiveMenu('report/totals')
-            ->_addBreadcrumb(Mage::helper('adminhtml')->__('Order Totals'), Mage::helper('adminhtml')->__('Order Totals'))
-            ->renderLayout();
-    }
-*/
 
     protected function _isAllowed()
     {
@@ -135,15 +83,8 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'search':
                 return Mage::getSingleton('admin/session')->isAllowed('report/search');
-                break;
-            /*
-            case 'customers':
-                return Mage::getSingleton('admin/session')->isAllowed('report/shopcart');
-                break;
-            */
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('report');
-                break;
         }
     }
 }

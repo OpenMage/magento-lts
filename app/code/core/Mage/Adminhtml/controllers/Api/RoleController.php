@@ -34,7 +34,13 @@
 class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/api/roles';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -205,7 +211,6 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
-        //$this->getResponse()->setRedirect($this->getUrl("*/*/editrole/rid/$rid"));
         $this->_redirect('*/*/editrole', array('rid' => $rid));
         return;
     }
@@ -240,10 +245,5 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             $user->add();
             return true;
         }
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/api/roles');
     }
 }

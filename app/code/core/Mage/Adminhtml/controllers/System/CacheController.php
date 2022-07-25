@@ -34,6 +34,12 @@
 class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/cache';
+
+    /**
      * Retrieve session model
      *
      * @return Mage_Adminhtml_Model_Session
@@ -332,10 +338,5 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         }
 
         $this->_redirect('*/*');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/cache');
     }
 }

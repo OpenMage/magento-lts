@@ -126,7 +126,6 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
 
     /**
      * Check currently called action by permissions for current user
-     *
      */
     protected function _isAllowed()
     {
@@ -134,10 +133,8 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         switch ($action) {
             case 'fetch':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
-                break;
         }
     }
 }
