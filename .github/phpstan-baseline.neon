@@ -2416,7 +2416,7 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^Method Mage_Bundle_Model_Resource_Bundle\\:\\:_getSelect\\(\\) has invalid return type Zend_DB_Select\\.$#"
+			message: "#^Class Zend_Db_Select referenced with incorrect case\\: Zend_DB_Select\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Resource/Bundle.php
 
