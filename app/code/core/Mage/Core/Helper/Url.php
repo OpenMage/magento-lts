@@ -52,7 +52,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
         return $this->escapeUrl($url);
-//        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     /**
@@ -122,7 +121,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             }
 
             if (is_array($value)) {
-                // $key[]=$value1&$key[]=$value2 ...
                 $arrQueryParams[] = $key . '[]=' . implode('&' . $key . '[]=', $value);
             } elseif (is_null($value)) {
                 $arrQueryParams[] = $key;

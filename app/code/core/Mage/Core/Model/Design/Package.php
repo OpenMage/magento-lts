@@ -280,8 +280,6 @@ class Mage_Core_Model_Design_Package
                 if (empty($this->_theme[$type])) {
                     $this->_theme[$type] = self::DEFAULT_THEME;
                 }
-
-                // "locale", "layout", "template"
             }
         }
 

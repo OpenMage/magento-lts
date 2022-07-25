@@ -325,29 +325,4 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     {
         return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';
     }
-//
-//    /**
-//     * Return URL for accept payment action
-//     *
-//     * @return string
-//     */
-//    public function getAcceptPaymentUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPayment', array('action' => 'accept'));
-//    }
-//
-//    /**
-//     * Return URL for deny payment action
-//     *
-//     * @return string
-//     */
-//    public function getDenyPaymentUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPayment', array('action' => 'deny'));
-//    }
-//
-//    public function getPaymentReviewUpdateUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPaymentUpdate');
-//    }
 }

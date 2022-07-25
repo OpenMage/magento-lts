@@ -1144,7 +1144,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $prevParent   = null;
         $parent       = null;
         $_tmpCategory = null;
-//        $this->_move($categoryId, $prevParentPath, $parentPath);
         return $this;
     }
 

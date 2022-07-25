@@ -1496,11 +1496,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Helper_Data\\:\\:prepareFilterString\\(\\) has invalid return type data\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Data.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config.php
@@ -2421,7 +2416,7 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^Class Zend_Db_Select referenced with incorrect case\\: Zend_DB_Select\\.$#"
+			message: "#^Method Mage_Bundle_Model_Resource_Bundle\\:\\:_getSelect\\(\\) has invalid return type Zend_DB_Select\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Resource/Bundle.php
 

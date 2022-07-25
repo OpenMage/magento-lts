@@ -60,16 +60,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
 
         if (!$this->getCategory()->getId()) {
-//            $fieldset->addField('path', 'select', array(
-//                'name'  => 'path',
-//                'label' => Mage::helper('catalog')->__('Parent Category'),
-//                'value' => base64_decode($this->getRequest()->getParam('parent')),
-//                'values'=> $this->_getParentCategoryOptions(),
-//                //'required' => true,
-//                //'class' => 'required-entry'
-//                ),
-//                'name'
-//            );
             $parentId = $this->getRequest()->getParam('parent');
             if (!$parentId) {
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;

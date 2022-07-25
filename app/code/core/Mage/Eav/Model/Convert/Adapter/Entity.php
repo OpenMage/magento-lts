@@ -277,7 +277,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             if (isset($this->_joinAttr) && is_array($this->_joinAttr)) {
                 foreach ($this->_joinAttr as $val) {
-//                    print_r($val);
                     $collection->joinAttribute(
                         $val['alias'],
                         $val['attribute'],
@@ -299,7 +298,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $joinFields = $this->_joinField;
             if (isset($joinFields) && is_array($joinFields)) {
                 foreach ($joinFields as $field) {
-//                  print_r($field);
                     $collection->joinField(
                         $field['alias'],
                         $field['attribute'],

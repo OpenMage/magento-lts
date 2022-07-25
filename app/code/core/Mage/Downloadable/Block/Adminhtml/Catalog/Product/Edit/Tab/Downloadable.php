@@ -50,29 +50,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
     public function __construct()
     {
         parent::__construct();
-//        $this->setSkipGenerateContent(true);
         $this->setTemplate('downloadable/product/edit/downloadable.phtml');
     }
-
-    /**
-     * Get tab URL
-     *
-     * @return string
-     */
-//    public function getTabUrl()
-//    {
-//        return $this->getUrl('downloadable/product_edit/form', array('_current' => true));
-//    }
-
-    /**
-     * Get tab class
-     *
-     * @return string
-     */
-//    public function getTabClass()
-//    {
-//        return 'ajax';
-//    }
 
     /**
      * Check is readonly block

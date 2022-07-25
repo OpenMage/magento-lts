@@ -90,7 +90,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
             ->group('index.value');
 
         $select = $select->__toString();
-//        $alias = $this->_getReadAdapter()->quoteTableAs($this->getMainTable(), 'index');
         $result = $this->_getReadAdapter()->fetchAll($select);
 
         $counts = array();
@@ -113,11 +112,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         /**
          * Will be used after SQL review
          */
-//        if ($collection->isEnabledFlat()) {
-//            $collection->getSelect()->where("e.{$attribute->getAttributeCode()}=?", $value);
-//            return $this;
-//        }
-
         $alias = 'attr_index_'.$attribute->getId();
         $collection->getSelect()->join(
             array($alias => $this->getMainTable()),

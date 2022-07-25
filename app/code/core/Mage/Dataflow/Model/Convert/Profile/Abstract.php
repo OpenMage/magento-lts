@@ -122,10 +122,6 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
 
     public function run()
     {
-//        print '<pre>';
-//        print_r($this->_dataflow_profile);
-//        print '</pre>';
-
         if (!$this->_actions) {
             $e = new Mage_Dataflow_Model_Convert_Exception("Could not find any actions for this profile");
             $e->setLevel(Mage_Dataflow_Model_Convert_Exception::FATAL);
