@@ -177,6 +177,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
                     return true;
                 }
             } catch (Exception $e) {
+                Mage::logException($e);
             }
 
             try {

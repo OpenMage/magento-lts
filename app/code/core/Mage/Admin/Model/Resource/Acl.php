@@ -145,6 +145,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
         return $this;
