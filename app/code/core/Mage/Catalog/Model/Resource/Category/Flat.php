@@ -1230,6 +1230,23 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     }
 
     /**
+     * Get positions of associated to category products
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getProductsPosition($category)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                $this->getTable('catalog/category_product'),
+                array('product_id', 'position'))
+            ->where('category_id = :category_id');
+        $bind = array('category_id' => (int)$category->getId());
+        return $this->_getReadAdapter()->fetchPairs($select, $bind);
+    }
+
+    /**
      * Return parent categories of category
      *
      * @param Mage_Catalog_Model_Category $category
