@@ -9,17 +9,18 @@
   "require": {
     "php": ">=7.0 <7.5 || >=8.0 <8.1",
     "ext-curl": "*",
+    "ext-dom": "*",
     "ext-gd": "*",
+    "ext-iconv": "*",
     "ext-json": "*",
+    "ext-libxml": "*",
     "ext-mbstring": "*",
     "ext-pdo": "*",
     "ext-simplexml": "*",
-    "ext-dom": "*",
-    "ext-libxml": "*",
     "ext-soap": "*",
-    "ext-iconv": "*",
     "ext-zlib": "*",
-    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
+    "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+    "pelago/emogrifier": "^4.0 || ^5.0 || ^6.0"
   },
   "require-dev": {
     "macopedia/phpstan-magento1": "^1.0.4",
@@ -63,6 +64,7 @@
   "config": {
     "allow-plugins": {
       "magento-hackathon/magento-composer-installer": true
-    }
+    },
+    "sort-packages": true
   }
 }

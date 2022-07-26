@@ -24,6 +24,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Pelago\Emogrifier\CssInliner;
+
 /**
  * Template model
  *
@@ -202,13 +204,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $emogrifier = new Pelago_Emogrifier();
-                $emogrifier->setHtml($html);
-                $emogrifier->setCss($cssToInline);
-                // Don't parse inline <style> tags, since existing tag is intentionally for no-inline styles
-                $emogrifier->setParseInlineStyleTags(false);
-
-                $processedHtml = $emogrifier->emogrify();
+                $processedHtml = CssInliner::fromHtml($html)->inlineCss($cssToInline)->render();
             } else {
                 $processedHtml = $html;
             }
