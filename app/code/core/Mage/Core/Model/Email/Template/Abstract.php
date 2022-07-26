@@ -204,7 +204,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             // Only run Emogrify if HTML exists
             if (strlen($html) && $inlineCssFile) {
                 $cssToInline = $this->_getCssFileContent($inlineCssFile);
-                $processedHtml = CssInliner::fromHtml($html)->inlineCss($cssToInline)->render();
+                $processedHtml = CssInliner::fromHtml($html)->disableStyleBlocksParsing()->inlineCss($cssToInline)->render();
             } else {
                 $processedHtml = $html;
             }
