@@ -13,7 +13,7 @@ jobs:
     - name: "Composer install"
       uses: MilesChou/composer-action@master
       with:
-        args: install
+        args: install --ignore-platform-reqs
     - name: "Move Cm_RedisSession to /lib and /app"
       run: "mkdir -p lib/Credis; cp -R vendor/colinmollenhour/credis/* lib/Credis/; mkdir -p app/code/community/Cm/RedisSession; cp -R vendor/colinmollenhour/magento-redis-session/app/code/local/Cm/RedisSession/* app/code/community/Cm/RedisSession/"
     - name: "Create Cm_RedisSession in app/etc/modules"
