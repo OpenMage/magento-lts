@@ -87,7 +87,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param bool $minimal clear minimal price index data flag
      * @param bool $finalPrice clear final price index data flag
      * @param bool $tierPrice clear tier price index data flag
-     * @param mixed $products applicable products
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|int|array|null $products applicable products
      * @param mixed $store applicable stores
      */
     public function clear(
@@ -640,7 +640,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * Update prices for Catalog Product flat
      *
      * @param int $storeId
-     * @param array $productIds
+     * @param array|Mage_Catalog_Model_Product_Condition_Interface $productIds
      * @param string $tableName
      * @return $this
      */

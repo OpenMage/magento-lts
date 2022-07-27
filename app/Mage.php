@@ -305,10 +305,7 @@ final class Mage
      */
     public static function registry($key)
     {
-        if (isset(self::$_registry[$key])) {
-            return self::$_registry[$key];
-        }
-        return null;
+        return self::$_registry[$key] ?? null;
     }
 
     /**
@@ -402,7 +399,7 @@ final class Mage
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -529,13 +526,13 @@ final class Mage
      * @param   array $arguments
      * @return  Mage_Core_Model_Abstract
      */
-    public static function getSingleton($modelClass='', array $arguments=array())
+    public static function getSingleton($modelClass = '', array $arguments=array())
     {
-        $registryKey = '_singleton/'.$modelClass;
+        $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -573,11 +570,11 @@ final class Mage
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = array())
     {
-        $registryKey = '_resource_singleton/'.$modelClass;
+        $registryKey = '_resource_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -605,7 +602,7 @@ final class Mage
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass);
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -621,8 +618,7 @@ final class Mage
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
-
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -863,7 +859,18 @@ final class Mage
 
         static $loggers = array();
 
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
+
         $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
+            return;
+        }
+
         $file = empty($file) ?
             (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
@@ -971,7 +978,7 @@ final class Mage
         } else {
 
             $reportData = array(
-                !empty($extra) ? $extra . "\n\n" : '' . $e->getMessage(),
+                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
                 $e->getTraceAsString()
             );
 

@@ -93,7 +93,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getTable('api/session'), 'user_id')
             ->where('user_id = ?', $user->getId())
             ->where('sessid = ?', $user->getSessid());
-        $loginDate = now();
+        $loginDate = Varien_Date::now();
         if ($readAdapter->fetchRow($select)) {
             $writeAdapter->update(
                 $this->getTable('api/session'),
@@ -133,7 +133,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         );
         $writeAdapter->delete(
             $this->getTable('api/session'),
-            array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > '.$timeSubtract)
+            array('user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > '.$timeSubtract)
         );
         return $this;
     }
@@ -225,10 +225,11 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
+        $now = Varien_Date::now();
         if (!$user->getId()) {
-            $user->setCreated(now());
+            $user->setCreated($now);
         }
-        $user->setModified(now());
+        $user->setModified($now);
         return $this;
     }
 

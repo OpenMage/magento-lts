@@ -30,7 +30,6 @@
         <checkout translate="label" module="checkout">
             <label>Checkout</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>305</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <options translate="label">
                     <label>Checkout Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -93,7 +91,6 @@
                     <fields>
                         <delete_quote_after translate="label">
                             <label>Quote Lifetime (days)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -166,7 +163,6 @@
                         </display>
                         <count translate="label">
                             <label>Maximum Display Recently Added Item(s)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -177,7 +173,6 @@
 
                 <payment_failed translate="label">
                     <label>Payment Failed Emails</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -212,7 +207,6 @@
                         </template>
                         <copy_to translate="label comment">
                             <label>Send Payment Failed Email Copy To</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

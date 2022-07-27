@@ -193,7 +193,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getFirstVisitAt()
     {
         if (!$this->hasData('first_visit_at')) {
-            $this->setData('first_visit_at', now());
+            $this->setData('first_visit_at', Varien_Date::now());
         }
         return $this->getData('first_visit_at');
     }
@@ -204,7 +204,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getLastVisitAt()
     {
         if (!$this->hasData('last_visit_at')) {
-            $this->setData('last_visit_at', now());
+            $this->setData('last_visit_at', Varien_Date::now());
         }
         return $this->getData('last_visit_at');
     }
@@ -228,7 +228,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $visitorId = $this->getId();
         if (!$visitorId) {
             $this->initServerData();
-            $this->setFirstVisitAt(now());
+            $this->setFirstVisitAt(Varien_Date::now());
             $this->setIsNewVisitor(true);
             $this->save();
         }
@@ -268,7 +268,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
-            $this->setLastVisitAt(now());
+            $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
         } catch (Exception $e) {

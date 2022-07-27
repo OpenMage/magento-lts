@@ -30,7 +30,6 @@
         <newsletter translate="label" module="newsletter">
             <label>Newsletter</label>
             <tab>customer</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>110</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <subscription translate="label">
                     <label>Subscription Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -120,7 +118,6 @@
                 </subscription>
                 <security translate="label">
                     <label>Security</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

@@ -190,7 +190,7 @@ class Mage_Core_Model_Cache
                 }
                 break;
             case 'apc':
-                if (extension_loaded('apc') && ini_get('apc.enabled')) {
+                if (extension_loaded('apcu') && ini_get('apc.enabled')) {
                     $enable2levels = true;
                     $backendType = 'Apc';
                 }

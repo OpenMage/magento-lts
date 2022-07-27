@@ -39,7 +39,7 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
     /**
      * Add tab to the container
      *
-     * @param $alias
+     * @param string $alias
      * @param string $title
      * @param string $block
      * @param string $template

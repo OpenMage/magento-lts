@@ -383,7 +383,7 @@ class Mage_Core_Model_Translate_Inline
             $attrRegExp = '#' . $this->_tokenRegex . '#S';
             $trArr = $this->_getTranslateData($attrRegExp, $tagHtml, array($this, '_getAttributeLocation'));
             if ($trArr) {
-                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml).']*)]' . $quoteHtml . '#i';
+                $transRegExp = '# data-translate=' . $quoteHtml . '\[([^'.preg_quote($quoteHtml, '#').']*)]' . $quoteHtml . '#i';
                 if (preg_match($transRegExp, $tagHtml, $m)) {
                     $tagHtml = str_replace($m[0], '', $tagHtml); //remove tra
                     $trAttr = ' data-translate=' . $quoteHtml

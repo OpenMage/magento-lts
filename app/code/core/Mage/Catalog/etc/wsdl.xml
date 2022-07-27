@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<definitions xmlns:typens="urn:OpenMage" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
              xmlns="http://schemas.xmlsoap.org/wsdl/"
-             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+             name="OpenMage" targetNamespace="urn:OpenMage">
     <types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
                     schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
             <complexType name="catalogProductEntityArray">
@@ -1562,775 +1562,775 @@
         <operation name="catalogCategoryCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryTree">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryLevel">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryCreate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryMove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryDelete">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryAssignedProducts">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryAssignProduct">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryUpdateProduct">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryRemoveProduct">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductListOfAdditionalAttributes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCreate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductMultiUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductSetSpecialPrice">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductGetSpecialPrice">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductDelete">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetCreate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeOptions">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetAttributeAdd">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetAttributeRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetGroupAdd">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetGroupRename">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeSetGroupRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeTypes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeCreate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryAttributeCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaCurrentStore">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeAddOption">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeRemoveOption">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductTypeList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeTierPriceInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeTierPriceUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryAttributeList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogCategoryAttributeOptions">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaTypes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaCreate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductAttributeMediaRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkAssign">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkTypes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductLinkAttributes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionAdd">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionTypes">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionValueInfo">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionValueList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionValueAdd">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionValueUpdate">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionValueRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionList">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
         <operation name="catalogProductCustomOptionRemove">
             <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
             <input>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </input>
             <output>
-                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                <soap:body namespace="urn:OpenMage" use="encoded"
                            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
             </output>
         </operation>
     </binding>
-    <service name="{{var wsdl.name}}Service">
+    <service name="OpenMageService">
         <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
             <soap:address location="{{var wsdl.url}}"/>
         </port>

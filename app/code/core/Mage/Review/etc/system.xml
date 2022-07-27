@@ -31,7 +31,6 @@
             <groups>
                 <review translate="label" module="review">
                     <label>Product Reviews</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

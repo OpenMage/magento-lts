@@ -422,10 +422,12 @@ class Mage_Core_Model_Translate
             $translated = $this->_getTranslatedString($text, $code);
         }
 
-        //array_unshift($args, $translated);
-        //$result = @call_user_func_array('sprintf', $args);
+        try {
+            $result = !empty($args) ? vsprintf($translated, $args) : false;
+        } catch (ValueError $e) {
+            $result = false;
+        }
 
-        $result = !empty($args) ? @vsprintf($translated, $args) : false;
         if ($result === false) {
             $result = $translated;
         }

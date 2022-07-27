@@ -34,6 +34,9 @@
  */
 class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
 {
+    /**
+     * @var Mage_Catalog_Model_Product
+     */
     protected $_product;
 
     protected $_optionRenders = array();
@@ -111,7 +114,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     }
 
     /**
-     * @param $type
+     * @param string $type
      * @return string
      */
     public function getGroupOfOption($type)

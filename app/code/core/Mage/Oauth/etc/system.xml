@@ -30,7 +30,6 @@
         <oauth translate="label" module="oauth">
             <label>OAuth</label>
             <tab>service</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>300</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                  <cleanup translate="label">
                     <label>Cleanup Settings</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>300</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
@@ -46,7 +44,6 @@
                     <fields>
                         <cleanup_probability translate="label">
                             <label>Cleanup Probability</label>
-                            <frontend_type>text</frontend_type>
                             <comment>Integer. Launch cleanup in X OAuth requests. 0 (not recommended) - to disable cleanup</comment>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -56,7 +53,6 @@
                         <expiration_period translate="label">
                             <label>Expiration Period</label>
                             <comment>Cleanup entries older than X minutes.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -66,7 +62,6 @@
                 </cleanup>
                 <email translate="label">
                     <label>Email</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>300</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

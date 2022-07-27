@@ -11,6 +11,8 @@
 <img src="https://github.com/openmage/magento-lts/actions/workflows/unit-tests.yml/badge.svg" alt="Unit Tests workflow badge" />
 </p>
 
+<img src="skin/adminhtml/default/default/images/flag-ua.svg?raw=true" width="20" align="top" alt=""> Stop russian war. **Free Ukraine!** ([Read more](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine))
+
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
@@ -72,6 +74,29 @@ git add -A && git commit
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
 
+## Secure your installation
+
+Don't use common paths like /admin for OpenMage Backend URL. Don't use the path in _robots.txt_ and keep it secret. You can change it from Backend (System / Configuration / Admin / Admin Base Url) or by editing _app/etc/local.xml_:
+
+```xml
+<config>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[admin]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+```
+
+Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
+
+* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
+* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+
 ## Changes
 
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
@@ -79,7 +104,8 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-Bug fixes and PHP 7.x and 8.0 compatibility.
+- bug fixes and PHP 7.x and 8.0 compatibility
+- added config cache for system.xml #1916
 
 ### Between OpenMage 19.x and 20.x
 
@@ -100,7 +126,11 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `admin/emails/admin_notification_email_template`
 - `catalog/product_image/progressive_threshold`
 - `catalog/search/search_separator`
+- `dev/log/max_level`
 - `newsletter/security/enable_form_key`
+- `sitemap/category/lastmod`
+- `sitemap/page/lastmod`
+- `sitemap/product/lastmod`
 
 ### New Events
 
@@ -112,14 +142,6 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `sitemap_urlset_generating_before`
 
 [Full list of events](EVENTS.md)
-
-### New Translations
-
-There are some new or changed translations, if you want add them to your locale pack please check:
-
-- `app/locale/en_US/Adminhtml_LTS.csv`
-- `app/locale/en_US/Core_LTS.csv`
-- `app/locale/en_US/Sales_LTS.csv`
 
 ### Removed Modules
 
@@ -364,6 +386,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mdlonline"><img src="https://avatars.githubusercontent.com/u/5389528?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mdlonline</b></sub></a></td>
     <td align="center"><a href="https://www.developpeur-web-tlse.fr/"><img src="https://avatars.githubusercontent.com/u/5030086?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Benjamin MARROT</b></sub></a></td>
     <td align="center"><a href="https://github.com/tmewes"><img src="https://avatars.githubusercontent.com/u/12640514?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tino Mewes</b></sub></a></td>
+    <td align="center"><a href="http://cebe.cc/"><img src="https://avatars.githubusercontent.com/u/189796?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Carsten Brandt</b></sub></a><br /><a href="https://github.com/OpenMage/magento-lts/commits?author=cebe" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
   </tr>
 </table>
 

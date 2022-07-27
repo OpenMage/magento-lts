@@ -40,8 +40,8 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param   mixed $store
-     * @return  array
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @return array
      */
     public function getActiveMethods($store = null)
     {
@@ -63,7 +63,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getAllMethods($store = null)
@@ -80,10 +80,10 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * @param $code
-     * @param $config
+     * @param string $code
+     * @param array $config
      * @param null $store
-     * @return bool
+     * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)
     {

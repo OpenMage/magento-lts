@@ -83,7 +83,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve redirect iframe url
-     * @param $params
+     * @param array $params
      * @return string
      */
     public function getRedirectIframeUrl($params)

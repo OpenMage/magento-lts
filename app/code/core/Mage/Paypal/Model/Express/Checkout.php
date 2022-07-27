@@ -493,7 +493,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check whether order review has enough data to initialize
      *
-     * @param $token
+     * @param string $token
      * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)

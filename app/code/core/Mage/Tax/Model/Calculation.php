@@ -309,8 +309,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get cache key value for specific tax rate request
      *
-     * @param   $request
-     * @return  string
+     * @param Varien_Object $request
+     * @return string
      */
     protected function _getRequestCacheKey($request)
     {

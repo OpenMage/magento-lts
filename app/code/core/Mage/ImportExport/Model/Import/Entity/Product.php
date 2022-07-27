@@ -912,7 +912,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         'entity_id'        => $productId,
                         'has_options'      => 0,
                         'required_options' => 0,
-                        'updated_at'       => now()
+                        'updated_at'       => Varien_Date::now()
                     );
                 }
                 if ($rowIsMain) {
@@ -1384,11 +1384,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                 if (self::SCOPE_DEFAULT == $rowScope) {
                     $rowSku = $rowData[self::COL_SKU];
+                    $now = Varien_Date::now();
 
                     // 1. Entity phase
                     if (isset($this->_oldSku[$rowSku])) { // existing row
                         $entityRowsUp[] = array(
-                            'updated_at' => now(),
+                            'updated_at' => $now,
                             'entity_id'  => $this->_oldSku[$rowSku]['entity_id']
                         );
                     } else { // new row
@@ -1398,8 +1399,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 'attribute_set_id' => $this->_newSku[$rowSku]['attr_set_id'],
                                 'type_id'          => $this->_newSku[$rowSku]['type_id'],
                                 'sku'              => $rowSku,
-                                'created_at'       => now(),
-                                'updated_at'       => now()
+                                'created_at'       => $now,
+                                'updated_at'       => $now
                             );
                             $productsQty++;
                         } else {
