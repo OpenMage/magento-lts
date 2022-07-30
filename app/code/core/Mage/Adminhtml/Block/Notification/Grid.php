@@ -109,8 +109,6 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
              'confirm'  => Mage::helper('adminnotification')->__('Are you sure?')
         ));
 
-//        $this->getColumn('massaction')->setWidth('30px');
-
         return $this;
     }
 

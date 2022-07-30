@@ -47,7 +47,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function start($sessionName = null)
     {
-//        parent::start($sessionName=null);
         $this->_currentSessId = md5(time() . uniqid('', true) . $sessionName);
         $this->sessionIds[] = $this->getSessionId();
         return $this;
@@ -178,6 +177,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
                     return true;
                 }
             } catch (Exception $e) {
+                Mage::logException($e);
             }
 
             try {

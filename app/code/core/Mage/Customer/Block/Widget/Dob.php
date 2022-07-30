@@ -72,6 +72,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
                 $dateTime = new DateTime($date);
                 $this->setTime($dateTime);
             } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
 

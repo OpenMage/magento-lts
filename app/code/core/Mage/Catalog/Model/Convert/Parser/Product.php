@@ -349,10 +349,6 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                                 $inventoryFields[$row['sku']][$field] = $value;
                             }
                             continue;
-//                            $this->addException(
-//                                Mage::helper('catalog')->__('Unknown attribute: %s.', $field),
-//                                Mage_Dataflow_Model_Convert_Exception::ERROR
-//                            );
                         }
                         if ($attribute->usesSource()) {
                             $source = $attribute->getSource();

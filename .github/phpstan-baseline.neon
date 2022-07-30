@@ -1496,11 +1496,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Helper_Data\\:\\:prepareFilterString\\(\\) has invalid return type data\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Data.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config.php
