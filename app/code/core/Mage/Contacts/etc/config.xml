@@ -93,6 +93,9 @@
                 <sender_email_identity>custom2</sender_email_identity>
                 <email_template>contacts_email_email_template</email_template>
             </email>
+            <security>
+                <validate_formkey>0</validate_formkey>
+            </security>
         </contacts>
     </default>
 </config>

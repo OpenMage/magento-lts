@@ -28,6 +28,11 @@
  */
 class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Use CSRF validation flag from contacts config
+     */
+    const XML_CSRF_USE_FLAG_CONFIG_PATH = 'contacts/security/validate_formkey';
+
     const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
     const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
     const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
@@ -64,6 +69,10 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
             try {
+                if (!$this->_validateFormKey()) {
+                    Mage::throwException($this->__('Invalid Form Key. Please resubmit your request again'));
+                }
+
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
@@ -82,7 +91,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
 
                 if ($error) {
-                    throw new Exception();
+                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
                 /** @var Mage_Core_Model_Email_Template $mailTemplate */
@@ -97,24 +106,36 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
-                    throw new Exception();
+                    Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 
                 $translate->setTranslateInline(true);
 
-                Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
-                $this->_redirect('*/*/');
-
-                return;
-            } catch (Exception $e) {
+                Mage::getSingleton('customer/session')->addSuccess($this->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
+            } catch (Mage_Core_Exception $e) {
                 $translate->setTranslateInline(true);
 
-                Mage::getSingleton('customer/session')->addError(Mage::helper('contacts')->__('Unable to submit your request. Please, try again later'));
-                $this->_redirect('*/*/');
-                return;
+                Mage::logException($e);
+                Mage::getSingleton('customer/session')->addError($e->getMessage());
+            } catch (Throwable $e) {
+                $translate->setTranslateInline(true);
+
+                Mage::logException($e);
+                Mage::getSingleton('customer/session')->addError($this->__('Unable to submit your request. Please, try again later'));
             }
+            $this->_redirect('*/*/');
         } else {
             $this->_redirect('*/*/');
         }
+    }
+
+    /**
+     * Check if form key validation is enabled in contacts config.
+     *
+     * @return bool
+     */
+    protected function _isFormKeyEnabled()
+    {
+        return Mage::getStoreConfigFlag(self::XML_CSRF_USE_FLAG_CONFIG_PATH);
     }
 }
