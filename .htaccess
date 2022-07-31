@@ -201,6 +201,10 @@
     Allow from all
 
 ###########################################
+## Deny access to all files starting with a .
+    RedirectMatch 404 /\.
+
+###########################################
 ## Deny access to release notes to prevent disclosure of the installed Magento version
 
     <Files RELEASE_NOTES.txt>
