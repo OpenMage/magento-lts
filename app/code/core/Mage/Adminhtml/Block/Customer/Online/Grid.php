@@ -141,7 +141,6 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
             'header'    => Mage::helper('customer')->__('Type'),
             'type'      => 'options',
             'options'   => $typeOptions,
-//            'renderer'  => 'adminhtml/customer_online_grid_renderer_type',
             'index'     => 'visitor_type'
         ));
 

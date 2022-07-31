@@ -581,7 +581,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {} // do not cancel order if we couldn't send email
+        } catch (Exception $e) {
+            Mage::logException($e); // do not cancel order if we couldn't send email
+        }
     }
 
     /**
