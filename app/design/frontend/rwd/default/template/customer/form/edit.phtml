@@ -55,6 +55,15 @@
         <?php if ($_gender->isEnabled()): ?>
             <li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
         <?php endif ?>
+
+        <?php foreach ($this->extraFields() as $_code => $_attribute): ?>
+            <?php $_block = 'eav/widget_'.$_attribute->getFrontendInput() ?>
+            <?php $_element = $this->getLayout()->createBlock($_block)->setData('attribute', $_attribute) ?>
+            <?php if ($_element->isEnabled()): ?>
+                <li><?php echo $_element->setObject($this->getCustomer())->toHtml() ?></li>
+            <?php endif ?>
+        <?php endforeach ?>
+
             <li>
                 <label for="current_password" class="required"><em>*</em><?php echo Mage::helper('core')->quoteEscape($this->__('Current Password')) ?></label>
                 <div class="input-box">

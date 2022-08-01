@@ -224,4 +224,30 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
             return $this->getUrl('customer/account/');
         }
     }
+
+    /**
+     * Return extra EAV fields used in this form
+     *
+     * @return array
+     */
+    public function extraFields()
+    {
+        /** @var Mage_Customer_Model_Customer $customer */
+        $customer = $this->getCustomer();
+
+        /** @var Mage_Customer_Model_Form $form */
+        $form = Mage::getModel('customer/form');
+        $form->setFormCode('customer_address_edit')
+             ->setEntity($this->getAddress())
+             ->initDefaultValues();
+
+        $attributes = $form->getAttributes();
+        foreach ($attributes as $code => $attribute) {
+            if (!$attribute->getIsUserDefined()) {
+                unset($attributes[$code]);
+            }
+        }
+
+        return $attributes;
+    }
 }

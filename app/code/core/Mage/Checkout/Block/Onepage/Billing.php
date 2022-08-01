@@ -218,4 +218,35 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
             ->setFieldNameFormat('billing[%s]')
             ->toHtml();
     }
+
+    /**
+     * Return extra EAV fields used in this form
+     *
+     * @return array
+     */
+    public function extraFields()
+    {
+        /** @var Mage_Customer_Model_Form $form */
+        $form = Mage::getModel('customer/form');
+        $form->setFormCode('checkout_register');
+
+        $attributes = $form->getAttributes();
+        foreach ($attributes as $code => $attribute) {
+            if (!$attribute->getIsUserDefined()) {
+                unset($attributes[$code]);
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Return extra EAV fields from incomplete checkout session
+     *
+     * @return Varien_Object
+     */
+    public function getExtraFieldsSession()
+    {
+        return new Varien_Object($this->getCheckout()->getExtraFields());
+    }
 }

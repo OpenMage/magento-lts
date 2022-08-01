@@ -126,6 +126,38 @@
                     </bind_locale>
                 </observers>
             </admin_system_config_changed_section_admin>
+            <adminhtml_customer_attribute_edit_prepare_form>
+                <observers>
+                    <eav>
+                        <class>adminhtml/customer_observer</class>
+                        <method>customerAttributeEditPrepareForm</method>
+                    </eav>
+                </observers>
+            </adminhtml_customer_attribute_edit_prepare_form>
+            <adminhtml_customer_attribute_edit_prepare_save>
+                <observers>
+                    <eav>
+                        <class>adminhtml/customer_observer</class>
+                        <method>customerAttributeEditPrepareSave</method>
+                    </eav>
+                </observers>
+            </adminhtml_customer_attribute_edit_prepare_save>
+            <adminhtml_customer_address_attribute_edit_prepare_form>
+                <observers>
+                    <eav>
+                        <class>adminhtml/customer_observer</class>
+                        <method>customerAddressAttributeEditPrepareForm</method>
+                    </eav>
+                </observers>
+            </adminhtml_customer_address_attribute_edit_prepare_form>
+            <adminhtml_customer_address_attribute_edit_prepare_save>
+                <observers>
+                    <eav>
+                        <class>adminhtml/customer_observer</class>
+                        <method>customerAddressAttributeEditPrepareSave</method>
+                    </eav>
+                </observers>
+            </adminhtml_customer_address_attribute_edit_prepare_save>
         </events>
         <global_search>
             <products>

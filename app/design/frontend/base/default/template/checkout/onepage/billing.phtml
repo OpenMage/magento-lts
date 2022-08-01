@@ -155,6 +155,14 @@
                 </li>
         <?php endif ?>
 
+        <?php foreach ($this->extraFields() as $_code => $_attribute): ?>
+            <?php $_block = 'eav/widget_'.$_attribute->getFrontendInput() ?>
+            <?php $_element = $this->getLayout()->createBlock($_block)->setData('attribute', $_attribute)->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]') ?>
+            <?php if ($_element->isEnabled()): ?>
+                <li class="register-customer-extra-fields"><?php echo $_element->setObject($this->getExtraFieldsSession())->toHtml() ?></li>
+            <?php endif ?>
+        <?php endforeach ?>
+
                 <li class="fields" id="register-customer-password">
                     <div class="field">
                         <label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>

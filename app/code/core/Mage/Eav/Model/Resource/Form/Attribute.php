@@ -49,4 +49,27 @@ abstract class Mage_Eav_Model_Resource_Form_Attribute extends Mage_Core_Model_Re
 
         return $this->_getReadAdapter()->fetchCol($select, $bind);
     }
+
+    /**
+     * Retrieve form type filtered by given attribute
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|int $attribute
+     * @return array
+     */
+    public function getFormTypesByAttribute($attribute)
+    {
+        if ($attribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract) {
+            $attribute = $attribute->getId();
+        }
+        if (!$attribute) {
+            return array();
+        }
+
+        $bind   = array('attribute_id' => $attribute);
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'form_code')
+            ->where('attribute_id = :attribute_id');
+
+        return $this->_getReadAdapter()->fetchCol($select, $bind);
+    }
 }

@@ -153,6 +153,18 @@
             </li>
         </ul>
     </div>
+    <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Other') ?></h2>
+        <ul class="form-list">
+            <?php foreach ($this->extraFields() as $_code => $_attribute): ?>
+                <?php $_block = 'eav/widget_'.$_attribute->getFrontendInput() ?>
+                <?php $_element = $this->getLayout()->createBlock($_block)->setData('attribute', $_attribute) ?>
+                <?php if ($_element->isEnabled()): ?>
+                    <li><?php echo $_element->setObject($this->getAddress())->toHtml() ?></li>
+                <?php endif ?>
+            <?php endforeach ?>
+        </ul>
+    </div>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
         <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save Address')) ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
