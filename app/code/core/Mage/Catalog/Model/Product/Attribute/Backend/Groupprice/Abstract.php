@@ -55,7 +55,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
-     * @param int $websiteId
+     * @param int|null $websiteId
      * @return array
      */
     protected function _getWebsiteCurrencyRates($websiteId = null)
