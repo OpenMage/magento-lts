@@ -34,6 +34,11 @@
  */
 class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/update_attributes';
 
     protected function _construct()
     {
@@ -222,18 +227,13 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     }
 
     /**
-     * Rertive data manipulation helper
+     * Retrieve data manipulation helper
      *
      * @return Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute
      */
     protected function _getHelper()
     {
         return Mage::helper('adminhtml/catalog_product_edit_action_attribute');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/update_attributes');
     }
 
     /**

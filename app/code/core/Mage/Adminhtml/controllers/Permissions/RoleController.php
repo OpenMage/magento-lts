@@ -33,9 +33,14 @@
  */
 class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/acl/roles';
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -314,16 +319,6 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             $user->add();
             return true;
         }
-    }
-
-    /**
-     * Acl checking
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/acl/roles');
     }
 
     /**

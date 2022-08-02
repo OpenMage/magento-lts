@@ -34,7 +34,7 @@
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -298,9 +298,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     }
 
     /**
-     * Check against ACL
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

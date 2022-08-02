@@ -37,7 +37,7 @@ require_once 'Mage/Downloadable/controllers/Adminhtml/Downloadable/Product/EditC
 class Mage_Downloadable_Product_EditController extends Mage_Downloadable_Adminhtml_Downloadable_Product_EditController
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      * Show 404 front page
      */
     public function preDispatch()

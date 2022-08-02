@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/manage';
+
+    /**
      * Customer we're working with
      *
      * @var Mage_Customer_Model_Customer
@@ -148,15 +154,5 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
         $this->_redirect('*/catalog_product/showUpdateResult');
 
         return $this;
-    }
-
-    /**
-     * Check the permission to Manage Customers
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
 }

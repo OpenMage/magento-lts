@@ -33,6 +33,11 @@
  */
 class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'newsletter/subscriber';
 
     public function indexAction()
     {
@@ -148,10 +153,5 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
         }
 
         $this->_redirect('*/*/index');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber');
     }
 }

@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms';
+
+    /**
      * Template directives callback
      *
      * TODO: move this to some model
@@ -59,15 +65,5 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
         $image->display();
         $this->getResponse()->setBody(ob_get_contents());
         ob_end_clean();
-    }
-
-    /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms');
     }
 }

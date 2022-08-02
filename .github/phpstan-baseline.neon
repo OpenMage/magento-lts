@@ -511,11 +511,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$resourcePath$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Page\\:\\:getLang\\(\\) has invalid return type unknown\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Page.php
@@ -1661,26 +1656,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php
 
 		-
-			message: "#^Call to method _saveSessionCurrentPath\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Call to method loadLayout\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_initAction\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_saveSessionCurrentPath\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_CustomerController\\:\\:cartAction\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
@@ -1694,11 +1669,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_JsonController\\:\\:countryRegionAction\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/JsonController.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -2487,11 +2457,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:getImgSrc\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
-
-		-
-			message: "#^Method Mage_Captcha_Adminhtml_RefreshController\\:\\:refreshAction\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
 

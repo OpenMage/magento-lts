@@ -37,7 +37,7 @@ require_once 'Mage/Downloadable/controllers/Adminhtml/Downloadable/FileControlle
 class Mage_Downloadable_FileController extends Mage_Downloadable_Adminhtml_Downloadable_FileController
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      * Show 404 front page
      */
     public function preDispatch()
