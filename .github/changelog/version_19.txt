@@ -1,5 +1,97 @@
 
-## v19.4.16 - unreleased
+## v19.4.18 - unreleased
+
+## v19.4.17 - unreleased
+
+## v19.4.16 - 2022-05-18
+
+Add field info to exception when thrown in saving System Configuration. by @kiatng in #1784
+Fix Tax Rule name update by @elidrissidev in #1728
+Fixed method addExpressionFieldToSelect to use Zend_Db_Expr by @midlan in #1259
+API fix option labels for store view by @woutersamaey in #1828
+Fix newsletter subcriber loading by customer by @mmenozzi in #1779
+Fix file delete of customer attribute by @kiatng in #927
+Trim trailing whitespace by @luigifab in #1834 and #1846
+Updated .gitignore by @midlan in #1859
+Add gitpod online IDE config by @Flyingmana in #1836
+Add phpstan configuration, dependencies and github action by @Flyingmana in #1875
+Add Mage_Index helpers declaration to config.xml by @elidrissidev in #1878
+API: _getLocation - removed unused argument; fix phpdoc by @Sekiphp in #1867
+Grid page size: replaced similar lines to foreach by @Sekiphp in #1856
+Fix exception handling on Observer call when class not found by @spinsch in #1861
+Fixes catalog pricerules with dates in conditions, closes #433 by @sreichel in #1159
+Zend_Locale_Format::isNumber throws notice for float values by @fballiano in #1758
+Update PayPal currencies and countries by @luigifab in #1805
+extend php Syntax check to php 8.1 by @Flyingmana in #1883
+Fix incompatible declaration error by @holozaen in #1890
+[PHP 8.1] Fix deprecation notice in mcryptcompat lib by @Sdfendor in #1891
+Bugfix #1885 - Add to cart only accepts 1 item by @gdemarsico in #1896
+Array to string conversion when adding reviews from backend by @fballiano in #1769
+Update phpdoc in Collection.php by @rubanooo in #1816
+Fix syntax in lib/Zend/Locale/Data/es_419.xml by @elidrissidev in #1901
+make fulltext search separator (OR/AND) configurable from backend by @sreichel in #1852
+Revert of Mage_Adminhtml_Block_Widget_Grid::_exportIterateCollection by @midlan in #1914
+demo.html is an unnecessary file by @ADDISON74 in #1926
+Sort ascending CMS Block list in Categories by @ADDISON74 in #1925
+[PHP 8.0] Refactor legacy usage of implode in Mage_Api2 by @elidrissidev in #1938
+Initialize Api2 Fields validator's required fields array by @elidrissidev in #1936
+No alt tag value in Recently Viewed Products side block by @ADDISON74 in #1920
+Dashboard - Top 5 Search Terms link issue by @ADDISON74 in #1917
+Removed unused var $_odd in templates. by @kiatng in #1964
+Documentation fix on README file about composer require by @nimasan in #1954
+Fix typo in Zend/Date.php by @eltociear in #1979
+[PHP 8.0] Check if track progressdetail is an array before calling count by @elidrissidev in #1982
+[PHP 8.1] Fix cookie deletion behavior by @Sdfendor in #1984
+updateAttributeSet() accepting array or string by @Sekiphp in #1535
+Fix typo in code comment by @dotancohen in #1988
+Fix #1924 non-existing field by @woutersamaey in #1941
+Added optgroup feature for massaction items (grids) by @Sekiphp in #1913
+PHPDoc fix for Mage_Core_Model_Config by @Sdfendor in #1802
+Missing middlename for salesOrderAddressEntity in SOAP APIs by @fballiano in #1977
+Attribute note adminhtml show translate by @boesbo in #1710
+fix typo in _applyCustomOption() to correctly calculate min/max price by @jouriy in #1500
+Fix typo: Replace 'Retrive' with 'Retrieve' globally by @tmewes in #1995
+Add formkey validation to Newsletter subscribe action (theme BC-break) by @elidrissidev in #1866
+Added ability to add target attribute for adminhtml menu items by @Sekiphp in #1985
+Add docblock to app\code\core\Mage\Adminhtml\Block\Widget\Grid\Column… by @kiatng in #1987
+[PHP 8.1] Fix passing null to trim() by @elidrissidev in #2002
+Replaced remaining deprecated urlEscape calls. by @Sdfendor in #2008
+Update phpstan version by @tmotyl in #2015
+Use mb_substr to split the postcode by @luigifab in #1357
+Fix count(): Parameter must be an array or an object that implements Countable by @Sekiphp in #1960
+Fix getting default min_sale_qty when trying to mass-update product attributes by @elidrissidev in #1850
+Add polyfill for PHP8 native string functions by @tmotyl in #2014
+Improve getScheme on Zend_Controller_Request_Http by @mmenozzi in #1872
+Fix @method declarations in Mage_Catalog_Model_Resource_Eav_Attribute by @Caprico85 in #2031
+Deprecated global function "now" because it's equivalent to Varien_Date::now() by @Sdfendor in #1991
+Fixed the unused parameter in assignProduct by @rubanooo in #2011
+Remove white space for config values for #1852 by @luigifab in #2020
+password_new.html - typo in vars by @m-overlund in #2039
+add unit Tests and send coverage results to SonarCloud by @Flyingmana in #2041
+Use vanillaJS instead of prototype in Wishlist add to cart column by @MarcinNowakMacopedia in #2051
+do not mark github job as failes through sonar failure by @Flyingmana in #2053
+Analyze most of the source code with phpstan. Provide baseline. by @tmotyl in #2035
+Update PHPdoc and remove useless var by @bastienlm in #2056
+Add unit tests for security helper validateAgainstBlockMethodBlacklist and provide composer.lock by @tmotyl in #2058
+Fix widget edition in WYSIWYG by @FredericMartinez in #1605
+Use vanillaJS instead of encodeURI in wishlist add to cart by @MarcinNowakMacopedia in #2052
+Fixed bug on incorrect category store_id when set with store code in … by @kiatng in #1601
+Remove notification survey block by @kkrieger85 in #1267
+Fixed grid filter reset by @spinsch in #821
+Documentation of some changes by @luigifab in #1831
+Fix: Integrity constraint violation: Duplicate key by @tim-breitenstein-it in #1331
+Align label with value by @AlterWeb in #1230
+Remove backend current date from backend's header by @fballiano in #2063
+Lazy load contributors images by @luigifab in #2070
+Do not save customer addresses when there are no changes by @luigifab in #1579
+Removed getQty() from Mage_Wishlist_IndexController by @fballiano in #2072
+Add title for old googlecheckout payment method by @luigifab in #2076
+Default sortby should be read from core_config_data by @fballiano in #2062
+Prevent Zend_Date from checking locale for know date codes by @MarcinNowakMacopedia in #2050
+Update admin login pages by @luigifab in #1618
+Do not render action or massaction column in totals row in adminhtml grid by @theroch in #1530
+Fix instructions update for bank transfer orders by @luigifab in #2075
+Add missing attributes to salesOrderInvoiceInfo SOAP method by @elidrissidev in #1999
 
 ## v19.4.15 - 2021-08-26
 
