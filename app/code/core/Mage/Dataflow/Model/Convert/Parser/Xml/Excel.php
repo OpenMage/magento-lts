@@ -163,12 +163,9 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             ->setAdapter($adapterName)
             ->save();
 
-//        $adapter->$adapterMethod();
-
         return $this;
 
         $dom = new DOMDocument();
-//        $dom->loadXML($this->getData());
         if (Mage::app()->getRequest()->getParam('files')) {
             $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
             $file = $path.urldecode(Mage::app()->getRequest()->getParam('files'));
@@ -396,64 +393,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io->close();
 
         return $this;
-
-//        if ($wsName = $this->getVar('single_sheet')) {
-//            $data = array($wsName => $this->getData());
-//        } else {
-//            $data = $this->getData();
-//        }
-//
-//        $this->validateDataGrid();
-//
-//        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'.'><Workbook'
-//            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-//            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-//            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-//            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-//            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-//            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-//            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-//            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-//            .'<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
-//            .'</OfficeDocumentSettings>'
-//            .'<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
-//            .'</ExcelWorkbook>';
-//
-//        if (is_array($data)) {
-//            foreach ($data as $wsName=>$wsData) {
-//                if (!is_array($wsData)) {
-//                    continue;
-//                }
-//                $fields = $this->getGridFields($wsData);
-//
-//                $xml .= '<ss:Worksheet ss:Name="'.$wsName.'"><Table>';
-//                if ($this->getVar('fieldnames')) {
-//                    $xml .= '<ss:Row>';
-//                    foreach ($fields as $fieldName) {
-//                        $xml .= '<ss:Cell><Data ss:Type="String">'.$fieldName.'</Data></ss:Cell>';
-//                    }
-//                    $xml .= '</ss:Row>';
-//                }
-//                foreach ($wsData as $i=>$row) {
-//                    if (!is_array($row)) {
-//                        continue;
-//                    }
-//                    $xml .= '<ss:Row>';
-//                    foreach ($fields as $fieldName) {
-//                        $data = isset($row[$fieldName]) ? $row[$fieldName] : '';
-//                        $xml .= '<ss:Cell><Data ss:Type="String">'.$data.'</Data></ss:Cell>';
-//                    }
-//                    $xml .= '</ss:Row>';
-//                }
-//                $xml .= '</Table></ss:Worksheet>';
-//            }
-//        }
-//
-//        $xml .= '</Workbook>';
-//
-//        $this->setData($xml);
-//
-//        return $this;
     }
 
     /**

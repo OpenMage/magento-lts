@@ -1496,11 +1496,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Helper_Data\\:\\:prepareFilterString\\(\\) has invalid return type data\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Data.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config.php
@@ -7004,11 +6999,6 @@ parameters:
 			message: "#^Method Mage_Sales_Model_Recurring_Profile\\:\\:_getItem\\(\\) should return Mage_Sales_Model_Order_Item but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			message: "#^Variable \\$attribute in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
 
 		-
 			message: "#^Cannot call method updateOnRelatedRecordChanged\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"

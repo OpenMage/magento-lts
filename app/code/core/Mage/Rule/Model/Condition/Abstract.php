@@ -214,9 +214,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $this->setValue(isset($arr['value']) ? $arr['value'] : false);
         $this->setIsValueParsed(isset($arr['is_value_parsed']) ? $arr['is_value_parsed'] : false);
 
-//        $this->loadAttributeOptions();
-//        $this->loadOperatorOptions();
-//        $this->loadValueOptions();
         return $this;
     }
 
@@ -324,10 +321,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function loadValueOptions()
     {
-//        $this->setValueOption(array(
-//            true  => Mage::helper('rule')->__('TRUE'),
-//            false => Mage::helper('rule')->__('FALSE'),
-//        ));
         $this->setValueOption(array());
         return $this;
     }

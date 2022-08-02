@@ -438,12 +438,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             'quote_item' => $this
         ));
 
-
-//        if ($options = $product->getCustomOptions()) {
-//            foreach ($options as $option) {
-//                $this->addOption($option);
-//            }
-//        }
         return $this;
     }
 
@@ -643,8 +637,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Add option to item
      *
-     * @param   Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
-     * @return  $this
+     * @param Mage_Sales_Model_Quote_Item_Option|Varien_Object|array $option
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addOption($option)
     {

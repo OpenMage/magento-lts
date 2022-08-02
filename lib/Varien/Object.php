@@ -791,6 +791,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @param mixed $value
      */
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->_data[$offset] = $value;
@@ -803,6 +804,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @return boolean
      */
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->_data[$offset]);
@@ -814,6 +816,7 @@ class Varien_Object implements ArrayAccess
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
      * @param string $offset
      */
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->_data[$offset]);
@@ -826,6 +829,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @return mixed
      */
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->_data[$offset]) ? $this->_data[$offset] : null;

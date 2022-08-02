@@ -56,7 +56,6 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
         'cpp_headerback_color'   => 'hdrbackcolor',
         'cpp_headerborder_color' => 'hdrbordercolor',
         'cpp_payflow_color'      => 'payflowcolor',
-//        'cs' => '', // TODO
         'lc'                     => 'locale',
     );
     protected $_exportToRequestFilters = array(

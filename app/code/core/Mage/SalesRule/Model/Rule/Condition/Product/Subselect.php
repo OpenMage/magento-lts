@@ -136,10 +136,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
             return false;
         }
 
-//        $value = $this->getValue();
-//        $aggregatorArr = explode('/', $this->getAggregator());
-//        $this->setValue((int)$aggregatorArr[0])->setAggregator($aggregatorArr[1]);
-
         $attr = $this->getAttribute();
         $total = 0;
         foreach ($object->getQuote()->getAllVisibleItems() as $item) {
@@ -147,7 +143,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
                 $total += $item->getData($attr);
             }
         }
-//        $this->setAggregator(join('/', $aggregatorArr))->setValue($value);
 
         return $this->validateAttribute($total);
     }
