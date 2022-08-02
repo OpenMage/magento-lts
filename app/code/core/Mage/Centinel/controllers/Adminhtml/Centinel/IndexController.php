@@ -34,6 +34,12 @@
 class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/order/actions/review_payment';
+
+    /**
      * Process validate payment data action
      *
      */
@@ -107,7 +113,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service
+     * @return Mage_Centinel_Model_Service|false
      */
     private function _getValidator()
     {
@@ -115,16 +121,6 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             return $this->_getPayment()->getMethodInstance()->getCentinelValidator();
         }
         return false;
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/review_payment');
     }
 }
 

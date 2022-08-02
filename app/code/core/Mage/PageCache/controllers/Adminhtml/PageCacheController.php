@@ -34,6 +34,12 @@
 class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'page_cache';
+
+    /**
      * Retrieve session model
      *
      * @return Mage_Adminhtml_Model_Session
@@ -66,15 +72,5 @@ class Mage_PageCache_Adminhtml_PageCacheController extends Mage_Adminhtml_Contro
             );
         }
         $this->_redirect('*/cache/index');
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('page_cache');
     }
 }

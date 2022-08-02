@@ -402,7 +402,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Check if user has permissions to access this controller
      *
-     * @return boolean
+     * @return true
      */
     protected function _isAllowed()
     {
