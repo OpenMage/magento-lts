@@ -64,8 +64,7 @@
   },
   "config": {
     "allow-plugins": {
-      "magento-hackathon/magento-composer-installer": true,
-      "cweagans/composer-patches": true
+      "magento-hackathon/magento-composer-installer": true
     }
   }
 }
