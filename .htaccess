@@ -201,12 +201,17 @@
     Allow from all
 
 ###########################################
-## Deny access to release notes to prevent disclosure of the installed Magento version
+## Deny access to other project files to prevent disclosure of the installed Magento version
+## Only robots.txt should be allowed
 
-    <Files RELEASE_NOTES.txt>
+    <FilesMatch (?<!robots)\.txt$>
         order allow,deny
         deny from all
-    </Files>
+    </FilesMatch>
+    <FilesMatch \.(json|lock|md|sample|yml)$>
+        order allow,deny
+        deny from all
+    </FilesMatch>
 
 ############################################
 ## If running in cluster environment, uncomment this
