@@ -1,0 +1,32 @@
+<?php
+/**
+ * OpenMage
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_attribute = $this->getAttribute() ?>
+<?php $_code = $_attribute->getAttributeCode() ?>
+<label for="<?php echo $this->getFieldId($_code)?>"<?php if ($this->isRequired()) echo ' class="required"' ?>><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__($_attribute->getStoreLabel()) ?></label>
+<div class="input-box">
+    <select id="<?php echo $this->getFieldId($_code)?>" name="<?php echo $this->getFieldName($_code)?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__($_code)) ?>"<?php if ($this->isRequired()):?> class="validate-select"<?php endif ?> <?php echo $this->getFieldParams() ?>>
+        <?php $options = $this->getOptions() ?>
+        <?php $values = explode(',', $this->getObject()->getData($_code)) ?>
+        <?php foreach ($options as $option): ?>
+            <option value="<?php echo $option['value'] ?>"<?php if (in_array($option['value'], $values)) echo ' selected="selected"' ?>><?php echo $this->__($option['label']) ?></option>
+        <?php endforeach ?>
+    </select>
+</div>

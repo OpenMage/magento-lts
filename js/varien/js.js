@@ -531,6 +531,21 @@ Varien.DateElement.prototype = {
     }
 };
 
+Varien.DateElementHelper = Class.create();
+Varien.DateElementHelper.prototype = {
+    initialize: function(selector, required, format, classPrefix="date") {
+        var el = $$(selector)[0];
+        var container       = {};
+        container.day       = Element.select(el, '.' + classPrefix + '-day input')[0];
+        container.month     = Element.select(el, '.' + classPrefix + '-month input')[0];
+        container.year      = Element.select(el, '.' + classPrefix + '-year input')[0];
+        container.full      = Element.select(el, '.' + classPrefix + '-full input')[0];
+        container.advice    = Element.select(el, '.validation-advice')[0];
+
+        new Varien.DateElement('container', container, required, format);
+    }
+};
+
 Varien.DOB = Class.create();
 Varien.DOB.prototype = {
     initialize: function(selector, required, format) {
