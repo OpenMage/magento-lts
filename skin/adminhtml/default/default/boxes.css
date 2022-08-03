@@ -709,7 +709,9 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-promo-quote,
 .head-promo-catalog             { background-image:url(images/fam_money.gif); padding-left:22px; }
 .head-categories                { background-image:url(images/fam_folder_database.gif); padding-left:20px; color:#253033 !important; }
+.head-eav-attribute,
 .head-catalog-product-attribute { background-image:url(images/fam_rainbow.gif); padding-left:24px; }
+.head-eav-attribute-sets,
 .head-product-attribute-sets    { background-image:url(images/fam_folder_palette.gif); padding-left:23px; }
 .head-cms-page, .head-cms-block,
 .head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); padding-left:22px; }

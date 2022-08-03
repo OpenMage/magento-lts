@@ -19,10 +19,10 @@
  */
 
 /**
- * Product attributes grid
+ * Eav attributes grid
  *
  * @category   Mage
- * @package    Mage_Adminhtml
+ * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
@@ -87,7 +87,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     /**
      * Return url of given row
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
+     * @param Mage_Eav_Model_Entity_Attribute $row
      * @return string
      */
     public function getRowUrl($row)

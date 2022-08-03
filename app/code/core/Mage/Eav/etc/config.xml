@@ -94,6 +94,11 @@
                 </setup>
             </eav_setup>
         </resources>
+        <blocks>
+            <eav>
+                <class>Mage_Eav_Block</class>
+            </eav>
+        </blocks>
         <cache>
             <types>
                 <eav translate="label,description" module="eav">
