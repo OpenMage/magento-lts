@@ -76,10 +76,6 @@
  */
 class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
-    const SCOPE_STORE                           = 0;
-    const SCOPE_GLOBAL                          = 1;
-    const SCOPE_WEBSITE                         = 2;
-
     const MODULE_NAME                           = 'Mage_Catalog';
     const ENTITY                                = 'catalog_eav_attribute';
 

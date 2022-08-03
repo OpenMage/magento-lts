@@ -37,7 +37,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     protected $_attribute = null;
 
     /**
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @return $this
      */
     public function setAttributeObject($attribute)
@@ -47,7 +47,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     }
 
     /**
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttributeObject()
     {
@@ -103,8 +103,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $fieldset->addField('frontend_input', 'select', array(
             'name' => 'frontend_input',
-            'label' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
-            'title' => Mage::helper('eav')->__('Catalog Input Type for Store Owner'),
+            'label' => Mage::helper('eav')->__('Input Type for Store Owner'),
+            'title' => Mage::helper('eav')->__('Input Type for Store Owner'),
             'value' => 'text',
             'values'=> $inputTypes
         ));

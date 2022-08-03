@@ -158,7 +158,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
     /**
      * Validate attribute data before save
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $object
+     * @param Mage_Eav_Model_Entity_Attribute $object
      * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
@@ -176,7 +176,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
          * @todo need use default source model of entity type !!!
          */
         if (!$object->getId()) {
-            if ($object->getFrontendInput() == 'select') {
+            if ($object->getFrontendInput() == 'select' || $object->getFrontendInput() == 'multiselect') {
                 $object->setSourceModel('eav/entity_attribute_source_table');
             }
         }

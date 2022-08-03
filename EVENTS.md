@@ -36,6 +36,10 @@
 | admin_user_authenticate_after | 1.9.4.5 |
 | admin_user_authenticate_before | 1.9.4.5 |
 | admin_user_validate | 1.9.4.5 |
+| adminhtml_[entityCode]_attribute_types | 20.0.15 |
+| adminhtml_[entityCode]_attribute_scopes | 20.0.15 |
+| adminhtml_[entityCode]_attribute_edit_prepare_form | 20.0.15 |
+| adminhtml_[entityCode]_attribute_edit_prepare_save | 20.0.15 |
 | adminhtml_block_eav_attribute_edit_form_init | 1.9.4.5 |
 | adminhtml_block_promo_widget_chooser_prepare_collection | 1.9.4.5 |
 | adminhtml_block_salesrule_actions_prepareform | 1.9.4.5 |
