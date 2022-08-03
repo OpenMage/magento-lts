@@ -130,7 +130,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     /**
      * Retrieve data object related with form
      *
-     * @return Mage_Catalog_Model_Product || Mage_Catalog_Model_Category
+     * @return Mage_Catalog_Model_Product | Mage_Catalog_Model_Category
      */
     public function getDataObject()
     {

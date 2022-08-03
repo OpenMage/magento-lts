@@ -1,0 +1,16 @@
+############################################
+## Disable PHP code execution
+
+<IfModule mod_php7.c>
+    php_flag engine 0
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag engine 0
+</IfModule>
+
+############################################
+## Don't permit execution of CGI scripts
+
+    AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
+    Options -ExecCGI

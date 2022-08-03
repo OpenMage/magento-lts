@@ -53,10 +53,13 @@ class Mage_Directory_Model_Region_Api extends Mage_Api_Model_Resource_Abstract
 
         $result = array();
         foreach ($country->getRegions() as $region) {
-            $region->getName();
-            $result[] = $region->toArray(array('region_id', 'code', 'name'));
+            $result[] = array(
+                'region_id' => $region->getRegionId(),
+                'code' => $region->getCode(),
+                'name' => $region->getName(), //use the logic of default name
+            );
         }
 
         return $result;
     }
-} // Class Mage_Directory_Model_Region_Api End
+}

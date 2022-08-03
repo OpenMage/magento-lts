@@ -135,4 +135,4 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         return true;
     }
-} // Class Mage_Sales_Model_Api_Resource End
+}

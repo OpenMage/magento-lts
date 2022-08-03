@@ -54,7 +54,7 @@
                             <config>
                                 <children>
                                     <checkout translate="title" module="checkout">
-                                        <title>Checkout Section</title>
+                                        <title>Checkout</title>
                                         <sort_order>70</sort_order>
                                     </checkout>
                                 </children>

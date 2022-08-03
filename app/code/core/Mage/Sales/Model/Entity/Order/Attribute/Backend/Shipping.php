@@ -43,6 +43,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
         if (is_null($shippingAddressId)) {
             $object->unsetShippingAddressId();
         }
+        return $this;
     }
 
     /**
@@ -61,5 +62,6 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
             $object->setShippingAddressId($shippingAddressId);
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getAttributeCode());
         }
+        return $this;
     }
 }

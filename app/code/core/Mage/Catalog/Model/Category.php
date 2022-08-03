@@ -669,23 +669,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         } else {
             return implode(',', $children);
         }
-
-//        $this->getTreeModelInstance()->load();
-//        $children = $this->getTreeModelInstance()->getChildren($this->getId());
-//
-//        $myId = array($this->getId());
-//        if (is_array($children)) {
-//            $children = array_merge($myId, $children);
-//        }
-//        else {
-//            $children = $myId;
-//        }
-//        if ($asArray) {
-//            return $children;
-//        }
-//        else {
-//            return implode(',', $children);
-//        }
     }
 
     /**

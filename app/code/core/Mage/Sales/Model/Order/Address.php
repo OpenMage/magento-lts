@@ -112,7 +112,6 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_address');
         return $this;
     }
 

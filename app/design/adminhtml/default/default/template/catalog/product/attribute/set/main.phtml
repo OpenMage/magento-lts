@@ -335,7 +335,11 @@
                     },
 
                     beforeRenameGroup : function(obj, after, before) {
-                        return editSet.validateGroupName(after, obj.editNode.id);
+                        if (editSet.validateGroupName(after, obj.editNode.id)) {
+                            return true;
+                        }
+                        obj.field.el.dom.value = before;
+                        return false;
                     },
 
                     validateGroupName : function(name, exceptNodeId) {

@@ -74,9 +74,12 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime
     {
         if ($data = $this->_getValue($row)) {
             $format = $this->_getFormat();
+            $useTimezone = $this->getColumn()->getUseTimezone() ?? true;
+            $locale = $this->getColumn()->getLocale() ?? null;
             try {
                 $data = Mage::app()->getLocale()
-                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
+                    ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT, $locale, $useTimezone)
+                    ->toString($format);
             }
             catch (Exception $e)
             {

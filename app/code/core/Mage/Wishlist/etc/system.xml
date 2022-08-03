@@ -30,7 +30,6 @@
         <wishlist translate="label" module="wishlist">
             <label>Wishlist</label>
             <tab>customer</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>140</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <email translate="label">
                     <label>Share Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -66,7 +64,6 @@
                 </email>
                 <general translate="label">
                     <label>General Options</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

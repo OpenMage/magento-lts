@@ -43,7 +43,6 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/Newsletter
          - %currentWorkingDirectory%/app/code/core/Mage/Oauth
          - %currentWorkingDirectory%/app/code/core/Mage/Page
-         - %currentWorkingDirectory%/app/code/core/Mage/PageCache
          - %currentWorkingDirectory%/app/code/core/Mage/Paygate
          - %currentWorkingDirectory%/app/code/core/Mage/Payment
          - %currentWorkingDirectory%/app/code/core/Mage/Paypal
@@ -98,6 +97,12 @@ parameters:
         # Dataflow/Model/Convert/Iterator.php
         - */Dataflow/Model/Convert/Iterator.php
 
-    level: 0
+        # Too much noise from "Variable $this might not be defined"
+        - */app/code/core/*/*/data/*
+        - */app/code/core/*/*/sql/*
+    level: 2
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+
 #    universalObjectCratesClasses:
 #        - Varien_Object

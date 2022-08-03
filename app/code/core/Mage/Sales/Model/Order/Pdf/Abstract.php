@@ -462,11 +462,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $page->setLineWidth(0.5);
                 $page->drawRectangle(285, $yShipments, 510, $yShipments - 10);
                 $page->drawLine(400, $yShipments, 400, $yShipments - 10);
-                //$page->drawLine(510, $yShipments, 510, $yShipments - 10);
 
                 $this->_setFontRegular($page, 9);
                 $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-                //$page->drawText(Mage::helper('sales')->__('Carrier'), 290, $yShipments - 7 , 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Title'), 290, $yShipments - 7, 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Number'), 410, $yShipments - 7, 'UTF-8');
 

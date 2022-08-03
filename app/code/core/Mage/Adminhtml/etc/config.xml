@@ -146,7 +146,6 @@
                 <Mage_Adminhtml>
                     <files>
                         <default>Mage_Adminhtml.csv</default>
-                        <openmage_lts>Mage_Adminhtml_LTS.csv</openmage_lts>
                     </files>
                 </Mage_Adminhtml>
             </modules>

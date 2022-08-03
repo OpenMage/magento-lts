@@ -1327,6 +1327,21 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cebe",
+      "name": "Carsten Brandt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/189796?v=4",
+      "profile": "http://cebe.cc/"
+    },
+    {
+      "login": "eneiasramos",
+      "name": "Enéias Ramos de Melo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2862728?v=4",
+      "profile": "https://github.com/eneiasramos",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

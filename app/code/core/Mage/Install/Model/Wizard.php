@@ -89,7 +89,7 @@ class Mage_Install_Model_Wizard
      * Get wizard step by name
      *
      * @param   string $name
-     * @return  Varien_Object || false
+     * @return  Varien_Object | false
      */
     public function getStepByName($name)
     {

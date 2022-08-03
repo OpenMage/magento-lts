@@ -148,7 +148,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
     }
 
     /**
-     * @param $quote
+     * @param Mage_Sales_Model_Quote $quote
      *
      * @return $this
      */

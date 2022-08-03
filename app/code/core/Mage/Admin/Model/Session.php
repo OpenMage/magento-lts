@@ -94,15 +94,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function __construct($parameters = array())
     {
-        /** @var Mage_Admin_Model_Redirectpolicy _urlPolicy */
         $this->_urlPolicy = (!empty($parameters['redirectPolicy'])) ?
             $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
 
-        /** @var Mage_Core_Controller_Response_Http _response */
         $this->_response = (!empty($parameters['response'])) ?
             $parameters['response'] : new Mage_Core_Controller_Response_Http();
 
-        /** @var Mage_Core_Model_Factory $user */
         $this->_factory = (!empty($parameters['factory'])) ?
             $parameters['factory'] : Mage::getModel('core/factory');
 

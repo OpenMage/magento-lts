@@ -116,7 +116,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $addressModel = Mage::getModel('customer/address');
         $addressModel->setCountryId(Mage::helper('core')->getDefaultCountry($customer->getStore()));
-        /** @var $addressForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('adminhtml_customer_address')
             ->setEntity($addressModel)

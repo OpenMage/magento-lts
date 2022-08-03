@@ -25,7 +25,7 @@
  */
 
 if (version_compare(phpversion(), '7.0.0', '<')===true) {
-    echo 'It looks like you have an invalid PHP version. Magento supports PHP 7.0.0 or newer';
+    echo 'It looks like you have an invalid PHP version. OpenMage supports PHP 7.0.0 or newer';
     exit;
 }
 
