@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Storefront_MediaStorage_Model_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
+class Varien_Image_Adapter_Imagick extends Varien_Image_Adapter_Abstract
 {
 
     /**
