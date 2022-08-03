@@ -20,6 +20,9 @@
     "ext-iconv": "*",
     "ext-zlib": "*",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
+    "phpseclib/phpseclib": "^3.0.14",
+    "phpseclib/mcrypt_compat": "^2.0.3",
+    "pear/net_idna2": "^0.2.0",
     "colinmollenhour/cache-backend-redis": "^1.14",
     "colinmollenhour/magento-redis-session": "^2.4"
   },
@@ -64,7 +67,8 @@
   },
   "config": {
     "allow-plugins": {
-      "magento-hackathon/magento-composer-installer": true
+      "magento-hackathon/magento-composer-installer": true,
+      "cweagans/composer-patches": true
     }
   }
 }
