@@ -95,19 +95,20 @@
         },
         {
             "name": "colinmollenhour/magento-redis-session",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
-                "reference": "bc8934360badfedf9f12c013b783ce2190544cb4"
+                "reference": "6066dd9574e9987c2ffc76e23a2c1f4921bc06ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/bc8934360badfedf9f12c013b783ce2190544cb4",
-                "reference": "bc8934360badfedf9f12c013b783ce2190544cb4",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/6066dd9574e9987c2ffc76e23a2c1f4921bc06ae",
+                "reference": "6066dd9574e9987c2ffc76e23a2c1f4921bc06ae",
                 "shasum": ""
             },
             "require": {
+                "colinmollenhour/credis": "*",
                 "colinmollenhour/php-redis-session-abstract": "~1.4.0"
             },
             "suggest": {
@@ -127,9 +128,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.0.0"
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.0.1"
             },
-            "time": "2022-08-03T23:52:52+00:00"
+            "time": "2022-08-04T18:13:12+00:00"
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
