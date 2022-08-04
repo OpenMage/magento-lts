@@ -34,6 +34,12 @@
 class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/convert/export';
+
+    /**
      * Custom constructor.
      *
      * @return void
@@ -56,16 +62,6 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
             ->_setActiveMenu('system/importexport');
 
         return $this;
-    }
-
-    /**
-     * Check access (in the ACL) for current user
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/convert/export');
     }
 
     /**

@@ -55,14 +55,23 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
+     * @param int|null $websiteId
      * @return array
      */
-    protected function _getWebsiteCurrencyRates()
+    protected function _getWebsiteCurrencyRates($websiteId = null)
     {
         if (is_null($this->_rates)) {
             $this->_rates = array();
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
-            foreach (Mage::app()->getWebsites() as $website) {
+
+            if (is_numeric($websiteId)) {
+                $website = Mage::app()->getWebsite($websiteId);
+                $websites = [$website];
+            } else {
+                $websites = Mage::app()->getWebsites();
+            }
+
+            foreach ($websites as $website) {
                 /* @var Mage_Core_Model_Website $website */
                 if ($website->getBaseCurrencyCode() != $baseCurrency) {
                     $rate = Mage::getModel('directory/currency')
@@ -189,7 +198,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      */
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
     {
-        $rates  = $this->_getWebsiteCurrencyRates();
+        $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = array();
         $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {

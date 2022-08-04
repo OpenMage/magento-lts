@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
     {
         $storeId = (int) $this->getRequest()->getParam('store');
         $params = array();
-//        $params = array('section'=>'catalog');
+
         if ($storeId) {
             $store = Mage::app()->getStore($storeId);
             $params['website'] = $store->getWebsite()->getCode();

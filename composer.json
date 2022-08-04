@@ -8,6 +8,17 @@
   "type": "magento-source",
   "require": {
     "php": ">=7.0 <7.5 || >=8.0 <8.1",
+    "ext-curl": "*",
+    "ext-gd": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-pdo": "*",
+    "ext-simplexml": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-soap": "*",
+    "ext-iconv": "*",
+    "ext-zlib": "*",
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
   "require-dev": {
@@ -48,5 +59,10 @@
       "dev-main": "1.9.4.x-dev"
     },
     "magento-root-dir": "root"
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true
+    }
   }
 }

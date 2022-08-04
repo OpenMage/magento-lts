@@ -61,20 +61,20 @@
                         </use_form_key>
                     </fields>
                 </csrf>
-                <cache>
-                    <label>Advanced Magento cache settings</label>
-                    <sort_order>10000</sort_order>
+                <cache translate="label" module="core">
+                    <label>Advanced Cache Settings</label>
+                    <sort_order>1000</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <flush_cron_expr>
-                            <label>Cron expression for regular cache flushing</label>
+                        <flush_cron_expr translate="label comment">
+                            <label>Cron Expression for Cache Flushing</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Use 0 0 30 2 0 to never run cron, the recommended setting is 30 3 * * 6</comment>
+                            <comment>The default value is "30 2 * * *". An empty value disables automatic cache flushing.</comment>
                         </flush_cron_expr>
                     </fields>
                 </cache>

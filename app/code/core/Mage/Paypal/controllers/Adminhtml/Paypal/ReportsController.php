@@ -122,8 +122,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * ACL check
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -132,13 +131,10 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             case 'index':
             case 'details':
                 return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/view');
-                break;
             case 'fetch':
                 return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/fetch');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports');
-                break;
         }
     }
 }

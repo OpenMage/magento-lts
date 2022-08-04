@@ -34,6 +34,12 @@
 class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales';
+
+    /**
      * Additional initialization
      *
      */
@@ -53,10 +59,5 @@ class Mage_Adminhtml_SalesController extends Mage_Adminhtml_Controller_Action
         $this->_addBreadcrumb($this->__('Sales'), $this->__('Sales'));
         $this->_addBreadcrumb($this->__('Orders'), $this->__('Orders'));
         $this->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales');
     }
 }

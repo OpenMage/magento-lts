@@ -305,7 +305,6 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 $reg = str_replace('.', '\.', $reg);
                 $reg = str_replace('*\\', '||', $reg);
                 $reg = str_replace('*/', '||', $reg);
-                //$reg = str_replace('*', '||', $reg);
                 $reg = str_replace(DS, '[\\' . DS . ']', $reg);
                 $reg = str_replace('?', '([^\\' . DS . ']+)', $reg);
                 $reg = str_replace('||', '(.*[\\' . DS . '])?', $reg);
