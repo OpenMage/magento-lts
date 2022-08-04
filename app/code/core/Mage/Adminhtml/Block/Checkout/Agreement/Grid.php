@@ -119,16 +119,14 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     }
 
     /**
-     * @param Varien_Data_Collection $collection
+     * @param Mage_Checkout_Model_Resource_Agreement_Collection $collection
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      */
     protected function _filterStoreCondition($collection, $column)
     {
-        if (!$value = $column->getFilter()->getValue()) {
-            return;
+        if ($value = $column->getFilter()->getValue()) {
+            $collection->addStoreFilter($value);
         }
-
-        $this->getCollection()->addStoreFilter($value);
     }
 
     /**
