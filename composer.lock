@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "548acdd09780556e90371195a564c1f0",
+    "content-hash": "c7d278f7bf1b13ed900286fc6b1765bc",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -95,16 +95,16 @@
         },
         {
             "name": "colinmollenhour/magento-redis-session",
-            "version": "2.4.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
-                "reference": "08025ef8f29242633a9d91e959203fe557d5fed9"
+                "reference": "bc8934360badfedf9f12c013b783ce2190544cb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/08025ef8f29242633a9d91e959203fe557d5fed9",
-                "reference": "08025ef8f29242633a9d91e959203fe557d5fed9",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/bc8934360badfedf9f12c013b783ce2190544cb4",
+                "reference": "bc8934360badfedf9f12c013b783ce2190544cb4",
                 "shasum": ""
             },
             "require": {
@@ -127,9 +127,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/2.4.0"
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.0.0"
             },
-            "time": "2022-01-28T20:05:20+00:00"
+            "time": "2022-08-03T23:52:52+00:00"
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
@@ -572,24 +572,25 @@
         },
         {
             "name": "pear/net_idna2",
-            "version": "v0.2.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Net_IDNA2.git",
-                "reference": "51734eaf8be2df58e8aad5835b9966459b2fb37c"
+                "reference": "d22f05df07622b7ec48ee9902ae701267182d920"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_IDNA2/zipball/51734eaf8be2df58e8aad5835b9966459b2fb37c",
-                "reference": "51734eaf8be2df58e8aad5835b9966459b2fb37c",
+                "url": "https://api.github.com/repos/pear/Net_IDNA2/zipball/d22f05df07622b7ec48ee9902ae701267182d920",
+                "reference": "d22f05df07622b7ec48ee9902ae701267182d920",
                 "shasum": ""
             },
             "require": {
-                "pear/pear_exception": "@stable"
+                "pear/pear_exception": "^1.0.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -601,7 +602,7 @@
                 "./"
             ],
             "license": [
-                "LGPL"
+                "LGPL-2.1-or-later"
             ],
             "authors": [
                 {
@@ -615,12 +616,13 @@
                     "role": "Lead"
                 }
             ],
-            "description": "More info available on: https://pear.php.net/package/Net_IDNA2",
+            "description": "Punycode encoding and decoding.",
+            "homepage": "https://pear.php.net/package/Net_IDNA2",
             "support": {
                 "issues": "https://pear.php.net/bugs/search.php?cmd=display&package_name[]=Net_IDNA2",
                 "source": "https://github.com/pear/Net_IDNA2"
             },
-            "time": "2017-03-06T20:46:41+00:00"
+            "time": "2019-10-18T04:25:21+00:00"
         },
         {
             "name": "pear/pear_exception",
@@ -1838,7 +1840,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "pear/net_idna2": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
