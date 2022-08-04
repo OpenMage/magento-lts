@@ -60,7 +60,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             /*
             want to show rss feed in the url
             */
-            if ($this->IsRssCatalogEnable() && $this->IsTopCategory()) {
+            if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
                 $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
                 $headBlock->addItem('rss', $this->getRssLink(), 'title="'.$title.'"');
             }
@@ -72,7 +72,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     /**
      * @return string
      */
-    public function IsRssCatalogEnable()
+    public function isRssCatalogEnable()
     {
         return Mage::getStoreConfig('rss/catalog/category');
     }
@@ -80,7 +80,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     /**
      * @return bool
      */
-    public function IsTopCategory()
+    public function isTopCategory()
     {
         return $this->getCurrentCategory()->getLevel()==2;
     }
