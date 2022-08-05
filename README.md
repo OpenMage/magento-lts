@@ -392,6 +392,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
+    <td align="center"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
   </tr>
 </table>
 
