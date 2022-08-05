@@ -54,7 +54,7 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
     {
         $filters = $this->getLayer()->getState()->getFilters();
         if (!is_array($filters)) {
-            $filters = array();
+            $filters = [];
         }
         return $filters;
     }
@@ -66,9 +66,10 @@ class Mage_Catalog_Block_Layer_State extends Mage_Core_Block_Template
      */
     public function getClearUrl()
     {
-        $filterState = array();
+        $filterState = [];
         foreach ($this->getActiveFilters() as $item) {
-            $filterState[$item->getFilter()->getRequestVar()] = $item->getFilter()->getCleanValue();
+            $filter = $item->getFilter();
+            $filterState[$filter->getRequestVar()] = $filter->getCleanValue();
         }
         $params['_current']     = true;
         $params['_use_rewrite'] = true;

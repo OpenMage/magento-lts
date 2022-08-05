@@ -42,6 +42,7 @@
  * @method $this setName(string $value)
  * @method $thissetRootCategoryPath(string $value)
  * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
+ * @method $this setRootCategoryPath(string $value)
  * @method int getSortOrder()
  * @method $this setSortOrder(int $value)
  * @method int getStoreId()

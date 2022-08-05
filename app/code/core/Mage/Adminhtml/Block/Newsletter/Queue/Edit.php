@@ -245,9 +245,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getCanResume()
     {
-        return in_array($this->getQueue()->getQueueStatus(), array(
-            Mage_Newsletter_Model_Queue::STATUS_PAUSE
-        ));
+        return $this->getQueue()->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_PAUSE;
     }
 
     /**

@@ -542,7 +542,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
-            $options = array_filter($options, 'intval');
+            $options = array_filter($options, '\intval');
             $qtys = $buyRequest->getBundleOptionQty();
             foreach ($options as $_optionId => $_selections) {
                 if (empty($_selections)) {
@@ -673,7 +673,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
 
                 $result[] = $_result[0]->setParentProductId($product->getId())
-                    ->addCustomOption('bundle_option_ids', serialize(array_map('intval', $optionIds)))
+                    ->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)))
                     ->addCustomOption('bundle_selection_attributes', serialize($attributes));
 
                 if ($isStrictProcessMode) {
@@ -690,7 +690,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             foreach ($result as $item) {
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
-            $product->addCustomOption('bundle_option_ids', serialize(array_map('intval', $optionIds)));
+            $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
             return $result;
@@ -1009,8 +1009,8 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $option     = $buyRequest->getBundleOption();
         $optionQty  = $buyRequest->getBundleOptionQty();
 
-        $option     = (is_array($option)) ? array_filter($option, 'intval') : array();
-        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, 'intval') : array();
+        $option     = (is_array($option)) ? array_filter($option, '\intval') : array();
+        $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : array();
 
         $options = array(
             'bundle_option'     => $option,
