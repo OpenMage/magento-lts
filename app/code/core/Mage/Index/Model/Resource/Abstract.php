@@ -145,7 +145,7 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $sourceColumns = array_keys($this->_getReadAdapter()->describeTable($sourceTable));
             $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         } else {
-            $sourceColumns = array_keys($this->_getReadAdapter()->describeTable($sourceTable));
+            $sourceColumns = array_keys($this->_getIndexAdapter()->describeTable($sourceTable));
             $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         }
         $select = $this->_getIndexAdapter()->select()->from($sourceTable, $sourceColumns);
