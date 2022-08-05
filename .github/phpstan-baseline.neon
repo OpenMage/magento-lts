@@ -46,16 +46,6 @@ parameters:
 			path: ../app/code/core/Mage/Admin/Model/Session.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getHash\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Admin/Model/User.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:validateHash\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Admin/Model/User.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/Role/Grid/User.php
@@ -1959,11 +1949,6 @@ parameters:
 			message: "#^Result of method SoapServer\\:\\:handle\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api/Model/Server/Wsi/Adapter/Soap.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getHash\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Api/Model/User.php
 
 		-
 			message: "#^Call to an undefined method SimpleXMLElement\\:\\:extendChild\\(\\)\\.$#"
