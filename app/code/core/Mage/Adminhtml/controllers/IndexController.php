@@ -325,7 +325,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
         $errorMessages = array();
         if (iconv_strlen($password) <= 0) {
-            array_push($errorMessages, Mage::helper('adminhtml')->__('New password field cannot be empty.'));
+            $errorMessages[] = Mage::helper('adminhtml')->__('New password field cannot be empty.');
         }
         /** @var Mage_Admin_Model_User $user */
         $user = $this->_getModel('admin/user')->load($userId);
