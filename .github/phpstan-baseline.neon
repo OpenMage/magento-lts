@@ -3312,7 +3312,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
@@ -3477,7 +3477,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
@@ -3719,11 +3719,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getSummaryCount\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Links.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$item\\)\\: Unexpected token \"\\$item\", expected type at offset 18$#"
-			count: 2
-			path: ../app/code/core/Mage/Checkout/Block/Multishipping/Addresses.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayCartBothPrices\\(\\)\\.$#"
@@ -5577,16 +5572,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$a\\)\\: Unexpected token \"\\$a\", expected type at offset 18$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$b\\)\\: Unexpected token \"\\$b\", expected type at offset 35$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Helper/Data.php
 
