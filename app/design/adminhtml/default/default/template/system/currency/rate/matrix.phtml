@@ -37,8 +37,10 @@ $_rates = ( $_newRates ) ? $_newRates : $_oldRates;
         <thead>
             <tr class="headings">
                 <th class="a-right">&nbsp;</th>
-                <?php $_i = 0; foreach( $this->getAllowedCurrencies() as $_currencyCode ): ?>
-                    <th class="<?php echo (( ++$_i == (sizeof($this->getAllowedCurrencies())) ) ? 'last' : '' ) ?> a-right"><strong><?php echo $this->escapeHtml($_currencyCode) ?><strong></th>
+                <?php $_allowedCurrencies = $this->getAllowedCurrencies(); ?>
+                <?php $_allowedCurrencyCount = count($_allowedCurrencies); ?>
+                <?php $_i = 0; foreach($_allowedCurrencies as $_currencyCode): ?>
+                    <th class="<?php echo (( ++$_i === $_allowedCurrencyCount) ? 'last' : '' ) ?> a-right"><strong><?php echo $this->escapeHtml($_currencyCode) ?><strong></th>
                 <?php endforeach ?>
             </tr>
         </thead>
