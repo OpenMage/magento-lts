@@ -142,11 +142,11 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
     public function insertFromTable($sourceTable, $destTable, $readToIndex = true)
     {
         if ($readToIndex) {
-            $sourceColumns = array_keys($this->_getWriteAdapter()->describeTable($sourceTable));
-            $targetColumns = array_keys($this->_getWriteAdapter()->describeTable($destTable));
+            $sourceColumns = array_keys($this->_getReadAdapter()->describeTable($sourceTable));
+            $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         } else {
-            $sourceColumns = array_keys($this->_getIndexAdapter()->describeTable($sourceTable));
-            $targetColumns = array_keys($this->_getWriteAdapter()->describeTable($destTable));
+            $sourceColumns = array_keys($this->_getReadAdapter()->describeTable($sourceTable));
+            $targetColumns = array_keys($this->_getReadAdapter()->describeTable($destTable));
         }
         $select = $this->_getIndexAdapter()->select()->from($sourceTable, $sourceColumns);
 
