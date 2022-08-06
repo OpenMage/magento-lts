@@ -32,7 +32,8 @@
  */
 ?>
 <?php
-    $_productCollection=$this->getLoadedProductCollection();
+    $_productCollection = $this->getLoadedProductCollection();
+    $_productCollectionCount = count($_productCollection);
     $_helper = $this->helper('catalog/output');
     $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
 ?>
@@ -45,7 +46,6 @@
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
     <ol class="products-list" id="products-list">
-    <?php $_productCollectionCount = count($_productCollection); ?>
     <?php foreach ($_productCollection as $_product): ?>
         <li class="item<?php if(++$_iterator === $_productCollectionCount): ?> last<?php endif ?>">
             <?php // Product Image ?>
