@@ -387,34 +387,29 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         return $this->_forward('index', 'report_statistics');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'sales':
                 return $this->_getSession()->isAllowed('report/salesroot/sales');
-                break;
             case 'tax':
                 return $this->_getSession()->isAllowed('report/salesroot/tax');
-                break;
             case 'shipping':
                 return $this->_getSession()->isAllowed('report/salesroot/shipping');
-                break;
             case 'invoiced':
                 return $this->_getSession()->isAllowed('report/salesroot/invoiced');
-                break;
             case 'refunded':
                 return $this->_getSession()->isAllowed('report/salesroot/refunded');
-                break;
             case 'coupons':
                 return $this->_getSession()->isAllowed('report/salesroot/coupons');
-                break;
             case 'bestsellers':
                 return $this->_getSession()->isAllowed('report/products/bestsellers');
-                break;
             default:
                 return $this->_getSession()->isAllowed('report/salesroot');
-                break;
         }
     }
 }

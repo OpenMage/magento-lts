@@ -33,6 +33,11 @@
  */
 class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/products';
 
     /**
      * Upload file controller action
@@ -78,15 +83,5 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-    }
-
-    /**
-     * Check admin permissions for this controller
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
 }

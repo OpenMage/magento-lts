@@ -417,9 +417,6 @@ class Mage_Paypal_Model_Ipn
                     throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
-// TODO: add to payment profile comments
-//            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
-//            $comment->save();
             throw $e;
         }
     }

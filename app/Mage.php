@@ -33,6 +33,8 @@ Mage::register('original_include_path', get_include_path());
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
     ini_set('display_errors', 1);
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
 }
 
 /**
@@ -220,7 +222,7 @@ final class Mage
             return array(
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '14',
+                'patch'     => '15',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             );
@@ -229,7 +231,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '16',
+            'patch'     => '17',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );

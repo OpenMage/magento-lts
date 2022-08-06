@@ -482,7 +482,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
             foreach ($methods as $method) {
                 $shipment = false;
-                if (in_array($method, array_keys($this->getCode('special_express')))) {
+                if (array_key_exists($method, $this->getCode('special_express'))) {
                     $r->setService('E');
                     $r->setExtendedService($this->getCode('special_express', $method));
                 } else {

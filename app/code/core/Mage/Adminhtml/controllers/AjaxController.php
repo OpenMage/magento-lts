@@ -56,7 +56,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
     /**
      * Check is allowed access to action
      *
-     * @return bool
+     * @return true
      */
     protected function _isAllowed()
     {

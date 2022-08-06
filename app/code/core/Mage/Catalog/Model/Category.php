@@ -419,7 +419,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         $storeCollection = Mage::getModel('core/store')->getCollection()->loadByCategoryIds($nodes);
         /** @var Mage_Core_Model_Store $store */
         foreach ($storeCollection as $store) {
-            $storeIds[$store->getId()] = $store->getId();
+            $storeId = $store->getId();
+            $storeIds[$storeId] = $storeId;
         }
 
         $entityStoreId = $this->getStoreId();
@@ -667,23 +668,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
         } else {
             return implode(',', $children);
         }
-
-//        $this->getTreeModelInstance()->load();
-//        $children = $this->getTreeModelInstance()->getChildren($this->getId());
-//
-//        $myId = array($this->getId());
-//        if (is_array($children)) {
-//            $children = array_merge($myId, $children);
-//        }
-//        else {
-//            $children = $myId;
-//        }
-//        if ($asArray) {
-//            return $children;
-//        }
-//        else {
-//            return implode(',', $children);
-//        }
     }
 
     /**

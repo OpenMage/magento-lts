@@ -415,11 +415,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function validate()
     {
-//        $this->getAttributes();
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
-//        $result = $this->_getResource()->validate($this);
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
-//        return $result;
         Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
         $this->_getResource()->validate($this);
         Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
@@ -592,7 +587,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        $ids = array_filter(array_map('intval', $ids));
+        $ids = array_filter(array_map('\intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }

@@ -39,16 +39,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         $collection = Mage::getResourceModel('tag_customer/collection')
             ->addAttributeToSelect('firstname')
             ->addAttributeToSelect('middlename')
-            ->addAttributeToSelect('lastname')
-//            ->addAttributeToSelect('email')
-//            ->addAttributeToSelect('created_at')
-//            ->joinAttribute('billing_postcode', 'customer_address/postcode', 'default_billing')
-//            ->joinAttribute('billing_city', 'customer_address/city', 'default_billing')
-//            ->joinAttribute('billing_telephone', 'customer_address/telephone', 'default_billing')
-//            ->joinAttribute('billing_country_id', 'customer_address/country_id', 'default_billing')
-//            ->joinField('billing_country_name', 'directory/country_name', 'name',
-//                'country_id=billing_country_id', array('language_code'=>'en'))
-        ;
+            ->addAttributeToSelect('lastname');
 
         if ($productId = $this->getRequest()->getParam('product_id')) {
             $collection->addProductFilter($productId);
@@ -83,32 +74,6 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             'header' => Mage::helper('tag')->__('Last Name'),
             'index'  => 'lastname',
         ));
-//        $this->addColumn('email', array(
-//            'header'    =>Mage::helper('tag')->__('Email'),
-//            'align'     =>'center',
-//            'index'     =>'email'
-//        ));
-//        $this->addColumn('Telephone', array(
-//            'header'    =>Mage::helper('tag')->__('Telephone'),
-//            'align'     =>'center',
-//            'index'     =>'billing_telephone'
-//        ));
-//        $this->addColumn('billing_postcode', array(
-//            'header'    =>Mage::helper('tag')->__('ZIP/Post Code'),
-//            'index'     =>'billing_postcode',
-//        ));
-//        $this->addColumn('billing_country_name', array(
-//            'header'    =>Mage::helper('tag')->__('Country'),
-//            #'filter'    => 'adminhtml/customer_grid_filter_country',
-//            'index'     =>'billing_country_name',
-//        ));
-//        $this->addColumn('customer_since', array(
-//            'header'    =>Mage::helper('tag')->__('Customer Since'),
-//            'type'      => 'date',
-//            'align'     => 'center',
-//            #'format'    => 'Y.m.d',
-//            'index'     =>'created_at',
-//        ));
         $this->addColumn('tags', array(
             'header'   => Mage::helper('tag')->__('Tags'),
             'index'    => 'tags',
@@ -132,8 +97,6 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
             ->setColumnFilter('middlename')
             ->setColumnFilter('lastname');
 
-//        $this->addExportType('*/*/exportCsv', Mage::helper('tag')->__('CSV'));
-//        $this->addExportType('*/*/exportXml', Mage::helper('tag')->__('XML'));
         return parent::_prepareColumns();
     }
 

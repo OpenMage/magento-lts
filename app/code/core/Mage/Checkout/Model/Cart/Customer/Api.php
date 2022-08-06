@@ -114,16 +114,8 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
         }
 
         foreach ($customerAddressData as $addressItem) {
-//            switch($addressItem['mode']) {
-//            case self::ADDRESS_BILLING:
-                /** @var Mage_Sales_Model_Quote_Address $address */
-                $address = Mage::getModel("sales/quote_address");
-//                break;
-//            case self::ADDRESS_SHIPPING:
-//                /** @var $address Mage_Sales_Model_Quote_Address */
-//                $address = Mage::getModel("sales/quote_address");
-//                break;
-//            }
+            /** @var Mage_Sales_Model_Quote_Address $address */
+            $address = Mage::getModel("sales/quote_address");
             $addressMode = $addressItem['mode'];
             unset($addressItem['mode']);
 

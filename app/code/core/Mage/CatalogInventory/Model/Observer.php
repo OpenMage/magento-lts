@@ -40,7 +40,7 @@ class Mage_CatalogInventory_Model_Observer
      * @deprecated after 1.4.2.0-rc1
      * @var array
      */
-    protected $_checkedProductsQty = array();
+    protected $_checkedProductsQty = [];
 
     /**
      * Product qty's checked
@@ -48,14 +48,14 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @var array
      */
-    protected $_checkedQuoteItems = array();
+    protected $_checkedQuoteItems = [];
 
     /**
      * Array of items that need to be reindexed
      *
      * @var array
      */
-    protected $_itemsForReindex = array();
+    protected $_itemsForReindex = [];
 
     /**
      * Array, indexed by product's id to contain stockItems of already loaded products
@@ -63,7 +63,7 @@ class Mage_CatalogInventory_Model_Observer
      *
      * @var array
      */
-    protected $_stockItemsArray = array();
+    protected $_stockItemsArray = [];
 
     /**
      * Add stock information to product
@@ -179,21 +179,21 @@ class Mage_CatalogInventory_Model_Observer
         $newProduct = $observer->getEvent()->getNewProduct();
 
         $newProduct->unsStockItem();
-        $stockData = array(
+        $stockData = [
             'use_config_min_qty'        => 1,
             'use_config_min_sale_qty'   => 1,
             'use_config_max_sale_qty'   => 1,
             'use_config_backorders'     => 1,
             'use_config_notify_stock_qty' => 1
-        );
+        ];
         $currentStockItem = $currentProduct->getStockItem();
         if ($currentStockItem) {
-            $stockData += array(
+            $stockData += [
                 'use_config_enable_qty_inc'  => $currentStockItem->getData('use_config_enable_qty_inc'),
                 'enable_qty_increments'             => $currentStockItem->getData('enable_qty_increments'),
                 'use_config_qty_increments'         => $currentStockItem->getData('use_config_qty_increments'),
                 'qty_increments'                    => $currentStockItem->getData('qty_increments'),
-            );
+            ];
         }
         $newProduct->setStockData($stockData);
 
@@ -258,10 +258,10 @@ class Mage_CatalogInventory_Model_Observer
     protected function _removeErrorsFromQuoteAndItem($item, $code)
     {
         if ($item->getHasError()) {
-            $params = array(
+            $params = [
                 'origin' => 'cataloginventory',
                 'code' => $code
-            );
+            ];
             $item->removeErrorInfosByParams($params);
         }
 
@@ -289,10 +289,10 @@ class Mage_CatalogInventory_Model_Observer
         }
 
         if ($quote->getHasError() && $canRemoveErrorFromQuote) {
-            $params = array(
+            $params = [
                 'origin' => 'cataloginventory',
                 'code' => $code
-            );
+            ];
             $quote->removeErrorInfosByParams(null, $params);
         }
 
@@ -689,10 +689,10 @@ class Mage_CatalogInventory_Model_Observer
             if ($quoteItem->getProduct()) {
                 $stockItem = $quoteItem->getProduct()->getStockItem();
             }
-            $items[$productId] = array(
+            $items[$productId] = [
                 'item' => $stockItem,
                 'qty'  => $quoteItem->getTotalQty()
-            );
+            ];
         }
     }
 
@@ -710,7 +710,7 @@ class Mage_CatalogInventory_Model_Observer
      */
     protected function _getProductsQty($relatedItems)
     {
-        $items = array();
+        $items = [];
         foreach ($relatedItems as $item) {
             $productId  = $item->getProductId();
             if (!$productId) {
@@ -729,7 +729,7 @@ class Mage_CatalogInventory_Model_Observer
     }
 
     /**
-     * Refresh stock index for specific stock items after succesful order placement
+     * Refresh stock index for specific stock items after successful order placement
      *
      * @param Varien_Event_Observer $observer
      * @return Mage_CatalogInventory_Model_Observer
@@ -739,13 +739,15 @@ class Mage_CatalogInventory_Model_Observer
         // Reindex quote ids
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
-        $productIds = array();
+        $productIds = [];
         foreach ($quote->getAllItems() as $item) {
-            $productIds[$item->getProductId()] = $item->getProductId();
+            $productId = $item->getProductId();
+            $productIds[$productId] = $productId;
             $children   = $item->getChildrenItems();
             if ($children) {
                 foreach ($children as $childItem) {
-                    $productIds[$childItem->getProductId()] = $childItem->getProductId();
+                    $childItemProductId = $childItem->getProductId();
+                    $productIds[$childItemProductId] = $childItemProductId;
                 }
             }
         }
@@ -758,10 +760,10 @@ class Mage_CatalogInventory_Model_Observer
          * This limits the number of stock re-indexing that takes place,
          * especially in stores where stock is not managed
          **/
-        $productIds = array_map('intval', $productIds);
+        $productIds = array_map('\intval', $productIds);
         $stockCollection = Mage::getModel('cataloginventory/stock_item')->getCollection()
-            ->addFieldToFilter('product_id', array('in' => $productIds))
-            ->addFieldToFilter('manage_stock', array('eq' => 1));
+            ->addFieldToFilter('product_id', ['in' => $productIds])
+            ->addFieldToFilter('manage_stock', ['eq' => 1]);
         $stockCollection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(['product_id']);
         $productIds = $stockCollection->getColumnValues('product_id');
 
@@ -770,14 +772,14 @@ class Mage_CatalogInventory_Model_Observer
         }
 
         // Reindex previously remembered items
-        $productIds = array();
+        $productIds = [];
         foreach ($this->_itemsForReindex as $item) {
             $item->save();
             $productIds[] = $item->getProductId();
         }
         Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
 
-        $this->_itemsForReindex = array(); // Clear list of remembered items - we don't need it anymore
+        $this->_itemsForReindex = []; // Clear list of remembered items - we don't need it anymore
 
         return $this;
     }
@@ -791,7 +793,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         /* @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
         $creditmemo = $observer->getEvent()->getCreditmemo();
-        $items = array();
+        $items = [];
         foreach ($creditmemo->getAllItems() as $item) {
             /* @var Mage_Sales_Model_Order_Creditmemo_Item $item */
             $return = false;
@@ -810,10 +812,10 @@ class Mage_CatalogInventory_Model_Observer
                 if (isset($items[$item->getProductId()])) {
                     $items[$item->getProductId()]['qty'] += $qty;
                 } else {
-                    $items[$item->getProductId()] = array(
+                    $items[$item->getProductId()] = [
                         'qty'  => $qty,
                         'item' => null,
-                    );
+                    ];
                 }
             }
         }
@@ -968,7 +970,7 @@ class Mage_CatalogInventory_Model_Observer
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getOrder();
-        $productIds = array();
+        $productIds = [];
 
         /**
          * Do lock only for new order

@@ -54,14 +54,14 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_roundingDeltas = array();
+    protected $_roundingDeltas = [];
 
     /**
      * Base rounding deltas
      *
      * @var array
      */
-    protected $_baseRoundingDeltas = array();
+    protected $_baseRoundingDeltas = [];
 
     /**
      * Quote address
@@ -91,14 +91,14 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      * Information about item totals for rules.
      * @var array
      */
-    protected $_rulesItemTotals = array();
+    protected $_rulesItemTotals = [];
 
     /**
      * Store information about addresses which cart fixed rule applied for
      *
      * @var array
      */
-    protected $_cartFixedRuleUsedForAddress = array();
+    protected $_cartFixedRuleUsedForAddress = [];
 
     /**
      * Defines if rule with stop further rules is already applied
@@ -320,7 +320,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $appliedRuleIds = array();
+        $appliedRuleIds = [];
         $this->_stopFurtherRules = false;
         foreach ($this->_getRules() as $rule) {
             /* @var Mage_SalesRule_Model_Rule $rule */
@@ -455,18 +455,18 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     break;
             }
 
-            $result = new Varien_Object(array(
+            $result = new Varien_Object([
                 'discount_amount'      => $discountAmount,
                 'base_discount_amount' => $baseDiscountAmount,
-            ));
-            Mage::dispatchEvent('salesrule_validator_process', array(
+            ]);
+            Mage::dispatchEvent('salesrule_validator_process', [
                 'rule'    => $rule,
                 'item'    => $item,
                 'address' => $address,
                 'quote'   => $quote,
                 'qty'     => $qty,
                 'result'  => $result,
-            ));
+            ]);
 
             $discountAmount = $result->getDiscountAmount();
             $baseDiscountAmount = $result->getBaseDiscountAmount();
@@ -511,7 +511,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $item->setOriginalDiscountAmount($originalDiscountAmount);
             $item->setBaseOriginalDiscountAmount($baseOriginalDiscountAmount);
 
-            $appliedRuleIds[$rule->getRuleId()] = $rule->getRuleId();
+            $ruleId = $rule->getRuleId();
+            $appliedRuleIds[$ruleId] = $ruleId;
 
             $this->_maintainAddressCouponCode($address, $rule);
             $this->_addDiscountDescription($address, $rule);
@@ -759,7 +760,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $baseShippingAmount = $address->getBaseShippingAmount();
         }
         $quote              = $address->getQuote();
-        $appliedRuleIds = array();
+        $appliedRuleIds = [];
         foreach ($this->_getRules() as $rule) {
             /* @var Mage_SalesRule_Model_Rule $rule */
             if (!$rule->getApplyToShipping() || !$this->_canProcessRule($rule, $address)) {
@@ -818,7 +819,8 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             );
             $address->setShippingDiscountAmount($discountAmount);
             $address->setBaseShippingDiscountAmount($baseDiscountAmount);
-            $appliedRuleIds[$rule->getRuleId()] = $rule->getRuleId();
+            $ruleId = $rule->getRuleId();
+            $appliedRuleIds[$ruleId] = $ruleId;
 
             $this->_maintainAddressCouponCode($address, $rule);
             $this->_addDiscountDescription($address, $rule);
@@ -844,10 +846,10 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     public function mergeIds($a1, $a2, $asString = true)
     {
         if (!is_array($a1)) {
-            $a1 = empty($a1) ? array() : explode(',', $a1);
+            $a1 = empty($a1) ? [] : explode(',', $a1);
         }
         if (!is_array($a2)) {
-            $a2 = empty($a2) ? array() : explode(',', $a2);
+            $a2 = empty($a2) ? [] : explode(',', $a2);
         }
         $a = array_unique(array_merge($a1, $a2));
         if ($asString) {
@@ -890,7 +892,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     public function initTotals($items, Mage_Sales_Model_Quote_Address $address)
     {
-        $address->setCartFixedRules(array());
+        $address->setCartFixedRules([]);
 
         if (!$items) {
             return $this;
@@ -917,11 +919,11 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     $validItemsCount++;
                 }
 
-                $this->_rulesItemTotals[$rule->getId()] = array(
+                $this->_rulesItemTotals[$rule->getId()] = [
                     'items_price' => $ruleTotalItemsPrice,
                     'base_items_price' => $ruleTotalBaseItemsPrice,
                     'items_count' => $validItemsCount,
-                );
+                ];
             }
         }
         $this->_stopFurtherRules = false;
@@ -1090,12 +1092,12 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     public function sortItemsByPriority($items)
     {
-        $itemsSorted = array();
+        $itemsSorted = [];
         foreach ($this->_getRules() as $rule) {
             foreach ($items as $itemKey => $itemValue) {
                 if ($rule->getActions()->validate($itemValue)) {
                     unset($items[$itemKey]);
-                    array_push($itemsSorted, $itemValue);
+                    $itemsSorted[] = $itemValue;
                 }
             }
         }

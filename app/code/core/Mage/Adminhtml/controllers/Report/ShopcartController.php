@@ -153,22 +153,21 @@ class Mage_Adminhtml_Report_ShopcartController extends Mage_Adminhtml_Controller
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'customer':
                 return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/customer');
-                break;
             case 'product':
                 return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/product');
-                break;
             case 'abandoned':
                 return Mage::getSingleton('admin/session')->isAllowed('report/shopcart/abandoned');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('report/shopcart');
-                break;
         }
     }
 }

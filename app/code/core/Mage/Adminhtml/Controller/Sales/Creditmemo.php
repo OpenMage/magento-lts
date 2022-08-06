@@ -32,6 +32,12 @@
 class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/creditmemo';
+
+    /**
      * Additional initialization
      *
      */
@@ -99,7 +105,8 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         }
     }
 
-    public function pdfcreditmemosAction(){
+    public function pdfcreditmemosAction()
+    {
         $creditmemosIds = $this->getRequest()->getPost('creditmemo_ids');
         if (!empty($creditmemosIds)) {
             $invoices = Mage::getResourceModel('sales/order_creditmemo_collection')
@@ -123,14 +130,8 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
                 $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
                     '.pdf', $pdf->render(), 'application/pdf');
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/creditmemo');
     }
 }

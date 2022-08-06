@@ -217,7 +217,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -228,9 +228,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check the permission to run it
-     *
-     * @return boolean
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -239,13 +237,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             case 'new':
             case 'save':
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-                break;
             case 'delete':
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-                break;
         }
     }
 

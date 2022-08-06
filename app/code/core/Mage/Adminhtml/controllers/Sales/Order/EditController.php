@@ -35,6 +35,12 @@ require_once('CreateController.php');
 class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/order/actions/edit';
+
+    /**
      * Start edit order initialization
      */
     public function startAction()
@@ -72,15 +78,5 @@ class Mage_Adminhtml_Sales_Order_EditController extends Mage_Adminhtml_Sales_Ord
         $this->_initSession()
             ->_setActiveMenu('sales/order')
             ->renderLayout();
-    }
-
-    /**
-     * Acl check for admin
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/edit');
     }
 }

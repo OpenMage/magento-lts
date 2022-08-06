@@ -338,8 +338,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check currently called action by permissions for current user
-     *
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -347,13 +346,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'pending':
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-                break;
             case 'all':
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-                break;
         }
     }
 }

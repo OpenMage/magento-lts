@@ -35,6 +35,12 @@
 class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/widget_instance';
+
+    /**
      * Chooser Source action
      *
      * @throws Mage_Core_Exception
@@ -72,15 +78,5 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
         }
 
         $this->getResponse()->setBody($html);
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
 }

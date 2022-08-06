@@ -26,7 +26,13 @@
 class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/api/users';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -154,8 +160,6 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
             try {
                 $model->save();
                 if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
-                    /*parse_str($uRoles, $uRoles);
-                    $uRoles = array_keys($uRoles);*/
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
@@ -235,13 +239,6 @@ class Mage_Adminhtml_Api_UserController extends Mage_Adminhtml_Controller_Action
         $this->getResponse()
             ->setBody($this->getLayout()
             ->createBlock('adminhtml/api_user_grid')
-            ->toHtml()
-        );
+            ->toHtml());
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/api/users');
-    }
-
 }
