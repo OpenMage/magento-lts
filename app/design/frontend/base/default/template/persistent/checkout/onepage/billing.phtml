@@ -218,7 +218,7 @@
     //billingForm.setElementsRelation('billing:country_id', 'billing:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...')) ?>');
     $('billing-address-select') && billing.newAddress(!$('billing-address-select').value);
 
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'billing:postcode');
+    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'billing:region', 'billing:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'billing:postcode');
     if ($('onepage-guest-register-button')) {
         Event.observe($('onepage-guest-register-button'), 'click', function(event) {
             var billingRememberMe = $('co-billing-form').select('#remember-me-box');

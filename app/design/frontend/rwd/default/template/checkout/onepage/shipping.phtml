@@ -153,6 +153,6 @@
     //shippingForm.setElementsRelation('shipping:country_id', 'shipping:region', '<?php echo $this->getUrl('directory/json/childRegion') ?>', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Select State/Province...')) ?>');
     $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
-    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
+    var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'shipping:postcode');
 //]]>
 </script>
