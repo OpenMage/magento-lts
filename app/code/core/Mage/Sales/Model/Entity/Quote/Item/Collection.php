@@ -123,9 +123,10 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
      */
     protected function _getProductCollection()
     {
-        $productIds = array();
+        $productIds = [];
         foreach ($this as $item) {
-            $productIds[$item->getProductId()] = $item->getProductId();
+            $productId = $item->getProductId();
+            $productIds[$productId] = $productId;
             if ($item->getSuperProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getSuperProductId();
             }

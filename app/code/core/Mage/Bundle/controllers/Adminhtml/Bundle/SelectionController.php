@@ -33,6 +33,12 @@
  */
 class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/products';
+
     protected function _construct()
     {
         $this->setUsedModuleName('Mage_Bundle');
@@ -66,14 +72,5 @@ class Mage_Bundle_Adminhtml_Bundle_SelectionController extends Mage_Adminhtml_Co
                 ->setIndex($this->getRequest()->getParam('index'))
                 ->toHtml()
         );
-    }
-    /**
-     * Check for is allowed
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
 }

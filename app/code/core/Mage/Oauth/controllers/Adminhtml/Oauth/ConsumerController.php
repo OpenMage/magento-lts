@@ -237,9 +237,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     }
 
     /**
-     * Check admin permissions for this controller
-     *
-     * @return boolean
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

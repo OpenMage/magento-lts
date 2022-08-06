@@ -463,6 +463,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $this->_prepareDownloadResponse('tax_rates.csv', $content);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
 
@@ -470,13 +473,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         switch ($action) {
             case 'importexport':
                 return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
-                break;
             case 'index':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-                break;
         }
     }
 }

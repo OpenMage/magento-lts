@@ -643,7 +643,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         switch ($request->getParam('massaction_prepare_key')) {
             case 'shipment_ids':
                 $ids = $request->getParam('shipment_ids');
-                array_filter($ids, 'intval');
+                array_filter($ids, '\intval');
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->addFieldToFilter('entity_id', array('in' => $ids));
@@ -651,7 +651,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
                 break;
             case 'order_ids':
                 $ids = $request->getParam('order_ids');
-                array_filter($ids, 'intval');
+                array_filter($ids, '\intval');
                 if (!empty($ids)) {
                     $shipments = Mage::getResourceModel('sales/order_shipment_collection')
                         ->setOrderFilter(array('in' => $ids));

@@ -52,7 +52,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 Mage::app()->saveCache(
                     $config->getXmlString(),
                     'widget_config',
-                    array(Mage_Core_Model_Config::CACHE_TAG)
+                    [Mage_Core_Model_Config::CACHE_TAG]
                 );
             }
         }
@@ -112,7 +112,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
 
         // Correct widget parameters and convert its data to objects
         $params = $object->getData('parameters');
-        $newParams = array();
+        $newParams = [];
         if (is_array($params)) {
             $sortOrder = 0;
             foreach ($params as $key => $data) {
@@ -121,7 +121,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $data['sort_order'] = isset($data['sort_order']) ? (int)$data['sort_order'] : $sortOrder;
 
                     // prepare values (for drop-dawns) specified directly in configuration
-                    $values = array();
+                    $values = [];
                     if (isset($data['values']) && is_array($data['values'])) {
                         foreach ($data['values'] as $value) {
                             if (isset($value['label']) && isset($value['value'])) {
@@ -148,7 +148,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
-        uasort($newParams, array($this, '_sortParameters'));
+        uasort($newParams, [$this, '_sortParameters']);
         $object->setData('parameters', $newParams);
 
         return $object;
@@ -160,7 +160,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      * @param array $filters Key-value array of filters for widget node properties
      * @return Varien_Simplexml_Element
      */
-    public function getWidgetsXml($filters = array())
+    public function getWidgetsXml($filters = [])
     {
         $widgets = $this->getXmlConfig()->getNode();
         $result = clone $widgets;
@@ -191,22 +191,23 @@ class Mage_Widget_Model_Widget extends Varien_Object
      * @param array $filters Key-value array of filters for widget node properties
      * @return array
      */
-    public function getWidgetsArray($filters = array())
+    public function getWidgetsArray($filters = [])
     {
         if (!$this->_getData('widgets_array')) {
-            $result = array();
+            $result = [];
             /** @var Varien_Simplexml_Element $widget */
             foreach ($this->getWidgetsXml($filters) as $widget) {
                 $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'widget';
                 $helper = Mage::helper($helper);
-                $result[$widget->getName()] = array(
+                $widgetName = $widget->getName();
+                $result[$widgetName] = [
                     'name'          => $helper->__((string)$widget->name),
-                    'code'          => $widget->getName(),
+                    'code'          => $widgetName,
                     'type'          => $widget->getAttribute('type'),
                     'description'   => $helper->__((string)$widget->description)
-                );
+                ];
             }
-            usort($result, array($this, "_sortWidgets"));
+            usort($result, [$this, "_sortWidgets"]);
             $this->setData('widgets_array', $result);
         }
         return $this->_getData('widgets_array');
@@ -220,7 +221,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      * @param bool $asIs Return result as widget directive(true) or as placeholder image(false)
      * @return string Widget directive ready to parse
      */
-    public function getWidgetDeclaration($type, $params = array(), $asIs = true)
+    public function getWidgetDeclaration($type, $params = [], $asIs = true)
     {
         $directive = '{{widget type="' . $type . '"';
 
@@ -268,7 +269,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     public function getWidgetsRequiredJsFiles()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getWidgetsXml() as $widget) {
             if ($widget->js) {
                 foreach (explode(',', (string)$widget->js) as $js) {

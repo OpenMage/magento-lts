@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/acl/variables';
+
+    /**
      * @return $this
      */
     protected function _initAction()
@@ -198,18 +204,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
     {
         $this->getResponse()
             ->setBody($this->getLayout()
-                ->createBlock('adminhtml/permissions_variable_grid')
-                ->toHtml()
-            );
-    }
-
-    /**
-     * Check permissions before allow edit list of config variables
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/acl/variables');
+            ->createBlock('adminhtml/permissions_variable_grid')
+            ->toHtml());
     }
 }

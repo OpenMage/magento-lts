@@ -723,7 +723,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         if ($siblingName === '') {
             if ($after) {
-                array_push($this->_sortedChildren, $name);
+                $this->_sortedChildren[] = $name;
             } else {
                 array_unshift($this->_sortedChildren, $name);
             }
@@ -736,7 +736,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 array_splice($this->_sortedChildren, $key, 0, $name);
             } else {
                 if ($after) {
-                    array_push($this->_sortedChildren, $name);
+                    $this->_sortedChildren[] = $name;
                 } else {
                     array_unshift($this->_sortedChildren, $name);
                 }

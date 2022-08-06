@@ -34,6 +34,12 @@
 class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/currency/symbols';
+
+    /**
      * Show Currency Symbols Management dialog
      */
     public function indexAction()
@@ -86,15 +92,5 @@ class Mage_CurrencySymbol_Adminhtml_System_CurrencysymbolController extends Mage
     {
         Mage::getModel('currencysymbol/system_currencysymbol')->resetValues();
         $this->_redirectReferer();
-    }
-
-    /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/currency/symbols');
     }
 }

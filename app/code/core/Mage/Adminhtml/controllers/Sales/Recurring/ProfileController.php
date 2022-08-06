@@ -32,9 +32,15 @@
 class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/recurring_profile';
+
+    /**
      * Recurring profiles list
      *
-     * @return void
+     * @return $this
      */
     public function indexAction()
     {
@@ -173,7 +179,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
     /**
      * Initialize customer by ID specified in request
      *
-     * @return Mage_Adminhtml_Sales_Billing_AgreementController
+     * @return $this
      */
     protected function _initCustomer()
     {
@@ -201,15 +207,5 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
         }
         Mage::register('current_recurring_profile', $profile);
         return $profile;
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/recurring_profile');
     }
 }

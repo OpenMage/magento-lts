@@ -34,12 +34,18 @@
 class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/sitemap';
+
+    /**
      * Maximum sitemap name length
      */
     const MAXIMUM_SITEMAP_NAME_LENGTH = 32;
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -300,15 +306,5 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
 
         // go to grid
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/sitemap');
     }
 }
