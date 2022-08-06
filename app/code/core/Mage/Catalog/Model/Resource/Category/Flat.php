@@ -665,7 +665,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $helper = Mage::getResourceHelper('catalog');
         $columns = array();
         $columnsToSkip = array('entity_type_id', 'attribute_set_id');
-        $describe = $this->_getWriteAdapter()->describeTable($this->getTable('catalog/category'));
+        $describe = $this->_getReadAdapter()->describeTable($this->getTable('catalog/category'));
 
         foreach ($describe as $column) {
             if (in_array($column['COLUMN_NAME'], $columnsToSkip)) {
@@ -1161,7 +1161,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $table = $this->getMainStoreTable($category->getStoreId());
         $this->_getWriteAdapter()->resetDdlCache($table);
-        $table = $this->_getWriteAdapter()->describeTable($table);
+        $table = $this->_getReadAdapter()->describeTable($table);
         $data = array();
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
         foreach ($table as $column => $columnData) {
