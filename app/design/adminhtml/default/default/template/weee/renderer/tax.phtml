@@ -114,7 +114,7 @@
             $(data.prefix + '_weee_tax_row_'+data.index+'_country').value = data.country;
             $(data.prefix + '_weee_tax_row_'+data.index+'_website').value = data.website_id;
 
-            updater = new RegionUpdater(data.prefix + '_weee_tax_row_'+data.index+'_country', null, data.prefix + '_weee_tax_row_'+data.index+'_state', <?php echo $this->helper('directory')->getRegionJson() ?>, 'disable', true);
+            updater = new RegionUpdater(data.prefix + '_weee_tax_row_'+data.index+'_country', null, data.prefix + '_weee_tax_row_'+data.index+'_state', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, 'disable', true);
             updater.update();
 
             $(data.prefix + '_weee_tax_row_'+data.index+'_state').value   = data.state;
