@@ -92,4 +92,24 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         }
         return $this->_username;
     }
+
+    /**
+     * Can show the login form?
+     *
+     * @return bool
+     */
+    public function canShowLogin()
+    {
+        if (Mage::helper('customer')->isLoggedIn()) {
+            return false;
+        }
+
+        // Set redirect URL after login
+        $url = Mage::getStoreConfigFlag(Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)
+            ? Mage::helper('customer')->getDashboardUrl()
+            : Mage::getUrl('*/*/*', ['_current' => true]);
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl($url);
+
+        return true;
+    }
 }
