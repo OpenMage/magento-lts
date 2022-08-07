@@ -146,7 +146,7 @@
 </div>
 <script type="text/javascript">
 //<![CDATA[
-    var <?php echo $prefix ?>RegionUpdater = new RegionUpdater('<?php echo $prefix ?>:country_id', '<?php echo $prefix ?>:region', '<?php echo $prefix ?>:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, '<?php echo $prefix ?>:postcode');
+    var <?php echo $prefix ?>RegionUpdater = new RegionUpdater('<?php echo $prefix ?>:country_id', '<?php echo $prefix ?>:region', '<?php echo $prefix ?>:region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, '<?php echo $prefix ?>:postcode');
     <?php echo $prefix ?>RegionUpdater.update();
 //]]>
 </script>

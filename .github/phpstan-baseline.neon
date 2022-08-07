@@ -291,11 +291,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Cms/Page/Grid.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegionJsonByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Renderer/Region.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
@@ -4506,11 +4501,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegionJson\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Block/Adminhtml/Frontend/Region/Updater.php
-
-		-
 			message: "#^Cannot call method addCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Directory/Block/Data.php
@@ -7334,11 +7324,6 @@ parameters:
 			message: "#^Cannot call method loadByTagCustomer\\(\\) on object\\|string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRegionJson\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Frontend/Region/Updater.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:validateCatalogPricesAndFptConfiguration\\(\\)\\.$#"
