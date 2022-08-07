@@ -24,18 +24,18 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php  $_results = $this->getTrackingInfo() ?>
+<?php $_results = $this->getTrackingInfo() ?>
 <div class="shipping-tracking">
 <div class="button-set">
 <button class="form-button" onclick="window.close();window.opener.focus();"><span><?php echo $this->__('Close Window') ?></span></button>
 </div>
-<?php if(sizeof($_results)>0): ?>
+<?php if(count($_results) > 0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
     <?php if($shipid): ?>
     <div class="box-header"><?php echo $this->__('Shipment #').$shipid; ?></div>
     <?php endif ?>
-    <?php if(sizeof($_result)>0): ?>
-        <?php $rowCount = sizeof($_result); $counter = 1; ?>
+    <?php if(($rowCount = count($_result)) > 0): ?>
+        <?php $counter = 1; ?>
         <?php foreach($_result as $track): ?>
         <table class="generic-table">
             <?php if(is_object($track)): ?>
@@ -125,7 +125,7 @@
 
                 </table>
 
-                <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+                <?php if (is_object($track) && count($track->getProgressdetail()) > 0): ?>
                 <br />
                 <table cellspacing="0" class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
                     <thead>
