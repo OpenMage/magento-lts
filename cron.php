@@ -46,6 +46,8 @@ umask(0);
 $disabledFuncs = array_map('trim', explode(',', strtolower(ini_get('disable_functions'))));
 $isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
 $isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
+if (!$isShellDisabled && !shell_exec('which ps 2>/dev/null')) $isShellDisabled = true;
+if (!$isShellDisabled && !shell_exec('which sed 2>/dev/null')) $isShellDisabled = true;
 
 try {
     if (stripos(PHP_OS, 'win') === false) {
@@ -62,8 +64,8 @@ try {
             $fileName = escapeshellarg(basename(__FILE__));
             $cronPath = escapeshellarg(__DIR__ . '/cron.sh');
 
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " > /dev/null 2>&1 &");
-            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " > /dev/null 2>&1 &");
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -mdefault 1") . " &");
+            shell_exec(escapeshellcmd("/bin/sh $cronPath $fileName -malways 1") . " &");
             exit;
         }
     }
