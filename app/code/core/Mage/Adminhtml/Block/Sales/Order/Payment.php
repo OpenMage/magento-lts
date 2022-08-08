@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Sales_Order_Payment extends Mage_Adminhtml_Block_Temp
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block'));
         }
         $this->setPayment($this->getParentBlock()->getOrder()->getPayment());
-        parent::_beforeToHtml();
+        return parent::_beforeToHtml();
     }
 
     public function setPayment($payment)

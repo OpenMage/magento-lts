@@ -184,4 +184,4 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
 
         return true;
     }
-} // Class Mage_Customer_Model_Address_Api End
+}

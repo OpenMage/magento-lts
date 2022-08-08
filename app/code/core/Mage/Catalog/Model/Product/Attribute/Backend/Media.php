@@ -167,12 +167,12 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $object->setData($mediaAttrCode, 'no_selection');
             }
 
-            if (in_array($attrData, array_keys($newImages))) {
+            if (array_key_exists($attrData, $newImages)) {
                 $object->setData($mediaAttrCode, $newImages[$attrData]['new_file']);
                 $object->setData($mediaAttrCode.'_label', $newImages[$attrData]['label']);
             }
 
-            if (in_array($attrData, array_keys($existImages))) {
+            if (array_key_exists($attrData, $existImages)) {
                 $object->setData($mediaAttrCode.'_label', $existImages[$attrData]['label']);
             }
         }
@@ -235,7 +235,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         $toDelete = array();
-        $filesToValueIds = array();
         foreach ($value['images'] as &$image) {
             if (!empty($image['removed'])) {
                 if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
@@ -278,6 +277,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean                    $move              if true, it will move source file
      * @param boolean                    $exclude           mark image as disabled in product page view
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function addImage(
         Mage_Catalog_Model_Product $product,
@@ -376,6 +376,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * @param boolean $move if true, it will move source file
      * @param boolean $exclude mark image as disabled in product page view
      * @return array array of parallel arrays with original and renamed files
+     * @throws Mage_Core_Exception
      */
     public function addImagesWithDifferentMediaAttributes(
         Mage_Catalog_Model_Product $product,
@@ -584,7 +585,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         }
 
         if (strrpos($file, '.tmp') == strlen($file)-4) {
-            $file = substr($file, 0, strlen($file)-4);
+            $file = substr($file, 0, -4);
         }
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
@@ -637,6 +638,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      *
      * @param string $file
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _copyImage($file)
     {

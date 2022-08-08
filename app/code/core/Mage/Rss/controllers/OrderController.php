@@ -77,7 +77,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * Controller predispatch method to change area for some specific action.
+     * Controller pre-dispatch method to change area for some specific action.
      *
      * @return $this
      */

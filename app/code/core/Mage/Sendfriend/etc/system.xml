@@ -30,7 +30,6 @@
         <sendfriend translate="label" module="sendfriend">
             <label>Email to a Friend</label>
             <tab>catalog</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>120</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -38,7 +37,6 @@
             <groups>
                 <email translate="label">
                     <label>Email Templates</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -74,7 +72,6 @@
                         </allow_guest>
                         <max_recipients translate="label">
                             <label>Max Recipients</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -83,7 +80,6 @@
                         </max_recipients>
                         <max_per_hour translate="label">
                             <label>Max Products Sent in 1 Hour</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

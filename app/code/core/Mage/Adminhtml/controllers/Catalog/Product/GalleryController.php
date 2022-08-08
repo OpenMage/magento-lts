@@ -33,6 +33,12 @@
  */
 class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/products';
+
     public function uploadAction()
     {
         try {
@@ -80,9 +86,4 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
-    }
-} // Class Mage_Adminhtml_Catalog_Product_GalleryController End
+}

@@ -34,6 +34,12 @@
 class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/config';
+
+    /**
      * Whether current section is allowed
      *
      * @var bool
@@ -41,7 +47,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     protected $_isSectionAllowedFlag = true;
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      * Check if current section is found and is allowed
      *
      * @return $this
@@ -243,7 +249,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     public function exportTableratesAction()
     {
         $fileName   = 'tablerates.csv';
-        /** @var $gridBlock Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid */
+        /** @var Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid $gridBlock */
         $gridBlock  = $this->getLayout()->createBlock('adminhtml/shipping_carrier_tablerate_grid');
         $website    = Mage::app()->getWebsite($this->getRequest()->getParam('website'));
         if ($this->getRequest()->getParam('conditionName')) {
@@ -254,16 +260,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
-    }
-
-    /**
-     * Check is allow modify system configuration
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 
     /**

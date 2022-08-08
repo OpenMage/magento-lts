@@ -131,7 +131,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         } else if(count($this->_defaultFilter)) {
             $this->_setFilterValues($this->_defaultFilter);
         }
-        /** @var $collection Mage_Reports_Model_Resource_Report_Collection */
+        /** @var Mage_Reports_Model_Resource_Report_Collection $collection */
         $collection = Mage::getResourceModel('reports/report_collection');
 
         $collection->setPeriod($this->getFilter('report_period'));

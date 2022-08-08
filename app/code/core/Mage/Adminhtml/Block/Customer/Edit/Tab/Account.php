@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $customer = Mage::registry('current_customer');
 
-        /** @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setEntity($customer)
             ->setFormCode('adminhtml_customer')
@@ -115,14 +115,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         }
         $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
         $form->getElement('website_id')->setRenderer($renderer);
-
-//        if (Mage::app()->isSingleStoreMode()) {
-//            $fieldset->removeField('website_id');
-//            $fieldset->addField('website_id', 'hidden', array(
-//                'name'      => 'website_id'
-//            ));
-//            $customer->setWebsiteId(Mage::app()->getStore(true)->getWebsiteId());
-//        }
 
         $customerStoreId = null;
         if ($customer->getId()) {

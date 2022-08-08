@@ -34,6 +34,12 @@
 
 class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/myaccount';
+
     public function indexAction()
     {
         $this->_title($this->__('System'))->_title($this->__('My Account'));
@@ -94,10 +100,5 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
         $this->getResponse()->setRedirect($this->getUrl("*/*/"));
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/myaccount');
     }
 }

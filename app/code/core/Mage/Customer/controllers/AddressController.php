@@ -118,6 +118,8 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 $existsAddress = $customer->getAddressById($addressId);
                 if ($existsAddress->getId() && $existsAddress->getCustomerId() == $customer->getId()) {
                     $address->setId($existsAddress->getId());
+                } else {
+                    throw new Exception($this->__('Provided address does not belong to the logged in customer.'));
                 }
             }
 

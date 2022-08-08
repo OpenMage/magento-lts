@@ -1595,7 +1595,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($this->getMessages() as $message) {
             /* @var Mage_Core_Model_Message_Abstract $error */
             if ($message->getType() == Mage_Core_Model_Message::ERROR) {
-                array_push($errors, $message);
+                $errors[] = $message;
             }
         }
         return $errors;

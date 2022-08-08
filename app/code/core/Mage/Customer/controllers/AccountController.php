@@ -851,7 +851,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $errorMessages = array();
         if (iconv_strlen($password) <= 0) {
-            array_push($errorMessages, $this->_getHelper('customer')->__('New password field cannot be empty.'));
+            $errorMessages[] = $this->_getHelper('customer')->__('New password field cannot be empty.');
         }
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_getModel('customer/customer')->load($customerId);
@@ -1081,7 +1081,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array
+     * @param array $data
      * @return array
      */
     protected function _filterPostData($data)

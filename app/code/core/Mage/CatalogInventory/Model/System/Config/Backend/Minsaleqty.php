@@ -48,5 +48,6 @@ class Mage_CatalogInventory_Model_System_Config_Backend_Minsaleqty extends Mage_
         $value = $this->getValue();
         $value = Mage::helper('cataloginventory/minsaleqty')->makeStorableArrayFieldValue($value);
         $this->setValue($value);
+        return $this;
     }
 }

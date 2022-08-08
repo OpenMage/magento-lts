@@ -42,7 +42,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Varien_Data_Form_Element_Editor constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
 
@@ -145,7 +145,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         } else {
             // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url')) {
+            if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 $html = $this->_wrapIntoContainer($html);
                 return $html;
@@ -227,15 +227,15 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $buttonsHtml .= $this->_getButtonHtml(array(
                 'title'     => $this->translate('Insert Image...'),
                 'onclick'   => "MediabrowserUtility.openDialog('" .
-                               $this->getConfig('files_browser_window_url') .
-                               "target_element_id/" . $this->getHtmlId() . "/" .
-                                ((null !== $this->getConfig('store_id'))
-                                    ? ('store/' . $this->getConfig('store_id') . '/')
-                                    : '')
-                               . "')",
-            'class'     => 'add-image plugin',
-            'style'     => $visible ? '' : 'display:none',
-        ));
+                                   $this->getConfig('files_browser_window_url') .
+                                   "target_element_id/" . $this->getHtmlId() . "/" .
+                                   ((null !== $this->getConfig('store_id'))
+                                       ? ('store/' . $this->getConfig('store_id') . '/')
+                                       : '') .
+                               "')",
+                'class'     => 'add-image plugin',
+                'style'     => $visible ? '' : 'display:none',
+            ));
         }
 
         foreach ($this->getConfig('plugins') as $plugin) {

@@ -360,20 +360,20 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * @param string $frontName
-     * @param string $moduleName
+     * @param array $moduleNames
      * @param string $routeName
      * @return $this
      */
-    public function addModule($frontName, $moduleName, $routeName)
+    public function addModule($frontName, $moduleNames, $routeName)
     {
-        $this->_modules[$frontName] = $moduleName;
+        $this->_modules[$frontName] = $moduleNames;
         $this->_routes[$routeName] = $frontName;
         return $this;
     }
 
     /**
      * @param string $frontName
-     * @return bool|string
+     * @return bool|array
      */
     public function getModuleByFrontName($frontName)
     {

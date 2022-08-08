@@ -9,6 +9,7 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
+  "contributorTemplate": "<a href=\"<%= contributor.profile %>\"><img src=\"<%= contributor.avatar_url %>\" loading=\"lazy\" width=\"<%= options.imageSize %>\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
   "contributors": [
     {
       "login": "sreichel",
@@ -1323,6 +1324,30 @@
       "name": "Tino Mewes",
       "avatar_url": "https://avatars.githubusercontent.com/u/12640514?v=4",
       "profile": "https://github.com/tmewes",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cebe",
+      "name": "Carsten Brandt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/189796?v=4",
+      "profile": "http://cebe.cc/"
+    },
+    {
+      "login": "eneiasramos",
+      "name": "Enéias Ramos de Melo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2862728?v=4",
+      "profile": "https://github.com/eneiasramos",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "discountscott",
+      "name": "Scott Moore",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5454596?v=4",
+      "profile": "https://github.com/discountscott",
       "contributions": [
         "code"
       ]

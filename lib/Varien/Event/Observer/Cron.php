@@ -49,7 +49,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function isValidFor(Varien_Event $event)
     {
         $e = preg_split('#\s+#', $this->getCronExpr(), null, PREG_SPLIT_NO_EMPTY);
-        if (sizeof($e)!==5) {
+        if (count($e) !== 5) {
             return false;
         }
 
@@ -98,7 +98,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         // handle modulus
         if (strpos($expr,'/')!==false) {
             $e = explode('/', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e) !== 2) {
                 return false;
             }
             $expr = $e[0];
@@ -113,7 +113,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         // handle range
         if (strpos($expr,'-')!==false) {
             $e = explode('-', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e) !== 2) {
                 return false;
             }
 

@@ -53,25 +53,26 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     {
         $shipmentId = $this->getShipment()->getId();
         $orderId = $this->getRequest()->getParam('order_id');
-        $urlParams = array();
+        $urlParams = [];
 
-        $itemsQty       = array();
-        $itemsPrice     = array();
-        $itemsName      = array();
-        $itemsWeight    = array();
-        $itemsProductId = array();
+        $itemsQty       = [];
+        $itemsPrice     = [];
+        $itemsName      = [];
+        $itemsWeight    = [];
+        $itemsProductId = [];
 
         if ($shipmentId) {
             $urlParams['shipment_id'] = $shipmentId;
             $createLabelUrl = $this->getUrl('*/sales_order_shipment/createLabel', $urlParams);
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
             foreach ($this->getShipment()->getAllItems() as $item) {
-                $itemsQty[$item->getId()]           = $item->getQty();
-                $itemsPrice[$item->getId()]         = $item->getPrice();
-                $itemsName[$item->getId()]          = $item->getName();
-                $itemsWeight[$item->getId()]        = $item->getWeight();
-                $itemsProductId[$item->getId()]     = $item->getProductId();
-                $itemsOrderItemId[$item->getId()]   = $item->getOrderItemId();
+                $itemId = $item->getId();
+                $itemsQty[$itemId]           = $item->getQty();
+                $itemsPrice[$itemId]         = $item->getPrice();
+                $itemsName[$itemId]          = $item->getName();
+                $itemsWeight[$itemId]        = $item->getWeight();
+                $itemsProductId[$itemId]     = $item->getProductId();
+                $itemsOrderItemId[$itemId]   = $item->getOrderItemId();
             }
         } else if ($orderId) {
             $urlParams['order_id'] = $orderId;
@@ -79,15 +80,16 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $itemsGridUrl = $this->getUrl('*/sales_order_shipment/getShippingItemsGrid', $urlParams);
 
             foreach ($this->getShipment()->getAllItems() as $item) {
-                $itemsQty[$item->getOrderItemId()]          = $item->getQty()*1;
-                $itemsPrice[$item->getOrderItemId()]        = $item->getPrice();
-                $itemsName[$item->getOrderItemId()]         = $item->getName();
-                $itemsWeight[$item->getOrderItemId()]       = $item->getWeight();
-                $itemsProductId[$item->getOrderItemId()]    = $item->getProductId();
-                $itemsOrderItemId[$item->getOrderItemId()]  = $item->getOrderItemId();
+                $orderItemId = $item->getOrderItemId();
+                $itemsQty[$orderItemId]          = $item->getQty()*1;
+                $itemsPrice[$orderItemId]        = $item->getPrice();
+                $itemsName[$orderItemId]         = $item->getName();
+                $itemsWeight[$orderItemId]       = $item->getWeight();
+                $itemsProductId[$orderItemId]    = $item->getProductId();
+                $itemsOrderItemId[$orderItemId]  = $orderItemId;
             }
         }
-        $data = array(
+        $data = [
             'createLabelUrl'            => $createLabelUrl,
             'itemsGridUrl'              => $itemsGridUrl,
             'errorQtyOverLimit'         => Mage::helper('sales')->__('The quantity you want to add exceeds the total shipped quantity for some of selected Product(s)'),
@@ -100,7 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             'shipmentItemsProductId'    => $itemsProductId,
             'shipmentItemsOrderItemId'  => $itemsOrderItemId,
             'customizable'              => $this->_getCustomizableContainers(),
-        );
+        ];
         return Mage::helper('core')->jsonEncode($data);
     }
 
@@ -117,14 +119,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $carrier = $order->getShippingCarrier();
         $countryShipper = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $storeId);
         if ($carrier) {
-            $params = new Varien_Object(array(
+            $params = new Varien_Object([
                 'method' => $order->getShippingMethod(true)->getMethod(),
                 'country_shipper' => $countryShipper,
                 'country_recipient' => $address->getCountryId(),
-            ));
+            ]);
             return $carrier->getContainerTypes($params);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -138,7 +140,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($carrier) {
             return $carrier->getCustomizableContainerTypes();
         }
-        return array();
+        return [];
     }
 
     /**
@@ -169,7 +171,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $countryId = $this->getShipment()->getOrder()->getShippingAddress()->getCountryId();
         $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
         if ($carrier) {
-            $params = new Varien_Object(array('country_recipient' => $countryId));
+            $params = new Varien_Object(['country_recipient' => $countryId]);
             $confirmationTypes = $carrier->getDeliveryConfirmationTypes($params);
             $confirmationType = !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
             return $confirmationType;
@@ -203,7 +205,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($packages) {
             $packages = unserialize($packages, ['allowed_classes' => false]);
         } else {
-            $packages = array();
+            $packages = [];
         }
         return $packages;
     }
@@ -211,8 +213,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Get item of shipment by its id
      *
-     * @param  $itemId
-     * @param  $itemsOf
+     * @param int $itemId
+     * @param string $itemsOf
      * @return Varien_Object
      */
     public function getShipmentItem($itemId, $itemsOf)
@@ -258,11 +260,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     {
         $countryId = $this->getShipment()->getOrder()->getShippingAddress()->getCountryId();
         $carrier = $this->getShipment()->getOrder()->getShippingCarrier();
-        $params = new Varien_Object(array('country_recipient' => $countryId));
+        $params = new Varien_Object(['country_recipient' => $countryId]);
         if ($carrier && is_array($carrier->getDeliveryConfirmationTypes($params))) {
             return $carrier->getDeliveryConfirmationTypes($params);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -276,10 +278,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $url = $this->getUrl('*/sales_order_shipment/printPackage', $data);
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'   => Mage::helper('sales')->__('Print'),
                 'onclick' => 'setLocation(\'' . $url . '\')'
-            ))
+            ])
             ->toHtml();
     }
 
@@ -310,14 +312,14 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         $carrier = $order->getShippingCarrier();
         $countryShipper = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_COUNTRY_ID, $storeId);
         if ($carrier) {
-            $params = new Varien_Object(array(
+            $params = new Varien_Object([
                 'method' => $order->getShippingMethod(true)->getMethod(),
                 'country_shipper' => $countryShipper,
                 'country_recipient' => $address->getCountryId(),
-            ));
+            ]);
             return $carrier->getContentTypes($params);
         }
-        return array();
+        return [];
     }
 
     /**

@@ -87,4 +87,4 @@ class Mage_Adminhtml_Block_Newsletter_Problem extends Mage_Adminhtml_Block_Templ
         return  Mage::getResourceSingleton('newsletter/problem_collection')->getSize() > 0;
     }
 
-}// Class Mage_Adminhtml_Block_Newsletter_Problem END
+}

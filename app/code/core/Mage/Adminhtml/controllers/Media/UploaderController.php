@@ -33,6 +33,11 @@
  */
 class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'media';
 
     public function uploadAction()
     {
@@ -46,10 +51,5 @@ class Mage_Adminhtml_Media_UploaderController extends Mage_Adminhtml_Controller_
             $this->getLayout()->createBlock('uploader/multiple')
         );
         $this->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('media');
     }
 }

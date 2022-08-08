@@ -34,6 +34,12 @@
 class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/email_template';
+
+    /**
      * Index action
      */
     public function indexAction()
@@ -230,7 +236,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -262,15 +268,5 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
             Mage::register('current_email_template', $model);
         }
         return $model;
-    }
-
-    /**
-     * Check permissions
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/email_template');
     }
 }

@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
 
     /**
      * Mage_Catalog_Model_Api2_Product_Validator_Product constructor.
-     * @param $options
+     * @param array $options
      * @throws Exception
      */
     public function __construct($options)

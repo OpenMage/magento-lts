@@ -27,13 +27,13 @@
 require_once 'abstract.php';
 
 /**
- * Magento Compiler Shell Script
+ * Magento Indexer Shell Script
  *
  * @category    Mage
  * @package     Mage_Shell
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Shell_Compiler extends Mage_Shell_Abstract
+class Mage_Shell_Indexer extends Mage_Shell_Abstract
 {
     /**
      * Get Indexer instance
@@ -217,5 +217,5 @@ USAGE;
     }
 }
 
-$shell = new Mage_Shell_Compiler();
+$shell = new Mage_Shell_Indexer();
 $shell->run();

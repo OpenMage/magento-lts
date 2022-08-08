@@ -33,6 +33,12 @@
  */
 class Mage_Adminhtml_SystemController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system';
+
     public function indexAction()
     {
         $this->loadLayout();
@@ -48,10 +54,5 @@ class Mage_Adminhtml_SystemController extends Mage_Adminhtml_Controller_Action
             Mage::getSingleton('adminhtml/session')->setStoreId($storeId);
         }
         $this->_redirectReferer();
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system');
     }
 }

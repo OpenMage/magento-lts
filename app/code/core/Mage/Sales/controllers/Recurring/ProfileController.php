@@ -71,30 +71,12 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     }
 
     /**
-     * Profile history view
-     */
-// TODO: implement
-//    public function historyAction()
-//    {
-//        $this->_viewAction();
-//    }
-
-    /**
      * Profile related orders view
      */
     public function ordersAction()
     {
         $this->_viewAction();
     }
-
-    /**
-     * Profile payment gateway info view
-     */
-// TODO: implement
-//    public function vendorAction()
-//    {
-//        $this->_viewAction();
-//    }
 
     /**
      * Attempt to set profile state

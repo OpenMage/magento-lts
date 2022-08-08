@@ -51,4 +51,4 @@ class Mage_Directory_Model_Country_Api extends Mage_Api_Model_Resource_Abstract
 
         return $result;
     }
-} // Class Mage_Directory_Model_Country_Api End
+}

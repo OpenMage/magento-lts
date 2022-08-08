@@ -85,7 +85,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     return $this;
                 }
                 if ($overwrite) {
-//                    unset($this->$sourceName);
                     unset($elm);
                 } else {
                     return $this;
@@ -175,6 +174,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param Varien_Simplexml_Element $source
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: '.__METHOD__);
@@ -207,8 +207,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Return if has children
      *
-     * @return boolean
+     * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {
@@ -239,16 +240,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             if ($child->getName() == $sourceName) {
                 $elm = true;
                 foreach ($extendElmAttributes as $namespace => $attributes) {
-                    /**
-                     * if count of attributes of extend element is 0 in $namespace,
-                     * and current element has attributes in $namespace - different elements
-                     */
-//                    if (!count($attributes) && count($this->getAttributes($child, $namespace))) {
-//                        foreach ($this->getAttributes($child, $namespace) as $attribute) {
-//                            $elm = false;
-//                            break;
-//                        }
-//                    }
                     foreach ($attributes as $key => $value) {
                         if (is_null($child->getAttribute($key, $namespace)) || $child->getAttribute($key, $namespace) != $value) {
                             $elm = false;

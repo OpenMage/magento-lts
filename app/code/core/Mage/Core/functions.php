@@ -70,10 +70,12 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
  *
  * @param bool $dayOnly
  * @return string
+ * @deprecated use equivalent Varien method directly
+ * @see Varien_Date::now()
  */
 function now($dayOnly = false)
 {
-    return date($dayOnly ? 'Y-m-d' : 'Y-m-d H:i:s');
+    return Varien_Date::now($dayOnly);
 }
 
 /**
@@ -463,5 +465,18 @@ if (!function_exists('str_ends_with')) {
     function str_ends_with($haystack,  $needle)
     {
         return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
+    }
+}
+
+/**
+ * polyfill for PHP 7.3 function "is_countable"
+ */
+if (!function_exists('is_countable')) {
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    function is_countable($value) {
+        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
     }
 }

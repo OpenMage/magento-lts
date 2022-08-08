@@ -395,13 +395,14 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 }
                 if (self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
                     // entity table data
+                    $now = Varien_Date::now();
                     $entityRow = array(
                         'group_id'   => empty($rowData['group_id']) ? self::DEFAULT_GROUP_ID : $rowData['group_id'],
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? now() : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
-                        'updated_at' => now()
+                                        ? $now : gmstrftime($strftimeFormat, strtotime($rowData['created_at'])),
+                        'updated_at' => $now
                     );
 
                     $emailToLower = strtolower($rowData[self::COL_EMAIL]);

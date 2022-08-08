@@ -23,8 +23,14 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Mage_Adminhtml_Customer_OnlineController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/online';
 
     public function indexAction()
     {
@@ -45,10 +51,5 @@ class Mage_Adminhtml_Customer_OnlineController extends Mage_Adminhtml_Controller
         $this->_addBreadcrumb(Mage::helper('customer')->__('Online Customers'), Mage::helper('customer')->__('Online Customers'));
 
         $this->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/online');
     }
 }

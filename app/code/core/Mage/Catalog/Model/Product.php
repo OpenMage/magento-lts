@@ -415,11 +415,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function validate()
     {
-//        $this->getAttributes();
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
-//        $result = $this->_getResource()->validate($this);
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
-//        return $result;
         Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
         $this->_getResource()->validate($this);
         Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
@@ -581,22 +576,19 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set assigned category IDs array to product
      *
-     * @param array|string $ids
+     * @param array|int|string $ids the ID(s) as int, comma-separated string or array of ints
      * @return $this
      */
     public function setCategoryIds($ids)
     {
         if (is_string($ids)) {
             $ids = explode(',', $ids);
+        } elseif (is_int($ids)) {
+            $ids = (array) $ids;
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        foreach ($ids as $i => $v) {
-            if (empty($v)) {
-                unset($ids[$i]);
-            }
-        }
-
+        $ids = array_filter(array_map('\intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }
@@ -756,7 +748,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**
@@ -908,7 +900,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get formated by currency tier price
      *
      * @param   double $qty
-     * @return  array || double
+     * @return  array | double
      */
     public function getFormatedTierPrice($qty = null)
     {

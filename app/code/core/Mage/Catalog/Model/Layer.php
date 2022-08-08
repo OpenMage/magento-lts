@@ -214,9 +214,6 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      */
     public function getFilterableAttributes()
     {
-//        $entity = Mage::getSingleton('eav/config')
-//            ->getEntityType('catalog_product');
-
         $setIds = $this->_getSetIds();
         if (!$setIds) {
             return array();

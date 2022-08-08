@@ -131,9 +131,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Vote_Collection extends Mage_Core
             ->join(
                 array('store' => $this->getTable('rating_store')),
                 'main_table.rating_id = store.rating_id AND ' . $condition
-            )
-//            ->group('main_table.vote_id')
-        ;
+            );
 
         return $this;
     }

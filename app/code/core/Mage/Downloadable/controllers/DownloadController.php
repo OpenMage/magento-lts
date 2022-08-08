@@ -55,15 +55,13 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     }
 
     /**
-     * @param $resource
-     * @param $resourceType
+     * @param string $resource
+     * @param string $resourceType
      * @throws Zend_Controller_Response_Exception
      */
     protected function _processDownload($resource, $resourceType)
     {
         $helper = Mage::helper('downloadable/download');
-        /* @var Mage_Downloadable_Helper_Download $helper */
-
         $helper->setResource($resource, $resourceType);
 
         $fileName       = $helper->getFilename();

@@ -323,7 +323,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      * Perform actions after object save
      *
      * @param Mage_Core_Model_Abstract $object
-     * @param string $attribute
+     * @param string|string[]|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function saveAttribute(Mage_Core_Model_Abstract $object, $attribute)

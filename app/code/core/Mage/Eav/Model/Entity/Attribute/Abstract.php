@@ -534,7 +534,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return bool
      * @throws Mage_Core_Exception
      */

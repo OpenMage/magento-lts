@@ -34,8 +34,13 @@
 class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/classes_product';
+
+    /**
      * view grid
-     *
      */
     public function indexAction()
     {
@@ -53,7 +58,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * new class action
-     *
      */
     public function newAction()
     {
@@ -62,7 +66,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * edit class action
-     *
      */
     public function editAction()
     {
@@ -107,7 +110,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * delete class action
-     *
      */
     public function deleteAction()
     {
@@ -161,7 +163,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {
@@ -173,15 +175,4 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         ;
         return $this;
     }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_product');
-    }
-
 }

@@ -51,4 +51,4 @@ class Mage_Catalog_Model_Product_Type_Api extends Mage_Api_Model_Resource_Abstra
 
         return $result;
     }
-} // Class Mage_Catalog_Model_Product_Type_Api End
+}

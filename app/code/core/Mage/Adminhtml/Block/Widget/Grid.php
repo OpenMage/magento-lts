@@ -450,8 +450,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _setFilterValues($data)
     {
-        foreach ($this->getColumns() as $columnId => $column) {
-            if (isset($data[$columnId])
+        foreach ($data as $columnId => $value) {
+            $column = $this->getColumn($columnId);
+            if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
                 && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
                 && $column->getFilter()
             ) {
@@ -459,6 +460,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_addColumnFilterToCollection($column);
             }
         }
+
         return $this;
     }
 

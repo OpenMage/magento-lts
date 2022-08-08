@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/config';
+
+    /**
      * Perform customer VAT ID validation
      *
      * @return Varien_Object
@@ -64,7 +70,7 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
      */
     public function validateAdvancedAction()
     {
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         $result = $this->_validate();
@@ -87,15 +93,5 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
             'success' => $success
         ));
         $this->getResponse()->setBody($body);
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 }

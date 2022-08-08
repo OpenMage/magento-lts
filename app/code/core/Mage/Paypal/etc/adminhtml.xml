@@ -50,7 +50,7 @@
                             <config>
                                 <children>
                                     <paypal>
-                                        <title>PayPal Section</title>
+                                        <title>PayPal</title>
                                     </paypal>
                                 </children>
                             </config>

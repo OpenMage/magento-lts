@@ -302,7 +302,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Check admin permissions for this controller
      *
-     * @return boolean
+     * @return true
      */
     protected function _isAllowed()
     {

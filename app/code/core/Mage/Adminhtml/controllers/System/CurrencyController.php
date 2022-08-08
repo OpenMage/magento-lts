@@ -34,6 +34,12 @@
 class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/currency/rates';
+
+    /**
      * Init currency by currency code from request
      *
      * @return Mage_Adminhtml_Controller_Action
@@ -118,10 +124,5 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         }
 
         $this->_redirect('*/*/');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/currency/rates');
     }
 }

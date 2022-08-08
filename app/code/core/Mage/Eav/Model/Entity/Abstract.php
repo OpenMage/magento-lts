@@ -769,10 +769,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $prefix = (string)$this->getEntityType()->getValueTablePrefix();
             if (!empty($prefix)) {
                 $this->_valueTablePrefix = $prefix;
-                /**
-                 * entity type prefix include DB table name prefix
-                 */
-                //Mage::getSingleton('core/resource')->getTableName($prefix);
             } else {
                 $this->_valueTablePrefix = $this->getEntityTable();
             }
@@ -1171,7 +1167,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $origData = array();
         }
 
-        $staticFields   = $this->_getWriteAdapter()->describeTable($this->getEntityTable());
+        $staticFields   = $this->_getReadAdapter()->describeTable($this->getEntityTable());
         $staticFields   = array_keys($staticFields);
         $attributeCodes = array_keys($this->_attributesByCode);
 
@@ -1299,11 +1295,15 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
          *
          * @see Mage_Eav_Model_Entity_Attribute_Abstract::_collectSaveData()
          *
-         * @var array $entityRow
-         * @var Mage_Core_Model_Abstract $newObject
-         * @var array $insert
-         * @var array $update
-         * @var array $delete
+         */
+        /**
+         * @var array{
+         *   newObject: Mage_Core_Model_Abstract,
+         *   entityRow: array,
+         *   insert: array,
+         *   update: array,
+         *   delete: array
+         *   } $saveData
          */
         $newObject = $saveData['newObject'];
         $entityRow = $saveData['entityRow'];

@@ -41,11 +41,9 @@ class Mage_CatalogIndex_Model_Resource_Abstract extends Mage_Core_Model_Resource
     /**
      * Initialize model
      *
-     * @return Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _construct()
     {
-        return parent::_construct();
     }
 
     /**

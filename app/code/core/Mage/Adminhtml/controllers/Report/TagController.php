@@ -280,25 +280,22 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'customer':
                 return Mage::getSingleton('admin/session')->isAllowed('report/tags/customer');
-                break;
+            case 'productall':
             case 'product':
                 return Mage::getSingleton('admin/session')->isAllowed('report/tags/product');
-                break;
-            case 'productall':
-                return Mage::getSingleton('admin/session')->isAllowed('report/tags/product');
-                break;
             case 'popular':
                 return Mage::getSingleton('admin/session')->isAllowed('report/tags/popular');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('report/tags');
-                break;
         }
     }
 }

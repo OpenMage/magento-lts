@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
      */
     public function getFullTaxInfo()
     {
-        /** @var $source Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $source */
         $source = $this->getOrder();
 
         $taxClassAmount = array();

@@ -33,7 +33,7 @@
                     <title>Tags</title>
                     <children>
                         <!--
-                            childrens should be in the order (All Tags, Pending Tags)
+                            children should be in the order (All Tags, Pending Tags)
                             for correct menu building in "None Secret Key" mode
                         -->
                         <all translate="title" module="tag">

@@ -54,4 +54,4 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
             return 3;
         }
     }
-}// Class Mage_Adminhtml_Block_Review_Grid_Filter_Type END
+}

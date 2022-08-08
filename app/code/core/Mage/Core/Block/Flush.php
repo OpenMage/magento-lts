@@ -49,5 +49,6 @@ class Mage_Core_Block_Flush extends Mage_Core_Block_Abstract
             }
             echo $block->toHtml();
         }
+        return '';
     }
 }

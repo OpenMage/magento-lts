@@ -66,7 +66,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     /**
      * Initialize order model instance
      *
-     * @return Mage_Sales_Model_Order || false
+     * @return Mage_Sales_Model_Order | false
      */
     protected function _initOrder()
     {
@@ -655,9 +655,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Acl check for admin
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -782,7 +780,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */

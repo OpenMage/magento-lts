@@ -105,7 +105,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Retrieve server checking result status
      *
-     * @return unknown
+     * @return bool
      */
     public function getServerCheckStatus()
     {
@@ -261,7 +261,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Validating encryption key.
      * Returns TRUE or array of error messages.
      *
-     * @param $key
+     * @param string $key
      * @return unknown_type
      */
     public function validateEncryptionKey($key)

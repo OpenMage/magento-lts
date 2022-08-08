@@ -188,4 +188,4 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
 
         return $product;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Tierprice End
+}

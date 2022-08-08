@@ -29,6 +29,12 @@
  */
 class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/products';
+
     public function saveAction()
     {
         $model = Mage::getModel('eav/entity_attribute_group');
@@ -45,10 +51,5 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while saving this group.'));
             }
         }
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
 }

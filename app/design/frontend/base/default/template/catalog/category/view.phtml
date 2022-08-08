@@ -28,7 +28,7 @@
 /**
  * Category view template
  *
- * @see Mage_Catalog_Block_Category_View
+ * @var Mage_Catalog_Block_Category_View $this
  */
 ?>
 <?php
@@ -41,7 +41,7 @@
     }
 ?>
 <div class="page-title category-title">
-    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+    <?php if($this->isRssCatalogEnable() && $this->isTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
