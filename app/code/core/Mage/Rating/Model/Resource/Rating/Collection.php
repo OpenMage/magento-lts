@@ -116,9 +116,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                     array('store'=>$this->getTable('rating_store')),
                     'main_table.rating_id = store.rating_id',
                     array()
-                )
-        //        ->group('main_table.rating_id')
-                ;
+                );
             $this->_isStoreJoined = true;
         }
         $inCond = $adapter->prepareSqlCondition('store.store_id', array(

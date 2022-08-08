@@ -72,6 +72,29 @@ git add -A && git commit
 
 [More Information](http://openmage.github.io/magento-lts/install.html)
 
+## Secure your installation
+
+Don't use common paths like /admin for OpenMage Backend URL. Don't use the path in _robots.txt_ and keep it secret. You can change it from Backend (System / Configuration / Admin / Admin Base Url) or by editing _app/etc/local.xml_:
+
+```xml
+<config>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <frontName><![CDATA[admin]]></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
+```
+
+Don't use common file names like api.php for OpenMage API URLs to prevent attacks. Don't use the new file name in _robots.txt_ and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
+
+* Apache .htaccess: `RewriteRule ^api/rest api.php?type=rest [QSA,L]`
+* Nginx: `rewrite ^/api/(\w+).*$ /api.php?type=$1 last;`
+
 ## Changes
 
 Most important changes will be listed here, all other changes since `19.4.0` can be found in
@@ -369,6 +392,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
+    <td align="center"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
   </tr>
 </table>
 

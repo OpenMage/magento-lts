@@ -37,6 +37,5 @@ class Mage_Tax_Model_Sales_Total_Quote_Discount extends Mage_Sales_Model_Quote_A
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
-//        echo 'discount';
     }
 }

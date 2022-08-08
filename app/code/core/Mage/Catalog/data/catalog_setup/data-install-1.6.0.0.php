@@ -88,10 +88,6 @@ $attributes = array(
         'group' => 'design',
         'sort'  => 10
     ),
-//    'custom_design_apply'   => array(
-//        'group' => 'design',
-//        'sort'  => 20
-//    ),
     'custom_design_from'    => array(
         'group' => 'design',
         'sort'  => 30

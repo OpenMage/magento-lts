@@ -1413,10 +1413,7 @@ class Mage_Paypal_Model_Config
     public function getWpsPaymentDeliveryMethods()
     {
         return array(
-            self::WPS_TRANSPORT_IPN      => Mage::helper('adminhtml')->__('IPN (Instant Payment Notification) Only'),
-            // not supported yet:
-//            self::WPS_TRANSPORT_PDT      => Mage::helper('adminhtml')->__('PDT (Payment Data Transfer) Only'),
-//            self::WPS_TRANSPORT_IPN_PDT  => Mage::helper('adminhtml')->__('Both IPN and PDT'),
+            self::WPS_TRANSPORT_IPN => Mage::helper('adminhtml')->__('IPN (Instant Payment Notification) Only'),
         );
     }
 

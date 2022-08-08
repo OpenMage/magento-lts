@@ -234,15 +234,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     protected function _assembleLimit($query, $limitCount, $limitOffset, $columnList = array())
     {
         if ($limitCount !== null) {
-              $limitCount = intval($limitCount);
-            if ($limitCount <= 0) {
-//                throw new Exception("LIMIT argument count={$limitCount} is not valid");
-            }
-
+            $limitCount = intval($limitCount);
             $limitOffset = intval($limitOffset);
-            if ($limitOffset < 0) {
-//                throw new Exception("LIMIT argument offset={$limitOffset} is not valid");
-            }
 
             if ($limitOffset + $limitCount != $limitOffset + 1) {
                 $columns = array();
@@ -301,9 +294,6 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 }
             }
         }
-
-//        $select->reset(Zend_Db_Select::COLUMNS);
-//        $select->setPart(Zend_Db_Select::COLUMNS, array_values($preparedColumns));
 
         return $preparedColumns;
     }

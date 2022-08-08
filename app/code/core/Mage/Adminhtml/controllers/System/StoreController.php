@@ -33,11 +33,17 @@
  */
 class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Action
 {
-   /**
-     * Controller predispatch method
-     *
-     * @return Mage_Adminhtml_Controller_Action
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
      */
+    const ADMIN_RESOURCE = 'system/store';
+
+   /**
+    * Controller pre-dispatch method
+    *
+    * @return Mage_Adminhtml_Controller_Action
+    */
     public function preDispatch()
     {
         $this->_setForcedFormKeyActions(array('deleteWebsitePost', 'deleteGroupPost', 'deleteStorePost'));
@@ -454,11 +460,6 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
             $this->_getSession()->addException($e, Mage::helper('core')->__('Unable to delete store view. Please, try again later.'));
         }
         $this->_redirect('*/*/editStore', array('store_id' => $itemId));
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/store');
     }
 
     /**

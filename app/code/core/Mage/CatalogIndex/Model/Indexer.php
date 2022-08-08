@@ -220,12 +220,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              */
             $websites = array();
             $attributeCodes = $priceAttributeCodes = array();
-//            $status = Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
-//            $visibility = array(
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH,
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG,
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH,
-//            );
 
             /**
              * Prepare stores and websites information

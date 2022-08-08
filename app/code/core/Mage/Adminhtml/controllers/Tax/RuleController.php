@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/rules';
+
+    /**
      * Index action
      *
      * @return $this
@@ -224,16 +230,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if sales rules is allowed
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rules');
-    }
-
-    /**
      * Return model instance
      *
      * @param string $className
@@ -257,7 +253,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */

@@ -35,6 +35,12 @@
 class Mage_Adminhtml_Cms_Block_WidgetController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/widget_instance';
+
+    /**
      * Chooser Source action
      */
     public function chooserAction()
@@ -44,15 +50,5 @@ class Mage_Adminhtml_Cms_Block_WidgetController extends Mage_Adminhtml_Controlle
             'id' => $uniqId,
         ));
         $this->getResponse()->setBody($pagesGrid->toHtml());
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
 }

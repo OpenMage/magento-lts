@@ -24,7 +24,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product form gallery content
  *
@@ -47,6 +46,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         $this->setTemplate('catalog/product/helper/gallery.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild('uploader',
@@ -57,16 +59,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
             ->setFileParameterName('image')
             ->setTarget(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl(
                 '*/catalog_product_gallery/upload',
-                array('_query' => false)
+                ['_query' => false]
             ));
 
         $browseConfig = $this->getUploader()->getButtonConfig();
         $browseConfig
-            ->setAttributes(array(
+            ->setAttributes([
                 'accept' => $browseConfig->getMimeTypesByExtensions('gif, png, jpeg, jpg')
-            ));
+            ]);
 
-        Mage::dispatchEvent('catalog_product_gallery_prepare_layout', array('block' => $this));
+        Mage::dispatchEvent('catalog_product_gallery_prepare_layout', ['block' => $this]);
 
         return parent::_prepareLayout();
     }
@@ -91,11 +93,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         return $this->getChildHtml('uploader');
     }
 
+    /**
+     * @return string
+     */
     public function getJsObjectName()
     {
         return $this->getHtmlId() . 'JsObject';
     }
 
+    /**
+     * @return string
+     */
     public function getAddImagesButton()
     {
         return $this->getButtonHtml(
@@ -106,6 +114,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         );
     }
 
+    /**
+     * @return string
+     */
     public function getImagesJson()
     {
         if(is_array($this->getElement()->getValue())) {
@@ -121,14 +132,16 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         return '[]';
     }
 
+    /**
+     * @return string
+     */
     public function getImagesValuesJson()
     {
-        $values = array();
+        $values = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-            $values[$attribute->getAttributeCode()] = $this->getElement()->getDataObject()->getData(
-                $attribute->getAttributeCode()
-            );
+            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            $attributeCode = $attribute->getAttributeCode();
+            $values[$attributeCode] = $this->getElement()->getDataObject()->getData($attributeCode);
         }
         return Mage::helper('core')->jsonEncode($values);
     }
@@ -140,18 +153,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
      */
     public function getImageTypes()
     {
-        $imageTypes = array();
+        $imageTypes = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-            $imageTypes[$attribute->getAttributeCode()] = array(
+            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            $imageTypes[$attribute->getAttributeCode()] = [
                 'label' => $attribute->getFrontend()->getLabel() . ' '
                          . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
                 'field' => $this->getElement()->getAttributeFieldName($attribute)
-            );
+            ];
         }
         return $imageTypes;
     }
 
+    /**
+     * @return bool
+     */
     public function hasUseDefault()
     {
         foreach ($this->getMediaAttributes() as $attribute) {
@@ -173,6 +189,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
         return $this->getElement()->getDataObject()->getMediaAttributes();
     }
 
+    /**
+     * @return string
+     */
     public function getImageTypesJson()
     {
         return Mage::helper('core')->jsonEncode($this->getImageTypes());

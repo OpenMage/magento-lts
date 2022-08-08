@@ -251,7 +251,6 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     }
 
                     if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
-                        // -
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),

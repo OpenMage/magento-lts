@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
     extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/manage';
+
      /**
      * Wishlist we're working with
      *
@@ -134,15 +140,5 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
         $this->_redirect('*/catalog_product/showUpdateResult');
 
         return false;
-    }
-
-    /**
-     * Check the permission to Manage Customers
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
 }

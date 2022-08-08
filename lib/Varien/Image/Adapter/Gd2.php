@@ -54,7 +54,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        @imagedestroy($this->_imageHandler);
+        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+            @imagedestroy($this->_imageHandler);
+        }
     }
 
     /**

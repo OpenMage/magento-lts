@@ -32,8 +32,13 @@
 class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/shipment';
+
+    /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -78,7 +83,8 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         }
     }
 
-    public function pdfshipmentsAction(){
+    public function pdfshipmentsAction()
+    {
         $shipmentIds = $this->getRequest()->getPost('shipment_ids');
         if (!empty($shipmentIds)) {
             $shipments = Mage::getResourceModel('sales/order_shipment_collection')
@@ -92,7 +98,6 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
         $this->_redirect('*/*/');
     }
 
-
     public function printAction()
     {
         /** @see Mage_Adminhtml_Sales_Order_InvoiceController */
@@ -101,14 +106,8 @@ class Mage_Adminhtml_Controller_Sales_Shipment extends Mage_Adminhtml_Controller
                 $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf(array($shipment));
                 $this->_prepareDownloadResponse('packingslip'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').'.pdf', $pdf->render(), 'application/pdf');
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
     }
 }

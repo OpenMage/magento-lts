@@ -44,6 +44,12 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     const SESSION_NAMESPACE = 'adminhtml';
 
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'admin';
+
+    /**
      * Array of actions which can be processed without secret key validation
      *
      * @var array
@@ -76,9 +82,14 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected $_sessionNamespace = self::SESSION_NAMESPACE;
 
+    /**
+     * Check current user permission on resource and privilege
+     *
+     * @return bool
+     */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('admin');
+        return Mage::getSingleton('admin/session')->isAllowed(static::ADMIN_RESOURCE);
     }
 
     /**
@@ -143,7 +154,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return $this
      */

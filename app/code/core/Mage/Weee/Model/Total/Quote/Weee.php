@@ -494,10 +494,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $item->setBaseWeeeTaxDisposition($item->getBaseWeeeTaxDisposition() + $baseOneDisposition);
                 $item->setWeeeTaxRowDisposition($item->getWeeeTaxRowDisposition() + $disposition);
                 $item->setBaseWeeeTaxRowDisposition($item->getBaseWeeeTaxRowDisposition() + $baseDisposition);
-
-//                $item->setTaxBeforeDiscount($item->getTaxBeforeDiscount() + $disposition);
-//                $item->setBaseTaxBeforeDiscount($item->getBaseTaxBeforeDiscount() + $baseDisposition);
-
                 $address->setTaxAmount($address->getTaxAmount() + $disposition);
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $baseDisposition);
 
@@ -527,14 +523,10 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             if ($this->_helper->includeInSubtotal($store)) {
                 $address->setSubtotal($address->getSubtotal() + $rowValue);
                 $address->setBaseSubtotal($address->getBaseSubtotal() + $baseRowValue);
-
-//                $address->setSubtotalWithDiscount($address->getSubtotalWithDiscount() + $rowValue);
-//                $address->setBaseSubtotalWithDiscount($address->getBaseSubtotalWithDiscount() + $baseRowValue);
             } else {
                 $address->setTaxAmount($address->getTaxAmount() + $rowValue);
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $baseRowValue);
             }
-
 
             $productTaxes[] = array(
                 'title' => $title,

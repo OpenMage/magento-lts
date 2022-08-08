@@ -200,7 +200,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'TAXAMT'      => '_filterAmount',
         'INITAMT'     => '_filterAmount',
         'CREDITCARDTYPE' => '_filterCcType',
-//        'PROFILESTARTDATE' => '_filterToPaypalDate',
         'AUTOBILLAMT' => '_filterBillFailedLater',
         'BILLINGPERIOD' => '_filterPeriodUnit',
         'TRIALBILLINGPERIOD' => '_filterPeriodUnit',

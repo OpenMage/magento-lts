@@ -52,7 +52,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      */
     public function addEmailInfo(Mage_Core_Model_Email_Info $emailInfo)
     {
-        array_push($this->_emailInfos, $emailInfo);
+        $this->_emailInfos[] = $emailInfo;
         return $this;
     }
 
