@@ -208,7 +208,11 @@
         order allow,deny
         deny from all
     </FilesMatch>
-    <FilesMatch \.(json|lock|md|sample|yml)$>
+    <FilesMatch (?<!manifest)\.json$>
+        order allow,deny
+        deny from all
+    </FilesMatch>
+    <FilesMatch \.(lock|md|sample|yml)$>
         order allow,deny
         deny from all
     </FilesMatch>
