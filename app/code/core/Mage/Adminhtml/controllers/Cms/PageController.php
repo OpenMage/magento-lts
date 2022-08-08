@@ -217,7 +217,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -228,9 +228,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check the permission to run it
-     *
-     * @return boolean
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -239,13 +237,10 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             case 'new':
             case 'save':
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-                break;
             case 'delete':
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-                break;
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-                break;
         }
     }
 
@@ -271,7 +266,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     {
         $errorNo = true;
         if (!empty($data['layout_update_xml']) || !empty($data['custom_layout_update_xml'])) {
-            /** @var $validatorCustomLayout Mage_Adminhtml_Model_LayoutUpdate_Validator */
+            /** @var Mage_Adminhtml_Model_LayoutUpdate_Validator $validatorCustomLayout */
             $validatorCustomLayout = Mage::getModel('adminhtml/layoutUpdate_validator');
             if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
                 $errorNo = false;

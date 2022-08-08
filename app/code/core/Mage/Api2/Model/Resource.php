@@ -293,7 +293,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Trigger error for not-implemented operations
      *
-     * @param $methodName
+     * @param string $methodName
      */
     protected function _errorIfMethodNotExist($methodName)
     {
@@ -305,7 +305,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Check method exist
      *
-     * @param $methodName
+     * @param string $methodName
      * @return bool
      */
     protected function _checkMethodExist($methodName)

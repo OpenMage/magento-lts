@@ -421,7 +421,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer wishlist url
      *
-     * @param int $wishlistId
+     * @param int|null $wishlistId
      * @return string
      */
     public function getListUrl($wishlistId = null)
@@ -472,7 +472,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve RSS URL
      *
-     * @param $wishlistId
+     * @param int $wishlistId
      * @return string
      */
     public function getRssUrl($wishlistId = null)

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
     {
         parent::__construct();
         $this->setId('cmsPageGrid');
-        $this->setDefaultSort('identifier');
+        $this->setDefaultSort('title');
         $this->setDefaultDir('ASC');
     }
 

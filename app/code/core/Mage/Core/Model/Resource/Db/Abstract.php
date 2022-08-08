@@ -618,7 +618,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             return true;
         }
 
-        $fields = $this->_getWriteAdapter()->describeTable($this->getMainTable());
+        $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
         foreach (array_keys($fields) as $field) {
             if ($object->getOrigData($field) != $object->getData($field)) {
                 return true;

@@ -98,7 +98,7 @@ class Varien_Db_Tree_Node {
     function getId() {
         return $this->id;
     }
-    
+
     /**
      * Return true if node have chield
      *

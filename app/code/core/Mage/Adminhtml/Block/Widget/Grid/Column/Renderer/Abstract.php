@@ -38,12 +38,19 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
     protected $_defaultWidth;
     protected $_column;
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     */
     public function setColumn($column)
     {
         $this->_column = $column;
         return $this;
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Grid_Column
+     */
     public function getColumn()
     {
         return $this->_column;
@@ -77,6 +84,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
         return $this->render($row);
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string|null
+     */
     protected function _getValue(Varien_Object $row)
     {
         if ($getter = $this->getColumn()->getGetter()) {
@@ -90,6 +101,10 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
         return $row->getData($this->getColumn()->getIndex());
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function _getInputValueElement(Varien_Object $row)
     {
         return  '<input type="text" class="input-text '
@@ -98,11 +113,18 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
                 . '" value="' . $this->_getInputValue($row) . '"/>';
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string|null
+     */
     protected function _getInputValue(Varien_Object $row)
     {
         return $this->_getValue($row);
     }
 
+    /**
+     * @return string
+     */
     public function renderHeader()
     {
         if (false !== $this->getColumn()->getGrid()->getSortable() && false !== $this->getColumn()->getSortable()) {
@@ -121,6 +143,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
         return $out;
     }
 
+    /**
+     * @return string
+     */
     public function renderProperty()
     {
         $out = '';
@@ -143,6 +168,9 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
         return $out;
     }
 
+    /**
+     * @return string|null
+     */
     public function renderCss()
     {
         return $this->getColumn()->getCssClass();

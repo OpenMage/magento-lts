@@ -112,7 +112,7 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
         }
 
         if (strrpos($file, '.tmp') == strlen($file)-4) {
-            $file = substr($file, 0, strlen($file)-4);
+            $file = substr($file, 0, -4);
         }
 
         $destFile = dirname($file) . $ioObject->dirsep()

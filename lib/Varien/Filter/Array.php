@@ -28,7 +28,7 @@
 class Varien_Filter_Array extends Zend_Filter
 {
     protected $_columnFilters = array();
-    
+
     function addFilter(Zend_Filter_Interface $filter, $column='')
     {
         if (''===$column) {
@@ -40,7 +40,7 @@ class Varien_Filter_Array extends Zend_Filter
             $this->_columnFilters[$column]->addFilter($filter);
         }
     }
-    
+
     function filter($array)
     {
         $out = array();

@@ -634,7 +634,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if ($staticAttributes) {
             $select = $adapter->select()->from($staticTable, $staticAttributes)
                 ->where($this->getEntityIdField() . ' = :entity_id');
-            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId));
+            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId)) ?: [];
         }
 
         /**
@@ -646,7 +646,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
 
             $store = (int)$store;
-            
+
             foreach ($typedAttributes as $table => $_attributes) {
                 $select = $adapter->select()
                     ->from(array('default_value' => $table), array('attribute_id'))
@@ -697,6 +697,45 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         return $attributesData ? $attributesData : false;
+    }
+
+    /**
+     * Retrieve attribute's raw value from DB using its source model if available.
+     *
+     * @param int $entityId
+     * @param int|string|array $attribute atrribute's ids or codes
+     * @param int|Mage_Core_Model_Store $store
+     * @return bool|string|array
+     */
+    public function getAttributeRawText($entityId, $attribute, $store)
+    {
+        if (!$entityId || empty($attribute)) {
+            return false;
+        }
+
+        if ($store instanceof Mage_Core_Model_Store) {
+            $store = $store->getId();
+        }
+
+        $store = (int)$store;
+        $attribute = is_array($attribute) ? $attribute : [$attribute];
+        $value = $this->getAttributeRawValue($entityId, $attribute, $store);
+
+        if (!$value) {
+            return false;
+        }
+
+        // Ensure we have an associative array of attribute => values
+        $values = is_array($value) ? $value : array_combine($attribute, [$value]);
+
+        foreach ($values as $_attribute => &$_value) {
+            $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
+            if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
+                $_value = $_attribute->getSource()->getOptionText($_value);
+            }
+        }
+
+        return count($values) === 1 ? reset($values) : $values;
     }
 
     /**

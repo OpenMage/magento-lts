@@ -526,7 +526,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'payment_authorization_expiration' => 'payment_auth_expiration',
+            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
+            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
+        ];
         return $this;
     }
 
@@ -869,7 +874,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canReorder()
     {
-        return $this->_canReorder(false);
+        return $this->_canReorder(true);
     }
 
     /**
@@ -890,7 +895,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canReorder($ignoreSalable = false)
     {
-        if ($this->canUnhold() || $this->isPaymentReview() || !$this->getCustomerId()) {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
 
@@ -1093,7 +1098,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string|bool $status
      * @param string $comment
      * @param bool $isCustomerNotified
-     * @param $shouldProtectState
+     * @param bool $shouldProtectState
      * @return $this
      */
     protected function _setState(
@@ -1127,7 +1132,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Whether specified state can be set from outside
-     * @param $state
+     * @param string $state
      * @return bool
      */
     public function isStateProtected($state)
@@ -1248,15 +1253,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Cancel order
-     *
+     * @param string $comment
      * @return $this
      */
-    public function cancel()
+    public function cancel($comment = '')
     {
         if ($this->canCancel()) {
             $this->getPayment()->cancel();
-            $this->registerCancellation();
-
+            $this->registerCancellation($comment);
             Mage::dispatchEvent('order_cancel_after', array('order' => $this));
         }
 
@@ -1570,8 +1574,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $configPath
-     * @return array|bool
+     * @param string $configPath
+     * @return array|false
      */
     protected function _getEmails($configPath)
     {
@@ -1604,8 +1608,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $addressId
-     * @return bool|mixed
+     * @param int|string $addressId
+     * @return false|Mage_Sales_Model_Order_Address
      */
     public function getAddressById($addressId)
     {
@@ -2349,7 +2353,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->unsShippingAddressId();
         }
 
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        if (!$this->getId()) {
+            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        }
         return $this;
     }
 

@@ -51,15 +51,11 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
      *
      * @param string $qty
      * @return float|int|null
+     * @deprecated
      */
     protected function _processLocalizedQty($qty)
     {
-        if (!$this->_localFilter) {
-            $this->_localFilter = new Zend_Filter_LocalizedToNormalized(
-                array('locale' => Mage::app()->getLocale()->getLocaleCode())
-            );
-        }
-        $qty = $this->_localFilter->filter((float)$qty);
+        $qty = (float)$qty;
         if ($qty < 0) {
             $qty = null;
         }
@@ -102,7 +98,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
 
         $qtysString = $this->getRequest()->getParam('qty');
         if (isset($qtysString)) {
-            $qtys = array_filter(json_decode($qtysString), 'strlen');
+            $qtys = array_filter(json_decode($qtysString), '\strlen');
         }
 
         /** @var Mage_Wishlist_Model_Item $item */

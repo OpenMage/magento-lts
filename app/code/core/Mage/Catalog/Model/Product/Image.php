@@ -250,10 +250,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _checkMemory($file = null)
     {
-//        print '$this->_getMemoryLimit() = '.$this->_getMemoryLimit();
-//        print '$this->_getMemoryUsage() = '.$this->_getMemoryUsage();
-//        print '$this->_getNeedMemoryForBaseFile() = '.$this->_getNeedMemoryForBaseFile();
-
         return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
     }
 
@@ -470,10 +466,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getImageProcessor()
     {
         if (!$this->_processor) {
-//            var_dump($this->_checkMemory());
-//            if (!$this->_checkMemory()) {
-//                $this->_baseFile = null;
-//            }
             $this->_processor = new Varien_Image($this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);

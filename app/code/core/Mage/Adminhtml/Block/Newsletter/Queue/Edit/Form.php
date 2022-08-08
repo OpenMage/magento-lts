@@ -39,7 +39,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
      * Form can be run from newsletter template grid by option "Queue newsletter"
      * or from  newsletter queue grid by edit option.
      *
-     * @param void
      * @return $this
      */
     protected function _prepareForm()

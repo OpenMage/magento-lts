@@ -33,6 +33,11 @@
  */
 class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/order/actions/review_payment';
 
     /**
      * Cancel active partail authorizations
@@ -75,15 +80,5 @@ class Mage_Paygate_Adminhtml_Paygate_Authorizenet_PaymentController extends Mage
         $layout->generateBlocks();
         $output = $layout->getOutput();
         return $output;
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/review_payment');
     }
 }

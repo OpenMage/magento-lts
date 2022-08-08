@@ -404,7 +404,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         if (true === $disableLocalModules) {
             set_include_path(
-                // excluded '/app/code/local'
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
                 BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
                 BP . DS . 'lib' . PS .
@@ -720,7 +719,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
 
     /**
-     * Retrive Declared Module file list
+     * Retrieve Declared Module file list
      *
      * @return array|false
      */
@@ -1050,8 +1049,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param $data
-     * @return mixed
+     * @param string|array $data
+     * @return array|string
      */
     public function substDistroServerVars($data)
     {
@@ -1271,7 +1270,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $config = $this->_xml->global->{$groupType.'s'}->{$group};
 
         // First - check maybe the entity class was rewritten
-        $className = null;
+        $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string)$config->rewrite->$class;
         } else {
@@ -1288,7 +1287,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
-        
+
         $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name
@@ -1558,7 +1557,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Get DB table names prefix
      *
-     * @return string
+     * @return Mage_Core_Model_Config_Element
      */
     public function getTablePrefix()
     {

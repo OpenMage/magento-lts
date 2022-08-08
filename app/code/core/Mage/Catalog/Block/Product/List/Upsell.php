@@ -68,7 +68,6 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-//        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         if ($this->getItemLimit('upsell') > 0) {

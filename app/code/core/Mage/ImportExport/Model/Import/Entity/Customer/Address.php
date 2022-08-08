@@ -230,12 +230,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     || $rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS
                 ) {
                     // entity table data
+                    $now = Varien_Date::now();
                     $entityRows[] = array(
                         'entity_id'      => $entityId,
                         'entity_type_id' => $this->_entityTypeId,
                         'parent_id'      => $customerId,
-                        'created_at'     => now(),
-                        'updated_at'     => now()
+                        'created_at'     => $now,
+                        'updated_at'     => $now
                     );
                     // attribute values
                     foreach ($this->_attributes as $attrAlias => $attrParams) {
@@ -298,9 +299,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             ->addExcludeHiddenFrontendFilter();
 
         foreach ($addrCollection as $attribute) {
-            $this->_attributes[self::getColNameForAttrCode($attribute->getAttributeCode())] = array(
+            $attributeCode = $attribute->getAttributeCode();
+            $this->_attributes[self::getColNameForAttrCode($attributeCode)] = array(
                 'id'          => $attribute->getId(),
-                'code'        => $attribute->getAttributeCode(),
+                'code'        => $attributeCode,
                 'table'       => $attribute->getBackend()->getTable(),
                 'is_required' => $attribute->getIsRequired(),
                 'rules'       => $attribute->getValidateRules()

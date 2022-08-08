@@ -33,6 +33,11 @@
  */
 class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/poll';
 
     public function indexAction()
     {
@@ -117,12 +122,13 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
             try {
                 $pollModel = Mage::getModel('poll/poll');
 
+                $now = Varien_Date::now();
                 if( !$this->getRequest()->getParam('id') ) {
-                    $pollModel->setDatePosted(now());
+                    $pollModel->setDatePosted($now);
                 }
 
                 if( $this->getRequest()->getParam('closed') && !$this->getRequest()->getParam('was_closed') ) {
-                    $pollModel->setDateClosed(now());
+                    $pollModel->setDateClosed($now);
                 }
 
                 if( !$this->getRequest()->getParam('closed') ) {
@@ -207,10 +213,4 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
         }
         $this->getResponse()->setBody($response->toJson());
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/poll');
-    }
-
 }

@@ -217,10 +217,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
-            return true;
         } catch (Exception $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
+        return true;
     }
 
     /**
@@ -526,4 +526,4 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         return $model;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Api End
+}

@@ -50,7 +50,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addUniqueTagedCount()
     {
         $select = clone $this->getSelect();
-        
+
         $select->reset()
             ->from(array('rel' => $this->getTable('tag/relation')), 'COUNT(DISTINCT rel.tag_id)')
             ->where('rel.product_id = e.entity_id');

@@ -262,7 +262,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('quote');
         return $this;
     }
 
@@ -297,7 +296,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
-        $this->setStoreId($store->getId());
+        if ($this->getStoreId() != $store->getId()) {
+            $this->setStoreId($store->getId());
+        }
         return $this;
     }
 
@@ -927,7 +928,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 if ($item->getId() == $itemId) {
                     $quoteItem = $item;
                     return $quoteItem;
-                } 
+                }
             }
         }
         return $quoteItem;
@@ -1601,7 +1602,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         foreach ($this->getMessages() as $message) {
             /* @var Mage_Core_Model_Message_Abstract $error */
             if ($message->getType() == Mage_Core_Model_Message::ERROR) {
-                array_push($errors, $message);
+                $errors[] = $message;
             }
         }
         return $errors;

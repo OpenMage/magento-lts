@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'report/statistics';
+
+    /**
      * Admin session model
      *
      * @var null|Mage_Admin_Model_Session
@@ -119,7 +125,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -149,7 +155,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for all period
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshLifetimeAction()
     {
@@ -183,11 +189,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             ->_setActiveMenu('report/statistics/refreshstatistics')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
             ->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return $this->_getSession()->isAllowed('report/statistics');
     }
 
     /**

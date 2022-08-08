@@ -172,7 +172,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             )
             ->where('le.required_options=0')
             ->group(array('l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id'));
-        $this->_addWebsiteJoinToSelect($select, true);
+        $this->_addWebsiteJoinToSelect($select, true, 'i.website_id');
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'le.entity_id');
 
         $priceExpression = $write->getCheckSql('apw.value_id IS NOT NULL', 'apw.pricing_value', 'apd.pricing_value');

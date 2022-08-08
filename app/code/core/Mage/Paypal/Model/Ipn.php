@@ -417,9 +417,6 @@ class Mage_Paypal_Model_Ipn
                     throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
-// TODO: add to payment profile comments
-//            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
-//            $comment->save();
             throw $e;
         }
     }
@@ -441,7 +438,7 @@ class Mage_Paypal_Model_Ipn
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $this->_recurringProfile->createOrder($productItemInfo);
 
         $payment = $order->getPayment();
@@ -532,6 +529,11 @@ class Mage_Paypal_Model_Ipn
     protected function _registerPaymentFailure()
     {
         $this->_importPaymentInformation();
+
+        foreach ($this->_order->getInvoiceCollection() as $invoice){
+            $invoice->cancel()->save();
+        }
+
         $this->_order
             ->registerCancellation($this->_createIpnComment(''), false)
             ->save();

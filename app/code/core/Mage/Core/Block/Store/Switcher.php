@@ -47,7 +47,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         $this->_loadData();
         $this->setStores(array());
         $this->setLanguages(array());
-        return parent::__construct();
+        parent::__construct();
     }
 
     /**

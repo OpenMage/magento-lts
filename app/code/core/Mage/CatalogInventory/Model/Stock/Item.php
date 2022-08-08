@@ -177,6 +177,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
+        // pre 1.6 fields names, old => new
         $this->_oldFieldsMap = array(
             'stock_status_changed_automatically' => 'stock_status_changed_auto',
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'

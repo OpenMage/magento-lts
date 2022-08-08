@@ -33,6 +33,12 @@
  */
 class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'dashboard';
+
     public function indexAction()
     {
         $this->_title($this->__('Dashboard'));
@@ -45,7 +51,6 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets most viewed products list
-     *
      */
     public function productsViewedAction()
     {
@@ -55,7 +60,6 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets latest customers list
-     *
      */
     public function customersNewestAction()
     {
@@ -65,7 +69,6 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
 
     /**
      * Gets the list of most active customers
-     *
      */
     public function customersMostAction()
     {
@@ -107,10 +110,5 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
                 }
             }
         }
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('dashboard');
     }
 }

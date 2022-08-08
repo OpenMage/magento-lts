@@ -59,7 +59,7 @@
                             <config>
                                 <children>
                                     <newsletter translate="title" module="newsletter">
-                                        <title>Newsletter Section</title>
+                                        <title>Newsletter</title>
                                     </newsletter>
                                 </children>
                             </config>

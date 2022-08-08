@@ -75,10 +75,6 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
 
-//    public function getCurrentUserId()
-//    {
-//        return Mage::getSingleton('admin/session')->getUser()->getId();
-//    }
     public function getCurrentUserId()
     {
         if (Mage::getSingleton('admin/session')->getUser()) {
@@ -91,7 +87,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      * Decode filter string
      *
      * @param string $filterString
-     * @return data
+     * @return array
      */
     public function prepareFilterString($filterString)
     {

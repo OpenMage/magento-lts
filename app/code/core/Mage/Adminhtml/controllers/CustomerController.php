@@ -34,7 +34,13 @@
 class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/manage';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -199,10 +205,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $redirectBack = $this->getRequest()->getParam('back', false);
             $this->_initCustomer('customer_id');
 
-            /** @var $customer Mage_Customer_Model_Customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::registry('current_customer');
 
-            /** @var $customerForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $customerForm */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setEntity($customer)
                 ->setFormCode('adminhtml_customer')
@@ -252,7 +258,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
             $modifiedAddresses = array();
             if (!empty($data['address'])) {
-                /** @var $addressForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
 
@@ -853,11 +859,6 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         exit();
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/manage');
     }
 
     /**

@@ -41,8 +41,6 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
     protected function _getWsdlConfig()
     {
         $wsdlConfig = Mage::getModel('api/wsdl_config');
-        $wsdlConfig->setHandler($this->getHandler())
-            ->init();
         return $wsdlConfig;
     }
 
@@ -57,6 +55,9 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
         $apiConfigCharset = Mage::getStoreConfig("api/config/charset");
 
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
+            $this->wsdlConfig->setHandler($this->getHandler())
+                ->init();
+            
             $this->getController()->getResponse()
                 ->clearHeaders()
                 ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)

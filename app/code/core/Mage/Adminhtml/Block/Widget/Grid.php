@@ -450,8 +450,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _setFilterValues($data)
     {
-        foreach ($this->getColumns() as $columnId => $column) {
-            if (isset($data[$columnId])
+        foreach ($data as $columnId => $value) {
+            $column = $this->getColumn($columnId);
+            if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
                 && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
                 && $column->getFilter()
             ) {
@@ -459,6 +460,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_addColumnFilterToCollection($column);
             }
         }
+
         return $this;
     }
 
@@ -971,23 +973,29 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $originalCollection = $this->getCollection();
         $count = null;
         $page  = 1;
+        $lPage = null;
+        $break = false;
 
-        do {
+        while ($break !== true) {
             $collection = clone $originalCollection;
             $collection->setPageSize($this->_exportPageSize);
             $collection->setCurPage($page);
             $collection->load();
-
-            $count = $collection->count();
-
-            $page++;
+            if (is_null($count)) {
+                $count = $collection->getSize();
+                $lPage = $collection->getLastPageNumber();
+            }
+            if ($lPage == $page) {
+                $break = true;
+            }
+            $page ++;
 
             foreach ($collection as $item) {
                 call_user_func_array(array($this, $callback), array_merge(array($item), $args));
             }
             $collection->clear();
             unset($collection);
-        } while($count == $this->_exportPageSize);
+        }
     }
 
     /**
@@ -1390,7 +1398,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block name
+     * Retrieve massaction block name
      *
      * @return string
      */
@@ -1412,7 +1420,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive massaction block
+     * Retrieve massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -1725,4 +1733,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $res = parent::getRowUrl($item);
         return ($res ? $res : '#');
     }
+
+    public function getLimitOptions(): array
+    {
+        return [20, 30, 50, 100, 200];
+    }
+
 }

@@ -100,6 +100,12 @@
     #RewriteBase /magento/
 
 ############################################
+## Prevent serving "hidden" files like git repository
+
+    RewriteCond %{REQUEST_URI} /\.
+    RewriteRule ^(.*)$ / [R=404,L]
+
+############################################
 ## uncomment next line to enable light API calls processing
 
 #    RewriteRule ^api/([a-z][0-9a-z_]+)/?$ api.php?type=$1 [QSA,L]

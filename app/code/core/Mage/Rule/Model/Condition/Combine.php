@@ -137,7 +137,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAggregatorName()
     {
@@ -177,7 +177,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $condition
+     * @param Mage_Rule_Model_Condition_Abstract $condition
      * @return $this
      */
     public function addCondition($condition)
@@ -253,9 +253,9 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $arr
+     * @param array $arr
      * @param string $key
-     * @return $this|Mage_Rule_Model_Condition_Abstract
+     * @return $this
      */
     public function loadArray($arr, $key = 'conditions')
     {
@@ -281,8 +281,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $xml
-     * @return $this|Mage_Rule_Model_Condition_Abstract
+     * @param string|SimpleXMLElement $xml
+     * @return $this
      */
     public function loadXml($xml)
     {
@@ -384,7 +384,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $form
+     * @param string $form
      * @return $this
      */
     public function setJsFormObject($form)

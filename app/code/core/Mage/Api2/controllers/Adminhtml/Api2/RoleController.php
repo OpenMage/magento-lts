@@ -34,7 +34,7 @@
 class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -270,6 +270,19 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     {
         $id = $this->getRequest()->getParam('id', false);
 
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/edit', array('id' => $id));
+            return;
+        }
+
         try {
             /** @var Mage_Api2_Model_Acl_Global_Role $model */
             $model = Mage::getModel("api2/acl_global_role");
@@ -285,15 +298,13 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
     }
 
     /**
-     * Check against ACL
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
-        return $session->isAllowed('system/api/roles_rest');
+        return $session->isAllowed('system/api/rest_roles');
     }
 
     /**

@@ -503,7 +503,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         }
 
         $collections = $this->getData();
-        if ($collections instanceof Mage_Catalog_Model_Entity_Product_Collection) {
+        if ($collections instanceof Mage_Catalog_Model_Resource_Product_Collection) {
             $collections = array($collections->getEntity()->getStoreId()=>$collections);
         } elseif (!is_array($collections)) {
             $this->addException(
@@ -517,7 +517,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             foreach ($collections as $storeId => $collection) {
                 $this->addException(Mage::helper('catalog')->__('Records for "%s" store found.', $stores[$storeId]));
 
-                if (!$collection instanceof Mage_Catalog_Model_Entity_Product_Collection) {
+                if (!$collection instanceof Mage_Catalog_Model_Resource_Product_Collection) {
                     $this->addException(
                         Mage::helper('catalog')->__('Product collection expected.'),
                         Mage_Dataflow_Model_Convert_Exception::FATAL

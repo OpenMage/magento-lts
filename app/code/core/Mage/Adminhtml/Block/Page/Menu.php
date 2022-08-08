@@ -95,7 +95,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     public function getMenuArray()
     {
-        return $this->_buildMenuArray();
+        $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
+
+        return $this->_buildMenuArray($parent);
     }
 
     /**
@@ -112,9 +114,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         if (isset($childAttributes['module'])) {
             $helperName     = (string)$childAttributes['module'];
         }
-//        if (isset($childAttributes['translate'])) {
-//            $titleNodeName  = (string)$childAttributes['translate'];
-//        }
 
         return Mage::helper($helperName)->__((string)$child->$titleNodeName);
     }
@@ -127,12 +126,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      * @param int $level
      * @return array
      */
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
+    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
     {
-        if (is_null($parent)) {
-            $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
-        }
-
         $parentArr = array();
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
@@ -166,6 +161,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 || (strpos($this->getActive(), $path.$childName.'/')===0);
 
             $menuArr['level'] = $level;
+
+            if ($child->target) {
+                $menuArr['target'] = $child->target;
+            }
 
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
@@ -294,6 +293,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
+                . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
                 . ($level === 0 && !empty($item['active']) ? 'active' : '') . '"><span>'
                 . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;

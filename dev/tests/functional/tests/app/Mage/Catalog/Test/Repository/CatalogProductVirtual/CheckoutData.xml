@@ -59,7 +59,7 @@
                 <item name="subtotal" xsi:type="string">240.00</item>
             </field>
         </dataset>
-        
+
         <dataset name="with_special_price">
             <field name="qty" xsi:type="string">2</field>
             <field name="cartItem" xsi:type="array">
@@ -85,7 +85,7 @@
                 <item name="subtotal" xsi:type="string">180.00</item>
             </field>
         </dataset>
-        
+
         <dataset name="three_simple_products">
             <field name="options" xsi:type="array">
                 <item name="0" xsi:type="array">

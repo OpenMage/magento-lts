@@ -34,9 +34,15 @@
 class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/media_gallery';
+
+    /**
      * Init storage
      *
-     * @return Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController
+     * @return $this
      */
     protected function _initAction()
     {
@@ -123,7 +129,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             }
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
-            /** @var $helper Mage_Cms_Helper_Wysiwyg_Images */
+            /** @var Mage_Cms_Helper_Wysiwyg_Images $helper */
             $helper = Mage::helper('cms/wysiwyg_images');
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {
@@ -155,7 +161,6 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $result = array('error' => $e->getMessage(), 'errorcode' => $e->getCode());
         }
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-
     }
 
     /**
@@ -215,7 +220,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     /**
      * Save current path in session
      *
-     * @return Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController
+     * @return $this
      */
     protected function _saveSessionCurrentPath()
     {
@@ -225,15 +230,5 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
         }
         return $this;
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery');
     }
 }

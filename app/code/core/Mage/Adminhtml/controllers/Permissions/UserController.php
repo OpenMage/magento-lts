@@ -26,7 +26,13 @@
 class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/acl/users';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -156,8 +162,6 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
                 if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
-                    /*parse_str($uRoles, $uRoles);
-                    $uRoles = array_keys($uRoles);*/
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
@@ -186,6 +190,21 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
 
     public function deleteAction()
     {
+        $id = $this->getRequest()->getParam('user_id');
+
+        //Validate current admin password
+        $currentPassword = $this->getRequest()->getParam('current_password', null);
+        $this->getRequest()->setParam('current_password', null);
+        $result = $this->_validateCurrentPassword($currentPassword);
+
+        if (is_array($result)) {
+            foreach ($result as $error) {
+                $this->_getSession()->addError($error);
+            }
+            $this->_redirect('*/*/edit', array('user_id' => $id));
+            return;
+        }
+
         $currentUser = Mage::getSingleton('admin/session')->getUser();
 
         if ($id = $this->getRequest()->getParam('user_id')) {
@@ -234,13 +253,6 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $this->getResponse()
             ->setBody($this->getLayout()
             ->createBlock('adminhtml/permissions_user_grid')
-            ->toHtml()
-        );
+            ->toHtml());
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/acl/users');
-    }
-
 }

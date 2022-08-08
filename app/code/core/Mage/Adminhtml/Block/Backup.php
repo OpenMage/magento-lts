@@ -72,6 +72,7 @@ class Mage_Adminhtml_Block_Backup extends Mage_Adminhtml_Block_Template
         );
 
         $this->setChild('dialogs', $this->getLayout()->createBlock('adminhtml/backup_dialogs'));
+        return $this;
     }
 
     public function getCreateButtonHtml()

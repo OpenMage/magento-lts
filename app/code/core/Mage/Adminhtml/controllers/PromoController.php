@@ -33,6 +33,11 @@
  */
 class Mage_Adminhtml_PromoController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'promo';
 
     public function indexAction()
     {
@@ -41,10 +46,4 @@ class Mage_Adminhtml_PromoController extends Mage_Adminhtml_Controller_Action
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Promotions'), Mage::helper('adminhtml')->__('Promo'));
         $this->renderLayout();
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('promo');
-    }
-
 }

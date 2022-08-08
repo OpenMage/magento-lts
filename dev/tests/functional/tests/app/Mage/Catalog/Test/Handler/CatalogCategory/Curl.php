@@ -137,7 +137,7 @@ class Curl extends AbstractCurl implements CatalogCategoryInterface
         $curl->write($url, [], CurlInterface::POST);
         $response = $curl->read();
         $curl->close();
-        preg_match('~<option.*value="(\d+)".*>' . preg_quote($landingName) . '</option>~', $response, $matches);
+        preg_match('~<option.*value="(\d+)".*>' . preg_quote($landingName, '~') . '</option>~', $response, $matches);
         $id = isset($matches[1]) ? (int)$matches[1] : null;
 
         return $id;

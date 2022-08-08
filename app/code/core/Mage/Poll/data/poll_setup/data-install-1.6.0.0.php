@@ -31,7 +31,7 @@ $installer = $this;
 
 $pollModel = Mage::getModel('poll/poll');
 
-$pollModel  ->setDatePosted(now())
+$pollModel  ->setDatePosted(Varien_Date::now())
             ->setPollTitle('What is your favorite color')
             ->setStoreIds(array(1));
 

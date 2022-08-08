@@ -288,10 +288,10 @@
                         <code>1063</code>
                         <message>Can not set shipping method. </message>
                     </shipping_method_is_not_set>
-                    <shipping_methods_list_could_not_be_retrived>
+                    <shipping_methods_list_could_not_be_retrieved>
                         <code>1064</code>
                         <message>Can not receive list of shipping methods. </message>
-                    </shipping_methods_list_could_not_be_retrived>
+                    </shipping_methods_list_could_not_be_retrieved>
                 </faults>
             </cart_shipping>
             <cart_payment translate="title" module="checkout">
