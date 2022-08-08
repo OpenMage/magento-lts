@@ -192,7 +192,7 @@
     //<![CDATA[
         var dataForm = new VarienForm('form-validate', true);
         <?php if($this->getShowAddressFields()): ?>
-        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        new RegionUpdater('country', 'region', 'region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>, undefined, 'zip');
         <?php endif ?>
     //]]>
     </script>

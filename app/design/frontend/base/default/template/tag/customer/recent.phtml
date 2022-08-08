@@ -40,8 +40,10 @@
                         <strong><?php echo $this->__('Tags:') ?></strong>
                         <?php $_i = 0; ?>
                         <ul>
-                        <?php foreach( $_item->getProductTags() as $_tag ): ?>
-                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i != sizeof($_item->getProductTags()->getItems())): ?>,<?php endif ?></li>
+                        <?php $_itemProductTags = $_item->getProductTags(); ?>
+                        <?php $_itemProductTagCount = count($_itemProductTags->getItems()); ?>
+                        <?php foreach($_itemProductTags as $_tag): ?>
+                            <li><a href="<?php echo $_tag->getViewTagUrl() ?>"><?php echo $this->escapeHtml($_tag->getName()) ?></a><?php if(++$_i !== $_itemProductTagCount): ?>,<?php endif ?></li>
                         <?php endforeach ?>
                         </ul>
                     </div>

@@ -59,9 +59,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $country = $element->getForm()->getElement('country_id');
-        if (!is_null($country)) {
-            $countryId = $country->getValue();
-        } else {
+        if (is_null($country)) {
             return $element->getDefaultHtml();
         }
 
@@ -84,7 +82,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
         $html .= '<script type="text/javascript">' . "\n";
         $html .= '$("' . $selectId . '").setAttribute("defaultValue", "' . $regionId.'");' . "\n";
         $html .= 'new regionUpdater("' . $country->getHtmlId() . '", "' . $element->getHtmlId() . '", "' .
-            $selectId . '", ' . $this->helper('directory')->getRegionJsonByStore($quoteStoreId).');' . "\n";
+            $selectId . '", ' . Mage::helper('directory')->getRegionJsonByStore($quoteStoreId).');' . "\n";
         $html .= '</script>' . "\n";
 
         $html .= '</td></tr>' . "\n";
