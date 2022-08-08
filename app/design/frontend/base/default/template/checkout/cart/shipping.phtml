@@ -74,7 +74,7 @@
         </form>
         <script type="text/javascript">
         //<![CDATA[
-            new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+            new RegionUpdater('country', 'region', 'region_id', <?php echo Mage::helper('directory')->getRegionJsonByStore() ?>);
         //]]>
         </script>
 

@@ -453,7 +453,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         foreach ($arr1 as $v) {
             if (!empty($v)) $arr[] = $v;
         }
-        $last = sizeof($arr)-1;
+        $last = count($arr) - 1;
         $node = $this;
         foreach ($arr as $i=>$nodeName) {
             if ($last===$i) {

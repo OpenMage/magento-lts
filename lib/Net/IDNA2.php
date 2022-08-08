@@ -2382,7 +2382,7 @@ class Net_IDNA2
         }
         // Catch the rest of the string
         if ($last_begin) {
-            $inp_len = sizeof($decoded);
+            $inp_len = count($decoded);
             $encoded = '';
             $encoded = $this->_encode(array_slice($decoded, $last_begin, (($inp_len)-$last_begin)));
             if ($encoded) {
