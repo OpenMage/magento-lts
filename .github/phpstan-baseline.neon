@@ -1311,11 +1311,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Helper_Data\\:\\:prepareFilterString\\(\\) has invalid return type data\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Data.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config.php
@@ -1446,26 +1441,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/SearchController.php
 
 		-
-			message: "#^Call to method _saveSessionCurrentPath\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Call to method loadLayout\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_initAction\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_saveSessionCurrentPath\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_CustomerController\\:\\:cartAction\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
@@ -1474,11 +1449,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_JsonController\\:\\:countryRegionAction\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/JsonController.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -3032,7 +3002,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
@@ -3197,7 +3167,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
@@ -5054,11 +5024,6 @@ parameters:
 			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
 			count: 2
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Queue.php
-
-		-
-			message: "#^Call to method Zend_Db_Select\\:\\:where\\(\\) with incorrect case\\: Where$#"
-			count: 1
-			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber.php
 
 		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
