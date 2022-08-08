@@ -202,7 +202,7 @@
 
 ###########################################
 ## Deny access to other project files to prevent disclosure of the installed Magento version
-## Only robots.txt should be allowed
+## Only robots.txt and manifest.json should be allowed by default
 
     <FilesMatch (?<!robots)\.txt$>
         order allow,deny
