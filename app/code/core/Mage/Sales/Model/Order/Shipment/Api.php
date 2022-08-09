@@ -167,9 +167,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $carrier
      * @param string $title
      * @param string $trackNumber
+     * @param null|float $weight
      * @return int
      */
-    public function addTrack($shipmentIncrementId, $carrier, $title, $trackNumber)
+    public function addTrack($shipmentIncrementId, $carrier, $title, $trackNumber, $weight = null)
     {
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
@@ -187,6 +188,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
                     ->setNumber($trackNumber)
                     ->setCarrierCode($carrier)
                     ->setTitle($title);
+
+        if (!empty($weight)) {
+            $track->setWeight($weight);
+        }
 
         $shipment->addTrack($track);
 
