@@ -1268,7 +1268,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0 <8.1",
+        "php": ">=7.0 <7.5 || >=8.0 <8.1",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-gd": "*",
