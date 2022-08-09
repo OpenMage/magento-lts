@@ -139,7 +139,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             foreach ($fields as $f) {
                 $line[] = $fEnc.str_replace(array('"', '\\'), array($fEsc.'"', $fEsc.'\\'), $f).$fEnc;
             }
-            $lines[] = join($fDel, $line);
+            $lines[] = implode($fDel, $line);
         }
         foreach ($data as $i=>$row) {
             $line = array();
@@ -154,9 +154,9 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
 
                 $line[] = $fEnc.$v.$fEnc;
             }
-            $lines[] = join($fDel, $line);
+            $lines[] = implode($fDel, $line);
         }
-        $result = join($lDel, $lines);
+        $result = implode($lDel, $lines);
         $this->setData($result);
 
         return $this;
