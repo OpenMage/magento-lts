@@ -50,7 +50,7 @@ jobs:
       - name: ensure existance of ./app/code/local
         run: mkdir -p app/code/local
       - name: PHPStan Static Analysis
-        run: php vendor/bin/phpstan.phar analyze -c ${{ matrix.config_files }} ${{ matrix.directories }}
+        run: php vendor/bin/phpstan.phar analyze --error-format=github -c ${{ matrix.config_files }} ${{ matrix.directories }}
 
   php_syntax_experimental:
     name: PHP Syntax ${{ matrix.php-versions }} - experimental
