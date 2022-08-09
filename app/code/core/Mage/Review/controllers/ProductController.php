@@ -235,7 +235,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_initProductLayout($product);
 
             // update breadcrumbs
-            if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+            /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
+            $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
+            if ($breadcrumbsBlock) {
                 $breadcrumbsBlock->addCrumb('product', array(
                     'label'    => $product->getName(),
                     'link'     => $product->getProductUrl(),

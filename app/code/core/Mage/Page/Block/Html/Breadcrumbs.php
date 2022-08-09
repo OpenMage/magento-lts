@@ -68,7 +68,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
             if ($after && isset($this->_crumbs[$after])) {
-                $offset = array_search($after, array_keys($this->_crumbs)) + 1;
+                $offset = array_search($after, array_keys($this->_crumbs), true) + 1;
                 $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + array($crumbName => $crumbInfo) + array_slice($this->_crumbs, $offset, null, true);
             } else {
                 $this->_crumbs[$crumbName] = $crumbInfo;
@@ -86,7 +86,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     {
         if ($before && isset($this->_crumbs[$before])) {
             $keys = array_keys($this->_crumbs);
-            $offset = array_search($before, $keys);
+            $offset = array_search($before, $keys, true);
             # add before first
             if (!$offset) {
                 $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
