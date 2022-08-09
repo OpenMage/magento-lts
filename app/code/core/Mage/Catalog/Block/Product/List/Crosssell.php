@@ -64,7 +64,6 @@ class Mage_Catalog_Block_Product_List_Crosssell extends Mage_Catalog_Block_Produ
             ->setPositionOrder()
             ->addStoreFilter();
 
-//        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         $this->_itemCollection->load();

@@ -33,6 +33,8 @@ Mage::register('original_include_path', get_include_path());
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
     ini_set('display_errors', 1);
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
 }
 
 /**
@@ -220,7 +222,7 @@ final class Mage
             return array(
                 'major'     => '20',
                 'minor'     => '0',
-                'patch'     => '14',
+                'patch'     => '15',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             );
@@ -229,7 +231,7 @@ final class Mage
         return array(
             'major'     => '19',
             'minor'     => '4',
-            'patch'     => '16',
+            'patch'     => '17',
             'stability' => '', // beta,alpha,rc
             'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
@@ -305,10 +307,7 @@ final class Mage
      */
     public static function registry($key)
     {
-        if (isset(self::$_registry[$key])) {
-            return self::$_registry[$key];
-        }
-        return null;
+        return self::$_registry[$key] ?? null;
     }
 
     /**
@@ -529,13 +528,13 @@ final class Mage
      * @param   array $arguments
      * @return  Mage_Core_Model_Abstract
      */
-    public static function getSingleton($modelClass='', array $arguments=array())
+    public static function getSingleton($modelClass = '', array $arguments=array())
     {
-        $registryKey = '_singleton/'.$modelClass;
+        $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -573,11 +572,11 @@ final class Mage
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = array())
     {
-        $registryKey = '_resource_singleton/'.$modelClass;
+        $registryKey = '_resource_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -605,7 +604,7 @@ final class Mage
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass);
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -621,8 +620,7 @@ final class Mage
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
-
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -983,7 +981,7 @@ final class Mage
         } else {
 
             $reportData = array(
-                !empty($extra) ? $extra . "\n\n" : '' . $e->getMessage(),
+                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
                 $e->getTraceAsString()
             );
 

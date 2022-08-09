@@ -63,11 +63,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     public function getLimit()
     {
         $limits = $this->getAvailableLimit();
-//        if ($limit = $this->getRequest()->getParam($this->getLimitVarName())) {
-//            if (isset($limits[$limit])) {
-//                return $limit;
-//            }
-//        }
         $limits = array_keys($limits);
         return $limits[0];
     }
@@ -79,12 +74,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     public function setCollection($collection)
     {
         $this->_collection = $collection;
-//            ->setCurPage($this->getCurrentPage());
-        // If not int - then not limit
-//        if ((int) $this->getLimit()) {
-//            $this->_collection->setPageSize($this->getLimit());
-//        }
-
         return $this;
     }
 

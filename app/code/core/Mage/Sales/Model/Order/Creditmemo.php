@@ -669,17 +669,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function setShippingAmount($amount)
     {
-        // base shipping amount calculated in total model
-//        $amount = $this->getStore()->roundPrice($amount);
-//        $this->setData('base_shipping_amount', $amount);
-//
-//        $amount = $this->getStore()->roundPrice(
-//            $amount*$this->getOrder()->getStoreToOrderRate()
-//        );
         $this->setData('shipping_amount', $amount);
         return $this;
     }
-
 
     /**
      * @param float $amount

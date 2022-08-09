@@ -216,7 +216,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getOptionValues()
     {
         $optionsArr = array_reverse($this->getProduct()->getOptions(), true);
-//        $optionsArr = $this->getProduct()->getOptions();
 
         if (!$this->_values) {
             $showPrice = $this->getCanReadPrice();
@@ -245,9 +244,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                 }
 
                 if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-
-//                    $valuesArr = array_reverse($option->getValues(), true);
-
                     $i = 0;
                     $itemCount = 0;
                     foreach ($option->getValues() as $_value) {

@@ -616,6 +616,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xxlc' => 'application/vnd.ms-excel',
             'xxlm' => 'application/vnd.ms-excel',
             'xxls' => 'application/vnd.ms-excel',
+            'xxlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'xxlt' => 'application/vnd.ms-excel',
             'xxlw' => 'application/vnd.ms-excel',
             'xxml' => 'application/xml',
@@ -732,7 +733,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
     public function getDataMaxSizeInBytes()
     {
         $iniSize = $this->getDataMaxSize();
-        $size = substr($iniSize, 0, strlen($iniSize)-1);
+        $size = substr($iniSize, 0, -1);
         $parsedSize = 0;
         switch (strtolower(substr($iniSize, strlen($iniSize)-1))) {
             case 't':

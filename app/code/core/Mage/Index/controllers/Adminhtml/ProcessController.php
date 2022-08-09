@@ -26,6 +26,12 @@
 class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/index';
+
+    /**
      * Initialize process object by request
      *
      * @return Mage_Index_Model_Process|false
@@ -228,15 +234,5 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
         }
 
         $this->_redirect('*/*/list');
-    }
-
-    /**
-     * Check ACL permissins
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/index');
     }
 }

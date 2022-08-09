@@ -90,7 +90,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     public function items($filters = null, $store = null)
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addStoreFilter($this->_getStoreId($store))
+            ->setStoreId($this->_getStoreId($store))
             ->addAttributeToSelect('name');
 
         $apiHelper = Mage::helper('api');
@@ -449,7 +449,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      */
     protected function _checkProductTypeExists($productType)
     {
-        if (!in_array($productType, array_keys(Mage::getModel('catalog/product_type')->getOptionArray()))) {
+        if (!array_key_exists($productType, Mage::getModel('catalog/product_type')->getOptionArray())) {
             $this->_fault('product_type_not_exists');
         }
     }

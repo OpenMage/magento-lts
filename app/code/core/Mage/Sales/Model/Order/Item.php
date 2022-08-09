@@ -586,7 +586,6 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     {
         if (is_null(self::$_statuses)) {
             self::$_statuses = array(
-                //self::STATUS_PENDING        => Mage::helper('sales')->__('Pending'),
                 self::STATUS_PENDING        => Mage::helper('sales')->__('Ordered'),
                 self::STATUS_SHIPPED        => Mage::helper('sales')->__('Shipped'),
                 self::STATUS_INVOICED       => Mage::helper('sales')->__('Invoiced'),

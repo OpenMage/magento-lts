@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/categories';
+
+    /**
      * Initialize requested category and put it into registry.
      * Root category can be returned, if inappropriate store/category is specified
      *
@@ -176,7 +182,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 ->setLastViewedStore($this->getRequest()->getParam('store'));
             Mage::getSingleton('admin/session')
                 ->setLastEditedCategory($category->getId());
-//            $this->_initLayoutMessages('adminhtml/session');
             $this->loadLayout();
 
             $eventResponse = new Varien_Object(array(
@@ -501,17 +506,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
-     * Check if admin has permissions to visit related pages
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/categories');
-    }
-
-    /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */

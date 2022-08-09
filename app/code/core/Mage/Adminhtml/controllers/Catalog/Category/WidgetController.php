@@ -35,6 +35,12 @@
 class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/widget_instance';
+
+    /**
      * Chooser Source action
      */
     public function chooserAction()
@@ -68,15 +74,5 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
             'id' => $this->getRequest()->getParam('uniq_id'),
             'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
         ));
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance');
     }
 }

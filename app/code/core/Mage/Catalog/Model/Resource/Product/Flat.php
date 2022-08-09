@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAttributeForSelect($attributeCode)
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         if (!isset($describe[$attributeCode])) {
             return null;
         }
@@ -140,7 +140,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAttributeSortColumn($attributeCode)
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         if (!isset($describe[$attributeCode])) {
             return null;
         }
@@ -158,7 +158,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAllTableColumns()
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         return array_keys($describe);
     }
 

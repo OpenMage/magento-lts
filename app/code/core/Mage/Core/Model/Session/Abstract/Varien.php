@@ -575,6 +575,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
         return $parts;
     }
+    
+    /**
+     * @return array
+     */
+    public function getSessionValidatorData()
+    {
+        return $_SESSION[self::VALIDATOR_KEY];
+    }
 
     /**
      * Regenerate session Id

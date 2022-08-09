@@ -161,9 +161,7 @@ class Mage_Oauth_Adminhtml_Oauth_Admin_TokenController extends Mage_Adminhtml_Co
     }
 
     /**
-     * Check admin permissions for this controller
-     *
-     * @return boolean
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

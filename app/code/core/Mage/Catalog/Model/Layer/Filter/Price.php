@@ -552,7 +552,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPrices($this, $limit, $offset, $lowerPrice, $upperPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;
@@ -570,7 +570,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPreviousPrices($this, $price, $index, $lowerPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;
@@ -588,7 +588,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadNextPrices($this, $price, $rightIndex, $upperPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;

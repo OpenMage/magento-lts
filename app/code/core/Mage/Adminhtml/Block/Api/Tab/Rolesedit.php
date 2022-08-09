@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
                 && $item->getApiPermission() == 'allow')
             {
                 $resources[$item->getResource_id()]['checked'] = true;
-                array_push($selrids, $item->getResource_id());
+                $selrids[] = $item->getResource_id();
             }
         }
 

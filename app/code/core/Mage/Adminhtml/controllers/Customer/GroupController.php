@@ -34,7 +34,13 @@
 class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/group';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -53,8 +59,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         if (!is_null($groupId)) {
             Mage::registry('current_group')->load($groupId);
         }
-
     }
+
     /**
      * Customer groups list.
      */
@@ -162,10 +168,5 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         }
 
         $this->_redirect('*/customer_group');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/group');
     }
 }

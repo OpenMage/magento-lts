@@ -34,6 +34,12 @@
 class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/variable';
+
+    /**
      * Initialize Layout and set breadcrumbs
      *
      * @return $this
@@ -69,7 +75,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Index Action
-     *
      */
     public function indexAction()
     {
@@ -82,7 +87,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * New Action (forward to edit action)
-     *
      */
     public function newAction()
     {
@@ -91,7 +95,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Edit Action
-     *
      */
     public function editAction()
     {
@@ -109,7 +112,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Validate Action
-     *
      */
     public function validateAction()
     {
@@ -128,7 +130,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Save Action
-     *
      */
     public function saveAction()
     {
@@ -161,7 +162,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Delete Action
-     *
      */
     public function deleteAction()
     {
@@ -192,15 +192,5 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $storeContactVariabls = Mage::getModel('core/source_email_variables')->toOptionArray(true);
         $variables = array($storeContactVariabls, $customVariables);
         $this->getResponse()->setBody(Zend_Json::encode($variables));
-    }
-
-    /**
-     * Check current user permission
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/variable');
     }
 }

@@ -317,8 +317,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
         // condition is TRUE when all product options are NOT required
         if (!$hasRequiredOptions) {
-            $minimalPrice = min($selectionMinimalPrices);
-            $minimalPriceWithTax = min($selectionMinimalPricesWithTax);
+            $minimalPrice = empty($selectionMinimalPrices) ? 0 : min($selectionMinimalPrices);
+            $minimalPriceWithTax = empty($selectionMinimalPricesWithTax) ? max(0, $minimalPrice) : min($selectionMinimalPricesWithTax);
         }
 
         $taxConfig = $this->_getHelperData('tax')->getConfig();

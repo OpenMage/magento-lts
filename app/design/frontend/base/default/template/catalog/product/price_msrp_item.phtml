@@ -84,7 +84,7 @@
 
                 Catalog.Map.addHelpLink(
                     $('<?php echo $popupId ?>'),
-                    "<?php echo $_product->getName() ?>",
+                    "<?php echo $this->escapeHtml($_product->getName()) ?>",
                     $("<?php echo $priceElementId ?>"),
                     '<?php echo $_msrpPrice ?>',
                     "<?php echo $_product->isSalable() ? $this->getAddToCartUrlCustom($_product, array(), false) : '' ?>"

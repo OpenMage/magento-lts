@@ -98,13 +98,6 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'value' => $this->_profile->renderData($key),
             ));
         }
-//        $shippingDesctiption = $this->_profile->getInfoValue('order_info', 'shipping_description');
-//        if ($shippingDesctiption) {
-//            $this->_addInfo(array(
-//                'label' => $this->__('Shipping Method'),
-//                'value' => $shippingDesctiption,
-//            ));
-//        }
     }
 
     /**
