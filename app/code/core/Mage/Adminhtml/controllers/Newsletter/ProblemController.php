@@ -33,6 +33,12 @@
  */
 class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'newsletter/problem';
+
     public function indexAction()
     {
         $this->_title($this->__('Newsletter'))->_title($this->__('Newsletter Problems'));
@@ -95,10 +101,5 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
 
         $grid = $this->getLayout()->createBlock('adminhtml/newsletter_problem_grid');
         $this->getResponse()->setBody($grid->toHtml());
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('newsletter/problem');
     }
 }

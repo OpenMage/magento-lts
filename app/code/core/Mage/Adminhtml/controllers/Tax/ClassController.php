@@ -91,9 +91,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
     }
 
     /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {

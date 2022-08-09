@@ -33,6 +33,8 @@ Mage::register('original_include_path', get_include_path());
 if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
     ini_set('display_errors', 1);
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
 }
 
 /**

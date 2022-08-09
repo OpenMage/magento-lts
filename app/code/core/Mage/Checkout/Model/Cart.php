@@ -101,7 +101,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         if (is_null($products)) {
             $products = array();
             foreach ($this->getQuote()->getAllItems() as $item) {
-                $products[$item->getProductId()] = $item->getProductId();
+                $productId = $item->getProductId();
+                $products[$productId] = $productId;
             }
             $this->setData('product_ids', $products);
         }

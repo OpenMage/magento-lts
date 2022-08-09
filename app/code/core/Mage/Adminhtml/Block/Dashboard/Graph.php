@@ -322,12 +322,12 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 $currentvalue = $thisdataarray[$j];
                 if (is_numeric($currentvalue)) {
                     $ylocation = $yorigin + $currentvalue;
-                    array_push($chartdata, $ylocation . $dataDelimiter);
+                    $chartdata[] = $ylocation . $dataDelimiter;
                 } else {
-                    array_push($chartdata, $dataMissing . $dataDelimiter);
+                    $chartdata[] = $dataMissing . $dataDelimiter;
                 }
             }
-            array_push($chartdata, $dataSetdelimiter);
+            $chartdata[] = $dataSetdelimiter;
         }
         $buffer = implode('', $chartdata);
 

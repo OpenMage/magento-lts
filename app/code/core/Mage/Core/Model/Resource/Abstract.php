@@ -211,7 +211,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
         $data = array();
-        $fields = $this->_getWriteAdapter()->describeTable($table);
+        $fields = $this->_getReadAdapter()->describeTable($table);
         foreach (array_keys($fields) as $field) {
             if ($object->hasData($field)) {
                 $fieldValue = $object->getData($field);

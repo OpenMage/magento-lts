@@ -34,8 +34,13 @@
 class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/order_statuses';
+
+    /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -232,15 +237,5 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
         }
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/order_statuses');
     }
 }
