@@ -40,6 +40,9 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_
         $this->getCollection()->initReport('reports/accounts_collection');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('accounts', array(

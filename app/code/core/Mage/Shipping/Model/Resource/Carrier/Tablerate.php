@@ -93,8 +93,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
     /**
      * Define main table and id field name
-     *
-     * @return void
      */
     protected function _construct()
     {

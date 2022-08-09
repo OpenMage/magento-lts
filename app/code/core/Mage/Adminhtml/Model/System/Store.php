@@ -309,6 +309,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     public function getStoreGroupOptionHash($attribute = 'name')
     {
+        $options = [];
         foreach ($this->_groupCollection as $group) {
             $options[$group->getId()] = $group->getDataUsingMethod($attribute);
         }
@@ -318,7 +319,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Website name by Id
      *
-     * @param int websiteId
+     * @param int $websiteId
      * @return string
      */
     public function getWebsiteName($websiteId)
@@ -334,7 +335,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Group name by Id
      *
-     * @param int groupId
+     * @param int $groupId
      * @return string
      */
     public function getGroupName($groupId)

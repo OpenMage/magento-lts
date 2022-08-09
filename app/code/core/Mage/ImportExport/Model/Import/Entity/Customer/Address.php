@@ -131,7 +131,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * Constructor.
      *
      * @param Mage_ImportExport_Model_Import_Entity_Customer $customer
-     * @return void
      */
     public function __construct(Mage_ImportExport_Model_Import_Entity_Customer $customer)
     {

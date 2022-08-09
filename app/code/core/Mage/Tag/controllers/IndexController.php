@@ -120,7 +120,6 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
      * Fill Message Box by success and notice messages about results of user actions.
      *
      * @param array $counter
-     * @return void
      */
     protected function _fillMessageBox($counter)
     {

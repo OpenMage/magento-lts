@@ -55,7 +55,6 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
             ->_title($this->__('Permissions'))
             ->_title($this->__('Variables'));
 
-        /** @var Mage_Adminhtml_Block_Permissions_Variables $block */
         $block = $this->getLayout()->createBlock('adminhtml/permissions_variable');
         $this->_initAction()
             ->_addContent($block)

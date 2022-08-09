@@ -145,7 +145,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Instantiate state and set it to state object
      * @param string $paymentAction
-     * @param Varien_Object
+     * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -173,7 +173,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)

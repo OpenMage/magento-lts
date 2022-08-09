@@ -44,8 +44,6 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
 
     /**
      * Define resource model for collection
-     *
-     * @return void
      */
     protected function _construct()
     {

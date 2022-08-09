@@ -31,8 +31,6 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Initialize main table and identifier field.
      * Set main entity table name and primary key field name.
-     *
-     * @return void
      */
     protected function _construct()
     {

@@ -37,6 +37,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeSave()
     {
         if (is_array($this->getValue())) {

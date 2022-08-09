@@ -41,7 +41,6 @@ class Mage_Adminhtml_Block_Notification_Window extends Mage_Adminhtml_Block_Noti
 
     /**
      * Initialize block window
-     *
      */
     protected function _construct()
     {

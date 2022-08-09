@@ -169,8 +169,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
     /**
      * Initialize resource mode
-     *
-     * @return void
      */
     protected function _construct()
     {

@@ -29,8 +29,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
 {
     /**
      * Constructor for our block with options
-     *
-     * @return void
      */
     public function __construct()
     {

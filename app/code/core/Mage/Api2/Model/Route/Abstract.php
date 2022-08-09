@@ -37,7 +37,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
     const PARAM_LOCALE     = 'locale';
     /**#@- */
 
-    /*
+    /**
      * Default values of parent::__construct() params
      *
      * @var array

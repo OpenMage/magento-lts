@@ -121,7 +121,6 @@ class Mage_Api2_Model_Server
      *
      * @param Mage_Api2_Model_Request $request
      * @param Mage_Api2_Model_Response $response
-     * @return void
      * @throws Mage_Api2_Exception
      */
     public function internalCall(Mage_Api2_Model_Request $request, Mage_Api2_Model_Response $response)

@@ -67,7 +67,6 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @param string $source Source file path.
      * @throws Mage_Core_Exception
-     * @return void
      */
     final public function __construct($source)
     {
@@ -151,7 +150,6 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      * Seeks to a position.
      *
      * @param int $position The position to seek to.
-     * @return void
      */
     #[\ReturnTypeWillChange]
     public function seek($position)

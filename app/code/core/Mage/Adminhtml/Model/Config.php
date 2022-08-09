@@ -134,8 +134,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
 
     /**
      * Init modules configuration
-     *
-     * @return void
      */
     protected function _initSectionsAndTabs()
     {

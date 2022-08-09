@@ -30,8 +30,6 @@ class Mage_Usa_Block_Adminhtml_Dhl_Unitofmeasure extends Mage_Adminhtml_Block_Sy
 
     /**
      * Define params and variables
-     *
-     * @return void
      */
     public function _construct()
     {

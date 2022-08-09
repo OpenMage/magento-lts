@@ -247,7 +247,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      *            'joinType'  => 'LEFT'
      *         )
      *     NOTE: Optional key must be have NULL at least
-     * @return void
      */
     public function setJoinField($joinField)
     {

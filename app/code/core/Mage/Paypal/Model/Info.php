@@ -402,6 +402,7 @@ class Mage_Paypal_Model_Info
      * @param array $keys
      * @param Mage_Payment_Model_Info $payment
      * @param bool $labelValuesOnly
+     * @return array
      */
     protected function _getFullInfo(array $keys, Mage_Payment_Model_Info $payment, $labelValuesOnly)
     {
@@ -435,6 +436,7 @@ class Mage_Paypal_Model_Info
      * Render info item labels
      *
      * @param string $key
+     * @return string
      */
     protected function _getLabel($key)
     {

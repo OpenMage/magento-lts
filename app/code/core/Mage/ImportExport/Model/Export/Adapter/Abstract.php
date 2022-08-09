@@ -57,7 +57,6 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      *
      * @param string $destination OPTIONAL Destination file path.
      * @throws Exception
-     * @return void
      */
     final public function __construct($destination = null)
     {

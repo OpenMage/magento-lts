@@ -29,8 +29,6 @@ class Mage_Oauth_Model_Resource_Nonce_Collection extends Mage_Core_Model_Resourc
 {
     /**
      * Initialize collection model
-     *
-     * @return void
      */
     protected function _construct()
     {

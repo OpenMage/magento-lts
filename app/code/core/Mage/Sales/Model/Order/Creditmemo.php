@@ -171,7 +171,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
     const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
 
-    /*
+    /**
      * Identifier for order history item
      */
     const HISTORY_ENTITY_NAME = 'creditmemo';

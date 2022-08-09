@@ -109,7 +109,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @param $item
+     * @param Varien_Object $item
      * @return string
      */
     public function getItemUrl($item)
@@ -118,7 +118,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     }
 
     /**
-     * @param $item
+     * @param Varien_Object $item
      * @return string
      */
     public function getItemDeleteUrl($item)

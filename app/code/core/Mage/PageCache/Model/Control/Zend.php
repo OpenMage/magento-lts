@@ -29,8 +29,6 @@ class Mage_PageCache_Model_Control_Zend implements Mage_PageCache_Model_Control_
 {
     /**
      * Clean zend server page cache
-     *
-     * @return void
      */
     public function clean()
     {

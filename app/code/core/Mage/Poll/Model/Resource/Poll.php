@@ -193,6 +193,7 @@ class Mage_Poll_Model_Resource_Poll extends Mage_Core_Model_Resource_Db_Abstract
      * insert to update "poll to store" relations
      *
      * @param Mage_Core_Model_Abstract|Mage_Poll_Model_Poll $object
+     * @return $this
      */
     public function _afterSave(Mage_Core_Model_Abstract $object)
     {

@@ -47,8 +47,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
     /**
      * Load backup file info
      *
-     * @param string fileName
-     * @param string filePath
+     * @param string $fileName
+     * @param string $filePath
      * @return $this
      */
     public function load($fileName, $filePath)

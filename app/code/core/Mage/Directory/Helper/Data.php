@@ -30,12 +30,12 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
 
-    /*
+    /**
      * Path to config value, which lists countries, for which state is required.
      */
     const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
 
-    /*
+    /**
      * Path to config value, which detects whether or not display the state for the country, if it is not required
      */
     const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';

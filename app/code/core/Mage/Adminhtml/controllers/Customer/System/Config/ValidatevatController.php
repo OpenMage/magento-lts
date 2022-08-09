@@ -48,8 +48,6 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
 
     /**
      * Check whether vat is valid
-     *
-     * @return void
      */
     public function validateAction()
     {
@@ -59,8 +57,6 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
 
     /**
      * Retrieve validation result as JSON
-     *
-     * @return void
      */
     public function validateAdvancedAction()
     {

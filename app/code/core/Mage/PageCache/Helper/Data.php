@@ -88,8 +88,6 @@ class Mage_PageCache_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Disable caching on external storage side by setting special cookie
-     *
-     * @return void
      */
     public function setNoCacheCookie()
     {

@@ -294,7 +294,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {

@@ -673,7 +673,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * Filter product stock data
      *
      * @param array $stockData
-     * @return null
      */
     protected function _filterStockData(&$stockData)
     {
@@ -960,7 +959,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
      * @throws Mage_Core_Exception
      * @param  array $productIds
      * @param  int $status
-     * @return void
      */
     public function _validateMassStatus(array $productIds, $status)
     {

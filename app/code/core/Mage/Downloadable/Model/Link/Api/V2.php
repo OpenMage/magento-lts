@@ -31,7 +31,6 @@ class Mage_Downloadable_Model_Link_Api_V2 extends Mage_Downloadable_Model_Link_A
      * Clean the object, leave only property values
      *
      * @param object $var
-     * @return void
      */
     protected function _prepareData(&$var)
     {

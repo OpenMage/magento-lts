@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -36,9 +35,12 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         $this->setDefaultDir('desc');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/product_collection');
         $collection->getEntity()->setStore(0);
 
@@ -47,12 +49,19 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return void
+     */
     protected function _afterLoadCollection()
     {
         $totalObj = new Mage_Reports_Model_Totals();
         $this->setTotals($totalObj->countTotals($this));
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(

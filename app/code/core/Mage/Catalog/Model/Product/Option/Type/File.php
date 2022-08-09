@@ -707,9 +707,8 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     /**
      * Create Writeable directory if it doesn't exist
      *
-     * @param string Absolute directory path
-     * @return void
-     */
+     * @param string $path Absolute directory path
+      */
     protected function _createWriteableDir($path)
     {
         $io = new Varien_Io_File();

@@ -57,8 +57,6 @@ class Mage_Page_Block_Html_Topmenu_Renderer extends Mage_Page_Block_Html_Topmenu
 
     /**
      * Add cache tags
-     *
-     * @return void
      */
     protected function _addCacheTags()
     {

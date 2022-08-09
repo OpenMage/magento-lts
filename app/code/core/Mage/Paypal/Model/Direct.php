@@ -76,6 +76,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Also updates store ID in config object
      *
      * @param Mage_Core_Model_Store|int $store
+     * @return $this
      */
     public function setStore($store)
     {
@@ -129,7 +130,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -363,8 +364,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Import direct payment results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importResultToPayment($api, $payment)
     {

@@ -189,8 +189,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {

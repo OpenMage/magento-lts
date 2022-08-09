@@ -30,8 +30,6 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Typ
 {
     /**
      * Set template
-     *
-     * @return void
      */
     protected function _construct()
     {

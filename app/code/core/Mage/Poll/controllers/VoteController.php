@@ -36,8 +36,6 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
 
     /**
      * Add Vote to Poll
-     *
-     * @return void
      */
     public function addAction()
     {

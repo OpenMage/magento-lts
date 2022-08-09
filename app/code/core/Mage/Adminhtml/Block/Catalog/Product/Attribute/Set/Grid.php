@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +36,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('eav/entity_attribute_set_collection')
@@ -46,6 +48,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         /*$this->addColumn('set_id', array(
@@ -64,6 +70,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
         ));
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('id'=>$row->getAttributeSetId()));

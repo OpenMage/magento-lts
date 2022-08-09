@@ -32,7 +32,6 @@ class Mage_Core_Model_Logger
      * @param int $level
      * @param string $file
      * @param bool $forceLog
-     * @return void
      */
     public function log($message, $level = null, $file = '', $forceLog = false)
     {
@@ -43,7 +42,6 @@ class Mage_Core_Model_Logger
      * Log exception wrapper
      *
      * @param Exception $e
-     * @return void
      */
     public function logException(Exception $e)
     {
