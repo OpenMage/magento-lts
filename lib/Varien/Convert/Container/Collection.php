@@ -49,7 +49,7 @@ class Varien_Convert_Container_Collection
             if ($item->getName()) {
                 $name = $item->getName();
             } else {
-                $name = sizeof($this->_items);
+                $name = count($this->_items);
             }
         }
 

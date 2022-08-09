@@ -30,14 +30,15 @@
     <h1><?php echo $this->__('Tracking Information'); ?></h1>
     <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
 </div>
-<?php if(sizeof($_results)>0): ?>
+<?php if(count($_results) > 0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
     <?php if($shipid): ?>
     <h2 class="sub-title"><?php echo $this->__('Shipment #').$shipid; ?></h2>
     <?php endif ?>
-    <?php if(sizeof($_result)>0): ?>
-        <?php $rowCount = sizeof($_result); $counter = 1; ?>
-        <?php $_id = 0; foreach($_result as $track): ?>
+    <?php if(($rowCount = count($_result)) > 0): ?>
+        <?php $counter = 1;
+        $_id = 0;
+        foreach($_result as $track): ?>
             <table class="tracking-table-popup data-table" id="tracking-table-popup-<?php echo $_id ?>">
                 <col width="15%" />
                 <col />

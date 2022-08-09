@@ -82,7 +82,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 }
             }
             $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "'.$wsName.'" with '.sizeof($wsData).' row(s)');
+            $this->addException('Found worksheet "' .$wsName . '" with ' . count($wsData) . ' row(s)');
         }
         if ($wsName = $this->getVar('single_sheet')) {
             if (isset($data[$wsName])) {
