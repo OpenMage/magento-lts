@@ -280,6 +280,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
         foreach ($menu as $item) {
+            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
+                continue; // for example hide System/Tools when empty
+            }
             $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
                 . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
