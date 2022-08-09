@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -449,7 +443,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
-     * @return void
      */
     public function setPriceCalculation($calculate = true)
     {
@@ -588,7 +581,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        $ids = array_filter(array_map('intval', $ids));
+        $ids = array_filter(array_map('\intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }
@@ -1686,7 +1679,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $code  Attribute code
      * @param mixed  $value New attribute value
      * @param int    $store Store ID
-     * @return void
      */
     public function addAttributeUpdate($code, $value, $store)
     {
@@ -1932,7 +1924,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Sets custom options for the product
      *
      * @param array $options Array of options
-     * @return void
      */
     public function setCustomOptions(array $options)
     {

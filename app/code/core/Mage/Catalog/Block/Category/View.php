@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -60,7 +54,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             /*
             want to show rss feed in the url
             */
-            if ($this->IsRssCatalogEnable() && $this->IsTopCategory()) {
+            if ($this->isRssCatalogEnable() && $this->isTopCategory()) {
                 $title = $this->helper('rss')->__('%s RSS Feed', $this->getCurrentCategory()->getName());
                 $headBlock->addItem('rss', $this->getRssLink(), 'title="'.$title.'"');
             }
@@ -72,7 +66,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     /**
      * @return string
      */
-    public function IsRssCatalogEnable()
+    public function isRssCatalogEnable()
     {
         return Mage::getStoreConfig('rss/catalog/category');
     }
@@ -80,7 +74,7 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     /**
      * @return bool
      */
-    public function IsTopCategory()
+    public function isTopCategory()
     {
         return $this->getCurrentCategory()->getLevel()==2;
     }

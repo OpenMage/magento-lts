@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Io
@@ -254,7 +248,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_streamLocked) {
             $this->streamUnlock();
         }
-        if ($this->_IsValidSource($this->_streamHandler)) {
+        if ($this->_isValidSource($this->_streamHandler)) {
             @fclose($this->_streamHandler);
         }
         $this->chmod($this->_streamFileName, $this->_streamChmod);
@@ -466,7 +460,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function write($filename, $src, $mode=null)
     {
-        if (!$this->_IsValidSource($src) || !$this->_isFilenameWriteable($filename)) {
+        if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }
 
@@ -491,7 +485,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string|resource $src
      * @return bool
      */
-    protected function _IsValidSource($src)
+    protected function _isValidSource($src)
     {
         // In case of a string
         if (is_string($src)) {

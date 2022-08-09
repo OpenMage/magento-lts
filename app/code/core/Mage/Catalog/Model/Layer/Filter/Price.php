@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -552,7 +546,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPrices($this, $limit, $offset, $lowerPrice, $upperPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;
@@ -570,7 +564,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadPreviousPrices($this, $price, $index, $lowerPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;
@@ -588,7 +582,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     {
         $prices = $this->_getResource()->loadNextPrices($this, $price, $rightIndex, $upperPrice);
         if ($prices) {
-            $prices = array_map('floatval', $prices);
+            $prices = array_map('\floatval', $prices);
         }
 
         return $prices;

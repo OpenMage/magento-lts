@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Event
@@ -49,7 +43,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function isValidFor(Varien_Event $event)
     {
         $e = preg_split('#\s+#', $this->getCronExpr(), null, PREG_SPLIT_NO_EMPTY);
-        if (sizeof($e)!==5) {
+        if (count($e) !== 5) {
             return false;
         }
 
@@ -98,7 +92,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         // handle modulus
         if (strpos($expr,'/')!==false) {
             $e = explode('/', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e) !== 2) {
                 return false;
             }
             $expr = $e[0];
@@ -113,7 +107,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         // handle range
         if (strpos($expr,'-')!==false) {
             $e = explode('-', $expr);
-            if (sizeof($e)!==2) {
+            if (count($e) !== 2) {
                 return false;
             }
 

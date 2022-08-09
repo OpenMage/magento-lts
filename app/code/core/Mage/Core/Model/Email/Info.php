@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -76,22 +70,22 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      */
     public function addBcc($email, $name = null)
     {
-        array_push($this->_bccNames, $name);
-        array_push($this->_bccEmails, $email);
+        $this->_bccNames[] = $name;
+        $this->_bccEmails[] = $email;
         return $this;
     }
 
     /**
      * Add new "To" recipient to current email
      *
-     * @param string $email
-     * @param string|null $name
+     * @param array|string $email
+     * @param array|string|null $name
      * @return $this
      */
     public function addTo($email, $name = null)
     {
-        array_push($this->_toNames, $name);
-        array_push($this->_toEmails, $email);
+        $this->_toNames[] = $name;
+        $this->_toEmails[] = $email;
         return $this;
     }
 

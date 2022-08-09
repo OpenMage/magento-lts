@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Db
@@ -3541,7 +3535,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
             $columns = array_map(array($this, 'quoteIdentifier'), $fields);
-            $query = sprintf('%s (%s)', $query, join(', ', $columns));
+            $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
         $query = sprintf('%s %s', $query, $select->assemble());
@@ -3578,7 +3572,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             }
             if ($update) {
-                $query = sprintf('%s ON DUPLICATE KEY UPDATE %s', $query, join(', ', $update));
+                $query = sprintf('%s ON DUPLICATE KEY UPDATE %s', $query, implode(', ', $update));
             }
         }
 
