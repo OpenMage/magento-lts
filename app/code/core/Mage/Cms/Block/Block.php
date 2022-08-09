@@ -32,8 +32,6 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
 {
     /**
      * Initialize cache
-     *
-     * @return null
      */
     protected function _construct()
     {

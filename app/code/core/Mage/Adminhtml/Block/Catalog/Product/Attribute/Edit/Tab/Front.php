@@ -28,7 +28,9 @@
 
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage_Adminhtml_Block_Widget_Form
 {
-
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('entity_attribute');
@@ -94,5 +96,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         return parent::_prepareForm();
     }
-
 }

@@ -215,9 +215,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     }
 
     /**
-     * Process hidden taxes for items and shippings (in accordance with hidden tax type)
-     *
-     * @return void
+     * Process hidden taxes for items and shipping (in accordance with hidden tax type)
      */
     protected function _processHiddenTaxes()
     {
@@ -1509,7 +1507,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     /**
      * Recalculate parent item amounts base on children data
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param  Mage_Sales_Model_Quote_Item_Abstract $item
      * @return $this
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)

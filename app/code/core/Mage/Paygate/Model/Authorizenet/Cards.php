@@ -61,7 +61,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Add based on $cardInfo card to payment and return Id of new item
      *
      * @param mixed $cardInfo
-     * @return string
+     * @return Varien_Object
      */
     public function registerCard($cardInfo = array())
     {
@@ -93,7 +93,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Retrieve card by ID
      *
      * @param string $cardId
-     * @return Varien_Object|bool
+     * @return Varien_Object|false
      */
     public function getCard($cardId)
     {

@@ -128,6 +128,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
      * If ids are empty, default tree with depth = 2 will be returned.
      *
      * @param array $ids
+     * @return mixed|Varien_Data_Tree_Node|null
      */
     public function getRootByIds($ids)
     {

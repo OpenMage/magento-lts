@@ -37,8 +37,6 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
 
     /**
      * Initialize cache
-     *
-     * @return null
      */
     protected function _construct()
     {
@@ -90,7 +88,6 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
      * Format single RSS element
      *
      * @param array $args
-     * @return null
      */
     public function addReviewItemXmlCallback($args)
     {

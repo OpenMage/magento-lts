@@ -359,8 +359,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     /**
      * Set redirect into responce
      *
-     * @param   string $path
-     * @param   array $arguments
+     * @param string $path
+     * @param array $arguments
+     * @return $this
      */
     protected function _redirect($path, $arguments=array())
     {

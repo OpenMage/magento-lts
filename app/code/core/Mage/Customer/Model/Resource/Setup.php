@@ -52,8 +52,6 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
     /**
      * Add customer attributes to customer forms
-     *
-     * @return void
      */
     public function installCustomerForms()
     {

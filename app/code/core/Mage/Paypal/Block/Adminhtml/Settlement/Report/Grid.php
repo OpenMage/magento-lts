@@ -46,8 +46,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * Prepare collection for grid
-     * @return Mage_Paypal_Block_Adminhtml_Settlement_Grid
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -60,8 +59,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     }
 
     /**
-     * Prepare grid columns
-     * @return Mage_Paypal_Block_Adminhtml_Settlement_Grid
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {

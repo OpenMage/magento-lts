@@ -45,8 +45,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Set field visibility
      *
-     * @param string Field id
-     * @param bool Field visibility
+     * @param string $fieldId Field id
+     * @param bool $visibility Field visibility
      */
     public function setFieldVisibility($fieldId, $visibility)
     {
@@ -56,8 +56,8 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Get field visibility
      *
-     * @param string Field id
-     * @param bool Default field visibility
+     * @param string $fieldId Field id
+     * @param bool $defaultVisibility Default field visibility
      * @return bool
      */
     public function getFieldVisibility($fieldId, $defaultVisibility = true)

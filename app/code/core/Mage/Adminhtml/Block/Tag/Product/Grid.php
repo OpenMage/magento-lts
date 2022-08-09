@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Tag_Product_Grid extends Mage_Adminhtml_Block_Widget_
         $this->setUseAjax(true);
     }
 
-    /*
+    /**
      * Retrieves Grid Url
      *
      * @return string

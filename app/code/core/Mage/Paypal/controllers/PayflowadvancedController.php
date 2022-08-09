@@ -51,8 +51,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * When a customer cancel payment from payflow gateway.
-     *
-     * @return void
      */
     public function cancelPaymentAction()
     {
@@ -65,8 +63,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * When a customer return to website from payflow gateway.
-     *
-     * @return void
      */
     public function returnUrlAction()
     {
@@ -103,8 +99,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * Submit transaction to Payflow getaway into iframe
-     *
-     * @return void
      */
     public function formAction()
     {
@@ -114,8 +108,6 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
 
     /**
      * Get response from PayPal by silent post method
-     *
-     * @return void
      */
     public function silentPostAction()
     {

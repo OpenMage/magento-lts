@@ -585,7 +585,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -984,8 +983,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
 
     /**
      * Set tracking request
-     *
-     * @return void
      */
     protected function setTrackingReqeust()
     {
@@ -1001,7 +998,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Send request for tracking
      *
      * @param array $tracking
-     * @return void
      */
     protected function _getXMLTracking($tracking)
     {
@@ -1166,7 +1162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {

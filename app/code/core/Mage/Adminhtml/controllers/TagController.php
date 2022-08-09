@@ -193,8 +193,6 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
 
     /**
      * Delete tag action
-     *
-     * @return void
      */
     public function deleteAction()
     {

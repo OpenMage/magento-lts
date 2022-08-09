@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @throws Exception
+     * @inheritDoc
      */
     protected function _prepareColumns()
     {
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
             )
         );
 
-        parent::_prepareColumns();
+        return parent::_prepareColumns();
     }
 
     /**

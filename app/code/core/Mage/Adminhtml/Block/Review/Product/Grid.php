@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -36,6 +35,9 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
         $this->setUseAjax(true);
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
@@ -100,16 +102,26 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
         }
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/productGrid', array('_current'=>true));
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/jsonProductInfo', array('id' => $row->getId()));
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         return $this;

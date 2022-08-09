@@ -71,8 +71,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -151,8 +149,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Prepare data for export and write its to temporary file through writer.
-     *
-     * @return void
      */
     protected function _prepareExport()
     {

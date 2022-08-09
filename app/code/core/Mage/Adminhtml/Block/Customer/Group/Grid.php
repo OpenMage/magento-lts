@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
 
     /**
      * Init customer groups collection
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {

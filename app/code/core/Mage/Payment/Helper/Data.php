@@ -78,8 +78,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param object $a
+     * @param object $b
      * @return int
      */
     protected function _sortMethods($a, $b)

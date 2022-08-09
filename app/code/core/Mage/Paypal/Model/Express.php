@@ -111,6 +111,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      * Also updates store ID in config object
      *
      * @param Mage_Core_Model_Store|int $store
+     * @return $this
      */
     public function setStore($store)
     {
@@ -161,7 +162,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -581,8 +582,8 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     /**
      * Import payment info to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importToPayment($api, $payment)
     {

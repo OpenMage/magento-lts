@@ -32,8 +32,6 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
 {
     /**
      * Initialize cache
-     *
-     * @return null
      */
     protected function _construct()
     {

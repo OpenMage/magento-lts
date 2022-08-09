@@ -37,16 +37,17 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
     }
 
     /**
-     * Prepare grid
-     *
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareGrid()
     {
         $this->setId('customer_cart_grid' . $this->getWebsiteId());
-        parent::_prepareGrid();
+        return parent::_prepareGrid();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $customer = Mage::registry('current_customer');
@@ -70,6 +71,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Cart extends Mage_Adminhtml_Block_W
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', array(

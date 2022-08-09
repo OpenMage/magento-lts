@@ -216,7 +216,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * Recursively delete directory from storage
      *
      * @param string $path Target dir
-     * @return void
      */
     public function deleteDirectory($path)
     {

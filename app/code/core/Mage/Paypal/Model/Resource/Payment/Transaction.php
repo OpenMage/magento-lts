@@ -109,9 +109,9 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
      * Load cell/row by specified unique key parts
      *
      * @param string $txnId
-     * @param mixed (array|string|object) $columns
+     * @param array|string|object $columns
      * @param bool $isRow
-     * @return mixed (array|string)
+     * @return array|string
      */
     private function _lookupByTxnId($txnId, $columns, $isRow = false)
     {

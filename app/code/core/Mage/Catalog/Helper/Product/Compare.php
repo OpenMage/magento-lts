@@ -216,9 +216,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getItemCollection()
     {
         if (!$this->_itemCollection) {
-            /** @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection _itemCollection */
             $this->_itemCollection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
+                ->useProductItem()
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if ($this->_customerSession->isLoggedIn()) {
@@ -257,9 +256,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         if (!$this->_catalogSession->hasCatalogCompareItemsCount() && !$this->_customerId) {
             $count = 0;
         } else {
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true);
+                ->useProductItem();
             if (!$logout && $this->_customerSession->isLoggedIn()) {
                 $collection->setCustomerId($this->_customerSession->getCustomerId());
             } elseif ($this->_customerId) {

@@ -503,7 +503,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param  Zend_Pdf_Page $page
      * @param  string $text
-     * @return void
      */
     public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
     {

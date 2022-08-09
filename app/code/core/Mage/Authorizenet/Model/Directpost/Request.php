@@ -237,7 +237,6 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * Needed to generate SHA2 sign.
      *
      * @param string $signatureKey
-     * @return void
      */
     protected function _setSignatureKey($signatureKey)
     {

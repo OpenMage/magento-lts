@@ -450,7 +450,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Prepare request input data for saving
      *
      * @param array $data input data
-     * @return void
      */
     protected function _prepareDataForSave(&$data)
     {

@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
      * Add one action array to all options data storage
      *
      * @param array $actionArray
-     * @return void
      */
     public function addToActions($actionArray)
     {

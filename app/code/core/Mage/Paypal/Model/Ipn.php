@@ -716,7 +716,6 @@ class Mage_Paypal_Model_Ipn
      * Map payment information from IPN to payment object
      * Returns true if there were changes in information
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     protected function _importPaymentInformation()
@@ -808,8 +807,6 @@ class Mage_Paypal_Model_Ipn
 
     /**
      * Log debug data to file
-     *
-     * @param mixed $debugData
      */
     protected function _debug()
     {

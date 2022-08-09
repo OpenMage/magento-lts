@@ -32,6 +32,9 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
         $this->setId('gridOrderedProducts');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareCollection()
     {
         parent::_prepareCollection();

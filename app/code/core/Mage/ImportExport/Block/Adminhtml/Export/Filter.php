@@ -38,8 +38,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
 
     /**
      * Set grid parameters.
-     *
-     * @return void
      */
     public function __construct()
     {

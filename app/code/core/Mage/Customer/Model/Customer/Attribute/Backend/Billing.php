@@ -29,6 +29,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Mo
 {
     /**
      * @param Mage_Customer_Model_Customer $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -41,6 +42,7 @@ class Mage_Customer_Model_Customer_Attribute_Backend_Billing extends Mage_Eav_Mo
 
     /**
      * @param Mage_Customer_Model_Customer $object
+     * @return $this
      */
     public function afterSave($object)
     {

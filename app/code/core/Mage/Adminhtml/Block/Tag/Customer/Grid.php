@@ -36,7 +36,8 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
-    /*
+
+    /**
      * Retrieves Grid Url
      *
      * @return string
@@ -46,6 +47,9 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         return $this->getUrl('*/*/customer', array('_current' => true));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -61,12 +65,18 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addProductName();
         return parent::_afterLoadCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('customer_id', array(
@@ -107,11 +117,13 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
             'index'     => 'product_sku',
         ));
 
-
-
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', array('id' => $row->getId()));

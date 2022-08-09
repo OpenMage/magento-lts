@@ -78,11 +78,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
         return $helper;
     }
 
-    /*
+    /**
      * Returns product associated with this block
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @return string
+     * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
@@ -105,7 +104,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
     /**
      * Returns formatted option value for an item
      *
-     * @param Mage_Wishlist_Item_Option
+     * @param Mage_Wishlist_Model_Item_Option $option
      * @return array
      */
     protected function getFormattedOptionValue($option)
@@ -116,10 +115,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
         return Mage::helper('catalog/product_configuration')->getFormattedOptionValue($option, $params);
     }
 
-    /*
+    /**
      * Renders item product name and its configuration
      *
-     * @param Mage_Catalog_Model_Product_Configuration_Item_Interface $item
+     * @param Varien_Object $item
      * @return string
      */
     public function render(Varien_Object $item)

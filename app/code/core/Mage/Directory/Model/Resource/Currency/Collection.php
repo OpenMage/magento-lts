@@ -44,8 +44,6 @@ class Mage_Directory_Model_Resource_Currency_Collection extends Mage_Core_Model_
 
     /**
      * Define resource model and tables
-     *
-     * @return void
      */
     protected function _construct()
     {

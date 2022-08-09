@@ -357,7 +357,6 @@ class Mage_Sales_Model_Observer
      * Add VAT validation request date and identifier to order comments
      *
      * @param Varien_Event_Observer $observer
-     * @return null
      */
     public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
     {

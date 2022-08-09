@@ -301,7 +301,6 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      *
      * @param array $oldRoundPrices
      * @param array $newRoundPrices
-     * @return void
      */
     protected function _mergeRoundPrices(&$oldRoundPrices, &$newRoundPrices)
     {

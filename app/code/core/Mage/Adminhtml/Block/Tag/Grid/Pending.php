@@ -29,8 +29,6 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
 {
     /**
      * Constructor
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -151,7 +149,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_
         return $this;
     }
 
-    /*
+    /**
      * Retrieves Grid Url
      *
      * @return string

@@ -290,7 +290,6 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Save internal value of option in infoBuy_request
      *
      * @param string $internalValue Datetime value in internal format
-     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _setInternalInRequest($internalValue)

@@ -248,7 +248,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Callback function for product matching
      *
      * @param array $args
-     * @return void
      */
     public function callbackValidateProduct($args)
     {
@@ -284,8 +283,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param int|Mage_Catalog_Model_Product $product
      * @param array|null $websiteIds
-     *
-     * @return void
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -303,7 +300,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Apply all price rules, invalidate related cache and refresh price index
      *
-     * @return void
      * @throws Exception
      */
     public function applyAll()

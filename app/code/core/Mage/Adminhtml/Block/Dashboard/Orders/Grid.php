@@ -68,8 +68,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     /**
      * Prepares page sizes for dashboard grid with las 5 orders
-     *
-     * @return void
      */
     protected function _preparePage()
     {
@@ -77,6 +75,9 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
         // Remove count of total orders $this->getCollection()->setCurPage($this->getParam($this->getVarNamePage(), $this->_defaultPage));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('customer', array(
@@ -111,6 +112,10 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', array('order_id'=>$row->getId()));

@@ -75,7 +75,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      * Get element by id
      *
      * @param string $elementId
-     * @return Varien_Data_Form_Element_Abstract
+     * @return Varien_Data_Form_Element_Abstract|false
      */
     public function getElement($elementId)
     {
@@ -88,7 +88,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
     /**
      * Return checkbox html with hidden field for correct config values
      *
-     * @param string $elementId
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     public function getElementHtml(Varien_Data_Form_Element_Abstract $element)

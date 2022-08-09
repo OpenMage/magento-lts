@@ -69,7 +69,6 @@ class Mage_Shipping_Model_Shipping
      * Set shipping orig data
      *
      * @param array $data
-     * @return null
      */
     public function setOrigData($data)
     {

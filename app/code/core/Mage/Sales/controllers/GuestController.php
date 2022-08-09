@@ -54,9 +54,6 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         return false;
     }
 
-    /**
-     * @return void|null
-     */
     protected function _viewAction()
     {
         if (!$this->_loadValidOrder()) {

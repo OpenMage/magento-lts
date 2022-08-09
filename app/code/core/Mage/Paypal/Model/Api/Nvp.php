@@ -1122,8 +1122,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Catch success calls and collect warnings
      *
-     * @param array
-     * @return bool| success flag
+     * @param array $response
+     * @return bool success flag
      */
     protected function _isCallSuccessful($response)
     {
@@ -1364,7 +1364,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Filter for 'BILLINGPERIOD' and 'TRIALBILLINGPERIOD'
      *
      * @param string $value
-     * @return string
+     * @return string|void
      */
     protected function _filterPeriodUnit($value)
     {
@@ -1392,7 +1392,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Filter for billing agreement status
      *
      * @param string $value
-     * @return string
+     * @return string|void
      */
     protected function _filterBillingAgreementStatus($value)
     {
@@ -1406,7 +1406,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Convert payment status from NVP format to paypal/info model format
      *
      * @param string $value
-     * @return string|null
+     * @return string|void
      */
     protected function _filterPaymentStatusFromNvpToInfo($value)
     {
@@ -1431,7 +1431,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Convert payment review action to NVP-compatible value
      *
      * @param string $value
-     * @return string|null
+     * @return string|void
      */
     protected function _filterPaymentReviewAction($value)
     {
@@ -1447,7 +1447,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Convert RP management action to NVP format
      *
      * @param string $value
-     * @return string|null
+     * @return string|void
      */
     protected function _filterRecurringProfileActionToNvp($value)
     {
@@ -1492,7 +1492,6 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Return capture type
      *
-     * @param Varien_Object $payment
      * @return string
      */
     protected function _getCaptureCompleteType()
@@ -1522,7 +1521,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Check the EC request against unilateral payments mode and remove the SUBJECT if needed
      *
-     * @param &array $requestFields
+     * @param array $requestFields
      */
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
     {

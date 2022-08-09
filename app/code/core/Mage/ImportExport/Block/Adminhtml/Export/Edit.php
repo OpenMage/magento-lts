@@ -29,8 +29,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
 {
     /**
      * Constructor
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -43,8 +41,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit extends Mage_Adminhtml_Block
 
     /**
      * Internal constructor
-     *
-     * @return void
      */
     protected function _construct()
     {

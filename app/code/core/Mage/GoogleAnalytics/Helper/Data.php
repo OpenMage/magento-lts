@@ -36,12 +36,12 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
 
     /**
-     * @var classic google analytics tracking code
+     * @var string classic google analytics tracking code
      */
     const TYPE_ANALYTICS = 'analytics';
 
     /**
-     * @var google analytics universal tracking code
+     * @var string google analytics universal tracking code
      */
     const TYPE_UNIVERSAL = 'universal';
 

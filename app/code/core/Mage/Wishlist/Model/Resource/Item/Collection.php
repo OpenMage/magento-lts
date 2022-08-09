@@ -104,8 +104,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
     /**
      * Initialize resource model for collection
-     *
-     * @return void
      */
     public function _construct()
     {

@@ -78,8 +78,6 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {
