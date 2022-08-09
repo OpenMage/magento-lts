@@ -3535,7 +3535,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
             $columns = array_map(array($this, 'quoteIdentifier'), $fields);
-            $query = sprintf('%s (%s)', $query, join(', ', $columns));
+            $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
         $query = sprintf('%s %s', $query, $select->assemble());
@@ -3572,7 +3572,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 }
             }
             if ($update) {
-                $query = sprintf('%s ON DUPLICATE KEY UPDATE %s', $query, join(', ', $update));
+                $query = sprintf('%s ON DUPLICATE KEY UPDATE %s', $query, implode(', ', $update));
             }
         }
 

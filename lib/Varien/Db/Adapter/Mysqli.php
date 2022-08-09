@@ -262,7 +262,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             }
         }
 
-        return $this->raw_query('ALTER TABLE `'.$tableName.'` ' . join(', ', $alterDrop));
+        return $this->raw_query('ALTER TABLE `'.$tableName.'` ' . implode(', ', $alterDrop));
     }
 
     /**
