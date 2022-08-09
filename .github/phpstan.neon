@@ -19,7 +19,6 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/CatalogInventory
          - %currentWorkingDirectory%/app/code/core/Mage/CatalogRule
          - %currentWorkingDirectory%/app/code/core/Mage/CatalogSearch
-#         - %currentWorkingDirectory%/app/code/core/Mage/Centinel
          - %currentWorkingDirectory%/app/code/core/Mage/Checkout
          - %currentWorkingDirectory%/app/code/core/Mage/Cms
          - %currentWorkingDirectory%/app/code/core/Mage/ConfigurableSwatches
@@ -47,7 +46,6 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/Paygate
          - %currentWorkingDirectory%/app/code/core/Mage/Payment
          - %currentWorkingDirectory%/app/code/core/Mage/Paypal
-#         - %currentWorkingDirectory%/app/code/core/Mage/PaypalUk
          - %currentWorkingDirectory%/app/code/core/Mage/Persistent
          - %currentWorkingDirectory%/app/code/core/Mage/Poll
          - %currentWorkingDirectory%/app/code/core/Mage/ProductAlert
@@ -64,11 +62,15 @@ parameters:
          - %currentWorkingDirectory%/app/code/core/Mage/Tag
          - %currentWorkingDirectory%/app/code/core/Mage/Tax
          - %currentWorkingDirectory%/app/code/core/Mage/Uploader
-#         - %currentWorkingDirectory%/app/code/core/Mage/Usa
          - %currentWorkingDirectory%/app/code/core/Mage/Widget
-#         - %currentWorkingDirectory%/app/code/core/Mage/Weee
          - %currentWorkingDirectory%/app/code/core/Mage/Wishlist
     excludePaths:
+        #todo DOCblocks
+        - %currentWorkingDirectory%/app/code/core/Mage/Centinel
+        - %currentWorkingDirectory%/app/code/core/Mage/PaypalUk
+        - %currentWorkingDirectory%/app/code/core/Mage/Usa
+        - %currentWorkingDirectory%/app/code/core/Mage/Weee
+
         #incompatible interfaces
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
         - */app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
