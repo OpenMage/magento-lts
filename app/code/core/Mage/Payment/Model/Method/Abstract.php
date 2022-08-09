@@ -394,10 +394,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
+        // Validate that payment method is allowed for billing country
+        $paymentInfo = $this->getInfoInstance();
         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
         } else {
@@ -406,7 +404,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->canUseForCountry($billingCountry)) {
             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
         }
-         return $this;
+        return $this;
     }
 
     /**
