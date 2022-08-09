@@ -4,7 +4,6 @@ includes:
 parameters:
     magentoRootPath: %currentWorkingDirectory%
     paths:
-        #lets start small with just few modules
          - %currentWorkingDirectory%/app/code/core/Mage
     excludePaths:
         #todo DOCblocks
