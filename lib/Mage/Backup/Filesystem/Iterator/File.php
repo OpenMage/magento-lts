@@ -40,6 +40,7 @@ class Mage_Backup_Filesystem_Iterator_File extends SplFileObject
      *
      * @return string
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->_currentStatement;
@@ -48,6 +49,7 @@ class Mage_Backup_Filesystem_Iterator_File extends SplFileObject
     /**
      * Iterate to next sql statement in file
      */
+    #[ReturnTypeWillChange]
     public function next()
     {
         $this->_currentStatement = '';
@@ -65,6 +67,7 @@ class Mage_Backup_Filesystem_Iterator_File extends SplFileObject
     /**
      * Return to first statement
      */
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         parent::rewind();
