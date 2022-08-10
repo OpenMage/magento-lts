@@ -2126,11 +2126,6 @@ parameters:
 			path: ../app/code/core/Mage/Captcha/controllers/RefreshController.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canUseCanonicalTag\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Category/View.php
-
-		-
 			message: "#^Cannot call method count\\(\\) on string\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
@@ -2214,11 +2209,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlCustom\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canUseCanonicalTag\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrl\\(\\)\\.$#"

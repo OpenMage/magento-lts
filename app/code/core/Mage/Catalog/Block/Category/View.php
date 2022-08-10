@@ -50,7 +50,10 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
-            if ($this->helper('catalog/category')->canUseCanonicalTag()) {
+
+            /** @var Mage_Catalog_Helper_Category $helper */
+            $helper = $this->helper('catalog/category');
+            if ($helper->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
             /*
