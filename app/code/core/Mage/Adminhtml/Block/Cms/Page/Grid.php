@@ -128,13 +128,15 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
         return parent::_afterLoadCollection();
     }
 
+    /**
+     * @param Mage_Cms_Model_Resource_Page_Collection $collection
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     */
     protected function _filterStoreCondition($collection, $column)
     {
-        if (!$value = $column->getFilter()->getValue()) {
-            return;
+        if ($value = $column->getFilter()->getValue()) {
+            $collection->addStoreFilter($value);
         }
-
-        $this->getCollection()->addStoreFilter($value);
     }
 
     /**
