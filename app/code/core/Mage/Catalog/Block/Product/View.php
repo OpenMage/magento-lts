@@ -30,6 +30,8 @@
  * @method $this setCustomAddToCartUrl(string $value)
  * @method bool hasCustomAddToCartUrl()
  * @method string getCustomAddToCartUrl()
+ * @method bool hasCustomAddToCartPostUrl()
+ * @method string getCustomAddToCartPostUrl()
  */
 class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstract
 {
@@ -48,6 +50,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
     protected function _prepareLayout()
     {
         $this->getLayout()->createBlock('catalog/breadcrumbs');
+
+        /** @var Mage_Page_Block_Html_Head $headBlock */
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $product = $this->getProduct();
@@ -81,6 +85,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Retrieve current product model
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Exception
      */
     public function getProduct()
     {
@@ -108,6 +113,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @param Mage_Catalog_Model_Product $product
      * @param array $additional
      * @return string
+     * @throws Exception
      */
     public function getAddToCartUrl($product, $additional = array())
     {
@@ -119,6 +125,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * price calculation depending on product options
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getJsonConfig()
     {
@@ -127,7 +134,6 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             return Mage::helper('core')->jsonEncode($config);
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
         $product = $this->getProduct();
 
         /** @var Mage_Catalog_Helper_Product_Type_Composite $compositeProductHelper */
@@ -152,6 +158,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Return true if product has options
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasOptions()
     {
@@ -165,6 +172,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Check if product has required options
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function hasRequiredOptions()
     {
@@ -178,6 +186,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * instantly.
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isStartCustomization()
     {
@@ -190,6 +199,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      *
      * @param null|Mage_Catalog_Model_Product $product
      * @return int|float
+     * @throws Mage_Core_Exception
      */
     public function getProductDefaultQty($product = null)
     {
@@ -204,6 +214,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * Retrieve block cache tags
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getCacheTags()
     {
@@ -217,6 +228,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      * @param array $additional
      * @param bool $addFormKey
      * @return string
+     * @throws Exception
      */
     public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
     {
