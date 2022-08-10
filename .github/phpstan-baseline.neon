@@ -1191,11 +1191,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
 
 		-
-			message: "#^Cannot call method addLink\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:decodeFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
@@ -1264,11 +1259,6 @@ parameters:
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$tabNId$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			message: "#^Cannot call method addLink\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Controller/Action.php
 
 		-
 			message: "#^Cannot call method addValueFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
