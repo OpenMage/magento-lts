@@ -249,9 +249,12 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         $additional[Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED] =
             Mage::helper('core')->urlEncode($addUrlValue);
 
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$addFormKey) {
-            return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+            return $helper->getAddUrlCustom($product, $additional, false);
         }
-        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+        return $helper->getAddUrl($product, $additional);
     }
 }
