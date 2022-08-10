@@ -351,11 +351,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
 
 		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tabs.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGroups\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
@@ -963,11 +958,6 @@ parameters:
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Cache/Edit.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php
 
 		-
@@ -1011,19 +1001,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tabs.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/History.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tabs.php
 
 		-
 			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
@@ -1486,27 +1466,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_CreditmemoController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
-
-		-
 			message: "#^Parameter \\$order of method Mage_Adminhtml_Sales_Order_CreditmemoController\\:\\:_initInvoice\\(\\) has invalid type unknown_type\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
 
 		-
 			message: "#^Cannot call method updateBackButtonUrl\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_InvoiceController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_InvoiceController\\:\\:_needToAddDummyForShipment\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
@@ -1526,11 +1491,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -1539,11 +1499,6 @@ parameters:
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/CacheController.php
 
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
