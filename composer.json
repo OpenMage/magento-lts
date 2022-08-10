@@ -22,8 +22,25 @@
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.9",
     "macopedia/phpstan-magento1": "^1.0.4",
-    "phpstan/phpstan": "^1.8"
+    "magento-ecg/coding-standard": "^4.4",
+    "phpcompatibility/php-compatibility": "^9.3",
+    "phpmd/phpmd": "^2.12",
+    "phpstan/phpstan": "^1.8",
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "scripts": {
+    "set-phpcs-pathes": [
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/magento-ecg/coding-standard",
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs -i"
+    ],
+    "post-install-cmd": [
+      "@set-phpcs-pathes"
+    ],
+    "post-update-cmd":  [
+      "@set-phpcs-pathes"
+    ]
   },
   "conflict": {
     "n98/n98_layouthelper": "*"
