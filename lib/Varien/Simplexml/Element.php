@@ -73,6 +73,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      *
      * @return boolean
      */
+    #[ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!$this->children()) {
