@@ -22,23 +22,9 @@ var ConfigurableMediaImages = {
     productImages: {},
     imageObjects: {},
 
+    // deprecated - use Array.prototype.intersect instead
     arrayIntersect: function(a, b) {
-        var ai=0, bi=0;
-        var result = new Array();
-
-        while( ai < a.length && bi < b.length )
-        {
-            if      (a[ai] < b[bi] ){ ai++; }
-            else if (a[ai] > b[bi] ){ bi++; }
-            else /* they're equal */
-            {
-                result.push(a[ai]);
-                ai++;
-                bi++;
-            }
-        }
-
-        return result;
+        return a.intersect(b);
     },
 
     getCompatibleProductImages: function(productFallback, selectedLabels) {
