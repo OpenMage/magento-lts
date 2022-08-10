@@ -1057,14 +1057,4 @@ final class Mage
 
         return $baseUrl;
     }
-
-    /**
-     * Set is downloader flag
-     *
-     * @deprecated
-     */
-    public static function setIsDownloader()
-    {
-
-    }
 }
