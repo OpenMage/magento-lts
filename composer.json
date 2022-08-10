@@ -22,7 +22,7 @@
     "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.9",
+    "friendsofphp/php-cs-fixer": ">=3.4",
     "macopedia/phpstan-magento1": "^1.0.4",
     "magento-ecg/coding-standard": "^4.4",
     "phpcompatibility/php-compatibility": "^9.3",
