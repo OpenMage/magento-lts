@@ -93,21 +93,6 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
-                Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
-            );
-            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
-            if ($order->getPayment()->getMethodInstance()->isGateway()) {
-                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
-            }
-            $this->_addButton('order_creditmemo', array(
-                'label'     => Mage::helper('sales')->__('Credit Memo'),
-                'onclick'   => $onClick,
-                'class'     => 'go'
-            ));
-        }
-
         // invoice action intentionally
         if ($this->_isAllowedAction('invoice') && $order->canVoidPayment()) {
             $confirmationMessage = $coreHelper->jsQuoteEscape(
@@ -176,6 +161,21 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             $this->_addButton('order_ship', array(
                 'label'     => Mage::helper('sales')->__('Ship'),
                 'onclick'   => 'setLocation(\'' . $this->getShipUrl() . '\')',
+                'class'     => 'go'
+            ));
+        }
+
+        if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
+            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
+            if ($order->getPayment()->getMethodInstance()->isGateway()) {
+                $confirmationMessage = $coreHelper->jsQuoteEscape(
+                    Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
+                );
+                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
+            }
+            $this->_addButton('order_creditmemo', array(
+                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'onclick'   => $onClick,
                 'class'     => 'go'
             ));
         }
