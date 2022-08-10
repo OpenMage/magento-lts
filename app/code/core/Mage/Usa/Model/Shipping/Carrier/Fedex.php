@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -591,7 +585,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -990,8 +983,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
 
     /**
      * Set tracking request
-     *
-     * @return void
      */
     protected function setTrackingReqeust()
     {
@@ -1007,7 +998,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Send request for tracking
      *
      * @param array $tracking
-     * @return void
      */
     protected function _getXMLTracking($tracking)
     {
@@ -1172,7 +1162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {

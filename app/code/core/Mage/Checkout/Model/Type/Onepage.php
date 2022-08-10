@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -703,8 +697,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer registration and customer order submit
-     *
-     * @return void
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -740,8 +732,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer order submit
-     *
-     * @return void
      */
     protected function _prepareCustomerQuote()
     {
@@ -889,7 +879,6 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Validate quote state to be able submitted from one page checkout page
      *
-     * @return void
      * @throws Mage_Core_Exception
      * @deprecated after 1.4 - service model doing quote validation
      */
