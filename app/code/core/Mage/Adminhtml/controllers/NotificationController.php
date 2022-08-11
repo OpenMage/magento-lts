@@ -158,23 +158,20 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
         $this->_redirectReferer();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
+            case 'massmarkasread':
             case 'markasread':
                 $acl = 'system/adminnotification/mark_as_read';
                 break;
 
-            case 'massmarkasread':
-                $acl = 'system/adminnotification/mark_as_read';
-                break;
-
-            case 'remove':
-                $acl = 'system/adminnotification/remove';
-                break;
-
             case 'massremove':
+            case 'remove':
                 $acl = 'system/adminnotification/remove';
                 break;
 

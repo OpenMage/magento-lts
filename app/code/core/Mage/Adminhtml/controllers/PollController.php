@@ -33,6 +33,11 @@
  */
 class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/poll';
 
     public function indexAction()
     {
@@ -208,10 +213,4 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
         }
         $this->getResponse()->setBody($response->toJson());
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/poll');
-    }
-
 }

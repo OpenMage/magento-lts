@@ -38,6 +38,12 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
     protected $_entityTypeId;
 
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/attributes/attributes';
+
+/**
      * List of tags from setting
      */
     const XML_PATH_ALLOWED_TAGS = 'system/catalog/frontend/allowed_html_tags_list';
@@ -370,10 +376,5 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
         Mage::getSingleton('adminhtml/session')->addError(
             Mage::helper('catalog')->__('Unable to find an attribute to delete.'));
         $this->_redirect('*/*/');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/attributes/attributes');
     }
 }

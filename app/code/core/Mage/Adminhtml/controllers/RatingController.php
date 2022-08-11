@@ -31,9 +31,14 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/reviews_ratings/ratings';
+
     public function indexAction()
     {
         $this->_initEnityId();
@@ -153,10 +158,4 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
 
         Mage::register('entityId', Mage::getModel('rating/rating_entity')->getIdByCode('product'));
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/reviews_ratings/ratings');
-    }
-
 }

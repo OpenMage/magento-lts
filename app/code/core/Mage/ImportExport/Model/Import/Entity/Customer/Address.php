@@ -299,9 +299,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             ->addExcludeHiddenFrontendFilter();
 
         foreach ($addrCollection as $attribute) {
-            $this->_attributes[self::getColNameForAttrCode($attribute->getAttributeCode())] = array(
+            $attributeCode = $attribute->getAttributeCode();
+            $this->_attributes[self::getColNameForAttrCode($attributeCode)] = array(
                 'id'          => $attribute->getId(),
-                'code'        => $attribute->getAttributeCode(),
+                'code'        => $attributeCode,
                 'table'       => $attribute->getBackend()->getTable(),
                 'is_required' => $attribute->getIsRequired(),
                 'rules'       => $attribute->getValidateRules()

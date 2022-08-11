@@ -31,12 +31,16 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/classes_customer';
+
+    /**
      * grid view
-     *
      */
     public function indexAction()
     {
@@ -55,7 +59,6 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * new class action
-     *
      */
     public function newAction()
     {
@@ -64,7 +67,6 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
 
     /**
      * edit class action
-     *
      */
     public function editAction()
     {
@@ -173,15 +175,5 @@ class Mage_Adminhtml_Tax_Class_CustomerController extends Mage_Adminhtml_Control
             ->_addBreadcrumb(Mage::helper('tax')->__('Manage Customer Tax Classes'), Mage::helper('tax')->__('Manage Customer Tax Classes'))
         ;
         return $this;
-    }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_customer');
     }
 }

@@ -34,6 +34,12 @@
 class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/urlrewrite';
+
+    /**
      * Instantiate urlrewrite, product and category
      *
      * @return $this
@@ -218,15 +224,5 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             }
         }
         $this->_redirect('*/*/');
-    }
-
-    /**
-     * Check whether this contoller is allowed in admin permissions
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/urlrewrite');
     }
 }

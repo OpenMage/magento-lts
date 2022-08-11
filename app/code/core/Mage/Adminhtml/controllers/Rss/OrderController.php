@@ -34,6 +34,11 @@
 
 class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_Abstract
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/order/actions/view';
 
     public function newAction()
     {
@@ -41,15 +46,5 @@ class Mage_Adminhtml_Rss_OrderController extends Mage_Adminhtml_Controller_Rss_A
             $this->loadLayout(false);
             $this->renderLayout();
         }
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view');
     }
 }

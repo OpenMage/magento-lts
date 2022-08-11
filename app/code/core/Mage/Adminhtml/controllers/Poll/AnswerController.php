@@ -34,6 +34,12 @@
 
 class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'cms/poll';
+
     public function editAction()
     {
         $this->loadLayout();
@@ -122,10 +128,4 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
         }
         $this->getResponse()->setBody( $response->toJson() );
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('cms/poll');
-    }
-
 }

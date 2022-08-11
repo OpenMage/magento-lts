@@ -511,11 +511,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$resourcePath$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Page\\:\\:getLang\\(\\) has invalid return type unknown\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Page.php
@@ -1661,26 +1656,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/PageController.php
 
 		-
-			message: "#^Call to method _saveSessionCurrentPath\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Call to method loadLayout\\(\\) on an unknown class Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_initAction\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Cms_Wysiwyg_ImagesController\\:\\:_saveSessionCurrentPath\\(\\) has invalid return type Mage_Adminhtml_Cms_Page_Wysiwyg_ImagesController\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Cms/Wysiwyg/ImagesController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_CustomerController\\:\\:cartAction\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/CustomerController.php
@@ -1694,11 +1669,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/IndexController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_JsonController\\:\\:countryRegionAction\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/JsonController.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -2487,11 +2457,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Captcha_Model_Interface\\:\\:getImgSrc\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
-
-		-
-			message: "#^Method Mage_Captcha_Adminhtml_RefreshController\\:\\:refreshAction\\(\\) should return null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Captcha/controllers/Adminhtml/RefreshController.php
 
@@ -3347,7 +3312,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
@@ -3512,7 +3477,7 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
@@ -3754,11 +3719,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getSummaryCount\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Links.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$item\\)\\: Unexpected token \"\\$item\", expected type at offset 18$#"
-			count: 2
-			path: ../app/code/core/Mage/Checkout/Block/Multishipping/Addresses.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayCartBothPrices\\(\\)\\.$#"
@@ -5466,11 +5426,6 @@ parameters:
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Queue.php
 
 		-
-			message: "#^Call to method Zend_Db_Select\\:\\:where\\(\\) with incorrect case\\: Where$#"
-			count: 1
-			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber.php
-
-		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
@@ -5617,16 +5572,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAvailable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$a\\)\\: Unexpected token \"\\$a\", expected type at offset 18$#"
-			count: 1
-			path: ../app/code/core/Mage/Payment/Helper/Data.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$b\\)\\: Unexpected token \"\\$b\", expected type at offset 35$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Helper/Data.php
 

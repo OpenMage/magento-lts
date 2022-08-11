@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/acl/blocks';
+
+    /**
      * @return $this
      */
     protected function _initAction()
@@ -205,7 +211,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -213,15 +219,5 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
     {
         $this->_setForcedFormKeyActions('delete');
         return parent::preDispatch();
-    }
-
-    /**
-     * Check permissions before allow edit list of blocks
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/acl/blocks');
     }
 }

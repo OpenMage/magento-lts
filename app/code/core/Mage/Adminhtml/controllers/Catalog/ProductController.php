@@ -34,6 +34,12 @@
 class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/products';
+
+    /**
      * The greatest value which could be stored in CatalogInventory Qty field
      */
     const MAX_QTY_VALUE = 99999999.9999;
@@ -46,7 +52,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     protected $_publicActions = array('edit');
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -588,9 +594,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         /**
          * Create Permanent Redirect for old URL key
          */
-        if ($product->getId() && isset($productData['url_key_create_redirect']))
-        // && $product->getOrigData('url_key') != $product->getData('url_key')
-        {
+        if ($product->getId() && isset($productData['url_key_create_redirect'])) {
             $product->setData('save_rewrites_history', (bool)$productData['url_key_create_redirect']);
         }
 
@@ -1101,16 +1105,6 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-    }
-
-    /**
-     * Check for is allowed
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/products');
     }
 
     /**

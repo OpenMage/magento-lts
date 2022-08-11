@@ -255,7 +255,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_streamLocked) {
             $this->streamUnlock();
         }
-        if ($this->_IsValidSource($this->_streamHandler)) {
+        if ($this->_isValidSource($this->_streamHandler)) {
             @fclose($this->_streamHandler);
         }
         $this->_streamHandler = null;
@@ -468,7 +468,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function write($filename, $src, $mode=null)
     {
-        if (!$this->_IsValidSource($src) || !$this->_isFilenameWriteable($filename)) {
+        if (!$this->_isValidSource($src) || !$this->_isFilenameWriteable($filename)) {
             return false;
         }
 
@@ -493,7 +493,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string|resource $src
      * @return bool
      */
-    protected function _IsValidSource($src)
+    protected function _isValidSource($src)
     {
         // In case of a string
         if (is_string($src)) {

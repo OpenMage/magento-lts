@@ -251,7 +251,7 @@ class Mage_Adminhtml_Newsletter_TemplateController extends Mage_Adminhtml_Contro
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
