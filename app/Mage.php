@@ -53,6 +53,14 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
+    file_exists($autoloaderPath = BP . DS . '../vendor/autoload.php')
+) {
+    require $autoloaderPath;
+}
+/** AUTOLOADER PATCH **/
+
 /* Support additional includes, such as composer's vendor/autoload.php files */
 foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
     include_once $path;
