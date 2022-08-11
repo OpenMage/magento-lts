@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,19 +45,19 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Load all tracks and save it to local cache by shipments
      *
-     * @return Mage_Sales_Block_Order_Print_Shipment
+     * @inheritDoc
      */
     protected function _beforeToHtml()
     {
         $tracksCollection = $this->getOrder()->getTracksCollection();
 
-        foreach($tracksCollection->getItems() as $track) {
+        foreach ($tracksCollection->getItems() as $track) {
             $shipmentId = $track->getParentId();
             $this->_tracks[$shipmentId][] = $track;
         }
 
         $shipment = Mage::registry('current_shipment');
-        if($shipment) {
+        if ($shipment) {
             $this->_shipmentsCollection = array($shipment);
         } else {
             $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
@@ -72,6 +66,9 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -83,31 +80,50 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         );
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return Mage::getUrl('*/*/history');
     }
 
+    /**
+     * @return string
+     */
     public function getPrintUrl()
     {
         return Mage::getUrl('*/*/print');
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
     }
 
+    /**
+     * @return Mage_Sales_Model_Order
+     */
     public function getOrder()
     {
         return Mage::registry('current_order');
     }
 
+    /**
+     * @return Mage_Sales_Model_Order_Shipment
+     */
     public function getShipment()
     {
         return Mage::registry('current_shipment');
     }
 
+    /**
+     * @param Mage_Core_Block_Abstract $renderer
+     * @inheritDoc
+     */
     protected function _prepareItem(Mage_Core_Block_Abstract $renderer)
     {
         $renderer->setPrintStatus(true);
@@ -149,7 +165,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     public function getShipmentAddressFormattedHtml($shipment)
     {
         $shippingAddress = $shipment->getShippingAddress();
-        if(!($shippingAddress instanceof Mage_Sales_Model_Order_Address)) {
+        if (!($shippingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
         return $shippingAddress->format('html');
@@ -164,7 +180,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     public function getBillingAddressFormattedHtml($order)
     {
         $billingAddress = $order->getBillingAddress();
-        if(!($billingAddress instanceof Mage_Sales_Model_Order_Address)) {
+        if (!($billingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
         return $billingAddress->format('html');
@@ -187,4 +203,3 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         return $res;
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,12 +30,12 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH = 'general/country/optional_zip_countries';
 
-    /*
+    /**
      * Path to config value, which lists countries, for which state is required.
      */
     const XML_PATH_STATES_REQUIRED = 'general/region/state_required';
 
-    /*
+    /**
      * Path to config value, which detects whether or not display the state for the country, if it is not required
      */
     const XML_PATH_DISPLAY_ALL_STATES = 'general/region/display_all';
@@ -107,14 +101,14 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     *
+     * @param string|array|null $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
      * @return Mage_Directory_Model_Resource_Region_Collection
      */
-    public function getRegionCollection()
+    public function getRegionCollection($countryFilter = null)
     {
         if (!$this->_regionCollection) {
             $this->_regionCollection = Mage::getModel('directory/region')->getResourceCollection()
-                ->addCountryFilter($this->getAddress()->getCountryId())
+                ->addCountryFilter($countryFilter)
                 ->load();
         }
         return $this->_regionCollection;
@@ -149,7 +143,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve regions data json
      *
      * @param int|null $storeId
-     * @return array()
+     * @return string
      */
     public function getRegionJsonByStore($storeId = null)
     {
@@ -186,13 +180,14 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         $countryIds = array();
 
         $countryCollection = $this->getCountryCollection()->loadByStore($storeId);
+        /** @var Mage_Directory_Model_Country $country */
         foreach ($countryCollection as $country) {
             $countryIds[] = $country->getCountryId();
         }
 
-        /** @var $regionModel Mage_Directory_Model_Region */
+        /** @var Mage_Directory_Model_Region $regionModel */
         $regionModel = $this->_factory->getModel('directory/region');
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = $regionModel->getResourceCollection()
             ->addCountryFilter($countryIds)
             ->load();
@@ -244,8 +239,12 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     public function getCountriesWithOptionalZip($asJson = false)
     {
         if (null === $this->_optionalZipCountries) {
-            $this->_optionalZipCountries = preg_split('/\,/',
-                Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH), 0, PREG_SPLIT_NO_EMPTY);
+            $this->_optionalZipCountries = preg_split(
+                '/\,/',
+                Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),
+                0,
+                PREG_SPLIT_NO_EMPTY
+            );
         }
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($this->_optionalZipCountries);

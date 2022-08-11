@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -68,7 +62,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Init model
      * Load Website, Group and Store collections
      *
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function __construct()
     {
@@ -78,7 +72,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Website collection
      *
-     * @return array
+     * @return $this
      */
     protected function _loadWebsiteCollection()
     {
@@ -89,7 +83,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Group collection
      *
-     * @return array
+     * @return $this
      */
     protected function _loadGroupCollection()
     {
@@ -105,7 +99,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Load/Reload Store collection
      *
-     * @return array
+     * @return $this
      */
     protected function _loadStoreCollection()
     {
@@ -151,7 +145,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                     }
                     if (!$websiteShow) {
                         $options[] = array(
-                            'label' => $website->getName(),
+                            'label' => Mage::helper('core')->escapeHtml($website->getName()),
                             'value' => array()
                         );
                         $websiteShow = true;
@@ -161,13 +155,15 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
                         $values    = array();
                     }
                     $values[] = array(
-                        'label' => str_repeat($nonEscapableNbspChar, 4) . $store->getName(),
+                        'label' => str_repeat($nonEscapableNbspChar, 4) .
+                            Mage::helper('core')->escapeHtml($store->getName()),
                         'value' => $store->getId()
                     );
                 }
                 if ($groupShow) {
                     $options[] = array(
-                        'label' => str_repeat($nonEscapableNbspChar, 4) . $group->getName(),
+                        'label' => str_repeat($nonEscapableNbspChar, 4) .
+                            Mage::helper('core')->escapeHtml($group->getName()),
                         'value' => $values
                     );
                 }
@@ -313,6 +309,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     public function getStoreGroupOptionHash($attribute = 'name')
     {
+        $options = [];
         foreach ($this->_groupCollection as $group) {
             $options[$group->getId()] = $group->getDataUsingMethod($attribute);
         }
@@ -322,7 +319,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Website name by Id
      *
-     * @param int websiteId
+     * @param int $websiteId
      * @return string
      */
     public function getWebsiteName($websiteId)
@@ -338,7 +335,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Group name by Id
      *
-     * @param int groupId
+     * @param int $groupId
      * @return string
      */
     public function getGroupName($groupId)
@@ -441,7 +438,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Allowed types: website, group, store or null for all
      *
      * @param string $type
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function reload($type = null)
     {
@@ -498,7 +495,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      * Specify whether to show admin-scope options
      *
      * @param bool $value
-     * @return Mage_Adminhtml_Model_System_Store
+     * @return $this
      */
     public function setIsAdminScopeAllowed($value)
     {

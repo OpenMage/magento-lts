@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +35,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
 
     /**
      * Storage resource model
-     * @var null|Mage_Core_Model_Mysql4_File_Storage_Database
+     * @var Mage_Core_Model_Resource_File_Storage_Database
      */
     protected $_resourceModel = null;
 
@@ -103,7 +97,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     /**
      * Get storage model
      *
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return Mage_Core_Model_Resource_File_Storage_Database
      */
     public function getResourceStorageModel()
     {
@@ -145,7 +139,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param string $oldName
      * @param string $newName
      */
-    public function copyFile($oldName, $newName) {
+    public function copyFile($oldName, $newName)
+    {
         if ($this->checkDbUsage()) {
             $this->getStorageDatabaseModel()
                 ->copyFile($this->_removeAbsPathFromFileName($oldName), $this->_removeAbsPathFromFileName($newName));
@@ -177,8 +172,8 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     public function getUniqueFilename($directory, $filename)
     {
         if ($this->checkDbUsage()) {
-           $directory = $this->_removeAbsPathFromFileName($directory);
-            if($this->fileExists($directory . $filename)) {
+            $directory = $this->_removeAbsPathFromFileName($directory);
+            if ($this->fileExists($directory . $filename)) {
                 $index = 1;
                 $extension = strrchr($filename, '.');
                 $filenameWoExtension = substr($filename, 0, -1 * strlen($extension));
@@ -195,12 +190,12 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * Save database file to file system
      *
      * @param string $filename
-     * @return bool|int
+     * @return bool
      */
     public function saveFileToFilesystem($filename)
     {
         if ($this->checkDbUsage()) {
-            /** @var $file Mage_Core_Model_File_Storage_Database */
+            /** @var Mage_Core_Model_File_Storage_Database $file */
             $file = Mage::getModel('core/file_storage_database')
                 ->loadByFilename($this->_removeAbsPathFromFileName($filename));
             if (!$file->getId()) {

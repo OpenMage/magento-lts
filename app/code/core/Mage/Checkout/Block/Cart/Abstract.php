@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -89,7 +83,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
             return $this->_itemRenders[$type];
         }
         return $this->_itemRenders['default'];
-     }
+    }
 
     /**
      * Get renderer block instance by product type code
@@ -170,15 +164,22 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function getItemHtml(Mage_Sales_Model_Quote_Item $item)
     {
+        /** @var Mage_Checkout_Block_Cart_Item_Renderer $renderer */
         $renderer = $this->getItemRenderer($item->getProductType())->setItem($item);
         return $renderer->toHtml();
     }
 
+    /**
+     * @return array
+     */
     public function getTotals()
     {
         return $this->getTotalsCache();
     }
 
+    /**
+     * @return array
+     */
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {

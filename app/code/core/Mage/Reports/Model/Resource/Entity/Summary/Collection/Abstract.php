@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +31,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Entity collection for summaries
      *
-     * @var Mage_Entity_Model_Entity_Collection_Abstract
+     * @var Mage_Eav_Model_Entity_Collection_Abstract
      */
     protected $_entityCollection;
 
@@ -47,7 +41,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * @param string $periodType
      * @param string|int|null $customStart
      * @param string|int|null $customEnd
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setSelectPeriod($periodType, $customStart = null, $customEnd = null)
     {
@@ -80,7 +74,6 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
                     $customEnd = strtotime($customEnd);
                 }
                 break;
-
         }
 
 
@@ -91,7 +84,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * Set date period
      *
      * @param int $period
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setDatePeriod($period)
     {
@@ -102,7 +95,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
      * Set store filter
      *
      * @param int $storeId
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     public function setStoreFilter($storeId)
     {
@@ -125,7 +118,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     /**
      * Init collection
      *
-     * @return Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract
+     * @return $this
      */
     protected function _initCollection()
     {

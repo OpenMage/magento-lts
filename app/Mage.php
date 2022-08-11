@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,28 +24,36 @@ define('BP', dirname(dirname(__FILE__)));
 
 Mage::register('original_include_path', get_include_path());
 
-if (defined('COMPILER_INCLUDE_PATH')) {
-    $appPath = COMPILER_INCLUDE_PATH;
-    set_include_path($appPath . PS . Mage::registry('original_include_path'));
-    include_once COMPILER_INCLUDE_PATH . DS . "Mage_Core_functions.php";
-    include_once COMPILER_INCLUDE_PATH . DS . "Varien_Autoload.php";
-} else {
-    /**
-     * Set include path
-     */
-    $paths = array();
-    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'local';
-    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'community';
-    $paths[] = BP . DS . 'app' . DS . 'code' . DS . 'core';
-    $paths[] = BP . DS . 'lib';
-
-    $appPath = implode(PS, $paths);
-    set_include_path($appPath . PS . Mage::registry('original_include_path'));
-    include_once "Mage/Core/functions.php";
-    include_once "Varien/Autoload.php";
+if (!empty($_SERVER['MAGE_IS_DEVELOPER_MODE']) || !empty($_ENV['MAGE_IS_DEVELOPER_MODE'])) {
+    Mage::setIsDeveloperMode(true);
+    ini_set('display_errors', 1);
+    ini_set('error_prepend_string', '<pre>');
+    ini_set('error_append_string', '</pre>');
 }
 
+/**
+ * Set include path
+ */
+$paths = array();
+$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'local';
+$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'community';
+$paths[] = BP . DS . 'app' . DS . 'code' . DS . 'core';
+$paths[] = BP . DS . 'lib';
+
+$appPath = implode(PS, $paths);
+set_include_path($appPath . PS . Mage::registry('original_include_path'));
+include_once "Mage/Core/functions.php";
+include_once "Varien/Autoload.php";
+
 Varien_Autoload::register();
+
+include_once "phpseclib/bootstrap.php";
+include_once "mcryptcompat/mcrypt.php";
+
+/* Support additional includes, such as composer's vendor/autoload.php files */
+foreach (glob(BP . DS . 'app' . DS . 'etc' . DS . 'includes' . DS . '*.php') as $path) {
+    include_once $path;
+}
 
 /**
  * Main Mage hub class
@@ -103,13 +105,6 @@ final class Mage
     static private $_objects;
 
     /**
-     * Is downloader flag
-     *
-     * @var bool
-     */
-    static private $_isDownloader               = false;
-
-    /**
      * Is developer mode flag
      *
      * @var bool
@@ -148,7 +143,6 @@ final class Mage
 
     /**
      * Gets the current Magento version string
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return string
      */
@@ -161,7 +155,6 @@ final class Mage
 
     /**
      * Gets the detailed Magento version information
-     * @link http://www.magentocommerce.com/blog/new-community-edition-release-process/
      *
      * @return array
      */
@@ -170,10 +163,71 @@ final class Mage
         return array(
             'major'     => '1',
             'minor'     => '9',
-            'revision'  => '3',
-            'patch'     => '7',
+            'revision'  => '4',
+            'patch'     => '5',
             'stability' => '',
             'number'    => '',
+        );
+    }
+
+    /**
+     * Gets the current OpenMage version string
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return string
+     */
+    public static function getOpenMageVersion()
+    {
+        $i = self::getOpenMageVersionInfo();
+        $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
+        if ( $i['stability'] || $i['number'] ) {
+            $versionString .= "-";
+            if ( $i['stability'] && $i['number'] ) {
+                $versionString .= implode('.', [$i['stability'], $i['number']]);
+            } else {
+                $versionString .= implode('', [$i['stability'], $i['number']]);
+            }
+        }
+        return trim(
+            $versionString,
+            '.-'
+        );
+    }
+
+    /**
+     * Gets the detailed OpenMage version information
+     * @link https://openmage.github.io/supported-versions.html
+     * @link https://semver.org/
+     *
+     * @return array
+     */
+    public static function getOpenMageVersionInfo()
+    {
+        $majorVersion = 19;
+
+        /**
+         * This code construct is to make merging for forward porting of changes easier.
+         * By having the version numbers of different branches in own lines, they do not provoke a merge conflict
+         * also as releases are usually done together, this could in theory be done at once.
+         * The major Version then needs to be only changed once per branch.
+         */
+        if ($majorVersion === 20) {
+            return array(
+                'major'     => '20',
+                'minor'     => '0',
+                'patch'     => '16',
+                'stability' => '', // beta,alpha,rc
+                'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
+            );
+        }
+
+        return array(
+            'major'     => '19',
+            'minor'     => '4',
+            'patch'     => '18',
+            'stability' => '', // beta,alpha,rc
+            'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
         );
     }
 
@@ -200,7 +254,6 @@ final class Mage
         self::$_config          = null;
         self::$_events          = null;
         self::$_objects         = null;
-        self::$_isDownloader    = false;
         self::$_isDeveloperMode = false;
         self::$_isInstalled     = null;
         // do not reset $headersSentThrowsException
@@ -248,10 +301,7 @@ final class Mage
      */
     public static function registry($key)
     {
-        if (isset(self::$_registry[$key])) {
-            return self::$_registry[$key];
-        }
-        return null;
+        return self::$_registry[$key] ?? null;
     }
 
     /**
@@ -273,7 +323,7 @@ final class Mage
 
         $appRoot = realpath($appRoot);
 
-        if (is_dir($appRoot) and is_readable($appRoot)) {
+        if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
             self::throwException($appRoot . ' is not a directory or not readable by this user');
@@ -345,7 +395,7 @@ final class Mage
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -419,8 +469,10 @@ final class Mage
      *
      * @param string $eventName
      * @param callback $callback
-     * @param array $arguments
+     * @param array $data
      * @param string $observerName
+     * @param string $observerClass
+     * @return Varien_Event_Collection
      */
     public static function addObserver($eventName, $callback, $data = array(), $observerName = '', $observerClass = '')
     {
@@ -470,13 +522,13 @@ final class Mage
      * @param   array $arguments
      * @return  Mage_Core_Model_Abstract
      */
-    public static function getSingleton($modelClass='', array $arguments=array())
+    public static function getSingleton($modelClass = '', array $arguments=array())
     {
-        $registryKey = '_singleton/'.$modelClass;
+        $registryKey = '_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -484,7 +536,7 @@ final class Mage
      *
      * @param   string $modelClass
      * @param   array $arguments
-     * @return  Object
+     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public static function getResourceModel($modelClass, $arguments = array())
     {
@@ -514,15 +566,15 @@ final class Mage
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = array())
     {
-        $registryKey = '_resource_singleton/'.$modelClass;
+        $registryKey = '_resource_singleton/' . $modelClass;
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
-     * Deprecated, use self::helper()
+     * @deprecated, use self::helper()
      *
      * @param string $type
      * @return object
@@ -546,7 +598,7 @@ final class Mage
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass);
         }
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -562,8 +614,7 @@ final class Mage
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
-
-        return self::registry($registryKey);
+        return self::$_registry[$registryKey];
     }
 
     /**
@@ -690,7 +741,7 @@ final class Mage
             require_once(self::getBaseDir() . DS . 'errors' . DS . '404.php');
             die();
         } catch (Exception $e) {
-            if (self::isInstalled() || self::$_isDownloader) {
+            if (self::isInstalled()) {
                 self::printException($e);
                 exit();
             }
@@ -804,17 +855,33 @@ final class Mage
 
         static $loggers = array();
 
-        $level  = is_null($level) ? Zend_Log::DEBUG : $level;
-        $file = empty($file) ? 'system.log' : basename($file);
+        try {
+            $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
+        } catch (Throwable $e) {
+            $maxLogLevel = Zend_Log::DEBUG;
+        }
 
-        // Validate file extension before save. Allowed file extensions: log, txt, html, csv
-        if (!self::helper('log')->isLogFileExtensionValid($file)) {
+        $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+
+        if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
             return;
         }
 
+        $file = empty($file) ?
+            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+
         try {
             if (!isset($loggers[$file])) {
-                $logDir  = self::getBaseDir('var') . DS . 'log';
+                // Validate file extension before save. Allowed file extensions: log, txt, html, csv
+                $_allowedFileExtensions = explode(
+                    ',',
+                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
+                );
+                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                    return;
+                }
+
+                $logDir = self::getBaseDir('var') . DS . 'log';
                 $logFile = $logDir . DS . $file;
 
                 if (!is_dir($logDir)) {
@@ -844,6 +911,7 @@ final class Mage
                 $message = print_r($message, true);
             }
 
+            $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
         }
         catch (Exception $e) {
@@ -853,9 +921,9 @@ final class Mage
     /**
      * Write exception to log
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function logException(Exception $e)
+    public static function logException(Throwable $e)
     {
         if (!self::getConfig()) {
             return;
@@ -889,9 +957,9 @@ final class Mage
     /**
      * Display exception
      *
-     * @param Exception $e
+     * @param Throwable $e
      */
-    public static function printException(Exception $e, $extra = '')
+    public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
             print '<pre>';
@@ -906,7 +974,7 @@ final class Mage
         } else {
 
             $reportData = array(
-                !empty($extra) ? $extra . "\n\n" : '' . $e->getMessage(),
+                (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
                 $e->getTraceAsString()
             );
 
@@ -986,10 +1054,10 @@ final class Mage
     /**
      * Set is downloader flag
      *
-     * @param bool $flag
+     * @deprecated
      */
-    public static function setIsDownloader($flag = true)
+    public static function setIsDownloader()
     {
-        self::$_isDownloader = $flag;
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,23 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_Catalog_Model_Convert_Parser_Product
-    extends Mage_Eav_Model_Convert_Parser_Abstract
+/**
+ * Class Mage_Catalog_Model_Convert_Parser_Product
+ */
+class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_Parser_Abstract
 {
     const MULTI_DELIMITER = ' , ';
+
     protected $_resource;
 
     /**
@@ -72,7 +68,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
 
     public function __construct()
     {
-        foreach (Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin') as $code=>$node) {
+        foreach (Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin') as $code => $node) {
             if ($node->is('inventory')) {
                 $this->_inventoryFields[] = $code;
                 if ($node->is('use_config')) {
@@ -109,6 +105,10 @@ class Mage_Catalog_Model_Convert_Parser_Product
         return $this->_resource;
     }
 
+    /**
+     * @param int $storeId
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
     public function getCollection($storeId)
     {
         if (!isset($this->_collections[$storeId])) {
@@ -165,7 +165,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
     /**
      * Retrieve product model cache
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|object
      */
     public function getProductModel()
     {
@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
      * ReDefine Product Type Instance to Product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Convert_Parser_Product
+     * @return $this
      */
     public function setProductTypeInstance(Mage_Catalog_Model_Product $product)
     {
@@ -228,6 +228,9 @@ class Mage_Catalog_Model_Convert_Parser_Product
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeSetInstance()
     {
         $productType = $this->getProductModel()->getType();
@@ -264,7 +267,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
         $entityTypeId    = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
         $inventoryFields = array();
 
-        foreach ($data as $i=>$row) {
+        foreach ($data as $i => $row) {
             $this->setPosition('Line: '.($i+1));
             try {
                 // validate SKU
@@ -330,7 +333,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                     if (!empty($row['entity_id'])) {
                         $model->load($row['entity_id']);
                     }
-                    foreach ($row as $field=>$value) {
+                    foreach ($row as $field => $value) {
                         $attribute = $entity->getAttribute($field);
 
                         if (!$attribute) {
@@ -340,10 +343,6 @@ class Mage_Catalog_Model_Convert_Parser_Product
                                 $inventoryFields[$row['sku']][$field] = $value;
                             }
                             continue;
-//                            $this->addException(
-//                                Mage::helper('catalog')->__('Unknown attribute: %s.', $field),
-//                                Mage_Dataflow_Model_Convert_Exception::ERROR
-//                            );
                         }
                         if ($attribute->usesSource()) {
                             $source = $attribute->getSource();
@@ -359,7 +358,6 @@ class Mage_Catalog_Model_Convert_Parser_Product
                             $value = $optionId;
                         }
                         $model->setData($field, $value);
-
                     }//foreach ($row as $field=>$value)
 
                     //echo 'Before **********************<br/><pre>';
@@ -380,7 +378,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
         }
 
         // set importinted to adaptor
-        if (sizeof($inventoryFields) > 0) {
+        if (count($inventoryFields)) {
             Mage::register('current_imported_inventory', $inventoryFields);
             //$this->setInventoryItems($inventoryFields);
         } // end setting imported to adaptor
@@ -389,11 +387,17 @@ class Mage_Catalog_Model_Convert_Parser_Product
         return $this;
     }
 
+    /**
+     * @param array $items
+     */
     public function setInventoryItems($items)
     {
         $this->_inventoryItems = $items;
     }
 
+    /**
+     * @return array
+     */
     public function getInventoryItems()
     {
         return $this->_inventoryItems;
@@ -402,7 +406,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
     /**
      * Unparse (prepare data) loaded products
      *
-     * @return Mage_Catalog_Model_Convert_Parser_Product
+     * @return $this
      */
     public function unparse()
     {
@@ -413,7 +417,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                 ->setStoreId($this->getStoreId())
                 ->load($entityId);
             $this->setProductTypeInstance($product);
-            /* @var $product Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $product */
 
             $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());
             $this->setPosition($position);
@@ -421,10 +425,12 @@ class Mage_Catalog_Model_Convert_Parser_Product
             $row = array(
                 'store'         => $this->getStore()->getCode(),
                 'websites'      => '',
-                'attribute_set' => $this->getAttributeSetName($product->getEntityTypeId(),
-                                        $product->getAttributeSetId()),
+                'attribute_set' => $this->getAttributeSetName(
+                    $product->getEntityTypeId(),
+                    $product->getAttributeSetId()
+                ),
                 'type'          => $product->getTypeId(),
-                'category_ids'  => join(',', $product->getCategoryIds())
+                'category_ids' => implode(',', $product->getCategoryIds())
             );
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {
@@ -433,7 +439,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                     $websiteCode = Mage::app()->getWebsite($websiteId)->getCode();
                     $websiteCodes[$websiteCode] = $websiteCode;
                 }
-                $row['websites'] = join(',', $websiteCodes);
+                $row['websites'] = implode(',', $websiteCodes);
             } else {
                 $row['websites'] = $this->getStore()->getWebsite()->getCode();
                 if ($this->getVar('url_field')) {
@@ -461,7 +467,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
                         continue;
                     }
                     if (is_array($option)) {
-                        $value = join(self::MULTI_DELIMITER, $option);
+                        $value = implode(self::MULTI_DELIMITER, $option);
                     } else {
                         $value = $option;
                     }
@@ -507,7 +513,7 @@ class Mage_Catalog_Model_Convert_Parser_Product
 
             $baseRowData = array(
                 'store'     => $row['store'],
-                'website'   => $row['website'],
+                'website'   => $row['websites'],
                 'sku'       => $row['sku']
             );
             unset($row);

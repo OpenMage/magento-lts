@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,14 +63,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Set back redirect url to response
      *
-     * @return Mage_Checkout_CartController
+     * @return $this
      * @throws Mage_Exception
      */
     protected function _goBack()
     {
         $returnUrl = $this->getRequest()->getParam('return_url');
         if ($returnUrl) {
-
             if (!$this->_isUrlInternal($returnUrl)) {
                 throw new Mage_Exception('External urls redirect to "' . $returnUrl . '" denied!');
             }
@@ -89,8 +82,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         ) {
             $this->getResponse()->setRedirect($backUrl);
         } else {
-            if (
-                (strtolower($this->getRequest()->getActionName()) == 'add')
+            if ((strtolower($this->getRequest()->getActionName()) == 'add')
                 && !$this->getRequest()->getParam('in_cart')
             ) {
                 $this->_getSession()->setContinueShoppingUrl($this->_getRefererUrl());
@@ -103,7 +95,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize product instance from request data
      *
-     * @return Mage_Catalog_Model_Product || false
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -122,11 +114,12 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Predispatch: remove isMultiShipping option from quote
      *
-     * @return Mage_Checkout_CartController
+     * @return $this
      */
     public function preDispatch()
     {
         parent::preDispatch();
+        Mage::helper('catalog/product_flat')->disableFlatCollection(true);
 
         $cart = $this->_getCart();
         if ($cart->getQuote()->getIsMultiShipping()) {
@@ -144,8 +137,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart = $this->_getCart();
         if ($cart->getQuote()->getItemsCount()) {
             $cart->init();
-            if (
-                $cart->getQuote()->getShippingAddress()
+            if ($cart->getQuote()->getShippingAddress()
                 && $this->_getSession()->getEstimatedShippingAddressData()
                 && $couponCode = $this->_getSession()->getCartCouponCode()
             ) {
@@ -202,8 +194,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
     /**
      * Add product to shopping cart action
      *
-     * @return Mage_Core_Controller_Varien_Action
-     * @throws Exception
+     * @throws Mage_Exception
      */
     public function addAction()
     {
@@ -244,7 +235,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             /**
              * @todo remove wishlist observer processAddToCart
              */
-            Mage::dispatchEvent('checkout_cart_add_product_complete',
+            Mage::dispatchEvent(
+                'checkout_cart_add_product_complete',
                 array('product' => $product, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
 
@@ -296,7 +288,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ->addFilterByCustomerId($customerId)
             ->addIdFilter($orderItemIds)
             ->load();
-        /* @var $itemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
+        /* @var Mage_Sales_Model_Mysql4_Order_Item_Collection $itemsCollection */
         $cart = $this->_getCart();
         foreach ($itemsCollection as $item) {
             try {
@@ -357,6 +349,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      */
     public function updateItemOptionsAction()
     {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+
         $cart   = $this->_getCart();
         $id = (int) $this->getRequest()->getParam('id');
         $params = $this->getRequest()->getParams();
@@ -394,7 +391,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $this->_getSession()->setCartWasUpdated(true);
 
-            Mage::dispatchEvent('checkout_cart_update_item_complete',
+            Mage::dispatchEvent(
+                'checkout_cart_update_item_complete',
                 array('item' => $item, 'request' => $this->getRequest(), 'response' => $this->getResponse())
             );
             if (!$this->_getSession()->getNoCartRedirect(true)) {
@@ -557,8 +555,6 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
     /**
      * Estimate update action
-     *
-     * @return null
      */
     public function estimateUpdatePostAction()
     {
@@ -614,9 +610,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     );
                 }
             } else {
+                $this->_getSession()->setCartCouponCode('');
                 $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
             }
-
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         } catch (Exception $e) {

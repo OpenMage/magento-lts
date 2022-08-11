@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -131,7 +125,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Response
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Api2_Model_Response
      */
     protected $_response;
 
@@ -293,7 +287,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Trigger error for not-implemented operations
      *
-     * @param $methodName
+     * @param string $methodName
      */
     protected function _errorIfMethodNotExist($methodName)
     {
@@ -305,7 +299,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Check method exist
      *
-     * @param $methodName
+     * @param string $methodName
      * @return bool
      */
     protected function _checkMethodExist($methodName)
@@ -331,7 +325,7 @@ abstract class Mage_Api2_Model_Resource
      * Set request
      *
      * @param Mage_Api2_Model_Request $request
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setRequest(Mage_Api2_Model_Request $request)
     {
@@ -359,7 +353,7 @@ abstract class Mage_Api2_Model_Resource
      * Set resource type
      *
      * @param string $resourceType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setResourceType($resourceType)
     {
@@ -385,7 +379,7 @@ abstract class Mage_Api2_Model_Resource
      * Set API type
      *
      * @param string $apiType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setApiType($apiType)
     {
@@ -401,7 +395,7 @@ abstract class Mage_Api2_Model_Resource
     public function getVersion()
     {
         if (null === $this->_version) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches) ) {
+            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');
@@ -451,7 +445,7 @@ abstract class Mage_Api2_Model_Resource
     public function getFilter()
     {
         if (!$this->_filter) {
-            /** @var $filter Mage_Api2_Model_Acl_Filter */
+            /** @var Mage_Api2_Model_Acl_Filter $filter */
             $filter = Mage::getModel('api2/acl_filter', $this);
             $this->setFilter($filter);
         }
@@ -511,7 +505,7 @@ abstract class Mage_Api2_Model_Resource
      * Set user type
      *
      * @param string $userType
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setUserType($userType)
     {
@@ -537,7 +531,7 @@ abstract class Mage_Api2_Model_Resource
      * Set API user
      *
      * @param Mage_Api2_Model_Auth_User_Abstract $apiUser
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setApiUser(Mage_Api2_Model_Auth_User_Abstract $apiUser)
     {
@@ -563,7 +557,7 @@ abstract class Mage_Api2_Model_Resource
      * Set route type
      *
      * @param string $actionType One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setActionType($actionType)
     {
@@ -589,7 +583,7 @@ abstract class Mage_Api2_Model_Resource
      * Set operation
      *
      * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setOperation($operation)
     {
@@ -679,7 +673,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _error($message, $code)
     {
@@ -693,7 +687,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @param array $params
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _successMessage($message, $code, $params = array())
     {
@@ -707,7 +701,7 @@ abstract class Mage_Api2_Model_Resource
      * @param string $message
      * @param int $code
      * @param array $params
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _errorMessage($message, $code, $params = array())
     {
@@ -719,7 +713,7 @@ abstract class Mage_Api2_Model_Resource
      * Set navigation parameters and apply filters from URL params
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     final protected function _applyCollectionModifiers(Varien_Data_Collection_Db $collection)
     {
@@ -757,7 +751,7 @@ abstract class Mage_Api2_Model_Resource
      * Validate filter data and apply it to collection if possible
      *
      * @param Varien_Data_Collection_Db $collection
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _applyFilter(Varien_Data_Collection_Db $collection)
     {
@@ -791,7 +785,7 @@ abstract class Mage_Api2_Model_Resource
 
             try {
                 $collection->$methodName($attributeCode, $filterEntry);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
             }
         }
@@ -818,7 +812,7 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $resourceId Resource identifier
      * @param array $requestParams Parameters to be set to request
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     protected function _getSubModel($resourceId, array $requestParams)
     {
@@ -829,7 +823,7 @@ abstract class Mage_Api2_Model_Resource
             $this->getVersion()
         );
 
-        /** @var $request Mage_Api2_Model_Request */
+        /** @var Mage_Api2_Model_Request $request */
         $request = Mage::getModel('api2/request');
 
         $request->setParams($requestParams);
@@ -854,7 +848,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _isSubCallAllowed($resourceId)
     {
-        /** @var $globalAcl Mage_Api2_Model_Acl_Global */
+        /** @var Mage_Api2_Model_Acl_Global $globalAcl */
         $globalAcl = Mage::getSingleton('api2/acl_global');
 
         try {
@@ -868,7 +862,7 @@ abstract class Mage_Api2_Model_Resource
      * Set 'returnData' flag
      *
      * @param boolean $flag
-     * @return Mage_Api2_Model_Resource
+     * @return $this
      */
     public function setReturnData($flag)
     {
@@ -884,7 +878,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getLocation($resource)
     {
-        /* @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
@@ -1011,7 +1005,7 @@ abstract class Mage_Api2_Model_Resource
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
-            /* @var $resource Mage_Core_Model_Resource_Db_Abstract */
+            /* @var Mage_Core_Model_Resource_Db_Abstract $resource */
             $resource = Mage::getResourceModel($workModel);
 
             if (method_exists($resource, 'getMainTable')) {
@@ -1033,10 +1027,10 @@ abstract class Mage_Api2_Model_Resource
         $attributes = array();
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
-        /** @var $entityType Mage_Eav_Model_Entity_Type */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
         $entityType = Mage::getModel('eav/entity_type')->load($model, 'entity_model');
 
-        /** @var $attribute Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         foreach ($entityType->getAttributeCollection() as $attribute) {
             if ($onlyVisible && !$attribute->getIsVisible()) {
                 continue;

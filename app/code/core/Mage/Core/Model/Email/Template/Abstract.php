@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,12 @@
  * @category    Mage
  * @package     Mage_Core
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getInlineCssFile()
+ * @method $this setTemplateType(int $value)
+ * @method getTemplateText()
+ * @method $this setTemplateText(string $value)
+ * @method string getTemplateStyles()
  */
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
@@ -62,7 +62,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      *
      * @param   string $configPath The path to the config setting that defines which global/template/email/* node
      * should be used to load the email template
-     * @return   Mage_Core_Model_Email_Template
+     * @return   $this|null
      */
     public function loadByConfigPath($configPath)
     {
@@ -84,7 +84,9 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
             $localeCode = Mage::getStoreConfig('general/locale/code', $storeId);
             $templateText = Mage::app()->getTranslator()->getTemplateFile(
-                $data['file'], 'email', $localeCode
+                $data['file'],
+                'email',
+                $localeCode
             );
 
             $this->setTemplateText($templateText);
@@ -142,8 +144,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     /**
      * Add variables that are used by transactional emails and newsletter emails
      *
-     * @param $variables
-     * @param $storeId
+     * @param array $variables
+     * @param int $storeId
      * @return mixed
      */
     protected function _addEmailVariables($variables, $storeId)
@@ -183,7 +185,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Merge HTML and CSS and returns HTML that has CSS styles applied "inline" to the HTML tags. This is necessary
      * in order to support all email clients.
      *
-     * @param $html
+     * @param string $html
      * @return string
      */
     protected function _applyInlineCss($html)
@@ -235,11 +237,9 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_theme' => $theme,
             )
         );
-        $filePath = realpath($filePath);
-        $positionSkinDirectory = strpos($filePath, Mage::getBaseDir('skin'));
         $validator = new Zend_Validate_File_Extension('css');
 
-        if ($validator->isValid($filePath) && $positionSkinDirectory !== false && is_readable($filePath)) {
+        if ($validator->isValid($filePath) && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
@@ -251,7 +251,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
      * Accepts a path to a System Config setting that contains a comma-delimited list of files to load. Loads those
      * files and then returns the concatenated content.
      *
-     * @param $configPath
+     * @param string $configPath
      * @return string
      */
     protected function _getCssByConfig($configPath)
@@ -264,7 +264,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $files = array_map('trim', explode(",", $filesToLoad));
 
             $css = '';
-            foreach($files as $fileName) {
+            foreach ($files as $fileName) {
                 $css .= $this->_getCssFileContent($fileName) . "\n";
             }
             $this->_cssFileCache[$configPath] = $css;

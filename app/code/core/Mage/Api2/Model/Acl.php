@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,7 +105,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
     /**
      * Retrieve resources types and set into ACL
      *
-     * @return Mage_Api2_Model_Acl
+     * @return $this
      */
     protected function _setResources()
     {
@@ -124,11 +118,11 @@ class Mage_Api2_Model_Acl extends Zend_Acl
     /**
      * Retrieve roles from DB and set into ACL
      *
-     * @return Mage_Api2_Model_Acl
+     * @return $this
      */
     protected function _setRoles()
     {
-        /** @var $role Mage_Api2_Model_Acl_Global_Role */
+        /** @var Mage_Api2_Model_Acl_Global_Role $role */
         foreach ($this->_getRolesCollection() as $role) {
             $this->addRole($role->getId());
         }
@@ -138,18 +132,18 @@ class Mage_Api2_Model_Acl extends Zend_Acl
     /**
      * Retrieve rules data from DB and inject it into ACL
      *
-     * @return Mage_Api2_Model_Acl
+     * @return $this
      */
     protected function _setRules()
     {
-        /** @var $rulesCollection Mage_Api2_Model_Resource_Acl_Global_Rule_Collection */
+        /** @var Mage_Api2_Model_Resource_Acl_Global_Rule_Collection $rulesCollection */
         $rulesCollection = Mage::getResourceModel('api2/acl_global_rule_collection');
 
-        /** @var $rule Mage_Api2_Model_Acl_Global_Rule */
+        /** @var Mage_Api2_Model_Acl_Global_Rule $rule */
         foreach ($rulesCollection as $rule) {
             if (Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL === $rule->getResourceId()) {
                 if (in_array($rule->getRoleId(), Mage_Api2_Model_Acl_Global_Role::getSystemRoles())) {
-                    /** @var $role Mage_Api2_Model_Acl_Global_Role */
+                    /** @var Mage_Api2_Model_Acl_Global_Role $role */
                     $role = $this->_getRolesCollection()->getItemById($rule->getRoleId());
                     $privileges = $this->_getConfig()->getResourceUserPrivileges(
                         $this->_resourceType,

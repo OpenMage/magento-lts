@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,15 +85,21 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         foreach ($this->_columns as $_column) {
             $_column->setSortable(false);
         }
 
-        parent::_prepareColumns();
+        return parent::_prepareColumns();
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareCollection()
     {
         $filter = $this->getParam($this->getVarNameFilter(), null);
@@ -128,10 +128,10 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             $this->_setFilterValues($data);
         } else if ($filter && is_array($filter)) {
             $this->_setFilterValues($filter);
-        } else if(0 !== sizeof($this->_defaultFilter)) {
+        } else if(count($this->_defaultFilter)) {
             $this->_setFilterValues($this->_defaultFilter);
         }
-        /** @var $collection Mage_Reports_Model_Resource_Report_Collection */
+        /** @var Mage_Reports_Model_Resource_Report_Collection $collection */
         $collection = Mage::getResourceModel('reports/report_collection');
 
         $collection->setPeriod($this->getFilter('report_period'));
@@ -424,7 +424,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as CSV
      *
-     * @return unknown
+     * @return string
      */
     public function getCsv()
     {
@@ -614,11 +614,11 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
         return $this->_currentCurrencyCode;
     }
-    
+
     /**
      * Get currency rate (base to given currency)
      *
-     * @param string|Mage_Directory_Model_Currency $currencyCode
+     * @param string|Mage_Directory_Model_Currency $toCurrency
      * @return double
      */
     public function getRate($toCurrency)

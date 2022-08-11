@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,15 +23,18 @@
  *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
- * @method Mage_Index_Model_Event setType(string $value)
- * @method Mage_Index_Model_Event setEntity(string $value)
+ * @method $this setType(string $value)
+ * @method $this setEntity(string $value)
+ * @method bool hasEntityPk()
  * @method int getEntityPk()
- * @method Mage_Index_Model_Event setEntityPk(int $value)
+ * @method $this setEntityPk(int $value)
  * @method string getCreatedAt()
- * @method Mage_Index_Model_Event setCreatedAt(string $value)
- * @method Mage_Index_Model_Event setOldData(string $value)
- * @method Mage_Index_Model_Event setNewData(string $value)
+ * @method $this setCreatedAt(string $value)
+ * @method $this setOldData(string $value)
+ * @method $this setNewData(string $value)
  * @method Varien_Object getDataObject()
+ * @method $this setDataObject(Varien_Object $value)
+ * @method bool hasCreatedAt()
  *
  * @category    Mage
  * @package     Mage_Index
@@ -90,7 +87,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Specify process object
      *
-     * @param null|Mage_Index_Model_Process $process
+     * @param Mage_Index_Model_Process $process
+     * @return $this
      */
     public function setProcess($process)
     {
@@ -101,7 +99,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Get related process object
      *
-     * @return Mage_Index_Model_Process | null
+     * @return Mage_Index_Model_Process
      */
     public function getProcess()
     {
@@ -110,6 +108,8 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
 
     /**
      * Specify namespace for old and new data
+     * @param string $namespace
+     * @return $this
      */
     public function setDataNamespace($namespace)
     {
@@ -120,7 +120,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Reset old and new data arrays
      *
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function resetData()
     {
@@ -137,10 +137,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add process id to event object
      *
-     * @param   $processId
-     * @return  Mage_Index_Model_Event
+     * @param int $processId
+     * @param string $status
+     * @return  $this
      */
-    public function addProcessId($processId, $status=Mage_Index_Model_Process::EVENT_STATUS_NEW)
+    public function addProcessId($processId, $status = Mage_Index_Model_Process::EVENT_STATUS_NEW)
     {
         $this->_processIds[$processId] = $status;
         return $this;
@@ -192,7 +193,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Used for events duplicated protection
      *
      * @param array $data
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function mergePreviousData($data)
     {
@@ -202,7 +203,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         }
 
         if (!empty($data['new_data'])) {
-            $previousNewData = unserialize($data['new_data']);
+            $previousNewData = unserialize($data['new_data'], ['allowed_classes' => false]);
             $currentNewData  = $this->getNewData(false);
             $currentNewData = $this->_mergeNewDataRecursive($previousNewData, $currentNewData);
             $this->setNewData(serialize($currentNewData));
@@ -213,7 +214,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Clean new data, unset data for done processes
      *
-     * @return Mage_Index_Model_Event
+     * @return $this
      */
     public function cleanNewData()
     {
@@ -261,7 +262,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     {
         $data = $this->_getData('new_data');
         if (is_string($data)) {
-            $data = unserialize($data);
+            $data = unserialize($data, ['allowed_classes' => false]);
         } elseif (empty($data) || !is_array($data)) {
             $data = array();
         }
@@ -274,12 +275,12 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to old data array (overwrite if value with same key exist)
      *
+     * @param array|string $key
+     * @param null|mixed $value
+     * @return $this
      * @deprecated since 1.6.2.0
-     * @param array | string $data
-     * @param null | mixed $value
-     * @return Mage_Index_Model_Event
      */
-    public function addOldData($key, $value=null)
+    public function addOldData($key, $value = null)
     {
         return $this;
     }
@@ -287,11 +288,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Add new values to new data array (overwrite if value with same key exist)
      *
-     * @param array | string $data
-     * @param null | mixed $value
-     * @return Mage_Index_Model_Event
+     * @param array|string $key
+     * @param null|mixed $value
+     * @return $this
      */
-    public function addNewData($key, $value=null)
+    public function addNewData($key, $value = null)
     {
         $newData = $this->getNewData(false);
         if (!is_array($key)) {
@@ -334,7 +335,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Serelaize old and new data arrays before saving
      *
-     * @return Mage_Index_Model_Event
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

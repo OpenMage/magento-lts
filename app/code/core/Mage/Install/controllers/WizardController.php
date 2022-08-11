@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +57,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Prepare layout
      *
-     * @return unknown
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -81,7 +75,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     /**
      * Checking installation status
      *
-     * @return unknown
+     * @return bool
      */
     protected function _checkIfInstalled()
     {
@@ -186,95 +180,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->getResponse()->setRedirect($step->getNextUrl());
-    }
-
-    public function downloadAction()
-    {
-        $this->_checkIfInstalled();
-        $this->setFlag('', self::FLAG_NO_DISPATCH_BLOCK_EVENT, true);
-        $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-
-        $this->_prepareLayout();
-        $this->_initLayoutMessages('install/session');
-        $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/download', 'install.download')
-        );
-
-        $this->renderLayout();
-    }
-
-    public function downloadPostAction()
-    {
-        $this->_checkIfInstalled();
-        switch ($this->getRequest()->getPost('continue')) {
-            case 'auto':
-                $this->_forward('downloadAuto');
-                break;
-
-            case 'manual':
-                $this->_forward('downloadManual');
-                break;
-
-            case 'svn':
-                $step = $this->_getWizard()->getStepByName('download');
-                $this->getResponse()->setRedirect($step->getNextUrl());
-                break;
-
-            default:
-                $this->_redirect('*/*/download');
-        }
-    }
-
-    public function downloadAutoAction()
-    {
-        $step = $this->_getWizard()->getStepByName('download');
-        $this->getResponse()->setRedirect($step->getNextUrl());
-    }
-
-    public function installAction()
-    {
-        $pear = Varien_Pear::getInstance();
-        $params = array('comment'=>Mage::helper('install')->__("Downloading and installing Magento, please wait...") . "\r\n\r\n");
-        if ($this->getRequest()->getParam('do')) {
-            if ($state = $this->getRequest()->getParam('state', 'beta')) {
-                $result = $pear->runHtmlConsole(array(
-                'comment'   => Mage::helper('install')->__("Setting preferred state to: %s", $state) . "\r\n\r\n",
-                'command'   => 'config-set',
-                'params'    => array('preferred_state', $state)
-                ));
-                if ($result instanceof PEAR_Error) {
-                    $this->installFailureCallback();
-                    exit;
-                }
-            }
-            $params['command'] = 'install';
-            $params['options'] = array('onlyreqdeps'=>1);
-            $params['params'] = Mage::getModel('install/installer_pear')->getPackages();
-            $params['success_callback'] = array($this, 'installSuccessCallback');
-            $params['failure_callback'] = array($this, 'installFailureCallback');
-        }
-        $pear->runHtmlConsole($params);
-        Mage::app()->getFrontController()->getResponse()->clearAllHeaders();
-    }
-
-    public function installSuccessCallback()
-    {
-        echo 'parent.installSuccess()';
-    }
-
-    public function installFailureCallback()
-    {
-        echo 'parent.installFailure()';
-    }
-
-    public function downloadManualAction()
-    {
-        $step = $this->_getWizard()->getStepByName('download');
-        #if (!$this->_getInstaller()->checkDownloads()) {
-        #    $this->getResponse()->setRedirect($step->getUrl());
-        #} else {
-        $this->getResponse()->setRedirect($step->getNextUrl());
-        #}
     }
 
     /**
@@ -433,8 +338,6 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         }
 
         $this->_getInstaller()->finish();
-
-        Mage_AdminNotification_Model_Survey::saveSurveyViewed(true);
 
         $this->_prepareLayout();
         $this->_initLayoutMessages('install/session');

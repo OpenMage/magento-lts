@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +41,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      * Add filter for tags (combined by OR)
      *
      * @param string|array $tags
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function addTagsFilter($tags)
     {
@@ -57,7 +51,8 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
             $this->join(
                 array('curt' => $this->getTable('core/url_rewrite_tag')),
                 'main_table.url_rewrite_id = curt.url_rewrite_id',
-                array());
+                array()
+            );
             $this->setFlag('tag_table_joined', true);
         }
 
@@ -70,7 +65,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      *
      * @param mixed $store
      * @param bool $withAdmin
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function addStoreFilter($store, $withAdmin = true)
     {
@@ -90,7 +85,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
      *  Add filter by catalog product Id
      *
      * @param int $productId
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function filterAllByProductId($productId)
     {
@@ -104,7 +99,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     /**
      * Add filter by all catalog category
      *
-     * @return Mage_Core_Model_Resource_Url_Rewrite_Collection
+     * @return $this
      */
     public function filterAllByCategory()
     {

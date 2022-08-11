@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +87,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array|null $preValues
-     * @return Mage_ConfigurableSwatches_Helper_Data
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -141,14 +134,15 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 $swatchLabel = $label . self::SWATCH_LABEL_SUFFIX;
 
                 $imageKeys[$label] = array_search($label, $imageHaystack);
-                if ($imageKeys[$label] === false) {
+                if ($imageKeys[$label] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$label] = array_search($mapping[$label]['default_label'], $imageHaystack);
                 }
 
                 $imageKeys[$swatchLabel] = array_search($swatchLabel, $imageHaystack);
-                if ($imageKeys[$swatchLabel] === false) {
+                if ($imageKeys[$swatchLabel] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$swatchLabel] = array_search(
-                        $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX, $imageHaystack
+                        $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX,
+                        $imageHaystack
                     );
                 }
 
@@ -170,12 +164,17 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @param string $value
      * @param int $width
      * @param int $height
-     * @param $swatchType
+     * @param string $swatchType
      * @param string $fallbackFileExt
      * @return string
      */
-    public function getSwatchUrl($product, $value, $width = self::SWATCH_DEFAULT_WIDTH,
-         $height = self::SWATCH_DEFAULT_HEIGHT, &$swatchType, $fallbackFileExt = null
+    public function getSwatchUrl(
+        $product,
+        $value,
+        $width,
+        $height,
+        &$swatchType,
+        $fallbackFileExt = null
     ) {
         $url = '';
         $swatchType = 'none';
@@ -220,8 +219,12 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      * @throws Mage_Core_Exception
      * @return string
      */
-    public function getGlobalSwatchUrl($object, $value, $width = self::SWATCH_DEFAULT_WIDTH,
-        $height = self::SWATCH_DEFAULT_HEIGHT, $fileExt = null
+    public function getGlobalSwatchUrl(
+        $object,
+        $value,
+        $width = self::SWATCH_DEFAULT_WIDTH,
+        $height = self::SWATCH_DEFAULT_HEIGHT,
+        $fileExt = null
     ) {
         if (is_null($fileExt)) {
             $fileExt = self::SWATCH_FILE_EXT;
@@ -333,7 +336,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array("array_merge_recursive", $product->getChildAttributeLabelMapping());
+            $mapping = call_user_func_array("array_merge_recursive", array_values($product->getChildAttributeLabelMapping()));
             $filters = array_unique($mapping['labels']);
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
@@ -341,7 +344,9 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             $this->_productImageFilters[$product->getId()] = $filters;
         }
 
-        return !in_array(Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
-            $this->_productImageFilters[$product->getId()]);
+        return !in_array(
+            Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
+            $this->_productImageFilters[$product->getId()]
+        );
     }
 }

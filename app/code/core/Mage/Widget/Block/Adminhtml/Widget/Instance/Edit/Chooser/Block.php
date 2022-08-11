@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,14 +24,25 @@
  * @category    Mage
  * @package     Mage_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setArea(string $value)
+ * @method $this setPackage(string $value)
+ * @method string getSelected()
+ * @method $this setSelected(string $value)
+ * @method $this setTheme(string $value)
  */
-class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
-    extends Mage_Adminhtml_Block_Widget
+class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mage_Adminhtml_Block_Widget
 {
     protected $_layoutHandlesXml = null;
 
+    /**
+     * @var Varien_Simplexml_Element[]
+     */
     protected $_layoutHandleUpdates = array();
 
+    /**
+     * @var SimpleXMLElement
+     */
     protected $_layoutHandleUpdatesXml = null;
 
     protected $_layoutHandle = array();
@@ -50,7 +55,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
      * Setter
      *
      * @param array $allowedBlocks
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
+     * @return $this
      */
     public function setAllowedBlocks($allowedBlocks)
     {
@@ -62,7 +67,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
      * Add allowed block
      *
      * @param string $block
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
+     * @return $this
      */
     public function addAllowedBlock($block)
     {
@@ -85,7 +90,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
      * If string given exlopde to array by ',' delimiter
      *
      * @param string|array $layoutHandle
-     * @return Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
+     * @return $this
      */
     public function setLayoutHandle($layoutHandle)
     {
@@ -170,13 +175,12 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
     public function getBlocks()
     {
         if (empty($this->_blocks)) {
-            /* @var $update Mage_Core_Model_Layout_Update */
             $update = Mage::getModel('core/layout')->getUpdate();
-            /* @var $layoutHandles Mage_Core_Model_Layout_Element */
             $this->_layoutHandlesXml = $update->getFileLayoutUpdatesXml(
                 $this->getArea(),
                 $this->getPackage(),
-                $this->getTheme());
+                $this->getTheme()
+            );
             $this->_collectLayoutHandles();
             $this->_collectBlocks();
             array_unshift($this->_blocks, array(
@@ -189,7 +193,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
 
     /**
      * Merging layout handles and create xml of merged layout handles
-     *
      */
     protected function _collectLayoutHandles()
     {
@@ -224,7 +227,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block
     protected function _collectBlocks()
     {
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
-            /* @var $block Mage_Core_Model_Layout_Element */
+            /* @var Mage_Core_Model_Layout_Element $block */
             foreach ($blocks as $block) {
                 if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));

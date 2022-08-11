@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,11 +48,13 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Retrieve current store categories
      *
-     * @param   boolean|string $sorted
-     * @param   boolean $asCollection
-     * @return  Varien_Data_Tree_Node_Collection|Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection|array
+     * @param boolean|string $sorted
+     * @param boolean $asCollection
+     * @param bool $toLoad
+     * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
+     * @throws Mage_Core_Model_Store_Exception
      */
-    public function getStoreCategories($sorted=false, $asCollection=false, $toLoad=true)
+    public function getStoreCategories($sorted = false, $asCollection = false, $toLoad = true)
     {
         $parent     = Mage::app()->getStore()->getRootCategoryId();
         $cacheKey   = sprintf('%d-%d-%d-%d', $parent, $sorted, $asCollection, $toLoad);
@@ -70,7 +66,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
          * Check if parent node of the store still exists
          */
         $category = Mage::getModel('catalog/category');
-        /* @var $category Mage_Catalog_Model_Category */
+        /* @var Mage_Catalog_Model_Category $category */
         if (!$category->checkId($parent)) {
             if ($asCollection) {
                 return new Varien_Data_Collection();
@@ -148,7 +144,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Retrieve clear url for category as parrent
      *
-     * @param string $url
+     * @param string $urlPath
      * @param bool $slash
      * @param int $storeId
      *
@@ -163,8 +159,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if ($slash) {
             $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')/$#i';
             $replace    = '/';
-        }
-        else {
+        } else {
             $regexp     = '#('.preg_quote($this->getCategoryUrlSuffix($storeId), '#').')$#i';
             $replace    = '';
         }
@@ -175,7 +170,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
     /**
      * Check if <link rel="canonical"> can be used for category
      *
-     * @param $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)

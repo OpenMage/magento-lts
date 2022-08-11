@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,6 +38,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         return Mage::getSingleton('customer/session');
     }
 
+    /**
+     * @inheritDoc
+     */
     public function preDispatch()
     {
         parent::preDispatch();
@@ -97,6 +94,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         $this->renderLayout();
     }
 
+    /**
+     * @return Mage_Core_Controller_Varien_Action|void
+     */
     public function formPostAction()
     {
         if (!$this->_validateFormKey()) {
@@ -105,19 +105,21 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         // Save data
         if ($this->getRequest()->isPost()) {
             $customer = $this->_getSession()->getCustomer();
-            /* @var $address Mage_Customer_Model_Address */
+            /* @var Mage_Customer_Model_Address $address */
             $address  = Mage::getModel('customer/address');
             $addressId = $this->getRequest()->getParam('id');
             if ($addressId) {
                 $existsAddress = $customer->getAddressById($addressId);
                 if ($existsAddress->getId() && $existsAddress->getCustomerId() == $customer->getId()) {
                     $address->setId($existsAddress->getId());
+                } else {
+                    throw new Exception($this->__('Provided address does not belong to the logged in customer.'));
                 }
             }
 
             $errors = array();
 
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /* @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('customer_address_edit')
                 ->setEntity($address);
@@ -161,6 +163,9 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
         return $this->_redirectError(Mage::getUrl('*/*/edit', array('id' => $address->getId())));
     }
 
+    /**
+     * @return Mage_Core_Controller_Varien_Action|void
+     */
     public function deleteAction()
     {
         if (!$this->_validateFormKey()) {
@@ -181,7 +186,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             try {
                 $address->delete();
                 $this->_getSession()->addSuccess($this->__('The address has been deleted.'));
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 $this->_getSession()->addException($e, $this->__('An error occurred while deleting the address.'));
             }
         }

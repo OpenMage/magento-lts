@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,13 +26,12 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
+class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mage_Catalog_Model_Resource_Product_Indexer_Price_Default
 {
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     public function reindexAll()
     {
@@ -61,7 +54,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -102,7 +95,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     /**
      * Prepare table structure for custom option temporary aggregation data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _prepareConfigurableOptionAggregateTable()
     {
@@ -113,7 +106,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
     /**
      * Prepare table structure for custom option prices data
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _prepareConfigurableOptionPriceTable()
     {
@@ -125,7 +118,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
      * Calculate minimal and maximal prices for configurable product options
      * and apply it to final price
      *
-     * @return Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
+     * @return $this
      */
     protected function _applyConfigurableOption()
     {
@@ -141,33 +134,39 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
             ->join(
                 array('l' => $this->getTable('catalog/product_super_link')),
                 'l.parent_id = i.entity_id',
-                array('parent_id', 'product_id'))
+                array('parent_id', 'product_id')
+            )
             ->columns(array('customer_group_id', 'website_id'), 'i')
             ->join(
                 array('a' => $this->getTable('catalog/product_super_attribute')),
                 'l.parent_id = a.product_id',
-                array())
+                array()
+            )
             ->join(
                 array('cp' => $this->getValueTable('catalog/product', 'int')),
                 'l.product_id = cp.entity_id AND cp.attribute_id = a.attribute_id AND cp.store_id = 0',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('apd' => $this->getTable('catalog/product_super_attribute_pricing')),
                 'a.product_super_attribute_id = apd.product_super_attribute_id'
                     . ' AND apd.website_id = 0 AND cp.value = apd.value_index',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('apw' => $this->getTable('catalog/product_super_attribute_pricing')),
                 'a.product_super_attribute_id = apw.product_super_attribute_id'
                     . ' AND apw.website_id = i.website_id AND cp.value = apw.value_index',
-                array())
+                array()
+            )
             ->join(
                 array('le' => $this->getTable('catalog/product')),
                 'le.entity_id = l.product_id',
-                array())
+                array()
+            )
             ->where('le.required_options=0')
             ->group(array('l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id'));
-        $this->_addWebsiteJoinToSelect($select, true);
+        $this->_addWebsiteJoinToSelect($select, true, 'i.website_id');
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'le.entity_id');
 
         $priceExpression = $write->getCheckSql('apw.value_id IS NOT NULL', 'apw.pricing_value', 'apd.pricing_value');
@@ -205,7 +204,8 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
                 array(
                     'parent_id', 'customer_group_id', 'website_id',
                     'MIN(price)', 'MAX(price)', 'MIN(tier_price)', 'MIN(group_price)'
-                ))
+                )
+            )
             ->group(array('parent_id', 'customer_group_id', 'website_id'));
 
         $query = $select->insertFromSelect($copTable);
@@ -217,14 +217,16 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
                 array('io' => $copTable),
                 'i.entity_id = io.entity_id AND i.customer_group_id = io.customer_group_id'
                     .' AND i.website_id = io.website_id',
-                array());
+                array()
+            );
         $select->columns(array(
             'min_price'   => new Zend_Db_Expr('i.min_price + io.min_price'),
             'max_price'   => new Zend_Db_Expr('i.max_price + io.max_price'),
             'tier_price'  => $write->getCheckSql('i.tier_price IS NOT NULL', 'i.tier_price + io.tier_price', 'NULL'),
             'group_price' => $write->getCheckSql(
                 'i.group_price IS NOT NULL',
-                'i.group_price + io.group_price', 'NULL'
+                'i.group_price + io.group_price',
+                'NULL'
             ),
         ));
 
@@ -236,11 +238,13 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable
             ->join(
                 array('e' => $this->getTable('catalog/product')),
                 'e.entity_id = i.entity_id',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('coa' => $coaTable),
                 'coa.parent_id = i.entity_id',
-                array())
+                array()
+            )
             ->where('e.type_id = ?', $this->getTypeId())
             ->where('coa.parent_id IS NULL');
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,12 +46,15 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Predispatch: should set layout area
      *
-     * @return Mage_Checkout_OnepageController
+     * @return $this|void
      */
     public function preDispatch()
     {
         parent::preDispatch();
         $this->_preDispatchValidateCustomer();
+
+        // Disable flat for product collection
+        Mage::helper('catalog/product_flat')->disableFlatCollection(true);
 
         $checkoutSessionQuote = Mage::getSingleton('checkout/session')->getQuote();
         if ($checkoutSessionQuote->getIsMultiShipping()) {
@@ -67,7 +64,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
 
         if (!$this->_canShowForUnregisteredUsers()) {
             $this->norouteAction();
-            $this->setFlag('',self::FLAG_NO_DISPATCH,true);
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return;
         }
 
@@ -77,7 +74,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Send Ajax redirect response
      *
-     * @return Mage_Checkout_OnepageController
+     * @return $this
      */
     protected function _ajaxRedirectResponse()
     {
@@ -336,7 +333,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if (Mage::getSingleton('customer/session')->getCustomer()->getId() == $address->getCustomerId()) {
                 $this->_prepareDataJSON($address->toArray());
             } else {
-                $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
+                $this->getResponse()->setHeader('HTTP/1.1', '403 Forbidden');
             }
         }
     }
@@ -453,9 +450,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             if (!$result) {
                 Mage::dispatchEvent(
                     'checkout_controller_onepage_save_shipping_method',
-                     array(
+                    array(
                           'request' => $this->getRequest(),
-                          'quote'   => $this->getOnepage()->getQuote()));
+                    'quote'   => $this->getOnepage()->getQuote())
+                );
                 $this->getOnepage()->getQuote()->collectTotals();
                 $this->_prepareDataJSON($result);
 
@@ -541,7 +539,9 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Create invoice
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Service_Order
+     * @throws Mage_Core_Exception
+     * @throws Mage_Payment_Model_Info_Exception
      */
     protected function _initInvoice()
     {
@@ -549,7 +549,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         foreach ($this->_getOrder()->getAllItems() as $item) {
             $items[$item->getId()] = $item->getQtyOrdered();
         }
-        /* @var $invoice Mage_Sales_Model_Service_Order */
+        /* @var Mage_Sales_Model_Service_Order $invoice */
         $invoice = Mage::getModel('sales/service_order', $this->_getOrder())->prepareInvoice($items);
         $invoice->setEmailSent(true)->register();
 
@@ -562,7 +562,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     public function saveOrderAction()
     {
-        if (!$this->_validateFormKey()) {
+        if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
             $this->_redirect('*/*');
             return;
         }
@@ -656,7 +656,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array
+     * @param array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -681,7 +681,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
     /**
      * Prepare JSON formatted data for response to client
      *
-     * @param $response
+     * @param mixed $response
      * @return Zend_Controller_Response_Abstract
      */
     protected function _prepareDataJSON($response)
@@ -689,5 +689,4 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getResponse()->setHeader('Content-type', 'application/json', true);
         return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($response));
     }
-
 }

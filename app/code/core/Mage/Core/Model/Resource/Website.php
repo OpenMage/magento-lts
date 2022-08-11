@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Website Resource Model
@@ -46,7 +39,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     /**
      * Initialize unique fields
      *
-     * @return Mage_Core_Model_Resource_Website
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -60,8 +53,8 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     /**
      * Validate website code before object save
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Website
+     * @param Mage_Core_Model_Website $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -73,10 +66,8 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     }
 
     /**
-     * Perform actions after object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Website
+     * @param Mage_Core_Model_Website $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -91,8 +82,8 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
     /**
      * Remove core configuration data after delete website
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Website
+     * @param Mage_Core_Model_Website $model
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
@@ -104,13 +95,12 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
         $this->_getWriteAdapter()->delete($this->getTable('core/config_data'), $where);
 
         return $this;
-
     }
 
     /**
      * Retrieve default stores select object
      * Select fields website_id, store_id
-     * 
+     *
      * @param boolean $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
@@ -121,7 +111,8 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
         $select = $this->_getReadAdapter()->select()
             ->from(
                 array('website_table' => $this->getTable('core/website')),
-                array('website_id'))
+                array('website_id')
+            )
             ->joinLeft(
                 array('store_group_table' => $this->getTable('core/store_group')),
                 'website_table.website_id=store_group_table.website_id'

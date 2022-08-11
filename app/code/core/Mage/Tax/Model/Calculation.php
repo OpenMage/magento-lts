@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,10 +22,25 @@
  * Tax Calculation Model
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Resource_Calculation _getResource()
+ * @method Mage_Tax_Model_Resource_Calculation getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Collection getCollection()
+ *
+ * @method $this setCalculationProcess(array $value)
+ * @method array getCalculationProcess()
+ * @method $this unsCalculationProcess()
+ * @method $this unsEventModuleId()
+ * @method string getRateId()
+ * @method string getRateTitle()
+ * @method bool hasRateValue()
+ * @method string getRateValue()
+ * @method $this setRateValue(string $value)
+ * @method $this unsRateValue()
  */
 class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 {
-    /*
+    /**
      * Identifier constant for Tax calculation before discount excluding TAX
      */
     const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
@@ -302,8 +311,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get cache key value for specific tax rate request
      *
-     * @param   $request
-     * @return  string
+     * @param Varien_Object $request
+     * @return string
      */
     protected function _getRequestCacheKey($request)
     {
@@ -318,7 +327,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * This rate can be used for conversion store price including tax to
      * store price excluding tax
      *
-     * @param   Varien_Object $request
+     * @param Varien_Object $request
+     * @param null $store
      * @return  float
      */
     public function getStoreRate($request, $store = null)
@@ -347,7 +357,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Get request object for getting tax rate based on store shippig original address
      *
-     * @param   null|store $store
+     * @param   null|Mage_Core_Model_Store $store
      * @return  Varien_Object
      */
     public function getRateOriginRequest($store = null)
@@ -364,10 +374,10 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Return the default rate request. It can be either based on store address or customer address
      *
-     * @param type $store
-     * @return \Varien_Object
+     * @param null|Mage_Core_Model_Store $store
+     * @return Varien_Object
      */
-    public function getDefaultRateRequest($store =null)
+    public function getDefaultRateRequest($store = null)
     {
         if ($this->_taxHelper->isCrossBorderTradeEnabled($store)) {
             //If cross border trade is enabled, we will use customer tax rate as store tax rate
@@ -386,8 +396,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *  customer_class_id (->getCustomerClassId())
      *  store (->getStore())
      *
-     * @param   null|false|Varien_Object $shippingAddress
-     * @param   null|false|Varien_Object $billingAddress
+     * @param   null|false|Mage_Sales_Model_Quote_Address $shippingAddress
+     * @param   null|false|Mage_Sales_Model_Quote_Address $billingAddress
      * @param   null|int $customerTaxClass
      * @param   null|int $store
      * @return  Varien_Object
@@ -396,8 +406,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $shippingAddress = null,
         $billingAddress = null,
         $customerTaxClass = null,
-        $store = null)
-    {
+        $store = null
+    ) {
         if ($shippingAddress === false && $billingAddress === false && $customerTaxClass === false) {
             return $this->getRateOriginRequest($store);
         }
@@ -421,7 +431,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
 
                     if ($basedOn == 'billing' && $defBilling && $defBilling->getCountryId()) {
                         $billingAddress = $defBilling;
-                    } else if ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
+                    } elseif ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
                         $shippingAddress = $defShipping;
                     } else {
                         $basedOn = 'default';
@@ -443,14 +453,17 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $address = $this->getRateOriginRequest($store);
                 break;
             case 'default':
+                /** @var Mage_Sales_Model_Quote_Address|Varien_Object $address */
                 $address
                     ->setCountryId(Mage::getStoreConfig(
-                    Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
-                    $store))
+                        Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_COUNTRY,
+                        $store
+                    ))
                     ->setRegionId(Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_REGION, $store))
                     ->setPostcode(Mage::getStoreConfig(
-                    Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE,
-                    $store));
+                        Mage_Tax_Model_Config::CONFIG_XML_PATH_DEFAULT_POSTCODE,
+                        $store
+                    ));
                 break;
         }
 
@@ -546,6 +559,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $classes = Mage::getModel('tax/class')->getCollection()
             ->addFieldToFilter('class_type', $type)
             ->load();
+        /** @var Mage_Tax_Model_Class $class */
         foreach ($classes as $class) {
             $request->setData($fieldName, $class->getId());
             $result[$class->getId()] = $this->getRate($request);

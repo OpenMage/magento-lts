@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Store Resource Model
@@ -46,7 +39,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Initialize unique fields
      *
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _initUniqueFields()
     {
@@ -60,14 +53,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Check store code before save
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $model)
     {
-        if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $model->getCode())) {
+        if (!preg_match('/^[a-z]+[a-z0-9_\-]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter')
+            );
         }
 
         return $this;
@@ -76,8 +70,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Update Store Group data after save store
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Store
+     * @param Mage_Core_Model_Store $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -91,8 +85,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Remove core configuration data after delete store
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
@@ -113,7 +107,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @param int $groupId
      * @param int $storeId
-     * @return Mage_Core_Model_Resource_Store
+     * @return $this
      */
     protected function _updateGroupDefaultStore($groupId, $storeId)
     {
@@ -137,8 +131,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Change store group for store
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return Mage_Core_Model_Resource_Store
+     * @param Mage_Core_Model_Abstract|Mage_Core_Model_Store_Group $model
+     * @return $this
      */
     protected function _changeGroup(Mage_Core_Model_Abstract $model)
     {

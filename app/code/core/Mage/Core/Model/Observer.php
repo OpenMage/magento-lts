@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Observer model
@@ -38,7 +31,7 @@ class Mage_Core_Model_Observer
      * Check if synchronize process is finished and generate notification message
      *
      * @param  Varien_Event_Observer $observer
-     * @return Mage_Core_Model_Observer
+     * @return $this
      */
     public function addSynchronizeNotification(Varien_Event_Observer $observer)
     {
@@ -111,11 +104,11 @@ class Mage_Core_Model_Observer
      * Cleans cache by tags
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Core_Model_Observer
+     * @return $this
      */
     public function cleanCacheByTags(Varien_Event_Observer $observer)
     {
-        /** @var $tags array */
+        /** @var array $tags */
         $tags = $observer->getEvent()->getTags();
         if (empty($tags)) {
             Mage::app()->cleanCache();
@@ -123,6 +116,21 @@ class Mage_Core_Model_Observer
         }
 
         Mage::app()->cleanCache($tags);
+        return $this;
+    }
+
+    /**
+     * Checks method availability for processing in variable
+     *
+     * @param Varien_Event_Observer $observer
+     * @throws Exception
+     * @return Mage_Core_Model_Observer
+     */
+    public function secureVarProcessing(Varien_Event_Observer $observer)
+    {
+        if (Mage::registry('varProcessing')) {
+            Mage::throwException(Mage::helper('core')->__('Disallowed template variable method.'));
+        }
         return $this;
     }
 }

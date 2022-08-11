@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +30,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     /**
      * Add report/sales breadcrumbs
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function _initAction()
     {
@@ -124,7 +118,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      * Refresh statistics for last 25 hours
      *
      * @deprecated after 1.4.0.1
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -135,7 +129,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      * Refresh statistics for all period
      *
      * @deprecated after 1.4.0.1
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshLifetimeAction()
     {
@@ -387,34 +381,29 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         return $this->_forward('index', 'report_statistics');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
         switch ($action) {
             case 'sales':
                 return $this->_getSession()->isAllowed('report/salesroot/sales');
-                break;
             case 'tax':
                 return $this->_getSession()->isAllowed('report/salesroot/tax');
-                break;
             case 'shipping':
                 return $this->_getSession()->isAllowed('report/salesroot/shipping');
-                break;
             case 'invoiced':
                 return $this->_getSession()->isAllowed('report/salesroot/invoiced');
-                break;
             case 'refunded':
                 return $this->_getSession()->isAllowed('report/salesroot/refunded');
-                break;
             case 'coupons':
                 return $this->_getSession()->isAllowed('report/salesroot/coupons');
-                break;
             case 'bestsellers':
                 return $this->_getSession()->isAllowed('report/products/bestsellers');
-                break;
             default:
                 return $this->_getSession()->isAllowed('report/salesroot');
-                break;
         }
     }
 }

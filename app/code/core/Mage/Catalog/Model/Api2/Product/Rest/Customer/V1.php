@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,11 +54,16 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
     protected function _applyTaxToPrice($price, $withTax = true)
     {
         $customer = $this->_getCustomer();
-        /** @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
         $session->setCustomerId($customer->getId());
-        $price = $this->_getPrice($price, $withTax, $customer->getPrimaryShippingAddress(),
-            $customer->getPrimaryBillingAddress(), $customer->getTaxClassId());
+        $price = $this->_getPrice(
+            $price,
+            $withTax,
+            $customer->getPrimaryShippingAddress(),
+            $customer->getPrimaryBillingAddress(),
+            $customer->getTaxClassId()
+        );
         $session->setCustomerId(null);
 
         return $price;
@@ -78,7 +77,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
     protected function _getCustomer()
     {
         if (is_null($this->_customer)) {
-            /** @var $customer Mage_Customer_Model_Customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer')->load($this->getApiUser()->getUserId());
             if (!$customer->getId()) {
                 $this->_critical('Customer not found.', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);

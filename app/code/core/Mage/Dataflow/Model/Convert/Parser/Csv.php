@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,6 +65,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         if (!method_exists($adapter, $adapterMethod)) {
             $message = Mage::helper('dataflow')
                 ->__('Method "%s" not defined in adapter %s.', $adapterMethod, $adapterName);
+            $message = Mage::helper('dataflow')->escapeHtml($message);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
         }
@@ -86,7 +81,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         $batchIoAdapter->open(false);
 
-        $isFieldNames = $this->getVar('fieldnames', '') == 'true' ? true : false;
+        $isFieldNames = $this->getVar('fieldnames', '') == 'true';
         if (!$isFieldNames && is_array($this->getVar('map'))) {
             $fieldNames = $this->getVar('map');
         }
@@ -128,42 +123,11 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
         //$adapter->$adapterMethod();
 
         return $this;
-
-//        // fix for field mapping
-//        if ($mapfields = $this->getProfile()->getDataflowProfile()) {
-//            $this->_mapfields = array_values($mapfields['gui_data']['map'][$mapfields['entity_type']]['db']);
-//        } // end
-//
-//        if (!$this->getVar('fieldnames') && !$this->_mapfields) {
-//            $this->addException('Please define field mapping', Mage_Dataflow_Model_Convert_Exception::FATAL);
-//            return;
-//        }
-//
-//        if ($this->getVar('adapter') && $this->getVar('method')) {
-//            $adapter = Mage::getModel($this->getVar('adapter'));
-//        }
-//
-//        $i = 0;
-//        while (($line = fgetcsv($fh, null, $fDel, $fEnc)) !== FALSE) {
-//            $row = $this->parseRow($i, $line);
-//
-//            if (!$this->getVar('fieldnames') && $i == 0 && $row) {
-//                $i = 1;
-//            }
-//
-//            if ($row) {
-//                $loadMethod = $this->getVar('method');
-//                $adapter->$loadMethod(compact('i', 'row'));
-//            }
-//            $i++;
-//        }
-//
-//        return $this;
     }
 
     public function parseRow($i, $line)
     {
-        if (sizeof($line) == 1) return false;
+        if (count($line) === 1) return false;
 
         if (0==$i) {
             if ($this->getVar('fieldnames')) {
@@ -187,7 +151,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     /**
      * Read data collection and write to temporary file
      *
-     * @return Mage_Dataflow_Model_Convert_Parser_Csv
+     * @return $this
      */
     public function unparse()
     {
@@ -247,7 +211,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $line[] = $fEnc.$v.$fEnc;
         }
 
-        return join($fDel, $line);
+        return implode($fDel, $line);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,14 +43,14 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Prepare collection
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::getSingleton('admin/session')->getData('user');
 
-        /** @var $collection Mage_Oauth_Model_Resource_Token_Collection */
+        /** @var Mage_Oauth_Model_Resource_Token_Collection $collection */
         $collection = Mage::getModel('oauth/token')->getCollection();
         $collection->joinConsumerAsApplication()
                 ->addFilterByType(Mage_Oauth_Model_Token::TYPE_ACCESS)
@@ -70,7 +64,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Prepare columns
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareColumns()
     {
@@ -87,7 +81,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
             'escape'    => true,
         ));
 
-        /** @var $sourceYesNo Mage_Adminhtml_Model_System_Config_Source_Yesno */
+        /** @var Mage_Adminhtml_Model_System_Config_Source_Yesno $sourceYesNo */
         $sourceYesNo = Mage::getSingleton('adminhtml/system_config_source_yesno');
         $this->addColumn('revoked', array(
             'header'    => $this->__('Revoked'),
@@ -105,7 +99,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid extends Mage_Adminhtml_B
     /**
      * Add mass-actions to grid
      *
-     * @return Mage_Oauth_Block_Adminhtml_Oauth_Admin_Token_Grid
+     * @return $this
      */
     protected function _prepareMassaction()
     {

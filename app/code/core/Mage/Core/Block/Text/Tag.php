@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,23 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Base html block
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getTagContents()
+ * @method $this setTagContents(string $value)
+ * @method getTagName()
+ * @method array getTagParams()
+ * @method $this setTagParams(array $value)
  */
 class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
 {
@@ -39,10 +38,15 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
         $this->setTagParams(array());
     }
 
-    function setTagParam($param, $value=null)
+    /**
+     * @param string|array $param
+     * @param null $value
+     * @return $this
+     */
+    public function setTagParam($param, $value = null)
     {
         if (is_array($param) && is_null($value)) {
-            foreach ($param as $k=>$v) {
+            foreach ($param as $k => $v) {
                 $this->setTagParam($k, $v);
             }
         } else {
@@ -53,17 +57,24 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
         return $this;
     }
 
-    function setContents($text)
+    /**
+     * @param string $text
+     * @return $this
+     */
+    public function setContents($text)
     {
         $this->setTagContents($text);
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _toHtml()
     {
         $this->setText('<'.$this->getTagName().' ');
         if ($this->getTagParams()) {
-            foreach ($this->getTagParams() as $k=>$v) {
+            foreach ($this->getTagParams() as $k => $v) {
                 $this->addText($k.'="'.$v.'" ');
             }
         }
@@ -71,5 +82,4 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
         $this->addText('>'.$this->getTagContents().'</'.$this->getTagName().'>'."\r\n");
         return parent::_toHtml();
     }
-
 }

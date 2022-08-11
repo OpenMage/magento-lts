@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -74,7 +68,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             ->where('a.key=?', $key);
         $data = $this->_getReadAdapter()->fetchOne($select);
         if ($data) {
-            $data = unserialize($data);
+            $data = unserialize($data, ['allowed_classes' => false]);
         } else {
             $data = array();
         }
@@ -88,7 +82,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * @param string $key
      * @param array|string $tags
      * @param int $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function saveCacheData($data, $key, $tags, $storeId)
     {
@@ -137,7 +131,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param   array $tags
      * @param   int|null|string $storeId
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     public function clearCacheData($tags, $storeId)
     {
@@ -166,7 +160,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      *
      * @param int $aggregationId
      * @param array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _saveTagRelations($aggregationId, $tags)
     {
@@ -217,7 +211,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
      * Insert tags to tag table
      *
      * @param string | array $tags
-     * @return Mage_CatalogIndex_Model_Resource_Aggregation
+     * @return $this
      */
     protected function _addTags($tags)
     {
@@ -228,8 +222,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
             }
             $query = "INSERT INTO `{$this->_tagTable}` (tag_code) VALUES (".implode('),(', $tags).")";
             $this->_getWriteAdapter()->query($query);
-        }
-        else {
+        } else {
             $this->_getWriteAdapter()->insert($this->_tagTable, array(
                 'tag_code' => $tags
             ));

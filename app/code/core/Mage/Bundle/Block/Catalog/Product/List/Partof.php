@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,6 +33,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
     protected $_itemCollection;
     protected $_product = null;
 
+    /**
+     * @return $this
+     */
     protected function _prepareData()
     {
         $collection = Mage::getModel('catalog/product')->getResourceCollection()
@@ -52,9 +49,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
 
             $ids = Mage::getSingleton('checkout/cart')->getProductIds();
 
-            if (count($ids)) {
-                $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
-            }
+        if (count($ids)) {
+            $collection->addIdFilter(Mage::getSingleton('checkout/cart')->getProductIds(), true);
+        }
 
         Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($collection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($collection);
@@ -66,29 +63,46 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
     protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return mixed
+     */
     public function getItemCollection()
     {
         return $this->_itemCollection;
     }
 
-    public function getItems() {
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
         if (is_null($this->_items)) {
             $this->_items = $this->getItemCollection()->getItems();
         }
         return $this->_items;
     }
 
+    /**
+     * @return float
+     */
     public function getRowCount()
     {
         return ceil($this->getItemCollection()->getSize()/$this->getColumnCount());
     }
 
+    /**
+     * @param array $columns
+     * @return $this
+     */
     public function setColumnCount($columns)
     {
         if (intval($columns) > 0) {
@@ -97,6 +111,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getColumnCount()
     {
         return $this->_columnCount;
@@ -108,6 +125,9 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
         reset($this->_items);
     }
 
+    /**
+     * @return mixed
+     */
     public function getIterableItem()
     {
         $item = current($this->_items);

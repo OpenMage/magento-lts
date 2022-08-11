@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,18 +52,20 @@ abstract class Mage_Core_Model_Resource_Abstract
 
     /**
      * Retrieve connection for read data
+     * @return Varien_Db_Adapter_Interface
      */
     abstract protected function _getReadAdapter();
 
     /**
      * Retrieve connection for write data
+     * @return Varien_Db_Adapter_Interface
      */
     abstract protected function _getWriteAdapter();
 
     /**
      * Start resource transaction
      *
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     public function beginTransaction()
     {
@@ -80,8 +76,8 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Subscribe some callback to transaction commit
      *
-     * @param callback $callback
-     * @return Mage_Core_Model_Resource_Abstract
+     * @param callable $callback
+     * @return $this
      */
     public function addCommitCallback($callback)
     {
@@ -93,7 +89,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Commit resource transaction
      *
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     public function commit()
     {
@@ -117,7 +113,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Roll back resource transaction
      *
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     public function rollBack()
     {
@@ -134,11 +130,11 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Format date to internal format
      *
-     * @param string|Zend_Date $date
+     * @param string|Zend_Date|true|null $date
      * @param bool $includeTime
-     * @return string
+     * @return string|null
      */
-    public function formatDate($date, $includeTime=true)
+    public function formatDate($date, $includeTime = true)
     {
          return Varien_Date::formatDate($date, $includeTime);
     }
@@ -161,7 +157,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      * @param string $field
      * @param mixed $defaultValue
      * @param bool $unsetEmpty
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     protected function _serializeField(Varien_Object $object, $field, $defaultValue = null, $unsetEmpty = false)
     {
@@ -185,7 +181,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     /**
      * Unserialize Varien_Object field in an object
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Varien_Object $object
      * @param string $field
      * @param mixed $defaultValue
      */
@@ -195,7 +191,7 @@ abstract class Mage_Core_Model_Resource_Abstract
         if (empty($value)) {
             $object->setData($field, $defaultValue);
         } elseif (!is_array($value) && !is_object($value)) {
-            $object->setData($field, unserialize($value));
+            $object->setData($field, unserialize($value, ['allowed_classes' => ['Varien_Object']]));
         }
     }
 
@@ -209,7 +205,7 @@ abstract class Mage_Core_Model_Resource_Abstract
     protected function _prepareDataForTable(Varien_Object $object, $table)
     {
         $data = array();
-        $fields = $this->_getWriteAdapter()->describeTable($table);
+        $fields = $this->_getReadAdapter()->describeTable($table);
         foreach (array_keys($fields) as $field) {
             if ($object->hasData($field)) {
                 $fieldValue = $object->getData($field);
@@ -219,7 +215,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                     if (null !== $fieldValue) {
                         $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
-                    } else if (!empty($fields[$field]['NULLABLE'])) {
+                    } elseif (!empty($fields[$field]['NULLABLE'])) {
                         $data[$field] = null;
                     }
                 }

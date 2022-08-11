@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,8 +71,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -92,11 +84,11 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Customer
+     * @return $this
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -157,8 +149,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Prepare data for export and write its to temporary file through writer.
-     *
-     * @return void
      */
     protected function _prepareExport()
     {
@@ -217,8 +207,10 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
         // create export file
         $writer->setHeaderCols(array_merge(
-            $this->_permanentAttributes, $validAttrCodes,
-            array('password'), $addrColNames,
+            $this->_permanentAttributes,
+            $validAttrCodes,
+            array('password'),
+            $addrColNames,
             array_keys($defaultAddrMap)
         ));
         foreach ($collection as $customerId => $customer) {
@@ -248,8 +240,11 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $writeRow = array_merge($row, $addrRow);
             $writer->writeRow($writeRow);
 
-            $additionalRowsCount = $this->_getAdditionalRowsCount($customerAddress,
-                $addressMultiselect, $customerAttributeMultiSelect);
+            $additionalRowsCount = $this->_getAdditionalRowsCount(
+                $customerAddress,
+                $addressMultiselect,
+                $customerAttributeMultiSelect
+            );
             if ($additionalRowsCount) {
                 for ($i = 0; $i < $additionalRowsCount; $i++) {
                     $writeRow = array();
@@ -349,7 +344,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Entity attributes collection getter.
      *
-     * @return Mage_Customer_Model_Entity_Attribute_Collection
+     * @return Mage_Customer_Model_Resource_Attribute_Collection|Object
      */
     public function getAttributeCollection()
     {
@@ -369,7 +364,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Get Address Attributes
      *
-     * @param $attribute
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return array
      */
     protected function _getAddressAttributeOptions($attribute)
@@ -423,7 +418,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $row[$attrCode] = $attrValue;
             }
         }
-        $row[self::COL_WEBSITE] = $this->_websiteIdToCode[$customer['website_id']];
+        $row[self::COL_WEBSITE] = $this->_websiteIdToCode[
+            $customer['website_id'] === null ? 0 : $customer['website_id']
+        ];
         $row[self::COL_STORE]   = $this->_storeIdToCode[$customer['store_id']];
 
         return $row;
@@ -451,10 +448,10 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     /**
      * Add default fields to row
      *
-     * @param $defaultAddrs
-     * @param $addressId
-     * @param $row
-     * @return mixed
+     * @param array $defaultAddrs
+     * @param int $addressId
+     * @param array $row
+     * @return array
      */
     protected function _addDefaultAddressFields($defaultAddrs, $addressId, $row)
     {

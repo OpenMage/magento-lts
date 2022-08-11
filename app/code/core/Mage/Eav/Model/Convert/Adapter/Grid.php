@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-class Mage_Eav_Model_Convert_Adapter_Grid
-    extends Mage_Dataflow_Model_Convert_Adapter_Abstract
+/**
+ * Class Mage_Eav_Model_Convert_Adapter_Grid
+ *
+ * @method $this setExceptionLocation(string $string)
+ */
+class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     protected $_entity;
 
+    /**
+     * @return Mage_Eav_Model_Entity_Interface
+     */
     public function getEntity()
     {
         if (!$this->_entityType) {
@@ -42,6 +42,9 @@ class Mage_Eav_Model_Convert_Adapter_Grid
         return $this->_entity;
     }
 
+    /**
+     * @return $this
+     */
     public function load()
     {
         try {
@@ -59,9 +62,12 @@ class Mage_Eav_Model_Convert_Adapter_Grid
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function save()
     {
-        foreach ($this->getData() as $i=>$row) {
+        foreach ($this->getData() as $i => $row) {
             $this->setExceptionLocation('Line: '.$i);
             $entity = Mage::getResourceModel($this->getEntity());
             if (!empty($row['entity_id'])) {

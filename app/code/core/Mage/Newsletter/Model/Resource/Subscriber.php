@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -126,9 +120,13 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
 
         $select = $this->_read->select()
             ->from($this->getMainTable())
-            ->where('subscriber_email=:subscriber_email');
+            ->where('subscriber_email=:subscriber_email')
+            ->where('store_id=:store_id');
 
-        $result = $this->_read->fetchRow($select, array('subscriber_email'=>$customer->getEmail()));
+        $result = $this->_read->fetchRow(
+            $select,
+            array('subscriber_email'=>$customer->getEmail(), 'store_id' => $customer->getStoreId())
+        );
 
         if ($result) {
             return $result;
@@ -152,7 +150,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
      *
      * @param Mage_Newsletter_Model_Subscriber $subscriber
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Resource_Subscriber
+     * @return $this
      */
     public function received(Mage_Newsletter_Model_Subscriber $subscriber, Mage_Newsletter_Model_Queue $queue)
     {
@@ -164,8 +162,7 @@ class Mage_Newsletter_Model_Resource_Subscriber extends Mage_Core_Model_Resource
                 'queue_id = ?' => $queue->getId()
             ));
             $this->_write->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $this->_write->rollBack();
             Mage::throwException(Mage::helper('newsletter')->__('Cannot mark as received subscriber.'));
         }

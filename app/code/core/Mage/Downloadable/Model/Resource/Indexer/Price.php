@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +31,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexAll()
     {
@@ -60,7 +54,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -90,7 +84,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Prepare downloadable links price temporary index table
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareDownloadableLinkPriceTable()
     {
@@ -101,7 +95,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Calculate and apply Downloadable links price to index
      *
-     * @return Mage_Downloadable_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _applyDownloadableLink()
     {
@@ -117,24 +111,29 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         $select = $write->select()
             ->from(
                 array('i' => $this->_getDefaultFinalPriceTable()),
-                array('entity_id', 'customer_group_id', 'website_id'))
+                array('entity_id', 'customer_group_id', 'website_id')
+            )
             ->join(
                 array('dl' => $dlType->getBackend()->getTable()),
                 "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
                     . " AND dl.store_id = 0",
-                array())
+                array()
+            )
             ->join(
                 array('dll' => $this->getTable('downloadable/link')),
                 'dll.product_id = i.entity_id',
-                array())
+                array()
+            )
             ->join(
                 array('dlpd' => $this->getTable('downloadable/link_price')),
                 'dll.link_id = dlpd.link_id AND dlpd.website_id = 0',
-                array())
+                array()
+            )
             ->joinLeft(
                 array('dlpw' => $this->getTable('downloadable/link_price')),
                 'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id',
-                array())
+                array()
+            )
             ->where('dl.value = ?', 1)
             ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id'))
             ->columns(array(
@@ -153,7 +152,8 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
                 array('id' => $table),
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
                     .' AND i.website_id = id.website_id',
-                array())
+                array()
+            )
             ->columns(array(
                 'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),
                 'max_price'   => new Zend_Db_Expr('i.max_price + id.max_price'),

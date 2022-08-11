@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +25,7 @@
  * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Abstract
+class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Abstract
 {
     protected $_resourceSuffix = '_v2';
 
@@ -40,9 +34,9 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param string $function
      * @param array $args
+     * @return stdClass
      */
-
-    public function __call ($function, $args)
+    public function __call($function, $args)
     {
         $args = $args[0];
 
@@ -52,12 +46,12 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
         $helper->wsiArrayUnpacker($args);
         $args = get_object_vars($args);
 
-        if(isset($args['sessionId'])){
+        if (isset($args['sessionId'])) {
             $sessionId = $args['sessionId'];
             unset($args['sessionId']);
         } else {
             // Was left for backward compatibility.
-            $sessionId = array_shift( $args );
+            $sessionId = array_shift($args);
         }
 
         $apiKey = '';
@@ -89,7 +83,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param string $username
      * @param string $apiKey
-     * @return string
+     * @return stdClass
      */
     public function login($username, $apiKey = null)
     {
@@ -107,9 +101,10 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      * Return called class and method names
      *
      * @param String $apiPath
-     * @return Array
+     * @return array|void
      */
-    protected function _getResourceName($apiPath){
+    protected function _getResourceName($apiPath)
+    {
 
         list($resourceName, $methodName) = explode('.', $apiPath);
 
@@ -139,9 +134,10 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
      *
      * @param String $modelName
      * @param String $methodName
-     * @return Array of ReflectionParameter
+     * @return array of ReflectionParameter
      */
-    public function getMethodParams($modelName, $methodName) {
+    public function getMethodParams($modelName, $methodName)
+    {
 
         $method = new ReflectionMethod($modelName, $methodName);
 
@@ -151,21 +147,22 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * Prepares arguments for the method calling. Sort in correct order, set default values for omitted parameters.
      *
-     * @param Array $params
-     * @param Array $args
-     * @return Array
+     * @param array $params
+     * @param array $args
+     * @return array
      */
-    public function prepareArgs($params, $args) {
+    public function prepareArgs($params, $args)
+    {
 
         $callArgs = array();
 
-        /** @var $parameter ReflectionParameter */
-        foreach($params AS $parameter){
+        /** @var ReflectionParameter $parameter */
+        foreach ($params as $parameter) {
             $pName = $parameter->getName();
-            if( isset( $args[$pName] ) ){
+            if (isset($args[$pName])) {
                 $callArgs[$pName] = $args[$pName];
             } else {
-                if($parameter->isOptional()){
+                if ($parameter->isOptional()) {
                     $callArgs[$pName] = $parameter->getDefaultValue();
                 } else {
                     Mage::logException(new Exception("Required parameter \"$pName\" is missing.", 0));
@@ -179,7 +176,7 @@ class Mage_Api_Model_Server_WSI_Handler extends Mage_Api_Model_Server_Handler_Ab
     /**
      * End web service session
      *
-     * @param object $request
+     * @param stdClass $request
      * @return stdClass
      */
     public function endSession($request)

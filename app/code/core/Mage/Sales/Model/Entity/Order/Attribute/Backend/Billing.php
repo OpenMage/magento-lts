@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +32,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * Before save order billing address process
      *
      * @param Mage_Sales_Model_Order $object
-     * @return Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -53,13 +47,13 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
      * After save order billing address process
      *
      * @param Mage_Sales_Model_Order $object
-     * @return Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing
+     * @return $this
      */
     public function afterSave($object)
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            /* @var $address Mage_Sales_Model_Order_Address */
+            /* @var Mage_Sales_Model_Order_Address $address */
             if ('billing' == $address->getAddressType()) {
                 $billingAddressId = $address->getId();
             }
@@ -72,5 +66,4 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
 
         return $this;
     }
-
 }

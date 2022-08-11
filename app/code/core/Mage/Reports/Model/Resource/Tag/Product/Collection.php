@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,12 +39,12 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add unique target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addUniqueTagedCount()
     {
         $select = clone $this->getSelect();
-        
+
         $select->reset()
             ->from(array('rel' => $this->getTable('tag/relation')), 'COUNT(DISTINCT rel.tag_id)')
             ->where('rel.product_id = e.entity_id');
@@ -63,7 +57,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add all target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addAllTagedCount()
     {
@@ -75,7 +69,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add target count to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addTagedCount()
     {
@@ -88,7 +82,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add group by product to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addGroupByProduct()
     {
@@ -101,7 +95,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Add group by tag to result
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addGroupByTag()
     {
@@ -116,7 +110,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      * Add product filter
      *
      * @param int $customerId
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function addProductFilter($customerId)
     {
@@ -131,7 +125,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
      *
      * @param string $attribute
      * @param string $dir
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
@@ -147,7 +141,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     /**
      * Join fields
      *
-     * @return Mage_Reports_Model_Resource_Tag_Product_Collection
+     * @return $this
      */
     protected function _joinFields()
     {
@@ -156,7 +150,8 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
             ->join(
                 array('relation' => $this->getTable('tag/relation')),
                 'relation.product_id = e.entity_id',
-                array())
+                array()
+            )
             ->join(
                 array('t' => $this->getTable('tag/tag')),
                 't.tag_id = relation.tag_id',

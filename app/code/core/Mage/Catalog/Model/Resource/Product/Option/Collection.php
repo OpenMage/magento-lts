@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Adds title, price & price_type attributes to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function getOptions($storeId)
     {
@@ -60,7 +54,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add title to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function addTitleToResult($storeId)
     {
@@ -73,9 +67,11 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
         );
 
         $this->getSelect()
-            ->join(array('default_option_title' => $productOptionTitleTable),
+            ->join(
+                array('default_option_title' => $productOptionTitleTable),
                 'default_option_title.option_id = main_table.option_id',
-                array('default_title' => 'title'))
+                array('default_title' => 'title')
+            )
             ->joinLeft(
                 array('store_option_title' => $productOptionTitleTable),
                 'store_option_title.option_id = main_table.option_id AND '
@@ -83,7 +79,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 array(
                     'store_title'   => 'title',
                     'title'         => $titleExpr
-                ))
+                )
+            )
             ->where('default_option_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
         return $this;
@@ -93,7 +90,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add price to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function addPriceToResult($storeId)
     {
@@ -121,7 +118,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 array(
                     'default_price' => 'price',
                     'default_price_type' => 'price_type'
-                ))
+                )
+            )
             ->joinLeft(
                 array('store_option_price' => $productOptionPriceTable),
                 'store_option_price.option_id = main_table.option_id AND '
@@ -131,7 +129,8 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                ));
+                )
+            );
 
         return $this;
     }
@@ -140,7 +139,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add value to result
      *
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function addValuesToResult($storeId = null)
     {
@@ -152,7 +151,6 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
             $optionIds[] = $option->getId();
         }
         if (!empty($optionIds)) {
-            /** @var $values Mage_Catalog_Model_Option_Value_Collection */
             $values = Mage::getModel('catalog/product_option_value')
                 ->getCollection()
                 ->addTitleToResult($storeId)
@@ -161,9 +159,10 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
                 ->setOrder('sort_order', self::SORT_ORDER_ASC)
                 ->setOrder('title', self::SORT_ORDER_ASC);
 
+            /** @var Mage_Catalog_Model_Product_Option_Value $value */
             foreach ($values as $value) {
                 $optionId = $value->getOptionId();
-                if($this->getItemById($optionId)) {
+                if ($this->getItemById($optionId)) {
                     $this->getItemById($optionId)->addValue($value);
                     $value->setOption($this->getItemById($optionId));
                 }
@@ -177,7 +176,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add product_id filter to select
      *
      * @param array|Mage_Catalog_Model_Product|int $product
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function addProductToFilter($product)
     {
@@ -198,7 +197,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add is_required filter to select
      *
      * @param bool $required
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function addRequiredFilter($required = true)
     {
@@ -210,7 +209,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
      * Add filtering by option ids
      *
      * @param mixed $optionIds
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Collection
+     * @return $this
      */
     public function addIdsToFilter($optionIds)
     {
@@ -221,7 +220,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Call of protected method reset
      *
-     * @return Mage_Catalog_Model_Resource_Product_Option_Collection
+     * @return $this
      */
     public function reset()
     {

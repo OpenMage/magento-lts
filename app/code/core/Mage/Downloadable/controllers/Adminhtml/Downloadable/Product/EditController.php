@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +29,6 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
  */
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {
-
     /**
      * Varien class constructor
      *
@@ -67,7 +60,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
     protected function _processDownload($resource, $resourceType)
     {
         $helper = Mage::helper('downloadable/download');
-        /* @var $helper Mage_Downloadable_Helper_Download */
+        /* @var Mage_Downloadable_Helper_Download $helper */
 
         $helper->setResource($resource, $resourceType);
 
@@ -114,17 +107,17 @@ class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Ma
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_URL;
             } elseif ($link->getLinkType() == Mage_Downloadable_Helper_Download::LINK_TYPE_FILE) {
                 $resource = Mage::helper('downloadable/file')->getFilePath(
-                    Mage_Downloadable_Model_Link::getBasePath(), $link->getLinkFile()
+                    Mage_Downloadable_Model_Link::getBasePath(),
+                    $link->getLinkFile()
                 );
                 $resourceType = Mage_Downloadable_Helper_Download::LINK_TYPE_FILE;
             }
             try {
                 $this->_processDownload($resource, $resourceType);
             } catch (Mage_Core_Exception $e) {
-                $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
+                $this->_getSession()->addError(Mage::helper('downloadable')->__('An error occurred while getting the requested content.'));
             }
         }
         exit(0);
     }
-
 }

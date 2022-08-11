@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,24 +23,34 @@
  *
  * @method Mage_Catalog_Model_Resource_Product_Option _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option getResource()
- * @method int getProductId()
- * @method Mage_Catalog_Model_Product_Option setProductId(int $value)
- * @method string getType()
- * @method Mage_Catalog_Model_Product_Option setType(string $value)
- * @method int getIsRequire()
- * @method Mage_Catalog_Model_Product_Option setIsRequire(int $value)
- * @method string getSku()
- * @method Mage_Catalog_Model_Product_Option setSku(string $value)
- * @method int getMaxCharacters()
- * @method Mage_Catalog_Model_Product_Option setMaxCharacters(int $value)
+ * @method Mage_Catalog_Model_Resource_Product_Option_Collection getCollection()()
+ * @method bool getAddRequiredFilter()
+ * @method bool getAddRequiredFilterValue()
  * @method string getFileExtension()
- * @method Mage_Catalog_Model_Product_Option setFileExtension(string $value)
+ * @method $this setFileExtension(string $value)
  * @method int getImageSizeX()
- * @method Mage_Catalog_Model_Product_Option setImageSizeX(int $value)
+ * @method $this setImageSizeX(int $value)
  * @method int getImageSizeY()
- * @method Mage_Catalog_Model_Product_Option setImageSizeY(int $value)
+ * @method $this setImageSizeY(int $value)
+ * @method int getIsRequire()
+ * @method $this setIsRequire(int $value)
+ * @method int getMaxCharacters()
+ * @method $this setMaxCharacters(int $value)
+ * @method int getOptionId()
+ * @method $this setOptionId(int $value)
+ * @method string getPriceType()
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
+ * @method string getSku()
+ * @method $this setSku(string $value)
  * @method int getSortOrder()
- * @method Mage_Catalog_Model_Product_Option setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method int getStoreId()
+ * @method float getStorePrice()
+ * @method string getStoreTitle()
+ * @method string getTitle()
+ * @method string getType()
+ * @method $this setType(string $value)
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -172,7 +176,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Add value of option to values array
      *
      * @param Mage_Catalog_Model_Product_Option_Value $value
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function addValue(Mage_Catalog_Model_Product_Option_Value $value)
     {
@@ -198,7 +202,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get values
      *
-     * @return array
+     * @return Mage_Catalog_Model_Product_Option_Value[]
      */
     public function getValues()
     {
@@ -222,7 +226,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Add option for save it
      *
      * @param array $option
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function addOption($option)
     {
@@ -244,7 +248,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Set options for array
      *
      * @param array $options
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -255,7 +259,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set options to empty array
      *
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function unsetOptions()
     {
@@ -277,7 +281,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Set product instance
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function setProduct(Mage_Catalog_Model_Product $product = null)
     {
@@ -316,7 +320,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Group model factory
      *
      * @param string $type Option type
-     * @return Mage_Catalog_Model_Product_Option_Group_Abstract
+     * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
     public function groupFactory($type)
     {
@@ -330,7 +334,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Save options.
      *
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function saveOptions()
     {
@@ -362,7 +366,6 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                      * need to remove all data of previous group
                      */
                     if ($this->getGroupByType($previousType) != $this->getGroupByType($this->getData('type'))) {
-
                         switch ($this->getGroupByType($previousType)) {
                             case self::OPTION_GROUP_SELECT:
                                 $this->unsetData('values');
@@ -391,7 +394,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                         }
                     }
                 }
-                $this->save();            }
+                $this->save();
+            }
         }//eof foreach()
         return $this;
     }
@@ -423,7 +427,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *  return converted percent to price
      *
      * @param bool $flag
-     * @return decimal
+     * @return float
      */
     public function getPrice($flag = false)
     {
@@ -439,7 +443,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Delete prices of option
      *
      * @param int $option_id
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function deletePrices($option_id)
     {
@@ -451,7 +455,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Delete titles of option
      *
      * @param int $option_id
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function deleteTitles($option_id)
     {
@@ -500,7 +504,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param array $optionIds
      * @param int $store_id
-     * @return unknown
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getOptionValuesByOptionId($optionIds, $store_id)
     {
@@ -537,7 +541,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      *
      * @param int $oldProductId
      * @param int $newProductId
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     public function duplicate($oldProductId, $newProductId)
     {
@@ -561,7 +565,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Clearing object's data
      *
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     protected function _clearData()
     {
@@ -573,7 +577,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Clearing cyclic references
      *
-     * @return Mage_Catalog_Model_Product_Option
+     * @return $this
      */
     protected function _clearReferences()
     {

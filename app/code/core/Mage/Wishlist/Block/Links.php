@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -88,7 +82,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     {
         if ($count > 1) {
             return $this->__('My Wishlist (%d items)', $count);
-        } else if ($count == 1) {
+        } elseif ($count == 1) {
             return $this->__('My Wishlist (%d item)', $count);
         } else {
             return $this->__('My Wishlist');
@@ -96,10 +90,10 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
     }
 
     /**
-     * @deprecated after 1.4.2.0
+     * @return Mage_Wishlist_Block_Links
      * @see Mage_Wishlist_Block_Links::__construct
      *
-     * @return array
+     * @deprecated after 1.4.2.0
      */
     public function addWishlistLink()
     {
@@ -113,7 +107,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
      */
     public function getCacheTags()
     {
-        /** @var $wishlist Mage_Wishlist_Model_Wishlist */
+        /** @var Mage_Wishlist_Model_Wishlist $wishlist */
         $wishlist = $this->helper('wishlist')->getWishlist();
         $this->addModelTags($wishlist);
         foreach ($wishlist->getItemCollection() as $item) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,10 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getRunAt()
+ * @method int getScheduledOperationId()
+ * @method string getOperationType()
  */
 abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 {
@@ -86,7 +84,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 
         if (!$this->_logInstance) {
             $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
-            $fileName = join('_', array(
+            $fileName = implode('_', array(
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
                 $this->getOperationType(),
@@ -109,7 +107,7 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
     /**
      * Return human readable debug trace.
      *
-     * @return array
+     * @return string
      */
     public function getFormatedLogTrace()
     {

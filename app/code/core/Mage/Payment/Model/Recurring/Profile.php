@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,35 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring payment profile
  * Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
+ *
+ * @method float getBillingAmount()
+ * @method string getCurrencyCode()
+ * @method bool getStartDateIsEditable()
+ * @method $this setImportedStartDatetime(string $value)
+ * @method int getInternalReferenceId()
+ * @method string getMethodCode()
+ * @method $this setMethodCode(string $value)
+ * @method int getPeriodUnit()
+ * @method int getPeriodFrequency()
+ * @method bool hasScheduleDescription()
+ * @method string getScheduleDescription()
+ * @method string setScheduleDescription(string $value)
+ * @method string getStartDatetime()
+ * @method $this setStartDatetime(string $value)
+ * @method int getStoreId()
+ * @method float getTrialBillingAmount()
+ * @method int getTrialPeriodFrequency()
+ * @method int getTrialPeriodMaxCycles()
+ * @method int getTrialPeriodUnit()
  */
 class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
 {
@@ -162,7 +176,9 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Getter for errors that may appear after validation
      *
      * @param bool $isGrouped
+     * @param bool $asMessage
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getValidationErrors($isGrouped = true, $asMessage = false)
     {
@@ -185,7 +201,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Setter for payment method instance
      *
      * @param Mage_Payment_Model_Method_Abstract $object
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      * @throws Exception
      */
     public function setMethodInstance(Mage_Payment_Model_Method_Abstract $object)
@@ -203,7 +219,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Then filter data
      *
      * @param Varien_Object $buyRequest
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function importBuyRequest(Varien_Object $buyRequest)
@@ -228,7 +244,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Returns false if it cannot be imported
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Payment_Model_Recurring_Profile|false
+     * @return $this|false
      */
     public function importProduct(Mage_Catalog_Model_Product $product)
     {
@@ -244,7 +260,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
             // collect start datetime from the product options
             $options = $product->getCustomOption(self::PRODUCT_OPTIONS_KEY);
             if ($options) {
-                $options = unserialize($options->getValue());
+                $options = unserialize($options->getValue(), ['allowed_classes' => false]);
                 if (is_array($options)) {
                     if (isset($options['start_datetime'])) {
                         $startDatetime = new Zend_Date($options['start_datetime'], Varien_Date::DATETIME_INTERNAL_FORMAT);
@@ -261,7 +277,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Render available schedule information
      *
-     * @return array
+     * @return Varien_Object[]
      */
     public function exportScheduleInfo()
     {
@@ -285,7 +301,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Determine nearest possible profile start date
      *
      * @param Zend_Date $minAllowed
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setNearestStartDatetime(Zend_Date $minAllowed = null)
     {
@@ -321,7 +337,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Locale instance setter
      *
      * @param Mage_Core_Model_Locale $locale
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setLocale(Mage_Core_Model_Locale $locale)
     {
@@ -333,7 +349,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Store instance setter
      *
      * @param Mage_Core_Model_Store $store
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
@@ -371,15 +387,21 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      * Render label for specified period unit
      *
      * @param string $unit
+     * @return string
      */
     public function getPeriodUnitLabel($unit)
     {
         switch ($unit) {
-            case self::PERIOD_UNIT_DAY:  return Mage::helper('payment')->__('Day');
-            case self::PERIOD_UNIT_WEEK: return Mage::helper('payment')->__('Week');
-            case self::PERIOD_UNIT_SEMI_MONTH: return Mage::helper('payment')->__('Two Weeks');
-            case self::PERIOD_UNIT_MONTH: return Mage::helper('payment')->__('Month');
-            case self::PERIOD_UNIT_YEAR:  return Mage::helper('payment')->__('Year');
+            case self::PERIOD_UNIT_DAY:
+                return Mage::helper('payment')->__('Day');
+            case self::PERIOD_UNIT_WEEK:
+                return Mage::helper('payment')->__('Week');
+            case self::PERIOD_UNIT_SEMI_MONTH:
+                return Mage::helper('payment')->__('Two Weeks');
+            case self::PERIOD_UNIT_MONTH:
+                return Mage::helper('payment')->__('Month');
+            case self::PERIOD_UNIT_YEAR:
+                return Mage::helper('payment')->__('Year');
         }
         return $unit;
     }
@@ -499,15 +521,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Filter self data to make sure it can be validated properly
      *
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @return $this
      */
     protected function _filterValues()
     {
         // determine payment method/code
         if ($this->_methodInstance) {
             $this->setMethodCode($this->_methodInstance->getCode());
-        }
-        elseif ($this->getMethodCode()) {
+        } elseif ($this->getMethodCode()) {
             $this->getMethodInstance();
         }
 
@@ -604,7 +625,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
     /**
      * Validate before saving
      *
-     * @return Mage_Payment_Model_Recurring_Profile
+     * @inheritDoc
      */
     protected function _beforeSave()
     {

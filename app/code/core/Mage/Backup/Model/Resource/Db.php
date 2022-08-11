@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Backup
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -138,7 +132,7 @@ class Mage_Backup_Model_Resource_Db
      * Retrieve table status
      *
      * @param string $tableName
-     * @return Varien_Object
+     * @return Varien_Object|false
      */
     public function getTableStatus($tableName)
     {
@@ -168,7 +162,7 @@ class Mage_Backup_Model_Resource_Db
      *
      * @param string $tableName
      * @param array $row
-     * @return string
+     * @return array
      */
     protected function _quoteRow($tableName, array $row)
     {
@@ -176,7 +170,7 @@ class Mage_Backup_Model_Resource_Db
     }
 
     /**
-     * Retrive table partical data SQL insert
+     * Retrieve table partical data SQL insert
      *
      * @param string $tableName
      * @param int $count
@@ -191,9 +185,9 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Enter description here...
      *
-     * @param unknown_type $tableName
-     * @param unknown_type $addDropIfExists
-     * @return unknown
+     * @param string $tableName
+     * @param bool $addDropIfExists
+     * @return string
      */
     public function getTableCreateScript($tableName, $addDropIfExists = false)
     {
@@ -203,7 +197,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Retrieve table header comment
      *
-     * @param unknown_type $tableName
+     * @param string $tableName
      * @return string
      */
     public function getTableHeader($tableName)
@@ -271,7 +265,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Start transaction mode
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function beginTransaction()
     {
@@ -283,7 +277,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Commit transaction
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function commitTransaction()
     {
@@ -295,7 +289,7 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Rollback transaction
      *
-     * @return Mage_Backup_Model_Resource_Db
+     * @return $this
      */
     public function rollBackTransaction()
     {
@@ -306,8 +300,8 @@ class Mage_Backup_Model_Resource_Db
     /**
      * Run sql code
      *
-     * @param $command
-     * @return Mage_Backup_Model_Resource_Db
+     * @param string|Zend_Db_Select $command
+     * @return $this
      */
     public function runCommand($command){
         $this->_write->query($command);

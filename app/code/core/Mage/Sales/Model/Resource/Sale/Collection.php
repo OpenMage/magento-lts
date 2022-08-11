@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,7 +73,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      * Set filter by customer
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Sales_Model_Resource_Sale_Collection
+     * @return $this
      */
     public function setCustomerFilter(Mage_Customer_Model_Customer $customer)
     {
@@ -91,7 +85,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      * Add filter by stores
      *
      * @param array $storeIds
-     * @return Mage_Sales_Model_Resource_Sale_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {
@@ -102,8 +96,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      * Set filter by order state
      *
      * @param string|array $state
-     * @param bool_type $exclude
-     * @return Mage_Sales_Model_Resource_Sale_Collection
+     * @param bool $exclude
+     * @return $this
      */
     public function setOrderStateFilter($state, $exclude = false)
     {
@@ -111,8 +105,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         $this->_orderStateValue     = (!is_array($state)) ? array($state) : $state;
         return $this;
     }
-    
-    
+
+
     /**
      * Before load action
      *
@@ -141,10 +135,10 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         if (!is_null($this->_orderStateValue)) {
             $condition = '';
             switch ($this->_orderStateCondition) {
-                case 'IN' : 
+                case 'IN':
                     $condition = 'in';
                     break;
-                case 'NOT IN' : 
+                case 'NOT IN':
                     $condition = 'nin';
                     break;
             }
@@ -158,7 +152,10 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     /**
      * Load data
      *
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @return  Varien_Data_Collection_Db
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -194,7 +191,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }
-        
+
         if ($this->_totals['num_orders']) {
             $this->_totals['avgsale'] = $this->_totals['base_lifetime'] / $this->_totals['num_orders'];
         }

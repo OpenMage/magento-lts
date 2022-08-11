@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
-class Mage_Eav_Model_Convert_Adapter_Entity
-    extends Mage_Dataflow_Model_Convert_Adapter_Abstract
+class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     /**
      * Current store model
@@ -51,8 +44,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         if (is_null($this->_store)) {
             try {
                 $this->_store = Mage::app()->getStore($this->getVar('store'));
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $message = Mage::helper('eav')->__('Invalid store specified');
                 $this->addException($message, Varien_Convert_Exception::FATAL);
                 throw $e;
@@ -62,16 +54,14 @@ class Mage_Eav_Model_Convert_Adapter_Entity
     }
 
     /**
-     * @param $attrFilter - $attrArray['attrDB']   = ['like','eq','fromTo','dateFromTo]
-     * @param $attrToDb    - attribute name to DB field
-     * @return Mage_Eav_Model_Convert_Adapter_Entity
-    */
+     * @return array
+     */
     protected function _parseVars()
     {
         $varFilters = $this->getVars();
         $filters = array();
         foreach ($varFilters as $key => $val) {
-            if (substr($key,0,6) === 'filter') {
+            if (substr($key, 0, 6) === 'filter') {
                 $keys = explode('/', $key, 2);
                 $filters[$keys[1]] = $val;
             }
@@ -79,6 +69,14 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         return $filters;
     }
 
+    /**
+     * @param array $attrFilterArray
+     * @param array $attrToDb
+     * @param string $bind
+     * @param string $joinType
+     * @return $this
+     * @throws Exception
+     */
     public function setFilter($attrFilterArray, $attrToDb = null, $bind = null, $joinType = null)
     {
         if (is_null($bind)) {
@@ -94,9 +92,9 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         foreach ($attrFilterArray as $key => $type) {
             if (is_array($type)) {
                 if (isset($type['bind'])) {
-                   $bind = $type['bind'];
+                    $bind = $type['bind'];
                 } else {
-                   $bind = $defBind;
+                    $bind = $defBind;
                 }
                 $type = $type['type'];
             }
@@ -112,12 +110,12 @@ class Mage_Eav_Model_Convert_Adapter_Entity
 
             $keyDB = (isset($this->_attrToDb[$key])) ? $this->_attrToDb[$key] : $key;
 
-            $exp = explode('/',$key);
+            $exp = explode('/', $key);
 
-            if(isset($exp[1])){
-                if(isset($filters[$exp[1]])){
-                   $val = $filters[$exp[1]];
-                   $this->setJoinAttr(array(
+            if (isset($exp[1])) {
+                if (isset($filters[$exp[1]])) {
+                    $val = $filters[$exp[1]];
+                    $this->setJoinAttr(array(
                        'attribute' => $keyDB,
                        'bind' => $bind,
                        'joinType' => $joinType
@@ -125,7 +123,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                 } else {
                     $val = null;
                 }
-                $keyDB = str_replace('/','_',$keyDB);
+                $keyDB = str_replace('/', '_', $keyDB);
             } else {
                 $val = isset($filters[$key]) ? $filters[$key] : null;
             }
@@ -133,7 +131,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                 continue;
             }
             $attr = array();
-            switch ($type){
+            switch ($type) {
                 case 'eq':
                     $attr = array(
                         'attribute' => $keyDB,
@@ -151,7 +149,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                          'attribute' => $keyDB,
                          'like'      => $val.'%'
                      );
-                     break;
+                    break;
                 case 'fromTo':
                     $attr = array(
                         'attribute' => $keyDB,
@@ -176,7 +174,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                     );
                     break;
                 default:
-                break;
+                    break;
             }
             $this->_filter[] = $attr;
         }
@@ -184,38 +182,51 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getFilter()
     {
         return $this->_filter;
     }
 
-    protected function getFieldValue($fields = array(), $name)
+    /**
+     * @param array $fields
+     * @param string $name
+     * @return array|bool
+     */
+    protected function getFieldValue($fields = array(), $name = '')
     {
         $result = array();
         if ($fields && $name) {
-            foreach($fields as $index => $value) {
+            foreach ($fields as $index => $value) {
                 $exp = explode('/', $index);
                 if (isset($exp[1]) && $exp[0] == $name) {
                     $result[$exp[1]] = $value;
                 }
             }
-            if ($result) return $result;
+            if ($result) {
+                return $result;
+            }
         }
         return false;
     }
 
+    /**
+     * @param string $joinAttr
+     * @throws Exception
+     */
     public function setJoinAttr($joinAttr)
     {
-        if(is_array($joinAttr)){
+        if (is_array($joinAttr)) {
             $joinArrAttr = array();
             $joinArrAttr['attribute'] = isset($joinAttr['attribute']) ? $joinAttr['attribute'] : null;
-            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/','_',$joinAttr['attribute']):null;
+            $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']):null;
             $joinArrAttr['bind'] = isset($joinAttr['bind']) ? $joinAttr['bind'] : null;
             $joinArrAttr['joinType'] = isset($joinAttr['joinType']) ? $joinAttr['joinType'] : null;
             $joinArrAttr['storeId'] = isset($joinAttr['storeId']) ? $joinAttr['storeId'] : $this->getStoreId();
             $this->_joinAttr[] = $joinArrAttr;
         }
-
     }
 
     /**
@@ -236,7 +247,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity
      *            'joinType'  => 'LEFT'
      *         )
      *     NOTE: Optional key must be have NULL at least
-     * @return void
      */
     public function setJoinField($joinField)
     {
@@ -245,6 +255,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         }
     }
 
+    /**
+     * @return $this
+     * @throws Varien_Convert_Exception
+     */
     public function load()
     {
         if (!($entityType = $this->getVar('entity_type'))
@@ -256,7 +270,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity
 
             if (isset($this->_joinAttr) && is_array($this->_joinAttr)) {
                 foreach ($this->_joinAttr as $val) {
-//                    print_r($val);
                     $collection->joinAttribute(
                         $val['alias'],
                         $val['attribute'],
@@ -278,29 +291,27 @@ class Mage_Eav_Model_Convert_Adapter_Entity
             $joinFields = $this->_joinField;
             if (isset($joinFields) && is_array($joinFields)) {
                 foreach ($joinFields as $field) {
-//                  print_r($field);
                     $collection->joinField(
                         $field['alias'],
                         $field['attribute'],
                         $field['field'],
                         $field['bind'],
                         $field['cond'],
-                        $field['joinType']);
-               }
-           }
+                        $field['joinType']
+                    );
+                }
+            }
 
            /**
             * Load collection ids
             */
-           $entityIds = $collection->getAllIds();
+            $entityIds = $collection->getAllIds();
 
-           $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));
-           $this->addException($message);
-        }
-        catch (Varien_Convert_Exception $e) {
+            $message = Mage::helper('eav')->__("Loaded %d records", count($entityIds));
+            $this->addException($message);
+        } catch (Varien_Convert_Exception $e) {
             throw $e;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $message = Mage::helper('eav')->__('Problem loading the collection, aborting. Error: %s', $e->getMessage());
             $this->addException($message, Varien_Convert_Exception::FATAL);
         }
@@ -315,6 +326,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity
     /**
      * Retrieve collection for load
      *
+     * @param string $entityType
      * @return Mage_Eav_Model_Entity_Collection
      */
     protected function _getCollectionForLoad($entityType)
@@ -322,6 +334,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity
         return Mage::getResourceModel($entityType.'_collection');
     }
 
+    /**
+     * @return $this
+     * @throws Varien_Convert_Exception
+     */
     public function save()
     {
         $collection = $this->getData();
@@ -341,13 +357,13 @@ class Mage_Eav_Model_Convert_Adapter_Entity
                 $i++;
             }
             $this->addException(Mage::helper('eav')->__("Saved %d record(s).", $i));
-        }
-        catch (Varien_Convert_Exception $e) {
+        } catch (Varien_Convert_Exception $e) {
             throw $e;
-        }
-        catch (Exception $e) {
-            $this->addException(Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
-                Varien_Convert_Exception::FATAL);
+        } catch (Exception $e) {
+            $this->addException(
+                Mage::helper('eav')->__('Problem saving the collection, aborting. Error: %s', $e->getMessage()),
+                Varien_Convert_Exception::FATAL
+            );
         }
         return $this;
     }

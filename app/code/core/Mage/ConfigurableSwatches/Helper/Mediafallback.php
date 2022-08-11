@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,12 +32,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param array $parentProducts
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
-     * @param $storeId
-     * @return void
+     * @param int $storeId
      */
     public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
     {
-        return $this->attachProductChildrenAttributeMapping($parentProducts, $storeId);
+        $this->attachProductChildrenAttributeMapping($parentProducts, $storeId);
     }
 
     /**
@@ -52,13 +45,12 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * - product must have children products attached
      *
      * @param array $parentProducts
-     * @param $storeId
+     * @param int $storeId
      * @param bool $onlyListAttributes
-     * @return void
      */
     public function attachProductChildrenAttributeMapping(array $parentProducts, $storeId, $onlyListAttributes = false)
     {
-        /** @var  $listSwatchAttr Mage_Eav_Model_Attribute */
+        /** @var  Mage_Eav_Model_Attribute $listSwatchAttr */
         $listSwatchAttr = Mage::helper('configurableswatches/productlist')->getSwatchAttribute();
         $swatchAttributeIds = array();
         if (!$onlyListAttributes) {
@@ -72,7 +64,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         $parentProductIds = array();
-        /* @var $parentProduct Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $parentProduct */
         foreach ($parentProducts as $parentProduct) {
             $parentProductIds[] = $parentProduct->getId();
         }
@@ -99,15 +91,14 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $listSwatchValues = array();
             $listSwatchStockValues = array();
 
-            /* @var $attribute Mage_Catalog_Model_Product_Type_Configurable_Attribute */
+            /* @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
             foreach ($configAttributes as $attribute) {
-                /* @var $childProduct Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $childProduct */
                 if (!is_array($parentProduct->getChildrenProducts())) {
                     continue;
                 }
 
                 foreach ($parentProduct->getChildrenProducts() as $childProduct) {
-
                     // product has no value for attribute or not available, we can't process it
                     $isInStock = $childProduct->getStockItem()->getIsInStock();
                     if (!$childProduct->hasData($attribute->getAttributeCode())
@@ -153,8 +144,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             }
 
             if (count($listSwatchValues)) {
-                $listSwatchValues = array_replace(array_intersect_key($optionLabels, $listSwatchValues),
-                    $listSwatchValues);
+                $listSwatchValues = array_replace(
+                    array_intersect_key($optionLabels, $listSwatchValues),
+                    $listSwatchValues
+                );
             }
             $parentProduct->setChildAttributeLabelMapping($mapping)
                 ->setListSwatchAttrValues($listSwatchValues)
@@ -171,9 +164,12 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array $imageTypes - image types to select for child products
+     * @param bool $keepFrame
      * @return array
      */
-    public function getConfigurableImagesFallbackArray(Mage_Catalog_Model_Product $product, array $imageTypes,
+    public function getConfigurableImagesFallbackArray(
+        Mage_Catalog_Model_Product $product,
+        array $imageTypes,
         $keepFrame = false
     ) {
         if (!$product->hasConfigurableImagesFallbackArray()) {
@@ -235,7 +231,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             // iterate image types to build image array, normally one type is passed in at a time, but could be two
             foreach ($imageTypes as $imageType) {
                 // load image from the configurable product's children for swapping
-                /* @var $childProduct Mage_Catalog_Model_Product */
+                /* @var Mage_Catalog_Model_Product $childProduct */
                 if ($product->hasChildrenProducts()) {
                     foreach ($product->getChildrenProducts() as $childProduct) {
                         $image = $this->_resizeProductImage($childProduct, $imageType, $keepFrame);
@@ -306,7 +302,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Groups media gallery images by local images and child images
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return void
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
     {
@@ -318,9 +313,10 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         $newMediaGalleryImages = array();
         $configurableImages = array();
+        $productId = $product->getId();
 
         foreach ($mediaGallery['images'] as $mediaGalleryImage) {
-            if ($mediaGalleryImage['product_id'] == $product->getId()) {
+            if ($mediaGalleryImage['product_id'] == $productId) {
                 $newMediaGalleryImages[] = $mediaGalleryImage;
             } else {
                 $configurableImages[] = $mediaGalleryImage;
@@ -338,18 +334,17 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param array $products
      * @param int $storeId
-     * @return void
      */
     public function attachGallerySetToCollection(array $products, $storeId)
     {
         $productIds = array();
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
             if (!is_array($product->getChildrenProducts())) {
                 continue;
             }
-            /* @var $childProduct Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $childProduct */
             foreach ($product->getChildrenProducts() as $childProduct) {
                 $productIds[] = $childProduct->getId();
             }
@@ -357,28 +352,28 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         $attrCode = self::MEDIA_GALLERY_ATTRIBUTE_CODE;
 
-        /* @var $resourceModel Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media */
+        /* @var Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media $resourceModel */
         $resourceModel = Mage::getResourceModel('catalog/product_attribute_backend_media');
 
         $images = $resourceModel->loadGallerySet($productIds, $storeId);
 
         $relationship = array();
         foreach ($products as $product) {
-            $relationship[$product->getId()] = $product->getId();
+            $productId = $product->getId();
+            $relationship[$productId] = $productId;
 
             if (!is_array($product->getChildrenProducts())) {
                 continue;
             }
 
-            /* @var $childProduct Mage_Catalog_Model_Product */
+            /* @var Mage_Catalog_Model_Product $childProduct */
             foreach ($product->getChildrenProducts() as $childProduct) {
-                $relationship[$childProduct->getId()] = $product->getId();
+                $relationship[$childProduct->getId()] = $productId;
             }
         }
 
         foreach ($images as $image) {
-            $productId = $image['product_id'];
-            $realProductId = $relationship[$productId];
+            $realProductId = $relationship[$image['product_id']];
             $product = $products[$realProductId];
 
             if (is_null($image['label'])) {
@@ -428,18 +423,18 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param array $products
      * @param int $storeId
-     * @return void
      */
     public function attachChildrenProducts(array $products, $storeId)
     {
         $productIds = array();
-        /* @var $product Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
         }
 
         $collection = Mage::getResourceModel(
-            'configurableswatches/catalog_product_type_configurable_product_collection');
+            'configurableswatches/catalog_product_type_configurable_product_collection'
+        );
 
         $collection->setFlag('product_children', true)
             ->addStoreFilter($storeId)
@@ -449,7 +444,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         $collection->load();
 
         $mapping = array();
-        /* @var $childProduct Mage_Catalog_Model_Product */
+        /* @var Mage_Catalog_Model_Product $childProduct */
         foreach ($collection as $childProduct) {
             foreach ($childProduct->getParentIds() as $parentId) {
                 if (!isset($mapping[$parentId])) {

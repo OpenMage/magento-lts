@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +22,18 @@
  * Payment method abstract model
  *
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCheckoutRedirectUrl()
+ * @method $this setInfoInstance(Mage_Payment_Model_Info $value)
+ * @method string getInstructions()
+ * @method string getOrderPlaceRedirectUrl()
+ * @method int getStore()
+ * @method $this setStore(int $value)
+ * @method $this initBillingAgreementToken(Mage_Sales_Model_Billing_Agreement $value)
+ * @method array getBillingAgreementTokenInfo(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this placeBillingAgreement(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this updateBillingAgreementStatus(Mage_Sales_Model_Billing_Agreement $value)
+ * @method $this validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $value)
  */
 abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 {
@@ -96,7 +102,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
 
     public function __construct()
     {
-
     }
 
     /**
@@ -276,6 +281,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * To check billing country is allowed for the payment method
      *
+     * @param string $country
      * @return bool
      */
     public function canUseForCountry($country)
@@ -283,12 +289,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         /*
         for specific country, the flag will set up as 1
         */
-        if($this->getConfigData('allowspecific')==1){
+        if ($this->getConfigData('allowspecific')==1) {
             $availableCountries = explode(',', $this->getConfigData('specificcountry'));
-            if(!in_array($country, $availableCountries)){
+            if (!in_array($country, $availableCountries)) {
                 return false;
             }
-
         }
         return true;
     }
@@ -385,23 +390,21 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Validate payment method information object
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
-         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
-             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
-         } else {
-             $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
-         }
-         if (!$this->canUseForCountry($billingCountry)) {
-             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
-         }
-         return $this;
+        // Validate that payment method is allowed for billing country
+        $paymentInfo = $this->getInfoInstance();
+        if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
+            $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
+        } else {
+            $billingCountry = $paymentInfo->getQuote()->getBillingAddress()->getCountryId();
+        }
+        if (!$this->canUseForCountry($billingCountry)) {
+            Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
+        }
+        return $this;
     }
 
     /**
@@ -410,7 +413,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function order(Varien_Object $payment, $amount)
     {
@@ -426,7 +429,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -442,7 +445,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -486,7 +489,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -516,7 +519,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -542,7 +545,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @param Varien_Object $payment
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -625,23 +628,22 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * Assign data to info model instance
      *
      * @param   mixed $data
-     * @return  Mage_Payment_Model_Info
+     * @return  $this
      */
     public function assignData($data)
     {
         if (is_array($data)) {
             $this->getInfoInstance()->addData($data);
-        }
-        elseif ($data instanceof Varien_Object) {
+        } elseif ($data instanceof Varien_Object) {
             $this->getInfoInstance()->addData($data->getData());
         }
         return $this;
     }
 
    /**
-     * Parepare info instance for save
+     * Prepare info instance for save
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function prepareSave()
     {
@@ -659,7 +661,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function isAvailable($quote = null)
     {
-        $checkResult = new StdClass;
+        $checkResult = new stdClass;
         $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
@@ -741,7 +743,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      * @param string $paymentAction
      * @param object $stateObject
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function initialize($paymentAction, $stateObject)
     {

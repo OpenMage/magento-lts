@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Http
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -180,7 +174,8 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         $options = array(
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,
-            CURLOPT_HEADER                  => $header
+            CURLOPT_HEADER                  => $header,
+            CURLOPT_HTTP_VERSION            => CURL_HTTP_VERSION_1_1
         );
         if ($method == Zend_Http_Client::POST) {
             $options[CURLOPT_POST]          = true;

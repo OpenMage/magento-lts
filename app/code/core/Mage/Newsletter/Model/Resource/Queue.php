@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -79,8 +73,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 $adapter->insert($this->getTable('newsletter/queue_link'), $data);
             }
             $adapter->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $adapter->rollBack();
         }
     }
@@ -103,8 +96,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             );
 
             $adapter->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $adapter->rollBack();
         }
     }
@@ -113,7 +105,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
      * Links queue to store
      *
      * @param Mage_Newsletter_Model_Queue $queue
-     * @return Mage_Newsletter_Model_Resource_Queue
+     * @return $this
      */
     public function setStores(Mage_Newsletter_Model_Queue $queue)
     {
@@ -147,6 +139,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
 
         $subscriberIds = array();
 
+        /** @var Mage_Newsletter_Model_Subscriber $subscriber */
         foreach ($subscribers as $subscriber) {
             $subscriberIds[] = $subscriber->getId();
         }
@@ -180,8 +173,8 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
     /**
      * Saving template after saving queue action
      *
-     * @param Mage_Core_Model_Abstract $queue
-     * @return Mage_Newsletter_Model_Resource_Queue
+     * @param Mage_Core_Model_Abstract|Mage_Newsletter_Model_Queue $queue
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $queue)
     {

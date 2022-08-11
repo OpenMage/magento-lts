@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,16 +23,19 @@
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
  * @method Mage_Index_Model_Resource_Process getResource()
+ * @method string getIndexCode()
  * @method string getIndexerCode()
- * @method Mage_Index_Model_Process setIndexerCode(string $value)
+ * @method $this setIndexerCode(string $value)
  * @method string getStatus()
- * @method Mage_Index_Model_Process setStatus(string $value)
+ * @method $this setStatus(string $value)
  * @method string getStartedAt()
- * @method Mage_Index_Model_Process setStartedAt(string $value)
+ * @method $this setStartedAt(string $value)
  * @method string getEndedAt()
- * @method Mage_Index_Model_Process setEndedAt(string $value)
+ * @method $this setEndedAt(string $value)
  * @method string getMode()
- * @method Mage_Index_Model_Process setMode(string $value)
+ * @method $this setMode(string $value)
+ * @method bool getForcePartialReindex()
+ * @method $this setForcePartialReindex(bool $value)
  *
  * @category    Mage
  * @package     Mage_Index
@@ -113,7 +110,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Set indexer class name as data namespace for event object
      *
      * @param   Mage_Index_Model_Event $event
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
@@ -127,7 +124,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Remove indexer namespace from event
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     protected function _resetEventNamespace($event)
     {
@@ -140,7 +137,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Register data required by process in event object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function register(Mage_Index_Model_Event $event)
     {
@@ -154,7 +151,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             }
         }
         return $this;
-
     }
 
     /**
@@ -200,7 +196,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         try {
             $eventsCollection = $this->getUnprocessedEventsCollection();
 
-            /** @var $eventResource Mage_Index_Model_Resource_Event */
+            /** @var Mage_Index_Model_Resource_Event $eventResource */
             $eventResource = Mage::getResourceSingleton('index/event');
 
             if ($eventsCollection->count() > 0 && $processStatus == self::STATUS_PENDING
@@ -240,7 +236,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Reindex all data what this process responsible is
      * Check and using depends processes
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function reindexEverything()
     {
@@ -248,13 +244,13 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        /** @var $eventResource Mage_Index_Model_Resource_Event */
+        /** @var Mage_Index_Model_Resource_Event $eventResource */
         $eventResource = Mage::getResourceSingleton('index/event');
         $unprocessedEvents = $eventResource->getUnprocessedEvents($this);
         $this->setForcePartialReindex(count($unprocessedEvents) > 0 && $this->getStatus() == self::STATUS_PENDING);
 
         if ($this->getDepends()) {
-            /** @var $indexer Mage_Index_Model_Indexer */
+            /** @var Mage_Index_Model_Indexer $indexer */
             $indexer = Mage::getSingleton('index/indexer');
             foreach ($this->getDepends() as $code) {
                 $process = $indexer->getProcessByCode($code);
@@ -272,7 +268,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with assigned indexer object
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function processEvent(Mage_Index_Model_Event $event)
     {
@@ -333,9 +329,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param   null|string $entity
      * @param   null|string $type
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         /**
          * Check if process indexer can match entity code and action type
@@ -381,15 +377,15 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param Mage_Index_Model_Resource_Event_Collection $eventsCollection
      * @param bool $skipUnmatched
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     protected function _processEventsCollection(
         Mage_Index_Model_Resource_Event_Collection $eventsCollection,
         $skipUnmatched = true
     ) {
         // We can't reload the collection because of transaction
-        /** @var $event Mage_Index_Model_Event */
         while ($event = $eventsCollection->fetchItem()) {
+            /** @var Mage_Index_Model_Event $event */
             try {
                 $this->processEvent($event);
                 if (!$skipUnmatched) {
@@ -411,7 +407,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param   Mage_Index_Model_Event $event
      * @param   string $status
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
     public function updateEventStatus(Mage_Index_Model_Event $event, $status)
     {
@@ -446,11 +442,11 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Lock process without blocking.
      * This method allow protect multiple process runing and fast lock validation.
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function lock()
     {
-        $this->_getLockInstance()->setLock($this->getProcessLockName(), $this->getData('use_file_lock'));
+        $this->_getLockInstance()->setLock($this->getProcessLockName(), true);
         return $this;
     }
 
@@ -459,22 +455,22 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * If new instance of the process will try validate locking state
      * script will wait until process will be unlocked
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function lockAndBlock()
     {
-        $this->_getLockInstance()->setLock($this->getProcessLockName(), $this->getData('use_file_lock'), true);
+        $this->_getLockInstance()->setLock($this->getProcessLockName(), true, true);
         return $this;
     }
 
     /**
      * Unlock process
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function unlock()
     {
-        $this->_getLockInstance()->releaseLock($this->getProcessLockName(), $this->getData('use_file_lock'));
+        $this->_getLockInstance()->releaseLock($this->getProcessLockName(), true);
         return $this;
     }
 
@@ -485,14 +481,14 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function isLocked()
     {
-        return $this->_getLockInstance()->isLockExists($this->getProcessLockName(), $this->getData('use_file_lock'));
+        return $this->_getLockInstance()->isLockExists($this->getProcessLockName(), true);
     }
 
     /**
      * Change process status
      *
      * @param string $status
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function changeStatus($status)
     {
@@ -574,7 +570,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.6.1.0
      * @param bool $value
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function setAllowTableChanges($value = true)
     {
@@ -585,7 +581,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Disable keys in index table
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function disableIndexerKeys()
     {
@@ -599,7 +595,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     /**
      * Enable keys in index table
      *
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function enableIndexerKeys()
     {
@@ -614,7 +610,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Process event with locks checking
      *
      * @param Mage_Index_Model_Event $event
-     * @return Mage_Index_Model_Process
+     * @return $this
      */
     public function safeProcessEvent(Mage_Index_Model_Event $event)
     {
@@ -642,7 +638,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getUnprocessedEventsCollection()
     {
-        /** @var $eventsCollection Mage_Index_Model_Resource_Event_Collection */
+        /** @var Mage_Index_Model_Resource_Event_Collection $eventsCollection */
         $eventsCollection = Mage::getResourceModel('index/event_collection');
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;

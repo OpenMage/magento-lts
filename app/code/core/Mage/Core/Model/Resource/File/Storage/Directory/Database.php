@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +39,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Create database scheme for storing files
      *
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return $this
      */
     public function createDatabaseScheme()
     {
@@ -76,13 +70,24 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
                 'default' => null,
                 'unsigned' => true
                 ), 'Parent Directory Id')
-            ->addIndex($adapter->getIndexName($table, array('name', 'parent_id'),
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('name', 'parent_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+            ->addIndex(
+                $adapter->getIndexName(
+                    $table,
+                    array('name', 'parent_id'),
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                ),
+                array('name', 'parent_id'),
+                array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+            )
             ->addIndex($adapter->getIndexName($table, array('parent_id')), array('parent_id'))
-            ->addForeignKey($adapter->getForeignKeyName($table, 'parent_id', $table, 'directory_id'),
-                'parent_id', $table, 'directory_id',
-                Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+            ->addForeignKey(
+                $adapter->getForeignKeyName($table, 'parent_id', $table, 'directory_id'),
+                'parent_id',
+                $table,
+                'directory_id',
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
+                Varien_Db_Ddl_Table::ACTION_CASCADE
+            )
             ->setComment('Directory Storage');
 
         $adapter->createTable($ddlTable);
@@ -94,7 +99,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
      *
      * @param  Mage_Core_Model_File_Storage_Directory_Database $object
      * @param  string $path
-     * @return Mage_Core_Model_Mysql4_File_Storage_Directory_Database
+     * @return $this
      */
     public function loadByPath(Mage_Core_Model_File_Storage_Directory_Database $object, $path)
     {
@@ -150,7 +155,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
     /**
      * Delete all directories from storage
      *
-     * @return Mage_Core_Model_Mysql4_File_Storage_Database
+     * @return $this
      */
     public function clearDirectories()
     {

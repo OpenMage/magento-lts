@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product search result block
@@ -31,6 +24,8 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @module     Catalog
+ *
+ * @method $this setResultCount(int $value)
  */
 class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
 {
@@ -54,7 +49,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Prepare layout
      *
-     * @return Mage_CatalogSearch_Block_Result
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -103,13 +98,13 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Set search available list orders
      *
-     * @return Mage_CatalogSearch_Block_Result
+     * @return $this
      */
     public function setListOrders()
     {
         $category = Mage::getSingleton('catalog/layer')
             ->getCurrentCategory();
-        /* @var $category Mage_Catalog_Model_Category */
+        /* @var Mage_Catalog_Model_Category $category */
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
         $availableOrders = array_merge(array(
@@ -127,28 +122,25 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     /**
      * Set available view mode
      *
-     * @return Mage_CatalogSearch_Block_Result
+     * @return $this
      */
     public function setListModes()
     {
         $this->getListBlock()
             ->setModes(array(
                 'grid' => $this->__('Grid'),
-                'list' => $this->__('List'))
-            );
+                'list' => $this->__('List')));
         return $this;
     }
 
     /**
      * Set Search Result collection
      *
-     * @return Mage_CatalogSearch_Block_Result
+     * @return $this
      */
     public function setListCollection()
     {
-//        $this->getListBlock()
-//           ->setCollection($this->_getProductCollection());
-       return $this;
+        return $this;
     }
 
     /**

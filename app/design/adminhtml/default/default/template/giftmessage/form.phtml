@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -33,7 +27,7 @@
     <?php echo $this->getCancelButtonHtml() ?>
     <?php if($this->getMessage()->getGiftMessageId()): ?>
     <?php echo $this->getRemoveButtonHtml() ?>
-    <?php endif; ?>
+    <?php endif ?>
 </form>
 <?php elseif($this->getSaveMode()=='save'): ?>
 <h3><?php echo Mage::helper('giftmessage')->__('The gift message has been saved') ?></h3>
@@ -41,7 +35,7 @@
 <?php else: ?>
 <h3><?php echo Mage::helper('giftmessage')->__('The gift message has been removed') ?></h3>
 <br /><?php echo $this->getCloseButtonHtml() ?>
-<?php endif; ?>
+<?php endif ?>
 <script type="text/javascript">
 <!--
 <?php if(!$this->getSaveMode()): ?>
@@ -52,6 +46,6 @@
     Event.observe(window, 'load', function(evt) {
         giftMessageWindowObject.updateParent('<?php echo $this->getEditUrl() ?>', '<?php echo $this->getButtonUrl() ?>');
     });
-<?php endif; ?>
+<?php endif ?>
 //-->
 </script>

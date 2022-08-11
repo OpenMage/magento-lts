@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +25,8 @@
  * @category    Mage
  * @package     Mage_Page
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getMethod()
  */
 class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
 {
@@ -43,9 +39,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  URL for redirect location
      *
-     *  @return	  string URL
+     *  @return   string URL
      */
-    public function getTargetURL ()
+    public function getTargetURL()
     {
         return '';
     }
@@ -53,9 +49,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Additional custom message
      *
-     *  @return	  string Output message
+     *  @return   string Output message
      */
-    public function getMessage ()
+    public function getMessage()
     {
         return '';
     }
@@ -63,9 +59,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Client-side redirect engine output
      *
-     *  @return	  string
+     *  @return   string
      */
-    public function getRedirectOutput ()
+    public function getRedirectOutput()
     {
         if ($this->isHtmlFormRedirect()) {
             return $this->getHtmlFormRedirect();
@@ -77,9 +73,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Redirect via JS location
      *
-     *  @return	  string
+     *  @return   string
      */
-    public function getJsRedirect ()
+    public function getJsRedirect()
     {
         $js  = '<script type="text/javascript">';
         $js .= 'document.location.href="' . $this->getTargetURL() . '";';
@@ -90,9 +86,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Redirect via HTML form submission
      *
-     *  @return	  string
+     *  @return   string
      */
-    public function getHtmlFormRedirect ()
+    public function getHtmlFormRedirect()
     {
         $form = new Varien_Data_Form();
         $form->setAction($this->getTargetURL())
@@ -111,9 +107,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form or JS redirect
      *
-     *  @return	  boolean
+     *  @return   boolean
      */
-    public function isHtmlFormRedirect ()
+    public function isHtmlFormRedirect()
     {
         return is_array($this->_getFormFields()) && count($this->_getFormFields()) > 0;
     }
@@ -121,7 +117,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form id/name attributes
      *
-     *  @return	  string Id/name
+     *  @return   string Id/name
      */
     public function getFormId()
     {
@@ -131,9 +127,9 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  HTML form method attribute
      *
-     *  @return	  string Method
+     *  @return   string Method
      */
-    public function getFormMethod ()
+    public function getFormMethod()
     {
         return 'POST';
     }
@@ -141,7 +137,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Array of hidden form fields (name => value)
      *
-     *  @return	  array
+     *  @return   array
      */
     public function getFormFields()
     {
@@ -151,7 +147,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
     /**
      *  Optimized getFormFields() method
      *
-     *  @return	  array
+     *  @return   array
      */
     protected function _getFormFields()
     {
@@ -160,5 +156,4 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
         }
         return $this->_formFields;
     }
-
 }

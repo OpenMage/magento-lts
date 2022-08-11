@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,6 +54,7 @@ class Mage_Core_Model_Design_Fallback
 
     /**
      * Constructor
+     * @param array $params
      */
     public function __construct(array $params = array())
     {
@@ -80,7 +75,7 @@ class Mage_Core_Model_Design_Fallback
     }
 
     /**
-     * @param $store string|integer|Mage_Core_Model_Store
+     * @param string|integer|Mage_Core_Model_Store $store
      * @return $this
      */
     public function setStore($store)
@@ -106,7 +101,6 @@ class Mage_Core_Model_Design_Fallback
         $cacheKey = $area . '/' . $package . '/' . $theme;
 
         if (!isset($this->_cachedSchemes[$cacheKey])) {
-
             if ($this->_isInheritanceDefined($area, $package, $theme)) {
                 $scheme = $this->_getFallbackScheme($area, $package, $theme);
             } else {
@@ -122,9 +116,9 @@ class Mage_Core_Model_Design_Fallback
     /**
      * Check if inheritance defined in theme config
      *
-     * @param $area
-     * @param $package
-     * @param $theme
+     * @param string $area
+     * @param string $package
+     * @param string $theme
      * @return bool
      */
     protected function _isInheritanceDefined($area, $package, $theme)
@@ -147,7 +141,6 @@ class Mage_Core_Model_Design_Fallback
         $scheme = array(array());
         $this->_visited = array();
         while ($parent = (string)$this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
-
             $this->_checkVisited($area, $package, $theme);
 
             $parts = explode('/', $parent);
@@ -168,7 +161,6 @@ class Mage_Core_Model_Design_Fallback
      * @param string $package
      * @param string $theme
      * @throws Mage_Core_Exception
-     * @return array
      */
     protected function _checkVisited($area, $package, $theme)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,8 +44,6 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
 
     /**
      * Define grid properties
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -64,7 +56,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      * Set current website
      *
      * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     public function setWebsiteId($websiteId)
     {
@@ -88,8 +80,8 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @param int $name
+     * @return $this
      */
     public function setConditionName($name)
     {
@@ -110,11 +102,11 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Prepare shipping table rate collection
      *
-     * @return Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid
+     * @return $this
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection */
+        /** @var Mage_Shipping_Model_Mysql4_Carrier_Tablerate_Collection $collection */
         $collection = Mage::getResourceModel('shipping/carrier_tablerate_collection');
         $collection->setConditionFilter($this->getConditionName())
             ->setWebsiteFilter($this->getWebsiteId());

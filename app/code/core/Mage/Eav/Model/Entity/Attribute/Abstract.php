@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Entity/Attribute/Model - attribute abstract
@@ -31,9 +24,41 @@
  * @category   Mage
  * @package    Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getApplyTo()
+ * @method bool hasAttributeSetInfo()
+ * @method array getAttributeSetInfo()
+ * @method $this setAttributeSetInfo(array $value)
+ * @method $this setAttributeGroupId(int $value)
+ * @method bool getFlatAddChildData()
+ * @method array getFlatAddFilterableAttributes()
+ * @method string getFrontendClass()
+ * @method string getFrontendInput()
+ * @method string getFrontendLabel()
+ * @method string getFrontendModel()
+ * @method $this setFrontendModel(string $value)
+ * @method bool getIsConfigurable()
+ * @method bool getIsFilterable()
+ * @method bool getIsFilterableInSearch()
+ * @method bool setIsGlobal()
+ * @method bool getIsRequired()
+ * @method bool getIsSearchable()
+ * @method bool getIsUnique()
+ * @method bool getIsUserDefined()
+ * @method bool hasIsVisible()
+ * @method bool getIsVisible()
+ * @method bool getIsVisibleInAdvancedSearch()
+ * @method string getSourceModel()
+ * @method $this setSourceModel(string $value)
+ * @method string getSortOrder()
+ * @method $this setSortOrder(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method string getStoreLabel()
+ * @method string getUsedForSortBy()
+ * @method array getValidateRules()
  */
-abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract
-    implements Mage_Eav_Model_Entity_Attribute_Interface
+abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
 {
     const TYPE_STATIC = 'static';
 
@@ -87,6 +112,13 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     protected $_dataTable                   = null;
 
     /**
+     * Attribute validation flag
+     *
+     * @var boolean
+     */
+    protected $_attributeValidationPassed   = false;
+
+    /**
      * Initialize resource model
      */
     protected function _construct()
@@ -99,7 +131,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @param   mixed $entityType
      * @param   string $code
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function loadByCode($entityType, $code)
     {
@@ -122,9 +154,17 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
+     * Mark current attribute as passed validation
+     */
+    public function setAttributeValidationAsPassed()
+    {
+        $this->_attributeValidationPassed = true;
+    }
+
+    /**
      * Retrieve attribute configuration (deprecated)
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return $this
      */
     public function getConfig()
     {
@@ -145,7 +185,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Specify attribute identifier
      *
      * @param   int $data
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function setAttributeId($data)
     {
@@ -156,90 +196,146 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute identifuer
      *
-     * @return int | null
+     * @return int|null
      */
     public function getAttributeId()
     {
         return $this->_getData('attribute_id');
     }
 
+    /**
+     * @param mixed $data
+     * @return $this
+     */
     public function setAttributeCode($data)
     {
         return $this->setData('attribute_code', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeCode()
     {
         return $this->_getData('attribute_code');
     }
 
+    /**
+     * @param mixed $data
+     * @return $this
+     */
     public function setAttributeModel($data)
     {
         return $this->setData('attribute_model', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeModel()
     {
         return $this->_getData('attribute_model');
     }
 
+    /**
+     * @param mixed $data
+     * @return $this
+     */
     public function setBackendType($data)
     {
         return $this->setData('backend_type', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getBackendType()
     {
         return $this->_getData('backend_type');
     }
 
+    /**
+     * @param mixed $data
+     * @return $this
+     */
     public function setBackendModel($data)
     {
         return $this->setData('backend_model', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getBackendModel()
     {
         return $this->_getData('backend_model');
     }
 
+    /**
+     * @param mixed $data
+     * @return $this
+     */
     public function setBackendTable($data)
     {
         return $this->setData('backend_table', $data);
     }
 
+    /**
+     * @return mixed
+     */
     public function getIsVisibleOnFront()
     {
         return $this->_getData('is_visible_on_front');
     }
 
+    /**
+     * @return mixed
+     */
     public function getDefaultValue()
     {
         return $this->_getData('default_value');
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeSetId()
     {
         return $this->_getData('attribute_set_id');
     }
 
+    /**
+     * @param mixed $id
+     * @return $this
+     */
     public function setAttributeSetId($id)
     {
         $this->_data['attribute_set_id'] = $id;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntityTypeId()
     {
         return $this->_getData('entity_type_id');
     }
 
+    /**
+     * @param mixed $id
+     * @return $this
+     */
     public function setEntityTypeId($id)
     {
         $this->_data['entity_type_id'] = $id;
         return $this;
     }
 
+    /**
+     * @param mixed $type
+     * @return $this
+     */
     public function setEntityType($type)
     {
         $this->setData('entity_type', $type);
@@ -278,7 +374,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Set attribute name
      *
      * @param   string $name
-     * @return  Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return  $this
      */
     public function setName($name)
     {
@@ -288,7 +384,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retreive entity type
      *
-     * @return string
+     * @return Mage_Eav_Model_Entity_Type
      */
     public function getEntityType()
     {
@@ -299,7 +395,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Set attribute entity instance
      *
      * @param Mage_Eav_Model_Entity_Abstract $entity
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return $this
      */
     public function setEntity($entity)
     {
@@ -382,8 +478,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             }
             $source = Mage::getModel($this->getSourceModel());
             if (!$source) {
-                throw Mage::exception('Mage_Eav',
-                    Mage::helper('eav')->__('Source model "%s" not found for attribute "%s"',
+                throw Mage::exception(
+                    'Mage_Eav',
+                    Mage::helper('eav')->__(
+                        'Source model "%s" not found for attribute "%s"',
                         $this->getSourceModel(),
                         $this->getAttributeCode()
                     )
@@ -394,27 +492,44 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         return $this->_source;
     }
 
+    /**
+     * @return bool
+     */
     public function usesSource()
     {
         return $this->getFrontendInput() === 'select' || $this->getFrontendInput() === 'multiselect'
             || $this->getData('source_model') != '';
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultBackendModel()
     {
         return Mage_Eav_Model_Entity::DEFAULT_BACKEND_MODEL;
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultFrontendModel()
     {
         return Mage_Eav_Model_Entity::DEFAULT_FRONTEND_MODEL;
     }
 
+    /**
+     * @return string
+     */
     protected function _getDefaultSourceModel()
     {
         return $this->getEntity()->getDefaultAttributeSourceModel();
     }
 
+    /**
+     * @param mixed $value
+     * @return bool
+     * @throws Mage_Core_Exception
+     */
     public function isValueEmpty($value)
     {
         $attrType = $this->getBackend()->getType();
@@ -424,6 +539,16 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             || $value === '' && ($attrType == 'int' || $attrType == 'decimal' || $attrType == 'datetime');
 
         return $isEmpty;
+    }
+
+    /**
+     * Check if attribute is valid
+     *
+     * @return boolean
+     */
+    public function isAttributeValidationPassed()
+    {
+        return $this->_attributeValidationPassed;
     }
 
     /**
@@ -622,7 +747,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @return array
      */
-    protected function _getFlatColumnsOldDefinition() {
+    protected function _getFlatColumnsOldDefinition()
+    {
         $columns = array();
         switch ($this->getBackendType()) {
             case 'static':
@@ -777,9 +903,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return Varien_Db_Select
+     * @return $this|Varien_Db_Select
      */
-    public function getFlatUpdateSelect($store = null) {
+    public function getFlatUpdateSelect($store = null)
+    {
         if ($store === null) {
             foreach (Mage::app()->getStores() as $store) {
                 $this->getFlatUpdateSelect($store->getId());

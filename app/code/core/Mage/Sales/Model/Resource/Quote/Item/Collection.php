@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote item resource collection
@@ -31,6 +24,9 @@
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Quote_Item getItemById(int $value)
+ * @method Mage_Sales_Model_Quote_Item[] getItems()
  */
 class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -71,7 +67,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      * Set Quote object to Collection
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @return $this
      */
     public function setQuote($quote)
     {
@@ -92,17 +88,18 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      *
      * @param string $quotesTableName
      * @param int $productId
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @return $this
      */
     public function resetJoinQuotes($quotesTableName, $productId = null)
     {
         $this->getSelect()->reset()
             ->from(
                 array('qi' => $this->getResource()->getMainTable()),
-                array('item_id', 'qty', 'quote_id'))
+                array('item_id', 'qty', 'quote_id')
+            )
             ->joinInner(
                 array('q' => $quotesTableName),
-               'qi.quote_id = q.entity_id',
+                'qi.quote_id = q.entity_id',
                 array('store_id', 'items_qty', 'items_count')
             );
         if ($productId) {
@@ -114,7 +111,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
     /**
      * After load processing
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -145,7 +142,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
     /**
      * Add options to items
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @return $this
      */
     protected function _assignOptions()
     {
@@ -164,11 +161,14 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
     /**
      * Add products to items and item options
      *
-     * @return Mage_Sales_Model_Resource_Quote_Item_Collection
+     * @return $this
      */
     protected function _assignProducts()
     {
         Varien_Profiler::start('QUOTE:'.__METHOD__);
+        $productFlatHelper = Mage::helper('catalog/product_flat');
+        $productFlatHelper->disableFlatCollection();
+
         $productIds = array();
         foreach ($this as $item) {
             $productIds[] = (int)$item->getProductId();
@@ -234,9 +234,9 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
         if ($recollectQuote && $this->_quote) {
             $this->_quote->collectTotals();
         }
-        Varien_Profiler::stop('QUOTE:'.__METHOD__);
 
+        $productFlatHelper->resetFlatCollection();
+        Varien_Profiler::stop('QUOTE:'.__METHOD__);
         return $this;
     }
 }
-

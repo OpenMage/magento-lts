@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -102,7 +96,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Initialize form object
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses
+     * @return $this
      */
     public function initForm()
     {
@@ -116,7 +110,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $addressModel = Mage::getModel('customer/address');
         $addressModel->setCountryId(Mage::helper('core')->getDefaultCountry($customer->getStore()));
-        /** @var $addressForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('adminhtml_customer_address')
             ->setEntity($addressModel)
@@ -130,6 +124,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
+            $attribute->setNote(Mage::helper('customer')->__($attribute->getNote()));
             $attribute->unsIsVisible();
         }
         $this->_setFieldset($attributes, $fieldset);
@@ -252,7 +247,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Add specified values to name prefix element values
      *
      * @param string|int|array $values
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses
+     * @return $this
      */
     public function addValuesToNamePrefixElement($values)
     {
@@ -266,7 +261,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Add specified values to name suffix element values
      *
      * @param string|int|array $values
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses
+     * @return $this
      */
     public function addValuesToNameSuffixElement($values)
     {

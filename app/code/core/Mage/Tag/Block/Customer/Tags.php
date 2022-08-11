@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +48,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
             return;
         }
 
-        if( isset($tags) && count($tags) == 0 ) {
+        if (isset($tags) && count($tags) == 0) {
             return;
         }
 
@@ -63,6 +57,7 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
         $range = $this->_maxPopularity - $this->_minPopularity;
         $range = ( $range == 0 ) ? 1 : $range;
 
+        /** @var Mage_Tag_Model_Tag $tag */
         foreach ($tags as $tag) {
             $tag->setRatio(($tag->getPopularity()-$this->_minPopularity)/$range);
             $this->_tags[$tag->getName()] = $tag;
@@ -70,17 +65,26 @@ class Mage_Tag_Block_Customer_Tags extends Mage_Customer_Block_Account_Dashboard
         ksort($this->_tags);
     }
 
+    /**
+     * @return Mage_Tag_Model_Tag[]
+     */
     public function getTags()
     {
         $this->_loadTags();
         return $this->_tags;
     }
 
+    /**
+     * @return int
+     */
     public function getMaxPopularity()
     {
         return $this->_maxPopularity;
     }
 
+    /**
+     * @return int
+     */
     public function getMinPopularity()
     {
         return $this->_minPopularity;

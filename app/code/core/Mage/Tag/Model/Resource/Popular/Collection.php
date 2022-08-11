@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +57,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * Replacing popularity by sum of popularity and base_popularity
      *
      * @param int $storeId
-     * @return Mage_Tag_Model_Resource_Popular_Collection
+     * @return $this
      */
     public function joinFields($storeId = 0)
     {
@@ -71,10 +65,12 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
             ->reset()
             ->from(
                 array('tag_summary' => $this->getTable('tag/summary')),
-                array('popularity' => 'tag_summary.popularity'))
+                array('popularity' => 'tag_summary.popularity')
+            )
             ->joinInner(
                 array('tag' => $this->getTable('tag/tag')),
-                'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED)
+                'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED
+            )
             ->where('tag_summary.store_id = ?', $storeId)
             ->where('tag_summary.products > ?', 0)
             ->order('popularity ' . Varien_Db_Select::SQL_DESC);
@@ -86,7 +82,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * Add filter by specified tag status
      *
      * @param string $statusCode
-     * @return Mage_Tag_Model_Resource_Popular_Collection
+     * @return $this
      */
     public function addStatusFilter($statusCode)
     {
@@ -99,7 +95,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      *
      * @param bool $printQuery
      * @param bool $logQuery
-     * @return Mage_Tag_Model_Resource_Popular_Collection
+     * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -114,7 +110,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * Sets limit
      *
      * @param int $limit
-     * @return Mage_Tag_Model_Resource_Popular_Collection
+     * @return $this
      */
     public function limit($limit)
     {

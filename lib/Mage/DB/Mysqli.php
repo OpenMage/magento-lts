@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_DB
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -378,10 +372,10 @@ class Mage_DB_Mysqli
             $k = $excludeFields[$i];
             if(isset($keys[$k])) {
                 $excluded [] = $k;
-                unset($keys[$k]);    
-            }            
+                unset($keys[$k]);
+            }
         }
-        
+
         $keys = $this->escapeFieldNames($keys);
         $sql .= " ( ";
         for($i = 0, $c = count($keys); $i<$c; $i++) {
@@ -408,7 +402,7 @@ class Mage_DB_Mysqli
             if($i!=$c-1) {
                 $sql .= ",";
             }
-        }        
+        }
         return $this->query($sql);
     }
 
@@ -471,7 +465,7 @@ class Mage_DB_Mysqli
             return $this->escapeFieldValue(strval($ids));
         }
         $out = array();
-        foreach ($values as $id) {
+        foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }
         return implode(",", $out);
@@ -521,12 +515,12 @@ class Mage_DB_Mysqli
         return intval($data['cnt']);
 
     }
-    
+
     public function lastInsertId()
     {
         $sql = "SELECT LAST_INSERT_ID() as `id`";
         $data = $this->fetchOne($sql);
-        return $data['id'];        
+        return $data['id'];
     }
 
 }

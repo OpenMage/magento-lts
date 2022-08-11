@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +42,8 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
             ->from(array("bundle_option" => $this->getTable('bundle/option')), array('type', 'option_id'))
             ->where("bundle_option.parent_id = ?", $productId)
             ->where("bundle_option.required = 1")
-            ->joinLeft(array(
+            ->joinLeft(
+                array(
                 "bundle_selection" => $this->getTable('bundle/selection')),
                 "bundle_selection.option_id = bundle_option.option_id",
                 $columns
@@ -114,7 +109,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      *
      * @param int $parentId
      * @param array $childIds
-     * @return Mage_Bundle_Model_Resource_Bundle
+     * @return $this
      */
     public function saveProductRelations($parentId, $childIds)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +56,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Website Payments Pro instance type
      *
-     * @var $_proType string
+     * @var string $_proType
      */
     protected $_proType = 'paypal/pro';
 
@@ -82,6 +76,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Also updates store ID in config object
      *
      * @param Mage_Core_Model_Store|int $store
+     * @return $this
      */
     public function setStore($store)
     {
@@ -135,7 +130,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -171,7 +166,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Authorize payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -182,7 +177,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Void payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -194,7 +189,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Capture payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -208,7 +203,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Refund capture
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -220,7 +215,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Cancel payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -295,7 +290,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Direct
+     * @return $this
      */
     protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
     {
@@ -369,8 +364,8 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     /**
      * Import direct payment results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importResultToPayment($api, $payment)
     {

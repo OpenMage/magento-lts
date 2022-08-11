@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 // Create Root Catalog Node
@@ -40,7 +34,7 @@ Mage::getModel('catalog/category')
     ->setInitialSetupFlag(true)
     ->save();
 
-/* @var $category Mage_Catalog_Model_Category */
+/* @var Mage_Catalog_Model_Category $category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)
@@ -88,10 +82,6 @@ $attributes = array(
         'group' => 'design',
         'sort'  => 10
     ),
-//    'custom_design_apply'   => array(
-//        'group' => 'design',
-//        'sort'  => 20
-//    ),
     'custom_design_from'    => array(
         'group' => 'design',
         'sort'  => 30
@@ -210,4 +200,3 @@ foreach ($describe as $columnData) {
     }
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }
-

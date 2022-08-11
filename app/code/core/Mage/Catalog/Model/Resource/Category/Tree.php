@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,7 +92,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Set store id
      *
      * @param integer $storeId
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
     public function setStoreId($storeId)
     {
@@ -127,11 +121,15 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param array $exclude
      * @param boolean $toLoad
      * @param boolean $onlyActive
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
-    public function addCollectionData($collection = null, $sorted = false, $exclude = array(), $toLoad = true,
-        $onlyActive = false)
-    {
+    public function addCollectionData(
+        $collection = null,
+        $sorted = false,
+        $exclude = array(),
+        $toLoad = true,
+        $onlyActive = false
+    ) {
         if (is_null($collection)) {
             $collection = $this->getCollection($sorted);
         } else {
@@ -150,7 +148,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
         $collection->addIdFilter($nodeIds);
         if ($onlyActive) {
-
             $disabledIds = $this->_getDisabledIds($collection);
             if ($disabledIds) {
                 $collection->addFieldToFilter('entity_id', array('nin' => $disabledIds));
@@ -187,8 +184,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Add inactive categories ids
      *
-     * @param unknown_type $ids
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @param array $ids
+     * @return $this
      */
     public function addInactiveCategoryIds($ids)
     {
@@ -202,7 +199,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Retrieve inactive categories ids
      *
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
     protected function _initInactiveCategoryIds()
     {
@@ -250,7 +247,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         foreach ($allIds as $id) {
             $parents = $this->getNodeById($id)->getPath();
             foreach ($parents as $parent) {
-                if (!$this->_getItemIsActive($parent->getId(), $storeId)){
+                if (!$this->_getItemIsActive($parent->getId(), $storeId)) {
                     $disabledIds[] = $id;
                     continue;
                 }
@@ -351,7 +348,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * Enter description here...
      *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
     public function setCollection($collection)
     {
@@ -372,7 +369,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     {
         $this->_joinUrlRewriteIntoCollection = true;
         $collection = Mage::getModel('catalog/category')->getCollection();
-        /** @var $collection Mage_Catalog_Model_Resource_Category_Collection */
+        /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
 
         $attributes = Mage::getConfig()->getNode('frontend/category/collection/attributes');
         if ($attributes) {
@@ -396,10 +393,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Move tree before
      *
-     * @param unknown_type $category
+     * @param Mage_Catalog_Model_Category $category
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
     protected function _beforeMove($category, $newParent, $prevNode)
     {
@@ -415,9 +412,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Executing parents move method and cleaning cache after it
      *
-     * @param unknown_type $category
-     * @param unknown_type $newParent
-     * @param unknown_type $prevNode
+     * @param Mage_Catalog_Model_Category $category
+     * @param Varien_Data_Tree_Node $newParent
+     * @param Varien_Data_Tree_Node $prevNode
      */
     public function move($category, $newParent, $prevNode = null)
     {
@@ -431,10 +428,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     /**
      * Move tree after
      *
-     * @param unknown_type $category
+     * @param Mage_Catalog_Model_Category $category
      * @param Varien_Data_Tree_Node $newParent
      * @param Varien_Data_Tree_Node $prevNode
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this
      */
     protected function _afterMove($category, $newParent, $prevNode)
     {
@@ -455,7 +452,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
      * @param array $ids
      * @param bool $addCollectionData
      * @param bool $updateAnchorProductCount
-     * @return Mage_Catalog_Model_Resource_Category_Tree
+     * @return $this|false
      */
     public function loadByIds($ids, $addCollectionData = true, $updateAnchorProductCount = true)
     {
@@ -482,6 +479,9 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $where = array($levelField . '=0' => true);
 
         foreach ($this->_conn->fetchAll($select) as $item) {
+            if (!preg_match("#^[0-9\/]+$#", $item['path'])) {
+                $item['path'] = '';
+            }
             $pathIds  = explode('/', $item['path']);
             $level = (int)$item['level'];
             while ($level > 0) {
@@ -586,7 +586,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $attributes = array_unique(array_merge($attributes, $optionalAttributes));
         }
         foreach ($attributes as $attributeCode) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {
@@ -598,15 +598,24 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
                 $select
                     ->joinLeft(
                         array($tableDefault => $attribute->getBackend()->getTable()),
-                        sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
+                        sprintf(
+                            '%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
                             . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d',
-                            $tableDefault, $attribute->getId(), Mage_Core_Model_App::ADMIN_STORE_ID),
-                        array($attributeCode => 'value'))
+                            $tableDefault,
+                            $attribute->getId(),
+                            Mage_Core_Model_App::ADMIN_STORE_ID
+                        ),
+                        array($attributeCode => 'value')
+                    )
                     ->joinLeft(
                         array($tableStore => $attribute->getBackend()->getTable()),
-                        sprintf('%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
+                        sprintf(
+                            '%1$s.entity_id=e.entity_id AND %1$s.attribute_id=%2$d'
                             . ' AND %1$s.entity_type_id=e.entity_type_id AND %1$s.store_id=%3$d',
-                            $tableStore, $attribute->getId(), $this->getStoreId()),
+                            $tableStore,
+                            $attribute->getId(),
+                            $this->getStoreId()
+                        ),
                         array($attributeCode => $valueExpr)
                     );
             }
@@ -622,7 +631,8 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             ->joinLeft(
                 array('scp' => $categoriesProductsTable),
                 'see.entity_id=scp.category_id',
-                array('COUNT(DISTINCT scp.product_id)'))
+                array('COUNT(DISTINCT scp.product_id)')
+            )
             ->where('see.entity_id = e.entity_id')
             ->orWhere('see.path LIKE ?', $subConcat);
         $select->columns(array('product_count' => $subSelect));

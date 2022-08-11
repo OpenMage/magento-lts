@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +41,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
      * Clean logs
      *
      * @param Mage_Log_Model_Log $object
-     * @return Mage_Log_Model_Resource_Log
+     * @return $this
      */
     public function clean(Mage_Log_Model_Log $object)
     {
@@ -72,7 +66,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
      * Clean visitors table
      *
      * @param int $time
-     * @return Mage_Log_Model_Resource_Log
+     * @return $this
      */
     protected function _cleanVisitors($time)
     {
@@ -85,11 +79,13 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     array('visitor_table' => $this->getTable('log/visitor')),
-                    array('visitor_id' => 'visitor_table.visitor_id'))
+                    array('visitor_id' => 'visitor_table.visitor_id')
+                )
                 ->joinLeft(
                     array('customer_table' => $this->getTable('log/customer')),
                     'visitor_table.visitor_id = customer_table.visitor_id AND customer_table.log_id IS NULL',
-                    array())
+                    array()
+                )
                 ->where('visitor_table.last_visit_at < ?', $timeLimit)
                 ->limit(100);
 
@@ -100,7 +96,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             }
 
             $condition = array('visitor_id IN (?)' => $visitorIds);
-            
+
             // remove visitors from log/quote
             $writeAdapter->delete($this->getTable('log/quote_table'), $condition);
 
@@ -121,7 +117,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
      * Clean customer table
      *
      * @param int $time
-     * @return Mage_Log_Model_Resource_Log
+     * @return $this
      */
     protected function _cleanCustomers($time)
     {
@@ -147,12 +143,14 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
         $select = $readAdapter->select()
             ->from(
                 array('log_customer_main' => $this->getTable('log/customer')),
-                array('log_id'))
+                array('log_id')
+            )
             ->joinLeft(
                 array('log_customer' => $this->getTable('log/customer')),
                 'log_customer_main.customer_id = log_customer.customer_id '
                     . 'AND log_customer_main.log_id < log_customer.log_id',
-                array())
+                array()
+            )
             ->where('log_customer.customer_id IS NULL')
             ->where('log_customer_main.log_id < ?', $lastLogId + 1);
 
@@ -168,7 +166,8 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    array('log_id', 'visitor_id'))
+                    array('log_id', 'visitor_id')
+                )
                 ->where('log_id > ?', $customerLogId)
                 ->where('log_id < ?', $lastLogId + 1)
                 ->order('log_id')
@@ -218,7 +217,7 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Clean url table
      *
-     * @return Mage_Log_Model_Resource_Log
+     * @return $this
      */
     protected function _cleanUrls()
     {
@@ -229,11 +228,13 @@ class Mage_Log_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
             $select = $readAdapter->select()
                 ->from(
                     array('url_info_table' => $this->getTable('log/url_info_table')),
-                    array('url_id'))
+                    array('url_id')
+                )
                 ->joinLeft(
                     array('url_table' => $this->getTable('log/url_table')),
                     'url_info_table.url_id = url_table.url_id',
-                    array())
+                    array()
+                )
                 ->where('url_table.url_id IS NULL')
                 ->limit(100);
 

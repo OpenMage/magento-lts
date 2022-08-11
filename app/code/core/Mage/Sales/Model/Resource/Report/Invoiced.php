@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +42,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Invoiced
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -69,7 +63,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Invoiced
+     * @return $this
      */
     protected function _aggregateByInvoiceCreatedAt($from, $to)
     {
@@ -84,8 +78,13 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         try {
             if ($from !== null || $to !== null) {
                 $subSelect = $this->_getTableDateRangeRelatedSelect(
-                    $sourceTable, $orderTable, array('order_id'=>'entity_id'),
-                    'created_at', 'updated_at', $from, $to
+                    $sourceTable,
+                    $orderTable,
+                    array('order_id'=>'entity_id'),
+                    'created_at',
+                    'updated_at',
+                    $from,
+                    $to
                 );
             } else {
                 $subSelect = null;
@@ -96,7 +95,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
                     array('source_table' => $sourceTable),
-                    'source_table.created_at', $from, $to
+                    'source_table.created_at',
+                    $from,
+                    $to
                 )
             );
             $columns = array(
@@ -112,7 +113,8 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                     . ' * order_table.base_to_global_rate)'),
                 'invoiced_not_captured' => new Zend_Db_Expr(
                     'SUM((order_table.base_total_invoiced - order_table.base_total_paid)'
-                    . ' * order_table.base_to_global_rate)')
+                    . ' * order_table.base_to_global_rate)'
+                )
             );
 
             $select = $adapter->select();
@@ -121,7 +123,8 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                     array('order_table' => $orderTable),
                     $adapter->quoteInto(
                         'source_table.order_id = order_table.entity_id AND order_table.state <> ?',
-                        Mage_Sales_Model_Order::STATE_CANCELED),
+                        Mage_Sales_Model_Order::STATE_CANCELED
+                    ),
                     array()
                 );
 
@@ -187,7 +190,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Sales_Model_Resource_Report_Invoiced
+     * @return $this
      */
     protected function _aggregateByOrderCreatedAt($from, $to)
     {
@@ -196,17 +199,20 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
         $adapter     = $this->_getWriteAdapter();
 
 
-            if ($from !== null || $to !== null) {
-                $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
-            } else {
-                $subSelect = null;
-            }
+        if ($from !== null || $to !== null) {
+            $subSelect = $this->_getTableDateRangeSelect($sourceTable, 'created_at', 'updated_at', $from, $to);
+        } else {
+            $subSelect = null;
+        }
 
             $this->_clearTableByDateRange($table, $from, $to, $subSelect);
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
-                    $sourceTable, 'created_at', $from, $to
+                    $sourceTable,
+                    'created_at',
+                    $from,
+                    $to
                 )
             );
 
@@ -216,27 +222,31 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
                 'order_status'          => 'status',
                 'orders_count'          => new Zend_Db_Expr('COUNT(base_total_invoiced)'),
                 'orders_invoiced'       => new Zend_Db_Expr(
-                    sprintf('SUM(%s)',
+                    sprintf(
+                        'SUM(%s)',
                         $adapter->getCheckSql('base_total_invoiced > 0', 1, 0)
                     )
                 ),
                 'invoiced'              => new Zend_Db_Expr(
-                    sprintf('SUM(%s * %s)',
-                        $adapter->getIfNullSql('base_total_invoiced',0),
-                        $adapter->getIfNullSql('base_to_global_rate',0)
+                    sprintf(
+                        'SUM(%s * %s)',
+                        $adapter->getIfNullSql('base_total_invoiced', 0),
+                        $adapter->getIfNullSql('base_to_global_rate', 0)
                     )
                 ),
                 'invoiced_captured'     => new Zend_Db_Expr(
-                    sprintf('SUM(%s * %s)',
-                        $adapter->getIfNullSql('base_total_paid',0),
-                        $adapter->getIfNullSql('base_to_global_rate',0)
+                    sprintf(
+                        'SUM(%s * %s)',
+                        $adapter->getIfNullSql('base_total_paid', 0),
+                        $adapter->getIfNullSql('base_to_global_rate', 0)
                     )
                 ),
                 'invoiced_not_captured' => new Zend_Db_Expr(
-                    sprintf('SUM((%s - %s) * %s)',
-                        $adapter->getIfNullSql('base_total_invoiced',0),
-                        $adapter->getIfNullSql('base_total_paid',0),
-                        $adapter->getIfNullSql('base_to_global_rate',0)
+                    sprintf(
+                        'SUM((%s - %s) * %s)',
+                        $adapter->getIfNullSql('base_total_invoiced', 0),
+                        $adapter->getIfNullSql('base_total_paid', 0),
+                        $adapter->getIfNullSql('base_to_global_rate', 0)
                     )
                 )
 
@@ -246,9 +256,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->from($sourceTable, $columns)
                 ->where('state <> ?', Mage_Sales_Model_Order::STATE_CANCELED);
 
-            if ($subSelect !== null) {
-                $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
-            }
+        if ($subSelect !== null) {
+            $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
+        }
 
             $select->group(array(
                 $periodExpr,
@@ -277,9 +287,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced extends Mage_Sales_Model_Resourc
             $select->from($table, $columns)
                 ->where('store_id <> ?', 0);
 
-            if ($subSelect !== null) {
-                $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
-            }
+        if ($subSelect !== null) {
+            $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
+        }
 
             $select->group(array(
                 'period',

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +49,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $availableTypes = $method->getConfigData('cctypes');
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
-                foreach ($types as $code=>$name) {
+                foreach ($types as $code => $name) {
                     if (!in_array($code, $availableTypes)) {
                         unset($types[$code]);
                     }
@@ -98,7 +92,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retrive has verification configuration
+     * Retrieve has verification configuration
      *
      * @return boolean
      */
@@ -106,7 +100,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         if ($this->getMethod()) {
             $configData = $this->getMethod()->getConfigData('useccv');
-            if(is_null($configData)){
+            if (is_null($configData)) {
                 return true;
             }
             return (bool) $configData;
@@ -117,6 +111,9 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     /*
     * Whether switch/solo card type available
     */
+    /**
+     * @return bool
+     */
     public function hasSsCardType()
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
@@ -131,7 +128,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     * solo/switch card start year
     * @return array
     */
-     public function getSsStartYears()
+    /**
+     * @return array
+     */
+    public function getSsStartYears()
     {
         $years = array();
         $first = date("Y");

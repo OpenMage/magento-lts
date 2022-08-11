@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +28,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
      * Add package name to label
      *
      * @param boolean $isFullLabel
-     * @return Mage_Core_Model_Design_Source_Design
+     * @return $this
      */
     public function setIsFullLabel($isFullLabel)
     {
@@ -63,7 +57,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
             $options = array();
-            foreach ($design as $package => $themes){
+            foreach ($design as $package => $themes) {
                 $packageOption = array('label' => $package);
                 $themeOptions = array();
                 foreach ($themes as $theme) {
@@ -81,8 +75,7 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         if ($withEmpty) {
             array_unshift($options, array(
                 'value'=>'',
-                'label'=>Mage::helper('core')->__('-- Please Select --'))
-            );
+                'label'=>Mage::helper('core')->__('-- Please Select --')));
         }
         return $options;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,8 +45,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Inits query modifier
      *
-     * @param $adapter Varien_Db_Adapter_Pdo_Mysql
-     * @return void
+     * @param Varien_Db_Adapter_Pdo_Mysql|array $args
      */
     public function __construct($args)
     {
@@ -122,7 +115,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      * @param string $sql
      * @param string $column
      * @param array $refColumnDefinition
-     * @return Mage_Core_Model_Resource_Setup_Query_Modifier
+     * @return $this
      */
     protected function _fixColumnDefinitionInSql(&$sql, $column, $refColumnDefinition)
     {
@@ -177,10 +170,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Fixes column definition in already existing table, so outgoing foreign key will be successfully set
      *
-     * @param string $sql
+     * @param string $table
      * @param string $column
      * @param array $refColumnDefinition
-     * @return Mage_Core_Model_Resource_Setup_Query_Modifier
+     * @return $this
      */
     protected function _fixColumnDefinitionInTable($table, $column, $refColumnDefinition)
     {
@@ -215,7 +208,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     /**
      * Returns column definition from already existing table
      *
-     * @param string $sql
+     * @param string $table
      * @param string $column
      * @return array|null
      */
@@ -266,7 +259,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      *
      * @param string $sql
      * @param array $bind
-     * @return Mage_Core_Model_Resource_Setup_Query_Modifier
+     * @return $this
      */
     public function processQuery(&$sql, &$bind)
     {

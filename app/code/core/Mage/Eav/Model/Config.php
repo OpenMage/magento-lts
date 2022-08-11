@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Eav_Model_Config
+ */
 class Mage_Eav_Model_Config
 {
     const ENTITIES_CACHE_ID     = 'EAV_ENTITY_TYPES';
@@ -89,7 +85,7 @@ class Mage_Eav_Model_Config
     /**
      * Cache flag
      *
-     * @var unknown_type
+     * @var bool
      */
     protected $_isCacheEnabled                    = null;
 
@@ -104,7 +100,7 @@ class Mage_Eav_Model_Config
      * Reset object state
      *
      * @deprecated
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     public function clear()
     {
@@ -233,7 +229,7 @@ class Mage_Eav_Model_Config
     /**
      * Initialize all entity types data
      *
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     protected function _initEntityTypes()
     {
@@ -247,8 +243,7 @@ class Mage_Eav_Model_Config
          */
         if ($this->_isCacheEnabled()
             && ($cache = Mage::app()->loadCache(self::ENTITIES_CACHE_ID))) {
-
-            $this->_entityData = unserialize($cache);
+            $this->_entityData = unserialize($cache, ['allowed_classes' => false]);
             foreach ($this->_entityData as $typeCode => $data) {
                 $typeId = $data['entity_type_id'];
                 $this->_addEntityTypeReference($typeId, $typeCode);
@@ -278,7 +273,9 @@ class Mage_Eav_Model_Config
         $this->_entityData = $types;
 
         if ($this->_isCacheEnabled()) {
-            Mage::app()->saveCache(serialize($this->_entityData), self::ENTITIES_CACHE_ID,
+            Mage::app()->saveCache(
+                serialize($this->_entityData),
+                self::ENTITIES_CACHE_ID,
                 array('eav', Mage_Eav_Model_Entity_Attribute::CACHE_TAG)
             );
         }
@@ -412,6 +409,7 @@ class Mage_Eav_Model_Config
             $attribute = Mage::getModel($data['attribute_model'], $data);
         } else {
             if (is_numeric($code)) {
+                /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
                 $attribute = Mage::getModel($entityType->getAttributeModel())->load($code);
                 if ($attribute->getEntityTypeId() != $entityType->getId()) {
                     return false;
@@ -443,7 +441,7 @@ class Mage_Eav_Model_Config
     /**
      * Get codes of all entity type attributes
      *
-     * @param  mixed $entityType
+     * @param  Mage_Eav_Model_Entity_Type $entityType
      * @param  Varien_Object $object
      * @return array
      */
@@ -504,7 +502,8 @@ class Mage_Eav_Model_Config
             $this->_preloadedAttributes[$entityTypeCode] = $attributes;
         } else {
             $attributes = array_diff($attributes, $this->_preloadedAttributes[$entityTypeCode]);
-            $this->_preloadedAttributes[$entityTypeCode] = array_merge($this->_preloadedAttributes[$entityTypeCode],
+            $this->_preloadedAttributes[$entityTypeCode] = array_merge(
+                $this->_preloadedAttributes[$entityTypeCode],
                 $attributes
             );
         }
@@ -625,7 +624,7 @@ class Mage_Eav_Model_Config
      *
      * @param string $entityType
      * @param array $attributeData
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     * @return false|Mage_Core_Model_Abstract
      */
     protected function _createAttribute($entityType, $attributeData)
     {
@@ -691,7 +690,7 @@ class Mage_Eav_Model_Config
      *
      * @param string|Mage_Eav_Model_Entity_Type $entityType
      * @param array $attributes
-     * @return Mage_Eav_Model_Config
+     * @return $this
      */
     public function importAttributesData($entityType, array $attributes)
     {

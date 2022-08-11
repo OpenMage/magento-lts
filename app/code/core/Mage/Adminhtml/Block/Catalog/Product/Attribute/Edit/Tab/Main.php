@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,12 +26,13 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
+    extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
 {
     /**
      * Adding product form elements for editing attribute
      *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
+     * @return $this
      */
     protected function _prepareForm()
     {
@@ -47,6 +42,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         $form = $this->getForm();
         /* @var $fieldset Varien_Data_Form_Element_Fieldset */
         $fieldset = $form->getElement('base_fieldset');
+
+        $fieldset->getElements()
+            ->searchById('attribute_code')
+            ->setData(
+                'class',
+                'validate-code-event ' . $fieldset->getElements()->searchById('attribute_code')->getData('class')
+            )->setData(
+                'note',
+                $fieldset->getElements()->searchById('attribute_code')->getData('note')
+                . Mage::helper('eav')->__('. Do not use "event" for an attribute code, it is a reserved keyword.')
+            );
 
         $frontendInputElm = $form->getElement('frontend_input');
         $additionalTypes = array(
@@ -94,7 +100,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
             Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('catalog')->__('Global'),
         );
 
-        if ($attributeObject->getAttributeCode() == 'status' || $attributeObject->getAttributeCode() == 'tax_class_id') {
+        if (
+            $attributeObject->getAttributeCode() == 'status'
+            || $attributeObject->getAttributeCode() == 'tax_class_id'
+        ) {
             unset($scopes[Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE]);
         }
 

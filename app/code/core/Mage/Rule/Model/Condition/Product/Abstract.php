@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,27 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule product condition data model
  *
- * @method string getAttribute()
- * @method string getOperator()
- *
  * @category Mage
  * @package Mage_Rule
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAttributeOption(array $value)
+ * @method string getJsFormObject()
  */
 abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Model_Condition_Abstract
 {
@@ -121,7 +115,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value     = $this->bindArrayOfIds($value);
         }
 
-        /** @var $ruleResource Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder */
+        /** @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleResource */
         $ruleResource = $this->getRuleResourceHelper();
 
         return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);
@@ -160,8 +154,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         try {
             $obj = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $this->getAttribute());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $obj = new Varien_Object();
             $obj->setEntity(Mage::getResourceSingleton('catalog/product'))
                 ->setFrontendInput('text');
@@ -183,7 +176,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Load attribute options
      *
-     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     * @return $this
      */
     public function loadAttributeOptions()
     {
@@ -193,7 +186,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         $attributes = array();
         foreach ($productAttributes as $attribute) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!$attribute->isAllowedForRuleCondition()
                 || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
             ) {
@@ -216,7 +209,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      *  'value_select_options' - normal select array: array(array('value' => $value, 'label' => $label), ...)
      *  'value_option' - hashed array: array($value => $label, ...),
      *
-     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     * @return $this
      */
     protected function _prepareValueOptions()
     {
@@ -236,7 +229,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 ->setEntityTypeFilter($entityTypeId)
                 ->load()
                 ->toOptionArray();
-        } else if (is_object($this->getAttributeObject())) {
+        } elseif (is_object($this->getAttributeObject())) {
             $attributeObject = $this->getAttributeObject();
             if ($attributeObject->usesSource()) {
                 if ($attributeObject->getFrontendInput() == 'multiselect') {
@@ -275,7 +268,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      * @param mixed $option
      * @return string
      */
-    public function getValueOption($option=null)
+    public function getValueOption($option = null)
     {
         $this->_prepareValueOptions();
         return $this->getData('value_option'.(!is_null($option) ? '/'.$option : ''));
@@ -302,7 +295,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         $html = '';
 
         switch ($this->getAttribute()) {
-            case 'sku': case 'category_ids':
+            case 'sku':
+            case 'category_ids':
                 $image = Mage::getDesign()->getSkinUrl('images/rule_chooser_trigger.gif');
                 break;
         }
@@ -320,7 +314,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Retrieve attribute element
      *
-     * @return Varien_Form_Element_Abstract
+     * @return Varien_Data_Form_Element_Abstract
      */
     public function getAttributeElement()
     {
@@ -332,8 +326,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Collect validated attributes
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $productCollection
-     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @return $this
      */
     public function collectValidatedAttributes($productCollection)
     {
@@ -443,8 +437,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     {
         $url = false;
         switch ($this->getAttribute()) {
-            case 'sku': case 'category_ids':
-                $url = 'adminhtml/promo_widget/chooser'
+            case 'sku':
+            case 'category_ids':
+                    $url = 'adminhtml/promo_widget/chooser'
                     .'/attribute/'.$this->getAttribute();
                 if ($this->getJsFormObject()) {
                     $url .= '/form/'.$this->getJsFormObject();
@@ -462,7 +457,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getExplicitApply()
     {
         switch ($this->getAttribute()) {
-            case 'sku': case 'category_ids':
+            case 'sku':
+            case 'category_ids':
                 return true;
         }
         if (is_object($this->getAttributeObject())) {
@@ -477,8 +473,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     /**
      * Load array
      *
-     * @param array $arr
-     * @return Mage_CatalogRule_Model_Rule_Condition_Product
+     * @inheritDoc
      */
     public function loadArray($arr)
     {
@@ -491,7 +486,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], array('!()', '()'))
                     && false !== strpos($arr['value'], ',')) {
-
                     $tmp = array();
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
@@ -553,7 +547,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
                     $value = strtotime($value);
-                } else if ($attr && $attr->getFrontendInput() == 'multiselect') {
+                } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
                     $value = strlen($value) ? explode(',', $value) : array();
                 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -61,14 +55,14 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                             <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
                         <?php else: ?>
                             <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
-                        <?php endif; ?>
+                        <?php endif ?>
 
                         <?php echo $_weeeSeparator; ?>
                         <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
                         <?php $_weeeSeparator = ' + '; ?>
-                    <?php endforeach; ?>
+                    <?php endforeach ?>
                 </small>)</span>
-            <?php endif; ?>
+            <?php endif ?>
             <span class="price-including-tax">
                 <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
@@ -91,24 +85,24 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                         <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
                     <?php else: ?>
                         <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
-                    <?php endif; ?>
+                    <?php endif ?>
 
                     <?php echo $_weeeSeparator; ?>
                     <?php echo $_weeeTaxAttribute->getName(); ?>: <?php echo Mage::helper('core')->currency($amount, true, true); ?>
                     <?php $_weeeSeparator = ' + '; ?>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </small>)</span>
-        <?php endif; ?>
-    <?php endif; ?>
+        <?php endif ?>
+    <?php endif ?>
     </span>
     <?php endif ?>
     </p>
 </div>
-<?php endif; ?>
+<?php endif ?>
 <?php if($_product->isSaleable()): ?>
 <script type="text/javascript">
 document.observe("dom:loaded", function() {
     bundle.reloadPrice();
 });
 </script>
-<?php endif; ?>
+<?php endif ?>

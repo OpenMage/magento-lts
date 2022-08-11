@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,11 +42,11 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Add new email info to corresponding list
      *
      * @param Mage_Core_Model_Email_Info $emailInfo
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function addEmailInfo(Mage_Core_Model_Email_Info $emailInfo)
     {
-        array_push($this->_emailInfos, $emailInfo);
+        $this->_emailInfos[] = $emailInfo;
         return $this;
     }
 
@@ -60,11 +54,11 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Send all emails from email list
      * @see self::$_emailInfos
      *
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function send()
     {
-        /** @var $emailTemplate Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $emailTemplate */
         $emailTemplate = Mage::getModel('core/email_template');
         // Send all emails from corresponding list
         while (!empty($this->_emailInfos)) {
@@ -81,7 +75,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
                     $emailInfo->getToNames(),
                     $this->getTemplateParams(),
                     $this->getStoreId()
-            );
+                );
         }
         return $this;
     }
@@ -90,7 +84,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set email sender
      *
      * @param string|array $sender
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setSender($sender)
     {
@@ -111,7 +105,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set store id
      *
      * @param int $storeId
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setStoreId($storeId)
     {
@@ -132,7 +126,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set template id
      *
      * @param int $templateId
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setTemplateId($templateId)
     {
@@ -153,7 +147,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      * Set tempate parameters
      *
      * @param array $templateParams
-     * @return Mage_Core_Model_Email_Template_Mailer
+     * @return $this
      */
     public function setTemplateParams(array $templateParams)
     {

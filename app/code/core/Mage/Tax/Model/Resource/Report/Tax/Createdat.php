@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +41,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
      *
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Tax_Model_Resource_Report_Tax_Createdat
+     * @return $this
      */
     public function aggregate($from = null, $to = null)
     {
@@ -61,7 +55,7 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
-     * @return Mage_Tax_Model_Resource_Report_Tax_Createdat
+     * @return $this
      */
     protected function _aggregateByOrder($aggregationField, $from, $to)
     {
@@ -77,7 +71,10 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
             if ($from !== null || $to !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
-                    'created_at', 'updated_at', $from, $to
+                    'created_at',
+                    'updated_at',
+                    $from,
+                    $to
                 );
             } else {
                 $subSelect = null;
@@ -89,7 +86,8 @@ class Mage_Tax_Model_Resource_Report_Tax_Createdat extends Mage_Reports_Model_Re
                 $this->getStoreTZOffsetQuery(
                     array('e' => $this->getTable('sales/order')),
                     'e.' . $aggregationField,
-                    $from, $to
+                    $from,
+                    $to
                 )
             );
 

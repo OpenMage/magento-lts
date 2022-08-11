@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +39,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Create database scheme for storing files
      *
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function createDatabaseScheme()
     {
@@ -71,7 +65,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
                 'nullable' => false,
                 'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
                 ), 'Upload Timestamp')
-            ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 100, array(
+            ->addColumn('filename', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
                 'nullable' => false
                 ), 'Filename')
             ->addColumn('directory_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
@@ -81,13 +75,24 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             ->addColumn('directory', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
                 'default' => null
                 ), 'Directory Path')
-            ->addIndex($adapter->getIndexName($table, array('filename', 'directory_id'),
-                Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-                array('filename', 'directory_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+            ->addIndex(
+                $adapter->getIndexName(
+                    $table,
+                    array('filename', 'directory_id'),
+                    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+                ),
+                array('filename', 'directory_id'),
+                array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+            )
             ->addIndex($adapter->getIndexName($table, array('directory_id')), array('directory_id'))
-            ->addForeignKey($adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'),
-                'directory_id', $dirStorageTable, 'directory_id',
-                Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+            ->addForeignKey(
+                $adapter->getForeignKeyName($table, 'directory_id', $dirStorageTable, 'directory_id'),
+                'directory_id',
+                $dirStorageTable,
+                'directory_id',
+                Varien_Db_Ddl_Table::ACTION_CASCADE,
+                Varien_Db_Ddl_Table::ACTION_CASCADE
+            )
             ->setComment('File Storage');
 
         $adapter->createTable($ddlTable);
@@ -126,7 +131,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  Mage_Core_Model_File_Storage_Database $object
      * @param  string $filename
      * @param  string $path
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function loadByFilename(Mage_Core_Model_File_Storage_Database $object, $filename, $path)
     {
@@ -150,7 +155,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Clear files in storage
      *
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function clearFiles()
     {
@@ -187,7 +192,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * Save file to storage
      *
      * @param array|Mage_Core_Model_File_Storage_Database $file
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function saveFile($file)
     {
@@ -215,7 +220,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  string $oldPath
      * @param  string $newFilename
      * @param  string $newPath
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function renameFile($oldFilename, $oldPath, $newFilename, $newPath)
     {
@@ -237,7 +242,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
      * @param  string $oldPath
      * @param  string $newFilename
      * @param  string $newPath
-     * @return Mage_Core_Model_Resource_File_Storage_Database
+     * @return $this
      */
     public function copyFile($oldFilename, $oldPath, $newFilename, $newPath)
     {
@@ -298,7 +303,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             return;
         }
 
-        /* @var $resHelper Mage_Core_Model_Resource_Helper_Abstract */
+        /* @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
         $likeExpression = $resHelper->addLikeEscape($folderName . '/', array('position' => 'start'));
         $this->_getWriteAdapter()

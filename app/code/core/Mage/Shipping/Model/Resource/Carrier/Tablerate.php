@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,8 +93,6 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
     /**
      * Define main table and id field name
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -180,9 +172,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
-     * @return Mage_Shipping_Model_Resource_Carrier_Tablerate
+     * @return $this
      */
     public function uploadAndImport(Varien_Object $object)
     {
@@ -276,7 +268,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Load directory countries
      *
-     * @return Mage_Shipping_Model_Resource_Carrier_Tablerate
+     * @return $this
      */
     protected function _loadDirectoryCountries()
     {
@@ -287,7 +279,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importIso2Countries = array();
         $this->_importIso3Countries = array();
 
-        /** @var $collection Mage_Directory_Model_Resource_Country_Collection */
+        /** @var Mage_Directory_Model_Resource_Country_Collection $collection */
         $collection = Mage::getResourceModel('directory/country_collection');
         foreach ($collection->getData() as $row) {
             $this->_importIso2Countries[$row['iso2_code']] = $row['country_id'];
@@ -300,7 +292,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Load directory regions
      *
-     * @return Mage_Shipping_Model_Resource_Carrier_Tablerate
+     * @return $this
      */
     protected function _loadDirectoryRegions()
     {
@@ -310,7 +302,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         $this->_importRegions = array();
 
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
         foreach ($collection->getData() as $row) {
             $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];
@@ -422,7 +414,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Save import data batch
      *
      * @param array $data
-     * @return Mage_Shipping_Model_Resource_Carrier_Tablerate
+     * @return $this
      */
     protected function _saveImportData(array $data)
     {

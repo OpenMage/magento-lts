@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -13,15 +13,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -30,149 +24,13 @@
         <payment translate="label" module="payment">
             <label>Payment Methods</label>
             <tab>sales</tab>
-            <frontend_type>text</frontend_type>
             <sort_order>400</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <ccsave translate="label">
-                    <label>Saved CC</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>27</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <active translate="label">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </active>
-                        <cctypes translate="label">
-                            <label>Credit Card Types</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>adminhtml/system_config_source_payment_cctype</source_model>
-                            <sort_order>4</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </cctypes>
-                        <order_status translate="label">
-                            <label>New Order Status</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status_new</source_model>
-                            <sort_order>2</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </order_status>
-                        <sort_order translate="label">
-                            <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <frontend_class>validate-number</frontend_class>
-                        </sort_order>
-                        <title translate="label">
-                            <label>Title</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>1</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </title>
-                        <useccv translate="label">
-                            <label>Request Card Security Code</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>5</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </useccv>
-
-                        <centinel translate="label">
-                            <label>3D Secure Card Validation</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </centinel>
-                        <centinel_is_mode_strict translate="label comment">
-                            <label>Severe 3D Secure Card Validation</label>
-                            <comment>Severe validation removes chargeback liability on merchant.</comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>25</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_is_mode_strict>
-                        <centinel_api_url translate="label comment">
-                            <label>Centinel API URL</label>
-                            <comment>A value is required for live mode. Refer to your CardinalCommerce agreement.</comment>
-                            <frontend_type>text</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <depends><centinel>1</centinel></depends>
-                        </centinel_api_url>
-
-                         <allowspecific translate="label">
-                            <label>Payment from Applicable Countries</label>
-                            <frontend_type>allowspecific</frontend_type>
-                            <sort_order>50</sort_order>
-                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </allowspecific>
-                        <specificcountry translate="label">
-                            <label>Payment from Specific Countries</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <sort_order>51</sort_order>
-                            <source_model>adminhtml/system_config_source_country</source_model>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                        </specificcountry>
-                        <min_order_total translate="label">
-                            <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>98</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </min_order_total>
-                        <max_order_total translate="label">
-                            <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>99</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </max_order_total>
-                        <model>
-                        </model>
-                    </fields>
-                </ccsave>
                 <checkmo translate="label">
                     <label>Check / Money Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -198,7 +56,6 @@
                         </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -207,7 +64,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -249,7 +105,6 @@
                         </mailing_address>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -257,7 +112,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -269,7 +123,6 @@
                 </checkmo>
                 <free translate="label">
                     <label>Zero Subtotal Checkout</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -307,7 +160,6 @@
                         </payment_action>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -316,7 +168,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -344,7 +195,6 @@
 <!--
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -352,7 +202,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -365,7 +214,6 @@
                 </free>
                 <purchaseorder translate="label">
                     <label>Purchase Order</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>32</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -391,7 +239,6 @@
                         </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -400,7 +247,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -427,7 +273,6 @@
                         </specificcountry>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -435,7 +280,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -447,7 +291,6 @@
                 </purchaseorder>
                 <banktransfer translate="label">
                     <label>Bank Transfer Payment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -464,7 +307,6 @@
                         </active>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -508,7 +350,6 @@
                         </instructions>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -516,7 +357,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -524,7 +364,6 @@
                         </max_order_total>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -534,7 +373,6 @@
                 </banktransfer>
                 <cashondelivery translate="label">
                     <label>Cash On Delivery Payment</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -551,7 +389,6 @@
                         </active>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -595,7 +432,6 @@
                         </instructions>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>98</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -603,7 +439,6 @@
                         </min_order_total>
                         <max_order_total translate="label">
                             <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>99</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -611,7 +446,6 @@
                         </max_order_total>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +23,16 @@
  *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
+ *
+ * @method array getPageGroups()
+ * @method $this setPageGroups(array $value)
+ * @method $this setStoreIds(string $value)
  * @method string getTitle()
- * @method Mage_Widget_Model_Widget_Instance setTitle(string $value)
- * @method Mage_Widget_Model_Widget_Instance setStoreIds(string $value)
- * @method Mage_Widget_Model_Widget_Instance setWidgetParameters(string $value)
+ * @method $this setTitle(string $value)
+ * @method $this setWidgetParameters(string $value)
  * @method int getSortOrder()
- * @method Mage_Widget_Model_Widget_Instance setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -114,7 +112,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Processing object before save data
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -149,8 +147,11 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = array();
                         foreach (explode(',', $pageGroupData['entities']) as $entity) {
-                            $layoutHandleUpdates[] = str_replace('{{ID}}', $entity,
-                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']]);
+                            $layoutHandleUpdates[] = str_replace(
+                                '{{ID}}',
+                                $entity,
+                                $this->_specificEntitiesLayoutHandles[$pageGroup['page_group']]
+                            );
                         }
                         $tmpPageGroup['entities'] = $pageGroupData['entities'];
                         $tmpPageGroup['layout_handle_updates'] = $layoutHandleUpdates;
@@ -199,7 +200,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Prepare widget type
      *
      * @param string $type
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     public function setType($type)
     {
@@ -223,7 +224,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Replace '-' to '/', if was passed from request(GET request)
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _prepareType()
     {
@@ -238,7 +239,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Prepare widget package theme
      *
      * @param string $packageTheme
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     public function setPackageTheme($packageTheme)
     {
@@ -262,7 +263,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.6.1.0-alpha1
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _preparePackageTheme()
     {
@@ -312,7 +313,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Parse packageTheme and set parsed package and theme
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _parsePackageTheme()
     {
@@ -488,14 +489,18 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')
     {
+      if ($templatePath !== htmlspecialchars($templatePath, ENT_QUOTES | ENT_HTML5)
+        || $blockReference !== htmlspecialchars($blockReference, ENT_QUOTES | ENT_HTML5)) {
+          Mage::throwException('Templatepath or block reference contain special characters.');
+      }
+
         $templateFilename = Mage::getSingleton('core/design_package')->getTemplateFilename($templatePath, array(
             '_area'    => $this->getArea(),
             '_package' => $this->getPackage(),
             '_theme'   => $this->getTheme()
         ));
         if (!$this->getId() && !$this->isCompleteToCreate()
-            || ($templatePath && !is_readable($templateFilename)))
-        {
+            || ($templatePath && !is_readable($templateFilename))) {
             return '';
         }
         $parameters = $this->getWidgetParameters();
@@ -529,7 +534,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Invalidate related cache types
      *
-     * @return Mage_Widget_Model_Widget_Instance
+     * @return $this
      */
     protected function _invalidateCache()
     {

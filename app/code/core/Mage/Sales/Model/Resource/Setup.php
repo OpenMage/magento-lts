@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +31,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities converted from EAV to flat data structure
      *
-     * @var $_flatEntityTables array
+     * @var array $_flatEntityTables
      */
     protected $_flatEntityTables     = array(
         'quote'             => 'sales/quote',
@@ -66,7 +60,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * List of entities used with separate grid table
      *
-     * @var $_flatEntitiesGrid array
+     * @var array $_flatEntitiesGrid
      */
     protected $_flatEntitiesGrid     = array(
         'order',
@@ -93,13 +87,12 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * @param int|string $entityTypeId
      * @param string $code
      * @param array $attr
-     * @return Mage_Sales_Model_Resource_Setup
+     * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
     {
         if (isset($this->_flatEntityTables[$entityTypeId]) &&
-            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId]))
-        {
+            $this->_flatTableExist($this->_flatEntityTables[$entityTypeId])) {
             $this->_addFlatAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr);
             $this->_addGridAttribute($this->_flatEntityTables[$entityTypeId], $code, $attr, $entityTypeId);
         } else {
@@ -114,7 +107,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * @param string $table
      * @param string $attribute
      * @param array $attr
-     * @return Mage_Sales_Model_Resource_Setup
+     * @return $this
      */
     protected function _addFlatAttribute($table, $attribute, $attr)
     {
@@ -134,7 +127,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
      * @param string $attribute
      * @param array $attr
      * @param string $entityTypeId
-     * @return Mage_Sales_Model_Resource_Setup
+     * @return $this
      */
     protected function _addGridAttribute($table, $attribute, $attr, $entityTypeId)
     {

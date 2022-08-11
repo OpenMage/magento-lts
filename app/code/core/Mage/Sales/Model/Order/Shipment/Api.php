@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,12 +30,9 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     public function __construct()
     {
         $this->_attributesMap['shipment'] = array('shipment_id' => 'entity_id');
-
-        $this->_attributesMap['shipment_item'] = array('item_id'    => 'entity_id');
-
+        $this->_attributesMap['shipment_item'] = array('item_id' => 'entity_id');
         $this->_attributesMap['shipment_comment'] = array('comment_id' => 'entity_id');
-
-        $this->_attributesMap['shipment_track'] = array('track_id'   => 'entity_id');
+        $this->_attributesMap['shipment_track'] = array('track_id' => 'entity_id');
     }
 
     /**
@@ -63,7 +54,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             ->joinAttribute('order_increment_id', 'order/increment_id', 'order_id', null, 'left')
             ->joinAttribute('order_created_at', 'order/created_at', 'order_id', null, 'left');
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
         $apiHelper = Mage::helper('api');
         try {
             $filters = $apiHelper->parseFilters($filters, $this->_attributesMap['shipment']);
@@ -85,12 +75,11 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      *
      * @param string $shipmentIncrementId
      * @return array
+     * @throws Mage_Api_Exception
      */
     public function info($shipmentIncrementId)
     {
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
-
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
 
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
@@ -122,11 +111,15 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $orderIncrementId
      * @param array $itemsQty
      * @param string $comment
-     * @param booleam $email
+     * @param boolean $email
      * @param boolean $includeComment
      * @return string
      */
-    public function create($orderIncrementId, $itemsQty = array(), $comment = null, $email = false,
+    public function create(
+        $orderIncrementId,
+        $itemsQty = array(),
+        $comment = null,
+        $email = false,
         $includeComment = false
     ) {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
@@ -145,7 +138,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
              $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
-         /* @var $shipment Mage_Sales_Model_Order_Shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();
@@ -175,13 +167,12 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      * @param string $carrier
      * @param string $title
      * @param string $trackNumber
+     * @param null|float $weight
      * @return int
      */
-    public function addTrack($shipmentIncrementId, $carrier, $title, $trackNumber)
+    public function addTrack($shipmentIncrementId, $carrier, $title, $trackNumber, $weight = null)
     {
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
-
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
 
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
@@ -197,6 +188,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
                     ->setNumber($trackNumber)
                     ->setCarrierCode($carrier)
                     ->setTitle($title);
+
+        if (!empty($weight)) {
+            $track->setWeight($weight);
+        }
 
         $shipment->addTrack($track);
 
@@ -221,13 +216,11 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     {
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
-
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
         }
 
-        if(!$track = $shipment->getTrackById($trackId)) {
+        if (!$track = $shipment->getTrackById($trackId)) {
             $this->_fault('track_not_exists');
         }
 
@@ -249,7 +242,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     public function sendInfo($shipmentIncrementId, $comment = '')
     {
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
         if (!$shipment->getId()) {
@@ -284,17 +276,14 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     {
          $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
 
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
-
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
         }
 
-        if(!$track = $shipment->getTrackById($trackId)) {
+        if (!$track = $shipment->getTrackById($trackId)) {
             $this->_fault('track_not_exists');
         }
 
-        /* @var $track Mage_Sales_Model_Order_Shipment_Track */
         $info = $track->getNumberDetail();
 
         if (is_object($info)) {
@@ -316,8 +305,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     public function addComment($shipmentIncrementId, $comment, $email = false, $includeInEmail = false)
     {
         $shipment = Mage::getModel('sales/order_shipment')->loadByIncrementId($shipmentIncrementId);
-
-        /* @var $shipment Mage_Sales_Model_Order_Shipment */
 
         if (!$shipment->getId()) {
             $this->_fault('not_exists');
@@ -377,5 +364,4 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
 
         return $carriers;
     }
-
-} // Class Mage_Sales_Model_Order_Shipment_Api End
+}

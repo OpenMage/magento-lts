@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,10 +60,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
 
     protected function _prepareLayout()
     {
-//        $infoBlock = $this->getLayout()->createBlock('adminhtml/sales_order_view_info')
-//            ->setOrder($this->getShipment()->getOrder());
-//        $this->setChild('order_info', $infoBlock);
-
         $this->setChild(
             'items',
             $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_items')
@@ -78,11 +68,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
             'tracking',
             $this->getLayout()->createBlock('adminhtml/sales_order_shipment_create_tracking')
         );
-//        $paymentInfoBlock = $this->getLayout()->createBlock('adminhtml/sales_order_payment')
-//            ->setPayment($this->getShipment()->getOrder()->getPayment());
-//        $this->setChild('payment_info', $paymentInfoBlock);
 
-//        return parent::_prepareLayout();
+        return $this;
     }
 
     public function getPaymentHtml()

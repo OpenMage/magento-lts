@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Index_Model_Resource_Setup */
+/* @var Mage_Index_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -55,8 +49,11 @@ $table = $installer->getConnection()
         ), 'Old Data')
     ->addColumn('new_data', Varien_Db_Ddl_Table::TYPE_TEXT, '2M', array(
         ), 'New Data')
-    ->addIndex($installer->getIdxName('index/event', array('type', 'entity', 'entity_pk'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('type', 'entity', 'entity_pk'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName('index/event', array('type', 'entity', 'entity_pk'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('type', 'entity', 'entity_pk'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('Index Event');
 $installer->getConnection()->createTable($table);
 
@@ -86,8 +83,11 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => 'real_time',
         ), 'Mode')
-    ->addIndex($installer->getIdxName('index/process', array('indexer_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
-        array('indexer_code'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+    ->addIndex(
+        $installer->getIdxName('index/process', array('indexer_code'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
+        array('indexer_code'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->setComment('Index Process');
 $installer->getConnection()->createTable($table);
 
@@ -110,14 +110,26 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => 'new',
         ), 'Status')
-    ->addIndex($installer->getIdxName('index/process_event', array('event_id')),
-        array('event_id'))
-    ->addForeignKey($installer->getFkName('index/process_event', 'event_id', 'index/event', 'event_id'),
-        'event_id', $installer->getTable('index/event'), 'event_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('index/process_event', 'process_id', 'index/process', 'process_id'),
-        'process_id', $installer->getTable('index/process'), 'process_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $installer->getIdxName('index/process_event', array('event_id')),
+        array('event_id')
+    )
+    ->addForeignKey(
+        $installer->getFkName('index/process_event', 'event_id', 'index/event', 'event_id'),
+        'event_id',
+        $installer->getTable('index/event'),
+        'event_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
+    ->addForeignKey(
+        $installer->getFkName('index/process_event', 'process_id', 'index/process', 'process_id'),
+        'process_id',
+        $installer->getTable('index/process'),
+        'process_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Index Process Event');
 $installer->getConnection()->createTable($table);
 

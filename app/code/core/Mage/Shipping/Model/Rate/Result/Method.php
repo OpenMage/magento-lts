@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +27,14 @@
  * - methodTitle: UPS 2nd Day Priority
  * - price: $9.40 (cost+handling)
  * - cost: $8.00
+ *
+ * @method $this setCarrier(string $value)
+ * @method $this setCarrierTitle(string $value)
+ * @method string getMethod()
+ * @method $this setMethod(string $value)
+ * @method $this setMethodTitle(string $value)
+ * @method float getPrice()
+ * @method $this setCost(float $value)
  */
 class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Result_Abstract
 {
@@ -40,7 +42,7 @@ class Mage_Shipping_Model_Rate_Result_Method extends Mage_Shipping_Model_Rate_Re
      * Round shipping carrier's method price
      *
      * @param string|float|int $price
-     * @return Mage_Shipping_Model_Rate_Result_Method
+     * @return $this
      */
     public function setPrice($price)
     {

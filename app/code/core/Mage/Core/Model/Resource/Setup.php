@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,21 +48,21 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup resource configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_resourceConfig;
 
     /**
      * Connection configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_connectionConfig;
 
     /**
      * Setup module configuration object
      *
-     * @var Varien_Simplexml_Object
+     * @var Mage_Core_Model_Config_Element
      */
     protected $_moduleConfig;
 
@@ -151,7 +145,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get connection object
      *
-     * @return Varien_Db_Adapter_Interface
+     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql
      */
     public function getConnection()
     {
@@ -163,7 +157,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $tableName
      * @param string $realTableName
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function setTable($tableName, $realTableName)
     {
@@ -195,8 +189,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _getTableCacheName($tableName)
     {
         if (is_array($tableName)) {
-            return join('_', $tableName);
-
+            return implode('_', $tableName);
         }
         return $tableName;
     }
@@ -216,7 +209,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @return boolean
      */
-    static public function applyAllUpdates()
+    public static function applyAllUpdates()
     {
         Mage::app()->setUpdateMode(true);
         self::$_hadUpdates = false;
@@ -231,6 +224,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyUpdates();
             if ($setupClass->getCallAfterApplyAllUpdates()) {
@@ -251,7 +245,7 @@ class Mage_Core_Model_Resource_Setup
      * Apply database data updates whenever needed
      *
      */
-    static public function applyAllDataUpdates()
+    public static function applyAllDataUpdates()
     {
         if (!self::$_schemaUpdatesChecked) {
             return;
@@ -265,6 +259,7 @@ class Mage_Core_Model_Resource_Setup
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
+            /** @var Mage_Core_Model_Resource_Setup $setupClass */
             $setupClass = new $className($resName);
             $setupClass->applyDataUpdates();
         }
@@ -273,8 +268,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply data updates to the system after upgrading.
      *
-     * @param string $fromVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function applyDataUpdates()
     {
@@ -282,9 +276,9 @@ class Mage_Core_Model_Resource_Setup
         $configVer = (string)$this->_moduleConfig->version;
         if ($dataVer !== false) {
              $status = version_compare($configVer, $dataVer);
-             if ($status == self::VERSION_COMPARE_GREATER) {
-                 $this->_upgradeData($dataVer, $configVer);
-             }
+            if ($status == self::VERSION_COMPARE_GREATER) {
+                $this->_upgradeData($dataVer, $configVer);
+            }
         } elseif ($configVer) {
             $this->_installData($configVer);
         }
@@ -294,7 +288,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Apply module resource install, upgrade and data scripts
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this|true
      */
     public function applyUpdates()
     {
@@ -312,7 +306,7 @@ class Mage_Core_Model_Resource_Setup
         // Module is installed
         if ($dbVer !== false) {
              $status = version_compare($configVer, $dbVer);
-             switch ($status) {
+            switch ($status) {
                 case self::VERSION_COMPARE_LOWER:
                     $this->_rollbackResourceDb($configVer, $dbVer);
                     break;
@@ -321,8 +315,8 @@ class Mage_Core_Model_Resource_Setup
                     break;
                 default:
                     return true;
-                    break;
-             }
+                   break;
+            }
         } elseif ($configVer) {
             $this->_installResourceDb($configVer);
         }
@@ -337,12 +331,12 @@ class Mage_Core_Model_Resource_Setup
      * Currently - dynamically updates column types for foreign keys, when their targets were changed
      * during MMDB development.
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _hookQueries()
     {
         $this->_queriesHooked = true;
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
         return $this;
@@ -351,14 +345,14 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Removes query hook
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _unhookQueries()
     {
         if (!$this->_queriesHooked) {
             return $this;
         }
-        /* @var $adapter Varien_Db_Adapter_Pdo_Mysql */
+        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;
@@ -371,7 +365,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $sql
      * @param array $bind
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function callbackQueryHook(&$sql, &$bind)
     {
@@ -384,7 +378,7 @@ class Mage_Core_Model_Resource_Setup
      * Run data install scripts
      *
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _installData($newVersion)
     {
@@ -400,7 +394,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $oldVersion
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _upgradeData($oldVersion, $newVersion)
     {
@@ -414,7 +408,7 @@ class Mage_Core_Model_Resource_Setup
      * Run resource installation file
      *
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _installResourceDb($newVersion)
     {
@@ -430,7 +424,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $oldVersion
      * @param string $newVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _upgradeResourceDb($oldVersion, $newVersion)
     {
@@ -445,7 +439,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $newVersion
      * @param string $oldVersion
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _rollbackResourceDb($newVersion, $oldVersion)
     {
@@ -457,7 +451,7 @@ class Mage_Core_Model_Resource_Setup
      * Uninstall resource
      *
      * @param string $version existing resource version
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _uninstallResourceDb($version)
     {
@@ -492,7 +486,7 @@ class Mage_Core_Model_Resource_Setup
             $matches = array();
             if (preg_match($regExpDb, $file, $matches)) {
                 $dbFiles[$matches[1]] = $filesDir . DS . $file;
-            } else if (preg_match($regExpType, $file, $matches)) {
+            } elseif (preg_match($regExpType, $file, $matches)) {
                 $typeFiles[$matches[1]] = $filesDir . DS . $file;
             }
         }
@@ -531,7 +525,6 @@ class Mage_Core_Model_Resource_Setup
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
-
             }
             $handlerDir->close();
         }
@@ -563,7 +556,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $actionType
      * @param string $version
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     protected function _setResourceVersion($actionType, $version)
     {
@@ -576,7 +569,6 @@ class Mage_Core_Model_Resource_Setup
             case self::TYPE_DATA_UPGRADE:
                 $this->_getResource()->setDataVersion($this->_resourceName, $version);
                 break;
-
         }
 
         return $this;
@@ -626,7 +618,6 @@ class Mage_Core_Model_Resource_Setup
                     case 'sql':
                         $sql = file_get_contents($fileName);
                         if (!empty($sql)) {
-
                             $result = $this->run($sql);
                         } else {
                             $result = true;
@@ -684,7 +675,7 @@ class Mage_Core_Model_Resource_Setup
 
                     // In array must be 2 elements: 0 => version from, 1 => version to
                     if (count($versionInfo)!=2) {
-                        break;
+                        continue;
                     }
                     $infoFrom = $versionInfo[0];
                     $infoTo   = $versionInfo[1];
@@ -721,7 +712,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string|integer $parentId
      * @return mixed|boolean
      */
-    public function getTableRow($table, $idField, $id, $field=null, $parentField=null, $parentId=0)
+    public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
@@ -754,10 +745,10 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $table
      * @param string $idField
-     * @param string|int $id
+     * @param int|string $id
      * @param null|string $parentField
      * @param int|string $parentId
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
@@ -790,7 +781,7 @@ class Mage_Core_Model_Resource_Setup
      * @param mixed|null $value
      * @param string $parentField
      * @param string|integer $parentId
-     * @return Mage_Eav_Model_Entity_Setup
+     * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
     {
@@ -826,7 +817,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $table
      * @param Zend_Db_Expr $conditionExpr
      * @param Zend_Db_Expr $valueExpr
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      *
      * @deprecated since 1.4.0.1
      */
@@ -835,10 +826,12 @@ class Mage_Core_Model_Resource_Setup
         if (strpos($table, '/') !== false) {
             $table = $this->getTable($table);
         }
-        $query = sprintf('UPDATE %s SET %s WHERE %s',
+        $query = sprintf(
+            'UPDATE %s SET %s WHERE %s',
             $this->getConnection()->quoteIdentifier($table),
             $conditionExpr,
-            $valueExpr);
+            $valueExpr
+        );
 
         $this->getConnection()->query($query);
 
@@ -858,7 +851,6 @@ class Mage_Core_Model_Resource_Setup
         }
 
         return $this->getConnection()->isTableExists($table);
-
     }
 
 /******************* CONFIG *****************/
@@ -870,10 +862,10 @@ class Mage_Core_Model_Resource_Setup
      * @param string $label
      * @param array $data
      * @param string $default
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      * @deprecated since 1.4.0.1
      */
-    public function addConfigField($path, $label, array $data=array(), $default=null)
+    public function addConfigField($path, $label, array $data = array(), $default = null)
     {
         return $this;
     }
@@ -886,9 +878,9 @@ class Mage_Core_Model_Resource_Setup
      * @param int|string $scope
      * @param int $scopeId
      * @param int $inherit
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
-    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit=0)
+    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
     {
         $table = $this->getTable('core/config_data');
         // this is a fix for mysql 4.1
@@ -909,7 +901,7 @@ class Mage_Core_Model_Resource_Setup
      *
      * @param string $path
      * @param string $scope (default|stores|websites|config)
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function deleteConfigData($path, $scope = null)
     {
@@ -925,7 +917,7 @@ class Mage_Core_Model_Resource_Setup
      * Run plain SQL query(ies)
      *
      * @param string $sql
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function run($sql)
     {
@@ -936,7 +928,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Prepare database before install/upgrade
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function startSetup()
     {
@@ -947,7 +939,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Prepare database after install/upgrade
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function endSetup()
     {
@@ -997,7 +989,7 @@ class Mage_Core_Model_Resource_Setup
      * Run each time after applying of all updates,
      * if setup model setted  $_callAfterApplyAllUpdates flag to true
      *
-     * @return Mage_Core_Model_Resource_Setup
+     * @return $this
      */
     public function afterApplyAllUpdates()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -108,7 +102,7 @@ class Mage_Sales_Model_Service_Quote
      * Specify additional order data
      *
      * @param array $data
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     public function setOrderData(array $data)
     {
@@ -180,6 +174,9 @@ class Mage_Sales_Model_Service_Quote
         $transaction->addCommitCallback(array($order, 'place'));
         $transaction->addCommitCallback(array($order, 'save'));
 
+        Mage::unregister('current_order');
+        Mage::register('current_order', $order);
+
         /**
          * We can use configuration data for declare new order status
          */
@@ -188,7 +185,6 @@ class Mage_Sales_Model_Service_Quote
         try {
             $transaction->save();
         } catch (Exception $e) {
-
             if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // reset customer ID's on exception, because customer not saved
                 $quote->getCustomer()->setId(null);
@@ -196,7 +192,7 @@ class Mage_Sales_Model_Service_Quote
 
             //reset order ID's on exception, because order not saved
             $order->setId(null);
-            /** @var $item Mage_Sales_Model_Order_Item */
+            /** @var Mage_Sales_Model_Order_Item $item */
             foreach ($order->getItemsCollection() as $item) {
                 $item->setOrderId(null);
                 $item->setItemId(null);
@@ -215,7 +211,6 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Submit nominal items
      *
-     * @return array
      */
     public function submitNominalItems()
     {
@@ -272,7 +267,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Inactivate quote
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     protected function _inactivateQuote()
     {
@@ -285,7 +280,7 @@ class Mage_Sales_Model_Service_Quote
     /**
      * Validate quote data before converting to order
      *
-     * @return Mage_Sales_Model_Service_Quote
+     * @return $this
      */
     protected function _validate()
     {

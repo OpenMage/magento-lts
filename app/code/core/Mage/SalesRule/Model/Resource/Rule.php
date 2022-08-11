@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +59,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_Core_Model_Abstract $object
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -79,9 +73,9 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Prepare sales rule's discount quantity
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_SalesRule_Model_Rule $object
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -98,9 +92,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param Mage_Core_Model_Abstract $object
-     *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @param Mage_SalesRule_Model_Rule $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -163,7 +156,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * @param int $ruleId
      * @param array $labels
      *
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function saveStoreLabels($ruleId, $labels)
     {
@@ -200,7 +193,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         } catch (Exception $e) {
             $adapter->rollBack();
             throw $e;
-
         }
 
         return $this;
@@ -240,16 +232,18 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param unknown_type $websiteId
-     * @param unknown_type $customerGroupId
+     * @param int $websiteId
+     * @param int $customerGroupId
      * @return mixed
      */
     public function getActiveAttributes($websiteId, $customerGroupId)
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()
-            ->from(array('a' => $this->getTable('salesrule/product_attribute')),
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'))
+            ->from(
+                array('a' => $this->getTable('salesrule/product_attribute')),
+                new Zend_Db_Expr('DISTINCT ea.attribute_code')
+            )
             ->joinInner(array('ea' => $this->getTable('eav/attribute')), 'ea.attribute_id = a.attribute_id', array());
         return $read->fetchAll($select);
     }
@@ -259,7 +253,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      * @param Mage_SalesRule_Model_Rule $rule
      * @param mixed $attributes
-     * @return Mage_SalesRule_Model_Resource_Rule
+     * @return $this
      */
     public function setActualProductAttributes($rule, $attributes)
     {
@@ -306,8 +300,11 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     public function getProductAttributes($serializedString)
     {
         $result = array();
-        if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
-            $serializedString, $matches)){
+        if (preg_match_all(
+            '~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s',
+            $serializedString,
+            $matches
+        )) {
             foreach ($matches[1] as $offset => $attributeCode) {
                 $result[] = $attributeCode;
             }

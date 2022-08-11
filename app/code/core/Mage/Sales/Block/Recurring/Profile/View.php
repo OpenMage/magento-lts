@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,13 +92,6 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 'value' => $this->_profile->renderData($key),
             ));
         }
-//        $shippingDesctiption = $this->_profile->getInfoValue('order_info', 'shipping_description');
-//        if ($shippingDesctiption) {
-//            $this->_addInfo(array(
-//                'label' => $this->__('Shipping Method'),
-//                'value' => $shippingDesctiption,
-//            ));
-//        }
     }
 
     /**
@@ -118,8 +105,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         foreach (array('name' => Mage::helper('catalog')->__('Product Name'),
             'sku'  => Mage::helper('catalog')->__('SKU'),
             'qty'  => Mage::helper('catalog')->__('Quantity'),
-            ) as $itemKey => $label
-        ) {
+            ) as $itemKey => $label) {
             $value = $this->_profile->getInfoValue($key, $itemKey);
             if ($value) {
                 $this->_addInfo(array('label' => $label, 'value' => $value,));
@@ -210,15 +196,13 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
             'label' => $this->_profile->getFieldLabel('currency_code'),
             'value' => $this->_profile->getCurrencyCode()
         ));
-        foreach (
-            array(
+        foreach (array(
                 'init_amount',
                 'trial_billing_amount',
                 'billing_amount',
                 'tax_amount',
                 'shipping_amount'
-            ) as $key
-         ) {
+            ) as $key) {
             $value = $this->_profile->getData($key);
             if ($value) {
                 $this->_addInfo(array(

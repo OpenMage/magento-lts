@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sitemap
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,11 +40,11 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
      * Get product collection array
      *
      * @param int $storeId
-     * @return array
+     * @return array|false
      */
     public function getCollection($storeId)
     {
-        /* @var $store Mage_Core_Model_Store */
+        /* @var Mage_Core_Model_Store $store */
         $store = Mage::app()->getStore($storeId);
         if (!$store) {
             return false;
@@ -67,15 +61,21 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
 
         $storeId = (int)$store->getId();
 
-        /** @var $urlRewrite Mage_Catalog_Helper_Product_Url_Rewrite_Interface */
+        /** @var Mage_Catalog_Helper_Product_Url_Rewrite_Interface $urlRewrite */
         $urlRewrite = $this->_factory->getProductUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
 
-        $this->_addFilter($storeId, 'visibility',
-            Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(), 'in'
+        $this->_addFilter(
+            $storeId,
+            'visibility',
+            Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(),
+            'in'
         );
-        $this->_addFilter($storeId, 'status',
-            Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(), 'in'
+        $this->_addFilter(
+            $storeId,
+            'status',
+            Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(),
+            'in'
         );
 
         return $this->_loadEntities();

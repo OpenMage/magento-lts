@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +47,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Set use absolute links flag
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseAbsoluteLinks($flag)
     {
@@ -66,7 +60,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
      * @param bool $flag
-     * @return Mage_Core_Model_Email_Template_Filter
+     * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseSessionInUrl($flag)
     {
@@ -134,8 +128,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
             $path = '';
             $params['_direct'] = $params['direct_url'];
             unset($params['direct_url']);
-        }
-        else {
+        } else {
             $path = isset($params['url']) ? $params['url'] : '';
             unset($params['url']);
         }

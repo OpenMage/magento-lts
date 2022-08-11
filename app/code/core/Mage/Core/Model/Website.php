@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,14 +23,23 @@
  *
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
- * @method Mage_Core_Model_Website setCode(string $value)
+ * @method Mage_Core_Model_Resource_Website_Collection getCollection()
+ *
+ * @method $this setCode(string $value)
  * @method string getName()
- * @method Mage_Core_Model_Website setName(string $value)
+ * @method $this setName(string $value)
  * @method int getSortOrder()
- * @method Mage_Core_Model_Website setSortOrder(int $value)
- * @method Mage_Core_Model_Website setDefaultGroupId(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method $this setDefaultGroupId(int $value)
  * @method int getIsDefault()
- * @method Mage_Core_Model_Website setIsDefault(int $value)
+ * @method $this setIsDefault(int $value)
+ * @method int getGroupId()
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method array getStoresIds()
+ * @method bool hasWebsiteId()
+ * @method int getWebsiteId()
+ * @method bool hasDefaultGroupId()
  *
  * @category    Mage
  * @package     Mage_Core
@@ -64,7 +67,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_configCache = array();
+    protected $_configCache = [];
 
     /**
      * Website Group Coleection array
@@ -78,7 +81,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_groupIds = array();
+    protected $_groupIds = [];
 
     /**
      * The number of groups in a website
@@ -99,14 +102,14 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_storeIds = array();
+    protected $_storeIds = [];
 
     /**
      * Website store codes array
      *
      * @var array
      */
-    protected $_storeCodes = array();
+    protected $_storeCodes = [];
 
     /**
      * The number of stores in a website
@@ -151,11 +154,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Custom load
-     *
-     * @param int|string $id
-     * @param string $field
-     * @return Mage_Core_Model_Website
+     * @inheritDoc
      */
     public function load($id, $field = null)
     {
@@ -178,7 +177,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             return $this;
         }
         if (is_numeric($code)) {
-            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode=>$website) {
+            foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int)$website->system->website->id==$code) {
                     $code = $websiteCode;
                     break;
@@ -201,17 +200,17 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * @param string $path
      * @return mixed
      */
-    public function getConfig($path) {
+    public function getConfig($path)
+    {
         if (!isset($this->_configCache[$path])) {
-
             $config = Mage::getConfig()->getNode('websites/'.$this->getCode().'/'.$path);
             if (!$config) {
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));
             }
             if ($config->hasChildren()) {
-                $value = array();
-                foreach ($config->children() as $k=>$v) {
+                $value = [];
+                foreach ($config->children() as $k => $v) {
                     $value[$k] = $v;
                 }
             } else {
@@ -228,12 +227,13 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     protected function _loadGroups()
     {
-        $this->_groups = array();
+        $this->_groups = [];
         $this->_groupsCount = 0;
         foreach ($this->getGroupCollection() as $group) {
-            $this->_groups[$group->getId()] = $group;
-            $this->_groupIds[$group->getId()] = $group->getId();
-            if ($this->getDefaultGroupId() == $group->getId()) {
+            $groupId = $group->getId();
+            $this->_groups[$groupId] = $group;
+            $this->_groupIds[$groupId] = $groupId;
+            if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
             $this->_groupsCount ++;
@@ -244,15 +244,17 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Set website groups
      *
      * @param array $groups
+     * @return $this
      */
     public function setGroups($groups)
     {
-        $this->_groups = array();
+        $this->_groups = [];
         $this->_groupsCount = 0;
         foreach ($groups as $group) {
-            $this->_groups[$group->getId()] = $group;
-            $this->_groupIds[$group->getId()] = $group->getId();
-            if ($this->getDefaultGroupId() == $group->getId()) {
+            $groupId = $group->getId();
+            $this->_groups[$groupId] = $group;
+            $this->_groupIds[$groupId] = $groupId;
+            if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
             $this->_groupsCount ++;
@@ -263,7 +265,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve new (not loaded) Group collection object with website filter
      *
-     * @return Mage_Core_Model_Mysql4_Store_Group_Collection
+     * @return Mage_Core_Model_Resource_Store_Group_Collection
      */
     public function getGroupCollection()
     {
@@ -275,7 +277,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve website groups
      *
-     * @return array
+     * @return Mage_Core_Model_Store_Group[]
      */
     public function getGroups()
     {
@@ -314,7 +316,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve default group model
      *
-     * @return Mage_Core_Model_Store_Group
+     * @return Mage_Core_Model_Store_Group|false
      */
     public function getDefaultGroup()
     {
@@ -333,13 +335,14 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     protected function _loadStores()
     {
-        $this->_stores = array();
+        $this->_stores = [];
         $this->_storesCount = 0;
         foreach ($this->getStoreCollection() as $store) {
-            $this->_stores[$store->getId()] = $store;
-            $this->_storeIds[$store->getId()] = $store->getId();
-            $this->_storeCodes[$store->getId()] = $store->getCode();
-            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $store->getId()) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
             $this->_storesCount ++;
@@ -353,13 +356,14 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function setStores($stores)
     {
-        $this->_stores = array();
+        $this->_stores = [];
         $this->_storesCount = 0;
         foreach ($stores as $store) {
-            $this->_stores[$store->getId()] = $store;
-            $this->_storeIds[$store->getId()] = $store->getId();
-            $this->_storeCodes[$store->getId()] = $store->getCode();
-            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $store->getId()) {
+            $storeId = $store->getId();
+            $this->_stores[$storeId] = $store;
+            $this->_storeIds[$storeId] = $storeId;
+            $this->_storeCodes[$storeId] = $store->getCode();
+            if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
             $this->_storesCount ++;
@@ -369,7 +373,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve new (not loaded) Store collection object with website filter
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Store_Collection
      */
     public function getStoreCollection()
     {
@@ -381,7 +385,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * Retrieve wersite store objects
      *
-     * @return array
+     * @return Mage_Core_Model_Store[]
      */
     public function getStores()
     {
@@ -454,19 +458,28 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      */
     public function getWebsiteGroupStore()
     {
-        return join('-', array($this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()));
+        return implode('-', [$this->getWebsiteId(), $this->getGroupId(), $this->getStoreId()]);
     }
 
+    /**
+     * @return int
+     */
     public function getDefaultGroupId()
     {
         return $this->_getData('default_group_id');
     }
 
+    /**
+     * @return string
+     */
     public function getCode()
     {
         return $this->_getData('code');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();
@@ -476,7 +489,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
     /**
      * rewrite in order to clear configuration cache
      *
-     * @return Mage_Core_Model_Website
+     * @return $this
      */
     protected function _afterDelete()
     {
@@ -534,7 +547,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
      * Retrieve default stores select object
      * Select fields website_id, store_id
      *
-     * @param $withDefault include/exclude default admin website
+     * @param bool $withDefault include/exclude default admin website
      * @return Varien_Db_Select
      */
     public function getDefaultStoresSelect($withDefault = false)

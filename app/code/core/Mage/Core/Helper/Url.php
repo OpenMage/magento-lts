@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +46,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
         return $this->escapeUrl($url);
-//        return $this->_getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
     }
 
     /**
@@ -107,13 +100,13 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     /**
      * Add request parameter into url
      *
-     * @param  $url string
-     * @param  $param array( 'key' => value )
+     * @param string $url
+     * @param array $param ( 'key' => value )
      * @return string
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (false === strpos($url,'?'))? '?' : '&';
+        $startDelimiter = (false === strpos($url, '?'))? '?' : '&';
 
         $arrQueryParams = array();
         foreach ($param as $key => $value) {
@@ -122,7 +115,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             }
 
             if (is_array($value)) {
-                // $key[]=$value1&$key[]=$value2 ...
                 $arrQueryParams[] = $key . '[]=' . implode('&' . $key . '[]=', $value);
             } elseif (is_null($value)) {
                 $arrQueryParams[] = $key;

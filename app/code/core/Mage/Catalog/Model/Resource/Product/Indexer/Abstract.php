@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,8 +85,11 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
                     . " AND {$sAlias}.store_id = {$store}",
                 array()
             );
-            $expression = $adapter->getCheckSql($adapter->getIfNullSql("{$sAlias}.value_id", -1) . ' > 0',
-                "{$sAlias}.value", "{$dAlias}.value");
+            $expression = $adapter->getCheckSql(
+                $adapter->getIfNullSql("{$sAlias}.value_id", -1) . ' > 0',
+                "{$sAlias}.value",
+                "{$dAlias}.value"
+            );
         }
 
         if (!is_null($condition)) {
@@ -131,11 +128,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
             $select->join(
                 array('csg' => $this->getTable('core/store_group')),
                 'csg.group_id = cw.default_group_id',
-                array())
+                array()
+            )
             ->join(
                 array('cs' => $this->getTable('core/store')),
                 'cs.store_id = csg.default_store_id',
-                array());
+                array()
+            );
         }
 
         return $this;

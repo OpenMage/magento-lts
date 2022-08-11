@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +41,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
      * Add filter by entity
      *
      * @param string | array $entity
-     * @return Mage_Index_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addEntityFilter($entity)
     {
@@ -63,7 +57,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
      * Add filter by type
      *
      * @param string | array $type
-     * @return Mage_Index_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addTypeFilter($type)
     {
@@ -80,7 +74,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
      *
      * @param int|array|Mage_Index_Model_Process $process
      * @param string $status
-     * @return Mage_Index_Model_Resource_Event_Collection
+     * @return $this
      */
     public function addProcessFilter($process, $status = null)
     {
@@ -106,12 +100,13 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Join index_process_event table to event table
      *
-     * @return Mage_Index_Model_Resource_Event_Collection
+     * @return $this
      */
     protected function _joinProcessEventTable()
     {
         if (!$this->getFlag('process_event_table_joined')) {
-            $this->getSelect()->join(array('process_event' => $this->getTable('index/process_event')),
+            $this->getSelect()->join(
+                array('process_event' => $this->getTable('index/process_event')),
                 'process_event.event_id=main_table.event_id',
                 array('process_event_status' => 'status')
             );
@@ -123,7 +118,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     /**
      * Reset collection state
      *
-     * @return Mage_Index_Model_Resource_Event_Collection
+     * @return $this
      */
     public function reset()
     {

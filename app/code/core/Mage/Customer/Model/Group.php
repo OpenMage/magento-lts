@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,9 +23,11 @@
  *
  * @method Mage_Customer_Model_Resource_Group _getResource()
  * @method Mage_Customer_Model_Resource_Group getResource()
+ * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
+ *
  * @method string getCustomerGroupCode()
- * @method Mage_Customer_Model_Group setCustomerGroupCode(string $value)
- * @method Mage_Customer_Model_Group setTaxClassId(int $value)
+ * @method $this setCustomerGroupCode(string $value)
+ * @method $this setTaxClassId(int $value)
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -78,6 +74,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      * Alias for setCustomerGroupCode
      *
      * @param string $value
+     * @return $this
      */
     public function setCode($value)
     {
@@ -94,6 +91,10 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getCustomerGroupCode();
     }
 
+    /**
+     * @param int|null $groupId
+     * @return int
+     */
     public function getTaxClassId($groupId = null)
     {
         if (!is_null($groupId)) {
@@ -106,7 +107,9 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         return $this->getData('tax_class_id');
     }
 
-
+    /**
+     * @return bool
+     */
     public function usesAsDefault()
     {
         $data = Mage::getConfig()->getStoresConfigByPath(self::XML_PATH_DEFAULT_ID);
@@ -119,21 +122,21 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Processing data save after transaction commit
      *
-     * @return Mage_Customer_Model_Group
+     * @return $this
      */
     public function afterCommitCallback()
     {
         parent::afterCommitCallback();
         Mage::getSingleton('index/indexer')->processEntityAction(
-            $this, self::ENTITY, Mage_Index_Model_Event::TYPE_SAVE
+            $this,
+            self::ENTITY,
+            Mage_Index_Model_Event::TYPE_SAVE
         );
         return $this;
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -144,7 +147,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
     /**
      * Prepare customer group data
      *
-     * @return Mage_Customer_Model_Group
+     * @return $this
      */
     protected function _prepareData()
     {
@@ -153,5 +156,4 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
         );
         return $this;
     }
-
 }

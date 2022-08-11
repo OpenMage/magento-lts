@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,12 +30,19 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 {
     protected $_attribute = null;
 
+    /**
+     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @return $this
+     */
     public function setAttributeObject($attribute)
     {
         $this->_attribute = $attribute;
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     */
     public function getAttributeObject()
     {
         if (null === $this->_attribute) {
@@ -53,7 +54,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * Preparing default form elements for editing attribute
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -65,7 +66,8 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             'method' => 'post'
         ));
 
-        $fieldset = $form->addFieldset('base_fieldset',
+        $fieldset = $form->addFieldset(
+            'base_fieldset',
             array('legend'=>Mage::helper('eav')->__('Attribute Properties'))
         );
         if ($attributeObject->getAttributeId()) {
@@ -78,8 +80,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
 
         $yesno = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
 
-        $validateClass = sprintf('validate-code validate-length maximum-length-%d',
-            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH);
+        $validateClass = sprintf(
+            'validate-code validate-length maximum-length-%d',
+            Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH
+        );
         $fieldset->addField('attribute_code', 'text', array(
             'name'  => 'attribute_code',
             'label' => Mage::helper('eav')->__('Attribute Code'),
@@ -169,7 +173,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
     /**
      * Initialize form fileds values
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract
+     * @inheritDoc
      */
     protected function _initFormValues()
     {
@@ -217,5 +221,4 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Main_Abstract extends Mag
             ->createBlock('eav/adminhtml_attribute_edit_js')->toHtml();
         return $html.$jsScripts;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +55,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve quote items
      *
-     * @return array
+     * @return Mage_Sales_Model_Quote_Item[]
      */
     public function getQuoteItems()
     {
@@ -96,7 +90,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default shipping address
      *
-     * @return Mage_Customer_Model_Address || false
+     * @return Mage_Customer_Model_Address | false
      */
     public function getCustomerDefaultShippingAddress()
     {
@@ -105,7 +99,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultShippingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -118,7 +112,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     /**
      * Retrieve customer default billing address
      *
-     * @return Mage_Customer_Model_Address || false
+     * @return Mage_Customer_Model_Address|false
      */
     public function getCustomerDefaultBillingAddress()
     {
@@ -127,7 +121,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $address = $this->getCustomer()->getDefaultBillingAddress();
             if (!$address) {
                 foreach ($this->getCustomer()->getAddresses() as $address) {
-                    if($address){
+                    if ($address) {
                         break;
                     }
                 }
@@ -137,6 +131,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
         return $address;
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @return Mage_Sales_Model_Order
+     */
     protected function _createOrderFromAddress($address)
     {
         $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
@@ -151,6 +149,9 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
     }
 
     /**
+     * @param string|array $email
+     * @param string $name
+     * @param Mage_Sales_Model_Order $order
      * @deprecated after 1.4.0.0-rc1
      */
     protected function _emailOrderConfirmation($email, $name, $order)

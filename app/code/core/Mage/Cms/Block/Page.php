@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms page content block
+ *
+ * @method int getPageId()
  *
  * @category   Mage
  * @package    Mage_Cms
@@ -56,9 +51,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     }
 
     /**
-     * Prepare global layout
-     *
-     * @return Mage_Cms_Block_Page
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -91,8 +84,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
             Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
 
-            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
-                $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+            if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
+                foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
+                    $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
+                }
             }
         }
 
@@ -108,16 +103,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $head->setDescription($page->getMetaDescription());
         }
 
-        $breadcrumbsObject = new Varien_Object();
-        $breadcrumbsObject->setCrumbs($breadcrumbsArray);
-
-        Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
-
-        if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
-            foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {
-               $breadcrumbs->addCrumb($breadcrumbsItem['crumbName'], $breadcrumbsItem['crumbInfo']);
-            }
-        }
         return parent::_prepareLayout();
     }
 
@@ -128,7 +113,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var $helper Mage_Cms_Helper_Data */
+        /* @var Mage_Cms_Helper_Data $helper */
         $helper = Mage::helper('cms');
         $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,14 +31,14 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * User table name
      *
-     * @var unknown
+     * @var string
      */
     protected $_usersTable;
 
     /**
      * Rule table name
      *
-     * @var unknown
+     * @var string
      */
     protected $_ruleTable;
 
@@ -63,8 +57,8 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Action before save
      *
-     * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @param Mage_Core_Model_Abstract|Mage_Api_Model_Roles $role
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $role)
     {
@@ -90,7 +84,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Action after save
      *
      * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $role)
     {
@@ -103,7 +97,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Action after delete
      *
      * @param Mage_Core_Model_Abstract $role
-     * @return Mage_Api_Model_Resource_Roles
+     * @return $this
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
     {
@@ -117,7 +111,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
      * Get role users
      *
      * @param Mage_Api_Model_Roles $role
-     * @return unknown
+     * @return array
      */
     public function getRoleUsers(Mage_Api_Model_Roles $role)
     {
@@ -140,12 +134,13 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     {
         $users  = $this->getRoleUsers($role);
         $rowsCount = 0;
-        if (sizeof($users) > 0) {
+        if (count($users)) {
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
                 array('reload_acl_flag' => 1),
-                array('user_id IN(?)' => $users));
+                array('user_id IN(?)' => $users)
+            );
         }
-        return ($rowsCount > 0) ? true : false;
+        return $rowsCount > 0;
     }
 }

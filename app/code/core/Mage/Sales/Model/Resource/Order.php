@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +75,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Init virtual grid records for entity
      *
-     * @return Mage_Sales_Model_Resource_Order
+     * @return $this
      */
     protected function _initVirtualGridColumns()
     {
@@ -97,17 +91,19 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
             $adapter->quote(' '),
             $ifnullLast
         ));
+        $concatAddress = new Zend_Db_Expr("TRIM(REPLACE($concatAddress,'  ', ' '))");
+
         $this->addVirtualGridColumn(
-                'billing_name',
-                'sales/order_address',
-                array('billing_address_id' => 'entity_id'),
-                $concatAddress
-            )
+            'billing_name',
+            'sales/order_address',
+            array('billing_address_id' => 'entity_id'),
+            $concatAddress
+        )
             ->addVirtualGridColumn(
                 'shipping_name',
                 'sales/order_address',
-                 array('shipping_address_id' => 'entity_id'),
-                 $concatAddress
+                array('shipping_address_id' => 'entity_id'),
+                $concatAddress
             );
 
         return $this;
@@ -127,18 +123,21 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
         $select  = $adapter->select()
             ->from(
                 array('o' => $this->getTable('sales/order_item')),
-                array('o.product_type', new Zend_Db_Expr('COUNT(*)')))
+                array('o.product_type', new Zend_Db_Expr('COUNT(*)'))
+            )
             ->joinInner(
                 array('p' => $this->getTable('catalog/product')),
                 'o.product_id=p.entity_id',
-                array())
+                array()
+            )
             ->where('o.order_id=?', $orderId)
             ->group('o.product_type')
         ;
         if ($productTypeIds) {
             $select->where(
                 sprintf('(o.product_type %s (?))', ($isProductTypeIn ? 'IN' : 'NOT IN')),
-                $productTypeIds);
+                $productTypeIds
+            );
         }
         return $adapter->fetchPairs($select);
     }

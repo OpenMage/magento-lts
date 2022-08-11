@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,11 +49,19 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         parent::__construct(Mage::getConfig()->getNode('global/sales/order'));
     }
 
+    /**
+     * @param string $status
+     * @return Varien_Simplexml_Element
+     */
     protected function _getStatus($status)
     {
         return $this->getNode('statuses/'.$status);
     }
 
+    /**
+     * @param string $state
+     * @return Varien_Simplexml_Element
+     */
     protected function _getState($state)
     {
         return $this->getNode('states/'.$state);
@@ -170,6 +172,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 $collection = Mage::getResourceModel('sales/order_status_collection')
                     ->addStateFilter($_state)
                     ->orderByLabel();
+                /** @var Mage_Sales_Model_Order_Status $status */
                 foreach ($collection as $status) {
                     $code = $status->getStatus();
                     if ($addLabels) {
@@ -241,8 +244,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
                 $isVisibleOnFront = (string)$state->visible_on_front;
                 if ((bool)$isVisibleOnFront || ($state->visible_on_front && $isVisibleOnFront == '')) {
                     $this->_states['visible'][] = $name;
-                }
-                else {
+                } else {
                     $this->_states['invisible'][] = $name;
                 }
                 foreach ($state->statuses->children() as $status) {

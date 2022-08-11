@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Db
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,8 +35,14 @@ class Varien_Db_Tree_Node {
     public $hasChild = false;
     public $numChild = 0;
 
-
-    function __construct($nodeData = array(), $keys) {
+    /**
+     * Varien_Db_Tree_Node constructor.
+     * @param array $nodeData
+     * @param array $keys
+     * @throws Varien_Db_Tree_Node_Exception
+     */
+    function __construct($nodeData, $keys)
+    {
         if (empty($nodeData)) {
             throw new Varien_Db_Tree_Node_Exception('Empty array of node information');
         }
@@ -50,13 +50,13 @@ class Varien_Db_Tree_Node {
             throw new Varien_Db_Tree_Node_Exception('Empty keys array');
         }
 
-        $this->id    = $nodeData[$keys['id']];
-        $this->pid   = $nodeData[$keys['pid']];
-        $this->left  = $nodeData[$keys['left']];
+        $this->id = $nodeData[$keys['id']];
+        $this->pid = $nodeData[$keys['pid']];
+        $this->left = $nodeData[$keys['left']];
         $this->right = $nodeData[$keys['right']];
         $this->level = $nodeData[$keys['level']];
 
-        $this->data  = $nodeData;
+        $this->data = $nodeData;
         $a = $this->right - $this->left;
         if ($a > 1) {
             $this->hasChild = true;
@@ -92,7 +92,7 @@ class Varien_Db_Tree_Node {
     function getId() {
         return $this->id;
     }
-    
+
     /**
      * Return true if node have chield
      *

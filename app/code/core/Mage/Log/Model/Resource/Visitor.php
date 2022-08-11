@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,6 +35,10 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected $_urlLoggingCondition;
 
+    /**
+     * Mage_Log_Model_Resource_Visitor constructor.
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         parent::__construct();
@@ -60,7 +58,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Prepare data for save
      *
-     * @param Mage_Core_Model_Abstract $visitor
+     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
      * @return array
      */
     protected function _prepareDataForSave(Mage_Core_Model_Abstract $visitor)
@@ -77,8 +75,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about url
      *
-     * @param   Mage_Log_Model_Visitor $visitor
-     * @return  Mage_Log_Model_Resource_Visitor
+     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return  $this
      */
     protected function _saveUrlInfo($visitor)
     {
@@ -99,8 +97,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save url info before save
      *
-     * @param Mage_Core_Model_Abstract $visitor
-     * @return Mage_Log_Model_Resource_Visitor
+     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $visitor)
     {
@@ -116,8 +114,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Actions after save
      *
-     * @param Mage_Core_Model_Abstract $visitor
-     * @return Mage_Log_Model_Resource_Visitor
+     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return $this
      */
     protected function _afterSave(Mage_Core_Model_Abstract $visitor)
     {
@@ -148,8 +146,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Perform actions after object load
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @param Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $object
+     * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -171,12 +169,12 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving visitor information
      *
-     * @param   Mage_Log_Model_Visitor $visitor
-     * @return  Mage_Log_Model_Resource_Visitor
+     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return  $this
      */
     protected function _saveVisitorInfo($visitor)
     {
-        /* @var $stringHelper Mage_Core_Helper_String */
+        /* @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
         $referer    = $stringHelper->cleanString($visitor->getHttpReferer());
@@ -207,8 +205,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving visitor and url relation
      *
-     * @param   Mage_Log_Model_Visitor $visitor
-     * @return  Mage_Log_Model_Resource_Visitor
+     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return  $this
      */
     protected function _saveVisitorUrl($visitor)
     {
@@ -226,8 +224,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about customer
      *
-     * @param   Mage_Log_Model_Visitor $visitor
-     * @return  Mage_Log_Model_Resource_Visitor
+     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return  $this
      */
     protected function _saveCustomerInfo($visitor)
     {
@@ -272,8 +270,8 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Saving information about quote
      *
-     * @param   Mage_Log_Model_Visitor $visitor
-     * @return  Mage_Log_Model_Resource_Visitor
+     * @param   Mage_Core_Model_Abstract|Mage_Log_Model_Visitor $visitor
+     * @return  $this
      */
     protected function _saveQuoteInfo($visitor)
     {

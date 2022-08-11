@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Retrieve product attribute (public method for status model)
      *
      * @param string $attributeCode
-     * @return Mage_Catalog_Model_Resource_Eav_Attribute
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
     {
@@ -64,7 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param unknown_type $attribute
+     * @param string|integer|Mage_Core_Model_Config_Element $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)
@@ -81,7 +75,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      *
      * @param int $productId
      * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Product_Status
+     * @return $this
      */
     public function refreshEnabledIndex($productId, $storeId)
     {
@@ -102,9 +96,11 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Update product status for store
      *
      * @param int $productId
-     * @param int $storId
+     * @param int $storeId
      * @param int $value
-     * @return Mage_Catalog_Model_Resource_Product_Status
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateProductStatus($productId, $storeId, $value)
     {
@@ -184,7 +180,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $select = $adapter->select()
                 ->from(
                     array('t1' => $attributeTable),
-                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql))
+                    array('entity_id' => 't1.entity_id', 'value' => $valueCheckSql)
+                )
                 ->joinLeft(
                     array('t2' => $attributeTable),
                     't1.entity_id = t2.entity_id AND t1.attribute_id = t2.attribute_id AND t2.store_id = '

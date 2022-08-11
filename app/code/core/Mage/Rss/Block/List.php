@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,10 +35,11 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add Link elements to head
      *
-     * @return Mage_Rss_Block_List
+     * @return $this
      */
     protected function _prepareLayout()
     {
+        /** @var Mage_Page_Block_Html_Head $head */
         $head   = $this->getLayout()->getBlock('head');
         $feeds  = $this->getRssMiscFeeds();
         if ($head && !empty($feeds)) {
@@ -58,7 +53,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Retrieve rss feeds
      *
-     * @return array
+     * @return array|false
      */
     public function getRssFeeds()
     {
@@ -68,9 +63,12 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     /**
      * Add new rss feed
      *
-     * @param   string $url
-     * @param   string $label
-     * @return  Mage_Core_Helper_Abstract
+     * @param string $url
+     * @param string $label
+     * @param array $param
+     * @param bool $customerGroup
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addRssFeed($url, $label, $param = array(), $customerGroup=false)
     {
@@ -93,11 +91,18 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $this->_rssFeeds=array();
     }
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCurrentStoreId()
     {
         return Mage::app()->getStore()->getId();
     }
 
+    /**
+     * @return int
+     */
     public function getCurrentCustomerGroupId()
     {
         return Mage::getSingleton('customer/session')->getCustomerGroupId();
@@ -130,6 +135,9 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
 */
     }
 
+    /**
+     * @return array|false
+     */
     public function getRssMiscFeeds()
     {
         $this->resetRssFeed();
@@ -183,7 +191,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         if((bool)Mage::getStoreConfig($path)){
             $category = Mage::getModel('catalog/category');
 
-            /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+            /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
             $treeModel = $category->getTreeModel()->loadNode(Mage::app()->getStore()->getRootCategoryId());
             $nodes = $treeModel->loadChildren()->getChildren();
 

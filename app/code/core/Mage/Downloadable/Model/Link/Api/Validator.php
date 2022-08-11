@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,10 +148,10 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      */
     public function validateFileDetails(&$var)
     {
-        if (!isset ($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
+        if (!isset($var['name']) || !is_string($var['name']) || strlen($var['name']) === 0) {
             throw new Exception('no_filename');
         }
-        if (!isset ($var['base64_content'])
+        if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
             || strlen($var['base64_content']) === 0
         ) {
@@ -192,7 +186,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
     public function validateTitle(&$var)
     {
         if (!is_string($var) || strlen($var) === 0) {
-           throw new Exception('no_title');
+            throw new Exception('no_title');
         }
     }
 

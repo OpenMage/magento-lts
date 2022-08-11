@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +42,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @param Mage_Core_Model_Config $xmlConfig
      * @param string $condition
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function loadToXml(Mage_Core_Model_Config $xmlConfig, $condition = null)
     {
@@ -107,7 +101,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id=>$w) {
+        foreach ($websites as $id => $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }
@@ -179,7 +173,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $value
      * @param string $scope
      * @param int $scopeId
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function saveConfig($path, $value, $scope, $scopeId)
     {
@@ -213,7 +207,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * @param string $path
      * @param string $scope
      * @param int $scopeId
-     * @return Mage_Core_Model_Resource_Config
+     * @return $this
      */
     public function deleteConfig($path, $scope, $scopeId)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,9 +22,15 @@
  * Adminhtml billing agreement info tab
  *
  * @author Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setCreatedAt(string $formatDate)
+ * @method $this setCustomerEmail(string $value)
+ * @method $this setCustomerUrl(string $value)
+ * @method $this setReferenceId(string $value)
+ * @method $this setStatus(string $value)
+ * @method $this setUpdatedAt(string $value)
  */
-class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Adminhtml_Block_Abstract
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     /**
      * Set custom template
@@ -111,7 +111,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
             $this->helper('core')->formatDate($agreement->getCreatedAt(), 'short', true)
         );
         $this->setUpdatedAt(
-             ($agreement->getUpdatedAt())
+            ($agreement->getUpdatedAt())
                 ? $this->helper('core')->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
         );
 

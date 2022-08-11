@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -98,8 +92,10 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getChildrenIds($parentId, $required = true)
     {
         return Mage::getResourceSingleton('catalog/product_link')
-            ->getChildrenIds($parentId,
-                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+            ->getChildrenIds(
+                $parentId,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+            );
     }
 
     /**
@@ -111,8 +107,10 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function getParentIdsByChild($childId)
     {
         return Mage::getResourceSingleton('catalog/product_link')
-            ->getParentIdsByChild($childId,
-                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED);
+            ->getParentIdsByChild(
+                $childId,
+                Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
+            );
     }
 
     /**
@@ -151,7 +149,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      *
      * @param  int $status
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function addStatusFilter($status, $product = null)
     {
@@ -170,12 +168,14 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Set only saleable filter
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function setSaleableStatus($product = null)
     {
-        $this->getProduct($product)->setData($this->_keyStatusFilters,
-            Mage::getSingleton('catalog/product_status')->getSaleableStatusIds());
+        $this->getProduct($product)->setData(
+            $this->_keyStatusFilters,
+            Mage::getSingleton('catalog/product_status')->getSaleableStatusIds()
+        );
         return $this;
     }
 
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Retrieve collection of associated products
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Link_Product_Collection
      */
     public function getAssociatedProductCollection($product = null)
     {
@@ -255,7 +255,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
      * Save type related data
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Product_Type_Grouped
+     * @return $this
      */
     public function save($product = null)
     {
@@ -286,10 +286,9 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
             if ($associatedProducts || !$isStrictProcessMode) {
                 foreach ($associatedProducts as $subProduct) {
                     $subProductId = $subProduct->getId();
-                    if(isset($productsInfo[$subProductId])) {
+                    if (isset($productsInfo[$subProductId])) {
                         $qty = $productsInfo[$subProductId];
                         if (!empty($qty) && is_numeric($qty)) {
-
                             $_result = $subProduct->getTypeInstance(true)
                                 ->_prepareProduct($buyRequest, $subProduct, $processMode);
                             if (is_string($_result) && !is_array($_result)) {
@@ -303,7 +302,8 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                             if ($isStrictProcessMode) {
                                 $_result[0]->setCartQty($qty);
                                 $_result[0]->addCustomOption('product_type', self::TYPE_CODE, $product);
-                                $_result[0]->addCustomOption('info_buyRequest',
+                                $_result[0]->addCustomOption(
+                                    'info_buyRequest',
                                     serialize(array(
                                         'super_product_config' => array(
                                             'product_type'  => self::TYPE_CODE,
@@ -359,7 +359,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
     public function processBuyRequest($product, $buyRequest)
     {
         $superGroup = $buyRequest->getSuperGroup();
-        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, 'intval') : array();
+        $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : array();
 
         $options = array('super_group' => $superGroup);
 

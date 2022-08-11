@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Sales_Model_Entity_Setup */
+/* @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
 $orderGridTable             = $installer->getTable('sales/order_grid');
@@ -40,8 +34,11 @@ $billingAgreementTable      = $installer->getTable('sales/billing_agreement');
 $billingAgreementOrderTable = $installer->getTable('sales/billing_agreement_order');
 
 //-------
-$installer->getConnection()->addColumn($orderGridTable,
-    'store_name', 'varchar(255) null default null AFTER `store_id`');
+$installer->getConnection()->addColumn(
+    $orderGridTable,
+    'store_name',
+    'varchar(255) null default null AFTER `store_id`'
+);
 
 $installer->run("
     UPDATE {$orderGridTable} AS og
@@ -51,8 +48,11 @@ $installer->run("
 ");
 
 //-------
-$installer->getConnection()->addColumn($paymentTransactionTable,
-    'created_at', 'DATETIME NULL');
+$installer->getConnection()->addColumn(
+    $paymentTransactionTable,
+    'created_at',
+    'DATETIME NULL'
+);
 
 //-------
 $this->getConnection()->addColumn($orderItemTable, 'is_nominal', 'int NOT NULL DEFAULT \'0\'');
@@ -78,7 +78,6 @@ $installer->getConnection()->addConstraint(
     'customer_id',
     $installer->getTable('customer/entity'),
     'entity_id'
-
 );
 
 //-------
@@ -149,12 +148,22 @@ CREATE TABLE `{$profileTable}` (
   KEY `IDX_RECURRING_PROFILE_STORE` (`store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_CUSTOMER', $profileTable, 'customer_id',
-    $customerEntityTable, 'entity_id', 'SET NULL'
+$this->getConnection()->addConstraint(
+    'FK_RECURRING_PROFILE_CUSTOMER',
+    $profileTable,
+    'customer_id',
+    $customerEntityTable,
+    'entity_id',
+    'SET NULL'
 );
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_STORE', $profileTable, 'store_id',
-    $coreStoreTable, 'store_id', 'SET NULL'
+$this->getConnection()->addConstraint(
+    'FK_RECURRING_PROFILE_STORE',
+    $profileTable,
+    'store_id',
+    $coreStoreTable,
+    'store_id',
+    'SET NULL'
 );
 
 $this->run("
@@ -168,10 +177,18 @@ CREATE TABLE `{$profileOrderTable}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_PROFILE', $profileOrderTable, 'profile_id',
-    $profileTable, 'profile_id'
+$this->getConnection()->addConstraint(
+    'FK_RECURRING_PROFILE_ORDER_PROFILE',
+    $profileOrderTable,
+    'profile_id',
+    $profileTable,
+    'profile_id'
 );
 
-$this->getConnection()->addConstraint('FK_RECURRING_PROFILE_ORDER_ORDER', $profileOrderTable, 'order_id',
-    $flatOrderTable, 'entity_id'
+$this->getConnection()->addConstraint(
+    'FK_RECURRING_PROFILE_ORDER_ORDER',
+    $profileOrderTable,
+    'order_id',
+    $flatOrderTable,
+    'entity_id'
 );

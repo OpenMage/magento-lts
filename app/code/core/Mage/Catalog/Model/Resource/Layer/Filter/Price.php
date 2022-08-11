@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -289,7 +283,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $range
      * @param int $index    the range factor
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @return $this
      */
     public function applyFilterToCollection($filter, $range, $index)
     {
@@ -337,6 +331,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param float $price
      * @param int $index
+     * @param null $lowerPrice
      * @return array|false
      */
     public function loadPreviousPrices($filter, $price, $index, $lowerPrice = null)
@@ -362,7 +357,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param float $price
      * @param int $rightIndex
      * @param null|int $upperPrice
-     * @return array
+     * @return array|false
      */
     public function loadNextPrices($filter, $price, $rightIndex, $upperPrice = null)
     {
@@ -397,7 +392,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * Apply price range filter to product collection
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
-     * @return Mage_Catalog_Model_Resource_Layer_Filter_Price
+     * @return $this
      */
     public function applyPriceRange($filter)
     {
@@ -429,6 +424,5 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         }
 
         return $this;
-
     }
 }

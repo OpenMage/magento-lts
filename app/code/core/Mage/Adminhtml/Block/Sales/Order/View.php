@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,21 +93,6 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
-        if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
-            $confirmationMessage = $coreHelper->jsQuoteEscape(
-                Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
-            );
-            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
-            if ($order->getPayment()->getMethodInstance()->isGateway()) {
-                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
-            }
-            $this->_addButton('order_creditmemo', array(
-                'label'     => Mage::helper('sales')->__('Credit Memo'),
-                'onclick'   => $onClick,
-                'class'     => 'go'
-            ));
-        }
-
         // invoice action intentionally
         if ($this->_isAllowedAction('invoice') && $order->canVoidPayment()) {
             $confirmationMessage = $coreHelper->jsQuoteEscape(
@@ -186,6 +165,21 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ));
         }
 
+        if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
+            $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
+            if ($order->getPayment()->getMethodInstance()->isGateway()) {
+                $confirmationMessage = $coreHelper->jsQuoteEscape(
+                    Mage::helper('sales')->__('This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you wish to proceed?')
+                );
+                $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
+            }
+            $this->_addButton('order_creditmemo', array(
+                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'onclick'   => $onClick,
+                'class'     => 'go'
+            ));
+        }
+
         if ($this->_isAllowedAction('reorder')
             && $this->helper('sales/reorder')->isAllowed($order->getStore())
             && $order->canReorderIgnoreSalable()
@@ -246,7 +240,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
     public function getCancelUrl()
     {
-        return $this->getUrl('*/*/cancel');
+        return $this->getUrlSecure('*/*/cancel');
     }
 
     public function getInvoiceUrl()
@@ -315,29 +309,14 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
     {
         return $this->getUrl('*/*/reviewPayment', array('action' => $action));
     }
-//
-//    /**
-//     * Return URL for accept payment action
-//     *
-//     * @return string
-//     */
-//    public function getAcceptPaymentUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPayment', array('action' => 'accept'));
-//    }
-//
-//    /**
-//     * Return URL for deny payment action
-//     *
-//     * @return string
-//     */
-//    public function getDenyPaymentUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPayment', array('action' => 'deny'));
-//    }
-//
-//    public function getPaymentReviewUpdateUrl()
-//    {
-//        return $this->getUrl('*/*/reviewPaymentUpdate');
-//    }
+
+    /**
+     * Return header for view grid
+     *
+     * @return string
+     */
+    public function getHeaderHtml()
+    {
+        return '<h3 class="' . $this->getHeaderCssClass() . '">' . $this->escapeHtml($this->getHeaderText()) . '</h3>';
+    }
 }

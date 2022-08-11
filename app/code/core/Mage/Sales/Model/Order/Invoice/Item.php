@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,6 +87,7 @@
  * @method Mage_Sales_Model_Order_Invoice_Item setHiddenTaxAmount(float $value)
  * @method float getBaseHiddenTaxAmount()
  * @method Mage_Sales_Model_Order_Invoice_Item setBaseHiddenTaxAmount(float $value)
+ * @method Mage_Sales_Model_Order_Invoice_Item setStoreId(int $value)
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -103,13 +98,15 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     protected $_eventPrefix = 'sales_invoice_item';
     protected $_eventObject = 'invoice_item';
 
+    /** @var Mage_Sales_Model_Order_Invoice */
     protected $_invoice = null;
+    /** @var Mage_Sales_Model_Order_Item */
     protected $_orderItem = null;
 
     /**
      * Initialize resource model
      */
-    function _construct()
+    public function _construct()
     {
         $this->_init('sales/order_invoice_item');
     }
@@ -170,8 +167,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         if (is_null($this->_orderItem)) {
             if ($this->getInvoice()) {
                 $this->_orderItem = $this->getInvoice()->getOrder()->getItemById($this->getOrderItemId());
-            }
-            else {
+            } else {
                 $this->_orderItem = Mage::getModel('sales/order_item')
                     ->load($this->getOrderItemId());
             }
@@ -189,8 +185,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     {
         if ($this->getOrderItem()->getIsQtyDecimal()) {
             $qty = (float) $qty;
-        }
-        else {
+        } else {
             $qty = (int) $qty;
         }
         $qty = $qty > 0 ? $qty : 0;
@@ -201,8 +196,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         $qty = sprintf("%F", $qty);
         if ($qty <= $qtyToInvoice || $this->getOrderItem()->isDummy()) {
             $this->setData('qty', $qty);
-        }
-        else {
+        } else {
             Mage::throwException(
                 Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName())
             );
@@ -213,7 +207,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Applying qty to order item
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function register()
     {
@@ -236,7 +230,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Cancelling invoice item
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function cancel()
     {
@@ -260,7 +254,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Invoice item row total calculation
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     public function calcRowTotal()
     {
@@ -305,7 +299,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * Before object save
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     protected function _beforeSave()
     {
@@ -321,7 +315,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
     /**
      * After object save
      *
-     * @return Mage_Sales_Model_Order_Invoice_Item
+     * @return $this
      */
     protected function _afterSave()
     {

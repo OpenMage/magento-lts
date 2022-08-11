@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,10 +40,10 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $attribute
-     * @param unknown_type $filter
-     * @param unknown_type $entityFilter
-     * @return unknown
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param string $filter
+     * @param int|array $entityFilter
+     * @return array
      */
     public function getFilteredEntities($attribute, $filter, $entityFilter)
     {
@@ -69,9 +63,9 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $attribute
-     * @param unknown_type $entitySelect
-     * @return unknown
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param Zend_Db_Select $entitySelect
+     * @return array
      */
     public function getCount($attribute, $entitySelect)
     {
@@ -90,7 +84,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
             ->group('index.value');
 
         $select = $select->__toString();
-//        $alias = $this->_getReadAdapter()->quoteTableAs($this->getMainTable(), 'index');
         $result = $this->_getReadAdapter()->fetchAll($select);
 
         $counts = array();
@@ -103,21 +96,16 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     /**
      * Enter description here ...
      *
-     * @param unknown_type $collection
-     * @param unknown_type $attribute
-     * @param unknown_type $value
-     * @return Mage_CatalogIndex_Model_Resource_Attribute
+     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param Mage_Eav_Model_Entity_Attribute $attribute
+     * @param string $value
+     * @return $this
      */
     public function applyFilterToCollection($collection, $attribute, $value)
     {
         /**
          * Will be used after SQL review
          */
-//        if ($collection->isEnabledFlat()) {
-//            $collection->getSelect()->where("e.{$attribute->getAttributeCode()}=?", $value);
-//            return $this;
-//        }
-
         $alias = 'attr_index_'.$attribute->getId();
         $collection->getSelect()->join(
             array($alias => $this->getMainTable()),

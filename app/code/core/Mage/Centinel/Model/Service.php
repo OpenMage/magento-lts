@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Centinel
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +95,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      */
     protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)
     {
-        return md5(implode(func_get_args(), '_'));
+        return md5(implode('_', func_get_args()));
     }
 
     /**
@@ -306,7 +300,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
     /**
      * Reset validation state and drop api object
      *
-     * @return Mage_Centinel_Model_Service
+     * @return $this
      */
     public function reset()
     {

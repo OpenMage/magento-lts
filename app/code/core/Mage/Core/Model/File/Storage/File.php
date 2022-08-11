@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +63,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Initialization
      *
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function init()
     {
@@ -109,7 +103,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
     /**
      * Clear files and directories in storage
      *
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function clear()
     {
@@ -193,7 +187,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      *
      * @param  array $data
      * @param  string $callback
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function import($data, $callback)
     {
@@ -217,7 +211,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      * Import directories to storage
      *
      * @param  array $dirs
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function importDirectories($dirs)
     {
@@ -228,7 +222,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      * Import files list
      *
      * @param  array $files
-     * @return Mage_Core_Model_File_Storage_File
+     * @return $this
      */
     public function importFiles($files)
     {
@@ -251,7 +245,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      *
      * @param  array|Mage_Core_Model_File_Storage_Database $file
      * @param  bool $overwrite
-     * @return bool|int
+     * @return bool
      */
     public function saveFile($file, $overwrite = true)
     {
@@ -275,4 +269,22 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
 
         return false;
     }
+
+    /**
+     * @param string $filePath
+     * @return bool
+     */
+    public function lockCreateFile($filePath)
+    {
+        return $this->getResource()->lockCreateFile($filePath);
+    }
+
+    /**
+     * @param string $filePath
+     */
+    public function removeLockedFile($filePath)
+    {
+        $this->getResource()->removeLockedFile($filePath);
+    }
+
 }

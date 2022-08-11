@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -237,8 +231,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Set Free Method Request
      *
-     * @param  string $freeMethod
-     * @return void
+     * @param string $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -560,13 +553,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         if ($configWeightUnit != $countryWeightUnit) {
             $weight = Mage::helper('usa')->convertMeasureWeight(
-                round($weight,3),
+                round((float) $weight,3),
                 $configWeightUnit,
                 $countryWeightUnit
             );
         }
 
-        return round($weight, 3);
+        return round((float) $weight, 3);
     }
 
     /**
@@ -657,7 +650,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Make pieces
      *
      * @param SimpleXMLElement $nodeBkgDetails
-     * @return void
      */
     protected function _makePieces(SimpleXMLElement $nodeBkgDetails)
     {
@@ -679,11 +671,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                 }
                 unset($items[$key]);
                 $sumWeight = $weight;
-                foreach ($items as $key => $weight) {
-                    if (($sumWeight + $weight) < $maxWeight) {
-                        unset($items[$key]);
-                        $sumWeight += $weight;
-                    } elseif (($sumWeight + $weight) > $maxWeight) {
+                foreach ($items as $keyItem => $weightItem) {
+                    if (($sumWeight + $weightItem) < $maxWeight) {
+                        unset($items[$keyItem]);
+                        $sumWeight += $weightItem;
+                    } elseif (($sumWeight + $weightItem) > $maxWeight) {
                         $numberOfPieces++;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
                         $nodePiece->addChild('PieceID', $numberOfPieces);
@@ -691,9 +683,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                         $nodePiece->addChild('Weight', $sumWeight);
                         break;
                     } else {
-                        unset($items[$key]);
+                        unset($items[$keyItem]);
                         $numberOfPieces++;
-                        $sumWeight += $weight;
+                        $sumWeight += $weightItem;
                         $nodePiece = $nodePieces->addChild('Piece', '', '');
                         $nodePiece->addChild('PieceID', $numberOfPieces);
                         $this->_addDimension($nodePiece);
@@ -748,7 +740,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $countryDimensionUnit = $this->getCode('dimensions_variables', $this->_getDimensionUnit());
 
         if ($configDimensionUnit != $countryDimensionUnit) {
-            $dimension = Mage::helper('usa')->convertMeasureDimension(
+            $dimension = (float) Mage::helper('usa')->convertMeasureDimension(
                 round($dimension, 3),
                 $configDimensionUnit,
                 $countryDimensionUnit
@@ -762,15 +754,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Add dimension to piece
      *
      * @param SimpleXMLElement $nodePiece
-     * @return void
      */
     protected function _addDimension($nodePiece)
     {
         $sizeChecker = (string)$this->getConfigData('size');
 
-        $height = $this->_getDimension((string)$this->getConfigData('height'));
-        $depth = $this->_getDimension((string)$this->getConfigData('depth'));
-        $width = $this->_getDimension((string)$this->getConfigData('width'));
+        $height = $this->_getDimension((float)$this->getConfigData('height'));
+        $depth = $this->_getDimension((float)$this->getConfigData('depth'));
+        $width = $this->_getDimension((float)$this->getConfigData('width'));
 
         if ($sizeChecker && $height && $depth && $width) {
             $nodePiece->addChild('Height', $height);
@@ -1011,7 +1002,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Add rate to DHL rates array
      *
      * @param SimpleXMLElement $shipmentDetails
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl_International
+     * @return $this
      */
     protected function _addRate(SimpleXMLElement $shipmentDetails)
     {
@@ -1442,7 +1433,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * @param SimpleXMLElement $xml
      * @param Mage_Shipping_Model_Rate_Request $rawRequest
      * @param string $originRegion
-     * @return void
      */
     protected function _shipmentDetails($xml, $rawRequest, $originRegion = '')
     {
@@ -1564,7 +1554,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Send request for tracking
      *
      * @param array $trackings
-     * @return void
      */
     protected function _getXMLTracking($trackings)
     {
@@ -1638,7 +1627,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      *
      * @param array $trackings
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {

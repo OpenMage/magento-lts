@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +27,9 @@
  */
 class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
 {
+    /**
+     * @var array
+     */
     protected $_terms;
     protected $_minPopularity;
     protected $_maxPopularity;
@@ -45,7 +42,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     /**
      * Load terms and try to sort it by names
      *
-     * @return Mage_CatalogSearch_Block_Term
+     * @return $this
      */
     protected function _loadTerms()
     {
@@ -57,7 +54,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 ->load()
                 ->getItems();
 
-            if( count($terms) == 0 ) {
+            if (count($terms) == 0) {
                 return $this;
             }
 
@@ -66,8 +63,9 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             $this->_minPopularity = end($terms)->getPopularity();
             $range = $this->_maxPopularity - $this->_minPopularity;
             $range = ( $range == 0 ) ? 1 : $range;
+            /** @var Mage_CatalogSearch_Model_Query $term */
             foreach ($terms as $term) {
-                if( !$term->getPopularity() ) {
+                if (!$term->getPopularity()) {
                     continue;
                 }
                 $term->setRatio(($term->getPopularity()-$this->_minPopularity)/$range);
@@ -83,12 +81,19 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getTerms()
     {
         $this->_loadTerms();
         return $this->_terms;
     }
 
+    /**
+     * @param Varien_Object $obj
+     * @return string
+     */
     public function getSearchUrl($obj)
     {
         $url = Mage::getModel('core/url');
@@ -100,11 +105,17 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
         return $url->getUrl('catalogsearch/result');
     }
 
+    /**
+     * @return int
+     */
     public function getMaxPopularity()
     {
         return $this->_maxPopularity;
     }
 
+    /**
+     * @return int
+     */
     public function getMinPopularity()
     {
         return $this->_minPopularity;

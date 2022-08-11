@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,16 +23,23 @@
  *
  * @method Mage_Downloadable_Model_Resource_Sample _getResource()
  * @method Mage_Downloadable_Model_Resource_Sample getResource()
+ * @method Mage_Downloadable_Model_Resource_Sample_Collection getCollection()
+ *
  * @method int getProductId()
- * @method Mage_Downloadable_Model_Sample setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method string getSampleUrl()
- * @method Mage_Downloadable_Model_Sample setSampleUrl(string $value)
+ * @method $this setSampleUrl(string $value)
  * @method string getSampleFile()
- * @method Mage_Downloadable_Model_Sample setSampleFile(string $value)
+ * @method $this setSampleFile(string $value)
  * @method string getSampleType()
- * @method Mage_Downloadable_Model_Sample setSampleType(string $value)
+ * @method $this setSampleType(string $value)
  * @method int getSortOrder()
- * @method Mage_Downloadable_Model_Sample setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method string getStoreTitle()
+ * @method string getTitle()
+ * @method bool getUseDefaultTitle()
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -71,7 +72,7 @@ class Mage_Downloadable_Model_Sample extends Mage_Core_Model_Abstract
     /**
      * After save process
      *
-     * @return Mage_Downloadable_Model_Sample
+     * @inheritDoc
      */
     protected function _afterSave()
     {

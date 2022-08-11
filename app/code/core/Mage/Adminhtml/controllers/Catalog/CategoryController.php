@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'catalog/categories';
+
     /**
      * Initialize requested category and put it into registry.
      * Root category can be returned, if inappropriate store/category is specified
@@ -176,7 +176,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 ->setLastViewedStore($this->getRequest()->getParam('store'));
             Mage::getSingleton('admin/session')
                 ->setLastEditedCategory($category->getId());
-//            $this->_initLayoutMessages('adminhtml/session');
             $this->loadLayout();
 
             $eventResponse = new Varien_Object(array(
@@ -269,6 +268,9 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $storeId = $this->getRequest()->getParam('store');
         $refreshTree = 'false';
         if ($data = $this->getRequest()->getPost()) {
+            if (isset($data['general']['path'])) {
+                unset($data['general']['path']);
+            }
             $category->addData($data['general']);
             if (!$category->getId()) {
                 $parentId = $this->getRequest()->getParam('parent');
@@ -430,8 +432,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Grid Action
      * Display list of products related to current category
-     *
-     * @return void
      */
     public function gridAction()
     {
@@ -447,8 +447,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Tree Action
      * Retrieve category tree
-     *
-     * @return void
      */
     public function treeAction()
     {
@@ -498,12 +496,13 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
-     * Check if admin has permissions to visit related pages
+     * Controller pre-dispatch method
      *
-     * @return boolean
+     * @return Mage_Adminhtml_Controller_Action
      */
-    protected function _isAllowed()
+    public function preDispatch()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('catalog/categories');
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
     }
 }

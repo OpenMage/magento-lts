@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,12 +43,12 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             $isError = false;
 
             $ioConfig = $this->getVars();
-            switch ($this->getVar('type', 'file')) {
+            switch (strtolower($this->getVar('type', 'file'))) {
                 case 'file':
                     //validate export/import path
                     $path = rtrim($ioConfig['path'], '\\/')
                           . DS . $ioConfig['filename'];
-                    /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
+                    /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                     $validator = Mage::getModel('core/file_validator_availablePath');
                     $validator->setPaths( Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH) );
                     if (!$validator->isValid($path)) {
@@ -84,7 +78,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         $message = Mage::helper('dataflow')->__('Destination folder "%s" is not a directory.', $realPath);
                         Mage::throwException($message);
                     } elseif (!$isError) {
-                        if ($forWrite && !is_writeable($realPath)) {
+                        if ($forWrite && !is_writable($realPath)) {
                             $message = Mage::helper('dataflow')->__('Destination folder "%s" is not writable.', $realPath);
                             Mage::throwException($message);
                         } else {
@@ -113,7 +107,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     /**
      * Load data
      *
-     * @return Mage_Dataflow_Model_Convert_Adapter_Io
+     * @return $this
      */
     public function load()
     {
@@ -141,7 +135,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     /**
      * Save result to destination file from temporary
      *
-     * @return Mage_Dataflow_Model_Convert_Adapter_Io
+     * @return $this
      */
     public function save()
     {

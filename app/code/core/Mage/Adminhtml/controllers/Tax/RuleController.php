@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,9 +28,15 @@
 class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/rules';
+
+    /**
      * Index action
      *
-     * @return Mage_Adminhtml_Tax_RuleController
+     * @return $this
      */
     public function indexAction()
     {
@@ -110,7 +110,8 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
             return $this->getResponse()->setRedirect($this->getUrl('*/tax_rule'));
         }
 
-        $ruleModel = $this->_getSingletonModel('tax/calculation_rule');
+        $ruleId = (int)$this->getRequest()->getParam('tax_calculation_rule_id');
+        $ruleModel = $this->_getSingletonModel('tax/calculation_rule')->load($ruleId);
         $ruleModel->setData($postData);
         $ruleModel->setCalculateSubtotal($this->getRequest()->getParam('calculate_subtotal', 0));
 
@@ -153,17 +154,21 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      */
     protected function _isValidRuleRequest($ruleModel)
     {
-        $existingRules = $ruleModel->fetchRuleCodes($ruleModel->getTaxRate(),
-            $ruleModel->getTaxCustomerClass(), $ruleModel->getTaxProductClass());
+        $existingRules = $ruleModel->fetchRuleCodes(
+            $ruleModel->getTaxRate(),
+            $ruleModel->getTaxCustomerClass(),
+            $ruleModel->getTaxProductClass()
+        );
 
         //Remove the current one from the list
-        $existingRules = array_diff($existingRules, array($ruleModel->getCode()));
+        $existingRules = array_diff($existingRules, array($ruleModel->getOrigData('code')));
 
         //Verify if a Rule already exists. If not throw an error
         if (count($existingRules) > 0) {
             $ruleCodes = implode(",", $existingRules);
             $this->_getSingletonModel('adminhtml/session')->addError(
-                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes));
+                $this->_getHelperModel('tax')->__('Rules (%s) already exist for the specified Tax Rate, Customer Tax Class and Product Tax Class combinations', $ruleCodes)
+            );
             return false;
         }
         return true;
@@ -219,16 +224,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if sales rules is allowed
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rules');
-    }
-
-    /**
      * Return model instance
      *
      * @param string $className
@@ -244,10 +239,21 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      * Return helper instance
      *
      * @param string $className
-     * @return Mage_Core_Model_Abstract
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelperModel($className)
     {
         return Mage::helper($className);
+    }
+
+    /**
+     * Controller pre-dispatch method
+     *
+     * @return Mage_Adminhtml_Controller_Action
+     */
+    public function preDispatch()
+    {
+        $this->_setForcedFormKeyActions('delete');
+        return parent::preDispatch();
     }
 }

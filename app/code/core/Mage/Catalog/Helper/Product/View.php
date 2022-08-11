@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +35,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @param Mage_Core_Controller_Front_Action $controller
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function initProductLayout($product, $controller)
     {
@@ -64,7 +58,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         $layoutUpdates = $settings->getLayoutUpdates();
         if ($layoutUpdates) {
             if (is_array($layoutUpdates)) {
-                foreach($layoutUpdates as $layoutUpdate) {
+                foreach ($layoutUpdates as $layoutUpdate) {
                     $update->addUpdate($layoutUpdate);
                 }
             }
@@ -107,7 +101,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
      * @param Mage_Core_Controller_Front_Action $controller
      * @param null|Varien_Object $params
      *
-     * @return Mage_Catalog_Helper_Product_View
+     * @return $this
      */
     public function prepareAndRender($productId, $controller, $params = null)
     {
@@ -117,7 +111,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             $params = new Varien_Object();
         }
 
-        // Standard algorithm to prepare and rendern product view page
+        // Standard algorithm to prepare and render a product view page
         $product = $productHelper->initProduct($productId, $controller, $params);
         if (!$product) {
             throw new Mage_Core_Exception($this->__('Product is not loaded'), $this->ERR_NO_PRODUCT_LOADED);

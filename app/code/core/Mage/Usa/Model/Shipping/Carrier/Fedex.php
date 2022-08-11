@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -133,7 +127,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     {
         $client = new SoapClient($wsdl, array('trace' => $trace));
         $client->__setLocation($this->getConfigFlag('sandbox_mode')
-            ? 'https://wsbeta.fedex.com:443/web-services '
+            ? 'https://wsbeta.fedex.com:443/web-services'
             : 'https://ws.fedex.com:443/web-services'
         );
 
@@ -194,7 +188,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Prepare and set request to this instance
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Fedex
+     * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -591,7 +585,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -990,8 +983,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
 
     /**
      * Set tracking request
-     *
-     * @return void
      */
     protected function setTrackingReqeust()
     {
@@ -1007,7 +998,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * Send request for tracking
      *
      * @param array $tracking
-     * @return void
      */
     protected function _getXMLTracking($tracking)
     {
@@ -1172,7 +1162,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
      * @deprecated after 1.6.0.0 see _parseTrackingResponse()
      * @param array $trackingvalue
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {

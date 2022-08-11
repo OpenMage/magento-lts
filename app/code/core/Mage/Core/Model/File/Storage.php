@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,6 +41,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     const XML_PATH_STORAGE_MEDIA_DATABASE   = 'default/system/media_storage_configuration/media_database';
     const XML_PATH_MEDIA_RESOURCE_WHITELIST = 'default/system/media_storage_configuration/allowed_resources';
     const XML_PATH_MEDIA_RESOURCE_IGNORED   = 'default/system/media_storage_configuration/ignored_resources';
+    const XML_PATH_MEDIA_LOADED_MODULES     = 'default/system/media_storage_configuration/loaded_modules';
     const XML_PATH_MEDIA_UPDATE_TIME        = 'system/media_storage_configuration/configuration_update_time';
 
 
@@ -64,7 +59,8 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * @param  Mage_Core_Model_Abstract $destinationModel
      * @return bool
      */
-    protected function _synchronizeHasErrors(Mage_Core_Model_Abstract $sourceModel,
+    protected function _synchronizeHasErrors(
+        Mage_Core_Model_Abstract $sourceModel,
         Mage_Core_Model_Abstract $destinationModel
     ) {
         if (!$sourceModel || !$destinationModel) {
@@ -95,7 +91,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *
      * @param  int|null $storage
      * @param  array $params
-     * @return Mage_Core_Model_Abstract|bool
+     * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database|false
      */
     public function getStorageModel($storage = null, $params = array())
     {
@@ -130,7 +126,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * )
      *
      * @param  array $storage
-     * @return Mage_Core_Model_File_Storage
+     * @return $this
      */
     public function synchronize($storage)
     {
@@ -220,6 +216,11 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     {
         $config = array();
         $config['media_directory'] = Mage::getBaseDir('media');
+
+        $loadedModules = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_LOADED_MODULES);
+        foreach ($loadedModules as $key => $loadedModule) {
+            $config['loaded_modules'][] = $loadedModule->getName();
+        }
 
         $allowedResources = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_RESOURCE_WHITELIST);
         foreach ($allowedResources as $key => $allowedResource) {

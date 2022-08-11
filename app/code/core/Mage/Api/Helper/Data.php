@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -57,12 +51,10 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Go through a WSI args array and turns it to correct state.
      *
      * @param Object $obj - Link to Object
-     * @return Object
      */
     public function wsiArrayUnpacker(&$obj)
     {
         if (is_object($obj)) {
-
             $modifiedKeys = $this->clearWsiFootprints($obj);
 
             foreach ($obj as $value) {
@@ -89,8 +81,8 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Go through an object parameters and unpack associative object to array.
      *
-     * @param Object $obj - Link to Object
-     * @return Object
+     * @param Object|array $obj - Link to Object
+     * @return bool
      */
     public function v2AssociativeArrayUnpacker(&$obj)
     {
@@ -167,7 +159,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Corrects data representation.
      *
      * @param Object $obj - Link to Object
-     * @return Object
+     * @return array
      */
     public function clearWsiFootprints(&$obj)
     {
@@ -222,10 +214,10 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * For response to the WSI, generates an object from array.
      *
-     * @param Array $arr - Link to Object
-     * @return Object
+     * @param array $arr - Link to Object
+     * @return stdClass
      */
-    public function packArrayToObject(Array $arr)
+    public function packArrayToObject(array $arr)
     {
         $obj = new stdClass();
         $obj->complexObjectArray = $arr;
@@ -236,7 +228,6 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Convert objects and arrays to array recursively
      *
      * @param  array|object $data
-     * @return void
      */
     public function toArray(&$data)
     {
@@ -245,7 +236,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         }
         if (is_array($data)) {
             foreach ($data as &$value) {
-                if (is_array($value) or is_object($value)) {
+                if (is_array($value) || is_object($value)) {
                     $this->toArray($value);
                 }
             }
@@ -382,7 +373,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
         $uri = Zend_Uri_Http::fromString($url);
         $uri->setHost($request->getHttpHost());
         if (!$urlModel->getRouteFrontName()) {
-            $uri->setPath('/' . trim($request->getBasePath() . '/api.php', '/'));
+            $uri->setPath('/' . trim($request->getBasePath() . '/' . basename(getenv('SCRIPT_FILENAME')), '/'));
         } else {
             $uri->setPath($request->getBaseUrl() . $request->getPathInfo());
         }

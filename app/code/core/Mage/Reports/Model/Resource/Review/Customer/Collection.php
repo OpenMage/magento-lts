@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +31,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
     /**
      * Join customers
      *
-     * @return Mage_Reports_Model_Resource_Review_Customer_Collection
+     * @return $this
      */
     public function joinCustomers()
     {
@@ -46,15 +40,15 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
          */
         $this->_useAnalyticFunction = true;
 
-        /** @var $adapter Varien_Db_Adapter_Interface */
+        /** @var Varien_Db_Adapter_Interface $adapter */
         $adapter            = $this->getConnection();
-        /** @var $customer Mage_Customer_Model_Resource_Customer */
+        /** @var Mage_Customer_Model_Resource_Customer $customer */
         $customer           = Mage::getResourceSingleton('customer/customer');
-        /** @var $firstnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $firstnameAttr */
         $firstnameAttr      = $customer->getAttribute('firstname');
-        /** @var $firstnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $firstnameAttr */
         $middlenameAttr      = $customer->getAttribute('middlename');
-        /** @var $lastnameAttr Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $lastnameAttr */
         $lastnameAttr       = $customer->getAttribute('lastname');
 
         $firstnameCondition = array('table_customer_firstname.entity_id = detail.customer_id');
@@ -114,7 +108,8 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
             ->joinInner(
                 array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()),
                 implode(' AND ', $lastnameCondition),
-                array())
+                array()
+            )
             ->columns(array(
                 'customer_id' => 'detail.customer_id',
                 'customer_name' => $customerFullname,

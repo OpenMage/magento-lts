@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +97,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param string $field
      * @param mixed $value
-     * @param unknown_type $object
+     * @param Mage_Core_Model_Abstract $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -119,8 +113,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Perform actions before object save
      *
-     * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
+     * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -140,8 +134,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Perform actions after object save
      *
-     * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
+     * @return $this
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -205,8 +200,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Perform actions after object load
      *
-     * @param Varien_Object $object
-     * @return Mage_Review_Model_Resource_Review
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -226,8 +222,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Action before delete
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Review_Model_Resource_Review
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
+     * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -243,10 +239,29 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Perform actions after object delete
      *
      * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
     {
+        $read_adapter = $this->_getReadAdapter();
+        $select = $read_adapter->select()
+            ->from(
+                $this->_reviewTable,
+                array(
+                    'review_count' => new Zend_Db_Expr('COUNT(*)')
+                )
+            )
+            ->where("entity_id = ?", $object->getEntityId())
+            ->where("entity_pk_value = ?", $object->getEntityPkValue());
+        $total_reviews = $read_adapter->fetchOne($select);
+        if ($total_reviews == 0) {
+            $this->_getWriteAdapter()->delete($this->_aggregateTable, array(
+                'entity_type = ?'   => $object->getEntityId(),
+                'entity_pk_value = ?' => $object->getEntityPkValue()
+            ));
+            return $this;
+        }
+
         $this->aggregate($object);
 
         // reaggregate ratings, that depended on this review
@@ -271,16 +286,20 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->_reviewTable,
+            ->from(
+                $this->_reviewTable,
                 array(
                     'review_count' => new Zend_Db_Expr('COUNT(*)')
-                ))
+                )
+            )
             ->where("{$this->_reviewTable}.entity_pk_value = :pk_value");
         $bind = array(':pk_value' => $entityPkValue);
         if ($storeId > 0) {
-            $select->join(array('store'=>$this->_reviewStoreTable),
+            $select->join(
+                array('store'=>$this->_reviewStoreTable),
                 $this->_reviewTable.'.review_id=store.review_id AND store.store_id = :store_id',
-                array());
+                array()
+            );
             $bind[':store_id'] = (int)$storeId;
         }
         if ($approvedOnly) {
@@ -293,7 +312,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Aggregate
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Mage_Core_Model_Abstract|Mage_Review_Model_Review $object
      */
     public function aggregate($object)
     {
@@ -338,7 +357,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                 ->setRatingSummary(($ratingSummary > 0) ? $ratingSummary : 0)
                 ->setStoreId($ratingSummaryObject->getStoreId());
 
-           $writeAdapter->beginTransaction();
+            $writeAdapter->beginTransaction();
             try {
                 if ($oldData['primary_id'] > 0) {
                     $condition = array("{$this->_aggregateTable}.primary_id = ?" => $oldData['primary_id']);
@@ -378,7 +397,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      *
      * @param array $ratingIds
      * @param int $entityPkValue
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     protected function _aggregateRatings($ratingIds, $entityPkValue)
     {
@@ -390,7 +409,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
             ) {
             foreach ($ratingIds as $ratingId) {
                 $resource->aggregateEntityByRatingId(
-                    $ratingId, $entityPkValue
+                    $ratingId,
+                    $entityPkValue
                 );
             }
         }
@@ -428,7 +448,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Better to call this method in transaction, because operation performed on two separated tables
      *
      * @param int $productId
-     * @return Mage_Review_Model_Resource_Review
+     * @return $this
      */
     public function deleteReviewsByProductId($productId)
     {

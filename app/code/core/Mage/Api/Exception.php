@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +29,12 @@ class Mage_Api_Exception extends Mage_Core_Exception
 {
     protected $_customMessage = null;
 
-    public function __construct($faultCode, $customMessage=null)
+    /**
+     * Mage_Api_Exception constructor.
+     * @param string $faultCode
+     * @param string|null $customMessage
+     */
+    public function __construct($faultCode, $customMessage = null)
     {
         parent::__construct($faultCode);
         $this->_customMessage = $customMessage;
@@ -44,10 +43,10 @@ class Mage_Api_Exception extends Mage_Core_Exception
     /**
      * Custom error message, if error is not in api.
      *
-     * @return unknown
+     * @return string
      */
     public function getCustomMessage()
     {
         return $this->_customMessage;
     }
-} // Class Mage_Api_Model_Resource_Exception End
+}

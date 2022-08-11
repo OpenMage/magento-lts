@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +26,7 @@
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Eav_Model_Resource_Attribute_Collection
-    extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
 {
     /**
      * code of password hash in customer's EAV tables
@@ -88,7 +81,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
      * Set Website scope
      *
      * @param Mage_Core_Model_Website|int $website
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function setWebsite($website)
     {
@@ -113,7 +106,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     /**
      * Initialize collection select
      *
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
@@ -145,7 +138,8 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
             ->join(
                 array('additional_table' => $this->getTable($extraTable)),
                 'additional_table.attribute_id = main_table.attribute_id',
-                $extraColumns)
+                $extraColumns
+            )
             ->where('main_table.entity_type_id = :mt_entity_type_id');
 
         // scope values
@@ -159,15 +153,21 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
             } else {
                 if (isset($mainColumns[$columnName])) {
                     $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql('main_table.%s IS NULL',
-                        'scope_table.%s', 'main_table.%s');
+                    $expression = $connection->getCheckSql(
+                        'main_table.%s IS NULL',
+                        'scope_table.%s',
+                        'main_table.%s'
+                    );
                     $expression = sprintf($expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
                 } elseif (isset($extraColumns[$columnName])) {
                     $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql('additional_table.%s IS NULL',
-                        'scope_table.%s', 'additional_table.%s');
+                    $expression = $connection->getCheckSql(
+                        'additional_table.%s IS NULL',
+                        'scope_table.%s',
+                        'additional_table.%s'
+                    );
                     $expression = sprintf($expression, $columnName, $columnName, $columnName);
                     $this->addFilterToMap($columnName, $expression);
                     $scopeColumns[$alias] = $columnName;
@@ -191,7 +191,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
      * Entity type is defined.
      *
      * @param  int $type
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($type)
     {
@@ -201,7 +201,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     /**
      * Specify filter by "is_visible" field
      *
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function addVisibleFilter()
     {
@@ -211,7 +211,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     /**
      * Exclude system hidden attributes
      *
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function addSystemHiddenFilter()
     {
@@ -224,7 +224,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     /**
      * Exclude system hidden attributes but include password hash
      *
-     * @return Mage_Customer_Model_Entity_Attribute_Collection
+     * @return $this
      */
     public function addSystemHiddenFilterWithPasswordHash()
     {
@@ -238,7 +238,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection
     /**
      * Add exclude hidden frontend input attribute filter to collection
      *
-     * @return Mage_Eav_Model_Resource_Attribute_Collection
+     * @return $this
      */
     public function addExcludeHiddenFrontendFilter()
     {

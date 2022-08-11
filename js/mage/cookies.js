@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,15 +11,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     js
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 // old school cookie functions grabbed off the web
@@ -39,7 +33,7 @@ Mage.Cookies.set = function(name, value){
      var domain = (argc > 4) ? argv[4] : Mage.Cookies.domain;
      var secure = (argc > 5) ? argv[5] : Mage.Cookies.secure;
      document.cookie = name + "=" + escape (value) +
-       ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) +
+       ((expires == null) ? "" : ("; expires=" + expires.toUTCString())) +
        ((path == null) ? "" : ("; path=" + path)) +
        ((domain == null) ? "" : ("; domain=" + domain)) +
        ((secure == true) ? "; secure" : "");
@@ -64,8 +58,7 @@ Mage.Cookies.get = function(name){
 
 Mage.Cookies.clear = function(name) {
   if(Mage.Cookies.get(name)){
-    document.cookie = name + "=" +
-    "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+       Mage.Cookies.set(name, '', new Date(0));
   }
 };
 

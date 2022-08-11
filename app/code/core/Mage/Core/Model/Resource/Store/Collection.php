@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +66,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Set flag for load default (admin) store
      *
      * @param boolean $loadDefault
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function setLoadDefault($loadDefault)
     {
@@ -93,7 +87,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add disable default store filter to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function setWithoutDefaultFilter()
     {
@@ -106,7 +100,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Group id can be passed as one single value or array of values.
      *
      * @param int|array $groupId
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addGroupFilter($groupId)
     {
@@ -117,7 +111,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add store id(s) filter to collection
      *
      * @param int|array $store
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addIdFilter($store)
     {
@@ -128,7 +122,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add filter by website to collection
      *
      * @param int|array $website
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addWebsiteFilter($website)
     {
@@ -139,7 +133,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add root category id filter to store collection
      *
      * @param int|array $category
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addCategoryFilter($category)
     {
@@ -170,11 +164,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     }
 
     /**
-     * Load collection data
-     *
-     * @param boolean $printQuery
-     * @param boolean $logQuery
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @inheritDoc
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -194,7 +184,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
      * Add root category id filter to store collection
      *
      * @param array $categories
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function loadByCategoryIds(array $categories)
     {
@@ -207,7 +197,7 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
     /**
      * Add store root category data to collection
      *
-     * @return Mage_Core_Model_Resource_Store_Collection
+     * @return $this
      */
     public function addRootCategoryIdAttribute()
     {
@@ -218,6 +208,55 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
                 array('root_category_id')
             );
             $this->setFlag('core_store_group_table_joined', true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Initializes the config cache for each store
+     * @return $this
+     */
+    public function initConfigCache()
+    {
+        if (!Mage::app()->useCache('config')) {
+            return $this;
+        }
+
+        $cacheId = 'store_global_config_cache';
+        $globalConfigCache = Mage::app()->loadCache($cacheId);
+
+        $data = [];
+        $needsRefresh = false;
+
+        if ($globalConfigCache !== false) {
+            try {
+                $data = unserialize($globalConfigCache);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($this as $store) {
+            $code = $store->getCode();
+            if (!$code) {
+                continue;
+            }
+
+            if (!isset($data[$code])) {
+                $data[$code] = $store->getConfigCache();
+                $needsRefresh = true;
+            }
+
+            $store->setConfigCache($data[$code]);
+        }
+
+        if ($needsRefresh) {
+            Mage::app()->saveCache(serialize($data), $cacheId, [
+                Mage_Core_Model_Store::CACHE_TAG,
+                Mage_Core_Model_Config::CACHE_TAG,
+            ]);
         }
 
         return $this;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -74,12 +68,19 @@ $table = $installer->getConnection()
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
         ), 'Updated at')
-    ->addIndex($installer->getIdxName('catalogsearch/search_query', array('query_text','store_id','popularity')),
-        array('query_text','store_id','popularity'))
+    ->addIndex(
+        $installer->getIdxName('catalogsearch/search_query', array('query_text','store_id','popularity')),
+        array('query_text','store_id','popularity')
+    )
     ->addIndex($installer->getIdxName('catalogsearch/search_query', 'store_id'), 'store_id')
-    ->addForeignKey($installer->getFkName('catalogsearch/search_query', 'store_id', 'core/store', 'store_id'),
-        'store_id', $installer->getTable('core/store'), 'store_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('catalogsearch/search_query', 'store_id', 'core/store', 'store_id'),
+        'store_id',
+        $installer->getTable('core/store'),
+        'store_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog search query table');
 $installer->getConnection()->createTable($table);
 
@@ -103,13 +104,23 @@ $table = $installer->getConnection()
         'default'   => '0.0000'
         ), 'Relevance')
     ->addIndex($installer->getIdxName('catalogsearch/result', 'query_id'), 'query_id')
-    ->addForeignKey($installer->getFkName('catalogsearch/result', 'query_id', 'catalogsearch/search_query', 'query_id'),
-        'query_id', $installer->getTable('catalogsearch/search_query'), 'query_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('catalogsearch/result', 'query_id', 'catalogsearch/search_query', 'query_id'),
+        'query_id',
+        $installer->getTable('catalogsearch/search_query'),
+        'query_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->addIndex($installer->getIdxName('catalogsearch/result', 'product_id'), 'product_id')
-    ->addForeignKey($installer->getFkName('catalogsearch/result', 'product_id', 'catalog/product', 'entity_id'),
-        'product_id', $installer->getTable('catalog/product'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey(
+        $installer->getFkName('catalogsearch/result', 'product_id', 'catalog/product', 'entity_id'),
+        'product_id',
+        $installer->getTable('catalog/product'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    )
     ->setComment('Catalog search result table');
 $installer->getConnection()->createTable($table);
 
@@ -141,15 +152,17 @@ $table = $installer->getConnection()
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
         array('product_id', 'store_id'),
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE))
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    )
     ->addIndex(
         $installer->getIdxName(
             'catalogsearch/fulltext',
             'data_index',
             Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT
-         ),
+        ),
         'data_index',
-        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT))
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT)
+    )
     ->setOption('type', 'MyISAM')
     ->setComment('Catalog search result table');
 $installer->getConnection()->createTable($table);

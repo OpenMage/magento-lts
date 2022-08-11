@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product price block
  *
  * @category   Mage
  * @package    Mage_Catalog
+ *
+ * @method $this setPriceElementIdPrefix(string $value)
+ * @method bool hasRealPriceHtml()
+ * @method string getRealPriceHtml()
+ * @method $this setRealPriceHtml(string $value)
  */
 class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstract
 {
@@ -75,7 +73,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * Sets the id suffix
      *
      * @param string $idSuffix
-     * @return Mage_Catalog_Block_Product_Price
+     * @return $this
      */
     public function setIdSuffix($idSuffix)
     {
@@ -109,7 +107,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
         // if our parent is a bundle, then we need to further adjust our tier prices
         if (isset($parent) && $parent->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-            /* @var $bundlePriceModel Mage_Bundle_Model_Product_Price */
+            /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
             $bundlePriceModel = Mage::getModel('bundle/product_price');
         }
 
@@ -131,7 +129,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
                 if ($price['price'] < $productPrice) {
                     // use the original prices to determine the percent savings
-                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
+                    $price['savePercent'] = ceil(100 - round((100 / $productPrice) * $price['price']));
 
                     // if applicable, adjust the tier prices
                     if (isset($bundlePriceModel)) {
@@ -179,7 +177,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      */
     public function getAddToCartUrl($product, $additional = array())
     {
-        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+        return $this->getAddToCartUrlCustom($product, $additional);
     }
 
     /**
@@ -223,10 +221,26 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * If attribute is not found false is returned
      *
      * @param string|integer|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract || false
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
      */
     public function getProductAttribute($attribute)
     {
         return $this->getProduct()->getResource()->getAttribute($attribute);
+    }
+
+    /**
+     * Retrieve url for direct adding product to cart with or without Form Key
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $additional
+     * @param bool $addFormKey
+     * @return string
+     */
+    public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    {
+        if (!$addFormKey) {
+            return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+        }
+        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
     }
 }

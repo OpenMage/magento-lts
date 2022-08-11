@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,6 +72,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param string $code
      * @param int|null $storeId
+     * @return $this
      */
     public function setMethod($code, $storeId = null)
     {
@@ -101,6 +96,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param Mage_Paypal_Model_Config $instace
      * @param int $storeId
+     * @return $this
      */
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
     {
@@ -139,7 +135,7 @@ class Mage_Paypal_Model_Pro
     /**
      * Destroy existing NVP Api object
      *
-     * @return Mage_Paypal_Model_Pro
+     * @return $this
      */
     public function resetApi()
     {
@@ -166,7 +162,7 @@ class Mage_Paypal_Model_Pro
      *
      * @param Mage_Paypal_Model_Api_Abstract $from
      * @param Mage_Payment_Model_Info $to
-     * @return Mage_Paypal_Model_Pro
+     * @return $this
      */
     public function importPaymentInfo(Varien_Object $from, Mage_Payment_Model_Info $to)
     {
@@ -437,8 +433,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
     {
@@ -449,8 +445,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param bool $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)

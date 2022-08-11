@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Weee
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model to calculate Weee amount
+ *
+ * @method Mage_Weee_Model_Resource_Tax _getResource()
+ * @method Mage_Weee_Model_Resource_Tax getResource()
  */
 class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 {
@@ -104,8 +101,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $billing = null,
         $website = null,
         $calculateTax = false,
-        $ignoreDiscount = false)
-    {
+        $ignoreDiscount = false
+    ) {
         $amount = 0;
         $attributes = $this->getProductWeeeAttributes(
             $product,
@@ -154,9 +151,9 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Get Weee amounts associated with a product
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Customer_Model_Address_Abstract $shipping
-     * @param Mage_Customer_Model_Address_Abstract $billing
-     * @param mixed $website
+     * @param Mage_Sales_Model_Quote_Address $shipping
+     * @param Mage_Sales_Model_Quote_Address $billing
+     * @param int $website
      * @param boolean $calculateTax
      * @param boolean $ignoreDiscount
      * @return array|\Varien_Object
@@ -167,8 +164,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $billing = null,
         $website = null,
         $calculateTax = null,
-        $ignoreDiscount = false)
-    {
+        $ignoreDiscount = false
+    ) {
         $result = array();
         $allWeee = $this->getWeeeTaxAttributeCodes();
         if (!$allWeee) {
@@ -196,7 +193,8 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
 
         if (!$currentPercent) {
             $currentPercent = Mage::getSingleton('tax/calculation')->getRate(
-                $rateRequest->setProductClassId($product->getTaxClassId()));
+                $rateRequest->setProductClassId($product->getTaxClassId())
+            );
         }
 
         $discountPercent = 0;
@@ -296,7 +294,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
     /**
      * Update discounts for FPT amounts of all products
      *
-     * @return Mage_Weee_Model_Tax
+     * @return $this
      */
     public function updateDiscountPercents()
     {
@@ -308,7 +306,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
      * Update discounts for FPT amounts base on products condiotion
      *
      * @param  mixed $products
-     * @return Mage_Weee_Model_Tax
+     * @return $this
      */
     public function updateProductsDiscountPercent($products)
     {

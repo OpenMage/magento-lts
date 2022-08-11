@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * String translate resource model
@@ -44,12 +37,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * Load
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @param String $value
-     * @param String $field
-     * @return array
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
     {
@@ -84,8 +73,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     /**
      * After translation loading
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     public function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -99,10 +88,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * Before save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -122,10 +109,8 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
     }
 
     /**
-     * After save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @param Mage_Core_Model_Translate_String $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -154,9 +139,10 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
 
                     if (isset($stores[$storeId])) {
                         $adapter->update(
-                           $this->getMainTable(),
-                           $data,
-                           array('key_id = ?' => $stores[$storeId]));
+                            $this->getMainTable(),
+                            $data,
+                            array('key_id = ?' => $stores[$storeId])
+                        );
                     } else {
                         $adapter->insert($this->getMainTable(), $data);
                     }
@@ -172,7 +158,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * @param string $string
      * @param string $locale
      * @param int|null $storeId
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     public function deleteTranslate($string, $locale = null, $storeId = null)
     {
@@ -203,7 +189,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
      * @param String $translate
      * @param String $locale
      * @param int|null $storeId
-     * @return Mage_Core_Model_Resource_Translate_String
+     * @return $this
      */
     public function saveTranslate($string, $translate, $locale = null, $storeId = null)
     {

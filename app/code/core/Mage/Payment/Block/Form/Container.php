@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,8 +39,8 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
          */
         foreach ($this->getMethods() as $method) {
             $this->setChild(
-               'payment.method.'.$method->getCode(),
-               $this->helper('payment')->getMethodFormBlock($method)
+                'payment.method.' . $method->getCode(),
+                $this->helper('payment')->getMethodFormBlock($method)
             );
         }
 
@@ -63,8 +57,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     {
         return $method->isApplicableToQuote($this->getQuote(), Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_COUNTRY
             | Mage_Payment_Model_Method_Abstract::CHECK_USE_FOR_CURRENCY
-            | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX
-        );
+            | Mage_Payment_Model_Method_Abstract::CHECK_ORDER_TOTAL_MIN_MAX);
     }
 
     /**
@@ -73,7 +66,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      * Redeclare this method in child classes for declaring method info instance
      *
      * @param Mage_Payment_Model_Method_Abstract $method
-     * @return bool
+     * @return $this
      */
     protected function _assignMethod($method)
     {
@@ -86,9 +79,9 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      *
      * @param   string $method
      * @param   string $template
-     * @return  Mage_Payment_Block_Form_Container
+     * @return  $this
      */
-    public function setMethodFormTemplate($method='', $template='')
+    public function setMethodFormTemplate($method = '', $template = '')
     {
         if (!empty($method) && !empty($template)) {
             if ($block = $this->getChild('payment.method.'.$method)) {
@@ -127,7 +120,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     /**
      * Retrieve code of current payment method
      *
-     * @return mixed
+     * @return string|false
      */
     public function getSelectedMethodCode()
     {

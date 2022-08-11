@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,10 +45,16 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $this->_optionsDefault = array();
         }
         if (!isset($this->_options[$storeId])) {
+            $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
+            $tags = array_merge(
+                array('eav', Mage_Core_Model_Translate::CACHE_TAG),
+                $this->getAttribute()->getCacheTags()
+            );
             $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setPositionOrder('asc')
                 ->setAttributeFilter($this->getAttribute()->getId())
                 ->setStoreFilter($this->getAttribute()->getStoreId())
+                ->initCache(Mage::app()->getCache(), $idPrefix, $tags)
                 ->load();
             $this->_options[$storeId]        = $collection->toOptionArray();
             $this->_optionsDefault[$storeId] = $collection->toOptionArray('default_value');
@@ -71,7 +71,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * Get a text for option value
      *
      * @param string|integer $value
-     * @return string
+     * @return string|array|false
      */
     public function getOptionText($value)
     {
@@ -107,7 +107,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
      * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
      * @param string $dir
      *
-     * @return Mage_Eav_Model_Entity_Attribute_Source_Table
+     * @return $this
      */
     public function addValueSortToCollection($collection, $dir = Varien_Db_Select::SQL_ASC)
     {
@@ -119,7 +119,8 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 "e.entity_id={$valueTable1}.entity_id"
                 . " AND {$valueTable1}.attribute_id='{$this->getAttribute()->getId()}'"
                 . " AND {$valueTable1}.store_id=0",
-                array())
+                array()
+            )
             ->joinLeft(
                 array($valueTable2 => $this->getAttribute()->getBackend()->getTable()),
                 "e.entity_id={$valueTable2}.entity_id"

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -13,15 +13,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -47,6 +41,11 @@
                 <class>Mage_Adminhtml_Block</class>
             </adminhtml>
         </blocks>
+        <helpers>
+            <adminhtml>
+                <class>Mage_Adminhtml_Helper</class>
+            </adminhtml>
+        </helpers>
         <template>
             <email>
                 <admin_emails_forgot_email_template translate="label" module="adminhtml">
@@ -54,6 +53,11 @@
                     <file>admin_password_reset_confirmation.html</file>
                     <type>html</type>
                 </admin_emails_forgot_email_template>
+                <admin_emails_admin_notification_email_template>
+                    <label>New Admin User Create Notification</label>
+                    <file>admin_new_user_notification.html</file>
+                    <type>html</type>
+                </admin_emails_admin_notification_email_template>
             </email>
         </template>
         <events>
@@ -216,13 +220,18 @@
         </general>
         <hints>
             <store_switcher>
-                <url><![CDATA[http://merch.docs.magento.com/ce/user_guide/configuration/scope.html]]></url>
+                <url><![CDATA[https://web.archive.org/web/20170529192915/http://docs.magento.com/m1/ce/user_guide/configuration/scope.html]]></url>
                 <enabled>1</enabled>
             </store_switcher>
         </hints>
         <help>
             <target_version>ce</target_version>
         </help>
+        <admin>
+            <design>
+                <use_legacy_theme>0</use_legacy_theme>
+            </design>
+        </admin>
     </default>
     <stores>
         <admin>
@@ -232,6 +241,7 @@
                 </package>
                 <theme>
                     <default>default</default>
+                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,10 @@
  * @category   Mage
  * @package    Mage_Review
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getAllowWriteReviewFlag()
+ * @method $this setAllowWriteReviewFlag(bool $value)
+ * @method $this setLoginLink(string $value)
  */
 class Mage_Review_Block_Form extends Mage_Core_Block_Template
 {
@@ -55,14 +53,14 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             Mage::helper('review')->getIsGuestAllowToWrite()
         );
 
-        if (!$this->getAllowWriteReviewFlag) {
+        if (!$this->getAllowWriteReviewFlag()) {
             $this->setLoginLink(
                 Mage::getUrl('customer/account/login/', array(
                     Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME => Mage::helper('core')->urlEncode(
                         Mage::getUrl('*/*/*', array('_current' => true)) .
-                        '#review-form')
+                        '#review-form'
                     )
-                )
+                    ))
             );
         }
 
@@ -71,18 +69,33 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             ->assign('messages', Mage::getSingleton('review/session')->getMessages(true));
     }
 
+    /**
+     * @return false|Mage_Catalog_Model_Product|Mage_Core_Model_Abstract
+     * @throws Exception
+     */
     public function getProductInfo()
     {
+        $product = Mage::registry('current_product');
+        if (is_object($product) && ($product->getId() == $this->getRequest()->getParam('id')))
+            return $product;
+
         $product = Mage::getModel('catalog/product');
         return $product->load($this->getRequest()->getParam('id'));
     }
 
+    /**
+     * @return string
+     */
     public function getAction()
     {
         $productId = Mage::app()->getRequest()->getParam('id', false);
         return Mage::getUrl('review/product/post', array('id' => $productId, '_secure' => $this->_isSecure()));
     }
 
+    /**
+     * @return Mage_Rating_Model_Resource_Rating_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getRatings()
     {
         $ratingCollection = Mage::getModel('rating/rating')

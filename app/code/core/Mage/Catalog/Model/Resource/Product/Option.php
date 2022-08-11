@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,8 +54,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Save value prices
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Product_Option
+     * @param Mage_Core_Model_Abstract|Mage_Catalog_Model_Product_Option $object
+     * @return $this
      */
     protected function _saveValuePrices(Mage_Core_Model_Abstract $object)
     {
@@ -111,7 +105,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                     }
                 } else {
                     $data = $this->_prepareDataForTable(
-                         new Varien_Object(
+                        new Varien_Object(
                             array(
                                 'option_id'  => $object->getId(),
                                 'store_id'   => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
@@ -129,7 +123,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
 
             if ($object->getStoreId() != '0' && $scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE
                 && !$object->getData('scope', 'price')) {
-
                 $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
                 $storeIds = Mage::app()->getStore($object->getStoreId())->getWebsite()->getStoreIds();
@@ -141,7 +134,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             if (!$rate) {
                                 $rate=1;
                             }
-                            $newPrice = $object->getPrice() * $rate;
+                            $newPrice = (float) $object->getPrice() * $rate;
                         } else {
                             $newPrice = $object->getPrice();
                         }
@@ -203,8 +196,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
     /**
      * Save titles
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Catalog_Model_Resource_Product_Option
+     * @param Mage_Core_Model_Abstract|Mage_Catalog_Model_Product_Option $object
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _saveValueTitles(Mage_Core_Model_Abstract $object)
     {
@@ -307,7 +300,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      * Delete prices
      *
      * @param int $optionId
-     * @return Mage_Catalog_Model_Resource_Product_Option
+     * @return $this
      */
     public function deletePrices($optionId)
     {
@@ -325,7 +318,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
      * Delete titles
      *
      * @param int $optionId
-     * @return Mage_Catalog_Model_Resource_Product_Option
+     * @return $this
      */
     public function deleteTitles($optionId)
     {
@@ -399,7 +392,8 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                 ->where('option_id = ?', $oldOptionId);
 
             $insertSelect = $write->insertFromSelect(
-                $select, $table,
+                $select,
+                $table,
                 array(
                     'option_id',
                     'store_id',
@@ -472,13 +466,15 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
         //select option type titles
 
         $defaultOptionJoin = implode(
-            ' AND ', array(
+            ' AND ',
+            array(
                 'option_title_default.option_type_id=option_type.option_type_id',
                 $adapter->quoteInto('option_title_default.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID))
         );
 
         $storeOptionJoin = implode(
-            ' AND ', array(
+            ' AND ',
+            array(
                 'option_title_store.option_type_id = option_type.option_type_id',
                  $adapter->quoteInto('option_title_store.store_id = ?', (int) $storeId))
         );

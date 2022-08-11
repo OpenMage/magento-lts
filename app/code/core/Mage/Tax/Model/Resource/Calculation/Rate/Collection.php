@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax rate collection
@@ -31,6 +24,8 @@
  * @category    Mage
  * @package     Mage_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tax_Model_Calculation_Rate[] getItems()
  */
 class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -50,7 +45,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join country table to result
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinCountryTable()
     {
@@ -66,7 +61,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join Region Table
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinRegionTable()
     {
@@ -82,7 +77,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Join rate title for specified store
      *
      * @param Mage_Core_Model_Store|string|int $store
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinTitle($store = null)
     {
@@ -100,7 +95,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Joins store titles for rates
      *
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function joinStoreTitles()
     {
@@ -124,7 +119,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      * Add rate filter
      *
      * @param int $rateId
-     * @return Mage_Tax_Model_Resource_Calculation_Rate_Collection
+     * @return $this
      */
     public function addRateFilter($rateId)
     {
@@ -184,7 +179,8 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
             $this->getSelect()
                 ->from(
                     array('rates' => $this->getMainTable()),
-                array('tax_calculation_rate_id', 'code'))
+                    array('tax_calculation_rate_id', 'code')
+                )
                 ->limit($size, $offset);
 
             $rates = array_merge($rates, $this->toOptionArray());

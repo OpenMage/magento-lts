@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -114,11 +108,17 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         $this->_select->from($this->_table, array_values($fields));
     }
 
+    /**
+     * @return Zend_Db_Select
+     */
     public function getDbSelect()
     {
         return $this->_select;
     }
 
+    /**
+     * @param Zend_Db_Select $select
+     */
     public function setDbSelect($select)
     {
         $this->_select = $select;
@@ -129,7 +129,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      *
      * @param   int || Varien_Data_Tree_Node $parentNode
      * @param   int $recursionLevel recursion level
-     * @return  this
+     * @return  $this
      */
     public function load($parentNode=null, $recursionLevel=100)
     {
@@ -164,6 +164,10 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         return $this;
     }
 
+    /**
+     * @param int $nodeId
+     * @return Varien_Data_Tree_Node
+     */
     public function loadNode($nodeId)
     {
         $select = clone $this->_select;
@@ -174,16 +178,23 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         return $node;
     }
 
-    public function appendChild($data=array(), $parentNode, $prevNode=null)
+    /**
+     * @param array $data
+     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return Varien_Data_Tree_Node
+     * @throws Zend_Db_Adapter_Exception
+     */
+    public function appendChild($data, $parentNode, $prevNode = null)
     {
         $orderSelect = $this->_conn->select();
-        $orderSelect->from($this->_table, new Zend_Db_Expr('MAX('.$this->_conn->quoteIdentifier($this->_orderField).')'))
-            ->where($this->_conn->quoteIdentifier($this->_parentField).'='.$parentNode->getId());
+        $orderSelect->from($this->_table, new Zend_Db_Expr('MAX(' . $this->_conn->quoteIdentifier($this->_orderField) . ')'))
+            ->where($this->_conn->quoteIdentifier($this->_parentField) . '=' . $parentNode->getId());
 
         $order = $this->_conn->fetchOne($orderSelect);
         $data[$this->_parentField] = $parentNode->getId();
-        $data[$this->_levelField]  = $parentNode->getData($this->_levelField)+1;
-        $data[$this->_orderField]  = $order+1;
+        $data[$this->_levelField] = $parentNode->getData($this->_levelField) + 1;
+        $data[$this->_orderField] = $order + 1;
 
         $this->_conn->insert($this->_table, $data);
         $data[$this->_idField] = $this->_conn->lastInsertId();
@@ -243,6 +254,12 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         }
     }
 
+    /**
+     * @param int $parentId
+     * @param int $parentLevel
+     * @return $this
+     * @throws Zend_Db_Adapter_Exception
+     */
     protected function _updateChildLevels($parentId, $parentLevel)
     {
         $select = $this->_conn->select()
@@ -261,6 +278,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _loadFullTree()
     {
         $select = clone $this->_select;
@@ -278,6 +298,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         return $this;
     }
 
+    /**
+     * @param Varien_Data_Tree_Node $node
+     * @return $this|Varien_Data_Tree
+     * @throws Exception
+     */
     public function removeNode($node)
     {
         // For reorder old node branch

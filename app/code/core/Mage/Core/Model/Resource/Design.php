@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Design Resource Model
@@ -44,11 +37,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Perform actions before object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
-     * @throws Mage_Core_Exception
+     * @param Mage_Core_Model_Design $object
+     * @inheritDoc
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -73,10 +63,11 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'));
+                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.')
+            );
         }
 
-        parent::_beforeSave($object);
+        return parent::_beforeSave($object);
     }
 
 
@@ -84,10 +75,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
      * Check intersections
      *
      * @param int $storeId
-     * @param date $dateFrom
-     * @param date $dateTo
+     * @param string $dateFrom
+     * @param string $dateTo
      * @param int $currentId
-     * @return Array
+     * @return string
      */
     protected function _checkIntersection($storeId, $dateFrom, $dateTo, $currentId)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -85,7 +79,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _getRegionIdByNameOrCode($region, $countryId)
     {
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
 
         $collection->getSelect()
@@ -108,7 +102,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _loadCustomerAddressById($id)
     {
-        /* @var $address Mage_Customer_Model_Address */
+        /* @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address')->load($id);
 
         if (!$address->getId()) {
@@ -128,7 +122,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _loadCustomerById($id)
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($id);
         if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);

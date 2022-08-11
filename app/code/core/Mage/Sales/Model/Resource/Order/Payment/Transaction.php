@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +49,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     /**
      * Unserialize Varien_Object field in an object
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Varien_Object $object
      * @param string $field
      * @param mixed $defaultValue
      */
@@ -108,7 +102,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
                 'order_id = ?'      => (int)$orderId,
                 'parent_txn_id = ?' => $txnId
             );
-            $adapter->update($this->getMainTable(), 
+            $adapter->update(
+                $this->getMainTable(),
                 array('parent_id' => $id),
                 $where
             );
@@ -123,9 +118,12 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $paymentId
      * @param string $txnId
      */
-    public function loadObjectByTxnId(Mage_Sales_Model_Order_Payment_Transaction $transaction, $orderId, $paymentId, 
-        $txnId)
-    {
+    public function loadObjectByTxnId(
+        Mage_Sales_Model_Order_Payment_Transaction $transaction,
+        $orderId,
+        $paymentId,
+        $txnId
+    ) {
         $select = $this->_getLoadByUniqueKeySelect($orderId, $paymentId, $txnId);
         $data   = $this->_getWriteAdapter()->fetchRow($select);
         $transaction->setData($data);
@@ -154,10 +152,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * Lookup for parent_id in already saved transactions of this payment by the order_id
      * Also serialize additional information, if any
      *
+     * @inheritDoc
      * @throws Mage_Core_Exception
-     *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
-     * @return Mage_Sales_Model_Resource_Order_Payment_Transaction
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
     {
@@ -170,7 +166,8 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
         if ($parentTxnId) {
             if (!$txnId || !$orderId || !$paymentId) {
                 Mage::throwException(
-                    Mage::helper('sales')->__('Not enough valid data to save the parent transaction ID.'));
+                    Mage::helper('sales')->__('Not enough valid data to save the parent transaction ID.')
+                );
             }
             $parentId = (int)$this->_lookupByTxnId($orderId, $paymentId, $parentTxnId, $idFieldName);
             if ($parentId) {
@@ -195,10 +192,10 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param mixed (array|string|object) $columns
+     * @param array|string|object $columns
      * @param bool $isRow
      * @param string $txnType
-     * @return mixed (array|string)
+     * @return array|string
      */
     private function _lookupByTxnId($orderId, $paymentId, $txnId, $columns, $isRow = false, $txnType = null)
     {

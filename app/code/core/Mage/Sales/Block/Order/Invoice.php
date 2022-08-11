@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,6 +33,9 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         $this->setTemplate('sales/order/invoice.phtml');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
         if ($headBlock = $this->getLayout()->getBlock('head')) {
@@ -50,6 +47,9 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -91,26 +91,48 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
         return Mage::helper('sales')->__('View Another Order');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
         return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getShipmentUrl($order)
     {
         return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getCreditmemoUrl($order)
     {
         return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
     }
 
-    public function getPrintInvoiceUrl($invoice){
+    /**
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return string
+     */
+    public function getPrintInvoiceUrl($invoice)
+    {
         return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
     }
 
-    public function getPrintAllInvoicesUrl($order){
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
+    public function getPrintAllInvoicesUrl($order)
+    {
         return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));
     }
 }

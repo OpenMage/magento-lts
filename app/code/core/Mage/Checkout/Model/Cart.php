@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,7 +64,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Retrieve customer session model
      *
-     * @return Mage_Customer_Model_Customer
+     * @return Mage_Customer_Model_Session
      */
     public function getCustomerSession()
     {
@@ -80,7 +74,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * List of shopping cart items
      *
-     * @return Mage_Eav_Model_Entity_Collection_Abstract|array
+     * @return Mage_Sales_Model_Resource_Quote_Item_Collection|array
      */
     public function getItems()
     {
@@ -101,7 +95,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         if (is_null($products)) {
             $products = array();
             foreach ($this->getQuote()->getAllItems() as $item) {
-                $products[$item->getProductId()] = $item->getProductId();
+                $productId = $item->getProductId();
+                $products[$productId] = $productId;
             }
             $this->setData('product_ids', $products);
         }
@@ -125,7 +120,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * Set quote object associated with the cart
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -136,7 +131,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Initialize cart quote state to be able use it on cart page
      *
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      */
     public function init()
     {
@@ -160,11 +155,11 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      *
      * @param Mage_Sales_Model_Order_Item $orderItem
      * @param mixed $qtyFlag if is null set product qty like in order
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      */
-    public function addOrderItem($orderItem, $qtyFlag=null)
+    public function addOrderItem($orderItem, $qtyFlag = null)
     {
-        /* @var $orderItem Mage_Sales_Model_Order_Item */
+        /* @var Mage_Sales_Model_Order_Item $orderItem */
         if (is_null($orderItem->getParentItem())) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
@@ -239,7 +234,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * @param   mixed $requestInfo
      * @return  Mage_Checkout_Model_Cart
      */
-    public function addProduct($productInfo, $requestInfo=null)
+    public function addProduct($productInfo, $requestInfo = null)
     {
         $product = $this->_getProduct($productInfo);
         $request = $this->_getProductRequest($requestInfo);
@@ -318,7 +313,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 if ($product->getId() && $product->isVisibleInCatalog()) {
                     try {
                         $this->getQuote()->addProduct($product);
-                    } catch (Exception $e){
+                    } catch (Exception $e) {
                         $allAdded = false;
                     }
                 } else {
@@ -371,7 +366,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 continue;
             }
 
-            /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 continue;
@@ -394,7 +389,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     {
         Mage::dispatchEvent('checkout_cart_update_items_before', array('cart'=>$this, 'info'=>$data));
 
-        /* @var $messageFactory Mage_Core_Model_Message */
         $messageFactory = Mage::getSingleton('core/message');
         $session = $this->getCheckoutSession();
         $qtyRecalculatedFlag = false;
@@ -452,7 +446,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Save cart
      *
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      */
     public function save()
     {
@@ -481,7 +475,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     /**
      * Mark all quote items as deleted (empty shopping cart)
      *
-     * @return Mage_Checkout_Model_Cart
+     * @return $this
      */
     public function truncate()
     {
@@ -489,15 +483,18 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         return $this;
     }
 
+    /**
+     * @return array|null
+     */
     public function getProductIds()
     {
         $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
         if (null === $this->_productIds) {
             $this->_productIds = array();
             if ($this->getSummaryQty()>0) {
-               foreach ($this->getQuote()->getAllItems() as $item) {
-                   $this->_productIds[] = $item->getProductId();
-               }
+                foreach ($this->getQuote()->getAllItems() as $item) {
+                    $this->_productIds[] = $item->getProductId();
+                }
             }
             $this->_productIds = array_unique($this->_productIds);
         }

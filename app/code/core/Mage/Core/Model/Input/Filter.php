@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,7 +24,7 @@
  * Model for multi-filtering all data which set to models
  * Example:
  * <code>
- * /** @var $filter Mage_Core_Model_Input_Filter {@*}
+ * /** @var Mage_Core_Model_Input_Filter $filter {@*}
  * $filter = Mage::getModel('core/input_filter');
  * $filter->setFilters(array(
  *      'list_values' => array(
@@ -119,7 +113,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * @param string $name
      * @param array|Zend_Filter_Interface $filter
      * @param string $placement
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function addFilter($name, $filter, $placement = Zend_Filter::CHAIN_APPEND)
     {
@@ -135,7 +129,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Add a filter to the end of the chain
      *
      * @param  array|Zend_Filter_Interface $filter
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function appendFilter(Zend_Filter_Interface $filter)
     {
@@ -146,7 +140,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Add a filter to the start of the chain
      *
      * @param  array|Zend_Filter_Interface $filter
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function prependFilter($filter)
     {
@@ -164,7 +158,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      *      )
      *
      * @param array $filters
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function addFilters(array $filters)
     {
@@ -176,7 +170,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      * Set filters
      *
      * @param array $filters
-     * @return Mage_Core_Model_Input_Filter
+     * @return $this
      */
     public function setFilters(array $filters)
     {
@@ -275,7 +269,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Magento helper for filtration based on $filterData. Return false on failure
      *
-     * @param $filterData
+     * @param array $filterData
      * @return bool|Mage_Core_Helper_Abstract
      * @throws Exception
      */
@@ -297,14 +291,14 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Zend filter based on $filterData. Return false on failure
      *
-     * @param $filterData
-     * @return bool|Zend_Filter_Interface
+     * @param Zend_Filter_Interface|array $filterData
+     * @return false|Zend_Filter_Interface
      */
     protected function _getZendFilter($filterData)
     {
         $zendFilter = false;
         if (is_object($filterData) && $filterData instanceof Zend_Filter_Interface) {
-            /** @var $zendFilter Zend_Filter_Interface */
+            /** @var Zend_Filter_Interface $zendFilter */
             $zendFilter = $filterData;
         } elseif (isset($filterData['model'])) {
             $zendFilter = $this->_createCustomZendFilter($filterData);
@@ -317,7 +311,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get Magento filters
      *
-     * @param $filterData
+     * @param array $filterData
      * @return Zend_Filter_Interface
      * @throws Exception
      */
@@ -342,7 +336,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get native Zend_Filter
      *
-     * @param $filterData
+     * @param array $filterData
      * @return Zend_Filter_Interface
      * @throws Exception
      */

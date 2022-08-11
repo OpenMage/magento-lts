@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,26 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
 
 if (!$installer->tableExists($installer->getTable('catalog_category_entity'))) {
-
-$installer->run("
+    $installer->run("
 
 -- DROP TABLE IF EXISTS {$installer->getTable('catalog_category_entity')};
 CREATE TABLE {$installer->getTable('catalog_category_entity')} (
@@ -546,14 +539,14 @@ CREATE TABLE `{$installer->getTable('catalog_product_entity_media_gallery_value'
 
 ");
 
-$installer->getConnection()->dropColumn($installer->getTable('eav_attribute'), 'use_in_super_product');
+    $installer->getConnection()->dropColumn($installer->getTable('eav_attribute'), 'use_in_super_product');
 
-$installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'category_id', 'int unsigned NULL AFTER `store_id`');
-$installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'product_id', 'int unsigned NULL AFTER `category_id`');
-$installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id', $installer->getTable('catalog_category_entity'), 'entity_id');
-$installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id', $installer->getTable('catalog_product_entity'), 'entity_id');
+    $installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'category_id', 'int unsigned NULL AFTER `store_id`');
+    $installer->getConnection()->addColumn($installer->getTable('core_url_rewrite'), 'product_id', 'int unsigned NULL AFTER `category_id`');
+    $installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_CATEGORY', $installer->getTable('core_url_rewrite'), 'category_id', $installer->getTable('catalog_category_entity'), 'entity_id');
+    $installer->getConnection()->addConstraint('FK_CORE_URL_REWRITE_PRODUCT', $installer->getTable('core_url_rewrite'), 'product_id', $installer->getTable('catalog_product_entity'), 'entity_id');
 
-$installer->run("
+    $installer->run("
 UPDATE `{$installer->getTable('eav_attribute')}` SET `position` = 1 WHERE `position` = 0 AND `attribute_code` != 'price';
 
 -- DROP TABLE IF EXISTS `{$installer->getTable('catalog/product_option')}`;
@@ -647,7 +640,7 @@ ALTER TABLE `{$installer->getTable('core_url_rewrite')}` ADD INDEX `IDX_CATEGORY
 ");
 
 
-$installer->run("
+    $installer->run("
 CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `frontend_input_renderer` varchar(255) DEFAULT NULL,
@@ -672,7 +665,6 @@ CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   CONSTRAINT `FK_CATALOG_EAV_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `{$installer->getTable('eav/attribute')}` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-
 }
 
 $installer->endSetup();
@@ -691,7 +683,7 @@ Mage::getModel('catalog/category')
     ->setInitialSetupFlag(true)
     ->save();
 
-/* @var $category Mage_Catalog_Model_Category */
+/* @var Mage_Catalog_Model_Category $category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)

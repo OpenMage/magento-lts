@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +28,7 @@
  */
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Seo_Sitemap_Category
 {
-    CONST XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
+    const XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
 
     protected $_storeRootCategoryPath = '';
     protected $_storeRootCategoryLevel = 0;
@@ -51,7 +45,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var $helper Mage_Catalog_Helper_Category */
+        /* @var Mage_Catalog_Helper_Category $helper */
         $parent = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load(Mage::app()->getStore()->getRootCategoryId());
@@ -71,7 +65,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var $pager Mage_Catalog_Block_Seo_Sitemap_Tree_Pager */
+        /* @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
         if ($pager) {
             $pager->setAvailableLimit(array(50 => 50));
             $pager->setTotalNum($this->_total);
@@ -90,7 +84,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Prepare array of categories separated into pages
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Tree_Category
+     * @return $this
      */
     public function prepareCategoriesToPages()
     {
@@ -128,7 +122,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Return collection of categories
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection
+     * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getTreeCollection()
     {
@@ -143,14 +137,14 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     /**
      * Prepare collection filtered by paths
      *
-     * @return Mage_Catalog_Block_Seo_Sitemap_Tree_Category
+     * @return $this
      */
     protected function _prepareCollection()
     {
         $_to = 0;
         $pathFilter = array();
         if (isset($this->_categoriesToPages[$this->_currentPage])) {
-            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId=>$_categoryInfo) {
+            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId => $_categoryInfo) {
                 $pathFilter[] = $_categoryInfo['path'];
                 $_to = max($_to, $_categoryInfo['children_count']);
             }
@@ -176,5 +170,4 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     {
         return (int) ($item->getLevel() - $this->_storeRootCategoryLevel - 1) * $delta;
     }
-
 }

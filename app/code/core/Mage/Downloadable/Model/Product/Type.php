@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +47,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
             $linksCollectionById = array();
             foreach ($_linkCollection as $link) {
                 /* @var Mage_Downloadable_Model_Link $link */
-
                 $link->setProduct($product);
                 $linksCollectionById[$link->getId()] = $link;
             }
@@ -118,12 +111,11 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Get downloadable product samples
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Downloadable_Model_Mysql4_Sample_Collection
+     * @return Mage_Downloadable_Model_Resource_Sample_Collection
      */
     public function getSamples($product = null)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
         if (is_null($product->getDownloadableSamples())) {
             $_sampleCollection = Mage::getModel('downloadable/sample')->getCollection()
                 ->addProductToFilter($product->getId())
@@ -149,15 +141,13 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Save Product downloadable information (links and samples)
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Downloadable_Model_Product_Type
+     * @return $this
      */
     public function save($product = null)
     {
         parent::save($product);
 
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
-
         if ($data = $product->getDownloadableData()) {
             if (isset($data['sample'])) {
                 $_deleteItems = array();
@@ -334,7 +324,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
      * Check if product can be bought
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Bundle_Model_Product_Type
+     * @return Mage_Downloadable_Model_Product_Type
      * @throws Mage_Core_Exception
      */
     public function checkProductBuyState($product = null)
@@ -343,7 +333,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         $product = $this->getProduct($product);
         $option = $product->getCustomOption('info_buyRequest');
         if ($option instanceof Mage_Sales_Model_Quote_Item_Option) {
-            $buyRequest = new Varien_Object(unserialize($option->getValue()));
+            $buyRequest = new Varien_Object(unserialize($option->getValue(), ['allowed_classes' => false]));
             if (!$buyRequest->hasLinks()) {
                 if (!$product->getLinksPurchasedSeparately()) {
                     $allLinksIds = Mage::getModel('downloadable/link')
@@ -471,7 +461,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function processBuyRequest($product, $buyRequest)
     {
         $links = $buyRequest->getLinks();
-        $links = (is_array($links)) ? array_filter($links, 'intval') : array();
+        $links = (is_array($links)) ? array_filter($links, '\intval') : array();
 
         $options = array('links' => $links);
 

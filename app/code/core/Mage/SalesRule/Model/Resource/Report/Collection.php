@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -77,7 +71,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * collect columns for collection
      *
-     * @return unknown
+     * @return array
      */
     protected function _getSelectedColumns()
     {
@@ -122,14 +116,14 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Add selected data
      *
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     protected function _initSelect()
     {
         $this->getSelect()->from($this->getResource()->getMainTable(), $this->_getSelectedColumns());
         if ($this->isSubTotals()) {
             $this->getSelect()->group($this->_periodFormat);
-        } else if (!$this->isTotals()) {
+        } elseif (!$this->isTotals()) {
             $this->getSelect()->group(array(
                 $this->_periodFormat,
                 'coupon_code'
@@ -143,7 +137,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
      * Add filtering by rules ids
      *
      * @param array $rulesList
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     public function addRuleFilter($rulesList)
     {
@@ -154,7 +148,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     /**
      * Apply filtering by rules ids
      *
-     * @return Mage_SalesRule_Model_Resource_Report_Collection
+     * @return $this
      */
     protected function _applyRulesFilter()
     {
@@ -175,7 +169,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         }
 
         if (!empty($rulesFilterSqlParts)) {
-            $this->getSelect()->where(implode($rulesFilterSqlParts, ' OR '));
+            $this->getSelect()->where(implode(' OR ', $rulesFilterSqlParts));
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,7 +36,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     /**
      * Join review table to result
      *
-     * @return Mage_Reports_Model_Resource_Review_Product_Collection
+     * @return $this
      */
     public function joinReview()
     {
@@ -61,7 +55,9 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 'e.entity_id = r.entity_pk_value',
                 array(
                     'review_cnt'    => new Zend_Db_Expr(sprintf('(%s)', $subSelect)),
-                    'last_created'  => 'MAX(r.created_at)',))
+                'last_created'  => 'MAX(r.created_at)',
+                )
+            )
             ->group('e.entity_id');
 
         $joinCondition      = array(
@@ -70,7 +66,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         );
 
         /**
-         * @var $groupByCondition array of group by fields
+         * @var array $groupByCondition of group by fields
          */
         $groupByCondition   = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
         $percentField       = $this->getConnection()->quoteIdentifier('table_rating.percent');
@@ -85,7 +81,8 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
                 array(
                     'avg_rating'          => sprintf('%s/%s', $sumPercentField, $countRatingId),
                     'avg_rating_approved' => sprintf('%s/%s', $sumPercentApproved, $countRatingId),
-            ));
+                )
+            );
 
         return $this;
     }
@@ -93,9 +90,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     /**
      * Add attribute to sort
      *
-     * @param string $attribute
-     * @param string $dir
-     * @return Mage_Reports_Model_Resource_Review_Product_Collection
+     * @inheritDoc
      */
     public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
     {

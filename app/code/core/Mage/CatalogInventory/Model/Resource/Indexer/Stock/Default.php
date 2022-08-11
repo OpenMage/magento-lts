@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,9 +26,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
-    implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
+class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract implements Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface
 {
     /**
      * Current Product Type Id
@@ -62,7 +54,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
     /**
      * Reindex all stock status data for default logic product type
      *
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function reindexAll()
     {
@@ -82,7 +74,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Reindex stock data for defined product ids
      *
      * @param int|array $entityIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -94,7 +86,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Set active Product Type Id
      *
      * @param string $typeId
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function setTypeId($typeId)
     {
@@ -121,7 +113,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Set Product Type Composite flag
      *
      * @param bool $flag
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     public function setIsComposite($flag)
     {
@@ -168,11 +160,13 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
             ->join(
                 array('cis' => $this->getTable('cataloginventory/stock')),
                 '',
-                array('stock_id'))
+                array('stock_id')
+            )
             ->joinLeft(
                 array('cisi' => $this->getTable('cataloginventory/stock_item')),
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                array())
+                array()
+            )
             ->columns(array('qty' => $qtyExpr))
             ->where('cw.website_id != 0')
             ->where('e.type_id = ?', $this->getTypeId());
@@ -182,11 +176,17 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
         $psCondition = $adapter->quoteInto($psExpr . '=?', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
 
         if ($this->_isManageStock()) {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
-                1, 'cisi.is_in_stock');
+            $statusExpr = $adapter->getCheckSql(
+                'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 0',
+                1,
+                'cisi.is_in_stock'
+            );
         } else {
-            $statusExpr = $adapter->getCheckSql('cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
-                'cisi.is_in_stock', 1);
+            $statusExpr = $adapter->getCheckSql(
+                'cisi.use_config_manage_stock = 0 AND cisi.manage_stock = 1',
+                'cisi.is_in_stock',
+                1
+            );
         }
 
         $optExpr = $adapter->getCheckSql($psCondition, 1, 0);
@@ -205,7 +205,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Prepare stock status data in temporary index table
      *
      * @param int|array $entityIds  the product limitation
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _prepareIndexTable($entityIds = null)
     {
@@ -221,7 +221,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Update Stock status index by product ids
      *
      * @param array|int $entityIds
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _updateIndex($entityIds)
     {
@@ -254,7 +254,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
      * Update stock status index table (INSERT ... ON DUPLICATE KEY UPDATE ...)
      *
      * @param array $data
-     * @return Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default
+     * @return $this
      */
     protected function _updateIndexTable($data)
     {

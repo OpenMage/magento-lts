@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,12 +37,12 @@ class Mage_Api2_Model_Auth_Adapter
     /**
      * Load adapters configuration and create adapters models
      *
-     * @return Mage_Api2_Model_Auth_Adapter
+     * @return $this
      * @throws Exception
      */
     protected function _initAdapters()
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2');
 
         foreach ($helper->getAuthAdapters(true) as $adapterKey => $adapterParams) {
@@ -78,7 +72,7 @@ class Mage_Api2_Model_Auth_Adapter
         $this->_initAdapters();
 
         foreach ($this->_adapters as $adapterModel) {
-            /** @var $adapterModel Mage_Api2_Model_Auth_Adapter_Abstract */
+            /** @var Mage_Api2_Model_Auth_Adapter_Abstract $adapterModel */
             if ($adapterModel->isApplicableToRequest($request)) {
                 $userParams = $adapterModel->getUserParams($request);
 

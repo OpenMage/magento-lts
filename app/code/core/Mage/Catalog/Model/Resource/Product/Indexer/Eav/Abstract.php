@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,8 +26,7 @@
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
-    extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
+abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
 {
     /**
      * Rebuild all index data
@@ -157,7 +150,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
         $select = $write->select()
             ->from($idxTable, null);
 
-        $condition = $write->quoteInto('=?',Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
+        $condition = $write->quoteInto('=?', Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);
         $this->_addAttributeToSelect(
             $select,
             'visibility',
@@ -188,11 +181,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract
             ->join(
                 array('cs' => $this->getTable('core/store')),
                 '',
-                array())
+                array()
+            )
             ->join(
                 array('i' => $idxTable),
                 'l.child_id = i.entity_id AND cs.store_id = i.store_id',
-                array('attribute_id', 'store_id', 'value'))
+                array('attribute_id', 'store_id', 'value')
+            )
             ->group(array(
                 'l.parent_id', 'i.attribute_id', 'i.store_id', 'i.value'
             ));

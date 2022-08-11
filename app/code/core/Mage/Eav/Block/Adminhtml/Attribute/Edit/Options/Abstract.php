@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,24 +37,28 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     /**
      * Preparing layout, adding buttons
      *
-     * @return Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->setChild('delete_button',
+        $this->setChild(
+            'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('eav')->__('Delete'),
                     'class' => 'delete delete-option'
-                )));
+                ))
+        );
 
-        $this->setChild('add_button',
+        $this->setChild(
+            'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option_button'
-                )));
+                ))
+        );
         return parent::_prepareLayout();
     }
 
@@ -138,6 +136,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
 
             $helper = Mage::helper('core');
+            /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
                 $value = array();
                 if (in_array($option->getId(), $defaultValues)) {
@@ -199,6 +198,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setStoreFilter($storeId, false)
                 ->load();
+            /** @var Mage_Eav_Model_Entity_Attribute_Option $item */
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
@@ -216,5 +216,4 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         return Mage::registry('entity_attribute');
     }
-
 }

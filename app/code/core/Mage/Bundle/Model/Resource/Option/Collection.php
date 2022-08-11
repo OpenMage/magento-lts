@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +25,8 @@
  * @category    Mage
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Bundle_Model_Option[] getItems()
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -61,7 +57,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Joins values to options
      *
      * @param int $storeId
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function joinValues($storeId)
     {
@@ -81,7 +77,8 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         if ($storeId !== null) {
             $this->getSelect()
                 ->columns(array('title' => $title))
-                ->joinLeft(array('option_value' => $this->getTable('bundle/option_value')),
+                ->joinLeft(
+                    array('option_value' => $this->getTable('bundle/option_value')),
                     $this->getConnection()->quoteInto(
                         'main_table.option_id = option_value.option_id and option_value.store_id = ?',
                         $storeId
@@ -96,7 +93,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Sets product id filter
      *
      * @param int $productId
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setProductIdFilter($productId)
     {
@@ -107,7 +104,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Sets order by position
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setPositionOrder()
     {
@@ -152,7 +149,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Removes appended selections before
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     protected function _stripSelections()
     {
@@ -167,13 +164,13 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * Sets filter by option id
      *
      * @param array|int $ids
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function setIdFilter($ids)
     {
         if (is_array($ids)) {
             $this->addFieldToFilter('main_table.option_id', array('in' => $ids));
-        } else if ($ids != '') {
+        } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }
         return $this;
@@ -182,7 +179,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Reset all item ids cache
      *
-     * @return Mage_Bundle_Model_Resource_Option_Collection
+     * @return $this
      */
     public function resetAllIds()
     {
@@ -191,7 +188,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      *
      * @return array
      */
@@ -203,4 +200,3 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         return $this->_itemIds;
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -137,7 +131,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      *
      * @param null|float $lowerLimit
      * @param null|float $upperLimit
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setLimits($lowerLimit = null, $upperLimit = null)
     {
@@ -195,7 +189,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * @param float $max
      * @param float $standardDeviation
      * @param int $count
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setStatistics($min, $max, $standardDeviation, $count)
     {
@@ -224,7 +218,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      * Set prices model
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $pricesModel
-     * @return Mage_Catalog_Model_Layer_Filter_Price_Algorithm
+     * @return $this
      */
     public function setPricesModel($pricesModel)
     {
@@ -307,7 +301,6 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
      *
      * @param array $oldRoundPrices
      * @param array $newRoundPrices
-     * @return void
      */
     protected function _mergeRoundPrices(&$oldRoundPrices, &$newRoundPrices)
     {
@@ -482,7 +475,10 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             foreach ($roundingFactorCoefficients as $roundingFactorCoefficient) {
                 $roundingFactorCoefficient *= $tenPower;
                 $roundPrices = $this->_findRoundPrice(
-                    $lowerPrice, $upperPrice, $returnEmpty, $roundingFactorCoefficient
+                    $lowerPrice,
+                    $upperPrice,
+                    $returnEmpty,
+                    $roundingFactorCoefficient
                 );
                 if ($roundPrices) {
                     $index = round($roundingFactorCoefficient

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +48,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      * Set Store ID for filter
      *
      * @param mixed $store
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return $this
      */
     public function setStoreId($store)
     {
@@ -79,7 +73,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      * Set search query text to filter
      *
      * @param string $query
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return $this
      */
     public function setQueryFilter($query)
     {
@@ -90,8 +84,10 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
                 array('main_table' => $this->getTable('catalogsearch/search_query')),
                 array('query'      => $ifSynonymFor, 'num_results')
             )
-            ->where('num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
-                Mage::getResourceHelper('core')->addLikeEscape($query, array('position' => 'start')))
+            ->where(
+                'num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
+                Mage::getResourceHelper('core')->addLikeEscape($query, array('position' => 'start'))
+            )
             ->order('popularity ' . Varien_Db_Select::SQL_DESC);
         if ($this->getStoreId()) {
             $this->getSelect()
@@ -104,7 +100,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      * Set Popular Search Query Filter
      *
      * @param int|array $storeIds
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return $this
      */
     public function setPopularQueryFilter($storeIds = null)
     {
@@ -117,13 +113,12 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             ->distinct(true)
             ->from(
                 array('main_table' => $this->getTable('catalogsearch/search_query')),
-                array('name' => $ifSynonymFor, 'num_results', 'popularity')
+                array('name' => $ifSynonymFor, 'num_results', 'popularity', 'query_id')
             );
         if ($storeIds) {
             $this->addStoreFilter($storeIds);
             $this->getSelect()->where('num_results > 0');
-        }
-        elseif (null === $storeIds) {
+        } elseif (null === $storeIds) {
             $this->addStoreFilter(Mage::app()->getStore()->getId());
             $this->getSelect()->where('num_results > 0');
         }
@@ -136,7 +131,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
     /**
      * Set Recent Queries Order
      *
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return $this
      */
     public function setRecentQueryFilter()
     {
@@ -148,7 +143,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      * Filter collection by specified store ids
      *
      * @param array|int $storeIds
-     * @return Mage_CatalogSearch_Model_Resource_Query_Collection
+     * @return $this
      */
     public function addStoreFilter($storeIds)
     {

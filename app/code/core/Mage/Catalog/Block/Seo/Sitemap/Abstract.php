@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +37,7 @@ abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_T
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var $pager Mage_Page_Html_Pager */
+        /* @var Mage_Page_Block_Html_Pager $pager */
         if ($pager) {
             $pager->setAvailableLimit(array(50 => 50));
             $pager->setCollection($this->getCollection());
@@ -56,12 +50,11 @@ abstract class Mage_Catalog_Block_Seo_Sitemap_Abstract extends Mage_Core_Block_T
      *
      * In most cases should be overriden in descendant blocks
      *
-     * @param Varien_Object $item
+     * @param Mage_Catalog_Block_Seo_Sitemap_Abstract $item
      * @return string
      */
     public function getItemUrl($item)
     {
         return $item->getUrl();
     }
-
 }

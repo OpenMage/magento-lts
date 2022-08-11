@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,11 +106,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Enter description here...
      *
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     protected function _initObjects()
     {
-        /** @var $_configDataObject Mage_Adminhtml_Model_Config_Data */
         $this->_configDataObject = Mage::getSingleton('adminhtml/config_data');
         $this->_configRoot = $this->_configDataObject->getConfigRoot();
         $this->_configData = $this->_configDataObject->load();
@@ -131,7 +124,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Enter description here...
      *
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     public function initForm()
     {
@@ -193,7 +186,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             $helperName = $this->_configFields->getAttributeModule($section, $group);
             $fieldsetConfig = array('legend' => Mage::helper($helperName)->__((string)$group->label));
             if (!empty($group->comment)) {
-                $fieldsetConfig['comment'] = Mage::helper($helperName)->__((string)$group->comment);
+                $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
             }
             if (!empty($group->expanded)) {
                 $fieldsetConfig['expanded'] = (bool)$group->expanded;
@@ -253,7 +246,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * @param Varien_Simplexml_Element $section
      * @param string $fieldPrefix
      * @param string $labelPrefix
-     * @return Mage_Adminhtml_Block_System_Config_Form
+     * @return $this
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix='', $labelPrefix='')
     {
@@ -526,6 +519,18 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
+     * Support models "getCommentText" method for group note generation
+     *
+     * @param Mage_Core_Model_Config_Element $element
+     * @param string $helper
+     * @return string
+     */
+    protected function _prepareGroupComment($element, $helper)
+    {
+        return $this->_prepareFieldComment($element, $helper, null);
+    }
+
+    /**
      * Prepare additional comment for field like tooltip
      *
      * @param Mage_Core_Model_Config_Element $element
@@ -615,14 +620,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
         switch ($this->getScope()) {
             case self::SCOPE_DEFAULT:
-                return (int)$field->show_in_default;
-                break;
+                return (bool)(int)$field->show_in_default;
             case self::SCOPE_WEBSITES:
-                return (int)$field->show_in_website;
-                break;
+                return (bool)(int)$field->show_in_website;
             case self::SCOPE_STORES:
-                return (int)$field->show_in_store;
-                break;
+                return (bool)(int)$field->show_in_store;
         }
         return true;
     }

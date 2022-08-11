@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,8 @@
  * @category    Mage
  * @package     Mage_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property array $_invalidRows
  */
 abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 {
@@ -176,8 +172,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -189,11 +183,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
     * Initialize website values.
     *
-    * @return Mage_ImportExport_Model_Export_Entity_Customer
+    * @return $this
     */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -203,7 +197,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     /**
      * Initialize stores hash.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Abstract
+     * @return $this
      */
     protected function _initStores()
     {
@@ -294,11 +288,11 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                         $to   = array_shift($exportFilter[$attrCode]);
 
                         if (is_scalar($from) && !empty($from)) {
-                            $date = Mage::app()->getLocale()->date($from,null,null,false)->toString('MM/dd/YYYY');
+                            $date = Mage::app()->getLocale()->date($from, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, array('from' => $date, 'date' => true));
                         }
                         if (is_scalar($to) && !empty($to)) {
-                            $date = Mage::app()->getLocale()->date($to,null,null,false)->toString('MM/dd/YYYY');
+                            $date = Mage::app()->getLocale()->date($to, null, null, false)->toString('MM/dd/YYYY');
                             $collection->addAttributeToFilter($attrCode, array('to' => $date, 'date' => true));
                         }
                     }
@@ -328,7 +322,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code or simply column name
      * @param int $errorRowNum Row number.
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return $this
      */
     public function addRowError($errorCode, $errorRowNum)
     {
@@ -344,7 +338,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      *
      * @param string $errorCode Error code
      * @param string $message Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return $this
      */
     public function addMessageTemplate($errorCode, $message)
     {
@@ -376,7 +370,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      * @throws Mage_Core_Exception
      * @return array
      */
-    abstract function exportFile();
+    abstract public function exportFile();
 
     /**
      * Clean up attribute collection.

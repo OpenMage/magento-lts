@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      * Prepare page layout, basing on different registry and request variables
      *
      * Generates layout of: creation modes selector, products grid, categories tree, urlrewrite edit form
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      */
     protected function _prepareLayout()
     {
@@ -148,7 +142,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * Add edit form as child block and add appropriate buttons
      *
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      */
     protected function _setFormChild()
     {
@@ -265,7 +259,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      * Update layout by specified mode code
      *
      * @param string $mode
-     * @return Mage_Adminhtml_Block_Urlrewrite_Edit
+     * @return $this
      * @see Mage_Adminhtml_Block_Urlrewrite_Selector
      */
     public function updateModeLayout($mode = null)
@@ -288,5 +282,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
         }
         return $this;
+    }
+
+    public function getHeaderCssClass()
+    {
+        return 'icon-head head-urlrewrite';
     }
 }

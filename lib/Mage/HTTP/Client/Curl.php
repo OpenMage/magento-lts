@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_HTTP
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +22,7 @@
  * Class to work with HTTP protocol using curl library
  *
  * @category    Mage
- * @package     Mage_Connect
+ * @package     Mage_HTTP
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_HTTP_Client_Curl
@@ -91,8 +85,8 @@ implements Mage_HTTP_IClient
 
 
     /**
-     * Request timeout
-     * @var intunknown_type
+     * Request timeout in seconds
+     * @var int
      */
     protected $_timeout = 300;
 
@@ -126,7 +120,7 @@ implements Mage_HTTP_IClient
     protected $_headerCount = 0;
 
     /**
-     * Set request timeout, msec
+     * Set request timeout in seconds
      *
      * @param int $value
      */
@@ -345,7 +339,7 @@ implements Mage_HTTP_IClient
      * Make request
      * @param string $method
      * @param string $uri
-     * @param array $params
+     * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      * @return null
      */
     protected function makeRequest($method, $uri, $params = array())
@@ -354,7 +348,7 @@ implements Mage_HTTP_IClient
         $this->curlOption(CURLOPT_URL, $uri);
         if($method == 'POST') {
             $this->curlOption(CURLOPT_POST, 1);
-            $this->curlOption(CURLOPT_POSTFIELDS, http_build_query($params));
+            $this->curlOption(CURLOPT_POSTFIELDS, is_array($params) ? http_build_query($params) : $params);
         } elseif($method == "GET") {
             $this->curlOption(CURLOPT_HTTPGET, 1);
         } else {
@@ -421,31 +415,29 @@ implements Mage_HTTP_IClient
      * Parse headers - CURL callback functin
      *
      * @param resource $ch curl handle, not needed
-     * @param string $data
+     * @param string   $data
+     *
      * @return int
      */
-    protected function parseHeaders($ch, $data)
+    protected function parseHeaders($ch, $data): int
     {
-        if($this->_headerCount == 0) {
+        if ($this->_headerCount === 0) {
+            $line = explode(' ', trim($data), 3);
 
-            $line = explode(" ", trim($data), 3);
-            if(count($line) != 3) {
-                return $this->doError("Invalid response line returned from server: ".$data);
-            }
-            $this->_responseStatus = intval($line[1]);
+            $this->validateHttpVersion($line);
+            $this->_responseStatus = (int)$line[1];
         } else {
             //var_dump($data);
             $name = $value = '';
-            $out = explode(": ", trim($data), 2);
-            if(count($out) == 2) {
-                $name = $out[0];
-                $value = $out[1];
+            $out  = explode(': ', trim($data), 2);
+            if (count($out) === 2) {
+                list($name, $value) = $out;
             }
 
-            if(strlen($name)) {
-                if("Set-Cookie" == $name) {
-                    if(!isset($this->_responseHeaders[$name])) {
-                        $this->_responseHeaders[$name] = array();
+            if ($name !== '') {
+                if ($name === 'Set-Cookie') {
+                    if (!isset($this->_responseHeaders[$name])) {
+                        $this->_responseHeaders[$name] = [];
                     }
                     $this->_responseHeaders[$name][] = $value;
                 } else {
@@ -456,8 +448,32 @@ implements Mage_HTTP_IClient
         }
         $this->_headerCount++;
 
-
         return strlen($data);
+    }
+
+    /**
+     * @param array $line
+     *
+     * @throws Exception
+     */
+    protected function validateHttpVersion(array $line)
+    {
+        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
+            if (count($line) !== 3) {
+                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
+            }
+
+            return;
+        }
+
+        if ($line[0] === 'HTTP/2') {
+            if (!in_array(count($line), [2, 3])) {
+                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
+            }
+
+            return;
+        }
+        $this->doError('Invalid response line returned from server: ' . $data);
     }
 
     /**

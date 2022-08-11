@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,6 +25,8 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Product_Type_Configurable_Attribute getItemById(int $value)
  */
 class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -81,7 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      * Set Product filter (Configurable)
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     public function setProductFilter($product)
     {
@@ -93,7 +89,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
      * Set order collection by Position
      *
      * @param string $dir
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     public function orderByPosition($dir = self::SORT_ORDER_ASC)
     {
@@ -114,7 +110,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * After load collection process
      *
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -137,7 +133,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Add product attributes to collection items
      *
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     protected function _addProductAttributes()
     {
@@ -152,7 +148,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Add Associated Product Filters (From Product Type Instance)
      *
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     public function _addAssociatedProductFilters()
     {
@@ -164,7 +160,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Load attribute labels
      *
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     protected function _loadLabels()
     {
@@ -208,7 +204,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Load attribute prices information
      *
-     * @return Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
+     * @return $this
      */
     protected function _loadPrices()
     {
@@ -254,6 +250,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                     $optionsByValue[$option['value']] = array('label' => $option['label'], 'order' => $sortOrder++);
                 }
 
+                /** @var Mage_Catalog_Model_Product $associatedProduct */
                 foreach ($this->getProduct()->getTypeInstance(true)
                              ->getUsedProducts(array($productAttribute->getAttributeCode()), $this->getProduct())
                          as $associatedProduct) {
@@ -315,7 +312,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     }
 
     /**
-     * Retrive product instance
+     * Retrieve product instance
      *
      * @return Mage_Catalog_Model_Product
      */

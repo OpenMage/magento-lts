@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract class for form, coumn and fieldset
+ *
+ * @method Varien_Data_Form getForm()
+ * @method bool getUseContainer()
+ * @method $this setAction(string $value)
+ * @method $this setMethod(string $value)
+ * @method $this setName(string $value)
+ * @method $this setValue(mixed $value)
+ * @method $this setUseContainer(bool $value)
+ * @method $this setDisabled(bool $value)
+ * @method $this setRequired(bool $value)
  *
  * @category   Varien
  * @package    Varien_Data
@@ -45,7 +48,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Element type classes
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_types = array();
 
@@ -64,7 +67,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      *
      * @param string $type
      * @param string $className
-     * @return Varien_Data_Form_Abstract
+     * @return $this
      */
     public function addType($type, $className)
     {
@@ -90,7 +93,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      *
      * @param boolean $readonly
      * @param boolean $useDisabled
-     * @return Varien_Data_Form_Abstract
+     * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
     {
@@ -113,7 +116,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * @param Varien_Data_Form_Element_Abstract $element
      * @param bool|string|null $after
      *
-     * @return Varien_Data_Form
+     * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = null)
     {
@@ -153,7 +156,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * Enter description here...
      *
      * @param string $elementId
-     * @return Varien_Data_Form_Abstract
+     * @return $this
      */
     public function removeField($elementId)
     {

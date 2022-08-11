@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +97,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      *
      * @param string $field
      * @param string $alias
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     protected function _addInventoryItemFieldToSelect($field, $alias = null)
     {
@@ -138,15 +132,17 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
-     * @param unknown_type $fields
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @param array $fields
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function joinInventoryItem($fields = array())
     {
         if (!$this->_inventoryItemJoined) {
             $this->getSelect()->join(
                 array($this->_getInventoryItemTableAlias() => $this->_getInventoryItemTable()),
-                sprintf('e.%s = %s.product_id',
+                sprintf(
+                    'e.%s = %s.product_id',
                     $this->getEntity()->getEntityIdField(),
                     $this->_getInventoryItemTableAlias()
                 ),
@@ -177,7 +173,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add filter by product type(s)
      *
      * @param array|string $typeFilter
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function filterByProductType($typeFilter)
     {
@@ -194,7 +190,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add filter by product types from config
      * Only types witch has QTY parameter
      *
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function filterByIsQtyProductTypes()
     {
@@ -208,7 +204,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add Use Manage Stock Condition to collection
      *
      * @param int|null $storeId
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function useManageStockFilter($storeId = null)
     {
@@ -226,7 +222,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
      * Add Notify Stock Qty Condition to collection
      *
      * @param int $storeId
-     * @return Mage_Reports_Model_Resource_Product_Lowstock_Collection
+     * @return $this
      */
     public function useNotifyStockQtyFilter($storeId = null)
     {

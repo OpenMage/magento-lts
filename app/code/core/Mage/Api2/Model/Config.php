@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -96,11 +90,13 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getRoutes($apiType)
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2');
         if (!$helper->isApiTypeSupported($apiType)) {
-            throw new Mage_Api2_Exception(sprintf('API type "%s" is not supported', $apiType),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            throw new Mage_Api2_Exception(
+                sprintf('API type "%s" is not supported', $apiType),
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            );
         }
 
         $routes = array();
@@ -109,7 +105,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 continue;
             }
 
-            /** @var $routes Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $route */
             foreach ($resource->routes->children() as $route) {
                 $arguments = array(
                     Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string)$route->route,
@@ -129,7 +125,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve all resources from config files api2.xml
      *
-     * @return Varien_Simplexml_Element
+     * @return SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getResources()
     {
@@ -154,7 +150,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve all resource groups from config files api2.xml
      *
-     * @return Varien_Simplexml_Element|boolean
+     * @return Varien_Simplexml_Element|false
      */
     public function getResourceGroups()
     {
@@ -163,11 +159,11 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
             return false;
         }
 
-        /** @var $groups Varien_Simplexml_Element */
+        /** @var Varien_Simplexml_Element $groups */
         $groups = $groups[0];
 
         if (!$this->_resourcesGrouped) {
-            /** @var $node Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $node */
             foreach ($this->getResources() as $node) {
                 $result = $node->xpath('group');
                 if (!$result) {
@@ -180,7 +176,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                         continue;
                     }
 
-                    /** @var $group Varien_Simplexml_Element */
+                    /** @var Varien_Simplexml_Element $group */
                     $group = $result[0];
 
                     if (!isset($group->children)) {

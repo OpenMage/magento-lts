@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Indexer resource model abstraction
@@ -31,6 +24,10 @@
  * @category    Mage
  * @package     Mage_CatalogIndex
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property string $_attributeIdFieldName
+ * @property string $_entityIdFieldName
+ * @property string $_storeIdFieldName
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -40,16 +37,15 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     protected function _construct()
     {
-        
     }
 
     /**
      * Enter description here ...
      *
-     * @param unknown_type $data
-     * @param unknown_type $storeId
-     * @param unknown_type $productId
-     * @return unknown
+     * @param array $data
+     * @param int $storeId
+     * @param int $productId
+     * @return void
      */
     public function saveIndex($data, $storeId, $productId)
     {
@@ -60,8 +56,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      * Enter description here ...
      *
      * @param array $data
-     * @param unknown_type $storeId
-     * @param unknown_type $productId
+     * @param int $storeId
+     * @param int $productId
      */
     public function saveIndices(array $data, $storeId, $productId)
     {
@@ -71,10 +67,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     /**
      * Enter description here ...
      *
-     * @param unknown_type $data
-     * @param unknown_type $storeId
-     * @param unknown_type $productId
-     * @return Mage_CatalogIndex_Model_Resource_Indexer_Abstract
+     * @param array $data
+     * @param int $storeId
+     * @param int $productId
+     * @return $this
      */
     protected function _executeReplace($data, $storeId, $productId)
     {
@@ -96,29 +92,31 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     /**
      * Enter description here ...
      *
-     * @param unknown_type $productId
-     * @param unknown_type $storeId
-     * @param unknown_type $attributeId
+     * @param int $productId
+     * @param int $storeId
+     * @param int $attributeId
      */
     public function cleanup($productId, $storeId = null, $attributeId = null)
     {
         $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_entityIdFieldName} = ?", $productId);
 
-        if (!is_null($storeId))
+        if (!is_null($storeId)) {
             $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_storeIdFieldName} = ?", $storeId);
+        }
 
-        if (!is_null($attributeId))
+        if (!is_null($attributeId)) {
             $conditions[] = $this->_getWriteAdapter()->quoteInto("{$this->_attributeIdFieldName} = ?", $attributeId);
+        }
 
-        $conditions = implode (' AND ', $conditions);
+        $conditions = implode(' AND ', $conditions);
         $this->_getWriteAdapter()->delete($this->getMainTable(), $conditions);
     }
 
     /**
      * Enter description here ...
      *
-     * @param unknown_type $conditions
-     * @return unknown
+     * @param array|string $conditions
+     * @return array
      */
     public function loadAttributeCodesByCondition($conditions)
     {
@@ -129,15 +127,16 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         $select->distinct(true);
 
         if (is_array($conditions)) {
-            foreach ($conditions as $k=>$condition) {
+            foreach ($conditions as $k => $condition) {
                 if (is_array($condition)) {
                     if ($k == 'or') {
                         $function = 'where';
-                        foreach ($condition as $field=>$value) {
-                            if (is_array($value))
+                        foreach ($condition as $field => $value) {
+                            if (is_array($value)) {
                                 $select->$function("{$field} in (?)", $value);
-                            else
+                            } else {
                                 $select->$function("{$field} = ?", $value);
+                            }
 
                             $function = 'orWhere';
                         }

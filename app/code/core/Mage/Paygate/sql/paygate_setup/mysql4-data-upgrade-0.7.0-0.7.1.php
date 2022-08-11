@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +66,7 @@ try{
             'captured_amount' => $payment['base_amount_paid_online'],
             'refunded_amount' => $payment['base_amount_refunded_online']
         );
-        $additionalInformation = unserialize($payment['additional_information']);
+        $additionalInformation = unserialize($payment['additional_information'], ['allowed_classes' => false]);
         if (isset ($additionalInformation['authorize_cards'])) {
             continue;
         }
@@ -120,8 +114,9 @@ try{
     foreach ($transactions as $transaction) {
         $transactionId = $transaction['transaction_id'];
 
-        $realTransactionId = array_shift(explode('-', $transaction['txn_id']));
-        $additionalInformation = unserialize($transaction['additional_information']);
+        $parts = explode('-', $transaction['txn_id']);
+        $realTransactionId = array_shift($parts);
+        $additionalInformation = unserialize($transaction['additional_information'], ['allowed_classes' => false]);
         $additionalInformation['real_transaction_id'] = $realTransactionId;
         $additionalInformation = serialize($additionalInformation);
 

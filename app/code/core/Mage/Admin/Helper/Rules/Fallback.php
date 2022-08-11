@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +30,7 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 {
     /**
      * Fallback to resource parent node
-     * @param $resourceId
+     * @param string $resourceId
      *
      * @return string
      */
@@ -50,8 +44,8 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
 
     /**
      * Fallback resource permissions similarly to zend_acl
-     * @param        $resources
-     * @param        $resourceId
+     * @param array $resources
+     * @param string $resourceId
      * @param string $defaultValue
      *
      * @return string

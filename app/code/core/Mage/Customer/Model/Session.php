@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,50 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer session model
  *
+ * @method string getAddActionReferer()
+ * @method $this setAddActionReferer(string $value)
+ * @method array getAddressFormData()
+ * @method $this setAddressFormData(array $value)
+ * @method string getAfterAuthUrl()
+ * @method string getBeforeUrl()
+ * @method $this setBeforeUrl(string $value)
+ * @method string getBeforeAuthUrl()
+ * @method array getBeforeWishlistRequest()
+ * @method $this setBeforeWishlistRequest(array $value)
+ * @method $this unsBeforeWishlistRequest()
+ * @method string getBeforeWishlistUrl()
+ * @method $this setBeforeWishlistUrl(string $value)
+ * @method array getCustomerFormData()
+ * @method $this setCustomerFormData(array $value)
+ * @method bool  hasDisplayOutOfStockProducts()
+ * @method string  getDisplayOutOfStockProducts(string $value)
+ * @method $this  setDisplayOutOfStockProducts()
+ * @method string getForgottenEmail()
+ * @method $this setForgottenEmail(string $value)
+ * @method $this unsForgottenEmail()
+ * @method bool getNoReferer(bool $value)
+ * @method $this setNoReferer(bool $value)
+ * @method $this unsNoReferer(bool $value)
+ * @method string getUsername()
+ * @method $this setUsername(string $value)
+ * @method string  getWishlistDisplayType()
+ * @method $this  setWishlistDisplayType(string $value)
+ * @method bool hasWishlistItemCount()
+ * @method int getWishlistItemCount()
+ * @method $this setWishlistItemCount(int $value)
+ *
  * @category   Mage
  * @package    Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -124,7 +150,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set customer id
      *
      * @param int|null $id
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setCustomerId($id)
     {
@@ -149,7 +175,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set customer group id
      *
      * @param int|null $id
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setCustomerGroupId($id)
     {
@@ -207,7 +233,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function login($username, $password)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
 
@@ -218,6 +244,10 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         return false;
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $customer
+     * @return $this
+     */
     public function setCustomerAsLoggedIn($customer)
     {
         $this->setCustomer($customer);
@@ -246,12 +276,12 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Logout customer
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function logout()
     {
         if ($this->isLoggedIn()) {
-            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()) );
+            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()));
             $this->_logout();
         }
         return $this;
@@ -274,7 +304,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if (isset($loginUrl)) {
             $action->getResponse()->setRedirect($loginUrl);
         } else {
-            $action->setRedirectWithCookieCheck(Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
+            $action->setRedirectWithCookieCheck(
+                Mage_Customer_Helper_Data::ROUTE_ACCOUNT_LOGIN,
                 Mage::helper('customer')->getLoginUrlParams()
             );
         }
@@ -287,7 +318,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      *
      * @param string $key
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     protected function _setAuthUrl($key, $url)
     {
@@ -301,7 +332,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Logout without dispatching event
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     protected function _logout()
     {
@@ -316,7 +347,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set Before auth url
      *
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setBeforeAuthUrl($url)
     {
@@ -327,7 +358,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Set After auth url
      *
      * @param string $url
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function setAfterAuthUrl($url)
     {
@@ -337,7 +368,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Reset core session hosts after reseting session ID
      *
-     * @return Mage_Customer_Model_Session
+     * @return $this
      */
     public function renewSession()
     {

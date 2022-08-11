@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +43,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
 
-        /* @var $adminhtmlConfig Varien_Simplexml_Config */
+        /* @var Varien_Simplexml_Config $adminhtmlConfig */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
@@ -73,8 +67,11 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             }
 
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache($adminhtmlConfig->getXmlString(), $this->getCacheId(),
-                    array(Mage_Core_Model_Config::CACHE_TAG));
+                Mage::app()->saveCache(
+                    $adminhtmlConfig->getXmlString(),
+                    $this->getCacheId(),
+                    array(Mage_Core_Model_Config::CACHE_TAG)
+                );
             }
         }
     }
@@ -85,7 +82,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * @param Mage_Admin_Model_Acl $acl
      * @param Mage_Core_Model_Config_Element $resource
      * @param string $parentName
-     * @return Mage_Admin_Model_Config
+     * @return $this
      */
     public function loadAclResources(Mage_Admin_Model_Acl $acl, $resource = null, $parentName = null)
     {
@@ -103,7 +100,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
 
         if (isset($resource->admin)) {
             $children = $resource->admin;
-        } elseif (isset($resource->children)){
+        } elseif (isset($resource->children)) {
             $children = $resource->children->children();
         }
 
@@ -126,7 +123,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Get acl assert config
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return false|SimpleXMLElement|Varien_Simplexml_Element|Mage_Core_Model_Config_Element
      */
     public function getAclAssert($name = '')
     {
@@ -146,7 +143,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
      * Retrieve privilege set by name
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return false|SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getAclPrivilegeSet($name = '')
     {

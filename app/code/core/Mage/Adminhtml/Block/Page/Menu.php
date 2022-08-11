@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,7 +89,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     public function getMenuArray()
     {
-        return $this->_buildMenuArray();
+        $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
+
+        return $this->_buildMenuArray($parent);
     }
 
     /**
@@ -112,9 +108,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         if (isset($childAttributes['module'])) {
             $helperName     = (string)$childAttributes['module'];
         }
-//        if (isset($childAttributes['translate'])) {
-//            $titleNodeName  = (string)$childAttributes['translate'];
-//        }
 
         return Mage::helper($helperName)->__((string)$child->$titleNodeName);
     }
@@ -127,12 +120,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      * @param int $level
      * @return array
      */
-    protected function _buildMenuArray(Varien_Simplexml_Element $parent=null, $path='', $level=0)
+    protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
     {
-        if (is_null($parent)) {
-            $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
-        }
-
         $parentArr = array();
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
@@ -167,6 +156,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
             $menuArr['level'] = $level;
 
+            if ($child->target) {
+                $menuArr['target'] = $child->target;
+            }
+
             if ($child->children) {
                 $menuArr['children'] = $this->_buildMenuArray($child->children, $path.$childName.'/', $level+1);
             }
@@ -177,7 +170,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         uasort($parentArr, array($this, '_sortMenu'));
 
-        while (list($key, $value) = each($parentArr)) {
+        foreach($parentArr as $key => $value) {
             $last = $key;
         }
         if (isset($last)) {
@@ -287,6 +280,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
         foreach ($menu as $item) {
+            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
+                continue; // for example hide System/Tools when empty
+            }
             $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
                 . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '
@@ -294,6 +290,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
+                . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
                 . ($level === 0 && !empty($item['active']) ? 'active' : '') . '"><span>'
                 . $this->escapeHtml($item['label']) . '</span></a>' . PHP_EOL;

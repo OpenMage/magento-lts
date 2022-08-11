@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +31,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Reindex temporary (price result data) for all products
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexAll()
     {
@@ -59,7 +53,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Reindex temporary (price result data) for defined product(s)
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     public function reindexEntity($entityIds)
     {
@@ -110,7 +104,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare temporary price index table for fixed bundle products
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePriceTable()
     {
@@ -121,7 +115,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare table structure for temporary bundle selection prices index
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundleSelectionTable()
     {
@@ -132,7 +126,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Prepare table structure for temporary bundle option prices index
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundleOptionTable()
     {
@@ -145,7 +139,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      *
      * @param int $priceType
      * @param int|array $entityIds the entity ids limitatation
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePriceByType($priceType, $entityIds = null)
     {
@@ -304,7 +298,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
     /**
      * Calculate fixed bundle product selections price
      *
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _calculateBundleOptionPrice()
     {
@@ -396,14 +390,13 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Calculate bundle product selections price by product type
      *
      * @param int $priceType
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _calculateBundleSelectionPrice($priceType)
     {
         $write = $this->_getWriteAdapter();
 
         if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-
             $selectionPriceValue = $write->getCheckSql(
                 'bsp.selection_price_value IS NULL',
                 'bs.selection_price_value',
@@ -542,7 +535,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * Prepare temporary index price for bundle products
      *
      * @param int|array $entityIds  the entity ids limitation
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareBundlePrice($entityIds = null)
     {
@@ -556,7 +549,8 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
          * Add possibility modify prices from external events
          */
         $select = $this->_getWriteAdapter()->select()
-            ->join(array('wd' => $this->_getWebsiteDateTable()),
+            ->join(
+                array('wd' => $this->_getWebsiteDateTable()),
                 'i.website_id = wd.website_id',
                 array()
             );
@@ -584,7 +578,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareTierPriceIndex
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareTierPriceIndex($entityIds = null)
     {
@@ -643,7 +637,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
      * @see Mage_Catalog_Model_Resource_Product_Indexer_Price::_prepareGroupPriceIndex
      *
      * @param int|array $entityIds
-     * @return Mage_Bundle_Model_Resource_Indexer_Price
+     * @return $this
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
     {

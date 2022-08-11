@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -181,7 +175,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'system_config/edit/section/google' => 'configuration/sales/google-api.html',
             'system_config/edit/section/payment' => 'configuration/sales/payment-methods.html',
             'system_config/edit/section/payment_services' => 'configuration/sales/payment-services.html',
-            'system_config/edit/section/moneybookers' => 'payment/gateways.html',
             'system_config/edit/section/api' => 'configuration/services/magento-core-api.html',
             'system_config/edit/section/oauth' => 'configuration/services/oauth.html',
             'system_config/edit/section/admin' => 'configuration/advanced/admin.html',
@@ -194,9 +187,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
         ),
         'Mage_Paypal_Adminhtml' => array(
             'paypal_reports' => 'store-operations/reports-available.html',
-        ),
-        'Mage_Compiler_Adminhtml' => array(
-            'compiler_process' => 'system-operations/system-tools-compilation.html',
         ),
         'Mage_Api2_Adminhtml' => array(
             'api2_attribute' => 'system-operations/web-services.html',

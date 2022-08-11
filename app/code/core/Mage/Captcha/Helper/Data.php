@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +78,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigNode($id, $store = null)
     {
         $areaCode = Mage::app()->getStore($store)->isAdmin() ? 'admin' : 'customer';
-        return Mage::getStoreConfig( $areaCode . '/captcha/' . $id, $store);
+        return Mage::getStoreConfig($areaCode . '/captcha/' . $id, $store);
     }
 
     /**
@@ -100,10 +94,10 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         $fonts = array();
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
-               $fonts[$fontName] = array(
+                $fonts[$fontName] = array(
                    'label' => (string)$fontNode->label,
                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path
-               );
+                );
             }
         }
         return $fonts;

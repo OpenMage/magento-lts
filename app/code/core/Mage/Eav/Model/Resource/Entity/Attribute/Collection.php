@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV attribute resource collection
@@ -31,6 +24,12 @@
  * @category    Mage
  * @package     Mage_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Eav_Model_Resource_Entity_Attribute getResource()
+ *
+ * @method Mage_Eav_Model_Entity_Attribute getItemById(int $value)
+ * @method Mage_Eav_Model_Entity_Attribute[] getItems()
+ * @method Mage_Eav_Model_Entity_Attribute getFirstItem()
  */
 class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -73,7 +72,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify select columns which are used for load arrtibute values
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function useLoadDataFields()
     {
@@ -87,7 +86,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify attribute entity type filter
      *
      * @param  Mage_Eav_Model_Entity_Type | int $type
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setEntityTypeFilter($type)
     {
@@ -113,7 +112,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Specify attribute set filter
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetFilter($setId)
     {
@@ -145,7 +144,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Result will be ordered by sort_order
      *
      * @param array $setIds
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetsFilter(array $setIds)
     {
@@ -165,7 +164,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Filter for selecting of attributes that is in all sets
      *
      * @param array $setIds
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setInAllAttributeSetsFilter(array $setIds)
     {
@@ -194,7 +193,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Add filter which exclude attributes assigned to attribute set
      *
      * @param int $setId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeSetExcludeFilter($setId)
     {
@@ -212,7 +211,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Exclude attributes filter
      *
      * @param array $attributes
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributesExcludeFilter($attributes)
     {
@@ -223,7 +222,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Filter by attribute group id
      *
      * @param int $groupId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setAttributeGroupFilter($groupId)
     {
@@ -240,7 +239,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Declare group by attribute id condition for collection select
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addAttributeGrouping()
     {
@@ -251,7 +250,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify "is_unique" filter as true
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addIsUniqueFilter()
     {
@@ -261,7 +260,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify "is_unique" filter as false
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addIsNotUniqueFilter()
     {
@@ -271,7 +270,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify filter to select just attributes with options
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addHasOptionsFilter()
     {
@@ -286,7 +285,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             ->joinLeft(
                 array('ao' => $this->getTable('eav/attribute_option')),
                 'ao.attribute_id = main_table.attribute_id',
-                'option_id')
+                'option_id'
+            )
             ->group('main_table.attribute_id')
             ->where($orWhere);
 
@@ -299,7 +299,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Apply filter by attribute frontend input type
      *
      * @param string $frontendInputType
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function setFrontendInputTypeFilter($frontendInputType)
     {
@@ -310,7 +310,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Flag for adding information about attributes sets to result
      *
      * @param bool $flag
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function addSetInfo($flag = true)
     {
@@ -321,7 +321,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Ad information about attribute sets to collection result data
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     protected function _addSetInfo()
     {
@@ -388,7 +388,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
      * Load is used in configurable products flag
      * @deprecated
      *
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @return $this
      */
     public function checkConfigurableProducts()
     {
@@ -398,8 +398,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Specify collection attribute codes filter
      *
-     * @param string || array $code
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @param string | array $code
+     * @return $this
      */
     public function setCodeFilter($code)
     {
@@ -416,8 +416,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
     /**
      * Add store label to attribute by specified store id
      *
-     * @param integer $storeId
-     * @return Mage_Eav_Model_Resource_Entity_Attribute_Collection
+     * @param int $storeId
+     * @return $this
      */
     public function addStoreLabel($storeId)
     {

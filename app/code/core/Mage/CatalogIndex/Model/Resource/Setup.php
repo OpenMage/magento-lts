@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,20 +31,20 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     /**
      * Enter description here ...
      *
-     * @var unknown
+     * @var array
      */
     protected $_storeToWebsite   = null;
 
     /**
      * Enter description here ...
      *
-     * @param unknown_type $table
-     * @return Mage_CatalogIndex_Model_Resource_Setup
+     * @param string $table
+     * @return $this
      */
     public function convertStoreToWebsite($table)
     {
         $assignment = $this->_getStoreToWebsiteAssignments();
-        foreach ($assignment as $website=>$stores) {
+        foreach ($assignment as $website => $stores) {
             $this->_setWebsiteInfo($table, $website, $stores);
         }
         return $this;
@@ -59,7 +53,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     /**
      * Enter description here ...
      *
-     * @return unknown
+     * @return Mage_Core_Model_Website[]
      */
     protected function _getStoreToWebsiteAssignments()
     {
@@ -77,10 +71,10 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     /**
      * Enter description here ...
      *
-     * @param unknown_type $table
-     * @param unknown_type $websiteId
-     * @param unknown_type $storeIds
-     * @return Mage_CatalogIndex_Model_Resource_Setup
+     * @param string $table
+     * @param int $websiteId
+     * @param array $storeIds
+     * @return $this
      */
     protected function _setWebsiteInfo($table, $websiteId, $storeIds)
     {

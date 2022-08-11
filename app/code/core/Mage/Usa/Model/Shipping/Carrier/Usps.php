@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,7 +106,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      *
      * @var string
      */
-    protected $_defaultGatewayUrl = 'http://production.shippingapis.com/ShippingAPI.dll';
+    protected $_defaultGatewayUrl = 'https://production.shippingapis.com/ShippingAPI.dll';
 
     /**
      * Container types that could be customized for USPS carrier
@@ -146,7 +140,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * Prepare and set request to this instance
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps
+     * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -278,6 +272,15 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     }
 
     /**
+     * @inheritdoc
+     * Starting from 23.02.2018 USPS doesn't allow to create free shipping labels via their API.
+     */
+    public function isShippingLabelsAvailable()
+    {
+        return false;
+    }
+
+    /**
      * Get quotes
      *
      * @return Mage_Shipping_Model_Rate_Result
@@ -291,7 +294,6 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -540,7 +542,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
                  '0_FCLE' => Mage::helper('usa')->__('First-Class Mail Large Envelope'),
                  '0_FCL'  => Mage::helper('usa')->__('First-Class Mail Letter'),
                  '0_FCSL' => Mage::helper('usa')->__('First-Class Mail Stamped Letter'),
-                 '0_FCP'  => Mage::helper('usa')->__('First-Class Mail Parcel'),
+                 '0_FCP'  => Mage::helper('usa')->__('First-Class Package Service - Retail'),
                  '0_FCPC' => Mage::helper('usa')->__('First-Class Mail Postcards'),
                  '1'      => Mage::helper('usa')->__('Priority Mail'),
                  '2'      => Mage::helper('usa')->__('Priority Mail Express Hold For Pickup'),
@@ -695,13 +697,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
              ),
 
        // Added because USPS has different services but with same CLASSID value, which is "0"
-             'method_to_code' => array(
-                 'First-Class Mail Large Envelope' => '0_FCLE',
-                 'First-Class Mail Letter'         => '0_FCL',
-                 'First-Class Mail Stamped Letter' => '0_FCSL',
-                 'First-Class Mail Metered Letter' => '72',
-                 'First-Class Mail Parcel'         => '0_FCP',
-             ),
+            'method_to_code' => array(
+                'First-Class Mail Large Envelope'      => '0_FCLE',
+                'First-Class Mail Letter'              => '0_FCL',
+                'First-Class Mail Stamped Letter'      => '0_FCSL',
+                'First-Class Mail Metered Letter'      => '72',
+                'First-Class Package Service - Retail' => '0_FCP',
+            ),
 
             'first_class_mail_type'=>array(
                 'LETTER'      => Mage::helper('usa')->__('Letter'),
@@ -1339,6 +1341,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      *
      * @param Varien_Object $request
      * @return string
+     * @deprecated This method should not be used anymore.
+     * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest method doc block.
      */
     protected function _formUsExpressShipmentRequest(Varien_Object $request)
     {
@@ -1346,7 +1350,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
-            $packageWeight = round(Mage::helper('usa')->convertMeasureWeight(
+            $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
                 Zend_Measure_Weight::OUNCE
@@ -1438,7 +1442,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
-            $packageWeight = round(Mage::helper('usa')->convertMeasureWeight(
+            $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
                 Zend_Measure_Weight::OUNCE
@@ -1505,6 +1509,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      *
      * @param Varien_Object $request
      * @return string
+     * @deprecated Should not be used anymore.
+     * @see Mage_Usa_Model_Shipping_Carrier_Usps::_doShipmentRequest doc block.
      */
     protected function _formIntlShipmentRequest(Varien_Object $request)
     {
@@ -1522,24 +1528,24 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             );
         }
         if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
-            $length = round(Mage::helper('usa')->convertMeasureDimension(
+            $length = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getLength(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
-            $width = round(Mage::helper('usa')->convertMeasureDimension(
+            $width = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getWidth(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
-            $height = round(Mage::helper('usa')->convertMeasureDimension(
+            $height = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getHeight(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
         }
         if ($packageParams->getGirthDimensionUnits() != Zend_Measure_Length::INCH) {
-            $girth = round(Mage::helper('usa')->convertMeasureDimension(
+            $girth = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getGirth(),
                 $packageParams->getGirthDimensionUnits(),
                 Zend_Measure_Length::INCH
@@ -1742,6 +1748,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      *
      * @param Varien_Object $request
      * @return Varien_Object
+     * @deprecated This method must not be used anymore. Starting from 23.02.2018 USPS eliminates API usage for
+     * free shipping labels generating.
      */
     protected function _doShipmentRequest(Varien_Object $request)
     {
@@ -1941,7 +1949,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     }
 
     /**
-     * @deprecate
+     * @deprecated
      */
     public function getMethodLabel($value)
     {

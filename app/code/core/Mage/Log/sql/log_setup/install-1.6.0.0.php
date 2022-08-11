@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/* @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -56,8 +50,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
         ), 'Store ID')
-    ->addIndex($installer->getIdxName('log/customer', array('visitor_id')),
-        array('visitor_id'))
+    ->addIndex(
+        $installer->getIdxName('log/customer', array('visitor_id')),
+        array('visitor_id')
+    )
     ->setComment('Log Customers Table');
 $installer->getConnection()->createTable($table);
 
@@ -159,8 +155,10 @@ $table = $installer->getConnection()
     ->addColumn('visit_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
         ), 'Visit Time')
-    ->addIndex($installer->getIdxName('log/url_table', array('visitor_id')),
-        array('visitor_id'))
+    ->addIndex(
+        $installer->getIdxName('log/url_table', array('visitor_id')),
+        array('visitor_id')
+    )
     ->setComment('Log URL Table');
 $installer->getConnection()->createTable($table);
 
@@ -268,12 +266,18 @@ $table = $installer->getConnection()
         ), 'Customer ID')
     ->addColumn('last_url', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Last URL')
-    ->addIndex($installer->getIdxName('log/visitor_online', array('visitor_type')),
-        array('visitor_type'))
-    ->addIndex($installer->getIdxName('log/visitor_online', array('first_visit_at', 'last_visit_at')),
-        array('first_visit_at', 'last_visit_at'))
-    ->addIndex($installer->getIdxName('log/visitor_online', array('customer_id')),
-        array('customer_id'))
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('visitor_type')),
+        array('visitor_type')
+    )
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('first_visit_at', 'last_visit_at')),
+        array('first_visit_at', 'last_visit_at')
+    )
+    ->addIndex(
+        $installer->getIdxName('log/visitor_online', array('customer_id')),
+        array('customer_id')
+    )
     ->setComment('Log Visitor Online Table');
 $installer->getConnection()->createTable($table);
 

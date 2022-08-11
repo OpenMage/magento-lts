@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Wishlist
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +29,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Get customer wishlist model instance
      *
      * @param   int $customerId
-     * @return  Mage_Wishlist_Model_Wishlist || false
+     * @return  Mage_Wishlist_Model_Wishlist|false
      */
     protected function _getWishlist($customerId)
     {
@@ -89,8 +83,12 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @param Varien_Event_Observer $observer
+     */
     public function processAddToCart($observer)
     {
+        /** @var Mage_Core_Controller_Request_Http $request */
         $request = $observer->getEvent()->getRequest();
         $sharedWishlist = Mage::getSingleton('checkout/session')->getSharedWishlist();
         $messages = Mage::getSingleton('checkout/session')->getWishlistPendingMessages();
@@ -102,13 +100,13 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $wishlistIds = array($singleWishlistId);
         }
 
-        if (count($wishlistIds) && $request->getParam('wishlist_next')){
+        if (!empty($wishlistIds) && $request->getParam('wishlist_next')) {
             $wishlistId = array_shift($wishlistIds);
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 $wishlist = Mage::getModel('wishlist/wishlist')
                         ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
-            } else if ($sharedWishlist) {
+            } elseif ($sharedWishlist) {
                 $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($sharedWishlist);
             } else {
                 return;
@@ -117,15 +115,16 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
             $wishlist->getItemCollection()->load();
 
-            foreach($wishlist->getItemCollection() as $wishlistItem){
-                if ($wishlistItem->getId() == $wishlistId)
+            foreach ($wishlist->getItemCollection() as $wishlistItem) {
+                if ($wishlistItem->getId() == $wishlistId) {
                     $wishlistItem->delete();
+                }
             }
             Mage::getSingleton('checkout/session')->setWishlistIds($wishlistIds);
             Mage::getSingleton('checkout/session')->setSingleWishlistId(null);
         }
 
-        if ($request->getParam('wishlist_next') && count($urls)) {
+        if ($request->getParam('wishlist_next') && !empty($urls)) {
             $url = array_shift($urls);
             $message = array_shift($messages);
 
@@ -143,7 +142,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Customer login processing
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Wishlist_Model_Observer
+     * @return $this
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
@@ -156,7 +155,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      * Customer logout processing
      *
      * @param Varien_Event_Observer $observer
-     * @return Mage_Wishlist_Model_Observer
+     * @return $this
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
@@ -164,5 +163,4 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
 
         return $this;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order shipment tracks collection
@@ -31,9 +24,11 @@
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order_Shipment_Track getItemById(int $value)
+ * @method Mage_Sales_Model_Order_Shipment_Track[] getItems()
  */
-class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
-    extends Mage_Sales_Model_Resource_Order_Collection_Abstract
+class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection extends Mage_Sales_Model_Resource_Order_Collection_Abstract
 {
     /**
      * Event prefix
@@ -69,7 +64,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
      * Set shipment filter
      *
      * @param int $shipmentId
-     * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection
+     * @return $this
      */
     public function setShipmentFilter($shipmentId)
     {

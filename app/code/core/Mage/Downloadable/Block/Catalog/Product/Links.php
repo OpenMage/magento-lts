@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,14 +97,14 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
 
         $priceStr = '<span class="price-notice">+';
         if ($taxHelper->displayPriceIncludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceInclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceInclTax, $store);
         } elseif ($taxHelper->displayPriceExcludingTax()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceExclTax, $store);
         } elseif ($taxHelper->displayBothPrices()) {
-            $priceStr .= $coreHelper->currencyByStore($_priceExclTax, $store);
+            $priceStr .= $coreHelper::currencyByStore($_priceExclTax, $store);
             if ($_priceInclTax != $_priceExclTax) {
                 $priceStr .= ' (+'.$coreHelper
-                    ->currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
+                    ::currencyByStore($_priceInclTax, $store).' '.$this->__('Incl. Tax').')';
             }
         }
         $priceStr .= '</span>';
@@ -141,12 +135,16 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         $coreHelper = Mage::helper('core');
 
         foreach ($this->getLinks() as $link) {
-            $config[$link->getId()] = $coreHelper->currency($link->getPrice(), false, false);
+            $config[$link->getId()] = $coreHelper::currency($link->getPrice(), false, false);
         }
 
         return $coreHelper->jsonEncode($config);
     }
 
+    /**
+     * @param Mage_Downloadable_Model_Link $link
+     * @return string
+     */
     public function getLinkSamlpeUrl($link)
     {
         return $this->getUrl('downloadable/download/linkSample', array('link_id' => $link->getId()));

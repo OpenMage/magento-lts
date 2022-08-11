@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,8 +25,7 @@
  * @package    Mage_CatalogInventory
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
-    extends Mage_CatalogInventory_Model_Api2_Stock_Item
+abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_CatalogInventory_Model_Api2_Stock_Item
 {
     /**
      * Retrieve information about specified stock item
@@ -42,7 +35,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
      */
     protected function _retrieve()
     {
-        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+        /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
         return $stockItem->getData();
     }
@@ -65,7 +58,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var $collection Mage_CatalogInventory_Model_Resource_Stock_Item_Collection */
+        /* @var Mage_CatalogInventory_Model_Resource_Stock_Item_Collection $collection */
         $collection = Mage::getResourceModel('cataloginventory/stock_item_collection');
         $this->_applyCollectionModifiers($collection);
         return $collection;
@@ -79,10 +72,10 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
      */
     protected function _update(array $data)
     {
-        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+        /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
 
-        /* @var $validator Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item */
+        /* @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
         $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
             'resource' => $this
         ));
@@ -100,6 +93,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         } catch (Exception $e) {
+            Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
@@ -118,7 +112,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
-                /* @var $validator Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item */
+                /* @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
                 $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
                     'resource' => $this
                 ));
@@ -132,7 +126,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest
                 }
 
                 // Existence of a item is checked in the validator
-                /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+                /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 $stockItem = $this->_loadStockItemById($itemData['item_id']);
 
                 unset($itemData['item_id']); // item_id is not for update

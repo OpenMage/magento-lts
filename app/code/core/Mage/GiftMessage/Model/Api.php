@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,8 +30,8 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Return an Array of attributes.
      *
-     * @param Array $obj
-     * @return Array
+     * @param array $arr
+     * @return array
      */
     protected function _prepareData($arr)
     {
@@ -53,11 +47,10 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
      * @param String $entityId
      * @param Mage_Core_Controller_Request_Http $request
      * @param Mage_Sales_Model_Quote $quote
-     * @return AssociativeArray
+     * @return array
      */
     protected function _setGiftMessage($entityId, $request, $quote)
     {
-
         /**
          * Below code will catch exceptions only in DeveloperMode
          * @see Mage_Core_Model_App::_callObserverMethod($object, $method, $observer)
@@ -77,14 +70,14 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set GiftMessage for a Quote.
      *
-     * @param String $quoteId
-     * @param AssociativeArray $giftMessage
-     * @param String $store
-     * @return AssociativeArray
+     * @param int $quoteId
+     * @param array[] $giftMessage
+     * @param string $store
+     * @return array[]
      */
     public function setForQuote($quoteId, $giftMessage, $store = null)
     {
-        /** @var $quote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteId, $store);
 
         $giftMessage = $this->_prepareData($giftMessage);
@@ -103,14 +96,14 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set a GiftMessage to QuoteItem by product
      *
-     * @param String $quoteId
-     * @param Array $productsAndMessages
-     * @param String $store
+     * @param int $quoteId
+     * @param array $productsAndMessages
+     * @param string $store
      * @return array
      */
     public function setForQuoteProduct($quoteId, $productsAndMessages, $store = null)
     {
-        /** @var $quote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteId, $store);
 
         $productsAndMessages = $this->_prepareData($productsAndMessages);
@@ -156,20 +149,20 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
     /**
      * Set GiftMessage for a QuoteItem by its Id.
      *
-     * @param String $quoteItemId
-     * @param AssociativeArray $giftMessage
-     * @param String $store
-     * @return AssociativeArray
+     * @param string $quoteItemId
+     * @param array[] $giftMessage
+     * @param string $store
+     * @return array[]
      */
     public function setForQuoteItem($quoteItemId, $giftMessage, $store = null)
     {
-        /** @var $quote Mage_Sales_Model_Quote_Item */
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         $quoteItem = Mage::getModel('sales/quote_item')->load($quoteItemId);
         if (is_null($quoteItem->getId())) {
             $this->_fault("quote_item_not_exists");
         }
 
-        /** @var $quote Mage_Sales_Model_Quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->_getQuote($quoteItem->getQuoteId(), $store);
 
         $giftMessage = $this->_prepareData($giftMessage);

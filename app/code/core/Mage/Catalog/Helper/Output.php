@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,6 +42,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent('catalog_helper_output_construct', array('helper'=>$this));
     }
 
+    /**
+     * @return Varien_Filter_Template
+     */
     protected function _getTemplateProcessor()
     {
         if (null === $this->_templateProcessor) {
@@ -94,10 +91,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /**
      * Process all method handlers
      *
-     * @param   string $method
-     * @param   mixed $result
-     * @param   array $params
-     * @return unknown
+     * @param string $method
+     * @param mixed $result
+     * @param array $params
+     * @return mixed
      */
     public function process($method, $result, $params)
     {
@@ -119,15 +116,16 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function productAttribute($product, $attributeHtml, $attributeName)
     {
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeName);
         if ($attribute && $attribute->getId() && ($attribute->getFrontendInput() != 'media_image')
             && (!$attribute->getIsHtmlAllowedOnFront() && !$attribute->getIsWysiwygEnabled())) {
-                if ($attribute->getFrontendInput() != 'price') {
-                    $attributeHtml = $this->escapeHtml($attributeHtml);
-                }
-                if ($attribute->getFrontendInput() == 'textarea') {
-                    $attributeHtml = nl2br($attributeHtml);
-                }
+            if ($attribute->getFrontendInput() != 'price') {
+                $attributeHtml = $this->escapeHtml($attributeHtml);
+            }
+            if ($attribute->getFrontendInput() == 'textarea') {
+                $attributeHtml = nl2br($attributeHtml);
+            }
         }
         if ($attribute->getIsHtmlAllowedOnFront() && $attribute->getIsWysiwygEnabled()) {
             if (Mage::helper('catalog')->isUrlDirectivesParsingAllowed()) {
@@ -153,6 +151,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function categoryAttribute($category, $attributeHtml, $attributeName)
     {
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeName);
 
         if ($attribute && ($attribute->getFrontendInput() != 'image')

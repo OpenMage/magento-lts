@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,6 +148,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
      * Check if category ids was changed
      *
      * @param Mage_Index_Model_Event $event
+     * @return Mage_Catalog_Model_Category_Indexer_Product
      */
     protected function _registerEvent(Mage_Index_Model_Event $event)
     {
@@ -161,7 +156,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         $entity = $event->getEntity();
         switch ($entity) {
             case Mage_Catalog_Model_Product::ENTITY:
-               $this->_registerProductEvent($event);
+                $this->_registerProductEvent($event);
                 break;
 
             case Mage_Catalog_Model_Category::ENTITY:
@@ -190,6 +185,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
     {
         $eventType = $event->getType();
         if ($eventType == Mage_Index_Model_Event::TYPE_SAVE) {
+            /** @var Varien_Object|Mage_Catalog_Model_Product $product */
             $product = $event->getDataObject();
             /**
              * Check if product categories data was changed
@@ -198,8 +194,8 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
                 || $product->dataHasChangedFor('visibility') || $product->getIsChangedWebsites()) {
                 $event->addNewData('category_ids', $product->getCategoryIds());
             }
-        } else if ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {
-            /* @var $actionObject Varien_Object */
+        } elseif ($eventType == Mage_Index_Model_Event::TYPE_MASS_ACTION) {
+            /* @var Varien_Object $actionObject */
             $actionObject = $event->getDataObject();
             $attributes   = array('status', 'visibility');
             $rebuildIndex = false;

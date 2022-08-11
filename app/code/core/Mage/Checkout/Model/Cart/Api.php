@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,8 +63,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Retrieve full information about quote
      *
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int $store
      * @return array
      */
     public function info($quoteId, $store = null)
@@ -104,9 +98,9 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param  $quoteId
-     * @param  $store
-     * @return void
+     * @param int $quoteId
+     * @param string|int $store
+     * @return array
      */
     public function totals($quoteId, $store = null)
     {
@@ -127,9 +121,9 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     /**
      * Create an order from the shopping cart (quote)
      *
-     * @param  $quoteId
-     * @param  $store
-     * @param  $agreements array
+     * @param  int $quoteId
+     * @param  int|string $store
+     * @param  array $agreements
      * @return string
      */
     public function createOrder($quoteId, $store = null, $agreements = null)
@@ -151,13 +145,13 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
             $this->_fault('guest_checkout_is_not_enabled');
         }
 
-        /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
+        /** @var Mage_Checkout_Model_Api_Resource_Customer $customerResource */
         $customerResource = Mage::getModel("checkout/api_resource_customer");
         $isNewCustomer = $customerResource->prepareCustomerForQuote($quote);
 
         try {
             $quote->collectTotals();
-            /** @var $service Mage_Sales_Model_Service_Quote */
+            /** @var Mage_Sales_Model_Service_Quote $service */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
 
@@ -171,8 +165,10 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
 
             $order = $service->getOrder();
             if ($order) {
-                Mage::dispatchEvent('checkout_type_onepage_save_order_after',
-                    array('order' => $order, 'quote' => $quote));
+                Mage::dispatchEvent(
+                    'checkout_type_onepage_save_order_after',
+                    array('order' => $order, 'quote' => $quote)
+                );
 
                 try {
                     $order->queueNewOrderEmail();
@@ -193,8 +189,8 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
     }
 
     /**
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int|string $store
      * @return array
      */
     public function licenseAgreement($quoteId, $store = null)
@@ -209,7 +205,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                     ->addFieldToFilter('is_active', 1);
 
             foreach ($agreementsCollection as $_a) {
-                /** @var $_a  Mage_Checkout_Model_Agreement */
+                /** @var Mage_Checkout_Model_Agreement $_a */
                 $agreements[] = $this->_getAttributes($_a, "quote_agreement");
             }
         }

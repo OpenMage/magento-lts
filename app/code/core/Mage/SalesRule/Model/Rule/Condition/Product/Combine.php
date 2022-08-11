@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,8 +53,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Check whether the attribute is a quote item attribute
-     * @param $attributeCode
-     *
+     * @param string $attributeCode
      * @return bool
      */
     protected function _getIsQuoteItemAttribute($attributeCode)
@@ -70,10 +63,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Add an attribute condition to the conditions group
-     * @param $conditionType
-     * @param $conditionModel
-     * @param $attributeCode
-     * @param $attributeLabel
+     * @param string $conditionType
+     * @param string $conditionModel
+     * @param string $attributeCode
+     * @param string $attributeLabel
      *
      * @return $this
      */
@@ -95,7 +88,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Retrieve a conditions by group_id
-     * @param $conditionsGroup
+     * @param string $conditionsGroup
      *
      * @return array
      */
@@ -187,8 +180,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
 
     /**
      * Collect all validated attributes
-     * @param $productCollection
-     *
+     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return $this
      */
     public function collectValidatedAttributes($productCollection)
@@ -216,7 +208,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $valid = parent::validate($object);
         if (!$valid && $product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             $children = $object->getChildren();
-            if (is_array($children) and isset($children[0])) {
+            if (is_array($children) && isset($children[0])) {
                 $child = $children[0];
 
                 /** @var Mage_Catalog_Model_Product $childProduct */

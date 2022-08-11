@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -145,7 +139,7 @@ class Mage_Tax_Model_Config
     protected $_needUseShippingExcludeTax = false;
 
     /**
-     * @var $_shippingPriceIncludeTax bool
+     * @var bool $_shippingPriceIncludeTax
      */
     protected $_shippingPriceIncludeTax = null;
 
@@ -153,7 +147,7 @@ class Mage_Tax_Model_Config
      * Retrieve config value for store by path
      *
      * @param string $path
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store)
@@ -164,7 +158,7 @@ class Mage_Tax_Model_Config
     /**
      * Check if product prices inputed include tax
      *
-     * @param   mix $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return  bool
      */
     public function priceIncludesTax($store = null)
@@ -203,8 +197,8 @@ class Mage_Tax_Model_Config
     /**
      * Get configuration setting "Apply Discount On Prices Including Tax" value
      *
-     * @param   null|int $store
-     * @return  0|1
+     * @param null|int $store
+     * @return bool 0|1
      */
     public function discountTax($store = null)
     {
@@ -284,7 +278,7 @@ class Mage_Tax_Model_Config
     /**
      * Get defined tax calculation agorithm
      *
-     * @param   store $store
+     * @param   mixed $store
      * @return  string
      */
     public function getAlgorithm($store = null)
@@ -295,7 +289,7 @@ class Mage_Tax_Model_Config
     /**
      * Get tax class id specified for shipping tax estimation
      *
-     * @param   store $store
+     * @param   mixed $store
      * @return  int
      */
     public function getShippingTaxClass($store = null)
@@ -306,7 +300,7 @@ class Mage_Tax_Model_Config
     /**
      * Get shipping methods prices display type
      *
-     * @param   store $store
+     * @param   mixed $store
      * @return  int
      */
     public function getShippingPriceDisplayType($store = null)
@@ -317,7 +311,7 @@ class Mage_Tax_Model_Config
     /**
      * Check if shipping prices include tax
      *
-     * @param   store $store
+     * @param   mixed $store
      * @return  bool
      */
     public function shippingPriceIncludesTax($store = null)
@@ -334,7 +328,7 @@ class Mage_Tax_Model_Config
     /**
      * Declare shipping prices type
      * @param bool $flag
-     * @return Mage_Tax_Model_Config
+     * @return $this
      */
     public function setShippingPriceIncludeTax($flag)
     {

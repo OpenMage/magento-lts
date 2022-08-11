@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,9 +46,10 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * Reviews collection count will be jerked here
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param string $templateType
+     * @param bool $templateType
      * @param bool $displayIfNoReviews
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReviewsSummaryHtml(Mage_Catalog_Model_Product $product, $templateType = false, $displayIfNoReviews = false)
     {
@@ -69,6 +64,10 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
             ;
     }
 
+    /**
+     * @return Mage_Review_Model_Resource_Review_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getReviewsCollection()
     {
         if (null === $this->_reviewsCollection) {

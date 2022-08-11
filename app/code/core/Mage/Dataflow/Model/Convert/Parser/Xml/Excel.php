@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Dataflow
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,6 +65,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         if (!method_exists($adapter, $adapterMethod)) {
             $message = Mage::helper('dataflow')
                 ->__('Method "%s" was not defined in adapter %s.', $adapterMethod, $adapterName);
+            $message = Mage::helper('dataflow')->escapeHtml($message);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
         }
@@ -86,7 +81,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         $batchIoAdapter->open(false);
 
-        $isFieldNames = $this->getVar('fieldnames', '') == 'true' ? true : false;
+        $isFieldNames = $this->getVar('fieldnames', '') == 'true';
         if (!$isFieldNames && is_array($this->getVar('map'))) {
             $this->_parseFieldNames = $this->getVar('map');
         }
@@ -125,7 +120,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     continue;
                 }
                 else {
-                    if (preg_match('/ss:Name=\"'.preg_quote($worksheet).'\"/siU', substr($xmlTmpString, 0, $strposF))) {
+                    if (preg_match('/ss:Name=\"'.preg_quote($worksheet, '/').'\"/siU', substr($xmlTmpString, 0, $strposF))) {
                         $xmlString = substr($xmlTmpString, $strposF);
                         $isWorksheet = true;
                         continue;
@@ -162,12 +157,9 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             ->setAdapter($adapterName)
             ->save();
 
-//        $adapter->$adapterMethod();
-
         return $this;
 
         $dom = new DOMDocument();
-//        $dom->loadXML($this->getData());
         if (Mage::app()->getRequest()->getParam('files')) {
             $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
             $file = $path.urldecode(Mage::app()->getRequest()->getParam('files'));
@@ -224,7 +216,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 }
             }
             $data[$wsName] = $wsData;
-            $this->addException('Found worksheet "'.$wsName.'" with '.sizeof($wsData).' row(s)');
+            $this->addException('Found worksheet "'.$wsName.'" with '.count($wsData).' row(s)');
         }
         if ($wsName = $this->getVar('single_sheet')) {
             if (isset($data[$wsName])) {
@@ -395,64 +387,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io->close();
 
         return $this;
-
-//        if ($wsName = $this->getVar('single_sheet')) {
-//            $data = array($wsName => $this->getData());
-//        } else {
-//            $data = $this->getData();
-//        }
-//
-//        $this->validateDataGrid();
-//
-//        $xml = '<'.'?xml version="1.0"?'.'><'.'?mso-application progid="Excel.Sheet"?'.'><Workbook'
-//            .' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
-//            .' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-//            .' xmlns:x="urn:schemas-microsoft-com:office:excel"'
-//            .' xmlns:x2="http://schemas.microsoft.com/office/excel/2003/xml"'
-//            .' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"'
-//            .' xmlns:o="urn:schemas-microsoft-com:office:office"'
-//            .' xmlns:html="http://www.w3.org/TR/REC-html40"'
-//            .' xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet">'
-//            .'<OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">'
-//            .'</OfficeDocumentSettings>'
-//            .'<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">'
-//            .'</ExcelWorkbook>';
-//
-//        if (is_array($data)) {
-//            foreach ($data as $wsName=>$wsData) {
-//                if (!is_array($wsData)) {
-//                    continue;
-//                }
-//                $fields = $this->getGridFields($wsData);
-//
-//                $xml .= '<ss:Worksheet ss:Name="'.$wsName.'"><Table>';
-//                if ($this->getVar('fieldnames')) {
-//                    $xml .= '<ss:Row>';
-//                    foreach ($fields as $fieldName) {
-//                        $xml .= '<ss:Cell><Data ss:Type="String">'.$fieldName.'</Data></ss:Cell>';
-//                    }
-//                    $xml .= '</ss:Row>';
-//                }
-//                foreach ($wsData as $i=>$row) {
-//                    if (!is_array($row)) {
-//                        continue;
-//                    }
-//                    $xml .= '<ss:Row>';
-//                    foreach ($fields as $fieldName) {
-//                        $data = isset($row[$fieldName]) ? $row[$fieldName] : '';
-//                        $xml .= '<ss:Cell><Data ss:Type="String">'.$data.'</Data></ss:Cell>';
-//                    }
-//                    $xml .= '</ss:Row>';
-//                }
-//                $xml .= '</Table></ss:Worksheet>';
-//            }
-//        }
-//
-//        $xml .= '</Workbook>';
-//
-//        $this->setData($xml);
-//
-//        return $this;
     }
 
     /**
@@ -489,6 +423,6 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         }
         $xmlData[] = '</Row>';
 
-        return join('', $xmlData);
+        return implode('', $xmlData);
     }
 }

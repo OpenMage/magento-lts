@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -32,7 +26,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_LOG_ENABLED = 'system/log/enable_log';
 
     /**
-     * @var Mage_Log_Helper_Data
+     * @var int
      */
     protected $_logLevel;
 
@@ -41,6 +35,10 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private $_allowedFileExtensions = array('log', 'txt', 'html', 'csv');
 
+    /**
+     * Mage_Log_Helper_Data constructor.
+     * @param array $data
+     */
     public function __construct(array $data = array())
     {
         $this->_logLevel = isset($data['log_level']) ? $data['log_level']
@@ -81,7 +79,7 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Checking if file extensions is allowed. If passed then return true.
      *
-     * @param $file
+     * @param string $file
      * @return bool
      */
     public function isLogFileExtensionValid($file)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,6 +57,12 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         $this->setTemplate('page/html/breadcrumbs.phtml');
     }
 
+    /**
+     * @param string $crumbName
+     * @param array $crumbInfo
+     * @param bool $after
+     * @return $this
+     */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
     {
         $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
@@ -77,6 +77,11 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @param string $crumbName
+     * @param array $crumbInfo
+     * @param bool $before
+     */
     public function addCrumbBefore($crumbName, $crumbInfo, $before = false)
     {
         if ($before && isset($this->_crumbs[$before])) {
@@ -94,6 +99,9 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         }
     }
 
+    /**
+     * @param string $crumbName
+     */
     public function removeCrumb($crumbName)
     {
         if (isset($this->_crumbs[$crumbName])) {
@@ -119,6 +127,9 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     }
 
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if (is_array($this->_crumbs)) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -72,7 +66,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Set store for resource model
      *
      * @param mixed $store
-     * @return Mage_Catalog_Model_Resource_Product_Flat
+     * @return $this
      */
     public function setStoreId($store)
     {
@@ -118,7 +112,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAttributeForSelect($attributeCode)
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         if (!isset($describe[$attributeCode])) {
             return null;
         }
@@ -140,7 +134,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAttributeSortColumn($attributeCode)
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         if (!isset($describe[$attributeCode])) {
             return null;
         }
@@ -158,7 +152,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      */
     public function getAllTableColumns()
     {
-        $describe = $this->_getWriteAdapter()->describeTable($this->getFlatTableName());
+        $describe = $this->_getReadAdapter()->describeTable($this->getFlatTableName());
         return array_keys($describe);
     }
 

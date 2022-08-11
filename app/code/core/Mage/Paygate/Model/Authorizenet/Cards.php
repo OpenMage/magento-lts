@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paygate
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +44,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Set payment instance for storing credit card information and partial authorizations
      *
      * @param Mage_Payment_Model_Info $payment
-     * @return Mage_Paygate_Model_Authorizenet_Cards
+     * @return $this
      */
     public function setPayment(Mage_Payment_Model_Info $payment)
     {
@@ -67,7 +61,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Add based on $cardInfo card to payment and return Id of new item
      *
      * @param mixed $cardInfo
-     * @return string
+     * @return Varien_Object
      */
     public function registerCard($cardInfo = array())
     {
@@ -83,7 +77,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Save data from card object in cards storage
      *
      * @param Varien_Object $card
-     * @return Mage_Paygate_Model_Authorizenet_Cards
+     * @return $this
      */
     public function updateCard($card)
     {
@@ -99,7 +93,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      * Retrieve card by ID
      *
      * @param string $cardId
-     * @return Varien_Object|bool
+     * @return Varien_Object|false
      */
     public function getCard($cardId)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,10 +84,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     public function items($filters = null, $store = null)
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addStoreFilter($this->_getStoreId($store))
+            ->setStoreId($this->_getStoreId($store))
             ->addAttributeToSelect('name');
 
-        /** @var $apiHelper Mage_Api_Helper_Data */
         $apiHelper = Mage::helper('api');
         $filters = $apiHelper->parseFilters($filters, $this->_filtersMap);
         try {
@@ -104,6 +97,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             $this->_fault('filters_invalid', $e->getMessage());
         }
         $result = array();
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
             $result[] = array(
                 'product_id' => $product->getId(),
@@ -148,7 +142,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $attributes)) {
                 $result[$attribute->getAttributeCode()] = $product->getData(
-                                                                $attribute->getAttributeCode());
+                    $attribute->getAttributeCode()
+                );
             }
         }
 
@@ -174,7 +169,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         $this->_checkProductTypeExists($type);
         $this->_checkProductAttributeSet($set);
 
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         $product->setStoreId($this->_getStoreId($store))
             ->setAttributeSetId($set)
@@ -200,7 +195,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code => $error) {
+                foreach ($errors as $code => $error) {
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     }
@@ -223,7 +218,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * @param int|string $productId
      * @param array $productData
      * @param string|int $store
+     * @param null $identifierType
      * @return boolean
+     * @throws Mage_Api_Exception
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function update($productId, $productData, $store = null, $identifierType = null)
     {
@@ -238,7 +236,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
              */
             if (is_array($errors = $product->validate())) {
                 $strErrors = array();
-                foreach($errors as $code => $error) {
+                foreach ($errors as $code => $error) {
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid.', $code);
                     } else {
@@ -260,9 +258,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      *  Set additional data before product saved
      *
-     *  @param    Mage_Catalog_Model_Product $product
-     *  @param    array $productData
-     *  @return   object
+     * @param Mage_Catalog_Model_Product $product
+     * @param array $productData
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareDataForSave($product, $productData)
     {
@@ -308,7 +306,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 if (is_string($website)) {
                     try {
                         $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) { }
+                    } catch (Exception $e) {
+                    }
                 }
             }
             $product->setWebsiteIds($productData['websites']);
@@ -372,7 +371,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
      * Delete product
      *
      * @param int|string $productId
+     * @param null $identifierType
      * @return boolean
+     * @throws Mage_Api_Exception
      */
     public function delete($productId, $identifierType = null)
     {
@@ -390,8 +391,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
    /**
     * Get list of additional attributes which are not in default create/update list
     *
-    * @param  $productType
-    * @param  $attributeSetId
+    * @param  int $productType
+    * @param  int $attributeSetId
     * @return array
     */
     public function getAdditionalAttributes($productType, $attributeSetId)
@@ -399,7 +400,6 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         $this->_checkProductTypeExists($productType);
         $this->_checkProductAttributeSet($attributeSetId);
 
-        /** @var $product Mage_Catalog_Model_Product */
         $productAttributes = Mage::getModel('catalog/product')
             ->setAttributeSetId($attributeSetId)
             ->setTypeId($productType)
@@ -408,10 +408,9 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
 
         $result = array();
         foreach ($productAttributes as $attribute) {
-            /* @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ($attribute->isInSet($attributeSetId) && $this->_isAllowedAttribute($attribute)
                 && !in_array($attribute->getAttributeCode(), $this->_defaultProductAttributeList)) {
-
                 if ($attribute->isScopeGlobal()) {
                     $scope = 'global';
                 } elseif ($attribute->isScopeWebsite()) {
@@ -436,13 +435,12 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check if product type exists
      *
-     * @param  $productType
+     * @param int $productType
      * @throw Mage_Api_Exception
-     * @return void
      */
     protected function _checkProductTypeExists($productType)
     {
-        if (!in_array($productType, array_keys(Mage::getModel('catalog/product_type')->getOptionArray()))) {
+        if (!array_key_exists($productType, Mage::getModel('catalog/product_type')->getOptionArray())) {
             $this->_fault('product_type_not_exists');
         }
     }
@@ -450,9 +448,8 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     /**
      * Check if attributeSet is exits and in catalog_product entity group type
      *
-     * @param  $attributeSetId
+     * @param int $attributeSetId
      * @throw Mage_Api_Exception
-     * @return void
      */
     protected function _checkProductAttributeSet($attributeSetId)
     {
@@ -464,4 +461,4 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
             $this->_fault('product_attribute_set_not_valid');
         }
     }
-} // Class Mage_Catalog_Model_Product_Api End
+}

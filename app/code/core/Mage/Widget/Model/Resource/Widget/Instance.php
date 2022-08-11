@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,8 +40,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Perform actions after object load
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @inheritDoc
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
@@ -63,8 +56,8 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Perform actions after object save
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @inheritDoc
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -108,9 +101,13 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             if (in_array($pageGroup['page_id'], $pageIds)) {
                 $writeAdapter->update($pageTable, $data, array('page_id = ?' => (int)$pageId));
             } else {
-                $writeAdapter->insert($pageTable,
-                    array_merge(array('instance_id' => $object->getId()),
-                    $data));
+                $writeAdapter->insert(
+                    $pageTable,
+                    array_merge(
+                        array('instance_id' => $object->getId()),
+                        $data
+                    )
+                );
                 $pageId = $writeAdapter->lastInsertId($pageTable);
             }
             foreach ($pageLayoutUpdateIds as $layoutUpdateId) {
@@ -150,7 +147,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
             );
             if (strlen($widgetInstance->getSortOrder())) {
                 $insert['sort_order'] = $widgetInstance->getSortOrder();
-            };
+            }
 
             $writeAdapter->insert($layoutUpdateTable, $insert);
             $layoutUpdateId = $writeAdapter->lastInsertId($layoutUpdateTable);
@@ -189,8 +186,8 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions before object delete.
      * Collect page ids and layout update ids and set to object for further delete
      *
-     * @param Varien_Object $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @param Mage_Core_Model_Abstract $object
+     * @return $this
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
@@ -212,8 +209,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object delete.
      * Delete layout updates by layout update ids collected in _beforeSave
      *
-     * @param Mage_Widget_Model_Widget_Instance $object
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $object)
     {
@@ -225,7 +221,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Delete widget instance pages by given ids
      *
      * @param array $pageIds
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _deleteWidgetInstancePages($pageIds)
     {
@@ -246,7 +242,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Delete layout updates by given ids
      *
      * @param array $layoutUpdateIds
-     * @return Mage_Widget_Model_Resource_Widget_Instance
+     * @return $this
      */
     protected function _deleteLayoutUpdates($layoutUpdateIds)
     {
@@ -278,5 +274,4 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
         $storeIds = $adapter->fetchOne($select);
         return $storeIds ? explode(',', $storeIds) : array();
     }
-
 }

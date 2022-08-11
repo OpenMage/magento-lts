@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product list toolbar
@@ -31,6 +24,9 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getDefaultGridPerPage()
+ * @method string getDefaultListPerPage()
  */
 class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
 {
@@ -201,7 +197,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      *
      * @param string $param parameter name
      * @param mixed $value parameter value
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     protected function _memorizeParam($param, $value)
     {
@@ -216,7 +212,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set collection to pager
      *
      * @param Varien_Data_Collection $collection
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setCollection($collection)
     {
@@ -381,7 +377,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set default Order field
      *
      * @param string $field
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setDefaultOrder($field)
     {
@@ -395,7 +391,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set default sort direction
      *
      * @param string $dir
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setDefaultDirection($dir)
     {
@@ -419,7 +415,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set Available order fields list
      *
      * @param array $orders
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setAvailableOrders($orders)
     {
@@ -432,18 +428,19 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      *
      * @param string $order
      * @param string $value
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function addOrderToAvailableOrders($order, $value)
     {
         $this->_availableOrder[$order] = $value;
         return $this;
     }
+
     /**
      * Remove order from available orders if exists
      *
      * @param string $order
-     * @param Mage_Catalog_Block_Product_List_Toolbar
+     * @return Mage_Catalog_Block_Product_List_Toolbar
      */
     public function removeOrderFromAvailableOrders($order)
     {
@@ -489,7 +486,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * @param array $params Query parameters
      * @return string
      */
-    public function getPagerUrl($params=array())
+    public function getPagerUrl($params = array())
     {
         $urlParams = array();
         $urlParams['_current']  = true;
@@ -544,7 +541,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve availables view modes
      *
-     * @return array
+     * @return string
      */
     public function getModes()
     {
@@ -555,31 +552,31 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * Set available view modes list
      *
      * @param array $modes
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function setModes($modes)
     {
-        if(!isset($this->_availableMode)){
+        if (!isset($this->_availableMode)) {
             $this->_availableMode = $modes;
         }
         return $this;
     }
 
     /**
-     * Retrive URL for view mode
+     * Retrieve URL for view mode
      *
      * @param string $mode
      * @return string
      */
     public function getModeUrl($mode)
     {
-        return $this->getPagerUrl( array($this->getModeVarName()=>$mode, $this->getPageVarName() => null) );
+        return $this->getPagerUrl(array($this->getModeVarName()=>$mode, $this->getPageVarName() => null));
     }
 
     /**
      * Disable view switcher
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function disableViewSwitcher()
     {
@@ -590,7 +587,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Enable view switcher
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function enableViewSwitcher()
     {
@@ -611,7 +608,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Disable Expanded
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function disableExpanded()
     {
@@ -622,7 +619,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Enable Expanded
      *
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
     public function enableExpanded()
     {
@@ -652,8 +649,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
                 return $default;
             }
             return Mage::getStoreConfig('catalog/frontend/list_per_page');
-        }
-        elseif ($this->getCurrentMode() == 'grid') {
+        } elseif ($this->getCurrentMode() == 'grid') {
             if ($default = $this->getDefaultGridPerPage()) {
                 return $default;
             }
@@ -668,9 +664,9 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
      * @param string $mode
      * @param string $value
      * @param string $label
-     * @return Mage_Catalog_Block_Product_List_Toolbar
+     * @return $this
      */
-    public function addPagerLimit($mode, $value, $label='')
+    public function addPagerLimit($mode, $value, $label = '')
     {
         if (!isset($this->_availableLimit[$mode])) {
             $this->_availableLimit[$mode] = array();
@@ -697,6 +693,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve available limits for specified view mode
      *
+     * @param string $mode
      * @return array
      */
     protected function _getAvailableLimit($mode)
@@ -766,33 +763,52 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         ));
     }
 
+    /**
+     * @param int $limit
+     * @return bool
+     */
     public function isLimitCurrent($limit)
     {
         return $limit == $this->getLimit();
     }
 
+    /**
+     * @return int
+     */
     public function getFirstNum()
     {
         $collection = $this->getCollection();
         return $collection->getPageSize()*($collection->getCurPage()-1)+1;
     }
 
+    /**
+     * @return int
+     */
     public function getLastNum()
     {
         $collection = $this->getCollection();
         return $collection->getPageSize()*($collection->getCurPage()-1)+$collection->count();
     }
 
+    /**
+     * @return int
+     */
     public function getTotalNum()
     {
         return $this->getCollection()->getSize();
     }
 
+    /**
+     * @return bool
+     */
     public function isFirstPage()
     {
         return $this->getCollection()->getCurPage() == 1;
     }
 
+    /**
+     * @return int
+     */
     public function getLastPageNum()
     {
         return $this->getCollection()->getLastPageNumber();
@@ -808,8 +824,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $pagerBlock = $this->getChild('product_list_toolbar_pager');
 
         if ($pagerBlock instanceof Varien_Object) {
-
-            /* @var $pagerBlock Mage_Page_Block_Html_Pager */
+            /* @var Mage_Page_Block_Html_Pager $pagerBlock */
             $pagerBlock->setAvailableLimit($this->getAvailableLimit());
 
             $pagerBlock->setUseContainer(false)

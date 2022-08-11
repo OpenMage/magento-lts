@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -52,7 +46,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Set entity for form
      *
      * @param Varien_Object $entity
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     public function setEntity(Varien_Object $entity)
     {
@@ -61,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive entity for form
+     * Retrieve entity for form
      *
      * @return Varien_Object
      */
@@ -132,7 +126,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Prepares form
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     public function _prepareForm()
     {
@@ -179,7 +173,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
@@ -208,7 +202,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
@@ -241,7 +235,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Initialize gift message for entity
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _initMessage()
     {
@@ -252,7 +246,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive gift message for entity
+     * Retrieve gift message for entity
      *
      * @return Mage_GiftMessage_Model_Message
      */
@@ -266,7 +260,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive real name for field
+     * Retrieve real name for field
      *
      * @param string $name
      * @return string
@@ -277,9 +271,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive real html id for field
+     * Retrieve real html id for field
      *
-     * @param string $name
+     * @param string $id
      * @return string
      */
     protected  function _getFieldId($id)
@@ -288,9 +282,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     }
 
     /**
-     * Retrive field html id prefix
+     * Retrieve field html id prefix
      *
-     * @return unknown
+     * @return string
      */
     protected  function _getFieldIdPrefix()
     {
@@ -300,7 +294,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     /**
      * Aplies posted data to gift message
      *
-     * @return Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form
+     * @return $this
      */
     protected function _applyPostData()
     {

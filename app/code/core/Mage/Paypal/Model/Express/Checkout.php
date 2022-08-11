@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +76,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Payment method type
      *
-     * @var unknown_type
+     * @var string
      */
     protected $_methodType = Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS;
 
@@ -209,7 +203,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param string $successUrl - payment success result
      * @param string $cancelUrl  - payment cancellation result
      * @param string $pendingUrl - pending payment result
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
     {
@@ -221,7 +215,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Set create billing agreement flag
      *
      * @param bool $flag
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setIsBillingAgreementRequested($flag)
     {
@@ -233,7 +227,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Setter for customer Id
      *
      * @param int $id
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      * @deprecated please use self::setCustomer
      */
     public function setCustomerId($id)
@@ -256,7 +250,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Setter for customer
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setCustomer($customer)
     {
@@ -271,7 +265,7 @@ class Mage_Paypal_Model_Express_Checkout
      * @param  Mage_Customer_Model_Customer   $customer
      * @param  Mage_Sales_Model_Quote_Address $billingAddress
      * @param  Mage_Sales_Model_Quote_Address $shippingAddress
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     public function setCustomerWithAddressChange($customer, $billingAddress = null, $shippingAddress = null)
     {
@@ -493,7 +487,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check whether order review has enough data to initialize
      *
-     * @param $token
+     * @param string $token
      * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)
@@ -610,7 +604,7 @@ class Mage_Paypal_Model_Express_Checkout
         $this->_recurringPaymentProfiles = $service->getRecurringPaymentProfiles();
         // TODO: send recurring profile emails
 
-        /** @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $service->getOrder();
         if (!$order) {
             return;
@@ -753,7 +747,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set create billing agreement flag to api call
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _setBillingAgreementRequest()
     {
@@ -909,7 +903,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Prepare quote for guest checkout order submit
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareGuestQuote()
     {
@@ -938,7 +932,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Prepare quote for customer registration and customer order submit
      * and restore magento customer data from quote
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -953,7 +947,7 @@ class Mage_Paypal_Model_Express_Checkout
         }
 
         $customer = $quote->getCustomer();
-        /** @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customerBilling = $billing->exportCustomerAddress();
         $customer->addAddress($customerBilling);
         $billing->setCustomerAddress($customerBilling);
@@ -992,6 +986,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $customer->save();
         $quote->setCustomer($customer);
+        $quote->setPasswordHash('');
 
         return $this;
     }
@@ -999,7 +994,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Prepare quote for customer order submit
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _prepareCustomerQuote()
     {
@@ -1036,19 +1031,19 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Involve new customer to system
      *
-     * @return Mage_Paypal_Model_Express_Checkout
+     * @return $this
      */
     protected function _involveNewCustomer()
     {
         $customer = $this->_quote->getCustomer();
         if ($customer->isConfirmationRequired()) {
-            $customer->sendNewAccountEmail('confirmation');
+            $customer->sendNewAccountEmail('confirmation', '', $this->_quote->getStoreId());
             $url = Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail());
             $this->getCustomerSession()->addSuccess(
                 Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url)
             );
         } else {
-            $customer->sendNewAccountEmail();
+            $customer->sendNewAccountEmail('registered', '', $this->_quote->getStoreId());
             $this->getCustomerSession()->loginById($customer->getId());
         }
         return $this;

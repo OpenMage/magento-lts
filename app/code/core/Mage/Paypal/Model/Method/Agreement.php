@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paypal
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,6 +76,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Also updates store ID in config object
      *
      * @param Mage_Core_Model_Store|int $store
+     * @return $this
      */
     public function setStore($store)
     {
@@ -97,7 +92,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Init billing agreement
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function initBillingAgreementToken(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -138,7 +133,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Create billing agreement by token specified in request
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function placeBillingAgreement(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -153,7 +148,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Update billing agreement status
      *
      * @param Mage_Payment_Model_Billing_AgreementAbstract $agreement
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function updateBillingAgreementStatus(Mage_Payment_Model_Billing_AgreementAbstract $agreement)
     {
@@ -178,7 +173,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Varien_Object $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
     {
@@ -189,7 +184,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Void payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function void(Varien_Object $payment)
     {
@@ -202,7 +197,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -217,7 +212,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function refund(Varien_Object $payment, $amount)
     {
@@ -229,7 +224,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      * Cancel payment
      *
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     public function cancel(Varien_Object $payment)
     {
@@ -289,7 +284,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
-     * @return Mage_Paypal_Model_Method_Agreement
+     * @return $this
      */
     protected function _placeOrder(Mage_Sales_Model_Order_Payment $payment, $amount)
     {

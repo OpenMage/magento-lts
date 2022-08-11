@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +27,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * Serialize before saving
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -50,7 +44,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * Unserialize after saving
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
+     * @return $this
      */
     public function afterSave($object)
     {
@@ -63,7 +57,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * Unserialize after loading
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
+     * @return $this
      */
     public function afterLoad($object)
     {
@@ -76,7 +70,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Serialized extends Mage_Eav_Model_
      * Try to unserialize the attribute value
      *
      * @param Varien_Object $object
-     * @return Mage_Eav_Model_Entity_Attribute_Backend_Serialized
+     * @return $this
      */
     protected function _unserialize(Varien_Object $object)
     {

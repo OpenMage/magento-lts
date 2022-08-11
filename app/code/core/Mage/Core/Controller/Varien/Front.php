@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @method Mage_Core_Controller_Varien_Action getAction()
+ * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
+ * @method bool getNoRender()
+ */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
     protected $_defaults = array();
@@ -40,7 +38,12 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
     const XML_STORE_ROUTERS_PATH = 'web/routers';
 
-    public function setDefault($key, $value=null)
+    /**
+     * @param array|string $key
+     * @param string|null $value
+     * @return $this
+     */
+    public function setDefault($key, $value = null)
     {
         if (is_array($key)) {
             $this->_defaults = $key;
@@ -50,7 +53,11 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return $this;
     }
 
-    public function getDefault($key=null)
+    /**
+     * @param string|null $key
+     * @return array|false
+     */
+    public function getDefault($key = null)
     {
         if (is_null($key)) {
             return $this->_defaults;
@@ -73,7 +80,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Retrieve response object
      *
-     * @return Zend_Controller_Response_Http
+     * @return Mage_Core_Controller_Response_Http
      */
     public function getResponse()
     {
@@ -98,7 +105,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Retrieve router by name
      *
      * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Router_Abstract
+     * @return  Mage_Core_Controller_Varien_Router_Abstract|false
      */
     public function getRouter($name)
     {
@@ -121,7 +128,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Init Front Controller
      *
-     * @return Mage_Core_Controller_Varien_Front
+     * @return $this
      */
     public function init()
     {
@@ -135,6 +142,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
                 continue;
             }
             if (isset($routerInfo['class'])) {
+                /** @var Mage_Core_Controller_Varien_Router_Standard $router */
                 $router = new $routerInfo['class'];
                 if (isset($routerInfo['area'])) {
                     $router->collectRoutes($routerInfo['area'], $routerCode);
@@ -153,6 +161,10 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function dispatch()
     {
         $request = $this->getRequest();
@@ -162,13 +174,15 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         $request->setPathInfo()->setDispatched(false);
 
-        $this->_getRequestRewriteController()->rewrite();
+        if (!Mage::app()->getStore()->isAdmin()) {
+            $this->_getRequestRewriteController()->rewrite();
+        }
 
         Varien_Profiler::start('mage::dispatch::routers_match');
         $i = 0;
         while (!$request->isDispatched() && $i++ < 100) {
             foreach ($this->_routers as $router) {
-                /** @var $router Mage_Core_Controller_Varien_Router_Abstract */
+                /** @var Mage_Core_Controller_Varien_Router_Abstract $router */
                 if ($router->match($request)) {
                     break;
                 }
@@ -196,7 +210,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected function _getRequestRewriteController()
     {
         $className = (string)Mage::getConfig()->getNode('global/request_rewrite/model');
-
         return Mage::getSingleton('core/factory')->getModel($className, array(
             'routers' => $this->getRouters(),
         ));
@@ -229,6 +242,10 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         return $router;
     }
 
+    /**
+     * @param string $frontName
+     * @return false|Mage_Core_Controller_Varien_Router_Standard
+     */
     public function getRouterByFrontName($frontName)
     {
         // empty route supplied - return base url
@@ -253,7 +270,6 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Apply configuration rewrites to current url
      *
-     * @return Mage_Core_Controller_Varien_Front
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     public function rewrite()
@@ -308,7 +324,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Auto-redirect to base url (without SID) if the requested url doesn't match it.
      * By default this feature is enabled in configuration.
      *
-     * @param Zend_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http $request
      */
     protected function _checkBaseUrl($request)
     {
@@ -373,8 +389,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
-                /** @var $frontNameNode SimpleXMLElement */
-                array_push($adminFrontNames, (string)$frontNameNode);
+                /** @var SimpleXMLElement $frontNameNode */
+                $adminFrontNames[] = (string)$frontNameNode;
             }
         }
 

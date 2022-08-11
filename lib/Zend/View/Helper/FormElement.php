@@ -146,12 +146,12 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
             $info['id'] = trim(strtr($info['name'],
                                      array('[' => '-', ']' => '')), '-');
         }
-        
+
         // Remove NULL name attribute override
         if (array_key_exists('name', $attribs) && is_null($attribs['name'])) {
         	unset($attribs['name']);
         }
-        
+
         // Override name in info if specified in attribs
         if (array_key_exists('name', $attribs) && $attribs['name'] != $info['name']) {
             $info['name'] = $attribs['name'];

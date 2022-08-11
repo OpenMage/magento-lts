@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,27 +33,21 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
 
     protected function _afterSave()
     {
-        $enabled = $this->getData('groups/generate/enabled/value');
-        //$service = $this->getData('groups/import/fields/service/value');
         $time = $this->getData('groups/generate/fields/time/value');
-        $frequncy = $this->getData('groups/generate/frequency/value');
-        $errorEmail = $this->getData('groups/generate/error_email/value');
+        $frequency = $this->getData('groups/generate/frequency/value');
 
-        $frequencyDaily = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_DAILY;
         $frequencyWeekly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_WEEKLY;
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
-
-        $cronDayOfWeek = date('N');
 
         $cronExprArray = array(
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
-            ($frequncy == $frequencyMonthly) ? '1' : '*',       # Day of the Month
-            '*',                                                # Month of the Year
-            ($frequncy == $frequencyWeekly) ? '1' : '*',        # Day of the Week
+            ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
+            '*',                                                    # Month of the Year
+            ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
         );
 
-        $cronExprString = join(' ', $cronExprArray);
+        $cronExprString = implode(' ', $cronExprArray);
 
         try {
             Mage::getModel('core/config_data')
@@ -75,6 +63,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
         } catch (Exception $e) {
             throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
         }
+        return $this;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 
 /**
- * Log Prepare Online visitors resource 
+ * Log Prepare Online visitors resource
  *
  * @category    Mage
  * @package     Mage_Log
@@ -47,7 +41,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
      * Prepare online visitors for collection
      *
      * @param Mage_Log_Model_Visitor_Online $object
-     * @return Mage_Log_Model_Resource_Visitor_Online
+     * @return $this
      */
     public function prepare(Mage_Log_Model_Visitor_Online $object)
     {
@@ -60,7 +54,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
 
         $writeAdapter->beginTransaction();
 
-        try{
+        try {
             $writeAdapter->delete($this->getMainTable());
 
             $visitors = array();
@@ -73,7 +67,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor'),
-                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id'))
+                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id')
+                )
                 ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
 
             $query = $readAdapter->query($select);
@@ -93,7 +88,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor_info'),
-                    array('visitor_id', 'remote_addr'))
+                    array('visitor_id', 'remote_addr')
+                )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);
@@ -105,7 +101,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/url_info_table'),
-                    array('url_id', 'url'))
+                    array('url_id', 'url')
+                )
                 ->where('url_id IN(?)', array_keys($lastUrls));
 
             $query = $readAdapter->query($select);
@@ -118,7 +115,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    array('visitor_id', 'customer_id'))
+                    array('visitor_id', 'customer_id')
+                )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
             $query = $readAdapter->query($select);

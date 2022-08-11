@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Rule
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote rule action abstract
@@ -31,6 +24,20 @@
  * @category   Mage
  * @package    Mage_Rule
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array getAttributeOption()
+ * @method $this setAttributeOption(array $value)
+ * @method array getOperatorOption()
+ * @method $this setOperatorOption(array $value)
+ * @method array getValueOption()
+ * @method $this setValueOption(array $value)
+ * @method string getAttribute()
+ * @method $this setAttribute(string $value)
+ * @method string getOperator()
+ * @method $this setOperator(string $value)
+ * @method string getType()
+ * @method string getValue()
+ * @method Mage_Rule_Model_Abstract getRule()
  */
 abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements Mage_Rule_Model_Action_Interface
 {
@@ -39,15 +46,28 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         parent::__construct();
         $this->loadAttributeOptions()->loadOperatorOptions()->loadValueOptions();
 
-        foreach ($this->getAttributeOption() as $attr=>$dummy) { $this->setAttribute($attr); break; }
-        foreach ($this->getOperatorOption() as $operator=>$dummy) { $this->setOperator($operator); break; }
+        foreach ($this->getAttributeOption() as $attr => $dummy) {
+            $this->setAttribute($attr);
+            break;
+        }
+        foreach ($this->getOperatorOption() as $operator => $dummy) {
+            $this->setOperator($operator);
+            break;
+        }
     }
 
+    /**
+     * @return Varien_Data_Form
+     */
     public function getForm()
     {
         return $this->getRule()->getForm();
     }
 
+    /**
+     * @param array $arrAttributes
+     * @return array
+     */
     public function asArray(array $arrAttributes = array())
     {
         $out = array(
@@ -59,6 +79,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return $out;
     }
 
+    /**
+     * @return string
+     */
     public function asXml()
     {
         $xml = "<type>".$this->getType()."</type>"
@@ -68,6 +91,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return $xml;
     }
 
+    /**
+     * @param array $arr
+     * @return $this
+     */
     public function loadArray(array $arr)
     {
         $this->addData(array(
@@ -82,26 +109,38 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function loadAttributeOptions()
     {
         $this->setAttributeOption(array());
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributeSelectOptions()
     {
         $opt = array();
-        foreach ($this->getAttributeOption() as $k=>$v) {
+        foreach ($this->getAttributeOption() as $k => $v) {
             $opt[] = array('value'=>$k, 'label'=>$v);
         }
         return $opt;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeName()
     {
         return $this->getAttributeOption($this->getAttribute());
     }
 
+    /**
+     * @return $this
+     */
     public function loadOperatorOptions()
     {
         $this->setOperatorOption(array(
@@ -111,41 +150,59 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getOperatorSelectOptions()
     {
         $opt = array();
-        foreach ($this->getOperatorOption() as $k=>$v) {
+        foreach ($this->getOperatorOption() as $k => $v) {
             $opt[] = array('value'=>$k, 'label'=>$v);
         }
         return $opt;
     }
 
+    /**
+     * @return array
+     */
     public function getOperatorName()
     {
         return $this->getOperatorOption($this->getOperator());
     }
 
+    /**
+     * @return $this
+     */
     public function loadValueOptions()
     {
         $this->setValueOption(array());
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getValueSelectOptions()
     {
         $opt = array();
-        foreach ($this->getValueOption() as $k=>$v) {
+        foreach ($this->getValueOption() as $k => $v) {
             $opt[] = array('value'=>$k, 'label'=>$v);
         }
         return $opt;
     }
 
+    /**
+     * @return string
+     */
     public function getValueName()
     {
         $value = $this->getValue();
         return !empty($value) || 0===$value ? $value : '...';
     }
 
+    /**
+     * @return array
+     */
     public function getNewChildSelectOptions()
     {
         return array(
@@ -153,22 +210,34 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         );
     }
 
+    /**
+     * @return string
+     */
     public function getNewChildName()
     {
         return $this->getAddLinkHtml();
     }
 
+    /**
+     * @return string
+     */
     public function asHtml()
     {
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function asHtmlRecursive()
     {
         $str = $this->asHtml();
         return $str;
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getTypeElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':type', 'hidden', array(
@@ -178,6 +247,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         ));
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getAttributeElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':attribute', 'select', array(
@@ -188,6 +260,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getOperatorElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':operator', 'select', array(
@@ -198,6 +273,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
+    /**
+     * @return Varien_Data_Form_Element_Abstract
+     */
     public function getValueElement()
     {
         return $this->getForm()->addField('action:'.$this->getId().':value', 'text', array(
@@ -207,6 +285,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         ))->setRenderer(Mage::getBlockSingleton('rule/editable'));
     }
 
+    /**
+     * @return string
+     */
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
@@ -215,6 +296,9 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     }
 
 
+    /**
+     * @return string
+     */
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
@@ -223,17 +307,28 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return $html;
     }
 
-    public function asString($format='')
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function asString($format = '')
     {
         return "";
     }
 
-    public function asStringRecursive($level=0)
+    /**
+     * @param int $level
+     * @return string
+     */
+    public function asStringRecursive($level = 0)
     {
         $str = str_pad('', $level*3, ' ', STR_PAD_LEFT).$this->asString();
         return $str;
     }
 
+    /**
+     * @return $this
+     */
     public function process()
     {
         return $this;

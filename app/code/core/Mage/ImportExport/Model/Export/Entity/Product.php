@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,8 +111,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -135,7 +127,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize attribute sets code-to-id pairs.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Product
+     * @return $this
      */
     protected function _initAttributeSets()
     {
@@ -150,12 +142,12 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize categories ID to text-path hash.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Product
+     * @return $this
      */
     protected function _initCategories()
     {
         $collection = Mage::getResourceModel('catalog/category_collection')->addNameToResult();
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+        /* @var Mage_Catalog_Model_Resource_Category_Collection $collection */
         foreach ($collection as $category) {
             $structure = preg_split('#/+#', $category->getPath());
             $pathSize  = count($structure);
@@ -169,7 +161,6 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     $this->_categories[$category->getId()] = implode('/', $path);
                 }
             }
-
         }
         return $this;
     }
@@ -178,7 +169,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
      * Initialize product type models.
      *
      * @throws Exception
-     * @return Mage_ImportExport_Model_Export_Entity_Product
+     * @return $this
      */
     protected function _initTypeModels()
     {
@@ -196,7 +187,8 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 $this->_productTypeModels[$type] = $model;
                 $this->_disabledAttrs            = array_merge($this->_disabledAttrs, $model->getDisabledAttrs());
                 $this->_indexValueAttributes     = array_merge(
-                    $this->_indexValueAttributes, $model->getIndexValueAttributes()
+                    $this->_indexValueAttributes,
+                    $model->getIndexValueAttributes()
                 );
             }
         }
@@ -211,11 +203,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize website values.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Product
+     * @return $this
      */
     protected function _initWebsites()
     {
-        /** @var $website Mage_Core_Model_Website */
+        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites() as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -302,16 +294,16 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         $resource = Mage::getSingleton('core/resource');
         $select = $this->_connection->select()
                 ->from(
-                        array('mg' => $resource->getTableName('catalog/product_attribute_media_gallery')),
-                        array(
+                    array('mg' => $resource->getTableName('catalog/product_attribute_media_gallery')),
+                    array(
                             'mg.entity_id', 'mg.attribute_id', 'filename' => 'mg.value', 'mgv.label',
                             'mgv.position', 'mgv.disabled'
                         )
                 )
                 ->joinLeft(
-                        array('mgv' => $resource->getTableName('catalog/product_attribute_media_gallery_value')),
-                        '(mg.value_id = mgv.value_id AND mgv.store_id = 0)',
-                        array()
+                    array('mgv' => $resource->getTableName('catalog/product_attribute_media_gallery_value')),
+                    '(mg.value_id = mgv.value_id AND mgv.store_id = 0)',
+                    array()
                 )
                 ->where('entity_id IN(?)', $productIds);
 
@@ -350,8 +342,11 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         while ($stockItemRow = $stmt->fetch()) {
             $productId = $stockItemRow['product_id'];
             unset(
-                $stockItemRow['item_id'], $stockItemRow['product_id'], $stockItemRow['low_stock_date'],
-                $stockItemRow['stock_id'], $stockItemRow['stock_status_changed_automatically']
+                $stockItemRow['item_id'],
+                $stockItemRow['product_id'],
+                $stockItemRow['low_stock_date'],
+                $stockItemRow['stock_id'],
+                $stockItemRow['stock_status_changed_automatically']
             );
             $stockItemRows[$productId] = $stockItemRow;
         }
@@ -580,21 +575,21 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Prepare data for export.
      *
-     * @return void
+     * @return string
      */
     protected function _prepareExport()
     {
         //Execution time may be very long
         set_time_limit(0);
 
-        /** @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $validAttrCodes  = $this->_getExportAttrCodes();
         $writer          = $this->getWriter();
         $defaultStoreId  = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
 
         $memoryLimit = trim(ini_get('memory_limit'));
         $lastMemoryLimitLetter = strtolower($memoryLimit[strlen($memoryLimit)-1]);
-        switch($lastMemoryLimitLetter) {
+        $memoryLimit = (int) filter_var($memoryLimit, FILTER_SANITIZE_NUMBER_INT);
+        switch ($lastMemoryLimitLetter) {
             case 'g':
                 $memoryLimit *= 1024;
             case 'm':
@@ -704,7 +699,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                     $rowMultiselects[$itemId][$storeId][$attrCode] = $attrValue;
                                     $rowIsEmpty = false;
                                 }
-                            } else if (isset($this->_attributeValues[$attrCode][$attrValue])) {
+                            } elseif (isset($this->_attributeValues[$attrCode][$attrValue])) {
                                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
                             } else {
                                 $attrValue = null;
@@ -918,21 +913,15 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         '_media_lable',
                         '_media_position',
                         '_media_is_disabled'
+                    ),
+                    $customOptCols,
+                    array(
+                        '_super_products_sku',
+                        '_super_attribute_code',
+                        '_super_attribute_option',
+                        '_super_attribute_price_corr'
                     )
                 );
-
-                // have we merge custom options columns
-                if ($customOptionsData) {
-                    $headerCols = array_merge($headerCols, $customOptCols);
-                }
-
-                // have we merge configurable products data
-                if ($configurableData) {
-                    $headerCols = array_merge($headerCols, array(
-                        '_super_products_sku', '_super_attribute_code',
-                        '_super_attribute_option', '_super_attribute_price_corr'
-                    ));
-                }
 
                 $writer->setHeaderCols($headerCols);
             }
@@ -978,7 +967,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                     if (!empty($configurableData[$productId])) {
                         $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                     }
-                    if(!empty($rowMultiselects[$productId][$storeId])) {
+                    if (!empty($rowMultiselects[$productId][$storeId])) {
                         foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
                             if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                 $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
@@ -1017,7 +1006,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                         $additionalRowsCount = max($additionalRowsCount, count($configurableData[$productId]));
                     }
                     if (!empty($rowMultiselects[$productId][$storeId])) {
-                        foreach($rowMultiselects[$productId][$storeId] as $attributes) {
+                        foreach ($rowMultiselects[$productId][$storeId] as $attributes) {
                             $additionalRowsCount = max($additionalRowsCount, count($attributes));
                         }
                     }
@@ -1056,9 +1045,9 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             if (!empty($configurableData[$productId])) {
                                 $dataRow = array_merge($dataRow, array_shift($configurableData[$productId]));
                             }
-                            if(!empty($rowMultiselects[$productId][$storeId])) {
-                                foreach($rowMultiselects[$productId][$storeId] as $attrKey=>$attrVal) {
-                                    if(isset($rowMultiselects[$productId][$storeId][$attrKey])) {
+                            if (!empty($rowMultiselects[$productId][$storeId])) {
+                                foreach ($rowMultiselects[$productId][$storeId] as $attrKey => $attrVal) {
+                                    if (isset($rowMultiselects[$productId][$storeId][$attrKey])) {
                                         $dataRow[$attrKey] = array_shift($rowMultiselects[$productId][$storeId][$attrKey]);
                                     }
                                 }
@@ -1102,7 +1091,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Entity attributes collection getter.
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Collection
      */
     public function getAttributeCollection()
     {
@@ -1122,7 +1111,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
     /**
      * Initialize attribute option values and types.
      *
-     * @return Mage_ImportExport_Model_Export_Entity_Product
+     * @return $this
      */
     protected function _initAttributes()
     {
@@ -1134,5 +1123,4 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         }
         return $this;
     }
-
 }

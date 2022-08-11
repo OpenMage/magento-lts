@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,24 +23,33 @@
  *
  * @method Mage_Bundle_Model_Resource_Selection _getResource()
  * @method Mage_Bundle_Model_Resource_Selection getResource()
- * @method int getOptionId()
- * @method Mage_Bundle_Model_Selection setOptionId(int $value)
- * @method int getParentProductId()
- * @method Mage_Bundle_Model_Selection setParentProductId(int $value)
- * @method int getProductId()
- * @method Mage_Bundle_Model_Selection setProductId(int $value)
- * @method int getPosition()
- * @method Mage_Bundle_Model_Selection setPosition(int $value)
+ * @method Mage_Bundle_Model_Resource_Selection_Collection getCollection()
+ *
+ * @method string getDefaultPriceScope()
  * @method int getIsDefault()
- * @method Mage_Bundle_Model_Selection setIsDefault(int $value)
- * @method int getSelectionPriceType()
- * @method Mage_Bundle_Model_Selection setSelectionPriceType(int $value)
- * @method float getSelectionPriceValue()
- * @method Mage_Bundle_Model_Selection setSelectionPriceValue(float $value)
- * @method float getSelectionQty()
- * @method Mage_Bundle_Model_Selection setSelectionQty(float $value)
+ * @method $this setIsDefault(int $value)
+ * @method int getOptionId()
+ * @method $this setOptionId(int $value)
+ * @method int getParentProductId()
+ * @method $this setParentProductId(int $value)
+ * @method int getPosition()
+ * @method $this setPosition(int $value)
+ * @method int getProductId()
+ * @method $this setProductId(int $value)
  * @method int getSelectionCanChangeQty()
- * @method Mage_Bundle_Model_Selection setSelectionCanChangeQty(int $value)
+ * @method $this setSelectionCanChangeQty(int $value)
+ * @method int getSelectionId()
+ * @method int getSelectionPriceType()
+ * @method $this setSelectionPriceType(int $value)
+ * @method float getSelectionPriceValue()
+ * @method $this setSelectionPriceValue(float $value)
+ * @method float getSelectionQty()
+ * @method $this setSelectionQty(float $value)
+ * @method int getWebsiteId()
+ * @method $this setWebsiteId(int $value)
+ * @method $this unsSelectionPriceValue()
+ * @method $this unsSelectionPriceType()
+ * @method bool isSalable()
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -72,9 +75,8 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Processing object after save data
-     *
-     * @return Mage_Bundle_Model_Selection
+     * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _afterSave()
     {
@@ -88,6 +90,6 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
                 $this->unsSelectionPriceType();
             }
         }
-        parent::_afterSave();
+        return parent::_afterSave();
     }
 }

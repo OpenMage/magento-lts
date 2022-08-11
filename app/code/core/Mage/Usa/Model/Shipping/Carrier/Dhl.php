@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -180,7 +174,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Prepare and set request in property of current instance
      *
      * @param Varien_Object $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     public function setRequest(Varien_Object $request)
     {
@@ -292,24 +286,24 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $packageParams = $request->getPackageParams();
             $shippingWeight = $request->getPackageWeight();
             if ($packageParams->getWeightUnits() != Zend_Measure_Weight::POUND) {
-                $shippingWeight = round(Mage::helper('usa')->convertMeasureWeight(
+                $shippingWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                     $request->getPackageWeight(),
                     $packageParams->getWeightUnits(),
                     Zend_Measure_Weight::POUND
                 ));
             }
             if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
-                $packageParams->setLength(round(Mage::helper('usa')->convertMeasureDimension(
+                $packageParams->setLength(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getLength(),
                     $packageParams->getDimensionUnits(),
                     Zend_Measure_Length::INCH
                 )));
-                $packageParams->setWidth(round(Mage::helper('usa')->convertMeasureDimension(
+                $packageParams->setWidth(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getWidth(),
                     $packageParams->getDimensionUnits(),
                     Zend_Measure_Length::INCH
                 )));
-                $packageParams->setHeight(round(Mage::helper('usa')->convertMeasureDimension(
+                $packageParams->setHeight(round((float) Mage::helper('usa')->convertMeasureDimension(
                     $packageParams->getHeight(),
                     $packageParams->getDimensionUnits(),
                     Zend_Measure_Length::INCH
@@ -411,7 +405,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Set free method request
      *
      * @param  $freeMethod
-     * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -483,7 +476,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
 
             foreach ($methods as $method) {
                 $shipment = false;
-                if (in_array($method, array_keys($this->getCode('special_express')))) {
+                if (array_key_exists($method, $this->getCode('special_express'))) {
                     $r->setService('E');
                     $r->setExtendedService($this->getCode('special_express', $method));
                 } else {
@@ -562,7 +555,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      *
      * @param  $shipment
      * @param  $shipKey
-     * @return void
      */
     protected function _createShipmentXml($shipment, $shipKey)
     {
@@ -618,7 +610,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                             $apValue = ceil($apValue);
                             break;
                         case self::ADDITIONAL_PROTECTION_ROUNDING_ROUND:
-                            $apValue = round($apValue);
+                            $apValue = round((float) $apValue);
                             break;
                         default:
                         case self::ADDITIONAL_PROTECTION_ROUNDING_FLOOR:
@@ -794,7 +786,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         if ($this->_rawRequest->getAction() == 'GenerateLabel') {
             $result = new Varien_Object();
             if (!empty($this->_errors)) {
-                $result->setErrors(implode($this->_errors, '; '));
+                $result->setErrors(implode('; ', $this->_errors));
             } else {
                 if ($xml !== false) {
                     if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
@@ -839,7 +831,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Parse xml object
      *
      * @param mixed $shipXml
-     * @return Mage_Usa_Model_Shipping_Carrier_Dhl
+     * @return $this
      */
     protected function _parseXmlObject($shipXml)
     {
@@ -930,7 +922,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
      * Parse xml and add rates to instance property
      *
      * @param mixed $shipXml
-     * @return void
      */
     protected function _addRate($shipXml)
     {

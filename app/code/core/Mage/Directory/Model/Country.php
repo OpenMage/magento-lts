@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,12 +23,13 @@
  *
  * @method Mage_Directory_Model_Resource_Country _getResource()
  * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method string getCode()
  * @method string getCountryId()
- * @method Mage_Directory_Model_Country setCountryId(string $value)
+ * @method $this setCountryId(string $value)
  * @method string getIso2Code()
- * @method Mage_Directory_Model_Country setIso2Code(string $value)
+ * @method $this setIso2Code(string $value)
  * @method string getIso3Code()
- * @method Mage_Directory_Model_Country setIso3Code(string $value)
+ * @method $this setIso3Code(string $value)
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -57,17 +52,28 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
         $this->_init('directory/country');
     }
 
+    /**
+     * @param string $code
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     public function loadByCode($code)
     {
         $this->_getResource()->loadByCode($this, $code);
         return $this;
     }
 
+    /**
+     * @return Mage_Directory_Model_Resource_Region_Collection
+     */
     public function getRegions()
     {
         return $this->getLoadedRegionCollection();
     }
 
+    /**
+     * @return Mage_Directory_Model_Resource_Region_Collection
+     */
     public function getLoadedRegionCollection()
     {
         $collection = $this->getRegionCollection();
@@ -75,6 +81,9 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
         return $collection;
     }
 
+    /**
+     * @return Mage_Directory_Model_Resource_Region_Collection
+     */
     public function getRegionCollection()
     {
         $collection = Mage::getResourceModel('directory/region_collection');
@@ -82,13 +91,16 @@ class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
         return $collection;
     }
 
-    public function formatAddress(Varien_Object $address, $html=false)
+    /**
+     * @param Varien_Object $address
+     * @param bool $html
+     * @return string
+     */
+    public function formatAddress(Varien_Object $address, $html = false)
     {
         //TODO: is it still used?
         $address->getRegion();
         $address->getCountry();
-
-
 
         $template = $this->getData('address_template_'.($html ? 'html' : 'plain'));
         if (empty($template)) {
@@ -121,7 +133,7 @@ T: {{telephone}}";
     }
 
     /**
-     * Retrive formats for
+     * Retrieve formats for
      *
      * @return Mage_Directory_Model_Resource_Country_Format_Collection
      */
@@ -142,7 +154,7 @@ T: {{telephone}}";
     }
 
     /**
-     * Retrive format
+     * Retrieve format
      *
      * @param string $type
      * @return Mage_Directory_Model_Country_Format
@@ -159,9 +171,12 @@ T: {{telephone}}";
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
-        if(!$this->getData('name')) {
+        if (!$this->getData('name')) {
             $this->setData(
                 'name',
                 Mage::app()->getLocale()->getCountryTranslation($this->getId())
@@ -169,5 +184,4 @@ T: {{telephone}}";
         }
         return $this->getData('name');
     }
-
 }
