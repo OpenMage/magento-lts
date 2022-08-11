@@ -415,7 +415,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
 
     /**
      * Decides if we need to create dummy invoice item or not
-     * for eaxample we don't need create dummy parent if all
+     * for example we don't need create dummy parent if all
      * children are not in process
      *
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
@@ -431,17 +431,21 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 }
             }
             return false;
-        } else if($item->getParentItem()) {
+        }
+
+        if ($item->getParentItem()) {
             if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
                 return true;
             }
             return false;
         }
+
+        return false;
     }
 
     /**
      * Decides if we need to create dummy shipment item or not
-     * for eaxample we don't need create dummy parent if all
+     * for example we don't need create dummy parent if all
      * children are not in process
      *
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
@@ -463,7 +467,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 return true;
             }
             return false;
-        } else if($item->getParentItem()) {
+        }
+
+        if ($item->getParentItem()) {
             if ($item->getIsVirtual()) {
                 return false;
             }
@@ -472,6 +478,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             }
             return false;
         }
+
+        return false;
     }
 
     /**

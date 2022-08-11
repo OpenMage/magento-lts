@@ -127,6 +127,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      */
     public function getBreadcrumbs($controller)
     {
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $controller->getLayout()->getBlock('breadcrumbs');
         $breadcrumbs->addCrumb(
             'home',

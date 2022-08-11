@@ -341,11 +341,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
 
 		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tabs.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGroups\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
@@ -953,11 +948,6 @@ parameters:
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Cache/Edit.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php
 
 		-
@@ -1001,19 +991,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tabs.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/History.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tabs.php
 
 		-
 			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
@@ -1201,11 +1181,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
 
 		-
-			message: "#^Cannot call method addLink\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:decodeFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
@@ -1274,11 +1249,6 @@ parameters:
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$tabNId$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
-
-		-
-			message: "#^Cannot call method addLink\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Controller/Action.php
 
 		-
 			message: "#^Cannot call method addValueFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -1476,27 +1446,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_CreditmemoController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
-
-		-
 			message: "#^Parameter \\$order of method Mage_Adminhtml_Sales_Order_CreditmemoController\\:\\:_initInvoice\\(\\) has invalid type unknown_type\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
 
 		-
 			message: "#^Cannot call method updateBackButtonUrl\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_InvoiceController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_InvoiceController\\:\\:_needToAddDummyForShipment\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
@@ -1516,11 +1471,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Sales_Order_ShipmentController\\:\\:_needToAddDummy\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -1529,11 +1479,6 @@ parameters:
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/CacheController.php
 
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
@@ -2171,26 +2116,6 @@ parameters:
 			path: ../app/code/core/Mage/Captcha/controllers/RefreshController.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addCrumb\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Breadcrumbs.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addItem\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Category/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addLinkRel\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Category/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canUseCanonicalTag\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Category/View.php
-
-		-
 			message: "#^Cannot call method count\\(\\) on string\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Navigation.php
@@ -2206,34 +2131,9 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrl\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Catalog/Block/Product/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlCustom\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Product/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlWithCustomParams\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getCurrentPageLayout\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlWithCustomParams\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Compare/List.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlWithParams\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Compare/List.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -2264,36 +2164,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:toHtml\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlCustom\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addLinkRel\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:canUseCanonicalTag\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAddUrlCustom\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
@@ -3226,19 +3096,9 @@ parameters:
 			path: ../app/code/core/Mage/CatalogRule/Model/Rule.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addCrumb\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addCrumb\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Block/Advanced/Result.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getQueryText\\(\\)\\.$#"
@@ -3249,11 +3109,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getSuggestCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogSearch/Block/Autocomplete.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addCrumb\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Block/Result.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEscapedQueryText\\(\\)\\.$#"
@@ -5881,11 +5736,6 @@ parameters:
 			path: ../app/code/core/Mage/Review/controllers/CustomerController.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addCrumb\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Review/controllers/ProductController.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rss/Block/Catalog/Category.php
@@ -6094,11 +5944,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/View.php
-
-		-
-			message: "#^Cannot call method addCrumb\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Helper/Guest.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"

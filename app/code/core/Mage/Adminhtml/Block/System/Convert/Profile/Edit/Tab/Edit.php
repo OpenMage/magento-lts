@@ -27,6 +27,9 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * @return $this
+     */
     public function initForm()
     {
         $form = new Varien_Data_Form();

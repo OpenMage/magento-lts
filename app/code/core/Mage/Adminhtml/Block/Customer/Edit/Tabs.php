@@ -36,26 +36,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         $this->setTitle(Mage::helper('customer')->__('Customer Information'));
     }
 
+    /**
+     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @throws Exception
+     */
     protected function _beforeToHtml()
     {
-/*
-        if (Mage::registry('current_customer')->getId()) {
-            $this->addTab('view', array(
-                'label'     => Mage::helper('customer')->__('Customer View'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_view')->toHtml(),
-                'active'    => true
-            ));
-        }
-*/
+        /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Account $block */
+        $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_account');
         $this->addTab('account', array(
             'label'     => Mage::helper('customer')->__('Account Information'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_account')->initForm()->toHtml(),
+            'content'   => $block->initForm()->toHtml(),
             'active'    => Mage::registry('current_customer')->getId() ? false : true
         ));
 
+        /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $block */
+        $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_addresses');
         $this->addTab('addresses', array(
             'label'     => Mage::helper('customer')->__('Addresses'),
-            'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_addresses')->initForm()->toHtml(),
+            'content'   => $block->initForm()->toHtml(),
         ));
 
 
@@ -83,10 +82,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
                 'url'       => $this->getUrl('*/*/wishlist', array('_current' => true)),
             ));
 
+            /** @var Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $block */
+            $block = $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter');
             if (Mage::getSingleton('admin/session')->isAllowed('newsletter/subscriber')) {
                 $this->addTab('newsletter', array(
                     'label'     => Mage::helper('customer')->__('Newsletter'),
-                    'content'   => $this->getLayout()->createBlock('adminhtml/customer_edit_tab_newsletter')->initForm()->toHtml()
+                    'content'   => $block->initForm()->toHtml()
                 ));
             }
 
@@ -112,6 +113,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tabs extends Mage_Adminhtml_Block_Widge
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _updateActiveTab()
     {
         $tabId = $this->getRequest()->getParam('tab');

@@ -34,13 +34,22 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
      */
     protected $_links = array();
 
+    /**
+     * Mage_Adminhtml_Block_Widget_Breadcrumbs constructor.
+     */
     public function __construct()
     {
         $this->setTemplate('widget/breadcrumbs.phtml');
         $this->addLink(Mage::helper('adminhtml')->__('Home'), Mage::helper('adminhtml')->__('Home'), $this->getUrl('*'));
     }
 
-    public function addLink($label, $title=null, $url=null)
+    /**
+     * @param string $label
+     * @param string|null $title
+     * @param string|null $url
+     * @return $this
+     */
+    public function addLink($label, $title = null, $url = null)
     {
         if (empty($title)) {
             $title = $label;
@@ -53,6 +62,9 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         // TODO - Moved to Beta 2, no breadcrumbs displaying in Beta 1
