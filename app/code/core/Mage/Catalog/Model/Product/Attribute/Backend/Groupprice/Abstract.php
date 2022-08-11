@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -55,14 +49,23 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
+     * @param int|null $websiteId
      * @return array
      */
-    protected function _getWebsiteCurrencyRates()
+    protected function _getWebsiteCurrencyRates($websiteId = null)
     {
         if (is_null($this->_rates)) {
             $this->_rates = array();
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
-            foreach (Mage::app()->getWebsites() as $website) {
+
+            if (is_numeric($websiteId)) {
+                $website = Mage::app()->getWebsite($websiteId);
+                $websites = [$website];
+            } else {
+                $websites = Mage::app()->getWebsites();
+            }
+
+            foreach ($websites as $website) {
                 /* @var Mage_Core_Model_Website $website */
                 if ($website->getBaseCurrencyCode() != $baseCurrency) {
                     $rate = Mage::getModel('directory/currency')
@@ -189,7 +192,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      */
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
     {
-        $rates  = $this->_getWebsiteCurrencyRates();
+        $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = array();
         $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {

@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -10,12 +10,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -206,10 +200,10 @@ table.actions td                { vertical-align:top; }
 .grid tr.filter select           { width:100%; }
 .grid tr.filter .range .range-line { margin-bottom:3px; width:100px; }
 .grid tr.filter .range div.date  { min-width:121px; }
-.grid tr.filter .range input     { float:right; width:50px !important; margin-top:0; }
-.grid tr.filter .range select    { float:right; width:56px !important; margin-top:0; }
-.grid tr.filter .range .label    { display:block; width:36px; float:left; padding-left:2px; }
-.grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; }
+.grid tr.filter .range input     { width:60px !important; margin-top:0; }
+.grid tr.filter .range select    { float:right; width:65px !important; margin-top:0; }
+.grid tr.filter .range .label    { display:block; width:30px; float:left; padding-right:3px; text-align:right; }
+.grid tr.filter .date img        { width:15px; height:15px; cursor:pointer; vertical-align:middle; padding-left:3px; }
 .grid .head-massaction select    { width:auto !important; max-width:90px; }
 .grid select.select-export-filter,
 .grid select.multiselect-export-filter { width:278px; }
@@ -283,7 +277,6 @@ ul.tabs-horiz li a.active       { border-bottom:1px solid #fff; background:#fff;
 /* MESSAGES
 *******************************************************************************/
 .notification-global { padding:5px 27px 5px 47px; background:#fff9e9 url(images/error_msg_icon.gif) 27px 5px no-repeat; border-bottom:1px solid #eee2be; border-top:1px solid #eee2be; font-size:11px; line-height:16px; margin:0 0 -3px; color:#444; position:relative; }
-.notification-global.ua { background:#fff9e9 url(images/flag-ua.svg) 28px 5px no-repeat; background-size: 14px; }
 .notification-global-notice { background-image:url(images/note_msg_icon.gif); }
 .notification-global .label { color:#eb5e00; }
 .notification-global .clickable { cursor:pointer; }

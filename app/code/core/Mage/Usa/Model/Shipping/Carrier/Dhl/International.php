@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -237,8 +231,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Set Free Method Request
      *
-     * @param  string $freeMethod
-     * @return void
+     * @param string $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -657,7 +650,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Make pieces
      *
      * @param SimpleXMLElement $nodeBkgDetails
-     * @return void
      */
     protected function _makePieces(SimpleXMLElement $nodeBkgDetails)
     {
@@ -762,7 +754,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Add dimension to piece
      *
      * @param SimpleXMLElement $nodePiece
-     * @return void
      */
     protected function _addDimension($nodePiece)
     {
@@ -1442,7 +1433,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * @param SimpleXMLElement $xml
      * @param Mage_Shipping_Model_Rate_Request $rawRequest
      * @param string $originRegion
-     * @return void
      */
     protected function _shipmentDetails($xml, $rawRequest, $originRegion = '')
     {
@@ -1564,7 +1554,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Send request for tracking
      *
      * @param array $trackings
-     * @return void
      */
     protected function _getXMLTracking($trackings)
     {
@@ -1638,7 +1627,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      *
      * @param array $trackings
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {

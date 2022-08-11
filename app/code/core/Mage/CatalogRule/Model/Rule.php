@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogRule
@@ -254,7 +248,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Callback function for product matching
      *
      * @param array $args
-     * @return void
      */
     public function callbackValidateProduct($args)
     {
@@ -290,8 +283,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param int|Mage_Catalog_Model_Product $product
      * @param array|null $websiteIds
-     *
-     * @return void
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -309,7 +300,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Apply all price rules, invalidate related cache and refresh price index
      *
-     * @return void
      * @throws Exception
      */
     public function applyAll()

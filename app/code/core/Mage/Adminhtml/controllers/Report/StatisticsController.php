@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'report/statistics';
+
     /**
      * Admin session model
      *
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for last 25 hours
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshRecentAction()
     {
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     /**
      * Refresh statistics for all period
      *
-     * @return Mage_Adminhtml_Report_SalesController
+     * @return $this
      */
     public function refreshLifetimeAction()
     {
@@ -183,11 +183,6 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             ->_setActiveMenu('report/statistics/refreshstatistics')
             ->_addBreadcrumb(Mage::helper('adminhtml')->__('Refresh Statistics'), Mage::helper('adminhtml')->__('Refresh Statistics'))
             ->renderLayout();
-    }
-
-    protected function _isAllowed()
-    {
-        return $this->_getSession()->isAllowed('report/statistics');
     }
 
     /**

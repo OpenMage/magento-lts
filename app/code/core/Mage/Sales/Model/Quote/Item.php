@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -437,12 +431,6 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             'quote_item' => $this
         ));
 
-
-//        if ($options = $product->getCustomOptions()) {
-//            foreach ($options as $option) {
-//                $this->addOption($option);
-//            }
-//        }
         return $this;
     }
 
@@ -642,8 +630,9 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
     /**
      * Add option to item
      *
-     * @param   Mage_Sales_Model_Quote_Item_Option|Varien_Object $option
-     * @return  $this
+     * @param Mage_Sales_Model_Quote_Item_Option|Varien_Object|array $option
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addOption($option)
     {

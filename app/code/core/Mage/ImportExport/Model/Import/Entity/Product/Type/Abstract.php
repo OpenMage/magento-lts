@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -162,7 +156,6 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
 
         foreach (Mage::getResourceModel('eav/entity_attribute_set_collection')
                 ->setEntityTypeFilter($this->_entityModel->getEntityTypeId()) as $attributeSet) {
-            /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
             foreach (Mage::getResourceModel('catalog/product_attribute_collection')
                 ->setAttributeSetFilter($attributeSet->getId()) as $attribute) {
                 /** @var Mage_Eav_Model_Entity_Attribute $attribute */

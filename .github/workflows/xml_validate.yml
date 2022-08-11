@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: "Checkout repository"
       uses: actions/checkout@master
+    - name: "Update APT repositories"
+      run: "sudo apt update"
     - name: "Install xmllint"
       run: "sudo apt-get -y install libxml2-utils"
     - name: "Validate XMLs"

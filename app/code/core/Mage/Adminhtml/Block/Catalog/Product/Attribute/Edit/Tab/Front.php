@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,7 +28,9 @@
 
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage_Adminhtml_Block_Widget_Form
 {
-
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('entity_attribute');
@@ -87,14 +83,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
             ),
         ));
 
-//        if ($model->getIsUserDefined() || !$model->getId()) {
-            $fieldset->addField('is_visible_on_front', 'select', array(
-                'name' => 'is_visible_on_front',
-                'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
-                'values' => $yesno,
-            ));
-//        }
+        $fieldset->addField('is_visible_on_front', 'select', array(
+            'name' => 'is_visible_on_front',
+            'label' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'title' => Mage::helper('catalog')->__('Visible on Catalog Pages on Front-end'),
+            'values' => $yesno,
+        ));
 
         $form->setValues($model->getData());
 
@@ -102,5 +96,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
 
         return parent::_prepareForm();
     }
-
 }

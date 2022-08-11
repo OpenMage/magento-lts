@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -30,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setHeaderCss(string $value)
+ * @method $this setTitle(string $value)
  */
 class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
 {
@@ -62,11 +59,13 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
 
     protected function _addBreadcrumb($label, $title=null, $link=null)
     {
-        $this->getLayout()->getBlock('breadcrumbs')->addLink($label, $title, $link);
+        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
+        $block = $this->getLayout()->getBlock('breadcrumbs');
+        $block->addLink($label, $title, $link);
     }
 
     /**
-     * Create buttonn and return its html
+     * Create button and return its html
      *
      * @param string $label
      * @param string $onclick
@@ -74,7 +73,8 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
      * @param string $id
      * @return string
      */
-    public function getButtonHtml($label, $onclick, $class='', $id=null) {
+    public function getButtonHtml($label, $onclick, $class='', $id=null)
+    {
         return $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
                 'label'     => $label,
@@ -86,6 +86,9 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
             ->toHtml();
     }
 
+    /**
+     * @return string
+     */
     public function getGlobalIcon()
     {
         return '<img src="'.$this->getSkinUrl('images/fam_link.gif').'" alt="'.$this->__('Global Attribute').'" title="'.$this->__('This attribute shares the same value in all the stores').'" class="attribute-global"/>';

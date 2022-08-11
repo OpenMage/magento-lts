@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -417,9 +411,6 @@ class Mage_Paypal_Model_Ipn
                     throw new Exception("Cannot handle payment status '{$paymentStatus}'.");
             }
         } catch (Mage_Core_Exception $e) {
-// TODO: add to payment profile comments
-//            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
-//            $comment->save();
             throw $e;
         }
     }
@@ -725,7 +716,6 @@ class Mage_Paypal_Model_Ipn
      * Map payment information from IPN to payment object
      * Returns true if there were changes in information
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     protected function _importPaymentInformation()
@@ -817,8 +807,6 @@ class Mage_Paypal_Model_Ipn
 
     /**
      * Log debug data to file
-     *
-     * @param mixed $debugData
      */
     protected function _debug()
     {

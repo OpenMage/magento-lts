@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -214,9 +208,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         $this->setValue(isset($arr['value']) ? $arr['value'] : false);
         $this->setIsValueParsed(isset($arr['is_value_parsed']) ? $arr['is_value_parsed'] : false);
 
-//        $this->loadAttributeOptions();
-//        $this->loadOperatorOptions();
-//        $this->loadValueOptions();
         return $this;
     }
 
@@ -324,10 +315,6 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function loadValueOptions()
     {
-//        $this->setValueOption(array(
-//            true  => Mage::helper('rule')->__('TRUE'),
-//            false => Mage::helper('rule')->__('FALSE'),
-//        ));
         $this->setValueOption(array());
         return $this;
     }

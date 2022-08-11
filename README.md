@@ -11,8 +11,6 @@
 <img src="https://github.com/openmage/magento-lts/actions/workflows/unit-tests.yml/badge.svg" alt="Unit Tests workflow badge" />
 </p>
 
-<img src="skin/adminhtml/default/default/images/flag-ua.svg?raw=true" width="20" align="top" alt=""> Stop russian war. **Free Ukraine!** ([Read more](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine))
-
 # Magento - Long Term Support
 
 This repository is the home of an **unofficial** community-driven project. It's goal is to be a dependable alternative
@@ -390,6 +388,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/eneiasramos"><img src="https://avatars.githubusercontent.com/u/2862728?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Enéias Ramos de Melo</b></sub></a></td>
+    <td align="center"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
   </tr>
 </table>
 
