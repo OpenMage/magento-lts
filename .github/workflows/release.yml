@@ -28,8 +28,6 @@ jobs:
         args: install --ignore-platform-reqs
 #    - name: "Move Cm_Cache_Backend_Redis /lib"
 #      run: "mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/"
-    - name: "Cleanup"
-      run: "git checkout composer.json composer.lock"
     - name: "Create ZIP file"
       run: zip -rq openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip . -x ".git/*"
     - name: "Attach ZIP to GitHub release"
