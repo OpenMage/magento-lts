@@ -16,6 +16,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
+    - name: Checking PHP version
+      run: "php -v"
     - name: "Checkout repository"
       uses: actions/checkout@master
     - name: "Remove composer.lock"
