@@ -54,6 +54,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     protected function _prepareLayout()
     {
         // add Home breadcrumb
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
             $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getQueryText());

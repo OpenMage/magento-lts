@@ -27,6 +27,9 @@
  */
 class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Mage_Adminhtml_Block_System_Cache_Edit constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -34,6 +37,9 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         $this->setTitle('Cache Management');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild('save_button',
@@ -47,22 +53,30 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('save_button');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveUrl()
     {
         return $this->getUrl('*/*/save', array('_current'=>true));
     }
 
+    /**
+     * @return $this
+     */
     public function initForm()
     {
-        $this->setChild('form',
-            $this->getLayout()->createBlock('adminhtml/system_cache_form')
-                ->initForm()
-        );
+        /** @var Mage_Adminhtml_Block_System_Cache_Form $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_cache_form');
+        $this->setChild('form', $block->initForm());
         return $this;
     }
 

@@ -34,7 +34,9 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        if ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs')) {
+        /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
+        $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
+        if ($breadcrumbs) {
             $breadcrumbs->addCrumb('home', array(
                 'label'=>Mage::helper('catalogsearch')->__('Home'),
                 'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
