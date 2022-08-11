@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  release_build_php72:
+  release_build:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
