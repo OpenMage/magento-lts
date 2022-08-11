@@ -106,7 +106,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     }
 
     /**
-     * Field dependences JSON map generator
+     * Field dependencies JSON map generator
      * @return string
      */
     protected function _getDependsJson()

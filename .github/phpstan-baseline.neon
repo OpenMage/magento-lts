@@ -11,16 +11,6 @@ parameters:
 			path: ../app/code/core/Mage/Admin/Model/Resource/Acl.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Admin/Model/Resource/Rules.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 4
-			path: ../app/code/core/Mage/Admin/Model/Resource/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Admin/Model/Roles.php
@@ -1606,16 +1596,6 @@ parameters:
 			path: ../app/code/core/Mage/Api/Model/Resource/Roles.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Api/Model/Resource/Rules.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 4
-			path: ../app/code/core/Mage/Api/Model/Resource/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles\\:\\:update\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api/Model/Roles.php
@@ -1861,11 +1841,6 @@ parameters:
 			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getOptionsCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option.php
@@ -2044,11 +2019,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:addSelection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
 
 		-
 			message: "#^Variable \\$basePrice might not be defined\\.$#"
@@ -2771,9 +2741,9 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
+			message: "#^Call to an undefined method Varien_Object\\:\\:formatUrlKey\\(\\)\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Action.php
+			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Urlkey.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Url\\:\\:refreshProductRewrites\\(\\) invoked with 3 parameters, 1 required\\.$#"
@@ -2841,11 +2811,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 3
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getIsNullNotNullCondition\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
@@ -2868,11 +2833,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface\\:\\:getIsComposite\\(\\)\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
 
 		-
@@ -2899,11 +2859,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProducts\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Website.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getCastToIntExpression\\(\\)\\.$#"
@@ -3031,11 +2986,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 3
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
 			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
@@ -3044,11 +2994,6 @@ parameters:
 			message: "#^Cannot call method setTypeId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Stock.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isObjectNew\\(\\)\\.$#"
@@ -3079,11 +3024,6 @@ parameters:
 			message: "#^Variable \\$wId might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogRule/Model/Observer.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 3
-			path: ../app/code/core/Mage/CatalogRule/Model/Resource/Rule.php
 
 		-
 			message: "#^Variable \\$indexAlias might not be defined\\.$#"
@@ -3586,11 +3526,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/Cache.php
-
-		-
 			message: "#^Variable \\$alias in isset\\(\\) always exists and is always null\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
@@ -3604,11 +3539,6 @@ parameters:
 			message: "#^Variable \\$columnsToSelect in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Resource/Db/Collection/Abstract.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Resource/Email/Queue.php
 
 		-
 			message: "#^PHPDoc tag @param for parameter \\$callbacks with type array\\|string is not subtype of native type array\\.$#"
@@ -4236,11 +4166,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Variable \\$attributeCode might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
@@ -4791,11 +4716,6 @@ parameters:
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online.php
-
-		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeCode\\(\\)\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
@@ -4859,11 +4779,6 @@ parameters:
 			message: "#^Cannot call method watermark\\(\\) on object\\|string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Newsletter/Model/Resource/Queue.php
 
 		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
@@ -5506,11 +5421,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Resource/Payment/Transaction.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Resource/Report/Settlement.php
-
-		-
 			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$lineItemsEnabled\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Standard.php
@@ -5561,11 +5471,6 @@ parameters:
 			path: ../app/code/core/Mage/ProductAlert/controllers/UnsubscribeController.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Rating/Model/Resource/Rating.php
-
-		-
 			message: "#^Variable \\$data in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rating/Model/Resource/Rating.php
@@ -5579,11 +5484,6 @@ parameters:
 			message: "#^Variable \\$storeId in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Rating/Model/Resource/Rating/Option.php
 
 		-
 			message: "#^Variable \\$dateStart might not be defined\\.$#"
@@ -5716,11 +5616,6 @@ parameters:
 			path: ../app/code/core/Mage/Review/Block/Product/View.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Review/Model/Resource/Review.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between array\\|null and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php
@@ -5849,11 +5744,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Rule/Model/Resource/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
@@ -6181,33 +6071,13 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Invoiced.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Invoiced.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Order/Createdat.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Refunded.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Refunded.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
 			count: 4
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Shipping.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Shipping.php
 
 		-
@@ -6281,16 +6151,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Rule/Createdat.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Resource/Rule.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
@@ -6354,11 +6214,6 @@ parameters:
 			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 2
-			path: ../app/code/core/Mage/Shipping/Model/Resource/Carrier/Tablerate.php
 
 		-
 			message: "#^Cannot call method checkAvailableShipCountries\\(\\) on Mage_Core_Model_Abstract\\|true\\.$#"
@@ -6549,11 +6404,6 @@ parameters:
 			message: "#^Variable \\$zipTo might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Model/Resource/Calculation.php
-
-		-
-			message: "#^Call to method Varien_Db_Adapter_Pdo_Mysql\\:\\:rollback\\(\\) with incorrect case\\: rollBack$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Model/Resource/Report/Tax/Createdat.php
 
 		-
 			message: "#^Variable \\$baseRowTax might not be defined\\.$#"
