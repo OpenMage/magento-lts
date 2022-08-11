@@ -270,7 +270,7 @@ class Mage_Core_Model_Cookie
             );
         } else {
             if (!empty($sameSite)) {
-                $path.= "; samesite=${sameSite}";
+                $path.= "; samesite={$sameSite}";
             }
             setcookie($name, (string)$value, $expire, $path, $domain, $secure, $httponly);
         }
