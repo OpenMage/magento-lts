@@ -31,11 +31,11 @@ jobs:
     - name: "Cleanup"
       run: "git checkout composer.json composer.lock"
     - name: "Create ZIP file"
-      run: zip -rq openmage-${{ github.event.release.tag_name }}-${{ matrix.php-versions }}.zip . -x ".git/*"
+      run: zip -rq openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip . -x ".git/*"
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: openmage-${{ github.event.release.tag_name }}-${{ matrix.php-versions }}.zip
+        file: openmage-${{ github.event.release.tag_name }}-php${{ matrix.php-versions }}.zip
         tag: ${{ github.event.release.tag_name }}
         overwrite: true
