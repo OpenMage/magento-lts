@@ -27,6 +27,9 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
+    /**
+     * Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +38,10 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_B
         $this->setTitle(Mage::helper('adminhtml')->__('Import/Export Profile'));
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _beforeToHtml()
     {
         $profile = Mage::registry('current_convert_profile');
@@ -51,7 +58,7 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_B
         ));
 
         if (!$new) {
-            if ($profile->getDirection()!='export') {
+            if ($profile->getDirection() !== 'export') {
                 $this->addTab('upload', array(
                     'label'     => Mage::helper('adminhtml')->__('Upload File'),
                     'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_upload')->toHtml(),
@@ -63,9 +70,12 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tabs extends Mage_Adminhtml_B
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_run')->toHtml(),
             ));
 
+            /** @var Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View
+            $block */
+            $block = $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_view');
             $this->addTab('view', array(
                 'label'     => Mage::helper('adminhtml')->__('Profile Actions XML'),
-                'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit_tab_view')->initForm()->toHtml(),
+                'content'   => $block->initForm()->toHtml(),
             ));
 
             $this->addTab('history', array(

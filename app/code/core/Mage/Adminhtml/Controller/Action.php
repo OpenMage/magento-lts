@@ -122,7 +122,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _addBreadcrumb($label, $title, $link=null)
     {
-        $this->getLayout()->getBlock('breadcrumbs')->addLink($label, $title, $link);
+        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
+        $block = $this->getLayout()->getBlock('breadcrumbs');
+        $block->addLink($label, $title, $link);
         return $this;
     }
 

@@ -197,11 +197,14 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
         );
 
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
+
         if (!$addFormKey) {
-            return $this->helper('wishlist')->getAddUrlWithCustomParams($product, $params, false);
+            return $helper->getAddUrlWithCustomParams($product, $params, false);
         }
 
-        return $this->helper('wishlist')->getAddUrlWithParams($product, $params);
+        return $helper->getAddUrlWithParams($product, $params);
     }
 
 }

@@ -48,9 +48,11 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
      */
     public function indexAction()
     {
+        /** @var Mage_Adminhtml_Block_System_Cache_Edit $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_cache_edit');
         $this->loadLayout()
             ->_setActiveMenu('system/cache')
-            ->_addContent($this->getLayout()->createBlock('adminhtml/system_cache_edit')->initForm())
+            ->_addContent($block->initForm())
             ->renderLayout();
     }
 
