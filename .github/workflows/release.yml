@@ -5,29 +5,33 @@ on:
     types: [created]
 
 jobs:
-  release_build:
-    runs-on: ubuntu-latest
+  release_build_php72:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-18.04, ubuntu-20.04]
+        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1']
     steps:
+    - name: Install PHP ${{ matrix.php-versions }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
     - name: "Checkout repository"
       uses: actions/checkout@master
     - name: "Composer install"
       uses: MilesChou/composer-action/8.0@master
       with:
         args: install --ignore-platform-reqs
-    - name: "Move Cm_RedisSession to /lib and /app"
-      run: "mkdir -p lib/Credis; cp -R vendor/colinmollenhour/credis/* lib/Credis/; mkdir -p app/code/community/Cm/RedisSession; cp -R vendor/colinmollenhour/magento-redis-session/app/code/local/Cm/RedisSession/* app/code/community/Cm/RedisSession/"
-    - name: "Create Cm_RedisSession in app/etc/modules"
-      run: "echo '<config><modules><Cm_RedisSession><active>false</active><codePool>community</codePool></Cm_RedisSession></modules></config>'>app/etc/modules/Cm_RedisSession.xml"
     - name: "Move Cm_Cache_Backend_Redis /lib"
       run: "mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/"
     - name: "Cleanup"
-      run: "git checkout composer.json composer.lock app/Mage.php; sudo rm -rf root vendor"
+      run: "git checkout composer.json composer.lock; sudo rm -rf vendor"
     - name: "Create ZIP file"
-      run: zip -rq openmage-${{ github.event.release.tag_name }}.zip . -x ".git/*"
+      run: zip -rq openmage-${{ github.event.release.tag_name }}-${{ matrix.php-versions }}.zip . -x ".git/*"
     - name: "Attach ZIP to GitHub release"
       uses: svenstaro/upload-release-action@master
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: openmage-${{ github.event.release.tag_name }}.zip
+        file: openmage-${{ github.event.release.tag_name }}-${{ matrix.php-versions }}.zip
         tag: ${{ github.event.release.tag_name }}
         overwrite: true
