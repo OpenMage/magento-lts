@@ -834,7 +834,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             'verifypeer' => $this->getConfigFlag('verify_peer'),
             'verifyhost' => 2,
         ));
-        $client->setRawData(utf8_encode($request));
+        $client->setRawData(mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1'));
         return $client->request(Varien_Http_Client::POST)->getBody();
     }
 
@@ -1399,7 +1399,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $xml->addChild('LabelImageFormat', 'PDF', '');
 
         $request = $xml->asXML();
-        $request = utf8_encode($request);
+        $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
 
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
@@ -1594,7 +1594,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         //$xml->addChild('PiecesEnabled', 'ALL_CHECK_POINTS');
 
         $request = $xml->asXML();
-        $request = utf8_encode($request);
+        $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
 
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
