@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Review_Add extends Mage_Adminhtml_Block_Widget_Form_C
 
                     showForm : function() {
                         toggleParentVis("add_review_form");
-                        toggleVis("productGrid");
+                        toggleVis("reviewProductGrid");
                         toggleVis("save_button");
                         toggleVis("reset_button");
                     },
