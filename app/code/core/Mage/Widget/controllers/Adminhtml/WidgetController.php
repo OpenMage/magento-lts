@@ -34,7 +34,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
     const ADMIN_RESOURCE = 'cms/widget_instance';
 
     /**
-     * Wisywyg widget plugin main page
+     * Wysiwyg widget plugin main page
      */
     public function indexAction()
     {

@@ -26,6 +26,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setContentHeading(string $value)
+ * @method $this setDestElementId(string $value)
  * @method $this setFormAction(string $value)
  * @method $this setIdSuffix(string $value)
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
@@ -140,7 +141,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @param   string|array $key
      * @param   mixed $value
-     * @return  Mage_Core_Block_Template
+     * @return  $this
      */
     public function assign($key, $value = null)
     {

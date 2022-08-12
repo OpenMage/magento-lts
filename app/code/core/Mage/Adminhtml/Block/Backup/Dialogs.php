@@ -37,11 +37,13 @@ class Mage_Adminhtml_Block_Backup_Dialogs extends Mage_Adminhtml_Block_Template
     /**
      * Include backup.js file in page before rendering
      *
-     * @see Mage_Core_Block_Abstract::_prepareLayout()
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        $this->getLayout()->getBlock('head')->addJs('mage/adminhtml/backup.js');
+        /** @var Mage_Page_Block_Html_Head $block */
+        $block = $this->getLayout()->getBlock('head');
+        $block->addJs('mage/adminhtml/backup.js');
         return parent::_prepareLayout();
     }
 }

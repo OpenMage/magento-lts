@@ -69,8 +69,10 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             ), 'show_order_statuses');
 
             // define field dependencies
+            /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+            $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
             if ($this->getFieldVisibility('show_order_statuses') && $this->getFieldVisibility('order_statuses')) {
-                $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+                $this->setChild('form_after', $block
                     ->addFieldMap("{$htmlIdPrefix}show_order_statuses", 'show_order_statuses')
                     ->addFieldMap("{$htmlIdPrefix}order_statuses", 'order_statuses')
                     ->addFieldDependence('order_statuses', 'show_order_statuses', '1'));

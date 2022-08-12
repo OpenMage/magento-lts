@@ -25,9 +25,11 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +37,10 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
         $this->setTemplate('tax/toolbar/rate/save.phtml');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareLayout()
     {
         $this->setChild('backButton',
@@ -80,21 +86,34 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('backButton');
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         return $this->getChildHtml('resetButton');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('saveButton');
     }
 
+    /**
+     * @return string|void
+     * @throws Exception
+     */
     public function getDeleteButtonHtml()
     {
         if( intval($this->getRequest()->getParam('rate')) == 0 ) {

@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
      *
      * @param string|Mage_Core_Block_Abstract $block
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function setAdditionalActionBlock($block)
     {
@@ -73,8 +74,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
         return $this;
     }
 
+    /**
+     * @param array $config
+     * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default
+     */
     protected function _createFromConfig(array $config)
     {
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Massaction_Item_Additional_Default $block */
         $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
         $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
         return $block;

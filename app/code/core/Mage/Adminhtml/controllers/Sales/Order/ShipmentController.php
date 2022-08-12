@@ -45,6 +45,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      * Initialize shipment model instance
      *
      * @return Mage_Sales_Model_Order_Shipment|bool
+     * @throws Mage_Core_Exception
      */
     protected function _initShipment()
     {
@@ -104,6 +105,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      *
      * @param Mage_Sales_Model_Order_Shipment $shipment
      * @return $this
+     * @throws Exception
      */
     protected function _saveShipment($shipment)
     {
@@ -126,8 +128,11 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             $this->_title(sprintf("#%s", $shipment->getIncrementId()));
 
             $this->loadLayout();
-            $this->getLayout()->getBlock('sales_shipment_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
+            /** @var Mage_Adminhtml_Block_Sales_Order_Shipment_View $block */
+            $block = $this->getLayout()->getBlock('sales_shipment_view');
+            $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
