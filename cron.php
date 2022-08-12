@@ -43,11 +43,11 @@ try {
 
 umask(0);
 
-$disabledFuncs = array_map('trim', explode(',', strtolower(ini_get('disable_functions'))));
-$isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
-$isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
-if (!$isShellDisabled && !shell_exec('which ps 2>/dev/null')) $isShellDisabled = true;
-if (!$isShellDisabled && !shell_exec('which sed 2>/dev/null')) $isShellDisabled = true;
+$disabledFuncs = array_map('trim', preg_split("/,|\s+/", strtolower(ini_get('disable_functions'))));
+$isShellDisabled = in_array('shell_exec', $disabledFuncs)
+    || !str_contains(strtolower(PHP_OS), 'win')
+    || !shell_exec('which ps 2>/dev/null')
+    || !shell_exec('which sed 2>/dev/null');
 
 try {
     if (stripos(PHP_OS, 'win') === false) {
