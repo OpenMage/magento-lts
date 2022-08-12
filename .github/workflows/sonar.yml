@@ -15,7 +15,7 @@ jobs:
       max-parallel: 5
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3', '8.1']
+        php-versions: ['7.4', '8.1']
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
