@@ -519,7 +519,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         }
 
         $request = $xml->asXML();
-        $request = utf8_encode($request);
+        $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
             $debugData = array('request' => $request);
