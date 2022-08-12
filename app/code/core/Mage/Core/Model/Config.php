@@ -779,25 +779,27 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return false;
         }
 
-        $collectModuleFiles = [
-            'mage'   => [],
-            'custom' => []
-        ];
+        $collectModuleFiles = array(
+            'base'   => array(),
+            'mage'   => array(),
+            'custom' => array()
+        );
 
         foreach ($moduleFiles as $v) {
             $name = explode(DIRECTORY_SEPARATOR, $v);
             $name = substr($name[count($name) - 1], 0, -4);
 
-            if (array_key_exists($name, self::MAGE_MODULES)) {
-                $collectModuleFiles['mage'][self::MAGE_MODULES[$name]] = $v;
+            if ($name == 'Mage_All') {
+                $collectModuleFiles['base'][] = $v;
+            } elseif (substr($name, 0, 5) == 'Mage_') {
+                $collectModuleFiles['mage'][] = $v;
             } else {
                 $collectModuleFiles['custom'][] = $v;
             }
         }
 
-        ksort($collectModuleFiles['mage']);
-
         return array_merge(
+            $collectModuleFiles['base'],
             $collectModuleFiles['mage'],
             $collectModuleFiles['custom']
         );
