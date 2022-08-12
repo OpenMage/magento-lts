@@ -401,22 +401,6 @@ if (!function_exists('hash_equals')) {
     }
 }
 
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
-    /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
-     */
-    function random_int($min, $max)
-    {
-        mt_srand();
-
-        return mt_rand($min, $max);
-    }
-}
-
 /**
  * polyfill for PHP 8.0 function "str_contains"
  */
@@ -462,15 +446,3 @@ if (!function_exists('str_ends_with')) {
     }
 }
 
-/**
- * polyfill for PHP 7.3 function "is_countable"
- */
-if (!function_exists('is_countable')) {
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    function is_countable($value) {
-        return is_array($value) || $value instanceof Countable || $value instanceof ResourceBundle || $value instanceof SimpleXMLElement;
-    }
-}
