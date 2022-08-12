@@ -5,7 +5,7 @@
              xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
              name="OpenMage"
-             targetNamespace="OpenMage">
+             targetNamespace="urn:OpenMage">
     <wsdl:types>
         <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:OpenMage">
             <xsd:complexType name="associativeEntity">

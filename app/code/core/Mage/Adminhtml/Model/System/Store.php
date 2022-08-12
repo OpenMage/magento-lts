@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -315,6 +309,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
      */
     public function getStoreGroupOptionHash($attribute = 'name')
     {
+        $options = [];
         foreach ($this->_groupCollection as $group) {
             $options[$group->getId()] = $group->getDataUsingMethod($attribute);
         }
@@ -324,7 +319,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Website name by Id
      *
-     * @param int websiteId
+     * @param int $websiteId
      * @return string
      */
     public function getWebsiteName($websiteId)
@@ -340,7 +335,7 @@ class Mage_Adminhtml_Model_System_Store extends Varien_Object
     /**
      * Retrieve Group name by Id
      *
-     * @param int groupId
+     * @param int $groupId
      * @return string
      */
     public function getGroupName($groupId)

@@ -7,7 +7,7 @@
   ],
   "type": "magento-source",
   "require": {
-    "php": ">=7.0 <7.5 || >=8.0 <8.1",
+    "php": ">=7.0 <8.2",
     "ext-curl": "*",
     "ext-dom": "*",
     "ext-gd": "*",
@@ -61,7 +61,7 @@
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
     },
-    "magento-root-dir": "root"
+    "magento-root-dir": "."
   },
   "config": {
     "allow-plugins": {

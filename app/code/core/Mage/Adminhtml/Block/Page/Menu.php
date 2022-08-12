@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -286,6 +280,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
         foreach ($menu as $item) {
+            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
+                continue; // for example hide System/Tools when empty
+            }
             $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
                 . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '

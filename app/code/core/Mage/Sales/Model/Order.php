@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -437,7 +431,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     const REPORT_DATE_TYPE_CREATED = 'created';
     const REPORT_DATE_TYPE_UPDATED = 'updated';
-    /*
+    /**
      * Identifier for history item
      */
     const HISTORY_ENTITY_NAME = 'order';
@@ -503,7 +497,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_canSendNewEmailFlag = true;
 
-    /*
+    /**
      * Identifier for history item
      *
      * @var string
@@ -1169,7 +1163,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    /*
+    /**
      * Add a comment to order
      * Different or default status may be specified
      *
