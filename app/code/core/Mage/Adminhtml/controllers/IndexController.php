@@ -282,7 +282,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $data = array(
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken,
-                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
+                'minAdminPasswordLength' => Mage::getModel('admin/user')->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
         } catch (Exception $exception) {
@@ -321,8 +321,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if (iconv_strlen($password) <= 0) {
             $errorMessages[] = Mage::helper('adminhtml')->__('New password field cannot be empty.');
         }
+
+        $userModel = Mage::getModel('admin/user');
+
         /** @var Mage_Admin_Model_User $user */
-        $user = $this->_getModel('admin/user')->load($userId);
+        $user = $userModel->load($userId);
 
         $user->setNewPassword($password);
         $user->setPasswordConfirmation($passwordConfirmation);
@@ -338,7 +341,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $data = array(
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken,
-                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
+                'minAdminPasswordLength' => $userModel->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
             return;
@@ -356,7 +359,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $data = array(
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken,
-                'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength()
+                'minAdminPasswordLength' => $userModel->getMinAdminPasswordLength()
             );
             $this->_outTemplate('resetforgottenpassword', $data);
             return;
@@ -410,6 +413,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * @param   string $modelClass
      * @param   array|object $arguments
      * @return  Mage_Core_Model_Abstract|false
+     * @deprecated use Mage::getModel()
      */
     protected function _getModel($modelClass = '', $arguments = array())
     {

@@ -3751,36 +3751,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method compactData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method extractData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method sendNewAccountEmail\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method validate\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method validateData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:postDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
@@ -6179,11 +6149,6 @@ parameters:
 			message: "#^Variable \\$rate in empty\\(\\) is never defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Pickup.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:append\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
 
 		-
 			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"

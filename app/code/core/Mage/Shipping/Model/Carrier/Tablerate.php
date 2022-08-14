@@ -134,14 +134,14 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         $request->setPackageWeight($request->getFreeMethodWeight());
         $request->setPackageQty($oldQty - $freeQty);
 
-        $result = $this->_getModel('shipping/rate_result');
+        $result = Mage::getModel('shipping/rate_result');
         $rate = $this->getRate($request);
 
         $request->setPackageWeight($oldWeight);
         $request->setPackageQty($oldQty);
 
         if (!empty($rate) && $rate['price'] >= 0) {
-            $method = $this->_getModel('shipping/rate_result_method');
+            $method = Mage::getModel('shipping/rate_result_method');
 
             $method->setCarrier('tablerate');
             $method->setCarrierTitle($this->getConfigData('title'));
@@ -170,7 +170,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
             $request->setPackageQty($freeQty);
             $rate = $this->getRate($request);
             if (!empty($rate) && $rate['price'] >= 0) {
-                $method = $this->_getModel('shipping/rate_result_method');
+                $method = Mage::getModel('shipping/rate_result_method');
 
                 $method->setCarrier('tablerate');
                 $method->setCarrierTitle($this->getConfigData('title'));
@@ -184,7 +184,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
                 $result->append($method);
             }
         } else {
-            $error = $this->_getModel('shipping/rate_result_error');
+            $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier('tablerate');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setErrorMessage($this->getConfigData('specificerrmsg'));
@@ -198,8 +198,8 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
      * Get Model
      *
      * @param string $modelName
-     *
      * @return Mage_Core_Model_Abstract
+     * @deprecated use Mage::getModel()
      */
     protected function _getModel($modelName)
     {
