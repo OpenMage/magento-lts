@@ -30,13 +30,11 @@
     function openMessagePopup() {
         var height = $('html-body').getHeight();
         $('message-popup-window-mask').setStyle({'height':height+'px'});
-        toggleSelectsUnderBlock($('message-popup-window-mask'), false);
         Element.show('message-popup-window-mask');
         $('message-popup-window').addClassName('show');
     }
 
     function closeMessagePopup() {
-        toggleSelectsUnderBlock($('message-popup-window-mask'), true);
         Element.hide('message-popup-window-mask');
         $('message-popup-window').removeClassName('show');
         messagePopupClosed = true;

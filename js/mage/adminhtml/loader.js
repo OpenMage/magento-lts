@@ -207,17 +207,14 @@ function showLoader(loaderArea) {
         return;
     }
     Element.clonePosition(loadingMask, loaderArea, {offsetLeft:-2});
-    toggleSelectsUnderBlock(loadingMask, false);
     Element.show(loadingMask);
     Element.childElements(loadingMask).invoke('hide');
-    setLoaderPosition();
     loaderTimeout = setTimeout(function() {
         Element.childElements(loadingMask).invoke('show');
     }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
 }
 
 function hideLoader() {
-    toggleSelectsUnderBlock($('loading-mask'), true);
     Element.hide('loading-mask');
     if(loaderTimeout) {
         clearTimeout(loaderTimeout);
@@ -225,54 +222,12 @@ function hideLoader() {
     }
 }
 
-/**
- * @todo need calculate middle of visible area and scroll bind
- */
-function setLoaderPosition(){
-    var elem = $('loading_mask_loader');
-    if (elem && Prototype.Browser.IE) {
-        var elementDims = elem.getDimensions();
-        var viewPort = document.viewport.getDimensions();
-        var offsets = document.viewport.getScrollOffsets();
-        elem.style.left = Math.floor(viewPort.width / 2 + offsets.left - elementDims.width / 2) + 'px';
-        elem.style.top = Math.floor(viewPort.height / 2 + offsets.top - elementDims.height / 2) + 'px';
-        elem.style.position = 'absolute';
-    }
+// Deprecated since 20.0.17
+function setLoaderPosition() {
 }
 
-/*function getRealHeight() {
-    var body = document.body;
-    if (window.innerHeight && window.scrollMaxY) {
-        return window.innerHeight + window.scrollMaxY;
-    }
-    return Math.max(body.scrollHeight, body.offsetHeight);
-}*/
-
-
-
-function toggleSelectsUnderBlock(block, flag){
-    if(Prototype.Browser.IE){
-        var selects = document.getElementsByTagName("select");
-        for(var i=0; i<selects.length; i++){
-            /**
-             * @todo: need check intersection
-             */
-            if(flag){
-                if(selects[i].needShowOnSuccess){
-                    selects[i].needShowOnSuccess = false;
-                    // Element.show(selects[i])
-                    selects[i].style.visibility = '';
-                }
-            }
-            else{
-                if(Element.visible(selects[i])){
-                    // Element.hide(selects[i]);
-                    selects[i].style.visibility = 'hidden';
-                    selects[i].needShowOnSuccess = true;
-                }
-            }
-        }
-    }
+// Deprecated since 20.0.17
+function toggleSelectsUnderBlock(block, flag) {
 }
 
 Ajax.Responders.register(varienLoaderHandler.handler);
