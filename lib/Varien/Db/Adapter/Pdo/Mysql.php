@@ -255,7 +255,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @return Varien_Db_Adapter_Pdo_Mysql
      */
-    public function rollback()
+    public function rollBack()
     {
         if ($this->_transactionLevel === 1) {
             $this->_debugTimer();

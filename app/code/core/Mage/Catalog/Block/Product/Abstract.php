@@ -632,10 +632,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
+
         if (!$addFormKey) {
-            return $this->helper('wishlist')->getAddUrlWithCustomParams($product, array(), false);
+            return $helper->getAddUrlWithCustomParams($product, array(), false);
         }
-        return $this->helper('wishlist')->getAddUrl($product);
+        return $helper->getAddUrl($product);
     }
 
     /**
@@ -647,10 +650,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getAddToCompareUrlCustom($product, $addFormKey = true)
     {
+        /** @var Mage_Catalog_Helper_Product_Compare $helper */
+        $helper = $this->helper('catalog/product_compare');
+
         if (!$addFormKey) {
-            return $this->helper('catalog/product_compare')->getAddUrlCustom($product, false);
+            return $helper->getAddUrlCustom($product, false);
         }
-        return $this->helper('catalog/product_compare')->getAddUrl($product);
+        return $helper->getAddUrl($product);
     }
 
     /**
@@ -684,12 +690,16 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function  getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
     {
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$product->getTypeInstance(true)->hasRequiredOptions($product)) {
             if (!$addFormKey) {
-                return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+                return $helper->getAddUrlCustom($product, $additional, false);
             }
-            return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+            return $helper->getAddUrl($product, $additional);
         }
+
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,

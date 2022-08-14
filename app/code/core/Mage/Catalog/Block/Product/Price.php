@@ -238,9 +238,12 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      */
     public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
     {
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$addFormKey) {
-            return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+            return $helper->getAddUrlCustom($product, $additional, false);
         }
-        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+        return $helper->getAddUrl($product, $additional);
     }
 }
