@@ -6559,8 +6559,3 @@ parameters:
 			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Variable \\$emails in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php
