@@ -42,9 +42,7 @@ attributesForm._processValidationResult = function(transport) {
         if (response.attribute && $(response.attribute)) {
             $(response.attribute).setHasError(true, attributesForm);
             Validation.ajaxError($(response.attribute), response.message);
-            if (!Prototype.Browser.IE){
-                $(response.attribute).focus();
-            }
+            $(response.attribute).focus();
         } else if ($('messages')) {
             $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
         }
