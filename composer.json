@@ -31,15 +31,15 @@
     "squizlabs/php_codesniffer": "^3.7"
   },
   "scripts": {
-    "set-phpcs-pathes": [
+    "set-phpcs-paths": [
       "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/magento-ecg/coding-standard",
       "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs -i"
     ],
     "post-install-cmd": [
-      "@set-phpcs-pathes"
+      "@set-phpcs-paths"
     ],
     "post-update-cmd":  [
-      "@set-phpcs-pathes"
+      "@set-phpcs-paths"
     ]
   },
   "conflict": {
