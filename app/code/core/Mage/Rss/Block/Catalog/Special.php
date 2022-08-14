@@ -104,12 +104,18 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             foreach($results as $result){
                 // render a row for RSS feed
                 $product->setData($result);
+
+                /** @var Mage_Catalog_Helper_Image $imageHelper */
+                $imageHelper = $this->helper('catalog/image');
+                /** @var Mage_Catalog_Helper_Output $outputHelper */
+                $outputHelper = $this->helper('catalog/output');
+
                 $html = sprintf('<table><tr>
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
                     <td style="text-decoration:none;">%s',
                     $product->getProductUrl(),
-                    $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75),
-                    $this->helper('catalog/output')->productAttribute(
+                    $imageHelper->init($product, 'thumbnail')->resize(75, 75),
+                    $outputHelper->productAttribute(
                         $product,
                         $product->getDescription(),
                         'description'

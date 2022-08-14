@@ -72,7 +72,9 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     public function getGalleryImageUrl($image)
     {
         if ($image) {
-            $helper = $this->helper('catalog/image')
+            /** @var Mage_Catalog_Helper_Image $helper */
+            $helper = $this->helper('catalog/image');
+            $helper
                 ->init($this->getProduct(), 'image', $image->getFile())
                 ->keepFrame(false);
 

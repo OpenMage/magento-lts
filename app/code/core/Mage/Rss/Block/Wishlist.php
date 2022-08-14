@@ -137,11 +137,16 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                     continue;
                 }
 
+                /** @var Mage_Catalog_Helper_Image $imageHelper */
+                $imageHelper = $this->helper('catalog/image');
+                /** @var Mage_Catalog_Helper_Output $outputHelper */
+                $outputHelper = $this->helper('catalog/output');
+
                 $description = '<table><tr><td><a href="' . $productUrl . '"><img src="'
-                    . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                    . $imageHelper->init($product, 'thumbnail')->resize(75, 75)
                     . '" border="0" align="left" height="75" width="75"></a></td>'
                     . '<td style="text-decoration:none;">'
-                    . $this->helper('catalog/output')
+                    . $outputHelper
                         ->productAttribute($product, $product->getShortDescription(), 'short_description')
                     . '<p>';
 
@@ -151,7 +156,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')
-                        . ' ' . $this->helper('catalog/output')
+                        . ' ' . $outputHelper
                             ->productAttribute($product, $product->getDescription(), 'description')
                         . '<p>';
                 }
@@ -159,7 +164,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $description .= '</td></tr></table>';
 
                 $rssObj->_addEntry(array(
-                    'title'         => $this->helper('catalog/output')
+                    'title'         => $outputHelper
                         ->productAttribute($product, $product->getName(), 'name'),
                     'link'          => $productUrl,
                     'description'   => $description,

@@ -105,7 +105,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!is_null($this->_productThumbnail)) {
             return $this->_productThumbnail;
         }
-        return $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail');
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+        return $helper->init($this->getProduct(), 'thumbnail');
     }
 
     /**
