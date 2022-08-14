@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56af828431b5562507d1d5bee35b159f",
+    "content-hash": "88200855e2a9aa59005406cb6a343bfb",
     "packages": [
         {
             "name": "eloquent/enumeration",
