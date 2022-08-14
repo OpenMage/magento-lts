@@ -1996,11 +1996,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^Class Zend_Db_Select referenced with incorrect case\\: Zend_DB_Select\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Resource/Bundle.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:addSelection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
@@ -4992,11 +4987,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property Mage_Paypal_Controller_Express_Abstract\\:\\:\\$_configType\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
-			message: "#^Class Mage_Paypal_Model_Session referenced with incorrect case\\: Mage_PayPal_Model_Session\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
