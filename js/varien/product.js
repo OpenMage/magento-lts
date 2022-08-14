@@ -103,12 +103,6 @@ Product.Zoom.prototype = {
     toggleFull: function () {
         this.showFull = !this.showFull;
 
-        //Hide selects for IE6 only
-        if (typeof document.body.style.maxHeight == "undefined")  {
-            for (i=0; i<this.selects.length; i++) {
-                this.selects[i].style.visibility = this.showFull ? 'hidden' : 'visible';
-            }
-        }
         val_scale = !this.showFull ? this.slider.value : 1;
         this.scale(val_scale);
 
