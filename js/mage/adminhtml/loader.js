@@ -191,24 +191,23 @@ varienLoaderHandler.handler = {
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
         if(request && request.options.loaderArea){
-            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
-            toggleSelectsUnderBlock($('loading-mask'), false);
-            Element.show('loading-mask');
-            setLoaderPosition();
-            if(request.options.loaderArea=='html-body'){
-                //Element.show('loading-process');
-            }
-        }
-        else{
-            //Element.show('loading-process');
+            this.interval = setInterval(function() {
+                Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
+                toggleSelectsUnderBlock($('loading-mask'), false);
+                Element.show('loading-mask');
+                setLoaderPosition();
+            }, 100);
         }
     },
 
     onComplete: function(transport) {
         if(Ajax.activeRequestCount == 0) {
-            //Element.hide('loading-process');
             toggleSelectsUnderBlock($('loading-mask'), true);
             Element.hide('loading-mask');
+            if(this.interval) {
+                clearInterval(this.interval);
+                this.interval = null;
+            }
         }
     }
 };
