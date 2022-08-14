@@ -101,6 +101,11 @@ class Mage_Shipping_Model_Config extends Varien_Object
         }
         $modelName = $config['model'];
 
+        $className = Mage::getConfig()->getModelClassName($modelName);
+        if (!mageFindClassFile($className)) {
+            return false;
+        }
+
         /**
          * Added protection from not existing models usage.
          * Related with module uninstall process
