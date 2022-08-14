@@ -68,9 +68,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
             $idPath = explode('/', $this->_getData('id_path'));
 
             if (isset($idPath[0]) && isset($idPath[1]) && $idPath[0] == 'product') {
-
-                /** @var Mage_Catalog_Helper_Product $helper */
-                $helper = $this->_getFactory()->getHelper('catalog/product');
+                $helper = Mage::helper('catalog/product');
                 $productId = $idPath[1];
                 $categoryId = isset($idPath[2]) ? $idPath[2] : null;
 
@@ -78,8 +76,7 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
             } elseif (isset($idPath[0]) && isset($idPath[1]) && $idPath[0] == 'category') {
                 $categoryId = $idPath[1];
                 if ($categoryId) {
-                    /** @var Mage_Catalog_Helper_Category $helper */
-                    $helper = $this->_getFactory()->getHelper('catalog/category');
+                    $helper = Mage::helper('catalog/category');
                     $category = Mage::getModel('catalog/category')->load($categoryId);
                     $this->_href = $helper->getCategoryUrl($category);
                 }

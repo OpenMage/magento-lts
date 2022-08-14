@@ -494,6 +494,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * @param string $helperName
      * @return Mage_Core_Helper_Abstract
+     * @deprecated use Mage::helper()
      */
     protected function _getHelper($helperName)
     {
@@ -647,9 +648,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $result = array();
 
         if (!Zend_Validate::is($password, 'NotEmpty')) {
-            $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
+            $result[] = Mage::helper('adminhtml')->__('Current password field cannot be empty.');
         } elseif (is_null($this->getId()) || !Mage::helper('core')->validateHash($password, $this->getPassword())) {
-            $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');
+            $result[] = Mage::helper('adminhtml')->__('Invalid current password.');
         }
 
         if (empty($result)) {

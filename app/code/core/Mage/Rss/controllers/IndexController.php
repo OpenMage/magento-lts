@@ -45,7 +45,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
      */
     public function indexAction()
     {
-        if ($this->_getHelper('rss')->isRssEnabled()) {
+        if (Mage::helper('rss')->isRssEnabled()) {
             $this->loadLayout();
             $this->renderLayout();
         } else {
@@ -138,7 +138,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
         if (is_null($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer');
 
-            $params = $this->_getHelper('core')->urlDecode($this->getRequest()->getParam('data'));
+            $params = Mage::helper('core')->urlDecode($this->getRequest()->getParam('data'));
             $data   = explode(',', $params);
             $customerId    = abs(intval($data[0]));
             if ($customerId && ($customerId == Mage::getSingleton('customer/session')->getCustomerId()) ) {

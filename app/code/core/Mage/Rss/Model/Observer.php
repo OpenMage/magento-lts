@@ -88,7 +88,7 @@ class Mage_Rss_Model_Observer
      */
     protected function _cleanCache($tag)
     {
-        if ($this->_factory->getHelper('rss')->isRssEnabled()) {
+        if (Mage::helper('rss')->isRssEnabled()) {
             $this->_app->cleanCache(array($tag));
         }
     }

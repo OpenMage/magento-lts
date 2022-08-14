@@ -3676,11 +3676,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getHash\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Customer.php
-
-		-
 			message: "#^Method Mage_Customer_Model_Customer\\:\\:printError\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Customer.php
@@ -3704,51 +3699,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:isConfirmationRequired\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:generateResetPasswordLinkCustomerId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:generateResetPasswordLinkToken\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAccountUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getDashboardUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEmailConfirmationUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getLoginUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getLogoutUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getTaxCalculationAddressType\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isVatValidationEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
 			message: "#^Method Mage_Customer_AccountController\\:\\:postDispatch\\(\\) should return \\$this\\(Mage_Customer_AccountController\\) but return statement is missing\\.$#"
@@ -3874,11 +3824,6 @@ parameters:
 			message: "#^Cannot call method loadByStore\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Block/Data.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:jsonEncode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Helper/Data.php
 
 		-
 			message: "#^Cannot call method addCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -4489,11 +4434,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Convert_Adapter_Interface\\:\\:quoteInto\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isQty\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getNextAutoincrement\\(\\)\\.$#"
@@ -5616,11 +5556,6 @@ parameters:
 			path: ../app/code/core/Mage/Rss/Block/Wishlist.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRssEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Controller/Abstract.php
-
-		-
 			message: "#^Cannot call method getId\\(\\) on true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rss/Helper/Data.php
@@ -5634,11 +5569,6 @@ parameters:
 			message: "#^Parameter \\$orderId of method Mage_Rss_Model_Resource_Order\\:\\:getAllOrderEntityIds\\(\\) has invalid type unknown_type\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rss/Model/Resource/Order.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRssEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/controllers/IndexController.php
 
 		-
 			message: "#^Cannot call method getWebsiteIds\\(\\) on object\\|string\\.$#"
@@ -6096,36 +6026,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isDiscounted\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:setWeeeTaxesAppliedProperty\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Access to an undefined property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_rawRequest\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
@@ -6276,11 +6176,6 @@ parameters:
 			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:validateCatalogPricesAndFptConfiguration\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:checkDiscountSettings\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
@@ -6294,21 +6189,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxIncluded\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Sales_Order_Tax\\:\\:addTotal\\(\\)\\.$#"

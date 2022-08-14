@@ -92,6 +92,7 @@ class Mage_Core_Model_Factory
      *
      * @param string $helperClass
      * @return Mage_Core_Helper_Abstract
+     * @deprecated use Mage::helper()
      */
     public function getHelper($helperClass)
     {

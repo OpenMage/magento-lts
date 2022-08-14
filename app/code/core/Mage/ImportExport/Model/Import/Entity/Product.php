@@ -1861,6 +1861,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
      *
      * @param string $helperName
      * @return Mage_Core_Helper_Abstract
+     * @deprecated use Mage::helper()
      */
     protected function getHelper($helperName)
     {
@@ -1912,7 +1913,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         );
 
         $entityTable = $this->getResourceModel('cataloginventory/stock_item')->getMainTable();
-        $helper      = $this->getHelper('cataloginventory');
+        $helper      = Mage::helper('cataloginventory');
 
         while ($bunch = $this->getNextBunch()) {
             $stockData = array();

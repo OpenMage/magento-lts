@@ -156,7 +156,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
             }
             if (empty($json)) {
                 $regions = $this->_getRegions($storeId);
-                $helper = $this->_factory->getHelper('core');
+                $helper = Mage::helper('core');
                 $json = $helper->jsonEncode($regions);
 
                 if ($this->_app->useCache('config')) {

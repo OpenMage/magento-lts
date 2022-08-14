@@ -535,8 +535,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         $quote = $address->getQuote();
         $store = $quote->getStore();
+        $helper = Mage::helper('weee');
 
-        if (!$this->_getHelper('weee')->isEnabled() || !$this->_getHelper('weee')->isDiscounted()) {
+        if (!$helper->isEnabled() || !$helper->isDiscounted()) {
             return $this;
         }
 
@@ -554,7 +555,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
 
         $applyTaxAfterDiscount = $config->applyTaxAfterDiscount();
         $discountTax = $config->discountTax();
-        $includeInSubtotal = $this->_getHelper('weee')->includeInSubtotal();
+        $includeInSubtotal = $helper->includeInSubtotal();
 
         foreach ($this->_getRules() as $rule) {
             /* @var Mage_SalesRule_Model_Rule $rule */
@@ -564,7 +565,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                     $rulePercent = max(0, 100 - $rule->getDiscountAmount());
                 case Mage_SalesRule_Model_Rule::BY_PERCENT_ACTION:
                     foreach ($items as $item) {
-                        $weeeTaxAppliedAmounts = $this->_getHelper('weee')->getApplied($item);
+                        $weeeTaxAppliedAmounts = $helper->getApplied($item);
 
                         //Total weee discount for the item
                         $totalWeeeDiscount = 0;
@@ -583,7 +584,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             $weeeDiscount = 0;
                             $baseWeeeDiscount = 0;
 
-                            if ($this->_getHelper('weee')->isTaxable()) {
+                            if ($helper->isTaxable()) {
                                 if ($applyTaxAfterDiscount) {
                                     if ($discountTax) {
                                         $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
@@ -614,13 +615,13 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             }
 
                             if (!$includeInSubtotal) {
-                                $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                $helper->setWeeeTaxesAppliedProperty(
                                     $item,
                                     $weeeTaxAppliedAmount['title'],
                                     'weee_discount',
                                     $weeeDiscount
                                 );
-                                $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                                $helper->setWeeeTaxesAppliedProperty(
                                     $item,
                                     $weeeTaxAppliedAmount['title'],
                                     'base_weee_discount',
@@ -658,13 +659,13 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                         //we need to do this as the mage_sales_order_item does not store the weee discount
                         //We need to store this as we want to keep the rounded amounts
                         if (!$includeInSubtotal) {
-                            $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                            $helper->setWeeeTaxesAppliedProperty(
                                 $item,
                                 null,
                                 'total_base_weee_discount',
                                 $totalBaseWeeeDiscount
                             );
-                            $this->_getHelper('weee')->setWeeeTaxesAppliedProperty(
+                            $helper->setWeeeTaxesAppliedProperty(
                                 $item,
                                 null,
                                 'total_weee_discount',
@@ -1072,6 +1073,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param string $name
      * @return Mage_Core_Helper_Abstract
+     * @deprecated use Mage::helper()
      */
     protected function _getHelper($name)
     {

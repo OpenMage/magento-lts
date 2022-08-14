@@ -265,8 +265,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      */
     protected function _prepareTemporarySelect(Mage_Core_Model_Website $website)
     {
-        /** @var Mage_Catalog_Helper_Product_Flat $catalogFlatHelper */
-        $catalogFlatHelper = $this->_factory->getHelper('catalog/product_flat');
+        $catalogFlatHelper = Mage::helper('catalog/product_flat');
 
         /** @var Mage_Eav_Model_Config $eavConfig */
         $eavConfig = $this->_factory->getSingleton('eav/config');
