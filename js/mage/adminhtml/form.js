@@ -386,26 +386,6 @@ RegionUpdater.prototype = {
 
 regionUpdater = RegionUpdater;
 
-/**
- * Fix errorrs in IE
- */
-Event.pointerX = function(event){
-    try{
-        return event.pageX || (event.clientX +(document.documentElement.scrollLeft || document.body.scrollLeft));
-    }
-    catch(e){
-
-    }
-};
-Event.pointerY = function(event){
-    try{
-        return event.pageY || (event.clientY +(document.documentElement.scrollTop || document.body.scrollTop));
-    }
-    catch(e){
-
-    }
-};
-
 SelectUpdater = Class.create();
 SelectUpdater.prototype = {
     initialize: function (firstSelect, secondSelect, selectFirstMessage, noValuesMessage, values, selected)

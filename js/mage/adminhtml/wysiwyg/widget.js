@@ -63,8 +63,6 @@ var widgetTools = {
             window = this.dialogWindow;
         }
         if (window) {
-            // IE fix - hidden form select fields after closing dialog
-            WindowUtilities._showSelect();
             window.close();
         }
     }
