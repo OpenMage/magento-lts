@@ -74,7 +74,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
     }
 
     /**
-     * Retreive specified attribute data for specified products from specified store
+     * Retrieve specified attribute data for specified products from specified store
      *
      * @param array $products
      * @param array $attributes

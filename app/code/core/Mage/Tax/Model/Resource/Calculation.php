@@ -67,7 +67,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     }
 
     /**
-     * Retreive distinct calculation
+     * Retrieve distinct calculation
      *
      * @param  string $field
      * @param  int $ruleId

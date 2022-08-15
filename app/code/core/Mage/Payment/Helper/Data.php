@@ -91,7 +91,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retreive payment method form html
+     * Retrieve payment method form html
      *
      * @param Mage_Payment_Model_Method_Abstract $method
      * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract

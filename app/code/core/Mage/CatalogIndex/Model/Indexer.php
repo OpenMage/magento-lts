@@ -142,7 +142,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive store collection
+     * Retrieve store collection
      *
      * @return array
      */
@@ -157,7 +157,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive store collection
+     * Retrieve store collection
      *
      * @return Mage_Core_Model_Mysql4_Store_Collection
      */
@@ -518,7 +518,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrieve Data retreiver
+     * Retrieve Data retriever
      *
      * @param string $type
      * @return Mage_CatalogIndex_Model_Data_Abstract

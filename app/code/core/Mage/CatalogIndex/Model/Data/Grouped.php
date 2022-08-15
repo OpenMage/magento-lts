@@ -19,7 +19,7 @@
  */
 
 /**
- * Grouped product data retreiver
+ * Grouped product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -51,7 +51,7 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     }
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */
