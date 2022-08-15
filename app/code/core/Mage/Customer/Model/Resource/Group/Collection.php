@@ -91,7 +91,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     }
 
     /**
-     * Retreive option array
+     * Retrieve option array
      *
      * @return array
      */
@@ -101,7 +101,7 @@ class Mage_Customer_Model_Resource_Group_Collection extends Mage_Core_Model_Reso
     }
 
     /**
-     * Retreive option hash
+     * Retrieve option hash
      *
      * @return array
      */

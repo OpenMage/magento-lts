@@ -125,7 +125,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     }
 
     /**
-     * Retreive default entities: customer, customer_address
+     * Retrieve default entities: customer, customer_address
      *
      * @return array
      */

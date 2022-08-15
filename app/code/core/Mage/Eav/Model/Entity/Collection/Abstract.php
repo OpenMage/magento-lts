@@ -129,7 +129,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive table name
+     * Retrieve table name
      *
      * @param string $table
      * @return string
@@ -1014,7 +1014,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive row id field name
+     * Retrieve row id field name
      *
      * @return string
      */
@@ -1227,7 +1227,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive attribute field name by attribute code
+     * Retrieve attribute field name by attribute code
      *
      * @param string $attributeCode
      * @return string
@@ -1435,7 +1435,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive array of attributes
+     * Retrieve array of attributes
      *
      * @param array $arrAttributes
      * @return array

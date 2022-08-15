@@ -22,7 +22,7 @@
 class Mage_Eav_Model_Entity_Attribute_Frontend_Datetime extends Mage_Eav_Model_Entity_Attribute_Frontend_Abstract
 {
     /**
-     * Retreive attribute value
+     * Retrieve attribute value
      *
      * @param Varien_Object $object
      * @return mixed
