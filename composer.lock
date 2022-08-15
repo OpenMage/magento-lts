@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4c0c86a3401bf910764be92a37a7044",
+    "content-hash": "1ae700b30b8f558fc458a3b45789f6ed",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
-            "version": "1.14.3",
+            "version": "1.14.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
-                "reference": "30915e6eee745d75838f7e1fdf681294b1e3640e"
+                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/30915e6eee745d75838f7e1fdf681294b1e3640e",
-                "reference": "30915e6eee745d75838f7e1fdf681294b1e3640e",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_Cache_Backend_Redis/zipball/6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
+                "reference": "6661e3f07baa10e7b48305f9282eac5f7ad8e50a",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "BSD-3-Clause-Modification"
             ],
             "authors": [
                 {
@@ -42,9 +42,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/issues",
-                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.3"
+                "source": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis/tree/1.14.4"
             },
-            "time": "2022-06-20T17:58:37+00:00"
+            "time": "2022-08-12T20:16:06+00:00"
         },
         {
             "name": "colinmollenhour/credis",
