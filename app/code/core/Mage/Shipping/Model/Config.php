@@ -100,21 +100,9 @@ class Mage_Shipping_Model_Config extends Varien_Object
             return false;
         }
         $modelName = $config['model'];
-
-        $className = Mage::getConfig()->getModelClassName($modelName);
-        if (!mageFindClassFile($className)) {
-            return false;
-        }
-
-        /**
-         * Added protection from not existing models usage.
-         * Related with module uninstall process
-         */
-        try {
-            /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
-            $carrier = Mage::getModel($modelName);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
+        $carrier = Mage::getModel($modelName);
+        if (!$carrier) {
             return false;
         }
         $carrier->setId($code)->setStore($store);
