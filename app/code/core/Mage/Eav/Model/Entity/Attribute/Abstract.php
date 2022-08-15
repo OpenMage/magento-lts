@@ -382,7 +382,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return Mage_Eav_Model_Entity_Type
      */
@@ -417,7 +417,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return string
      */

@@ -62,7 +62,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**
-     * Retreive default attribute backend model by attribute code
+     * Retrieve default attribute backend model by attribute code
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute frontend model
+     * Retrieve default attribute frontend model
      *
      * @return string
      */
@@ -96,7 +96,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute source model
+     * Retrieve default attribute source model
      *
      * @return string
      */
@@ -299,7 +299,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive attribute codes by frontend type
+     * Retrieve attribute codes by frontend type
      *
      * @param string $type
      * @return array

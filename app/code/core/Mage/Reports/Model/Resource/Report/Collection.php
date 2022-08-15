@@ -292,7 +292,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Retreive time shift
+     * Retrieve time shift
      *
      * @param string $datetime
      * @return string

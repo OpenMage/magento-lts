@@ -1271,7 +1271,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */

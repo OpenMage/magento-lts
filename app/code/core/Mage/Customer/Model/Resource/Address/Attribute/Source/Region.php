@@ -29,7 +29,7 @@
 class Mage_Customer_Model_Resource_Address_Attribute_Source_Region extends Mage_Eav_Model_Entity_Attribute_Source_Table
 {
     /**
-     * Retreive all region options
+     * Retrieve all region options
      *
      * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
      * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
