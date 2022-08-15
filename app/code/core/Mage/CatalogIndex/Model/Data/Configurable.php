@@ -19,7 +19,7 @@
  */
 
 /**
- * Configurable product data retreiver
+ * Configurable product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     }
 
    /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */

@@ -221,7 +221,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     }
 
     /**
-     * Retreive inactive categories ids
+     * Retrieve inactive categories ids
      *
      * @return $this
      */
@@ -233,7 +233,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     }
 
     /**
-     * Retreive inactive categories ids
+     * Retrieve inactive categories ids
      *
      * @return array
      */

@@ -69,7 +69,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive lable
+     * Retrieve lable
      *
      * @return string
      */
@@ -84,7 +84,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive attribute value
+     * Retrieve attribute value
      *
      * @param Varien_Object $object
      * @return mixed
@@ -207,7 +207,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive option by option id
+     * Retrieve option by option id
      *
      * @param int $optionId
      * @return mixed|boolean

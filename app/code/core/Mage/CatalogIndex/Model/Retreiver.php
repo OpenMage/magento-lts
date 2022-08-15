@@ -19,7 +19,7 @@
  */
 
 /**
- * Index data retreiver factory
+ * Index data retriever factory
  *
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
@@ -60,14 +60,14 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     protected $_customerGroups;
 
     /**
-     * Retreiver model names cache
+     * Retriever model names cache
      *
      * @var array
      */
     protected $_retreivers = array();
 
     /**
-     * Retreiver factory init, load retreiver settings
+     * Retriever factory init, load retriever settings
      *
      */
     protected function _construct()
@@ -83,7 +83,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Returns data retreiver model by specified product type
+     * Returns data retriever model by specified product type
      *
      * @param string $type
      * @return Mage_CatalogIndex_Model_Data_Abstract

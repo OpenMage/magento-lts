@@ -20,7 +20,7 @@
 
 
 /**
- * Index type retreiver resource model
+ * Index type retriever resource model
  *
  * @category    Mage
  * @package     Mage_CatalogIndex

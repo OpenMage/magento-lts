@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     }
 
     /**
-     * Retreive item count
+     * Retrieve item count
      *
      * @return int
      */
