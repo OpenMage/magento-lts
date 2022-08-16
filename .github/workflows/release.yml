@@ -25,7 +25,7 @@ jobs:
     - name: "Composer install"
       uses: MilesChou/composer-action/8.0@master
       with:
-        args: install --ignore-platform-req=ext-*
+        args: install --ignore-platform-req=ext-* --no-dev
 #    - name: "Move Cm_Cache_Backend_Redis /lib"
 #      run: "mkdir -p lib/Cm/Cache/Backend; cp vendor/colinmollenhour/cache-backend-redis/Cm/Cache/Backend/* lib/Cm/Cache/Backend/"
     - name: "Create ZIP file"
