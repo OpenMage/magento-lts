@@ -8,10 +8,13 @@
   "type": "magento-source",
   "require": {
     "php": ">=7.0 <8.2",
+    "ext-ctype": "*",
     "ext-curl": "*",
     "ext-dom": "*",
     "ext-gd": "*",
+    "ext-hash": "*",
     "ext-iconv": "*",
+    "ext-intl": "*",
     "ext-json": "*",
     "ext-libxml": "*",
     "ext-mbstring": "*",

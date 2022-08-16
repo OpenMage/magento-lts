@@ -71,21 +71,26 @@
         </filesystem>
         <php>
             <extensions>
-                <spl/>
-                <dom/>
-                <simplexml/>
-                <mcrypt/>
-                <hash/>
-                <curl/>
-                <iconv/>
                 <ctype/>
+                <curl/>
+                <dom/>
                 <gd/>
-                <soap/>
+                <hash/>
+                <iconv/>
+                <intl/>
+                <json/>
+                <libxml/>
                 <mbstring/>
+                <mcrypt/>
                 <mcrypt>
                     <openssl/>
                     <mcrypt/>
                 </mcrypt>
+                <pdo/>
+                <simplexml/>
+                <soap/>
+                <spl/>
+                <zlib/>
             </extensions>
         </php>
     </check>
