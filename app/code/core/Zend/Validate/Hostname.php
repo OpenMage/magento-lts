@@ -2511,18 +2511,12 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      */
     protected function checkDnsRecords($hostName)
     {
-        if (function_exists('idn_to_ascii')) {
-            if (defined('IDNA_NONTRANSITIONAL_TO_ASCII') && defined('INTL_IDNA_VARIANT_UTS46')) {
-                $toAscii = idn_to_ascii($hostName, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
-            } else {
-                $toAscii = idn_to_ascii($hostName);
-            }
-            $result = checkdnsrr($toAscii, 'A');
+        if (defined('IDNA_NONTRANSITIONAL_TO_ASCII') && defined('INTL_IDNA_VARIANT_UTS46')) {
+            $toAscii = idn_to_ascii($hostName, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
         } else {
-            $idn = new Net_IDNA2();
-            $result = checkdnsrr($idn->encode($hostName), 'A');
+            $toAscii = idn_to_ascii($hostName);
         }
-
+        $result = checkdnsrr($toAscii, 'A');
         return $result;
     }
 }

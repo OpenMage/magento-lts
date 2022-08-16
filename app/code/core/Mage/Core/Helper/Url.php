@@ -171,12 +171,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $parsedUrl = parse_url($url);
         if (!$this->_isPunycode($parsedUrl['host'])) {
-            if (function_exists('idn_to_ascii')) {
-                $host = idn_to_ascii($parsedUrl['host']);
-            } else {
-                $idn = new Net_IDNA2();
-                $host = $idn->encode($parsedUrl['host']);
-            }
+            $host = idn_to_ascii($parsedUrl['host']);
             return str_replace($parsedUrl['host'], $host, $url);
         } else {
             return $url;
@@ -193,12 +188,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $parsedUrl = parse_url($url);
         if ($this->_isPunycode($parsedUrl['host'])) {
-            if (function_exists('idn_to_utf8')) {
-                $host = idn_to_utf8($parsedUrl['host']);
-            } else {
-                $idn = new Net_IDNA2();
-                $host = $idn->decode($parsedUrl['host']);
-            }
+            $host = idn_to_utf8($parsedUrl['host']);
             return str_replace($parsedUrl['host'], $host, $url);
         } else {
             return $url;

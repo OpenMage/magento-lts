@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ae700b30b8f558fc458a3b45789f6ed",
+    "content-hash": "d7e1de36deee605004800d7669e62a97",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -572,119 +572,6 @@
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
-            "name": "pear/net_idna2",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Net_IDNA2.git",
-                "reference": "d22f05df07622b7ec48ee9902ae701267182d920"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_IDNA2/zipball/d22f05df07622b7ec48ee9902ae701267182d920",
-                "reference": "d22f05df07622b7ec48ee9902ae701267182d920",
-                "shasum": ""
-            },
-            "require": {
-                "pear/pear_exception": "^1.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Net": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
-            "license": [
-                "LGPL-2.1-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Stefan Neufeind",
-                    "email": "pear.neufeind@speedpartner.de",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Daniel O'Connor",
-                    "email": "daniel.oconnor@gmail.com",
-                    "role": "Lead"
-                }
-            ],
-            "description": "Punycode encoding and decoding.",
-            "homepage": "https://pear.php.net/package/Net_IDNA2",
-            "support": {
-                "issues": "https://pear.php.net/bugs/search.php?cmd=display&package_name[]=Net_IDNA2",
-                "source": "https://github.com/pear/Net_IDNA2"
-            },
-            "time": "2019-10-18T04:25:21+00:00"
-        },
-        {
-            "name": "pear/pear_exception",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/PEAR_Exception.git",
-                "reference": "b14fbe2ddb0b9f94f5b24cf08783d599f776fff0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/b14fbe2ddb0b9f94f5b24cf08783d599f776fff0",
-                "reference": "b14fbe2ddb0b9f94f5b24cf08783d599f776fff0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "<9"
-            },
-            "type": "class",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "PEAR/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "."
-            ],
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Helgi Thormar",
-                    "email": "dufuz@php.net"
-                },
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net"
-                }
-            ],
-            "description": "The PEAR Exception base class.",
-            "homepage": "https://github.com/pear/PEAR_Exception",
-            "keywords": [
-                "exception"
-            ],
-            "support": {
-                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR_Exception",
-                "source": "https://github.com/pear/PEAR_Exception"
-            },
-            "time": "2021-03-21T15:43:46+00:00"
-        },
-        {
             "name": "phpseclib/mcrypt_compat",
             "version": "2.0.3",
             "source": {
@@ -1244,6 +1131,93 @@
             "time": "2022-05-24T11:49:31+00:00"
         },
         {
+            "name": "symfony/polyfill-intl-idn",
+            "version": "v1.26.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-idn.git",
+                "reference": "59a8d271f00dd0e4c2e518104cc7963f655a1aa8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/59a8d271f00dd0e4c2e518104cc7963f655a1aa8",
+                "reference": "59a8d271f00dd0e4c2e518104cc7963f655a1aa8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "symfony/polyfill-intl-normalizer": "^1.10",
+                "symfony/polyfill-php72": "^1.10"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.26-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Idn\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Bassin",
+                    "email": "laurent@bassin.info"
+                },
+                {
+                    "name": "Trevor Rowbotham",
+                    "email": "trevor.rowbotham@pm.me"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's idn_to_ascii and idn_to_utf8 functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "idn",
+                "intl",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.26.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-05-24T11:49:31+00:00"
+        },
+        {
             "name": "symfony/polyfill-intl-normalizer",
             "version": "v1.26.0",
             "source": {
@@ -1393,6 +1367,82 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.26.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-05-24T11:49:31+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php72",
+            "version": "v1.26.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php72.git",
+                "reference": "bf44a9fd41feaac72b074de600314a93e2ae78e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/bf44a9fd41feaac72b074de600314a93e2ae78e2",
+                "reference": "bf44a9fd41feaac72b074de600314a93e2ae78e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.26-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.26.0"
             },
             "funding": [
                 {
@@ -1841,9 +1891,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pear/net_idna2": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
