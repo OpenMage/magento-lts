@@ -139,7 +139,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `sitemap_cms_pages_generating_before`
 - `sitemap_urlset_generating_before`
 
-[Full list of events](EVENTS.md)
+[Full list of events](docs/EVENTS.md)
 
 ### Removed Modules
 

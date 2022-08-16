@@ -749,6 +749,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     /**
      * Implementation of IteratorAggregate::getIterator()
      */
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         $this->load();
@@ -756,10 +757,11 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     }
 
     /**
-     * Retireve count of collection loaded items
+     * Retrieve count of collection loaded items
      *
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         $this->load();

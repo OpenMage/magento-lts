@@ -1331,7 +1331,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Retreive resource helper instance
+     * Retrieve resource helper instance
      *
      * Example:
      * $config->getResourceHelper('cms')

@@ -20,7 +20,7 @@
 
 
 /**
- * CatalogIndex Data Retreiver Abstract Model
+ * CatalogIndex Data Retriever Abstract Model
  *
  * @category   Mage
  * @package    Mage_CatalogIndex
@@ -239,7 +239,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive specified attribute data for specified products from specified store
+     * Retrieve specified attribute data for specified products from specified store
      *
      * @param array $products
      * @param array $attributes
@@ -252,7 +252,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */

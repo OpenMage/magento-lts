@@ -67,7 +67,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_wishlistItemCollection = null;
 
     /**
-     * Retreive customer session
+     * Retrieve customer session
      *
      * @return Mage_Customer_Model_Session
      */
