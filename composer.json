@@ -66,12 +66,21 @@
     "branch-alias": {
       "dev-main": "1.9.4.x-dev"
     },
-    "magento-root-dir": "."
+    "magento-root-dir": ".",
+    "magento-deploystrategy": "copy",
+    "magento-force": true
   },
   "config": {
     "allow-plugins": {
       "magento-hackathon/magento-composer-installer": true
     },
     "sort-packages": true
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "rm -rf vendor/colinmollenhour/cache-backend-redis",
+      "rm -rf vendor/colinmollenhour/magento-redis-session",
+      "find vendor -iname '*.md' -delete"
+    ]
   }
 }
