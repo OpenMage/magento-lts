@@ -1331,11 +1331,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
 
 		-
-			message: "#^Inner named functions are not supported by PHPStan\\. Consider refactoring to an anonymous function, class method, or a top\\-level\\-defined function\\. See issue \\#165 \\(https\\://github\\.com/phpstan/phpstan/issues/165\\) for more details\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Serialized\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Serialized\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
@@ -6337,10 +6332,5 @@ parameters:
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between int and \\(array\\|string\\) results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php
-
-		-
-			message: "#^Variable \\$emails in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/controllers/IndexController.php

@@ -247,7 +247,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive table name
+     * Retrieve table name
      *
      * @param string $alias
      * @return string
@@ -464,7 +464,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive partial load flag
+     * Retrieve partial load flag
      *
      * @param boolean $flag
      * @return boolean
@@ -479,7 +479,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive partial save flag
+     * Retrieve partial save flag
      *
      * @param boolean $flag
      * @return boolean
@@ -905,7 +905,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive default source model
+     * Retrieve default source model
      *
      * @return string
      */

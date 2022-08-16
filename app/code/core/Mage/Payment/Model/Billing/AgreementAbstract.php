@@ -68,7 +68,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
     abstract public function cancel();
 
     /**
-     * Retreive payment method instance
+     * Retrieve payment method instance
      *
      * @return Mage_Payment_Model_Method_Abstract
      */
