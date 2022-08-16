@@ -105,6 +105,10 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - bug fixes and PHP 7.x and 8.0 compatibility
 - added config cache for system.xml #1916
 
+### Between OpenMage 19.4.18 / 20.0.15 and 19.4.19 / 20.0.16
+
+- PHP extension `intl` is required
+
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
