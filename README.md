@@ -103,7 +103,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
 - bug fixes and PHP 7.x and 8.0 compatibility
-- added config cache for system.xml #1916
+- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 
 ### Between OpenMage 19.x and 20.x
 
@@ -113,7 +113,6 @@ Do not use 20.x.x if you need IE support.
 - removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
 - add redis as a valid option for `global/session_save` #1513
-- possibility to disable global search in backend #1532
 - reduce needless saves by avoiding setting `_hasDataChanges` flag #2066
 - removed support for `global/sales/old_fields_map` defined in XML #921
 - removed Mage_PageCache module #2258
