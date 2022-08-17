@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
     protected function _prepareForm()
     {
         $model = Mage::registry('current_catalog_search');
-        /** @var $model Mage_CatalogSearch_Model_Query */
+        /** @var Mage_CatalogSearch_Model_Query $model */
 
         $form = new Varien_Data_Form(array(
             'id'        => 'edit_form',

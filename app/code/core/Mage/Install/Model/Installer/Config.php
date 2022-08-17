@@ -144,7 +144,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         try {
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
-            /** @var $responce Zend_Http_Response */
+            /** @var Zend_Http_Response $responce */
             $body = $response->getBody();
         }
         catch (Exception $e){

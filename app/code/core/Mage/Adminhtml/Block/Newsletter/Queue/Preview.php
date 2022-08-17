@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
 
     protected function _toHtml()
     {
-        /** @var $template Mage_Newsletter_Model_Template */
+        /** @var Mage_Newsletter_Model_Template $template */
         $template = Mage::getModel('newsletter/template');
 
         if($id = (int)$this->getRequest()->getParam('id')) {

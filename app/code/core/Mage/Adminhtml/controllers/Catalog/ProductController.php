@@ -125,11 +125,11 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 ->load($this->getRequest()->getParam('product'))
                 ->setTypeId($this->getRequest()->getParam('type'));
 
-            /** @var $configProduct Mage_Catalog_Model_Product */
+            /** @var Mage_Catalog_Model_Product $configProduct */
             $data = array();
             foreach ($configProduct->getTypeInstance()->getEditableAttributes() as $attribute) {
 
-                /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
+                /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
                 if(!$attribute->getIsUnique()
                     && $attribute->getFrontend()->getInputType()!='gallery'
                     && $attribute->getAttributeCode() != 'required_options'
@@ -495,7 +495,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if ($productData && !isset($productData['stock_data']['use_config_manage_stock'])) {
                 $productData['stock_data']['use_config_manage_stock'] = 0;
             }
-            /** @var $product Mage_Catalog_Model_Product */
+            /** @var Mage_Catalog_Model_Product $product */
             $product = Mage::getModel('catalog/product');
             $product->setData('_edit_mode', true);
             if ($storeId = $this->getRequest()->getParam('store')) {
@@ -987,7 +987,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $result = array();
 
-        /** @var $configurableProduct Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $configurableProduct */
         $configurableProduct = Mage::getModel('catalog/product')
             ->setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)
             ->load($this->getRequest()->getParam('product'));
@@ -998,7 +998,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             return;
         }
 
-        /** @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         $product = Mage::getModel('catalog/product')
             ->setStoreId(0)
@@ -1108,7 +1108,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
     {
         $session = Mage::getSingleton('adminhtml/session');
         if ($session->hasCompositeProductResult() && $session->getCompositeProductResult() instanceof Varien_Object){
-            /** @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+            /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
             $helper = Mage::helper('adminhtml/catalog_product_composite');
             $helper->renderUpdateResult($this, $session->getCompositeProductResult());
             $session->unsCompositeProductResult();

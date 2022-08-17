@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Customer_Online_Grid extends Mage_Adminhtml_Block_Wid
         $collection = Mage::getModel('log/visitor_online')
             ->prepare()
             ->getCollection();
-        /** @var $collection Mage_Log_Model_Mysql4_Visitor_Online_Collection */
+        /** @var Mage_Log_Model_Mysql4_Visitor_Online_Collection $collection */
         $collection->addCustomerData();
 
         $this->setCollection($collection);

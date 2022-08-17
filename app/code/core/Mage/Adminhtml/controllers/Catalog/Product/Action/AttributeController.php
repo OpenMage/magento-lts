@@ -158,7 +158,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
             }
 
             if ($websiteAddData || $websiteRemoveData) {
-                /** @var $actionModel Mage_Catalog_Model_Product_Action */
+                /** @var Mage_Catalog_Model_Product_Action $actionModel */
                 $actionModel = Mage::getSingleton('catalog/product_action');
                 $productIds  = $this->_getHelper()->getProductIds();
 

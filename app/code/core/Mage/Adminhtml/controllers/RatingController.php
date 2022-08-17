@@ -131,7 +131,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         if( $this->getRequest()->getParam('id') > 0 ) {
             try {
                 $model = Mage::getModel('rating/rating');
-                /** @var $model Mage_Rating_Model_Rating */
+                /** @var Mage_Rating_Model_Rating $model */
                 $model->load($this->getRequest()->getParam('id'))
                     ->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));

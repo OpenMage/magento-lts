@@ -273,7 +273,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $profile = Mage::getModel('core/convert')
             ->importXml($xml)
             ->getProfile('default');
-        /** @var $profile Mage_Dataflow_Model_Convert_Profile */
+        /** @var Mage_Dataflow_Model_Convert_Profile $profile */
 
         try {
             $batch = Mage::getSingleton('dataflow/batch')

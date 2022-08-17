@@ -316,7 +316,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     protected function _processFiles($items)
     {
-        /** @var $productHelper Mage_Catalog_Helper_Product */
+        /** @var Mage_Catalog_Helper_Product $productHelper */
         $productHelper = Mage::helper('catalog/product');
         foreach ($items as $id => $item) {
             $buyRequest = new Varien_Object($item);
@@ -591,7 +591,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $configureResult->setCurrentCustomerId($sessionQuote->getCustomerId());
 
         // Render page
-        /** @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
 
@@ -635,7 +635,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
         // Render page
-        /** @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         $helper->renderConfigureResult($this, $configureResult);
 

@@ -97,7 +97,7 @@ class Mage_ProductAlert_Model_Observer
         $email->setType('price');
         $originalStore = Mage::app()->getStore();
         foreach ($this->_getWebsites() as $website) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
 
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
@@ -186,7 +186,7 @@ class Mage_ProductAlert_Model_Observer
         $originalStore = Mage::app()->getStore();
 
         foreach ($this->_getWebsites() as $website) {
-            /** @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
 
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
@@ -278,11 +278,11 @@ class Mage_ProductAlert_Model_Observer
             }
 
             $translate = Mage::getSingleton('core/translate');
-            /** @var $translate Mage_Core_Model_Translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
             $emailTemplate = Mage::getModel('core/email_template');
-            /** @var $emailTemplate Mage_Core_Model_Email_Template */
+            /** @var Mage_Core_Model_Email_Template $emailTemplate */
             $emailTemplate->setDesignConfig(array('area'  => 'backend'))
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),

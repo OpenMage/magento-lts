@@ -216,7 +216,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             $values = array();
             $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
             foreach ($optionsArr as $option) {
-                /** @var $option Mage_Catalog_Model_Product_Option */
+                /** @var Mage_Catalog_Model_Product_Option $option */
 
                 $this->setItemCount($option->getOptionId());
 
@@ -241,7 +241,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $i = 0;
                     $itemCount = 0;
                     foreach ($option->getValues() as $_value) {
-                        /** @var $_value Mage_Catalog_Model_Product_Option_Value */
+                        /** @var Mage_Catalog_Model_Product_Option_Value $_value */
                         $value['optionValues'][$i] = array(
                             'item_count' => max($itemCount, $_value->getOptionTypeId()),
                             'option_id' => $_value->getOptionId(),

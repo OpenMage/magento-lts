@@ -129,7 +129,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
             // check product type apply to limitation and remove attributes that impossible to change in mass-update
             $productTypeIds  = $this->getProducts()->getProductTypeIds();
             foreach ($this->_attributes as $attribute) {
-                /** @var $attribute Mage_Catalog_Model_Entity_Attribute */
+                /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
                 foreach ($productTypeIds as $productTypeId) {
                     $applyTo = $attribute->getApplyTo();
                     if (count($applyTo) > 0 && !in_array($productTypeId, $applyTo)) {

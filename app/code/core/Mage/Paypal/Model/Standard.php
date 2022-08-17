@@ -113,7 +113,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         $orderIncrementId = $this->getCheckout()->getLastRealOrderId();
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-        /** @var $api Mage_Paypal_Model_Api_Standard */
+        /** @var Mage_Paypal_Model_Api_Standard $api */
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
         $api->setOrderId($orderIncrementId)
             ->setCurrencyCode($order->getBaseCurrencyCode())

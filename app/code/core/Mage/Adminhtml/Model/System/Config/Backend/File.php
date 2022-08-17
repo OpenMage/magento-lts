@@ -118,7 +118,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _getUploadDir()
     {
         $fieldConfig = $this->getFieldConfig();
-        /** @var $fieldConfig Varien_Simplexml_Element */
+        /** @var Varien_Simplexml_Element $fieldConfig */
 
         if (empty($fieldConfig->upload_dir)) {
             Mage::throwException(Mage::helper('catalog')->__('The base directory to upload file is not specified.'));

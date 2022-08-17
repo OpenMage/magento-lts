@@ -291,7 +291,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
             ) as $orderItem) {
-            /** @var $orderItem Mage_Sales_Model_Order_Item */
+            /** @var Mage_Sales_Model_Order_Item $orderItem */
             if (!$orderItem->getParentItem()) {
                 if ($order->getReordered()) {
                     $qty = $orderItem->getQtyOrdered();
@@ -652,7 +652,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if (isset($data['add_order_item'])) {
             foreach ($data['add_order_item'] as $orderItemId => $value) {
-                /** @var $orderItem Mage_Sales_Model_Order_Item */
+                /** @var Mage_Sales_Model_Order_Item $orderItem */
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
                 $item = $this->initFromOrderItem($orderItem);
                 if (is_string($item)) {
@@ -1764,7 +1764,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if (!$this->getSession()->getCustomer()->getId()) {
             $customer = Mage::getModel('customer/customer');
-            /** @var $customer Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
 
             $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
 

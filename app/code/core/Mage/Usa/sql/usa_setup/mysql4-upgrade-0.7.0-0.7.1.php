@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/** @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 // update UPS Gateway XML URL to the new recommended one
 $installer->run("UPDATE {$installer->getTable('core/config_data')} SET `value` = REPLACE(`value`,

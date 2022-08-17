@@ -48,7 +48,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_A
      */
     public function toOptionArray()
     {
-        /** @var $carrierModel Mage_Usa_Model_Shipping_Carrier_Dhl_International */
+        /** @var Mage_Usa_Model_Shipping_Carrier_Dhl_International $carrierModel */
         $carrierModel   = Mage::getSingleton('usa/shipping_carrier_dhl_international');
         $dhlProducts    = $carrierModel->getDhlProducts($this->_contentType);
 

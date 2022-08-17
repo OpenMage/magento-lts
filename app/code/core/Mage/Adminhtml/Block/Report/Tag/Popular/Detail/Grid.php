@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
      */
     protected function _prepareCollection()
     {
-        /** @var $collection Mage_Reports_Model_Resource_Tag_Customer_Collection */
+        /** @var Mage_Reports_Model_Resource_Tag_Customer_Collection $collection */
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
         $collection->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
             ->addTagFilter($this->getRequest()->getParam('id'))

@@ -40,7 +40,7 @@ class Mage_Page_Block_Html_CookieNotice extends Mage_Core_Block_Template
 
         $html = '';
         if ($block->getIsActive()) {
-            /** @var $helper Mage_Cms_Helper_Data */
+            /** @var Mage_Cms_Helper_Data $helper */
             $helper = Mage::helper('cms');
             $processor = $helper->getBlockTemplateProcessor();
             $html = $processor->filter($block->getContent());

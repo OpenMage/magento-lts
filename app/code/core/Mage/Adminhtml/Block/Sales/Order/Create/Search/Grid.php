@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid extends Mage_Adminhtml
     protected function _prepareCollection()
     {
         $attributes = Mage::getSingleton('catalog/config')->getProductAttributes();
-        /** @var $collection Mage_Catalog_Model_Resource_Product_Collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getModel('catalog/product')->getCollection();
         $collection
             ->setStore($this->getStore())
