@@ -292,7 +292,6 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $websites   = $this->getWebsites($websiteId);
 
         foreach (array_keys($websites) as $websiteId) {
-            /** @var Mage_Core_Model_Website $website */
             $statuses[$websiteId] = $status;
         }
 

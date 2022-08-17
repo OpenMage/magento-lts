@@ -27,15 +27,21 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends Mage_Adminhtml_Block_Widget
 {
+    /**
+     * Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/product/attribute/new/created.phtml');
     }
 
+    /**
+     * @return $this
+     * @throws Exception
+     */
     protected function _prepareLayout()
     {
-
         $this->setChild(
             'attributes',
             $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_new_product_attributes')
@@ -53,11 +59,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
         return $this;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getGroupAttributes()
     {
         $attributes = array();
-        $product = Mage::registry('product');
         /** @var Mage_Catalog_Model_Product $product */
+        $product = Mage::registry('product');
         foreach($product->getAttributes($this->getRequest()->getParam('group')) as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             if ($attribute->getId() == $this->getRequest()->getParam('attribute')) {
@@ -67,11 +77,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
         return $attributes;
     }
 
+    /**
+     * @return string
+     */
     public function getCloseButtonHtml()
     {
         return $this->getChildHtml('close_button');
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function getAttributesBlockJson()
     {
         $result = array(

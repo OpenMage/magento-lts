@@ -31,11 +31,11 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
 
     protected $_rssFeeds = array();
 
-
     /**
      * Add Link elements to head
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
@@ -120,23 +120,11 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         $this->resetRssFeed();
         $this->CategoriesRssFeed();
         return $this->getRssFeeds();
-
-/*      $section = Mage::getSingleton('adminhtml/config')->getSections();
-        $catalogFeeds = $section->rss->groups->catalog->fields[0];
-        $res = array();
-        foreach($catalogFeeds as $code => $feed){
-            $prefix = self::XML_PATH_RSS_METHODS.'/catalog/'.$code;
-            if (!Mage::getStoreConfig($prefix) || $code=='tag') {
-                continue;
-            }
-            $res[$code] = $feed;
-        }
-        return $res;
-*/
     }
 
     /**
      * @return array|false
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getRssMiscFeeds()
     {
@@ -147,20 +135,9 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         return $this->getRssFeeds();
     }
 
-    /*
-    public function getCatalogRssUrl($code)
-    {
-        $store_id = Mage::app()->getStore()->getId();
-        $param = array('store_id' => $store_id);
-        $custGroup = Mage::getSingleton('customer/session')->getCustomerGroupId();
-        if ($custGroup) {
-            $param = array_merge($param, array('cid' => $custGroup));
-        }
-
-        return Mage::getUrl('rss/catalog/'.$code, $param);
-    }
-    */
-
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function NewProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/new';
@@ -169,6 +146,9 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         }
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function SpecialProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
@@ -177,6 +157,9 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         }
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function SalesRuleProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
@@ -185,13 +168,17 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         }
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function CategoriesRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/category';
         if((bool)Mage::getStoreConfig($path)){
             $category = Mage::getModel('catalog/category');
 
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection $collection */
+            /** @var Varien_Data_Tree_Node $treeModel */
             $treeModel = $category->getTreeModel()->loadNode(Mage::app()->getStore()->getRootCategoryId());
             $nodes = $treeModel->loadChildren()->getChildren();
 

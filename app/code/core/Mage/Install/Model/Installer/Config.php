@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Config installer
  * @category   Mage
@@ -126,6 +125,12 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
+     */
     protected function _checkHostsInfo($data)
     {
         $url  = $data['protocol'] . '://' . $data['host'] . ':' . $data['port'] . $data['base_path'];
@@ -138,13 +143,19 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $this;
     }
 
+    /**
+     * @param string $url
+     * @param bool $secure
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
+     */
     protected function _checkUrl($url, $secure = false)
     {
         $prefix = $secure ? 'install/wizard/checkSecureHost/' : 'install/wizard/checkHost/';
         try {
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
-            /** @var Zend_Http_Response $responce */
             $body = $response->getBody();
         }
         catch (Exception $e){
@@ -171,6 +182,10 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $this;
     }
 
+    /**
+     * @param string|null $key
+     * @return $this
+     */
     public function replaceTmpEncryptKey($key = null)
     {
         if (!$key) {

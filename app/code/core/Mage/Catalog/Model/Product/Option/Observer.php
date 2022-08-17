@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Product_Option_Observer
                 $code = explode('_', $itemOption->getCode());
                 if (isset($code[1]) && is_numeric($code[1]) && ($option = $quoteItem->getProduct()->getOptionById($code[1]))) {
                     if ($option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE) {
-                        /** @var Mage_Catalog_Model_Product_Option $_option */
+                        /** @var Mage_Catalog_Model_Product_Option $option */
                         try {
                             $group = $option->groupFactory($option->getType())
                                 ->setQuoteItemOption($itemOption)

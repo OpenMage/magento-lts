@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogIndex Index operation model
  *
@@ -159,14 +158,14 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Retrieve store collection
      *
-     * @return Mage_Core_Model_Mysql4_Store_Collection
+     * @return Mage_Core_Model_Resource_Website_Collection
      */
     protected function _getWebsites()
     {
         $websites = $this->getData('_websites');
         if (is_null($websites)) {
+            /** @var Mage_Core_Model_Resource_Website_Collection $websites */
             $websites = Mage::getModel('core/website')->getCollection()->load();
-            /** @var Mage_Core_Model_Mysql4_Website_Collection $stores */
 
             $this->setData('_websites', $websites);
         }
