@@ -316,8 +316,6 @@ if($('option_panel')){
     $('option_panel').remove();
 }
 
-productOption.bindRemoveButtons();
-
 if($('<?php echo $this->getAddButtonId() ?>')){
     Event.observe('<?php echo $this->getAddButtonId() ?>', 'click', productOption.add.bind(productOption));
 }
@@ -336,6 +334,8 @@ Validation.addAllThese([
     productOption.add(<?php echo $_value->toJson() ?>);
     productOptionType.addDataToValues(<?php echo $_value->toJson() ?>);
 <?php endforeach ?>
+
+productOption.bindRemoveButtons();
 
 //bind scope checkboxes
 productOptionScope.bindScopeCheckbox();
