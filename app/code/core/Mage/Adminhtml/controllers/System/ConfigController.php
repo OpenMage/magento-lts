@@ -68,7 +68,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
-     *
      */
     public function editAction()
     {
@@ -100,11 +99,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
             $this->getUrl('*/system'));
 
+        /** @var Mage_Adminhtml_Block_System_Config_Tabs $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_config_tabs');
         $this->getLayout()->getBlock('left')
-            ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
+            ->append($block->initTabs());
 
         if ($this->_isSectionAllowedFlag) {
-            $this->_addContent($this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm());
+            /** @var Mage_Adminhtml_Block_System_Config_Edit $block */
+            $block = $this->getLayout()->createBlock('adminhtml/system_config_edit');
+            $this->_addContent($block->initForm());
 
             $this->_addJs($this->getLayout()
                 ->createBlock('adminhtml/template')
@@ -122,7 +125,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save configuration
-     *
      */
     public function saveAction()
     {

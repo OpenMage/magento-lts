@@ -38,9 +38,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
     {
         parent::_prepareForm();
         $attributeObject = $this->getAttributeObject();
-        /* @var $form Varien_Data_Form */
         $form = $this->getForm();
-        /* @var $fieldset Varien_Data_Form_Element_Fieldset */
+        /* @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $form->getElement('base_fieldset');
 
         $fieldset->getElements()
@@ -101,8 +100,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
         );
 
         if (
-            $attributeObject->getAttributeCode() == 'status'
-            || $attributeObject->getAttributeCode() == 'tax_class_id'
+            $attributeObject->getAttributeCode() === 'status'
+            || $attributeObject->getAttributeCode() === 'tax_class_id'
         ) {
             unset($scopes[Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE]);
         }
@@ -240,7 +239,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
         }
 
         // define field dependencies
-        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
+        $this->setChild('form_after', $block
             ->addFieldMap("is_wysiwyg_enabled", 'wysiwyg_enabled')
             ->addFieldMap("is_html_allowed_on_front", 'html_allowed_on_front')
             ->addFieldMap("frontend_input", 'frontend_input_type')

@@ -70,7 +70,9 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
                 'display'   => 'none'
             ), 'price_rule_type');
 
-            $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+            /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+            $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
+            $this->setChild('form_after', $block
                 ->addFieldMap($htmlIdPrefix . 'price_rule_type', 'price_rule_type')
                 ->addFieldMap($htmlIdPrefix . 'rules_list', 'rules_list')
                 ->addFieldDependence('rules_list', 'price_rule_type', '1'));

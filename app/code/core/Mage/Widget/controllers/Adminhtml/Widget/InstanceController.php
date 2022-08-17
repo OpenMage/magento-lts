@@ -67,6 +67,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      * Init widget instance object and set it to registry
      *
      * @return Mage_Widget_Model_Widget_Instance|boolean
+     * @throws Mage_Core_Exception
      */
     protected function _initWidgetInstance()
     {
@@ -97,7 +98,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Widget Instances Grid
-     *
      */
     public function indexAction()
     {
@@ -109,7 +109,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * New widget instance action (forward to edit action)
-     *
      */
     public function newAction()
     {
@@ -118,7 +117,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Edit widget instance action
-     *
      */
     public function editAction()
     {
@@ -147,7 +145,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Validate action
-     *
      */
     public function validateAction()
     {
@@ -166,7 +163,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Save action
-     *
      */
     public function saveAction()
     {
@@ -205,7 +201,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Delete Action
-     *
+     * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
     {
@@ -243,7 +239,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Products chooser Action (Ajax request)
-     *
      */
     public function productsAction()
     {
@@ -255,7 +250,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
             ->setSelectedProducts(explode(',', $selected));
-        /* @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
         $this->setBody($chooser->toHtml().$serializer->toHtml());
@@ -263,7 +258,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Blocks Action (Ajax request)
-     *
      */
     public function blocksAction()
     {
@@ -284,7 +278,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Templates Chooser Action (Ajax request)
-     *
      */
     public function templateAction()
     {
