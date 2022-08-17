@@ -741,7 +741,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         if ($configDimensionUnit != $countryDimensionUnit) {
             $dimension = (float) Mage::helper('usa')->convertMeasureDimension(
-                round($dimension, 3),
+                round((float)$dimension, 3),
                 $configDimensionUnit,
                 $countryDimensionUnit
             );
