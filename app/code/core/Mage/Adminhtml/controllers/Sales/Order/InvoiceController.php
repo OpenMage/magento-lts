@@ -44,7 +44,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Initialize invoice model instance
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Invoice|false
+     * @throws Mage_Core_Exception
      */
     protected function _initInvoice($update = false)
     {
@@ -90,8 +91,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Save data for invoice and related order
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return  Mage_Adminhtml_Sales_Order_InvoiceController
+     * @throws Exception
      */
     protected function _saveInvoice($invoice)
     {
@@ -108,7 +110,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Prepare shipment
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return Mage_Sales_Model_Order_Shipment|false
+     * @throws Mage_Core_Exception
      */
     protected function _prepareShipment($invoice)
     {
@@ -142,8 +145,11 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/order');
-            $this->getLayout()->getBlock('sales_invoice_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
+            /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_View $block */
+            $block = $this->getLayout()->getBlock('sales_invoice_view');
+            $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
             $this->renderLayout();
         }
         else {
@@ -406,13 +412,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->getResponse()->setBody($response);
     }
 
-
-
-
-
-
-
-
     /**
      * Decides if we need to create dummy invoice item or not
      * for example we don't need create dummy parent if all
@@ -490,5 +489,4 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->_initInvoice();
         parent::printAction();
     }
-
 }
