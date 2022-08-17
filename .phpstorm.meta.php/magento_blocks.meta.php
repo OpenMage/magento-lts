@@ -279,7 +279,6 @@ namespace PHPSTORM_META {
             'adminhtml/notification_grid_renderer_severity' => \Mage_Adminhtml_Block_Notification_Grid_Renderer_Severity::class,
             'adminhtml/notification_inbox' => \Mage_Adminhtml_Block_Notification_Inbox::class,
             'adminhtml/notification_security' => \Mage_Adminhtml_Block_Notification_Security::class,
-            'adminhtml/notification_survey' => \Mage_Adminhtml_Block_Notification_Survey::class,
             'adminhtml/notification_toolbar' => \Mage_Adminhtml_Block_Notification_Toolbar::class,
             'adminhtml/notification_window' => \Mage_Adminhtml_Block_Notification_Window::class,
             'adminhtml/page' => \Mage_Adminhtml_Block_Page::class,
