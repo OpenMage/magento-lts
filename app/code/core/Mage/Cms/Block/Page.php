@@ -33,6 +33,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * Retrieve Page instance
      *
      * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getPage()
     {
@@ -52,6 +53,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _prepareLayout()
     {
@@ -91,11 +93,13 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             }
         }
 
+        /** @var Mage_Page_Block_Html $root */
         $root = $this->getLayout()->getBlock('root');
         if ($root) {
             $root->addBodyClass('cms-'.$page->getIdentifier());
         }
 
+        /** @var Mage_Page_Block_Html_Head $head */
         $head = $this->getLayout()->getBlock('head');
         if ($head) {
             $head->setTitle($page->getTitle());
@@ -110,6 +114,8 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * Prepare HTML content
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     protected function _toHtml()
     {

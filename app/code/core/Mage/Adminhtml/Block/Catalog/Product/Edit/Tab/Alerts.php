@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alerts tab
  *
@@ -26,20 +25,25 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('catalog/product/tab/alert.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
-        $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')
-            ->setId('productAlerts');
-        /* @var $accordion Mage_Adminhtml_Block_Widget_Accordion */
+        /** @var Mage_Adminhtml_Block_Widget_Accordion $accordion */
+        $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion');
+        $accordion->setId('productAlerts');
 
         $alertPriceAllow = Mage::getStoreConfig('catalog/productalert/allow_price');
         $alertStockAllow = Mage::getStoreConfig('catalog/productalert/allow_stock');
@@ -64,6 +68,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getAccordionHtml()
     {
         return $this->getChildHtml('accordion');

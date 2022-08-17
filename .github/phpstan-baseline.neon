@@ -46,11 +46,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
 
 		-
-			message: "#^Cannot call method addJs\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Dialogs.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Grid.php
@@ -69,11 +64,6 @@ parameters:
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Widget/Chooser.php
-
-		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Attribute/Edit/Tab/Main.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:addColumn\\(\\) invoked with 3 parameters, 2 required\\.$#"
@@ -119,11 +109,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute/Tab/Attributes.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addItem\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Alerts.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
@@ -431,11 +416,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:canShow\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Toolbar.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Notification_Window\\:\\:\\$_aclResourcePath\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
@@ -494,11 +474,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreData\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Grid.php
-
-		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Quote/Edit/Tab/Main.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
@@ -991,11 +966,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addItem\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Edit/Form.php
-
-		-
 			message: "#^Method Mage_Core_Model_Email_Template\\:\\:getProcessedTemplate\\(\\) invoked with 2 parameters, 0\\-1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Email/Template/Preview.php
@@ -1131,11 +1101,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Tag/Grid.php
 
 		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Form.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
@@ -1199,11 +1164,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Options.php
-
-		-
-			message: "#^Cannot call method createFromConfiguration\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Massaction/Item.php
 
 		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Widget_Tab_Interface\\:\\:getSkipGenerateContent\\(\\)\\.$#"
@@ -1356,11 +1316,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Url.php
 
 		-
-			message: "#^Cannot call method buildNodeName\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/CategoryController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Catalog_Product_AttributeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Adminhtml_Catalog_Product_AttributeController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
@@ -1416,21 +1371,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
 
 		-
-			message: "#^Cannot call method updateBackButtonUrl\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
-
-		-
-			message: "#^Parameter \\$order of method Mage_Adminhtml_Sales_Order_CreditmemoController\\:\\:_initInvoice\\(\\) has invalid type unknown_type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/CreditmemoController.php
-
-		-
-			message: "#^Cannot call method updateBackButtonUrl\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
-
-		-
 			message: "#^Undefined variable\\: \\$shippingResponse$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
@@ -1441,11 +1381,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/InvoiceController.php
 
 		-
-			message: "#^Cannot call method updateBackButtonUrl\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Controller_Action\\:\\:_setForcedFormKeyActions\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
@@ -1454,16 +1389,6 @@ parameters:
 			message: "#^Variable \\$pdf might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/controllers/Sales/OrderController.php
-
-		-
-			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
-
-		-
-			message: "#^Cannot call method initTabs\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/ConfigController.php
 
 		-
 			message: "#^Method Mage_Adminhtml_System_ConfigController\\:\\:_isSectionAllowed\\(\\) should return bool but return statement is missing\\.$#"
@@ -1534,21 +1459,6 @@ parameters:
 			message: "#^Variable \\$title might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/StoreController.php
-
-		-
-			message: "#^Cannot call method assign\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Tax_RateController\\:\\:deleteAction\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Tax_RateController\\:\\:saveAction\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/Tax/RateController.php
 
 		-
 			message: "#^Method Mage_Directory_Model_Country\\:\\:loadByCode\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -2116,18 +2026,8 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addOption\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
-
-		-
-			message: "#^Method Mage_Catalog_Block_Product_View_Options_Type_Select\\:\\:getValuesHtml\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
 
 		-
@@ -2199,11 +2099,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:loadSelf\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Helper/Product/Flat.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addBodyClass\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Catalog/Helper/Product/View.php
 
 		-
 			message: "#^Cannot call method setStoreId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -2851,11 +2746,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Url.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addBodyClass\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/controllers/CategoryController.php
-
-		-
 			message: "#^Call to an undefined method Mage_CatalogIndex_Model_Resource_Attribute\\:\\:checkCount\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Attribute.php
@@ -3234,11 +3124,6 @@ parameters:
 			message: "#^Variable \\$customerRequest might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Checkout/Model/Type/Onepage.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addBodyClass\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Cms/Block/Page.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isEnabled\\(\\)\\.$#"
@@ -3834,11 +3719,6 @@ parameters:
 			message: "#^Variable \\$allowCountries in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Model/Resource/Country/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Block_Abstract\\:\\:addItem\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Downloadable/Block/Adminhtml/Catalog/Product/Edit/Tab/Downloadable.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getLinks\\(\\)\\.$#"
@@ -4484,16 +4364,6 @@ parameters:
 			message: "#^Variable \\$productData might not be defined\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Grouped.php
-
-		-
-			message: "#^Cannot call method addError\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
-
-		-
-			message: "#^Method Mage_ImportExport_Block_Adminhtml_Import_Frame_Result\\:\\:addError\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/controllers/Adminhtml/ImportController.php
 
 		-
 			message: "#^Method Mage_Index_Block_Adminhtml_Process_Edit\\:\\:getHeaderText\\(\\) should return string but return statement is missing\\.$#"
@@ -5471,11 +5341,6 @@ parameters:
 			path: ../app/code/core/Mage/Reports/Model/Totals.php
 
 		-
-			message: "#^Cannot call method assign\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Review/Block/Product/View.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between array\\|null and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Review/Model/Resource/Review/Product/Collection.php
@@ -5564,16 +5429,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Billing/Agreement/View/Tab/Info.php
-
-		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Report/Filter/Form.php
-
-		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Report/Filter/Form/Coupon.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
@@ -5674,11 +5529,6 @@ parameters:
 			message: "#^Cannot call method getItemById\\(\\) on true\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Entity/Quote/Item/Collection.php
-
-		-
-			message: "#^Cannot call method addFieldMap\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Observer.php
 
 		-
 			message: "#^Variable \\$oldArea might not be defined\\.$#"
@@ -6254,11 +6104,6 @@ parameters:
 			message: "#^Variable \\$template might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Widget/Model/Widget/Instance.php
-
-		-
-			message: "#^Cannot call method initSerializerBlock\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Widget/controllers/Adminhtml/Widget/InstanceController.php
 
 		-
 			message: "#^Method Mage_Wishlist_Block_Customer_Wishlist_Item_Column\\:\\:_beforeChildToHtml\\(\\) should return string but return statement is missing\\.$#"

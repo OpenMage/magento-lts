@@ -32,11 +32,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      * Prepare layout.
      * Add files to use dialog windows
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        if ($head = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $head */
+        $head = $this->getLayout()->getBlock('head');
+        if ($head) {
             $head->addItem('js', 'prototype/window.js')
                 ->addItem('js_css', 'prototype/windows/themes/default.css')
                 ->addCss('lib/prototype/windows/themes/magento.css')
@@ -48,7 +50,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     /**
      * Add fields to form and create template info form
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @inheritDoc
      */
     protected function _prepareForm()
     {

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales observer
  *
@@ -40,6 +39,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes($schedule)
     {
@@ -190,6 +190,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportShipmentData($schedule)
     {
@@ -206,6 +207,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportInvoicedData($schedule)
     {
@@ -222,6 +224,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportRefundedData($schedule)
     {
@@ -238,6 +241,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportBestsellersData($schedule)
     {
@@ -266,10 +270,13 @@ class Mage_Sales_Model_Observer
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock(
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
             'adminhtml_recurring_profile_edit_form_dependence'
-        )->addFieldMap('is_recurring', 'product[is_recurring]')
+        );
+        $dependencies = $block
+            ->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
             ->addConfigOptions(array('levels_up' => 2));

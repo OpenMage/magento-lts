@@ -165,7 +165,7 @@ To add class maps for installed extensions, you have to install [N98-magerun](ht
 and run command:
 
 ```
-n98-magerun dev:ide:phpstorm:meta
+n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
 You can add additional meta files in this directory to cover your own project files. See

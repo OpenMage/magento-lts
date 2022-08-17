@@ -32,7 +32,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
     /**
      * Return html for control element
      *
-     * @return string
+     * @return string|void
      */
     public function getValuesHtml()
     {
@@ -44,11 +44,12 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
             $require = ($_option->getIsRequire()) ? ' required-entry' : '';
             $extraParams = '';
-            $select = $this->getLayout()->createBlock('core/html_select')
-                ->setData(array(
-                    'id' => 'select_'.$_option->getId(),
-                    'class' => $require.' product-custom-option'
-                ));
+            /** @var Mage_Core_Block_Html_Select $block */
+            $block = $this->getLayout()->createBlock('core/html_select');
+            $select = $block->setData(array(
+                'id' => 'select_'.$_option->getId(),
+                'class' => $require.' product-custom-option'
+            ));
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
                 $select->setName('options['.$_option->getId().']')
                     ->addOption('', $this->__('-- Please Select --'));
