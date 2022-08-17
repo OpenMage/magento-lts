@@ -659,7 +659,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
         // Create table or modify existing one
         if (!$this->_isFlatTableExists($storeId)) {
-            /** @var Varien_Db_Ddl_Table $table */
             $table = $adapter->newTable($tableName);
             foreach ($columns as $fieldName => $fieldProp) {
                 $table->addColumn(
@@ -848,7 +847,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
         $adapter   = $this->_getWriteAdapter();
         $websiteId = (int)Mage::app()->getStore($storeId)->getWebsite()->getId();
-        /** @var Mage_Eav_Model_Entity_Attribute $status */
         $status    = $this->getAttribute('status');
 
         $fieldList  = array('entity_id', 'type_id', 'attribute_set_id');

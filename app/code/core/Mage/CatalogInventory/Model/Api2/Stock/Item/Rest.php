@@ -35,7 +35,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
      */
     protected function _retrieve()
     {
-        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
         return $stockItem->getData();
     }
@@ -72,7 +71,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
      */
     protected function _update(array $data)
     {
-        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
 
         /** @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
@@ -126,7 +124,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 }
 
                 // Existence of a item is checked in the validator
-                /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 $stockItem = $this->_loadStockItemById($itemData['item_id']);
 
                 unset($itemData['item_id']); // item_id is not for update

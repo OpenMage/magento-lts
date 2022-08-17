@@ -1374,7 +1374,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     public function _prepareCustomer()
     {
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->getQuote();
         if ($quote->getCustomerIsGuest()) {
             return $this;
@@ -1401,7 +1400,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if ($this->getBillingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerBillingAddress */
                 $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1412,7 +1410,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $this->getShippingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1440,7 +1437,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         } else {
             // Prepare new customer
-            /** @var Mage_Customer_Model_Address $customerBillingAddress */
             $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
             $customer->addData($customerBillingAddress->getData())
                 ->setPassword($customer->generatePassword())
@@ -1453,13 +1449,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->addAddress($customerBillingAddress);
             }
 
-            /** @var Mage_Sales_Model_Quote_Address $shippingAddress */
             $shippingAddress = $this->getShippingAddress();
             if (!$this->getQuote()->isVirtual()
                 && !$shippingAddress->getSameAsBilling()
                 && $shippingAddress->getSaveInAddressBook()
             ) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $shippingAddress->exportCustomerAddress();
                 $customerShippingAddress->setIsDefaultShipping(true);
                 $customer->addAddress($customerShippingAddress);

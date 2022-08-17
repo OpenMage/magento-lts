@@ -36,7 +36,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _create(array $data)
     {
-        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
         $validator = $this->_getValidator();
 
@@ -76,7 +75,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieve()
     {
-        /** @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $addressData = $address->getData();
         $addressData['street'] = $address->getStreet();
@@ -107,7 +105,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getCollectionForRetrieve()
     {
-        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
 
         /** @var Mage_Customer_Model_Resource_Address_Collection $collection */
@@ -139,7 +136,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _update(array $data)
     {
-        /** @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $validator = $this->_getValidator();
 
@@ -175,7 +171,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _delete()
     {
-        /** @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
 
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {

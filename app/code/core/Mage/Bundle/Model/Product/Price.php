@@ -243,7 +243,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $customOptions = $product->getOptions();
             if ($isPriceFixedType && $customOptions) {
                 foreach ($customOptions as $customOption) {
-                    /** @var Mage_Catalog_Model_Product_Option $customOption */
                     $minimalPrice += $taxHelper->getPrice(
                         $product,
                         $this->_getMinimalCustomOptionPrice($customOption),
@@ -1046,7 +1045,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $prices = array();
         if ($values) {
             foreach ($values as $value) {
-                /** @var Mage_Catalog_Model_Product_Option_Value $value */
                 $prices[] = $value->getPrice(true);
             }
         }

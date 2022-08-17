@@ -570,7 +570,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
         $data = array();
         foreach ($write->fetchAll($select) as $item) {
-            /** @var Mage_Core_Model_Website $website */
             $website = Mage::app()->getWebsite($item['website_id']);
 
             if ($website->getBaseCurrencyCode() != $baseCurrency) {
@@ -584,7 +583,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 $rate = 1;
             }
 
-            /** @var Mage_Core_Model_Store $store */
             $store = Mage::app()->getStore($item['store_id']);
             if ($store) {
                 $timestamp = Mage::app()->getLocale()->storeTimeStamp($store);

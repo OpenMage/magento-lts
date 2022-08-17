@@ -120,7 +120,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                 continue;
             }
 
-            /** @var Mage_Sales_Model_Quote_Item $quoteItem */
             $quoteItem = $this->_getQuoteItemByProduct(
                 $quote,
                 $productByItem,
@@ -179,7 +178,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,
@@ -226,7 +224,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
 
         $productsResult = array();
         foreach ($quote->getAllItems() as $item) {
-            /** @var Mage_Sales_Model_Quote_Item $item */
             $product = $item->getProduct();
             $productsResult[] = array( // Basic product data
                 'product_id'   => $product->getId(),
@@ -291,7 +288,6 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
             }
 
             try {
-                /** @var Mage_Sales_Model_Quote_Item $quoteItem */
                 $quoteItem = $this->_getQuoteItemByProduct(
                     $quote,
                     $productByItem,

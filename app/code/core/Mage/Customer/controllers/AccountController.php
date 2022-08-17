@@ -274,7 +274,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        /** @var Mage_Customer_Model_Session $session */
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
             $this->_redirect('*/*/');
@@ -328,9 +327,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $session = $this->_getSession();
         if ($customer->isConfirmationRequired()) {
-            /** @var Mage_Core_Model_App $app */
             $app = $this->_getApp();
-            /** @var Mage_Core_Model_Store $store */
             $store = $app->getStore();
             $customer->sendNewAccountEmail(
                 'confirmation',
@@ -974,7 +971,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         if ($this->getRequest()->isPost()) {
-            /** @var Mage_Customer_Model_Customer $customer */
             $customer = $this->_getSession()->getCustomer();
             $customer->setOldEmail($customer->getEmail());
             /** @var Mage_Customer_Model_Form $customerForm */

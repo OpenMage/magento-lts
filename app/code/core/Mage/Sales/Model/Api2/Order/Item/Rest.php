@@ -56,7 +56,6 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _getCollectionForRetrieve()
     {
-        /** @var Mage_Sales_Model_Order $order */
         $order = $this->_loadOrderById(
             $this->getRequest()->getParam(self::PARAM_ORDER_ID)
         );

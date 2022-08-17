@@ -57,7 +57,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _create(array $data)
     {
-        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
 
         /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
@@ -107,7 +106,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _multiCreate(array $data)
     {
-        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
         $websiteIds = $product->getWebsiteIds();
         foreach ($data as $singleData) {
@@ -196,10 +194,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
      */
     protected function _delete()
     {
-        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_loadProductById($this->getRequest()->getParam('product_id'));
 
-        /** @var Mage_Core_Model_Website $website */
         $website = $this->_loadWebsiteById($this->getRequest()->getParam('website_id'));
 
         /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */

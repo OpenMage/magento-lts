@@ -115,7 +115,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value     = $this->bindArrayOfIds($value);
         }
 
-        /** @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleResource */
         $ruleResource = $this->getRuleResourceHelper();
 
         return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);

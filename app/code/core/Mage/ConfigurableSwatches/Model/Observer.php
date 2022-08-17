@@ -58,7 +58,6 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $mediaHelper->attachGallerySetToCollection($products, $collection->getStoreId());
 
-        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $mediaHelper->groupMediaGalleryImages($product);
             Mage::helper('configurableswatches/productimg')

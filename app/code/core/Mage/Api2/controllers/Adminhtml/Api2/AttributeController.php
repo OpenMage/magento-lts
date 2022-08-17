@@ -107,7 +107,6 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             return;
         }
 
-        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
@@ -120,7 +119,6 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             /** @var Mage_Api2_Model_Acl_Filter_Attribute $attribute */
             $attribute = Mage::getModel('api2/acl_filter_attribute');
 
-            /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $collection */
             $collection = $attribute->getCollection();
             $collection->addFilterByUserType($type);
 

@@ -172,7 +172,6 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                 $_tmpPriceValues = array();
                 foreach ($option->getValues() as $value) {
-                    /** @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }

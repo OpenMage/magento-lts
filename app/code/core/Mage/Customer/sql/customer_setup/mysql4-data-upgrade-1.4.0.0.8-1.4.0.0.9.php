@@ -30,7 +30,6 @@ $eavConfig = Mage::getSingleton('eav/config');
 
 $websites  = Mage::app()->getWebsites(false);
 foreach ($websites as $website) {
-    /** @var Mage_Core_Model_Website $website */
     $store = $website->getDefaultStore();
     if (!$store) {
         continue;

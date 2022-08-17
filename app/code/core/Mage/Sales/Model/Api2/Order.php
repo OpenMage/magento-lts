@@ -113,7 +113,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $addresses = array();
 
         if ($this->_isSubCallAllowed('order_address')) {
-            /** @var Mage_Api2_Model_Acl_Filter $addressesFilter */
             $addressesFilter = $this->_getSubModel('order_address', array())->getFilter();
             // do addresses request if at least one attribute allowed
             if ($addressesFilter->getAllowedAttributes()) {
@@ -170,7 +169,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $comments = array();
 
         if ($this->_isOrderCommentsAllowed() && $this->_isSubCallAllowed('order_comment')) {
-            /** @var Mage_Api2_Model_Acl_Filter $commentsFilter */
             $commentsFilter = $this->_getSubModel('order_comment', array())->getFilter();
             // do comments request if at least one attribute allowed
             if ($commentsFilter->getAllowedAttributes()) {
@@ -208,7 +206,6 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         $items = array();
 
         if ($this->_isSubCallAllowed('order_item')) {
-            /** @var Mage_Api2_Model_Acl_Filter $itemsFilter */
             $itemsFilter = $this->_getSubModel('order_item', array())->getFilter();
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {

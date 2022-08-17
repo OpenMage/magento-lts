@@ -1789,7 +1789,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $baseTotal = 0;
                 foreach ($addresses as $address) {
-                    /** @var Mage_Sales_Model_Quote_Address $address */
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
                 if ($baseTotal < $minAmount) {
@@ -1798,7 +1797,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         } else {
             foreach ($addresses as $address) {
-                /** @var Mage_Sales_Model_Quote_Address $address */
                 if (!$address->validateMinimumAmount()) {
                     return false;
                 }

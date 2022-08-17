@@ -304,7 +304,6 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /** @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = array(
             'status'

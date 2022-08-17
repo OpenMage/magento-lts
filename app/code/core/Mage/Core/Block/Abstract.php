@@ -486,7 +486,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function unsetChild($alias)
     {
         if (isset($this->_children[$alias])) {
-            /** @var Mage_Core_Block_Abstract $block */
             $block = $this->_children[$alias];
             $name = $block->getNameInLayout();
             unset($this->_children[$alias]);

@@ -133,7 +133,6 @@ class Mage_SalesRule_Model_Observer
      */
     public function sales_order_paymentCancel($observer)
     {
-        /** @var Varien_Event $event */
         $event = $observer->getEvent();
         /** @var Mage_Sales_Model_Order $order */
         $order = $event->getPayment()->getOrder();

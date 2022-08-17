@@ -216,7 +216,6 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             $websites = Mage::app()->getWebsites(false);
             $productWebsiteIds  = $this->getProduct()->getWebsiteIds();
             foreach ($websites as $website) {
-                /** @var Mage_Core_Model_Website $website */
                 if (!in_array($website->getId(), $productWebsiteIds)) {
                     continue;
                 }

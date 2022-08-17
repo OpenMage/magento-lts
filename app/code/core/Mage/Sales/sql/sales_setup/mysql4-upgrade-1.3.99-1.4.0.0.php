@@ -769,7 +769,6 @@ $entityToFlat = array(
     'shipment_track'        => array()
 );
 
-/** @var Varien_Db_Select $select */
 $select = $installer->getConnection()->select();
 
 $select

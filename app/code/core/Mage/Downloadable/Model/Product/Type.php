@@ -38,7 +38,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function getLinks($product = null)
     {
         $product = $this->getProduct($product);
-        /** @var Mage_Catalog_Model_Product $product */
         if (is_null($product->getDownloadableLinks())) {
             $_linkCollection = Mage::getModel('downloadable/link')->getCollection()
                 ->addProductToFilter($product->getId())
