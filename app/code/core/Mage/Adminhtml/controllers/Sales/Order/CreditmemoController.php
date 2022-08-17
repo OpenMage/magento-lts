@@ -72,7 +72,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
 
     /**
      * Initialize requested invoice instance
-     * @param unknown_type $order
+     * @param Mage_Sales_Model_Order $order
      * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _initInvoice($order)
@@ -92,7 +92,8 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
     /**
      * Initialize creditmemo model instance
      *
-     * @return Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo|false
+     * @throws Mage_Core_Exception
      */
     protected function _initCreditmemo($update = false)
     {
@@ -162,6 +163,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      * Save creditmemo and related order, invoice in one transaction
      * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
+     * @throws Exception
      */
     protected function _saveCreditmemo($creditmemo)
     {
@@ -186,8 +188,11 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_title(sprintf("#%s", $creditmemo->getIncrementId()));
 
             $this->loadLayout();
-            $this->getLayout()->getBlock('sales_creditmemo_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
+            /** @var Mage_Adminhtml_Block_Sales_Order_Creditmemo_View $block */
+            $block = $this->getLayout()->getBlock('sales_creditmemo_view');
+            $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
             $this->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
