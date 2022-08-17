@@ -747,7 +747,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             );
         }
 
-        return round($dimension, 3);
+        return round((float)$dimension, 3);
     }
 
     /**
