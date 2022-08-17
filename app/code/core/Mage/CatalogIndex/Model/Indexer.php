@@ -166,7 +166,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
         $websites = $this->getData('_websites');
         if (is_null($websites)) {
             $websites = Mage::getModel('core/website')->getCollection()->load();
-            /* @var Mage_Core_Model_Mysql4_Website_Collection $stores */
+            /** @var Mage_Core_Model_Mysql4_Website_Collection $stores */
 
             $this->setData('_websites', $websites);
         }
@@ -601,7 +601,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             if (isset($values[$code])) {
                 foreach ($this->_priceIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
-                    /* @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
+                    /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
                     if ($indexer->isAttributeIndexable($attribute)) {
                         if ($values[$code]) {
                             if (isset($values[$code]['from']) && isset($values[$code]['to'])
@@ -696,7 +696,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
             if (isset($values[$code])) {
                 foreach ($this->_attributeIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
-                    /* @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
+                    /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
                     if ($indexer->isAttributeIndexable($attribute)) {
                         if ($values[$code]) {
                             if (isset($values[$code]['from']) && isset($values[$code]['to'])

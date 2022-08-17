@@ -29,7 +29,7 @@ class Mage_Api_SoapController extends Mage_Api_Controller_Action
 {
     public function indexAction()
     {
-        /* @var Mage_Api_Model_Server $server */
+        /** @var Mage_Api_Model_Server $server */
         $this->_getServer()->init($this, 'soap')
             ->run();
     }

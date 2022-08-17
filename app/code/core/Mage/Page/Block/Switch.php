@@ -84,7 +84,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $websiteStores = Mage::app()->getWebsite()->getStores();
             $stores = array();
             foreach ($websiteStores as $store) {
-                /* @var Mage_Core_Model_Store $store */
+                /** @var Mage_Core_Model_Store $store */
                 if (!$store->getIsActive()) {
                     continue;
                 }
@@ -120,7 +120,7 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $groups = array();
             $localeCode = Mage::getStoreConfig('general/locale/code');
             foreach ($rawGroups as $group) {
-                /* @var Mage_Core_Model_Store_Group $group */
+                /** @var Mage_Core_Model_Store_Group $group */
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }

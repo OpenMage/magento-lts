@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main
 {
     protected function _prepareForm()
     {
-        /* @var $model Mage_Cms_Model_Page */
+        /** @var $model Mage_Cms_Model_Page */
         $model = Mage::registry('cms_page');
 
         /*

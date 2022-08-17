@@ -138,7 +138,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         $items = array();
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
-                /* @var $item Mage_Sales_Model_Quote_Item */
+                /** @var $item Mage_Sales_Model_Quote_Item */
                 if ($item->getProduct()->isVirtual() || $item->getParentItem()) {
                     // Don't process children here - we will process (or already have processed) them below
                     continue;

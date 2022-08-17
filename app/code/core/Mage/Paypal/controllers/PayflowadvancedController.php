@@ -132,7 +132,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     protected function _cancelPayment($errorMsg = '')
     {
         $gotoSection = false;
-        /* @var $helper Mage_Paypal_Helper_Checkout */
+        /** @var $helper Mage_Paypal_Helper_Checkout */
         $helper = Mage::helper('paypal/checkout');
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {

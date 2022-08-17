@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         // Only basic category data
         $result = array();
         foreach ($collection as $category) {
-            /* @var Mage_Catalog_Model_Category $category */
+            /** @var Mage_Catalog_Model_Category $category */
             $result[] = array(
                 'category_id' => $category->getId(),
                 'parent_id'   => $category->getParentId(),
@@ -130,7 +130,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $parentId = 1;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
 

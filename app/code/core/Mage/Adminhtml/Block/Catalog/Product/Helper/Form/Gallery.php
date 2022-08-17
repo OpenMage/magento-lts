@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     public function getContentHtml()
     {
 
-        /* @var $content Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content */
+        /** @var $content Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content */
         $content = Mage::getSingleton('core/layout')
             ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
 

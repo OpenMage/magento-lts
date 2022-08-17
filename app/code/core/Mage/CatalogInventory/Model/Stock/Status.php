@@ -292,7 +292,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         $websites   = $this->getWebsites($websiteId);
 
         foreach (array_keys($websites) as $websiteId) {
-            /* @var Mage_Core_Model_Website $website */
+            /** @var Mage_Core_Model_Website $website */
             $statuses[$websiteId] = $status;
         }
 
@@ -352,7 +352,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     {
         $parentIds = array();
         foreach ($this->getProductTypeInstances() as $typeInstance) {
-            /* @var Mage_Catalog_Model_Product_Type_Abstract $typeInstance */
+            /** @var Mage_Catalog_Model_Product_Type_Abstract $typeInstance */
             $parentIds = array_merge($parentIds, $typeInstance->getParentIdsByChild($productId));
         }
 

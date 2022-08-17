@@ -442,7 +442,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _getCustomerForm($customer)
     {
-        /* @var Mage_Customer_Model_Form $customerForm */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = $this->_getModel('customer/form');
         $customerForm->setFormCode('customer_account_create');
         $customerForm->setEntity($customer);
@@ -492,9 +492,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     protected function _getErrorsOnCustomerAddress($customer)
     {
         $errors = array();
-        /* @var Mage_Customer_Model_Address $address */
+        /** @var Mage_Customer_Model_Address $address */
         $address = $this->_getModel('customer/address');
-        /* @var Mage_Customer_Model_Form $addressForm */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm = $this->_getModel('customer/form');
         $addressForm->setFormCode('customer_register_address')
             ->setEntity($address);

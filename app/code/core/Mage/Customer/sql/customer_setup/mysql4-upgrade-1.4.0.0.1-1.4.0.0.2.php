@@ -20,7 +20,7 @@
 
 $installer = $this;
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
 $this->updateAttribute('customer', 'default_billing', 'frontend_label', 'Default Billing Address');

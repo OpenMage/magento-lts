@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
         }
 
         // Validate website
-        /* @var Mage_Core_Model_Website $website */
+        /** @var Mage_Core_Model_Website $website */
         $website = Mage::getModel('core/website')->load($data['website_id']);
         if (!$website->getId()) {
             $this->_addError(sprintf('Website #%d not found.', $data['website_id']));

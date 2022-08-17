@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $items = array();
         $setId = $this->_getSetId();
 
-        /* @var $groups Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection */
+        /** @var $groups Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection */
         $groups = Mage::getModel('eav/entity_attribute_group')
             ->getResourceCollection()
             ->setAttributeSetFilter($setId)
@@ -176,7 +176,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $configurable = Mage::getResourceModel('catalog/product_type_configurable_attribute')
             ->getUsedAttributes($setId);
 
-        /* @var $node Mage_Eav_Model_Entity_Attribute_Group */
+        /** @var $node Mage_Eav_Model_Entity_Attribute_Group */
         foreach ($groups as $node) {
             $item = array();
             $item['text']       = $node->getAttributeGroupName();
@@ -194,7 +194,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             if ($nodeChildren->getSize() > 0) {
                 $item['children'] = array();
                 foreach ($nodeChildren->getItems() as $child) {
-                    /* @var $child Mage_Eav_Model_Entity_Attribute */
+                    /** @var $child Mage_Eav_Model_Entity_Attribute */
                     $attr = array(
                         'text'              => $child->getAttributeCode(),
                         'id'                => $child->getAttributeId(),
@@ -232,7 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             ->load();
 
         $attributesIds = array('0');
-        /* @var $item Mage_Eav_Model_Entity_Attribute */
+        /** @var $item Mage_Eav_Model_Entity_Attribute */
         foreach ($collection->getItems() as $item) {
             $attributesIds[] = $item->getAttributeId();
         }

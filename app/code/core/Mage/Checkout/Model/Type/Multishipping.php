@@ -160,7 +160,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     public function removeAddressItem($addressId, $itemId)
     {
         $address = $this->getQuote()->getAddressById($addressId);
-        /* @var Mage_Sales_Model_Quote_Address $address */
+        /** @var Mage_Sales_Model_Quote_Address $address */
         if ($address) {
             $item = $address->getValidItemById($itemId);
             if ($item) {

@@ -73,7 +73,7 @@ class Mage_Bundle_Model_Observer
      */
     public function appendUpsellProducts($observer)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         /**
@@ -83,7 +83,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -94,7 +94,7 @@ class Mage_Bundle_Model_Observer
             }
         }
 
-        /* @var Mage_Bundle_Model_Mysql4_Selection $resource */
+        /** @var Mage_Bundle_Model_Mysql4_Selection $resource */
         $resource   = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
@@ -111,7 +111,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
         $bundleCollection = $product->getCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
@@ -174,7 +174,7 @@ class Mage_Bundle_Model_Observer
     public function loadProductOptions($observer)
     {
         $collection = $observer->getEvent()->getCollection();
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection->addPriceData();
 
         return $this;

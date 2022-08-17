@@ -44,7 +44,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
      */
     public function getCollection($storeId)
     {
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         $store = Mage::app()->getStore($storeId);
         if (!$store) {
             return false;

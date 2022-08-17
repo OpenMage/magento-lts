@@ -35,7 +35,7 @@ class Mage_Api_V2_SoapController extends Mage_Api_Controller_Action
             $handler_name = 'soap_v2';
         }
 
-        /* @var Mage_Api_Model_Server $server */
+        /** @var Mage_Api_Model_Server $server */
         $this->_getServer()->init($this, $handler_name, $handler_name)
             ->run();
     }

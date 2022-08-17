@@ -129,7 +129,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     public function saveAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
-        /* @var $session Mage_Adminhtml_Model_Session */
+        /** @var $session Mage_Adminhtml_Model_Session */
 
         $groups = $this->getRequest()->getPost('groups');
 

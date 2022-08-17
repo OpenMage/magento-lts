@@ -38,7 +38,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function getLinks($product = null)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         if (is_null($product->getDownloadableLinks())) {
             $_linkCollection = Mage::getModel('downloadable/link')->getCollection()
                 ->addProductToFilter($product->getId())
@@ -46,7 +46,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 ->addPriceToResult($product->getStore()->getWebsiteId());
             $linksCollectionById = array();
             foreach ($_linkCollection as $link) {
-                /* @var Mage_Downloadable_Model_Link $link */
+                /** @var Mage_Downloadable_Model_Link $link */
                 $link->setProduct($product);
                 $linksCollectionById[$link->getId()] = $link;
             }

@@ -99,7 +99,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         $data       = $this->getRequest()->getPost();
         $queryId    = $this->getRequest()->getPost('query_id', null);
         if ($this->getRequest()->isPost() && $data) {
-            /* @var $model Mage_CatalogSearch_Model_Query */
+            /** @var $model Mage_CatalogSearch_Model_Query */
             $model = Mage::getModel('catalogsearch/query');
 
             // validate query

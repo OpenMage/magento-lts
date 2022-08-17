@@ -58,7 +58,7 @@ class Mage_Catalog_Model_Observer
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         $store = $observer->getEvent()->getStore();
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Observer
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store_Group $group */
+        /** @var Mage_Core_Model_Store_Group $group */
         $group = $observer->getEvent()->getGroup();
         if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();

@@ -130,7 +130,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $event->getDataObject();
         $reindexTag = $product->getForceReindexRequired();
 
@@ -165,7 +165,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
+        /** @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = $this->_getProductAttributesDependOn();
         $reindexTags  = false;

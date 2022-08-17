@@ -61,7 +61,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
     protected function _cancelPayment($errorMsg = '')
     {
         $gotoSection = false;
-        /* @var $helper Mage_Paypal_Helper_Checkout */
+        /** @var $helper Mage_Paypal_Helper_Checkout */
         $helper = Mage::helper('paypal/checkout');
         $helper->cancelCurrentOrder($errorMsg);
         if ($helper->restoreQuote()) {

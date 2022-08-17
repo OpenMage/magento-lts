@@ -60,7 +60,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             Mage::throwException($this->__('No wishlist item id defined.'));
         }
 
-        /* @var $wishlistItem Mage_Wishlist_Model_Item */
+        /** @var $wishlistItem Mage_Wishlist_Model_Item */
         $wishlistItem = Mage::getModel('wishlist/item')
             ->loadWithOptions($wishlistItemId);
 
@@ -98,7 +98,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             $configureResult->setMessage($e->getMessage());
         }
 
-        /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+        /** @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);
         $helper->renderConfigureResult($this, $configureResult);

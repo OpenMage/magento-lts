@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer->startSetup();
 $installer->run("
 DROP TABLE IF EXISTS `{$installer->getTable('cataloginventory/stock_status')}_idx`;

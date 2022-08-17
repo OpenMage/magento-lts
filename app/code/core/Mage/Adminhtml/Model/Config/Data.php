@@ -71,14 +71,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         }
 
         $sections = Mage::getModel('adminhtml/config')->getSections();
-        /* @var $sections Mage_Core_Model_Config_Element */
+        /** @var $sections Mage_Core_Model_Config_Element */
 
         $oldConfig = $this->_getConfig(true);
 
         $deleteTransaction = Mage::getModel('core/resource_transaction');
-        /* @var $deleteTransaction Mage_Core_Model_Resource_Transaction */
+        /** @var $deleteTransaction Mage_Core_Model_Resource_Transaction */
         $saveTransaction = Mage::getModel('core/resource_transaction');
-        /* @var $saveTransaction Mage_Core_Model_Resource_Transaction */
+        /** @var $saveTransaction Mage_Core_Model_Resource_Transaction */
 
         // Extends for old config data
         $oldConfigAdditionalGroups = array();

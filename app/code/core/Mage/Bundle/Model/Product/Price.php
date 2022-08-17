@@ -243,7 +243,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $customOptions = $product->getOptions();
             if ($isPriceFixedType && $customOptions) {
                 foreach ($customOptions as $customOption) {
-                    /* @var Mage_Catalog_Model_Product_Option $customOption */
+                    /** @var Mage_Catalog_Model_Product_Option $customOption */
                     $minimalPrice += $taxHelper->getPrice(
                         $product,
                         $this->_getMinimalCustomOptionPrice($customOption),
@@ -292,7 +292,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
 
         foreach ($options as $option) {
-            /* @var Mage_Bundle_Model_Option $option */
+            /** @var Mage_Bundle_Model_Option $option */
             $selectionPrices = $this->_getSelectionPrices($product, $option, $takeTierPrice, $includeTax);
             $selectionPricesWithTax = $this->_getSelectionPrices($product, $option, $takeTierPrice, true);
 
@@ -382,7 +382,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
 
         foreach ($selections as $selection) {
-            /* @var Mage_Bundle_Model_Selection $selection */
+            /** @var Mage_Bundle_Model_Selection $selection */
             if (!$selection->isSalable()) {
                 /**
                  * @todo CatalogInventory Show out of stock Products
@@ -1046,7 +1046,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $prices = array();
         if ($values) {
             foreach ($values as $value) {
-                /* @var Mage_Catalog_Model_Product_Option_Value $value */
+                /** @var Mage_Catalog_Model_Product_Option_Value $value */
                 $prices[] = $value->getPrice(true);
             }
         }

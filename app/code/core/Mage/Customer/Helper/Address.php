@@ -157,7 +157,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_attributes)) {
             $this->_attributes = array();
-            /* @var Mage_Eav_Model_Config $config */
+            /** @var Mage_Eav_Model_Config $config */
             $config = Mage::getSingleton('eav/config');
             foreach ($config->getEntityAttributeCodes('customer_address') as $attributeCode) {
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);

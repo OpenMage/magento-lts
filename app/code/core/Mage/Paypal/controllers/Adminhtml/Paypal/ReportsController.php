@@ -74,7 +74,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     {
         try {
             $reports = Mage::getModel('paypal/report_settlement');
-            /* @var $reports Mage_Paypal_Model_Report_Settlement */
+            /** @var $reports Mage_Paypal_Model_Report_Settlement */
             $credentials = $reports->getSftpCredentials();
             if (empty($credentials)) {
                 Mage::throwException(Mage::helper('paypal')->__('Nothing to fetch because of an empty configuration.'));

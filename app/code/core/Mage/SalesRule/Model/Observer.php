@@ -196,15 +196,15 @@ class Mage_SalesRule_Model_Observer
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
-        /* @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection */
+        /** @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection */
         $collection = Mage::getResourceModel('salesrule/rule_collection')
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /* @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
+            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             $rule->save();

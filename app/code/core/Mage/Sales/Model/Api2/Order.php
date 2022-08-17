@@ -117,7 +117,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $addressesFilter = $this->_getSubModel('order_address', array())->getFilter();
             // do addresses request if at least one attribute allowed
             if ($addressesFilter->getAllowedAttributes()) {
-                /* @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
+                /** @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
                 $collection = Mage::getResourceModel('sales/order_address_collection');
 
                 $collection->addAttributeToFilter('parent_id', $orderIds);
@@ -190,7 +190,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getCommentsCollection(array $orderIds)
     {
-        /* @var Mage_Sales_Model_Resource_Order_Status_History_Collection $collection */
+        /** @var Mage_Sales_Model_Resource_Order_Status_History_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_status_history_collection');
         $collection->setOrderFilter($orderIds);
 
@@ -212,7 +212,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             $itemsFilter = $this->_getSubModel('order_item', array())->getFilter();
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
-                /* @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
+                /** @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
                 $collection = Mage::getResourceModel('sales/order_item_collection');
 
                 $collection->addAttributeToFilter('order_id', $orderIds);

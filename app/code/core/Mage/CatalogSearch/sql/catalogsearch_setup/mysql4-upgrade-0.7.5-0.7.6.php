@@ -21,8 +21,8 @@
 
 $installer  = $this;
 $connection = $installer->getConnection();
-/* @var Mage_Core_Model_Resource_Setup $this */
-/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
+/** @var Mage_Core_Model_Resource_Setup $this */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 
 $installer->startSetup();
 

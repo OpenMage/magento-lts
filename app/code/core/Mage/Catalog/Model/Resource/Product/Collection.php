@@ -2027,7 +2027,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
 
-        /* @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
+        /** @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
         $backend = $attribute->getBackend();
 
         foreach ($this->getItems() as $item) {

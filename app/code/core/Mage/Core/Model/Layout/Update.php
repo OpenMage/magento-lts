@@ -423,7 +423,7 @@ class Mage_Core_Model_Layout_Update
         if (null === $storeId) {
             $storeId = Mage::app()->getStore()->getId();
         }
-        /* @var Mage_Core_Model_Design_Package $design */
+        /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;
         $elementClass = $this->getElementClass();

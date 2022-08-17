@@ -105,17 +105,17 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
             ->load();
         $defaultGroupId = 0;
         foreach ($groupCollection as $group) {
-            /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
+            /** @var $group Mage_Eav_Model_Entity_Attribute_Group */
             if ($defaultGroupId == 0 || $group->getIsDefault()) {
                 $defaultGroupId = $group->getId();
             }
         }
 
         foreach ($groupCollection as $group) {
-            /* @var $group Mage_Eav_Model_Entity_Attribute_Group */
+            /** @var $group Mage_Eav_Model_Entity_Attribute_Group */
             $attributes = array();
             foreach ($categoryAttributes as $attribute) {
-                /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+                /** @var $attribute Mage_Eav_Model_Entity_Attribute */
                 if ($attribute->isInGroup($attributeSetId, $group->getId())) {
                     $attributes[] = $attribute;
                 }

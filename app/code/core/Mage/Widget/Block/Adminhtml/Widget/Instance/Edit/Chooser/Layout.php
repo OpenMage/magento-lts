@@ -148,7 +148,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     public function getLayoutHandles($area, $package, $theme)
     {
         if (empty($this->_layoutHandles)) {
-            /* @var Mage_Core_Model_Layout_Update $update */
+            /** @var Mage_Core_Model_Layout_Update $update */
             $update = Mage::getModel('core/layout')->getUpdate();
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));

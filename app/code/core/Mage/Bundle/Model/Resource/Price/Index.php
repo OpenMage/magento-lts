@@ -207,9 +207,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $priceData = $this->getProductsPriceData($productId, $website);
             $priceData = $priceData[$productId];
 
-            /* @var Mage_Core_Model_Website $website */
+            /** @var Mage_Core_Model_Website $website */
             foreach ($this->_getCustomerGroups() as $group) {
-                /* @var Mage_Customer_Model_Group $group */
+                /** @var Mage_Customer_Model_Group $group */
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
                     $basePrice     = $this->_getBasePrice($productId, $priceData, $website, $group);
                     $customOptions = $this->getCustomOptions($productId, $website);

@@ -561,7 +561,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
         $tree = Mage::getResourceModel('catalog/category_tree');
-        /* @var Mage_Catalog_Model_Resource_Category_Tree $tree */
+        /** @var Mage_Catalog_Model_Resource_Category_Tree $tree */
         $nodes = $tree->loadNode($parent)
             ->loadChildren($recursionLevel)
             ->getChildren();

@@ -57,7 +57,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
         $variableId = $this->getRequest()->getParam('variable_id', null);
         $storeId = (int)$this->getRequest()->getParam('store', 0);
-        /* @var $emailVariable Mage_Core_Model_Variable */
+        /** @var $emailVariable Mage_Core_Model_Variable */
         $variable = Mage::getModel('core/variable');
         if ($variableId) {
             $variable->setStoreId($storeId)

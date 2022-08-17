@@ -303,7 +303,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
             return;
         }
 
-        /* @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
+        /** @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
         $likeExpression = $resHelper->addLikeEscape($folderName . '/', array('position' => 'start'));
         $this->_getWriteAdapter()

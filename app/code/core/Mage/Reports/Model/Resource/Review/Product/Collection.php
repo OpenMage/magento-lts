@@ -111,7 +111,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     {
         $this->_renderFilters();
 
-        /* @var Varien_Db_Select $select */
+        /** @var Varien_Db_Select $select */
         $select = clone $this->getSelect();
         $select->reset(Zend_Db_Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
@@ -120,7 +120,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         $select->resetJoinLeft();
         $select->columns(new Zend_Db_Expr('1'));
 
-        /* @var Varien_Db_Select $countSelect */
+        /** @var Varien_Db_Select $countSelect */
         $countSelect = clone $select;
         $countSelect->reset();
         $countSelect->from($select, "COUNT(*)");

@@ -175,7 +175,7 @@ class Mage_Shipping_Model_Rate_Result
         if (!is_array($this->_rates) || !count($this->_rates)) {
             return $this;
         }
-        /* @var Mage_Shipping_Model_Rate_Result_Method $rate */
+        /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $i => $rate) {
             $tmp[$i] = $rate->getPrice();
         }

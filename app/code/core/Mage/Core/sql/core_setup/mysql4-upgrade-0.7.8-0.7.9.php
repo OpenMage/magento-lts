@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $configValuesMap = array(
     'catalog/productalert/email_stock_template'         => 'catalog_productalert_email_stock_template',

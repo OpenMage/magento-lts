@@ -214,7 +214,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $params = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::getModel('core/layout');
-        /* @var Mage_Core_Model_Layout $layout */
+        /** @var Mage_Core_Model_Layout $layout */
         if (isset($params['area'])) {
             $layout->setArea($params['area']);
         } else {
@@ -228,7 +228,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $layout->generateBlocks();
 
         foreach ($layout->getAllBlocks() as $blockName => $block) {
-            /* @var Mage_Core_Block_Abstract $block */
+            /** @var Mage_Core_Block_Abstract $block */
             foreach ($params as $k => $v) {
                 if (in_array($k, $skipParams)) {
                     continue;

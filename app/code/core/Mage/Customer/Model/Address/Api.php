@@ -46,7 +46,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -87,7 +87,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');

@@ -37,9 +37,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
 
-        /* @var Mage_Sendfriend_Helper_Data $helper */
+        /** @var Mage_Sendfriend_Helper_Data $helper */
         $helper = Mage::helper('sendfriend');
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {

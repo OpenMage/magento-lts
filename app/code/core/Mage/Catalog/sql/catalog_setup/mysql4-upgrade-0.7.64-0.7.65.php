@@ -20,11 +20,11 @@
 
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 $connection = $installer->getConnection();
-/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection->addColumn($installer->getTable('catalog/product_super_attribute_pricing'), 'website_id', 'smallint(5) UNSIGNED NOT NULL DEFAULT 0');
 $connection->addConstraint(
     'FK_CATALOG_PRODUCT_SUPER_PRICE_WEBSITE',

@@ -201,9 +201,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             $session = Mage::getSingleton('adminhtml/session');
 
             $redirectBack   = $this->getRequest()->getParam('back', false);
-            /* @var $model Mage_Catalog_Model_Entity_Attribute */
+            /** @var $model Mage_Catalog_Model_Entity_Attribute */
             $model = Mage::getModel('catalog/resource_eav_attribute');
-            /* @var $helper Mage_Catalog_Helper_Product */
+            /** @var $helper Mage_Catalog_Helper_Product */
             $helper = Mage::helper('catalog/product');
 
             $id = $this->getRequest()->getParam('attribute_id');

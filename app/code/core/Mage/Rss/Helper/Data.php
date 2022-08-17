@@ -118,10 +118,10 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function disableFlat()
     {
-        /* @var Mage_Catalog_Helper_Product_Flat $flatHelper */
+        /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
         $flatHelper = Mage::helper('catalog/product_flat');
         if ($flatHelper->isAvailable()) {
-            /* @var Mage_Core_Model_App_Emulation $emulationModel */
+            /** @var Mage_Core_Model_App_Emulation $emulationModel */
             $emulationModel = Mage::getModel('core/app_emulation');
             // Emulate admin environment to disable using flat model - otherwise we won't get global stats
             // for all stores

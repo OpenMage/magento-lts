@@ -20,7 +20,7 @@
 
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $pageTable = $installer->getTable('cms/page');
 $blockTable = $installer->getTable('cms/block');

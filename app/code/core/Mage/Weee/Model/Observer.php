@@ -286,7 +286,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
             return $this;
@@ -338,7 +338,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
             return $this;
@@ -388,7 +388,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function setSessionQuoteStore(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
 
         /** @var Mage_Adminhtml_Model_Session_Quote $sessionQuote */

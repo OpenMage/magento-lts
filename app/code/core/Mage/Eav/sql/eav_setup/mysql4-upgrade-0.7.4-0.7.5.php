@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('eav_attribute'), 'note', 'VARCHAR( 255 ) NOT NULL');

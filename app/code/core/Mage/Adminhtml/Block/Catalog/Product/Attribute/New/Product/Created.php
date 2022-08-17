@@ -57,9 +57,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Created extends
     {
         $attributes = array();
         $product = Mage::registry('product');
-        /* @var $product Mage_Catalog_Model_Product */
+        /** @var $product Mage_Catalog_Model_Product */
         foreach($product->getAttributes($this->getRequest()->getParam('group')) as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /** @var $attribute Mage_Eav_Model_Entity_Attribute */
             if ($attribute->getId() == $this->getRequest()->getParam('attribute')) {
                 $attributes[] = $attribute;
             }

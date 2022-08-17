@@ -41,7 +41,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
     protected function _retrieveCollection()
     {
         $data = array();
-        /* @var Mage_Sales_Model_Order_Item $item */
+        /** @var Mage_Sales_Model_Order_Item $item */
         foreach ($this->_getCollectionForRetrieve() as $item) {
             $itemData = $item->getData();
             $itemData['status'] = $item->getStatus();
@@ -56,12 +56,12 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $this->_loadOrderById(
             $this->getRequest()->getParam(self::PARAM_ORDER_ID)
         );
 
-        /* @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
+        /** @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_item_collection');
         $collection->setOrderFilter($order->getId());
         $this->_applyCollectionModifiers($collection);
@@ -77,7 +77,7 @@ abstract class Mage_Sales_Model_Api2_Order_Item_Rest extends Mage_Sales_Model_Ap
      */
     protected function _loadOrderById($id)
     {
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::getModel('sales/order')->load($id);
         if (!$order->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);

@@ -159,7 +159,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function addOrderItem($orderItem, $qtyFlag = null)
     {
-        /* @var Mage_Sales_Model_Order_Item $orderItem */
+        /** @var Mage_Sales_Model_Order_Item $orderItem */
         if (is_null($orderItem->getParentItem())) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
@@ -366,7 +366,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 continue;
             }
 
-            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 continue;

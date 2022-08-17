@@ -112,7 +112,7 @@ class Mage_Adminhtml_Customer_Cart_Product_Composite_CartController extends Mage
             $configureResult->setMessage($e->getMessage());
         }
 
-        /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+        /** @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         // During order creation in the backend admin has ability to add any products to order
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);

@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
         $validator = Mage::getModel('catalog/api2_product_validator_product', array(
             'operation' => self::OPERATION_CREATE
         ));
@@ -191,7 +191,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_getProduct();
-        /* @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
         $validator = Mage::getModel('catalog/api2_product_validator_product', array(
             'operation' => self::OPERATION_UPDATE,
             'product'   => $product

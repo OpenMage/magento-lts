@@ -499,7 +499,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $rootId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
         $categories = array();
         $categoriesIds = array();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         foreach ($stores as $store) {
             if ($this->_allowTableChanges) {
                 $this->_createTable($store->getId());

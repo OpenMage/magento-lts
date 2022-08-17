@@ -973,13 +973,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $this->_errors[] = $responseError;
         }
 
-        /* @var $result Mage_Shipping_Model_Rate_Result */
+        /** @var $result Mage_Shipping_Model_Rate_Result */
         $result = Mage::getModel('shipping/rate_result');
         if ($this->_rates) {
             foreach ($this->_rates as $rate) {
                 $method = $rate['service'];
                 $data = $rate['data'];
-                /* @var $rate Mage_Shipping_Model_Rate_Result_Method */
+                /** @var $rate Mage_Shipping_Model_Rate_Result_Method */
                 $rate = Mage::getModel('shipping/rate_result_method');
                 $rate->setCarrier(self::CODE);
                 $rate->setCarrierTitle($this->getConfigData('title'));
@@ -1020,7 +1020,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $dhlProductDescription  = $this->getDhlProductTitle($dhlProduct);
 
             if ($currencyCode != $baseCurrencyCode) {
-                /* @var $currency Mage_Directory_Model_Currency */
+                /** @var $currency Mage_Directory_Model_Currency */
                 $currency = Mage::getModel('directory/currency');
                 $rates = $currency->getCurrencyRates($currencyCode, array($baseCurrencyCode));
                 if (!empty($rates) && isset($rates[$baseCurrencyCode])) {
@@ -1167,7 +1167,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $showMethod = $this->getConfigData('showmethod');
 
         if ($showMethod) {
-            /* @var $error Mage_Shipping_Model_Rate_Result_Error */
+            /** @var $error Mage_Shipping_Model_Rate_Result_Error */
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier(self::CODE);
             $error->setCarrierTitle($this->getConfigData('title'));

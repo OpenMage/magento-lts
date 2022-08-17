@@ -36,7 +36,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      */
     protected function _loadCustomerAddressById($id)
     {
-        /* @var Mage_Customer_Model_Address $customerAddress */
+        /** @var Mage_Customer_Model_Address $customerAddress */
         $customerAddress = parent::_loadCustomerAddressById($id);
         // check owner
         if ($this->getApiUser()->getUserId() != $customerAddress->getCustomerId()) {
@@ -54,7 +54,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Rest_Customer_V1 extends Mage_Cu
      */
     protected function _loadCustomerById($id)
     {
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = parent::_loadCustomerById($id);
         // check customer accaunt owner
         if ($this->getApiUser()->getUserId() != $customer->getId()) {
