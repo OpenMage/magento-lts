@@ -217,7 +217,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             $this->reindexAll();
         }
 
-        /* @var Mage_Catalog_Model_Url $urlModel */
+        /** @var Mage_Catalog_Model_Url $urlModel */
         $urlModel = Mage::getSingleton('catalog/url');
 
         // Force rewrites history saving

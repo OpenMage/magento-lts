@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 
 $tableCustomer =
 $tableCustomerAddress = $this->getTable('customer/address_entity');

@@ -174,7 +174,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
      */
     protected function _saveVisitorInfo($visitor)
     {
-        /* @var Mage_Core_Helper_String $stringHelper */
+        /** @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
         $referer    = $stringHelper->cleanString($visitor->getHttpReferer());

@@ -160,7 +160,7 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
     public function removeAddressItem($addressId, $itemId)
     {
         $address = $this->getQuote()->getAddressById($addressId);
-        /* @var Mage_Sales_Model_Quote_Address $address */
+        /** @var Mage_Sales_Model_Quote_Address $address */
         if ($address) {
             $item = $address->getValidItemById($itemId);
             if ($item) {
@@ -466,7 +466,6 @@ class Mage_Checkout_Model_Type_Multishipping extends Mage_Checkout_Model_Type_Ab
             Mage::throwException(Mage::helper('checkout')->__('Invalid checkout type.'));
         }
 
-        /** @var Mage_Payment_Model_Method_Abstract $paymentMethod */
         $paymentMethod = $quote->getPayment()->getMethodInstance();
         if (!empty($paymentMethod) && !$paymentMethod->isAvailable($quote)) {
             Mage::throwException(Mage::helper('checkout')->__('Please specify payment method.'));

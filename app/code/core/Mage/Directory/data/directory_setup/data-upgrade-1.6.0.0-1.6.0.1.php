@@ -32,9 +32,6 @@ $installer->getConnection()->insert(
     )
 );
 
-/**
- * @var array $countries
- */
 $countries = array();
 foreach (Mage::helper('directory')->getCountryCollection() as $country) {
     if ($country->getRegionCollection()->getSize() > 0) {

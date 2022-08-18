@@ -19,11 +19,11 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $connection = $installer->getConnection();
-/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 
 $installer->run("
     CREATE TABLE `{$installer->getTable('cataloginventory_stock_status')}` (

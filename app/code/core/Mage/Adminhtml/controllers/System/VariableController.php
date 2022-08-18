@@ -50,6 +50,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
      * Initialize Variable object
      *
      * @return Mage_Core_Model_Variable
+     * @throws Mage_Core_Exception
      */
     protected function _initVariable()
     {
@@ -57,7 +58,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
         $variableId = $this->getRequest()->getParam('variable_id', null);
         $storeId = (int)$this->getRequest()->getParam('store', 0);
-        /* @var $emailVariable Mage_Core_Model_Variable */
+        /** @var Mage_Core_Model_Variable $variable */
         $variable = Mage::getModel('core/variable');
         if ($variableId) {
             $variable->setStoreId($storeId)
@@ -89,6 +90,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Edit Action
+     * @throws Mage_Core_Exception
      */
     public function editAction()
     {
@@ -106,6 +108,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Validate Action
+     * @throws Mage_Core_Exception
      */
     public function validateAction()
     {
@@ -124,6 +127,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Save Action
+     * @throws Mage_Core_Exception|Throwable
      */
     public function saveAction()
     {
@@ -156,6 +160,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Delete Action
+     * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
     {

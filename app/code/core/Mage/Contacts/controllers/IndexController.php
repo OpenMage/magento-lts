@@ -60,7 +60,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         $post = $this->getRequest()->getPost();
         if ($post) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var Mage_Core_Model_Translate $translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
             try {
                 $postObject = new Varien_Object();
@@ -88,7 +88,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     throw new Exception();
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
-                /* @var Mage_Core_Model_Email_Template $mailTemplate */
+                /** @var Mage_Core_Model_Email_Template $mailTemplate */
                 $mailTemplate->setDesignConfig(array('area' => 'frontend'))
                     ->setReplyTo($post['email'])
                     ->sendTransactional(

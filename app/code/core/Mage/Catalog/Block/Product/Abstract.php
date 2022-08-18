@@ -668,7 +668,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         parent::_prepareLayout();
 
-        /* @var Mage_Catalog_Block_Product_Price_Template $block */
+        /** @var Mage_Catalog_Block_Product_Price_Template $block */
         $block = $this->getLayout()->getBlock('catalog_product_price_template');
         if ($block) {
             foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {

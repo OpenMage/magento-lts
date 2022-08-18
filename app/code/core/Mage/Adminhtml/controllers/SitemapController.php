@@ -235,11 +235,11 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
         if ($id = $this->getRequest()->getParam('sitemap_id')) {
             try {
                 // init model and delete
+                /** @var Mage_Sitemap_Model_Sitemap $model */
                 $model = Mage::getModel('sitemap/sitemap');
                 $model->setId($id);
                 // init and load sitemap model
 
-                /* @var $sitemap Mage_Sitemap_Model_Sitemap */
                 $model->load($id);
                 // delete file
                 if ($model->getSitemapFilename() && file_exists($model->getPreparedFilename())){
@@ -276,7 +276,7 @@ class Mage_Adminhtml_SitemapController extends  Mage_Adminhtml_Controller_Action
         // init and load sitemap model
         $id = $this->getRequest()->getParam('sitemap_id');
         $sitemap = Mage::getModel('sitemap/sitemap');
-        /* @var $sitemap Mage_Sitemap_Model_Sitemap */
+        /** @var Mage_Sitemap_Model_Sitemap $sitemap */
         $sitemap->load($id);
         // if sitemap record exists
         if ($sitemap->getId()) {

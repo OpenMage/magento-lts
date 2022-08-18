@@ -18,16 +18,21 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getProductIds()
+ * @method $this setProductIds(string $value)
  */
 class Mage_Adminhtml_Model_Session extends Mage_Core_Model_Session_Abstract
 {
+    /**
+     * Mage_Adminhtml_Model_Session constructor.
+     */
     public function __construct()
     {
         $this->init('adminhtml');

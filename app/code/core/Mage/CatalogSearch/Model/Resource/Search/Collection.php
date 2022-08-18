@@ -117,7 +117,7 @@ class Mage_CatalogSearch_Model_Resource_Search_Collection extends Mage_Catalog_M
         $tables = array();
         $selects = array();
 
-        /* @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
+        /** @var Mage_Core_Model_Resource_Helper_Abstract $resHelper */
         $resHelper = Mage::getResourceHelper('core');
         $likeOptions = array('position' => 'any');
 

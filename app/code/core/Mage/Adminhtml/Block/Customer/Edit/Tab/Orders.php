@@ -27,15 +27,21 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Customer_Edit_Tab_Orders constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('customer_orders_grid');
-        $this->setDefaultSort('created_at', 'desc');
+        $this->setDefaultSort('created_at');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
@@ -55,6 +61,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', array(
@@ -69,15 +79,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
             'type'      => 'datetime',
         ));
 
-        /*$this->addColumn('shipping_firstname', array(
-            'header'    => Mage::helper('customer')->__('Shipped to First Name'),
-            'index'     => 'shipping_firstname',
-        ));
-
-        $this->addColumn('shipping_lastname', array(
-            'header'    => Mage::helper('customer')->__('Shipped to Last Name'),
-            'index'     => 'shipping_lastname',
-        ));*/
         $this->addColumn('billing_name', array(
             'header'    => Mage::helper('customer')->__('Bill to Name'),
             'index'     => 'billing_name',
@@ -117,14 +118,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/orders', array('_current' => true));
     }
-
 }

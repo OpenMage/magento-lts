@@ -38,7 +38,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
         /** @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
-        /** @var Mage_Sales_Model_Order $order */
         $order  = $this->getOrder();
 
         /** @var Mage_Sales_Model_Order_Invoice_Item $item */

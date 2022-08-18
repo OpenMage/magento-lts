@@ -133,7 +133,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate ups type value
      *
-     * @param $valueForCheck string ups type value for check
+     * @param string $valueForCheck ups type value for check
      *
      * @return bool
      */

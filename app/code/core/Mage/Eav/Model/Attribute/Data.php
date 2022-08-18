@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Data Factory
  *
@@ -52,10 +51,10 @@ class Mage_Eav_Model_Attribute_Data
      */
     public static function factory(Mage_Eav_Model_Attribute $attribute, Mage_Core_Model_Abstract $entity)
     {
-        /* @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
         $dataModelClass = $attribute->getDataModel();
         if (!empty($dataModelClass)) {
             if (empty(self::$_dataModels[$dataModelClass])) {
+                /** @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
                 $dataModel = Mage::getModel($dataModelClass);
                 self::$_dataModels[$dataModelClass] = $dataModel;
             } else {
@@ -64,6 +63,7 @@ class Mage_Eav_Model_Attribute_Data
         } else {
             if (empty(self::$_dataModels[$attribute->getFrontendInput()])) {
                 $dataModelClass = sprintf('eav/attribute_data_%s', $attribute->getFrontendInput());
+                /** @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
                 $dataModel      = Mage::getModel($dataModelClass);
                 self::$_dataModels[$attribute->getFrontendInput()] = $dataModel;
             } else {

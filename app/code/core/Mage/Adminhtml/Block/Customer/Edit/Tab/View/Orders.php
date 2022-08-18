@@ -27,12 +27,15 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('customer_view_orders_grid');
-        $this->setDefaultSort('created_at', 'desc');
+        $this->setDefaultSort('created_at');
+        $this->setDefaultDir('desc');
         $this->setSortable(false);
         $this->setPagerVisibility(false);
         $this->setFilterVisibility(false);
@@ -45,6 +48,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
             ->setCurPage(1);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('sales/order_grid_collection')
@@ -54,9 +60,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-
         $this->addColumn('increment_id', array(
             'header'    => Mage::helper('customer')->__('Order #'),
             'align'     => 'center',
@@ -107,14 +116,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Orders extends Mage_Adminhtml_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
     }
 
+    /**
+     * @return bool
+     */
     public function getHeadersVisibility()
     {
         return ($this->getCollection()->getSize() > 0);
     }
-
 }

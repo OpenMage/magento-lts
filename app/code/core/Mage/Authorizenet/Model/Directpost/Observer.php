@@ -35,7 +35,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function saveOrderAfterSubmit(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::register('directpost_order', $order, true);
 
@@ -50,13 +50,13 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function addAdditionalFieldsToResponseFrontend(Varien_Event_Observer $observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
+        /** @var Mage_Sales_Model_Order $order */
         $order = Mage::registry('directpost_order');
 
         if ($order && $order->getId()) {
             $payment = $order->getPayment();
             if ($payment && $payment->getMethod() == Mage::getModel('authorizenet/directpost')->getCode()) {
-                /* @var $controller Mage_Core_Controller_Varien_Action */
+                /** @var Mage_Core_Controller_Varien_Action $controller */
                 $controller = $observer->getEvent()->getData('controller_action');
                 $result = Mage::helper('core')->jsonDecode(
                     $controller->getResponse()->getBody('default'),
@@ -93,7 +93,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
      */
     public function updateAllEditIncrements(Varien_Event_Observer $observer)
     {
-         /* @var $order Mage_Sales_Model_Order */
+         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getData('order');
         Mage::helper('authorizenet')->updateOrderEditIncrements($order);
 

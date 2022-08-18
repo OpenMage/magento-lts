@@ -93,7 +93,6 @@ class Mage_Api2_Model_Server
         }
         // default case
         try {
-            /** @var Mage_Api2_Model_Auth_User_Abstract $apiUser */
             $apiUser = $this->_authenticate($request);
 
             $this->_route($request)

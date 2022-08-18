@@ -1055,7 +1055,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         try {
             /**
              * Prepare select query
-             * @var string $query
+             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);

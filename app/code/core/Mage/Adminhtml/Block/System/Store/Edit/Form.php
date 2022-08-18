@@ -59,9 +59,9 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             $showStoreFieldset = true;
         }
 
-        /* @var $websiteModel Mage_Core_Model_Website */
-        /* @var $groupModel Mage_Core_Model_Store_Group */
-        /* @var $storeModel Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Website $websiteModel */
+        /** @var Mage_Core_Model_Store_Group $groupModel */
+        /** @var Mage_Core_Model_Store $storeModel */
 
         $form = new Varien_Data_Form(array(
             'id'        => 'edit_form',
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             $fieldset = $form->addFieldset('website_fieldset', array(
                 'legend' => Mage::helper('core')->__('Website Information')
             ));
-            /* @var $fieldset Varien_Data_Form */
+            /** @var Varien_Data_Form $fieldset */
 
             $fieldset->addField('website_name', 'text', array(
                 'name'      => 'website[name]',

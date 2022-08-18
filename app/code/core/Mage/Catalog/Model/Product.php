@@ -1294,7 +1294,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             return $this;
         }
         $mediaGalleryAttribute = $attributes['media_gallery'];
-        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
         $mediaGalleryAttribute->getBackend()->addImage($this, $file, $mediaAttribute, $move, $exclude);
         return $this;
     }
@@ -1319,7 +1319,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->getWebsiteIds();
         $this->getCategoryIds();
 
-        /* @var Mage_Catalog_Model_Product $newProduct */
+        /** @var Mage_Catalog_Model_Product $newProduct */
         $newProduct = Mage::getModel('catalog/product')->setData($this->getData())
             ->setIsDuplicate(true)
             ->setOriginalId($this->getId())

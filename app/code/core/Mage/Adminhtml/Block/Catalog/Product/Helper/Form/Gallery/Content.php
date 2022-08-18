@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         $values = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attributeCode = $attribute->getAttributeCode();
             $values[$attributeCode] = $this->getElement()->getDataObject()->getData($attributeCode);
         }
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         $imageTypes = [];
         foreach ($this->getMediaAttributes() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $imageTypes[$attribute->getAttributeCode()] = [
                 'label' => $attribute->getFrontend()->getLabel() . ' '
                          . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),

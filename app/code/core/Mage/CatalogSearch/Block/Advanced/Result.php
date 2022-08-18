@@ -55,7 +55,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     {
         $category = Mage::getSingleton('catalog/layer')
             ->getCurrentCategory();
-        /* @var Mage_Catalog_Model_Category $category */
+        /** @var Mage_Catalog_Model_Category $category */
 
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);

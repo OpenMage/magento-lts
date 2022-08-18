@@ -148,7 +148,7 @@ class Mage_Core_Model_Translate_Inline
             $this->_isAllowed = $active && Mage::helper('core')->isDevAllowed($store);
         }
 
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
 
         return $translate->getTranslateInline() && $this->_isAllowed;
@@ -166,7 +166,7 @@ class Mage_Core_Model_Translate_Inline
             return $this;
         }
 
-        /* @var Mage_Core_Model_Mysql4_Translate_String $resource */
+        /** @var Mage_Core_Model_Mysql4_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {

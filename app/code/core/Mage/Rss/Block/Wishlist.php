@@ -103,7 +103,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var Mage_Rss_Model_Rss $rssObj */
+        /** @var Mage_Rss_Model_Rss $rssObj */
         $rssObj = Mage::getModel('rss/rss');
 
         if ($this->_getWishlist()->getId()) {

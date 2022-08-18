@@ -45,7 +45,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
             ->setCollection($this->_profiles)->setIsOutputRequired(false);
         $this->setChild('pager', $pager);
 
-        /* @var Mage_Sales_Model_Recurring_Profile $profile */
+        /** @var Mage_Sales_Model_Recurring_Profile $profile */
         $profile = Mage::getModel('sales/recurring_profile');
 
         $this->setGridColumns(array(

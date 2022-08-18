@@ -227,7 +227,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     protected function _collectBlocks()
     {
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
-            /* @var Mage_Core_Model_Layout_Element $block */
+            /** @var Mage_Core_Model_Layout_Element $block */
             foreach ($blocks as $block) {
                 if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));

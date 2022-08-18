@@ -132,7 +132,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $cartHelper = Mage::helper('checkout/cart');
             $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
 
-            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item');

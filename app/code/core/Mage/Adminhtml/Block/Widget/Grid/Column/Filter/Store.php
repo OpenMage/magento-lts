@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
     public function getHtml()
     {
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
         $websiteCollection = $storeModel->getWebsiteCollection();
         $groupCollection = $storeModel->getGroupCollection();
         $storeCollection = $storeModel->getStoreCollection();

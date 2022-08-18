@@ -54,7 +54,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
             return false;
         }
 
-        /* @var Mage_Review_Model_Review $review */
+        /** @var Mage_Review_Model_Review $review */
         $review = Mage::getModel('review/review')->load($reviewId);
         if (!$review->getId() || $review->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()) {
             return false;

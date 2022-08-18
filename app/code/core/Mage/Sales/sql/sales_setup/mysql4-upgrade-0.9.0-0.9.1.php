@@ -19,10 +19,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 
 $conn = $installer->getConnection();
 
-/* @var Varien_Db_Adapter_Pdo_Mysql $conn */
+/** @var Varien_Db_Adapter_Pdo_Mysql $conn */
 $installer->addAttribute('quote_item', 'product_type', array());
 $installer->addAttribute('order_item', 'product_type', array());

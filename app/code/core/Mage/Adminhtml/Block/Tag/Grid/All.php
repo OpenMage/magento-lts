@@ -27,19 +27,31 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Mage_Adminhtml_Block_Tag_Grid_All constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('tagsGrid');
-        $this->setDefaultSort('tag_id', 'desc');
+        $this->setDefaultSort('tag_id');
+        $this->setDefaultDir('desc');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('tag/tag_collection')->addStoresVisibility();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
+
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
 
     protected function _prepareColumns()
     {
@@ -88,9 +100,12 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/products', array('tag_id' => $row->getId()));
     }
-
 }
