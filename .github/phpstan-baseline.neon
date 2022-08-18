@@ -46,11 +46,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:\\$_category\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
@@ -256,24 +251,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Cart.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Orders.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addProductName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tag.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Cart.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Orders.php
 
 		-
 			message: "#^Method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addDaysInWishlist\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -351,11 +331,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isValidForSend\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php
@@ -367,11 +342,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method addRemoveFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid.php
 
@@ -916,11 +886,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/History.php
-
-		-
 			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
@@ -1022,11 +987,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
 
