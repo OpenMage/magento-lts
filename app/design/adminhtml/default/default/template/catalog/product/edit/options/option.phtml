@@ -73,7 +73,7 @@ var productOption = {
         }
 
         //set selected is_require
-        if (data.is_require) {
+        if (data.hasOwnProperty('is_require')) {
             $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_is_require').options).each(function(option){
                 if (option.value==data.is_require) option.selected = true;
             });
