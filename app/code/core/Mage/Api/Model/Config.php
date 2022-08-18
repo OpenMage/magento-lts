@@ -91,7 +91,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         $adapters = array();
         foreach ($this->getNode('adapters')->children() as $adapterName => $adapter) {
-            /** @var Varien_SimpleXml_Element $adapter */
+            /** @var Varien_Simplexml_Element $adapter */
             if (isset($adapter->use)) {
                 $adapter = $this->getNode('adapters/' . (string) $adapter->use);
             }

@@ -64,7 +64,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $data = $this->getRequest()->getPost();
         unset($data['redirect_parent']);
         unset($data['redirect']);
-        /** @var Mage_Authorizenet_Model_DirectPost $paymentMethod */
+        /** @var Mage_Authorizenet_Model_Directpost $paymentMethod */
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
         $result = array();

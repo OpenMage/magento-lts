@@ -34,6 +34,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Save all seted giftmessages
      *
      * @return $this
+     * @throws Throwable
      */
     public function saveAllInQuote()
     {
@@ -50,11 +51,18 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getSaved()
     {
         return $this->_saved;
     }
 
+    /**
+     * @return $this
+     * @throws Throwable
+     */
     public function saveAllInOrder()
     {
         $giftmessages = $this->getGiftmessages();
@@ -76,9 +84,10 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @param integer $entityId
      * @param array $giftmessage
      * @return $this
+     * @throws Throwable
      */
     protected function _saveOne($entityId, $giftmessage) {
-        /** @var Mage_Giftmessage_Model_Message $giftmessageModel */
+        /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
@@ -129,6 +138,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
      * @param Varien_Object $entityModel
      * @return $this
+     * @throws Throwable
      */
     protected function _deleteOne($entityModel, $giftmessageModel=null)
     {
@@ -341,5 +351,4 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         return $this->_getSession()->getQuote();
     }
-
 }
