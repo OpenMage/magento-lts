@@ -117,6 +117,8 @@ var productOption = {
         }
         <?php else: ?>
             inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
+            var inputs = $$('div.product-custom-options button');
+            inputs.each(function(el) { Event.observe(el, 'click', el.setHasChanges.bind(el));  } )
         <?php endif ?>
     }
 }
