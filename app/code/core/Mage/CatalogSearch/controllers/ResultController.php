@@ -38,7 +38,7 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
     public function indexAction()
     {
         $query = Mage::helper('catalogsearch')->getQuery();
-        /* @var Mage_CatalogSearch_Model_Query $query */
+        /** @var Mage_CatalogSearch_Model_Query $query */
 
         $query->setStoreId(Mage::app()->getStore()->getId());
 

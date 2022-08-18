@@ -218,7 +218,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             $batchId = $this->getRequest()->getPost('batch_id', 0);
             $rowIds  = $this->getRequest()->getPost('rows');
 
-            /* @var $batchModel Mage_Dataflow_Model_Batch */
+            /** @var Mage_Dataflow_Model_Batch $batchModel */
             $batchModel = Mage::getModel('dataflow/batch')->load($batchId);
 
             if (!$batchModel->getId()) {
@@ -283,7 +283,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
         $batchId = $this->getRequest()->getParam('id');
         if ($batchId) {
             $batchModel = Mage::getModel('dataflow/batch')->load($batchId);
-            /* @var $batchModel Mage_Dataflow_Model_Batch */
+            /** @var Mage_Dataflow_Model_Batch $batchModel */
 
             if ($batchModel->getId()) {
                 $result = array();

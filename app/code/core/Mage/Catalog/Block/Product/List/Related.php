@@ -43,7 +43,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')

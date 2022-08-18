@@ -338,7 +338,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     public function parse()
     {
         $batchModel = Mage::getSingleton('dataflow/batch');
-        /* @var Mage_Dataflow_Model_Batch $batchModel */
+        /** @var Mage_Dataflow_Model_Batch $batchModel */
 
         $batchImportModel = $batchModel->getBatchImportModel();
         $importIds = $batchImportModel->getIdCollection();

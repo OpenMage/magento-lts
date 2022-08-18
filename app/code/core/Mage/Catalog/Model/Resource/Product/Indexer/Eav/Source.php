@@ -102,7 +102,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
             return $this;
         }
 
-        /**@var Varien_Db_Select $subSelect */
         $subSelect = $adapter->select()
             ->from(
                 array('s' => $this->getTable('core/store')),
@@ -122,7 +121,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
             $subSelect->where('d.entity_id IN(?)', $entityIds);
         }
 
-        /**@var Varien_Db_Select $select */
         $select = $adapter->select()
             ->from(
                 array('pid' => new Zend_Db_Expr(sprintf('(%s)', $subSelect->assemble()))),

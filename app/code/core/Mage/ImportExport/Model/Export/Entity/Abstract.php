@@ -187,7 +187,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     */
     protected function _initWebsites()
     {
-        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }

@@ -45,7 +45,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var Mage_Catalog_Helper_Category $helper */
+        /** @var Mage_Catalog_Helper_Category $helper */
         $parent = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load(Mage::app()->getStore()->getRootCategoryId());
@@ -65,7 +65,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
+        /** @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
         if ($pager) {
             $pager->setAvailableLimit(array(50 => 50));
             $pager->setTotalNum($this->_total);

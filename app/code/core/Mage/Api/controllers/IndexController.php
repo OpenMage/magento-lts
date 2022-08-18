@@ -29,8 +29,6 @@ class Mage_Api_IndexController extends Mage_Api_Controller_Action
 {
     public function indexAction()
     {
-        /* @var Mage_Api_Model_Server $server */
-        $this->_getServer()->init($this)
-            ->run();
+        $this->_getServer()->init($this)->run();
     }
 }

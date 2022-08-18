@@ -46,11 +46,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Backup/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:\\$_category\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
@@ -256,49 +251,14 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Cart.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Orders.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addProductName\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tag.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Cart.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Orders.php
-
-		-
 			message: "#^Method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addDaysInWishlist\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addDaysFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addProductNameFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:setOrderByProductName\\(\\)\\.$#"
@@ -309,11 +269,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGroups\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Grid.php
-
-		-
-			message: "#^Cannot call method addCustomerData\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Online/Grid.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Bar\\:\\:\\$_currency\\.$#"
@@ -376,11 +331,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Subscriber/Grid.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isValidForSend\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php
@@ -392,11 +342,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method addRemoveFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid.php
 
@@ -916,11 +861,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:descend\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form/Field/Image.php
-
-		-
 			message: "#^Access to property \\$sort_order on an unknown class unknown_type\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
@@ -944,11 +884,6 @@ parameters:
 			message: "#^Variable \\$attributes might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Edit/Tab/History.php
 
 		-
 			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
@@ -1056,11 +991,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid\\:\\:setDefaultSort\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
@@ -1124,6 +1054,11 @@ parameters:
 			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
+
+		-
+			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			count: 2
+			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Form.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:decodeFilter\\(\\)\\.$#"
@@ -1281,11 +1216,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Encrypted.php
 
 		-
-			message: "#^Call to an undefined method object\\:\\:descend\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/File.php
-
-		-
 			message: "#^Cannot call method addPathFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
@@ -1319,6 +1249,11 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Catalog_Product_AttributeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Adminhtml_Catalog_Product_AttributeController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
+
+		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributeIds\\(\\)\\.$#"
@@ -1566,11 +1501,6 @@ parameters:
 			path: ../app/code/core/Mage/Api2/Model/Resource.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:getReadConnection\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Api2/Model/Resource.php
-
-		-
 			message: "#^Method Mage_Api2_Model_Resource\\:\\:_create\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Api2/Model/Resource.php
@@ -1649,6 +1579,11 @@ parameters:
 			message: "#^Method Mage_Authorizenet_Model_Directpost\\:\\:initialize\\(\\) should return \\$this\\(Mage_Authorizenet_Model_Directpost\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
+
+		-
+			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
@@ -2021,11 +1956,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
 
 		-
-			message: "#^Call to an undefined method Varien_Object\\:\\:toHtml\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/List/Toolbar.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/View/Media.php
@@ -2306,6 +2236,11 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
 
 		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:addImage\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Catalog/Model/Product.php
+
+		-
 			message: "#^Cannot call method updateAttributes\\(\\) on object\\|string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Action.php
@@ -2454,11 +2389,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
-
-		-
-			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAssociatedProducts\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Grouped/Price.php
 
 		-
 			message: "#^Cannot call method addProducts\\(\\) on object\\|string\\.$#"
@@ -2661,11 +2591,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:preparePriceData\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Collection\\:\\:_addUrlRewrite\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
@@ -2814,11 +2739,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAssociatedProducts\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
-
-		-
-			message: "#^Cannot call method isScopeGlobal\\(\\) on Mage_Eav_Model_Entity_Attribute_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Data/Abstract.php
 
 		-
 			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
@@ -3079,6 +2999,11 @@ parameters:
 			message: "#^Method Mage_Checkout_Block_Onepage_Payment_Methods\\:\\:getMethodLabelAfterHtml\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Onepage/Payment/Methods.php
+
+		-
+			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^Variable \\$storeId might not be defined\\.$#"
@@ -3411,11 +3336,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Resource/Iterator.php
 
 		-
-			message: "#^Call to an undefined method Varien_Db_Adapter_Interface\\:\\:setQueryHook\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
 			message: "#^Call to an undefined method Varien_Simplexml_Element\\:\\:getClassName\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Core/Model/Resource/Setup.php
@@ -3641,27 +3561,7 @@ parameters:
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
-			message: "#^Cannot call method compactData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method extractData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
 			message: "#^Cannot call method sendNewAccountEmail\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method validate\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Cannot call method validateData\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
@@ -4564,26 +4464,6 @@ parameters:
 			message: "#^Binary operation \"\\+\" between non\\-empty\\-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeCode\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackendType\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Resource/Visitor/Online/Collection.php
 
 		-
 			message: "#^Cannot call method prepare\\(\\) on object\\|string\\.$#"
@@ -6011,6 +5891,11 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
+			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
+			count: 2
+			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
+
+		-
 			message: "#^Access to an undefined property Mage_Shipping_Model_Carrier_Abstract\\:\\:\\$_rawRequest\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Abstract.php
@@ -6044,21 +5929,6 @@ parameters:
 			message: "#^Variable \\$rate in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
-			message: "#^Cannot call method checkAvailableShipCountries\\(\\) on Mage_Core_Model_Abstract\\|true\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^Cannot call method collectRates\\(\\) on Mage_Core_Model_Abstract\\|true\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Shipping/Model/Shipping.php
-
-		-
-			message: "#^Cannot call method proccessAdditionalValidation\\(\\) on Mage_Core_Model_Abstract\\|true\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Shipping/Model/Shipping.php
 
 		-
 			message: "#^Comparison operation \"\\<\" between \\(array\\|float\\|int\\) and float results in an error\\.$#"
@@ -6304,11 +6174,6 @@ parameters:
 			message: "#^Variable \\$options might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Form.php
-
-		-
-			message: "#^Call to an undefined method SimpleXMLElement\\:\\:getAttribute\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Block.php
 
 		-
 			message: "#^Variable \\$productsOptions might not be defined\\.$#"

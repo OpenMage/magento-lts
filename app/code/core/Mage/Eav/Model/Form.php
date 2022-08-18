@@ -244,7 +244,7 @@ abstract class Mage_Eav_Model_Form
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            /* @var Mage_Eav_Model_Resource_Form_Attribute_Collection $collection */
+            /** @var Mage_Eav_Model_Resource_Form_Attribute_Collection $collection */
             $collection = $this->_getFormAttributeCollection();
 
             $collection->setStore($this->getStore())
@@ -255,7 +255,7 @@ abstract class Mage_Eav_Model_Form
             $this->_attributes      = array();
             $this->_userAttributes  = array();
             foreach ($collection as $attribute) {
-                /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $this->_attributes[$attribute->getAttributeCode()] = $attribute;
                 if ($attribute->getIsUserDefined()) {
                     $this->_userAttributes[$attribute->getAttributeCode()] = $attribute;

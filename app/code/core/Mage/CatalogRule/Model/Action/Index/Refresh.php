@@ -115,7 +115,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $timestamp = $coreDate->gmtTimestamp();
 
         foreach ($this->_app->getWebsites(false) as $website) {
-            /** @var Mage_Core_Model_Website $website */
             if ($website->getDefaultStore()) {
                 $this->_reindex($website, $timestamp);
             }

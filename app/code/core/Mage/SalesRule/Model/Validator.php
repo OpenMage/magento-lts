@@ -248,7 +248,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $item->setFreeShipping(false);
 
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
@@ -317,7 +317,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $appliedRuleIds = [];
         $this->_stopFurtherRules = false;
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
@@ -557,7 +557,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $includeInSubtotal = $this->_getHelper('weee')->includeInSubtotal();
 
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rulePercent = min(100, $rule->getDiscountAmount());
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
@@ -756,7 +756,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $quote              = $address->getQuote();
         $appliedRuleIds = [];
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$rule->getApplyToShipping() || !$this->_canProcessRule($rule, $address)) {
                 continue;
             }

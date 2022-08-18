@@ -878,7 +878,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getLocation($resource)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
@@ -1005,7 +1005,7 @@ abstract class Mage_Api2_Model_Resource
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
-            /* @var Mage_Core_Model_Resource_Db_Abstract $resource */
+            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
             $resource = Mage::getResourceModel($workModel);
 
             if (method_exists($resource, 'getMainTable')) {

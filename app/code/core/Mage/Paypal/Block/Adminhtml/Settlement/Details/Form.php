@@ -34,9 +34,9 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
     protected function _prepareForm()
     {
         $model = Mage::registry('current_transaction');
-        /* @var $model Mage_Paypal_Model_Report_Settlement_Row */
+        /** @var Mage_Paypal_Model_Report_Settlement_Row $model */
         $settlement = Mage::getSingleton('paypal/report_settlement');
-        /* @var $settlement Mage_Paypal_Model_Report_Settlement */
+        /** @var Mage_Paypal_Model_Report_Settlement $settlement */
 
         $fieldsets = array(
             'reference_fieldset' => array(

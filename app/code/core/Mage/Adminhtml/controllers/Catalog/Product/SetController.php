@@ -111,7 +111,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
         $attributeSetId = $this->getRequest()->getParam('id', false);
         $isNewSet       = $this->getRequest()->getParam('gotoEdit', false) == '1';
 
-        /* @var $model Mage_Eav_Model_Entity_Attribute_Set */
+        /** @var Mage_Eav_Model_Entity_Attribute_Set $model */
         $model  = Mage::getModel('eav/entity_attribute_set')
             ->setEntityTypeId($entityTypeId);
 

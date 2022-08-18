@@ -586,7 +586,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
             $attributes = array_unique(array_merge($attributes, $optionalAttributes));
         }
         foreach ($attributes as $attributeCode) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute = Mage::getResourceSingleton('catalog/category')->getAttribute($attributeCode);
             // join non-static attribute table
             if (!$attribute->getBackend()->isStatic()) {

@@ -19,7 +19,7 @@
  */
 
 
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
 /*
 $installer->startSetup();

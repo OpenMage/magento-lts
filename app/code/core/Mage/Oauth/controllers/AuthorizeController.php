@@ -116,7 +116,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Oauth_Model_Server $server */
             $server = Mage::getModel('oauth/server');
 
-            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->authorizeToken($session->getCustomerId(), Mage_Oauth_Model_Token::USER_TYPE_CUSTOMER);
 
             if (($callback = $helper->getFullCallbackUrl($token))) { //false in case of OOB
@@ -160,7 +159,6 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
             $block = $this->getLayout()->getBlock('oauth.authorize.reject');
             $block->setIsSimple($simple);
 
-            /** @var Mage_Oauth_Model_Token $token */
             $token = $server->checkAuthorizeRequest();
             /** @var Mage_Oauth_Helper_Data $helper */
             $helper = Mage::helper('oauth');

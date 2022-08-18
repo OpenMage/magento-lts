@@ -19,14 +19,14 @@
  */
 
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
-/* @var Mage_Customer_Helper_Address $addressHelper */
+/** @var Mage_Customer_Helper_Address $addressHelper */
 $addressHelper = Mage::helper('customer/address');
 $store         = Mage::app()->getStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
-/* @var Mage_Eav_Model_Config $eavConfig */
+/** @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');
 
 // update customer system attributes data

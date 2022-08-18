@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $this */
+/** @var Mage_Core_Model_Resource_Setup $this */
 $this->startSetup();
 
 $this->getConnection()->changeColumn(

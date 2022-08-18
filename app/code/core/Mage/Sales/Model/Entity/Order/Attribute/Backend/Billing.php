@@ -53,7 +53,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Billing extends Mage_Eav_M
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            /* @var Mage_Sales_Model_Order_Address $address */
+            /** @var Mage_Sales_Model_Order_Address $address */
             if ('billing' == $address->getAddressType()) {
                 $billingAddressId = $address->getId();
             }

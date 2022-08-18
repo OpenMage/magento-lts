@@ -119,7 +119,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var Mage_Cms_Helper_Data $helper */
+        /** @var Mage_Cms_Helper_Data $helper */
         $helper = Mage::helper('cms');
         $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());

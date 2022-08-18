@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit_Form extends Mage_Adminhtml_Blo
      */
     protected function _prepareForm()
     {
-        /* @var $queue Mage_Newsletter_Model_Queue */
+        /** @var Mage_Newsletter_Model_Queue $queue */
         $queue = Mage::getSingleton('newsletter/queue');
 
         $form = new Varien_Data_Form();

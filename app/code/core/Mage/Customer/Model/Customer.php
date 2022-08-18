@@ -571,7 +571,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getPrimaryAddress($attributeCode)
     {
-        /** @var Mage_Customer_Model_Address $primaryAddress */
         $primaryAddress = $this->getAddressesCollection()->getItemById($this->getData($attributeCode));
 
         return $primaryAddress ? $primaryAddress : false;
@@ -923,7 +922,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             } else {
-                /** @var Mage_Core_Model_Store $store */
                 foreach (Mage::app()->getStores() as $store) {
                     $ids[] = $store->getId();
                 }
@@ -947,7 +945,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();
             } else {
-                /** @var Mage_Core_Model_Website $website */
                 foreach (Mage::app()->getWebsites() as $website) {
                     $ids[] = $website->getId();
                 }

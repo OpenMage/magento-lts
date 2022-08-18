@@ -1528,7 +1528,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $sortedTotals = array();
         foreach ($this->getBillingAddress()->getTotalModels() as $total) {
-            /* @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
+            /** @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
             if (isset($totals[$total->getCode()])) {
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
             }
@@ -1585,7 +1585,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $errors = array();
         foreach ($this->getMessages() as $message) {
-            /* @var Mage_Core_Model_Message_Abstract $error */
             if ($message->getType() == Mage_Core_Model_Message::ERROR) {
                 $errors[] = $message;
             }
@@ -1789,7 +1788,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $baseTotal = 0;
                 foreach ($addresses as $address) {
-                    /* @var Mage_Sales_Model_Quote_Address $address */
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
                 if ($baseTotal < $minAmount) {
@@ -1798,7 +1796,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         } else {
             foreach ($addresses as $address) {
-                /* @var Mage_Sales_Model_Quote_Address $address */
                 if (!$address->validateMinimumAmount()) {
                     return false;
                 }
@@ -1817,7 +1814,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $isVirtual = true;
         $countItems = 0;
         foreach ($this->getItemsCollection() as $_item) {
-            /* @var Mage_Sales_Model_Quote_Item $_item */
+            /** @var Mage_Sales_Model_Quote_Item $_item */
             if ($_item->isDeleted() || $_item->getParentItemId()) {
                 continue;
             }

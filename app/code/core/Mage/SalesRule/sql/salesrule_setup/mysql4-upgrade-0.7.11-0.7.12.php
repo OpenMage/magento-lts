@@ -23,7 +23,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer->startSetup();
 
 // $installer->getConnection()->changeColumn($this->getTable('sales_order'), 'coupon_code', 'coupon_code', 'varchar(255) DEFAULT NULL');

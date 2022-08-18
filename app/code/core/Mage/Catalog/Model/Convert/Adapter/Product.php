@@ -371,7 +371,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     public function parse()
     {
         $batchModel = Mage::getSingleton('dataflow/batch');
-        /* @var Mage_Dataflow_Model_Batch $batchModel */
+        /** @var Mage_Dataflow_Model_Batch $batchModel */
 
         $batchImportModel = $batchModel->getBatchImportModel();
         $importIds = $batchImportModel->getIdCollection();
@@ -395,7 +395,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $fieldset = Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin');
         foreach ($fieldset as $code => $node) {
-            /* @var Mage_Core_Model_Config_Element $node */
+            /** @var Mage_Core_Model_Config_Element $node */
             if ($node->is('inventory')) {
                 foreach ($node->product_type->children() as $productType) {
                     $productType = $productType->getName();

@@ -133,7 +133,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             return;
         }
         $order = Mage::registry('current_order');
-        /* @var Mage_Checkout_Model_Cart $cart */
+        /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
 
         $items = $order->getItemsCollection();

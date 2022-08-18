@@ -19,7 +19,7 @@
  */
 $installer = $this;
 
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer->installEntities();
 $installer->removeEntityType('invoice_address');
 $installer->removeEntityType('invoice_payment');

@@ -310,7 +310,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         // try to add custom options
         try {
             $options = $this->_prepareOptions($buyRequest, $product, $processMode);
@@ -520,7 +520,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         $transport = new stdClass;
         $transport->options = array();
         foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /* @var Mage_Catalog_Model_Product_Option $_option */
+            /** @var Mage_Catalog_Model_Product_Option $_option */
             $group = $_option->groupFactory($_option->getType())
                 ->setOption($_option)
                 ->setProduct($this->getProduct($product))

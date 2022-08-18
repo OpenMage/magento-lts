@@ -633,7 +633,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _beforeGetPdf()
     {
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
     }
 
@@ -643,7 +643,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _afterGetPdf()
     {
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(true);
     }
 

@@ -115,7 +115,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value     = $this->bindArrayOfIds($value);
         }
 
-        /** @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleResource */
         $ruleResource = $this->getRuleResourceHelper();
 
         return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);
@@ -186,7 +185,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         $attributes = array();
         foreach ($productAttributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!$attribute->isAllowedForRuleCondition()
                 || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
             ) {

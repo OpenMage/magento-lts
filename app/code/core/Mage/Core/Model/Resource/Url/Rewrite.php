@@ -75,7 +75,6 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      */
     protected function _getLoadSelect($field, $value, $object)
     {
-        /** @var Varien_Db_Select $select */
         $select = parent::_getLoadSelect($field, $value, $object);
 
         if (!is_null($object->getStoreId())) {
@@ -103,7 +102,6 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
         }
 
         $select = $this->_getReadAdapter()->select();
-        /** @var Varien_Db_Select $select */
         $select->from(array('main_table' => $this->getMainTable()), 'request_path')
             ->where('main_table.store_id = :store_id')
             ->where('main_table.id_path = :id_path')

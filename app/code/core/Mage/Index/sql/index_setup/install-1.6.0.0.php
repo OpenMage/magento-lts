@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Index_Model_Resource_Setup $installer */
+/** @var Mage_Index_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 

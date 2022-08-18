@@ -122,8 +122,8 @@ class Mage_Centinel_Model_Api extends Varien_Object
     /**
      * Call centinel api methods by given method name and data
      *
-     * @param $method string
-     * @param $data array
+     * @param string $method
+     * @param array $data
      *
      * @return Mage_Centinel_Model_Api_Client
      */

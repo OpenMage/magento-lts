@@ -140,11 +140,11 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected function _assignOptions()
     {
         $itemIds = array_keys($this->_items);
-        /* @var Mage_Wishlist_Model_Resource_Item_Option_Collection $optionCollection */
+        /** @var Mage_Wishlist_Model_Resource_Item_Option_Collection $optionCollection */
         $optionCollection = Mage::getModel('wishlist/item_option')->getCollection();
         $optionCollection->addItemFilter($itemIds);
 
-        /* @var Mage_Wishlist_Model_Item $item */
+        /** @var Mage_Wishlist_Model_Item $item */
         foreach ($this as $item) {
             $item->setOptions($optionCollection->getOptionsByItem($item));
         }
