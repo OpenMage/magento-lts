@@ -1056,6 +1056,11 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Urlrewrite/Category/Tree.php
 
 		-
+			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
+			count: 2
+			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Form.php
+
+		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:decodeFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
@@ -1244,6 +1249,11 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Catalog_Product_AttributeController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Adminhtml_Catalog_Product_AttributeController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/Product/AttributeController.php
+
+		-
+			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Adminhtml/controllers/Catalog/ProductController.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributeIds\\(\\)\\.$#"
@@ -1569,6 +1579,11 @@ parameters:
 			message: "#^Method Mage_Authorizenet_Model_Directpost\\:\\:initialize\\(\\) should return \\$this\\(Mage_Authorizenet_Model_Directpost\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Authorizenet/Model/Directpost.php
+
+		-
+			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Authorizenet/Model/Directpost/Observer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Payment_Model_Method_Abstract\\:\\:generateRequestFromOrder\\(\\)\\.$#"
@@ -2217,6 +2232,11 @@ parameters:
 
 		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:_afterDeleteCommit\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Catalog/Model/Product.php
+
+		-
+			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:addImage\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
 
@@ -2979,6 +2999,11 @@ parameters:
 			message: "#^Method Mage_Checkout_Block_Onepage_Payment_Methods\\:\\:getMethodLabelAfterHtml\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Onepage/Payment/Methods.php
+
+		-
+			message: "#^Call to an undefined method Mage_Sales_Model_Service_Order\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: ../app/code/core/Mage/Checkout/controllers/OnepageController.php
 
 		-
 			message: "#^Variable \\$storeId might not be defined\\.$#"
@@ -5863,6 +5888,11 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:setWeeeTaxesAppliedProperty\\(\\)\\.$#"
 			count: 4
+			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
+
+		-
+			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
+			count: 2
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
 
 		-
