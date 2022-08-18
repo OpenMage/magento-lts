@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -769,7 +769,6 @@ $entityToFlat = array(
     'shipment_track'        => array()
 );
 
-/* @var Varien_Db_Select $select */
 $select = $installer->getConnection()->select();
 
 $select

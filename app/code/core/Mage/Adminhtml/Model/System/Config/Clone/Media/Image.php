@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Clone model for media images related config fields
  *
@@ -28,7 +27,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Model_Config_Data
 {
-
     /**
      * Get fields prefixes
      *
@@ -36,14 +34,10 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
      */
     public function getPrefixes()
     {
-        //$entityType = Mage::getModel('eav/entity_type');
-        /* @var $entityType Mage_Eav_Model_Entity_Type */
-        //$entityTypeId = $entityType->loadByCode('catalog_product')->getEntityTypeId();
-
         // use cached eav config
         $entityTypeId = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
 
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');
         $collection->setEntityTypeFilter($entityTypeId);
         $collection->setFrontendInputTypeFilter('media_image');
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
         $prefixes = array();
 
         foreach ($collection as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $prefixes[] = array(
                 'field' => $attribute->getAttributeCode() . '_',
                 'label' => $attribute->getFrontend()->getLabel(),

@@ -49,7 +49,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     {
         $order = Mage::getModel('sales/order');
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
 
         $order->loadByIncrementId($orderIncrementId);
 

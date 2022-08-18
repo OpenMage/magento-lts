@@ -824,7 +824,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         $pagerBlock = $this->getChild('product_list_toolbar_pager');
 
         if ($pagerBlock instanceof Varien_Object) {
-            /* @var Mage_Page_Block_Html_Pager $pagerBlock */
+            /** @var Mage_Page_Block_Html_Pager $pagerBlock */
             $pagerBlock->setAvailableLimit($this->getAvailableLimit());
 
             $pagerBlock->setUseContainer(false)

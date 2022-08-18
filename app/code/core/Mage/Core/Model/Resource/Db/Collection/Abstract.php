@@ -506,7 +506,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
                  ->_renderLimit();
             /**
              * Prepare select for execute
-             * @var string $query
+             *
              */
             $query       = $this->_prepareSelect($this->getSelect());
             $this->_data = $this->_fetchAll($query);

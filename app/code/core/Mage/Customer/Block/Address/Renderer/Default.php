@@ -106,7 +106,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
 
         $data = array();
         foreach ($attributes as $attribute) {
-            /* @var Mage_Customer_Model_Attribute $attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             if (!$attribute->getIsVisible()) {
                 continue;
             }

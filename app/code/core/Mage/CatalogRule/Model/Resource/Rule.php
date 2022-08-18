@@ -171,10 +171,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         /** @var Mage_Catalog_Helper_Product_Flat $helper */
         $helper = $this->_factory->getHelper('catalog/product_flat');
         if ($helper->isEnabled() && $helper->isBuiltAllStores()) {
-            /** @var Mage_Core_Model_Store $store */
             foreach ($this->_app->getStores(false) as $store) {
                 if (count($websiteIds) == 0 || in_array($store->getWebsiteId(), $websiteIds)) {
-                    /** @var Varien_Db_Select $selectByStore */
                     $selectByStore = $rule->getProductFlatSelect($store->getId());
                     $selectByStore->where('p.entity_id = ?', $product->getId());
                     $selectByStore->limit(1);
@@ -223,10 +221,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $helper = $this->_factory->getHelper('catalog/product_flat');
 
         if ($helper->isEnabled() && $helper->isBuiltAllStores()) {
-            /** @var Mage_Core_Model_Store $store */
             foreach ($this->_app->getStores(false) as $store) {
                 if (in_array($store->getWebsiteId(), $websiteIds)) {
-                    /** @var Varien_Db_Select $selectByStore */
                     $selectByStore = $rule->getProductFlatSelect($store->getId())
                         ->joinLeft(
                             array('cg' => $this->getTable('customer/customer_group')),

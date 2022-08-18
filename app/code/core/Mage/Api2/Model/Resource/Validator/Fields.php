@@ -166,7 +166,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         // fields rules
         foreach ($data as $field => $value) {
             if (isset($this->_validators[$field])) {
-                /* @var Zend_Validate_Interface $validator */
+                /** @var Zend_Validate_Interface $validator */
                 $validator = $this->_validators[$field];
                 if (!$validator->isValid($value)) {
                     $isValid = false;

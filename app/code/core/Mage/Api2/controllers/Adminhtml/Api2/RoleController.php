@@ -194,7 +194,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         parse_str($oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
-        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
@@ -331,7 +330,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $role = Mage::getModel('api2/acl_global_role');
         $role->setId($id);
 
-        /** @var Mage_Api2_Model_Resource_Acl_Global_Role $resource */
         $resource = $role->getResource();
         $users = $resource->getRoleUsers($role);
 

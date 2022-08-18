@@ -64,7 +64,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     {
         if (is_null($this->_productCollection)) {
             $layer = $this->getLayer();
-            /* @var Mage_Catalog_Model_Layer $layer */
+            /** @var Mage_Catalog_Model_Layer $layer */
             if ($this->getShowRootCategory()) {
                 $this->setCategoryId(Mage::app()->getStore()->getRootCategoryId());
             }

@@ -442,7 +442,6 @@ class Mage_Sales_Model_Observer
         $quoteAddress = $observer->getQuoteAddress();
         /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
-        /** @var Mage_Customer_Model_Customer $customerInstance */
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
 

@@ -230,7 +230,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         if(!is_array($reviewsIds)) {
              $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
-            /* @var $session Mage_Adminhtml_Model_Session */
+            /** @var Mage_Adminhtml_Model_Session $session */
             try {
                 $status = $this->getRequest()->getParam('status');
                 foreach ($reviewsIds as $reviewId) {
@@ -261,7 +261,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
              $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
             $session = Mage::getSingleton('adminhtml/session');
-            /* @var $session Mage_Adminhtml_Model_Session */
+            /** @var Mage_Adminhtml_Model_Session $session */
             try {
                 $stores = $this->getRequest()->getParam('stores');
                 foreach ($reviewsIds as $reviewId) {

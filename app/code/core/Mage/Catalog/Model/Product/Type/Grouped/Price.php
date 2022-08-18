@@ -42,12 +42,12 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
 
         $finalPrice = parent::getFinalPrice($qty, $product);
         if ($product->hasCustomOptions()) {
-            /* @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
+            /** @var Mage_Catalog_Model_Product_Type_Grouped $typeInstance */
             $typeInstance = $product->getTypeInstance(true);
             $associatedProducts = $typeInstance->setStoreFilter($product->getStore(), $product)
                 ->getAssociatedProducts($product);
             foreach ($associatedProducts as $childProduct) {
-                /* @var Mage_Catalog_Model_Product $childProduct */
+                /** @var Mage_Catalog_Model_Product $childProduct */
                 $option = $product->getCustomOption('associated_product_' . $childProduct->getId());
                 if (!$option) {
                     continue;

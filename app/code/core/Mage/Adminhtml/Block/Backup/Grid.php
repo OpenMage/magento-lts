@@ -32,11 +32,12 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $this->setSaveParametersInSession(true);
         $this->setId('backupsGrid');
-        $this->setDefaultSort('time', 'desc');
+        $this->setDefaultSort('time');
+        $this->setDefaultDir('desc');
     }
 
     /**
-     * Init backups collection
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -68,6 +69,7 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Configuration of grid
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -131,5 +133,4 @@ class Mage_Adminhtml_Block_Backup_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         return $this;
     }
-
 }

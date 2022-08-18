@@ -58,7 +58,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var Mage_Cms_Helper_Data $helper */
+                /** @var Mage_Cms_Helper_Data $helper */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 $html = $processor->filter($block->getContent());

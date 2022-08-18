@@ -27,14 +27,21 @@
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('history_grid');
-        $this->setDefaultSort('performed_at', 'desc');
+        $this->setDefaultSort('performed_at');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel('dataflow/profile_history_collection')
@@ -44,6 +51,10 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('action_code', array(
@@ -73,6 +84,9 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/history', array('_current' => true));

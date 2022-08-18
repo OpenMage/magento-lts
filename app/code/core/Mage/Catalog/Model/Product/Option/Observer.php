@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Product_Option_Observer
      */
     public function copyQuoteFilesToOrderFiles($observer)
     {
-        /* @var Mage_Sales_Model_Quote_Item $quoteItem */
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         $quoteItem = $observer->getEvent()->getItem();
 
         if (is_array($quoteItem->getOptions())) {
@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Product_Option_Observer
                 $code = explode('_', $itemOption->getCode());
                 if (isset($code[1]) && is_numeric($code[1]) && ($option = $quoteItem->getProduct()->getOptionById($code[1]))) {
                     if ($option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE) {
-                        /* @var Mage_Catalog_Model_Product_Option $_option */
+                        /** @var Mage_Catalog_Model_Product_Option $option */
                         try {
                             $group = $option->groupFactory($option->getType())
                                 ->setQuoteItemOption($itemOption)

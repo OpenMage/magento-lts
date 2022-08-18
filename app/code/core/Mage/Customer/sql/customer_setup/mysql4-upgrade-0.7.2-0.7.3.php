@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
 $this->getConnection()->dropColumn($this->getTable('customer_address_entity'), 'store_id');

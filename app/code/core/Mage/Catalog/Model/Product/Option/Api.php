@@ -206,7 +206,6 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
-        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
         $result = array(

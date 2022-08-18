@@ -36,7 +36,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function items($optionId, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         $productOptionValues = $option->getValuesCollection();
         $result = array();
@@ -99,7 +98,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function add($optionId, $data, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         /** @var Mage_Catalog_Model_Product_Option_Value $optionValueModel */
         $optionValueModel = Mage::getModel('catalog/product_option_value');
@@ -134,7 +132,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             $this->_fault('value_not_exists');
         }
 
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($productOptionValue->getOptionId(), $store);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');

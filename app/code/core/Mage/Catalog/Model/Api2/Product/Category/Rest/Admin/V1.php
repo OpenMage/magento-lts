@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Api2_Model_Resource_Validator_Fields $validator */
+        /** @var Mage_Api2_Model_Resource_Validator_Fields $validator */
         $validator = Mage::getResourceModel('api2/validator_fields', array('resource' => $this));
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {

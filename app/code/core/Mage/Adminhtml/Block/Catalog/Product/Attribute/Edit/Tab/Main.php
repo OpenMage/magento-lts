@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main
         parent::_prepareForm();
         $attributeObject = $this->getAttributeObject();
         $form = $this->getForm();
-        /* @var Varien_Data_Form_Element_Fieldset $fieldset */
+        /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $form->getElement('base_fieldset');
 
         $fieldset->getElements()

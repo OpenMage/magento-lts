@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('eav_attribute'), 'is_html_allowed_on_front', "tinyint(1) unsigned not null default '0' after `is_visible_on_front`");

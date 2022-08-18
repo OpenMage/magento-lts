@@ -159,7 +159,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function downloadAction()
     {
-        /* @var $backup Mage_Backup_Model_Backup */
+        /** @var Mage_Backup_Model_Backup $backup */
         $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
             $this->getRequest()->getParam('time'),
             $this->getRequest()->getParam('type')
@@ -198,7 +198,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         $response = new Varien_Object();
 
         try {
-            /* @var $backup Mage_Backup_Model_Backup */
+            /** @var Mage_Backup_Model_Backup $backup */
             $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
                 $this->getRequest()->getParam('time'),
                 $this->getRequest()->getParam('type')

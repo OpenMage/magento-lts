@@ -140,7 +140,6 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
     {
         $isBuildAll = true;
         foreach (Mage::app()->getStores(false) as $store) {
-            /** @var Mage_Core_Model_Store $store */
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
         return $isBuildAll;

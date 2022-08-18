@@ -186,7 +186,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getProductOptions()
     {
-        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
+        /** @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
         return $helper->getCustomOptions($this->getItem());
     }
@@ -350,12 +350,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         // Add messages saved previously in checkout session
         $checkoutSession = $this->getCheckoutSession();
         if ($checkoutSession) {
-            /* @var Mage_Core_Model_Message_Collection $collection */
+            /** @var Mage_Core_Model_Message_Collection $collection */
             $collection = $checkoutSession->getQuoteItemMessages($quoteItem->getId(), true);
             if ($collection) {
                 $additionalMessages = $collection->getItems();
                 foreach ($additionalMessages as $message) {
-                    /* @var Mage_Core_Model_Message_Abstract $message */
+                    /** @var Mage_Core_Model_Message_Abstract $message */
                     $messages[] = array(
                         'text' => $message->getCode(),
                         'type' => ($message->getType() == Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
@@ -389,7 +389,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getFormatedOptionValue($optionValue)
     {
-        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
+        /** @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
         $params = array(
             'max_length' => 55,

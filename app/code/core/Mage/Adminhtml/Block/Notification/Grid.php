@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml AdminNotification inbox grid
  *
@@ -33,12 +32,14 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->setSaveParametersInSession(true);
         $this->setId('notificationGrid');
         $this->setIdFieldName('notification_id');
-        $this->setDefaultSort('date_added', 'desc');
+        $this->setDefaultSort('date_added');
+        $this->setDefaultDir('desc');
         $this->setFilterVisibility(false);
     }
 
     /**
-     * Init backups collection
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCollection()
     {
@@ -50,7 +51,8 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Configuration of grid
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -86,6 +88,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Prepare mass action
+     * @return $this
      */
     protected function _prepareMassaction()
     {
@@ -106,10 +109,18 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
-    public function getRowClass(Varien_Object $row) {
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowClass(Varien_Object $row)
+    {
         return $row->getIsRead() ? 'read' : 'unread';
     }
 
+    /**
+     * @return false
+     */
     public function getRowClickCallback()
     {
         return false;

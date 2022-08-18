@@ -82,9 +82,9 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function eavAttributeChange(Varien_Event_Observer $observer)
     {
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         $entityType = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
-        /* @var Mage_Eav_Model_Entity_Type $entityType */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
 
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
@@ -177,7 +177,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function cleanStoreIndex(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
 
         $this->_getFulltextModel()
             ->cleanIndex($store->getId());

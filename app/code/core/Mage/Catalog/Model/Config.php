@@ -385,7 +385,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             'position'  => Mage::helper('catalog')->__('Position')
         );
         foreach ($this->getAttributesUsedForSortBy() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
             $options[$attribute->getAttributeCode()] = $attribute->getStoreLabel();
         }
 

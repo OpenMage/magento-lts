@@ -312,15 +312,15 @@ class Mage_CatalogRule_Model_Observer
      */
     protected function _checkCatalogRulesAvailability($attributeCode)
     {
-        /* @var Mage_CatalogRule_Model_Mysql4_Rule_Collection $collection */
+        /** @var Mage_CatalogRule_Model_Mysql4_Rule_Collection $collection */
         $collection = Mage::getResourceModel('catalogrule/rule_collection')
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
-            /* @var Mage_CatalogRule_Model_Rule $rule */
+            /** @var Mage_CatalogRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /* @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
+            /** @var $rule->getConditions() Mage_CatalogRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $rule->save();
 
@@ -402,14 +402,14 @@ class Mage_CatalogRule_Model_Observer
      */
     public function prepareCatalogProductCollectionPrices(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $store      = Mage::app()->getStore($observer->getEvent()->getStoreId());
         $websiteId  = $store->getWebsiteId();
         if ($observer->getEvent()->hasCustomerGroupId()) {
             $groupId = $observer->getEvent()->getCustomerGroupId();
         } else {
-            /* @var Mage_Customer_Model_Session $session */
+            /** @var Mage_Customer_Model_Session $session */
             $session = Mage::getSingleton('customer/session');
             if ($session->isLoggedIn()) {
                 $groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
@@ -424,7 +424,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         $productIds = array();
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
             $key = $this->_getRulePricesKey(array($date, $websiteId, $groupId, $product->getId()));
             if (!isset($this->_rulePrices[$key])) {

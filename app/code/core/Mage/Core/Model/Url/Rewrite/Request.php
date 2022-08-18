@@ -136,7 +136,6 @@ class Mage_Core_Model_Url_Rewrite_Request
         if (!$this->_rewrite->getId() && $fromStore) {
             $stores = $this->_app->getStores(false, true);
             if (!empty($stores[$fromStore])) {
-                /** @var Mage_Core_Model_Store $store */
                 $store = $stores[$fromStore];
                 $fromStoreId = $store->getId();
             } else {

@@ -298,7 +298,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     {
         $zendFilter = false;
         if (is_object($filterData) && $filterData instanceof Zend_Filter_Interface) {
-            /** @var Zend_Filter_Interface $zendFilter */
             $zendFilter = $filterData;
         } elseif (isset($filterData['model'])) {
             $zendFilter = $this->_createCustomZendFilter($filterData);

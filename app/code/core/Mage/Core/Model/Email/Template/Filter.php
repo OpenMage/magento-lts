@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Email Template Filter Model
  *
@@ -145,6 +144,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * if $_storeId is null return Design store id
      *
      * @return integer
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId()
     {
@@ -207,6 +207,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function layoutDirective($construction)
     {
@@ -214,7 +215,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $params = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::getModel('core/layout');
-        /* @var Mage_Core_Model_Layout $layout */
+        /** @var Mage_Core_Model_Layout $layout */
         if (isset($params['area'])) {
             $layout->setArea($params['area']);
         } else {
@@ -227,8 +228,8 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         $layout->generateXml();
         $layout->generateBlocks();
 
+        /** @var Mage_Core_Block_Abstract $block */
         foreach ($layout->getAllBlocks() as $blockName => $block) {
-            /* @var Mage_Core_Block_Abstract $block */
             foreach ($params as $k => $v) {
                 if (in_array($k, $skipParams)) {
                     continue;
@@ -270,6 +271,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Exception
      */
     public function skinDirective($construction)
     {
@@ -299,6 +301,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function storeDirective($construction)
     {
@@ -358,6 +361,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function varDirective($construction)
     {
@@ -436,6 +440,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function protocolDirective($construction)
     {
@@ -463,6 +468,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function configDirective($construction)
     {
@@ -480,6 +486,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @param array $construction
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function customvarDirective($construction)
     {
@@ -562,6 +569,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      * @param string $value raw parameters
      * @param string $default default value
      * @return string
+     * @throws Mage_Core_Exception
      */
     protected function _getVariable($value, $default = '{no_value_defined}')
     {

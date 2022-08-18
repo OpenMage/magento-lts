@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Product Price Index Resource model
  *
@@ -51,7 +50,6 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
     /**
      * Initialize connection and define main table
-     *
      */
     protected function _construct()
     {
@@ -90,6 +88,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * Retrieve customer groups collection array
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     protected function _getCustomerGroups()
     {
@@ -109,6 +108,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $lastEntityId
      * @param int $limit
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProducts($product = null, $lastEntityId = 0, $limit = 100)
     {
@@ -157,6 +157,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      *
      * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|array|int $products
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function reindex($products = null)
     {
@@ -182,6 +183,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $productId
      * @param int $priceType
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _reindexProduct($productId, $priceType)
     {
@@ -199,6 +201,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $priceIndex = $this->getProductsPriceFromIndex($selectionProducts);
         }
 
+        /** @var Mage_Core_Model_Website $website */
         foreach ($this->_getWebsites() as $website) {
             if (!$website->getDefaultStore()) {
                 continue;
@@ -207,9 +210,8 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $priceData = $this->getProductsPriceData($productId, $website);
             $priceData = $priceData[$productId];
 
-            /* @var Mage_Core_Model_Website $website */
+            /** @var Mage_Customer_Model_Group $group */
             foreach ($this->_getCustomerGroups() as $group) {
-                /* @var Mage_Customer_Model_Group $group */
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
                     $basePrice     = $this->_getBasePrice($productId, $priceData, $website, $group);
                     $customOptions = $this->getCustomOptions($productId, $website);
@@ -250,6 +252,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param float $minPrice
      * @param float $maxPrice
      * @return $this
+     * @throws Zend_Db_Exception
      */
     protected function _savePriceIndex($productId, $websiteId, $groupId, $minPrice, $maxPrice)
     {
@@ -272,6 +275,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      *
      * @param int $productId
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getSelections($productId)
     {
@@ -324,6 +328,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int|array $products
      * @param Mage_Core_Model_Website $website
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getProductsSalableStatus($products, Mage_Core_Model_Website $website)
     {
@@ -429,6 +434,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int|array $products
      * @param Mage_Core_Model_Website $website
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getProductsPriceData($products, Mage_Core_Model_Website $website)
     {
@@ -463,6 +469,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param string $attributeCode
      * @param Mage_Core_Model_Website $website
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _addAttributeDataToSelect(
         Varien_Db_Select $select,
@@ -539,6 +546,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $productId
      * @param Mage_Core_Model_Website $website
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function getCustomOptions($productId, Mage_Core_Model_Website $website)
     {
@@ -849,6 +857,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
      * @param int $websiteId
      * @param int $groupId
      * @return array
+     * @throws Zend_Db_Adapter_Exception|Zend_Db_Statement_Exception
      */
     public function loadPriceIndex($productIds, $websiteId, $groupId)
     {

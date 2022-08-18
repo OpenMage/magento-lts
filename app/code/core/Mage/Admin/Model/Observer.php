@@ -39,7 +39,6 @@ class Mage_Admin_Model_Observer
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        /** @var Mage_Core_Controller_Request_Http $request */
         $request = Mage::app()->getRequest();
         $user = $session->getUser();
 

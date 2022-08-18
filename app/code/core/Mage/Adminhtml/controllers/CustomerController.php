@@ -107,7 +107,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
         $this->loadLayout();
 
-        /* @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::registry('current_customer');
 
         // set entered data if was error when we do save
@@ -119,7 +119,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $request->setParams($data);
 
             if (isset($data['account'])) {
-                /* @var $customerForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $customerForm */
                 $customerForm = Mage::getModel('customer/form');
                 $customerForm->setEntity($customer)
                     ->setFormCode('adminhtml_customer')
@@ -129,7 +129,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
 
             if (isset($data['address']) && is_array($data['address'])) {
-                /* @var $addressForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('adminhtml_customer_address');
 
@@ -622,7 +622,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $websiteId = $accountData['website_id'];
         }
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setEntity($customer)
             ->setFormCode('adminhtml_customer')
@@ -656,7 +656,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         $addressesData = $this->getRequest()->getParam('address');
         if (is_array($addressesData)) {
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
             foreach (array_keys($addressesData) as $index) {

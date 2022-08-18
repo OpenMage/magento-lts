@@ -146,7 +146,7 @@ class Mage_Shipping_Model_Shipping
      */
     public function collectCarrierRates($carrierCode, $request)
     {
-        /* @var Mage_Shipping_Model_Carrier_Abstract $carrier */
+        /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
         $carrier = $this->getCarrierByCode($carrierCode, $request->getStoreId());
         if (!$carrier) {
             return $this;

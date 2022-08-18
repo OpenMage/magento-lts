@@ -598,7 +598,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $getPerStore        = false;
 
         foreach ($attribute as $_attribute) {
-            /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
             $_attribute = $this->getAttribute($_attribute);
             if (!$_attribute) {
                 continue;

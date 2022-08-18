@@ -366,7 +366,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if ($this->_useIncrementId && !$object->getIncrementId()) {
-            /* @var Mage_Eav_Model_Entity_Type $entityType */
+            /** @var Mage_Eav_Model_Entity_Type $entityType */
             $entityType = Mage::getModel('eav/entity_type')->loadByCode($this->_entityTypeForIncrementId);
             $object->setIncrementId($entityType->fetchNewIncrementId($object->getStoreId()));
         }

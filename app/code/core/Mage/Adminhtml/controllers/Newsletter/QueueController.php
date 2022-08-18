@@ -216,12 +216,12 @@ class Mage_Adminhtml_Newsletter_QueueController extends Mage_Adminhtml_Controlle
     public function saveAction()
     {
         try {
-            /* @var $queue Mage_Newsletter_Model_Queue */
+            /** @var Mage_Newsletter_Model_Queue $queue */
             $queue = Mage::getModel('newsletter/queue');
 
             $templateId = $this->getRequest()->getParam('template_id');
             if ($templateId) {
-                /* @var $template Mage_Newsletter_Model_Template */
+                /** @var Mage_Newsletter_Model_Template $template */
                 $template = Mage::getModel('newsletter/template')->load($templateId);
 
                 if (!$template->getId() || $template->getIsSystem()) {

@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             $sections = array();
         }
         foreach ($sections as $section) {
-            /* @var $section Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $section */
             if (!$this->_canShowField($section)) {
                 continue;
             }
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 usort($groups, array($this, '_sortForm'));
 
                 foreach ($groups as $group){
-                    /* @var $group Varien_Simplexml_Element */
+                    /** @var Varien_Simplexml_Element $group */
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
@@ -334,7 +334,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
                 if ($element->depends) {
                     foreach ($element->depends->children() as $dependent) {
-                        /* @var $dependent Mage_Core_Model_Config_Element */
+                        /** @var Mage_Core_Model_Config_Element $dependent */
 
                         if (isset($dependent->fieldset)) {
                             $dependentFieldGroupName = (string)$dependent->fieldset;

@@ -336,7 +336,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _hookQueries()
     {
         $this->_queriesHooked = true;
-        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
+        /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
         return $this;
@@ -352,7 +352,7 @@ class Mage_Core_Model_Resource_Setup
         if (!$this->_queriesHooked) {
             return $this;
         }
-        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
+        /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;

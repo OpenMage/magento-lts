@@ -36,7 +36,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
+        /** @var Mage_Catalog_Model_Api2_Product_Image_Validator_Image $validator */
         $validator = Mage::getModel('catalog/api2_product_image_validator_image');
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -220,7 +220,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _getImageLocation($imageId)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(

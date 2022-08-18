@@ -110,12 +110,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     {
         $accountData = array();
 
-        /* @var $config Mage_Eav_Model_Config */
+        /** @var Mage_Eav_Model_Config $config */
         $config     = Mage::getSingleton('eav/config');
         $entityType = 'customer';
         $customer   = Mage::getModel('customer/customer');
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
             if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
                 continue;

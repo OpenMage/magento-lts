@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Tax_Model_Resource_Setup $this */
+/** @var Mage_Tax_Model_Resource_Setup $this */
 
 /**
  * Add new field to 'tax/tax_calculation_rule'
