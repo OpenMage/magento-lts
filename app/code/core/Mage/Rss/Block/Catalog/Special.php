@@ -106,12 +106,12 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         );
 
         if (count($results)) {
-            foreach($results as $result){
-                /** @var Mage_Catalog_Helper_Image $imageHelper */
-                $imageHelper = $this->helper('catalog/image');
-                /** @var Mage_Catalog_Helper_Output $outputHelper */
-                $outputHelper = $this->helper('catalog/output');
+            /** @var Mage_Catalog_Helper_Image $imageHelper */
+            $imageHelper = $this->helper('catalog/image');
+            /** @var Mage_Catalog_Helper_Output $outputHelper */
+            $outputHelper = $this->helper('catalog/output');
 
+            foreach($results as $result){
                 // render a row for RSS feed
                 $product->setData($result);
                 $html = sprintf('<table><tr>
