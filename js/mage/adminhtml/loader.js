@@ -199,7 +199,7 @@ varienLoaderHandler.handler = {
                 toggleSelectsUnderBlock($('loading-mask'), false);
                 Element.show('loading-mask');
                 setLoaderPosition();
-            }, window.LOADING_TIMEOUT || 100);
+            }, typeof window.LOADING_TIMEOUT === 'undefined' ? 100 : window.LOADING_TIMEOUT);
         }
     },
 
