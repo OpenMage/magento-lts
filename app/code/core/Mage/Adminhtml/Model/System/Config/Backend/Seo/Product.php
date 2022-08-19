@@ -27,12 +27,18 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Seo_Product extends Mage_Core_Model_Config_Data
 {
     /**
-     * Refresh category url rewrites if configuration was changed
+     * Refresh products url rewrites if configuration was changed
      *
      * @return $this
      */
     protected function _afterSave()
     {
+        if ($this->isValueChanged()) {
+            Mage::getModel('index/indexer')
+                ->getProcessByCode(Mage_Catalog_Helper_Product_Flat::CATALOG_FLAT_PROCESS_CODE)
+                ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
+        }
+
         return $this;
     }
 }
