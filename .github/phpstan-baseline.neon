@@ -5711,36 +5711,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isDiscounted\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:setWeeeTaxesAppliedProperty\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
@@ -5904,21 +5874,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxIncluded\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Sales_Order_Tax\\:\\:addTotal\\(\\)\\.$#"
