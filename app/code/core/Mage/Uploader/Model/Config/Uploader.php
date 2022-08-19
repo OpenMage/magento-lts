@@ -119,7 +119,7 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
                 'form_key' => Mage::getSingleton('core/session')->getFormKey()
             ))
             ->setMethod(self::UPLOAD_TYPE)
-            ->setSimultaneousUploads(true)
+            ->setSimultaneousUploads(1)
             ->setAllowDuplicateUploads(true)
             ->setPrioritizeFirstAndLastChunk(false)
             ->setTestChunks(self::TEST_CHUNKS)
