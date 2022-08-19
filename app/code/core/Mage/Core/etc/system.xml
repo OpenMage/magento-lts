@@ -1063,6 +1063,7 @@
                         <loading_timeout translate="label comment">
                             <label>Loading Indicator Timeout</label>
                             <comment>Number of milliseconds to delay loading indicator</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
