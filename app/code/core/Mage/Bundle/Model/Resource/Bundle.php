@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Resource Model
  *
@@ -34,7 +33,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
      *
      * @param int $productId
      * @param array $columns
-     * @return Zend_DB_Select
+     * @return Zend_Db_Select
      */
     protected function _getSelect($productId, $columns = array())
     {
