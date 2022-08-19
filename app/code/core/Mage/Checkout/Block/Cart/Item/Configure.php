@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cart Item Configure block
  * Updates templates and blocks to show 'Update Cart' button and set right form submit url
@@ -29,11 +28,11 @@
  */
 class Mage_Checkout_Block_Cart_Item_Configure extends Mage_Core_Block_Template
 {
-
     /**
      * Configure product view blocks
      *
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareLayout()
     {

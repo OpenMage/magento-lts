@@ -24,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getGalleryFilterHelper()
+ * @method string getGalleryFilterMethod()
  */
 class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_View_Abstract
 {
@@ -44,8 +47,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($this->_isGalleryDisabled) {
             return array();
         }
-        $collection = $this->getProduct()->getMediaGalleryImages();
-        return $collection;
+        return $this->getProduct()->getMediaGalleryImages();
     }
 
     /**
@@ -72,7 +74,9 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     public function getGalleryImageUrl($image)
     {
         if ($image) {
-            $helper = $this->helper('catalog/image')
+            /** @var Mage_Catalog_Helper_Image $helper */
+            $helper = $this->helper('catalog/image');
+            $helper
                 ->init($this->getProduct(), 'image', $image->getFile())
                 ->keepFrame(false);
 
