@@ -29,11 +29,6 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
 {
     protected function _construct()
     {
-        /*
-        * setting cache to save the rss for 10 minutes
-        */
-        //$this->setCacheKey('rss_catalog_new_'.$this->_getStoreId());
-        //$this->setCacheLifetime(600);
     }
 
     /**
@@ -58,11 +53,6 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
                 'language'    => $lang
                 );
         $rssObj->_addHeader($data);
-/*
-oringinal price - getPrice() - inputed in admin
-special price - getSpecialPrice()
-getFinalPrice() - used in shopping cart calculations
-*/
 
         $product = Mage::getModel('catalog/product');
 
@@ -109,7 +99,6 @@ getFinalPrice() - used in shopping cart calculations
         using resource iterator to load the data one by one
         instead of loading all at the same time. loading all data at the same time can cause the big memory allocation.
         */
-
         Mage::getSingleton('core/resource_iterator')->walk(
                 $products->getSelect(),
                 array(array($this, 'addNewItemXmlCallback')),
@@ -139,11 +128,13 @@ getFinalPrice() - used in shopping cart calculations
 
         $allowedPriceInRss = $product->getAllowedPriceInRss();
 
-        //$product->unsetData()->load($args['row']['entity_id']);
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+
         $product->setData($args['row']);
         $description = '<table><tr>'
             . '<td><a href="'.$product->getProductUrl().'"><img src="'
-            . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+            . $helper->init($product, 'thumbnail')->resize(75, 75)
             .'" border="0" align="left" height="75" width="75"></a></td>'.
             '<td  style="text-decoration:none;">'.$product->getDescription();
 

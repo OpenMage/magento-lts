@@ -105,7 +105,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         if (!is_null($this->_productThumbnail)) {
             return $this->_productThumbnail;
         }
-        return $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail');
+
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+        return $helper->init($this->getProduct(), 'thumbnail');
     }
 
     /**
@@ -236,9 +239,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             return $this->getData('delete_url');
         }
 
+        /** @var Mage_Core_Helper_Url $helper */
+        $helper = $this->helper('core/url');
+
         $params = array(
             'id' => $this->getItem()->getId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl(),
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
         );
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
@@ -251,14 +257,17 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Get item ajax delete url
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAjaxDeleteUrl()
     {
+        /** @var Mage_Core_Helper_Url $helper */
+        $helper = $this->helper('core/url');
         return $this->getUrl(
             'checkout/cart/ajaxDelete',
             array(
                 'id'=>$this->getItem()->getId(),
-                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl(),
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
             )
         );
@@ -268,14 +277,17 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Get item ajax update url
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAjaxUpdateUrl()
     {
+        /** @var Mage_Core_Helper_Url $helper */
+        $helper = $this->helper('core/url');
         return $this->getUrl(
             'checkout/cart/ajaxUpdate',
             array(
                 'id'=>$this->getItem()->getId(),
-                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl(),
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
             )
         );
@@ -336,7 +348,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $messages = array();
         $quoteItem = $this->getItem();
 
-        // Add basic messages occuring during this page load
+        // Add basic messages occurring during this page load
         $baseMessages = $quoteItem->getMessage(false);
         if ($baseMessages) {
             foreach ($baseMessages as $message) {
@@ -358,7 +370,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                     /** @var Mage_Core_Model_Message_Abstract $message */
                     $messages[] = array(
                         'text' => $message->getCode(),
-                        'type' => ($message->getType() == Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
+                        'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
                     );
                 }
             }
@@ -503,11 +515,12 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      * Returns true if user is going through checkout process now.
      *
      * @return bool
+     * @throws Exception
      */
     public function isOnCheckoutPage()
     {
         $module = $this->getRequest()->getModuleName();
         $controller = $this->getRequest()->getControllerName();
-        return $module == 'checkout' && ($controller == 'onepage' || $controller == 'multishipping');
+        return $module === 'checkout' && ($controller === 'onepage' || $controller === 'multishipping');
     }
 }
