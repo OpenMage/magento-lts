@@ -27,17 +27,26 @@
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Block_Widget_Form
 {
+    /**
+     * Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setTemplate('customer/tab/addresses.phtml');
     }
 
+    /**
+     * @return string
+     */
     public function getRegionsUrl()
     {
         return $this->getUrl('*/json/countryRegion');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild('delete_button',
@@ -80,7 +89,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
     /**
      * Check block is readonly.
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -88,6 +97,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         return $customer->isReadonly();
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
@@ -97,6 +109,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Initialize form object
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function initForm()
     {
@@ -162,7 +175,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $prefixElement = $form->getElement('prefix');
         if ($prefixElement) {
-            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $prefixOptions = $helper->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
                 $prefixField = $fieldset->addField($prefixElement->getId(),
@@ -176,7 +191,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
 
         $suffixElement = $form->getElement('suffix');
         if ($suffixElement) {
-            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $suffixOptions = $helper->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
                 $suffixField = $fieldset->addField($suffixElement->getId(),
@@ -197,16 +214,25 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCancelButtonHtml()
     {
         return $this->getChildHtml('cancel_button');
     }
 
+    /**
+     * @return string
+     */
     public function getAddNewButtonHtml()
     {
         return $this->getChildHtml('add_address_button');
     }
 
+    /**
+     * @return string
+     */
     public function getTemplatePrefix()
     {
         return '_template_';
@@ -230,6 +256,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
      * Return JSON object with countries associated to possible websites
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getDefaultCountriesJson() {
         $websites = Mage::getSingleton('adminhtml/system_store')->getWebsiteValuesForForm(false, true);

@@ -221,26 +221,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Customer_Edit_Tab_Cart\\:\\:\\$_parentTemplate\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Cart.php
@@ -544,16 +524,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Data\\:\\:getAvailableCurrencies\\(\\) has invalid return type unknown\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Data.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIsMessagesAvailable\\(\\)\\.$#"
@@ -3354,16 +3324,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getConfig\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Block/Widget/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Widget/Name.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Widget/Name.php
 
 		-
 			message: "#^Cannot call method setRealGroupsFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
