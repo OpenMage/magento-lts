@@ -191,10 +191,10 @@ varienLoaderHandler.handler = {
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
         if(request && request.options.loaderArea){
-            if(this.interval) {
-                clearInterval(this.interval);
+            if(this.timeout) {
+                clearTimeout(this.timeout);
             }
-            this.interval = setInterval(function() {
+            this.timeout = setTimeout(function() {
                 Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
                 toggleSelectsUnderBlock($('loading-mask'), false);
                 Element.show('loading-mask');
@@ -207,9 +207,9 @@ varienLoaderHandler.handler = {
         if(Ajax.activeRequestCount == 0) {
             toggleSelectsUnderBlock($('loading-mask'), true);
             Element.hide('loading-mask');
-            if(this.interval) {
-                clearInterval(this.interval);
-                this.interval = null;
+            if(this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
             }
         }
     }
