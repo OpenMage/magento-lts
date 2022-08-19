@@ -69,8 +69,10 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 
         $product = Mage::getModel('catalog/product');
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resourceHelper */
+        $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
-            Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($_collection->getSelect()),
+            $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
             array(array($this, 'addTaggedItemXml')),
             array('rssObj'=> $rssObj, 'product'=>$product),
             $_collection->getSelect()->getAdapter()
@@ -99,9 +101,12 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
 
         $allowedPriceInRss = $product->getAllowedPriceInRss();
 
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+
         $product->unsetData()->load($args['row']['entity_id']);
         $description = '<table><tr><td><a href="'.$product->getProductUrl().'">'
-            . '<img src="' . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+            . '<img src="' . $helper->init($product, 'thumbnail')->resize(75, 75)
             . '" border="0" align="left" height="75" width="75"></a></td>'
             . '<td  style="text-decoration:none;">'.$product->getDescription();
 

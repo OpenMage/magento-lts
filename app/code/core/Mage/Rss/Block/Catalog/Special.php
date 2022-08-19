@@ -34,6 +34,10 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     protected static $_currentDate = null;
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
+     */
     protected function _construct()
     {
         /*
@@ -46,6 +50,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
     /**
      * @return string
      * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
      */
     protected function _toHtml()
     {
@@ -102,14 +107,19 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
 
         if (count($results)) {
             foreach($results as $result){
+                /** @var Mage_Catalog_Helper_Image $imageHelper */
+                $imageHelper = $this->helper('catalog/image');
+                /** @var Mage_Catalog_Helper_Output $outputHelper */
+                $outputHelper = $this->helper('catalog/output');
+
                 // render a row for RSS feed
                 $product->setData($result);
                 $html = sprintf('<table><tr>
                     <td><a href="%s"><img src="%s" alt="" border="0" align="left" height="75" width="75" /></a></td>
                     <td style="text-decoration:none;">%s',
                     $product->getProductUrl(),
-                    $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75),
-                    $this->helper('catalog/output')->productAttribute(
+                    $imageHelper->init($product, 'thumbnail')->resize(75, 75),
+                    $outputHelper->productAttribute(
                         $product,
                         $product->getDescription(),
                         'description'
@@ -150,6 +160,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      * Preparing data and adding to rss object
      *
      * @param array $args
+     * @throws Zend_Date_Exception
      */
     public function addSpecialXmlCallback($args)
     {

@@ -1836,11 +1836,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Product/Type.php
 
 		-
-			message: "#^Class Zend_Db_Select referenced with incorrect case\\: Zend_DB_Select\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Resource/Bundle.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:addSelection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
@@ -1954,11 +1949,6 @@ parameters:
 			message: "#^Cannot call method getValueId\\(\\) on true\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Media.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
@@ -2921,29 +2911,9 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Crosssell.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEncodedUrl\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getSelectedAttributesInfo\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Grouped.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getShippingPrice\\(\\)\\.$#"
@@ -5354,46 +5324,6 @@ parameters:
 			message: "#^Method Mage_Review_CustomerController\\:\\:preDispatch\\(\\) should return \\$this\\(Mage_Review_CustomerController\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Review/controllers/CustomerController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/Category.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/New.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/Special.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/Special.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/Tag.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Catalog/Tag.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:init\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rss/Block/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:productAttribute\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Rss/Block/Wishlist.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isRssEnabled\\(\\)\\.$#"
