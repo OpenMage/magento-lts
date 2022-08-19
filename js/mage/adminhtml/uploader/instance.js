@@ -104,12 +104,6 @@
             this.elementsIds = config.elementIds;
             this.elements = this.getElements(this.elementsIds);
 
-            // Fix error where setting post_max_size or upload_max_filesize to 0
-            // causes the flow.js to make infinite chunks and crash the browser
-            if(config.uploaderConfig.chunkSize === 0) {
-                config.uploaderConfig.chunkSize = Number.POSITIVE_INFINITY;
-            }
-
             this.uploaderConfig = config.uploaderConfig;
             this.browseConfig = config.browseConfig;
             this.miscConfig =  config.miscConfig;
