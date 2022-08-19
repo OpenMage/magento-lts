@@ -40,8 +40,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
         $configValue = $this->getProduct()->getPreconfiguredValues()->getData('options/' . $_option->getId());
         $store = $this->getProduct()->getStore();
 
-        if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN
-            || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
+        if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN
+            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
             $require = ($_option->getIsRequire()) ? ' required-entry' : '';
             $extraParams = '';
             /** @var Mage_Core_Block_Html_Select $block */
@@ -50,25 +50,29 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 'id' => 'select_'.$_option->getId(),
                 'class' => $require.' product-custom-option'
             ));
-            if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
+            if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
                 $select->setName('options['.$_option->getId().']')
                     ->addOption('', $this->__('-- Please Select --'));
             } else {
                 $select->setName('options['.$_option->getId().'][]');
                 $select->setClass('multiselect'.$require.' product-custom-option');
             }
+
+            /** @var Mage_Core_Helper_Data $helper */
+            $helper = $this->helper('core');
+
             foreach ($_option->getValues() as $_value) {
                 $priceStr = $this->_formatPrice(array(
-                    'is_percent'    => ($_value->getPriceType() == 'percent'),
-                    'pricing_value' => $_value->getPrice(($_value->getPriceType() == 'percent'))
+                    'is_percent'    => ($_value->getPriceType() === 'percent'),
+                    'pricing_value' => $_value->getPrice(($_value->getPriceType() === 'percent'))
                 ), false);
                 $select->addOption(
                     $_value->getOptionTypeId(),
                     $_value->getTitle() . ' ' . $priceStr . '',
-                    array('price' => $this->helper('core')->currencyByStore($_value->getPrice(true), $store, false))
+                    array('price' => $helper::currencyByStore($_value->getPrice(true), $store, false))
                 );
             }
-            if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
+            if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
                 $extraParams = ' multiple="multiple"';
             }
             if (!$this->getSkipJsReloadPrice()) {
@@ -83,8 +87,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             return $select->getHtml();
         }
 
-        if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
-            || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX
+        if ($_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
+            || $_option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX
             ) {
             $selectHtml = '<ul id="options-'.$_option->getId().'-list" class="options-list">';
             $require = ($_option->getIsRequire()) ? ' validate-one-required-by-name' : '';
@@ -112,8 +116,8 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 $count++;
 
                 $priceStr = $this->_formatPrice(array(
-                    'is_percent'    => ($_value->getPriceType() == 'percent'),
-                    'pricing_value' => $_value->getPrice($_value->getPriceType() == 'percent')
+                    'is_percent'    => ($_value->getPriceType() === 'percent'),
+                    'pricing_value' => $_value->getPrice($_value->getPriceType() === 'percent')
                 ));
 
                 $htmlValue = $_value->getOptionTypeId();
@@ -123,12 +127,15 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     $checked = $configValue == $htmlValue ? 'checked' : '';
                 }
 
+                /** @var Mage_Core_Helper_Data $helper */
+                $helper = $this->helper('core');
+
                 $selectHtml .= '<li>' . '<input type="' . $type . '" class="' . $class . ' ' . $require
                     . ' product-custom-option"'
                     . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"')
                     . ' name="options[' . $_option->getId() . ']' . $arraySign . '" id="options_' . $_option->getId()
                     . '_' . $count . '" value="' . $htmlValue . '" ' . $checked . ' price="'
-                    . $this->helper('core')->currencyByStore($_value->getPrice(true), $store, false) . '" />'
+                    . $helper::currencyByStore($_value->getPrice(true), $store, false) . '" />'
                     . '<span class="label"><label for="options_' . $_option->getId() . '_' . $count . '">'
                     . $this->escapeHtml($_value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($_option->getIsRequire()) {

@@ -76,11 +76,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
@@ -1701,16 +1696,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
-			message: "#^Call to an undefined static method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php
@@ -1949,16 +1934,6 @@ parameters:
 			message: "#^Cannot call method getValueId\\(\\) on true\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 5
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
 
 		-
 			message: "#^Variable \\$class might not be defined\\.$#"
@@ -3723,16 +3698,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:hasLinks\\(\\)\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
-			message: "#^Call to an undefined static method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 4
 			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
 
 		-
