@@ -191,14 +191,16 @@ varienLoaderHandler.handler = {
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
         if(request && request.options.loaderArea){
+            Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
+            toggleSelectsUnderBlock($('loading-mask'), false);
+            Element.show('loading-mask');
+            Element.childElements('loading-mask').invoke('hide');
+            setLoaderPosition();
             if(this.timeout) {
                 clearTimeout(this.timeout);
             }
             this.timeout = setTimeout(function() {
-                Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
-                toggleSelectsUnderBlock($('loading-mask'), false);
-                Element.show('loading-mask');
-                setLoaderPosition();
+                Element.childElements('loading-mask').invoke('show');
             }, typeof window.LOADING_TIMEOUT === 'undefined' ? 100 : window.LOADING_TIMEOUT);
         }
     },
@@ -207,6 +209,7 @@ varienLoaderHandler.handler = {
         if(Ajax.activeRequestCount == 0) {
             toggleSelectsUnderBlock($('loading-mask'), true);
             Element.hide('loading-mask');
+            Element.childElements('loading-mask').invoke('hide');
             if(this.timeout) {
                 clearTimeout(this.timeout);
                 this.timeout = null;
