@@ -44,4 +44,14 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
+
+    /**
+     * Retrieve Timeout Delay from Config
+     *
+     * @return string
+     */
+    public function getLoadingTimeout()
+    {
+        return (int)Mage::getStoreConfig('admin/design/loading_timeout');
+    }
 }

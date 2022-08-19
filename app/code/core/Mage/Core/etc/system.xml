@@ -1060,6 +1060,14 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_legacy_theme>
+                        <loading_timeout translate="label comment">
+                            <label>Loading Indicator Timeout</label>
+                            <comment>Number of milliseconds to delay loading indicator</comment>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loading_timeout>
                     </fields>
                 </design>
 

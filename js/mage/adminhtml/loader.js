@@ -191,12 +191,15 @@ varienLoaderHandler.handler = {
         request.options.loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
 
         if(request && request.options.loaderArea){
+            if(this.interval) {
+                clearInterval(this.interval);
+            }
             this.interval = setInterval(function() {
                 Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
                 toggleSelectsUnderBlock($('loading-mask'), false);
                 Element.show('loading-mask');
                 setLoaderPosition();
-            }, 100);
+            }, window.LOADING_TIMEOUT || 100);
         }
     },
 
