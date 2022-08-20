@@ -28,6 +28,72 @@
  */
 class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 {
+    const MAGE_MODULES = [
+        'Mage_Core',
+        'Mage_Eav',
+        'Mage_Page',
+        'Mage_Install',
+        'Mage_Admin',
+        'Mage_Rule',
+        'Mage_Adminhtml',
+        'Mage_AdminNotification',
+        'Mage_Cron',
+        'Mage_Directory',
+        'Mage_Dataflow',
+        'Mage_Index',
+        'Mage_Uploader',
+        'Mage_Customer',
+        'Mage_Cms',
+        'Mage_Catalog',
+        'Mage_CatalogRule',
+        'Mage_CatalogIndex',
+        'Mage_CatalogSearch',
+        'Mage_Payment',
+        'Mage_Sales',
+        'Mage_CatalogInventory',
+        'Mage_Shipping',
+        'Mage_SalesRule',
+        'Mage_Usa',
+        'Mage_Paygate',
+        'Mage_Backup',
+        'Mage_Checkout',
+        'Mage_Paypal',
+        'Mage_GoogleCheckout',
+        'Mage_Log',
+        'Mage_Poll',
+        'Mage_Review',
+        'Mage_Rating',
+        'Mage_Tag',
+        'Mage_Reports',
+        'Mage_GoogleAnalytics',
+        'Mage_Widget',
+        'Mage_Tax',
+        'Mage_Wishlist',
+        'Mage_Media',
+        'Mage_PaypalUk',
+        'Mage_Contacts',
+        'Mage_GiftMessage',
+        'Mage_Sendfriend',
+        'Mage_Sitemap',
+        'Mage_Rss',
+        'Mage_ProductAlert',
+        'Mage_Api',
+        'Mage_Oauth',
+        'Mage_Authorizenet',
+        'Mage_Bundle',
+        'Mage_Captcha',
+        'Mage_Centinel',
+        'Mage_ConfigurableSwatches',
+        'Mage_Newsletter',
+        'Mage_Downloadable',
+        'Mage_ImportExport',
+        'Mage_Api2',
+        'Mage_PageCache',
+        'Mage_Persistent',
+        'Mage_Weee',
+        'Mage_CurrencySymbol'
+    ];
+
     const CACHE_TAG         = 'CONFIG';
 
     /**
@@ -162,7 +228,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_isLocalConfigLoaded = false;
 
     /**
-     * Depricated properties
+     * Deprecated properties
      *
      * @deprecated
      */
@@ -727,7 +793,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $collectModuleFiles = array(
-            'base'   => array(),
             'mage'   => array(),
             'custom' => array()
         );
@@ -736,17 +801,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $name = explode(DIRECTORY_SEPARATOR, $v);
             $name = substr($name[count($name) - 1], 0, -4);
 
-            if ($name == 'Mage_All') {
-                $collectModuleFiles['base'][] = $v;
-            } elseif (substr($name, 0, 5) == 'Mage_') {
-                $collectModuleFiles['mage'][] = $v;
+            if (in_array($name, self::MAGE_MODULES, true)) {
+                $collectModuleFiles['mage'][array_search($name, self::MAGE_MODULES, true)] = $v;
             } else {
                 $collectModuleFiles['custom'][] = $v;
             }
         }
 
+        ksort($collectModuleFiles['mage']);
+
         return array_merge(
-            $collectModuleFiles['base'],
             $collectModuleFiles['mage'],
             $collectModuleFiles['custom']
         );
@@ -789,7 +853,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Load declared modules configuration
      *
-     * @param   null $mergeConfig depricated
+     * @param   null $mergeConfig deprecated
      * @return  $this|void
      */
     protected function _loadDeclaredModules($mergeConfig = null)
