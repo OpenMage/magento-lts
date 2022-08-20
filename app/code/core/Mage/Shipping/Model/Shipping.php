@@ -153,14 +153,14 @@ class Mage_Shipping_Model_Shipping
         }
         $carrier->setActiveFlag($this->_availabilityConfigField);
         $result = $carrier->checkAvailableShipCountries($request);
-        if (false !== $result && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
+        if ($result !== false && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
             $result = $carrier->proccessAdditionalValidation($request);
         }
         /*
         * Result will be false if the admin set not to show the shipping module
         * if the delivery country is not within specific countries
         */
-        if (false !== $result) {
+        if ($result !== false) {
             if (!$result instanceof Mage_Shipping_Model_Rate_Result_Error) {
                 if ($carrier->getConfigData('shipment_requesttype')) {
                     $packages = $this->composePackagesForCarrier($carrier, $request);

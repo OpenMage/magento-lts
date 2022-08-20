@@ -710,7 +710,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
                         if (!empty($option['file_extension'])) {
                             $fileExtension = $option['file_extension'];
-                            if (0 !== strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension))) {
+                            if (strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
                                 Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
                             }
                         }
@@ -753,7 +753,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function canAffectOptions($value = null)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             $this->_canAffectOptions = (bool)$value;
         }
         return $this->_canAffectOptions;

@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if (!isset($item['created_at'])) {
             return '';
         }
-        if ('date' === $dateType) {
+        if ($dateType === 'date') {
             return $this->formatDate($item['created_at'], $format);
         }
         return $this->formatTime($item['created_at'], $format);
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if ($isSimpleCheck) {
             return !empty($item['notified']);
         }
-        return isset($item['notified']) && false !== $item['notified'];
+        return isset($item['notified']) && $item['notified'] !== false;
     }
 
     /**

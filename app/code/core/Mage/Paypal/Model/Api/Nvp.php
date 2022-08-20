@@ -852,9 +852,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         try {
             $response = $this->call('ManageRecurringPaymentsProfileStatus', $request);
         } catch (Mage_Core_Exception $e) {
-            if ((in_array(11556, $this->_callErrors) && 'Cancel' === $request['ACTION'])
-                || (in_array(11557, $this->_callErrors) && 'Suspend' === $request['ACTION'])
-                || (in_array(11558, $this->_callErrors) && 'Reactivate' === $request['ACTION'])
+            if ((in_array(11556, $this->_callErrors) && $request['ACTION'] === 'Cancel')
+                || (in_array(11557, $this->_callErrors) && $request['ACTION'] === 'Suspend')
+                || (in_array(11558, $this->_callErrors) && $request['ACTION'] === 'Reactivate')
             ) {
                 Mage::throwException(Mage::helper('paypal')->__('Unable to change status. Current status is not correspond to real status.'));
             }
@@ -1341,9 +1341,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _filterToBool($value)
     {
-        if ('false' === $value || '0' === $value) {
+        if ($value === 'false' || $value === '0') {
             return false;
-        } elseif ('true' === $value || '1' === $value) {
+        } elseif ($value === 'true' || $value === '1') {
             return true;
         }
         return $value;

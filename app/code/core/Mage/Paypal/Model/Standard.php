@@ -161,7 +161,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getConfig()
     {
-        if (null === $this->_config) {
+        if ($this->_config === null) {
             $params = array($this->_code);
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;

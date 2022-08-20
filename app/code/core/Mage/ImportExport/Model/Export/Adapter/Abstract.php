@@ -147,7 +147,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     public function setHeaderCols(array $headerCols)
     {
-        if (null !== $this->_headerCols) {
+        if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
         if ($headerCols) {

@@ -177,7 +177,7 @@ foreach ($attributes as $attributeCode => $data) {
     $attribute = $eavConfig->getAttribute('customer', $attributeCode);
     $attribute->setWebsite($store->getWebsite());
     $attribute->addData($data);
-    if (false === ($data['is_system'] == 1 && $data['is_visible'] == 0)) {
+    if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = array(
             'customer_account_create',
             'customer_account_edit',
@@ -334,7 +334,7 @@ foreach ($attributes as $attributeCode => $data) {
     $attribute = $eavConfig->getAttribute('customer_address', $attributeCode);
     $attribute->setWebsite($store->getWebsite());
     $attribute->addData($data);
-    if (false === ($data['is_system'] == 1 && $data['is_visible'] == 0)) {
+    if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = array(
             'adminhtml_customer_address',
             'customer_address_edit',

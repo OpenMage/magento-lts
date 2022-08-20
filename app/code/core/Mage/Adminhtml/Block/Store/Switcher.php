@@ -212,7 +212,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     public function hasDefaultOption($hasDefaultOption = null)
     {
-        if (null !== $hasDefaultOption) {
+        if ($hasDefaultOption !== null) {
             $this->_hasDefaultOption = $hasDefaultOption;
         }
         return $this->_hasDefaultOption;
@@ -225,7 +225,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     public function getHintUrl()
     {
-        if (null === $this->_hintUrl) {
+        if ($this->_hintUrl === null) {
             $this->_hintUrl = Mage::helper('core/hint')->getHintByCode(self::XPATH_HINT_KEY);
         }
         return $this->_hintUrl;

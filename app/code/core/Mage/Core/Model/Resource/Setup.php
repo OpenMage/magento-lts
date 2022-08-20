@@ -482,7 +482,7 @@ class Mage_Core_Model_Resource_Setup
         $regExpDb   = sprintf('#^%s-(.*)\.(php|sql)$#i', $actionType);
         $regExpType = sprintf('#^%s-%s-(.*)\.(php|sql)$#i', $resModel, $actionType);
         $handlerDir = dir($filesDir);
-        while (false !== ($file = $handlerDir->read())) {
+        while (($file = $handlerDir->read()) !== false) {
             $matches = array();
             if (preg_match($regExpDb, $file, $matches)) {
                 $dbFiles[$matches[1]] = $filesDir . DS . $file;
@@ -520,7 +520,7 @@ class Mage_Core_Model_Resource_Setup
         if (is_dir($filesDir) && is_readable($filesDir)) {
             $regExp     = sprintf('#^%s-(.*)\.php$#i', $actionType);
             $handlerDir = dir($filesDir);
-            while (false !== ($file = $handlerDir->read())) {
+            while (($file = $handlerDir->read()) !== false) {
                 $matches = array();
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
@@ -535,7 +535,7 @@ class Mage_Core_Model_Resource_Setup
             $regExp     = sprintf('#^%s-%s-(.*)\.php$#i', $this->_connectionConfig->model, $actionType);
             $handlerDir = dir($filesDir);
 
-            while (false !== ($file = $handlerDir->read())) {
+            while (($file = $handlerDir->read()) !== false) {
                 $matches = array();
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;

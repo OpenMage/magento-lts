@@ -190,10 +190,10 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $prefixPrivilege = self::NAME_PRIVILEGE . self::ID_SEPARATOR;
                     $nameResource = null;
                     foreach ($checkedResources as $i => $item) {
-                        if (0 === strpos($item, $prefixResource)) {
+                        if (strpos($item, $prefixResource) === 0) {
                             $nameResource = substr($item, mb_strlen($prefixResource, 'UTF-8'));
                             $resources[$nameResource] = array();
-                        } elseif (0 === strpos($item, $prefixPrivilege)) {
+                        } elseif (strpos($item, $prefixPrivilege) === 0) {
                             $name = substr($item, mb_strlen($prefixPrivilege, 'UTF-8'));
                             $namePrivilege = str_replace($nameResource . self::ID_SEPARATOR, '', $name);
                             $resources[$nameResource][$namePrivilege] = $allow;
@@ -208,14 +208,14 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $prefixAttribute = self::NAME_ATTRIBUTE . self::ID_SEPARATOR;
                     $nameResource = null;
                     foreach ($checkedResources as $i => $item) {
-                        if (0 === strpos($item, $prefixResource)) {
+                        if (strpos($item, $prefixResource) === 0) {
                             $nameResource = substr($item, mb_strlen($prefixResource, 'UTF-8'));
                             $resources[$nameResource] = array();
-                        } elseif (0 === strpos($item, $prefixOperation)) {
+                        } elseif (strpos($item, $prefixOperation) === 0) {
                             $name = substr($item, mb_strlen($prefixOperation, 'UTF-8'));
                             $operationName = str_replace($nameResource . self::ID_SEPARATOR, '', $name);
                             $resources[$nameResource][$operationName] = array();
-                        } elseif (0 === strpos($item, $prefixAttribute)) {
+                        } elseif (strpos($item, $prefixAttribute) === 0) {
                             $name = substr($item, mb_strlen($prefixOperation, 'UTF-8'));
                             $attributeName = str_replace(
                                 $nameResource . self::ID_SEPARATOR . $operationName . self::ID_SEPARATOR,

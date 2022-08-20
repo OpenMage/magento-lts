@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
 
         $categoryIds = $product->getCategoryIds();
         $categoryToBeDeletedId = array_search($category->getId(), $categoryIds);
-        if (false === $categoryToBeDeletedId) {
+        if ($categoryToBeDeletedId === false) {
             $this->_critical(sprintf(
                 'Product #%d isn\'t assigned to category #%d',
                 $product->getId(),

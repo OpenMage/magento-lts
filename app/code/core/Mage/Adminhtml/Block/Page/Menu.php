@@ -125,7 +125,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $parentArr = array();
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 continue;
             }
 

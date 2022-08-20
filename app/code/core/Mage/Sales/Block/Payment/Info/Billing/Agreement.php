@@ -33,7 +33,7 @@ class Mage_Sales_Block_Payment_Info_Billing_Agreement extends Mage_Payment_Block
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null !== $this->_paymentSpecificInformation) {
+        if ($this->_paymentSpecificInformation !== null) {
             return $this->_paymentSpecificInformation;
         }
         $info = $this->getInfo();

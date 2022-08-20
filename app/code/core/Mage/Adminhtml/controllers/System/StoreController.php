@@ -142,7 +142,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
                 $codeBase   = Mage::helper('core')->__('Before modifying the store view code please make sure that it is not used in index.php.');
                 break;
         }
-        if (null !== $itemId) {
+        if ($itemId !== null) {
             $model->load($itemId);
         }
 

@@ -236,10 +236,10 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     protected function _isAllowed()
     {
         $action = $this->getRequest()->getActionName();
-        if ('index' == $action) {
+        if ($action == 'index') {
             $action = null;
         } else {
-            if ('new' == $action || 'save' == $action) {
+            if ($action == 'new' || $action == 'save') {
                 $action = 'edit';
             }
             $action = '/' . $action;

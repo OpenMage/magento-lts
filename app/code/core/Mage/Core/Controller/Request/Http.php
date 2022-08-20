@@ -131,7 +131,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if ($pathInfo === null) {
             $requestUri = $this->getRequestUri();
-            if (null === $requestUri) {
+            if ($requestUri === null) {
                 return $this;
             }
 
@@ -144,12 +144,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             $baseUrl = $this->getBaseUrl();
             $pathInfo = substr($requestUri, strlen($baseUrl));
 
-            if ($baseUrl && $pathInfo && (0 !== stripos($pathInfo, '/'))) {
+            if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif ((null !== $baseUrl) && (false === $pathInfo)) {
+            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
                 $pathInfo = '';
-            } elseif (null === $baseUrl) {
+            } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
             }
 

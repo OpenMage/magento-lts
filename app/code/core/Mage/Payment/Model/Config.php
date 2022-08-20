@@ -66,7 +66,7 @@ class Mage_Payment_Model_Config
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             $data = $this->_getMethod($code, $methodConfig);
-            if (false !== $data) {
+            if ($data !== false) {
                 $methods[$code] = $data;
             }
         }

@@ -231,7 +231,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     private function _getStates()
     {
-        if (null === $this->_states) {
+        if ($this->_states === null) {
             $this->_states = array(
                 'all'       => array(),
                 'visible'   => array(),

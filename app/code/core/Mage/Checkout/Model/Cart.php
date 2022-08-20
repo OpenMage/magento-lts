@@ -487,7 +487,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     public function getProductIds()
     {
         $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
-        if (null === $this->_productIds) {
+        if ($this->_productIds === null) {
             $this->_productIds = array();
             if ($this->getSummaryQty()>0) {
                 foreach ($this->getQuote()->getAllItems() as $item) {

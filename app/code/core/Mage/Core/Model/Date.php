@@ -255,7 +255,7 @@ class Mage_Core_Model_Date
         );
 
         foreach ($formats as $supportedFormat => $regRule) {
-            if (false !== strpos($dateTimeFormat, $supportedFormat, 0)) {
+            if (strpos($dateTimeFormat, $supportedFormat, 0) !== false) {
                 $isSupportedFormatFound = true;
                 break;
             }

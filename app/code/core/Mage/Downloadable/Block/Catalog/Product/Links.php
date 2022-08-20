@@ -82,7 +82,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         $price = $link->getPrice();
         $store = $this->getProduct()->getStore();
 
-        if (0 == $price) {
+        if ($price == 0) {
             return '';
         }
 

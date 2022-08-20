@@ -137,7 +137,7 @@ class Mage_Api2_Model_Dispatcher
      */
     public function getVersion($resourceType, $requestedVersion)
     {
-        if (false !== $requestedVersion && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
+        if ($requestedVersion !== false && !preg_match('/^[1-9]\d*$/', $requestedVersion)) {
             throw new Mage_Api2_Exception(
                 sprintf('Invalid version "%s" requested.', htmlspecialchars($requestedVersion)),
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST
