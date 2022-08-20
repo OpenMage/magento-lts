@@ -37,7 +37,7 @@ abstract class Mage_Checkout_Controller_Action extends Mage_Core_Controller_Fron
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         if ($customer && $customer->getId()) {
             $validationResult = $customer->validate();
-            if ((true !== $validationResult) && is_array($validationResult)) {
+            if (($validationResult !== true) && is_array($validationResult)) {
                 if ($addErrors) {
                     foreach ($validationResult as $error) {
                         Mage::getSingleton('customer/session')->addError($error);

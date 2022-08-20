@@ -88,7 +88,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         $beforeText = '',
         $afterText = ''
     ) {
-        if (is_null($label) || false===$label) {
+        if (is_null($label) || $label === false) {
             return $this;
         }
         $link = new Varien_Object(array(

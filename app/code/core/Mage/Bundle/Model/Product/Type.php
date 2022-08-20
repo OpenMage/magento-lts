@@ -245,9 +245,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $options = $product->getBundleOptionsData();
                     if ($options) {
                         foreach ($options as $option) {
-                            if (empty($option['delete']) || 1 != (int)$option['delete']) {
+                            if (empty($option['delete']) || (int)$option['delete'] != 1) {
                                 $product->setTypeHasOptions(true);
-                                if (1 == (int)$option['required']) {
+                                if ((int)$option['required'] == 1) {
                                     $product->setTypeHasRequiredOptions(true);
                                     break;
                                 }

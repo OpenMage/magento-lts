@@ -260,7 +260,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
      */
     public function addFieldToFilter($field, $condition = null)
     {
-        if ($this->getFlag('relation') && 'popularity' == $field) {
+        if ($this->getFlag('relation') && $field == 'popularity') {
             // TOFIX
             $this->getSelect()->having(
                 $this->_getConditionSql('COUNT(relation.tag_relation_id)', $condition)

@@ -213,7 +213,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _checkFlag($value)
     {
-        $res = (1 == $value)
+        $res = ($value == 1)
             || preg_match('/^(yes|y|true)$/i', $value);
         return $res;
     }

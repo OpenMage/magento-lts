@@ -115,7 +115,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
 
             $assert = null;
-            if (0!=$rule['assert_id']) {
+            if ($rule['assert_id'] != 0) {
                 $assertClass = Mage::getSingleton('api/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }

@@ -63,7 +63,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
         $this->_applyCollectionModifiers($collection);
         $data = $collection->load()->toArray();
 
-        if (0 == count($data['items'])) {
+        if (count($data['items']) == 0) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
 

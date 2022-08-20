@@ -199,7 +199,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     public function getAclAssert($name = '')
     {
         $asserts = $this->getNode('acl/asserts');
-        if (''===$name) {
+        if ($name === '') {
             return $asserts;
         }
 
@@ -219,7 +219,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode('acl/privilegeSets');
-        if (''===$name) {
+        if ($name === '') {
             return $sets;
         }
 

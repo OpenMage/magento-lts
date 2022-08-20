@@ -590,7 +590,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
     public function isDataValid()
     {
         $this->validateData();
-        return 0 == $this->_errorsCount;
+        return $this->_errorsCount == 0;
     }
 
     /**

@@ -46,7 +46,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     public function truncate($string, $length = 80, $etc = '...', &$remainder = '', $breakWords = true)
     {
         $remainder = '';
-        if (0 == $length) {
+        if ($length == 0) {
             return '';
         }
 

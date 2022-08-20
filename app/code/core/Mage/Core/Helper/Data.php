@@ -536,15 +536,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
-                $this->_decorateArrayObject($element, $keyIsFirst, (0 === $i), $forceSetAll || (0 === $i));
+                $this->_decorateArrayObject($element, $keyIsFirst, ($i === 0), $forceSetAll || ($i === 0));
                 $this->_decorateArrayObject($element, $keyIsOdd, !$isEven, $forceSetAll || !$isEven);
                 $this->_decorateArrayObject($element, $keyIsEven, $isEven, $forceSetAll || $isEven);
                 $isEven = !$isEven;
                 $i++;
                 $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
             } elseif (is_array($element)) {
-                if ($forceSetAll || (0 === $i)) {
-                    $array[$key][$keyIsFirst] = (0 === $i);
+                if ($forceSetAll || ($i === 0)) {
+                    $array[$key][$keyIsFirst] = ($i === 0);
                 }
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
@@ -709,16 +709,16 @@ XML;
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         switch (true) {
-            case (null === $encodedValue):
+            case ($encodedValue === null):
                 $encodedValue = 'null';
                 break;
-            case (true === $encodedValue):
+            case ($encodedValue === true):
                 $encodedValue = 'true';
                 break;
-            case (false === $encodedValue):
+            case ($encodedValue === false):
                 $encodedValue = 'false';
                 break;
-            case ('' === $encodedValue):
+            case ($encodedValue === ''):
                 $encodedValue = '""';
                 break;
             default:

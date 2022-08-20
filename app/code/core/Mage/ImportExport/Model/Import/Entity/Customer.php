@@ -421,11 +421,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
-                            if ('select' == $attrParams['type']) {
+                            if ($attrParams['type'] == 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
-                            } elseif ('datetime' == $attrParams['type']) {
+                            } elseif ($attrParams['type'] == 'datetime') {
                                 $value = gmstrftime($strftimeFormat, strtotime($value));
-                            } elseif ('multiselect' == $attrParams['type']) {
+                            } elseif ($attrParams['type'] == 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
@@ -656,9 +656,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $email = false; // mark row as invalid for next address rows
             }
         } elseif (self::SCOPE_OPTIONS != $rowScope) {
-            if (null === $email) { // first row is not SCOPE_DEFAULT
+            if ($email === null) { // first row is not SCOPE_DEFAULT
                 $this->addRowError(self::ERROR_EMAIL_IS_EMPTY, $rowNum);
-            } elseif (false === $email) { // SCOPE_DEFAULT row is invalid
+            } elseif ($email === false) { // SCOPE_DEFAULT row is invalid
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
             }
         }

@@ -212,7 +212,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 if ($fieldValue instanceof Zend_Db_Expr) {
                     $data[$field] = $fieldValue;
                 } else {
-                    if (null !== $fieldValue) {
+                    if ($fieldValue !== null) {
                         $fieldValue   = $this->_prepareTableValueForSave($fieldValue, $fields[$field]['DATA_TYPE']);
                         $data[$field] = $this->_getWriteAdapter()->prepareColumnValue($fields[$field], $fieldValue);
                     } elseif (!empty($fields[$field]['NULLABLE'])) {

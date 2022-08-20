@@ -647,7 +647,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
 
-            if (false !== strpos($url, '{{base_url}}')) {
+            if (strpos($url, '{{base_url}}') !== false) {
                 $baseUrl = Mage::getConfig()->substDistroServerVars('{{base_url}}');
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }
@@ -797,7 +797,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return true;
         }
 
-        if (isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT'])) {
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             return true;
         }
 
@@ -950,7 +950,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
             $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
-            if (null !== $disallowedBaseCodeIndex) {
+            if ($disallowedBaseCodeIndex !== null) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
         }
@@ -1271,7 +1271,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isReadOnly($value = null)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;

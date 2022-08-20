@@ -48,7 +48,7 @@ class Mage_Api2_Model_Acl_Global_Rule_ResourcePermission implements Mage_Api2_Mo
      */
     public function getResourcesPermissions()
     {
-        if (null === $this->_resourcesPermissions) {
+        if ($this->_resourcesPermissions === null) {
             $roleConfigNodeName = $this->_role->getConfigNodeName();
             $rulesPairs = array();
             $allowedType = Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW;

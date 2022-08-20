@@ -121,7 +121,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
      */
     public function renderHeader()
     {
-        if (false !== $this->getColumn()->getGrid()->getSortable() && false !== $this->getColumn()->getSortable()) {
+        if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
             $dir = strtolower($this->getColumn()->getDir());
             $nDir= ($dir=='asc') ? 'desc' : 'asc';
@@ -147,7 +147,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 
         if ($this->getColumn()->hasData('width')) {
             $customWidth = $this->getColumn()->getData('width');
-            if ((null === $customWidth) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
+            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
                 $width = $customWidth;
             }
             elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
@@ -155,7 +155,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
             }
         }
 
-        if (null !== $width) {
+        if ($width !== null) {
             $out .= ' width="' . $width . '"';
         }
 

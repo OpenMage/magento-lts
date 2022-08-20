@@ -226,7 +226,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             );
             $adapter->delete($this->getMainTable(), $condition);
 
-            while (false !== ($csvLine = $io->streamReadCsv())) {
+            while (($csvLine = $io->streamReadCsv()) !== false) {
                 $rowNumber ++;
 
                 if (empty($csvLine)) {

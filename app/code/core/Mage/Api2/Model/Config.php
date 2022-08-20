@@ -421,7 +421,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $availVersions = $this->getVersions($resourceType); // already ordered in reverse order
         $useVersion    = reset($availVersions);
 
-        if (null !== $lowerOrEqualsTo) {
+        if ($lowerOrEqualsTo !== null) {
             foreach ($availVersions as $availVersion) {
                 if ($availVersion <= $lowerOrEqualsTo) {
                     $useVersion = $availVersion;

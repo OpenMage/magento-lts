@@ -71,9 +71,9 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
 
         $shippingType = $this->getConfigData('type');
         $shippingPrice = (float)$this->getConfigData('price');
-        if ('I' == $shippingType) { // per item
+        if ($shippingType == 'I') { // per item
             $shippingPrice = ($request->getPackageQty() * $shippingPrice) - ($this->getFreeBoxes() * $shippingPrice);
-        } elseif ('O' != $shippingType) { // not per order
+        } elseif ($shippingType != 'O') { // not per order
             $shippingPrice = false;
         }
 

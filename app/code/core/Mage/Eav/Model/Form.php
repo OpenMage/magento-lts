@@ -524,7 +524,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function ignoreInvisible($setValue = null)
     {
-        if (null !== $setValue) {
+        if ($setValue !== null) {
             $this->_ignoreInvisible = (bool)$setValue;
             return $this;
         }

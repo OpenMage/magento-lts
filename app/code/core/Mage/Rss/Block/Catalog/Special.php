@@ -184,7 +184,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
             && $row['allowed_price_in_rss']
         ) {
             $compareDate = self::$_currentDate->compareDate($row['special_to_date'], Varien_Date::DATE_INTERNAL_FORMAT);
-            if (-1 === $compareDate || 0 === $compareDate) {
+            if ($compareDate === -1 || $compareDate === 0) {
                 $row['use_special'] = true;
             }
         }

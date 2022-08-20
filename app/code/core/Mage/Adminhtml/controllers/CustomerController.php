@@ -841,7 +841,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 
-            while (false !== ($buffer = $ioFile->streamRead())) {
+            while (($buffer = $ioFile->streamRead()) !== false) {
                 echo $buffer;
             }
         } else {

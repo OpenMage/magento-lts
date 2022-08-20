@@ -175,7 +175,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             }
             if ( ($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
-                 && ('media_image' != $inputType)
+                 && ($inputType != 'media_image')
                  ) {
 
                 $fieldType      = $inputType;

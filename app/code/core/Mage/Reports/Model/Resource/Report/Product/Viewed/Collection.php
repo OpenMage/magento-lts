@@ -73,9 +73,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                     'product_name'   => 'MAX(product_name)',
                     'product_price'  => 'MAX(product_price)',
                 );
-                if ('year' == $this->_period) {
+                if ($this->_period == 'year') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
-                } elseif ('month' == $this->_period) {
+                } elseif ($this->_period == 'month') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y-%m');
                 }
             }
@@ -141,10 +141,10 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             return $this;
         }
 
-        if ('year' == $this->_period) {
+        if ($this->_period == 'year') {
             $mainTable = $this->getTable(Mage_Reports_Model_Resource_Report_Product_Viewed::AGGREGATION_YEARLY);
             $select->from($mainTable, $this->_getSelectedColumns());
-        } elseif ('month' == $this->_period) {
+        } elseif ($this->_period == 'month') {
             $mainTable = $this->getTable(Mage_Reports_Model_Resource_Report_Product_Viewed::AGGREGATION_MONTHLY);
             $select->from($mainTable, $this->_getSelectedColumns());
         } else {
@@ -216,7 +216,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
             $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to, $dtFormat) : null);
-            if ('year' == $this->_period) {
+            if ($this->_period == 'year') {
                 if ($periodFrom) {
                     // not the first day of the year
                     if ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -273,7 +273,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         $this->getSelect()->where('1<>1');
                     }
                 }
-            } elseif ('month' == $this->_period) {
+            } elseif ($this->_period == 'month') {
                 if ($periodFrom) {
                     // not the first day of the month
                     if ($periodFrom->toValue(Zend_Date::DAY) != 1) {

@@ -457,8 +457,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     protected function _initToken($setToken = null)
     {
-        if (null !== $setToken) {
-            if (false === $setToken) {
+        if ($setToken !== null) {
+            if ($setToken === false) {
                 // security measure for avoid unsetting token twice
                 if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));

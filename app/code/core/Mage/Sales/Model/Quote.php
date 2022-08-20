@@ -379,15 +379,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if (null !== $this->_addresses) {
+        if ($this->_addresses !== null) {
             $this->getAddressesCollection()->save();
         }
 
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
 
-        if (null !== $this->_payments) {
+        if ($this->_payments !== null) {
             $this->getPaymentsCollection()->save();
         }
         return $this;
@@ -2025,7 +2025,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if (1 == $this->getData('trigger_recollect')) {
+        if ($this->getData('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }

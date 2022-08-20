@@ -73,9 +73,9 @@ class Mage_Core_Model_Domainpolicy
         $action = $observer->getControllerAction();
         $policy = null;
 
-        if ('adminhtml' == $action->getLayout()->getArea()) {
+        if ($action->getLayout()->getArea() == 'adminhtml') {
             $policy = $this->getBackendPolicy();
-        } elseif ('frontend' == $action->getLayout()->getArea()) {
+        } elseif ($action->getLayout()->getArea() == 'frontend') {
             $policy = $this->getFrontendPolicy();
         }
 

@@ -1013,7 +1013,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected function _afterSave()
     {
 
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             /**
              * Save invoice items
              */
@@ -1023,7 +1023,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             }
         }
 
-        if (null !== $this->_comments) {
+        if ($this->_comments !== null) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }

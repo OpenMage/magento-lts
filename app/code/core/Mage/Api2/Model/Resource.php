@@ -394,7 +394,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getVersion()
     {
-        if (null === $this->_version) {
+        if ($this->_version === null) {
             if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
@@ -723,7 +723,7 @@ abstract class Mage_Api2_Model_Resource
         }
 
         $pageSize = $this->getRequest()->getPageSize();
-        if (null == $pageSize) {
+        if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
         } else {
             if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
@@ -733,7 +733,7 @@ abstract class Mage_Api2_Model_Resource
 
         $orderField = $this->getRequest()->getOrderField();
 
-        if (null !== $orderField) {
+        if ($orderField !== null) {
             $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
@@ -919,7 +919,7 @@ abstract class Mage_Api2_Model_Resource
         $resourceAttrs = $this->_getResourceAttributes();
 
         // if resource returns not-associative array - attributes' codes only
-        if (0 === key($resourceAttrs)) {
+        if (key($resourceAttrs) === 0) {
             $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
         }
         foreach ($resourceAttrs as $attrCode => $attrLabel) {

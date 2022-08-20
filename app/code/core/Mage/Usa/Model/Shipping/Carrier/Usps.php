@@ -892,7 +892,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         if (!isset($codes[$type])) {
             return false;
-        } elseif (''===$code) {
+        } elseif ($code === '') {
             return $codes[$type];
         }
 

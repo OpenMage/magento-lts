@@ -53,7 +53,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('billing' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'billing') {
                 $billingAddressId = $address->getId();
             }
         }

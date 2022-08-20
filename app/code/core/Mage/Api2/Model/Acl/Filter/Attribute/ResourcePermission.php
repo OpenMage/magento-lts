@@ -55,7 +55,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
      */
     public function getResourcesPermissions()
     {
-        if (null === $this->_resourcesPermissions) {
+        if ($this->_resourcesPermissions === null) {
             $rulesPairs = array();
 
             if ($this->_userType) {
@@ -71,7 +71,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                     }
 
                     /** @var Mage_Api2_Model_Acl_Filter_Attribute $rule */
-                    if (null !== $rule->getAllowedAttributes()) {
+                    if ($rule->getAllowedAttributes() !== null) {
                         $allowedAttributes[$rule->getResourceId()][$rule->getOperation()] = explode(
                             ',',
                             $rule->getAllowedAttributes()

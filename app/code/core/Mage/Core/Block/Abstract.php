@@ -706,7 +706,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         if ($block->getIsAnonymous()) {
             $this->setChild('', $block);
             $name = $block->getNameInLayout();
-        } elseif ('' != $alias) {
+        } elseif ($alias != '') {
             $this->setChild($alias, $block);
             $name = $block->getNameInLayout();
         } else {
@@ -722,7 +722,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
         } else {
             $key = array_search($siblingName, $this->_sortedChildren);
-            if (false !== $key) {
+            if ($key !== false) {
                 if ($after) {
                     $key++;
                 }
@@ -735,7 +735,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 }
             }
 
-            $this->_sortInstructions[$name] = array($siblingName, (bool)$after, false !== $key);
+            $this->_sortInstructions[$name] = array($siblingName, (bool)$after, $key !== false);
         }
 
         return $this;
@@ -1388,7 +1388,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function addModelTags(Mage_Core_Model_Abstract $model)
     {
         $cacheTags = $model->getCacheIdTags();
-        if (false !== $cacheTags) {
+        if ($cacheTags !== false) {
             $this->addCacheTag($cacheTags);
         }
         return $this;
@@ -1515,7 +1515,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         /** @var Mage_Core_Model_Abstract $item */
         foreach ($items as $item) {
             $itemTags = $item->getCacheIdTags();
-            if (false === $itemTags) {
+            if ($itemTags === false) {
                 continue;
             }
             $tags = array_merge($tags, $itemTags);
