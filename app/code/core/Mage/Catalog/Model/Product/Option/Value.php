@@ -42,7 +42,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
-    protected $_values = array();
+    protected $_values = [];
 
     protected $_product;
 
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function unsetValues()
     {
-        $this->_values = array();
+        $this->_values = [];
         return $this;
     }
 

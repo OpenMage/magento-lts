@@ -68,19 +68,19 @@ class Mage_Sales_Block_Order_Creditmemo_Totals extends Mage_Sales_Block_Order_To
         parent::_initTotals();
         $this->removeTotal('base_grandtotal');
         if ((float) $this->getSource()->getAdjustmentPositive()) {
-            $total = new Varien_Object(array(
+            $total = new Varien_Object([
                 'code'  => 'adjustment_positive',
                 'value' => $this->getSource()->getAdjustmentPositive(),
                 'label' => $this->__('Adjustment Refund')
-            ));
+            ]);
             $this->addTotal($total);
         }
         if ((float) $this->getSource()->getAdjustmentNegative()) {
-            $total = new Varien_Object(array(
+            $total = new Varien_Object([
                 'code'  => 'adjustment_negative',
                 'value' => $this->getSource()->getAdjustmentNegative(),
                 'label' => $this->__('Adjustment Fee')
-            ));
+            ]);
             $this->addTotal($total);
         }
         /**

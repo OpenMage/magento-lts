@@ -57,7 +57,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
 
         // disable external entity loading to prevent possible vulnerability
         libxml_disable_entity_loader(true);
-        set_error_handler(array($this, '_loadErrorHandler')); // Warnings and errors are suppressed
+        set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
         $config = simplexml_load_string($body);
         restore_error_handler();
         // restore default behavior to make possible to load external entities
@@ -80,14 +80,14 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
      */
     protected function _toArray(SimpleXMLElement $xmlObject)
     {
-        $config = array();
+        $config = [];
         // Search for parent node values
         if (count($xmlObject->attributes()) > 0) {
             foreach ($xmlObject->attributes() as $key => $value) {
                 $value = (string)$value;
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
                     $config[$key][] = $value;
                 } else {
@@ -113,7 +113,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                 }
                 if (array_key_exists($key, $config)) {
                     if (!is_array($config[$key]) || !array_key_exists(0, $config[$key])) {
-                        $config[$key] = array($config[$key]);
+                        $config[$key] = [$config[$key]];
                     }
                     $config[$key][] = $value;
                 } else {

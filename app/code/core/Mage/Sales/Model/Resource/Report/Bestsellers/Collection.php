@@ -40,7 +40,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -69,14 +69,14 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             if ($this->isTotals()) {
                 $this->_selectedColumns = $this->getAggregatedColumns();
             } else {
-                $this->_selectedColumns = array(
+                $this->_selectedColumns = [
                     'period'          =>  sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
                     'qty_ordered'     => 'SUM(qty_ordered)',
                     'product_id'      => 'product_id',
                     'product_name'    => 'MAX(product_name)',
                     'product_price'   => 'MAX(product_price)',
                     'product_type_id' => 'product_type_id'
-                );
+                ];
                 if ($this->_period == 'year') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
                 } elseif ($this->_period == 'month') {
@@ -136,7 +136,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
             //exclude removed products
             $subSelect = $this->getConnection()->select();
-            $subSelect->from(array('existed_products' => $this->getTable('catalog/product')), new Zend_Db_Expr('1)'));
+            $subSelect->from(['existed_products' => $this->getTable('catalog/product')], new Zend_Db_Expr('1)'));
 
             $select->exists($subSelect, $mainTable . '.product_id = existed_products.entity_id')
                 ->group('product_id')
@@ -157,7 +157,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $select->from($mainTable, $this->_getSelectedColumns());
         }
         if (!$this->isTotals()) {
-            $select->group(array('period', 'product_id'));
+            $select->group(['period', 'product_id']);
         }
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
@@ -186,13 +186,13 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
     public function addStoreRestrictions($storeIds)
     {
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
         $currentStoreIds = $this->_storesIds;
         if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != array(Mage_Core_Model_App::ADMIN_STORE_ID)) {
+            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]) {
             if (!is_array($currentStoreIds)) {
-                $currentStoreIds = array($currentStoreIds);
+                $currentStoreIds = [$currentStoreIds];
             }
             $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
         } else {
@@ -215,7 +215,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
         $this->_applyStoresFilter();
 
         if ($this->_period) {
-            $selectUnions = array();
+            $selectUnions = [];
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
@@ -336,7 +336,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
 
             // add unions to select
             if ($selectUnions) {
-                $unionParts = array();
+                $unionParts = [];
                 $cloneSelect = clone $this->getSelect();
                 $helper = Mage::getResourceHelper('core');
                 $unionParts[] = '(' . $cloneSelect . ')';
@@ -353,7 +353,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 $this->getSelect()->reset()->from($cloneSelect, $this->getAggregatedColumns());
             } else {
                 // add sorting
-                $this->getSelect()->order(array('period ASC', 'qty_ordered DESC'));
+                $this->getSelect()->order(['period ASC', 'qty_ordered DESC']);
             }
         }
 

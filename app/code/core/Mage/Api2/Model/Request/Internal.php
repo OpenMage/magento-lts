@@ -74,7 +74,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
      */
     public function setMethod($method)
     {
-        $availableMethod = array('GET', 'POST', 'PUT', 'DELETE');
+        $availableMethod = ['GET', 'POST', 'PUT', 'DELETE'];
         if (in_array($method, $availableMethod)) {
             $this->_method = $method;
         } else {

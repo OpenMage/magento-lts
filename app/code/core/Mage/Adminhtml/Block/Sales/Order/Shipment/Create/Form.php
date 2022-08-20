@@ -84,6 +84,6 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Form extends Mage_Adminht
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('order_id' => $this->getShipment()->getOrderId()));
+        return $this->getUrl('*/*/save', ['order_id' => $this->getShipment()->getOrderId()]);
     }
 }

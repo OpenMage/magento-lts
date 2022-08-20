@@ -63,10 +63,10 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         }
 
         $adapter   = $this->_getWriteAdapter();
-        $whereCond = array(
+        $whereCond = [
             $adapter->quoteInto('website_id IN(?)', $websiteIds),
             $adapter->quoteInto('product_id IN(?)', $productIds)
-        );
+        ];
         $whereCond = implode(' AND ', $whereCond);
 
         $adapter->beginTransaction();
@@ -107,10 +107,10 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
                     if (!$productId) {
                         continue;
                     }
-                    $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+                    $this->_getWriteAdapter()->insert($this->getMainTable(), [
                         'product_id' => (int) $productId,
                         'website_id' => (int) $websiteId
-                    ));
+                    ]);
                 }
 
                 // Refresh product enabled index
@@ -138,11 +138,11 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
     public function getWebsites($productIds)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('product_id', 'website_id'))
+            ->from($this->getMainTable(), ['product_id', 'website_id'])
             ->where('product_id IN (?)', $productIds);
         $rowset  = $this->_getReadAdapter()->fetchAll($select);
 
-        $result = array();
+        $result = [];
         foreach ($rowset as $row) {
             $result[$row['product_id']][] = $row['website_id'];
         }

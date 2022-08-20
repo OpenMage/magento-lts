@@ -49,7 +49,7 @@ class Mage_Page_Model_Source_Layout
     public function getOptions()
     {
         if ($this->_options === null) {
-            $this->_options = array();
+            $this->_options = [];
             foreach (Mage::getSingleton('page/config')->getPageLayouts() as $layout) {
                 $this->_options[$layout->getCode()] = $layout->getLabel();
                 if ($layout->getIsDefault()) {
@@ -69,17 +69,17 @@ class Mage_Page_Model_Source_Layout
      */
     public function toOptionArray($withEmpty = false)
     {
-        $options = array();
+        $options = [];
 
         foreach ($this->getOptions() as $value => $label) {
-            $options[] = array(
+            $options[] = [
                 'label' => $label,
                 'value' => $value
-            );
+            ];
         }
 
         if ($withEmpty) {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')));
+            array_unshift($options, ['value'=>'', 'label'=>Mage::helper('page')->__('-- Please Select --')]);
         }
 
         return $options;

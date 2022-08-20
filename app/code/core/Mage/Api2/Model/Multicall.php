@@ -186,7 +186,7 @@ class Mage_Api2_Model_Multicall
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->_getConfig()->getMainRoute($subresourceName))
         );
-        $params = array();
+        $params = [];
         $params['api_type'] = 'rest';
         if ($parentResourceIdFieldName !== null) {
             $params[$parentResourceIdFieldName] = $this->_parentResourceId;

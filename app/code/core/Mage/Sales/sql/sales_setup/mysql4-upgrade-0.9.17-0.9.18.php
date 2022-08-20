@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('order', 'shipping_tax_amount', array('type'=>'static'));
-$installer->addAttribute('order', 'base_shipping_tax_amount', array('type'=>'static'));
+$installer->addAttribute('order', 'shipping_tax_amount', ['type'=>'static']);
+$installer->addAttribute('order', 'base_shipping_tax_amount', ['type'=>'static']);
 
 $installer->endSetup();

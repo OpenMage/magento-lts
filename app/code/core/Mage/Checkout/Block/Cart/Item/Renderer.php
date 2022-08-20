@@ -213,7 +213,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     {
         return $this->getUrl(
             'checkout/cart/configure',
-            array('id' => $this->getItem()->getId())
+            ['id' => $this->getItem()->getId()]
         );
     }
 
@@ -242,10 +242,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         /** @var Mage_Core_Helper_Url $helper */
         $helper = $this->helper('core/url');
 
-        $params = array(
+        $params = [
             'id' => $this->getItem()->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
         }
@@ -265,11 +265,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $helper = $this->helper('core/url');
         return $this->getUrl(
             'checkout/cart/ajaxDelete',
-            array(
+            [
                 'id'=>$this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            )
+            ]
         );
     }
 
@@ -285,11 +285,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         $helper = $this->helper('core/url');
         return $this->getUrl(
             'checkout/cart/ajaxUpdate',
-            array(
+            [
                 'id'=>$this->getItem()->getId(),
                 Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
                 '_secure' => $this->_getApp()->getStore()->isCurrentlySecure(),
-            )
+            ]
         );
     }
     /**
@@ -345,17 +345,17 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getMessages()
     {
-        $messages = array();
+        $messages = [];
         $quoteItem = $this->getItem();
 
         // Add basic messages occurring during this page load
         $baseMessages = $quoteItem->getMessage(false);
         if ($baseMessages) {
             foreach ($baseMessages as $message) {
-                $messages[] = array(
+                $messages[] = [
                     'text' => $message,
                     'type' => $quoteItem->getHasError() ? 'error' : 'notice'
-                );
+                ];
             }
         }
 
@@ -368,10 +368,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
                 $additionalMessages = $collection->getItems();
                 foreach ($additionalMessages as $message) {
                     /** @var Mage_Core_Model_Message_Abstract $message */
-                    $messages[] = array(
+                    $messages[] = [
                         'text' => $message->getCode(),
                         'type' => ($message->getType() === Mage_Core_Model_Message::ERROR) ? 'error' : 'notice'
-                    );
+                    ];
                 }
             }
         }
@@ -403,10 +403,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     {
         /** @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
-        $params = array(
+        $params = [
             'max_length' => 55,
             'cut_replacer' => ' <a href="#" class="dots" onclick="return false">...</a>'
-        );
+        ];
         return $helper->getFormattedOptionValue($optionValue, $params);
     }
 
@@ -506,7 +506,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
     public function getCacheTags()
     {
         $tags = $this->getProduct()->getCacheIdTags();
-        $tags = is_array($tags) ? $tags : array();
+        $tags = is_array($tags) ? $tags : [];
 
         return array_merge(parent::getCacheTags(), $tags);
     }

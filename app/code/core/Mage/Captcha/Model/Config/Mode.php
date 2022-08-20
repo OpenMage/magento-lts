@@ -34,15 +34,15 @@ class Mage_Captcha_Model_Config_Mode
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Mage::helper('captcha')->__('Always'),
                 'value' => Mage_Captcha_Helper_Data::MODE_ALWAYS
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('captcha')->__('After number of attempts to login'),
                 'value' => Mage_Captcha_Helper_Data::MODE_AFTER_FAIL
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -38,7 +38,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
         /*
         * setting cache to save the cms block
         */
-        $this->setCacheTags(array(Mage_Cms_Model_Block::CACHE_TAG));
+        $this->setCacheTags([Mage_Cms_Model_Block::CACHE_TAG]);
         $this->setCacheLifetime(false);
     }
 
@@ -78,11 +78,11 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
     {
         $blockId = $this->getBlockId();
         if ($blockId) {
-            $result = array(
+            $result = [
                 'CMS_BLOCK',
                 $blockId,
                 Mage::app()->getStore()->getCode(),
-            );
+            ];
         } else {
             $result = parent::getCacheKeyInfo();
         }

@@ -82,7 +82,7 @@ class Mage_CatalogSearch_Model_Layer extends Mage_Catalog_Model_Layer
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
         $additionalTags = parent::getStateTags($additionalTags);
         $additionalTags[] = Mage_CatalogSearch_Model_Query::CACHE_TAG;

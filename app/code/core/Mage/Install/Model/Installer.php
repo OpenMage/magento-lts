@@ -241,7 +241,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         $data->setForceNewPassword(true);
 
         $data->save();
-        $data->setRoleIds(array(1))->saveRelations();
+        $data->setRoleIds([1])->saveRelations();
 
         /*Mage::getModel("permissions/user")->setRoleId(1)
             ->setUserId($user->getId())
@@ -260,7 +260,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      */
     public function validateEncryptionKey($key)
     {
-        $errors = array();
+        $errors = [];
 
         try {
             if ($key) {
@@ -298,7 +298,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
-        $cacheData = array();
+        $cacheData = [];
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }

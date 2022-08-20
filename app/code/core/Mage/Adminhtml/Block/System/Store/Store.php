@@ -39,25 +39,25 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     protected function _prepareLayout()
     {
         /* Add website button */
-        $this->_addButton('add', array(
+        $this->_addButton('add', [
             'label'     => Mage::helper('core')->__('Create Website'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newWebsite') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         /* Add Store Group button */
-        $this->_addButton('add_group', array(
+        $this->_addButton('add_group', [
             'label'     => Mage::helper('core')->__('Create Store'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newGroup') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         /* Add Store button */
-        $this->_addButton('add_store', array(
+        $this->_addButton('add_store', [
             'label'     => Mage::helper('core')->__('Create Store View'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newStore') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         return parent::_prepareLayout();
     }
@@ -79,10 +79,10 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
      */
     public function getAddNewButtonHtml()
     {
-        return implode(' ', array(
+        return implode(' ', [
             $this->getChildHtml('add_new_website'),
             $this->getChildHtml('add_new_group'),
             $this->getChildHtml('add_new_store')
-        ));
+        ]);
     }
 }

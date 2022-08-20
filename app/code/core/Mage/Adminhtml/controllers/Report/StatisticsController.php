@@ -56,11 +56,11 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
     public function _initReportAction($blocks)
     {
         if (!is_array($blocks)) {
-            $blocks = array($blocks);
+            $blocks = [$blocks];
         }
 
         $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter'));
-        $requestData = $this->_filterDates($requestData, array('from', 'to'));
+        $requestData = $this->_filterDates($requestData, ['from', 'to']);
         $requestData['store_ids'] = $this->getRequest()->getParam('store_ids');
         $params = new Varien_Object();
 
@@ -94,12 +94,12 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         }
 
         if(!is_array($codes) && strpos($codes, ',') === false) {
-            $codes = array($codes);
+            $codes = [$codes];
         } elseif (!is_array($codes)) {
             $codes = explode(',', $codes);
         }
 
-        $aliases = array(
+        $aliases = [
             'sales'       => 'sales/report_order',
             'tax'         => 'tax/report_tax',
             'shipping'    => 'sales/report_shipping',
@@ -108,8 +108,8 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             'coupons'     => 'salesrule/report_rule',
             'bestsellers' => 'sales/report_bestsellers',
             'viewed'      => 'reports/report_product_viewed',
-        );
-        $out = array();
+        ];
+        $out = [];
         foreach ($codes as $code) {
             $out[] = $aliases[$code];
         }

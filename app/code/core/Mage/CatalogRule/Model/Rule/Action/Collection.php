@@ -33,9 +33,9 @@ class Mage_CatalogRule_Model_Rule_Action_Collection extends Mage_Rule_Model_Acti
     public function getNewChildSelectOptions()
     {
         $actions = parent::getNewChildSelectOptions();
-        $actions = array_merge_recursive($actions, array(
-            array('value'=>'catalogrule/rule_action_product', 'label'=>Mage::helper('cataloginventory')->__('Update the Product'))
-        ));
+        $actions = array_merge_recursive($actions, [
+            ['value'=>'catalogrule/rule_action_product', 'label'=>Mage::helper('cataloginventory')->__('Update the Product')]
+        ]);
         return $actions;
     }
 }

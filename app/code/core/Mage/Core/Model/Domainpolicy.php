@@ -57,7 +57,7 @@ class Mage_Core_Model_Domainpolicy
      * @param array $options
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         $this->_store = isset($options['store']) ? $options['store'] : Mage::app()->getStore();
     }

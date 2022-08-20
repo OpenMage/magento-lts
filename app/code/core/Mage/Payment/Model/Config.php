@@ -39,7 +39,7 @@ class Mage_Payment_Model_Config
      */
     public function getActiveMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             if (Mage::getStoreConfigFlag('payment/'.$code.'/active', $store)) {
@@ -62,7 +62,7 @@ class Mage_Payment_Model_Config
      */
     public function getAllMethods($store = null)
     {
-        $methods = array();
+        $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
             $data = $this->_getMethod($code, $methodConfig);
@@ -109,9 +109,9 @@ class Mage_Payment_Model_Config
     {
         $_types = Mage::getConfig()->getNode('global/payment/cc/types')->asArray();
 
-        uasort($_types, array('Mage_Payment_Model_Config', 'compareCcTypes'));
+        uasort($_types, ['Mage_Payment_Model_Config', 'compareCcTypes']);
 
-        $types = array();
+        $types = [];
         foreach ($_types as $data) {
             if (isset($data['code']) && isset($data['name'])) {
                 $types[$data['code']] = $data['name'];
@@ -142,7 +142,7 @@ class Mage_Payment_Model_Config
      */
     public function getYears()
     {
-        $years = array();
+        $years = [];
         $first = date("Y");
 
         for ($index=0; $index <= 10; $index++) {

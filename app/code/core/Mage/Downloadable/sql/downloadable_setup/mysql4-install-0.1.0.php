@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$fieldList = array(
+$fieldList = [
     'price',
     'special_price',
     'special_from_date',
@@ -33,7 +33,7 @@ $fieldList = array(
     'tier_price',
     'weight',
     'tax_class_id'
-);
+];
 
 // make these attributes applicable to downloadable products
 foreach ($fieldList as $field) {

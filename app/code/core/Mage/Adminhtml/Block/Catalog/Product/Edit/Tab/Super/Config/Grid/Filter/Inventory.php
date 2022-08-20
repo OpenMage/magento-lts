@@ -31,20 +31,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Filter_Inv
 
     protected function _getOptions()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' =>  '',
                 'label' =>  ''
-            ),
-            array(
+            ],
+            [
                 'value' =>  1,
                 'label' =>  Mage::helper('catalog')->__('In Stock')
-            ),
-            array(
+            ],
+            [
                 'value' =>  0,
                 'label' =>  Mage::helper('catalog')->__('Out of Stock')
-            )
-        );
+            ]
+        ];
     }
 
 }

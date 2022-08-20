@@ -85,7 +85,7 @@ class Mage_Api2_Model_Dispatcher
     {
         $class = strtr(
             self::RESOURCE_CLASS_TEMPLATE,
-            array(':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version)
+            [':resource' => $model, ':api' => $apiType, ':user' => $userType, ':version' => $version]
         );
 
         try {

@@ -53,7 +53,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             $resource->setConfig($data);
 
             // check required extensions
-            $absenteeExtensions = array();
+            $absenteeExtensions = [];
             $extensions = $resource->getRequiredExtensions();
             foreach ($extensions as $extName) {
                 if (!extension_loaded($extName)) {

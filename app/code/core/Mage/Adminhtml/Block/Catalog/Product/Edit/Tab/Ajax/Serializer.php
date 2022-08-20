@@ -36,12 +36,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Ajax_Serializer extends Mage
 
     public function getProductsJSON()
     {
-        $result = array();
+        $result = [];
         if ($this->getProducts()) {
             $isEntityId = $this->getIsEntityId();
             foreach ($this->getProducts() as $product) {
                 $id = $isEntityId ? $product->getEntityId() : $product->getId();
-                $result[$id] = $product->toArray(array('qty', 'position'));
+                $result[$id] = $product->toArray(['qty', 'position']);
             }
         }
         return $result ? Zend_Json::encode($result) : '{}';

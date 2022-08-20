@@ -56,7 +56,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
     public static function getNamespacesPrefix()
     {
         if (is_null(self::$_namespacesPrefix)) {
-            self::$_namespacesPrefix = array();
+            self::$_namespacesPrefix = [];
             $config = Mage::getSingleton('api/config')->getNode('v2/wsdl/prefix')->children();
             foreach ($config as $prefix => $namespace) {
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
@@ -89,7 +89,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
      * @param int|false|null $lifetime
      * @return bool|Mage_Core_Model_App
      */
-    protected function _saveCache($data, $id, $tags = array(), $lifetime = false)
+    protected function _saveCache($data, $id, $tags = [], $lifetime = false)
     {
         return Mage::app()->saveCache($data, $id, $tags, $lifetime);
     }
@@ -144,7 +144,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
         }
 
         if (Mage::app()->useCache('config')) {
-            $this->saveCache(array('config'));
+            $this->saveCache(['config']);
         }
 
         return $this;

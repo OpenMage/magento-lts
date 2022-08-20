@@ -40,7 +40,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
      *
      * @var array
      */
-    protected $_processedTypes = array('tinyint', 'smallint', 'mediumint', 'int', 'longint');
+    protected $_processedTypes = ['tinyint', 'smallint', 'mediumint', 'int', 'longint'];
 
     /**
      * Inits query modifier
@@ -76,10 +76,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 $definition = $match[2];
                 $unsigned = preg_match('/\sUNSIGNED/i', $definition) > 0;
 
-                $result = array(
+                $result = [
                     'type' => $type,
                     'unsigned' => $unsigned
-                );
+                ];
                 break;
             }
             if ($result) {
@@ -219,10 +219,10 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             return null;
         }
 
-        return array(
+        return [
             'type' => $this->_prepareIdentifier($description[$column]['DATA_TYPE']),
             'unsigned' => (bool) $description[$column]['UNSIGNED']
-        );
+        ];
     }
 
     /**

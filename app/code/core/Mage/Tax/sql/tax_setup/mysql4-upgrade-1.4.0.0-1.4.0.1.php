@@ -31,6 +31,6 @@ $installer->getConnection()->truncate($table);
 $installer->getConnection()->addKey(
     $table,
     'UNQ_PERIOD_STORE_CODE_ORDER_STATUS',
-    array('period', 'store_id', 'code', 'percent', 'order_status'),
+    ['period', 'store_id', 'code', 'percent', 'order_status'],
     'unique'
 );

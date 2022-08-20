@@ -30,12 +30,12 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
      *
      * @var array
      */
-    protected $_columnsToRemove = array(
+    protected $_columnsToRemove = [
         'customer_email',
         'customer_firstname',
         'customer_middlename',
         'customer_lastname'
-    );
+    ];
 
     /**
      * Disable filters and paging
@@ -93,7 +93,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Agreement extends Mage_Sales_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/sales_billing_agreement/customerGrid', array('_current'=>true));
+        return $this->getUrl('*/sales_billing_agreement/customerGrid', ['_current'=>true]);
     }
 
     /**

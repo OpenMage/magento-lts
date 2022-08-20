@@ -55,7 +55,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
 
-        $result = array();
+        $result = [];
         try {
             /** @var Mage_Downloadable_Model_Link_Api_Uploader $uploader */
             $uploader = Mage::getModel('downloadable/link_api_uploader', $fileInfo);
@@ -77,7 +77,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         $result['status'] = 'new';
         $result['name'] = substr($result['file'], strrpos($result['file'], '/')+1);
-        return Mage::helper('core')->jsonEncode(array($result));
+        return Mage::helper('core')->jsonEncode([$result]);
     }
 
     /**
@@ -126,7 +126,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         $product = $this->_getProduct($productId, $store, $identifierType);
         try {
-            $downloadable = array($resourceType => array($resource));
+            $downloadable = [$resourceType => [$resource]];
             $product->setDownloadableData($downloadable);
             $product->save();
         } catch (Exception $e) {
@@ -148,11 +148,11 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
     {
         $product = $this->_getProduct($productId, $store, $identifierType);
 
-        $linkArr = array();
+        $linkArr = [];
         $links = $product->getTypeInstance(true)->getLinks($product);
         $downloadHelper = Mage::helper('downloadable');
         foreach ($links as $item) {
-            $tmpLinkItem = array(
+            $tmpLinkItem = [
                 'link_id' => $item->getId(),
                 'title' => $item->getTitle(),
                 'price' => $item->getPrice(),
@@ -164,7 +164,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 'sample_url' => $item->getSampleUrl(),
                 'sample_type' => $item->getSampleType(),
                 'sort_order' => $item->getSortOrder()
-            );
+            ];
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBasePath(),
                 $item->getLinkFile()
@@ -176,26 +176,26 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
             if ($item->getLinkFile() && is_file($file)) {
                 $name = Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile());
-                $tmpLinkItem['file_save'] = array(
-                    array(
+                $tmpLinkItem['file_save'] = [
+                    [
                         'file' => $item->getLinkFile(),
                         'name' => $name,
                         'size' => filesize($file),
                         'status' => 'old'
-                    ));
+                    ]];
             }
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBaseSamplePath(),
                 $item->getSampleFile()
             );
             if ($item->getSampleFile() && is_file($sampleFile)) {
-                $tmpLinkItem['sample_file_save'] = array(
-                    array(
+                $tmpLinkItem['sample_file_save'] = [
+                    [
                         'file' => $item->getSampleFile(),
                         'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
                         'size' => filesize($sampleFile),
                         'status' => 'old'
-                    ));
+                    ]];
             }
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = 1;
@@ -213,7 +213,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         unset($links);
 
         $samples = $product->getTypeInstance(true)->getSamples($product)->getData();
-        return array('links' => $linkArr, 'samples' => $samples);
+        return ['links' => $linkArr, 'samples' => $samples];
     }
 
     /**

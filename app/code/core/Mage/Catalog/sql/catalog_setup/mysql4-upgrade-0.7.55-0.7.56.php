@@ -45,7 +45,7 @@ $installer->getConnection()->delete($categoryIndexTable, 'category_id='.Mage_Cat
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'FK_CATALOG_CATEGORY_PRODUCT_INDEX_CATEGORY_ENTITY',
-    array('category_id')
+    ['category_id']
 );
 $installer->getConnection()->dropKey($categoryIndexTable, 'IDX_CATEGORY_POSITION');
 $installer->getConnection()->dropKey($categoryIndexTable, 'UNQ_CATEGORY_PRODUCT');
@@ -95,19 +95,19 @@ $installer->getConnection()->delete($categoryIndexTable, 'store_id=0');
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'UNQ_CATEGORY_PRODUCT',
-    array('store_id', 'category_id', 'product_id')
+    ['store_id', 'category_id', 'product_id']
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_JOIN',
-    array('product_id', 'store_id', 'category_id', 'visibility')
+    ['product_id', 'store_id', 'category_id', 'visibility']
 );
 
 $installer->getConnection()->addKey(
     $categoryIndexTable,
     'IDX_BASE',
-    array('store_id', 'category_id', 'visibility', 'is_parent', 'position')
+    ['store_id', 'category_id', 'visibility', 'is_parent', 'position']
 );
 
 $installer->getConnection()->addConstraint(

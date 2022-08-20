@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     protected $_containers;
 
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
 
@@ -157,7 +157,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
             /** @var Varien_Simplexml_Element $varNode */
             foreach ($actionNode->var as $key => $varNode) {
                 if ($varNode['name'] == 'map') {
-                    $mapData = array();
+                    $mapData = [];
                     foreach ($varNode->map as $mapNode) {
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }

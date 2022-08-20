@@ -27,20 +27,20 @@ $installer->getConnection()->addColumn($installer->getTable('core/variable_value
 $installer->getConnection()->addColumn($installer->getTable('core/variable_value'), 'html_value', 'TEXT NOT NULL');
 
 $select = $installer->getConnection()->select()
-    ->from(array('main_table' => $installer->getTable('core/variable')), array())
+    ->from(['main_table' => $installer->getTable('core/variable')], [])
     ->join(
-        array('value_table' => $installer->getTable('core/variable_value')),
+        ['value_table' => $installer->getTable('core/variable_value')],
         'value_table.variable_id = main_table.variable_id',
-        array()
+        []
     )
-    ->columns(array('main_table.variable_id', 'main_table.is_html', 'value_table.value'));
+    ->columns(['main_table.variable_id', 'main_table.is_html', 'value_table.value']);
 
-$data = array();
+$data = [];
 foreach ($installer->getConnection()->fetchAll($select) as $row) {
     if ($row['is_html']) {
-        $value = array('html_value' => $row['value']);
+        $value = ['html_value' => $row['value']];
     } else {
-        $value = array('plain_value' => $row['value']);
+        $value = ['plain_value' => $row['value']];
     }
     $data[$row['variable_id']] = $value;
 }
@@ -49,7 +49,7 @@ foreach ($data as $variableId => $value) {
     $installer->getConnection()->update(
         $installer->getTable('core/variable_value'),
         $value,
-        array('variable_id = ?' => $variableId)
+        ['variable_id = ?' => $variableId]
     );
 }
 

@@ -44,7 +44,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
             $order = Mage::getModel('sales/order');
             $order->loadByIncrementId($params['x_invoice_num']);
 
-            $url = $this->getAdminUrl('adminhtml/sales_order/view', array('order_id' => $order->getId()));
+            $url = $this->getAdminUrl('adminhtml/sales_order/view', ['order_id' => $order->getId()]);
         }
 
         return $url;

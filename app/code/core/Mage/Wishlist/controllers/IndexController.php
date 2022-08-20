@@ -36,7 +36,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('add');
+    protected $_cookieCheckActions = ['add'];
 
     /**
      * If true, authentication in this controller (wishlist) could be skipped
@@ -216,11 +216,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             Mage::dispatchEvent(
                 'wishlist_add_product',
-                array(
+                [
                     'wishlist' => $wishlist,
                     'product' => $product,
                     'item' => $result
-                )
+                ]
             );
 
             $referer = $session->getBeforeWishlistUrl();
@@ -249,7 +249,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addError($this->__('An error occurred while adding item to wishlist.'));
         }
 
-        $this->_redirect('*', array('wishlist_id' => $wishlist->getId()));
+        $this->_redirect('*', ['wishlist_id' => $wishlist->getId()]);
     }
 
     /**
@@ -333,8 +333,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 ->save();
 
             Mage::helper('wishlist')->calculate();
-            Mage::dispatchEvent('wishlist_update_item', array(
-                'wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id)));
+            Mage::dispatchEvent('wishlist_update_item', [
+                'wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id)]);
 
             Mage::helper('wishlist')->calculate();
 
@@ -346,7 +346,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addError($this->__('An error occurred while updating wishlist.'));
             Mage::logException($e);
         }
-        $this->_redirect('*/*', array('wishlist_id' => $wishlist->getId()));
+        $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
     }
 
     /**
@@ -428,11 +428,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             }
 
             if (isset($post['save_and_share'])) {
-                $this->_redirect('*/*/share', array('wishlist_id' => $wishlist->getId()));
+                $this->_redirect('*/*/share', ['wishlist_id' => $wishlist->getId()]);
                 return;
             }
         }
-        $this->_redirect('*', array('wishlist_id' => $wishlist->getId()));
+        $this->_redirect('*', ['wishlist_id' => $wishlist->getId()]);
     }
 
     /**
@@ -515,12 +515,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $options = Mage::getModel('wishlist/item_option')->getCollection()
-                    ->addItemFilter(array($itemId));
+                    ->addItemFilter([$itemId]);
             $item->setOptions($options->getOptionsByItem($itemId));
 
             $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest(
                 $this->getRequest()->getParams(),
-                array('current_config' => $item->getBuyRequest())
+                ['current_config' => $item->getBuyRequest()]
             );
 
             $item->mergeBuyRequest($buyRequest);
@@ -547,10 +547,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $session->addError($this->__('This product(s) is currently out of stock'));
             } elseif ($e->getCode() == Mage_Wishlist_Model_Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
                 Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
-                $redirectUrl = Mage::getUrl('*/*/configure/', array('id' => $item->getId()));
+                $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             } else {
                 Mage::getSingleton('catalog/session')->addNotice($e->getMessage());
-                $redirectUrl = Mage::getUrl('*/*/configure/', array('id' => $item->getId()));
+                $redirectUrl = Mage::getUrl('*/*/configure/', ['id' => $item->getId()]);
             }
         } catch (Exception $e) {
             Mage::logException($e);
@@ -689,14 +689,14 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     Mage::getStoreConfig('wishlist/email/email_identity'),
                     $email,
                     null,
-                    array(
+                    [
                         'customer'       => $customer,
                         'salable'        => $wishlist->isSalable() ? 'yes' : '',
                         'items'          => $wishlistBlock,
-                        'addAllLink'     => Mage::getUrl('*/shared/allcart', array('code' => $sharingCode)),
-                        'viewOnSiteLink' => Mage::getUrl('*/shared/index', array('code' => $sharingCode)),
+                        'addAllLink'     => Mage::getUrl('*/shared/allcart', ['code' => $sharingCode]),
+                        'viewOnSiteLink' => Mage::getUrl('*/shared/index', ['code' => $sharingCode]),
                         'message'        => $message
-                    )
+                    ]
                 );
             }
 
@@ -705,11 +705,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             $translate->setTranslateInline(true);
 
-            Mage::dispatchEvent('wishlist_share', array('wishlist' => $wishlist));
+            Mage::dispatchEvent('wishlist_share', ['wishlist' => $wishlist]);
             Mage::getSingleton('customer/session')->addSuccess(
                 $this->__('Your Wishlist has been shared.')
             );
-            $this->_redirect('*/*', array('wishlist_id' => $wishlist->getId()));
+            $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
         } catch (Exception $e) {
             $translate->setTranslateInline(true);
 
@@ -754,10 +754,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $secretKey = $this->getRequest()->getParam('key');
 
             if ($secretKey == $info['secret_key']) {
-                $this->_prepareDownloadResponse($info['title'], array(
+                $this->_prepareDownloadResponse($info['title'], [
                     'value' => $filePath,
                     'type'  => 'filename'
-                ));
+                ]);
             }
         } catch (Exception $e) {
             $this->_forward('noRoute');

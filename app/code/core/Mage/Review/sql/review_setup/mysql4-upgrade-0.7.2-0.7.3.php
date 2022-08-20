@@ -39,7 +39,7 @@ try {
     $total = intval($this->getConnection()->fetchOne($total));
     for ($i = 0; $i < $total; $i += 100) {
         $select = $this->getConnection()->select()
-            ->from($this->getTable('review'), array('review_id', 'entity_pk_value'))
+            ->from($this->getTable('review'), ['review_id', 'entity_pk_value'])
             ->limit(100, $i)
         ;
         $rows = $this->getConnection()->fetchAll($select);

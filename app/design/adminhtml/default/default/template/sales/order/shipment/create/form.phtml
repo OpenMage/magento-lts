@@ -86,7 +86,7 @@
             packaging.setLabelCreatedCallback(function(response){
                 setLocation("<?php echo $this->getUrl(
                     '*/sales_order/view',
-                    array('order_id' => $this->getShipment()->getOrderId())
+                    ['order_id' => $this->getShipment()->getOrderId()]
                 ); ?>");
             });
             packaging.setCancelCallback(function() {

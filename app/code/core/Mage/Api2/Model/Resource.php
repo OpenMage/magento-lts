@@ -651,7 +651,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getCriticalErrors()
     {
-        return array(
+        return [
             '' => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_NOT_FOUND => Mage_Api2_Model_Server::HTTP_NOT_FOUND,
             self::RESOURCE_METHOD_NOT_ALLOWED => Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
@@ -665,7 +665,7 @@ abstract class Mage_Api2_Model_Resource
             self::RESOURCE_COLLECTION_ORDERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_FILTERING_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             self::RESOURCE_COLLECTION_ATTRIBUTES_ERROR => Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
-        );
+        ];
     }
 
     /**
@@ -689,7 +689,7 @@ abstract class Mage_Api2_Model_Resource
      * @param array $params
      * @return $this
      */
-    protected function _successMessage($message, $code, $params = array())
+    protected function _successMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_SUCCESS);
         return $this;
@@ -703,7 +703,7 @@ abstract class Mage_Api2_Model_Resource
      * @param array $params
      * @return $this
      */
-    protected function _errorMessage($message, $code, $params = array())
+    protected function _errorMessage($message, $code, $params = [])
     {
         $this->getResponse()->addMessage($message, $code, $params, Mage_Api2_Model_Response::MESSAGE_TYPE_ERROR);
         return $this;
@@ -884,10 +884,10 @@ abstract class Mage_Api2_Model_Resource
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $resource->getId()
-        );
+        ];
         $uri = $chain->assemble($params);
 
         return '/' . $uri;
@@ -900,7 +900,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getResourceAttributes()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -1001,7 +1001,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getDbAttributes()
     {
-        $available = array();
+        $available = [];
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
@@ -1024,7 +1024,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getEavAttributes($onlyVisible = false, $excludeSystem = false)
     {
-        $attributes = array();
+        $attributes = [];
         $model = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         /** @var Mage_Eav_Model_Entity_Type $entityType */

@@ -31,7 +31,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
     public function __construct()
     {
         parent::__construct();
-        $this->setActions(array());
+        $this->setActions([]);
         $this->setType('rule/action_collection');
     }
 
@@ -47,7 +47,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      * @param array $arrAttributes
      * @return array
      */
-    public function asArray(array $arrAttributes = array())
+    public function asArray(array $arrAttributes = [])
     {
         $out = parent::asArray();
 
@@ -112,11 +112,11 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        return $this->getForm()->addField('action:'.$this->getId().':new_child', 'select', array(
+        return $this->getForm()->addField('action:'.$this->getId().':new_child', 'select', [
            'name'=>'rule[actions]['.$this->getId().'][new_child]',
            'values'=>$this->getNewChildSelectOptions(),
            'value_name'=>$this->getNewChildName(),
-        ))->setRenderer(Mage::getBlockSingleton('rule/newchild'));
+        ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
     }
 
     /**

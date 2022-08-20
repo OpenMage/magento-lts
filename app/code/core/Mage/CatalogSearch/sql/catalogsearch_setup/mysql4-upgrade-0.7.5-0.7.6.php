@@ -62,9 +62,9 @@ $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_active',
 $connection->addColumn($installer->getTable('catalogsearch_query'), 'is_processed', 'tinyint(1) DEFAULT 0 AFTER `is_active`');
 
 $connection->dropKey($installer->getTable('catalogsearch_query'), 'search_query');
-$connection->addKey($installer->getTable('catalogsearch_query'), 'IDX_SEARCH_QUERY', array(
+$connection->addKey($installer->getTable('catalogsearch_query'), 'IDX_SEARCH_QUERY', [
     'query_text', 'store_id', 'popularity'
-));
+]);
 
 $installer->endSetup();
 

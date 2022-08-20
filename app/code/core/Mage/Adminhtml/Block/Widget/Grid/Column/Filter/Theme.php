@@ -37,10 +37,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
     {
         $options = $this->getOptions();
         if ($this->getColumn()->getWithEmpty()) {
-            array_unshift($options, array(
+            array_unshift($options, [
                 'value' => '',
                 'label' => ''
-            ));
+            ]);
         }
         $html = sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
             . $this->_drawOptions($options)
@@ -110,6 +110,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
         if ($value == 'all') {
             $value = '';
         }
-        return array('eq' => $value);
+        return ['eq' => $value];
     }
 }

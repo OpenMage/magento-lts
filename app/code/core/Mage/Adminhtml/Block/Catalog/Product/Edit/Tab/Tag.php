@@ -55,48 +55,48 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Tag extends Mage_Adminhtml_B
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Tag Name'),
             'index'     => 'name',
-        ));
+        ]);
 
-        $this->addColumn('popularity', array(
+        $this->addColumn('popularity', [
             'header'        => Mage::helper('catalog')->__('# of Use'),
             'width'         => '50px',
             'align'         => 'right',
             'index'         => 'popularity',
             'type'          => 'number',
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'    => Mage::helper('catalog')->__('Status'),
             'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('catalog')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('catalog')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('catalog')->__('Approved'),
-            ),
-        ));
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/tag/edit', array(
+        return $this->getUrl('*/tag/edit', [
             'tag_id'        => $row->getId(),
             'product_id'    => $this->getProductId(),
-        ));
+        ]);
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/catalog_product/tagGrid', array(
+        return $this->getUrl('*/catalog_product/tagGrid', [
             '_current'      => true,
             'id'            => $this->getProductId(),
             'product_id'    => $this->getProductId(),
-        ));
+        ]);
     }
 }

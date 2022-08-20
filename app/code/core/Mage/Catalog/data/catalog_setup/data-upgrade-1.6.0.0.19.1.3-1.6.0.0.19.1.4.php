@@ -44,13 +44,13 @@ foreach ($attributes as $attribute) {
             ->disableTableKeys($attributeTableNew);
 
         $select = $connection->select()
-            ->from($attributeTableOld, array('entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value'))
+            ->from($attributeTableOld, ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value'])
             ->where('entity_type_id = ?', $entityTypeId)
             ->where('attribute_id = ?', $attributeId);
 
         $query = $select->insertFromSelect(
             $attributeTableNew,
-            array('entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value')
+            ['entity_type_id', 'attribute_id', 'store_id', 'entity_id', 'value']
         );
 
         $connection->query($query);

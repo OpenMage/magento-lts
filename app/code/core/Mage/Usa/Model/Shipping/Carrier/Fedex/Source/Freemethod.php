@@ -31,7 +31,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex_Source_Freemethod
     public function toOptionArray()
     {
         $arr = parent::toOptionArray();
-        array_unshift($arr, array('value' => '', 'label' => Mage::helper('shipping')->__('None')));
+        array_unshift($arr, ['value' => '', 'label' => Mage::helper('shipping')->__('None')]);
         return $arr;
     }
 }

@@ -73,7 +73,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
      */
     protected $_authorizationCountKey = 'authorization_count';
 
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $proInstance = array_shift($params);
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
     protected function _setApiProcessableErrors()
     {
         return $this->_pro->getApi()->setProcessableErrors(
-            array(
+            [
                 Mage_Paypal_Model_Api_ProcessableException::API_INTERNAL_ERROR,
                 Mage_Paypal_Model_Api_ProcessableException::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE,
                 Mage_Paypal_Model_Api_ProcessableException::API_DO_EXPRESS_CHECKOUT_FAIL,
@@ -103,7 +103,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
                 Mage_Paypal_Model_Api_ProcessableException::API_COUNTRY_FILTER_DECLINE,
                 Mage_Paypal_Model_Api_ProcessableException::API_MAXIMUM_AMOUNT_FILTER_DECLINE,
                 Mage_Paypal_Model_Api_ProcessableException::API_OTHER_FILTER_DECLINE
-            ));
+            ]);
     }
 
     /**
@@ -569,7 +569,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
             ->setInvNum($order->getIncrementId())
             ->setCurrencyCode($order->getBaseCurrencyCode())
-            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+            ->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($this->_pro->getConfig()->lineItemsEnabled);
 
         // call api and get details from it
@@ -593,10 +593,10 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract
             );
 
         if ($api->getBillingAgreementId()) {
-            $payment->setBillingAgreementData(array(
+            $payment->setBillingAgreementData([
                 'billing_agreement_id'  => $api->getBillingAgreementId(),
                 'method_code'           => Mage_Paypal_Model_Config::METHOD_BILLING_AGREEMENT
-            ));
+            ]);
         }
 
         $this->_pro->importPaymentInfo($api, $payment);

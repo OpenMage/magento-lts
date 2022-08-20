@@ -56,32 +56,32 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('severity', array(
+        $this->addColumn('severity', [
             'header'    => Mage::helper('adminnotification')->__('Severity'),
             'width'     => '60px',
             'index'     => 'severity',
             'renderer'  => 'adminhtml/notification_grid_renderer_severity',
-        ));
+        ]);
 
-        $this->addColumn('date_added', array(
+        $this->addColumn('date_added', [
             'header'    => Mage::helper('adminnotification')->__('Date Added'),
             'index'     => 'date_added',
             'width'     => '150px',
             'type'      => 'datetime'
-        ));
+        ]);
 
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    => Mage::helper('adminnotification')->__('Message'),
             'index'     => 'title',
             'renderer'  => 'adminhtml/notification_grid_renderer_notice',
-        ));
+        ]);
 
-        $this->addColumn('actions', array(
+        $this->addColumn('actions', [
             'header'    => Mage::helper('adminnotification')->__('Actions'),
             'width'     => '250px',
             'sortable'  => false,
             'renderer'  => 'adminhtml/notification_grid_renderer_actions',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -95,16 +95,16 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->setMassactionIdField('notification_id');
         $this->getMassactionBlock()->setFormFieldName('notification');
 
-        $this->getMassactionBlock()->addItem('mark_as_read', array(
+        $this->getMassactionBlock()->addItem('mark_as_read', [
              'label'    => Mage::helper('adminnotification')->__('Mark as Read'),
-             'url'      => $this->getUrl('*/*/massMarkAsRead', array('_current'=>true)),
-        ));
+             'url'      => $this->getUrl('*/*/massMarkAsRead', ['_current'=>true]),
+        ]);
 
-        $this->getMassactionBlock()->addItem('remove', array(
+        $this->getMassactionBlock()->addItem('remove', [
              'label'    => Mage::helper('adminnotification')->__('Remove'),
              'url'      => $this->getUrl('*/*/massRemove'),
              'confirm'  => Mage::helper('adminnotification')->__('Are you sure?')
-        ));
+        ]);
 
         return $this;
     }

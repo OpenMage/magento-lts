@@ -57,7 +57,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @var array
      */
-    protected static $_urlHostCache = array();
+    protected static $_urlHostCache = [];
 
     /**
      * Encrypted session id cache
@@ -191,7 +191,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function getValidateHttpUserAgentSkip()
     {
-        $userAgents = array();
+        $userAgents = [];
         $skip = Mage::getConfig()->getNode(self::XML_NODE_USET_AGENT_SKIP);
         foreach ($skip->children() as $userAgent) {
             $userAgents[] = (string)$userAgent;
@@ -320,13 +320,13 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function addUniqueMessages($messages)
     {
         if (!is_array($messages)) {
-            $messages = array($messages);
+            $messages = [$messages];
         }
         if (!$messages) {
             return $this;
         }
 
-        $messagesAlready = array();
+        $messagesAlready = [];
         $items = $this->getMessages()->getItems();
         foreach ($items as $item) {
             if ($item instanceof Mage_Core_Model_Message_Abstract) {

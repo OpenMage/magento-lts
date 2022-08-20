@@ -45,7 +45,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection extends Mage_Cor
      */
     public function setAttributeSetFilter($setId)
     {
-        $this->addFieldToFilter('attribute_set_id', array('eq' => $setId));
+        $this->addFieldToFilter('attribute_set_id', ['eq' => $setId]);
         $this->setOrder('sort_order');
         return $this;
     }

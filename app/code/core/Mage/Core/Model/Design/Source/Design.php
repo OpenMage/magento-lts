@@ -56,15 +56,15 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
     {
         if (is_null($this->_options)) {
             $design = Mage::getModel('core/design_package')->getThemeList();
-            $options = array();
+            $options = [];
             foreach ($design as $package => $themes) {
-                $packageOption = array('label' => $package);
-                $themeOptions = array();
+                $packageOption = ['label' => $package];
+                $themeOptions = [];
                 foreach ($themes as $theme) {
-                    $themeOptions[] = array(
+                    $themeOptions[] = [
                         'label' => ($this->getIsFullLabel() ? $package . ' / ' : '') . $theme,
                         'value' => $package . '/' . $theme
-                    );
+                    ];
                 }
                 $packageOption['value'] = $themeOptions;
                 $options[] = $packageOption;
@@ -73,9 +73,9 @@ class Mage_Core_Model_Design_Source_Design extends Mage_Eav_Model_Entity_Attribu
         }
         $options = $this->_options;
         if ($withEmpty) {
-            array_unshift($options, array(
+            array_unshift($options, [
                 'value'=>'',
-                'label'=>Mage::helper('core')->__('-- Please Select --')));
+                'label'=>Mage::helper('core')->__('-- Please Select --')]);
         }
         return $options;
     }

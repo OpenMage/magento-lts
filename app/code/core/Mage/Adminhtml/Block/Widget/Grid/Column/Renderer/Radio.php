@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Radio
     public function getValues()
     {
         if (is_null($this->_values)) {
-            $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : array();
+            $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
         }
         return $this->_values;
     }

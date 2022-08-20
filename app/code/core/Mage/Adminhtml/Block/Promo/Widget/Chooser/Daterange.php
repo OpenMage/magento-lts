@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      *
      * @var array
      */
-    protected $_rangeValues     = array('from' => '', 'to' => '');
+    protected $_rangeValues     = ['from' => '', 'to' => ''];
 
     /**
      * Range string delimiter for from/to dates
@@ -59,17 +59,17 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
 
         $idSuffix = Mage::helper('core')->uniqHash();
         $form = new Varien_Data_Form();
-        foreach (array(
+        foreach ([
             'from' => Mage::helper('adminhtml')->__('From'),
-            'to'   => Mage::helper('adminhtml')->__('To')) as $key => $label) {
+            'to'   => Mage::helper('adminhtml')->__('To')] as $key => $label) {
             $id = "{$key}_{$idSuffix}";
-            $element = new Varien_Data_Form_Element_Date(array(
+            $element = new Varien_Data_Form_Element_Date([
                 'format'   => Varien_Date::DATE_INTERNAL_FORMAT, // hardcode because hardcoded values delimiter
                 'label'    => $label,
                 'image'    => $this->getSkinUrl('images/grid-cal.gif'),
                 'onchange' => "dateTimeChoose_{$idSuffix}()", // won't work through Event.observe()
                 'value'    => $this->_rangeValues[$key],
-            ));
+            ]);
             $element->setId($id);
             $form->addElement($element);
         }
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      */
     public function setRangeValues($from, $to)
     {
-        $this->_rangeValues = array('from' => $from, 'to' => $to);
+        $this->_rangeValues = ['from' => $from, 'to' => $to];
         return $this;
     }
 

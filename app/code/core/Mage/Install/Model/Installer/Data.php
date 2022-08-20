@@ -34,7 +34,7 @@ class Mage_Install_Model_Installer_Data extends Varien_Object
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Add error

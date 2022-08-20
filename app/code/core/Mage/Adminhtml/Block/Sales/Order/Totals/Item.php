@@ -46,12 +46,12 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function initTotals()
     {
-        $total = new Varien_Object(array(
+        $total = new Varien_Object([
             'code'      => $this->getNameInLayout(),
             'block_name'=> $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
             'strong'    => $this->getStrong()
-        ));
+        ]);
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
         } else {

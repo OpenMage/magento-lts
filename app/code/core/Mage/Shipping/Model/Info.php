@@ -34,7 +34,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      *
      * @var array
      */
-    protected $_trackingInfo = array();
+    protected $_trackingInfo = [];
 
     /**
      * Generating tracking info
@@ -112,7 +112,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function getTrackingInfoByOrder()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         $order = $this->_initOrder();
         if ($order) {
             $shipments = $order->getShipmentsCollection();
@@ -121,7 +121,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
+                $trackingInfos= [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -139,13 +139,13 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function getTrackingInfoByShip()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         $shipment = $this->_initShipment();
         if ($shipment) {
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
+            $trackingInfos= [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
@@ -164,7 +164,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
         if ($track->getId() && $this->getProtectCode() === $track->getProtectCode()) {
-            $this->_trackingInfo = array(array($track->getNumberDetail()));
+            $this->_trackingInfo = [[$track->getNumberDetail()]];
         }
         return $this->_trackingInfo;
     }

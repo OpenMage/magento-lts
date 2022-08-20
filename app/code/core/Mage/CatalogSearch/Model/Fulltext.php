@@ -73,14 +73,14 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function rebuildIndex($storeId = null, $productIds = null)
     {
-        Mage::dispatchEvent('catalogsearch_index_process_start', array(
+        Mage::dispatchEvent('catalogsearch_index_process_start', [
             'store_id'      => $storeId,
             'product_ids'   => $productIds
-        ));
+        ]);
 
         $this->getResource()->rebuildIndex($storeId, $productIds);
 
-        Mage::dispatchEvent('catalogsearch_index_process_complete', array());
+        Mage::dispatchEvent('catalogsearch_index_process_complete', []);
 
         return $this;
     }

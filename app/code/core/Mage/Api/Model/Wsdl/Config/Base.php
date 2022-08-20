@@ -34,7 +34,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
      */
     protected $_wsdlVariables = null;
 
-    protected $_loadedFiles = array();
+    protected $_loadedFiles = [];
 
     /**
      * @inheritDoc
@@ -49,10 +49,10 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         // set up default WSDL template variables
         $this->_wsdlVariables = new Varien_Object(
-            array(
+            [
                 'name' => 'OpenMage',
-                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', array('_query' => $queryParams), true)
-            )
+                'url'  => Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true)
+            ]
         );
         parent::__construct($sourceData);
     }
@@ -92,7 +92,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
 
         $this->_wsdlVariables->setHandler($this->getHandler());
 
-        $template->setVariables(array('wsdl'=>$this->_wsdlVariables));
+        $template->setVariables(['wsdl'=>$this->_wsdlVariables]);
 
         return $template->filter($text);
     }

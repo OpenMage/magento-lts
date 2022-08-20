@@ -173,14 +173,14 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $to->query($query);
         } else {
             $stmt = $from->query($select);
-            $data = array();
+            $data = [];
             $counter = 0;
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
                 if ($counter>2000) {
                     $to->insertArray($destTable, $columns, $data);
-                    $data = array();
+                    $data = [];
                     $counter = 0;
                 }
             }

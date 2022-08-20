@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Weight extends Varien_Dat
      *
      * @param array $attributes
      */
-    public function __construct(array $attributes = array())
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->addClass('validate-number validate-zero-or-greater validate-number-range number-range-0-99999999.9999');

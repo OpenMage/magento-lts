@@ -51,28 +51,28 @@ class Mage_Index_Model_Lock
      *
      * @var array
      */
-    protected static $_lockDb = array();
+    protected static $_lockDb = [];
 
     /**
      * Array of registered file locks
      *
      * @var array
      */
-    protected static $_lockFile = array();
+    protected static $_lockFile = [];
 
     /**
      * Array of registered file lock resources
      *
      * @var array
      */
-    protected static $_lockFileResource = array();
+    protected static $_lockFileResource = [];
 
     /**
      * Constructor
      */
     protected function __construct()
     {
-        register_shutdown_function(array($this, 'shutdownReleaseLocks'));
+        register_shutdown_function([$this, 'shutdownReleaseLocks']);
     }
 
     /**

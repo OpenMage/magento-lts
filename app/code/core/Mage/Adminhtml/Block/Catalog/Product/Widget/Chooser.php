@@ -27,14 +27,14 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
-    protected $_selectedProducts = array();
+    protected $_selectedProducts = [];
 
     /**
      * Block construction, prepare grid params
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments=array())
+    public function __construct($arguments= [])
     {
         parent::__construct($arguments);
         $this->setDefaultSort('name');
@@ -50,10 +50,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
-        $sourceUrl = $this->getUrl('*/catalog_product_widget/chooser', array(
+        $sourceUrl = $this->getUrl('*/catalog_product_widget/chooser', [
             'uniq_id' => $uniqId,
             'use_massaction' => false,
-        ));
+        ]);
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
@@ -160,9 +160,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($column->getId() == 'in_products') {
             $selected = $this->getSelectedProducts();
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$selected));
+                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$selected]);
             } else {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$selected));
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$selected]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -191,7 +191,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 if (empty($productIds)) {
                     $productIds = 0;
                 }
-                $collection->addFieldToFilter('entity_id', array('in' => $productIds));
+                $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
             }
         }
 
@@ -211,7 +211,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
     protected function _prepareColumns()
     {
         if ($this->getUseMassaction()) {
-            $this->addColumn('in_products', array(
+            $this->addColumn('in_products', [
                 'header_css_class' => 'a-center',
                 'type'      => 'checkbox',
                 'name'      => 'in_products',
@@ -221,26 +221,26 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 'align'     => 'center',
                 'index'     => 'entity_id',
                 'use_index' => true,
-            ));
+            ]);
         }
 
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60px',
             'index'     => 'entity_id'
-        ));
-        $this->addColumn('chooser_sku', array(
+        ]);
+        $this->addColumn('chooser_sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'name'      => 'chooser_sku',
             'width'     => '80px',
             'index'     => 'sku'
-        ));
-        $this->addColumn('chooser_name', array(
+        ]);
+        $this->addColumn('chooser_name', [
             'header'    => Mage::helper('catalog')->__('Product Name'),
             'name'      => 'chooser_name',
             'index'     => 'name'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -252,13 +252,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/catalog_product_widget/chooser', array(
+        return $this->getUrl('*/catalog_product_widget/chooser', [
             'products_grid' => true,
             '_current' => true,
             'uniq_id' => $this->getId(),
             'use_massaction' => $this->getUseMassaction(),
             'product_type_id' => $this->getProductTypeId()
-        ));
+        ]);
     }
 
     /**

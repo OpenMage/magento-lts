@@ -77,7 +77,7 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
 
             $countSelect = clone $this->getSelect();
             $countSelect->reset();
-            $countSelect->from(array('a' => $unionSelect), 'COUNT(*)');
+            $countSelect->from(['a' => $unionSelect], 'COUNT(*)');
         } else {
             $countSelect = parent::getSelectCountSql();
         }

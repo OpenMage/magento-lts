@@ -27,11 +27,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Subtotal extends 
      */
     public function fetchTotals(Mage_Sales_Model_Quote_Address $address)
     {
-        $address->addTotal(array(
+        $address->addTotal([
             'code'=>'subtotal',
             'title'=>Mage::helper('sales')->__('Subtotal'),
             'value'=>$address->getSubtotal()
-        ));
+        ]);
 
         return $this;
     }

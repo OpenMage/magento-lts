@@ -31,39 +31,39 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
     {
         $this->setChild('backButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
                     'onclick'   => 'window.location.href=\''.$this->getUrl('*/*/').'\'',
                     'class' => 'back'
-                ))
+                ])
         );
 
         $this->setChild('resetButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
                     'onclick'   => 'window.location.reload()'
-                ))
+                ])
         );
 
         $this->setChild('saveButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
                     'onclick'   => 'roleForm.submit();return false;',
                     'class' => 'save'
-                ))
+                ])
         );
 
         $this->setChild('deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                     'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
                             Mage::helper('adminhtml')->__('Are you sure you want to do this?')
                         ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
                     'class' => 'delete'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }

@@ -68,7 +68,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_attributesBySet             = array();
+    protected $_attributesBySet             = [];
 
     /**
      * Collection of sets

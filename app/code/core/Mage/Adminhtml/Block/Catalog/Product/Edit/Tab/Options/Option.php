@@ -116,10 +116,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     {
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Option'),
                     'class' => 'delete delete-product-option '
-                ))
+                ])
         );
 
         $path = 'global/catalog/product/options/custom/groups';
@@ -151,10 +151,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{id}}_type',
                 'class' => 'select select-product-option-type required-option-select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{id}}][type]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_product_options_type')->toOptionArray());
 
@@ -164,10 +164,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
     public function getRequireSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{id}}_is_require',
                 'class' => 'select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{id}}][is_require]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 
@@ -213,14 +213,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
         if (!$this->_values) {
             $showPrice = $this->getCanReadPrice();
-            $values = array();
+            $values = [];
             $scope = (int) Mage::app()->getStore()->getConfig(Mage_Core_Model_Store::XML_PATH_PRICE_SCOPE);
             foreach ($optionsArr as $option) {
                 /** @var Mage_Catalog_Model_Product_Option $option */
 
                 $this->setItemCount($option->getOptionId());
 
-                $value = array();
+                $value = [];
 
                 $value['id'] = $option->getOptionId();
                 $value['item_count'] = $this->getItemCount();
@@ -242,7 +242,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                     $itemCount = 0;
                     foreach ($option->getValues() as $_value) {
                         /** @var Mage_Catalog_Model_Product_Option_Value $_value */
-                        $value['optionValues'][$i] = array(
+                        $value['optionValues'][$i] = [
                             'item_count' => max($itemCount, $_value->getOptionTypeId()),
                             'option_id' => $_value->getOptionId(),
                             'option_type_id' => $_value->getOptionTypeId(),
@@ -252,7 +252,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                             'price_type' => ($showPrice) ? $_value->getPriceType() : 0,
                             'sku' => $this->escapeHtml($_value->getSku()),
                             'sort_order' => $_value->getSortOrder(),
-                        );
+                        ];
 
                         if ($this->getProduct()->getStoreId() != '0') {
                             $value['optionValues'][$i]['checkboxScopeTitle'] = $this->getCheckboxScopeHtml(

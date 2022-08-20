@@ -24,10 +24,10 @@ $installer = $this;
 $installer->getConnection()->modifyColumn(
     $installer->getTable('importexport/importdata'),
     'data',
-    array(
+    [
         'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length' => '4G',
         'default' => '',
         'comment' => 'Data'
-    )
+    ]
 );

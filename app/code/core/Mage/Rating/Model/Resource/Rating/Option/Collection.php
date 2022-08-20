@@ -65,7 +65,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
         if (is_numeric($rating)) {
             $this->addFilter('rating_id', $rating);
         } elseif (is_array($rating)) {
-            $this->addFilter('rating_id', $this->_getConditionSql('rating_id', array('in'=>$rating)), 'string');
+            $this->addFilter('rating_id', $this->_getConditionSql('rating_id', ['in'=>$rating]), 'string');
         }
         return $this;
     }

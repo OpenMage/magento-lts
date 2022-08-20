@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'links_purchased_separately', array(
+$installer->addAttribute('catalog_product', 'links_purchased_separately', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -43,6 +43,6 @@ $installer->addAttribute('catalog_product', 'links_purchased_separately', array(
         'unique'            => false,
         'apply_to'          => 'downloadable',
         'is_configurable'   => false
-    ));
+]);
 
 $installer->endSetup();

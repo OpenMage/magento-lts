@@ -33,7 +33,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @var array
      */
-    protected $_entitiesAlias        = array();
+    protected $_entitiesAlias        = [];
 
     /**
      * Review store table
@@ -55,7 +55,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      *
      * @var array
      */
-    protected $_storesIds           = array();
+    protected $_storesIds           = [];
 
     /**
      * Define module
@@ -96,7 +96,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         parent::addStoreFilter($storeId);
 
         if (!is_array($storeId)) {
-            $storeId = array($storeId);
+            $storeId = [$storeId];
         }
 
         if (!empty($this->_storesIds)) {
@@ -121,7 +121,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         }
 
         if (!is_array($storeId)) {
-            $storeId = array($storeId);
+            $storeId = [$storeId];
         }
 
         if (!empty($this->_storesIds)) {
@@ -152,20 +152,20 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         }
 
         if (is_array($storesIds) && !empty($storesIds)) {
-            $inCond = $adapter->prepareSqlCondition('store.store_id', array('in' => $storesIds));
+            $inCond = $adapter->prepareSqlCondition('store.store_id', ['in' => $storesIds]);
             $select->join(
-                array('store' => $this->_reviewStoreTable),
+                ['store' => $this->_reviewStoreTable],
                 'rt.review_id=store.review_id AND ' . $inCond,
-                array()
+                []
             )
             ->group('rt.review_id');
 
             $this->_useAnalyticFunction = true;
         } else {
             $select->join(
-                array('store' => $this->_reviewStoreTable),
+                ['store' => $this->_reviewStoreTable],
                 $adapter->quoteInto('rt.review_id=store.review_id AND store.store_id = ?', (int)$storesIds),
-                array()
+                []
             );
         }
 
@@ -282,14 +282,14 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
 
         $this->getSelect()
             ->join(
-                array('rt' => $reviewTable),
+                ['rt' => $reviewTable],
                 'rt.entity_pk_value = e.entity_id',
-                array('rt.review_id', 'review_created_at'=> 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id')
+                ['rt.review_id', 'review_created_at'=> 'rt.created_at', 'rt.entity_pk_value', 'rt.status_id']
             )
             ->join(
-                array('rdt' => $reviewDetailTable),
+                ['rdt' => $reviewDetailTable],
                 'rdt.review_id = rt.review_id',
-                array('rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id')
+                ['rdt.title','rdt.nickname', 'rdt.detail', 'rdt.customer_id', 'rdt.store_id']
             );
         return $this;
     }
@@ -380,18 +380,18 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 break;
             case 'type':
                 if ($condition == 1) {
-                    $conditionParts = array(
-                        $this->_getConditionSql('rdt.customer_id', array('is' => new Zend_Db_Expr('NULL'))),
-                        $this->_getConditionSql('rdt.store_id', array('eq' => Mage_Core_Model_App::ADMIN_STORE_ID))
-                    );
+                    $conditionParts = [
+                        $this->_getConditionSql('rdt.customer_id', ['is' => new Zend_Db_Expr('NULL')]),
+                        $this->_getConditionSql('rdt.store_id', ['eq' => Mage_Core_Model_App::ADMIN_STORE_ID])
+                    ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 } elseif ($condition == 2) {
-                    $conditionSql = $this->_getConditionSql('rdt.customer_id', array('gt' => 0));
+                    $conditionSql = $this->_getConditionSql('rdt.customer_id', ['gt' => 0]);
                 } else {
-                    $conditionParts = array(
-                        $this->_getConditionSql('rdt.customer_id', array('is' => new Zend_Db_Expr('NULL'))),
-                        $this->_getConditionSql('rdt.store_id', array('neq' => Mage_Core_Model_App::ADMIN_STORE_ID))
-                    );
+                    $conditionParts = [
+                        $this->_getConditionSql('rdt.customer_id', ['is' => new Zend_Db_Expr('NULL')]),
+                        $this->_getConditionSql('rdt.store_id', ['neq' => Mage_Core_Model_App::ADMIN_STORE_ID])
+                    ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 }
                 $this->getSelect()->where($conditionSql);
@@ -412,7 +412,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      */
     public function getColumnValues($colName)
     {
-        $col = array();
+        $col = [];
         foreach ($this->getItems() as $item) {
             $col[] = $item->getData($colName);
         }
@@ -442,10 +442,10 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         $adapter = $this->getConnection();
         //$this->_getConditionSql('rdt.customer_id', array('null' => null));
         $reviewsIds = $this->getColumnValues('review_id');
-        $storesToReviews = array();
+        $storesToReviews = [];
         if (count($reviewsIds)>0) {
-            $reviewIdCondition = $this->_getConditionSql('review_id', array('in' => $reviewsIds));
-            $storeIdCondition = $this->_getConditionSql('store_id', array('gt' => 0));
+            $reviewIdCondition = $this->_getConditionSql('review_id', ['in' => $reviewsIds]);
+            $storeIdCondition = $this->_getConditionSql('store_id', ['gt' => 0]);
             $select = $adapter->select()
                 ->from($this->_reviewStoreTable)
                 ->where($reviewIdCondition)
@@ -453,7 +453,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $result = $adapter->fetchAll($select);
             foreach ($result as $row) {
                 if (!isset($storesToReviews[$row['review_id']])) {
-                    $storesToReviews[$row['review_id']] = array();
+                    $storesToReviews[$row['review_id']] = [];
                 }
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }
@@ -463,7 +463,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             if (isset($storesToReviews[$item->getReviewId()])) {
                 $item->setData('stores', $storesToReviews[$item->getReviewId()]);
             } else {
-                $item->setData('stores', array());
+                $item->setData('stores', []);
             }
         }
     }

@@ -28,18 +28,18 @@ $installer->getConnection()->addColumn($installer->getTable('downloadable/link_p
 $installer->getConnection()->addKey($installer->getTable('downloadable/link_purchased_item'), 'DOWNLOADALBE_LINK_HASH', 'link_hash');
 
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('downloadable/link_purchased_item'), array(
+    ->from($installer->getTable('downloadable/link_purchased_item'), [
         'item_id',
         'purchased_id',
         'order_item_id',
         'product_id'
-    ));
+    ]);
 $result = $installer->getConnection()->fetchAll($select);
 
 foreach ($result as $row) {
     $installer->getConnection()->update(
         $installer->getTable('downloadable/link_purchased_item'),
-        array('link_hash' => strtr(base64_encode(microtime() . $row['purchased_id'] . $row['order_item_id'] . $row['product_id']), '+/=', '-_,')),
+        ['link_hash' => strtr(base64_encode(microtime() . $row['purchased_id'] . $row['order_item_id'] . $row['product_id']), '+/=', '-_,')],
         $installer->getConnection()->quoteInto('item_id = ?', $row['item_id'])
     );
 }

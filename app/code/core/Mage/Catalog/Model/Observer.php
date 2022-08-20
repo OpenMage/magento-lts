@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Observer
             /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
             $categoryFlatHelper = Mage::helper('catalog/category_flat');
             if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-                Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+                Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
             }
             Mage::getResourceSingleton('catalog/product')->refreshEnabledIndex($store);
         }
@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Observer
         /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
         if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-            Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+            Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
         }
         Mage::getResourceModel('catalog/product')->refreshEnabledIndex($store);
         return $this;
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Observer
                 /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
                 $categoryFlatHelper = Mage::helper('catalog/category_flat');
                 if ($categoryFlatHelper->isAvailable() && $categoryFlatHelper->isBuilt()) {
-                    Mage::getResourceModel('catalog/category_flat')->synchronize(null, array($store->getId()));
+                    Mage::getResourceModel('catalog/category_flat')->synchronize(null, [$store->getId()]);
                 }
             }
         }
@@ -237,12 +237,12 @@ class Mage_Catalog_Model_Observer
             }
 
             $tree = $parentCategoryNode->getTree();
-            $categoryData = array(
+            $categoryData = [
                 'name' => $category->getName(),
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
                 'is_active' => $this->_isActiveMenuCategory($category)
-            );
+            ];
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 

@@ -33,13 +33,13 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
      *
      * @var array
      */
-    protected $_associatedEntitiesMap = array(
-        'website' => array(
+    protected $_associatedEntitiesMap = [
+        'website' => [
             'associations_table' => 'catalogrule/website',
             'rule_id_field'      => 'rule_id',
             'entity_id_field'    => 'website_id'
-        )
-    );
+        ]
+    ];
 
     /**
      * Set resource model
@@ -57,8 +57,8 @@ class Mage_CatalogRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Re
      */
     public function addAttributeInConditionFilter($attributeCode)
     {
-        $match = sprintf('%%%s%%', substr(serialize(array('attribute' => $attributeCode)), 5, -1));
-        $this->addFieldToFilter('conditions_serialized', array('like' => $match));
+        $match = sprintf('%%%s%%', substr(serialize(['attribute' => $attributeCode]), 5, -1));
+        $this->addFieldToFilter('conditions_serialized', ['like' => $match]);
 
         return $this;
     }

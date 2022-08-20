@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat
             $groupSuggestionMessage = Mage::helper('customer')->__('The customer is currently assigned to Customer Group %s.')
                 . ' ' . Mage::helper('customer')->__('Would you like to change the Customer Group for this order?');
 
-            $vatValidateOptions = Mage::helper('core')->jsonEncode(array(
+            $vatValidateOptions = Mage::helper('core')->jsonEncode([
                 'vatElementId' => $vatElementId,
                 'countryElementId' => $countryElementId,
                 'groupIdHtmlId' => 'group_id',
@@ -76,16 +76,16 @@ class Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat
                 'vatValidationFailedMessage'    => Mage::helper('customer')->__('There was an error validating the VAT ID. The customer would belong to Customer Group %s.')
                     . "\n" . $groupSuggestionMessage,
                 'vatErrorMessage' => Mage::helper('customer')->__('There was an error validating the VAT ID.')
-            ));
+            ]);
 
             $optionsVarName = $this->getJsVariablePrefix() . 'VatParameters';
             $beforeHtml = '<script type="text/javascript">var ' . $optionsVarName . ' = ' . $vatValidateOptions
                 . ';</script>';
-            $this->_validateButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            $this->_validateButton = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label'       => Mage::helper('customer')->__('Validate VAT Number'),
                 'before_html' => $beforeHtml,
                 'onclick'     => 'order.validateVat(' . $optionsVarName . ')'
-            ));
+            ]);
         }
         return $this->_validateButton;
     }

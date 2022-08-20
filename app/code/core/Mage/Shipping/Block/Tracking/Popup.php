@@ -148,7 +148,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfoByOrder()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         if ($order = $this->_initOrder()) {
             $shipments = $order->getShipmentsCollection();
             /** @var Mage_Sales_Model_Order_Shipment $shipment */
@@ -156,7 +156,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
                 $increment_id = $shipment->getIncrementId();
                 $tracks = $shipment->getTracksCollection();
 
-                $trackingInfos=array();
+                $trackingInfos= [];
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
@@ -174,12 +174,12 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfoByShip()
     {
-        $shipTrack = array();
+        $shipTrack = [];
         if ($shipment = $this->_initShipment()) {
             $increment_id = $shipment->getIncrementId();
             $tracks = $shipment->getTracksCollection();
 
-            $trackingInfos=array();
+            $trackingInfos= [];
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
@@ -198,9 +198,9 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
     {
         $track = Mage::getModel('sales/order_shipment_track')->load($this->getTrackId());
         if ($this->getProtectCode() == $track->getProtectCode()) {
-            return array(array($track->getNumberDetail()));
+            return [[$track->getNumberDetail()]];
         }
-        return array(array());
+        return [[]];
     }
 
     /**

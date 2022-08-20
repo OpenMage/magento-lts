@@ -32,26 +32,26 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @var array
      */
-    protected $_actions = array(
-        'clear'           => array(), // remove element from DOM
-        'innerHTML'       => array(), // set innerHTML property (use: elementID => new content)
-        'value'           => array(), // set value for form element (use: elementID => new value)
-        'show'            => array(), // show specified element
-        'hide'            => array(), // hide specified element
-        'removeClassName' => array(), // remove specified class name from element
-        'addClassName'    => array()  // add specified class name to element
-    );
+    protected $_actions = [
+        'clear'           => [], // remove element from DOM
+        'innerHTML'       => [], // set innerHTML property (use: elementID => new content)
+        'value'           => [], // set value for form element (use: elementID => new value)
+        'show'            => [], // show specified element
+        'hide'            => [], // hide specified element
+        'removeClassName' => [], // remove specified class name from element
+        'addClassName'    => []  // add specified class name to element
+    ];
 
     /**
      * Validation messages.
      *
      * @var array
      */
-    protected $_messages = array(
-        'error'   => array(),
-        'success' => array(),
-        'notice'  => array()
-    );
+    protected $_messages = [
+        'error'   => [],
+        'success' => [],
+        'notice'  => []
+    ];
 
     /**
      * Add action for response.

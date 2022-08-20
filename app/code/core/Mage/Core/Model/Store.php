@@ -224,28 +224,28 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_configCacheBaseNodes = array();
+    protected $_configCacheBaseNodes = [];
 
     /**
      * Directory cache
      *
      * @var array
      */
-    protected $_dirCache = array();
+    protected $_dirCache = [];
 
     /**
      * URL cache
      *
      * @var array
      */
-    protected $_urlCache = array();
+    protected $_urlCache = [];
 
     /**
      * Base URL cache
      *
      * @var array
      */
-    protected $_baseUrlCache = array();
+    protected $_baseUrlCache = [];
 
     /**
      * Session entity
@@ -288,7 +288,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('core/store');
-        $this->_configCacheBaseNodes = array(
+        $this->_configCacheBaseNodes = [
             self::XML_PATH_PRICE_SCOPE,
             self::XML_PATH_SECURE_BASE_URL,
             self::XML_PATH_SECURE_IN_ADMINHTML,
@@ -299,7 +299,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             self::XML_PATH_UNSECURE_BASE_LINK_URL,
             self::XML_PATH_SECURE_BASE_LINK_URL,
             'general/locale/code'
-        );
+        ];
     }
 
     /**
@@ -411,14 +411,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     if ($data) {
                         $data = unserialize($data, ['allowed_classes' => false]);
                     } else {
-                        $data = array();
+                        $data = [];
                         foreach ($this->_configCacheBaseNodes as $node) {
                             $data[$node] = $this->getConfig($node);
                         }
-                        Mage::app()->saveCache(serialize($data), $cacheId, array(
+                        Mage::app()->saveCache(serialize($data), $cacheId, [
                             self::CACHE_TAG,
                             Mage_Core_Model_Config::CACHE_TAG
-                        ));
+                        ]);
                     }
                     $this->_configCache = $data;
                 }
@@ -514,7 +514,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         if ($node->hasChildren()) {
-            $aValue = array();
+            $aValue = [];
             foreach ($node->children() as $k => $v) {
                 $aValue[$k] = $this->_processConfigValue($fullPath . '/' . $k, $path . '/' . $k, $v);
             }
@@ -591,7 +591,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route = '', $params = array())
+    public function getUrl($route = '', $params = [])
     {
         /** @var Mage_Core_Model_Url $url */
         $url = Mage::getModel('core/url')
@@ -1034,7 +1034,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function formatPrice($price, $includeContainer = true)
     {
         if ($this->getCurrentCurrency()) {
-            return $this->getCurrentCurrency()->format($price, array(), $includeContainer);
+            return $this->getCurrentCurrency()->format($price, [], $includeContainer);
         }
         return $price;
     }
@@ -1156,11 +1156,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         );
 
         $storeUrl = Mage::app()->getStore()->isCurrentlySecure()
-            ? $this->getUrl('', array('_secure' => true))
+            ? $this->getUrl('', ['_secure' => true])
             : $this->getUrl('');
         $storeParsedUrl = parse_url($storeUrl);
 
-        $storeParsedQuery = array();
+        $storeParsedQuery = [];
         if (isset($storeParsedUrl['query'])) {
             parse_str($storeParsedUrl['query'], $storeParsedQuery);
         }
@@ -1255,10 +1255,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     public function resetConfig()
     {
         Mage::getConfig()->reinit();
-        $this->_dirCache        = array();
-        $this->_configCache     = array();
-        $this->_baseUrlCache    = array();
-        $this->_urlCache        = array();
+        $this->_dirCache        = [];
+        $this->_configCache     = [];
+        $this->_baseUrlCache    = [];
+        $this->_urlCache        = [];
 
         return $this;
     }

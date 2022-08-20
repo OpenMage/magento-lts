@@ -41,11 +41,11 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
     {
         $this->setChild('add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'   => Mage::helper('sales')->__('Add Tracking Number'),
                     'class'   => '',
                     'onclick' => 'trackingControl.add()'
-                ))
+                ])
         );
         return $this;
     }
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking extends Mage_Admi
     public function getCarriers()
     {
 
-        $carriers = array();
+        $carriers = [];
         $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers(
             $this->getInvoice()->getStoreId()
         );

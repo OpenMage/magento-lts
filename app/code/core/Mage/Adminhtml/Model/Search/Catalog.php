@@ -34,7 +34,7 @@ class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
      */
     public function load()
     {
-        $arr = array();
+        $arr = [];
 
         if (!$this->hasStart() || !$this->hasLimit() || !$this->hasQuery()) {
             $this->setResults($arr);
@@ -51,13 +51,13 @@ class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
 
         foreach ($collection as $product) {
             $description = strip_tags($product->getDescription());
-            $arr[] = array(
+            $arr[] = [
                 'id'            => 'product/1/'.$product->getId(),
                 'type'          => Mage::helper('adminhtml')->__('Product'),
                 'name'          => $product->getName(),
                 'description'   => Mage::helper('core/string')->substr($description, 0, 30),
-                'url' => Mage::helper('adminhtml')->getUrl('*/catalog_product/edit', array('id'=>$product->getId())),
-            );
+                'url' => Mage::helper('adminhtml')->getUrl('*/catalog_product/edit', ['id'=>$product->getId()]),
+            ];
         }
 
         $this->setResults($arr);

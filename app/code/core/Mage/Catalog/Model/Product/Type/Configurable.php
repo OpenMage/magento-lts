@@ -182,8 +182,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function setUsedProductAttributeIds($ids, $product = null)
     {
-        $usedProductAttributes  = array();
-        $configurableAttributes = array();
+        $usedProductAttributes  = [];
+        $configurableAttributes = [];
 
         foreach ($ids as $attributeId) {
             $usedProductAttributes[]  = $this->getAttributeById($attributeId);
@@ -206,7 +206,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getUsedProductAttributeIds($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_usedProductAttributeIds)) {
-            $usedProductAttributeIds = array();
+            $usedProductAttributeIds = [];
             foreach ($this->getUsedProductAttributes($product) as $attribute) {
                 $usedProductAttributeIds[] = $attribute->getId();
             }
@@ -224,8 +224,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getUsedProductAttributes($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_usedProductAttributes)) {
-            $usedProductAttributes = array();
-            $usedAttributes        = array();
+            $usedProductAttributes = [];
+            $usedAttributes        = [];
             foreach ($this->getConfigurableAttributes($product) as $attribute) {
                 if (!is_null($attribute->getProductAttribute())) {
                     $id = $attribute->getProductAttribute()->getId();
@@ -266,19 +266,19 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getConfigurableAttributesAsArray($product = null)
     {
-        $res = array();
+        $res = [];
         foreach ($this->getConfigurableAttributes($product) as $attribute) {
-            $res[] = array(
+            $res[] = [
                 'id'             => $attribute->getId(),
                 'label'          => $attribute->getLabel(),
                 'use_default'    => $attribute->getUseDefault(),
                 'position'       => $attribute->getPosition(),
-                'values'         => $attribute->getPrices() ? $attribute->getPrices() : array(),
+                'values'         => $attribute->getPrices() ? $attribute->getPrices() : [],
                 'attribute_id'   => $attribute->getProductAttribute()->getId(),
                 'attribute_code' => $attribute->getProductAttribute()->getAttributeCode(),
                 'frontend_label' => $attribute->getProductAttribute()->getFrontend()->getLabel(),
                 'store_label'    => $attribute->getProductAttribute()->getStoreLabel(),
-            );
+            ];
         }
         return $res;
     }
@@ -305,7 +305,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getUsedProductIds($product = null)
     {
         if (!$this->getProduct($product)->hasData($this->_usedProductIds)) {
-            $usedProductIds = array();
+            $usedProductIds = [];
             foreach ($this->getUsedProducts(null, $product) as $product) {
                 $usedProductIds[] = $product->getId();
             }
@@ -334,7 +334,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 return $this->getProduct($product)->getData($this->_usedProducts);
             }
 
-            $usedProducts = array();
+            $usedProducts = [];
             $collection = $this->getUsedProductCollection($product)
                 ->addFilterByRequiredOptions();
 
@@ -353,7 +353,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 foreach ($requiredAttributeIds as $attributeId) {
                     $attribute = $this->getAttributeById($attributeId, $product);
                     if (!is_null($attribute)) {
-                        $collection->addAttributeToFilter($attribute->getAttributeCode(), array('notnull'=>1));
+                        $collection->addAttributeToFilter($attribute->getAttributeCode(), ['notnull'=>1]);
                     }
                 }
             }
@@ -539,7 +539,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function getSelectedAttributesInfo($product = null)
     {
-        $attributes = array();
+        $attributes = [];
         Varien_Profiler::start('CONFIGURABLE:'.__METHOD__);
         if ($attributesOption = $this->getProduct($product)->getCustomOption('attributes')) {
             $data = unserialize($attributesOption->getValue(), ['allowed_classes' => false]);
@@ -559,7 +559,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         $value = '';
                     }
 
-                    $attributes[] = array('label'=>$label, 'value'=>$value);
+                    $attributes[] = ['label'=>$label, 'value'=>$value];
                 }
             }
         }
@@ -588,7 +588,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                         }
                     }
                 } else {
-                    $attributes = array();
+                    $attributes = [];
                 }
             }
 
@@ -815,7 +815,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function getProductsToPurchaseByReqGroups($product = null)
     {
         $product = $this->getProduct($product);
-        return array($this->getUsedProducts(null, $product));
+        return [$this->getUsedProducts(null, $product)];
     }
 
     /**
@@ -852,9 +852,9 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     public function processBuyRequest($product, $buyRequest)
     {
         $superAttribute = $buyRequest->getSuperAttribute();
-        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, '\intval') : array();
+        $superAttribute = (is_array($superAttribute)) ? array_filter($superAttribute, '\intval') : [];
 
-        $options = array('super_attribute' => $superAttribute);
+        $options = ['super_attribute' => $superAttribute];
 
         return $options;
     }

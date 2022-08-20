@@ -32,7 +32,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     protected $_quote    = null;
 
     protected $_totals;
-    protected $_itemRenders = array();
+    protected $_itemRenders = [];
 
     public function __construct()
     {
@@ -50,11 +50,11 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      */
     public function addItemRender($productType, $blockType, $template)
     {
-        $this->_itemRenders[$productType] = array(
+        $this->_itemRenders[$productType] = [
             'block' => $blockType,
             'template' => $template,
             'blockInstance' => null
-        );
+        ];
         return $this;
     }
 

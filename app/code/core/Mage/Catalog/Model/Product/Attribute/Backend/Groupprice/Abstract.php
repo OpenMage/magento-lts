@@ -55,7 +55,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     protected function _getWebsiteCurrencyRates($websiteId = null)
     {
         if (is_null($this->_rates)) {
-            $this->_rates = array();
+            $this->_rates = [];
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
 
             if (is_numeric($websiteId)) {
@@ -74,15 +74,15 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                     if (!$rate) {
                         $rate = 1;
                     }
-                    $this->_rates[$website->getId()] = array(
+                    $this->_rates[$website->getId()] = [
                         'code' => $website->getBaseCurrencyCode(),
                         'rate' => $rate
-                    );
+                    ];
                 } else {
-                    $this->_rates[$website->getId()] = array(
+                    $this->_rates[$website->getId()] = [
                         'code' => $baseCurrency,
                         'rate' => 1
-                    );
+                    ];
                 }
             }
         }
@@ -97,7 +97,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      */
     protected function _getAdditionalUniqueFields($objectArray)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -127,13 +127,13 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
 
         // validate per website
-        $duplicates = array();
+        $duplicates = [];
         foreach ($priceRows as $priceRow) {
             if (!empty($priceRow['delete'])) {
                 continue;
             }
             $compare = implode('-', array_merge(
-                array($priceRow['website_id'], $priceRow['cust_group']),
+                [$priceRow['website_id'], $priceRow['cust_group']],
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
             if (isset($duplicates[$compare])) {
@@ -149,7 +149,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             foreach ($origGroupPrices as $price) {
                 if ($price['website_id'] == 0) {
                     $compare = implode('-', array_merge(
-                        array($price['website_id'], $price['cust_group']),
+                        [$price['website_id'], $price['cust_group']],
                         $this->_getAdditionalUniqueFields($price)
                     ));
                     $duplicates[$compare] = true;
@@ -169,7 +169,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             }
 
             $globalCompare = implode('-', array_merge(
-                array(0, $priceRow['cust_group']),
+                [0, $priceRow['cust_group']],
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
             $websiteCurrency = $rates[$priceRow['website_id']]['code'];
@@ -193,10 +193,10 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
     {
         $rates  = $this->_getWebsiteCurrencyRates($websiteId);
-        $data   = array();
+        $data   = [];
         $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {
-            $key = implode('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
+            $key = implode('-', array_merge([$v['cust_group']], $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {
                 $data[$key] = $v;
                 $data[$key]['website_price'] = $v['price'];
@@ -273,18 +273,18 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             return $this;
         }
 
-        $old = array();
-        $new = array();
+        $old = [];
+        $new = [];
 
         // prepare original data for compare
         $origGroupPrices = $object->getOrigData($this->getAttribute()->getName());
         if (!is_array($origGroupPrices)) {
-            $origGroupPrices = array();
+            $origGroupPrices = [];
         }
         foreach ($origGroupPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
                 $key = implode('-', array_merge(
-                    array($data['website_id'], $data['cust_group']),
+                    [$data['website_id'], $data['cust_group']],
                     $this->_getAdditionalUniqueFields($data)
                 ));
                 $old[$key] = $data;
@@ -312,20 +312,20 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             }
 
             $key = implode('-', array_merge(
-                array($data['website_id'], $data['cust_group']),
+                [$data['website_id'], $data['cust_group']],
                 $this->_getAdditionalUniqueFields($data)
             ));
 
             $useForAllGroups = $data['cust_group'] == Mage_Customer_Model_Group::CUST_GROUP_ALL;
             $customerGroupId = !$useForAllGroups ? $data['cust_group'] : 0;
 
-            $new[$key] = array_merge(array(
+            $new[$key] = array_merge([
                 'website_id'        => $data['website_id'],
                 'all_groups'        => $useForAllGroups ? 1 : 0,
                 'customer_group_id' => $customerGroupId,
                 'value'             => $data['price'],
                 'is_percent'        => isset($data['is_percent']) ? $data['is_percent'] : 0,
-            ), $this->_getAdditionalUniqueFields($data));
+            ], $this->_getAdditionalUniqueFields($data));
         }
 
         $delete = array_diff_key($old, $new);
@@ -355,11 +355,11 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         if (!empty($update)) {
             foreach ($update as $k => $v) {
                 if ($old[$k]['price'] != $v['value'] || $old[$k]['is_percent'] != $v['is_percent']) {
-                    $price = new Varien_Object(array(
+                    $price = new Varien_Object([
                         'value_id'   => $old[$k]['price_id'],
                         'value'      => $v['value'],
                         'is_percent' => $v['is_percent']
-                    ));
+                    ]);
                     $this->_getResource()->savePriceData($price);
 
                     $isChanged = true;

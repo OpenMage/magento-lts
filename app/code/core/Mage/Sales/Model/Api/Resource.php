@@ -32,18 +32,18 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @var array
      */
-    protected $_ignoredAttributeCodes = array(
-        'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
-    );
+    protected $_ignoredAttributeCodes = [
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+    ];
 
     /**
      * Attributes map array per entity type
      *
      * @var array
      */
-    protected $_attributesMap = array(
-        'global'    => array()
-    );
+    protected $_attributesMap = [
+        'global'    => []
+    ];
 
     /**
      * Update attributes for entity
@@ -76,7 +76,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _getAttributes($object, $type, array $attributes = null)
     {
-        $result = array();
+        $result = [];
 
         if (!is_object($object)) {
             return $result;

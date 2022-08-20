@@ -36,16 +36,16 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('bundle')->__('As Low as'),
                     'value' =>  1
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('bundle')->__('Price Range'),
                     'value' =>  0
-                ),
-            );
+                ],
+            ];
         }
         return $this->_options;
     }
@@ -75,11 +75,11 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => false,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'int';
@@ -90,7 +90,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
             $column['comment']  = 'Bundle Price View ' . $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**

@@ -50,20 +50,20 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('catalog')->__('Yes'),
                     'value' => self::MSRP_ENABLE_YES
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('No'),
                     'value' => self::MSRP_ENABLE_NO
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Use config'),
                     'value' => self::MSRP_ENABLE_USE_CONFIG
-                )
-            );
+                ]
+            ];
         }
         return $this->_options;
     }
@@ -76,11 +76,11 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => false,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'tinyint(1)';
@@ -92,7 +92,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
             $column['comment']  = $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**

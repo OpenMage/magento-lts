@@ -28,9 +28,9 @@ class Mage_Paypal_BmlController extends Mage_Core_Controller_Front_Action
      */
     public function startAction()
     {
-        $this->_forward('start', 'express', 'paypal', array(
+        $this->_forward('start', 'express', 'paypal', [
             'bml' => 1,
             'button' => $this->getRequest()->getParam('button')
-        ));
+        ]);
     }
 }

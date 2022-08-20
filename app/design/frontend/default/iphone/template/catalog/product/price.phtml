@@ -356,7 +356,7 @@ $_minimalPrice = $_taxHelper->getPrice($_product, $_minimalPriceValue, $_simpleP
     <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
     <?php $_minimalPriceDisplayValue = $_minimalPrice; ?>
-    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, array(0, 1, 4))): ?>
+    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, [0, 1, 4])): ?>
         <?php $_minimalPriceDisplayValue = $_minimalPrice + $_weeeTaxAmount; ?>
         <?php endif ?>
 

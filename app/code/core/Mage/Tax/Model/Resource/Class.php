@@ -44,10 +44,10 @@ class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
-            'field' => array('class_type', 'class_name'),
+        $this->_uniqueFields = [[
+            'field' => ['class_type', 'class_name'],
             'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name'),
-        ));
+        ]];
         return $this;
     }
 }

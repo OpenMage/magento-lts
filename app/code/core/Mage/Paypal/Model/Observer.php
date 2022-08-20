@@ -98,10 +98,10 @@ class Mage_Paypal_Model_Observer
                 if (empty($result['error'])) {
                     $controller->loadLayout('checkout_onepage_review');
                     $html = $controller->getLayout()->getBlock('paypal.iframe')->toHtml();
-                    $result['update_section'] = array(
+                    $result['update_section'] = [
                         'name' => 'paypaliframe',
                         'html' => $html
-                    );
+                    ];
                     $result['redirect'] = false;
                     $result['success'] = false;
                     $controller->getResponse()->clearHeader('Location');

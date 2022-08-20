@@ -52,7 +52,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      *
      * @var array
      */
-    protected $_modifiers = array('nl2br'  => '');
+    protected $_modifiers = ['nl2br'  => ''];
 
     protected $_storeId = null;
 
@@ -75,7 +75,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function __construct()
     {
-        $this->_modifiers['escape'] = array($this, 'modifierEscape');
+        $this->_modifiers['escape'] = [$this, 'modifierEscape'];
         $this->_permissionVariable = Mage::getModel('admin/variable');
         $this->_permissionBlock = Mage::getModel('admin/block');
     }
@@ -162,7 +162,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function blockDirective($construction)
     {
-        $skipParams = array('type', 'id', 'output');
+        $skipParams = ['type', 'id', 'output'];
         $blockParameters = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::app()->getLayout();
         $block = null;
@@ -211,7 +211,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function layoutDirective($construction)
     {
-        $skipParams = array('handle', 'area');
+        $skipParams = ['handle', 'area'];
 
         $params = $this->_getIncludeParameters($construction[2]);
         $layout = Mage::getModel('core/layout');
@@ -307,7 +307,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     {
         $params = $this->_getIncludeParameters($construction[2]);
         if (!isset($params['_query'])) {
-            $params['_query'] = array();
+            $params['_query'] = [];
         }
         foreach ($params as $k => $v) {
             if (strpos($k, '_query_') === 0) {

@@ -39,13 +39,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     {
         $adapter = $this->_getReadAdapter();
 
-        $columns = array(
+        $columns = [
             'price_id'      => $this->getIdFieldName(),
             'website_id'    => 'website_id',
             'all_groups'    => 'all_groups',
             'cust_group'    => 'customer_group_id',
             'price'         => 'value',
-        );
+        ];
 
         $columns = $this->_loadPriceDataColumns($columns);
 
@@ -59,7 +59,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
             if ($websiteId == '0') {
                 $select->where('website_id = ?', $websiteId);
             } else {
-                $select->where('website_id IN(?)', array(0, $websiteId));
+                $select->where('website_id IN(?)', [0, $websiteId]);
             }
         }
 
@@ -100,9 +100,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     {
         $adapter = $this->_getWriteAdapter();
 
-        $conds   = array(
+        $conds   = [
             $adapter->quoteInto('entity_id = ?', $productId)
-        );
+        ];
 
         if (!is_null($websiteId)) {
             $conds[] = $adapter->quoteInto('website_id = ?', $websiteId);

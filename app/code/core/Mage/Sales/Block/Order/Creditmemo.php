@@ -97,7 +97,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getInvoiceUrl($order)
     {
-        return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/invoice', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -106,7 +106,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getShipmentUrl($order)
     {
-        return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/shipment', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -115,7 +115,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getViewUrl($order)
     {
-        return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -124,7 +124,7 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getPrintCreditmemoUrl($creditmemo)
     {
-        return Mage::getUrl('*/*/printCreditmemo', array('creditmemo_id' => $creditmemo->getId()));
+        return Mage::getUrl('*/*/printCreditmemo', ['creditmemo_id' => $creditmemo->getId()]);
     }
 
     /**
@@ -133,6 +133,6 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
      */
     public function getPrintAllCreditmemosUrl($order)
     {
-        return Mage::getUrl('*/*/printCreditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printCreditmemo', ['order_id' => $order->getId()]);
     }
 }

@@ -38,7 +38,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid_Massaction extends Mage_Adminhtml_
             return '';
         }
 
-        $ids = array();
+        $ids = [];
         foreach ($this->getParentBlock()->getCollection() as $process) {
             $ids[] = $process->getId();
         }

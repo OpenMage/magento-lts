@@ -43,11 +43,11 @@ $installer->getConnection()->modifyColumn(
 $installer->getConnection()->addKey(
     $installer->getTable('sendfriend/sendfriend'),
     'IDX_REMOTE_ADDR',
-    array('ip')
+    ['ip']
 );
 $installer->getConnection()->addKey(
     $installer->getTable('sendfriend/sendfriend'),
     'IDX_LOG_TIME',
-    array('time')
+    ['time']
 );
 $installer->endSetup();

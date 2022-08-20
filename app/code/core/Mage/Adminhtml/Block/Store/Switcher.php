@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current' => true, $this->_storeVarName => null));
+        return $this->getUrl('*/*/*', ['_current' => true, $this->_storeVarName => null]);
     }
 
     public function setStoreVarName($varName)

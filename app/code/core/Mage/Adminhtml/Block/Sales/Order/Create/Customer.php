@@ -42,11 +42,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer extends Mage_Adminhtml_Bl
 
     public function getButtonsHtml()
     {
-        $addButtonData = array(
+        $addButtonData = [
             'label'     => Mage::helper('sales')->__('Create New Customer'),
             'onclick'   => 'order.setCustomerId(false)',
             'class'     => 'add',
-        );
+        ];
         return $this->getLayout()->createBlock('adminhtml/widget_button')->setData($addButtonData)->toHtml();
     }
 

@@ -41,9 +41,9 @@ class Mage_Backup_Model_Db
      *
      * @var array
      */
-    protected $_ignoreDataTablesList = array(
+    protected $_ignoreDataTablesList = [
         'importexport/importdata'
-    );
+    ];
 
     /**
      * Retrieve resource model
@@ -167,7 +167,7 @@ class Mage_Backup_Model_Db
      */
     public function getIgnoreDataTablesList()
     {
-        $result = array();
+        $result = [];
         $resource = Mage::getSingleton('core/resource');
 
         foreach ($this->_ignoreDataTablesList as $table) {

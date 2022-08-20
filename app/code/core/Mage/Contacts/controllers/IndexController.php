@@ -48,7 +48,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->getLayout()->getBlock('contactForm')
-            ->setFormAction(Mage::getUrl('*/*/post', array('_secure' => $this->getRequest()->isSecure())));
+            ->setFormAction(Mage::getUrl('*/*/post', ['_secure' => $this->getRequest()->isSecure()]));
 
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
@@ -89,14 +89,14 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
                 /** @var Mage_Core_Model_Email_Template $mailTemplate */
-                $mailTemplate->setDesignConfig(array('area' => 'frontend'))
+                $mailTemplate->setDesignConfig(['area' => 'frontend'])
                     ->setReplyTo($post['email'])
                     ->sendTransactional(
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT),
                         null,
-                        array('data' => $postObject)
+                        ['data' => $postObject]
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {

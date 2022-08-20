@@ -64,7 +64,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
 
         if ($isValid) {
             $this->setUserValue(
-                array(
+                [
                     'date' => isset($value['date']) ? $value['date'] : '',
                     'year' => isset($value['year']) ? intval($value['year']) : 0,
                     'month' => isset($value['month']) ? intval($value['month']) : 0,
@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     'minute' => isset($value['minute']) ? intval($value['minute']) : 0,
                     'day_part' => isset($value['day_part']) ? $value['day_part'] : '',
                     'date_internal' => isset($value['date_internal']) ? $value['date_internal'] : '',
-                )
+                ]
             );
         } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {
             $this->setIsValid(false);
@@ -232,10 +232,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             if (is_array($value) && isset($value['options']) && isset($value['options'][$this->getOption()->getId()])) {
                 return $value['options'][$this->getOption()->getId()];
             } else {
-                return array('date_internal' => $optionValue);
+                return ['date_internal' => $optionValue];
             }
         } catch (Exception $e) {
-            return array('date_internal' => $optionValue);
+            return ['date_internal' => $optionValue];
         }
     }
 
@@ -299,7 +299,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
     {
         $requestOptions = $this->getRequest()->getOptions();
         if (!isset($requestOptions[$this->getOption()->getId()])) {
-            $requestOptions[$this->getOption()->getId()] = array();
+            $requestOptions[$this->getOption()->getId()] = [];
         }
         $requestOptions[$this->getOption()->getId()]['date_internal'] = $internalValue;
         $this->getRequest()->setOptions($requestOptions);
@@ -312,10 +312,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     protected function _dateExists()
     {
-        return in_array($this->getOption()->getType(), array(
+        return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME
-        ));
+        ]);
     }
 
     /**
@@ -325,9 +325,9 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     protected function _timeExists()
     {
-        return in_array($this->getOption()->getType(), array(
+        return in_array($this->getOption()->getType(), [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
-        ));
+        ]);
     }
 }

@@ -61,44 +61,44 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'        => Mage::helper('tag')->__('Tag'),
             'index'         => 'name',
-        ));
+        ]);
 
-        $this->addColumn('products', array(
+        $this->addColumn('products', [
             'header'        => Mage::helper('tag')->__('Products'),
             'width'         => 140,
             'align'         => 'right',
             'index'         => 'products',
             'type'          => 'number',
-        ));
+        ]);
 
-        $this->addColumn('customers', array(
+        $this->addColumn('customers', [
             'header'        => Mage::helper('tag')->__('Customers'),
             'width'         => 140,
             'align'         => 'right',
             'index'         => 'customers',
             'type'          => 'number',
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'        => Mage::helper('tag')->__('Status'),
             'width'         => 90,
             'index'         => 'status',
             'type'          => 'options',
             'options'       => $this->helper('tag/data')->getStatusesArray(),
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('visible_in', array(
+            $this->addColumn('visible_in', [
                 'header'                => Mage::helper('tag')->__('Store View'),
                 'type'                  => 'store',
                 'skipAllStoresLabel'    => true,
                 'index'                 => 'stores',
                 'sortable'              => false,
                 'store_view'            => true
-            ));
+            ]);
         }
 
         return parent::_prepareColumns();
@@ -109,29 +109,29 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setMassactionIdField('tag_id');
         $this->getMassactionBlock()->setFormFieldName('tag');
 
-        $this->getMassactionBlock()->addItem('delete', array(
+        $this->getMassactionBlock()->addItem('delete', [
              'label'    => Mage::helper('tag')->__('Delete'),
              'url'      => $this->getUrl('*/*/massDelete'),
              'confirm'  => Mage::helper('tag')->__('Are you sure?')
-        ));
+        ]);
 
         $statuses = $this->helper('tag/data')->getStatusesOptionsArray();
 
-        array_unshift($statuses, array('label'=>'', 'value'=>''));
+        array_unshift($statuses, ['label'=>'', 'value'=>'']);
 
-        $this->getMassactionBlock()->addItem('status', array(
+        $this->getMassactionBlock()->addItem('status', [
             'label'=> Mage::helper('tag')->__('Change status'),
-            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
-            'additional' => array(
-                'visibility' => array(
+            'url'  => $this->getUrl('*/*/massStatus', ['_current'=>true]),
+            'additional' => [
+                'visibility' => [
                     'name'     => 'status',
                     'type'     => 'select',
                     'class'    => 'required-entry',
                     'label'    => Mage::helper('tag')->__('Status'),
                     'values'   => $statuses
-                )
-             )
-        ));
+                ]
+            ]
+        ]);
 
         return $this;
     }
@@ -143,7 +143,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/tag/ajaxGrid', array('_current' => true));
+        return $this->getUrl('*/tag/ajaxGrid', ['_current' => true]);
     }
 
     /**
@@ -154,6 +154,6 @@ class Mage_Adminhtml_Block_Tag_Tag_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('tag_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['tag_id' => $row->getId()]);
     }
 }

@@ -51,7 +51,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup extends Mag
     protected function _getCustomerGroups($groupId = null)
     {
         if (is_null($this->_customerGroups)) {
-            $this->_customerGroups = array();
+            $this->_customerGroups = [];
             $collection = Mage::getModel('customer/group')->getCollection();
             foreach ($collection as $item) {
                 /** @var Mage_Customer_Model_Group $item */

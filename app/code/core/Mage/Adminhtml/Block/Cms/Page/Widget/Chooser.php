@@ -32,12 +32,12 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
      *
      * @param array $arguments Object data
      */
-    public function __construct($arguments=array())
+    public function __construct($arguments= [])
     {
         parent::__construct($arguments);
         //$this->setDefaultSort('name');
         $this->setUseAjax(true);
-        $this->setDefaultFilter(array('chooser_is_active' => '1'));
+        $this->setDefaultFilter(['chooser_is_active' => '1']);
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $uniqId = Mage::helper('core')->uniqHash($element->getId());
-        $sourceUrl = $this->getUrl('*/cms_page_widget/chooser', array('uniq_id' => $uniqId));
+        $sourceUrl = $this->getUrl('*/cms_page_widget/chooser', ['uniq_id' => $uniqId]);
 
         $chooser = $this->getLayout()->createBlock('widget/adminhtml_widget_chooser')
             ->setElement($element)
@@ -114,46 +114,46 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('chooser_id', array(
+        $this->addColumn('chooser_id', [
             'header'    => Mage::helper('cms')->__('ID'),
             'align'     => 'right',
             'index'     => 'page_id',
             'width'     => 50
-        ));
+        ]);
 
-        $this->addColumn('chooser_title', array(
+        $this->addColumn('chooser_title', [
             'header'    => Mage::helper('cms')->__('Title'),
             'align'     => 'left',
             'index'     => 'title',
-        ));
+        ]);
 
-        $this->addColumn('chooser_identifier', array(
+        $this->addColumn('chooser_identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
             'index'     => 'identifier'
-        ));
+        ]);
 
-        $this->addColumn('chooser_root_template', array(
+        $this->addColumn('chooser_root_template', [
             'header'    => Mage::helper('cms')->__('Layout'),
             'index'     => 'root_template',
             'type'      => 'options',
             'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
             'width'   => '100',
-        ));
+        ]);
 
-        $this->addColumn('chooser_is_active', array(
+        $this->addColumn('chooser_is_active', [
             'header'    => Mage::helper('cms')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => Mage::getModel('cms/page')->getAvailableStatuses(),
             'width'     => '100',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/cms_page_widget/chooser', array('_current' => true));
+        return $this->getUrl('*/cms_page_widget/chooser', ['_current' => true]);
     }
 }

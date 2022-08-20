@@ -51,7 +51,7 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
      */
     public function getAllAttributes()
     {
-        $attributes = array(
+        $attributes = [
             'city'       => Mage::helper('sales')->__('City'),
             'company'    => Mage::helper('sales')->__('Company'),
             'country_id' => Mage::helper('sales')->__('Country'),
@@ -63,7 +63,7 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
             'street'     => Mage::helper('sales')->__('Street Address'),
             'telephone'  => Mage::helper('sales')->__('Telephone'),
             'postcode'   => Mage::helper('sales')->__('Zip/Postal Code'),
-        );
+        ];
         asort($attributes);
         return $attributes;
     }
@@ -78,12 +78,12 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
     {
         $resource = parent::_afterSave($object);
         if ($object->hasDataChanges() && $object->getOrder()) {
-            $gridList = array(
+            $gridList = [
                 'sales/order' => 'entity_id',
                 'sales/order_invoice' => 'order_id',
                 'sales/order_shipment' => 'order_id',
                 'sales/order_creditmemo' => 'order_id'
-            );
+            ];
 
             // update grid table after grid update
             foreach ($gridList as $gridResource => $field) {

@@ -186,7 +186,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Assoc array of customer attributes
@@ -282,10 +282,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD
             );
         }
-        Mage::dispatchEvent('customer_customer_authenticated', array(
+        Mage::dispatchEvent('customer_customer_authenticated', [
            'model'    => $this,
            'password' => $password,
-        ));
+        ]);
 
         return true;
     }
@@ -623,7 +623,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getPrimaryAddressIds()
     {
-        $ids = array();
+        $ids = [];
         if ($this->getDefaultBilling()) {
             $ids[] = $this->getDefaultBilling();
         }
@@ -640,7 +640,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getPrimaryAddresses()
     {
-        $addresses = array();
+        $addresses = [];
         $primaryBilling = $this->getPrimaryBillingAddress();
         if ($primaryBilling) {
             $addresses[] = $primaryBilling;
@@ -666,7 +666,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getAdditionalAddresses()
     {
-        $addresses = array();
+        $addresses = [];
         $primatyIds = $this->getPrimaryAddressIds();
         foreach ($this->getAddressesCollection() as $address) {
             if (!in_array($address->getId(), $primatyIds)) {
@@ -702,11 +702,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function sendNewAccountEmail($type = 'registered', $backUrl = '', $storeId = '0', $password = null)
     {
-        $types = array(
+        $types = [
             'registered'   => self::XML_PATH_REGISTER_EMAIL_TEMPLATE, // welcome email, when confirmation is disabled
             'confirmed'    => self::XML_PATH_CONFIRMED_EMAIL_TEMPLATE, // welcome email, when confirmation is enabled
             'confirmation' => self::XML_PATH_CONFIRM_EMAIL_TEMPLATE, // email with confirmation link
-        );
+        ];
         if (!isset($types[$type])) {
             Mage::throwException(Mage::helper('customer')->__('Wrong transactional account email type'));
         }
@@ -722,7 +722,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             $types[$type],
             self::XML_PATH_REGISTER_EMAIL_IDENTITY,
-            array('customer' => $this, 'back_url' => $backUrl),
+            ['customer' => $this, 'back_url' => $backUrl],
             $storeId
         );
         $this->cleanPasswordsValidationData();
@@ -773,7 +773,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             self::XML_PATH_REMIND_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
-            array('customer' => $this),
+            ['customer' => $this],
             $storeId
         );
 
@@ -795,7 +795,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             self::XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE,
             self::XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY,
-            array('customer' => $this),
+            ['customer' => $this],
             $storeId,
             $this->getOldEmail()
         );
@@ -813,7 +813,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * @param string|null $customerEmail
      * @return $this
      */
-    protected function _sendEmailTemplate($template, $sender, $templateParams = array(), $storeId = null, $customerEmail = null)
+    protected function _sendEmailTemplate($template, $sender, $templateParams = [], $storeId = null, $customerEmail = null)
     {
         $customerEmail = ($customerEmail) ? $customerEmail : $this->getEmail();
         /** @var Mage_Core_Model_Email_Template_Mailer $mailer */
@@ -846,7 +846,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $this->_sendEmailTemplate(
             self::XML_PATH_FORGOT_EMAIL_TEMPLATE,
             self::XML_PATH_FORGOT_EMAIL_IDENTITY,
-            array('customer' => $this),
+            ['customer' => $this],
             $storeId
         );
 
@@ -918,7 +918,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $ids = $this->_getData('shared_store_ids');
         if ($ids === null) {
-            $ids = array();
+            $ids = [];
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             } else {
@@ -941,7 +941,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         $ids = $this->_getData('shared_website_ids');
         if ($ids === null) {
-            $ids = array();
+            $ids = [];
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();
             } else {
@@ -975,7 +975,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
         if (!Zend_Validate::is(trim($this->getFirstname()), 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
         }
@@ -993,11 +993,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }
         $minPasswordLength = $this->getMinPasswordLength();
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', array($minPasswordLength))) {
+        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
-        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', array('max' => self::MAXIMUM_PASSWORD_LENGTH))) {
+        if (strlen($password) && !Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
         }
@@ -1032,17 +1032,17 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function validateResetPassword()
     {
-        $errors   = array();
+        $errors   = [];
         $password = $this->getPassword();
         if (!Zend_Validate::is($password, 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('The password cannot be empty.');
         }
         $minPasswordLength = $this->getMinPasswordLength();
-        if (!Zend_Validate::is($password, 'StringLength', array($minPasswordLength))) {
+        if (!Zend_Validate::is($password, 'StringLength', [$minPasswordLength])) {
             $errors[] = Mage::helper('customer')
                 ->__('The minimum password length is %s', $minPasswordLength);
         }
-        if (!Zend_Validate::is($password, 'StringLength', array('max' => self::MAXIMUM_PASSWORD_LENGTH))) {
+        if (!Zend_Validate::is($password, 'StringLength', ['max' => self::MAXIMUM_PASSWORD_LENGTH])) {
             $errors[] = Mage::helper('customer')
                 ->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH);
         }
@@ -1166,9 +1166,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $billingAddress->setCountryId($row['billing_country']);
             $billingAddress->setPostcode($row['billing_postcode']);
             if (isset($row['billing_street2'])) {
-                $billingAddress->setStreet(array($row['billing_street1'], $row['billing_street2']));
+                $billingAddress->setStreet([$row['billing_street1'], $row['billing_street2']]);
             } else {
-                $billingAddress->setStreet(array($row['billing_street1']));
+                $billingAddress->setStreet([$row['billing_street1']]);
             }
             if (isset($row['billing_telephone'])) {
                 $billingAddress->setTelephone($row['billing_telephone']);
@@ -1210,9 +1210,9 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $shippingAddress->setCountryId($row['shipping_country']);
             $shippingAddress->setPostcode($row['shipping_postcode']);
             if (isset($row['shipping_street2'])) {
-                $shippingAddress->setStreet(array($row['shipping_street1'], $row['shipping_street2']));
+                $shippingAddress->setStreet([$row['shipping_street1'], $row['shipping_street2']]);
             } else {
-                $shippingAddress->setStreet(array($row['shipping_street1']));
+                $shippingAddress->setStreet([$row['shipping_street1']]);
             }
             if (!empty($row['shipping_telephone'])) {
                 $shippingAddress->setTelephone($row['shipping_telephone']);
@@ -1284,7 +1284,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function resetErrors()
     {
-        $this->_errors = array();
+        $this->_errors = [];
         return $this;
     }
 
@@ -1320,8 +1320,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function validateAddress(array $data, $type = 'billing')
     {
-        $fields = array('city', 'country', 'postcode', 'telephone', 'street1');
-        $usca   = array('US', 'CA');
+        $fields = ['city', 'country', 'postcode', 'telephone', 'street1'];
+        $usca   = ['US', 'CA'];
         $prefix = $type ? $type . '_' : '';
 
         if ($data) {
@@ -1330,7 +1330,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     return false;
                 }
                 if ($field == 'country'
-                    && in_array(strtolower($data[$prefix . $field]), array('US', 'CA'))) {
+                    && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])) {
                     if (!isset($data[$prefix . 'region'])) {
                         return false;
                     }
@@ -1379,7 +1379,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function reset()
     {
-        $this->setData(array());
+        $this->setData([]);
         $this->setOrigData();
         $this->_attributes = null;
 

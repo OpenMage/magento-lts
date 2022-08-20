@@ -23,8 +23,8 @@ $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->delete(
     $this->getTable('core_config_data'),
-    $connection->prepareSqlCondition('path', array(
+    $connection->prepareSqlCondition('path', [
         'like' => 'catalog/downloadable/content_disposition'
-    ))
+    ])
 );
 $installer->endSetup();

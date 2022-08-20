@@ -46,7 +46,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      *
      * @var array
      */
-    protected $_excludedAttributes = array('url_key');
+    protected $_excludedAttributes = ['url_key'];
 
     /**
      * Return product collection with selected product filter
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
             $productsIds = $this->getProductIds();
 
             if (!is_array($productsIds)) {
-                $productsIds = array(0);
+                $productsIds = [0];
             }
 
             $this->_products = Mage::getResourceModel('catalog/product_collection')
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
                 ->setInAllAttributeSetsFilter($this->getProductsSetIds());
 
             if ($this->_excludedAttributes) {
-                $this->_attributes->addFieldToFilter('attribute_code', array('nin' => $this->_excludedAttributes));
+                $this->_attributes->addFieldToFilter('attribute_code', ['nin' => $this->_excludedAttributes]);
             }
 
             // check product type apply to limitation and remove attributes that impossible to change in mass-update
@@ -151,6 +151,6 @@ class Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute extends Mage_C
      */
     public function getProductsNotInStoreIds()
     {
-        return array();
+        return [];
     }
 }

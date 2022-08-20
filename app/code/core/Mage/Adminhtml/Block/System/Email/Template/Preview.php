@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Preview extends Mage_Adminhtml_
         );
 
         Varien_Profiler::start("email_template_proccessing");
-        $vars = array();
+        $vars = [];
 
         $templateProcessed = $template->getProcessedTemplate($vars, true);
 

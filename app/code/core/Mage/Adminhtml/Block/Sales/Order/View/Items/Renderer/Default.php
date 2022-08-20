@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * @deprecated after 1.4.2.0
      * @var Mage_GiftMessage_Model_Message
      */
-    protected $_giftMessage = array();
+    protected $_giftMessage = [];
 
     /**
      * Retrieve default value for giftmessage sender
@@ -176,11 +176,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/sales_order_view_giftmessage/save', array(
+        return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
             'reload'    => true
-        ));
+        ]);
     }
 
     /**

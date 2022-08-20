@@ -37,7 +37,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
      *
      * @var array
      */
-    protected $_retrievers = array();
+    protected $_retrievers = [];
 
     /**
      * Corresponding store object

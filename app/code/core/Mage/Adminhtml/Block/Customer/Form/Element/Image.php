@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if ($this->getValue() && !is_array($this->getValue())) {
             $url = $this->_getPreviewUrl();
             $imageId = sprintf('%s_image', $this->getHtmlId());
-            $image   = array(
+            $image   = [
                 'alt'    => Mage::helper('adminhtml')->__('View Full Size'),
                 'title'  => Mage::helper('adminhtml')->__('View Full Size'),
                 'src'    => $url,
@@ -67,11 +67,11 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
                 'height' => 22,
                 'width'  => 22,
                 'id'     => $imageId
-            );
-            $link    = array(
+            ];
+            $link    = [
                 'href'      => $url,
                 'onclick'   => "imagePreview('{$imageId}'); return false;",
-            );
+            ];
 
             $html = sprintf('%s%s</a> ',
                 $this->_drawElementHtml('a', $link, false),
@@ -91,8 +91,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if (is_array($this->getValue())) {
             return false;
         }
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', array(
+        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
             'image'      => Mage::helper('core')->urlEncode($this->getValue()),
-        ));
+        ]);
     }
 }

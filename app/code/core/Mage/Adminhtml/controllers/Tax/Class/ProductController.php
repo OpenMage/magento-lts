@@ -124,7 +124,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         if ($ruleCollection->getSize() > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.'));
-            $this->_redirect('*/*/edit/', array('id' => $classId));
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         if ($productCount > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used for %d products.', $productCount));
-            $this->_redirect('*/*/edit/', array('id' => $classId));
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
-        $this->_redirect('*/*/edit/', array('id' => $classId));
+        $this->_redirect('*/*/edit/', ['id' => $classId]);
     }
 
     /**

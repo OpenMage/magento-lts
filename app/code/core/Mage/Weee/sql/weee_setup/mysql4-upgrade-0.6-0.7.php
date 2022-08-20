@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('invoice_item', 'weee_tax_applied', array('type'=>'text'));
-$installer->addAttribute('creditmemo_item', 'weee_tax_applied', array('type'=>'text'));
+$installer->addAttribute('invoice_item', 'weee_tax_applied', ['type'=>'text']);
+$installer->addAttribute('creditmemo_item', 'weee_tax_applied', ['type'=>'text']);
 
 $installer->endSetup();

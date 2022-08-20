@@ -93,7 +93,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
         /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($code);
-        $redirectUrl = Mage::getUrl('*/*/index', array('code' => $code));
+        $redirectUrl = Mage::getUrl('*/*/index', ['code' => $code]);
 
         /** @var Mage_Wishlist_Model_Session $session */
         $session    = Mage::getSingleton('wishlist/session');
@@ -101,7 +101,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $options = Mage::getModel('wishlist/item_option')->getCollection()
-                    ->addItemFilter(array($itemId));
+                    ->addItemFilter([$itemId]);
             $item->setOptions($options->getOptionsByItem($itemId));
 
             $item->addToCart($cart);

@@ -47,9 +47,9 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
         $wishlistItemTable = $this->getTable('wishlist/item');
         $this->getSelect()
             ->join(
-                array('wi' => $wishlistItemTable),
+                ['wi' => $wishlistItemTable],
                 'wi.product_id = e.entity_id',
-                array('wishlists' => new Zend_Db_Expr('COUNT(wi.wishlist_item_id)'))
+                ['wishlists' => new Zend_Db_Expr('COUNT(wi.wishlist_item_id)')]
             )
             ->where('wi.product_id = e.entity_id')
             ->group('wi.product_id');
@@ -73,11 +73,11 @@ class Mage_Reports_Model_Resource_Wishlist_Product_Collection extends Mage_Wishl
 
         $this->getSelect()
             ->from(
-                array('wishlist' => $this->getTable('wishlist/wishlist')),
-                array(
+                ['wishlist' => $this->getTable('wishlist/wishlist')],
+                [
                     'wishlist_cnt' => new Zend_Db_Expr('COUNT(wishlist.wishlist_id)'),
                     'wishlist.customer_id'
-                )
+                ]
             )
             ->group('wishlist.customer_id');
         return $this;

@@ -72,11 +72,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
         $this->setChild(
             'selection_delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Delete'),
                     'class' => 'delete icon-btn',
                     'on_click' => 'bSelection.remove(event)'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }
@@ -99,10 +99,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     public function getPriceTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id'    => $this->getFieldId() . '_{{index}}_price_type',
                 'class' => 'select select-product-option-type required-option-select'
-            ))
+            ])
             ->setName($this->getFieldName() . '[{{parentIndex}}][{{index}}][selection_price_type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_selection_price_type')->toOptionArray());
         if ($this->getCanEditPrice() === false) {
@@ -119,10 +119,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selecti
     public function getQtyTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{index}}_can_change_qty',
                 'class' => 'select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{parentIndex}}][{{index}}][selection_can_change_qty]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 

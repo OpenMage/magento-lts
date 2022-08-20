@@ -46,7 +46,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      *
      * @var array
      */
-    protected $_routers = array();
+    protected $_routers = [];
 
     /**
      * Instance of url rewrite model
@@ -271,7 +271,7 @@ class Mage_Core_Model_Url_Rewrite_Request
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
-        $requestCases = array();
+        $requestCases = [];
         // Query params in request, matching "path + query" has more priority
         $queryString = $this->_getQueryString();
         if ($queryString) {
@@ -309,7 +309,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     protected function _getQueryString()
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
-            $queryParams = array();
+            $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach ($queryParams as $key => $value) {

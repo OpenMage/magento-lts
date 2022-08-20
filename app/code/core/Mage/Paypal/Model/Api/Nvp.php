@@ -54,7 +54,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      * Global public interface map
      * @var array
      */
-    protected $_globalMap = array(
+    protected $_globalMap = [
         // each call
         'VERSION'      => 'version',
         'USER'         => 'api_username',
@@ -179,14 +179,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'COUNTRYCODE' => 'countrycode',
         'ZIP' => 'zip',
         'PAYERBUSINESS' => 'payer_business',
-    );
+    ];
 
     /**
      * Filter callbacks for preparing internal amounts to NVP request
      *
      * @var array
      */
-    protected $_exportToRequestFilters = array(
+    protected $_exportToRequestFilters = [
         'AMT'         => '_filterAmount',
         'ITEMAMT'     => '_filterAmount',
         'TRIALAMT'    => '_filterAmount',
@@ -200,144 +200,144 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'FAILEDINITAMTACTION' => '_filterInitialAmountMayFail',
         'BILLINGAGREEMENTSTATUS' => '_filterBillingAgreementStatus',
         'NOSHIPPING' => '_filterInt',
-    );
+    ];
 
-    protected $_importFromRequestFilters = array(
+    protected $_importFromRequestFilters = [
         'REDIRECTREQUIRED'  => '_filterToBool',
         'SUCCESSPAGEREDIRECTREQUESTED'  => '_filterToBool',
         'PAYMENTSTATUS' => '_filterPaymentStatusFromNvpToInfo',
-    );
+    ];
 
     /**
      * Request map for each API call
      * @var array
      */
-    protected $_eachCallRequest = array('VERSION', 'USER', 'PWD', 'SIGNATURE', 'BUTTONSOURCE',);
+    protected $_eachCallRequest = ['VERSION', 'USER', 'PWD', 'SIGNATURE', 'BUTTONSOURCE',];
 
     /**
      * SetExpressCheckout request/response map
      * @var array
      */
-    protected $_setExpressCheckoutRequest = array(
+    protected $_setExpressCheckoutRequest = [
         'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'RETURNURL', 'CANCELURL', 'INVNUM', 'SOLUTIONTYPE', 'NOSHIPPING',
         'GIROPAYCANCELURL', 'GIROPAYSUCCESSURL', 'BANKTXNPENDINGURL',
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
         'BILLINGTYPE', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT', 'REQBILLINGADDRESS',
         'USERSELECTEDFUNDINGSOURCE'
-    );
-    protected $_setExpressCheckoutResponse = array('TOKEN');
+    ];
+    protected $_setExpressCheckoutResponse = ['TOKEN'];
 
     /**
      * GetExpressCheckoutDetails request/response map
      * @var array
      */
-    protected $_getExpressCheckoutDetailsRequest = array('TOKEN', 'SUBJECT',);
+    protected $_getExpressCheckoutDetailsRequest = ['TOKEN', 'SUBJECT',];
 
     /**
      * DoExpressCheckoutPayment request/response map
      * @var array
      */
-    protected $_doExpressCheckoutPaymentRequest = array(
+    protected $_doExpressCheckoutPaymentRequest = [
         'TOKEN', 'PAYERID', 'PAYMENTACTION', 'AMT', 'CURRENCYCODE', 'IPADDRESS', 'BUTTONSOURCE', 'NOTIFYURL',
         'RETURNFMFDETAILS', 'SUBJECT', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
-    );
-    protected $_doExpressCheckoutPaymentResponse = array(
+    ];
+    protected $_doExpressCheckoutPaymentResponse = [
         'TRANSACTIONID', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON', 'REDIRECTREQUIRED'
-    );
+    ];
 
     /**
      * DoDirectPayment request/response map
      * @var array
      */
-    protected $_doDirectPaymentRequest = array(
+    protected $_doDirectPaymentRequest = [
         'PAYMENTACTION', 'IPADDRESS', 'RETURNFMFDETAILS',
         'AMT', 'CURRENCYCODE', 'INVNUM', 'NOTIFYURL', 'EMAIL', 'ITEMAMT', 'SHIPPINGAMT', 'TAXAMT',
         'CREDITCARDTYPE', 'ACCT', 'EXPDATE', 'CVV2', 'STARTDATE', 'ISSUENUMBER',
         'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI3DS', 'XID',
-    );
-    protected $_doDirectPaymentResponse = array(
+    ];
+    protected $_doDirectPaymentResponse = [
         'TRANSACTIONID', 'AMT', 'AVSCODE', 'CVV2MATCH', 'VPAS', 'ECISUBMITTED3DS'
-    );
+    ];
 
     /**
      * DoReauthorization request/response map
      * @var array
      */
-    protected $_doReauthorizationRequest = array('AUTHORIZATIONID', 'AMT', 'CURRENCYCODE');
-    protected $_doReauthorizationResponse = array(
+    protected $_doReauthorizationRequest = ['AUTHORIZATIONID', 'AMT', 'CURRENCYCODE'];
+    protected $_doReauthorizationResponse = [
         'AUTHORIZATIONID', 'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY'
-    );
+    ];
 
     /**
      * DoCapture request/response map
      * @var array
      */
-    protected $_doCaptureRequest = array('AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',);
-    protected $_doCaptureResponse = array('TRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON',);
+    protected $_doCaptureRequest = ['AUTHORIZATIONID', 'COMPLETETYPE', 'AMT', 'CURRENCYCODE', 'NOTE', 'INVNUM',];
+    protected $_doCaptureResponse = ['TRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS', 'PENDINGREASON',];
 
 
     /**
      * DoAuthorization request/response map
      * @var array
      */
-    protected $_doAuthorizationRequest = array('TRANSACTIONID', 'AMT', 'CURRENCYCODE');
-    protected $_doAuthorizationResponse = array('TRANSACTIONID', 'AMT');
+    protected $_doAuthorizationRequest = ['TRANSACTIONID', 'AMT', 'CURRENCYCODE'];
+    protected $_doAuthorizationResponse = ['TRANSACTIONID', 'AMT'];
 
     /**
      * DoVoid request map
      * @var array
      */
-    protected $_doVoidRequest = array('AUTHORIZATIONID', 'NOTE',);
+    protected $_doVoidRequest = ['AUTHORIZATIONID', 'NOTE',];
 
     /**
      * GetTransactionDetailsRequest
      * @var array
      */
-    protected $_getTransactionDetailsRequest = array('TRANSACTIONID');
-    protected $_getTransactionDetailsResponse = array(
+    protected $_getTransactionDetailsRequest = ['TRANSACTIONID'];
+    protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID', 'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT',
         'PAYMENTSTATUS', 'PENDINGREASON',
-    );
+    ];
 
     /**
      * RefundTransaction request/response map
      * @var array
      */
-    protected $_refundTransactionRequest = array('TRANSACTIONID', 'REFUNDTYPE', 'CURRENCYCODE', 'NOTE',);
-    protected $_refundTransactionResponse = array('REFUNDTRANSACTIONID', 'GROSSREFUNDAMT',);
+    protected $_refundTransactionRequest = ['TRANSACTIONID', 'REFUNDTYPE', 'CURRENCYCODE', 'NOTE',];
+    protected $_refundTransactionResponse = ['REFUNDTRANSACTIONID', 'GROSSREFUNDAMT',];
 
     /**
      * ManagePendingTransactionStatus request/response map
      */
-    protected $_managePendingTransactionStatusRequest = array('TRANSACTIONID', 'ACTION');
-    protected $_managePendingTransactionStatusResponse = array('TRANSACTIONID', 'STATUS');
+    protected $_managePendingTransactionStatusRequest = ['TRANSACTIONID', 'ACTION'];
+    protected $_managePendingTransactionStatusResponse = ['TRANSACTIONID', 'STATUS'];
 
     /**
      * GetPalDetails response map
      * @var array
      */
-    protected $_getPalDetailsResponse = array('PAL');
+    protected $_getPalDetailsResponse = ['PAL'];
 
     /**
      * CreateRecurringPaymentsProfile request/response map
      *
      * @var array
      */
-    protected $_createRecurringPaymentsProfileRequest = array(
+    protected $_createRecurringPaymentsProfileRequest = [
         'TOKEN', 'SUBSCRIBERNAME', 'PROFILESTARTDATE', 'PROFILEREFERENCE', 'DESC', 'MAXFAILEDPAYMENTS', 'AUTOBILLAMT',
         'BILLINGPERIOD', 'BILLINGFREQUENCY', 'TOTALBILLINGCYCLES', 'AMT', 'TRIALBILLINGPERIOD', 'TRIALBILLINGFREQUENCY',
         'TRIALTOTALBILLINGCYCLES', 'TRIALAMT', 'CURRENCYCODE', 'SHIPPINGAMT', 'TAXAMT', 'INITAMT', 'FAILEDINITAMTACTION'
-    );
-    protected $_createRecurringPaymentsProfileResponse = array(
+    ];
+    protected $_createRecurringPaymentsProfileResponse = [
         'PROFILEID', 'PROFILESTATUS'
-    );
+    ];
 
     /**
      * Request/response for ManageRecurringPaymentsProfileStatus map
      *
      * @var array
      */
-    protected $_manageRecurringPaymentsProfileStatusRequest = array('PROFILEID', 'ACTION');
+    protected $_manageRecurringPaymentsProfileStatusRequest = ['PROFILEID', 'ACTION'];
 //    protected $_manageRecurringPaymentsProfileStatusResponse = array('PROFILEID');
 
     /**
@@ -345,14 +345,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_getRecurringPaymentsProfileDetailsRequest = array('PROFILEID');
-    protected $_getRecurringPaymentsProfileDetailsResponse = array('STATUS', /* TODO: lot of other stuff */);
+    protected $_getRecurringPaymentsProfileDetailsRequest = ['PROFILEID'];
+    protected $_getRecurringPaymentsProfileDetailsResponse = ['STATUS', /* TODO: lot of other stuff */];
 
     /**
      * Map for billing address import/export
      * @var array
      */
-    protected $_billingAddressMap = array (
+    protected $_billingAddressMap = [
         'BUSINESS' => 'company',
         'NOTETEXT' => 'customer_notes',
         'EMAIL' => 'email',
@@ -369,7 +369,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'STREET2'  => 'street2',
         'ZIP'      => 'postcode',
         'PHONENUM' => 'telephone',
-    );
+    ];
 
     /**
      * Map for billing address to do request (not response)
@@ -377,13 +377,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_billingAddressMapRequest = array ();
+    protected $_billingAddressMapRequest = [];
 
     /**
      * Map for shipping address import/export (extends billing address mapper)
      * @var array
      */
-    protected $_shippingAddressMap = array(
+    protected $_shippingAddressMap = [
         'SHIPTOCOUNTRYCODE' => 'country_id',
         'SHIPTOSTATE' => 'region',
         'SHIPTOCITY'    => 'city',
@@ -392,144 +392,144 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         'SHIPTOZIP' => 'postcode',
         'SHIPTOPHONENUM' => 'telephone',
         // 'SHIPTONAME' will be treated manually in address import/export methods
-    );
+    ];
 
     /**
      * Map for callback request
      * @var array
      */
-    protected $_callbackRequestMap = array(
+    protected $_callbackRequestMap = [
         'SHIPTOCOUNTRY' => 'country_id',
         'SHIPTOSTATE' => 'region',
         'SHIPTOCITY'    => 'city',
         'SHIPTOSTREET'  => 'street',
         'SHIPTOSTREET2' => 'street2',
         'SHIPTOZIP' => 'postcode'
-    );
+    ];
 
     /**
      * Payment information response specifically to be collected after some requests
      * @var array
      */
-    protected $_paymentInformationResponse = array(
+    protected $_paymentInformationResponse = [
         'PAYERID', 'PAYERSTATUS', 'CORRELATIONID', 'ADDRESSID', 'ADDRESSSTATUS',
         'PAYMENTSTATUS', 'PENDINGREASON', 'PROTECTIONELIGIBILITY', 'EMAIL', 'SHIPPINGOPTIONNAME', 'TAXID', 'TAXIDTYPE'
-    );
+    ];
 
     /**
      * Line items export mapping settings
      * @var array
      */
-    protected $_lineItemTotalExportMap = array(
+    protected $_lineItemTotalExportMap = [
         Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL => 'ITEMAMT',
         Mage_Paypal_Model_Cart::TOTAL_TAX      => 'TAXAMT',
         Mage_Paypal_Model_Cart::TOTAL_SHIPPING => 'SHIPPINGAMT',
-    );
-    protected $_lineItemExportItemsFormat = array(
+    ];
+    protected $_lineItemExportItemsFormat = [
         'id'     => 'L_NUMBER%d',
         'name'   => 'L_NAME%d',
         'qty'    => 'L_QTY%d',
         'amount' => 'L_AMT%d',
-    );
+    ];
 
     /**
      * Shipping options export to request mapping settings
      * @var array
      */
-    protected $_shippingOptionsExportItemsFormat = array(
+    protected $_shippingOptionsExportItemsFormat = [
         'is_default' => 'L_SHIPPINGOPTIONISDEFAULT%d',
         'amount'     => 'L_SHIPPINGOPTIONAMOUNT%d',
         'code'       => 'L_SHIPPINGOPTIONNAME%d',
         'name'       => 'L_SHIPPINGOPTIONLABEL%d',
         'tax_amount' => 'L_TAXAMT%d',
-    );
+    ];
 
     /**
      * init Billing Agreement request/response map
      * @var array
      */
-    protected $_customerBillingAgreementRequest = array('RETURNURL', 'CANCELURL', 'BILLINGTYPE');
-    protected $_customerBillingAgreementResponse = array('TOKEN');
+    protected $_customerBillingAgreementRequest = ['RETURNURL', 'CANCELURL', 'BILLINGTYPE'];
+    protected $_customerBillingAgreementResponse = ['TOKEN'];
 
     /**
      * Billing Agreement details request/response map
      * @var array
      */
-    protected $_billingAgreementCustomerDetailsRequest = array('TOKEN');
-    protected $_billingAgreementCustomerDetailsResponse = array('EMAIL', 'PAYERID', 'PAYERSTATUS', 'SHIPTOCOUNTRYCODE',
+    protected $_billingAgreementCustomerDetailsRequest = ['TOKEN'];
+    protected $_billingAgreementCustomerDetailsResponse = ['EMAIL', 'PAYERID', 'PAYERSTATUS', 'SHIPTOCOUNTRYCODE',
         'PAYERBUSINESS'
-    );
+    ];
 
     /**
      * Create Billing Agreement request/response map
      * @var array
      */
-    protected $_createBillingAgreementRequest = array('TOKEN');
-    protected $_createBillingAgreementResponse = array('BILLINGAGREEMENTID');
+    protected $_createBillingAgreementRequest = ['TOKEN'];
+    protected $_createBillingAgreementResponse = ['BILLINGAGREEMENTID'];
 
     /**
      * Update Billing Agreement request/response map
      * @var array
      */
-    protected $_updateBillingAgreementRequest = array(
+    protected $_updateBillingAgreementRequest = [
         'REFERENCEID', 'BILLINGAGREEMENTDESCRIPTION', 'BILLINGAGREEMENTSTATUS', 'BILLINGAGREEMENTCUSTOM'
-    );
-    protected $_updateBillingAgreementResponse = array(
+    ];
+    protected $_updateBillingAgreementResponse = [
         'REFERENCEID', 'BILLINGAGREEMENTDESCRIPTION', 'BILLINGAGREEMENTSTATUS', 'BILLINGAGREEMENTCUSTOM'
-    );
+    ];
 
     /**
      * Do Reference Transaction request/response map
      *
      * @var array
      */
-    protected $_doReferenceTransactionRequest = array('REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
+    protected $_doReferenceTransactionRequest = ['REFERENCEID', 'PAYMENTACTION', 'AMT', 'ITEMAMT', 'SHIPPINGAMT',
         'TAXAMT', 'INVNUM', 'NOTIFYURL', 'CURRENCYCODE',
-    );
+    ];
 
-    protected $_doReferenceTransactionResponse = array('BILLINGAGREEMENTID', 'TRANSACTIONID');
+    protected $_doReferenceTransactionResponse = ['BILLINGAGREEMENTID', 'TRANSACTIONID'];
 
     /**
      * Fields that should be replaced in debug with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array(
+    protected $_debugReplacePrivateDataKeys = [
 
         'ACCT', 'EXPDATE', 'CVV2', 'CARDISSUE', 'CARDSTART', 'CREDITCARDTYPE', 'USER', 'PWD', 'SIGNATURE'
 
-    );
+    ];
 
     /**
      * Map of credit card types supported by this API
      * @var array
      */
-    protected $_supportedCcTypes = array(
-        'VI' => 'Visa', 'MC' => 'MasterCard', 'DI' => 'Discover', 'AE' => 'Amex', 'SM' => 'Maestro', 'SO' => 'Solo');
+    protected $_supportedCcTypes = [
+        'VI' => 'Visa', 'MC' => 'MasterCard', 'DI' => 'Discover', 'AE' => 'Amex', 'SM' => 'Maestro', 'SO' => 'Solo'];
 
     /**
      * Required fields in the response
      *
      * @var array
      */
-    protected $_requiredResponseParams = array(
-        self::DO_DIRECT_PAYMENT             => array('ACK', 'CORRELATIONID', 'AMT'),
-        self::DO_EXPRESS_CHECKOUT_PAYMENT   => array('ACK', 'CORRELATIONID'),
-    );
+    protected $_requiredResponseParams = [
+        self::DO_DIRECT_PAYMENT             => ['ACK', 'CORRELATIONID', 'AMT'],
+        self::DO_EXPRESS_CHECKOUT_PAYMENT   => ['ACK', 'CORRELATIONID'],
+    ];
 
     /**
      * Warning codes recollected after each API call
      *
      * @var array
      */
-    protected $_callWarnings = array();
+    protected $_callWarnings = [];
 
     /**
      * Error codes recollected after each API call
      *
      * @var array
      */
-    protected $_callErrors = array();
+    protected $_callErrors = [];
 
     /**
      * Whether to return raw response information after each call
@@ -543,7 +543,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      *
      * @var array
      */
-    protected $_headers = array();
+    protected $_headers = [];
 
     /**
      * API endpoint getter
@@ -772,7 +772,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function callGetPalDetails()
     {
-        $response = $this->call('getPalDetails', array());
+        $response = $this->call('getPalDetails', []);
         $this->_importFromResponse($this->_getPalDetailsResponse, $response);
     }
 
@@ -895,7 +895,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     public function formatShippingOptionsCallback()
     {
-        $response = array();
+        $response = [];
         if (!$this->_exportShippingOptions($response)) {
             $response['NO_SHIPPING_OPTION_DETAILS'] = '1';
         }
@@ -934,14 +934,14 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             }
         }
         $request = $this->_exportToRequest($eachCallRequest, $request);
-        $debugData = array('url' => $this->getApiEndpoint(), $methodName => $request);
+        $debugData = ['url' => $this->getApiEndpoint(), $methodName => $request];
 
         try {
             $http = new Varien_Http_Adapter_Curl();
-            $config = array(
+            $config = [
                 'timeout'    => 60,
                 'verifypeer' => $this->_config->verifyPeer
-            );
+            ];
 
             if ($this->getUseProxy()) {
                 $config['proxy'] = $this->getProxyHost(). ':' . $this->getProxyPort();
@@ -959,7 +959,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             );
             $response = $http->read();
         } catch (Exception $e) {
-            $debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            $debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             $this->_debug($debugData);
             throw $e;
         }
@@ -992,7 +992,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Mage::throwException(Mage::helper('paypal')->__('There was an error processing your order. Please contact us or try again later.'));
         }
 
-        $this->_callErrors = array();
+        $this->_callErrors = [];
         if ($this->_isCallSuccessful($response)) {
             if ($this->_rawResponseNeeded) {
                 $this->setRawSuccessResponseData($response);
@@ -1039,7 +1039,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $exceptionClass = 'Mage_Core_Exception';
         }
 
-        $errorMessages = array();
+        $errorMessages = [];
 
         foreach ($errors as $error) {
             $errorMessages[] = $error['message'];
@@ -1104,16 +1104,16 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _extractErrorsFromResponse($response)
     {
-        $errors = array();
+        $errors = [];
 
         for ($i = 0; isset($response["L_ERRORCODE{$i}"]); $i++) {
             $errorCode = $response["L_ERRORCODE{$i}"];
             $errorMessage = $this->_formatErrorMessage($errorCode, $response["L_SHORTMESSAGE{$i}"],
                 $response["L_LONGMESSAGE{$i}"]);
-            $errors[] = array (
+            $errors[] = [
                 'code'    => $errorCode,
                 'message' => $errorMessage
-            );
+            ];
         }
 
         return $errors;
@@ -1132,7 +1132,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         }
 
         $ack = strtoupper($response['ACK']);
-        $this->_callWarnings = array();
+        $this->_callWarnings = [];
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
             // collect warnings
             if ($ack == 'SUCCESSWITHWARNING') {
@@ -1173,7 +1173,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     protected function _deformatNVP($nvpstr)
     {
         $intial=0;
-        $nvpArray = array();
+        $nvpArray = [];
 
         $nvpstr = strpos($nvpstr, "\r\n\r\n")!==false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n")+4) : $nvpstr;
 
@@ -1226,9 +1226,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             Varien_Object_Mapper::accumulateByMap($data, $shippingAddress, $this->_shippingAddressMap);
             $this->_applyStreetAndRegionWorkarounds($shippingAddress);
             // PayPal doesn't provide detailed shipping name fields, so the name will be overwritten
-            $shippingAddress->addData(array(
+            $shippingAddress->addData([
                 'firstname'  => $data['SHIPTONAME'],
-            ));
+            ]);
             $this->setExportedShippingAddress($shippingAddress);
         }
     }
@@ -1242,7 +1242,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     {
         // merge street addresses into 1
         if ($address->hasStreet2()) {
-             $address->setStreet(implode("\n", array($address->getStreet(), $address->getStreet2())));
+             $address->setStreet(implode("\n", [$address->getStreet(), $address->getStreet2()]));
              $address->unsStreet2();
         }
         // attempt to fetch region_id from directory
@@ -1252,7 +1252,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 ->setPageSize(1);
             foreach ($regions as $region) {
                 $address->setRegionId($region->getId());
-                $address->setExportedKeys(array_merge($address->getExportedKeys(), array('region_id')));
+                $address->setExportedKeys(array_merge($address->getExportedKeys(), ['region_id']));
                 break;
             }
         }
@@ -1509,13 +1509,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _prepareEachCallRequest($methodName)
     {
-        $expressCheckooutMetods = array(
+        $expressCheckooutMetods = [
             self::SET_EXPRESS_CHECKOUT, self::GET_EXPRESS_CHECKOUT_DETAILS, self::DO_EXPRESS_CHECKOUT_PAYMENT
-        );
+        ];
         if (!in_array($methodName, $expressCheckooutMetods) || !$this->_config->shouldUseUnilateralPayments()) {
             return $this->_eachCallRequest;
         }
-        return array_diff($this->_eachCallRequest, array('USER', 'PWD', 'SIGNATURE'));
+        return array_diff($this->_eachCallRequest, ['USER', 'PWD', 'SIGNATURE']);
     }
 
     /**

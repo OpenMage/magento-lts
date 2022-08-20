@@ -88,12 +88,12 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function save()
     {
         $this->_beforeSave();
-        $data = array(
+        $data = [
                 'firstname' => $this->getFirstname(),
                 'lastname'  => $this->getLastname(),
                 'email'     => $this->getEmail(),
                 'modified'  => Mage::getSingleton('core/date')->gmtDate()
-            );
+        ];
 
         if ($this->getId() > 0) {
             $data['user_id']   = $this->getId();
@@ -281,10 +281,10 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             $this->getResource()->cleanOldSessions($this)
                 ->recordLogin($this)
                 ->recordSession($this);
-            Mage::dispatchEvent('api_user_authenticated', array(
+            Mage::dispatchEvent('api_user_authenticated', [
                'model'    => $this,
                'api_key'  => $apiKey,
-            ));
+            ]);
         }
 
         return $this;

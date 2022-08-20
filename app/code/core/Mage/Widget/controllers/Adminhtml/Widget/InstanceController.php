@@ -172,7 +172,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             return;
         }
         $widgetInstance->setTitle($this->getRequest()->getPost('title'))
-            ->setStoreIds($this->getRequest()->getPost('store_ids', array(0)))
+            ->setStoreIds($this->getRequest()->getPost('store_ids', [0]))
             ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
             ->setPageGroups($this->getRequest()->getPost('widget_instance'))
             ->setWidgetParameters($this->_prepareParameters());
@@ -182,10 +182,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 Mage::helper('widget')->__('The widget instance has been saved.')
             );
             if ($this->getRequest()->getParam('back', false)) {
-                $this->_redirect('*/*/edit', array(
+                $this->_redirect('*/*/edit', [
                     'instance_id' => $widgetInstance->getId(),
                     '_current' => true
-                ));
+                ]);
             } else {
                 $this->_redirect('*/*/');
             }
@@ -196,7 +196,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
-        $this->_redirect('*/*/edit', array('_current' => true));
+        $this->_redirect('*/*/edit', ['_current' => true]);
     }
 
     /**
@@ -310,7 +310,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      */
     protected function _prepareParameters()
     {
-        $result = array();
+        $result = [];
         $parameters = $this->getRequest()->getPost('parameters');
         if (is_array($parameters) && count($parameters)) {
             foreach ($parameters as $key => $value) {

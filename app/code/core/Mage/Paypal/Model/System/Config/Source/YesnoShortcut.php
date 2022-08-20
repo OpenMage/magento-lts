@@ -31,10 +31,10 @@ class Mage_Paypal_Model_System_Config_Source_YesnoShortcut
      */
     public function toOptionArray()
     {
-        return array(
-            array('value' => 1, 'label' => Mage::helper('paypal')->__('Yes (PayPal recommends this option)')),
-            array('value' => 0, 'label' => Mage::helper('paypal')->__('No')),
-        );
+        return [
+            ['value' => 1, 'label' => Mage::helper('paypal')->__('Yes (PayPal recommends this option)')],
+            ['value' => 0, 'label' => Mage::helper('paypal')->__('No')],
+        ];
     }
 
 }

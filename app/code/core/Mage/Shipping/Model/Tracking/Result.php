@@ -20,7 +20,7 @@
 
 class Mage_Shipping_Model_Tracking_Result
 {
-    protected $_trackings = array();
+    protected $_trackings = [];
     protected $_error = null;
 
     /**
@@ -29,7 +29,7 @@ class Mage_Shipping_Model_Tracking_Result
      */
     public function reset()
     {
-        $this->_trackings = array();
+        $this->_trackings = [];
         return $this;
     }
 

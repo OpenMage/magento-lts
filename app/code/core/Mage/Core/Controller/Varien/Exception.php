@@ -28,9 +28,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     const RESULT_REDIRECT = '_redirect';
 
     protected $_resultCallback       = null;
-    protected $_resultCallbackParams = array();
+    protected $_resultCallbackParams = [];
     protected $_defaultActionName    = 'noroute';
-    protected $_flags                = array();
+    protected $_flags                = [];
 
     /**
      * Prepare data for forwarding action
@@ -41,13 +41,13 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $params
      * @return $this
      */
-    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = array())
+    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = [])
     {
         $this->_resultCallback = self::RESULT_FORWARD;
         if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
-        $this->_resultCallbackParams = array($actionName, $controllerName, $moduleName, $params);
+        $this->_resultCallbackParams = [$actionName, $controllerName, $moduleName, $params];
         return $this;
     }
 
@@ -58,10 +58,10 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $arguments
      * @return $this
      */
-    public function prepareRedirect($path, $arguments = array())
+    public function prepareRedirect($path, $arguments = [])
     {
         $this->_resultCallback = self::RESULT_REDIRECT;
-        $this->_resultCallbackParams = array($path, $arguments);
+        $this->_resultCallbackParams = [$path, $arguments];
         return $this;
     }
 
@@ -90,7 +90,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFlag($action, $flag, $value)
     {
-        $this->_flags[] = array($action, $flag, $value);
+        $this->_flags[] = [$action, $flag, $value];
         return $this;
     }
 
@@ -114,6 +114,6 @@ class Mage_Core_Controller_Varien_Exception extends Exception
         if ($this->_resultCallback === null) {
             $this->prepareFork();
         }
-        return array($this->_resultCallback, $this->_resultCallbackParams);
+        return [$this->_resultCallback, $this->_resultCallbackParams];
     }
 }

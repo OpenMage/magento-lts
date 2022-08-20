@@ -98,7 +98,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
             $_canChangeQty = $_selections[0]->getSelectionCanChangeQty();
         }
 
-        return array($_defaultQty, $_canChangeQty);
+        return [$_defaultQty, $_canChangeQty];
     }
 
     /**
@@ -109,7 +109,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     protected function _getSelectedOptions()
     {
         if (is_null($this->_selectedOptions)) {
-            $this->_selectedOptions = array();
+            $this->_selectedOptions = [];
             $option = $this->getOption();
 
             if ($this->getProduct()->hasPreconfiguredValues()) {

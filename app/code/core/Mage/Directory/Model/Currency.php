@@ -217,7 +217,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param bool $addBrackets
      * @return string
      */
-    public function format($price, $options = array(), $includeContainer = true, $addBrackets = false)
+    public function format($price, $options = [], $includeContainer = true, $addBrackets = false)
     {
         return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
     }
@@ -235,7 +235,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function formatPrecision(
         $price,
         $precision,
-        $options = array(),
+        $options = [],
         $includeContainer = true,
         $addBrackets = false
     ) {
@@ -256,7 +256,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param null|array $options
      * @return string
      */
-    public function formatTxt($price, $options = array())
+    public function formatTxt($price, $options = [])
     {
         if (!is_numeric($price)) {
             $price = Mage::app()->getLocale()->getNumber($price);
@@ -282,7 +282,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function getOutputFormat()
     {
         $formated = $this->formatTxt(0);
-        $number = $this->formatTxt(0, array('display' => Zend_Currency::NO_SYMBOL));
+        $number = $this->formatTxt(0, ['display' => Zend_Currency::NO_SYMBOL]);
         return str_replace($number, '%s', $formated);
     }
 

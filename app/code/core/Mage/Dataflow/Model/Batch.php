@@ -50,7 +50,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_fieldList = array();
+    protected $_fieldList = [];
 
     /**
      * Dataflow batch io adapter
