@@ -33,8 +33,8 @@
  * @method bool getIsValid()
  * @method $this setIsValid(bool $value)
  * @method string getProcessMode()
- * @method int getUserValue()
- * @method $this setUserValue(int $value)
+ * @method array|int getUserValue()
+ * @method $this setUserValue(array|int $value)
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
