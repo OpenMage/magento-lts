@@ -99,7 +99,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $value = $item->getStatusLabel();
                 break;
             default:
-                $value = ($item->getData($key)) ?: $this->__('N/A');
+                $value = $item->getData($key) ?: $this->__('N/A');
         }
         return $this->escapeHtml($value);
     }
