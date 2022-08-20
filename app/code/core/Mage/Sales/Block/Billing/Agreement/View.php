@@ -91,9 +91,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $value = $order->getIncrementId();
                 break;
             case 'created_at':
-                /** @var Mage_Core_Helper_Data $helper */
-                $helper = $this->helper('core');
-                $value = $helper->formatDate($order->getCreatedAt(), 'short', true);
+                $value = $this->formatDate($order->getCreatedAt(), 'short', true);
                 break;
             case 'shipping_address':
                 $value = $order->getShippingAddress()
@@ -162,11 +160,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
         $this->_loadPaymentMethods();
         $this->setBackUrl($this->getUrl('*/billing_agreement/'));
         if ($this->_billingAgreementInstance) {
-            /** @var Mage_Core_Helper_Data $helper */
-            $helper = $this->helper('core');
-
             $this->setReferenceId($this->_billingAgreementInstance->getReferenceId());
-
             $this->setCanCancel($this->_billingAgreementInstance->canCancel());
             $this->setCancelUrl(
                 $this->getUrl('*/billing_agreement/cancel', array(
@@ -180,10 +174,10 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $createdAt = $this->_billingAgreementInstance->getCreatedAt();
             $updatedAt = $this->_billingAgreementInstance->getUpdatedAt();
             $this->setAgreementCreatedAt(
-                ($createdAt) ? $helper->formatDate($createdAt, 'short', true) : $this->__('N/A')
+                ($createdAt) ? $this->formatDate($createdAt, 'short', true) : $this->__('N/A')
             );
             if ($updatedAt) {
-                $this->setAgreementUpdatedAt($helper->formatDate($updatedAt, 'short', true));
+                $this->setAgreementUpdatedAt($this->formatDate($updatedAt, 'short', true));
             }
             $this->setAgreementStatus($this->_billingAgreementInstance->getStatusLabel());
         }

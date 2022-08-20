@@ -141,14 +141,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if (!isset($item['created_at'])) {
             return '';
         }
-
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
-
         if ('date' === $dateType) {
-            return $helper->formatDate($item['created_at'], $format);
+            return $this->formatDate($item['created_at'], $format);
         }
-        return $helper->formatTime($item['created_at'], $format);
+        return $this->formatTime($item['created_at'], $format);
     }
 
     /**

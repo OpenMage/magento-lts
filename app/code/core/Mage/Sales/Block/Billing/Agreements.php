@@ -85,10 +85,8 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
         switch ($key) {
             case 'created_at':
             case 'updated_at':
-                /** @var Mage_Core_Helper_Data $helper */
-                $helper = $this->helper('core');
                 $value = ($item->getData($key))
-                    ? $helper->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
+                    ? $this->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
                 break;
             case 'edit_url':
                 $value = $this->getUrl('*/billing_agreement/view', array('agreement' => $item->getAgreementId()));

@@ -38,8 +38,6 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
         $model = Mage::registry('current_transaction');
         /** @var Mage_Paypal_Model_Report_Settlement $settlement */
         $settlement = Mage::getSingleton('paypal/report_settlement');
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
 
         $fieldsets = array(
             'reference_fieldset' => array(
@@ -64,11 +62,11 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                     ),
                     'transaction_initiation_date' => array(
                         'label' => $settlement->getFieldLabel('transaction_initiation_date'),
-                        'value' => $helper->formatDate($model->getData('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
+                        'value' => $this->formatDate($model->getData('transaction_initiation_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
                     ),
                     'transaction_completion_date' => array(
                         'label' => $settlement->getFieldLabel('transaction_completion_date'),
-                        'value' => $helper->formatDate($model->getData('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
+                        'value' => $this->formatDate($model->getData('transaction_completion_date'), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
                     ),
                     'transaction_debit_or_credit' => array(
                         'label' => $settlement->getFieldLabel('transaction_debit_or_credit'),

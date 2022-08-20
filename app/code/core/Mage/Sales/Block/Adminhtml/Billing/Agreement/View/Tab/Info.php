@@ -98,9 +98,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
      */
     protected function _toHtml()
     {
-        /** @var Mage_Core_Helper_Data $helper */
-        $helper = $this->helper('core');
-
         $agreement = $this->_getBillingAgreement();
         $this->setReferenceId($agreement->getReferenceId());
         $customer = Mage::getModel('customer/customer')->load($agreement->getCustomerId());
@@ -109,10 +106,10 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
         );
         $this->setCustomerEmail($customer->getEmail());
         $this->setStatus($agreement->getStatusLabel());
-        $this->setCreatedAt($helper->formatDate($agreement->getCreatedAt(), 'short', true));
+        $this->setCreatedAt($this->formatDate($agreement->getCreatedAt(), 'short', true));
         $this->setUpdatedAt(
             ($agreement->getUpdatedAt())
-                ? $helper->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
+                ? $this->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
         );
 
         return parent::_toHtml();
