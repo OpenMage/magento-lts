@@ -761,16 +761,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Creditmemos.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatTime\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Invoices.php
@@ -3026,16 +3016,6 @@ parameters:
 			path: ../app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatTime\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:sessionUrlVar\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Abstract.php
@@ -4446,11 +4426,6 @@ parameters:
 			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/Settlement/Details/Form.php
-
-		-
 			message: "#^Method Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info\\:\\:getFrontendUrl\\(\\) has invalid return type strting\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Payflowlink/Info.php
@@ -5199,31 +5174,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Billing/Agreement/View/Tab/Info.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getBillingAgreementMethods\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreements.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getBillingAgreementMethods\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreements.php
 
 		-
 			message: "#^Cannot call method setParentFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"

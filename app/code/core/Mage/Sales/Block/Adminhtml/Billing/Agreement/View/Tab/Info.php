@@ -34,7 +34,6 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
 {
     /**
      * Set custom template
-     *
      */
     protected function _construct()
     {
@@ -65,7 +64,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
     /**
      * Can show tab in tabs
      *
-     * @return boolean
+     * @return true
      */
     public function canShowTab()
     {
@@ -75,7 +74,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
     /**
      * Tab is hidden
      *
-     * @return boolean
+     * @return false
      */
     public function isHidden()
     {
@@ -99,6 +98,9 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
      */
     protected function _toHtml()
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+
         $agreement = $this->_getBillingAgreement();
         $this->setReferenceId($agreement->getReferenceId());
         $customer = Mage::getModel('customer/customer')->load($agreement->getCustomerId());
@@ -107,12 +109,10 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Info extends Mage_Ad
         );
         $this->setCustomerEmail($customer->getEmail());
         $this->setStatus($agreement->getStatusLabel());
-        $this->setCreatedAt(
-            $this->helper('core')->formatDate($agreement->getCreatedAt(), 'short', true)
-        );
+        $this->setCreatedAt($helper->formatDate($agreement->getCreatedAt(), 'short', true));
         $this->setUpdatedAt(
             ($agreement->getUpdatedAt())
-                ? $this->helper('core')->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
+                ? $helper->formatDate($agreement->getUpdatedAt(), 'short', true) : $this->__('N/A')
         );
 
         return parent::_toHtml();
