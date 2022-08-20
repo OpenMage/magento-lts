@@ -33,10 +33,10 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
     public function validate(Varien_Object $object)
     {
         $attrCode = $this->getAttribute();
-        if ('category_ids' == $attrCode) {
+        if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         }
-        if ('attribute_set_id' == $attrCode) {
+        if ($attrCode == 'attribute_set_id') {
             return $this->validateAttribute($object->getData($attrCode));
         }
 

@@ -1173,9 +1173,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
-        if (false === $status) {
+        if ($status === false) {
             $status = $this->getStatus();
-        } elseif (true === $status) {
+        } elseif ($status === true) {
             $status = $this->getConfig()->getStateDefaultStatus($this->getState());
         } else {
             $this->setStatus($status);
@@ -1792,7 +1792,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function isNominal()
     {
         foreach ($this->getAllVisibleItems() as $item) {
-            if ('0' == $item->getIsNominal()) {
+            if ($item->getIsNominal() == '0') {
                 return false;
             }
         }
@@ -2368,7 +2368,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             && !$this->canUnhold()
             && !$this->canInvoice()
             && !$this->canShip()) {
-            if (0 == $this->getBaseGrandTotal() || $this->canCreditmemo()) {
+            if ($this->getBaseGrandTotal() == 0 || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
                 }
@@ -2398,7 +2398,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null !== $this->_addresses) {
+        if ($this->_addresses !== null) {
             $this->_addresses->save();
             $billingAddress = $this->getBillingAddress();
             $attributesForSave = array();
@@ -2417,13 +2417,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->_items->save();
         }
-        if (null !== $this->_payments) {
+        if ($this->_payments !== null) {
             $this->_payments->save();
         }
-        if (null !== $this->_statusHistory) {
+        if ($this->_statusHistory !== null) {
             $this->_statusHistory->save();
         }
         foreach ($this->getRelatedObjects() as $object) {

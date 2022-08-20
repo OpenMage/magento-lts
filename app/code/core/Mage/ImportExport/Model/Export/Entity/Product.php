@@ -235,7 +235,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
             $rowTierPrices[$tierRow['entity_id']][] = array(
                 '_tier_price_customer_group' => $tierRow['all_groups']
                                                 ? self::VALUE_ALL : $tierRow['customer_group_id'],
-                '_tier_price_website'        => 0 == $tierRow['website_id']
+                '_tier_price_website'        => $tierRow['website_id'] == 0
                                                 ? self::VALUE_ALL
                                                 : $this->_websiteIdToCode[$tierRow['website_id']],
                 '_tier_price_qty'            => $tierRow['qty'],
@@ -269,7 +269,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                 '_group_price_customer_group' => $groupRow['all_groups']
                     ? self::VALUE_ALL
                     : $groupRow['customer_group_id'],
-                '_group_price_website'        => (0 == $groupRow['website_id'])
+                '_group_price_website'        => ($groupRow['website_id'] == 0)
                     ? self::VALUE_ALL
                     : $this->_websiteIdToCode[$groupRow['website_id']],
                 '_group_price_price'          => $groupRow['value']
@@ -955,7 +955,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             $dataRow[$colPrefix . 'position'] = $linkData['position'];
                             $dataRow[$colPrefix . 'sku'] = $linkData['sku'];
 
-                            if (null !== $linkData['default_qty']) {
+                            if ($linkData['default_qty'] !== null) {
                                 $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
                             }
                         }
@@ -1033,7 +1033,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                     $dataRow[$colPrefix . 'position'] = $linkData['position'];
                                     $dataRow[$colPrefix . 'sku']      = $linkData['sku'];
 
-                                    if (null !== $linkData['default_qty']) {
+                                    if ($linkData['default_qty'] !== null) {
                                         $dataRow[$colPrefix . 'default_qty'] = $linkData['default_qty'];
                                     }
                                 }

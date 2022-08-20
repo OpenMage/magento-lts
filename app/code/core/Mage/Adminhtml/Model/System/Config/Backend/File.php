@@ -167,7 +167,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _prependScopeInfo($path)
     {
         $scopeInfo = $this->getScope();
-        if ('default' != $this->getScope()) {
+        if ($this->getScope() != 'default') {
             $scopeInfo .= '/' . $this->getScopeId();
         }
         return $scopeInfo . '/' . $path;
@@ -184,7 +184,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
     protected function _appendScopeInfo($path)
     {
         $path .= '/' . $this->getScope();
-        if ('default' != $this->getScope()) {
+        if ($this->getScope() != 'default') {
             $path .= '/' . $this->getScopeId();
         }
         return $path;

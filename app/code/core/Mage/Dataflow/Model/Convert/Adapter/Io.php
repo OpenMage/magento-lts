@@ -120,7 +120,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
 
         $result = $this->getResource()->read($this->getVar('filename'), $destFile);
         $filename = $this->getResource()->pwd() . '/' . $this->getVar('filename');
-        if (false === $result) {
+        if ($result === false) {
             $message = Mage::helper('dataflow')->__('Could not load file: "%s".', $filename);
             Mage::throwException($message);
         } else {
@@ -151,7 +151,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
 
         $result   = $this->getResource()->write($filename, $dataFile, 0777);
 
-        if (false === $result) {
+        if ($result === false) {
             $message = Mage::helper('dataflow')->__('Could not save file: %s.', $filename);
             Mage::throwException($message);
         } else {

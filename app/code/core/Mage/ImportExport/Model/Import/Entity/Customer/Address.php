@@ -197,11 +197,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 $addressAttributes = array();
                 foreach ($this->_attributes as $attrAlias => $attrParams) {
                     if (isset($rowData[$attrAlias]) && strlen($rowData[$attrAlias])) {
-                        if ('select' == $attrParams['type']) {
+                        if ($attrParams['type'] == 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
-                        } elseif ('datetime' == $attrParams['type']) {
+                        } elseif ($attrParams['type'] == 'datetime') {
                             $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
-                        } elseif ('multiselect' == $attrParams['type']) {
+                        } elseif ($attrParams['type'] == 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;
                         } else {

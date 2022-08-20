@@ -293,7 +293,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      */
     public function getIsCentinelValidationEnabled()
     {
-        return false !== Mage::getConfig()->getNode('modules/Mage_Centinel') && 1 == $this->getConfigData('centinel');
+        return Mage::getConfig()->getNode('modules/Mage_Centinel') !== false && $this->getConfigData('centinel') == 1;
     }
 
     /**

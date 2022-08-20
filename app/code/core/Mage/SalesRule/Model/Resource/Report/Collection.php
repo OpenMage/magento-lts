@@ -76,9 +76,9 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat =
                 $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {

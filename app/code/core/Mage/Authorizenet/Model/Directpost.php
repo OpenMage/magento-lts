@@ -497,7 +497,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function checkTransId()
     {
-        if (!$this->getResponse()->getXTransId() && ('0' !== $this->getResponse()->getXTransId())) {
+        if (!$this->getResponse()->getXTransId() && ($this->getResponse()->getXTransId() !== '0')) {
             Mage::throwException(
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.')
             );

@@ -51,7 +51,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                         ->setConfigurationItem($item)
                         ->setConfigurationItemOption($itemOption);
 
-                    if ('file' == $option->getType()) {
+                    if ($option->getType() == 'file') {
                         $downloadParams = $item->getFileDownloadParams();
                         if ($downloadParams) {
                             $url = $downloadParams->getUrl();

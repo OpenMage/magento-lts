@@ -117,7 +117,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorInputByType()
     {
-        if (null === $this->_defaultOperatorInputByType) {
+        if ($this->_defaultOperatorInputByType === null) {
             $this->_defaultOperatorInputByType = array(
                 'string'      => array('==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'),
                 'numeric'     => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
@@ -141,7 +141,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorOptions()
     {
-        if (null === $this->_defaultOperatorOptions) {
+        if ($this->_defaultOperatorOptions === null) {
             $this->_defaultOperatorOptions = array(
                 '=='  => Mage::helper('rule')->__('is'),
                 '!='  => Mage::helper('rule')->__('is not'),
@@ -280,7 +280,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getInputType()
     {
-        if (null === $this->_inputType) {
+        if ($this->_inputType === null) {
             return 'string';
         }
         return $this->_inputType;
@@ -403,7 +403,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getValueName()
     {
         $value = $this->getValue();
-        if (is_null($value) || '' === $value) {
+        if (is_null($value) || $value === '') {
             return '...';
         }
 
@@ -800,7 +800,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if ('!=' == $op || '>' == $op || '<' == $op || '!{}' == $op || '!()' == $op || '![]' == $op) {
+        if ($op == '!=' || $op == '>' || $op == '<' || $op == '!{}' || $op == '!()' || $op == '![]') {
             $result = !$result;
         }
 

@@ -73,7 +73,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     protected function _loadValidOrder($orderId = null)
     {
-        if (null === $orderId) {
+        if ($orderId === null) {
             $orderId = (int) $this->getRequest()->getParam('order_id');
         }
         if (!$orderId) {

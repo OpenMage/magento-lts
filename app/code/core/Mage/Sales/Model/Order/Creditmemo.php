@@ -958,13 +958,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null != $this->_items) {
+        if ($this->_items != null) {
             foreach ($this->_items as $item) {
                 $item->save();
             }
         }
 
-        if (null != $this->_comments) {
+        if ($this->_comments != null) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }

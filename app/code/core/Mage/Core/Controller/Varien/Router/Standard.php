@@ -437,7 +437,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && false===strpos($fileName, '//')) {
+        if ($fileName && is_readable($fileName) && strpos($fileName, '//') === false) {
             return true;
         }
         return false;

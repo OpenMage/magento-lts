@@ -111,7 +111,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     {
         $controller = $this->getData('controller');
 
-        if (null === $controller) {
+        if ($controller === null) {
             $controller = new Varien_Object(
                 array('request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse())
             );
@@ -270,10 +270,10 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     array('encoding' => $apiConfigCharset)
                 );
             } catch (SoapFault $e) {
-                if (false !== strpos(
+                if (strpos(
                     $e->getMessage(),
                     "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'"
-                )
+                ) !== false
                 ) {
                     $retry = true;
                     sleep(1);

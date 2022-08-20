@@ -390,7 +390,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     if (!$qty) {
                         $qty = 1;
                     }
-                } elseif (0 == $qty) {
+                } elseif ($qty == 0) {
                     try {
                         $item->delete();
                     } catch (Exception $e) {

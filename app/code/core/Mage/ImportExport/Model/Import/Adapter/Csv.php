@@ -111,7 +111,7 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
     public function seek($position)
     {
         if ($position != $this->_currentKey) {
-            if (0 == $position) {
+            if ($position == 0) {
                $this->rewind();
                return;
             } elseif ($position > 0) {

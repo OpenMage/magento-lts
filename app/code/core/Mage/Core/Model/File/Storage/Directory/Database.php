@@ -245,7 +245,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
         $name = basename($dirPath);
         $path = dirname($dirPath);
 
-        if ('.' == $path) {
+        if ($path == '.') {
             $path = '';
         }
 

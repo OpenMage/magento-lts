@@ -322,7 +322,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $result = array();
         foreach ($rgbArray as $value) {
-            if (null === $value) {
+            if ($value === null) {
                 $result[] = 'null';
             } else {
                 $result[] = sprintf('%02s', dechex($value));
@@ -341,7 +341,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (0 !== strpos($file, '/', 0))) {
+        if (($file) && (strpos($file, '/', 0) !== 0)) {
             $file = '/' . $file;
         }
 
@@ -350,7 +350,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         }
         $baseDir = self::$_baseMediaPath;
 
-        if ('/no_selection' == $file) {
+        if ($file == '/no_selection') {
             $file = null;
         }
         if ($file) {

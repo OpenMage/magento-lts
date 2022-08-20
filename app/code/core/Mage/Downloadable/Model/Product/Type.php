@@ -223,7 +223,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setStoreId($product->getStoreId())
                             ->setWebsiteId($product->getStore()->getWebsiteId())
                             ->setProductWebsiteIds($product->getWebsiteIds());
-                        if (null === $linkModel->getPrice()) {
+                        if ($linkModel->getPrice() === null) {
                             $linkModel->setPrice(0);
                         }
                         if ($linkModel->getIsUnlimited()) {
@@ -305,7 +305,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 $preparedLinks[] = $link->getId();
             }
         }
-        if (null !== $originalLinksPurchasedSeparately) {
+        if ($originalLinksPurchasedSeparately !== null) {
             $this->getProduct($product)
                 ->setLinksPurchasedSeparately($originalLinksPurchasedSeparately);
         }

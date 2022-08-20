@@ -104,7 +104,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
 
             foreach ($options as $key => $optionParams) {
-                if ('' === $optionParams['value']) {
+                if ($optionParams['value'] === '') {
                     unset($options[$key]);
                     break;
                 }
@@ -163,7 +163,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             // add empty vaue option
             $firstOption = reset($options);
 
-            if ('' === $firstOption['value']) {
+            if ($firstOption['value'] === '') {
                 $options[key($options)]['label'] = '';
             } else {
                 array_unshift($options, array('value' => '', 'label' => ''));
@@ -243,7 +243,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $options = $attribute->getSource()->getAllOptions(false);
 
             foreach ($options as $key => $optionParams) {
-                if ('' === $optionParams['value']) {
+                if ($optionParams['value'] === '') {
                     unset($options[$key]);
                     break;
                 }
@@ -311,7 +311,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             // add empty vaue option
             $firstOption = reset($options);
 
-            if ('' === $firstOption['value']) {
+            if ($firstOption['value'] === '') {
                 $options[key($options)]['label'] = '';
             } else {
                 array_unshift($options, array('value' => '', 'label' => ''));

@@ -186,7 +186,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      */
     public function getFilters($name = null)
     {
-        if (null === $name) {
+        if ($name === null) {
             return $this->_filters;
         } else {
             return isset($this->_filters[$name]) ? $this->_filters[$name] : null;
@@ -215,7 +215,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      */
     protected function _filter(array $data, &$filters = null, $isFilterListSimple = false)
     {
-        if (null === $filters) {
+        if ($filters === null) {
             $filters = &$this->_filters;
         }
         foreach ($data as $key => $value) {

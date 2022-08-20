@@ -44,7 +44,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = array())
     {
         $this->_resultCallback = self::RESULT_FORWARD;
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
         $this->_resultCallbackParams = array($actionName, $controllerName, $moduleName, $params);
@@ -73,7 +73,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFork($actionName = null)
     {
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
         $this->_resultCallback = $actionName;
@@ -111,7 +111,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function getResultCallback()
     {
-        if (null === $this->_resultCallback) {
+        if ($this->_resultCallback === null) {
             $this->prepareFork();
         }
         return array($this->_resultCallback, $this->_resultCallbackParams);

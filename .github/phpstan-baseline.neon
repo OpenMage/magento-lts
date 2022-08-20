@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Comparison operation \"\\=\\=\" between 1 and \\(Varien_Simplexml_Element\\|null\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Admin/Model/Config.php
 
@@ -16,7 +16,7 @@ parameters:
 			path: ../app/code/core/Mage/Admin/Model/Roles.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between 1 and \\(Varien_Simplexml_Element\\|null\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Admin/Model/Roles.php
 
@@ -371,7 +371,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Page.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between 1 and \\(Varien_Simplexml_Element\\|null\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Page/Menu.php
 
@@ -1226,7 +1226,7 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Serialized.php
 
 		-
-			message: "#^Comparison operation \"\\=\\=\" between 1 and \\(Varien_Simplexml_Element\\|null\\) results in an error\\.$#"
+			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Source/Admin/Page.php
 

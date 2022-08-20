@@ -129,7 +129,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     {
         if (count($line) === 1) return false;
 
-        if (0==$i) {
+        if ($i == 0) {
             if ($this->getVar('fieldnames')) {
                 $this->_fields = $line;
                 return;

@@ -76,7 +76,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         $result = parent::_beforeToHtml();
         $config = Mage::getModel('paypal/config', array($this->_paymentMethodCode));
         $isInCatalog = $this->getIsInCatalogProduct();
-        $quote = ($isInCatalog || '' == $this->getIsQuoteAllowed())
+        $quote = ($isInCatalog || $this->getIsQuoteAllowed() == '')
             ? null : Mage::getSingleton('checkout/session')->getQuote();
 
         // check visibility on cart or product page
@@ -100,7 +100,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         }
 
         // validate minimum quote amount and validate quote for zero grandtotal
-        if (null !== $quote && (!$quote->validateMinimumAmount()
+        if ($quote !== null && (!$quote->validateMinimumAmount()
             || (!$quote->getGrandTotal() && !$quote->hasNominalItems()))) {
             $this->_shouldRender = false;
             return $result;
@@ -120,7 +120,7 @@ class Mage_Paypal_Block_Express_Shortcut extends Mage_Core_Block_Template
         $this->_getBmlShortcut($quote);
 
         // use static image if in catalog
-        if ($isInCatalog || null === $quote) {
+        if ($isInCatalog || $quote === null) {
             $this->setImageUrl($config->getExpressCheckoutShortcutImageUrl(Mage::app()->getLocale()->getLocaleCode()));
         } else {
             $this->setImageUrl(Mage::getModel($this->_checkoutType, array(

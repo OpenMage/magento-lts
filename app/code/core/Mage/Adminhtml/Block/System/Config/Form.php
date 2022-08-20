@@ -422,7 +422,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 }
 
                 if (isset($element->frontend_type)
-                    && 'multiselect' === (string)$element->frontend_type
+                    && (string)$element->frontend_type === 'multiselect'
                     && isset($element->can_be_empty)
                 ) {
                     $field->setCanBeEmpty(true);

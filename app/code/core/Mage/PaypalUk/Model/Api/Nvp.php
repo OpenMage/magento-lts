@@ -629,7 +629,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected function _setSpecificForNegativeLineItems()
     {
         $index = array_search('PPREF', $this->_doDirectPaymentResponse);
-        if (false !== $index) {
+        if ($index !== false) {
             unset($this->_doDirectPaymentResponse[$index]);
         }
         $this->_doDirectPaymentResponse[] = 'TRANSACTIONID';

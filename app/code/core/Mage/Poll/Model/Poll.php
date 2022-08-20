@@ -122,7 +122,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function isValidationByIp()
     {
-        return (1 == Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP));
+        return (Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP) == 1);
     }
 
     /**
@@ -150,7 +150,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 
         // check if it is in cookie
         $cookie = $this->getCookie()->get($this->getCookieName($pollId));
-        if (false !== $cookie) {
+        if ($cookie !== false) {
             return true;
         }
 

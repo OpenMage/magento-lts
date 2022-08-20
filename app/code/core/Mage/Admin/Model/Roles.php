@@ -171,7 +171,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 $resource->{$key} = null;
                 continue;
             }

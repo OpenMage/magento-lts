@@ -403,7 +403,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
                         $new = true;
                         $model->save();
                     }
-                    if (!$new || 0!==$storeId) {
+                    if (!$new || $storeId !== 0) {
                         $model->save();
                     }
                     $i++;

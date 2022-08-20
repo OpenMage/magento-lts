@@ -306,7 +306,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 
         $pass ++;
 
-        if (false === $loaded && is_object($designUpdateData)) {
+        if ($loaded === false && is_object($designUpdateData)) {
             $_designUpdateData = array();
             if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
                 $_category = $designUpdateData->getCategory();

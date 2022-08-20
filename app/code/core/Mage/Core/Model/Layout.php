@@ -253,13 +253,13 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $alias = isset($node['as']) ? (string)$node['as'] : '';
             if (isset($node['before'])) {
                 $sibling = (string)$node['before'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, false, $alias);
             } elseif (isset($node['after'])) {
                 $sibling = (string)$node['after'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, true, $alias);
@@ -465,7 +465,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             return false;
         }
 
-        if (empty($name) || '.'===$name[0]) {
+        if (empty($name) || $name[0] === '.') {
             $block->setIsAnonymous(true);
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));
