@@ -313,7 +313,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         $address->implodeStreetAddress();
 
-        if (true !== ($result = $this->_validateCustomerData($data))) {
+        if (($result = $this->_validateCustomerData($data)) !== true) {
             return $result;
         }
 
@@ -434,7 +434,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         $result = $customer->validate();
-        if (true !== $result && is_array($result)) {
+        if ($result !== true && is_array($result)) {
             return array(
                 'error'   => -1,
                 'message' => implode(', ', $result)
@@ -504,7 +504,7 @@ class Mage_Checkout_Model_Type_Onepage
                 $customer->setDob($dob);
             }
             $validationResult = $customer->validate();
-            if (true !== $validationResult && is_array($validationResult)) {
+            if ($validationResult !== true && is_array($validationResult)) {
                 return array(
                     'error'   => -1,
                     'message' => implode(', ', $validationResult)

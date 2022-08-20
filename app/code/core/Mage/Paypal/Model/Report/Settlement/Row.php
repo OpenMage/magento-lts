@@ -192,7 +192,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             return;
         }
         $amount = $this->_data[$key] / 100;
-        if ('CR' === $this->_data[$creditKey]) {
+        if ($this->_data[$creditKey] === 'CR') {
             $amount = -1 * $amount;
         }
         $this->_data[$key] = $amount;

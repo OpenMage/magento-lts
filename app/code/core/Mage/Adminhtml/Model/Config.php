@@ -286,7 +286,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
-                if ('adminhtml/system_config_backend_encrypted' === (string)$node) {
+                if ((string)$node === 'adminhtml/system_config_backend_encrypted') {
                     $section = $node->getParent()->getParent()->getParent()->getParent()->getParent()->getName();
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();

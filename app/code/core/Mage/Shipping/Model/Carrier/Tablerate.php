@@ -248,7 +248,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
             throw Mage::exception('Mage_Shipping', Mage::helper('shipping')->__('Invalid Table Rate code type: %s', $type));
         }
 
-        if ('' === $code) {
+        if ($code === '') {
             return $codes[$type];
         }
 

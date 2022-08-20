@@ -328,7 +328,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      */
     public function getCheckoutSession()
     {
-        if (null === $this->_checkoutSession) {
+        if ($this->_checkoutSession === null) {
             $this->_checkoutSession = Mage::getSingleton('checkout/session');
         }
         return $this->_checkoutSession;

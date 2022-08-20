@@ -38,11 +38,11 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
     {
         if (!$this->_options) {
             $collection = Mage::getResourceModel('core/store_collection');
-            if ('store_id' == $this->getAttribute()->getAttributeCode()) {
+            if ($this->getAttribute()->getAttributeCode() == 'store_id') {
                 $collection->setWithoutDefaultFilter();
             }
             $this->_options = Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm();
-            if ('created_in' == $this->getAttribute()->getAttributeCode()) {
+            if ($this->getAttribute()->getAttributeCode() == 'created_in') {
                 array_unshift($this->_options, array('value' => '0', 'label' => Mage::helper('customer')->__('Admin')));
             }
         }
@@ -65,11 +65,11 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
 
         if (!$this->_options) {
             $collection = Mage::getResourceModel('core/store_collection');
-            if ('store_id' == $this->getAttribute()->getAttributeCode()) {
+            if ($this->getAttribute()->getAttributeCode() == 'store_id') {
                 $collection->setWithoutDefaultFilter();
             }
             $this->_options = $collection->load()->toOptionArray();
-            if ('created_in' == $this->getAttribute()->getAttributeCode()) {
+            if ($this->getAttribute()->getAttributeCode() == 'created_in') {
                 array_unshift($this->_options, array('value' => '0', 'label' => Mage::helper('customer')->__('Admin')));
             }
         }

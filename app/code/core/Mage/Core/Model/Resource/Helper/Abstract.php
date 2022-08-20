@@ -312,7 +312,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
          * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null.
          * It just means that default value not specified, and we must remove it from column definition.
          */
-        if (false === $column['is_null'] && null === $column['default']) {
+        if ($column['is_null'] === false && $column['default'] === null) {
             unset($result['default']);
         }
 

@@ -1008,15 +1008,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
-        if ($attribute->getIsRequired() && '' == trim($this->getDob())) {
+        if ($attribute->getIsRequired() && trim($this->getDob()) == '') {
             $errors[] = Mage::helper('customer')->__('The Date of Birth is required.');
         }
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
-        if ($attribute->getIsRequired() && '' == trim($this->getTaxvat())) {
+        if ($attribute->getIsRequired() && trim($this->getTaxvat()) == '') {
             $errors[] = Mage::helper('customer')->__('The TAX/VAT number is required.');
         }
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
-        if ($attribute->getIsRequired() && '' == trim($this->getGender())) {
+        if ($attribute->getIsRequired() && trim($this->getGender()) == '') {
             $errors[] = Mage::helper('customer')->__('Gender is required.');
         }
 

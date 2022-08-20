@@ -528,7 +528,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             // if new product and then store is not default
                             // we duplicate product as default product with store_id -
-                            if (0 !== $storeId) {
+                            if ($storeId !== 0) {
                                 $data = $model->getData();
                                 $default = Mage::getModel('catalog/product');
                                 $default->setData($data);
@@ -539,8 +539,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             #Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), 0);
                         }
-                        if (!$new || 0!==$storeId) {
-                            if (0!==$storeId) {
+                        if (!$new || $storeId !== 0) {
+                            if ($storeId !== 0) {
                                 Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore(
                                     $model->getId(),
                                     $storeId

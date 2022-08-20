@@ -148,7 +148,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function getStoreId()
     {
-        if (null === $this->_storeId) {
+        if ($this->_storeId === null) {
             $this->_storeId = Mage::app()->getStore()->getId();
         }
         return $this->_storeId;
@@ -371,7 +371,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         }
 
         $parts = explode('|', $construction[2], 2);
-        if (2 === count($parts)) {
+        if (count($parts) === 2) {
             list($variableName, $modifiersString) = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }

@@ -579,7 +579,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     protected function _initWorkflow()
     {
-        if (null === $this->_workflow) {
+        if ($this->_workflow === null) {
             $this->_workflow = array(
                 'unknown'   => array('pending', 'active', 'suspended', 'canceled'),
                 'pending'   => array('active', 'canceled'),

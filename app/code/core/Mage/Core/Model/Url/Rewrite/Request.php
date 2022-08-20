@@ -125,7 +125,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      */
     protected function _rewriteDb()
     {
-        if (null === $this->_rewrite->getStoreId() || false === $this->_rewrite->getStoreId()) {
+        if ($this->_rewrite->getStoreId() === null || $this->_rewrite->getStoreId() === false) {
             $this->_rewrite->setStoreId($this->_app->getStore()->getId());
         }
 

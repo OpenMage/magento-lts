@@ -209,7 +209,7 @@ class Mage_Oauth_Model_Server
     {
         $authHeaderValue = $this->_request->getHeader('Authorization');
 
-        if ($authHeaderValue && 'oauth' === strtolower(substr($authHeaderValue, 0, 5))) {
+        if ($authHeaderValue && strtolower(substr($authHeaderValue, 0, 5)) === 'oauth') {
             $authHeaderValue = substr($authHeaderValue, 6); // ignore 'OAuth ' at the beginning
 
             foreach (explode(',', $authHeaderValue) as $paramStr) {
@@ -225,7 +225,7 @@ class Mage_Oauth_Model_Server
         }
         $contentTypeHeader = $this->_request->getHeader(Zend_Http_Client::CONTENT_TYPE);
 
-        if ($contentTypeHeader && 0 === strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED)) {
+        if ($contentTypeHeader && strpos($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED) === 0) {
             $protocolParamsNotSet = !$this->_protocolParams;
 
             parse_str($this->_request->getRawBody(), $bodyParams);
@@ -246,7 +246,7 @@ class Mage_Oauth_Model_Server
             foreach (explode('&', $queryString) as $paramToValue) {
                 $paramData = explode('=', $paramToValue);
 
-                if (2 === count($paramData) && !$this->_isProtocolParameter($paramData[0])) {
+                if (count($paramData) === 2 && !$this->_isProtocolParameter($paramData[0])) {
                     $this->_params[rawurldecode($paramData[0])] = rawurldecode($paramData[1]);
                 }
             }
@@ -279,7 +279,7 @@ class Mage_Oauth_Model_Server
      */
     protected function _getResponse()
     {
-        if (null === $this->_response) {
+        if ($this->_response === null) {
             $this->setResponse(Mage::app()->getResponse());
         }
         return $this->_response;
@@ -485,7 +485,7 @@ class Mage_Oauth_Model_Server
     protected function _validateProtocolParams()
     {
         // validate version if specified
-        if (isset($this->_protocolParams['oauth_version']) && '1.0' != $this->_protocolParams['oauth_version']) {
+        if (isset($this->_protocolParams['oauth_version']) && $this->_protocolParams['oauth_version'] != '1.0') {
             $this->_throwException('', self::ERR_VERSION_REJECTED);
         }
         // required parameters validation

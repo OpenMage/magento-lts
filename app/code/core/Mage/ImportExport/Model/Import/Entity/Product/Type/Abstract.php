@@ -296,10 +296,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
             if (!$attrParams['is_static']) {
                 if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                     $resultAttrs[$attrCode] =
-                        ('select' == $attrParams['type'] || 'multiselect' == $attrParams['type'])
+                        ($attrParams['type'] == 'select' || $attrParams['type'] == 'multiselect')
                         ? $attrParams['options'][strtolower($rowData[$attrCode])]
                         : $rowData[$attrCode];
-                } elseif ($withDefaultValue && null !== $attrParams['default_value']) {
+                } elseif ($withDefaultValue && $attrParams['default_value'] !== null) {
                     $resultAttrs[$attrCode] = $attrParams['default_value'];
                 }
             }

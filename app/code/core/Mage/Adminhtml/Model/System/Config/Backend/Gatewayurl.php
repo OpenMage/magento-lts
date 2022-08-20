@@ -37,7 +37,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Gatewayurl extends  Mage_Core_M
     {
         if ($this->getValue()) {
             $parsed = parse_url($this->getValue());
-            if (!isset($parsed['scheme']) || (('https' != $parsed['scheme']) && ('http' != $parsed['scheme']))) {
+            if (!isset($parsed['scheme']) || (($parsed['scheme'] != 'https') && ($parsed['scheme'] != 'http'))) {
                 Mage::throwException(Mage::helper('core')->__('Invalid URL scheme.'));
             }
         }

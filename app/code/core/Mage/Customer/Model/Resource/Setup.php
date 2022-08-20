@@ -104,7 +104,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $attributeId = $attributeIds[$customerAddress][$attributeCode];
             $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
             $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
-            if (false === ($attribute['system'] == true && $attribute['visible'] == false)) {
+            if (($attribute['system'] == true && $attribute['visible'] == false) === false) {
                 $usedInForms = array(
                     'adminhtml_customer_address',
                     'customer_address_edit',

@@ -62,7 +62,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
         $htmlAttributes = $element->getHtmlAttributes();
         foreach ($htmlAttributes as $key => $attribute) {
-            if ('type' === $attribute) {
+            if ($attribute === 'type') {
                 unset($htmlAttributes[$key]);
                 break;
             }

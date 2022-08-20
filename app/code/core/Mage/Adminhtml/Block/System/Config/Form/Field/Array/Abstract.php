@@ -131,7 +131,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      */
     public function getArrayRows()
     {
-        if (null !== $this->_arrayRowsCache) {
+        if ($this->_arrayRowsCache !== null) {
             return $this->_arrayRowsCache;
         }
         $result = array();

@@ -639,7 +639,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
          * Initialize product categories
          */
         $categoryIds = $this->getRequest()->getPost('category_ids');
-        if (null !== $categoryIds) {
+        if ($categoryIds !== null) {
             if (empty($categoryIds)) {
                 $categoryIds = array();
             }

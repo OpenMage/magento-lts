@@ -174,7 +174,7 @@ class Mage_Paypal_Model_Express_Checkout
         if ($this->_config->areButtonsDynamic()) {
             $cacheId = self::PAL_CACHE_ID . Mage::app()->getStore()->getId();
             $pal = Mage::app()->loadCache($cacheId);
-            if (-1 == $pal) {
+            if ($pal == -1) {
                 $pal = null;
             } elseif (!$pal) {
                 $pal = null;
@@ -331,7 +331,7 @@ class Mage_Paypal_Model_Express_Checkout
         } else {
             $address = $this->_quote->getShippingAddress();
             $isOverriden = 0;
-            if (true === $address->validate()) {
+            if ($address->validate() === true) {
                 $isOverriden = 1;
                 $this->_api->setAddress($address);
             }
@@ -497,10 +497,10 @@ class Mage_Paypal_Model_Express_Checkout
             Mage::throwException(Mage::helper('paypal')->__('Payer is not identified.'));
         }
         $this->_quote->setMayEditShippingAddress(
-            1 != $this->_quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN)
+            $this->_quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_SHIPPING_OVERRIDEN) != 1
         );
         $this->_quote->setMayEditShippingMethod(
-            '' == $this->_quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD)
+            $this->_quote->getPayment()->getAdditionalInformation(self::PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD) == ''
         );
         $this->_ignoreAddressValidation();
         $this->_quote->collectTotals()->save();
@@ -775,7 +775,7 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected function _getApi()
     {
-        if (null === $this->_api) {
+        if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType)->setConfigObject($this->_config);
         }
         return $this->_api;
@@ -822,7 +822,7 @@ class Mage_Paypal_Model_Express_Checkout
                 if ($isDefault) {
                     $userSelectedOption = $options[$i];
                 }
-                if (false === $min || $amountInclTax < $min) {
+                if ($min === false || $amountInclTax < $min) {
                     $min = $amountInclTax;
                     $iMin = $i;
                 }

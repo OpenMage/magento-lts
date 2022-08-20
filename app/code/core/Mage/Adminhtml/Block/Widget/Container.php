@@ -137,7 +137,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                     if ($child = $this->getChild($id . '_button')) {
                         $child->setData($key, $data);
                     }
-                    if ('level' == $key) {
+                    if ($key == 'level') {
                         $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
                         unset($this->_buttons[$level][$id]);
                     } else {
@@ -283,7 +283,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     {
         foreach ($this->_buttons as $level => $buttons) {
             foreach ($buttons as $id => $data) {
-                if (isset($data['area']) && ('footer' == $data['area'])) {
+                if (isset($data['area']) && ($data['area'] == 'footer')) {
                     return true;
                 }
             }

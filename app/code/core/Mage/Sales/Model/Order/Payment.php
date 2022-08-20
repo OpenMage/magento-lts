@@ -418,7 +418,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
-        $isCustomerNotified = (null !== $orderIsNotified) ? $orderIsNotified : $order->getCustomerNoteNotify();
+        $isCustomerNotified = ($orderIsNotified !== null) ? $orderIsNotified : $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
         // add message if order was put into review during authorization or capture
@@ -669,7 +669,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     public function canVoid(Varien_Object $document)
     {
-        if (null === $this->_canVoidLookup) {
+        if ($this->_canVoidLookup === null) {
             $this->_canVoidLookup = (bool)$this->getMethodInstance()->canVoid($document);
             if ($this->_canVoidLookup) {
                 $authTransaction = $this->getAuthorizationTransaction();
@@ -1043,7 +1043,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         // process payment in case of positive or negative result, or add a comment
-        if (-1 === $result) { // switch won't work with such $result!
+        if ($result === -1) { // switch won't work with such $result!
             if ($order -> getState() != Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
                 $status = $this->getIsFraudDetected() ? Mage_Sales_Model_Order::STATUS_FRAUD : false;
                 $order->setState(Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW, $status, $message);
@@ -1053,14 +1053,14 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $order->addStatusHistoryComment($message);
             }
-        } elseif (true === $result) {
+        } elseif ($result === true) {
             if ($invoice) {
                 $invoice->pay();
                 $this->_updateTotals(array('base_amount_paid_online' => $invoice->getBaseGrandTotal()));
                 $order->addRelatedObject($invoice);
             }
             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
-        } elseif (false === $result) {
+        } elseif ($result === false) {
             if ($invoice) {
                 $invoice->cancel();
                 $order->addRelatedObject($invoice);
@@ -1215,7 +1215,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
         if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && (0 == $this->getBaseAmountCanceled())) {
+            && ($this->getBaseAmountCanceled() == 0)) {
             if ($authTransaction->canVoidAuthorizationCompletely()) {
                 $amount = (float)$order->getBaseGrandTotal();
             }
@@ -1277,7 +1277,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // look for set transaction ids
         $transactionId = $this->getTransactionId();
-        if (null !== $transactionId) {
+        if ($transactionId !== null) {
             // set transaction parameters
             $transaction = false;
             if ($this->getOrder()->getId()) {
@@ -1388,7 +1388,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     protected function _updateTotals($data)
     {
         foreach ($data as $key => $amount) {
-            if (null !== $amount) {
+            if ($amount !== null) {
                 $was = $this->getDataUsingMethod($key);
                 $this->setDataUsingMethod($key, $was + $amount);
             }
@@ -1420,7 +1420,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected function _isTransactionExists($txnId = null)
     {
-        if (null === $txnId) {
+        if ($txnId === null) {
             $txnId = $this->getTransactionId();
         }
         return $txnId && $this->_lookupTransaction($txnId);
@@ -1600,7 +1600,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $amountToCapture = $this->_formatAmount($amountToCapture, true);
         $orderGrandTotal = $this->_formatAmount($this->getOrder()->getBaseGrandTotal(), true);
         if ($orderGrandTotal == $this->_formatAmount($this->getBaseAmountPaid(), true) + $amountToCapture) {
-            if (false !== $this->getShouldCloseParentTransaction()) {
+            if ($this->getShouldCloseParentTransaction() !== false) {
                 $this->setShouldCloseParentTransaction(true);
             }
             return true;

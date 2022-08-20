@@ -94,7 +94,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                 $chainForOneField = new Zend_Validate();
                 foreach ($validatorsConfig as $validatorName => $validatorConfig) {
                     // it is required field
-                    if ('required' == $validatorName && 1 == $validatorConfig) {
+                    if ($validatorName == 'required' && $validatorConfig == 1) {
                         $this->_requiredFields[] = $field;
                         continue;
                     }

@@ -76,15 +76,15 @@ class Mage_Paypal_Model_Pro
      */
     public function setMethod($code, $storeId = null)
     {
-        if (null === $this->_config) {
+        if ($this->_config === null) {
             $params = array($code);
-            if (null !== $storeId) {
+            if ($storeId !== null) {
                 $params[] = $storeId;
             }
             $this->_config = Mage::getModel($this->_configType, $params);
         } else {
             $this->_config->setMethod($code);
-            if (null !== $storeId) {
+            if ($storeId !== null) {
                 $this->_config->setStoreId($storeId);
             }
         }
@@ -101,7 +101,7 @@ class Mage_Paypal_Model_Pro
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
     {
         $this->_config = $instace;
-        if (null !== $storeId) {
+        if ($storeId !== null) {
             $this->_config->setStoreId($storeId);
         }
         return $this;
@@ -125,7 +125,7 @@ class Mage_Paypal_Model_Pro
      */
     public function getApi()
     {
-        if (null === $this->_api) {
+        if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType);
         }
         $this->_api->setConfigObject($this->_config);
@@ -151,7 +151,7 @@ class Mage_Paypal_Model_Pro
      */
     public function getInfo()
     {
-        if (null === $this->_infoInstance) {
+        if ($this->_infoInstance === null) {
             $this->_infoInstance = Mage::getModel('paypal/info');
         }
         return $this->_infoInstance;
@@ -252,7 +252,7 @@ class Mage_Paypal_Model_Pro
             ;
             $canRefundMore = $payment->getCreditmemo()->getInvoice()->canRefund();
             $isFullRefund = !$canRefundMore
-                && (0 == ((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()));
+                && (((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()) == 0);
             $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL
                 : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
             );

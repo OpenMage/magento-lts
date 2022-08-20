@@ -191,7 +191,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      */
     public function isFailsafe($setFailsafe = null)
     {
-        if (null === $setFailsafe) {
+        if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
         $this->_isFailsafe = (bool)$setFailsafe;
@@ -218,7 +218,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      */
     protected function _verifyTxnId($txnId)
     {
-        if (null !== $txnId && 0 == strlen($txnId)) {
+        if ($txnId !== null && strlen($txnId) == 0) {
             Mage::throwException(Mage::helper('paypal')->__('Transaction ID must not be empty.'));
         }
     }

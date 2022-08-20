@@ -152,8 +152,8 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null === $this->_paymentSpecificInformation) {
-            if (null === $transport) {
+        if ($this->_paymentSpecificInformation === null) {
+            if ($transport === null) {
                 $transport = new Varien_Object;
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);

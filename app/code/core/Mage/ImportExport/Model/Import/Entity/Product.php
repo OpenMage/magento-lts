@@ -895,7 +895,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $type = $rowData['_custom_option_type'];
                     $rowIsMain = true;
                 } else {
-                    if (null === $type) {
+                    if ($type === null) {
                         continue;
                     }
                     $rowIsMain = false;
@@ -923,7 +923,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                             ? 0 : abs($rowData['_custom_option_sort_order'])
                     );
 
-                    if (true !== $typeSpecific[$type]) { // simple option may have optional params
+                    if ($typeSpecific[$type] !== true) { // simple option may have optional params
                         $priceTableRow = array(
                             'option_id'  => $nextOptionId,
                             'store_id'   => Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID,
@@ -937,8 +937,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                                 if (array_key_exists($paramSuffix, $solidParams)) {
                                     $solidParams[$paramSuffix] = $data;
-                                } elseif ('price' == $paramSuffix) {
-                                    if ('%' == substr($data, -1)) {
+                                } elseif ($paramSuffix == 'price') {
+                                    if (substr($data, -1) == '%') {
                                         $priceTableRow['price_type'] = 'percent';
                                     }
                                     $priceTableRow['price'] = (float) rtrim($data, '%');
@@ -976,7 +976,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 'price'      => (float) rtrim($rowData['_custom_option_row_price'], '%'),
                                 'price_type' => 'fixed'
                             );
-                            if ('%' == substr($rowData['_custom_option_row_price'], -1)) {
+                            if (substr($rowData['_custom_option_row_price'], -1) == '%') {
                                 $typePriceRow['price_type'] = 'percent';
                             }
                             if ($priceIsGlobal) {
@@ -1402,7 +1402,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                             continue;
                         }
                     }
-                } elseif (null === $rowSku) {
+                } elseif ($rowSku === null) {
                     $this->_rowsToSkip[$rowNum] = true;
                     continue; // skip rows when SKU is NULL
                 } elseif (self::SCOPE_STORE == $rowScope) { // set necessary data from SCOPE_DEFAULT row
@@ -1550,7 +1550,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
         foreach ($rowData as $attrCode => $attrValue) {
             $attribute = $this->_getAttribute($attrCode);
-            if ('multiselect' != $attribute->getFrontendInput()
+            if ($attribute->getFrontendInput() != 'multiselect'
                 && self::SCOPE_NULL == $rowScope
             ) {
                 continue; // skip attribute processing for SCOPE_NULL rows
@@ -1560,9 +1560,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = array(0);
 
-            if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
+            if ($attribute->getBackendType() == 'datetime' && strtotime($attrValue)) {
                 $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
-            } elseif ('url_key' == $attribute->getAttributeCode()) {
+            } elseif ($attribute->getAttributeCode() == 'url_key') {
                 if (empty($attrValue)) {
                     $attrValue = $product->formatUrlKey($product->getName());
                 }
@@ -1583,7 +1583,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
             }
             foreach ($storeIds as $storeId) {
-                if ('multiselect' == $attribute->getFrontendInput()) {
+                if ($attribute->getFrontendInput() == 'multiselect') {
                     if (!isset($attributes[$attrTable][$rowSku][$attrId][$storeId])) {
                         $attributes[$attrTable][$rowSku][$attrId][$storeId] = '';
                     } else {
@@ -2141,9 +2141,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
             }
         } else {
-            if (null === $sku) {
+            if ($sku === null) {
                 $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
-            } elseif (false === $sku) {
+            } elseif ($sku === false) {
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
             } elseif (self::SCOPE_STORE == $rowScope && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
                 $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);

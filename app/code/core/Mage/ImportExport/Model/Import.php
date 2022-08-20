@@ -372,7 +372,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     if (!empty($row[$colName])) {
                         preg_match($regExps[$regExpType], $row[$colName], $m);
 
-                        $row[$colName] = $m[1] . ($m[2] + $size) . ('middle' == $regExpType ? $m[3] : '');
+                        $row[$colName] = $m[1] . ($m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
                     }
                 }
                 $writer->writeRow($row);

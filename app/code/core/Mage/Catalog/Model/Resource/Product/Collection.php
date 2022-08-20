@@ -1459,7 +1459,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $classToRate = array();
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         foreach ($this as &$item) {
-            if (null === $item->getTaxClassId()) {
+            if ($item->getTaxClassId() === null) {
                 $item->setTaxClassId($item->getMinimalTaxClassId());
             }
             if (!isset($classToRate[$item->getTaxClassId()])) {

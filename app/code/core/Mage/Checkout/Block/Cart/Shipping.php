@@ -199,7 +199,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarriers()
     {
-        if (null === $this->_carriers) {
+        if ($this->_carriers === null) {
             $this->_carriers = array();
             $this->getEstimateRates();
             foreach ($this->_rates as $rateGroup) {

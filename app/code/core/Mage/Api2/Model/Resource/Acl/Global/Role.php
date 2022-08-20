@@ -63,7 +63,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
         $write = $this->_getWriteAdapter();
         $table = $this->getTable('api2/acl_user');
 
-        if (false === $read->fetchOne($select)) {
+        if ($read->fetchOne($select) === false) {
             $write->insert($table, array('admin_id' => $adminId, 'role_id' => $roleId));
         } else {
             $write->update($table, array('role_id' => $roleId), array('admin_id = ?' => $adminId));

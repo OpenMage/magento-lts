@@ -719,7 +719,7 @@ class Mage_Catalog_Model_Url
         }
 
         $categoryUrlSuffix = $this->getCategoryUrlSuffix($storeId);
-        if (null === $parentPath) {
+        if ($parentPath === null) {
             $parentPath = $this->getResource()->getCategoryParentPath($category);
         } elseif ($parentPath == '/') {
             $parentPath = '';
@@ -869,7 +869,7 @@ class Mage_Catalog_Model_Url
         }
 
         // generate id_path
-        if ('id' === $type) {
+        if ($type === 'id') {
             if (!$product) {
                 return 'category/' . $category->getId();
             }
@@ -880,7 +880,7 @@ class Mage_Catalog_Model_Url
         }
 
         // generate request_path
-        if ('request' === $type) {
+        if ($type === 'request') {
             // for category
             if (!$product) {
                 if ($category->getUrlKey() == '') {
@@ -890,7 +890,7 @@ class Mage_Catalog_Model_Url
                 }
 
                 $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
-                if (null === $parentPath) {
+                if ($parentPath === null) {
                     $parentPath = $this->getResource()->getCategoryParentPath($category);
                 } elseif ($parentPath == '/') {
                     $parentPath = '';

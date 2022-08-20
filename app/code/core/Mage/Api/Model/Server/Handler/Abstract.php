@@ -197,7 +197,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      */
     protected function _prepareResourceModelName($resource)
     {
-        if (null !== $this->_resourceSuffix) {
+        if ($this->_resourceSuffix !== null) {
             return $resource . $this->_resourceSuffix;
         }
         return $resource;

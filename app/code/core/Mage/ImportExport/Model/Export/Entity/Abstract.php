@@ -217,7 +217,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected function _getExportAttrCodes()
     {
-        if (null === self::$attrCodes) {
+        if (self::$attrCodes === null) {
             if (!empty($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
                     && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])) {
                 $skipAttr = array_flip($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP]);

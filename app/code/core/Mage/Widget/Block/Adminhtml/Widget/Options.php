@@ -176,7 +176,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
         } // just an element renderer
-        elseif (false !== strpos($fieldType, '/')) {
+        elseif (strpos($fieldType, '/') !== false) {
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;
         }

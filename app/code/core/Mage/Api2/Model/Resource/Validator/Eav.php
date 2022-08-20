@@ -126,8 +126,8 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         $errors = array();
 
         // validate attributes with source models
-        if (null !== $attrValue && $attribute->getSourceModel()) {
-            if ('multiselect' !== $attribute->getFrontendInput() && is_array($attrValue)) {
+        if ($attrValue !== null && $attribute->getSourceModel()) {
+            if ($attribute->getFrontendInput() !== 'multiselect' && is_array($attrValue)) {
                 return array('Invalid value type for ' . $attribute->getAttributeCode());
             }
             $possibleValues = $attribute->getSource()->getAllOptions(false);
@@ -199,7 +199,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
             } else {
                 $result = $this->_validateAttributeWithSource($attribute, $attrValue);
 
-                if (true !== $result) {
+                if ($result !== true) {
                     $errors = array_merge($errors, $result);
                 }
             }

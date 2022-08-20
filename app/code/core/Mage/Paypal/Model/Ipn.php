@@ -78,7 +78,7 @@ class Mage_Paypal_Model_Ipn
      */
     public function getRequestData($key = null)
     {
-        if (null === $key) {
+        if ($key === null) {
             return $this->_request;
         }
         return isset($this->_request[$key]) ? $this->_request[$key] : null;
@@ -98,7 +98,7 @@ class Mage_Paypal_Model_Ipn
         ksort($this->_debugData['ipn']);
 
         try {
-            if (isset($this->_request['txn_type']) && 'recurring_payment' == $this->_request['txn_type']) {
+            if (isset($this->_request['txn_type']) && $this->_request['txn_type'] == 'recurring_payment') {
                 $this->_getRecurringProfile();
                 if ($httpAdapter) {
                     $this->_postBack($httpAdapter);
@@ -471,7 +471,7 @@ class Mage_Paypal_Model_Ipn
             ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setParentTransactionId($parentTransactionId)
-            ->setShouldCloseParentTransaction('Completed' === $this->getRequestData('auth_status'))
+            ->setShouldCloseParentTransaction($this->getRequestData('auth_status') === 'Completed')
             ->setIsTransactionClosed(0)
             ->registerCaptureNotification(
                 $this->getRequestData('mc_gross'),
@@ -614,11 +614,11 @@ class Mage_Paypal_Model_Ipn
     public function _registerPaymentPending()
     {
         $reason = $this->getRequestData('pending_reason');
-        if ('authorization' === $reason) {
+        if ($reason === 'authorization') {
             $this->_registerPaymentAuthorization();
             return;
         }
-        if ('order' === $reason) {
+        if ($reason === 'order') {
             throw new Exception('The "order" authorizations are not implemented.');
         }
 
