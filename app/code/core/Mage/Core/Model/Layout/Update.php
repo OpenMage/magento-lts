@@ -420,7 +420,7 @@ class Mage_Core_Model_Layout_Update
      */
     public function getFileLayoutUpdatesXml($area, $package, $theme, $storeId = null)
     {
-        if (null === $storeId) {
+        if ($storeId === null) {
             $storeId = Mage::app()->getStore()->getId();
         }
         /** @var Mage_Core_Model_Design_Package $design */

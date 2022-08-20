@@ -69,7 +69,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getDefaultOperatorInputByType()
     {
-        if (null === $this->_defaultOperatorInputByType) {
+        if ($this->_defaultOperatorInputByType === null) {
             parent::getDefaultOperatorInputByType();
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='
@@ -331,7 +331,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function collectValidatedAttributes($productCollection)
     {
         $attribute = $this->getAttribute();
-        if ('category_ids' != $attribute) {
+        if ($attribute != 'category_ids') {
             if ($this->getAttributeObject()->isScopeGlobal()) {
                 $attributes = $this->getRule()->getCollectedAttributes();
                 $attributes[$attribute] = true;
@@ -484,7 +484,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], array('!()', '()'))
-                    && false !== strpos($arr['value'], ',')) {
+                    && strpos($arr['value'], ',') !== false) {
                     $tmp = array();
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
@@ -516,7 +516,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $object = Mage::getModel('catalog/product')->load($object->getId());
         }
 
-        if ('category_ids' == $attrCode) {
+        if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {

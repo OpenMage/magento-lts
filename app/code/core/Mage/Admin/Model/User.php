@@ -239,7 +239,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function getRole()
     {
-        if (null === $this->_role) {
+        if ($this->_role === null) {
             $this->_role = Mage::getModel('admin/roles');
             $roles = $this->getRoles();
             if ($roles && isset($roles[0]) && $roles[0]) {

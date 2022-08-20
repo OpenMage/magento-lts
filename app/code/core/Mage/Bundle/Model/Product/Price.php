@@ -260,9 +260,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $minimalPrice = $product->getStore()->roundPrice($minimalPrice);
         $maximalPrice = $product->getStore()->roundPrice($maximalPrice);
 
-        if ('max' == $which) {
+        if ($which == 'max') {
             return $maximalPrice;
-        } elseif ('min' == $which) {
+        } elseif ($which == 'min') {
             return $minimalPrice;
         }
 

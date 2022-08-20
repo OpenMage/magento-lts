@@ -560,7 +560,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     protected function _updateAnchorProductCount(&$data)
     {
         foreach ($data as $key => $row) {
-            if (0 === (int)$row['is_anchor']) {
+            if ((int)$row['is_anchor'] === 0) {
                 $data[$key]['product_count'] = $row['self_product_count'];
             }
         }

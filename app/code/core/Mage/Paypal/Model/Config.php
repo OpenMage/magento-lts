@@ -1108,7 +1108,7 @@ class Mage_Paypal_Model_Config
             return $this->_getDynamicImageUrl(self::EC_BUTTON_TYPE_MARK, $localeCode, $orderTotal, $pal);
         }
 
-        if (null === $staticSize) {
+        if ($staticSize === null) {
             $staticSize = $this->paymentMarkSize;
         }
         switch ($staticSize) {
@@ -1134,8 +1134,8 @@ class Mage_Paypal_Model_Config
     public function getPaymentMarkWhatIsPaypalUrl(Mage_Core_Model_Locale $locale = null)
     {
         $countryCode = 'US';
-        if (null !== $locale) {
-            $shouldEmulate = (null !== $this->_storeId) && (Mage::app()->getStore()->getId() != $this->_storeId);
+        if ($locale !== null) {
+            $shouldEmulate = ($this->_storeId !== null) && (Mage::app()->getStore()->getId() != $this->_storeId);
             if ($shouldEmulate) {
                 $locale->emulate($this->_storeId);
             }

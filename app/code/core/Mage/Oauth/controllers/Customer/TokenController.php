@@ -90,14 +90,14 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
         $id = $this->getRequest()->getParam('id');
         $status = $this->getRequest()->getParam('status');
 
-        if (0 === (int) $id) {
+        if ((int) $id === 0) {
             // No ID
             $this->_session->addError($this->__('Invalid entry ID.'));
             $this->_redirectBack();
             return;
         }
 
-        if (null === $status) {
+        if ($status === null) {
             // No status selected
             $this->_session->addError($this->__('Invalid revoke status.'));
             $this->_redirectBack();
@@ -145,7 +145,7 @@ class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Act
     {
         $id = $this->getRequest()->getParam('id');
 
-        if (0 === (int) $id) {
+        if ((int) $id === 0) {
             // No ID
             $this->_session->addError($this->__('Invalid entry ID.'));
             $this->_redirectBack();

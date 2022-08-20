@@ -246,7 +246,7 @@ class Mage_Paypal_Model_Info
     public static function isFraudReviewAllowed(Mage_Payment_Model_Info $payment)
     {
         return self::isPaymentReviewRequired($payment)
-            && 1 == $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL);
+            && $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL) == 1;
     }
 
     /**

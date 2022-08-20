@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     public function getRootByIds($ids)
     {
         $root = Mage::registry('root');
-        if (null === $root) {
+        if ($root === null) {
             $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
             $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
             $tree   = $categoryTreeResource->loadByIds($ids);

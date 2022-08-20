@@ -849,7 +849,7 @@ class Mage_Core_Model_App
             return $this->_store;
         }
 
-        if (!isset($id) || ''===$id || $id === true) {
+        if (!isset($id) || $id === '' || $id === true) {
             $id = $this->_currentStore;
         }
         if ($id instanceof Mage_Core_Model_Store) {
@@ -1356,7 +1356,7 @@ class Mage_Core_Model_App
                 $events[$eventName]['observers'] = $observers;
                 $this->_events[$area][$eventName]['observers'] = $observers;
             }
-            if (false===$events[$eventName]) {
+            if ($events[$eventName] === false) {
                 continue;
             } else {
                 $event = new Varien_Event($args);

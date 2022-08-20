@@ -78,7 +78,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     protected function _getInterpreter()
     {
-        if (null === $this->_interpreter) {
+        if ($this->_interpreter === null) {
             $this->_interpreter = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
         }
         return $this->_interpreter;
@@ -107,7 +107,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if ($typeWithQ) {
                 $qAndValue = explode('=', $typeWithQ[0]);
 
-                if (2 == count($qAndValue)) {
+                if (count($qAndValue) == 2) {
                     $quality = $qAndValue[1];
                 }
             }
@@ -139,7 +139,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getBodyParams()
     {
-        if (null == $this->_bodyParams) {
+        if ($this->_bodyParams == null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string)$this->getRawBody());
         }
         return $this->_bodyParams;

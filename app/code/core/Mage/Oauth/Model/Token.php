@@ -218,7 +218,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         $this->validate();
 
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         }
         parent::_beforeSave();
@@ -260,7 +260,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             Mage::throwException(array_shift($messages));
         }
 
-        if (null !== ($verifier = $this->getVerifier())) {
+        if (($verifier = $this->getVerifier()) !== null) {
             $validatorLength->setLength(self::LENGTH_VERIFIER);
             $validatorLength->setName('Verifier Key');
             if (!$validatorLength->isValid($verifier)) {

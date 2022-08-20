@@ -1216,23 +1216,23 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
             foreach ($entity['attributes'] as $attrCode => $attr) {
                 if (!empty($attr['backend'])) {
-                    if ('_' === $attr['backend']) {
+                    if ($attr['backend'] === '_') {
                         $attr['backend'] = $backendPrefix;
-                    } elseif ('_' === $attr['backend'][0]) {
+                    } elseif ($attr['backend'][0] === '_') {
                         $attr['backend'] = $backendPrefix.$attr['backend'];
                     }
                 }
                 if (!empty($attr['frontend'])) {
-                    if ('_' === $attr['frontend']) {
+                    if ($attr['frontend'] === '_') {
                         $attr['frontend'] = $frontendPrefix;
-                    } elseif ('_' === $attr['frontend'][0]) {
+                    } elseif ($attr['frontend'][0] === '_') {
                         $attr['frontend'] = $frontendPrefix.$attr['frontend'];
                     }
                 }
                 if (!empty($attr['source'])) {
-                    if ('_' === $attr['source']) {
+                    if ($attr['source'] === '_') {
                         $attr['source'] = $sourcePrefix;
-                    } elseif ('_' === $attr['source'][0]) {
+                    } elseif ($attr['source'][0] === '_') {
                         $attr['source'] = $sourcePrefix . $attr['source'];
                     }
                 }

@@ -148,7 +148,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
      */
     public function getProductsCount()
     {
-        if (null === $this->_productsCount) {
+        if ($this->_productsCount === null) {
             $this->_productsCount = self::DEFAULT_PRODUCTS_COUNT;
         }
         return $this->_productsCount;

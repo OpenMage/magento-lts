@@ -121,7 +121,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
     public function getIsElementSimplified(Varien_Data_Form_Element_Abstract $element)
     {
         $originalData = $element->getOriginalData();
-        return isset($originalData['is_simplified']) && 1 == $originalData['is_simplified'];
+        return isset($originalData['is_simplified']) && $originalData['is_simplified'] == 1;
     }
 
     /**

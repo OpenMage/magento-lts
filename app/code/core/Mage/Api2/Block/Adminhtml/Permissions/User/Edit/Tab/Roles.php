@@ -121,7 +121,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
      */
     protected function _getSelectedRoles()
     {
-        if (null === $this->_selectedRoles) {
+        if ($this->_selectedRoles === null) {
             $userRoles = array();
 
             /** @var Mage_Admin_Model_User $user */

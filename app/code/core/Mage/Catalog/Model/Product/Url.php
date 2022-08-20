@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlInstance()
     {
-        if (null === $this->_url) {
+        if ($this->_url === null) {
             $this->_url = Mage::getModel('core/url');
         }
         return $this->_url;
@@ -87,7 +87,7 @@ class Mage_Catalog_Model_Product_Url extends Varien_Object
      */
     public function getUrlRewrite()
     {
-        if (null === $this->_urlRewrite) {
+        if ($this->_urlRewrite === null) {
             $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
         }
         return $this->_urlRewrite;

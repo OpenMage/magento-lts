@@ -277,7 +277,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
             }
 
             //file mask
-            if (false !== (strpos($options['file_mask'], '*'))) {
+            if ((strpos($options['file_mask'], '*')) !== false) {
                 if (!isset($this->_pathsData[$path]['regFilename'])) {
                     //make regular
                     $reg = $options['file_mask'];

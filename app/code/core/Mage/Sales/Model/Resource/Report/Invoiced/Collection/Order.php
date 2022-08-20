@@ -62,9 +62,9 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');

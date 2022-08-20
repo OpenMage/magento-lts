@@ -141,7 +141,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
                 ->validateUserValue($request['options']);
 
             $skipHtmlEscaping = false;
-            if ('file' == $option->getType()) {
+            if ($option->getType() == 'file') {
                 $skipHtmlEscaping = true;
 
                 $downloadParams = array(
@@ -221,8 +221,8 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
     {
         $this->_shouldRenderInfo = true;
 
-        if ('shipping' == $this->getAddressType()) {
-            if ('1' == $this->_profile->getInfoValue('order_item_info', 'is_virtual')) {
+        if ($this->getAddressType() == 'shipping') {
+            if ($this->_profile->getInfoValue('order_item_info', 'is_virtual') == '1') {
                 $this->getParentBlock()->unsetChild('sales.recurring.profile.view.shipping');
                 return;
             }
@@ -332,7 +332,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
      */
     protected function _prepareRelatedOrders($fieldsToSelect = '*')
     {
-        if (null === $this->_relatedOrders) {
+        if ($this->_relatedOrders === null) {
             $this->_relatedOrders = Mage::getResourceModel('sales/order_collection')
                 ->addFieldToSelect($fieldsToSelect)
                 ->addFieldToFilter('customer_id', Mage::registry('current_customer')->getId())

@@ -52,7 +52,7 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
             ->where('customer_id = :customer_id')
             ->where('rule_id = :rule_id');
         $data = $read->fetchRow($select, array(':rule_id' => $ruleId, ':customer_id' => $customerId));
-        if (false === $data) {
+        if ($data === false) {
             // set empty data, as an existing rule object might be used
             $data = array();
         }

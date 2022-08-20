@@ -73,7 +73,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      */
     public function getReviewsCollection()
     {
-        if (null === $this->_reviewsCollection) {
+        if ($this->_reviewsCollection === null) {
             $this->_reviewsCollection = Mage::getModel('review/review')->getCollection()
                 ->addStoreFilter(Mage::app()->getStore()->getId())
                 ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
