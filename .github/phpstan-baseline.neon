@@ -5181,54 +5181,9 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Creditmemo.php
-
-		-
 			message: "#^Call to method setOrderFilter\\(\\) on an unknown class Mage_Sales_Model_Resource_Invoice_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/Details.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Info.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Invoice.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Creditmemo.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Invoice.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Shipment.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Shipment.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/View.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
