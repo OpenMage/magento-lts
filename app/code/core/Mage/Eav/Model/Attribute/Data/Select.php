@@ -48,7 +48,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
      */
     public function validateValue($value)
     {
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
         $label      = Mage::helper('eav')->__($attribute->getStoreLabel());
 

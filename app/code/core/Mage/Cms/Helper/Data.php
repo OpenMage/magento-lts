@@ -67,7 +67,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
             $allowedStreamWrappers = $allowedStreamWrappers->asArray();
         }
 
-        return is_array($allowedStreamWrappers) ? $allowedStreamWrappers : array();
+        return is_array($allowedStreamWrappers) ? $allowedStreamWrappers : [];
     }
 
     /**

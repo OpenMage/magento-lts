@@ -83,10 +83,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
 
     public function getOrderDataJson()
     {
-        $data = array();
+        $data = [];
         if (!is_null($this->getCustomerId())) {
             $data['customer_id'] = $this->getCustomerId();
-            $data['addresses'] = array();
+            $data['addresses'] = [];
 
             /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form')

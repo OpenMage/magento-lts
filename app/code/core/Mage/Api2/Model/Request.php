@@ -91,8 +91,8 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getAcceptTypes()
     {
-        $qualityToTypes = array();
-        $orderedTypes   = array();
+        $qualityToTypes = [];
+        $orderedTypes   = [];
 
         foreach (preg_split('/,\s*/', $this->getHeader('Accept')) as $definition) {
             $typeWithQ = explode(';', $definition);
@@ -204,12 +204,12 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             throw new Mage_Api2_Exception('Invalid request method', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Map HTTP methods to classic CRUD verbs
-        $operationByMethod = array(
+        $operationByMethod = [
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
             'POST'   => Mage_Api2_Model_Resource::OPERATION_CREATE,
             'PUT'    => Mage_Api2_Model_Resource::OPERATION_UPDATE,
             'DELETE' => Mage_Api2_Model_Resource::OPERATION_DELETE
-        );
+        ];
 
         return $operationByMethod[$this->getMethod()];
     }
@@ -261,7 +261,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function getRequestedAttributes()
     {
-        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, array());
+        $include = $this->getQuery(self::QUERY_PARAM_REQ_ATTRS, []);
 
         //transform comma-separated list
         if (!is_array($include)) {

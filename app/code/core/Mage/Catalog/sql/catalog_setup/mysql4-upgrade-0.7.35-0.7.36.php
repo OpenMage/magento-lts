@@ -32,7 +32,7 @@ try {
 
 $installer->rebuildCategoryLevels();
 
-$installer->addAttribute('catalog_category', 'level', array(
+$installer->addAttribute('catalog_category', 'level', [
                         'type'              => 'static',
                         'backend'           => '',
                         'frontend'          => '',
@@ -50,6 +50,6 @@ $installer->addAttribute('catalog_category', 'level', array(
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'unique'            => false,
-                    ));
+]);
 
 $installer->endSetup();

@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview extends Mage_Adminhtml_Bl
         }
 
         Varien_Profiler::start("newsletter_template_proccessing");
-        $vars = array();
+        $vars = [];
 
         $vars['subscriber'] = Mage::getModel('newsletter/subscriber');
         if($this->getRequest()->getParam('subscriber')) {

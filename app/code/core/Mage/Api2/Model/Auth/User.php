@@ -35,7 +35,7 @@ class Mage_Api2_Model_Auth_User
      */
     public static function getUserTypes($asOptionArray = false)
     {
-        $userTypes = array();
+        $userTypes = [];
 
         /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2');
@@ -45,7 +45,7 @@ class Mage_Api2_Model_Auth_User
             $userModel = Mage::getModel($modelPath);
 
             if ($asOptionArray) {
-                $userTypes[] = array('value' => $userModel->getType(), 'label' => $userModel->getLabel());
+                $userTypes[] = ['value' => $userModel->getType(), 'label' => $userModel->getLabel()];
             } else {
                 $userTypes[$userModel->getType()] = $userModel->getLabel();
             }

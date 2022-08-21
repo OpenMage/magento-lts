@@ -29,7 +29,7 @@ class Mage_Catalog_Model_Product_Type_Price
 {
     const CACHE_TAG = 'PRODUCT_PRICE';
 
-    public static $attributeCache = array();
+    public static $attributeCache = [];
 
     /**
      * Default action to get price of product
@@ -77,7 +77,7 @@ class Mage_Catalog_Model_Product_Type_Price
         $finalPrice = $this->getBasePrice($product, $qty);
         $product->setFinalPrice($finalPrice);
 
-        Mage::dispatchEvent('catalog_product_get_final_price', array('product' => $product, 'qty' => $qty));
+        Mage::dispatchEvent('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
 
         $finalPrice = $product->getData('final_price');
         $finalPrice = $this->_applyOptionsPrice($product, $qty, $finalPrice);
@@ -196,12 +196,12 @@ class Mage_Catalog_Model_Product_Type_Price
             if (!is_null($qty)) {
                 return $product->getPrice();
             }
-            return array(array(
+            return [[
                 'price'         => $product->getPrice(),
                 'website_price' => $product->getPrice(),
                 'price_qty'     => 1,
                 'cust_group'    => $allGroups,
-            ));
+            ]];
         }
 
         $custGroup = $this->_getCustomerGroupId($product);
@@ -235,7 +235,7 @@ class Mage_Catalog_Model_Product_Type_Price
             }
             return $prevPrice;
         } else {
-            $qtyCache = array();
+            $qtyCache = [];
             foreach ($prices as $i => $price) {
                 if ($price['cust_group'] != $custGroup && $price['cust_group'] != $allGroups) {
                     unset($prices[$i]);
@@ -253,7 +253,7 @@ class Mage_Catalog_Model_Product_Type_Price
             }
         }
 
-        return ($prices) ? $prices : array();
+        return ($prices) ? $prices : [];
     }
 
     /**

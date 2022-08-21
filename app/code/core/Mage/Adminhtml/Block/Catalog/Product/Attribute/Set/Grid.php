@@ -62,12 +62,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
             'index'     => 'attribute_set_id',
         ));*/
 
-        $this->addColumn('set_name', array(
+        $this->addColumn('set_name', [
             'header'    => Mage::helper('catalog')->__('Set Name'),
             'align'     => 'left',
             'sortable'  => true,
             'index'     => 'attribute_set_name',
-        ));
+        ]);
     }
 
     /**
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Grid extends Mage_Admin
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getAttributeSetId()));
+        return $this->getUrl('*/*/edit', ['id'=>$row->getAttributeSetId()]);
     }
 
 }

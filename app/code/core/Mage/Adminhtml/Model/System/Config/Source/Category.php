@@ -37,19 +37,19 @@ class Mage_Adminhtml_Model_System_Config_Source_Category
             ->addRootLevelFilter()
             ->load();
 
-        $options = array();
+        $options = [];
 
         if ($addEmpty) {
-            $options[] = array(
+            $options[] = [
                 'label' => Mage::helper('adminhtml')->__('-- Please Select a Category --'),
                 'value' => ''
-            );
+            ];
         }
         foreach ($collection as $category) {
-            $options[] = array(
+            $options[] = [
                'label' => $category->getName(),
                'value' => $category->getId()
-            );
+            ];
         }
 
         return $options;

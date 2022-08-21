@@ -36,16 +36,16 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('eav')->__('Yes'),
                     'value' => self::VALUE_YES
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('eav')->__('No'),
                     'value' => self::VALUE_NO
-                ),
-            );
+                ],
+            ];
         }
         return $this->_options;
     }
@@ -57,7 +57,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      */
     public function getOptionArray()
     {
-        $_options = array();
+        $_options = [];
         foreach ($this->getAllOptions() as $option) {
             $_options[$option['value']] = $option['label'];
         }
@@ -99,11 +99,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => false,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'tinyint(1)';
@@ -115,7 +115,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
             $column['comment']  = $attributeCode . ' column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**
@@ -125,13 +125,13 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      */
     public function getFlatIndexes()
     {
-        $indexes = array();
+        $indexes = [];
 
         $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
-        $indexes[$index] = array(
+        $indexes[$index] = [
             'type'      => 'index',
-            'fields'    => array($this->getAttribute()->getAttributeCode())
-        );
+            'fields'    => [$this->getAttribute()->getAttributeCode()]
+        ];
 
         return $indexes;
     }

@@ -54,30 +54,30 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    => Mage::helper('cms')->__('Title'),
             'align'     => 'left',
             'index'     => 'title',
-        ));
+        ]);
 
-        $this->addColumn('identifier', array(
+        $this->addColumn('identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
             'index'     => 'identifier'
-        ));
+        ]);
 
-        $this->addColumn('root_template', array(
+        $this->addColumn('root_template', [
             'header'    => Mage::helper('cms')->__('Layout'),
             'index'     => 'root_template',
             'type'      => 'options',
             'options'   => Mage::getSingleton('page/source_layout')->getOptions(),
-        ));
+        ]);
 
         /**
          * Check is single store mode
          */
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('cms')->__('Store View'),
                 'index'         => 'store_id',
                 'type'          => 'store',
@@ -85,36 +85,36 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'store_view'    => true,
                 'sortable'      => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
-            ));
+                                => [$this, '_filterStoreCondition'],
+            ]);
         }
 
-        $this->addColumn('is_active', array(
+        $this->addColumn('is_active', [
             'header'    => Mage::helper('cms')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
             'options'   => Mage::getSingleton('cms/page')->getAvailableStatuses()
-        ));
+        ]);
 
-        $this->addColumn('creation_time', array(
+        $this->addColumn('creation_time', [
             'header'    => Mage::helper('cms')->__('Date Created'),
             'index'     => 'creation_time',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('update_time', array(
+        $this->addColumn('update_time', [
             'header'    => Mage::helper('cms')->__('Last Modified'),
             'index'     => 'update_time',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('page_actions', array(
+        $this->addColumn('page_actions', [
             'header'    => Mage::helper('cms')->__('Action'),
             'width'     => 10,
             'sortable'  => false,
             'filter'    => false,
             'renderer'  => 'adminhtml/cms_page_grid_renderer_action',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -146,6 +146,6 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('page_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['page_id' => $row->getId()]);
     }
 }

@@ -34,7 +34,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Sets Massaction template
@@ -108,7 +108,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItemsJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getItems() as $itemId=>$item) {
             $result[$itemId] = $item->toArray();
         }
@@ -202,7 +202,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
-            return array();
+            return [];
         }
     }
 

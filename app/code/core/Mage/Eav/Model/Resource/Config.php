@@ -33,14 +33,14 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
      *
      * @var array
      */
-    protected static $_entityTypes   = array();
+    protected static $_entityTypes   = [];
 
     /**
      * Array of attributes
      *
      * @var array
      */
-    protected static $_attributes    = array();
+    protected static $_attributes    = [];
 
     /**
      * Resource initialization
@@ -83,7 +83,7 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
     {
         if (!isset(self::$_attributes[$typeId])) {
             $adapter = $this->_getReadAdapter();
-            $bind    = array('entity_type_id' => $typeId);
+            $bind    = ['entity_type_id' => $typeId];
             $select  = $adapter->select()
                 ->from($this->getTable('eav/attribute'))
                 ->where('entity_type_id = :entity_type_id');
@@ -112,11 +112,11 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
                 ? self::$_entityTypes['by_code'][$entityType] : null;
         }
 
-        $data = array();
+        $data = [];
         if ($info) {
             $data['entity']     = $info;
             $attributes         = $this->_loadTypeAttributes($info['entity_type_id']);
-            $data['attributes'] = array();
+            $data['attributes'] = [];
             foreach ($attributes as $attribute) {
                 $data['attributes'][$attribute['attribute_id']] = $attribute;
                 $data['attributes'][$attribute['attribute_code']] = $attribute['attribute_id'];

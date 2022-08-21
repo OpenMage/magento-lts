@@ -34,14 +34,14 @@ CREATE TABLE `{$statusTable}` (
 ");
 
 $statuses = Mage::getConfig()->getNode('global/sales/order/statuses')->asArray();
-$data = array();
+$data = [];
 foreach ($statuses as $code => $info) {
-    $data[] = array(
+    $data[] = [
         'status'    => $code,
         'label'     => $info['label']
-    );
+    ];
 }
-$installer->getConnection()->insertArray($statusTable, array('status', 'label'), $data);
+$installer->getConnection()->insertArray($statusTable, ['status', 'label'], $data);
 
 $installer->run("
 CREATE TABLE `{$statusStateTable}` (
@@ -54,21 +54,21 @@ CREATE TABLE `{$statusStateTable}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ");
 $states     = Mage::getConfig()->getNode('global/sales/order/states')->asArray();
-$data = array();
+$data = [];
 foreach ($states as $code => $info) {
     if (isset($info['statuses'])) {
         foreach ($info['statuses'] as $status => $statusInfo) {
-            $data[] = array(
+            $data[] = [
                 'status'    => $status,
                 'state'     => $code,
                 'is_default'=> is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
-            );
+            ];
         }
     }
 }
 $installer->getConnection()->insertArray(
     $statusStateTable,
-    array('status', 'state', 'is_default'),
+    ['status', 'state', 'is_default'],
     $data
 );
 

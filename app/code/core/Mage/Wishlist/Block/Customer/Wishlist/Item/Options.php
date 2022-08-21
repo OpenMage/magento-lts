@@ -35,10 +35,10 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      *
      * @var array
      */
-    protected $_optionsCfg = array('default' => array(
+    protected $_optionsCfg = ['default' => [
         'helper' => 'catalog/product_configuration',
         'template' => 'wishlist/options_list.phtml'
-    ));
+    ]];
 
     /**
      * Initialize block
@@ -46,7 +46,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     public function __construct()
     {
         parent::__construct();
-        Mage::dispatchEvent('product_option_renderer_init', array('block' => $this));
+        Mage::dispatchEvent('product_option_renderer_init', ['block' => $this]);
     }
 
     /**
@@ -59,7 +59,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
-        $this->_optionsCfg[$productType] = array('helper' => $helperName, 'template' => $template);
+        $this->_optionsCfg[$productType] = ['helper' => $helperName, 'template' => $template];
         return $this;
     }
 

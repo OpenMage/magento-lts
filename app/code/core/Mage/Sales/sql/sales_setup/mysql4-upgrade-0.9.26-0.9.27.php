@@ -40,21 +40,21 @@ $installer->getConnection()->addColumn(
     'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
-$installer->addAttribute('quote', 'global_currency_code', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_global_rate', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_quote_rate', array('type'=>'static'));
+$installer->addAttribute('quote', 'global_currency_code', ['type'=>'static']);
+$installer->addAttribute('quote', 'base_to_global_rate', ['type'=>'static']);
+$installer->addAttribute('quote', 'base_to_quote_rate', ['type'=>'static']);
 
-$installer->addAttribute('order', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('order', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('order', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('order', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('order', 'base_to_order_rate', ['type'=>'decimal']);
 
-$installer->addAttribute('invoice', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('invoice', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('invoice', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'base_to_order_rate', ['type'=>'decimal']);
 
-$installer->addAttribute('creditmemo', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('creditmemo', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('creditmemo', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'base_to_order_rate', ['type'=>'decimal']);
 
 /*
  * getting all base currency codes and placing them in newly created attribute
@@ -67,9 +67,9 @@ $invoiceEntityType['entity_table'] = 'sales_order_entity';
 $creditmemoEntityType = $installer->getEntityType('creditmemo');
 $creditmemoEntityType['entity_table'] = 'sales_order_entity';
 
-$entityTypes = array($orderEntityType['entity_type_id'] => $orderEntityType,
+$entityTypes = [$orderEntityType['entity_type_id'] => $orderEntityType,
     $invoiceEntityType['entity_type_id'] => $invoiceEntityType,
-    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType);
+    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType];
 
 try {
     $installer->getConnection()->beginTransaction();

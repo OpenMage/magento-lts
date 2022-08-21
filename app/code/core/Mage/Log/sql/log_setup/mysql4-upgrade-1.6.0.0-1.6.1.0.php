@@ -23,6 +23,6 @@ $installer = $this;
 $installer->startSetup();
 
 $installer->getConnection()->dropIndex($installer->getTable('log/url_table'), 'PRIMARY');
-$installer->getConnection()->addIndex($installer->getTable('log/url_table'), 'url_id', array('url_id'));
+$installer->getConnection()->addIndex($installer->getTable('log/url_table'), 'url_id', ['url_id']);
 
 $installer->endSetup();

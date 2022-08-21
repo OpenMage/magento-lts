@@ -35,7 +35,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getChilds($item)
     {
-        $_itemsArray = array();
+        $_itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $_items = $item->getInvoice()->getAllItems();
@@ -173,7 +173,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return $options['bundle_options'];
             }
         }
-        return array();
+        return [];
     }
 
     /**
@@ -203,7 +203,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getOrderOptions($item = null)
     {
-        $result = array();
+        $result = [];
 
         $options = $this->getOrderItem()->getProductOptions();
         if ($options) {

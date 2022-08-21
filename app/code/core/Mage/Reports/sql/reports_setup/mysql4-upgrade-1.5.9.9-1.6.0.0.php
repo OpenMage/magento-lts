@@ -149,164 +149,164 @@ $installer->getConnection()->dropIndex(
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('reports/event') => array(
-        'columns' => array(
-            'event_id' => array(
+$tables = [
+    $installer->getTable('reports/event') => [
+        'columns' => [
+            'event_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Event Id'
-            ),
-            'logged_at' => array(
+            ],
+            'logged_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Logged At'
-            ),
-            'event_type_id' => array(
+            ],
+            'event_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Event Type Id'
-            ),
-            'object_id' => array(
+            ],
+            'object_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Object Id'
-            ),
-            'subject_id' => array(
+            ],
+            'subject_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Subject Id'
-            ),
-            'subtype' => array(
+            ],
+            'subtype' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Subtype'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store Id'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Reports Event Table'
-    ),
-    $installer->getTable('reports/event_type') => array(
-        'columns' => array(
-            'event_type_id' => array(
+    ],
+    $installer->getTable('reports/event_type') => [
+        'columns' => [
+            'event_type_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Event Type Id'
-            ),
-            'event_name' => array(
+            ],
+            'event_name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'nullable'  => false,
                 'comment'   => 'Event Name'
-            ),
-            'customer_login' => array(
+            ],
+            'customer_login' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer Login'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Reports Event Type Table'
-    ),
-    $installer->getTable('reports/compared_product_index') => array(
-        'columns' => array(
-            'index_id' => array(
+    ],
+    $installer->getTable('reports/compared_product_index') => [
+        'columns' => [
+            'index_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Index Id'
-            ),
-            'visitor_id' => array(
+            ],
+            'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Visitor Id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Customer Id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Product Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Store Id'
-            ),
-            'added_at' => array(
+            ],
+            'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Added At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Reports Compared Product Index Table'
-    ),
-    $installer->getTable('reports/viewed_product_index') => array(
-        'columns' => array(
-            'index_id' => array(
+    ],
+    $installer->getTable('reports/viewed_product_index') => [
+        'columns' => [
+            'index_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Index Id'
-            ),
-            'visitor_id' => array(
+            ],
+            'visitor_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Visitor Id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Customer Id'
-            ),
-            'product_id' => array(
+            ],
+            'product_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Product Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Store Id'
-            ),
-            'added_at' => array(
+            ],
+            'added_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Added At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Reports Viewed Product Index Table'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -318,10 +318,10 @@ $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
     $installer->getIdxName(
         'reports/compared_product_index',
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('visitor_id', 'product_id'),
+    ['visitor_id', 'product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -329,69 +329,69 @@ $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
     $installer->getIdxName(
         'reports/compared_product_index',
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('customer_id', 'product_id'),
+    ['customer_id', 'product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
-    $installer->getIdxName('reports/compared_product_index', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('reports/compared_product_index', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
-    $installer->getIdxName('reports/compared_product_index', array('added_at')),
-    array('added_at')
+    $installer->getIdxName('reports/compared_product_index', ['added_at']),
+    ['added_at']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/compared_product_index'),
-    $installer->getIdxName('reports/compared_product_index', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('reports/compared_product_index', ['product_id']),
+    ['product_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
-    $installer->getIdxName('reports/event', array('event_type_id')),
-    array('event_type_id')
+    $installer->getIdxName('reports/event', ['event_type_id']),
+    ['event_type_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
-    $installer->getIdxName('reports/event', array('subject_id')),
-    array('subject_id')
+    $installer->getIdxName('reports/event', ['subject_id']),
+    ['subject_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
-    $installer->getIdxName('reports/event', array('object_id')),
-    array('object_id')
+    $installer->getIdxName('reports/event', ['object_id']),
+    ['object_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
-    $installer->getIdxName('reports/event', array('subtype')),
-    array('subtype')
+    $installer->getIdxName('reports/event', ['subtype']),
+    ['subtype']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/event'),
-    $installer->getIdxName('reports/event', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('reports/event', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
     $installer->getIdxName(
         'reports/viewed_product_index',
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('visitor_id', 'product_id'),
+    ['visitor_id', 'product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -399,29 +399,29 @@ $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
     $installer->getIdxName(
         'reports/viewed_product_index',
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('customer_id', 'product_id'),
+    ['customer_id', 'product_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
-    $installer->getIdxName('reports/viewed_product_index', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('reports/viewed_product_index', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
-    $installer->getIdxName('reports/viewed_product_index', array('added_at')),
-    array('added_at')
+    $installer->getIdxName('reports/viewed_product_index', ['added_at']),
+    ['added_at']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('reports/viewed_product_index'),
-    $installer->getIdxName('reports/viewed_product_index', array('product_id')),
-    array('product_id')
+    $installer->getIdxName('reports/viewed_product_index', ['product_id']),
+    ['product_id']
 );
 
 

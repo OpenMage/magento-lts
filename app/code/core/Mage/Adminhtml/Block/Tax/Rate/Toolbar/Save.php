@@ -45,43 +45,43 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
     {
         $this->setChild('backButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('tax')->__('Back'),
                     'onclick'   => 'window.location.href=\''.$this->getUrl('*/*/').'\'',
                     'class' => 'back'
-                ))
+                ])
         );
 
         $this->setChild('resetButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('tax')->__('Reset'),
                     'onclick'   => 'window.location.reload()'
-                ))
+                ])
         );
 
         $this->setChild('saveButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('tax')->__('Save Rate'),
                     'onclick'   => 'wigetForm.submit();return false;',
                     'class' => 'save'
-                ))
+                ])
         );
 
         $this->setChild('deleteButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('tax')->__('Delete Rate'),
                     'onclick'   => 'deleteConfirm(\''
                         . Mage::helper('core')->jsQuoteEscape(
                             Mage::helper('tax')->__('Are you sure you want to do this?')
                         )
                         . '\', \''
-                        . $this->getUrl('*/*/delete', array('rate' => $this->getRequest()->getParam('rate')))
+                        . $this->getUrl('*/*/delete', ['rate' => $this->getRequest()->getParam('rate')])
                         . '\')',
                     'class' => 'delete'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }

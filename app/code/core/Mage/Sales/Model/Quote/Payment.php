@@ -143,10 +143,10 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         $data = new Varien_Object($data);
         Mage::dispatchEvent(
             $this->_eventPrefix . '_import_data_before',
-            array(
+            [
                 $this->_eventObject=>$this,
                 'input'=>$data,
-            )
+            ]
         );
 
         $this->setMethod($data->getMethod());

@@ -41,7 +41,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
 
     protected $_itemCollection;
 
-    protected $_itemLimits = array();
+    protected $_itemLimits = [];
 
     /**
      * @return $this
@@ -73,11 +73,11 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         /**
          * Updating collection with desired items
          */
-        Mage::dispatchEvent('catalog_product_upsell', array(
+        Mage::dispatchEvent('catalog_product_upsell', [
             'product'       => $product,
             'collection'    => $this->_itemCollection,
             'limit'         => $this->getItemLimit()
-        ));
+        ]);
 
         foreach ($this->_itemCollection as $product) {
             $product->setDoNotUseCategoryId(true);

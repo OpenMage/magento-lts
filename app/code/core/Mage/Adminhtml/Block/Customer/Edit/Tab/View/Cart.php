@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
 
         $collection = $quote ? $quote->getItemsCollection(false) : new Varien_Data_Collection();
 
-        $collection->addFieldToFilter('parent_item_id', array('null' => true));
+        $collection->addFieldToFilter('parent_item_id', ['null' => true]);
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -71,33 +71,33 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
     protected function _prepareColumns()
     {
         $currencyCode = (string)Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
-        $this->addColumn('product_id', array(
+        $this->addColumn('product_id', [
             'header' => Mage::helper('customer')->__('Product ID'),
             'index' => 'product_id',
             'width' => '100px'
-        ))->addColumn('name', array(
+        ])->addColumn('name', [
             'header' => Mage::helper('customer')->__('Product Name'),
             'index' => 'name'
-        ))->addColumn('sku', array(
+        ])->addColumn('sku', [
             'header' => Mage::helper('customer')->__('SKU'),
             'index' => 'sku',
             'width' => '100px'
-        ))->addColumn('qty', array(
+        ])->addColumn('qty', [
             'header' => Mage::helper('customer')->__('Qty'),
             'index' => 'qty',
             'type'  => 'number',
             'width' => '60px'
-        ))->addColumn('price', array(
+        ])->addColumn('price', [
             'header' => Mage::helper('customer')->__('Price'),
             'index' => 'price',
             'type'  => 'currency',
             'currency_code' => $currencyCode
-        ))->addColumn('total', array(
+        ])->addColumn('total', [
             'header' => Mage::helper('customer')->__('Total'),
             'index' => 'row_total',
             'type'  => 'currency',
             'currency_code' => $currencyCode
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Cart extends Mage_Adminhtml_Bl
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_product/edit', array('id' => $row->getProductId()));
+        return $this->getUrl('*/catalog_product/edit', ['id' => $row->getProductId()]);
     }
 
     /**

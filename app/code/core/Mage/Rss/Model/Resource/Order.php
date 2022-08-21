@@ -35,7 +35,7 @@ class Mage_Rss_Model_Resource_Order
      *
      * @var array
      */
-    protected $_entityTypeIdsToTypes       = array();
+    protected $_entityTypeIdsToTypes       = [];
 
     /**
      * Enter description here ...
@@ -44,7 +44,7 @@ class Mage_Rss_Model_Resource_Order
      *
      * @var array
      */
-    protected $_entityIdsToIncrementIds    = array();
+    protected $_entityIdsToIncrementIds    = [];
 
     /**
      * Enter description here ...
@@ -79,7 +79,7 @@ class Mage_Rss_Model_Resource_Order
      */
     public function getAllOrderEntityTypeIds()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -93,7 +93,7 @@ class Mage_Rss_Model_Resource_Order
      */
     public function getAllOrderEntityIds($orderId, $orderEntityTypes)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -104,9 +104,9 @@ class Mage_Rss_Model_Resource_Order
      * @param array $entityIds
      * @return array
      */
-    public function getAllEntityIds($entityIds = array())
+    public function getAllEntityIds($entityIds = [])
     {
-        return array();
+        return [];
     }
 
     /**
@@ -118,7 +118,7 @@ class Mage_Rss_Model_Resource_Order
      */
     public function getAllEntityTypeCommentIds()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -142,29 +142,29 @@ class Mage_Rss_Model_Resource_Order
         $res = $this->getCoreResource();
         $read = $res->getConnection('core_read');
 
-        $fields = array(
+        $fields = [
             'notified' => 'is_customer_notified',
             'comment',
             'created_at',
-        );
-        $commentSelects = array();
-        foreach (array('invoice', 'shipment', 'creditmemo') as $entityTypeCode) {
+        ];
+        $commentSelects = [];
+        foreach (['invoice', 'shipment', 'creditmemo'] as $entityTypeCode) {
             $mainTable  = $res->getTableName('sales/' . $entityTypeCode);
             $slaveTable = $res->getTableName('sales/' . $entityTypeCode . '_comment');
             $select = $read->select()
-                ->from(array('main' => $mainTable), array(
+                ->from(['main' => $mainTable], [
                     'entity_id' => 'order_id',
                     'entity_type_code' => new Zend_Db_Expr("'$entityTypeCode'")
-                ))
-                ->join(array('slave' => $slaveTable), 'main.entity_id = slave.parent_id', $fields)
+                ])
+                ->join(['slave' => $slaveTable], 'main.entity_id = slave.parent_id', $fields)
                 ->where('main.order_id = ?', $orderId);
             $commentSelects[] = '(' . $select . ')';
         }
         $select = $read->select()
-            ->from($res->getTableName('sales/order_status_history'), array(
+            ->from($res->getTableName('sales/order_status_history'), [
                 'entity_id' => 'parent_id',
                 'entity_type_code' => new Zend_Db_Expr("'order'")
-            ) + $fields)
+                ] + $fields)
             ->where('parent_id = ?', $orderId)
             ->where('is_visible_on_front > 0');
         $commentSelects[] = '(' . $select . ')';
@@ -173,8 +173,8 @@ class Mage_Rss_Model_Resource_Order
             ->union($commentSelects, Zend_Db_Select::SQL_UNION_ALL);
 
         $select = $read->select()
-            ->from(array('orders' => $res->getTableName('sales/order')), array('increment_id'))
-            ->join(array('t' => $commentSelect),'t.entity_id = orders.entity_id')
+            ->from(['orders' => $res->getTableName('sales/order')], ['increment_id'])
+            ->join(['t' => $commentSelect],'t.entity_id = orders.entity_id')
             ->order('orders.created_at desc');
 
         return $read->fetchAll($select);

@@ -37,16 +37,16 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
-            $breadcrumbs->addCrumb('home', array(
+            $breadcrumbs->addCrumb('home', [
                 'label'=>Mage::helper('catalogsearch')->__('Home'),
                 'title'=>Mage::helper('catalogsearch')->__('Go to Home Page'),
                 'link'=>Mage::getBaseUrl()
-            ))->addCrumb('search', array(
+            ])->addCrumb('search', [
                 'label'=>Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
                 'link'=>$this->getUrl('*/*/')
-            ))->addCrumb('search_result', array(
+            ])->addCrumb('search_result', [
                 'label'=>Mage::helper('catalogsearch')->__('Results')
-            ));
+            ]);
         }
         return parent::_prepareLayout();
     }
@@ -59,9 +59,9 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
 
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
-        $availableOrders = array_merge(array(
+        $availableOrders = array_merge([
             'relevance' => $this->__('Relevance')
-        ), $availableOrders);
+        ], $availableOrders);
         $this->getChild('search_result_list')
             ->setAvailableOrders($availableOrders)
             ->setSortBy('relevance');
@@ -70,9 +70,9 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     public function setListModes()
     {
         $this->getChild('search_result_list')
-            ->setModes(array(
+            ->setModes([
                 'grid' => Mage::helper('catalogsearch')->__('Grid'),
-                'list' => Mage::helper('catalogsearch')->__('List')));
+                'list' => Mage::helper('catalogsearch')->__('List')]);
     }
 
     public function setListCollection()
@@ -125,7 +125,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
     {
         return Mage::getModel('core/url')
             ->setQueryParams($this->getRequest()->getQuery())
-            ->getUrl('*/*/', array('_escape' => true));
+            ->getUrl('*/*/', ['_escape' => true]);
     }
 
     /**
@@ -138,6 +138,6 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
         $left = array_slice($searchCriterias, 0, $middle);
         $right = array_slice($searchCriterias, $middle);
 
-        return array('left'=>$left, 'right'=>$right);
+        return ['left'=>$left, 'right'=>$right];
     }
 }

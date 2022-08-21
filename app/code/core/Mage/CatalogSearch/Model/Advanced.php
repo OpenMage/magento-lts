@@ -52,7 +52,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_searchCriterias = array();
+    protected $_searchCriterias = [];
 
     /**
      * Current search engine
@@ -153,7 +153,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     {
         $attributes     = $this->getAttributes();
         $hasConditions  = false;
-        $allConditions  = array();
+        $allConditions  = [];
 
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
@@ -238,8 +238,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 if (!empty($value['from']) || !empty($value['to'])) {
                     if (isset($value['currency'])) {
                         $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
-                        $from = $currencyModel->format($value['from'], array(), false);
-                        $to = $currencyModel->format($value['to'], array(), false);
+                        $from = $currencyModel->format($value['from'], [], false);
+                        $to = $currencyModel->format($value['to'], [], false);
                     } else {
                         $currencyModel = null;
                     }
@@ -285,7 +285,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 : Mage::helper('catalogsearch')->__('No');
         }
 
-        $this->_searchCriterias[] = array('name' => $name, 'value' => $value);
+        $this->_searchCriterias[] = ['name' => $name, 'value' => $value];
         return $this;
     }
 

@@ -166,10 +166,10 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     public function getItems()
     {
         if (!$this->getData('items')) {
-            $items = array();
+            $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
-            Mage::dispatchEvent('gift_options_prepare_items', array('items' => $entityItems));
+            Mage::dispatchEvent('gift_options_prepare_items', ['items' => $entityItems]);
 
             foreach ($entityItems as $item) {
                 if ($item->getParentItem()) {

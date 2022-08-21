@@ -32,7 +32,7 @@ class Mage_Core_Block_Text_Tag_Css extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('link');
-        $this->setTagParams(array('rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all'));
+        $this->setTagParams(['rel'=>'stylesheet', 'type'=>'text/css', 'media'=>'all']);
     }
 
     /**

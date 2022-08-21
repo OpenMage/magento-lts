@@ -28,6 +28,6 @@ class Mage_PaypalUk_BmlController extends Mage_Core_Controller_Front_Action
      */
     public function startAction()
     {
-        $this->_forward('start', 'express', 'payflow', array('bml' => 1));
+        $this->_forward('start', 'express', 'payflow', ['bml' => 1]);
     }
 }

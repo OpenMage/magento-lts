@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Poll_Edit extends Mage_Adminhtml_Block_Widget_Form_Co
         $this->_updateButton('save', 'label', Mage::helper('poll')->__('Save Poll'));
         $this->_updateButton('delete', 'label', Mage::helper('poll')->__('Delete Poll'));
 
-        $this->setValidationUrl($this->getUrl('*/*/validate', array('id' => $this->getRequest()->getParam($this->_objectId))));
+        $this->setValidationUrl($this->getUrl('*/*/validate', ['id' => $this->getRequest()->getParam($this->_objectId)]));
     }
 
     public function getHeaderText()

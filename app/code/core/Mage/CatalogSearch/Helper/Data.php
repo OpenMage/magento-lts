@@ -54,7 +54,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
     /**
      * Is a maximum length cut
@@ -165,10 +165,10 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getResultUrl($query = null)
     {
-        return $this->_getUrl('catalogsearch/result', array(
-            '_query' => array(self::QUERY_VAR_NAME => $query),
+        return $this->_getUrl('catalogsearch/result', [
+            '_query' => [self::QUERY_VAR_NAME => $query],
             '_secure' => $this->_getApp()->getFrontController()->getRequest()->isSecure()
-        ));
+        ]);
     }
 
     /**
@@ -178,9 +178,9 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSuggestUrl()
     {
-        return $this->_getUrl('catalogsearch/ajax/suggest', array(
+        return $this->_getUrl('catalogsearch/ajax/suggest', [
             '_secure' => $this->_getApp()->getStore()->isCurrentlySecure()
-        ));
+        ]);
     }
 
     /**
@@ -301,7 +301,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $wordsFull = $stringHelper->splitWords($this->getQueryText(), true);
             $wordsLike = $stringHelper->splitWords($this->getQueryText(), true, $this->getMaxQueryWords());
             if (count($wordsFull) > count($wordsLike)) {
-                $wordsCut = array_map(array($this, 'escapeHtml'), array_diff($wordsFull, $wordsLike));
+                $wordsCut = array_map([$this, 'escapeHtml'], array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
                     $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut))
                 );
@@ -319,7 +319,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function prepareIndexdata($index, $separator = ' ')
     {
-        $_index = array();
+        $_index = [];
         foreach ($index as $value) {
             if (!is_array($value)) {
                 $_index[] = $value;

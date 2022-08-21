@@ -136,10 +136,10 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public static function getSystemRoles()
     {
-        return array(
+        return [
             self::ROLE_GUEST_ID,
             self::ROLE_CUSTOMER_ID
-        );
+        ];
     }
 
     /**

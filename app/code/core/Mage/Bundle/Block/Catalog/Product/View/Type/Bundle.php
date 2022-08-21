@@ -34,7 +34,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
      *
      * @var array
      */
-    protected $_optionRenderers = array();
+    protected $_optionRenderers = [];
 
     /**
      * Bundle product options
@@ -110,8 +110,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
     {
         Mage::app()->getLocale()->getJsPriceFormat();
         $optionsArray = $this->getOptions();
-        $options      = array();
-        $selected     = array();
+        $options      = [];
+        $selected     = [];
         $currentProduct = $this->getProduct();
         /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper   = Mage::helper('core');
@@ -121,7 +121,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
         if ($preConfiguredFlag) {
             $preConfiguredValues = $currentProduct->getPreconfiguredValues();
-            $defaultValues       = array();
+            $defaultValues       = [];
         }
 
         $position = 0;
@@ -132,12 +132,12 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
 
             $optionId = $_option->getId();
-            $option = array (
-                'selections' => array(),
+            $option = [
+                'selections' => [],
                 'title'      => $_option->getTitle(),
-                'isMulti'    => in_array($_option->getType(), array('multi', 'checkbox')),
+                'isMulti'    => in_array($_option->getType(), ['multi', 'checkbox']),
                 'position'   => $position++
-            );
+            ];
 
             $selectionCount = count($_option->getSelections());
             /** @var Mage_Tax_Helper_Data $taxHelper */
@@ -240,7 +240,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     );
                 }
 
-                $selection = array (
+                $selection = [
                     'qty'              => $_qty,
                     'customQty'        => $_selection->getSelectionCanChangeQty(),
                     'price'            => $coreHelper::currency($_selection->getFinalPrice(), false, false),
@@ -254,10 +254,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     'minusDisposition' => 0,
                     'canApplyMAP'      => $canApplyMAP,
                     'tierPriceHtml'    => $this->getTierPriceHtml($_selection, $currentProduct),
-                );
+                ];
 
                 $responseObject = new Varien_Object();
-                $args = array('response_object' => $responseObject, 'selection' => $_selection);
+                $args = ['response_object' => $responseObject, 'selection' => $_selection];
                 Mage::dispatchEvent('bundle_product_view_config', $args);
                 if (is_array($responseObject->getAdditionalOptions())) {
                     foreach ($responseObject->getAdditionalOptions() as $o => $v) {
@@ -283,7 +283,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             }
         }
 
-        $config = array(
+        $config = [
             'options'       => $options,
             'selected'      => $selected,
             'bundleId'      => $currentProduct->getId(),
@@ -294,7 +294,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             'includeTax'    => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
             'isFixedPrice'  => $this->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED,
             'isMAPAppliedDirectly' => Mage::helper('catalog')->canApplyMsrp($this->getProduct(), null, false)
-        );
+        ];
 
         if ($preConfiguredFlag && !empty($defaultValues)) {
             $config['defaultValues'] = $defaultValues;

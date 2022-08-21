@@ -76,7 +76,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getAddressItems($address)
     {
-        $items = array();
+        $items = [];
         foreach ($address->getAllItems() as $item) {
             if ($item->getParentItemId()) {
                 continue;
@@ -126,7 +126,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getAddressEditUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editShipping', array('id'=>$address->getCustomerAddressId()));
+        return $this->getUrl('*/multishipping_address/editShipping', ['id'=>$address->getCustomerAddressId()]);
     }
 
     /**

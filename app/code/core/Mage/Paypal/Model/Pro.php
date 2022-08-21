@@ -77,7 +77,7 @@ class Mage_Paypal_Model_Pro
     public function setMethod($code, $storeId = null)
     {
         if ($this->_config === null) {
-            $params = array($code);
+            $params = [$code];
             if ($storeId !== null) {
                 $params[] = $storeId;
             }
@@ -325,7 +325,7 @@ class Mage_Paypal_Model_Pro
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
         $data = $api->getRawSuccessResponseData();
-        return ($data) ? $data : array();
+        return ($data) ? $data : [];
     }
 
     /**
@@ -336,7 +336,7 @@ class Mage_Paypal_Model_Pro
      */
     public function validateRecurringProfile(Mage_Payment_Model_Recurring_Profile $profile)
     {
-        $errors = array();
+        $errors = [];
         if (strlen($profile->getSubscriberName()) > 32) { // up to 32 single-byte chars
             $errors[] = Mage::helper('paypal')->__('Subscriber name is too long.');
         }
@@ -364,7 +364,7 @@ class Mage_Paypal_Model_Pro
         Mage_Payment_Model_Info $paymentInfo
     ) {
         $api = $this->getApi();
-        Varien_Object_Mapper::accumulateByMap($profile, $api, array(
+        Varien_Object_Mapper::accumulateByMap($profile, $api, [
             'token', // EC fields
             // TODO: DP fields
             // profile fields
@@ -372,7 +372,7 @@ class Mage_Paypal_Model_Pro
             'suspension_threshold', 'bill_failed_later', 'period_unit', 'period_frequency', 'period_max_cycles',
             'billing_amount' => 'amount', 'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles',
             'trial_billing_amount', 'currency_code', 'shipping_amount', 'tax_amount', 'init_amount', 'init_may_fail',
-        ));
+        ]);
         $api->callCreateRecurringPaymentsProfile();
         $profile->setReferenceId($api->getRecurringProfileId());
         if ($api->getIsProfileActive()) {

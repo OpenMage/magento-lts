@@ -148,10 +148,10 @@ foreach ($items as $itemData) {
         }
     }
 
-    $newItemData = array(
+    $newItemData = [
         'item_id'   => $itemData['entity_id'],
         'order_id'  => $itemData['parent_id'],
-    );
+    ];
 
     foreach ($itemData as $key => $value) {
         if (isset($itemFields[$key])) {

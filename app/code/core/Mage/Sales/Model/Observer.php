@@ -32,7 +32,7 @@ class Mage_Sales_Model_Observer
      *
      * @var array
      */
-    protected $_expireQuotesFilterFields = array();
+    protected $_expireQuotesFilterFields = [];
 
     /**
      * Clean expired quotes (cron process)
@@ -43,7 +43,7 @@ class Mage_Sales_Model_Observer
      */
     public function cleanExpiredQuotes($schedule)
     {
-        Mage::dispatchEvent('clear_expired_quotes_before', array('sales_observer' => $this));
+        Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
 
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
         foreach ($lifetimes as $storeId => $lifetime) {
@@ -53,7 +53,7 @@ class Mage_Sales_Model_Observer
             $quotes = Mage::getModel('sales/quote')->getCollection();
 
             $quotes->addFieldToFilter('store_id', $storeId);
-            $quotes->addFieldToFilter('updated_at', array('to'=>date("Y-m-d", time()-$lifetime)));
+            $quotes->addFieldToFilter('updated_at', ['to'=>date("Y-m-d", time()-$lifetime)]);
             $quotes->addFieldToFilter('is_active', 0);
 
             foreach ($this->getExpireQuotesAdditionalFilterFields() as $field => $condition) {
@@ -120,7 +120,7 @@ class Mage_Sales_Model_Observer
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
                 ->getChildrenIds($product->getId(), false);
 
-            $productIdList = array($product->getId());
+            $productIdList = [$product->getId()];
             foreach ($childrenProductList as $groupData) {
                 $productIdList = array_merge($productIdList, $groupData);
             }
@@ -279,7 +279,7 @@ class Mage_Sales_Model_Observer
             ->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
-            ->addConfigOptions(array('levels_up' => 2));
+            ->addConfigOptions(['levels_up' => 2]);
         $observer->getEvent()->getResult()->output .= $dependencies->toHtml();
     }
 
@@ -316,7 +316,7 @@ class Mage_Sales_Model_Observer
              * if customer accounts are shared between all of them
              */
             $websites = (Mage::getSingleton('customer/config_share')->isWebsiteScope())
-                ? array(Mage::app()->getWebsite($customer->getWebsiteId()))
+                ? [Mage::app()->getWebsite($customer->getWebsiteId())]
                 : Mage::app()->getWebsites();
 
             /** @var Mage_Sales_Model_Quote $quote */
@@ -503,12 +503,12 @@ class Mage_Sales_Model_Observer
                 ->save();
         } else {
             // Restore validation results from corresponding quote address
-            $gatewayResponse = new Varien_Object(array(
+            $gatewayResponse = new Varien_Object([
                 'is_valid' => (int)$quoteAddress->getVatIsValid(),
                 'request_identifier' => (string)$quoteAddress->getVatRequestId(),
                 'request_date' => (string)$quoteAddress->getVatRequestDate(),
                 'request_success' => (boolean)$quoteAddress->getVatRequestSuccess()
-            ));
+            ]);
         }
 
         // Magento always has to emulate group even if customer uses default billing/shipping address

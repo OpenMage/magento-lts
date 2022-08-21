@@ -37,7 +37,7 @@ class Mage_Backup_Model_Observer
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Create Backup
@@ -56,7 +56,7 @@ class Mage_Backup_Model_Observer
 
         $type = Mage::getStoreConfig(self::XML_PATH_BACKUP_TYPE);
 
-        $this->_errors = array();
+        $this->_errors = [];
         try {
             $backupManager = Mage_Backup::getBackupInstance($type)
                 ->setBackupExtension(Mage::helper('backup')->getExtensionByType($type))

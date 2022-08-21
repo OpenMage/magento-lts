@@ -68,7 +68,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getBackUrl()
     {
-        return Mage::getUrl('*/*/list', array('id' => $this->getProductData()->getId()));
+        return Mage::getUrl('*/*/list', ['id' => $this->getProductData()->getId()]);
     }
 
     /**

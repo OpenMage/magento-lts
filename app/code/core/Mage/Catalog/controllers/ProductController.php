@@ -32,7 +32,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * @deprecated after 1.4.2.0-beta1
      * @var array
      */
-    protected $_designProductSettingsApplied = array();
+    protected $_designProductSettingsApplied = [];
 
     /**
      * Initialize requested product object

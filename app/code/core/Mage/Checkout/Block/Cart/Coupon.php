@@ -36,6 +36,6 @@ class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/couponPost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/couponPost', ['_secure' => $this->_isSecure()]);
     }
 }

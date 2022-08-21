@@ -67,7 +67,7 @@ class Mage_ProductAlert_Model_Observer
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Retrieve website collection array
@@ -283,17 +283,17 @@ class Mage_ProductAlert_Model_Observer
 
             $emailTemplate = Mage::getModel('core/email_template');
             /** @var Mage_Core_Model_Email_Template $emailTemplate */
-            $emailTemplate->setDesignConfig(array('area'  => 'backend'))
+            $emailTemplate->setDesignConfig(['area'  => 'backend'])
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                     null,
-                    array('warnings' => implode("\n", $this->_errors))
+                    ['warnings' => implode("\n", $this->_errors)]
                 );
 
             $translate->setTranslateInline(true);
-            $this->_errors[] = array();
+            $this->_errors[] = [];
         }
         return $this;
     }

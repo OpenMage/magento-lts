@@ -40,7 +40,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('save'));
+        $this->_setForcedFormKeyActions(['save']);
         return parent::preDispatch();
     }
 
@@ -113,7 +113,7 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             /** @var Mage_Api2_Model_Acl_Global_Rule_Tree $ruleTree */
             $ruleTree = Mage::getSingleton(
                 'api2/acl_global_rule_tree',
-                array('type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE)
+                ['type' => Mage_Api2_Model_Acl_Global_Rule_Tree::TYPE_ATTRIBUTE]
             );
 
             /** @var Mage_Api2_Model_Acl_Filter_Attribute $attribute */
@@ -153,6 +153,6 @@ class Mage_Api2_Adminhtml_Api2_AttributeController extends Mage_Adminhtml_Contro
             $session->addException($e, $this->__('An error occurred while saving attribute rules.'));
         }
 
-        $this->_redirect('*/*/edit', array('type' => $type));
+        $this->_redirect('*/*/edit', ['type' => $type]);
     }
 }

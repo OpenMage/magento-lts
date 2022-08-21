@@ -47,14 +47,14 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_disallowedXPathExpressions = array();
+    protected $_disallowedXPathExpressions = [];
 
     /**
      * Disallowed template name
      *
      * @var array
      */
-    protected $_disallowedBlock = array();
+    protected $_disallowedBlock = [];
 
     /**
      * @var Mage_Core_Model_Layout_Validator
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_protectedExpressions = array();
+    protected $_protectedExpressions = [];
 
     /**
      * Construct
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::PROTECTED_ATTR_HELPER_IN_TAG_ACTION_VAR =>
                     Mage::helper('adminhtml')->__('Helper attributes should not be used in custom layout updates.'),
                 self::XML_INVALID => Mage::helper('adminhtml')->__('XML data is invalid.'),
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
                 self::INVALID_BLOCK_NAME => Mage::helper('adminhtml')->__('Disallowed block name for frontend.'),
                 Mage_Core_Model_Layout_Validator::INVALID_XML_OBJECT_EXCEPTION =>
                     Mage::helper('adminhtml')->__('XML object is not instance of "Varien_Simplexml_Element".'),
-            );
+            ];
         }
         return $this;
     }

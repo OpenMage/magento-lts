@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
         $productCollection = $this->getData('item_collection');
         if (is_null($productCollection)) {
             // get products to skip
-            $skipProducts = array();
+            $skipProducts = [];
             if ($collection = $this->getCreateOrderModel()->getCustomerCompareList()) {
                 $collection = $collection->getItemCollection()
                     ->useProductItem(true)

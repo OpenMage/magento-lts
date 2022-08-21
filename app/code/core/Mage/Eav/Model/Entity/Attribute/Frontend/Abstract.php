@@ -92,7 +92,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     public function getValue(Varien_Object $object)
     {
         $value = $object->getData($this->getAttribute()->getAttributeCode());
-        if (in_array($this->getConfigField('input'), array('select','boolean'))) {
+        if (in_array($this->getConfigField('input'), ['select','boolean'])) {
             $valueOption = $this->getOption($value);
             if (!$valueOption) {
                 $opt     = Mage::getModel('eav/entity_attribute_source_boolean');
@@ -133,7 +133,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
      */
     public function getClass()
     {
-        $out    = array();
+        $out    = [];
         $out[]  = $this->getAttribute()->getFrontendClass();
         if ($this->getAttribute()->getIsRequired()) {
             $out[]  = 'required-entry';

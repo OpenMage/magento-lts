@@ -54,25 +54,25 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
 
-        $this->addColumn('tag_name', array(
+        $this->addColumn('tag_name', [
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'tag_name'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Tag Use'),
             'index'     =>'taged',
             'align'     => 'right'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('visible', array(
+            $this->addColumn('visible', [
                 'header'    => Mage::helper('reports')->__('Visible In'),
                 'sortable'  => false,
                 'index'     => 'stores',
                 'type'      => 'store',
                 'store_view'=> true
-            ));
+            ]);
         }
 
         $this->addExportType('*/*/exportProductDetailCsv', Mage::helper('reports')->__('CSV'));

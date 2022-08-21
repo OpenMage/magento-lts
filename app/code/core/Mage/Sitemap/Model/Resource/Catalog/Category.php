@@ -59,7 +59,7 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
         }
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+            ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName()])
             ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
 
         $storeId = (int)$store->getId();
@@ -107,13 +107,13 @@ class Mage_Sitemap_Model_Resource_Catalog_Category extends Mage_Sitemap_Model_Re
     {
         $attribute = Mage::getSingleton('catalog/category')->getResource()->getAttribute($attributeCode);
 
-        $this->_attributesCache[$attributeCode] = array(
+        $this->_attributesCache[$attributeCode] = [
             'entity_type_id' => $attribute->getEntityTypeId(),
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal(),
             'backend_type'   => $attribute->getBackendType()
-        );
+        ];
         return $this;
     }
 }

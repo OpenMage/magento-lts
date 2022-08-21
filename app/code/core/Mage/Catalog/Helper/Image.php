@@ -218,7 +218,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param array $position
      * @return $this
      */
-    public function keepFrame($flag, $position = array('center', 'middle'))
+    public function keepFrame($flag, $position = ['center', 'middle'])
     {
         $this->_getModel()->setKeepFrame($flag);
         return $this;
@@ -568,10 +568,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     {
         $size = explode('x', strtolower($string));
         if (count($size) === 2) {
-            return array(
+            return [
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
-            );
+            ];
         }
         return false;
     }
@@ -615,10 +615,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getOriginalSizeArray()
     {
-        return array(
+        return [
             $this->getOriginalWidth(),
             $this->getOriginalHeight()
-        );
+        ];
     }
 
     /**

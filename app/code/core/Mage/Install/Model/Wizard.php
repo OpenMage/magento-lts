@@ -32,7 +32,7 @@ class Mage_Install_Model_Wizard
      *
      * @var array
      */
-    protected $_steps = array();
+    protected $_steps = [];
 
     public function __construct()
     {

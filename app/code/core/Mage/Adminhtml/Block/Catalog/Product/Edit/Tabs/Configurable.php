@@ -29,11 +29,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Configurable extends Mage_A
 {
     protected function _prepareLayout()
     {
-        $this->addTab('super_settings', array(
+        $this->addTab('super_settings', [
             'label'     => Mage::helper('catalog')->__('Configurable Product Settings'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_super_settings')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
         return $this;
     }

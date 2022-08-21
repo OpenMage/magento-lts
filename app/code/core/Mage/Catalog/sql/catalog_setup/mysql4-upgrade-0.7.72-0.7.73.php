@@ -63,7 +63,7 @@ $installer->getConnection()->addConstraint(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute_label'),
     'UNQ_ATTRIBUTE_STORE',
-    array('product_super_attribute_id', 'store_id'),
+    ['product_super_attribute_id', 'store_id'],
     'unique'
 );
 $installer->endSetup();

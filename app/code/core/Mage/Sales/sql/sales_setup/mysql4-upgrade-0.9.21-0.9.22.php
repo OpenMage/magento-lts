@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('order', 'payment_authorization_amount', array('type'=>'decimal'));
-$installer->addAttribute('order', 'payment_authorization_expiration', array('type'=>'int'));
+$installer->addAttribute('order', 'payment_authorization_amount', ['type'=>'decimal']);
+$installer->addAttribute('order', 'payment_authorization_expiration', ['type'=>'int']);
 
 $installer->endSetup();

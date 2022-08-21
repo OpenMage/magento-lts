@@ -37,7 +37,7 @@ if (Mage::helper('configurableswatches')->isEnabled() && $_product && $_product-
         $_optionCode = Mage::helper('configurableswatches')->getHyphenatedString($_optionLabel);
         $_swatchUrl = Mage::helper('configurableswatches/productimg')->getSwatchUrl($_product, $_optionLabel, $_swatchInnerWidth, $_swatchInnerHeight, $_swatchType);
         $_hasImage = !empty($_swatchUrl);
-        $_liClasses = array();
+        $_liClasses = [];
         $_aClass = 'swatch-link swatch-link-' . $_swatchAttribute->getId();
         if ($_hasImage) {
             if ($_swatchType == 'media') {

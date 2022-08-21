@@ -131,7 +131,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getJsonConfig()
     {
-        $config = array();
+        $config = [];
         $coreHelper = Mage::helper('core');
 
         foreach ($this->getLinks() as $link) {
@@ -147,7 +147,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getLinkSamlpeUrl($link)
     {
-        return $this->getUrl('downloadable/download/linkSample', array('link_id' => $link->getId()));
+        return $this->getUrl('downloadable/download/linkSample', ['link_id' => $link->getId()]);
     }
 
     /**

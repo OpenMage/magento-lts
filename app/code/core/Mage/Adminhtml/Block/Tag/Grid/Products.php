@@ -47,30 +47,30 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareColumns()
     {
-        $this->addColumn('product_id', array(
+        $this->addColumn('product_id', [
             'header'    => Mage::helper('tag')->__('ID'),
             'align'     => 'center',
             'width'     => '60px',
             'sortable'  => false,
             'index'     => 'product_id'
-        ));
-        $this->addColumn('sku', array(
+        ]);
+        $this->addColumn('sku', [
             'header'    => Mage::helper('tag')->__('SKU'),
             'align'     => 'center',
             'index'     => 'sku'
-        ));
-        $this->addColumn('name', array(
+        ]);
+        $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Name'),
             'index'     => 'name'
-        ));
-        $this->addColumn('tags', array(
+        ]);
+        $this->addColumn('tags', [
             'header'    => Mage::helper('tag')->__('Tags'),
             'index'     => 'tags',
             'sortable'  => false,
             'filter'    => false,
             'renderer'  => 'adminhtml/tag_grid_column_renderer_tags'
-        ));
-        $this->addColumn('action', array(
+        ]);
+        $this->addColumn('action', [
             'header'    => Mage::helper('tag')->__('Action'),
             'align'     => 'center',
             'width'     => '120px',
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }

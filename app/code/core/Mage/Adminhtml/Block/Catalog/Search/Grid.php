@@ -67,76 +67,76 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
             'index'     => 'query_id',
         ));*/
 
-        $this->addColumn('search_query', array(
+        $this->addColumn('search_query', [
             'header'    => Mage::helper('catalog')->__('Search Query'),
             'index'     => 'query_text',
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('catalog')->__('Store'),
                 'index'         => 'store_id',
                 'type'          => 'store',
                 'store_view'    => true,
                 'sortable'      => false
-            ));
+            ]);
         }
 
-        $this->addColumn('num_results', array(
+        $this->addColumn('num_results', [
             'header'    => Mage::helper('catalog')->__('Results'),
             'index'     => 'num_results',
             'type'      => 'number'
-        ));
+        ]);
 
-        $this->addColumn('popularity', array(
+        $this->addColumn('popularity', [
             'header'    => Mage::helper('catalog')->__('Number of Uses'),
             'index'     => 'popularity',
             'type'      => 'number'
-        ));
+        ]);
 
-        $this->addColumn('synonym_for', array(
+        $this->addColumn('synonym_for', [
             'header'    => Mage::helper('catalog')->__('Synonym For'),
             'align'     => 'left',
             'index'     => 'synonym_for',
             'width'     => '160px'
-        ));
+        ]);
 
-        $this->addColumn('redirect', array(
+        $this->addColumn('redirect', [
             'header'    => Mage::helper('catalog')->__('Redirect'),
             'align'     => 'left',
             'index'     => 'redirect',
             'width'     => '200px'
-        ));
+        ]);
 
-        $this->addColumn('display_in_terms', array(
+        $this->addColumn('display_in_terms', [
             'header'=>Mage::helper('catalog')->__('Display in Suggested Terms'),
             'sortable'=>true,
             'index'=>'display_in_terms',
             'type' => 'options',
             'width' => '100px',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('catalog')->__('Yes'),
                 '0' => Mage::helper('catalog')->__('No'),
-            ),
+            ],
             'align' => 'left',
-        ));
+        ]);
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100px',
                 'type'      => 'action',
                 'getter'    => 'getId',
-                'actions'   => array(array(
+                'actions'   => [[
                     'caption'   => Mage::helper('catalog')->__('Edit'),
-                    'url'       => array(
+                    'url'       => [
                         'base'=>'*/*/edit'
-                    ),
+                    ],
                     'field'   => 'id'
-                )),
+                ]],
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'catalog',
-        ));
+            ]);
         return parent::_prepareColumns();
     }
 
@@ -150,11 +150,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
         $this->setMassactionIdField('query_id');
         $this->getMassactionBlock()->setFormFieldName('search');
 
-        $this->getMassactionBlock()->addItem('delete', array(
+        $this->getMassactionBlock()->addItem('delete', [
              'label'    => Mage::helper('catalog')->__('Delete'),
              'url'      => $this->getUrl('*/*/massDelete'),
              'confirm'  => Mage::helper('catalog')->__('Are you sure?')
-        ));
+        ]);
 
         return parent::_prepareMassaction();
     }
@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 
 }

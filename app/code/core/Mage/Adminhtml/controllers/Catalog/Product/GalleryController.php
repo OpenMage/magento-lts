@@ -37,7 +37,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
     {
         try {
             $uploader = new Mage_Core_Model_File_Uploader('image');
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+            $uploader->setAllowedExtensions(['jpg','jpeg','gif','png']);
             $uploader->addValidateCallback('catalog_product_image',
                 Mage::helper('catalog/image'), 'validateUploadFile');
             $uploader->setAllowRenameFiles(true);
@@ -51,10 +51,10 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
                 Mage::getSingleton('catalog/product_media_config')->getBaseTmpMediaPath()
             );
 
-            Mage::dispatchEvent('catalog_product_gallery_upload_image_after', array(
+            Mage::dispatchEvent('catalog_product_gallery_upload_image_after', [
                 'result' => $result,
                 'action' => $this
-            ));
+            ]);
 
             /**
              * Workaround for prototype 1.7 methods "isJSON", "evalJSON" on Windows OS
@@ -64,18 +64,18 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
 
             $result['url'] = Mage::getSingleton('catalog/product_media_config')->getTmpMediaUrl($result['file']);
             $result['file'] = $result['file'] . '.tmp';
-            $result['cookie'] = array(
+            $result['cookie'] = [
                 'name'     => session_name(),
                 'value'    => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
-            );
+            ];
 
         } catch (Exception $e) {
-            $result = array(
+            $result = [
                 'error' => $e->getMessage(),
-                'errorcode' => $e->getCode());
+                'errorcode' => $e->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

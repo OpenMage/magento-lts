@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview extends Mage_Adminhtml_Block
         }
 
         Varien_Profiler::start("newsletter_queue_proccessing");
-        $vars = array();
+        $vars = [];
 
         $vars['subscriber'] = Mage::getModel('newsletter/subscriber');
 

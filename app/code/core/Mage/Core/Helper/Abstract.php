@@ -79,7 +79,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags = array(), $lifeTime = false)
+    protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -103,7 +103,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags = array())
+    protected function _cleanCache($tags = [])
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -162,7 +162,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, array('true', '1'))) {
+        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
             return false;
         }
         return true;
@@ -203,7 +203,7 @@ abstract class Mage_Core_Helper_Abstract
     public function escapeHtml($data, $allowedTags = null)
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
@@ -328,7 +328,7 @@ abstract class Mage_Core_Helper_Abstract
     public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
                 $result[] = str_replace($quote, '\\'.$quote, $item);
             }
@@ -360,7 +360,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $params
      * @return  string
      */
-    protected function _getUrl($route, $params = array())
+    protected function _getUrl($route, $params = [])
     {
         return Mage::getUrl($route, $params);
     }
@@ -419,8 +419,8 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = array ('\'', '"');
-        $replace = array('%27', '%22');
+        $quote = ['\'', '"'];
+        $replace = ['%27', '%22'];
         $url = str_replace($quote, $replace, $url);
         return $url;
     }
@@ -431,7 +431,7 @@ abstract class Mage_Core_Helper_Abstract
      *  @param    array $arr
      *  @return   array
      */
-    public function translateArray($arr = array())
+    public function translateArray($arr = [])
     {
         foreach ($arr as $k => $v) {
             if (is_array($v)) {
@@ -452,7 +452,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param bool $skipTags skip transferred array keys, if false then check only them
      * @return bool
      */
-    public function hasTags($data, array $arrayKeys = array(), $skipTags = true)
+    public function hasTags($data, array $arrayKeys = [], $skipTags = true)
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {

@@ -31,17 +31,17 @@
  */
 class Mage_Page_Block_Html extends Mage_Core_Block_Template
 {
-    protected $_urls = array();
+    protected $_urls = [];
     protected $_title = '';
 
     public function __construct()
     {
         parent::__construct();
-        $this->_urls = array(
+        $this->_urls = [
             'base'      => Mage::getBaseUrl('web'),
             'baseSecure'=> Mage::getBaseUrl('web', true),
             'current'   => $this->getRequest()->getRequestUri()
-        );
+        ];
 
         $action = Mage::app()->getFrontController()->getAction();
         if ($action) {

@@ -35,7 +35,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
     {
         $collector = Mage::getSingleton(
             'sales/quote_address_total_nominal_collector',
-            array('store' => $address->getQuote()->getStore())
+            ['store' => $address->getQuote()->getStore()]
         );
 
         // invoke nominal totals
@@ -47,7 +47,7 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
         foreach ($address->getAllNominalItems() as $item) {
             $rowTotal = 0;
             $baseRowTotal = 0;
-            $totalDetails = array();
+            $totalDetails = [];
             foreach ($collector->getCollectors() as $model) {
                 $itemRowTotal = $model->getItemRowTotal($item);
                 if ($model->getIsItemRowTotalCompoundable($item)) {
@@ -58,11 +58,11 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
                     $isCompounded = false;
                 }
                 if ((float)$itemRowTotal > 0 && $label = $model->getLabel()) {
-                    $totalDetails[] = new Varien_Object(array(
+                    $totalDetails[] = new Varien_Object([
                         'label'  => $label,
                         'amount' => $itemRowTotal,
                         'is_compounded' => $isCompounded,
-                    ));
+                    ]);
                 }
             }
             $item->setNominalRowTotal($rowTotal);
@@ -83,12 +83,12 @@ class Mage_Sales_Model_Quote_Address_Total_Nominal extends Mage_Sales_Model_Quot
     {
         $items = $address->getAllNominalItems();
         if ($items) {
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'    => $this->getCode(),
                 'title'   => Mage::helper('sales')->__('Nominal Items'),
                 'items'   => $items,
                 'area'    => 'footer',
-            ));
+            ]);
         }
         return $this;
     }

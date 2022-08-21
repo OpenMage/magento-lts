@@ -1165,101 +1165,101 @@ CREATE TABLE `{$installer->getTable('sales_shipping_aggregated_order')}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-$constraints = array(
-    'sales_flat_order' => array(
-        'customer' => array('customer_id', 'customer_entity', 'entity_id', 'set null'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_flat_order_grid' => array(
-        'parent' => array('entity_id', 'sales_flat_order', 'entity_id'),
-        'customer' => array('customer_id', 'customer_entity', 'entity_id', 'set null'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_flat_order_item' => array(
-        'parent' => array('order_id', 'sales_flat_order', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_flat_order_address' => array(
-        'parent' => array('parent_id', 'sales_flat_order', 'entity_id'),
-    ),
-    'sales_flat_order_payment' => array(
-        'parent' => array('parent_id', 'sales_flat_order', 'entity_id'),
-    ),
-    'sales_flat_order_status_history' => array(
-        'parent' => array('parent_id', 'sales_flat_order', 'entity_id'),
-    ),
-    'sales_flat_shipment' => array(
-        'parent' => array('order_id', 'sales_flat_order', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_shipment_grid' => array(
-        'parent' => array('entity_id', 'sales_flat_shipment', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_shipment_track' => array(
-        'parent' => array('parent_id', 'sales_flat_shipment', 'entity_id'),
-    ),
-    'sales_flat_shipment_item' => array(
-        'parent' => array('parent_id', 'sales_flat_shipment', 'entity_id'),
-    ),
-    'sales_flat_shipment_comment' => array(
-        'parent' => array('parent_id', 'sales_flat_shipment', 'entity_id'),
-    ),
-    'sales_flat_invoice' => array(
-        'parent' => array('order_id', 'sales_flat_order', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_invoice_grid' => array(
-        'parent' => array('entity_id', 'sales_flat_invoice', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_invoice_item' => array(
-        'parent' => array('parent_id', 'sales_flat_invoice', 'entity_id'),
-    ),
-    'sales_flat_invoice_comment' => array(
-        'parent' => array('parent_id', 'sales_flat_invoice', 'entity_id'),
-    ),
-    'sales_flat_creditmemo' => array(
-        'parent' => array('order_id', 'sales_flat_order', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_creditmemo_grid' => array(
-        'parent' => array('entity_id', 'sales_flat_creditmemo', 'entity_id'),
-        'store' => array('store_id', 'core_store', 'store_id', 'set null')
-    ),
-    'sales_flat_creditmemo_item' => array(
-        'parent' => array('parent_id', 'sales_flat_creditmemo', 'entity_id'),
-    ),
-    'sales_flat_creditmemo_comment' => array(
-        'parent' => array('parent_id', 'sales_flat_creditmemo', 'entity_id'),
-    ),
-    'sales_payment_transaction' => array(
-        'parent' => array('parent_id', 'sales_payment_transaction', 'transaction_id'),
-        'order' => array('order_id', 'sales_flat_order', 'entity_id'),
-        'payment' => array('payment_id', 'sales_flat_order_payment', 'entity_id'),
-    ),
-    'sales_invoiced_aggregated' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_invoiced_aggregated_order' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_order_aggregated_created' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_refunded_aggregated' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_refunded_aggregated_order' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_shipping_aggregated' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    ),
-    'sales_shipping_aggregated_order' => array(
-        'store' => array('store_id', 'core_store', 'store_id', 'set null'),
-    )
-);
+$constraints = [
+    'sales_flat_order' => [
+        'customer' => ['customer_id', 'customer_entity', 'entity_id', 'set null'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_flat_order_grid' => [
+        'parent' => ['entity_id', 'sales_flat_order', 'entity_id'],
+        'customer' => ['customer_id', 'customer_entity', 'entity_id', 'set null'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_flat_order_item' => [
+        'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_flat_order_address' => [
+        'parent' => ['parent_id', 'sales_flat_order', 'entity_id'],
+    ],
+    'sales_flat_order_payment' => [
+        'parent' => ['parent_id', 'sales_flat_order', 'entity_id'],
+    ],
+    'sales_flat_order_status_history' => [
+        'parent' => ['parent_id', 'sales_flat_order', 'entity_id'],
+    ],
+    'sales_flat_shipment' => [
+        'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_shipment_grid' => [
+        'parent' => ['entity_id', 'sales_flat_shipment', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_shipment_track' => [
+        'parent' => ['parent_id', 'sales_flat_shipment', 'entity_id'],
+    ],
+    'sales_flat_shipment_item' => [
+        'parent' => ['parent_id', 'sales_flat_shipment', 'entity_id'],
+    ],
+    'sales_flat_shipment_comment' => [
+        'parent' => ['parent_id', 'sales_flat_shipment', 'entity_id'],
+    ],
+    'sales_flat_invoice' => [
+        'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_invoice_grid' => [
+        'parent' => ['entity_id', 'sales_flat_invoice', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_invoice_item' => [
+        'parent' => ['parent_id', 'sales_flat_invoice', 'entity_id'],
+    ],
+    'sales_flat_invoice_comment' => [
+        'parent' => ['parent_id', 'sales_flat_invoice', 'entity_id'],
+    ],
+    'sales_flat_creditmemo' => [
+        'parent' => ['order_id', 'sales_flat_order', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_creditmemo_grid' => [
+        'parent' => ['entity_id', 'sales_flat_creditmemo', 'entity_id'],
+        'store' => ['store_id', 'core_store', 'store_id', 'set null']
+    ],
+    'sales_flat_creditmemo_item' => [
+        'parent' => ['parent_id', 'sales_flat_creditmemo', 'entity_id'],
+    ],
+    'sales_flat_creditmemo_comment' => [
+        'parent' => ['parent_id', 'sales_flat_creditmemo', 'entity_id'],
+    ],
+    'sales_payment_transaction' => [
+        'parent' => ['parent_id', 'sales_payment_transaction', 'transaction_id'],
+        'order' => ['order_id', 'sales_flat_order', 'entity_id'],
+        'payment' => ['payment_id', 'sales_flat_order_payment', 'entity_id'],
+    ],
+    'sales_invoiced_aggregated' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_invoiced_aggregated_order' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_order_aggregated_created' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_refunded_aggregated' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_refunded_aggregated_order' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_shipping_aggregated' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ],
+    'sales_shipping_aggregated_order' => [
+        'store' => ['store_id', 'core_store', 'store_id', 'set null'],
+    ]
+];
 
 foreach ($constraints as $table => $list) {
     foreach ($list as $code => $constraint) {
@@ -1267,37 +1267,37 @@ foreach ($constraints as $table => $list) {
         array_unshift($constraint, $installer->getTable($table));
         array_unshift($constraint, strtoupper($table . '_' . $code));
 
-        call_user_func_array(array($installer->getConnection(), 'addConstraint'), $constraint);
+        call_user_func_array([$installer->getConnection(), 'addConstraint'], $constraint);
     }
 }
 
 // Add eav entity types
-$installer->addEntityType('order', array(
+$installer->addEntityType('order', [
     'entity_model'          => 'sales/order',
     'table'                 =>'sales/order',
     'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>true
-));
+]);
 
-$installer->addEntityType('invoice', array(
+$installer->addEntityType('invoice', [
     'entity_model'          => 'sales/order_invoice',
     'table'                 =>'sales/invoice',
     'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>true
-));
+]);
 
-$installer->addEntityType('creditmemo', array(
+$installer->addEntityType('creditmemo', [
     'entity_model'          => 'sales/order_creditmemo',
     'table'                 =>'sales/creditmemo',
     'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>true
-));
+]);
 
-$installer->addEntityType('shipment', array(
+$installer->addEntityType('shipment', [
     'entity_model'          => 'sales/order_shipment',
     'table'                 =>'sales/shipment',
     'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>true
-));
+]);
 
 $installer->endSetup();

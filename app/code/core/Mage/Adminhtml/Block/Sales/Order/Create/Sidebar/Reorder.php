@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $storeIds = $this->getQuote()->getStore()->getWebsite()->getStoreIds();
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('customer_id', $this->getCustomerId())
-            ->addFieldToFilter('store_id', array('in' => $storeIds))
+            ->addFieldToFilter('store_id', ['in' => $storeIds])
             ->setOrder('created_at', 'desc')
             ->setPageSize(1)
             ->load();
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     public function getItemCollection()
     {
         if ($order = $this->getLastOrder()) {
-            $items = array();
+            $items = [];
             foreach ($order->getItemsCollection() as $item) {
                 if (!$item->getParentItem()) {
                     $items[] = $item;

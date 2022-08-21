@@ -73,7 +73,7 @@ class Mage_Authorizenet_Model_Directpost_Observer
                     $requestToPaygate->setControllerActionName($controller->getRequest()->getControllerName());
                     $requestToPaygate->setIsSecure((string)Mage::app()->getStore()->isCurrentlySecure());
 
-                    $result['directpost'] = array('fields' => $requestToPaygate->getData());
+                    $result['directpost'] = ['fields' => $requestToPaygate->getData()];
 
                     $controller->getResponse()->clearHeader('Location');
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

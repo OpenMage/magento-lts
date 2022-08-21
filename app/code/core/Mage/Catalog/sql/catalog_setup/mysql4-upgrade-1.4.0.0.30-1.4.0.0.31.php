@@ -20,7 +20,7 @@
 
 /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
-$installer->addAttribute('catalog_category', 'filter_price_range', array(
+$installer->addAttribute('catalog_category', 'filter_price_range', [
     'group'         => 'Display Settings',
     'type'          => 'int',
     'label'         => 'Layered Navigation Price Step',
@@ -28,4 +28,4 @@ $installer->addAttribute('catalog_category', 'filter_price_range', array(
     'global'        => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
     'visible'       => 1,
     'input_renderer'=> 'adminhtml/catalog_category_helper_pricestep',
-));
+]);

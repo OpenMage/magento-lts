@@ -79,10 +79,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         }
 
         // chooser control buttons
-        $buttons = array(
+        $buttons = [
             'open'  => Mage::helper('widget')->__('Choose...'),
             'close' => Mage::helper('widget')->__('Close')
-        );
+        ];
         if (isset($configArray['button']) && is_array($configArray['button'])) {
             foreach ($configArray['button'] as $id => $label) {
                 $buttons[$id] = $this->getTranslationHelper()->__($label);
@@ -150,10 +150,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         $config    = $this->getConfig();
 
         // add chooser element to fieldset
-        $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', array(
+        $chooser = $fieldset->addField('chooser' . $element->getId(), 'note', [
             'label'       => $config->getLabel() ? $config->getLabel() : '',
             'value_class' => 'value2',
-        ));
+        ]);
         $hiddenHtml = '';
         if ($this->getHiddenEnabled()) {
             $hidden = new Varien_Data_Form_Element_Hidden($element->getData());

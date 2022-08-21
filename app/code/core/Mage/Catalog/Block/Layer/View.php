@@ -180,7 +180,7 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
      */
     public function getFilters()
     {
-        $filters = array();
+        $filters = [];
         if ($categoryFilter = $this->_getCategoryFilter()) {
             $filters[] = $categoryFilter;
         }

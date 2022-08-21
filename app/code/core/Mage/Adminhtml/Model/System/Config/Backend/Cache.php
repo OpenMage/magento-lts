@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Cache extends Mage_Core_Model_C
      *
      * @var array
      */
-    protected $_cacheTags = array();
+    protected $_cacheTags = [];
 
     /**
      * Clean cache, value was changed

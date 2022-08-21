@@ -70,7 +70,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         $adapters = Mage::getConfig()->getNode(self::XML_PATH_AUTH_ADAPTERS);
 
         if (!$adapters) {
-            return array();
+            return [];
         }
         $adapters = $adapters->asArray();
 
@@ -82,7 +82,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $adapters = (array) $adapters;
         }
-        uasort($adapters, array('Mage_Api2_Helper_Data', '_compareOrder'));
+        uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
 
         return $adapters;
     }
@@ -94,7 +94,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getUserTypes()
     {
-        $userModels = array();
+        $userModels = [];
         $types = Mage::getConfig()->getNode(self::XML_PATH_USER_TYPES);
 
         if ($types) {
@@ -153,7 +153,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
 
         $attributes = $resource->getAllowedAttributes($userType, $resourceId, $operation);
 
-        return ($attributes === false || $attributes === null ? array() : explode(',', $attributes));
+        return ($attributes === false || $attributes === null ? [] : explode(',', $attributes));
     }
 
     /**

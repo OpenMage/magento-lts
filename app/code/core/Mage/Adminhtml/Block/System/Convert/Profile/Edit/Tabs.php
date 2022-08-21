@@ -48,22 +48,22 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tabs extends Mage_Adminht
 
         /** @var Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit $block */
         $block = $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_edit');
-        $this->addTab('edit', array(
+        $this->addTab('edit', [
             'label'     => Mage::helper('adminhtml')->__('Profile Actions XML'),
             'content'   => $block->initForm()->toHtml(),
             'active'    => true,
-        ));
+        ]);
 
         if (!$new) {
-            $this->addTab('run', array(
+            $this->addTab('run', [
                 'label'     => Mage::helper('adminhtml')->__('Run Profile'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_run')->toHtml(),
-            ));
+            ]);
 
-            $this->addTab('history', array(
+            $this->addTab('history', [
                 'label'     => Mage::helper('adminhtml')->__('Profile History'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/system_convert_profile_edit_tab_history')->toHtml(),
-            ));
+            ]);
         }
 
         return parent::_beforeToHtml();

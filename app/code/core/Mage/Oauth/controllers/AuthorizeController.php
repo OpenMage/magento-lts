@@ -77,7 +77,7 @@ class Mage_Oauth_AuthorizeController extends Mage_Core_Controller_Front_Action
 
         /** @var Mage_Core_Helper_Url $helper */
         $helper = Mage::helper('core/url');
-        $session->setAfterAuthUrl(Mage::getUrl('customer/account/login', array('_nosid' => true)))
+        $session->setAfterAuthUrl(Mage::getUrl('customer/account/login', ['_nosid' => true]))
                 ->setBeforeAuthUrl($helper->getCurrentUrl());
 
         $block->setIsSimple($simple)

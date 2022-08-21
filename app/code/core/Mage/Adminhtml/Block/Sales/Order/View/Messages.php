@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Messages extends Mage_Adminhtml_Bloc
         /**
          * Check Item products existing
          */
-        $productIds = array();
+        $productIds = [];
         foreach ($this->_getOrder()->getAllItems() as $item) {
             $productIds[] = $item->getProductId();
         }

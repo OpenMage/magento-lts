@@ -52,7 +52,7 @@ class Mage_Api2_Model_Request_Interpreter_Query implements Mage_Api2_Model_Reque
             );
         }
 
-        $data = array();
+        $data = [];
         parse_str($body, $data);
         return $data;
     }

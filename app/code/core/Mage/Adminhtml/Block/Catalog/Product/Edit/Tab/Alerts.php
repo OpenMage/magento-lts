@@ -49,18 +49,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts extends Mage_Adminhtm
         $alertStockAllow = Mage::getStoreConfig('catalog/productalert/allow_stock');
 
         if ($alertPriceAllow) {
-            $accordion->addItem('price', array(
+            $accordion->addItem('price', [
                 'title'     => Mage::helper('adminhtml')->__('Price alert subscription was saved.'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_price')->toHtml() . '<br />',
                 'open'      => true
-            ));
+            ]);
         }
         if ($alertStockAllow) {
-            $accordion->addItem('stock', array(
+            $accordion->addItem('stock', [
                 'title'     => Mage::helper('adminhtml')->__('Stock notification was saved.'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_alerts_stock'),
                 'open'      => true
-            ));
+            ]);
         }
 
         $this->setChild('accordion', $accordion);

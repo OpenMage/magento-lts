@@ -52,10 +52,10 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                     throw new Exception();
                 }
             }
-            $this->_prepareDownloadResponse($info['title'], array(
+            $this->_prepareDownloadResponse($info['title'], [
                'value' => $filePath,
                'type'  => 'filename'
-            ));
+            ]);
         } catch (Exception $e) {
             $this->_forward('noRoute');
         }

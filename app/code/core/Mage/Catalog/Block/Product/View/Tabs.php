@@ -28,7 +28,7 @@
  */
 class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
 {
-    protected $_tabs = array();
+    protected $_tabs = [];
 
     /**
      * Add tab to the container
@@ -46,10 +46,10 @@ class Mage_Catalog_Block_Product_View_Tabs extends Mage_Core_Block_Template
             return false;
         }
 
-        $this->_tabs[] = array(
+        $this->_tabs[] = [
             'alias' => $alias,
             'title' => $title
-        );
+        ];
 
         $this->setChild(
             $alias,

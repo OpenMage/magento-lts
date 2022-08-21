@@ -22,13 +22,13 @@
 $installer = $this;
 $connection = $installer->getConnection();
 $installer->startSetup();
-$data = array(
-    array('paypal_reversed', 'PayPal Reversed'),
-    array('paypal_canceled_reversal', 'PayPal Canceled Reversal')
-);
+$data = [
+    ['paypal_reversed', 'PayPal Reversed'],
+    ['paypal_canceled_reversal', 'PayPal Canceled Reversal']
+];
 $connection = $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
-    array('status', 'label'),
+    ['status', 'label'],
     $data
 );
 /**
@@ -40,7 +40,7 @@ Mage::getConfig()->saveConfig($ecSkipOrderReviewStepFlagPath, '1');
 /**
  * Set default value for "Mobile Optimized" option for Payflow Link/Advanced/Hosted Pro for new installations
  */
-$paymentCode = array('payflow_link', 'payflow_advanced', 'hosted_pro');
+$paymentCode = ['payflow_link', 'payflow_advanced', 'hosted_pro'];
 foreach($paymentCode as $value) {
     Mage::getConfig()->saveConfig("payment/{$value}/mobile_optimized", '1');
 }

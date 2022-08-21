@@ -58,7 +58,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
     protected function _prepareLayout()
     {
         $page = $this->getPage();
-        $breadcrumbsArray = array();
+        $breadcrumbsArray = [];
         $breadcrumbs = null;
 
         // show breadcrumbs
@@ -66,25 +66,25 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             && ($breadcrumbs = $this->getLayout()->getBlock('breadcrumbs'))
             && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_home_page'))
             && ($page->getIdentifier()!==Mage::getStoreConfig('web/default/cms_no_route'))) {
-            $breadcrumbsArray[] = array(
+            $breadcrumbsArray[] = [
                 'crumbName' => 'home',
-                'crumbInfo' => array(
+                'crumbInfo' => [
                     'label' => Mage::helper('cms')->__('Home'),
                     'title' => Mage::helper('cms')->__('Go to Home Page'),
                     'link'  => Mage::getBaseUrl()
-                )
-            );
-            $breadcrumbsArray[] = array(
+                ]
+            ];
+            $breadcrumbsArray[] = [
                 'crumbName' => 'cms_page',
-                'crumbInfo' => array(
+                'crumbInfo' => [
                     'label' => $page->getTitle(),
                     'title' => $page->getTitle()
-                )
-            );
+                ]
+            ];
             $breadcrumbsObject = new Varien_Object();
             $breadcrumbsObject->setCrumbs($breadcrumbsArray);
 
-            Mage::dispatchEvent('cms_generate_breadcrumbs', array('breadcrumbs' => $breadcrumbsObject));
+            Mage::dispatchEvent('cms_generate_breadcrumbs', ['breadcrumbs' => $breadcrumbsObject]);
 
             if ($breadcrumbs instanceof Mage_Page_Block_Html_Breadcrumbs) {
                 foreach ($breadcrumbsObject->getCrumbs() as $breadcrumbsItem) {

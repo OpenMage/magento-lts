@@ -38,28 +38,28 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      *
      * @var array
      */
-    protected $_allSeries = array();
+    protected $_allSeries = [];
 
     /**
      * Axis labels
      *
      * @var array
      */
-    protected $_axisLabels = array();
+    protected $_axisLabels = [];
 
     /**
      * Axis maps
      *
      * @var array
      */
-    protected $_axisMaps = array();
+    protected $_axisMaps = [];
 
     /**
      * Data rows
      *
      * @var array
      */
-    protected $_dataRows = array();
+    protected $_dataRows = [];
 
     /**
      * Simple encoding chars
@@ -178,14 +178,14 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      */
     public function getChartUrl($directUrl = true)
     {
-        $params = array(
+        $params = [
             'cht'  => 'lc',
             'chf'  => 'bg,s,f4f4f4|c,lg,90,ffffff,0.1,ededed,0',
             'chm'  => 'B,f4d4b2,0,0,0',
             'chco' => 'db4814',
             'chxs' => '0,0,11|1,0,11',
             'chma' => '15,15,15,15'
-        );
+        ];
 
         $this->_allSeries = $this->getRowsData($this->_dataRows);
 
@@ -201,8 +201,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $dateStart->setTimezone($timezoneLocal);
         $dateEnd->setTimezone($timezoneLocal);
 
-        $dates = array();
-        $datas = array();
+        $dates = [];
+        $datas = [];
 
         while($dateStart->compare($dateEnd) < 0){
             switch ($this->getDataHelper()->getParam('period')) {
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         // default values
         $yrange = 0;
-        $yLabels = array();
+        $yLabels = [];
         $miny = 0;
         $maxy = 0;
         $yorigin = 0;
@@ -304,7 +304,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $yorigin = 0;
         }
 
-        $chartdata = array();
+        $chartdata = [];
 
         foreach ($this->getAllSeries() as $index => $serie) {
             $thisdataarray = $serie;
@@ -328,7 +328,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $params['chd'] .= $buffer;
 
         $labelBuffer = "";
-        $valueBuffer = array();
+        $valueBuffer = [];
         $rangeBuffer = "";
 
         if (count($this->_axisLabels)) {
@@ -357,7 +357,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                                 case '2y':
                                     $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                                     $format = isset($formats['yyMM']) ? $formats['yyMM'] : 'MM/yyyy';
-                                    $format = str_replace(array("yyyy", "yy", "MM"), array("Y", "y", "m"), $format);
+                                    $format = str_replace(["yyyy", "yy", "MM"], ["Y", "y", "m"], $format);
                                     $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
                                     break;
                             }
@@ -399,7 +399,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         // return the encoded data
         if ($directUrl) {
-            $p = array();
+            $p = [];
             foreach ($params as $name => $value) {
                 $p[] = $name . '=' .urlencode($value);
             }
@@ -407,8 +407,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         } else {
             $gaData = urlencode(base64_encode(json_encode($params)));
             $gaHash = Mage::helper('adminhtml/dashboard_data')->getChartDataHash($gaData);
-            $params = array('ga' => $gaData, 'h' => $gaHash);
-            return $this->getUrl('*/*/tunnel', array('_query' => $params));
+            $params = ['ga' => $gaData, 'h' => $gaHash];
+            return $this->getUrl('*/*/tunnel', ['_query' => $params]);
         }
     }
 
@@ -422,7 +422,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     protected function getRowsData($attributes, $single = false)
     {
         $items = $this->getCollection()->getItems();
-        $options = array();
+        $options = [];
         foreach ($items as $item){
             if ($single) {
                 $options[] = max(0, $item->getData($attributes));

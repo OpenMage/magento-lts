@@ -39,7 +39,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function __construct()
     {
-        Mage::dispatchEvent('catalog_helper_output_construct', array('helper'=>$this));
+        Mage::dispatchEvent('catalog_helper_output_construct', ['helper'=>$this]);
     }
 
     /**
@@ -69,7 +69,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         $method = strtolower($method);
 
         if (!isset($this->_handlers[$method])) {
-            $this->_handlers[$method] = array();
+            $this->_handlers[$method] = [];
         }
 
         $this->_handlers[$method][] = $handler;
@@ -85,7 +85,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     public function getHandlers($method)
     {
         $method = strtolower($method);
-        return isset($this->_handlers[$method]) ? $this->_handlers[$method] : array();
+        return isset($this->_handlers[$method]) ? $this->_handlers[$method] : [];
     }
 
     /**
@@ -133,10 +133,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
             }
         }
 
-        $attributeHtml = $this->process('productAttribute', $attributeHtml, array(
+        $attributeHtml = $this->process('productAttribute', $attributeHtml, [
             'product'   => $product,
             'attribute' => $attributeName
-        ));
+        ]);
 
         return $attributeHtml;
     }
@@ -163,10 +163,10 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
                 $attributeHtml = $this->_getTemplateProcessor()->filter($attributeHtml);
             }
         }
-        $attributeHtml = $this->process('categoryAttribute', $attributeHtml, array(
+        $attributeHtml = $this->process('categoryAttribute', $attributeHtml, [
             'category'  => $category,
             'attribute' => $attributeName
-        ));
+        ]);
         return $attributeHtml;
     }
 }

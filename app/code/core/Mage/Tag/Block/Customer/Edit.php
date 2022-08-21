@@ -49,7 +49,7 @@ class Mage_Tag_Block_Customer_Edit extends Mage_Core_Block_Template
      */
     public function getFormAction()
     {
-        return $this->getUrl('*/*/save', array('tagId' => $this->getTag()->getTagId()));
+        return $this->getUrl('*/*/save', ['tagId' => $this->getTag()->getTagId()]);
     }
 
     /**
@@ -57,6 +57,6 @@ class Mage_Tag_Block_Customer_Edit extends Mage_Core_Block_Template
      */
     public function getBackUrl()
     {
-        return $this->getUrl('*/*/view', array('tagId' => $this->getTag()->getTagId()));
+        return $this->getUrl('*/*/view', ['tagId' => $this->getTag()->getTagId()]);
     }
 }

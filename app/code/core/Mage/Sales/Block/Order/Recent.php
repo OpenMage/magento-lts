@@ -64,7 +64,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
             )
             ->addAttributeToFilter(
                 'state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize('5')
@@ -80,7 +80,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
      */
     public function getViewUrl($order)
     {
-        return $this->getUrl('sales/order/view', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -89,7 +89,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
      */
     public function getTrackUrl($order)
     {
-        return $this->getUrl('sales/order/track', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/track', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -109,6 +109,6 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
      */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('sales/order/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 }

@@ -32,15 +32,15 @@ class Mage_Downloadable_Model_System_Config_Source_Contentdisposition
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => 'attachment',
                 'label' => Mage::helper('downloadable')->__('attachment')
-            ),
-            array(
+            ],
+            [
                 'value' => 'inline',
                 'label' => Mage::helper('downloadable')->__('inline')
-            )
-        );
+            ]
+        ];
     }
 }

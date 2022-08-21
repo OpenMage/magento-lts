@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Region
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
     }

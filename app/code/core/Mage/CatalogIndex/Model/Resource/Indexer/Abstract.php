@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     public function saveIndex($data, $storeId, $productId)
     {
-        return $this->saveIndices(array($data), $storeId, $productId);
+        return $this->saveIndices([$data], $storeId, $productId);
     }
 
     /**
@@ -122,8 +122,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     {
         $table = $this->getTable('eav/attribute');
         $select = $this->_getReadAdapter()->select();
-        $select->from(array('main_table' => $table), 'attribute_id')
-            ->join(array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id=main_table.attribute_id');
+        $select->from(['main_table' => $table], 'attribute_id')
+            ->join(['additional_table' => $this->getTable('catalog/eav_attribute')], 'additional_table.attribute_id=main_table.attribute_id');
         $select->distinct(true);
 
         if (is_array($conditions)) {

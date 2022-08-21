@@ -43,32 +43,32 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Coupon extends Mage_Sales_Bl
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
-            $fieldset->addField('price_rule_type', 'select', array(
+            $fieldset->addField('price_rule_type', 'select', [
                 'name'    => 'price_rule_type',
-                'options' => array(
+                'options' => [
                     Mage::helper('reports')->__('Any'),
                     Mage::helper('reports')->__('Specified')
-                ),
+                ],
                 'label'   => Mage::helper('reports')->__('Shopping Cart Price Rule'),
-            ));
+            ]);
 
             $rulesList = Mage::getResourceModel('salesrule/report_rule')->getUniqRulesNamesList();
 
-            $rulesListOptions = array();
+            $rulesListOptions = [];
 
             foreach ($rulesList as $key => $ruleName) {
-                $rulesListOptions[] = array(
+                $rulesListOptions[] = [
                     'label' => $ruleName,
                     'value' => $key,
                     'title' => $ruleName
-                );
+                ];
             }
 
-            $fieldset->addField('rules_list', 'multiselect', array(
+            $fieldset->addField('rules_list', 'multiselect', [
                 'name'      => 'rules_list',
                 'values'    => $rulesListOptions,
                 'display'   => 'none'
-            ), 'price_rule_type');
+            ], 'price_rule_type');
 
             /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
             $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');

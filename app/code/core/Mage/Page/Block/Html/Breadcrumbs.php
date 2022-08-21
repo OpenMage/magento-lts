@@ -65,11 +65,11 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
      */
     public function addCrumb($crumbName, $crumbInfo, $after = false)
     {
-        $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
+        $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
         if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
             if ($after && isset($this->_crumbs[$after])) {
                 $offset = array_search($after, array_keys($this->_crumbs), true) + 1;
-                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + array($crumbName => $crumbInfo) + array_slice($this->_crumbs, $offset, null, true);
+                $this->_crumbs = array_slice($this->_crumbs, 0, $offset, true) + [$crumbName => $crumbInfo] + array_slice($this->_crumbs, $offset, null, true);
             } else {
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
@@ -89,8 +89,8 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
             $offset = array_search($before, $keys, true);
             # add before first
             if (!$offset) {
-                $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
-                $this->_crumbs = array($crumbName => $crumbInfo) + $this->_crumbs;
+                $this->_prepareArray($crumbInfo, ['label', 'title', 'link', 'first', 'last', 'readonly']);
+                $this->_crumbs = [$crumbName => $crumbInfo] + $this->_crumbs;
             } else {
                 $this->addCrumb($crumbName, $crumbInfo, $keys[$offset-1]);
             }
@@ -117,10 +117,10 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     public function getCacheKeyInfo()
     {
         if ($this->_cacheKeyInfo === null) {
-            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + array(
+            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'crumbs' => base64_encode(serialize($this->_crumbs)),
                 'name'   => $this->getNameInLayout(),
-            );
+                ];
         }
 
         return $this->_cacheKeyInfo;

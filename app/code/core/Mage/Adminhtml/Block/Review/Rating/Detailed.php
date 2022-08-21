@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
             if( Mage::registry('review_data') ) {
                 $stores = Mage::registry('review_data')->getStores();
 
-                $stores = array_diff($stores, array(0));
+                $stores = array_diff($stores, [0]);
 
                 $ratingCollection = Mage::getModel('rating/rating')
                     ->getResourceCollection()

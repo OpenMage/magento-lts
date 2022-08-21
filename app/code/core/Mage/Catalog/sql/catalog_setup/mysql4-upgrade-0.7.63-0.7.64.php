@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'page_layout', array(
+$installer->addAttribute('catalog_product', 'page_layout', [
     'type'              => 'varchar',
     'backend'           => '',
     'frontend'          => '',
@@ -42,6 +42,6 @@ $installer->addAttribute('catalog_product', 'page_layout', array(
     'visible_on_front'  => false,
     'unique'            => false,
     'group'             => 'Design'
-));
+]);
 
 $installer->endSetup();

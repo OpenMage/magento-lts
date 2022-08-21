@@ -65,7 +65,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
     {
         if ((($needType == 'db') && is_null(self::$_versions))
             || (($needType == 'data') && is_null(self::$_dataVersions))) {
-            self::$_versions     = array(); // Db version column always exists
+            self::$_versions     = []; // Db version column always exists
             self::$_dataVersions = null; // Data version array will be filled only if Data column exist
 
             if ($this->_getReadAdapter()->isTableExists($this->getMainTable())) {
@@ -76,7 +76,7 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
                     self::$_versions[$row['code']] = $row['version'];
                     if (array_key_exists('data_version', $row)) {
                         if (is_null(self::$_dataVersions)) {
-                            self::$_dataVersions = array();
+                            self::$_dataVersions = [];
                         }
                         self::$_dataVersions[$row['code']] = $row['data_version'];
                     }
@@ -112,17 +112,17 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     public function setDbVersion($resName, $version)
     {
-        $dbModuleInfo = array(
+        $dbModuleInfo = [
             'code'    => $resName,
             'version' => $version,
-        );
+        ];
 
         if ($this->getDbVersion($resName)) {
             self::$_versions[$resName] = $version;
             return $this->_getWriteAdapter()->update(
                 $this->getMainTable(),
                 $dbModuleInfo,
-                array('code = ?' => $resName)
+                ['code = ?' => $resName]
             );
         } else {
             self::$_versions[$resName] = $version;
@@ -156,14 +156,14 @@ class Mage_Core_Model_Resource_Resource extends Mage_Core_Model_Resource_Db_Abst
      */
     public function setDataVersion($resName, $version)
     {
-        $data = array(
+        $data = [
             'code'          => $resName,
             'data_version'  => $version
-        );
+        ];
 
         if ($this->getDbVersion($resName) || $this->getDataVersion($resName)) {
             self::$_dataVersions[$resName] = $version;
-            $this->_getWriteAdapter()->update($this->getMainTable(), $data, array('code = ?' => $resName));
+            $this->_getWriteAdapter()->update($this->getMainTable(), $data, ['code = ?' => $resName]);
         } else {
             self::$_dataVersions[$resName] = $version;
             $this->_getWriteAdapter()->insert($this->getMainTable(), $data);

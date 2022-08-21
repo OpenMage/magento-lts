@@ -29,20 +29,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtm
 {
     protected function _getOptions()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Mage::helper('adminhtml')->__('Any'),
                 'value' => ''
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('adminhtml')->__('Yes'),
                 'value' => 1
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('adminhtml')->__('No'),
                 'value' => 0
-            ),
-        );
+            ],
+        ];
     }
 
     public function getCondition()
@@ -51,10 +51,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Radio extends Mage_Adminhtm
             return $this->getColumn()->getValue();
         }
         else {
-            return array(
-                array('neq'=>$this->getColumn()->getValue()),
-                array('is'=>new Zend_Db_Expr('NULL'))
-            );
+            return [
+                ['neq'=>$this->getColumn()->getValue()],
+                ['is'=>new Zend_Db_Expr('NULL')]
+            ];
         }
     }
 }

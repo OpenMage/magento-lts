@@ -42,7 +42,7 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
     public function getAvailableHints()
     {
         if ($this->_availableHints === null) {
-            $hints = array();
+            $hints = [];
             $config = Mage::getConfig()->getNode('default/hints');
             if ($config) {
                 foreach ($config->children() as $type => $node) {

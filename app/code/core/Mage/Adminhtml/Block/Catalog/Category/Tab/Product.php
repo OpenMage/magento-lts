@@ -50,10 +50,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
             }
             elseif(!empty($productIds)) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
             }
         }
         else {
@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     protected function _prepareCollection()
     {
         if ($this->getCategory()->getId()) {
-            $this->setDefaultFilter(array('in_category'=>1));
+            $this->setDefaultFilter(['in_category'=>1]);
         }
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToSelect('name')
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
             if (empty($productIds)) {
                 $productIds = 0;
             }
-            $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
+            $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
         }
 
         return parent::_prepareCollection();
@@ -94,52 +94,52 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Product extends Mage_Adminhtml_B
     protected function _prepareColumns()
     {
         if (!$this->getCategory()->getProductsReadonly()) {
-            $this->addColumn('in_category', array(
+            $this->addColumn('in_category', [
                 'header_css_class' => 'a-center',
                 'type'      => 'checkbox',
                 'name'      => 'in_category',
                 'values'    => $this->_getSelectedProducts(),
                 'align'     => 'center',
                 'index'     => 'entity_id'
-            ));
+            ]);
         }
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60',
             'index'     => 'entity_id'
-        ));
-        $this->addColumn('name', array(
+        ]);
+        $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name'
-        ));
-        $this->addColumn('sku', array(
+        ]);
+        $this->addColumn('sku', [
             'header'    => Mage::helper('catalog')->__('SKU'),
             'width'     => '80',
             'index'     => 'sku'
-        ));
-        $this->addColumn('price', array(
+        ]);
+        $this->addColumn('price', [
             'header'    => Mage::helper('catalog')->__('Price'),
             'type'  => 'currency',
             'width'     => '1',
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
-        ));
-        $this->addColumn('position', array(
+        ]);
+        $this->addColumn('position', [
             'header'    => Mage::helper('catalog')->__('Position'),
             'width'     => '1',
             'type'      => 'number',
             'index'     => 'position',
             'editable'  => !$this->getCategory()->getProductsReadonly()
             //'renderer'  => 'adminhtml/widget_grid_column_renderer_input'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/grid', ['_current'=>true]);
     }
 
     protected function _getSelectedProducts()

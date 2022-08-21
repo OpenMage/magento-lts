@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         $basePrice = $this->getBasePrice($product, $qty);
         $finalPrice = $basePrice;
         $product->setFinalPrice($finalPrice);
-        Mage::dispatchEvent('catalog_product_get_final_price', array('product' => $product, 'qty' => $qty));
+        Mage::dispatchEvent('catalog_product_get_final_price', ['product' => $product, 'qty' => $qty]);
         $finalPrice = $product->getData('final_price');
 
         $finalPrice += $this->getTotalConfigurableItemsPrice($product, $finalPrice);
@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         $attributes = $product->getTypeInstance(true)
                 ->getConfigurableAttributes($product);
 
-        $selectedAttributes = array();
+        $selectedAttributes = [];
         if ($product->getCustomOption('attributes')) {
             $selectedAttributes = unserialize($product->getCustomOption('attributes')->getValue(), ['allowed_classes' => false]);
         }
@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
-                $attribute->getPrices() ? $attribute->getPrices() : array(),
+                $attribute->getPrices() ? $attribute->getPrices() : [],
                 isset($selectedAttributes[$attributeId]) ? $selectedAttributes[$attributeId] : null
             );
             $product->setParentId(true);
@@ -88,7 +88,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                     $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        array('product' => $product)
+                        ['product' => $product]
                     );
                     $price += $product->getConfigurablePrice();
                 }

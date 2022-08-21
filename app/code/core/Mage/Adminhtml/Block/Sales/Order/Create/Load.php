@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Load extends Mage_Core_Block_Templ
 {
     protected function _toHtml()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getSortedChildren() as $name) {
             if (!$block = $this->getChild($name)) {
                 $result[$name] = Mage::helper('sales')->__('Invalid block: %s.', $name);

@@ -56,7 +56,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
 
     protected function _construct()
@@ -258,8 +258,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     public function getSpecialLink($file, $size, $extension = null, $watermark = null)
     {
         $this->_removeResources();
-        $this->setData(array());
-        $this->setParam(array());
+        $this->setData([]);
+        $this->setParam([]);
         $this->setFileName($file);
 
         $this->addParam('size', $size);

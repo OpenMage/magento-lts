@@ -62,11 +62,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 $category->setIsAnchor(true);
                 $newurl = $category->getUrl();
                 $title = $category->getName();
-                $data = array('title' => $title,
+                $data = ['title' => $title,
                         'description' => $title,
                         'link'        => $newurl,
                         'charset'     => 'UTF-8',
-                        );
+                ];
 
                 $rssObj->_addHeader($data);
 
@@ -97,7 +97,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 ;
 
                 if ($_productCollection->getSize()>0) {
-                    $args = array('rssObj' => $rssObj);
+                    $args = ['rssObj' => $rssObj];
                     foreach ($_productCollection as $_product) {
                         $args['product'] = $_product;
                         $this->addNewItemXmlCallback($args);
@@ -140,11 +140,11 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
 
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-            );
+        ];
 
         $rssObj->_addEntry($data);
     }

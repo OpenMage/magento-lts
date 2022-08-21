@@ -93,7 +93,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      * @param  array $params
      * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database|false
      */
-    public function getStorageModel($storage = null, $params = array())
+    public function getStorageModel($storage = null, $params = [])
     {
         if (is_null($storage)) {
             $storage = Mage::helper('core/file_storage')->getCurrentStorageCode();
@@ -105,7 +105,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 break;
             case self::STORAGE_MEDIA_DATABASE:
                 $connection = (isset($params['connection'])) ? $params['connection'] : null;
-                $model = Mage::getModel('core/file_storage_database', array('connection' => $connection));
+                $model = Mage::getModel('core/file_storage_database', ['connection' => $connection]);
                 break;
             default:
                 return false;
@@ -143,10 +143,10 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
             $sourceModel        = $this->getStorageModel();
             $destinationModel   = $this->getStorageModel(
                 $storageDest,
-                array(
+                [
                     'connection'    => $connection,
                     'init'          => true
-                )
+                ]
             );
 
             if (!$sourceModel || !$destinationModel) {
@@ -155,14 +155,14 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
 
             $hasErrors = false;
             $flag = $this->getSyncFlag();
-            $flagData = array(
+            $flagData = [
                 'source'                        => $sourceModel->getStorageName(),
                 'destination'                   => $destinationModel->getStorageName(),
                 'destination_storage_type'      => $storageDest,
                 'destination_connection_name'   => (string) $destinationModel->getConfigConnectionName(),
                 'has_errors'                    => false,
                 'timeout_reached'               => false
-            );
+            ];
             $flag->setFlagData($flagData);
 
             $destinationModel->clear();
@@ -214,7 +214,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      */
     public static function getScriptConfig()
     {
-        $config = array();
+        $config = [];
         $config['media_directory'] = Mage::getBaseDir('media');
 
         $loadedModules = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_LOADED_MODULES);

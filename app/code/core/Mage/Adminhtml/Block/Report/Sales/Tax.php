@@ -35,16 +35,16 @@ class Mage_Adminhtml_Block_Report_Sales_Tax extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
         $this->setTemplate('report/grid/container.phtml');
         $this->_removeButton('add');
-        $this->addButton('filter_form_submit', array(
+        $this->addButton('filter_form_submit', [
             'label'     => Mage::helper('reports')->__('Show Report'),
             'onclick'   => 'filterFormSubmit()'
-        ));
+        ]);
     }
 
     public function getFilterUrl()
     {
         $this->getRequest()->setParam('filter', null);
-        return $this->getUrl('*/*/tax', array('_current' => true));
+        return $this->getUrl('*/*/tax', ['_current' => true]);
     }
 
     public function getHeaderCssClass()

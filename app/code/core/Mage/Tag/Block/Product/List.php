@@ -95,11 +95,11 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     public function getFormAction()
     {
-        return Mage::getUrl('tag/index/save', array(
+        return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
             '_secure' => $this->_isSecure()
-        ));
+        ]);
     }
 
     /**
@@ -112,7 +112,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     public function renderTags($pattern, $glue = ' ')
     {
-        $out = array();
+        $out = [];
         foreach ($this->getTags() as $tag) {
             $out[] = sprintf(
                 $pattern,

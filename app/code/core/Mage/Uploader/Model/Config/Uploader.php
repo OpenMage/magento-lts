@@ -115,9 +115,9 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
             ->setChunkSize($maxSize)
             ->setWithCredentials(false)
             ->setForceChunkSize(false)
-            ->setQuery(array(
+            ->setQuery([
                 'form_key' => Mage::getSingleton('core/session')->getFormKey()
-            ))
+            ])
             ->setMethod(self::UPLOAD_TYPE)
             ->setSimultaneousUploads(1)
             ->setAllowDuplicateUploads(true)
@@ -125,7 +125,7 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
             ->setTestChunks(self::TEST_CHUNKS)
             ->setSpeedSmoothingFactor(self::SMOOTH_UPLOAD_FACTOR)
             ->setProgressCallbacksInterval(self::PROGRESS_CALLBACK_INTERVAL)
-            ->setSuccessStatuses(array(200, 201, 202))
-            ->setPermanentErrors(array(404, 415, 500, 501));
+            ->setSuccessStatuses([200, 201, 202])
+            ->setPermanentErrors([404, 415, 500, 501]);
     }
 }

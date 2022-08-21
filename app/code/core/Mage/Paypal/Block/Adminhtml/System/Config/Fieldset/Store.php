@@ -53,20 +53,20 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Store
     protected function getPaypalDisabledMethods()
     {
         // Assoc array that contains info about paypal methods (their IDs and corresponding Config Paths)
-        $methods = array(
+        $methods = [
             'express'   => 'payment/paypal_express/active',
             'wps'       => 'payment/paypal_standard/active',
             'wpp'       => 'payment/paypal_direct/active',
             'wpppe'     => 'payment/paypaluk_direct/active',
             'verisign'  => 'payment/verisign/active',
             'expresspe' => 'payment/paypaluk_express/active'
-        );
+        ];
         // Retrieve a code of the current website
         $website = $this->getRequest()->getParam('website');
 
         $configRoot = Mage::getConfig()->getNode(null, 'website', $website);
 
-        $disabledMethods = array();
+        $disabledMethods = [];
         foreach ($methods as $methodId => $methodPath) {
             $isEnabled = (int) $configRoot->descend($methodPath);
             if ($isEnabled === 0) {
