@@ -35,6 +35,11 @@ class Devel
             return;
         }
 
+        if (!function_exists('exec')) {
+            echo "exec() has been disabled for security reasons, skipping...\n";
+            return;
+        }
+
         $phpcs = PHP_BINARY . ' ' . self::$binPath . DIRECTORY_SEPARATOR . 'phpcs';
 
         $paths = implode(',', [
