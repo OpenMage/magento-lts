@@ -831,8 +831,6 @@ class Varien_Object implements ArrayAccess
 
 
     /**
-     * Enter description here...
-     *
      * @param string $field
      * @return boolean
      */
@@ -848,8 +846,6 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $field
      * @param boolean $flag
      * @return $this

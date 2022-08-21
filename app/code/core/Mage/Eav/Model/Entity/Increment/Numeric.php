@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here...
- *
  * Properties:
  * - prefix
  * - pad_length

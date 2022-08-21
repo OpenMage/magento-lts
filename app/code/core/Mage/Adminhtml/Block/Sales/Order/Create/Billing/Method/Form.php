@@ -78,8 +78,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Sales_Model_Quote
      */
     public function getQuote()

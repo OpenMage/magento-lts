@@ -762,8 +762,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
@@ -780,8 +778,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */

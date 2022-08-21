@@ -29,38 +29,26 @@
 class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Resource_Abstract
 {
     /**
-     * Enter description here ...
-     *
      * @var float
      */
     protected $_rate               = 1;
 
     /**
-     * Enter description here ...
-     *
      * @var int
      */
     protected $_customerGroupId;
 
     /**
-     * Enter description here ...
-     *
      * @var array
      */
     protected $_taxRates           = null;
 
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/price', 'index_id');
     }
 
     /**
-     * Enter description here ...
-     *
      * @param float $rate
      */
     public function setRate($rate)
@@ -69,8 +57,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @return float
      */
     public function getRate()
@@ -82,8 +68,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $customerGroupId
      */
     public function setCustomerGroupId($customerGroupId)
@@ -92,8 +76,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @return int
      */
     public function getCustomerGroupId()
@@ -102,8 +84,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
      * @return float|int
@@ -141,8 +121,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $range
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
@@ -191,8 +169,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $range
      * @param int $index
      * @param Mage_Eav_Model_Entity_Attribute $attribute
@@ -233,8 +209,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param int $range
@@ -282,8 +256,6 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array $ids
      * @return array
      */

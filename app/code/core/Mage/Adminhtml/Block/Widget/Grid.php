@@ -1619,8 +1619,6 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Enter description here...
-     *
      * @param string|object $column
      * @param string $value
      * @return boolean|Mage_Adminhtml_Block_Widget_Grid

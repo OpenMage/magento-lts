@@ -29,8 +29,6 @@ class Mage_Downloadable_Block_Catalog_Product_Samples extends Mage_Catalog_Block
 {
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function hasSamples()

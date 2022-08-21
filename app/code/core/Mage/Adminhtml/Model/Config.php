@@ -39,8 +39,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_config;
 
     /**
-     * Enter description here...
-     *
      * @var Varien_Simplexml_Element
      */
     protected $_sections;
@@ -53,8 +51,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_tabs;
 
     /**
-     * Enter description here...
-     *
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
@@ -144,8 +140,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
@@ -163,8 +157,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $node
      * @param string $websiteCode
      * @param string $storeCode

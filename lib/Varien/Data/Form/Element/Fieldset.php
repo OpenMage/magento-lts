@@ -45,8 +45,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     protected $_sortChildrenDirection = SORT_ASC;
 
     /**
-     * Enter description here...
-     *
      * @param array $attributes
      */
     public function __construct($attributes=array())
@@ -57,8 +55,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getElementHtml()
@@ -74,8 +70,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getChildrenHtml()
@@ -90,8 +84,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getSubFieldsetHtml()
@@ -106,8 +98,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getDefaultHtml()
@@ -118,8 +108,6 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @param string $type
      * @param array $config

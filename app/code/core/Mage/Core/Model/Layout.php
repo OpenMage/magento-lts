@@ -281,8 +281,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $node
      * @param Mage_Core_Model_Layout_Element $parent
      * @return $this
@@ -603,8 +601,6 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $type
      * @return Mage_Core_Block_Abstract
      */
