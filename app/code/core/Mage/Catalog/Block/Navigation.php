@@ -359,8 +359,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Catalog_Model_Category|false
      */
     public function getCurrentCategory()
@@ -372,8 +370,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getCurrentCategoryPath()
@@ -385,8 +381,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Category $category
      * @return string
      */

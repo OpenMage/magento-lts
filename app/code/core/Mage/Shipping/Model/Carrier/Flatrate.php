@@ -36,8 +36,6 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
     protected $_isFixed = true;
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|false
      */

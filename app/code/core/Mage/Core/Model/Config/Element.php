@@ -27,8 +27,6 @@
 class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * Enter description here...
-     *
      * @param string $var
      * @param string|true $value
      * @return bool
@@ -50,8 +48,6 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getClassName()

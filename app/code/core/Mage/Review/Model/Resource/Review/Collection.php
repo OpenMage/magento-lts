@@ -102,8 +102,6 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $customerId
      * @return $this
      */

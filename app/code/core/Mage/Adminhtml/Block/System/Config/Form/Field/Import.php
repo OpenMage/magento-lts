@@ -30,8 +30,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
 {
 
     /**
-     * Enter description here...
-     *
      * @param array $data
      */
     public function __construct($data)
@@ -41,8 +39,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getElementHtml()

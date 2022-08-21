@@ -221,8 +221,6 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Catalog_Model_Resource_Category_Tree.
      */
     public function getTreeModelInstance()

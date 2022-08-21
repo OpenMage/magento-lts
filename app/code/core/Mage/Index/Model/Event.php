@@ -19,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Index_Model_Resource_Event _getResource()
  * @method Mage_Index_Model_Resource_Event getResource()
  * @method $this setType(string $value)

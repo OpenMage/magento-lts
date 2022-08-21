@@ -29,8 +29,6 @@
 class Mage_Rss_Model_Resource_Order
 {
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @var array
@@ -38,8 +36,6 @@ class Mage_Rss_Model_Resource_Order
     protected $_entityTypeIdsToTypes       = [];
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @var array
@@ -47,8 +43,6 @@ class Mage_Rss_Model_Resource_Order
     protected $_entityIdsToIncrementIds    = [];
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @return array
@@ -59,8 +53,6 @@ class Mage_Rss_Model_Resource_Order
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @return array
@@ -71,8 +63,6 @@ class Mage_Rss_Model_Resource_Order
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @return array
@@ -83,8 +73,6 @@ class Mage_Rss_Model_Resource_Order
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @param unknown_type $orderId
@@ -97,8 +85,6 @@ class Mage_Rss_Model_Resource_Order
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @param array $entityIds
@@ -110,8 +96,6 @@ class Mage_Rss_Model_Resource_Order
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.1.0
      *
      * @return array

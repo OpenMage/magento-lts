@@ -79,8 +79,6 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
     }
 
     /**
-     * Enter description here ...
-     *
      * @return $this
      */
     protected function _initSelect()
