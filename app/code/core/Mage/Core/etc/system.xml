@@ -1062,7 +1062,7 @@
                         </use_legacy_theme>
                         <loading_timeout translate="label comment">
                             <label>Loading Indicator Timeout</label>
-                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "100". Enter an empty value to disable the loading indicator delay.</comment>
+                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "100". An empty value disables the delay.</comment>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
