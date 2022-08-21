@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -80,7 +74,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      */
     public function render($data)
     {
-        /* @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
+        /** @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
         $writer = Mage::getModel('api2/renderer_xml_writer', array(
             'config' => new Zend_Config($this->_prepareData($data, true))
         ));

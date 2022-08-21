@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -66,7 +60,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             Mage::throwException($this->__('No wishlist item id defined.'));
         }
 
-        /* @var $wishlistItem Mage_Wishlist_Model_Item */
+        /** @var Mage_Wishlist_Model_Item $wishlistItem */
         $wishlistItem = Mage::getModel('wishlist/item')
             ->loadWithOptions($wishlistItemId);
 
@@ -104,7 +98,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController
             $configureResult->setMessage($e->getMessage());
         }
 
-        /* @var $helper Mage_Adminhtml_Helper_Catalog_Product_Composite */
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Composite $helper */
         $helper = Mage::helper('adminhtml/catalog_product_composite');
         Mage::helper('catalog/product')->setSkipSaleableCheck(true);
         $helper->renderConfigureResult($this, $configureResult);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -308,7 +302,7 @@ class Mage_CatalogInventory_Model_Observer
     public function checkQuoteItemQty($observer)
     {
         $quoteItem = $observer->getEvent()->getItem();
-        /* @var Mage_Sales_Model_Quote_Item $quoteItem */
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
             || $quoteItem->getQuote()->getIsSuperMode()) {
             return $this;
@@ -393,7 +387,7 @@ class Mage_CatalogInventory_Model_Observer
                     $stockItem->setProductName($quoteItem->getName());
                 }
 
-                /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+                /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                     Mage::throwException(
                         Mage::helper('cataloginventory')->__('The stock item for Product in option is not valid.')
@@ -462,7 +456,7 @@ class Mage_CatalogInventory_Model_Observer
                 $stockItem->unsIsChildItem();
             }
         } else {
-            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+            /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
                 Mage::throwException(Mage::helper('cataloginventory')->__('The stock item for Product is not valid.'));
             }
@@ -791,11 +785,11 @@ class Mage_CatalogInventory_Model_Observer
      */
     public function refundOrderInventory($observer)
     {
-        /* @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
+        /** @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
         $creditmemo = $observer->getEvent()->getCreditmemo();
         $items = [];
         foreach ($creditmemo->getAllItems() as $item) {
-            /* @var Mage_Sales_Model_Order_Creditmemo_Item $item */
+            /** @var Mage_Sales_Model_Order_Creditmemo_Item $item */
             $return = false;
             if ($item->hasBackToStock()) {
                 if ($item->getBackToStock() && $item->getQty()) {
@@ -806,7 +800,7 @@ class Mage_CatalogInventory_Model_Observer
             }
             if ($return) {
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
-                /* @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
+                /** @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
                 $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
                 $qty = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
                 if (isset($items[$item->getProductId()])) {

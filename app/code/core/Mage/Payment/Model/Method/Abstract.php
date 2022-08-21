@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -400,10 +394,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function validate()
     {
-         /**
-          * to validate payment method is allowed for billing country or not
-          */
-         $paymentInfo = $this->getInfoInstance();
+        // Validate that payment method is allowed for billing country
+        $paymentInfo = $this->getInfoInstance();
         if ($paymentInfo instanceof Mage_Sales_Model_Order_Payment) {
             $billingCountry = $paymentInfo->getOrder()->getBillingAddress()->getCountryId();
         } else {
@@ -412,7 +404,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         if (!$this->canUseForCountry($billingCountry)) {
             Mage::throwException(Mage::helper('payment')->__('Selected payment type is not allowed for billing country.'));
         }
-         return $this;
+        return $this;
     }
 
     /**
@@ -625,7 +617,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function getConfigData($field, $storeId = null)
     {
-        if (null === $storeId) {
+        if ($storeId === null) {
             $storeId = $this->getStore();
         }
         $path = 'payment/'.$this->getCode().'/'.$field;

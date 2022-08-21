@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -577,7 +571,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function getPrimaryAddress($attributeCode)
     {
-        /** @var Mage_Customer_Model_Address $primaryAddress */
         $primaryAddress = $this->getAddressesCollection()->getItemById($this->getData($attributeCode));
 
         return $primaryAddress ? $primaryAddress : false;
@@ -929,7 +922,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids = Mage::app()->getWebsite($this->getWebsiteId())->getStoreIds();
             } else {
-                /** @var Mage_Core_Model_Store $store */
                 foreach (Mage::app()->getStores() as $store) {
                     $ids[] = $store->getId();
                 }
@@ -953,7 +945,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if ((bool)$this->getSharingConfig()->isWebsiteScope()) {
                 $ids[] = $this->getWebsiteId();
             } else {
-                /** @var Mage_Core_Model_Website $website */
                 foreach (Mage::app()->getWebsites() as $website) {
                     $ids[] = $website->getId();
                 }
@@ -1017,15 +1008,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
-        if ($attribute->getIsRequired() && '' == trim($this->getDob())) {
+        if ($attribute->getIsRequired() && trim($this->getDob()) == '') {
             $errors[] = Mage::helper('customer')->__('The Date of Birth is required.');
         }
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
-        if ($attribute->getIsRequired() && '' == trim($this->getTaxvat())) {
+        if ($attribute->getIsRequired() && trim($this->getTaxvat()) == '') {
             $errors[] = Mage::helper('customer')->__('The TAX/VAT number is required.');
         }
         $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
-        if ($attribute->getIsRequired() && '' == trim($this->getGender())) {
+        if ($attribute->getIsRequired() && trim($this->getGender()) == '') {
             $errors[] = Mage::helper('customer')->__('Gender is required.');
         }
 
@@ -1277,7 +1268,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -542,7 +536,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         foreach (array('schedule_description',
             'suspension_threshold', 'bill_failed_later', 'period_frequency', 'period_max_cycles', 'reference_id',
             'trial_period_unit', 'trial_period_frequency', 'trial_period_max_cycles', 'init_may_fail') as $key) {
-            if ($this->hasData($key) && (!$this->getData($key) || '0' == $this->getData($key))) {
+            if ($this->hasData($key) && (!$this->getData($key) || $this->getData($key) == '0')) {
                 $this->unsetData($key);
             }
         }
@@ -551,7 +545,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         foreach (array(
             'billing_amount', 'trial_billing_amount', 'shipping_amount', 'tax_amount', 'init_amount') as $key) {
             if ($this->hasData($key)) {
-                if (!$this->getData($key) || 0 == $this->getData($key)) {
+                if (!$this->getData($key) || $this->getData($key) == 0) {
                     $this->unsetData($key);
                 } else {
                     $this->setData($key, sprintf('%.4F', $this->getData($key)));

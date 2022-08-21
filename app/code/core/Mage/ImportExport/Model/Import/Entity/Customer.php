@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -216,8 +210,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -358,7 +350,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _initWebsites()
     {
-        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
             $this->_websiteIdToCode[$website->getId()]   = $website->getCode();
@@ -430,11 +421,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
-                            if ('select' == $attrParams['type']) {
+                            if ($attrParams['type'] == 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
-                            } elseif ('datetime' == $attrParams['type']) {
+                            } elseif ($attrParams['type'] == 'datetime') {
                                 $value = gmstrftime($strftimeFormat, strtotime($value));
-                            } elseif ('multiselect' == $attrParams['type']) {
+                            } elseif ($attrParams['type'] == 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
@@ -665,9 +656,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $email = false; // mark row as invalid for next address rows
             }
         } elseif (self::SCOPE_OPTIONS != $rowScope) {
-            if (null === $email) { // first row is not SCOPE_DEFAULT
+            if ($email === null) { // first row is not SCOPE_DEFAULT
                 $this->addRowError(self::ERROR_EMAIL_IS_EMPTY, $rowNum);
-            } elseif (false === $email) { // SCOPE_DEFAULT row is invalid
+            } elseif ($email === false) { // SCOPE_DEFAULT row is invalid
                 $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
             }
         }

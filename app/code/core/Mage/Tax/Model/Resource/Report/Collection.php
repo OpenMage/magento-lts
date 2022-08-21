@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -74,9 +68,9 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
      */
     protected function _getSelectedColumns()
     {
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $this->getConnection()->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat = $this->getConnection()->getDateFormatSql('period', '%Y');
         } else {
             $this->_periodFormat = $this->getConnection()->getDateFormatSql('period', '%Y-%m-%d');

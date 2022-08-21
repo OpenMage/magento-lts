@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -38,11 +32,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
      * Prepare layout.
      * Add files to use dialog windows
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
-        if ($head = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $head */
+        $head = $this->getLayout()->getBlock('head');
+        if ($head) {
             $head->addItem('js', 'prototype/window.js')
                 ->addItem('js_css', 'prototype/windows/themes/default.css')
                 ->addCss('lib/prototype/windows/themes/magento.css')
@@ -54,7 +50,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
     /**
      * Add fields to form and create template info form
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
@@ -181,7 +177,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit_Form extends Mage_Adminhtm
         if ($customVariables) {
             $variables[] = $customVariables;
         }
-        /* @var $template Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $template */
         $template = Mage::registry('current_email_template');
         if ($template->getId() && $templateVariables = $template->getVariablesOptionArray(true)) {
             $variables[] = $templateVariables;

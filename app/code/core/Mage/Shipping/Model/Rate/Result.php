@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -56,7 +50,6 @@ class Mage_Shipping_Model_Rate_Result
      * Set Error
      *
      * @param bool $error
-     * @return void
      */
     public function setError($error)
     {
@@ -182,7 +175,7 @@ class Mage_Shipping_Model_Rate_Result
         if (!is_array($this->_rates) || !count($this->_rates)) {
             return $this;
         }
-        /* @var Mage_Shipping_Model_Rate_Result_Method $rate */
+        /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $i => $rate) {
             $tmp[$i] = $rate->getPrice();
         }

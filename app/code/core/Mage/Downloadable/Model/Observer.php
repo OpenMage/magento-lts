@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -144,7 +138,7 @@ class Mage_Downloadable_Model_Observer
             /** @var Mage_Sales_Model_Order $order */
             $order = $observer->getEvent()->getOrder();
             foreach ($order->getAllItems() as $item) {
-                /* @var Mage_Sales_Model_Order_Item $item */
+                /** @var Mage_Sales_Model_Order_Item $item */
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                 || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                 || $item->getProductOptionByCode('is_downloadable')) {
@@ -172,7 +166,7 @@ class Mage_Downloadable_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $status = '';
         $linkStatuses = array(
             'pending'         => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING,
@@ -266,7 +260,7 @@ class Mage_Downloadable_Model_Observer
     public function isAllowedGuestCheckout(Varien_Event_Observer $observer)
     {
         $quote  = $observer->getEvent()->getQuote();
-        /* @var Mage_Sales_Model_Quote $quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $store  = $observer->getEvent()->getStore();
         $result = $observer->getEvent()->getResult();
 

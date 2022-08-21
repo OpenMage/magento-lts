@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -42,7 +36,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function items($optionId, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         $productOptionValues = $option->getValuesCollection();
         $result = array();
@@ -105,7 +98,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
      */
     public function add($optionId, $data, $store = null)
     {
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($optionId, $store);
         /** @var Mage_Catalog_Model_Product_Option_Value $optionValueModel */
         $optionValueModel = Mage::getModel('catalog/product_option_value');
@@ -140,7 +132,6 @@ class Mage_Catalog_Model_Product_Option_Value_Api extends Mage_Catalog_Model_Api
             $this->_fault('value_not_exists');
         }
 
-        /** @var Mage_Catalog_Model_Product_Option $option */
         $option = $this->_prepareOption($productOptionValue->getOptionId(), $store);
         if (!$option->getId()) {
             $this->_fault('option_not_exists');

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -224,7 +218,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getPackageName()
     {
-        if (null === $this->_name) {
+        if ($this->_name === null) {
             $this->setPackageName();
         }
         return $this->_name;
@@ -727,7 +721,7 @@ class Mage_Core_Model_Design_Package
         $baseMediaUrl = Mage::getBaseUrl('media', $isSecure);
         $hostname = parse_url($baseMediaUrl, PHP_URL_HOST);
         $port = parse_url($baseMediaUrl, PHP_URL_PORT);
-        if (false === $port) {
+        if ($port === false) {
             $port = $isSecure ? 443 : 80;
         }
 
@@ -917,10 +911,10 @@ class Mage_Core_Model_Design_Package
                 $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
             }
 
-            if ('skin' == $fileDirParts[0]) {
+            if ($fileDirParts[0] == 'skin') {
                 $baseUrl = Mage::getBaseUrl('skin', $secure);
                 $fileDirParts = array_slice($fileDirParts, 1);
-            } elseif ('media' == $fileDirParts[0]) {
+            } elseif ($fileDirParts[0] == 'media') {
                 $baseUrl = Mage::getBaseUrl('media', $secure);
                 $fileDirParts = array_slice($fileDirParts, 1);
             } else {

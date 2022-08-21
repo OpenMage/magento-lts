@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -77,9 +71,9 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
 
         $shippingType = $this->getConfigData('type');
         $shippingPrice = (float)$this->getConfigData('price');
-        if ('I' == $shippingType) { // per item
+        if ($shippingType == 'I') { // per item
             $shippingPrice = ($request->getPackageQty() * $shippingPrice) - ($this->getFreeBoxes() * $shippingPrice);
-        } elseif ('O' != $shippingType) { // not per order
+        } elseif ($shippingType != 'O') { // not per order
             $shippingPrice = false;
         }
 

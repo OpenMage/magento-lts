@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -242,10 +236,10 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
     protected function _isAllowed()
     {
         $action = $this->getRequest()->getActionName();
-        if ('index' == $action) {
+        if ($action == 'index') {
             $action = null;
         } else {
-            if ('new' == $action || 'save' == $action) {
+            if ($action == 'new' || $action == 'save') {
                 $action = 'edit';
             }
             $action = '/' . $action;

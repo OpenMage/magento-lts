@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -42,7 +36,8 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
     }
-    /*
+
+    /**
      * Retrieves Grid Url
      *
      * @return string
@@ -52,6 +47,9 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         return $this->getUrl('*/*/customer', array('_current' => true));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
         $tagId = Mage::registry('current_tag')->getId();
@@ -67,12 +65,18 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addProductName();
         return parent::_afterLoadCollection();
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('customer_id', array(
@@ -113,11 +117,13 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
             'index'     => 'product_sku',
         ));
 
-
-
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', array('id' => $row->getId()));

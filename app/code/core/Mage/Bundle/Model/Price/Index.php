@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -100,7 +94,6 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
         $productObjects = array();
         $productIds     = array();
         foreach ($collection->getItems() as $product) {
-            /* @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                 $productIds[] = $product->getEntityId();
                 $productObjects[$product->getEntityId()] = $product;

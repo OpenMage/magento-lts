@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -463,8 +457,8 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
      */
     protected function _initToken($setToken = null)
     {
-        if (null !== $setToken) {
-            if (false === $setToken) {
+        if ($setToken !== null) {
+            if ($setToken === false) {
                 // security measure for avoid unsetting token twice
                 if (!$this->_getSession()->getExpressCheckoutToken()) {
                     Mage::throwException($this->__('PayPal Express Checkout Token does not exist.'));
@@ -488,7 +482,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
     /**
      * PayPal session instance getter
      *
-     * @return Mage_PayPal_Model_Session
+     * @return Mage_Paypal_Model_Session
      */
     private function _getSession()
     {

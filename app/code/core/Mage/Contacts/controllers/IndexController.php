@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Contacts
@@ -66,7 +60,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
         $post = $this->getRequest()->getPost();
         if ($post) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var Mage_Core_Model_Translate $translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
             try {
                 $postObject = new Varien_Object();
@@ -94,7 +88,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     throw new Exception();
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
-                /* @var Mage_Core_Model_Email_Template $mailTemplate */
+                /** @var Mage_Core_Model_Email_Template $mailTemplate */
                 $mailTemplate->setDesignConfig(array('area' => 'frontend'))
                     ->setReplyTo($post['email'])
                     ->sendTransactional(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sendfriend
@@ -125,11 +119,11 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
         }
 
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 
-        /* @var Mage_Core_Model_Email_Template $mailTemplate */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));

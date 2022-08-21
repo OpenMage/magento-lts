@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -78,18 +72,19 @@ class Mage_Paypal_Model_Pro
      *
      * @param string $code
      * @param int|null $storeId
+     * @return $this
      */
     public function setMethod($code, $storeId = null)
     {
-        if (null === $this->_config) {
+        if ($this->_config === null) {
             $params = array($code);
-            if (null !== $storeId) {
+            if ($storeId !== null) {
                 $params[] = $storeId;
             }
             $this->_config = Mage::getModel($this->_configType, $params);
         } else {
             $this->_config->setMethod($code);
-            if (null !== $storeId) {
+            if ($storeId !== null) {
                 $this->_config->setStoreId($storeId);
             }
         }
@@ -101,11 +96,12 @@ class Mage_Paypal_Model_Pro
      *
      * @param Mage_Paypal_Model_Config $instace
      * @param int $storeId
+     * @return $this
      */
     public function setConfig(Mage_Paypal_Model_Config $instace, $storeId = null)
     {
         $this->_config = $instace;
-        if (null !== $storeId) {
+        if ($storeId !== null) {
             $this->_config->setStoreId($storeId);
         }
         return $this;
@@ -129,7 +125,7 @@ class Mage_Paypal_Model_Pro
      */
     public function getApi()
     {
-        if (null === $this->_api) {
+        if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType);
         }
         $this->_api->setConfigObject($this->_config);
@@ -155,7 +151,7 @@ class Mage_Paypal_Model_Pro
      */
     public function getInfo()
     {
-        if (null === $this->_infoInstance) {
+        if ($this->_infoInstance === null) {
             $this->_infoInstance = Mage::getModel('paypal/info');
         }
         return $this->_infoInstance;
@@ -256,7 +252,7 @@ class Mage_Paypal_Model_Pro
             ;
             $canRefundMore = $payment->getCreditmemo()->getInvoice()->canRefund();
             $isFullRefund = !$canRefundMore
-                && (0 == ((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()));
+                && (((float)$order->getBaseTotalOnlineRefunded() + (float)$order->getBaseTotalOfflineRefunded()) == 0);
             $api->setRefundType($isFullRefund ? Mage_Paypal_Model_Config::REFUND_TYPE_FULL
                 : Mage_Paypal_Model_Config::REFUND_TYPE_PARTIAL
             );
@@ -437,8 +433,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
     {
@@ -449,8 +445,8 @@ class Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp
-     * @param Mage_Sales_Model_Order_Payment
+     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param bool $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)

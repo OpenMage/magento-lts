@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -137,7 +131,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * Constructor.
      *
      * @param Mage_ImportExport_Model_Import_Entity_Customer $customer
-     * @return void
      */
     public function __construct(Mage_ImportExport_Model_Import_Entity_Customer $customer)
     {
@@ -204,11 +197,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 $addressAttributes = array();
                 foreach ($this->_attributes as $attrAlias => $attrParams) {
                     if (isset($rowData[$attrAlias]) && strlen($rowData[$attrAlias])) {
-                        if ('select' == $attrParams['type']) {
+                        if ($attrParams['type'] == 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
-                        } elseif ('datetime' == $attrParams['type']) {
+                        } elseif ($attrParams['type'] == 'datetime') {
                             $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
-                        } elseif ('multiselect' == $attrParams['type']) {
+                        } elseif ($attrParams['type'] == 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;
                         } else {

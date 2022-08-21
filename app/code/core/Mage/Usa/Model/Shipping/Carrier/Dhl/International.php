@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -237,8 +231,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     /**
      * Set Free Method Request
      *
-     * @param  string $freeMethod
-     * @return void
+     * @param string $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -454,7 +447,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         if (!isset($codes[$type])) {
             return false;
-        } elseif ('' === $code) {
+        } elseif ($code === '') {
             return $codes[$type];
         }
 
@@ -657,7 +650,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Make pieces
      *
      * @param SimpleXMLElement $nodeBkgDetails
-     * @return void
      */
     protected function _makePieces(SimpleXMLElement $nodeBkgDetails)
     {
@@ -749,20 +741,19 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
 
         if ($configDimensionUnit != $countryDimensionUnit) {
             $dimension = (float) Mage::helper('usa')->convertMeasureDimension(
-                round($dimension, 3),
+                round((float)$dimension, 3),
                 $configDimensionUnit,
                 $countryDimensionUnit
             );
         }
 
-        return round($dimension, 3);
+        return round((float)$dimension, 3);
     }
 
     /**
      * Add dimension to piece
      *
      * @param SimpleXMLElement $nodePiece
-     * @return void
      */
     protected function _addDimension($nodePiece)
     {
@@ -843,7 +834,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             'verifypeer' => $this->getConfigFlag('verify_peer'),
             'verifyhost' => 2,
         ));
-        $client->setRawData(utf8_encode($request));
+        $client->setRawData(mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1'));
         return $client->request(Varien_Http_Client::POST)->getBody();
     }
 
@@ -982,13 +973,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $this->_errors[] = $responseError;
         }
 
-        /* @var $result Mage_Shipping_Model_Rate_Result */
+        /** @var Mage_Shipping_Model_Rate_Result $result */
         $result = Mage::getModel('shipping/rate_result');
         if ($this->_rates) {
             foreach ($this->_rates as $rate) {
                 $method = $rate['service'];
                 $data = $rate['data'];
-                /* @var $rate Mage_Shipping_Model_Rate_Result_Method */
+                /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
                 $rate = Mage::getModel('shipping/rate_result_method');
                 $rate->setCarrier(self::CODE);
                 $rate->setCarrierTitle($this->getConfigData('title'));
@@ -1029,7 +1020,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
             $dhlProductDescription  = $this->getDhlProductTitle($dhlProduct);
 
             if ($currencyCode != $baseCurrencyCode) {
-                /* @var $currency Mage_Directory_Model_Currency */
+                /** @var Mage_Directory_Model_Currency $currency */
                 $currency = Mage::getModel('directory/currency');
                 $rates = $currency->getCurrencyRates($currencyCode, array($baseCurrencyCode));
                 if (!empty($rates) && isset($rates[$baseCurrencyCode])) {
@@ -1176,7 +1167,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $showMethod = $this->getConfigData('showmethod');
 
         if ($showMethod) {
-            /* @var $error Mage_Shipping_Model_Rate_Result_Error */
+            /** @var Mage_Shipping_Model_Rate_Result_Error $error */
             $error = Mage::getModel('shipping/rate_result_error');
             $error->setCarrier(self::CODE);
             $error->setCarrierTitle($this->getConfigData('title'));
@@ -1408,7 +1399,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         $xml->addChild('LabelImageFormat', 'PDF', '');
 
         $request = $xml->asXML();
-        $request = utf8_encode($request);
+        $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
 
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
@@ -1442,7 +1433,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * @param SimpleXMLElement $xml
      * @param Mage_Shipping_Model_Rate_Request $rawRequest
      * @param string $originRegion
-     * @return void
      */
     protected function _shipmentDetails($xml, $rawRequest, $originRegion = '')
     {
@@ -1564,7 +1554,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      * Send request for tracking
      *
      * @param array $trackings
-     * @return void
      */
     protected function _getXMLTracking($trackings)
     {
@@ -1605,7 +1594,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         //$xml->addChild('PiecesEnabled', 'ALL_CHECK_POINTS');
 
         $request = $xml->asXML();
-        $request = utf8_encode($request);
+        $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
 
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
@@ -1638,7 +1627,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
      *
      * @param array $trackings
      * @param string $response
-     * @return void
      */
     protected function _parseXmlTrackingResponse($trackings, $response)
     {

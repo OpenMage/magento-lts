@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Paygate
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -27,12 +21,12 @@
 
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
-    /*
+    /**
      * AIM gateway url
      */
     const CGI_URL = 'https://secure.authorize.net/gateway/transact.dll';
 
-    /*
+    /**
      * Transaction Details gateway url
      */
     const CGI_URL_TD = 'https://api.authorize.net/xml/v1/request.api';
@@ -266,7 +260,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Check void availability
      *
-     * @param   Varien_Object $invoicePayment
+     * @param   Varien_Object $payment
      * @return  bool
      */
     public function canVoid(Varien_Object $payment)
@@ -280,7 +274,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Set partial authorization last action state into session
      *
-     * @param string $message
+     * @param string $state
      * @return $this
      */
     public function setPartialAuthorizationLastActionState($state)
@@ -408,8 +402,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Refund the amount with transaction id
      *
-     * @param Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param Mage_Payment_Model_Info|Varien_Object $payment
+     * @param float $requestedAmount
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -679,7 +673,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Send capture request to gateway for capture authorized transactions
      *
      * @param Mage_Payment_Model_Info $payment
-     * @param float $amount
+     * @param float $requestedAmount
      * @return $this
      */
     protected function _preauthorizeCapture($payment, $requestedAmount)
@@ -1070,7 +1064,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      * Set split_tender_id to quote payment if neeeded
      *
      * @param Varien_Object $response
-     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param Mage_Sales_Model_Order_Payment $orderPayment
      * @return bool
      */
     protected function _processPartialAuthorizationResponse($response, $orderPayment) {
@@ -1397,7 +1391,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
     /**
      * Reset assigned data in payment info model
      *
-     * @param Mage_Payment_Model_Info
+     * @param Mage_Payment_Model_Info $payment
      * @return $this
      */
     private function _clearAssignedData($payment)

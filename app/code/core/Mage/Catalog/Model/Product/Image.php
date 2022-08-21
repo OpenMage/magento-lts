@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -321,7 +315,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $result = array();
         foreach ($rgbArray as $value) {
-            if (null === $value) {
+            if ($value === null) {
                 $result[] = 'null';
             } else {
                 $result[] = sprintf('%02s', dechex($value));
@@ -340,12 +334,12 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (0 !== strpos($file, '/', 0))) {
+        if (($file) && (strpos($file, '/', 0) !== 0)) {
             $file = '/' . $file;
         }
         $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
 
-        if ('/no_selection' == $file) {
+        if ($file == '/no_selection') {
             $file = null;
         }
         if ($file) {

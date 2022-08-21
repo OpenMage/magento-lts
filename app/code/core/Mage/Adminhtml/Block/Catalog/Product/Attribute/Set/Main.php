@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -172,7 +166,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $items = array();
         $setId = $this->_getSetId();
 
-        /* @var $groups Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection */
+        /** @var Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection $groups */
         $groups = Mage::getModel('eav/entity_attribute_group')
             ->getResourceCollection()
             ->setAttributeSetFilter($setId)
@@ -182,7 +176,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $configurable = Mage::getResourceModel('catalog/product_type_configurable_attribute')
             ->getUsedAttributes($setId);
 
-        /* @var $node Mage_Eav_Model_Entity_Attribute_Group */
+        /** @var Mage_Eav_Model_Entity_Attribute_Group $node */
         foreach ($groups as $node) {
             $item = array();
             $item['text']       = $node->getAttributeGroupName();
@@ -200,7 +194,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             if ($nodeChildren->getSize() > 0) {
                 $item['children'] = array();
                 foreach ($nodeChildren->getItems() as $child) {
-                    /* @var $child Mage_Eav_Model_Entity_Attribute */
+                    /** @var Mage_Eav_Model_Entity_Attribute $child */
                     $attr = array(
                         'text'              => $child->getAttributeCode(),
                         'id'                => $child->getAttributeId(),
@@ -238,7 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             ->load();
 
         $attributesIds = array('0');
-        /* @var $item Mage_Eav_Model_Entity_Attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $item */
         foreach ($collection->getItems() as $item) {
             $attributesIds[] = $item->getAttributeId();
         }

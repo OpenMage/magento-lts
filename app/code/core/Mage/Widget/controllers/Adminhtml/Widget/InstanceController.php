@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -73,6 +67,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
      * Init widget instance object and set it to registry
      *
      * @return Mage_Widget_Model_Widget_Instance|boolean
+     * @throws Mage_Core_Exception
      */
     protected function _initWidgetInstance()
     {
@@ -103,7 +98,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Widget Instances Grid
-     *
      */
     public function indexAction()
     {
@@ -115,7 +109,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * New widget instance action (forward to edit action)
-     *
      */
     public function newAction()
     {
@@ -124,7 +117,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Edit widget instance action
-     *
      */
     public function editAction()
     {
@@ -153,7 +145,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Validate action
-     *
      */
     public function validateAction()
     {
@@ -172,7 +163,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Save action
-     *
      */
     public function saveAction()
     {
@@ -211,7 +201,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Delete Action
-     *
+     * @throws Mage_Core_Exception|Throwable
      */
     public function deleteAction()
     {
@@ -249,7 +239,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Products chooser Action (Ajax request)
-     *
      */
     public function productsAction()
     {
@@ -261,7 +250,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
             ->setSelectedProducts(explode(',', $selected));
-        /* @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
+        /** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');
         $this->setBody($chooser->toHtml().$serializer->toHtml());
@@ -269,11 +258,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Blocks Action (Ajax request)
-     *
      */
     public function blocksAction()
     {
-        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $layout = $this->getRequest()->getParam('layout');
         $selected = $this->getRequest()->getParam('selected', null);
@@ -290,11 +278,10 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
 
     /**
      * Templates Chooser Action (Ajax request)
-     *
      */
     public function templateAction()
     {
-        /* @var Mage_Widget_Model_Widget_Instance $widgetInstance */
+        /** @var Mage_Widget_Model_Widget_Instance $widgetInstance */
         $widgetInstance = $this->_initWidgetInstance();
         $block = $this->getRequest()->getParam('block');
         $selected = $this->getRequest()->getParam('selected', null);

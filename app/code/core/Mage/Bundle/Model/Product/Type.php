@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -251,9 +245,9 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $options = $product->getBundleOptionsData();
                     if ($options) {
                         foreach ($options as $option) {
-                            if (empty($option['delete']) || 1 != (int)$option['delete']) {
+                            if (empty($option['delete']) || (int)$option['delete'] != 1) {
                                 $product->setTypeHasOptions(true);
-                                if (1 == (int)$option['required']) {
+                                if ((int)$option['required'] == 1) {
                                     $product->setTypeHasRequiredOptions(true);
                                     break;
                                 }
@@ -275,7 +269,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
     {
         parent::save($product);
         $product = $this->getProduct($product);
-        /* @var Mage_Bundle_Model_Mysql4_Bundle $resource */
+        /** @var Mage_Bundle_Model_Mysql4_Bundle $resource */
         $resource = Mage::getResourceModel('bundle/bundle');
 
         $options = $product->getBundleOptionsData();
@@ -945,7 +939,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         foreach ($selectionIds as $selectionId) {
-            /* @var Mage_Bundle_Model_Selection $selection */
+            /** @var Mage_Bundle_Model_Selection $selection */
             $selection = $productSelections->getItemById($selectionId);
             if (!$selection || (!$selection->isSalable() && !$skipSaleableCheck)) {
                 Mage::throwException(

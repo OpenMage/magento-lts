@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -30,6 +24,9 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method array|null getUserValue()
+ * @method $this setUserValue(array|null $userValue)
  */
 class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Product_Option_Type_Default
 {
@@ -128,8 +125,8 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             if ($this->_timeExists()) {
                 // 24hr hour conversion
                 if (! $this->is24hTimeFormat()) {
-                    $pmDayPart = ('pm' == strtolower($value['day_part']));
-                    if (12 == $value['hour']) {
+                    $pmDayPart = (strtolower($value['day_part']) == 'pm');
+                    if ($value['hour'] == 12) {
                         $value['hour'] = $pmDayPart ? 12 : 0;
                     } elseif ($pmDayPart) {
                         $value['hour'] += 12;
@@ -296,7 +293,6 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      * Save internal value of option in infoBuy_request
      *
      * @param string $internalValue Datetime value in internal format
-     * @return void
      * @throws Mage_Core_Exception
      */
     protected function _setInternalInRequest($internalValue)

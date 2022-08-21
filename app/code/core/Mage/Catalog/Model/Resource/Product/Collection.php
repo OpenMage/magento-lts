@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -860,7 +854,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getAllAttributeValues($attribute)
     {
-        /** @var Varien_Db_Select $select */
         $select    = clone $this->getSelect();
         $attribute = $this->getEntity()->getAttribute($attribute);
 
@@ -937,7 +930,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Retreive clear select
+     * Retrieve clear select
      *
      * @return Varien_Db_Select
      */
@@ -981,7 +974,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Retreive product count select for categories
+     * Retrieve product count select for categories
      *
      * @return Varien_Db_Select
      */
@@ -1083,7 +1076,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getSetIds()
     {
         $select = clone $this->getSelect();
-        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('attribute_set_id');
@@ -1098,7 +1090,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     public function getProductTypeIds()
     {
         $select = clone $this->getSelect();
-        /** @var Varien_Db_Select $select */
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->distinct(true);
         $select->columns('type_id');
@@ -1315,7 +1306,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
     }
 
     /**
-     * Retreive all ids
+     * Retrieve all ids
      *
      * @param boolean $resetCache
      * @return array
@@ -1468,7 +1459,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         $classToRate = array();
         $request = Mage::getSingleton('tax/calculation')->getRateRequest();
         foreach ($this as &$item) {
-            if (null === $item->getTaxClassId()) {
+            if ($item->getTaxClassId() === null) {
                 $item->setTaxClassId($item->getMinimalTaxClassId());
             }
             if (!isset($classToRate[$item->getTaxClassId()])) {
@@ -2033,7 +2024,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
 
-        /* @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
+        /** @var Mage_Catalog_Model_Product_Attribute_Backend_Tierprice $backend */
         $backend = $attribute->getBackend();
 
         foreach ($this->getItems() as $item) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -145,11 +139,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line = 0)
     {
         $street = parent::getData('street');
-        if (-1 === $line) {
+        if ($line === -1) {
             return $street;
         } else {
             $arr = is_array($street) ? $street : explode("\n", $street);
-            if (0 === $line || $line === null) {
+            if ($line === 0 || $line === null) {
                 return $arr;
             } elseif (isset($arr[$line-1])) {
                 return $arr[$line-1];
@@ -451,8 +445,6 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
     /**
      * Perform basic validation
-     *
-     * @return void
      */
     protected function _basicCheck()
     {
@@ -508,7 +500,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */

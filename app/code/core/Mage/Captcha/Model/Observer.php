@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Captcha
@@ -334,7 +328,7 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
                 $id = (int)$request->getParam('id');
                 $catId = $request->getParam('cat_id');
-                if (null !== $catId) {
+                if ($catId !== null) {
                     $id .= '/cat_id/' . (int)$catId;
                 }
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -205,7 +199,7 @@ class Mage_Tax_Model_Observer
         if ($collection->requireTaxPercent()) {
             $request = Mage::getSingleton('tax/calculation')->getRateRequest();
             foreach ($collection as $item) {
-                if (null === $item->getTaxClassId()) {
+                if ($item->getTaxClassId() === null) {
                     $item->setTaxClassId($item->getMinimalTaxClassId());
                 }
                 if (!isset($classToRate[$item->getTaxClassId()])) {
@@ -242,7 +236,7 @@ class Mage_Tax_Model_Observer
      */
     public function quoteCollectTotalsBefore(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Sales_Model_Quote $quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
         foreach ($quote->getAllAddresses() as $address) {
             $address->setExtraTaxAmount(0);

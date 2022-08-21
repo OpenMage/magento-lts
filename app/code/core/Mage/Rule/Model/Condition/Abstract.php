@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -123,7 +117,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorInputByType()
     {
-        if (null === $this->_defaultOperatorInputByType) {
+        if ($this->_defaultOperatorInputByType === null) {
             $this->_defaultOperatorInputByType = array(
                 'string'      => array('==', '!=', '>=', '>', '<=', '<', '{}', '!{}', '()', '!()'),
                 'numeric'     => array('==', '!=', '>=', '>', '<=', '<', '()', '!()'),
@@ -147,7 +141,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getDefaultOperatorOptions()
     {
-        if (null === $this->_defaultOperatorOptions) {
+        if ($this->_defaultOperatorOptions === null) {
             $this->_defaultOperatorOptions = array(
                 '=='  => Mage::helper('rule')->__('is'),
                 '!='  => Mage::helper('rule')->__('is not'),
@@ -286,7 +280,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getInputType()
     {
-        if (null === $this->_inputType) {
+        if ($this->_inputType === null) {
             return 'string';
         }
         return $this->_inputType;
@@ -409,7 +403,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function getValueName()
     {
         $value = $this->getValue();
-        if (is_null($value) || '' === $value) {
+        if (is_null($value) || $value === '') {
             return '...';
         }
 
@@ -806,7 +800,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if ('!=' == $op || '>' == $op || '<' == $op || '!{}' == $op || '!()' == $op || '![]' == $op) {
+        if ($op == '!=' || $op == '>' || $op == '<' || $op == '!{}' || $op == '!()' || $op == '![]') {
             $result = !$result;
         }
 

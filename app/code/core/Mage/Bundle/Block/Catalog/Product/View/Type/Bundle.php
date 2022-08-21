@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -119,9 +113,9 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         $options      = array();
         $selected     = array();
         $currentProduct = $this->getProduct();
-        /* @var Mage_Core_Helper_Data $coreHelper */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper   = Mage::helper('core');
-        /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
+        /** @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
         $bundlePriceModel = Mage::getModel('bundle/product_price');
 
         $preConfiguredFlag = $currentProduct->hasPreconfiguredValues();
@@ -132,7 +126,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
         $position = 0;
         foreach ($optionsArray as $_option) {
-            /* @var Mage_Bundle_Model_Option $_option */
+            /** @var Mage_Bundle_Model_Option $_option */
             if (!$_option->getSelections()) {
                 continue;
             }
@@ -149,7 +143,6 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
             /** @var Mage_Tax_Helper_Data $taxHelper */
             $taxHelper = Mage::helper('tax');
             foreach ($_option->getSelections() as $_selection) {
-                /* @var Mage_Catalog_Model_Product $_selection */
                 $selectionId = $_selection->getSelectionId();
                 $_qty = !($_selection->getSelectionQty() * 1) ? '1' : $_selection->getSelectionQty() * 1;
                 // recalculate currency
@@ -196,7 +189,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
 
                 $canApplyMAP = false;
 
-                /* @var Mage_Tax_Helper_Data $taxHelper */
+                /** @var Mage_Tax_Helper_Data $taxHelper */
                 $taxHelper = Mage::helper('tax');
 
                 $_priceInclTax = $taxHelper->getPrice(

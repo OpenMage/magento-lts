@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -147,7 +141,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             $sections = array();
         }
         foreach ($sections as $section) {
-            /* @var $section Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $section */
             if (!$this->_canShowField($section)) {
                 continue;
             }
@@ -156,7 +150,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 usort($groups, array($this, '_sortForm'));
 
                 foreach ($groups as $group){
-                    /* @var $group Varien_Simplexml_Element */
+                    /** @var Varien_Simplexml_Element $group */
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
@@ -340,7 +334,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
                 if ($element->depends) {
                     foreach ($element->depends->children() as $dependent) {
-                        /* @var $dependent Mage_Core_Model_Config_Element */
+                        /** @var Mage_Core_Model_Config_Element $dependent */
 
                         if (isset($dependent->fieldset)) {
                             $dependentFieldGroupName = (string)$dependent->fieldset;
@@ -428,7 +422,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 }
 
                 if (isset($element->frontend_type)
-                    && 'multiselect' === (string)$element->frontend_type
+                    && (string)$element->frontend_type === 'multiselect'
                     && isset($element->can_be_empty)
                 ) {
                     $field->setCanBeEmpty(true);

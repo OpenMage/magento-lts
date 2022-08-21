@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Config installer
@@ -132,6 +125,12 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
+     */
     protected function _checkHostsInfo($data)
     {
         $url  = $data['protocol'] . '://' . $data['host'] . ':' . $data['port'] . $data['base_path'];
@@ -144,13 +143,19 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $this;
     }
 
+    /**
+     * @param string $url
+     * @param bool $secure
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Http_Client_Exception
+     */
     protected function _checkUrl($url, $secure = false)
     {
         $prefix = $secure ? 'install/wizard/checkSecureHost/' : 'install/wizard/checkHost/';
         try {
             $client = new Varien_Http_Client($url . 'index.php/' . $prefix);
             $response = $client->request('GET');
-            /* @var $responce Zend_Http_Response */
             $body = $response->getBody();
         }
         catch (Exception $e){
@@ -177,6 +182,10 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         return $this;
     }
 
+    /**
+     * @param string|null $key
+     * @return $this
+     */
     public function replaceTmpEncryptKey($key = null)
     {
         if (!$key) {

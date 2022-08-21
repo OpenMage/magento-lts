@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -113,7 +107,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $this->_initCustomer();
         $this->loadLayout();
 
-        /* @var $customer Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::registry('current_customer');
 
         // set entered data if was error when we do save
@@ -125,7 +119,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $request->setParams($data);
 
             if (isset($data['account'])) {
-                /* @var $customerForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $customerForm */
                 $customerForm = Mage::getModel('customer/form');
                 $customerForm->setEntity($customer)
                     ->setFormCode('adminhtml_customer')
@@ -135,7 +129,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
 
             if (isset($data['address']) && is_array($data['address'])) {
-                /* @var $addressForm Mage_Customer_Model_Form */
+                /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('adminhtml_customer_address');
 
@@ -628,7 +622,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $websiteId = $accountData['website_id'];
         }
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = Mage::getModel('customer/form');
         $customerForm->setEntity($customer)
             ->setFormCode('adminhtml_customer')
@@ -662,7 +656,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         $addressesData = $this->getRequest()->getParam('address');
         if (is_array($addressesData)) {
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
             $addressForm->setFormCode('adminhtml_customer_address')->ignoreInvisible(false);
             foreach (array_keys($addressesData) as $index) {
@@ -847,7 +841,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 
-            while (false !== ($buffer = $ioFile->streamRead())) {
+            while (($buffer = $ioFile->streamRead()) !== false) {
                 echo $buffer;
             }
         } else {
@@ -864,7 +858,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array
+     * @param array $data
      * @return array
      */
     protected function _filterPostData($data)

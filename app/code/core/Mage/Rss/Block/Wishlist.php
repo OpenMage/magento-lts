@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rss
@@ -51,6 +45,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * Retrieve Wishlist model
      *
      * @return Mage_Wishlist_Model_Wishlist
+     * @throws Exception
      */
     protected function _getWishlist()
     {
@@ -75,6 +70,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * Retrieve Customer instance
      *
      * @return Mage_Customer_Model_Customer
+     * @throws Exception
      */
     protected function _getCustomer()
     {
@@ -96,6 +92,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * Build wishlist rss feed title
      *
      * @return string
+     * @throws Exception
      */
     protected function _getTitle()
     {
@@ -106,10 +103,12 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * Render block HTML
      *
      * @return string
+     * @throws Mage_Core_Exception
+     * @throws Exception
      */
     protected function _toHtml()
     {
-        /* @var Mage_Rss_Model_Rss $rssObj */
+        /** @var Mage_Rss_Model_Rss $rssObj */
         $rssObj = Mage::getModel('rss/rss');
 
         if ($this->_getWishlist()->getId()) {
@@ -143,12 +142,16 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                     continue;
                 }
 
+                /** @var Mage_Catalog_Helper_Image $imageHelper */
+                $imageHelper = $this->helper('catalog/image');
+                /** @var Mage_Catalog_Helper_Output $outputHelper */
+                $outputHelper = $this->helper('catalog/output');
+
                 $description = '<table><tr><td><a href="' . $productUrl . '"><img src="'
-                    . $this->helper('catalog/image')->init($product, 'thumbnail')->resize(75, 75)
+                    . $imageHelper->init($product, 'thumbnail')->resize(75, 75)
                     . '" border="0" align="left" height="75" width="75"></a></td>'
                     . '<td style="text-decoration:none;">'
-                    . $this->helper('catalog/output')
-                        ->productAttribute($product, $product->getShortDescription(), 'short_description')
+                    . $outputHelper->productAttribute($product, $product->getShortDescription(), 'short_description')
                     . '<p>';
 
                 if ($product->getAllowedPriceInRss()) {
@@ -157,16 +160,14 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')
-                        . ' ' . $this->helper('catalog/output')
-                            ->productAttribute($product, $product->getDescription(), 'description')
+                        . ' ' . $outputHelper->productAttribute($product, $product->getDescription(), 'description')
                         . '<p>';
                 }
 
                 $description .= '</td></tr></table>';
 
                 $rssObj->_addEntry(array(
-                    'title'         => $this->helper('catalog/output')
-                        ->productAttribute($product, $product->getName(), 'name'),
+                    'title'         => $outputHelper->productAttribute($product, $product->getName(), 'name'),
                     'link'          => $productUrl,
                     'description'   => $description,
                 ));

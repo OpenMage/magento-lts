@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -409,10 +403,10 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     protected function _afterSave()
     {
         parent::_afterSave();
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
-        if (null !== $this->_rates) {
+        if ($this->_rates !== null) {
             $this->getShippingRatesCollection()->save();
         }
         return $this;
@@ -645,9 +639,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
      */
     protected function _filterNominal($item)
     {
-        return (null === $this->_nominalOnly)
-            || ((false === $this->_nominalOnly) && !$item->isNominal())
-            || ((true === $this->_nominalOnly) && $item->isNominal())
+        return ($this->_nominalOnly === null)
+            || (($this->_nominalOnly === false) && !$item->isNominal())
+            || (($this->_nominalOnly === true) && $item->isNominal())
             ? $item : false;
     }
 
@@ -1140,8 +1134,6 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Rewrite clone method
-     *
-     * @return void
      */
     public function __clone()
     {

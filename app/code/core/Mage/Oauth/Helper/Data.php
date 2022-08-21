@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -180,7 +174,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (false === strpos($callbackUrl, '?') ? '?' : '&');
+        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
         $callbackUrl .= $rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier();
 
@@ -211,7 +205,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         // Safe get cleanup probability value from system configuration
         $configValue = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_PROBABILITY);
-        return $configValue > 0 ? 1 == mt_rand(1, $configValue) : false;
+        return $configValue > 0 ? mt_rand(1, $configValue) == 1 : false;
     }
 
     /**
@@ -235,7 +229,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function sendNotificationOnTokenStatusChange($userEmail, $userName, $applicationName, $status)
     {
-        /* @var Mage_Core_Model_Email_Template $mailTemplate */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $mailTemplate->sendTransactional(

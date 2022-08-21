@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -249,7 +243,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $customOptions = $product->getOptions();
             if ($isPriceFixedType && $customOptions) {
                 foreach ($customOptions as $customOption) {
-                    /* @var Mage_Catalog_Model_Product_Option $customOption */
                     $minimalPrice += $taxHelper->getPrice(
                         $product,
                         $this->_getMinimalCustomOptionPrice($customOption),
@@ -267,9 +260,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $minimalPrice = $product->getStore()->roundPrice($minimalPrice);
         $maximalPrice = $product->getStore()->roundPrice($maximalPrice);
 
-        if ('max' == $which) {
+        if ($which == 'max') {
             return $maximalPrice;
-        } elseif ('min' == $which) {
+        } elseif ($which == 'min') {
             return $minimalPrice;
         }
 
@@ -298,7 +291,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
 
         foreach ($options as $option) {
-            /* @var Mage_Bundle_Model_Option $option */
+            /** @var Mage_Bundle_Model_Option $option */
             $selectionPrices = $this->_getSelectionPrices($product, $option, $takeTierPrice, $includeTax);
             $selectionPricesWithTax = $this->_getSelectionPrices($product, $option, $takeTierPrice, true);
 
@@ -388,7 +381,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         }
 
         foreach ($selections as $selection) {
-            /* @var Mage_Bundle_Model_Selection $selection */
+            /** @var Mage_Bundle_Model_Selection $selection */
             if (!$selection->isSalable()) {
                 /**
                  * @todo CatalogInventory Show out of stock Products
@@ -1052,7 +1045,6 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $prices = array();
         if ($values) {
             foreach ($values as $value) {
-                /* @var Mage_Catalog_Model_Product_Option_Value $value */
                 $prices[] = $value->getPrice(true);
             }
         }

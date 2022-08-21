@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -297,7 +291,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             array_keys(Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray()),
             true
             ) as $orderItem) {
-            /* @var $orderItem Mage_Sales_Model_Order_Item */
+            /** @var Mage_Sales_Model_Order_Item $orderItem */
             if (!$orderItem->getParentItem()) {
                 if ($order->getReordered()) {
                     $qty = $orderItem->getQtyOrdered();
@@ -658,7 +652,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if (isset($data['add_order_item'])) {
             foreach ($data['add_order_item'] as $orderItemId => $value) {
-                /* @var $orderItem Mage_Sales_Model_Order_Item */
+                /** @var Mage_Sales_Model_Order_Item $orderItem */
                 $orderItem = Mage::getModel('sales/order_item')->load($orderItemId);
                 $item = $this->initFromOrderItem($orderItem);
                 if (is_string($item)) {
@@ -894,8 +888,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     /**
      * Parse additional options and sync them with product options
      *
-     * @param Mage_Sales_Model_Quote_Item $product
-     * @param array $options
+     * @param Mage_Sales_Model_Quote_Item $item
+     * @param array $additionalOptions
+     * @return array
      */
     protected function _parseOptions(Mage_Sales_Model_Quote_Item $item, $additionalOptions)
     {
@@ -962,6 +957,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @param Mage_Sales_Model_Quote_Item $item
      * @param array $options
+     * @return $this
      */
     protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
     {
@@ -1378,7 +1374,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      */
     public function _prepareCustomer()
     {
-        /** @var Mage_Sales_Model_Quote $quote */
         $quote = $this->getQuote();
         if ($quote->getCustomerIsGuest()) {
             return $this;
@@ -1405,7 +1400,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if ($this->getBillingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerBillingAddress */
                 $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getBillingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1416,7 +1410,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
 
             if (!$this->getQuote()->isVirtual() && $this->getShippingAddress()->getSaveInAddressBook()) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $this->getShippingAddress()->exportCustomerAddress();
                 $customerAddressId = $this->getShippingAddress()->getCustomerAddressId();
                 if ($customerAddressId && $customer->getId()) {
@@ -1444,7 +1437,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         } else {
             // Prepare new customer
-            /** @var Mage_Customer_Model_Address $customerBillingAddress */
             $customerBillingAddress = $this->getBillingAddress()->exportCustomerAddress();
             $customer->addData($customerBillingAddress->getData())
                 ->setPassword($customer->generatePassword())
@@ -1457,13 +1449,11 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $customer->addAddress($customerBillingAddress);
             }
 
-            /** @var Mage_Sales_Model_Quote_Address $shippingAddress */
             $shippingAddress = $this->getShippingAddress();
             if (!$this->getQuote()->isVirtual()
                 && !$shippingAddress->getSameAsBilling()
                 && $shippingAddress->getSaveInAddressBook()
             ) {
-                /** @var Mage_Customer_Model_Address $customerShippingAddress */
                 $customerShippingAddress = $shippingAddress->exportCustomerAddress();
                 $customerShippingAddress->setIsDefaultShipping(true);
                 $customer->addAddress($customerShippingAddress);
@@ -1768,7 +1758,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         if (!$this->getSession()->getCustomer()->getId()) {
             $customer = Mage::getModel('customer/customer');
-            /* @var $customer Mage_Customer_Model_Customer*/
+            /** @var Mage_Customer_Model_Customer $customer */
 
             $billingAddress = $this->getBillingAddress()->exportCustomerAddress();
 

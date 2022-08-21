@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -63,7 +57,6 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      *
      * @param string $destination OPTIONAL Destination file path.
      * @throws Exception
-     * @return void
      */
     final public function __construct($destination = null)
     {
@@ -154,7 +147,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     public function setHeaderCols(array $headerCols)
     {
-        if (null !== $this->_headerCols) {
+        if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
         if ($headerCols) {

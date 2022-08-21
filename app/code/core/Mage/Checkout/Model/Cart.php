@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -165,7 +159,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      */
     public function addOrderItem($orderItem, $qtyFlag = null)
     {
-        /* @var Mage_Sales_Model_Order_Item $orderItem */
         if (is_null($orderItem->getParentItem())) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(Mage::app()->getStore()->getId())
@@ -372,7 +365,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 continue;
             }
 
-            /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
             $stockItem = $product->getStockItem();
             if (!$stockItem) {
                 continue;
@@ -495,7 +487,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
     public function getProductIds()
     {
         $quoteId = Mage::getSingleton('checkout/session')->getQuoteId();
-        if (null === $this->_productIds) {
+        if ($this->_productIds === null) {
             $this->_productIds = array();
             if ($this->getSummaryQty()>0) {
                 foreach ($this->getQuote()->getAllItems() as $item) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Dataflow
@@ -56,7 +50,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
         $import = Mage::getModel('dataflow/import');
         $map = new Varien_Convert_Mapper_Column();
         for ($i=0; $line = fgetcsv($fp, 4096, $fDel, $fEnc); $i++) {
-            if (0==$i) {
+            if ($i == 0) {
                 if ($this->getVar('fieldnames')) {
                     $fields = $line;
                     continue;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -52,11 +46,11 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
 
         // load root categories of website
-        if (null !== $website) {
+        if ($website !== null) {
             try {
                 $website = Mage::app()->getWebsite($website);
-                if (null === $store) {
-                    if (null === $categoryId) {
+                if ($store === null) {
+                    if ($categoryId === null) {
                         foreach ($website->getStores() as $store) {
                             $ids[] = $store->getRootCategoryId();
                         }
@@ -65,16 +59,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                     }
                 } elseif (in_array($store, $website->getStoreIds())) {
                     $storeId = Mage::app()->getStore($store);
-                    $ids = (null === $categoryId)? $store->getRootCategoryId() : $categoryId;
+                    $ids = ($categoryId === null)? $store->getRootCategoryId() : $categoryId;
                 } else {
                     $this->_fault('store_not_exists');
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('website_not_exists', $e->getMessage());
             }
-        } elseif (null !== $store) {
+        } elseif ($store !== null) {
             // load children of root category of store
-            if (null === $categoryId) {
+            if ($categoryId === null) {
                 try {
                     $store = Mage::app()->getStore($store);
                     $storeId = $store->getId();
@@ -89,7 +83,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
         } // load all root categories
         else {
-            $ids = (null === $categoryId)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
+            $ids = ($categoryId === null)? Mage_Catalog_Model_Category::TREE_ROOT_ID : $categoryId;
         }
 
         $collection = Mage::getModel('catalog/category')->getCollection()
@@ -106,7 +100,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         // Only basic category data
         $result = array();
         foreach ($collection as $category) {
-            /* @var Mage_Catalog_Model_Category $category */
+            /** @var Mage_Catalog_Model_Category $category */
             $result[] = array(
                 'category_id' => $category->getId(),
                 'parent_id'   => $category->getParentId(),
@@ -136,7 +130,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             $parentId = 1;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Tree $tree */
         $tree = Mage::getResourceSingleton('catalog/category_tree')
             ->load();
 
@@ -260,10 +254,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 // check whether value is 'use_config'
                 $attrCode = $attribute->getAttributeCode();
                 $categoryDataValue = $categoryData[$attrCode];
-                if ('use_config' === $categoryDataValue ||
+                if ($categoryDataValue === 'use_config' ||
                     (is_array($categoryDataValue) &&
                     count($categoryDataValue) == 1 &&
-                    'use_config' === $categoryDataValue[0])
+                    $categoryDataValue[0] === 'use_config')
                 ) {
                     $useConfig[] = $attrCode;
                     $category->setData($attrCode, null);

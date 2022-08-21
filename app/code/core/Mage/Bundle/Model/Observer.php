@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -79,7 +73,7 @@ class Mage_Bundle_Model_Observer
      */
     public function appendUpsellProducts($observer)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
 
         /**
@@ -89,7 +83,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection $collection */
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
@@ -100,7 +94,7 @@ class Mage_Bundle_Model_Observer
             }
         }
 
-        /* @var Mage_Bundle_Model_Mysql4_Selection $resource */
+        /** @var Mage_Bundle_Model_Mysql4_Selection $resource */
         $resource   = Mage::getResourceSingleton('bundle/selection');
 
         $productIds = array_keys($collection->getItems());
@@ -117,7 +111,7 @@ class Mage_Bundle_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $bundleCollection */
         $bundleCollection = $product->getCollection()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addStoreFilter()
@@ -180,7 +174,7 @@ class Mage_Bundle_Model_Observer
     public function loadProductOptions($observer)
     {
         $collection = $observer->getEvent()->getCollection();
-        /* @var Mage_Catalog_Model_Resource_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection->addPriceData();
 
         return $this;

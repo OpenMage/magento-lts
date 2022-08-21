@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -120,9 +114,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (false !== ($region = $this->getFormData()->getRegion())) {
+        if (($region = $this->getFormData()->getRegion()) !== false) {
             return $region;
-        } elseif (false !== ($region = $this->getFormData()->getRegionId())) {
+        } elseif (($region = $this->getFormData()->getRegionId()) !== false) {
             return $region;
         }
         return null;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -84,7 +78,7 @@ class Mage_Paypal_Model_Ipn
      */
     public function getRequestData($key = null)
     {
-        if (null === $key) {
+        if ($key === null) {
             return $this->_request;
         }
         return isset($this->_request[$key]) ? $this->_request[$key] : null;
@@ -104,7 +98,7 @@ class Mage_Paypal_Model_Ipn
         ksort($this->_debugData['ipn']);
 
         try {
-            if (isset($this->_request['txn_type']) && 'recurring_payment' == $this->_request['txn_type']) {
+            if (isset($this->_request['txn_type']) && $this->_request['txn_type'] == 'recurring_payment') {
                 $this->_getRecurringProfile();
                 if ($httpAdapter) {
                     $this->_postBack($httpAdapter);
@@ -438,7 +432,6 @@ class Mage_Paypal_Model_Ipn
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
 
-        /** @var Mage_Sales_Model_Order $order */
         $order = $this->_recurringProfile->createOrder($productItemInfo);
 
         $payment = $order->getPayment();
@@ -478,7 +471,7 @@ class Mage_Paypal_Model_Ipn
             ->setCurrencyCode($this->getRequestData('mc_currency'))
             ->setPreparedMessage($this->_createIpnComment(''))
             ->setParentTransactionId($parentTransactionId)
-            ->setShouldCloseParentTransaction('Completed' === $this->getRequestData('auth_status'))
+            ->setShouldCloseParentTransaction($this->getRequestData('auth_status') === 'Completed')
             ->setIsTransactionClosed(0)
             ->registerCaptureNotification(
                 $this->getRequestData('mc_gross'),
@@ -621,11 +614,11 @@ class Mage_Paypal_Model_Ipn
     public function _registerPaymentPending()
     {
         $reason = $this->getRequestData('pending_reason');
-        if ('authorization' === $reason) {
+        if ($reason === 'authorization') {
             $this->_registerPaymentAuthorization();
             return;
         }
-        if ('order' === $reason) {
+        if ($reason === 'order') {
             throw new Exception('The "order" authorizations are not implemented.');
         }
 
@@ -722,7 +715,6 @@ class Mage_Paypal_Model_Ipn
      * Map payment information from IPN to payment object
      * Returns true if there were changes in information
      *
-     * @param Mage_Payment_Model_Info $payment
      * @return bool
      */
     protected function _importPaymentInformation()
@@ -814,8 +806,6 @@ class Mage_Paypal_Model_Ipn
 
     /**
      * Log debug data to file
-     *
-     * @param mixed $debugData
      */
     protected function _debug()
     {

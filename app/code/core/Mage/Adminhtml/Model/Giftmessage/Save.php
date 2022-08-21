@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -40,6 +34,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * Save all seted giftmessages
      *
      * @return $this
+     * @throws Throwable
      */
     public function saveAllInQuote()
     {
@@ -56,11 +51,18 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getSaved()
     {
         return $this->_saved;
     }
 
+    /**
+     * @return $this
+     * @throws Throwable
+     */
     public function saveAllInOrder()
     {
         $giftmessages = $this->getGiftmessages();
@@ -82,9 +84,10 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @param integer $entityId
      * @param array $giftmessage
      * @return $this
+     * @throws Throwable
      */
     protected function _saveOne($entityId, $giftmessage) {
-        /* @var $giftmessageModel Mage_Giftmessage_Model_Message */
+        /** @var Mage_GiftMessage_Model_Message $giftmessageModel */
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
@@ -135,6 +138,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      * @param Mage_GiftMessage_Model_Message|null $giftmessageModel
      * @param Varien_Object $entityModel
      * @return $this
+     * @throws Throwable
      */
     protected function _deleteOne($entityModel, $giftmessageModel=null)
     {
@@ -347,5 +351,4 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     {
         return $this->_getSession()->getQuote();
     }
-
 }

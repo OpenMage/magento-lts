@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -250,7 +244,7 @@ abstract class Mage_Eav_Model_Form
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            /* @var Mage_Eav_Model_Resource_Form_Attribute_Collection $collection */
+            /** @var Mage_Eav_Model_Resource_Form_Attribute_Collection $collection */
             $collection = $this->_getFormAttributeCollection();
 
             $collection->setStore($this->getStore())
@@ -261,7 +255,7 @@ abstract class Mage_Eav_Model_Form
             $this->_attributes      = array();
             $this->_userAttributes  = array();
             foreach ($collection as $attribute) {
-                /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+                /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $this->_attributes[$attribute->getAttributeCode()] = $attribute;
                 if ($attribute->getIsUserDefined()) {
                     $this->_userAttributes[$attribute->getAttributeCode()] = $attribute;
@@ -530,7 +524,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function ignoreInvisible($setValue = null)
     {
-        if (null !== $setValue) {
+        if ($setValue !== null) {
             $this->_ignoreInvisible = (bool)$setValue;
             return $this;
         }

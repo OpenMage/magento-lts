@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -230,7 +224,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         if (is_null($response)) {
             $response = Mage::app()->getFrontController()->getResponse();
         }
-        if (is_null($this->getStoreId()) || false===$this->getStoreId()) {
+        if (is_null($this->getStoreId()) || $this->getStoreId() === false) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 

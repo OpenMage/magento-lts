@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Reports
@@ -117,7 +111,6 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
     {
         $this->_renderFilters();
 
-        /* @var Varien_Db_Select $select */
         $select = clone $this->getSelect();
         $select->reset(Zend_Db_Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
@@ -126,7 +119,6 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
         $select->resetJoinLeft();
         $select->columns(new Zend_Db_Expr('1'));
 
-        /* @var Varien_Db_Select $countSelect */
         $countSelect = clone $select;
         $countSelect->reset();
         $countSelect->from($select, "COUNT(*)");

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -52,7 +46,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     protected function _prepareCollection()
     {
-        /* @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
+        /** @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
         $collection = Mage::getModel('widget/widget_instance')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();

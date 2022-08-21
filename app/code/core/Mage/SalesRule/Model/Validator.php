@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -254,7 +248,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $item->setFreeShipping(false);
 
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
@@ -323,7 +317,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $appliedRuleIds = [];
         $this->_stopFurtherRules = false;
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$this->_canProcessRule($rule, $address)) {
                 continue;
             }
@@ -563,7 +557,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $includeInSubtotal = $this->_getHelper('weee')->includeInSubtotal();
 
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rulePercent = min(100, $rule->getDiscountAmount());
             switch ($rule->getSimpleAction()) {
                 case Mage_SalesRule_Model_Rule::TO_PERCENT_ACTION:
@@ -762,7 +756,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $quote              = $address->getQuote();
         $appliedRuleIds = [];
         foreach ($this->_getRules() as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             if (!$rule->getApplyToShipping() || !$this->_canProcessRule($rule, $address)) {
                 continue;
             }
@@ -863,7 +857,6 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      *
      * @param int $ruleId
      * @param int $itemId
-     * @return void
      */
     public function setCartFixedRuleUsedForAddress($ruleId, $itemId)
     {

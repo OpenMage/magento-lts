@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -64,7 +58,7 @@ class Mage_Catalog_Model_Observer
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
         $store = $observer->getEvent()->getStore();
         Mage::app()->reinitStores();
         Mage::getConfig()->reinit();
@@ -85,7 +79,7 @@ class Mage_Catalog_Model_Observer
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Core_Model_Store_Group $group */
+        /** @var Mage_Core_Model_Store_Group $group */
         $group = $observer->getEvent()->getGroup();
         if ($group->dataHasChangedFor('root_category_id') || $group->dataHasChangedFor('website_id')) {
             Mage::app()->reinitStores();
@@ -182,7 +176,6 @@ class Mage_Catalog_Model_Observer
      * Checking whether the using static urls in WYSIWYG allowed event
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function catalogCheckIsUsingStaticUrlsAllowed(Varien_Event_Observer $observer)
     {

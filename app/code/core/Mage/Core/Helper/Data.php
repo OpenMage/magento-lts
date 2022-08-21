@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -542,15 +536,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
-                $this->_decorateArrayObject($element, $keyIsFirst, (0 === $i), $forceSetAll || (0 === $i));
+                $this->_decorateArrayObject($element, $keyIsFirst, ($i === 0), $forceSetAll || ($i === 0));
                 $this->_decorateArrayObject($element, $keyIsOdd, !$isEven, $forceSetAll || !$isEven);
                 $this->_decorateArrayObject($element, $keyIsEven, $isEven, $forceSetAll || $isEven);
                 $isEven = !$isEven;
                 $i++;
                 $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
             } elseif (is_array($element)) {
-                if ($forceSetAll || (0 === $i)) {
-                    $array[$key][$keyIsFirst] = (0 === $i);
+                if ($forceSetAll || ($i === 0)) {
+                    $array[$key][$keyIsFirst] = ($i === 0);
                 }
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
@@ -690,7 +684,7 @@ XML;
     public function jsonEncode($valueToEncode, $cycleCheck = false, $options = array())
     {
         $json = Zend_Json::encode($valueToEncode, $cycleCheck, $options);
-        /* @var Mage_Core_Model_Translate_Inline $inline */
+        /** @var Mage_Core_Model_Translate_Inline $inline */
         $inline = Mage::getSingleton('core/translate_inline');
         if ($inline->isAllowed()) {
             $inline->setIsJson(true);
@@ -715,16 +709,16 @@ XML;
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         switch (true) {
-            case (null === $encodedValue):
+            case ($encodedValue === null):
                 $encodedValue = 'null';
                 break;
-            case (true === $encodedValue):
+            case ($encodedValue === true):
                 $encodedValue = 'true';
                 break;
-            case (false === $encodedValue):
+            case ($encodedValue === false):
                 $encodedValue = 'false';
                 break;
-            case ('' === $encodedValue):
+            case ($encodedValue === ''):
                 $encodedValue = '""';
                 break;
             default:

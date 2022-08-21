@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -41,8 +35,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Custom constructor.
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -66,8 +58,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Index action.
-     *
-     * @return void
      */
     public function indexAction()
     {
@@ -84,8 +74,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Start import process action.
-     *
-     * @return void
      */
     public function startAction()
     {
@@ -118,8 +106,6 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
 
     /**
      * Validate uploaded files action.
-     *
-     * @return void
      */
     public function validateAction()
     {
@@ -177,8 +163,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'),
-                                false
+                                $this->__('File is valid, but import is not possible')
                             );
                         }
                     }
@@ -192,6 +177,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
             $this->loadLayout(false);
+            /** @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $resultBlock */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             $resultBlock->addError($this->__('File was not uploaded'));
             $this->renderLayout();

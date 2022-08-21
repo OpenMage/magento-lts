@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -316,7 +310,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected function _prepareProduct(Varien_Object $buyRequest, $product, $processMode)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         // try to add custom options
         try {
             $options = $this->_prepareOptions($buyRequest, $product, $processMode);
@@ -526,7 +520,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         $transport = new stdClass;
         $transport->options = array();
         foreach ($this->getProduct($product)->getOptions() as $_option) {
-            /* @var Mage_Catalog_Model_Product_Option $_option */
+            /** @var Mage_Catalog_Model_Product_Option $_option */
             $group = $_option->groupFactory($_option->getType())
                 ->setOption($_option)
                 ->setProduct($this->getProduct($product))

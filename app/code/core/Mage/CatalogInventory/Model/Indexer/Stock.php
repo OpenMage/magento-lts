@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -142,7 +136,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
 
         $entity = $event->getEntity();
         if ($entity == Mage_Core_Model_Store::ENTITY) {
-            /* @var Mage_Core_Model_Store $store */
+            /** @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
             if ($store && $store->isObjectNew()) {
                 $result = true;
@@ -150,7 +144,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                 $result = false;
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
-            /* @var Mage_Core_Model_Store_Group $storeGroup */
+            /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
             if ($storeGroup && $storeGroup->dataHasChangedFor('website_id')) {
                 $result = true;
@@ -261,7 +255,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerStockItemSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_CatalogInventory_Model_Stock_Item $object */
+        /** @var Mage_CatalogInventory_Model_Stock_Item $object */
         $object      = $event->getDataObject();
 
         $event->addNewData('reindex_stock', 1);
@@ -291,7 +285,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $event->getDataObject();
 
         $parentIds = $this->_getResource()->getProductParentsByChild($product->getId());
@@ -310,7 +304,6 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = array(
             'status'

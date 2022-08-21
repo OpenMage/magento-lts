@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -187,10 +181,10 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function getFlag($action, $flag = '')
     {
-        if (''===$action) {
+        if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
-        if (''===$flag) {
+        if ($flag === '') {
             return $this->_flags;
         } elseif (isset($this->_flags[$action][$flag])) {
             return $this->_flags[$action][$flag];
@@ -209,7 +203,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function setFlag($action, $flag, $value)
     {
-        if (''===$action) {
+        if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
         $this->_flags[$action][$flag] = $value;
@@ -251,7 +245,7 @@ abstract class Mage_Core_Controller_Varien_Action
     public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
     {
         // if handles were specified in arguments load them first
-        if (false!==$handles && ''!==$handles) {
+        if ($handles !== false && $handles !== '') {
             $this->getLayout()->getUpdate()->addHandle($handles ? $handles : 'default');
         }
 
@@ -393,7 +387,7 @@ abstract class Mage_Core_Controller_Varien_Action
         Varien_Profiler::start("$_profilerKey::layout_render");
 
 
-        if (''!==$output) {
+        if ($output !== '') {
             $this->getLayout()->addOutputBlock($output);
         }
 
@@ -948,17 +942,17 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         if (is_string($text)) {
             $this->_titles[] = $text;
-        } elseif (-1 === $text) {
+        } elseif ($text === -1) {
             if (empty($this->_titles)) {
                 $this->_removeDefaultTitle = true;
             } else {
                 array_pop($this->_titles);
             }
         } elseif (empty($this->_titles) || $resetIfExists) {
-            if (false === $text) {
+            if ($text === false) {
                 $this->_removeDefaultTitle = false;
                 $this->_titles = array();
-            } elseif (null === $text) {
+            } elseif ($text === null) {
                 $this->_removeDefaultTitle = true;
                 $this->_titles = array();
             }

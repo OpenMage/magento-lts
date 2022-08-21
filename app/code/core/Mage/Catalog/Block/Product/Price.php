@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -113,7 +107,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
         // if our parent is a bundle, then we need to further adjust our tier prices
         if (isset($parent) && $parent->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-            /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
+            /** @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
             $bundlePriceModel = Mage::getModel('bundle/product_price');
         }
 
@@ -244,9 +238,12 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      */
     public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
     {
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$addFormKey) {
-            return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+            return $helper->getAddUrlCustom($product, $additional, false);
         }
-        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+        return $helper->getAddUrl($product, $additional);
     }
 }

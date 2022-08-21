@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Page
@@ -258,7 +252,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getCurrentEntityKey()
     {
-        if (null === $this->_currentEntityKey) {
+        if ($this->_currentEntityKey === null) {
             $this->_currentEntityKey = Mage::registry('current_entity_key')
                 ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
         }

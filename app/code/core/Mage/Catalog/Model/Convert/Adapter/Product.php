@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -377,7 +371,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     public function parse()
     {
         $batchModel = Mage::getSingleton('dataflow/batch');
-        /* @var Mage_Dataflow_Model_Batch $batchModel */
+        /** @var Mage_Dataflow_Model_Batch $batchModel */
 
         $batchImportModel = $batchModel->getBatchImportModel();
         $importIds = $batchImportModel->getIdCollection();
@@ -401,7 +395,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         $fieldset = Mage::getConfig()->getFieldset('catalog_product_dataflow', 'admin');
         foreach ($fieldset as $code => $node) {
-            /* @var Mage_Core_Model_Config_Element $node */
+            /** @var Mage_Core_Model_Config_Element $node */
             if ($node->is('inventory')) {
                 foreach ($node->product_type->children() as $productType) {
                     $productType = $productType->getName();
@@ -534,7 +528,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             // if new product and then store is not default
                             // we duplicate product as default product with store_id -
-                            if (0 !== $storeId) {
+                            if ($storeId !== 0) {
                                 $data = $model->getData();
                                 $default = Mage::getModel('catalog/product');
                                 $default->setData($data);
@@ -545,8 +539,8 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             #Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), 0);
                         }
-                        if (!$new || 0!==$storeId) {
-                            if (0!==$storeId) {
+                        if (!$new || $storeId !== 0) {
+                            if ($storeId !== 0) {
                                 Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore(
                                     $model->getId(),
                                     $storeId

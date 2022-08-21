@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -36,7 +30,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const QUERY_VAR_NAME = 'q';
 
-    /*
+    /**
      * Maximum query length
      */
     const MAX_QUERY_LEN  = 200;
@@ -127,7 +121,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             if ($this->_queryText === null) {
                 $this->_queryText = '';
             } else {
-                /* @var Mage_Core_Helper_String $stringHelper */
+                /** @var Mage_Core_Helper_String $stringHelper */
                 $stringHelper = Mage::helper('core/string');
                 $this->_queryText = is_array($this->_queryText) ? ''
                     : $stringHelper->cleanString(trim($this->_queryText));
@@ -290,7 +284,6 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
      * Check query of a warnings
      *
      * @param mixed $store
-     * @return void
      */
     public function checkNotes($store = null)
     {
@@ -298,7 +291,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $this->addNoteMessage($this->__('Maximum Search query length is %s. Your query was cut.', $this->getMaxQueryLength()));
         }
 
-        /* @var Mage_Core_Helper_String $stringHelper */
+        /** @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
         $searchType = Mage::getStoreConfig(Mage_CatalogSearch_Model_Fulltext::XML_PATH_CATALOG_SEARCH_TYPE);

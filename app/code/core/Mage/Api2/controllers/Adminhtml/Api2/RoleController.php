@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -200,7 +194,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         parse_str($oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
-        /** @var Mage_Adminhtml_Model_Session $session */
         $session = $this->_getSession();
 
         try {
@@ -337,7 +330,6 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         $role = Mage::getModel('api2/acl_global_role');
         $role->setId($id);
 
-        /** @var Mage_Api2_Model_Resource_Acl_Global_Role $resource */
         $resource = $role->getResource();
         $users = $resource->getRoleUsers($role);
 

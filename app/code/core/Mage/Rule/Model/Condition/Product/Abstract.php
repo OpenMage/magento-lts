@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -75,7 +69,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function getDefaultOperatorInputByType()
     {
-        if (null === $this->_defaultOperatorInputByType) {
+        if ($this->_defaultOperatorInputByType === null) {
             parent::getDefaultOperatorInputByType();
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='
@@ -121,7 +115,6 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $value     = $this->bindArrayOfIds($value);
         }
 
-        /** @var Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder $ruleResource */
         $ruleResource = $this->getRuleResourceHelper();
 
         return $ruleResource->getOperatorCondition($alias . '.' . $attribute, $operator, $value);
@@ -192,7 +185,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
         $attributes = array();
         foreach ($productAttributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!$attribute->isAllowedForRuleCondition()
                 || !$attribute->getDataUsingMethod($this->_isUsedForRuleProperty)
             ) {
@@ -338,7 +331,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function collectValidatedAttributes($productCollection)
     {
         $attribute = $this->getAttribute();
-        if ('category_ids' != $attribute) {
+        if ($attribute != 'category_ids') {
             if ($this->getAttributeObject()->isScopeGlobal()) {
                 $attributes = $this->getRule()->getCollectedAttributes();
                 $attributes[$attribute] = true;
@@ -491,7 +484,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], array('!()', '()'))
-                    && false !== strpos($arr['value'], ',')) {
+                    && strpos($arr['value'], ',') !== false) {
                     $tmp = array();
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
@@ -523,7 +516,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $object = Mage::getModel('catalog/product')->load($object->getId());
         }
 
-        if ('category_ids' == $attrCode) {
+        if ($attrCode == 'category_ids') {
             return $this->validateAttribute($object->getCategoryIds());
         } elseif (! isset($this->_entityAttributeValues[$object->getId()])) {
             if (!$object->getResource()) {

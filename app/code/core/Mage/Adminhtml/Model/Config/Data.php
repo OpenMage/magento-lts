@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -77,14 +71,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         }
 
         $sections = Mage::getModel('adminhtml/config')->getSections();
-        /* @var $sections Mage_Core_Model_Config_Element */
+        /** @var Mage_Core_Model_Config_Element $sections */
 
         $oldConfig = $this->_getConfig(true);
 
         $deleteTransaction = Mage::getModel('core/resource_transaction');
-        /* @var $deleteTransaction Mage_Core_Model_Resource_Transaction */
+        /** @var Mage_Core_Model_Resource_Transaction $deleteTransaction */
         $saveTransaction = Mage::getModel('core/resource_transaction');
-        /* @var $saveTransaction Mage_Core_Model_Resource_Transaction */
+        /** @var Mage_Core_Model_Resource_Transaction $saveTransaction */
 
         // Extends for old config data
         $oldConfigAdditionalGroups = array();

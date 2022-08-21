@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rss
@@ -124,10 +118,10 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function disableFlat()
     {
-        /* @var Mage_Catalog_Helper_Product_Flat $flatHelper */
+        /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
         $flatHelper = Mage::helper('catalog/product_flat');
         if ($flatHelper->isAvailable()) {
-            /* @var Mage_Core_Model_App_Emulation $emulationModel */
+            /** @var Mage_Core_Model_App_Emulation $emulationModel */
             $emulationModel = Mage::getModel('core/app_emulation');
             // Emulate admin environment to disable using flat model - otherwise we won't get global stats
             // for all stores

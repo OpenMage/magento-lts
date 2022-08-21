@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -50,7 +44,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
             $values = array();
             foreach ($statuses as $code => $label) {
-                if (false === strpos($code, 'pending')) {
+                if (strpos($code, 'pending') === false) {
                     $values[] = array(
                         'label' => Mage::helper('reports')->__($label),
                         'value' => $code
@@ -75,8 +69,10 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
             ), 'show_order_statuses');
 
             // define field dependencies
+            /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+            $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
             if ($this->getFieldVisibility('show_order_statuses') && $this->getFieldVisibility('order_statuses')) {
-                $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+                $this->setChild('form_after', $block
                     ->addFieldMap("{$htmlIdPrefix}show_order_statuses", 'show_order_statuses')
                     ->addFieldMap("{$htmlIdPrefix}order_statuses", 'order_statuses')
                     ->addFieldDependence('order_statuses', 'show_order_statuses', '1'));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -35,8 +29,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
 {
     /**
      * Draw item line
-     *
-     * @return void
      */
     public function draw()
     {
@@ -46,7 +38,6 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
         /** @var Mage_Core_Helper_String $stringHelper */
         $stringHelper = Mage::helper('core/string');
 
-        /** @var Mage_Sales_Model_Order $order */
         $order  = $this->getOrder();
 
         /** @var Mage_Sales_Model_Order_Invoice_Item $item */

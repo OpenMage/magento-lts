@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -74,7 +68,6 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Edit configuration section
-     *
      */
     public function editAction()
     {
@@ -106,11 +99,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
             $this->getUrl('*/system'));
 
+        /** @var Mage_Adminhtml_Block_System_Config_Tabs $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_config_tabs');
         $this->getLayout()->getBlock('left')
-            ->append($this->getLayout()->createBlock('adminhtml/system_config_tabs')->initTabs());
+            ->append($block->initTabs());
 
         if ($this->_isSectionAllowedFlag) {
-            $this->_addContent($this->getLayout()->createBlock('adminhtml/system_config_edit')->initForm());
+            /** @var Mage_Adminhtml_Block_System_Config_Edit $block */
+            $block = $this->getLayout()->createBlock('adminhtml/system_config_edit');
+            $this->_addContent($block->initForm());
 
             $this->_addJs($this->getLayout()
                 ->createBlock('adminhtml/template')
@@ -128,12 +125,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
     /**
      * Save configuration
-     *
      */
     public function saveAction()
     {
         $session = Mage::getSingleton('adminhtml/session');
-        /* @var $session Mage_Adminhtml_Model_Session */
+        /** @var Mage_Adminhtml_Model_Session $session */
 
         $groups = $this->getRequest()->getPost('groups');
 

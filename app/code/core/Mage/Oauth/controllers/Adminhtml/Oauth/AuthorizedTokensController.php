@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -80,7 +74,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             return;
         }
 
-        if (null === $status) {
+        if ($status === null) {
             // No status selected
             $this->_getSession()->addError($this->__('Please select revoke status.'));
             $this->_redirect('*/*/index');
@@ -176,7 +170,6 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
 
-            /** @var Mage_Admin_Model_User $admin */
             $admin = $session->getUser();
 
             if ($admin->getId() == $adminId) { // skip own tokens

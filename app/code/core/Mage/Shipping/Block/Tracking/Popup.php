@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -140,7 +134,7 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function getTrackingInfo()
     {
-        /* @var Mage_Shipping_Model_Info $info */
+        /** @var Mage_Shipping_Model_Info $info */
         $info = Mage::registry('current_shipping_info');
 
         return $info->getTrackingInfo();
@@ -229,7 +223,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
      */
     public function formatDeliveryDate($date)
     {
-        /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
         $format = $locale->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
         return $locale->date(strtotime($date), Zend_Date::TIMESTAMP, null, false)
@@ -249,7 +242,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
             $time = $date . ' ' . $time;
         }
 
-        /* @var Mage_Core_Model_Locale $locale */
         $locale = Mage::app()->getLocale();
 
         $format = $locale->getTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -449,7 +443,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
-     * @return void
      */
     public function setPriceCalculation($calculate = true)
     {
@@ -717,7 +710,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
                         if (!empty($option['file_extension'])) {
                             $fileExtension = $option['file_extension'];
-                            if (0 !== strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension))) {
+                            if (strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
                                 Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
                             }
                         }
@@ -760,7 +753,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function canAffectOptions($value = null)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             $this->_canAffectOptions = (bool)$value;
         }
         return $this->_canAffectOptions;
@@ -1274,7 +1267,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             return $this;
         }
         $mediaGalleryAttribute = $attributes['media_gallery'];
-        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
         $mediaGalleryAttribute->getBackend()->addImage($this, $file, $mediaAttribute, $move, $exclude);
         return $this;
     }
@@ -1299,7 +1292,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->getWebsiteIds();
         $this->getCategoryIds();
 
-        /* @var Mage_Catalog_Model_Product $newProduct */
+        /** @var Mage_Catalog_Model_Product $newProduct */
         $newProduct = Mage::getModel('catalog/product')->setData($this->getData())
             ->setIsDuplicate(true)
             ->setOriginalId($this->getId())
@@ -1686,7 +1679,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $code  Attribute code
      * @param mixed  $value New attribute value
      * @param int    $store Store ID
-     * @return void
      */
     public function addAttributeUpdate($code, $value, $store)
     {
@@ -1932,7 +1924,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Sets custom options for the product
      *
      * @param array $options Array of options
-     * @return void
      */
     public function setCustomOptions(array $options)
     {

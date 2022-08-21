@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Authorizenet
@@ -70,7 +64,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $data = $this->getRequest()->getPost();
         unset($data['redirect_parent']);
         unset($data['redirect']);
-        /* @var $paymentMethod Mage_Authorizenet_Model_DirectPost */
+        /** @var Mage_Authorizenet_Model_Directpost $paymentMethod */
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
         $result = array();
@@ -182,7 +176,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
             $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
-            /* @var $order Mage_Sales_Model_Order */
+            /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
             if ($order->getId()) {
                 $quote = Mage::getModel('sales/quote')

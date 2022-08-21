@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -135,7 +129,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive table name
+     * Retrieve table name
      *
      * @param string $table
      * @return string
@@ -429,7 +423,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         if ($joinType !== false && !$this->getEntity()->getAttribute($attribute)->isStatic()) {
             $this->_addAttributeJoin($attribute, $joinType);
-        } elseif ('*' === $attribute) {
+        } elseif ($attribute === '*') {
             $entity = clone $this->getEntity();
             $attributes = $entity
                 ->loadAllAttributes()
@@ -1020,7 +1014,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive row id field name
+     * Retrieve row id field name
      *
      * @return string
      */
@@ -1061,7 +1055,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         try {
             /**
              * Prepare select query
-             * @var string $query
+             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
@@ -1233,7 +1227,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive attribute field name by attribute code
+     * Retrieve attribute field name by attribute code
      *
      * @param string $attributeCode
      * @return string
@@ -1441,7 +1435,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retreive array of attributes
+     * Retrieve array of attributes
      *
      * @param array $arrAttributes
      * @return array

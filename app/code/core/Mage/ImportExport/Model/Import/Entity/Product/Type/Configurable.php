@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -137,7 +131,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
     protected function _addAttributeParams($attrSetName, array $attrParams)
     {
         // save super attributes for simplier and quicker search in future
-        if ('select' == $attrParams['type'] && 1 == $attrParams['is_global'] && $attrParams['for_configurable']) {
+        if ($attrParams['type'] == 'select' && $attrParams['is_global'] == 1 && $attrParams['for_configurable']) {
             $this->_superAttributes[$attrParams['code']] = $attrParams;
         }
         return parent::_addAttributeParams($attrSetName, $attrParams);
@@ -411,7 +405,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                                              ? array() : $this->_skuSuperData[$productId],
                         'assoc_ids'       => array()
                     );
-                } elseif (null === $productData) {
+                } elseif ($productData === null) {
                     continue;
                 }
                 if (!empty($rowData['_super_products_sku'])) {
@@ -450,7 +444,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         $superAttributes['pricing'][] = array(
                             'product_super_attribute_id' => $productSuperAttrId,
                             'value_index'   => $optionId,
-                            'is_percent'    => '%' == substr($rowData['_super_attribute_price_corr'], -1),
+                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) == '%',
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
                             'website_id'    => 0
                         );

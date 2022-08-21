@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -59,7 +53,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         if (!is_string($body)) {
             throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
-        $body = false !== strpos($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
+        $body = strpos($body, '<?xml') !== false ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
         // disable external entity loading to prevent possible vulnerability
         libxml_disable_entity_loader(true);

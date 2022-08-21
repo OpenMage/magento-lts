@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -173,12 +167,11 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         $config = array();
 
         foreach ($this->getOptions() as $option) {
-            /* @var Mage_Catalog_Model_Product_Option $option */
+            /** @var Mage_Catalog_Model_Product_Option $option */
             $priceValue = 0;
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
                 $_tmpPriceValues = array();
                 foreach ($option->getValues() as $value) {
-                    /* @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }

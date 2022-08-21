@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -45,14 +39,14 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 
         if ($value === true) {
             $flag = strtolower((string)$flag);
-            if (!empty($flag) && 'false' !== $flag && 'off' !== $flag) {
+            if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
                 return true;
             } else {
                 return false;
             }
         }
 
-        return !empty($flag) && (0 === strcasecmp($value, (string)$flag));
+        return !empty($flag) && (strcasecmp($value, (string)$flag) === 0);
     }
 
     /**

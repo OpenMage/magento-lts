@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -253,7 +247,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive table name
+     * Retrieve table name
      *
      * @param string $alias
      * @return string
@@ -470,7 +464,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive partial load flag
+     * Retrieve partial load flag
      *
      * @param boolean $flag
      * @return boolean
@@ -485,7 +479,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive partial save flag
+     * Retrieve partial save flag
      *
      * @param boolean $flag
      * @return boolean
@@ -550,7 +544,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             ->addSetInfo($this->getEntityType(), $attributes, $setId);
 
         foreach ($attributes as $code => $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
             if (!$attribute->isInSet($setId)) {
                 unset($attributes[$code]);
             }
@@ -911,7 +905,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     }
 
     /**
-     * Retreive default source model
+     * Retrieve default source model
      *
      * @return string
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -40,7 +34,6 @@
  * @method string getLanguageCode()
  * @method string getLocaleCode()
  * @method $this setName(string $value)
- * @method $thissetRootCategoryPath(string $value)
  * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
  * @method $this setRootCategoryPath(string $value)
  * @method int getSortOrder()
@@ -654,7 +647,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
 
-            if (false !== strpos($url, '{{base_url}}')) {
+            if (strpos($url, '{{base_url}}') !== false) {
                 $baseUrl = Mage::getConfig()->substDistroServerVars('{{base_url}}');
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }
@@ -804,7 +797,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return true;
         }
 
-        if (isset($_SERVER['SERVER_PORT']) && (443 == $_SERVER['SERVER_PORT'])) {
+        if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == 443)) {
             return true;
         }
 
@@ -957,7 +950,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         // remove base currency code, if it is not allowed by config (optional)
         if ($skipBaseNotAllowed) {
             $disallowedBaseCodeIndex = $this->getData('disallowed_base_currency_code_index');
-            if (null !== $disallowedBaseCodeIndex) {
+            if ($disallowedBaseCodeIndex !== null) {
                 unset($codes[$disallowedBaseCodeIndex]);
             }
         }
@@ -1278,7 +1271,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function isReadOnly($value = null)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
         return $this->_isReadOnly;

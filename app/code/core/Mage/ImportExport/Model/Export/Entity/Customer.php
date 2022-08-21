@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -77,8 +71,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -96,7 +88,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      */
     protected function _initWebsites()
     {
-        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -157,8 +148,6 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
     /**
      * Prepare data for export and write its to temporary file through writer.
-     *
-     * @return void
      */
     protected function _prepareExport()
     {
@@ -191,7 +180,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             }
             foreach ($allAddressAttributeOptions as $attrCode => $attrValues) {
                 $column = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
-                if (null !== $address->getData($attrCode)) {
+                if ($address->getData($attrCode) !== null) {
                     if (!isset($addressAttributes[$attrCode])) {
                         $addressAttributes = array_merge($addressAttributes, $address->getAttributes());
                     }
@@ -382,7 +371,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         $options  = array();
         $attrCode = $attribute->getAttributeCode();
 
-        if ($attribute->usesSource() && 'country_id' != $attrCode) {
+        if ($attribute->usesSource() && $attrCode != 'country_id') {
             foreach ($attribute->getSource()->getAllOptions(false) as $option) {
                 $innerOptions = is_array($option['value']) ? $option['value'] : array($option);
                 foreach ($innerOptions as $innerOption) {
@@ -424,7 +413,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             ) {
                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
             }
-            if (null !== $attrValue) {
+            if ($attrValue !== null) {
                 $row[$attrCode] = $attrValue;
             }
         }

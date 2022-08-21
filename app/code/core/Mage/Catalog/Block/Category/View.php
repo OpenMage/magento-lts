@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -43,7 +37,9 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
 
         $this->getLayout()->createBlock('catalog/breadcrumbs');
 
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $category = $this->getCurrentCategory();
             if ($title = $category->getMetaTitle()) {
                 $headBlock->setTitle($title);
@@ -54,7 +50,10 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
-            if ($this->helper('catalog/category')->canUseCanonicalTag()) {
+
+            /** @var Mage_Catalog_Helper_Category $helper */
+            $helper = $this->helper('catalog/category');
+            if ($helper->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
             /*

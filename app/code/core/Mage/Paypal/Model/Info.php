@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -252,7 +246,7 @@ class Mage_Paypal_Model_Info
     public static function isFraudReviewAllowed(Mage_Payment_Model_Info $payment)
     {
         return self::isPaymentReviewRequired($payment)
-            && 1 == $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL);
+            && $payment->getAdditionalInformation(self::IS_FRAUD_GLOBAL) == 1;
     }
 
     /**
@@ -408,6 +402,7 @@ class Mage_Paypal_Model_Info
      * @param array $keys
      * @param Mage_Payment_Model_Info $payment
      * @param bool $labelValuesOnly
+     * @return array
      */
     protected function _getFullInfo(array $keys, Mage_Payment_Model_Info $payment, $labelValuesOnly)
     {
@@ -441,6 +436,7 @@ class Mage_Paypal_Model_Info
      * Render info item labels
      *
      * @param string $key
+     * @return string
      */
     protected function _getLabel($key)
     {

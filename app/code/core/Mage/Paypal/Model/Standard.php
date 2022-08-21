@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -119,7 +113,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     {
         $orderIncrementId = $this->getCheckout()->getLastRealOrderId();
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-        /* @var $api Mage_Paypal_Model_Api_Standard */
+        /** @var Mage_Paypal_Model_Api_Standard $api */
         $api = Mage::getModel('paypal/api_standard')->setConfigObject($this->getConfig());
         $api->setOrderId($orderIncrementId)
             ->setCurrencyCode($order->getBaseCurrencyCode())
@@ -151,7 +145,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Instantiate state and set it to state object
      * @param string $paymentAction
-     * @param Varien_Object
+     * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
     {
@@ -167,7 +161,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getConfig()
     {
-        if (null === $this->_config) {
+        if ($this->_config === null) {
             $params = array($this->_code);
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
@@ -179,7 +173,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote
+     * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)

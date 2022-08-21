@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -53,7 +47,8 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
     /**
      * Prepare form before rendering HTML
      *
-     * @return Mage_Adminhtml_Block_Widget_Form
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareForm()
     {
@@ -172,16 +167,16 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         $form->setValues($rateData);
         $this->setForm($form);
 
-        $this->setChild(
-            'form_after',
-            $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
-                ->addFieldMap('zip_is_range', 'zip_is_range')
-                ->addFieldMap('tax_postcode', 'tax_postcode')
-                ->addFieldMap('zip_from', 'zip_from')
-                ->addFieldMap('zip_to', 'zip_to')
-                ->addFieldDependence('zip_from', 'zip_is_range', '1')
-                ->addFieldDependence('zip_to', 'zip_is_range', '1')
-                ->addFieldDependence('tax_postcode', 'zip_is_range', '0')
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
+        $this->setChild('form_after', $block
+            ->addFieldMap('zip_is_range', 'zip_is_range')
+            ->addFieldMap('tax_postcode', 'tax_postcode')
+            ->addFieldMap('zip_from', 'zip_from')
+            ->addFieldMap('zip_to', 'zip_to')
+            ->addFieldDependence('zip_from', 'zip_is_range', '1')
+            ->addFieldDependence('zip_to', 'zip_is_range', '1')
+            ->addFieldDependence('tax_postcode', 'zip_is_range', '0')
         );
 
         return parent::_prepareForm();

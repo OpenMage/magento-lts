@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -50,7 +44,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     public function loadByHash($hash)
     {
-        /* @var Mage_Shipping_Helper_Data $helper */
+        /** @var Mage_Shipping_Helper_Data $helper */
         $helper = Mage::helper('shipping');
         $data = $helper->decodeTrackingHash($hash);
         if (!empty($data)) {
@@ -101,7 +95,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
      */
     protected function _initShipment()
     {
-        /* @var Mage_Sales_Model_Order_Shipment $model */
+        /** @var Mage_Sales_Model_Order_Shipment $model */
         $model = Mage::getModel('sales/order_shipment');
         $ship = $model->load($this->getShipId());
         if (!$ship->getEntityId() || $this->getProtectCode() !== $ship->getProtectCode()) {

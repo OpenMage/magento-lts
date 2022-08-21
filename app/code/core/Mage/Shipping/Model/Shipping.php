@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Shipping
@@ -75,7 +69,6 @@ class Mage_Shipping_Model_Shipping
      * Set shipping orig data
      *
      * @param array $data
-     * @return null
      */
     public function setOrigData($data)
     {
@@ -153,21 +146,21 @@ class Mage_Shipping_Model_Shipping
      */
     public function collectCarrierRates($carrierCode, $request)
     {
-        /* @var Mage_Shipping_Model_Carrier_Abstract $carrier */
+        /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
         $carrier = $this->getCarrierByCode($carrierCode, $request->getStoreId());
         if (!$carrier) {
             return $this;
         }
         $carrier->setActiveFlag($this->_availabilityConfigField);
         $result = $carrier->checkAvailableShipCountries($request);
-        if (false !== $result && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
+        if ($result !== false && !($result instanceof Mage_Shipping_Model_Rate_Result_Error)) {
             $result = $carrier->proccessAdditionalValidation($request);
         }
         /*
         * Result will be false if the admin set not to show the shipping module
         * if the delivery country is not within specific countries
         */
-        if (false !== $result) {
+        if ($result !== false) {
             if (!$result instanceof Mage_Shipping_Model_Rate_Result_Error) {
                 if ($carrier->getConfigData('shipment_requesttype')) {
                     $packages = $this->composePackagesForCarrier($carrier, $request);

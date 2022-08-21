@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -131,7 +125,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Init and retreive attribute collection
+     * Init and retrieve attribute collection
      *
      * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
      */
@@ -161,7 +155,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive new incrementId
+     * Retrieve new incrementId
      *
      * @param int $storeId
      * @return string
@@ -223,7 +217,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity id field
+     * Retrieve entity id field
      *
      * @return string|null
      */
@@ -233,7 +227,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity table name
+     * Retrieve entity table name
      *
      * @return string|null
      */
@@ -284,7 +278,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity type id
+     * Retrieve entity type id
      *
      * @return string|null
      */
@@ -294,7 +288,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity type code
+     * Retrieve entity type code
      *
      * @return string|null
      */
@@ -304,7 +298,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive attribute codes
+     * Retrieve attribute codes
      *
      * @return array|null
      */
@@ -328,7 +322,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive resource entity object
+     * Retrieve resource entity object
      *
      * @return Mage_Core_Model_Resource_Abstract
      */

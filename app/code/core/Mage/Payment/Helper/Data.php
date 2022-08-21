@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -84,8 +78,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param object $a
+     * @param object $b
      * @return int
      */
     protected function _sortMethods($a, $b)
@@ -97,7 +91,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Retreive payment method form html
+     * Retrieve payment method form html
      *
      * @param Mage_Payment_Model_Method_Abstract $method
      * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract

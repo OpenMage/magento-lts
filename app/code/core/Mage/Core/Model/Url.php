@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -425,7 +419,7 @@ class Mage_Core_Model_Url extends Varien_Object
         $a = explode('/', $data);
 
         $route = array_shift($a);
-        if ('*' === $route) {
+        if ($route === '*') {
             $route = $this->getRequest()->getRequestedRouteName();
         }
         $this->setRouteName($route);
@@ -433,7 +427,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         if (!empty($a)) {
             $controller = array_shift($a);
-            if ('*' === $controller) {
+            if ($controller === '*') {
                 $controller = $this->getRequest()->getRequestedControllerName();
             }
             $this->setControllerName($controller);
@@ -442,7 +436,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         if (!empty($a)) {
             $action = array_shift($a);
-            if ('*' === $action) {
+            if ($action === '*') {
                 $action = $this->getRequest()->getRequestedActionName();
             }
             $this->setActionName($action);
@@ -509,7 +503,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $routePath = $this->getActionPath();
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key => $value) {
-                    if (is_null($value) || false === $value || '' === $value || !is_scalar($value)) {
+                    if (is_null($value) || $value === false || $value === '' || !is_scalar($value)) {
                         continue;
                     }
                     $routePath .= $key . '/' . $value . '/';
@@ -1196,7 +1190,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         if ($this->useSessionIdForUrl($match[2] == 'S')) {
             $session = Mage::getSingleton('core/session');
-            /* @var Mage_Core_Model_Session $session */
+            /** @var Mage_Core_Model_Session $session */
             return $match[1]
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()

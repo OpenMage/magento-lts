@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -67,7 +61,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
+     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -92,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
+     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     public function addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -143,7 +137,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                     if ($child = $this->getChild($id . '_button')) {
                         $child->setData($key, $data);
                     }
-                    if ('level' == $key) {
+                    if ($key == 'level') {
                         $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
                         unset($this->_buttons[$level][$id]);
                     } else {
@@ -289,7 +283,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     {
         foreach ($this->_buttons as $level => $buttons) {
             foreach ($buttons as $id => $data) {
-                if (isset($data['area']) && ('footer' == $data['area'])) {
+                if (isset($data['area']) && ($data['area'] == 'footer')) {
                     return true;
                 }
             }

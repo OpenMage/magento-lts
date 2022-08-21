@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -259,13 +253,13 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             $alias = isset($node['as']) ? (string)$node['as'] : '';
             if (isset($node['before'])) {
                 $sibling = (string)$node['before'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, false, $alias);
             } elseif (isset($node['after'])) {
                 $sibling = (string)$node['after'];
-                if ('-'===$sibling) {
+                if ($sibling === '-') {
                     $sibling = '';
                 }
                 $parentBlock->insert($block, $sibling, true, $alias);
@@ -471,7 +465,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             return false;
         }
 
-        if (empty($name) || '.'===$name[0]) {
+        if (empty($name) || $name[0] === '.') {
             $block->setIsAnonymous(true);
             if (!empty($name)) {
                 $block->setAnonSuffix(substr($name, 1));

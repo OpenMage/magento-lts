@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -66,7 +60,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         $result = array();
 
         foreach ($attributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if ((!$attribute->getId() || $attribute->isInSet($setId))
                     && $this->_isAllowedAttribute($attribute)) {
                 if (!$attribute->getId() || $attribute->isScopeGlobal()) {
@@ -105,7 +99,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
                 ->getResource()
                 ->getAttribute($attributeId);
 
-        /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
         if (!$attribute) {
             $this->_fault('not_exists');
         }
@@ -456,7 +450,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Prepare request input data for saving
      *
      * @param array $data input data
-     * @return void
      */
     protected function _prepareDataForSave(&$data)
     {

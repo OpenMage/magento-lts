@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -58,8 +52,6 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
     /**
      * Add customer attributes to customer forms
-     *
-     * @return void
      */
     public function installCustomerForms()
     {
@@ -112,7 +104,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $attributeId = $attributeIds[$customerAddress][$attributeCode];
             $attribute['system'] = isset($attribute['system']) ? $attribute['system'] : true;
             $attribute['visible'] = isset($attribute['visible']) ? $attribute['visible'] : true;
-            if (false === ($attribute['system'] == true && $attribute['visible'] == false)) {
+            if (($attribute['system'] == true && $attribute['visible'] == false) === false) {
                 $usedInForms = array(
                     'adminhtml_customer_address',
                     'customer_address_edit',
@@ -133,7 +125,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     }
 
     /**
-     * Retreive default entities: customer, customer_address
+     * Retrieve default entities: customer, customer_address
      *
      * @return array
      */

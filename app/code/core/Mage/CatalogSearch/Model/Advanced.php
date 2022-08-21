@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -117,7 +111,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      */
     public function getAttributes()
     {
-        /* @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $attributes */
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $product = Mage::getModel('catalog/product');
@@ -162,7 +156,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         $allConditions  = array();
 
         foreach ($attributes as $attribute) {
-            /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!isset($values[$attribute->getAttributeCode()])) {
                 continue;
             }

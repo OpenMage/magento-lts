@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -139,7 +133,6 @@ class Mage_SalesRule_Model_Observer
      */
     public function sales_order_paymentCancel($observer)
     {
-        /** @var Varien_Event $event */
         $event = $observer->getEvent();
         /** @var Mage_Sales_Model_Order $order */
         $order = $event->getPayment()->getOrder();
@@ -202,15 +195,15 @@ class Mage_SalesRule_Model_Observer
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
-        /* @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection */
+        /** @var Mage_SalesRule_Model_Mysql4_Rule_Collection $collection */
         $collection = Mage::getResourceModel('salesrule/rule_collection')
             ->addAttributeInConditionFilter($attributeCode);
 
         $disabledRulesCount = 0;
         foreach ($collection as $rule) {
-            /* @var Mage_SalesRule_Model_Rule $rule */
+            /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /* @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
+            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             $rule->save();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api
@@ -97,7 +91,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         $adapters = array();
         foreach ($this->getNode('adapters')->children() as $adapterName => $adapter) {
-            /* @var Varien_SimpleXml_Element $adapter */
+            /** @var Varien_Simplexml_Element $adapter */
             if (isset($adapter->use)) {
                 $adapter = $this->getNode('adapters/' . (string) $adapter->use);
             }
@@ -205,7 +199,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     public function getAclAssert($name = '')
     {
         $asserts = $this->getNode('acl/asserts');
-        if (''===$name) {
+        if ($name === '') {
             return $asserts;
         }
 
@@ -225,7 +219,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode('acl/privilegeSets');
-        if (''===$name) {
+        if ($name === '') {
             return $sets;
         }
 
@@ -249,7 +243,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         } else {
             $faultsNode = $this->getResources()->$resourceName->faults;
         }
-        /* @var Varien_Simplexml_Element $faultsNode */
+        /** @var Varien_Simplexml_Element $faultsNode */
 
         $translateModule = 'api';
         if (isset($faultsNode['module'])) {

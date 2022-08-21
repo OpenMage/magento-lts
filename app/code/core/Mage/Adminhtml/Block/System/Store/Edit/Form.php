@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -65,9 +59,9 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             $showStoreFieldset = true;
         }
 
-        /* @var $websiteModel Mage_Core_Model_Website */
-        /* @var $groupModel Mage_Core_Model_Store_Group */
-        /* @var $storeModel Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Website $websiteModel */
+        /** @var Mage_Core_Model_Store_Group $groupModel */
+        /** @var Mage_Core_Model_Store $storeModel */
 
         $form = new Varien_Data_Form(array(
             'id'        => 'edit_form',
@@ -82,7 +76,7 @@ class Mage_Adminhtml_Block_System_Store_Edit_Form extends Mage_Adminhtml_Block_W
             $fieldset = $form->addFieldset('website_fieldset', array(
                 'legend' => Mage::helper('core')->__('Website Information')
             ));
-            /* @var $fieldset Varien_Data_Form */
+            /** @var Varien_Data_Form $fieldset */
 
             $fieldset->addField('website_name', 'text', array(
                 'name'      => 'website[name]',

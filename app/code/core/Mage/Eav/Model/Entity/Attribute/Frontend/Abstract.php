@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -75,7 +69,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive lable
+     * Retrieve lable
      *
      * @return string
      */
@@ -90,7 +84,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive attribute value
+     * Retrieve attribute value
      *
      * @param Varien_Object $object
      * @return mixed
@@ -213,7 +207,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage
     }
 
     /**
-     * Retreive option by option id
+     * Retrieve option by option id
      *
      * @param int $optionId
      * @return mixed|boolean

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ProductAlert
@@ -103,7 +97,7 @@ class Mage_ProductAlert_Model_Observer
         $email->setType('price');
         $originalStore = Mage::app()->getStore();
         foreach ($this->_getWebsites() as $website) {
-            /* @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
 
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
@@ -192,7 +186,7 @@ class Mage_ProductAlert_Model_Observer
         $originalStore = Mage::app()->getStore();
 
         foreach ($this->_getWebsites() as $website) {
-            /* @var $website Mage_Core_Model_Website */
+            /** @var Mage_Core_Model_Website $website */
 
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
@@ -284,11 +278,11 @@ class Mage_ProductAlert_Model_Observer
             }
 
             $translate = Mage::getSingleton('core/translate');
-            /* @var $translate Mage_Core_Model_Translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
             $emailTemplate = Mage::getModel('core/email_template');
-            /* @var $emailTemplate Mage_Core_Model_Email_Template */
+            /** @var Mage_Core_Model_Email_Template $emailTemplate */
             $emailTemplate->setDesignConfig(array('area'  => 'backend'))
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),

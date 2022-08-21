@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -137,7 +131,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if ($pathInfo === null) {
             $requestUri = $this->getRequestUri();
-            if (null === $requestUri) {
+            if ($requestUri === null) {
                 return $this;
             }
 
@@ -150,12 +144,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             $baseUrl = $this->getBaseUrl();
             $pathInfo = substr($requestUri, strlen($baseUrl));
 
-            if ($baseUrl && $pathInfo && (0 !== stripos($pathInfo, '/'))) {
+            if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif ((null !== $baseUrl) && (false === $pathInfo)) {
+            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
                 $pathInfo = '';
-            } elseif (null === $baseUrl) {
+            } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
             }
 

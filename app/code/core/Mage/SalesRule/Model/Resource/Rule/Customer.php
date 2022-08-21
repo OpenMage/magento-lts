@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -58,7 +52,7 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
             ->where('customer_id = :customer_id')
             ->where('rule_id = :rule_id');
         $data = $read->fetchRow($select, array(':rule_id' => $ruleId, ':customer_id' => $customerId));
-        if (false === $data) {
+        if ($data === false) {
             // set empty data, as an existing rule object might be used
             $data = array();
         }

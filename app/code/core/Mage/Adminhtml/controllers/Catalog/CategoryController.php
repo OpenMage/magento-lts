@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -438,8 +432,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Grid Action
      * Display list of products related to current category
-     *
-     * @return void
      */
     public function gridAction()
     {
@@ -455,8 +447,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     /**
      * Tree Action
      * Retrieve category tree
-     *
-     * @return void
      */
     public function treeAction()
     {
@@ -473,6 +463,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
 
         $category = $this->_initCategory(true);
 
+        /** @var Mage_Adminhtml_Block_Catalog_Category_Tree $block */
         $block = $this->getLayout()->createBlock('adminhtml/catalog_category_tree');
         $root  = $block->getRoot();
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -40,9 +34,9 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
     protected function _prepareForm()
     {
         $model = Mage::registry('current_transaction');
-        /* @var $model Mage_Paypal_Model_Report_Settlement_Row */
+        /** @var Mage_Paypal_Model_Report_Settlement_Row $model */
         $settlement = Mage::getSingleton('paypal/report_settlement');
-        /* @var $settlement Mage_Paypal_Model_Report_Settlement */
+        /** @var Mage_Paypal_Model_Report_Settlement $settlement */
 
         $fieldsets = array(
             'reference_fieldset' => array(

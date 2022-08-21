@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -209,10 +203,10 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      */
     public function getButtonsHtml($area = null)
     {
-        if (null === $this->_buttonsHtml) {
+        if ($this->_buttonsHtml === null) {
             $this->_buttonsHtml = parent::getButtonsHtml();
             foreach ($this->_children as $alias => $child) {
-                if (false !== strpos($alias, '_button')) {
+                if (strpos($alias, '_button') !== false) {
                     $this->unsetChild($alias);
                 }
             }
@@ -276,15 +270,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         }
 
         // edit form for new custom urlrewrite
-        if ('id' === $mode) {
+        if ($mode === 'id') {
             $this->_setFormChild();
         }
         // products grid
-        elseif ('product' === $mode) {
+        elseif ($mode === 'product') {
             $this->setChild('products_grid', $this->getLayout()->createBlock('adminhtml/urlrewrite_product_grid'));
         }
         // categories tree
-        elseif ('category' === $mode) {
+        elseif ($mode === 'category') {
             $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
         }
         return $this;

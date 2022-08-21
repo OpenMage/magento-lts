@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -50,7 +44,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Initialize invoice model instance
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Invoice|false
+     * @throws Mage_Core_Exception
      */
     protected function _initInvoice($update = false)
     {
@@ -96,8 +91,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Save data for invoice and related order
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return  Mage_Adminhtml_Sales_Order_InvoiceController
+     * @throws Exception
      */
     protected function _saveInvoice($invoice)
     {
@@ -114,7 +110,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Prepare shipment
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return Mage_Sales_Model_Order_Shipment|false
+     * @throws Mage_Core_Exception
      */
     protected function _prepareShipment($invoice)
     {
@@ -148,8 +145,11 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/order');
-            $this->getLayout()->getBlock('sales_invoice_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
+            /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_View $block */
+            $block = $this->getLayout()->getBlock('sales_invoice_view');
+            $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
             $this->renderLayout();
         }
         else {
@@ -412,16 +412,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->getResponse()->setBody($response);
     }
 
-
-
-
-
-
-
-
     /**
      * Decides if we need to create dummy invoice item or not
-     * for eaxample we don't need create dummy parent if all
+     * for example we don't need create dummy parent if all
      * children are not in process
      *
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
@@ -437,17 +430,21 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 }
             }
             return false;
-        } else if($item->getParentItem()) {
+        }
+
+        if ($item->getParentItem()) {
             if (isset($qtys[$item->getParentItem()->getId()]) && $qtys[$item->getParentItem()->getId()] > 0) {
                 return true;
             }
             return false;
         }
+
+        return false;
     }
 
     /**
      * Decides if we need to create dummy shipment item or not
-     * for eaxample we don't need create dummy parent if all
+     * for example we don't need create dummy parent if all
      * children are not in process
      *
      * @deprecated after 1.4, Mage_Sales_Model_Service_Order used
@@ -469,7 +466,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 return true;
             }
             return false;
-        } else if($item->getParentItem()) {
+        }
+
+        if ($item->getParentItem()) {
             if ($item->getIsVirtual()) {
                 return false;
             }
@@ -478,6 +477,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             }
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -488,5 +489,4 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->_initInvoice();
         parent::printAction();
     }
-
 }

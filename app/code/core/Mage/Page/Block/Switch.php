@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Page
@@ -90,7 +84,6 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $websiteStores = Mage::app()->getWebsite()->getStores();
             $stores = array();
             foreach ($websiteStores as $store) {
-                /* @var Mage_Core_Model_Store $store */
                 if (!$store->getIsActive()) {
                     continue;
                 }
@@ -126,7 +119,6 @@ class Mage_Page_Block_Switch extends Mage_Core_Block_Template
             $groups = array();
             $localeCode = Mage::getStoreConfig('general/locale/code');
             foreach ($rawGroups as $group) {
-                /* @var Mage_Core_Model_Store_Group $group */
                 if (!isset($rawStores[$group->getId()])) {
                     continue;
                 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -41,7 +35,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
      */
     protected function _retrieve()
     {
-        /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
         return $stockItem->getData();
     }
@@ -64,7 +57,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_CatalogInventory_Model_Resource_Stock_Item_Collection $collection */
+        /** @var Mage_CatalogInventory_Model_Resource_Stock_Item_Collection $collection */
         $collection = Mage::getResourceModel('cataloginventory/stock_item_collection');
         $this->_applyCollectionModifiers($collection);
         return $collection;
@@ -78,10 +71,9 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
      */
     protected function _update(array $data)
     {
-        /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $this->_loadStockItemById($this->getRequest()->getParam('id'));
 
-        /* @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
+        /** @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
         $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
             'resource' => $this
         ));
@@ -118,7 +110,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
-                /* @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
+                /** @var Mage_CatalogInventory_Model_Api2_Stock_Item_Validator_Item $validator */
                 $validator = Mage::getModel('cataloginventory/api2_stock_item_validator_item', array(
                     'resource' => $this
                 ));
@@ -132,7 +124,6 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 }
 
                 // Existence of a item is checked in the validator
-                /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 $stockItem = $this->_loadStockItemById($itemData['item_id']);
 
                 unset($itemData['item_id']); // item_id is not for update

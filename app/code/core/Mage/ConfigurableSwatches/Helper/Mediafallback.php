@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -39,7 +33,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param array $parentProducts
      * @deprecated use $this->attachProductChildrenAttributeMapping() instead
      * @param int $storeId
-     * @return void
      */
     public function attachConfigurableProductChildrenAttributeMapping(array $parentProducts, $storeId)
     {
@@ -54,7 +47,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * @param array $parentProducts
      * @param int $storeId
      * @param bool $onlyListAttributes
-     * @return void
      */
     public function attachProductChildrenAttributeMapping(array $parentProducts, $storeId, $onlyListAttributes = false)
     {
@@ -72,7 +64,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         $parentProductIds = array();
-        /* @var Mage_Catalog_Model_Product $parentProduct */
+        /** @var Mage_Catalog_Model_Product $parentProduct */
         foreach ($parentProducts as $parentProduct) {
             $parentProductIds[] = $parentProduct->getId();
         }
@@ -99,9 +91,9 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $listSwatchValues = array();
             $listSwatchStockValues = array();
 
-            /* @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
+            /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
             foreach ($configAttributes as $attribute) {
-                /* @var Mage_Catalog_Model_Product $childProduct */
+                /** @var Mage_Catalog_Model_Product $childProduct */
                 if (!is_array($parentProduct->getChildrenProducts())) {
                     continue;
                 }
@@ -239,7 +231,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             // iterate image types to build image array, normally one type is passed in at a time, but could be two
             foreach ($imageTypes as $imageType) {
                 // load image from the configurable product's children for swapping
-                /* @var Mage_Catalog_Model_Product $childProduct */
+                /** @var Mage_Catalog_Model_Product $childProduct */
                 if ($product->hasChildrenProducts()) {
                     foreach ($product->getChildrenProducts() as $childProduct) {
                         $image = $this->_resizeProductImage($childProduct, $imageType, $keepFrame);
@@ -310,7 +302,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      * Groups media gallery images by local images and child images
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return void
      */
     public function groupMediaGalleryImages(Mage_Catalog_Model_Product $product)
     {
@@ -343,18 +334,16 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param array $products
      * @param int $storeId
-     * @return void
      */
     public function attachGallerySetToCollection(array $products, $storeId)
     {
         $productIds = array();
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
             if (!is_array($product->getChildrenProducts())) {
                 continue;
             }
-            /* @var Mage_Catalog_Model_Product $childProduct */
             foreach ($product->getChildrenProducts() as $childProduct) {
                 $productIds[] = $childProduct->getId();
             }
@@ -362,7 +351,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
 
         $attrCode = self::MEDIA_GALLERY_ATTRIBUTE_CODE;
 
-        /* @var Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media $resourceModel */
+        /** @var Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media $resourceModel */
         $resourceModel = Mage::getResourceModel('catalog/product_attribute_backend_media');
 
         $images = $resourceModel->loadGallerySet($productIds, $storeId);
@@ -376,7 +365,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                 continue;
             }
 
-            /* @var Mage_Catalog_Model_Product $childProduct */
             foreach ($product->getChildrenProducts() as $childProduct) {
                 $relationship[$childProduct->getId()] = $productId;
             }
@@ -433,12 +421,11 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
      *
      * @param array $products
      * @param int $storeId
-     * @return void
      */
     public function attachChildrenProducts(array $products, $storeId)
     {
         $productIds = array();
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $productIds[] = $product->getId();
         }
@@ -455,7 +442,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         $collection->load();
 
         $mapping = array();
-        /* @var Mage_Catalog_Model_Product $childProduct */
+        /** @var Mage_Catalog_Model_Product $childProduct */
         foreach ($collection as $childProduct) {
             foreach ($childProduct->getParentIds() as $parentId) {
                 if (!isset($mapping[$parentId])) {

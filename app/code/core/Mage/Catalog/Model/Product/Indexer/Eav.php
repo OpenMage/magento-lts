@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -172,7 +166,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
         $attributes = $product->getAttributes();
         $reindexEav = $product->getForceReindexRequired();
@@ -201,7 +195,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductDeleteEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product    = $event->getDataObject();
 
         $parentIds  = $this->_getResource()->getRelationsByChild($product->getId());
@@ -220,7 +214,6 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attrData     = $actionObject->getAttributesData();
         $reindexEav   = false;
@@ -261,7 +254,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
      */
     protected function _registerCatalogAttributeSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
+        /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         $attribute = $event->getDataObject();
         if ($attribute->isIndexable()) {
             $before = $attribute->getOrigData('is_filterable')

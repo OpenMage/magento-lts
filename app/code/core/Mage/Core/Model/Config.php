@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -397,12 +391,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $disableLocalModules = (string)$this->getNode('global/disable_local_modules');
         if (!empty($disableLocalModules)) {
-            $disableLocalModules = (('true' === $disableLocalModules) || ('1' === $disableLocalModules));
+            $disableLocalModules = (($disableLocalModules === 'true') || ($disableLocalModules === '1'));
         } else {
             $disableLocalModules = false;
         }
 
-        if (true === $disableLocalModules) {
+        if ($disableLocalModules === true) {
             set_include_path(
                 BP . DS . 'app' . DS . 'code' . DS . 'community' . PS .
                 BP . DS . 'app' . DS . 'code' . DS . 'core' . PS .
@@ -664,13 +658,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getNode($path = null, $scope = '', $scopeCode = null)
     {
         if ($scope !== '') {
-            if (('store' === $scope) || ('website' === $scope)) {
+            if (($scope === 'store') || ($scope === 'website')) {
                 $scope .= 's';
             }
-            if (('default' !== $scope) && is_int($scopeCode)) {
-                if ('stores' == $scope) {
+            if (($scope !== 'default') && is_int($scopeCode)) {
+                if ($scope == 'stores') {
                     $scopeCode = Mage::app()->getStore($scopeCode)->getCode();
-                } elseif ('websites' == $scope) {
+                } elseif ($scope == 'websites') {
                     $scopeCode = Mage::app()->getWebsite($scopeCode)->getCode();
                 } else {
                     Mage::throwException(Mage::helper('core')->__('Unknown scope "%s".', $scope));
@@ -918,7 +912,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function determineOmittedNamespace($name, $asFullModuleName = false)
     {
-        if (null === $this->_moduleNamespaces) {
+        if ($this->_moduleNamespaces === null) {
             $this->_moduleNamespaces = array();
             foreach ($this->_xml->xpath('modules/*') as $m) {
                 if ((string)$m->active == 'true') {
@@ -975,7 +969,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $modules = $this->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
             if ($module->is('active')) {
-                if ($disableLocalModules && ('local' === (string)$module->codePool)) {
+                if ($disableLocalModules && ((string)$module->codePool === 'local')) {
                     continue;
                 }
                 if (!is_array($fileName)) {
@@ -1071,7 +1065,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModuleConfig($moduleName = '')
     {
         $modules = $this->getNode('modules');
-        if (''===$moduleName) {
+        if ($moduleName === '') {
             return $modules;
         } else {
             return $modules->$moduleName;
@@ -1089,7 +1083,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     public function getModuleSetup($module = '')
     {
         $className = 'Mage_Core_Setup';
-        if (''!==$module) {
+        if ($module !== '') {
             if (is_string($module)) {
                 $module = $this->getModuleConfig($module);
             }
@@ -1337,7 +1331,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * Retreive resource helper instance
+     * Retrieve resource helper instance
      *
      * Example:
      * $config->getResourceHelper('cms')

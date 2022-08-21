@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -97,7 +91,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of Reference ID Type
      * If no code specified, return full list of codes with their description
      *
-     * @param string code
+     * @param string|null $code
      * @return string|array
      */
     public function getReferenceType($code = null)
@@ -121,7 +115,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     /**
      * Get native description for transaction code
      *
-     * @param string code
+     * @param string $code
      * @return string
      */
     public function getTransactionEvent($code)
@@ -136,7 +130,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     /**
      * Get full list of codes with their description
      *
-     * @return &array
+     * @return array
      */
     public function &getTransactionEvents()
     {
@@ -148,7 +142,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      * Return description of "Debit or Credit" value
      * If no code specified, return full list of codes with their description
      *
-     * @param string code
+     * @param string|null $code
      * @return string|array
      */
     public function getDebitCreditText($code = null)
@@ -198,7 +192,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             return;
         }
         $amount = $this->_data[$key] / 100;
-        if ('CR' === $this->_data[$creditKey]) {
+        if ($this->_data[$creditKey] === 'CR') {
             $amount = -1 * $amount;
         }
         $this->_data[$key] = $amount;

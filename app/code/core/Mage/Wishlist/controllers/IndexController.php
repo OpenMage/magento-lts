@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -101,7 +95,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $wishlistId = $this->getRequest()->getParam('wishlist_id');
             }
             $customerId = Mage::getSingleton('customer/session')->getCustomerId();
-            /* @var Mage_Wishlist_Model_Wishlist $wishlist */
+            /** @var Mage_Wishlist_Model_Wishlist $wishlist */
             $wishlist = Mage::getModel('wishlist/wishlist');
             if ($wishlistId) {
                 $wishlist->load($wishlistId);
@@ -265,7 +259,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     {
         $id = (int) $this->getRequest()->getParam('id');
         try {
-            /* @var Mage_Wishlist_Model_Item $item */
+            /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
             $item->loadWithOptions($id);
             if (!$item->getId()) {
@@ -324,7 +318,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         try {
             $id = (int) $this->getRequest()->getParam('id');
-            /* @var Mage_Wishlist_Model_Item */
+            /** @var Mage_Wishlist_Model_Item */
             $item = Mage::getModel('wishlist/item');
             $item->load($id);
             $wishlist = $this->_getWishlist($item->getWishlistId());
@@ -396,7 +390,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     if (!$qty) {
                         $qty = 1;
                     }
-                } elseif (0 == $qty) {
+                } elseif ($qty == 0) {
                     try {
                         $item->delete();
                     } catch (Exception $e) {
@@ -489,7 +483,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         $itemId = (int) $this->getRequest()->getParam('item');
 
-        /* @var Mage_Wishlist_Model_Item $item */
+        /** @var Mage_Wishlist_Model_Item $item */
         $item = Mage::getModel('wishlist/item')->load($itemId);
         if (!$item->getId()) {
             return $this->_redirect('*/*');
@@ -513,7 +507,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $item->setQty($qty);
         }
 
-        /* @var Mage_Wishlist_Model_Session $session */
+        /** @var Mage_Wishlist_Model_Session $session */
         $session    = Mage::getSingleton('wishlist/session');
         $cart       = Mage::getSingleton('checkout/cart');
 
@@ -579,7 +573,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
         $itemId = (int) $this->getRequest()->getParam('item');
 
-        /* @var Mage_Checkout_Model_Cart $cart */
+        /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
         $session = Mage::getSingleton('checkout/session');
 
@@ -643,7 +637,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return $this->norouteAction();
         }
 
-        $emails  = explode(',', $this->getRequest()->getPost('emails'));
+        $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
         $error   = false;
         if (empty($emails)) {
@@ -668,7 +662,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         try {
@@ -685,7 +679,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $wishlistBlock = $this->getLayout()->createBlock('wishlist/share_email_items')->toHtml();
 
             $emails = array_unique($emails);
-            /* @var Mage_Core_Model_Email_Template $emailModel */
+            /** @var Mage_Core_Model_Email_Template $emailModel */
             $emailModel = Mage::getModel('core/email_template');
 
             $sharingCode = $wishlist->getSharingCode();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -607,7 +601,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                 $subProduct = true;
                 if ($this->_isStrictProcessMode($processMode)) {
                     foreach ($this->getConfigurableAttributes($product) as $attributeItem) {
-                        /* @var Varien_Object $attributeItem */
                         $attrId = $attributeItem->getData('attribute_id');
                         if (!isset($attributes[$attrId]) || empty($attributes[$attrId])) {
                             $subProduct = null;
@@ -741,7 +734,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
     {
         if ($productOption = $this->getProduct($product)->getCustomOption('simple_product')) {
             if ($optionProduct = $productOption->getProduct()) {
-                /* @var Mage_Catalog_Model_Product $optionProduct */
                 return $optionProduct->isVirtual();
             }
         }
@@ -763,7 +755,6 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
         $attributes = $this->getConfigurableAttributes($product);
         if (count($attributes)) {
             foreach ($attributes as $attribute) {
-                /** @var Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute */
                 if ($attribute->getData('prices')) {
                     return true;
                 }

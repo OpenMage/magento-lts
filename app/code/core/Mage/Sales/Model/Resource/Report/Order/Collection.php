@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -75,9 +69,9 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');

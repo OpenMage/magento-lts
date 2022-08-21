@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Review
@@ -117,7 +111,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $product = Mage::getModel('catalog/product')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load($productId);
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         if (!$product->getId() || !$product->isVisibleInCatalog() || !$product->isVisibleInSiteVisibility()) {
             return false;
         }
@@ -142,7 +136,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         }
 
         $review = Mage::getModel('review/review')->load($reviewId);
-        /* @var Mage_Review_Model_Review $review */
+        /** @var Mage_Review_Model_Review $review */
         if (!$review->getId() || !$review->isApproved() || !$review->isAvailableOnStore(Mage::app()->getStore())) {
             return false;
         }
@@ -176,9 +170,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
 
         if (($product = $this->_initProduct()) && !empty($data)) {
             $session = Mage::getSingleton('core/session');
-            /* @var Mage_Core_Model_Session $session */
+            /** @var Mage_Core_Model_Session $session */
             $review = Mage::getModel('review/review')->setData($this->_cropReviewData($data));
-            /* @var Mage_Review_Model_Review $review */
+            /** @var Mage_Review_Model_Review $review */
 
             $validate = $review->validate();
             if ($validate === true) {
@@ -241,7 +235,9 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
             $this->_initProductLayout($product);
 
             // update breadcrumbs
-            if ($breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs')) {
+            /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
+            $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
+            if ($breadcrumbsBlock) {
                 $breadcrumbsBlock->addCrumb('product', array(
                     'label'    => $product->getName(),
                     'link'     => $product->getProductUrl(),

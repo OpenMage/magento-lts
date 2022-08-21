@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -116,12 +110,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
     {
         $accountData = array();
 
-        /* @var $config Mage_Eav_Model_Config */
+        /** @var Mage_Eav_Model_Config $config */
         $config     = Mage::getSingleton('eav/config');
         $entityType = 'customer';
         $customer   = Mage::getModel('customer/customer');
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
             if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
                 continue;

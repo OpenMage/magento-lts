@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml AdminNotification inbox grid
@@ -39,12 +32,14 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         $this->setSaveParametersInSession(true);
         $this->setId('notificationGrid');
         $this->setIdFieldName('notification_id');
-        $this->setDefaultSort('date_added', 'desc');
+        $this->setDefaultSort('date_added');
+        $this->setDefaultDir('desc');
         $this->setFilterVisibility(false);
     }
 
     /**
-     * Init backups collection
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCollection()
     {
@@ -56,7 +51,8 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Configuration of grid
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -92,6 +88,7 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * Prepare mass action
+     * @return $this
      */
     protected function _prepareMassaction()
     {
@@ -112,10 +109,18 @@ class Mage_Adminhtml_Block_Notification_Grid extends Mage_Adminhtml_Block_Widget
         return $this;
     }
 
-    public function getRowClass(Varien_Object $row) {
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
+    public function getRowClass(Varien_Object $row)
+    {
         return $row->getIsRead() ? 'read' : 'unread';
     }
 
+    /**
+     * @return false
+     */
     public function getRowClickCallback()
     {
         return false;

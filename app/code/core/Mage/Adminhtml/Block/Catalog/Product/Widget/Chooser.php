@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -183,7 +177,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->setStoreId(0)
             ->addAttributeToSelect('name');

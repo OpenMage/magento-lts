@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -207,9 +201,9 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
             $session = Mage::getSingleton('adminhtml/session');
 
             $redirectBack   = $this->getRequest()->getParam('back', false);
-            /* @var $model Mage_Catalog_Model_Entity_Attribute */
+            /** @var Mage_Catalog_Model_Entity_Attribute $model */
             $model = Mage::getModel('catalog/resource_eav_attribute');
-            /* @var $helper Mage_Catalog_Helper_Product */
+            /** @var Mage_Catalog_Helper_Product $helper */
             $helper = Mage::helper('catalog/product');
 
             $id = $this->getRequest()->getParam('attribute_id');

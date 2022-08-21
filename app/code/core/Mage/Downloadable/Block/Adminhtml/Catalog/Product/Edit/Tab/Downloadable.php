@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -33,7 +27,6 @@
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable extends Mage_Adminhtml_Block_Widget implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
-
     /**
      * Reference to product objects that is being edited
      *
@@ -96,7 +89,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
     /**
      * Check if tab can be displayed
      *
-     * @return boolean
+     * @return true
      */
     public function canShowTab()
     {
@@ -106,7 +99,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
     /**
      * Check if tab is hidden
      *
-     * @return boolean
+     * @return false
      */
     public function isHidden()
     {
@@ -116,12 +109,13 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
     /**
      * Render block HTML
      *
-     * @return string
+     * @inheritDoc
      */
     protected function _toHtml()
     {
-        $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion')
-            ->setId('downloadableInfo');
+        /** @var Mage_Adminhtml_Block_Widget_Accordion $accordion */
+        $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion');
+        $accordion->setId('downloadableInfo');
 
         $accordion->addItem('samples', array(
             'title'   => Mage::helper('adminhtml')->__('Samples'),

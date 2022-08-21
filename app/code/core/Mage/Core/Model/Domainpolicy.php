@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -71,7 +65,7 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Add X-Frame-Options header to response, depends on config settings
      *
-     * @var Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function addDomainPolicyHeader(Varien_Event_Observer $observer)
@@ -79,9 +73,9 @@ class Mage_Core_Model_Domainpolicy
         $action = $observer->getControllerAction();
         $policy = null;
 
-        if ('adminhtml' == $action->getLayout()->getArea()) {
+        if ($action->getLayout()->getArea() == 'adminhtml') {
             $policy = $this->getBackendPolicy();
-        } elseif ('frontend' == $action->getLayout()->getArea()) {
+        } elseif ($action->getLayout()->getArea() == 'frontend') {
             $policy = $this->getFrontendPolicy();
         }
 

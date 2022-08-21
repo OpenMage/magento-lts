@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -178,8 +172,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
 
     /**
      * Constructor.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -195,7 +187,6 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
     */
     protected function _initWebsites()
     {
-        /** @var Mage_Core_Model_Website $website */
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
@@ -226,7 +217,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
      */
     protected function _getExportAttrCodes()
     {
-        if (null === self::$attrCodes) {
+        if (self::$attrCodes === null) {
             if (!empty($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])
                     && is_array($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP])) {
                 $skipAttr = array_flip($this->_parameters[Mage_ImportExport_Model_Export::FILTER_ELEMENT_SKIP]);

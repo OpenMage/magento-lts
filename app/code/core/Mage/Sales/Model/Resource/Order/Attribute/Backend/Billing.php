@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -38,6 +32,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
      * Perform operation before save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function beforeSave($object)
     {
@@ -52,12 +47,13 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
      * Perform operation after save
      *
      * @param Varien_Object $object
+     * @return $this
      */
     public function afterSave($object)
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('billing' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'billing') {
                 $billingAddressId = $address->getId();
             }
         }

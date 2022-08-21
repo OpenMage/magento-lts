@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sendfriend
@@ -43,9 +37,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
 
-        /* @var Mage_Sendfriend_Helper_Data $helper */
+        /** @var Mage_Sendfriend_Helper_Data $helper */
         $helper = Mage::helper('sendfriend');
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {

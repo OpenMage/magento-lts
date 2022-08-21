@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Reports
@@ -37,8 +31,6 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Initialize main table and identifier field.
      * Set main entity table name and primary key field name.
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -131,7 +123,7 @@ class Mage_Reports_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abst
         $stores = array();
         // get all or specified stores
         if (Mage::app()->getStore()->getId() == 0) {
-            if (null !== $predefinedStoreIds) {
+            if ($predefinedStoreIds !== null) {
                 $stores = $predefinedStoreIds;
             } else {
                 foreach (Mage::app()->getStores() as $store) {

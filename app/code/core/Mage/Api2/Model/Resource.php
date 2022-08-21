@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -400,7 +394,7 @@ abstract class Mage_Api2_Model_Resource
      */
     public function getVersion()
     {
-        if (null === $this->_version) {
+        if ($this->_version === null) {
             if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
                 $this->setVersion($matches[1]);
             } else {
@@ -729,7 +723,7 @@ abstract class Mage_Api2_Model_Resource
         }
 
         $pageSize = $this->getRequest()->getPageSize();
-        if (null == $pageSize) {
+        if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
         } else {
             if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
@@ -739,7 +733,7 @@ abstract class Mage_Api2_Model_Resource
 
         $orderField = $this->getRequest()->getOrderField();
 
-        if (null !== $orderField) {
+        if ($orderField !== null) {
             $operation = Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ;
             if (!is_string($orderField)
                 || !array_key_exists($orderField, $this->getAvailableAttributes($this->getUserType(), $operation))
@@ -884,7 +878,7 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getLocation($resource)
     {
-        /* @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
@@ -925,7 +919,7 @@ abstract class Mage_Api2_Model_Resource
         $resourceAttrs = $this->_getResourceAttributes();
 
         // if resource returns not-associative array - attributes' codes only
-        if (0 === key($resourceAttrs)) {
+        if (key($resourceAttrs) === 0) {
             $resourceAttrs = array_combine($resourceAttrs, $resourceAttrs);
         }
         foreach ($resourceAttrs as $attrCode => $attrLabel) {
@@ -1011,7 +1005,7 @@ abstract class Mage_Api2_Model_Resource
         $workModel = $this->getConfig()->getResourceWorkingModel($this->getResourceType());
 
         if ($workModel) {
-            /* @var Mage_Core_Model_Resource_Db_Abstract $resource */
+            /** @var Mage_Core_Model_Resource_Db_Abstract $resource */
             $resource = Mage::getResourceModel($workModel);
 
             if (method_exists($resource, 'getMainTable')) {

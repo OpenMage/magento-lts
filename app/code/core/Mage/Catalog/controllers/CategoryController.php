@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -37,6 +31,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * Initialize requested category object
      *
      * @return Mage_Catalog_Model_Category|false
+     * @throws Mage_Core_Exception
      */
     protected function _initCategory()
     {
@@ -76,9 +71,10 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
+     * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      * @deprecated use method _initCategory
      *
-     * @return Mage_Catalog_Model_Category
      */
     protected function _initCatagory()
     {
@@ -122,6 +118,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @throws Mage_Core_Exception
      */
     public function viewAction()
     {
@@ -163,7 +160,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $this->getLayout()->helper('page/layout')->applyTemplate($settings->getPageLayout());
             }
 
-            if ($root = $this->getLayout()->getBlock('root')) {
+            /** @var Mage_Page_Block_Html $root */
+            $root = $this->getLayout()->getBlock('root');
+            if ($root) {
                 $root->addBodyClass('categorypath-' . $category->getUrlPath())
                     ->addBodyClass('category-' . $category->getUrlKey());
             }

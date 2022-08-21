@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -44,7 +38,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
     public function getLinks($product = null)
     {
         $product = $this->getProduct($product);
-        /* @var Mage_Catalog_Model_Product $product */
         if (is_null($product->getDownloadableLinks())) {
             $_linkCollection = Mage::getModel('downloadable/link')->getCollection()
                 ->addProductToFilter($product->getId())
@@ -52,7 +45,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 ->addPriceToResult($product->getStore()->getWebsiteId());
             $linksCollectionById = array();
             foreach ($_linkCollection as $link) {
-                /* @var Mage_Downloadable_Model_Link $link */
+                /** @var Mage_Downloadable_Model_Link $link */
                 $link->setProduct($product);
                 $linksCollectionById[$link->getId()] = $link;
             }
@@ -230,7 +223,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                             ->setStoreId($product->getStoreId())
                             ->setWebsiteId($product->getStore()->getWebsiteId())
                             ->setProductWebsiteIds($product->getWebsiteIds());
-                        if (null === $linkModel->getPrice()) {
+                        if ($linkModel->getPrice() === null) {
                             $linkModel->setPrice(0);
                         }
                         if ($linkModel->getIsUnlimited()) {
@@ -312,7 +305,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
                 $preparedLinks[] = $link->getId();
             }
         }
-        if (null !== $originalLinksPurchasedSeparately) {
+        if ($originalLinksPurchasedSeparately !== null) {
             $this->getProduct($product)
                 ->setLinksPurchasedSeparately($originalLinksPurchasedSeparately);
         }

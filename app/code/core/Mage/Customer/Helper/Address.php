@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -163,7 +157,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_attributes)) {
             $this->_attributes = array();
-            /* @var Mage_Eav_Model_Config $config */
+            /** @var Mage_Eav_Model_Config $config */
             $config = Mage::getSingleton('eav/config');
             foreach ($config->getEntityAttributeCodes('customer_address') as $attributeCode) {
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -265,7 +259,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         $address = $this->getQuote()->getBillingAddress();
-        /* @var Mage_Customer_Model_Form $addressForm */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm = Mage::getModel('customer/form');
         $addressForm->setFormCode('customer_address_edit')
             ->setEntityType('customer_address')
@@ -319,7 +313,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         $address->implodeStreetAddress();
 
-        if (true !== ($result = $this->_validateCustomerData($data))) {
+        if (($result = $this->_validateCustomerData($data)) !== true) {
             return $result;
         }
 
@@ -404,7 +398,7 @@ class Mage_Checkout_Model_Type_Onepage
             $customerForm->setEntity($customer);
             $customerData = $quote->getCustomer()->getData();
         } else {
-            /* @var Mage_Customer_Model_Customer $customer */
+            /** @var Mage_Customer_Model_Customer $customer */
             $customer = Mage::getModel('customer/customer');
             $customerForm->setEntity($customer);
             $customerRequest = $customerForm->prepareRequest($data);
@@ -440,7 +434,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
 
         $result = $customer->validate();
-        if (true !== $result && is_array($result)) {
+        if ($result !== true && is_array($result)) {
             return array(
                 'error'   => -1,
                 'message' => implode(', ', $result)
@@ -510,7 +504,7 @@ class Mage_Checkout_Model_Type_Onepage
                 $customer->setDob($dob);
             }
             $validationResult = $customer->validate();
-            if (true !== $validationResult && is_array($validationResult)) {
+            if ($validationResult !== true && is_array($validationResult)) {
                 return array(
                     'error'   => -1,
                     'message' => implode(', ', $validationResult)
@@ -543,7 +537,7 @@ class Mage_Checkout_Model_Type_Onepage
         }
         $address = $this->getQuote()->getShippingAddress();
 
-        /* @var Mage_Customer_Model_Form $addressForm */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm    = Mage::getModel('customer/form');
         $addressForm->setFormCode('customer_address_edit')
             ->setEntityType('customer_address')
@@ -703,8 +697,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer registration and customer order submit
-     *
-     * @return void
      */
     protected function _prepareNewCustomerQuote()
     {
@@ -714,7 +706,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         //$customer = Mage::getModel('customer/customer');
         $customer = $quote->getCustomer();
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
         $customerBilling = $billing->exportCustomerAddress();
         $customer->addAddress($customerBilling);
         $billing->setCustomerAddress($customerBilling);
@@ -740,8 +732,6 @@ class Mage_Checkout_Model_Type_Onepage
 
     /**
      * Prepare quote for customer order submit
-     *
-     * @return void
      */
     protected function _prepareCustomerQuote()
     {
@@ -889,7 +879,6 @@ class Mage_Checkout_Model_Type_Onepage
     /**
      * Validate quote state to be able submitted from one page checkout page
      *
-     * @return void
      * @throws Mage_Core_Exception
      * @deprecated after 1.4 - service model doing quote validation
      */

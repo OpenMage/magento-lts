@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -342,7 +336,7 @@ class Mage_Core_Model_Resource_Setup
     protected function _hookQueries()
     {
         $this->_queriesHooked = true;
-        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
+        /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
         return $this;
@@ -358,7 +352,7 @@ class Mage_Core_Model_Resource_Setup
         if (!$this->_queriesHooked) {
             return $this;
         }
-        /* @var Varien_Db_Adapter_Pdo_Mysql $adapter */
+        /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
         $this->_queriesHooked = false;
@@ -488,7 +482,7 @@ class Mage_Core_Model_Resource_Setup
         $regExpDb   = sprintf('#^%s-(.*)\.(php|sql)$#i', $actionType);
         $regExpType = sprintf('#^%s-%s-(.*)\.(php|sql)$#i', $resModel, $actionType);
         $handlerDir = dir($filesDir);
-        while (false !== ($file = $handlerDir->read())) {
+        while (($file = $handlerDir->read()) !== false) {
             $matches = array();
             if (preg_match($regExpDb, $file, $matches)) {
                 $dbFiles[$matches[1]] = $filesDir . DS . $file;
@@ -526,7 +520,7 @@ class Mage_Core_Model_Resource_Setup
         if (is_dir($filesDir) && is_readable($filesDir)) {
             $regExp     = sprintf('#^%s-(.*)\.php$#i', $actionType);
             $handlerDir = dir($filesDir);
-            while (false !== ($file = $handlerDir->read())) {
+            while (($file = $handlerDir->read()) !== false) {
                 $matches = array();
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
@@ -541,7 +535,7 @@ class Mage_Core_Model_Resource_Setup
             $regExp     = sprintf('#^%s-%s-(.*)\.php$#i', $this->_connectionConfig->model, $actionType);
             $handlerDir = dir($filesDir);
 
-            while (false !== ($file = $handlerDir->read())) {
+            while (($file = $handlerDir->read()) !== false) {
                 $matches = array();
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;

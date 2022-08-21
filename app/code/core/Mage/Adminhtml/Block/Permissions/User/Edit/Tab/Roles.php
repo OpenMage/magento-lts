@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -106,7 +100,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         if ( $this->getRequest()->getParam('user_roles') != "" ) {
             return $this->getRequest()->getParam('user_roles');
         }
-        /* @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = Mage::registry('permissions_user');
         //checking if we have this data and we
         //don't need load it through resource model

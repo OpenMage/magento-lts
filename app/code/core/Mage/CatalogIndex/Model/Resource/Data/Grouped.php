@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -68,7 +62,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                 $retreiver = Mage::getSingleton('catalogindex/retreiver')->getRetreiver($type);
                 foreach ($typeIds as $id) {
                     $finalPrice = $retreiver->getFinalPrice($id, $store, $group);
-                    if ((null === $resultMinimal) || ($finalPrice < $resultMinimal)) {
+                    if (($resultMinimal === null) || ($finalPrice < $resultMinimal)) {
                         $resultMinimal    = $finalPrice;
                         $resultTaxClassId = $retreiver->getTaxClassId($id, $store);
                     }
@@ -78,7 +72,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
-                        if ((null === $resultMinimal) || ($tier['value'] < $resultMinimal)) {
+                        if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);
                         }
@@ -91,7 +85,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                     continue;
                 }
 
-                if ((null === $resultMinimal) || ($one['value'] < $resultMinimal)) {
+                if (($resultMinimal === null) || ($one['value'] < $resultMinimal)) {
                     $resultMinimal = $one['value'];
                     $taxClassId    = $one['tax_class_id'];
                 } else {

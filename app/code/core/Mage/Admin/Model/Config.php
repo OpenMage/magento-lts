@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -49,7 +43,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         parent::__construct();
         $this->setCacheId('adminhtml_acl_menu_config');
 
-        /* @var Varien_Simplexml_Config $adminhtmlConfig */
+        /** @var Varien_Simplexml_Config $adminhtmlConfig */
         $adminhtmlConfig = Mage::app()->loadCache($this->getCacheId());
         if ($adminhtmlConfig) {
             $this->_adminhtmlConfig = new Varien_Simplexml_Config($adminhtmlConfig);
@@ -117,7 +111,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         }
 
         foreach ($children as $res) {
-            if (1 == $res->disabled) {
+            if ($res->disabled == 1) {
                 continue;
             }
             $this->loadAclResources($acl, $res, $resourceName);
@@ -134,7 +128,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     public function getAclAssert($name = '')
     {
         $asserts = $this->getNode("admin/acl/asserts");
-        if ('' === $name) {
+        if ($name === '') {
             return $asserts;
         }
 
@@ -154,7 +148,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
     public function getAclPrivilegeSet($name = '')
     {
         $sets = $this->getNode("admin/acl/privilegeSets");
-        if ('' === $name) {
+        if ($name === '') {
             return $sets;
         }
 

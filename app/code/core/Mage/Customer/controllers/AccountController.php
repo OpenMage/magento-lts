@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -280,7 +274,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        /** @var Mage_Customer_Model_Session $session */
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
             $this->_redirect('*/*/');
@@ -334,9 +327,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $session = $this->_getSession();
         if ($customer->isConfirmationRequired()) {
-            /** @var Mage_Core_Model_App $app */
             $app = $this->_getApp();
-            /** @var Mage_Core_Model_Store $store */
             $store = $app->getStore();
             $customer->sendNewAccountEmail(
                 'confirmation',
@@ -448,7 +439,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     protected function _getCustomerForm($customer)
     {
-        /* @var Mage_Customer_Model_Form $customerForm */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm = $this->_getModel('customer/form');
         $customerForm->setFormCode('customer_account_create');
         $customerForm->setEntity($customer);
@@ -498,9 +489,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     protected function _getErrorsOnCustomerAddress($customer)
     {
         $errors = array();
-        /* @var Mage_Customer_Model_Address $address */
+        /** @var Mage_Customer_Model_Address $address */
         $address = $this->_getModel('customer/address');
-        /* @var Mage_Customer_Model_Form $addressForm */
+        /** @var Mage_Customer_Model_Form $addressForm */
         $addressForm = $this->_getModel('customer/form');
         $addressForm->setFormCode('customer_register_address')
             ->setEntity($address);
@@ -980,7 +971,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         if ($this->getRequest()->isPost()) {
-            /** @var Mage_Customer_Model_Customer $customer */
             $customer = $this->_getSession()->getCustomer();
             $customer->setOldEmail($customer->getEmail());
             /** @var Mage_Customer_Model_Form $customerForm */

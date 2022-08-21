@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -68,13 +62,17 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_quote_rule');
@@ -251,12 +249,12 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main
             }
         }
 
-        //$form->setUseContainer(true);
-
         $this->setForm($form);
 
         // field dependencies
-        $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence');
+        $this->setChild('form_after', $block
             ->addFieldMap($couponTypeFiled->getHtmlId(), $couponTypeFiled->getName())
             ->addFieldMap($couponCodeFiled->getHtmlId(), $couponCodeFiled->getName())
             ->addFieldMap($autoGenerationCheckbox->getHtmlId(), $autoGenerationCheckbox->getName())

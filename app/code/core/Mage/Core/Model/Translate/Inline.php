@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -154,7 +148,7 @@ class Mage_Core_Model_Translate_Inline
             $this->_isAllowed = $active && Mage::helper('core')->isDevAllowed($store);
         }
 
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
 
         return $translate->getTranslateInline() && $this->_isAllowed;
@@ -172,7 +166,7 @@ class Mage_Core_Model_Translate_Inline
             return $this;
         }
 
-        /* @var Mage_Core_Model_Mysql4_Translate_String $resource */
+        /** @var Mage_Core_Model_Mysql4_Translate_String $resource */
         $resource = Mage::getResourceModel('core/translate_string');
         foreach ($translate as $t) {
             if (Mage::getDesign()->getArea() == 'adminhtml') {
@@ -364,7 +358,6 @@ class Mage_Core_Model_Translate_Inline
      * Prepare tags inline translates for the content
      *
      * @param string $content
-     * @return void
      */
     protected function _prepareTagAttributesForContent(&$content)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -665,7 +659,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
 
         // Create table or modify existing one
         if (!$this->_isFlatTableExists($storeId)) {
-            /** @var Varien_Db_Ddl_Table $table */
             $table = $adapter->newTable($tableName);
             foreach ($columns as $fieldName => $fieldProp) {
                 $table->addColumn(
@@ -854,7 +847,6 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
         $adapter   = $this->_getWriteAdapter();
         $websiteId = (int)Mage::app()->getStore($storeId)->getWebsite()->getId();
-        /* @var Mage_Eav_Model_Entity_Attribute $status */
         $status    = $this->getAttribute('status');
 
         $fieldList  = array('entity_id', 'type_id', 'attribute_set_id');
@@ -1042,7 +1034,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
 
         foreach ($this->getAttributes() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             if ($attribute->getBackend()->getType() != 'static') {
                 $this->updateAttribute($attribute, $storeId, $productIds);
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -54,8 +48,6 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
 
     /**
      * Init layout, messages and set active block for customer
-     *
-     * @return null
      */
     protected function _viewAction()
     {
@@ -81,7 +73,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     protected function _loadValidOrder($orderId = null)
     {
-        if (null === $orderId) {
+        if ($orderId === null) {
             $orderId = (int) $this->getRequest()->getParam('order_id');
         }
         if (!$orderId) {
@@ -141,7 +133,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             return;
         }
         $order = Mage::registry('current_order');
-        /* @var Mage_Checkout_Model_Cart $cart */
+        /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
 
         $items = $order->getItemsCollection();

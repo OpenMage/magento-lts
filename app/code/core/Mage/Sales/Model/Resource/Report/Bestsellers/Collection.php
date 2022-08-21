@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -83,9 +77,9 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     'product_price'   => 'MAX(product_price)',
                     'product_type_id' => 'product_type_id'
                 );
-                if ('year' == $this->_period) {
+                if ($this->_period == 'year') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
-                } elseif ('month' == $this->_period) {
+                } elseif ($this->_period == 'month') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y-%m');
                 }
             }
@@ -152,10 +146,10 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             return $this;
         }
 
-        if ('year' == $this->_period) {
+        if ($this->_period == 'year') {
             $mainTable = $this->getTable('sales/bestsellers_aggregated_yearly');
             $select->from($mainTable, $this->_getSelectedColumns());
-        } elseif ('month' == $this->_period) {
+        } elseif ($this->_period == 'month') {
             $mainTable = $this->getTable('sales/bestsellers_aggregated_monthly');
             $select->from($mainTable, $this->_getSelectedColumns());
         } else {
@@ -227,7 +221,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
             $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to, $dtFormat) : null);
-            if ('year' == $this->_period) {
+            if ($this->_period == 'year') {
                 if ($periodFrom) {
                     // not the first day of the year
                     if ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -284,7 +278,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                         $this->getSelect()->where('1<>1');
                     }
                 }
-            } elseif ('month' == $this->_period) {
+            } elseif ($this->_period == 'month') {
                 if ($periodFrom) {
                     // not the first day of the month
                     if ($periodFrom->toValue(Zend_Date::DAY) != 1) {

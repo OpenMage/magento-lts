@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales observer
@@ -46,6 +39,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cleanExpiredQuotes($schedule)
     {
@@ -196,6 +190,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportShipmentData($schedule)
     {
@@ -212,6 +207,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportInvoicedData($schedule)
     {
@@ -228,6 +224,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportRefundedData($schedule)
     {
@@ -244,6 +241,7 @@ class Mage_Sales_Model_Observer
      *
      * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function aggregateSalesReportBestsellersData($schedule)
     {
@@ -272,10 +270,13 @@ class Mage_Sales_Model_Observer
         $observer->getEvent()->getResult()->output = $block->toHtml();
 
         // make the profile element dependent on is_recurring
-        $dependencies = Mage::app()->getLayout()->createBlock(
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
+        $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
             'adminhtml_recurring_profile_edit_form_dependence'
-        )->addFieldMap('is_recurring', 'product[is_recurring]')
+        );
+        $dependencies = $block
+            ->addFieldMap('is_recurring', 'product[is_recurring]')
             ->addFieldMap($profileElement->getHtmlId(), $profileElement->getName())
             ->addFieldDependence($profileElement->getName(), 'product[is_recurring]', '1')
             ->addConfigOptions(array('levels_up' => 2));
@@ -363,7 +364,6 @@ class Mage_Sales_Model_Observer
      * Add VAT validation request date and identifier to order comments
      *
      * @param Varien_Event_Observer $observer
-     * @return null
      */
     public function addVatRequestParamsOrderComment(Varien_Event_Observer $observer)
     {
@@ -442,7 +442,6 @@ class Mage_Sales_Model_Observer
         $quoteAddress = $observer->getQuoteAddress();
         /** @var Mage_Sales_Model_Quote $quoteInstance */
         $quoteInstance = $quoteAddress->getQuote();
-        /** @var Mage_Customer_Model_Customer $customerInstance */
         $customerInstance = $quoteInstance->getCustomer();
         $isDisableAutoGroupChange = $customerInstance->getDisableAutoGroupChange();
 

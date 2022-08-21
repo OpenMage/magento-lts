@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -674,7 +668,7 @@ class Mage_Core_Model_App
         }
 
         foreach ($groupCollection as $group) {
-            /* @var Mage_Core_Model_Store_Group $group */
+            /** @var Mage_Core_Model_Store_Group $group */
             if (!isset($groupStores[$group->getId()])) {
                 $groupStores[$group->getId()] = array();
             }
@@ -687,7 +681,7 @@ class Mage_Core_Model_App
         }
 
         foreach ($websiteCollection as $website) {
-            /* @var Mage_Core_Model_Website $website */
+            /** @var Mage_Core_Model_Website $website */
             if (!isset($websiteGroups[$website->getId()])) {
                 $websiteGroups[$website->getId()] = array();
             }
@@ -855,7 +849,7 @@ class Mage_Core_Model_App
             return $this->_store;
         }
 
-        if (!isset($id) || ''===$id || $id === true) {
+        if (!isset($id) || $id === '' || $id === true) {
             $id = $this->_currentStore;
         }
         if ($id instanceof Mage_Core_Model_Store) {
@@ -867,7 +861,7 @@ class Mage_Core_Model_App
 
         if (empty($this->_stores[$id])) {
             $store = Mage::getModel('core/store');
-            /* @var Mage_Core_Model_Store $store */
+            /** @var Mage_Core_Model_Store $store */
             if (is_numeric($id)) {
                 $store->load($id);
             } elseif (is_string($id)) {
@@ -1362,7 +1356,7 @@ class Mage_Core_Model_App
                 $events[$eventName]['observers'] = $observers;
                 $this->_events[$area][$eventName]['observers'] = $observers;
             }
-            if (false===$events[$eventName]) {
+            if ($events[$eventName] === false) {
                 continue;
             } else {
                 $event = new Varien_Event($args);

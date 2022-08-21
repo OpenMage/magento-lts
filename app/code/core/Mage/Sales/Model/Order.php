@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -437,7 +431,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     const REPORT_DATE_TYPE_CREATED = 'created';
     const REPORT_DATE_TYPE_UPDATED = 'updated';
-    /*
+    /**
      * Identifier for history item
      */
     const HISTORY_ENTITY_NAME = 'order';
@@ -503,7 +497,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_canSendNewEmailFlag = true;
 
-    /*
+    /**
      * Identifier for history item
      *
      * @var string
@@ -1164,7 +1158,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    /*
+    /**
      * Add a comment to order
      * Different or default status may be specified
      *
@@ -1174,9 +1168,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
-        if (false === $status) {
+        if ($status === false) {
             $status = $this->getStatus();
-        } elseif (true === $status) {
+        } elseif ($status === true) {
             $status = $this->getConfig()->getStateDefaultStatus($this->getState());
         } else {
             $this->setStatus($status);
@@ -1793,7 +1787,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function isNominal()
     {
         foreach ($this->getAllVisibleItems() as $item) {
-            if ('0' == $item->getIsNominal()) {
+            if ($item->getIsNominal() == '0') {
                 return false;
             }
         }
@@ -2369,7 +2363,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             && !$this->canUnhold()
             && !$this->canInvoice()
             && !$this->canShip()) {
-            if (0 == $this->getBaseGrandTotal() || $this->canCreditmemo()) {
+            if ($this->getBaseGrandTotal() == 0 || $this->canCreditmemo()) {
                 if ($this->getState() !== self::STATE_COMPLETE) {
                     $this->_setState(self::STATE_COMPLETE, true, '', $userNotification);
                 }
@@ -2399,7 +2393,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null !== $this->_addresses) {
+        if ($this->_addresses !== null) {
             $this->_addresses->save();
             $billingAddress = $this->getBillingAddress();
             $attributesForSave = array();
@@ -2418,13 +2412,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->_items->save();
         }
-        if (null !== $this->_payments) {
+        if ($this->_payments !== null) {
             $this->_payments->save();
         }
-        if (null !== $this->_statusHistory) {
+        if ($this->_statusHistory !== null) {
             $this->_statusHistory->save();
         }
         foreach ($this->getRelatedObjects() as $object) {

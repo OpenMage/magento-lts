@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -43,24 +37,26 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         parent::__construct();
         $this->setId('subscriberGrid');
         $this->setUseAjax(true);
-        $this->setDefaultSort('subscriber_id', 'desc');
+        $this->setDefaultSort('subscriber_id');
+        $this->setDefaultDir('desc');
     }
 
     /**
      * Prepare collection for grid
      *
      * @return Mage_Adminhtml_Block_Widget_Grid
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceSingleton('newsletter/subscriber_collection');
-        /* @var $collection Mage_Newsletter_Model_Mysql4_Subscriber_Collection */
+        /** @var Mage_Newsletter_Model_Resource_Subscriber_Collection $collection */
         $collection
-            ->showCustomerInfo(true)
+            ->showCustomerInfo()
             ->addSubscriberTypeField()
             ->showStoreInfo();
 
-        if($this->getRequest()->getParam('queue', false)) {
+        if ($this->getRequest()->getParam('queue', false)) {
             $collection->useQueue(Mage::getModel('newsletter/queue')
                 ->load($this->getRequest()->getParam('queue')));
         }
@@ -70,9 +66,12 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-
         $this->addColumn('subscriber_id', array(
             'header'    => Mage::helper('newsletter')->__('ID'),
             'index'     => 'subscriber_id'
@@ -194,6 +193,9 @@ class Mage_Adminhtml_Block_Newsletter_Subscriber_Grid extends Mage_Adminhtml_Blo
         return Mage::getModel('adminhtml/system_store')->getStoreOptionHash();
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('subscriber_id');

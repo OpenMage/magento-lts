@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -68,7 +62,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     protected $_cacheTag    = 'EAV_ATTRIBUTE';
 
     /**
-     * Retreive default attribute backend model by attribute code
+     * Retrieve default attribute backend model by attribute code
      *
      * @return string
      */
@@ -92,7 +86,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute frontend model
+     * Retrieve default attribute frontend model
      *
      * @return string
      */
@@ -102,7 +96,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive default attribute source model
+     * Retrieve default attribute source model
      *
      * @return string
      */
@@ -305,7 +299,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     }
 
     /**
-     * Retreive attribute codes by frontend type
+     * Retrieve attribute codes by frontend type
      *
      * @param string $type
      * @return array

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -443,7 +437,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && false===strpos($fileName, '//')) {
+        if ($fileName && is_readable($fileName) && strpos($fileName, '//') === false) {
             return true;
         }
         return false;
@@ -492,7 +486,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param Mage_Core_Controller_Request_Http $request
      * @param string $path
-     * @return void
      */
     protected function _checkShouldBeSecure($request, $path = '')
     {

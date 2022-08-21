@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -319,9 +313,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return void
+     * @inheritDoc
      * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
@@ -375,7 +367,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setCustomerId($this->_customer->getId());
         }
 
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**
@@ -387,15 +379,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if (null !== $this->_addresses) {
+        if ($this->_addresses !== null) {
             $this->getAddressesCollection()->save();
         }
 
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
 
-        if (null !== $this->_payments) {
+        if ($this->_payments !== null) {
             $this->getPaymentsCollection()->save();
         }
         return $this;
@@ -1042,7 +1034,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Advanced func to add product to quote - processing mode can be specified there.
      * Returns error message if product type instance can't prepare product.
      *
-     * @param mixed $product
+     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @param null|string $processMode
      * @return Mage_Sales_Model_Quote_Item|string
@@ -1127,7 +1119,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * return error message if product type instance can't prepare product
      *
-     * @param mixed $product
+     * @param Mage_Catalog_Model_Product $product
      * @param null|float|Varien_Object $request
      * @return Mage_Sales_Model_Quote_Item|string
      */
@@ -1536,7 +1528,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         $sortedTotals = array();
         foreach ($this->getBillingAddress()->getTotalModels() as $total) {
-            /* @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
+            /** @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
             if (isset($totals[$total->getCode()])) {
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
             }
@@ -1593,7 +1585,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $errors = array();
         foreach ($this->getMessages() as $message) {
-            /* @var Mage_Core_Model_Message_Abstract $error */
             if ($message->getType() == Mage_Core_Model_Message::ERROR) {
                 $errors[] = $message;
             }
@@ -1797,7 +1788,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $baseTotal = 0;
                 foreach ($addresses as $address) {
-                    /* @var Mage_Sales_Model_Quote_Address $address */
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
                 if ($baseTotal < $minAmount) {
@@ -1806,7 +1796,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         } else {
             foreach ($addresses as $address) {
-                /* @var Mage_Sales_Model_Quote_Address $address */
                 if (!$address->validateMinimumAmount()) {
                     return false;
                 }
@@ -1825,7 +1814,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $isVirtual = true;
         $countItems = 0;
         foreach ($this->getItemsCollection() as $_item) {
-            /* @var Mage_Sales_Model_Quote_Item $_item */
+            /** @var Mage_Sales_Model_Quote_Item $_item */
             if ($_item->isDeleted() || $_item->getParentItemId()) {
                 continue;
             }
@@ -2036,7 +2025,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if (1 == $this->getData('trigger_recollect')) {
+        if ($this->getData('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }

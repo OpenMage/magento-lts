@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -44,7 +38,7 @@ class Mage_Directory_Model_Country_Api extends Mage_Api_Model_Resource_Abstract
 
         $result = array();
         foreach ($collection as $country) {
-            /* @var Mage_Directory_Model_Country $country */
+            /** @var Mage_Directory_Model_Country $country */
             $country->getName(); // Loading name in default locale
             $result[] = $country->toArray(array('country_id', 'iso2_code', 'iso3_code', 'name'));
         }
