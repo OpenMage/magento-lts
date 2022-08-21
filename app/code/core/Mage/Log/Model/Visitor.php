@@ -19,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Log_Model_Resource_Visitor getResource()
  * @method int getCustomerId()
  * @method $this setCustomerId(int $value)

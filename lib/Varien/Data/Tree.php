@@ -36,18 +36,12 @@ class Varien_Data_Tree
      */
     protected $_nodes;
 
-    /**
-     * Enter description here...
-     *
-     */
     public function __construct()
     {
         $this->_nodes = new Varien_Data_Tree_Node_Collection($this);
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Tree
      */
     public function getTree()
@@ -56,8 +50,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $parentNode
      */
     public function load($parentNode=null)
@@ -65,8 +57,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $nodeId
      */
     public function loadNode($nodeId)
@@ -74,8 +64,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param array|Varien_Data_Tree_Node $data
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -95,8 +83,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parent
      * @return Varien_Data_Tree_Node
@@ -112,8 +98,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -123,8 +107,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
@@ -134,8 +116,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @return Varien_Data_Tree
      */
@@ -150,8 +130,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
      */
@@ -160,8 +138,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      */
     public function getChild($node)
@@ -169,8 +145,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      */
     public function getChildren($node)
@@ -178,8 +152,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Tree_Node_Collection
      */
     public function getNodes()
@@ -188,8 +160,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $nodeId
      * @return Varien_Data_Tree_Node
      */
@@ -199,8 +169,6 @@ class Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Tree_Node $node
      * @return array
      */

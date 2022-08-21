@@ -53,8 +53,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     protected $_types = array();
 
     /**
-     * Enter description here...
-     *
      * @param array $attributes
      */
     public function __construct($attributes = array())
@@ -63,8 +61,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $type
      * @param string $className
      * @return $this
@@ -76,8 +72,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Data_Form_Element_Collection
      */
     public function getElements()
@@ -153,8 +147,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @return $this
      */
@@ -165,8 +157,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @param array $config
      * @param bool|string|null $after
@@ -182,8 +172,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $elementId
      * @param array $config
      * @return Varien_Data_Form_Element_Column
@@ -198,8 +186,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * Enter description here...
-     *
      * @param array $arrAttributes
      * @return array
      */

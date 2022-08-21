@@ -69,8 +69,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     #[ReturnTypeWillChange]
@@ -295,8 +293,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $level
      * @return string
      */

@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widget
 {
-
     /**
      * Tabs
      *
@@ -35,10 +34,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->setId('system_config_tabs');
@@ -47,8 +42,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param unknown_type $a
      * @param unknown_type $b
      * @return int
@@ -58,10 +51,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
     }
 
-    /**
-     * Enter description here...
-     *
-     */
     public function initTabs()
     {
         $current = $this->getRequest()->getParam('section');
@@ -205,8 +194,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()
@@ -279,8 +266,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getStoreButtonsHtml()
@@ -327,8 +312,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $code
      * @return boolean
      */

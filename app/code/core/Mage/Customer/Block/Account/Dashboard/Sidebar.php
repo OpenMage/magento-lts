@@ -31,8 +31,6 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
     protected $_cartItemsCount;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Wishlist_Model_Wishlist
      */
     protected $_wishlist;

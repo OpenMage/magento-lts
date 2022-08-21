@@ -29,38 +29,26 @@
 class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
-     * Enter description here ...
-     *
      * @var array
      */
     protected $_insertData       = [];
 
     /**
-     * Enter description here ...
-     *
      * @var array
      */
     protected $_tableFields      = [];
 
     /**
-     * Enter description here ...
-     *
      * @var array
      */
     protected $_attributeCache   = [];
 
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $id
      * @return Mage_Eav_Model_Entity_Attribute
      */

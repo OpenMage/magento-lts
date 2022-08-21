@@ -29,8 +29,6 @@
 class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resource_Report_Collection_Abstract
 {
     /**
-     * Enter description here ...
-     *
      * @var string
      */
     protected $_periodFormat;
@@ -43,8 +41,6 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     protected $_aggregationTable = 'tax/tax_order_aggregated_created';
 
     /**
-     * Enter description here ...
-     *
      * @var array
      */
     protected $_selectedColumns    = [];
@@ -62,8 +58,6 @@ class Mage_Tax_Model_Resource_Report_Collection extends Mage_Sales_Model_Resourc
     }
 
     /**
-     * Enter description here ...
-     *
      * @return array
      */
     protected function _getSelectedColumns()

@@ -28,10 +28,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Eav extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');

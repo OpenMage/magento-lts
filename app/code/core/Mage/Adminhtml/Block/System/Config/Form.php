@@ -48,36 +48,26 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     protected $_configDataObject;
 
     /**
-     * Enter description here...
-     *
      * @var Varien_Simplexml_Element
      */
     protected $_configRoot;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Adminhtml_Model_Config
      */
     protected $_configFields;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Adminhtml_Block_System_Config_Form_Fieldset
      */
     protected $_defaultFieldsetRenderer;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Adminhtml_Block_System_Config_Form_Field
      */
     protected $_defaultFieldRenderer;
 
     /**
-     * Enter description here...
-     *
      * @var array
      */
     protected $_fieldsets = [];
@@ -89,10 +79,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected $_scopeLabels = [];
 
-    /**
-     * Enter description here...
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -104,8 +90,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     protected function _initObjects()
@@ -122,8 +106,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     public function initForm()
@@ -562,8 +544,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $a
      * @param Varien_Simplexml_Element $b
      * @return boolean
@@ -575,8 +555,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $field
      * @return boolean
      */
@@ -592,8 +570,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $field
      * @return boolean
      */
@@ -711,8 +687,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     protected function _getAdditionalElementTypes()
@@ -732,8 +706,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * to getBlala() methods to be later set from controller with setters
      */
     /**
-     * Enter description here...
-     *
      * @TODO delete this methods when {^see above^} is done
      * @return string
      */
@@ -743,8 +715,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @TODO delete this methods when {^see above^} is done
      * @return string
      */
@@ -754,8 +724,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @TODO delete this methods when {^see above^} is done
      * @return string
      */

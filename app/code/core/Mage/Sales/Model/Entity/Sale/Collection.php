@@ -48,8 +48,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     protected $_select;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Customer_Model_Customer
      */
     protected $_customer;
@@ -159,8 +157,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
@@ -170,8 +166,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Eav_Model_Entity_Abstract
      */
     public function getEntity()
@@ -180,8 +174,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return ArrayIterator
      */
     #[\ReturnTypeWillChange]
@@ -191,8 +183,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getItems()
@@ -201,8 +191,6 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * Enter description here...
-     *
      * @return Varien_Object
      */
     public function getTotals()

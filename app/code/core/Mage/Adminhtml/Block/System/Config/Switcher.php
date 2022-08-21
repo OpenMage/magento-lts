@@ -30,8 +30,6 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()

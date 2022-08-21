@@ -190,8 +190,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $resource
      * @return string
      */

@@ -32,8 +32,6 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getPayableTo()
@@ -45,8 +43,6 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getMailingAddress()
@@ -58,8 +54,6 @@ class Mage_Payment_Block_Info_Checkmo extends Mage_Payment_Block_Info
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     protected function _convertAdditionalData()

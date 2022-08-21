@@ -28,18 +28,12 @@
  */
 class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model_Resource_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
      * @param int|array $entityFilter
@@ -61,8 +55,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
      * @return array
@@ -94,8 +86,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $value
