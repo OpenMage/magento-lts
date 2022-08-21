@@ -54,12 +54,12 @@ class Mage_Tag_IndexController extends Mage_Core_Controller_Front_Action
                     $tagModel = Mage::getModel('tag/tag');
 
                     // added tag relation statuses
-                    $counter = array(
-                        Mage_Tag_Model_Tag::ADD_STATUS_NEW => array(),
-                        Mage_Tag_Model_Tag::ADD_STATUS_EXIST => array(),
-                        Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS => array(),
-                        Mage_Tag_Model_Tag::ADD_STATUS_REJECTED => array()
-                    );
+                    $counter = [
+                        Mage_Tag_Model_Tag::ADD_STATUS_NEW => [],
+                        Mage_Tag_Model_Tag::ADD_STATUS_EXIST => [],
+                        Mage_Tag_Model_Tag::ADD_STATUS_SUCCESS => [],
+                        Mage_Tag_Model_Tag::ADD_STATUS_REJECTED => []
+                    ];
 
                     $tagNamesArr = $this->_cleanTags($this->_extractTags($tagName));
                     foreach ($tagNamesArr as $tagName) {

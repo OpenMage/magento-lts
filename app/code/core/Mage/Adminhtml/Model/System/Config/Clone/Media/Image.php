@@ -42,14 +42,14 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
         $collection->setEntityTypeFilter($entityTypeId);
         $collection->setFrontendInputTypeFilter('media_image');
 
-        $prefixes = array();
+        $prefixes = [];
 
         foreach ($collection as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
-            $prefixes[] = array(
+            $prefixes[] = [
                 'field' => $attribute->getAttributeCode() . '_',
                 'label' => $attribute->getFrontend()->getLabel(),
-            );
+            ];
         }
 
         return $prefixes;

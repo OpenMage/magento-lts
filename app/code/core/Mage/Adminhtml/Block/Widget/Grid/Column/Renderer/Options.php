@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options
         if (!empty($options) && is_array($options)) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
-                $res = array();
+                $res = [];
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
                         $res[] = $this->escapeHtml($options[$item]);

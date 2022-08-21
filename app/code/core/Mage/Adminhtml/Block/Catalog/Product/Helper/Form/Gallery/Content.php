@@ -141,8 +141,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getImageTypes()
@@ -174,8 +172,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getMediaAttributes()

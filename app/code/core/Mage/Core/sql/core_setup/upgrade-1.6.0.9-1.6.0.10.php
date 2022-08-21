@@ -30,12 +30,12 @@ if ($installer->getConnection()->isTableExists($table)) {
     $installer->getConnection()->modifyColumn(
         $table,
         'filename',
-        array(
+        [
             'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
             'length' => 255,
             'nullable' => false,
             'comment' => 'Filename',
-        )
+        ]
     );
 }
 

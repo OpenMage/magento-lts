@@ -86,12 +86,12 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $configDataModel = Mage::getSingleton('adminhtml/config_data');
-        $urlParams = array(
+        $urlParams = [
             'section' => $configDataModel->getSection(),
             'website' => $configDataModel->getWebsite(),
             'store' => $configDataModel->getStore(),
             self::REQUEST_PARAM_COUNTRY => '__country__',
-        );
+        ];
         $urlString = $this->helper('core')
             ->jsQuoteEscape(Mage::getModel('adminhtml/url')->getUrl('*/*/*', $urlParams));
         $jsString = '

@@ -158,10 +158,10 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
             if ($hasError) {
                 $this->_redirect('*/*/add');
             } else {
-                $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                $this->_redirect('*/*/edit', ['id' => $model->getId()]);
             }
         } else {
-            $response = array();
+            $response = [];
             if ($hasError) {
                 $this->_initLayoutMessages('adminhtml/session');
                 $response['error']   = 1;

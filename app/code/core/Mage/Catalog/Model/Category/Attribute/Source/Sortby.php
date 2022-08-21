@@ -46,15 +46,15 @@ class Mage_Catalog_Model_Category_Attribute_Source_Sortby extends Mage_Eav_Model
     public function getAllOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(array(
+            $this->_options = [[
                 'label' => Mage::helper('catalog')->__('Best Value'),
                 'value' => 'position'
-            ));
+            ]];
             foreach ($this->_getCatalogConfig()->getAttributesUsedForSortBy() as $attribute) {
-                $this->_options[] = array(
+                $this->_options[] = [
                     'label' => Mage::helper('catalog')->__($attribute['frontend_label']),
                     'value' => $attribute['attribute_code']
-                );
+                ];
             }
         }
         return $this->_options;

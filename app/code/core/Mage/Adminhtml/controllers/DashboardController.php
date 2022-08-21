@@ -74,7 +74,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
     {
         $output   = '';
         $blockTab = $this->getRequest()->getParam('block');
-        if (in_array($blockTab, array('tab_orders', 'tab_amounts', 'totals'))) {
+        if (in_array($blockTab, ['tab_orders', 'tab_amounts', 'totals'])) {
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
         }
         $this->getResponse()->setBody($output);
@@ -93,7 +93,7 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
                 if ($params) {
                     $response = $httpClient->setUri(Mage_Adminhtml_Block_Dashboard_Graph::API_URL)
                             ->setParameterGet($params)
-                            ->setConfig(array('timeout' => 5))
+                            ->setConfig(['timeout' => 5])
                             ->request('GET');
 
                     $headers = $response->getHeaders();

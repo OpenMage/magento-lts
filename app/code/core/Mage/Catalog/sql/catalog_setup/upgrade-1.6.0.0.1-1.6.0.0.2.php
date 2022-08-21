@@ -20,7 +20,7 @@
 
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer = $this;
-$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'country_of_manufacture', array(
+$installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'country_of_manufacture', [
     'group'             => 'General',
     'type'              => 'varchar',
     'backend'           => '',
@@ -40,4 +40,4 @@ $installer->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'country_of_manufac
     'unique'            => false,
     'apply_to'          => 'simple,configurable,bundle,grouped',
     'is_configurable'   => false,
-));
+]);

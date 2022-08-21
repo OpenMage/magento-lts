@@ -38,13 +38,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
 
     protected function _prepareForm()
     {
-        $this->setFormExcludedFieldList(array(
+        $this->setFormExcludedFieldList([
             'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
-        ));
-        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', array('object'=>$this));
+        ]);
+        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object'=>$this]);
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('fields', array('legend'=>Mage::helper('catalog')->__('Attributes')));
+        $fieldset = $form->addFieldset('fields', ['legend'=>Mage::helper('catalog')->__('Attributes')]);
         $attributes = $this->getAttributes();
         /**
          * Initialize product object as form property
@@ -74,12 +74,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
      */
     protected function _getAdditionalElementTypes()
     {
-        return array(
+        return [
             'price' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'weight' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_weight'),
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
-        );
+        ];
     }
 
     /**

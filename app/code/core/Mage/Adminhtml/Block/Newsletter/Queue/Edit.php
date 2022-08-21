@@ -65,9 +65,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     public function getSaveUrl()
     {
         if ($this->getTemplateId()) {
-            $params = array('template_id' => $this->getTemplateId());
+            $params = ['template_id' => $this->getTemplateId()];
         } else {
-            $params = array('id' => $this->getRequest()->getParam('id'));
+            $params = ['id' => $this->getRequest()->getParam('id')];
         }
         return $this->getUrl('*/*/save', $params);
     }
@@ -81,48 +81,48 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'queueControl.preview();',
                     'class'     => 'task'
-                ))
+                ])
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
                     'onclick'   => 'queueControl.save()',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('save_and_resume',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save and Resume'),
                     'onclick'   => 'queueControl.resume()',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
                     'onclick'   => 'window.location = window.location'
-                ))
+                ])
         );
 
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('newsletter')->__('Back'),
                         'onclick' => "window.location.href = '" . $this->getUrl((
                             $this->getTemplateId() ? '*/newsletter_template/' : '*/*')) . "'",
                         'class'   => 'back'
-                    )
+                    ]
                 )
         );
 
@@ -196,10 +196,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getIsPreview()
     {
-        return !in_array($this->getQueue()->getQueueStatus(), array(
+        return !in_array($this->getQueue()->getQueueStatus(), [
             Mage_Newsletter_Model_Queue::STATUS_NEVER,
             Mage_Newsletter_Model_Queue::STATUS_PAUSE
-        ));
+        ]);
     }
 
     /**

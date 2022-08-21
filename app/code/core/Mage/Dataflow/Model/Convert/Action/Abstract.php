@@ -48,7 +48,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      */
     protected $_profile;
 
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * Action's container
@@ -210,7 +210,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      *
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
-    public function run(array $args=array())
+    public function run(array $args= [])
     {
         if ($method = $this->getParam('method')) {
             if (!method_exists($this->getContainer(), $method)) {
@@ -238,7 +238,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
         return $this;
     }
 
-    public function runActions(array $args=array())
+    public function runActions(array $args= [])
     {
         if (empty($this->_actions)) {
             return $this;

@@ -43,13 +43,13 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
                 ->addFieldToFilter('main_table.is_user_defined', 1)
                 ->setOrder('frontend_label', Varien_Data_Collection::SORT_ORDER_ASC);
 
-            $this->_attributes = array();
+            $this->_attributes = [];
             /** @var Mage_Eav_Model_Attribute $attribute */
             foreach ($attrCollection as $attribute) {
-                $this->_attributes[] = array(
+                $this->_attributes[] = [
                     'label' => $attribute->getFrontendLabel(),
                     'value' => $attribute->getId(),
-                );
+                ];
             }
         }
         return $this->_attributes;

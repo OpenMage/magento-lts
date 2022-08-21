@@ -44,7 +44,7 @@ class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
     }
@@ -56,7 +56,7 @@ class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
      */
     public function getAllWeee()
     {
-        $allWeee = array();
+        $allWeee = [];
         $store = $this->getTotal()->getAddress()->getQuote()->getStore();
         /** @var Mage_Weee_Helper_Data $helper */
         $helper = $this->_factory->getHelper('weee');

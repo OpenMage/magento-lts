@@ -32,14 +32,14 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @var array
      */
-    protected $_ignoredAttributeCodes = array('entity_id', 'attribute_set_id', 'entity_type_id');
+    protected $_ignoredAttributeCodes = ['entity_id', 'attribute_set_id', 'entity_type_id'];
 
     /**
      * Default ignored attribute types
      *
      * @var array
      */
-    protected $_ignoredAttributeTypes = array();
+    protected $_ignoredAttributeTypes = [];
 
     /**
      * Check is attribute allowed
@@ -72,7 +72,7 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         $attributes = $entity->getResource()
                         ->loadAllAttributes($entity)
                         ->getAttributesByCode();
-        $result = array();
+        $result = [];
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $filter)) {
                 $result[$attribute->getAttributeCode()] = $attribute;

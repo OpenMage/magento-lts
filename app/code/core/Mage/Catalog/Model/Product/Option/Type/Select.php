@@ -164,7 +164,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $_values = array();
+        $_values = [];
         if (!$this->_isSingleSelection()) {
             foreach (explode(',', $optionValue) as $_value) {
                 $_value = trim($_value);
@@ -260,7 +260,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         $option = $this->getOption();
 
         if (!$this->_isSingleSelection()) {
-            $skus = array();
+            $skus = [];
             foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
@@ -303,10 +303,10 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
      */
     protected function _isSingleSelection()
     {
-        $_single = array(
+        $_single = [
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO
-        );
+        ];
         return in_array($this->getOption()->getType(), $_single);
     }
 }

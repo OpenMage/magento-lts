@@ -47,9 +47,9 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
      *
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $_messageTemplates = [
         self::INVALID_URL => "Invalid URL '%value%'.",
-    );
+    ];
 
     /**
      * Validate value

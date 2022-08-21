@@ -22,7 +22,7 @@
 <script type="text/javascript">
 function runProfile(popup)
 {
-    var url = "<?php echo $this->getUrl('*/*/run', array('id' => $this->getProfileId())) ?>";
+    var url = "<?php echo $this->getUrl('*/*/run', ['id' => $this->getProfileId()]) ?>";
     if ($('profile_direction') != undefined
         && $('profile_data_transfer') != undefined
         && getDirection() == 'import' && getTransferType() == 'interactive') {

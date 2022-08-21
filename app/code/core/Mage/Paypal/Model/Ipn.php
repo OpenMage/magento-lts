@@ -61,14 +61,14 @@ class Mage_Paypal_Model_Ipn
      * IPN request data
      * @var array
      */
-    protected $_request = array();
+    protected $_request = [];
 
     /**
      * Collected debug information
      *
      * @var array
      */
-    protected $_debugData = array();
+    protected $_debugData = [];
 
     /**
      * IPN request data getter
@@ -94,7 +94,7 @@ class Mage_Paypal_Model_Ipn
     public function processIpnRequest(array $request, Zend_Http_Client_Adapter_Interface $httpAdapter = null)
     {
         $this->_request   = $request;
-        $this->_debugData = array('ipn' => $request);
+        $this->_debugData = ['ipn' => $request];
         ksort($this->_debugData['ipn']);
 
         try {
@@ -131,19 +131,19 @@ class Mage_Paypal_Model_Ipn
         $postbackUrl = $this->_config->getPostbackUrl();
         $this->_debugData['postback_to'] = $postbackUrl;
 
-        $httpAdapter->setConfig(array('verifypeer' => $this->_config->verifyPeer));
+        $httpAdapter->setConfig(['verifypeer' => $this->_config->verifyPeer]);
         $httpAdapter->write(
             Zend_Http_Client::POST,
             $postbackUrl,
             '1.1',
-            array('Connection: close'),
+            ['Connection: close'],
             $postbackQuery
         );
 
         try {
             $postbackResult = $httpAdapter->read();
         } catch (Exception $e) {
-            $this->_debugData['http_error'] = array('error' => $e->getMessage(), 'code' => $e->getCode());
+            $this->_debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
             throw $e;
         }
 
@@ -151,7 +151,7 @@ class Mage_Paypal_Model_Ipn
          * Handle errors on PayPal side.
          */
         $responseCode = Zend_Http_Response::extractCode($postbackResult);
-        if (empty($postbackResult) || in_array($responseCode, array('500', '502', '503'))) {
+        if (empty($postbackResult) || in_array($responseCode, ['500', '502', '503'])) {
             if (empty($postbackResult)) {
                 $reason = 'Empty response.';
             } else {
@@ -193,7 +193,7 @@ class Mage_Paypal_Model_Ipn
             }
             // re-initialize config with the method code and store id
             $methodCode = $this->_order->getPayment()->getMethod();
-            $this->_config = Mage::getModel('paypal/config', array($methodCode, $this->_order->getStoreId()));
+            $this->_config = Mage::getModel('paypal/config', [$methodCode, $this->_order->getStoreId()]);
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
             }
@@ -224,7 +224,7 @@ class Mage_Paypal_Model_Ipn
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
-                'paypal/config', array($methodCode, $this->_recurringProfile->getStoreId())
+                'paypal/config', [$methodCode, $this->_recurringProfile->getStoreId()]
             );
             if (!$this->_config->isMethodActive($methodCode) || !$this->_config->isMethodAvailable()) {
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
@@ -723,8 +723,8 @@ class Mage_Paypal_Model_Ipn
         $was = $payment->getAdditionalInformation();
 
         // collect basic information
-        $from = array();
-        foreach (array(
+        $from = [];
+        foreach ([
             Mage_Paypal_Model_Info::PAYER_ID,
             'payer_email' => Mage_Paypal_Model_Info::PAYER_EMAIL,
             Mage_Paypal_Model_Info::PAYER_STATUS,
@@ -732,7 +732,7 @@ class Mage_Paypal_Model_Ipn
             Mage_Paypal_Model_Info::PROTECTION_EL,
             Mage_Paypal_Model_Info::PAYMENT_STATUS,
             Mage_Paypal_Model_Info::PENDING_REASON,
-        ) as $privateKey => $publicKey) {
+                 ] as $privateKey => $publicKey) {
             if (is_int($privateKey)) {
                 $privateKey = $publicKey;
             }
@@ -746,7 +746,7 @@ class Mage_Paypal_Model_Ipn
         }
 
         // collect fraud filters
-        $fraudFilters = array();
+        $fraudFilters = [];
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }

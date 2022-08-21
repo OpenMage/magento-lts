@@ -28,8 +28,6 @@
 class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
 {
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

@@ -112,7 +112,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (!empty($rules)) {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
-        return array();
+        return [];
     }
 
     /**

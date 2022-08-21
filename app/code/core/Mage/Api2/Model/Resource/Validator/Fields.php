@@ -52,7 +52,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @var array
      */
-    protected $_requiredFields = array();
+    protected $_requiredFields = [];
 
     /**
      * Construct. Set all depends.
@@ -75,7 +75,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
             self::CONFIG_NODE_KEY
         );
         if (!is_array($validationConfig)) {
-            $validationConfig = array();
+            $validationConfig = [];
         }
         $this->_buildValidatorsChain($validationConfig);
     }
@@ -104,7 +104,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     }
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
-                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : array()
+                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : []
                     );
                     // set custom message
                     if (isset($validatorConfig['message'])) {

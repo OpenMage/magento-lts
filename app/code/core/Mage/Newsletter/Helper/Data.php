@@ -40,11 +40,11 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('core/url')
             ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/confirm', array(
+            ->getUrl('newsletter/subscriber/confirm', [
                 'id'     => $subscriber->getId(),
                 'code'   => $subscriber->getCode(),
                 '_nosid' => true
-            ));
+            ]);
     }
 
     /**
@@ -57,11 +57,11 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('core/url')
             ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/unsubscribe', array(
+            ->getUrl('newsletter/subscriber/unsubscribe', [
                 'id'     => $subscriber->getId(),
                 'code'   => $subscriber->getCode(),
                 '_nosid' => true
-            ));
+            ]);
     }
 
     /**

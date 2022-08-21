@@ -38,17 +38,17 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 
         // get days names
         $days = Zend_Locale_Data::getList($localeCode, 'days');
-        $this->assign('days', array(
+        $this->assign('days', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($days['format']['wide'])),
             'abbreviated' => Mage::helper('core')->jsonEncode(array_values($days['format']['abbreviated']))
-        ));
+        ]);
 
         // get months names
         $months = Zend_Locale_Data::getList($localeCode, 'months');
-        $this->assign('months', array(
+        $this->assign('months', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($months['format']['wide'])),
             'abbreviated' => Mage::helper('core')->jsonEncode(array_values($months['format']['abbreviated']))
-        ));
+        ]);
 
         // get "today" and "week" words
         $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));

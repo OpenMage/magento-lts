@@ -67,7 +67,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      */
     public function addRuleIdsToFilter(array $ruleIds)
     {
-        $this->addFieldToFilter('rule_id', array('in' => $ruleIds));
+        $this->addFieldToFilter('rule_id', ['in' => $ruleIds]);
         return $this;
     }
 
@@ -78,7 +78,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
      */
     public function addGeneratedCouponsFilter()
     {
-        $this->addFieldToFilter('is_primary', array('null' => 1))->addFieldToFilter('type', '1');
+        $this->addFieldToFilter('is_primary', ['null' => 1])->addFieldToFilter('type', '1');
         return $this;
     }
 
@@ -93,7 +93,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Collection extends Mage_Core_Model_Re
         $filterValue = $column->getFilter()->getCondition();
 
         $fieldExpression = $this->getConnection()->getCheckSql('main_table.times_used > 0', 1, 0);
-        $resultCondition = $this->_getConditionSql($fieldExpression, array('eq' => $filterValue));
+        $resultCondition = $this->_getConditionSql($fieldExpression, ['eq' => $filterValue]);
         $collection->getSelect()->where($resultCondition);
     }
 }

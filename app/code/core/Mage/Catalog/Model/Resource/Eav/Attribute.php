@@ -249,7 +249,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             }
             return explode(',', $this->getData('apply_to'));
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -276,7 +276,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
      */
     public function isAllowedForRuleCondition()
     {
-        $allowedInputTypes = array('text', 'multiselect', 'textarea', 'date', 'datetime', 'select', 'boolean', 'price');
+        $allowedInputTypes = ['text', 'multiselect', 'textarea', 'date', 'datetime', 'select', 'boolean', 'price'];
         return $this->getIsVisible() && in_array($this->getFrontendInput(), $allowedInputTypes);
     }
 
@@ -313,7 +313,7 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
             if (is_null($storeId)) {
                 $storeId = Mage::app()->getStore()->getId();
             }
-            $attributeLabels = array();
+            $attributeLabels = [];
             $attributes = Mage::getResourceSingleton('catalog/product')->getAttributesByCode();
             foreach ($attributes as $attribute) {
                 if (strlen($attribute->getData('frontend_label')) > 0) {

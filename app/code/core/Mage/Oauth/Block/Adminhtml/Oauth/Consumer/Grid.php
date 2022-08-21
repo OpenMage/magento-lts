@@ -71,17 +71,17 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header' => Mage::helper('oauth')->__('ID'), 'index' => 'entity_id', 'align' => 'right', 'width' => '50px'
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header' => Mage::helper('oauth')->__('Consumer Name'), 'index' => 'name', 'escape' => true
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('oauth')->__('Created At'), 'index' => 'created_at'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -93,7 +93,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**
@@ -105,7 +105,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
     public function getRowUrl($row)
     {
         if ($this->_editAllow) {
-            return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+            return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
         return null;
     }

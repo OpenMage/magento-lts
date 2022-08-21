@@ -64,15 +64,15 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array($this->getIdFieldName()))
+            ->from($this->getMainTable(), [$this->getIdFieldName()])
             ->where('scope = :scope')
             ->where('scope_id = :scope_id')
             ->where('path = :path');
-        $bind   = array(
+        $bind   = [
             'scope'     => $object->getScope(),
             'scope_id'  => $object->getScopeId(),
             'path'      => $object->getPath()
-        );
+        ];
 
         $configId = $this->_getReadAdapter()->fetchOne($select, $bind);
         if ($configId) {

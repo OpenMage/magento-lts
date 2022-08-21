@@ -252,8 +252,8 @@ abstract class Mage_Eav_Model_Form
                 ->addFormCodeFilter($this->getFormCode())
                 ->setSortOrder();
 
-            $this->_attributes      = array();
-            $this->_userAttributes  = array();
+            $this->_attributes      = [];
+            $this->_userAttributes  = [];
             foreach ($collection as $attribute) {
                 /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 $this->_attributes[$attribute->getAttributeCode()] = $attribute;
@@ -350,7 +350,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function extractData(Zend_Controller_Request_Http $request, $scope = null, $scopeOnly = true)
     {
-        $data = array();
+        $data = [];
         foreach ($this->getAttributes() as $attribute) {
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
@@ -371,7 +371,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function validateData(array $data)
     {
-        $errors = array();
+        $errors = [];
         foreach ($this->getAttributes() as $attribute) {
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
@@ -447,7 +447,7 @@ abstract class Mage_Eav_Model_Form
      */
     public function outputData($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
-        $data = array();
+        $data = [];
         foreach ($this->getAttributes() as $attribute) {
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;

@@ -32,7 +32,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
     if ($attribute) {
         $attributeTable = $installer->getAttributeTable('catalog_product', $attributeCode);
         $select = $installer->getConnection()->select()
-            ->from(array('e' => $attributeTable))
+            ->from(['e' => $attributeTable])
             ->where("e.attribute_id=?", $attribute['attribute_id'])
             ->where('e.value LIKE "%,,%"');
         $result = $installer->getConnection()->fetchAll($select);
@@ -45,7 +45,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
 
                     if ($replaceCnt) {
                         $installer->getConnection()
-                            ->update($attributeTable, array('value' => $row['value']), "value_id=" . $row['value_id']);
+                            ->update($attributeTable, ['value' => $row['value']], "value_id=" . $row['value_id']);
                     }
                 }
             }

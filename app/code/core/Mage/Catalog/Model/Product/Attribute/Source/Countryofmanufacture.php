@@ -44,7 +44,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Countryofmanufacture extends M
             }
             $options = $collection->toOptionArray();
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
+                Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
         return $options;

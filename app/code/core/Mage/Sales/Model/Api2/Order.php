@@ -46,13 +46,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addGiftMessageInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('gift_message' => $collection->getTable('giftmessage/message')),
+            ['gift_message' => $collection->getTable('giftmessage/message')],
             'main_table.gift_message_id = gift_message.gift_message_id',
-            array(
+            [
                 'gift_message_from' => 'gift_message.sender',
                 'gift_message_to'   => 'gift_message.recipient',
                 'gift_message_body' => 'gift_message.message'
-            )
+            ]
         );
 
         return $this;
@@ -67,9 +67,9 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
     protected function _addPaymentMethodInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
         $collection->getSelect()->joinLeft(
-            array('payment_method' => $collection->getTable('sales/order_payment')),
+            ['payment_method' => $collection->getTable('sales/order_payment')],
             'main_table.entity_id = payment_method.parent_id',
-            array('payment_method' => 'payment_method.method')
+            ['payment_method' => 'payment_method.method']
         );
 
         return $this;
@@ -83,7 +83,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _addTaxInfo(Mage_Sales_Model_Resource_Order_Collection $collection)
     {
-        $taxInfoFields = array();
+        $taxInfoFields = [];
 
         if ($this->_isTaxNameAllowed()) {
             $taxInfoFields['tax_name'] = 'order_tax.title';
@@ -93,7 +93,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         if ($taxInfoFields) {
             $collection->getSelect()->joinLeft(
-                array('order_tax' => $collection->getTable('sales/order_tax')),
+                ['order_tax' => $collection->getTable('sales/order_tax')],
                 'main_table.entity_id = order_tax.order_id',
                 $taxInfoFields
             );
@@ -110,10 +110,10 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getAddresses(array $orderIds)
     {
-        $addresses = array();
+        $addresses = [];
 
         if ($this->_isSubCallAllowed('order_address')) {
-            $addressesFilter = $this->_getSubModel('order_address', array())->getFilter();
+            $addressesFilter = $this->_getSubModel('order_address', [])->getFilter();
             // do addresses request if at least one attribute allowed
             if ($addressesFilter->getAllowedAttributes()) {
                 /** @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
@@ -166,10 +166,10 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getComments(array $orderIds)
     {
-        $comments = array();
+        $comments = [];
 
         if ($this->_isOrderCommentsAllowed() && $this->_isSubCallAllowed('order_comment')) {
-            $commentsFilter = $this->_getSubModel('order_comment', array())->getFilter();
+            $commentsFilter = $this->_getSubModel('order_comment', [])->getFilter();
             // do comments request if at least one attribute allowed
             if ($commentsFilter->getAllowedAttributes()) {
                 foreach ($this->_getCommentsCollection($orderIds)->getItems() as $item) {
@@ -203,10 +203,10 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      */
     protected function _getItems(array $orderIds)
     {
-        $items = array();
+        $items = [];
 
         if ($this->_isSubCallAllowed('order_item')) {
-            $itemsFilter = $this->_getSubModel('order_item', array())->getFilter();
+            $itemsFilter = $this->_getSubModel('order_item', [])->getFilter();
             // do items request if at least one attribute allowed
             if ($itemsFilter->getAllowedAttributes()) {
                 /** @var Mage_Sales_Model_Resource_Order_Item_Collection $collection */
@@ -289,7 +289,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         }
         $this->_addTaxInfo($collection);
 
-        $ordersData = array();
+        $ordersData = [];
 
         foreach ($collection->getItems() as $order) {
             $ordersData[$order->getId()] = $order->toArray();

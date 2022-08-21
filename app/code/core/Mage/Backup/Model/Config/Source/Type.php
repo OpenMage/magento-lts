@@ -34,12 +34,12 @@ class Mage_Backup_Model_Config_Source_Type
      */
     public function toOptionArray()
     {
-        $backupTypes = array();
+        $backupTypes = [];
         foreach(Mage::helper('backup')->getBackupTypes() as $type => $label) {
-            $backupTypes[] = array(
+            $backupTypes[] = [
                 'label' => $label,
                 'value' => $type,
-            );
+            ];
         }
         return $backupTypes;
     }

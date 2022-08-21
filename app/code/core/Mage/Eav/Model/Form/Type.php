@@ -133,7 +133,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             ->setSortOrder();
 
         // copy fieldsets
-        $fieldsetMap = array();
+        $fieldsetMap = [];
         foreach ($fieldsetCollection as $skeletonFieldset) {
             /** @var Mage_Eav_Model_Form_Fieldset $skeletonFieldset */
             $fieldset = Mage::getModel('eav/form_fieldset');

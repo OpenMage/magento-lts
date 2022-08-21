@@ -53,12 +53,12 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array('title' => $title,
+        $data = ['title' => $title,
             'description' => $title,
             'link'        => $newurl,
             'charset'     => 'UTF-8',
             'language'    => $lang
-        );
+        ];
         $rssObj->_addHeader($data);
 
         $_collection = $tagModel->getEntityCollection()
@@ -73,8 +73,8 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $resourceHelper = Mage::getResourceHelper('core');
         Mage::getSingleton('core/resource_iterator')->walk(
             $resourceHelper->getQueryUsingAnalyticFunction($_collection->getSelect()),
-            array(array($this, 'addTaggedItemXml')),
-            array('rssObj'=> $rssObj, 'product'=>$product),
+            [[$this, 'addTaggedItemXml']],
+            ['rssObj'=> $rssObj, 'product'=>$product],
             $_collection->getSelect()->getAdapter()
         );
 
@@ -117,11 +117,11 @@ class Mage_Rss_Block_Catalog_Tag extends Mage_Rss_Block_Catalog_Abstract
         $description .='</td></tr></table>';
 
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
             'title'         => $product->getName(),
             'link'          => $product->getProductUrl(),
             'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
     }
 }

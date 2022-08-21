@@ -84,23 +84,23 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         if (empty($this->_items)) {
             return $this;
         }
-        $customerIds = array();
+        $customerIds = [];
         foreach ($this->getItems() as $item) {
             $customerIds[] = $item->getId();
         }
         $this->getSelect()->reset()
-            ->from(array('tr' => $this->_tagRelTable), array('*','total_used' => 'count(tr.tag_relation_id)'))
-            ->joinLeft(array('t' => $this->_tagTable), 't.tag_id=tr.tag_id')
-            ->group(array('tr.customer_id', 't.tag_id'))
+            ->from(['tr' => $this->_tagRelTable], ['*','total_used' => 'count(tr.tag_relation_id)'])
+            ->joinLeft(['t' => $this->_tagTable], 't.tag_id=tr.tag_id')
+            ->group(['tr.customer_id', 't.tag_id'])
             ->where('tr.customer_id in (?)', $customerIds)
         ;
         $this->printLogQuery($printQuery, $logQuery);
 
-        $tags = array();
+        $tags = [];
         $data = $this->_read->fetchAll($this->getSelect());
         foreach ($data as $row) {
             if (!isset($tags[ $row['customer_id'] ])) {
-                $tags[ $row['customer_id'] ] = array();
+                $tags[ $row['customer_id'] ] = [];
             }
             $tags[ $row['customer_id'] ][] = $row;
         }

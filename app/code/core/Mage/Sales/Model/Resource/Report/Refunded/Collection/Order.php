@@ -40,7 +40,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -71,13 +71,13 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
         }
 
         if (!$this->isTotals()) {
-            $this->_selectedColumns = array(
+            $this->_selectedColumns = [
                 'period'            => $this->_periodFormat,
                 'orders_count'      => 'SUM(orders_count)',
                 'refunded'          => 'SUM(refunded)',
                 'online_refunded'   => 'SUM(online_refunded)',
                 'offline_refunded'  => 'SUM(offline_refunded)'
-            );
+            ];
         }
 
         if ($this->isTotals()) {

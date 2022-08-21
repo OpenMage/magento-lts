@@ -43,7 +43,7 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
      */
     public function getPrintInvoiceUrl($invoice)
     {
-        return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
+        return Mage::getUrl('*/*/printInvoice', ['invoice_id' => $invoice->getId()]);
     }
 
     /**
@@ -52,7 +52,7 @@ class Mage_Sales_Block_Order_Invoice_Items extends Mage_Sales_Block_Items_Abstra
      */
     public function getPrintAllInvoicesUrl($order)
     {
-        return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printInvoice', ['order_id' => $order->getId()]);
     }
 
     /**

@@ -36,7 +36,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
      */
     protected function _filter(array $data)
     {
-        foreach (array('id', 'back', 'form_key', 'key', 'secret') as $field) {
+        foreach (['id', 'back', 'form_key', 'key', 'secret'] as $field) {
             if (isset($data[$field])) {
                 unset($data[$field]);
             }
@@ -51,7 +51,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete'));
+        $this->_setForcedFormKeyActions(['delete']);
         $this->_title($this->__('System'))
             ->_title($this->__('OAuth'))
             ->_title($this->__('Consumers'));
@@ -141,9 +141,9 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
         $id = $this->getRequest()->getParam('id');
         if (!$this->_validateFormKey()) {
             if ($id) {
-                $this->_redirect('*/*/edit', array('id' => $id));
+                $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
-                $this->_redirect('*/*/new', array('id' => $id));
+                $this->_redirect('*/*/new', ['id' => $id]);
             }
             return;
         }
@@ -161,7 +161,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 $this->_getSession()->addError($error);
             }
             if ($id) {
-                $this->_redirect('*/*/edit', array('id' => $id));
+                $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
                 $this->_redirect('*/*/new');
             }
@@ -221,7 +221,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
 
         if ($this->getRequest()->getParam('back')) {
             if ($id || $model->getId()) {
-                $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                $this->_redirect('*/*/edit', ['id' => $model->getId()]);
             } else {
                 $this->_redirect('*/*/new');
             }
@@ -287,7 +287,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/edit', array('id' => $consumerId));
+            $this->_redirect('*/*/edit', ['id' => $consumerId]);
             return;
         }
 

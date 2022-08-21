@@ -46,12 +46,12 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $lang = Mage::getStoreConfig('general/locale/code');
 
         $rssObj = Mage::getModel('rss/rss');
-        $data = array('title' => $title,
+        $data = ['title' => $title,
                 'description' => $title,
                 'link'        => $newurl,
                 'charset'     => 'UTF-8',
                 'language'    => $lang
-                );
+        ];
         $rssObj->_addHeader($data);
 
         $product = Mage::getModel('catalog/product');
@@ -67,27 +67,27 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         $products = $product->getCollection()
             ->setStoreId($storeId)
             ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('or' => array(
-                0 => array('date' => true, 'to' => $todayEndOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter('news_to_date', array('or' => array(
-                0 => array('date' => true, 'from' => $todayStartOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
+            ->addAttributeToFilter('news_from_date', ['or' => [
+                0 => ['date' => true, 'to' => $todayEndOfDayDate],
+                1 => ['is' => new Zend_Db_Expr('null')]]
+            ], 'left')
+            ->addAttributeToFilter('news_to_date', ['or' => [
+                0 => ['date' => true, 'from' => $todayStartOfDayDate],
+                1 => ['is' => new Zend_Db_Expr('null')]]
+            ], 'left')
             ->addAttributeToFilter(
-                array(
-                    array('attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')),
-                    array('attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null'))
-                )
+                [
+                    ['attribute' => 'news_from_date', 'is' => new Zend_Db_Expr('not null')],
+                    ['attribute' => 'news_to_date', 'is' => new Zend_Db_Expr('not null')]
+                ]
             )
             ->addAttributeToSort('news_from_date','desc')
-            ->addAttributeToSelect(array('name', 'short_description', 'description', 'thumbnail'), 'inner')
+            ->addAttributeToSelect(['name', 'short_description', 'description', 'thumbnail'], 'inner')
             ->addAttributeToSelect(
-                array(
+                [
                     'price', 'special_price', 'special_from_date', 'special_to_date',
                     'msrp_enabled', 'msrp_display_actual_price_type', 'msrp'
-                ),
+                ],
                 'left'
             )
             ->applyFrontendPriceLimitations()
@@ -101,8 +101,8 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
                 $products->getSelect(),
-                array(array($this, 'addNewItemXmlCallback')),
-                array('rssObj'=> $rssObj, 'product'=>$product)
+                [[$this, 'addNewItemXmlCallback']],
+                ['rssObj'=> $rssObj, 'product'=>$product]
         );
 
         return $rssObj->createRssXml();
@@ -146,11 +146,11 @@ class Mage_Rss_Block_Catalog_New extends Mage_Rss_Block_Catalog_Abstract
             '</tr></table>';
 
         $rssObj = $args['rssObj'];
-        $data = array(
+        $data = [
                 'title'         => $product->getName(),
                 'link'          => $product->getProductUrl(),
                 'description'   => $description,
-            );
+        ];
         $rssObj->_addEntry($data);
     }
 }

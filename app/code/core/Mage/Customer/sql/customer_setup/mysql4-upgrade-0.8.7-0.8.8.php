@@ -23,10 +23,10 @@ $installer = $this;
 /** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
-$installer->addAttribute('customer', 'confirmation', array(
+$installer->addAttribute('customer', 'confirmation', [
     'label'    => 'Is confirmed',
     'visible'  => false,
     'required' => false,
-));
+]);
 
 $installer->endSetup();

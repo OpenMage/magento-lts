@@ -707,18 +707,18 @@ $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attri
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'attribute_group_name', 'General Information');
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'sort_order', '10');
 
-$groups = array(
-    'display'   => array(
+$groups = [
+    'display'   => [
         'name'  => 'Display Settings',
         'sort'  => 20,
         'id'    => null
-    ),
-    'design'    => array(
+    ],
+    'design'    => [
         'name'  => 'Custom Design',
         'sort'  => 30,
         'id'    => null
-    )
-);
+    ]
+];
 
 foreach ($groups as $k => $groupProp) {
     $installer->addAttributeGroup($entityTypeId, $attributeSetId, $groupProp['name'], $groupProp['sort']);
@@ -726,52 +726,52 @@ foreach ($groups as $k => $groupProp) {
 }
 
 // update attributes group and sort
-$attributes = array(
-    'custom_design'         => array(
+$attributes = [
+    'custom_design'         => [
         'group' => 'design',
         'sort'  => 10
-    ),
-    'custom_design_apply'   => array(
+    ],
+    'custom_design_apply'   => [
         'group' => 'design',
         'sort'  => 20
-    ),
-    'custom_design_from'    => array(
+    ],
+    'custom_design_from'    => [
         'group' => 'design',
         'sort'  => 30
-    ),
-    'custom_design_to'      => array(
+    ],
+    'custom_design_to'      => [
         'group' => 'design',
         'sort'  => 40
-    ),
-    'page_layout'           => array(
+    ],
+    'page_layout'           => [
         'group' => 'design',
         'sort'  => 50
-    ),
-    'custom_layout_update'  => array(
+    ],
+    'custom_layout_update'  => [
         'group' => 'design',
         'sort'  => 60
-    ),
-    'display_mode'          => array(
+    ],
+    'display_mode'          => [
         'group' => 'display',
         'sort'  => 10
-    ),
-    'landing_page'          => array(
+    ],
+    'landing_page'          => [
         'group' => 'display',
         'sort'  => 20
-    ),
-    'is_anchor'             => array(
+    ],
+    'is_anchor'             => [
         'group' => 'display',
         'sort'  => 30
-    ),
-    'available_sort_by'     => array(
+    ],
+    'available_sort_by'     => [
         'group' => 'display',
         'sort'  => 40
-    ),
-    'default_sort_by'       => array(
+    ],
+    'default_sort_by'       => [
         'group' => 'display',
         'sort'  => 50
-    ),
-);
+    ],
+];
 
 foreach ($attributes as $attributeCode => $attributeProp) {
     $installer->addAttributeToGroup(

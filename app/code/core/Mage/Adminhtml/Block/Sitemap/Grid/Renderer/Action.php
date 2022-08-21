@@ -28,10 +28,10 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Action extends Mage_Adminhtml_B
 {
     public function render(Varien_Object $row)
     {
-        $this->getColumn()->setActions(array(array(
-            'url'     => $this->getUrl('*/sitemap/generate', array('sitemap_id' => $row->getSitemapId())),
+        $this->getColumn()->setActions([[
+            'url'     => $this->getUrl('*/sitemap/generate', ['sitemap_id' => $row->getSitemapId()]),
             'caption' => Mage::helper('sitemap')->__('Generate'),
-        )));
+        ]]);
         return parent::render($row);
     }
 }

@@ -33,7 +33,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_paymentMethods = array();
+    protected $_paymentMethods = [];
 
     /**
      * Billing agreements collection
@@ -89,7 +89,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                     ? $this->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
                 break;
             case 'edit_url':
-                $value = $this->getUrl('*/billing_agreement/view', array('agreement' => $item->getAgreementId()));
+                $value = $this->getUrl('*/billing_agreement/view', ['agreement' => $item->getAgreementId()]);
                 break;
             case 'payment_method_label':
                 $label = $item->getAgreementLabel();
@@ -130,7 +130,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     {
         /** @var Mage_Payment_Helper_Data $helper */
         $helper = $this->helper('payment');
-        $paymentMethodOptions = array();
+        $paymentMethodOptions = [];
         foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
             if ($paymentMethod->getConfigData('allow_billing_agreement_wizard') == 1) {
                 $paymentMethodOptions[$paymentMethod->getCode()] = $paymentMethod->getTitle();
@@ -146,7 +146,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', array('_secure' => $this->_isSecure())));
+        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', ['_secure' => $this->_isSecure()]));
         return parent::_toHtml();
     }
 }

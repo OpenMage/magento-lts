@@ -39,7 +39,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_paymentMethods = array();
+    protected $_paymentMethods = [];
 
     /**
      * Billing Agreement instance
@@ -68,7 +68,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
                 ->addFieldToFilter(
                     'state',
-                    array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                    ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
                 )
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
                 ->setOrder('created_at', 'desc');
@@ -105,7 +105,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $value = $order->getStatusLabel();
                 break;
             case 'view_url':
-                $value = $this->getUrl('*/order/view', array('order_id' => $order->getId()));
+                $value = $this->getUrl('*/order/view', ['order_id' => $order->getId()]);
                 break;
             default:
                 $value = ($order->getData($key)) ?: $this->__('N/A');
@@ -163,9 +163,9 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             $this->setReferenceId($this->_billingAgreementInstance->getReferenceId());
             $this->setCanCancel($this->_billingAgreementInstance->canCancel());
             $this->setCancelUrl(
-                $this->getUrl('*/billing_agreement/cancel', array(
+                $this->getUrl('*/billing_agreement/cancel', [
                     '_current' => true,
-                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()))
+                    'payment_method' => $this->_billingAgreementInstance->getMethodCode()])
             );
 
             $paymentMethodTitle = $this->_billingAgreementInstance->getAgreementLabel();

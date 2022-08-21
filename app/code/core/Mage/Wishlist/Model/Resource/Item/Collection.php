@@ -57,14 +57,14 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @var array
      */
-    protected $_productIds = array();
+    protected $_productIds = [];
 
     /**
      * Store Ids array
      *
      * @var array
      */
-    protected $_storeIds = array();
+    protected $_storeIds = [];
 
     /**
      * Add days in whishlist filter of product collection
@@ -162,11 +162,11 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     protected function _assignProducts()
     {
         Varien_Profiler::start('WISHLIST:'.__METHOD__);
-        $productIds = array();
+        $productIds = [];
 
         $isStoreAdmin = Mage::app()->getStore()->isAdmin();
 
-        $storeIds = array();
+        $storeIds = [];
         foreach ($this as $item) {
             $productIds[$item->getProductId()] = 1;
             if ($isStoreAdmin && !in_array($item->getStoreId(), $storeIds)) {
@@ -199,9 +199,9 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             $productCollection = Mage::helper('adminhtml/sales')->applySalableProductTypesFilter($productCollection);
         }
 
-        Mage::dispatchEvent('wishlist_item_collection_products_after_load', array(
+        Mage::dispatchEvent('wishlist_item_collection_products_after_load', [
             'product_collection' => $productCollection
-        ));
+        ]);
 
         $checkInStock = $this->_productInStock && !Mage::helper('cataloginventory')->isShowOutOfStock();
 
@@ -211,7 +211,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
                 if ($checkInStock && !$product->isInStock()) {
                     $this->removeItemByKey($item->getId());
                 } else {
-                    $product->setCustomOptions(array());
+                    $product->setCustomOptions([]);
                     $item->setProduct($product);
                     $item->setProductName($product->getName());
                     $item->setName($product->getName());
@@ -249,9 +249,9 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     {
         $this->getSelect()
             ->join(
-                array('wishlist' => $this->getTable('wishlist/wishlist')),
+                ['wishlist' => $this->getTable('wishlist/wishlist')],
                 'main_table.wishlist_id = wishlist.wishlist_id',
-                array()
+                []
             )
             ->where('wishlist.customer_id = ?', $customerId);
         return $this;
@@ -264,13 +264,13 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      *
      * @return $this
      */
-    public function addStoreFilter($storeIds = array())
+    public function addStoreFilter($storeIds = [])
     {
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
         $this->_storeIds = $storeIds;
-        $this->addFieldToFilter('store_id', array('in' => $this->_storeIds));
+        $this->addFieldToFilter('store_id', ['in' => $this->_storeIds]);
 
         return $this;
     }
@@ -283,10 +283,10 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
     public function addStoreData()
     {
         $storeTable = Mage::getSingleton('core/resource')->getTableName('core/store');
-        $this->getSelect()->join(array('store'=>$storeTable), 'main_table.store_id=store.store_id', array(
+        $this->getSelect()->join(['store'=>$storeTable], 'main_table.store_id=store.store_id', [
             'store_name'=>'name',
             'item_store_id' => 'store_id'
-        ));
+        ]);
         return $this;
     }
 
@@ -380,7 +380,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         $nowDate = $dateModel->date();
         $dateDiff = $resHelper->getDateDiff($startDate, $adapter->formatDate($nowDate));
 
-        $this->getSelect()->columns(array('days_in_wishlist' => $dateDiff));
+        $this->getSelect()->columns(['days_in_wishlist' => $dateDiff]);
         return $this;
     }
 
@@ -398,7 +398,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
             return $this;
         }
 
-        $filter = array();
+        $filter = [];
 
         $now = Mage::getSingleton('core/date')->date();
         $gmtOffset = (int) Mage::getSingleton('core/date')->getGmtOffset();
@@ -441,12 +441,12 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
             $this->getSelect()
                 ->join(
-                    array('product_name_table' => $attribute->getBackendTable()),
+                    ['product_name_table' => $attribute->getBackendTable()],
                     'product_name_table.entity_id=main_table.product_id' .
                         ' AND product_name_table.store_id=' . $storeId .
                         ' AND product_name_table.attribute_id=' . $attribute->getId().
                         ' AND product_name_table.entity_type_id=' . $entityTypeId,
-                    array()
+                    []
                 );
 
             $this->_isProductNameJoined = true;

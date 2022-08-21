@@ -60,6 +60,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Form extends Mage_Admin
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true));
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 }

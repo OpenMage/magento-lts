@@ -34,14 +34,14 @@ class Mage_Bundle_Model_Source_Option_Type
      */
     public function toOptionArray()
     {
-        $types = array();
+        $types = [];
 
         foreach (Mage::getConfig()->getNode(self::BUNDLE_OPTIONS_TYPES_PATH)->children() as $type) {
             $labelPath = self::BUNDLE_OPTIONS_TYPES_PATH . '/' . $type->getName() . '/label';
-            $types[] = array(
+            $types[] = [
                 'label' => (string) Mage::getConfig()->getNode($labelPath),
                 'value' => $type->getName()
-            );
+            ];
         }
 
         return $types;

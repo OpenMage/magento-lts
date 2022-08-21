@@ -30,17 +30,17 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_Search_Type
 {
     public function toOptionArray()
     {
-        $types = array(
+        $types = [
             Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE     => 'Like',
             Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_FULLTEXT => 'Fulltext',
             Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE  => 'Combine (Like and Fulltext)',
-        );
-        $options = array();
+        ];
+        $options = [];
         foreach ($types as $k => $v) {
-            $options[] = array(
+            $options[] = [
                 'value' => $k,
                 'label' => $v
-            );
+            ];
         }
         return $options;
     }

@@ -21,10 +21,10 @@
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-foreach (array('AM', 'AC', 'AF') as $code) {
+foreach (['AM', 'AC', 'AF'] as $code) {
     $installer->getConnection()->update(
         $installer->getTable('directory/country_region'),
-        array('code' => 'AE'),
-        array('code = ?' => $code)
+        ['code' => 'AE'],
+        ['code = ?' => $code]
     );
 }

@@ -28,14 +28,14 @@ $installer->getConnection()->addColumn($this->getTable('sales_order'), 'shipping
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_tax_amount', 'decimal(12,4) NULL');
 
 
-$installer->addAttribute('quote_address', 'shipping_tax_amount', array('type'=>'static'));
-$installer->addAttribute('quote_address', 'base_shipping_tax_amount', array('type'=>'static'));
+$installer->addAttribute('quote_address', 'shipping_tax_amount', ['type'=>'static']);
+$installer->addAttribute('quote_address', 'base_shipping_tax_amount', ['type'=>'static']);
 
-$installer->addAttribute('order', 'shipping_tax_amount', array('type'=>'static'));
-$installer->addAttribute('order', 'base_shipping_tax_amount', array('type'=>'static'));
+$installer->addAttribute('order', 'shipping_tax_amount', ['type'=>'static']);
+$installer->addAttribute('order', 'base_shipping_tax_amount', ['type'=>'static']);
 
-$installer->addAttribute('invoice', 'shipping_tax_amount', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_shipping_tax_amount', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'shipping_tax_amount', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'base_shipping_tax_amount', ['type'=>'decimal']);
 
-$installer->addAttribute('creditmemo', 'shipping_tax_amount', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_shipping_tax_amount', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'shipping_tax_amount', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'base_shipping_tax_amount', ['type'=>'decimal']);

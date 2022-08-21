@@ -56,7 +56,7 @@ class Mage_Api_Model_Resource_Rules_Collection extends Mage_Core_Model_Resource_
      */
     public function addSortByLength()
     {
-        $this->getSelect()->columns(array('length' => $this->getConnection()->getLengthSql('resource_id')))
+        $this->getSelect()->columns(['length' => $this->getConnection()->getLengthSql('resource_id')])
             ->order('length DESC');
         return $this;
     }

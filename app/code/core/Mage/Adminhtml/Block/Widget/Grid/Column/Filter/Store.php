@@ -103,9 +103,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
             return null;
         }
         if ($this->getValue() == '_deleted_') {
-            return array('null' => true);
+            return ['null' => true];
         } else {
-            return array('eq' => $this->getValue());
+            return ['eq' => $this->getValue()];
         }
     }
 

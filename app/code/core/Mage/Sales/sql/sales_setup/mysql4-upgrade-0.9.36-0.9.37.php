@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('order_item', 'locked_do_invoice', array('type'=>'int', 'default' => 0));
-$installer->addAttribute('order_item', 'locked_do_ship', array('type'=>'int', 'default' => 0));
+$installer->addAttribute('order_item', 'locked_do_invoice', ['type'=>'int', 'default' => 0]);
+$installer->addAttribute('order_item', 'locked_do_ship', ['type'=>'int', 'default' => 0]);
 
 $installer->endSetup();

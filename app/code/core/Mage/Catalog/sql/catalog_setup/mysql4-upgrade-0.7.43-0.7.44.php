@@ -23,9 +23,9 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'required_options', array(
+$installer->addAttribute('catalog_product', 'required_options', [
     'visible' => false,
     'default' => false
-));
+]);
 
 $installer->endSetup();

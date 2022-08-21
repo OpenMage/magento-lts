@@ -35,7 +35,7 @@ class Mage_Admin_Model_Redirectpolicy
     /**
      * @param array $parameters array('urlModel' => object)
      */
-    public function __construct($parameters = array())
+    public function __construct($parameters = [])
     {
         $this->_urlModel = (!empty($parameters['urlModel'])) ?
             $parameters['urlModel'] : Mage::getModel('adminhtml/url');

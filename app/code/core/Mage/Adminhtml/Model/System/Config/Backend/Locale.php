@@ -51,8 +51,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     protected function _afterSave()
@@ -62,7 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
             ->addPathFilter('currency/options');
 
         $values     = explode(',', $this->getValue());
-        $exceptions = array();
+        $exceptions = [];
 
         foreach ($collection as $data) {
             $match = false;

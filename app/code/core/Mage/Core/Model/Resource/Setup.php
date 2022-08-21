@@ -84,13 +84,13 @@ class Mage_Core_Model_Resource_Setup
      *
      * @var array
      */
-    protected $_tables = array();
+    protected $_tables = [];
     /**
      * Tables data cache array
      *
      * @var array
      */
-    protected $_setupCache = array();
+    protected $_setupCache = [];
 
     /**
      * Flag which shows, that setup has hooked queries from DB adapter
@@ -215,7 +215,7 @@ class Mage_Core_Model_Resource_Setup
         self::$_hadUpdates = false;
 
         $resources = Mage::getConfig()->getNode('global/resources')->children();
-        $afterApplyUpdates = array();
+        $afterApplyUpdates = [];
         foreach ($resources as $resName => $resource) {
             if (!$resource->setup) {
                 continue;
@@ -338,7 +338,7 @@ class Mage_Core_Model_Resource_Setup
         $this->_queriesHooked = true;
         /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
-        $adapter->setQueryHook(array('object' => $this, 'method' => 'callbackQueryHook'));
+        $adapter->setQueryHook(['object' => $this, 'method' => 'callbackQueryHook']);
         return $this;
     }
 
@@ -369,7 +369,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function callbackQueryHook(&$sql, &$bind)
     {
-        Mage::getSingleton('core/resource_setup_query_modifier', array($this->getConnection()))
+        Mage::getSingleton('core/resource_setup_query_modifier', [$this->getConnection()])
             ->processQuery($sql, $bind);
         return $this;
     }
@@ -474,16 +474,16 @@ class Mage_Core_Model_Resource_Setup
 
         $filesDir   = Mage::getModuleDir('sql', $modName) . DS . $this->_resourceName;
         if (!is_dir($filesDir) || !is_readable($filesDir)) {
-            return array();
+            return [];
         }
 
-        $dbFiles    = array();
-        $typeFiles  = array();
+        $dbFiles    = [];
+        $typeFiles  = [];
         $regExpDb   = sprintf('#^%s-(.*)\.(php|sql)$#i', $actionType);
         $regExpType = sprintf('#^%s-%s-(.*)\.(php|sql)$#i', $resModel, $actionType);
         $handlerDir = dir($filesDir);
         while (($file = $handlerDir->read()) !== false) {
-            $matches = array();
+            $matches = [];
             if (preg_match($regExpDb, $file, $matches)) {
                 $dbFiles[$matches[1]] = $filesDir . DS . $file;
             } elseif (preg_match($regExpType, $file, $matches)) {
@@ -493,7 +493,7 @@ class Mage_Core_Model_Resource_Setup
         $handlerDir->close();
 
         if (empty($typeFiles) && empty($dbFiles)) {
-            return array();
+            return [];
         }
 
         foreach ($typeFiles as $version => $file) {
@@ -514,14 +514,14 @@ class Mage_Core_Model_Resource_Setup
     protected function _getAvailableDataFiles($actionType, $fromVersion, $toVersion)
     {
         $modName    = (string)$this->_moduleConfig[0]->getName();
-        $files      = array();
+        $files      = [];
 
         $filesDir   = Mage::getModuleDir('data', $modName) . DS . $this->_resourceName;
         if (is_dir($filesDir) && is_readable($filesDir)) {
             $regExp     = sprintf('#^%s-(.*)\.php$#i', $actionType);
             $handlerDir = dir($filesDir);
             while (($file = $handlerDir->read()) !== false) {
-                $matches = array();
+                $matches = [];
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
@@ -536,7 +536,7 @@ class Mage_Core_Model_Resource_Setup
             $handlerDir = dir($filesDir);
 
             while (($file = $handlerDir->read()) !== false) {
-                $matches = array();
+                $matches = [];
                 if (preg_match($regExp, $file, $matches)) {
                     $files[$matches[1]] = $filesDir . DS . $file;
                 }
@@ -545,7 +545,7 @@ class Mage_Core_Model_Resource_Setup
         }
 
         if (empty($files)) {
-            return array();
+            return [];
         }
 
         return $this->_getModifySqlFiles($actionType, $fromVersion, $toVersion, $files);
@@ -596,7 +596,7 @@ class Mage_Core_Model_Resource_Setup
                 $files = $this->_getAvailableDataFiles($actionType, $fromVersion, $toVersion);
                 break;
             default:
-                $files = array();
+                $files = [];
                 break;
         }
         if (empty($files) || !$this->getConnection()) {
@@ -652,17 +652,17 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _getModifySqlFiles($actionType, $fromVersion, $toVersion, $arrFiles)
     {
-        $arrRes = array();
+        $arrRes = [];
         switch ($actionType) {
             case self::TYPE_DB_INSTALL:
             case self::TYPE_DATA_INSTALL:
                 uksort($arrFiles, 'version_compare');
                 foreach ($arrFiles as $version => $file) {
                     if (version_compare($version, $toVersion) !== self::VERSION_COMPARE_GREATER) {
-                        $arrRes[0] = array(
+                        $arrRes[0] = [
                             'toVersion' => $version,
                             'fileName'  => $file
-                        );
+                        ];
                     }
                 }
                 break;
@@ -681,10 +681,10 @@ class Mage_Core_Model_Resource_Setup
                     $infoTo   = $versionInfo[1];
                     if (version_compare($infoFrom, $fromVersion) !== self::VERSION_COMPARE_LOWER
                         && version_compare($infoTo, $toVersion) !== self::VERSION_COMPARE_GREATER) {
-                        $arrRes[] = array(
+                        $arrRes[] = [
                             'toVersion' => $infoTo,
                             'fileName'  => $file
-                        );
+                        ];
                     }
                 }
                 break;
@@ -720,7 +720,7 @@ class Mage_Core_Model_Resource_Setup
 
         if (empty($this->_setupCache[$table][$parentId][$id])) {
             $adapter = $this->getConnection();
-            $bind    = array('id_field' => $id);
+            $bind    = ['id_field' => $id];
             $select  = $adapter->select()
                 ->from($table)
                 ->where($adapter->quoteIdentifier($idField) . '= :id_field');
@@ -757,7 +757,7 @@ class Mage_Core_Model_Resource_Setup
         }
 
         $adapter = $this->getConnection();
-        $where = array($adapter->quoteIdentifier($idField) . '=?' => $id);
+        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
         if (!is_null($parentField)) {
             $where[$adapter->quoteIdentifier($parentField) . '=?'] = $parentId;
         }
@@ -792,11 +792,11 @@ class Mage_Core_Model_Resource_Setup
         if (is_array($field)) {
             $data = $field;
         } else {
-            $data = array($field => $value);
+            $data = [$field => $value];
         }
 
         $adapter = $this->getConnection();
-        $where = array($adapter->quoteIdentifier($idField) . '=?' => $id);
+        $where = [$adapter->quoteIdentifier($idField) . '=?' => $id];
         $adapter->update($table, $data, $where);
 
         if (isset($this->_setupCache[$table][$parentId][$id])) {
@@ -865,7 +865,7 @@ class Mage_Core_Model_Resource_Setup
      * @return $this
      * @deprecated since 1.4.0.1
      */
-    public function addConfigField($path, $label, array $data = array(), $default = null)
+    public function addConfigField($path, $label, array $data = [], $default = null)
     {
         return $this;
     }
@@ -886,13 +886,13 @@ class Mage_Core_Model_Resource_Setup
         // this is a fix for mysql 4.1
         $this->getConnection()->showTableStatus($table);
 
-        $data  = array(
+        $data  = [
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
             'value'     => $value
-        );
-        $this->getConnection()->insertOnDuplicate($table, $data, array('value'));
+        ];
+        $this->getConnection()->insertOnDuplicate($table, $data, ['value']);
         return $this;
     }
 
@@ -905,7 +905,7 @@ class Mage_Core_Model_Resource_Setup
      */
     public function deleteConfigData($path, $scope = null)
     {
-        $where = array('path = ?' => $path);
+        $where = ['path = ?' => $path];
         if (!is_null($scope)) {
             $where['scope = ?'] = $scope;
         }

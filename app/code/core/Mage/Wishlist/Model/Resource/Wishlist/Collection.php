@@ -69,7 +69,7 @@ class Mage_Wishlist_Model_Resource_Wishlist_Collection extends Mage_Core_Model_R
      */
     public function filterByCustomerIds(array $customerIds)
     {
-        $this->addFieldToFilter('customer_id', array('in' => $customerIds));
+        $this->addFieldToFilter('customer_id', ['in' => $customerIds]);
         return $this;
     }
 }

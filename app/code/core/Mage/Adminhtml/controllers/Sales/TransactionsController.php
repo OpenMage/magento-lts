@@ -45,7 +45,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         $orderId = $this->getRequest()->getParam('order_id');
         if ($orderId) {
             $txn->setOrderUrl(
-                $this->getUrl('*/sales_order/view', array('order_id' => $orderId))
+                $this->getUrl('*/sales_order/view', ['order_id' => $orderId])
             );
         }
 
@@ -115,7 +115,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             );
             Mage::logException($e);
         }
-        $this->_redirect('*/sales_transactions/view', array('_current' => true));
+        $this->_redirect('*/sales_transactions/view', ['_current' => true]);
     }
 
     /**

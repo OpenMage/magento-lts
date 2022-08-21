@@ -27,18 +27,18 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Boolean extends Varien_Data_Form_Element_Select
 {
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
-        $this->setValues(array(
-            array(
+        $this->setValues([
+            [
                 'label' => Mage::helper('catalog')->__('No'),
                 'value' => 0,
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('catalog')->__('Yes'),
                 'value' => 1,
-            ),
-        ));
+            ],
+        ]);
     }
 }

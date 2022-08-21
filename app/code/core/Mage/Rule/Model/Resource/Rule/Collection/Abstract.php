@@ -47,7 +47,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @var array
      */
-    protected $_associatedEntitiesMap = array();
+    protected $_associatedEntitiesMap = [];
 
     /**
      * Quote rule environment
@@ -107,7 +107,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             }
 
             $subSelect = $this->getConnection()->select()
-                ->from(array('website' => $this->getTable($entityInfo['associations_table'])), '')
+                ->from(['website' => $this->getTable($entityInfo['associations_table'])], '')
                 ->where('website.' . $entityInfo['entity_id_field'] . ' IN (?)', $websiteId);
             $this->getSelect()->exists(
                 $subSelect,

@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         try {
             $ioAdapter = new Varien_Io_File();
             $ioAdapter->checkAndCreateFolder($apiTempDir);
-            $ioAdapter->open(array('path' => $apiTempDir));
+            $ioAdapter->open(['path' => $apiTempDir]);
             $ioAdapter->write($imageFileName, $imageFileContent, 0666);
             unset($imageFileContent);
 
@@ -125,7 +125,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _retrieve()
     {
-        $result = array();
+        $result = [];
         $imageId = (int) $this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -202,7 +202,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _retrieveCollection()
     {
-        $images = array();
+        $images = [];
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
         if (isset($galleryData['images']) && is_array($galleryData['images'])) {
             foreach ($galleryData['images'] as $image) {
@@ -226,11 +226,11 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
         );
-        $params = array(
+        $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $this->getRequest()->getParam('id'),
             'image'    => $imageId
-        );
+        ];
         $uri = $chain->assemble($params);
         return '/' . $uri;
     }

@@ -104,10 +104,10 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
         if (is_null($this->_designConfig)) {
             $store = Mage::getDesign()->getStore();
             $storeId = is_object($store) ? $store->getId() : $store;
-            $this->_designConfig = new Varien_Object(array(
+            $this->_designConfig = new Varien_Object([
                 'area' => Mage::getDesign()->getArea(),
                 'store' => $storeId
-            ));
+            ]);
         }
         return $this->_designConfig;
     }
@@ -137,7 +137,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             // save current design settings
             $this->_emulatedDesignConfig = clone $this->getDesignConfig();
             if ($this->getDesignConfig()->getStore() != $storeId) {
-                $this->setDesignConfig(array('area' => $area, 'store' => $storeId));
+                $this->setDesignConfig(['area' => $area, 'store' => $storeId]);
                 $this->_applyDesignConfig();
             }
         } else {

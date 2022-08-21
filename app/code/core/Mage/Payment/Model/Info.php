@@ -216,7 +216,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
             $this->_additionalInformation = $this->_getData('additional_information');
         }
         if ($this->_additionalInformation === null) {
-            $this->_additionalInformation = array();
+            $this->_additionalInformation = [];
         }
     }
 }

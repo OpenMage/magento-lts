@@ -61,26 +61,26 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('content_fieldset', array('legend'=>Mage::helper('cms')->__('Content'),'class'=>'fieldset-wide'));
+        $fieldset = $form->addFieldset('content_fieldset', ['legend'=>Mage::helper('cms')->__('Content'),'class'=>'fieldset-wide']);
 
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
-            array('tab_id' => $this->getTabId())
+            ['tab_id' => $this->getTabId()]
         );
 
-        $fieldset->addField('content_heading', 'text', array(
+        $fieldset->addField('content_heading', 'text', [
             'name'      => 'content_heading',
             'label'     => Mage::helper('cms')->__('Content Heading'),
             'title'     => Mage::helper('cms')->__('Content Heading'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        $contentField = $fieldset->addField('content', 'editor', array(
+        $contentField = $fieldset->addField('content', 'editor', [
             'name'      => 'content',
             'style'     => 'height:36em;',
             'required'  => true,
             'disabled'  => $isElementDisabled,
             'config'    => $wysiwygConfig
-        ));
+        ]);
 
         // Setting custom renderer for content field to remove label column
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         $form->setValues($model->getData());
         $this->setForm($form);
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', array('form' => $form));
+        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
     }

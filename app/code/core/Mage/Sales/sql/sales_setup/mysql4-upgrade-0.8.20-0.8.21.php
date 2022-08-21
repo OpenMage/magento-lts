@@ -28,9 +28,9 @@ $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_sub
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_tax_invoiced', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_invoiced', 'decimal(12,4) NULL');
 
-$installer->addAttribute('order', 'subtotal_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'tax_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'shipping_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_subtotal_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_tax_invoiced', array('type'=>'static'));
-$installer->addAttribute('order', 'base_shipping_invoiced', array('type'=>'static'));
+$installer->addAttribute('order', 'subtotal_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'tax_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'shipping_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'base_subtotal_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'base_tax_invoiced', ['type'=>'static']);
+$installer->addAttribute('order', 'base_shipping_invoiced', ['type'=>'static']);

@@ -126,7 +126,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
 
         $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
 
-        return array($modelClass, $method);
+        return [$modelClass, $method];
     }
 
     /**
@@ -154,7 +154,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
     public function prepareArgs($params, $args)
     {
 
-        $callArgs = array();
+        $callArgs = [];
 
         /** @var ReflectionParameter $parameter */
         foreach ($params as $parameter) {

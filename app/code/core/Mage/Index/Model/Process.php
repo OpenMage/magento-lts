@@ -19,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Index_Model_Resource_Process _getResource()
  * @method Mage_Index_Model_Resource_Process getResource()
  * @method string getIndexCode()
@@ -484,10 +482,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function changeStatus($status)
     {
-        Mage::dispatchEvent('index_process_change_status', array(
+        Mage::dispatchEvent('index_process_change_status', [
             'process' => $this,
             'status' => $status
-        ));
+        ]);
         $this->_getResource()->updateStatus($this, $status);
         return $this;
     }
@@ -499,10 +497,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getModesOptions()
     {
-        return array(
+        return [
             self::MODE_REAL_TIME => Mage::helper('index')->__('Update on Save'),
             self::MODE_MANUAL => Mage::helper('index')->__('Manual Update')
-        );
+        ];
     }
 
     /**
@@ -512,11 +510,11 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getStatusesOptions()
     {
-        return array(
+        return [
             self::STATUS_PENDING            => Mage::helper('index')->__('Ready'),
             self::STATUS_RUNNING            => Mage::helper('index')->__('Processing'),
             self::STATUS_REQUIRE_REINDEX    => Mage::helper('index')->__('Reindex Required'),
-        );
+        ];
     }
 
     /**
@@ -526,10 +524,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getUpdateRequiredOptions()
     {
-        return array(
+        return [
             0 => Mage::helper('index')->__('No'),
             1 => Mage::helper('index')->__('Yes'),
-        );
+        ];
     }
 
     /**
@@ -541,7 +539,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     {
         $depends = $this->getData('depends');
         if (is_null($depends)) {
-            $depends = array();
+            $depends = [];
             $path = self::XML_PATH_INDEXER_DATA . '/' . $this->getIndexerCode();
             $node = Mage::getConfig()->getNode($path);
             if ($node) {

@@ -32,15 +32,15 @@
  */
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
 {
-    protected $_groups = array();
-    protected $_stores = array();
+    protected $_groups = [];
+    protected $_stores = [];
     protected $_loaded = false;
 
     public function __construct()
     {
         $this->_loadData();
-        $this->setStores(array());
-        $this->setLanguages(array());
+        $this->setStores([]);
+        $this->setLanguages([]);
         parent::__construct();
     }
 
@@ -84,7 +84,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
      */
     public function getStoreCount()
     {
-        $stores = array();
+        $stores = [];
         $localeCode = Mage::getStoreConfig('general/locale/code');
         foreach ($this->_groups as $group) {
             if (!isset($this->_stores[$group->getId()])) {
@@ -115,7 +115,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
     {
         $groupId = Mage::app()->getStore()->getGroupId();
         if (!isset($this->_stores[$groupId])) {
-            $this->setLanguages(array());
+            $this->setLanguages([]);
             return 0;
         }
         $this->setLanguages($this->_stores[$groupId]);

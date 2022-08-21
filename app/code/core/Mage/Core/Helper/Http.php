@@ -78,7 +78,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             $this->authFailed();
         }
 
-        return array($user, $pass);
+        return [$user, $pass];
     }
 
     /**
@@ -102,7 +102,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      */
     public function getRemoteAddrHeaders()
     {
-        $headers = array();
+        $headers = [];
         $element = Mage::getConfig()->getNode(self::XML_NODE_REMOTE_ADDR_HEADERS);
         if ($element instanceof Mage_Core_Model_Config_Element) {
             foreach ($element->children() as $node) {

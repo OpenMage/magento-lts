@@ -54,31 +54,31 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id',
-            array(
+            [
                 'header'=>Mage::helper('checkout')->__('ID'),
                 'align' =>'right',
                 'width' => '50px',
                 'index' => 'agreement_id'
-            )
+            ]
         );
 
-        $this->addColumn('position', array(
+        $this->addColumn('position', [
             'header'    => Mage::helper('adminhtml')->__('Position'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'position',
             'type'      => 'text',
-        ));
+        ]);
 
         $this->addColumn('name',
-            array(
+            [
                 'header'=>Mage::helper('checkout')->__('Condition Name'),
                 'index' => 'name'
-            )
+            ]
         );
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('adminhtml')->__('Store View'),
                 'index'         => 'store_id',
                 'type'          => 'store',
@@ -86,19 +86,19 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
                 'store_view'    => true,
                 'sortable'      => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
-            ));
+                                => [$this, '_filterStoreCondition'],
+            ]);
         }
 
-        $this->addColumn('is_active', array(
+        $this->addColumn('is_active', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 0 => Mage::helper('adminhtml')->__('Disabled'),
                 1 => Mage::helper('adminhtml')->__('Enabled')
-            ),
-        ));
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -129,6 +129,6 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

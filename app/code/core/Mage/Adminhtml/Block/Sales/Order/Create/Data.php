@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     public function getAvailableCurrencies()
     {
         $dirtyCodes = $this->getStore()->getAvailableCurrencyCodes();
-        $codes = array();
+        $codes = [];
         if (is_array($dirtyCodes) && count($dirtyCodes)) {
             $rates = Mage::getModel('directory/currency')->getCurrencyRates(
                 Mage::app()->getStore()->getBaseCurrency(),

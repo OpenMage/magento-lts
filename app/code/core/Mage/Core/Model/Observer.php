@@ -68,16 +68,16 @@ class Mage_Core_Model_Observer
                 }
 
                 $date = date('Y-m-d H:i:s');
-                Mage::getModel('adminnotification/inbox')->parse(array(
-                    array(
+                Mage::getModel('adminnotification/inbox')->parse([
+                    [
                         'severity'      => $severity,
                         'date_added'    => $date,
                         'title'         => $title,
                         'description'   => $description,
                         'url'           => '',
                         'internal'      => true
-                    )
-                ));
+                    ]
+                ]);
 
                 $flag->setState(Mage_Core_Model_File_Storage_Flag::STATE_NOTIFIED)->save();
             }

@@ -62,11 +62,11 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $originalData = $element->getOriginalData();
-        $this->addData(array(
+        $this->addData([
             'button_label' => Mage::helper('customer')->__($originalData['button_label']),
             'html_id' => $element->getHtmlId(),
             'ajax_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/customer_system_config_validatevat/validate')
-        ));
+        ]);
 
         return $this->_toHtml();
     }

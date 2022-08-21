@@ -32,7 +32,7 @@ class Mage_Payment_Model_Source_Cctype
      *
      * @var array
      */
-    protected $_allowedTypes = array();
+    protected $_allowedTypes = [];
 
     /**
      * Return allowed cc types for current method
@@ -65,14 +65,14 @@ class Mage_Payment_Model_Source_Cctype
          * making filter by allowed cards
          */
         $allowed = $this->getAllowedTypes();
-        $options = array();
+        $options = [];
 
         foreach (Mage::getSingleton('payment/config')->getCcTypes() as $code => $name) {
             if (in_array($code, $allowed) || !count($allowed)) {
-                $options[] = array(
+                $options[] = [
                    'value' => $code,
                    'label' => $name
-                );
+                ];
             }
         }
 

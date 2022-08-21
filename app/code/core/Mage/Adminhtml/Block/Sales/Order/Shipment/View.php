@@ -51,11 +51,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         }
 
         if ($this->getShipment()->getId()) {
-            $this->_addButton('print', array(
+            $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                )
+                ]
             );
         }
     }
@@ -91,10 +91,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
     {
         return $this->getUrl(
             '*/sales_order/view',
-            array(
+            [
                 'order_id'  => $this->getShipment()->getOrderId(),
                 'active_tab'=> 'order_shipments'
-            ));
+            ]);
     }
 
     /**
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
      */
     public function getEmailUrl()
     {
-        return $this->getUrl('*/sales_order_shipment/email', array('shipment_id'  => $this->getShipment()->getId()));
+        return $this->getUrl('*/sales_order_shipment/email', ['shipment_id'  => $this->getShipment()->getId()]);
     }
 
     /**
@@ -110,9 +110,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
      */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/print', array(
+        return $this->getUrl('*/*/print', [
             'invoice_id' => $this->getShipment()->getId()
-        ));
+        ]);
     }
 
     /**

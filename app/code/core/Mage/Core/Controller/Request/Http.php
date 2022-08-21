@@ -47,7 +47,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     protected $_rewritedPathInfo= null;
     protected $_requestedRouteName = null;
-    protected $_routingInfo = array();
+    protected $_routingInfo = [];
 
     protected $_route;
 
@@ -67,7 +67,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @var array
      */
-    protected $_beforeForwardInfo = array();
+    protected $_beforeForwardInfo = [];
 
     /**
      * Flag for recognizing if request internally forwarded
@@ -228,7 +228,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($names) {
                 $this->_directFrontNames = $names->asArray();
             } else {
-                return array();
+                return [];
             }
         }
         return $this->_directFrontNames;
@@ -520,12 +520,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function initForward()
     {
         if (empty($this->_beforeForwardInfo)) {
-            $this->_beforeForwardInfo = array(
+            $this->_beforeForwardInfo = [
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),
                 'controller_name' => $this->getControllerName(),
                 'module_name' => $this->getModuleName()
-            );
+            ];
         }
 
         return $this;

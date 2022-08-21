@@ -38,12 +38,12 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
         $collection = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->setEntityTypeFilter($entityType->getId());
 
-        $result = array();
+        $result = [];
         foreach ($collection as $attributeSet) {
-            $result[] = array(
+            $result[] = [
                 'set_id' => $attributeSet->getId(),
                 'name'   => $attributeSet->getAttributeSetName()
-            );
+            ];
         }
 
         return $result;

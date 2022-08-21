@@ -108,6 +108,6 @@ class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template
      */
     public function getReviewUrl($id)
     {
-        return Mage::getUrl('review/customer/view', array('id' => $id));
+        return Mage::getUrl('review/customer/view', ['id' => $id]);
     }
 }

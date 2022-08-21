@@ -30,21 +30,21 @@ $regionTable = $installer->getTable('directory/country_region');
 /* Armed Forces changes based on USPS */
 
 /* Armed Forces Middle East (AM) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AM');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AM'];
 
 $connection->update($regionTable, $bind, $where);
 
 /* Armed Forces Canada (AC) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AC');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AC'];
 
 $connection->update($regionTable, $bind, $where);
 
 
 /* Armed Forces Africa (AF) is now served by Armed Forces Europe (AE) */
-$bind = array('code' => 'AE');
-$where = array('code = ?' => 'AF');
+$bind = ['code' => 'AE'];
+$where = ['code = ?' => 'AF'];
 
 $connection->update($regionTable, $bind, $where);
 

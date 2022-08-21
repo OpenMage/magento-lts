@@ -50,7 +50,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      *
      * @var array
      */
-    protected $_responseParamsMappings = array(
+    protected $_responseParamsMappings = [
         'firstname' => 'billtofirstname',
         'lastname' => 'billtolastname',
         'address' => 'billtostreet',
@@ -72,7 +72,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
         'method' => 'tender',
         'cscmatch' => 'cvv2match',
         'type' => 'trxtype',
-    );
+    ];
 
     /**
      * Payment method code
@@ -242,9 +242,9 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      */
     public function process($responseData)
     {
-        $debugData = array(
+        $debugData = [
             'response' => $responseData
-        );
+        ];
         $this->_debug($debugData);
 
         $this->setResponseData($responseData);

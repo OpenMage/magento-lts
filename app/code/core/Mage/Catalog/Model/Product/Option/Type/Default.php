@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      *
      * @var    mixed
      */
-    protected $_productOptions = array();
+    protected $_productOptions = [];
 
     /**
      * Option Instance setter
@@ -364,22 +364,22 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
     {
         if (!isset($this->_productOptions[$this->getProduct()->getId()])) {
             foreach ($this->getProduct()->getOptions() as $_option) {
-                $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()] = array('option_id' => $_option->getId());
+                $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()] = ['option_id' => $_option->getId()];
                 if ($_option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                    $optionValues = array();
+                    $optionValues = [];
                     foreach ($_option->getValues() as $_value) {
                         $optionValues[$_value->getTitle()] = $_value->getId();
                     }
                     $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()]['values'] = $optionValues;
                 } else {
-                    $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()]['values'] = array();
+                    $this->_productOptions[$this->getProduct()->getId()][$_option->getTitle()]['values'] = [];
                 }
             }
         }
         if (isset($this->_productOptions[$this->getProduct()->getId()])) {
             return $this->_productOptions[$this->getProduct()->getId()];
         }
-        return array();
+        return [];
     }
 
     /**

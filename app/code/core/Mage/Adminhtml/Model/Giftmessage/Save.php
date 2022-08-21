@@ -189,7 +189,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function getAllowQuoteItems()
     {
         if(!is_array($this->_getSession()->getAllowQuoteItemsGiftMessage())) {
-            $this->setAllowQuoteItems(array());
+            $this->setAllowQuoteItems([]);
         }
 
         return $this->_getSession()->getAllowQuoteItemsGiftMessage();
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      */
     public function getAllowQuoteItemsProducts()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAllowQuoteItems() as $itemId) {
             $item = $this->_getQuote()->getItemById($itemId);
             if(!$item) {
@@ -254,7 +254,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function importAllowQuoteItemsFromProducts($products)
     {
         $allowedItems = $this->getAllowQuoteItems();
-        $deleteAllowedItems = array();
+        $deleteAllowedItems = [];
         foreach ($products as $productId=>$data) {
             $product = Mage::getModel('catalog/product')
                 ->setStore($this->_getSession()->getStore())
@@ -284,7 +284,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
     public function importAllowQuoteItemsFromItems($items)
     {
         $allowedItems = $this->getAllowQuoteItems();
-        $deleteAllowedItems = array();
+        $deleteAllowedItems = [];
         foreach ($items as $itemId=>$data) {
 
             $item = $this->_getQuote()->getItemById($itemId);
@@ -318,12 +318,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
      */
     protected function _getMappedType($type)
     {
-        $map = array(
+        $map = [
             'main'          =>  'quote',
             'item'          =>  'quote_item',
             'order'         =>  'order',
             'order_item'    =>  'order_item'
-        );
+        ];
 
         if (isset($map[$type])) {
             return $map[$type];

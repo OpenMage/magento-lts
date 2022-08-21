@@ -50,15 +50,15 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => new Zend_Db_Expr('count(*)')))
+            ->from($this->getMainTable(), ['count' => new Zend_Db_Expr('count(*)')])
             ->where('ip=:ip
                 AND  time>=:time
                 AND  website_id=:website_id');
-        $bind = array(
+        $bind = [
             'ip'      => $ip,
             'time'    => $startTime,
             'website_id' => (int)$websiteId,
-        );
+        ];
 
         $row = $adapter->fetchRow($select, $bind);
         return $row['count'];
@@ -76,11 +76,11 @@ class Mage_Sendfriend_Model_Resource_Sendfriend extends Mage_Core_Model_Resource
     {
         $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            array(
+            [
                 'ip'         => $ip,
                 'time'       => $startTime,
                 'website_id' => $websiteId
-             )
+            ]
         );
         return $this;
     }

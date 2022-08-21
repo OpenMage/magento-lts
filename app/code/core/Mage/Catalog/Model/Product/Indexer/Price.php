@@ -18,8 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 /**
- * Enter description here ...
- *
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Indexer_Price getResource()
  * @method Mage_Catalog_Model_Product_Indexer_Price setEntityId(int $value)
@@ -61,28 +59,28 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      *
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
             self::EVENT_TYPE_REINDEX_PRICE,
-        ),
-        Mage_Core_Model_Config_Data::ENTITY => array(
+        ],
+        Mage_Core_Model_Config_Data::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Customer_Model_Group::ENTITY => array(
+        ],
+        Mage_Customer_Model_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
-    protected $_relatedConfigSettings = array(
+    protected $_relatedConfigSettings = [
         Mage_Catalog_Helper_Data::XML_PATH_PRICE_SCOPE,
         Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK
-    );
+    ];
 
     /**
      * Initialize resource model
@@ -120,7 +118,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
      */
     protected function _getDependentAttributes()
     {
-        return array(
+        return [
             'price',
             'special_price',
             'special_from_date',
@@ -129,7 +127,7 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             'status',
             'required_options',
             'force_reindex_required'
-        );
+        ];
     }
 
     /**

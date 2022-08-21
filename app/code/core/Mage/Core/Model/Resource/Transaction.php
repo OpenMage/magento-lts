@@ -33,21 +33,21 @@ class Mage_Core_Model_Resource_Transaction
      *
      * @var array
      */
-    protected $_objects = array();
+    protected $_objects = [];
 
     /**
      * Transaction objects array with alias key
      *
      * @var array
      */
-    protected $_objectsByAlias = array();
+    protected $_objectsByAlias = [];
 
     /**
      * Callbacks array.
      *
      * @var array
      */
-    protected $_beforeCommitCallbacks = array();
+    protected $_beforeCommitCallbacks = [];
     /**
      * Begin transaction for all involved object resources
      *

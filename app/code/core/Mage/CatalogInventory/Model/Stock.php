@@ -72,7 +72,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             ->addProductsFilter($productCollection)
             ->joinStockStatus($productCollection->getStoreId())
             ->load();
-        $stockItems = array();
+        $stockItems = [];
         /** @var Mage_CatalogInventory_Model_Stock_Item $item */
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
@@ -105,7 +105,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      */
     protected function _prepareProductQtys($items)
     {
-        $qtys = array();
+        $qtys = [];
         foreach ($items as $productId => $item) {
             if (empty($item['item'])) {
                 $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
@@ -134,7 +134,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
         try {
             $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
-            $fullSaveItems = array();
+            $fullSaveItems = [];
             foreach ($stockInfo as $itemInfo) {
                 $item->setData($itemInfo);
                 if (!$item->checkQty($qtys[$item->getProductId()])) {

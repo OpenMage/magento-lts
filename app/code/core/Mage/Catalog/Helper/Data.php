@@ -89,7 +89,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     public function getBreadcrumbPath()
     {
         if (!$this->_categoryPath) {
-            $path = array();
+            $path = [];
             if ($category = $this->getCategory()) {
                 $pathInStore = $category->getPathInStore();
                 $pathIds = array_reverse(explode(',', $pathInStore));
@@ -99,16 +99,16 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
                 // add category path breadcrumb
                 foreach ($pathIds as $categoryId) {
                     if (isset($categories[$categoryId]) && $categories[$categoryId]->getName()) {
-                        $path['category'.$categoryId] = array(
+                        $path['category'.$categoryId] = [
                             'label' => $categories[$categoryId]->getName(),
                             'link' => $this->_isCategoryLink($categoryId) ? $categories[$categoryId]->getUrl() : ''
-                        );
+                        ];
                     }
                 }
             }
 
             if ($this->getProduct()) {
-                $path['product'] = array('label'=>$this->getProduct()->getName());
+                $path['product'] = ['label'=>$this->getProduct()->getName()];
             }
 
             $this->_categoryPath = $path;
@@ -201,7 +201,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage::registry('attribute_type_hidden_fields')) {
             return Mage::registry('attribute_type_hidden_fields');
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -215,7 +215,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage::registry('attribute_type_disabled_types')) {
             return Mage::registry('attribute_type_disabled_types');
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -290,7 +290,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $node = Mage::getConfig()->getNode('global/catalog_product/old_fields_map');
         if ($node === false) {
-            return array();
+            return [];
         }
         return (array) $node;
     }
@@ -333,7 +333,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE, $this->_storeId),
-            array('b','br','strong','i','u', 'p', 'span')
+            ['b','br','strong','i','u', 'p', 'span']
         );
     }
 
@@ -346,7 +346,7 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->escapeHtml(
             Mage::getStoreConfig(self::XML_PATH_MSRP_EXPLANATION_MESSAGE_WHATS_THIS, $this->_storeId),
-            array('b','br','strong','i','u', 'p', 'span')
+            ['b','br','strong','i','u', 'p', 'span']
         );
     }
 

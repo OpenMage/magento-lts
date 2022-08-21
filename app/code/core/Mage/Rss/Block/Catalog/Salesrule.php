@@ -57,13 +57,13 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
         /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
         $collection = Mage::getModel('salesrule/rule')->getResourceCollection();
 
-        $data = array(
+        $data = [
             'title'       => $title,
             'description' => $title,
             'link'        => $newUrl,
             'charset'     => 'UTF-8',
             'language'    => $lang
-        );
+        ];
         $rssObject->_addHeader($data);
 
         $collection->addWebsiteGroupDateFilter($websiteId, $customerGroup, $now)
@@ -79,11 +79,11 @@ class Mage_Rss_Block_Catalog_Salesrule extends Mage_Rss_Block_Abstract
             ($sr->getCouponCode() ? '<br/> Coupon Code: '. $this->escapeHtml($sr->getCouponCode()).'' : '').
             '</td>'.
             '</tr></table>';
-             $data = array(
+             $data = [
                  'title'       => $sr->getName(),
                  'description' => $description,
                  'link'        => $url
-             );
+             ];
             $rssObject->_addEntry($data);
         }
 

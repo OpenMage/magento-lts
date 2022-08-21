@@ -154,8 +154,8 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             ->countPercent($poll);
 
         // correct rounded percents to be always equal 100
-        $percentsSorted = array();
-        $answersArr = array();
+        $percentsSorted = [];
+        $answersArr = [];
         /**
          * @var int $key
          * @var Mage_Poll_Model_Poll_Answer $answer
@@ -174,11 +174,11 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
             $answersArr[$key]->setPercent($value + 100 - $total);
         }
 
-        return array(
+        return [
             'poll' => $poll,
             'poll_answers' => $pollAnswers,
-            'action' => Mage::getUrl('poll/vote/add', array('poll_id' => $pollId, '_secure' => true))
-        );
+            'action' => Mage::getUrl('poll/vote/add', ['poll_id' => $pollId, '_secure' => true])
+        ];
     }
 
 
@@ -232,9 +232,9 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $items = array(
+        $items = [
             'templates' => serialize($this->_templates)
-        );
+        ];
 
         $items = parent::getCacheKeyInfo() + $items;
 

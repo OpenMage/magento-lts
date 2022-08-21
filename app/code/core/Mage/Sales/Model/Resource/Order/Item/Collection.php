@@ -97,7 +97,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addIdFilter($item)
     {
         if (is_array($item)) {
-            $this->addFieldToFilter('item_id', array('in'=>$item));
+            $this->addFieldToFilter('item_id', ['in'=>$item]);
         } elseif ($item instanceof Mage_Sales_Model_Order_Item) {
             $this->addFieldToFilter('item_id', $item->getId());
         } else {
@@ -114,7 +114,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
      */
     public function filterByTypes($typeIds)
     {
-        $this->addFieldToFilter('product_type', array('in' => $typeIds));
+        $this->addFieldToFilter('product_type', ['in' => $typeIds]);
         return $this;
     }
 
@@ -127,7 +127,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function filterByParent($parentId = null)
     {
         if (empty($parentId)) {
-            $this->addFieldToFilter('parent_item_id', array('null' => true));
+            $this->addFieldToFilter('parent_item_id', ['null' => true]);
         } else {
             $this->addFieldToFilter('parent_item_id', $parentId);
         }
@@ -142,7 +142,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addAvailableFilter()
     {
         $fieldExpression = '(qty_shipped - qty_returned)';
-        $resultCondition = $this->_getConditionSql($fieldExpression, array("gt" => 0));
+        $resultCondition = $this->_getConditionSql($fieldExpression, ["gt" => 0]);
         $this->getSelect()->where($resultCondition);
         return $this;
     }
@@ -156,9 +156,9 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     public function addFilterByCustomerId($customerId)
     {
         $this->getSelect()->joinInner(
-            array('order' => $this->getTable('sales/order')),
+            ['order' => $this->getTable('sales/order')],
             'main_table.order_id = order.entity_id',
-            array()
+            []
         )
             ->where('order.customer_id IN(?)', $customerId);
 

@@ -37,10 +37,10 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     protected function _construct()
     {
         $this->_init('eav/form_type', 'type_id');
-        $this->addUniqueField(array(
-            'field' => array('code', 'theme', 'store_id'),
+        $this->addUniqueField([
+            'field' => ['code', 'theme', 'store_id'],
             'title' => Mage::helper('eav')->__('Form Type with the same code')
-        ));
+        ]);
     }
 
     /**
@@ -67,10 +67,10 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
     {
         $objectId = $object->getId();
         if (!$objectId) {
-            return array();
+            return [];
         }
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':type_id' => $objectId);
+        $bind    = [':type_id' => $objectId];
         $select  = $adapter->select()
             ->from($this->getTable('eav/form_type_entity'), 'entity_type_id')
             ->where('type_id = :type_id');
@@ -98,15 +98,15 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             $adapter  = $this->_getWriteAdapter();
 
             if (!empty($insert)) {
-                $data = array();
+                $data = [];
                 foreach ($insert as $entityId) {
                     if (empty($entityId)) {
                         continue;
                     }
-                    $data[] = array(
+                    $data[] = [
                         'entity_type_id' => (int)$entityId,
                         'type_id'        => $object->getId()
-                    );
+                    ];
                 }
                 if ($data) {
                     $adapter->insertMultiple($this->getTable('eav/form_type_entity'), $data);
@@ -114,10 +114,10 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             }
 
             if (!empty($delete)) {
-                $where = array(
+                $where = [
                     'entity_type_id IN (?)' => $delete,
                     'type_id = ?'           => $object->getId()
-                );
+                ];
                 $adapter->delete($this->getTable('eav/form_type_entity'), $where);
             }
         }
@@ -137,9 +137,9 @@ class Mage_Eav_Model_Resource_Form_Type extends Mage_Core_Model_Resource_Db_Abst
             $attribute = $attribute->getId();
         }
         if (!$attribute) {
-            return array();
+            return [];
         }
-        $bind   = array(':attribute_id' => $attribute);
+        $bind   = [':attribute_id' => $attribute];
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('eav/form_element'))
             ->where('attribute_id = :attribute_id');

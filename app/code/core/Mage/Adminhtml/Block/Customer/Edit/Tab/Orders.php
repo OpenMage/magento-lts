@@ -67,52 +67,52 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header'    => Mage::helper('customer')->__('Order #'),
             'width'     => '100',
             'index'     => 'increment_id',
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    => Mage::helper('customer')->__('Purchase On'),
             'index'     => 'created_at',
             'type'      => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('billing_name', array(
+        $this->addColumn('billing_name', [
             'header'    => Mage::helper('customer')->__('Bill to Name'),
             'index'     => 'billing_name',
-        ));
+        ]);
 
-        $this->addColumn('shipping_name', array(
+        $this->addColumn('shipping_name', [
             'header'    => Mage::helper('customer')->__('Shipped to Name'),
             'index'     => 'shipping_name',
-        ));
+        ]);
 
-        $this->addColumn('grand_total', array(
+        $this->addColumn('grand_total', [
             'header'    => Mage::helper('customer')->__('Order Total'),
             'index'     => 'grand_total',
             'type'      => 'currency',
             'currency'  => 'order_currency_code',
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'    => Mage::helper('customer')->__('Bought From'),
                 'index'     => 'store_id',
                 'type'      => 'store',
                 'store_view' => true
-            ));
+            ]);
         }
 
         if (Mage::helper('sales/reorder')->isAllow()) {
-            $this->addColumn('action', array(
+            $this->addColumn('action', [
                 'header'    => ' ',
                 'filter'    => false,
                 'sortable'  => false,
                 'width'     => '100px',
                 'renderer'  => 'adminhtml/sales_reorder_renderer_action'
-            ));
+            ]);
         }
 
         return parent::_prepareColumns();
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id' => $row->getId()));
+        return $this->getUrl('*/sales_order/view', ['order_id' => $row->getId()]);
     }
 
     /**
@@ -132,6 +132,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Orders extends Mage_Adminhtml_Block
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/orders', array('_current' => true));
+        return $this->getUrl('*/*/orders', ['_current' => true]);
     }
 }

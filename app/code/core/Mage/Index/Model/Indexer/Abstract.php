@@ -26,7 +26,7 @@
  */
 abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstract
 {
-    protected $_matchedEntities = array();
+    protected $_matchedEntities = [];
 
     /**
      * Whether table changes are allowed

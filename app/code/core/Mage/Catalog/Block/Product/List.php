@@ -163,9 +163,9 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         $toolbar->setCollection($collection);
 
         $this->setChild('toolbar', $toolbar);
-        Mage::dispatchEvent('catalog_block_product_list_collection', array(
+        Mage::dispatchEvent('catalog_block_product_list_collection', [
             'collection' => $this->_getProductCollection()
-        ));
+        ]);
 
         $this->_getProductCollection()->load();
 

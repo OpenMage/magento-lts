@@ -32,14 +32,14 @@ class Mage_Core_Model_File_Validator_StreamWrapper
      *
      * @var array
      */
-    protected $_allowedStreamWrappers = array();
+    protected $_allowedStreamWrappers = [];
 
     /**
      * Mage_Core_Model_File_Validator_StreamWrapper constructor.
      *
      * @param array $allowedStreamWrappers
      */
-    public function __construct($allowedStreamWrappers = array())
+    public function __construct($allowedStreamWrappers = [])
     {
         $this->_allowedStreamWrappers = $allowedStreamWrappers;
     }

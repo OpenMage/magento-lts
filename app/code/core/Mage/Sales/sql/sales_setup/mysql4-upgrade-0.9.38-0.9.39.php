@@ -51,7 +51,7 @@ $installer->getConnection()->addConstraint(
     'set null',
     'cascade'
 );
-$installer->addAttribute('quote_item', 'redirect_url', array(
+$installer->addAttribute('quote_item', 'redirect_url', [
     'type'  => 'varchar',
-));
+]);
 $installer->endSetup();

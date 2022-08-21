@@ -39,7 +39,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-            ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
+            ->addFieldToFilter('state', ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()])
             ->setOrder('created_at', 'desc')
         ;
 
@@ -76,7 +76,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getViewUrl($order)
     {
-        return $this->getUrl('*/*/view', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -85,7 +85,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getTrackUrl($order)
     {
-        return $this->getUrl('*/*/track', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/track', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -94,7 +94,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
      */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('*/*/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/reorder', ['order_id' => $order->getId()]);
     }
 
     /**

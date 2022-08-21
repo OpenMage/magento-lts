@@ -44,14 +44,14 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
      * @param array $params
      * @return string
      */
-    public function fetchUpdatesByHandle($handle, $params = array())
+    public function fetchUpdatesByHandle($handle, $params = [])
     {
-        $bind = array(
+        $bind = [
             'store_id'  => Mage::app()->getStore()->getId(),
             'area'      => Mage::getSingleton('core/design_package')->getArea(),
             'package'   => Mage::getSingleton('core/design_package')->getPackageName(),
             'theme'     => Mage::getSingleton('core/design_package')->getTheme('layout')
-        );
+        ];
 
         foreach ($params as $key => $value) {
             if (isset($bind[$key])) {
@@ -64,9 +64,9 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
         $readAdapter = $this->_getReadAdapter();
         if ($readAdapter) {
             $select = $readAdapter->select()
-                ->from(array('layout_update' => $this->getMainTable()), array('xml'))
+                ->from(['layout_update' => $this->getMainTable()], ['xml'])
                 ->join(
-                    array('link'=>$this->getTable('core/layout_link')),
+                    ['link'=>$this->getTable('core/layout_link')],
                     'link.layout_update_id=layout_update.layout_update_id',
                     ''
                 )

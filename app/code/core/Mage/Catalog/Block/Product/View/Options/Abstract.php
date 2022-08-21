@@ -93,10 +93,10 @@ abstract class Mage_Catalog_Block_Product_View_Options_Abstract extends Mage_Cor
     public function getFormatedPrice()
     {
         if ($option = $this->getOption()) {
-            return $this->_formatPrice(array(
+            return $this->_formatPrice([
                 'is_percent'    => ($option->getPriceType() === 'percent'),
                 'pricing_value' => $option->getPrice($option->getPriceType() === 'percent')
-            ));
+            ]);
         }
         return '';
     }

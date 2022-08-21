@@ -124,7 +124,7 @@ class Mage_Bundle_Model_Observer
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
-        $bundleCollection->addFieldToFilter('entity_id', array('in' => $bundleIds))
+        $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
         if ($collection instanceof Varien_Data_Collection) {
@@ -207,20 +207,20 @@ class Mage_Bundle_Model_Observer
         );
         $optionCollection->appendSelections($selectionCollection);
 
-        $optionRawData = array();
-        $selectionRawData = array();
+        $optionRawData = [];
+        $selectionRawData = [];
 
         $i = 0;
         foreach ($optionCollection as $option) {
-            $optionRawData[$i] = array(
+            $optionRawData[$i] = [
                     'required' => $option->getData('required'),
                     'position' => $option->getData('position'),
                     'type' => $option->getData('type'),
                     'title' => $option->getData('title')?$option->getData('title'):$option->getData('default_title'),
                     'delete' => ''
-                );
+            ];
             foreach ($option->getSelections() as $selection) {
-                $selectionRawData[$i][] = array(
+                $selectionRawData[$i][] = [
                     'product_id' => $selection->getProductId(),
                     'position' => $selection->getPosition(),
                     'is_default' => $selection->getIsDefault(),
@@ -229,7 +229,7 @@ class Mage_Bundle_Model_Observer
                     'selection_qty' => $selection->getSelectionQty(),
                     'selection_can_change_qty' => $selection->getSelectionCanChangeQty(),
                     'delete' => ''
-                );
+                ];
             }
             $i++;
         }

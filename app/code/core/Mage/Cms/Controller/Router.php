@@ -57,14 +57,14 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $identifier = trim($request->getPathInfo(), '/');
 
-        $condition = new Varien_Object(array(
+        $condition = new Varien_Object([
             'identifier' => $identifier,
             'continue'   => true
-        ));
-        Mage::dispatchEvent('cms_controller_router_match_before', array(
+        ]);
+        Mage::dispatchEvent('cms_controller_router_match_before', [
             'router'    => $this,
             'condition' => $condition
-        ));
+        ]);
         $identifier = $condition->getIdentifier();
 
         if ($condition->getRedirectUrl()) {

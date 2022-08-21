@@ -47,7 +47,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $uploadDir = $this->_getUploadDir();
 
             try {
-                $file = array();
+                $file = [];
                 $tmpName = $_FILES['groups']['tmp_name'];
                 $file['tmp_name'] = $tmpName[$this->getGroupId()]['fields'][$this->getField()]['value'];
                 $name = $_FILES['groups']['name'];
@@ -197,7 +197,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      */
     protected function _getAllowedExtensions()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -29,10 +29,10 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
         $product = Mage::registry('product');
 
         if (!$product) {
-            return array();
+            return [];
         }
 
-        return array($product);
+        return [$product];
     }
 
     /**
@@ -58,6 +58,6 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Product extends Mage_Conf
      */
     protected function _getImageSizes()
     {
-        return array('image');
+        return ['image'];
     }
 }

@@ -116,7 +116,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      */
     public function prepareJsonGeneralConfig()
     {
-        return array(
+        return [
             'priceFormat'       => Mage::app()->getLocale()->getJsPriceFormat(),
             'includeTax'        => Mage::helper('tax')->priceIncludesTax() ? 'true' : 'false',
             'showIncludeTax'    => Mage::helper('tax')->displayPriceIncludingTax(),
@@ -127,7 +127,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             'plusDispositionTax'  => 0,
             'oldMinusDisposition' => 0,
             'minusDisposition'    => 0,
-        );
+        ];
     }
 
 
@@ -179,8 +179,8 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
             $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
         }
-        $_tierPrices = array();
-        $_tierPricesInclTax = array();
+        $_tierPrices = [];
+        $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {
             $_tierPrices[] = Mage::helper('core')->currency(
                 Mage::helper('tax')->getPrice($product, (float)$tierPrice['website_price'], false) - $_priceExclTax,
@@ -194,7 +194,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             );
         }
 
-        return array(
+        return [
             'productId'           => $product->getId(),
             'productPrice'        => Mage::helper('core')->currency($_finalPrice, false, false),
             'productOldPrice'     => Mage::helper('core')->currency($_regularPrice, false, false),
@@ -206,6 +206,6 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             'tierPrices'          => $_tierPrices,
             'tierPricesInclTax'   => $_tierPricesInclTax,
             'swatchPrices'        => $product->getSwatchPrices(),
-        );
+        ];
     }
 }

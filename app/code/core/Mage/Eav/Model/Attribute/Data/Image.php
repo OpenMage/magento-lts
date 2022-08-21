@@ -43,21 +43,21 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
         $imageProp = @getimagesize($value['tmp_name']);
 
         if (!is_uploaded_file($value['tmp_name']) || !$imageProp) {
-            return array(
+            return [
                 Mage::helper('eav')->__('"%s" is not a valid file', $label)
-            );
+            ];
         }
 
-        $allowImageTypes = array(
+        $allowImageTypes = [
             1   => 'gif',
             2   => 'jpg',
             3   => 'png',
-        );
+        ];
 
         if (!isset($allowImageTypes[$imageProp[2]])) {
-            return array(
+            return [
                 Mage::helper('eav')->__('"%s" is not a valid image format', $label)
-            );
+            ];
         }
 
         // modify image name
@@ -66,7 +66,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
             $value['name'] = pathinfo($value['name'], PATHINFO_FILENAME) . '.' . $allowImageTypes[$imageProp[2]];
         }
 
-        $errors = array();
+        $errors = [];
         if (!empty($rules['max_file_size'])) {
             $size = $value['size'];
             if ($rules['max_file_size'] < $size) {

@@ -74,10 +74,10 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
             $order = Mage::getModel('sales/order')->loadByIncrementId($session->getLastRealOrderId());
 
             if ($order && $order->getIncrementId() == $session->getLastRealOrderId()) {
-                $allowedOrderStates = array(
+                $allowedOrderStates = [
                     Mage_Sales_Model_Order::STATE_PROCESSING,
                     Mage_Sales_Model_Order::STATE_COMPLETE
-                );
+                ];
                 if (in_array($order->getState(), $allowedOrderStates)) {
                     $session->unsLastRealOrderId();
                     $redirectBlock->setGotoSuccessPage(true);

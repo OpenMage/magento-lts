@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
             $isUseConfig = in_array($attributeCode, $postDataConfig);
         } else {
             $isUseConfig = false;
-            $postDataConfig = array();
+            $postDataConfig = [];
         }
 
         if ($this->getAttribute()->getIsRequired()) {
@@ -96,7 +96,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
             if (!is_array($data)) {
-                $data = array();
+                $data = [];
             }
             $object->setData($attributeCode, implode(',', $data));
         }

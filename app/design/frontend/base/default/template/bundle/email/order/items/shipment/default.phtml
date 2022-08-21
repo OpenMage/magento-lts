@@ -20,7 +20,7 @@
 ?>
 <?php $parentItem = $this->getItem() ?>
 
-<?php $items = array_merge(array($parentItem->getOrderItem()), $parentItem->getOrderItem()->getChildrenItems()) ?>
+<?php $items = array_merge([$parentItem->getOrderItem()], $parentItem->getOrderItem()->getChildrenItems()) ?>
 <?php $shipItems = $this->getChilds($parentItem) ?>
 
 <?php $_prevOptionId = '' ?>

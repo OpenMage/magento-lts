@@ -66,11 +66,11 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
-        $condition = array('agreement_id = ?' => $object->getId());
+        $condition = ['agreement_id = ?' => $object->getId()];
         $this->_getWriteAdapter()->delete($this->getTable('checkout/agreement_store'), $condition);
 
         foreach ((array)$object->getData('stores') as $store) {
-            $storeArray = array();
+            $storeArray = [];
             $storeArray['agreement_id'] = $object->getId();
             $storeArray['store_id'] = $store;
             $this->_getWriteAdapter()->insert($this->getTable('checkout/agreement_store'), $storeArray);
@@ -88,10 +88,10 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('checkout/agreement_store'), array('store_id'))
+            ->from($this->getTable('checkout/agreement_store'), ['store_id'])
             ->where('agreement_id = :agreement_id');
 
-        if ($stores = $this->_getReadAdapter()->fetchCol($select, array(':agreement_id' => $object->getId()))) {
+        if ($stores = $this->_getReadAdapter()->fetchCol($select, [':agreement_id' => $object->getId()])) {
             $object->setData('store_id', $stores);
         }
 
@@ -111,7 +111,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         $select = parent::_getLoadSelect($field, $value, $object);
         if ($object->getStoreId()) {
             $select->join(
-                array('cps' => $this->getTable('checkout/agreement_store')),
+                ['cps' => $this->getTable('checkout/agreement_store')],
                 $this->getMainTable() . '.agreement_id = cps.agreement_id'
             )
             ->where('is_active=1')

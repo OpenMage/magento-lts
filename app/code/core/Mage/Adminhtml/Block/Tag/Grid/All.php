@@ -55,28 +55,28 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Tag'),
             'index'     => 'name',
-        ));
-        $this->addColumn('total_used', array(
+        ]);
+        $this->addColumn('total_used', [
             'header'    => Mage::helper('tag')->__('# of Uses'),
             'width'     => '140px',
             'align'     => 'center',
             'index'     => 'total_used',
             'type'      => 'number',
-        ));
-        $this->addColumn('status', array(
+        ]);
+        $this->addColumn('status', [
             'header'    => Mage::helper('tag')->__('Status'),
             'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'    => array(
+            'options'    => [
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
-            ),
-        ));
+            ],
+        ]);
 
 
 
@@ -106,6 +106,6 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/products', array('tag_id' => $row->getId()));
+        return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);
     }
 }

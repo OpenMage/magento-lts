@@ -45,7 +45,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     public function getGalleryImages()
     {
         if ($this->_isGalleryDisabled) {
-            return array();
+            return [];
         }
         return $this->getProduct()->getMediaGalleryImages();
     }
@@ -58,7 +58,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
      */
     public function getGalleryUrl($image = null)
     {
-        $params = array('id' => $this->getProduct()->getId());
+        $params = ['id' => $this->getProduct()->getId()];
         if ($image) {
             $params['image'] = $image->getValueId();
         }

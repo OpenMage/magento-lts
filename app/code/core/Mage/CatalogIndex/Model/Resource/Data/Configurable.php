@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here ...
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -38,7 +36,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Configurable extends Mage_CatalogInd
      * @param int $id
      * @param array $additionalWheres
      */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }

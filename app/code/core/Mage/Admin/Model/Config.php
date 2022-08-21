@@ -70,7 +70,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
                 Mage::app()->saveCache(
                     $adminhtmlConfig->getXmlString(),
                     $this->getCacheId(),
-                    array(Mage_Core_Model_Config::CACHE_TAG)
+                    [Mage_Core_Model_Config::CACHE_TAG]
                 );
             }
         }

@@ -43,7 +43,7 @@ class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Templat
     public function getChildHtmlList()
     {
         if (is_null($this->_list)) {
-            $this->_list = array();
+            $this->_list = [];
             foreach ($this->getSortedChildren() as $name) {
                 $block = $this->getLayout()->getBlock($name);
                 if (!$block) {

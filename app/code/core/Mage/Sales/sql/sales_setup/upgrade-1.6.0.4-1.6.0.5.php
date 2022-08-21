@@ -21,23 +21,23 @@
 /** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 $installer->getConnection()
-    ->addColumn($installer->getTable('sales/order_item'), 'base_tax_refunded', array(
+    ->addColumn($installer->getTable('sales/order_item'), 'base_tax_refunded', [
         'type'    => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'comment' => 'Base Tax Refunded',
         'scale'     => 4,
         'precision' => 12,
-    ));
+    ]);
 $installer->getConnection()
-    ->addColumn($installer->getTable('sales/order_item'), 'discount_refunded', array(
+    ->addColumn($installer->getTable('sales/order_item'), 'discount_refunded', [
         'type'    => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'comment' => 'Discount Refunded',
         'scale'     => 4,
         'precision' => 12,
-    ));
+    ]);
 $installer->getConnection()
-    ->addColumn($installer->getTable('sales/order_item'), 'base_discount_refunded', array(
+    ->addColumn($installer->getTable('sales/order_item'), 'base_discount_refunded', [
         'type'    => Varien_Db_Ddl_Table::TYPE_DECIMAL,
         'comment' => 'Base Discount Refunded',
         'scale'     => 4,
         'precision' => 12,
-    ));
+    ]);

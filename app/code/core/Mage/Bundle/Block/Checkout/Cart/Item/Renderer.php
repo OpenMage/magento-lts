@@ -83,17 +83,17 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      */
     public function getMessages()
     {
-        $messages = array();
+        $messages = [];
         $quoteItem = $this->getItem();
 
         // Add basic messages occuring during this page load
         $baseMessages = $quoteItem->getMessage(false);
         if ($baseMessages) {
             foreach ($baseMessages as $message) {
-                $messages[] = array(
+                $messages[] = [
                     'text' => $message,
                     'type' => $quoteItem->getHasError() ? 'error' : 'notice'
-                );
+                ];
             }
         }
 

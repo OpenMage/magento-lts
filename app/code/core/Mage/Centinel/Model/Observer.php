@@ -39,7 +39,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         $payment = $observer->getEvent()->getQuote()->getPayment();
 
         if ($payment->getMethodInstance()->getIsCentinelValidationEnabled()) {
-            $to = array($payment, 'setAdditionalInformation');
+            $to = [$payment, 'setAdditionalInformation'];
             $payment->getMethodInstance()->getCentinelValidator()->exportCmpiData($to);
         }
         return $this;
@@ -61,13 +61,13 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         $transport = $observer->getEvent()->getTransport();
         $helper = Mage::helper('centinel');
 
-        $info = array(
+        $info = [
             Mage_Centinel_Model_Service::CMPI_PARES,
             Mage_Centinel_Model_Service::CMPI_ENROLLED,
             Mage_Centinel_Model_Service::CMPI_ECI,
             Mage_Centinel_Model_Service::CMPI_CAVV,
             Mage_Centinel_Model_Service::CMPI_XID
-        );
+        ];
         foreach ($info as $key) {
             if ($value = $payment->getAdditionalInformation($key)) {
                 $transport->setData($helper->getCmpiLabel($key), $helper->getCmpiValue($key, $value));

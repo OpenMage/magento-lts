@@ -38,7 +38,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     {
         $values = $this->_getRequestValue($request);
         if ($values !== false && !is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         return $values;
     }
@@ -76,7 +76,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
                 $output = $values;
                 break;
             default:
-                $output = array();
+                $output = [];
                 foreach ($values as $value) {
                     if (!$value) {
                         continue;

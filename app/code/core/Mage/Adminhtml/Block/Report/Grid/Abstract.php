@@ -23,7 +23,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
 {
     protected $_resourceCollectionName  = '';
     protected $_currentCurrencyCode     = null;
-    protected $_storeIds                = array();
+    protected $_storeIds                = [];
     protected $_aggregatedColumns       = null;
 
     public function __construct()
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if (is_null($this->_aggregatedColumns)) {
             foreach ($this->getColumns() as $column) {
                 if (!is_array($this->_aggregatedColumns)) {
-                    $this->_aggregatedColumns = array();
+                    $this->_aggregatedColumns = [];
                 }
                 if ($column->hasTotal()) {
                     $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $filterData = $this->getFilterData();
             $visibilityFilter = $column['visibility_filter'];
             if (!is_array($visibilityFilter)) {
-                $visibilityFilter = array($visibilityFilter);
+                $visibilityFilter = [$visibilityFilter];
             }
             foreach ($visibilityFilter as $k => $v) {
                 if (is_int($k)) {
@@ -114,7 +114,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if ($filterData) {
             $storeIds = explode(',', $filterData->getData('store_ids'));
         } else {
-            $storeIds = array();
+            $storeIds = [];
         }
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());
