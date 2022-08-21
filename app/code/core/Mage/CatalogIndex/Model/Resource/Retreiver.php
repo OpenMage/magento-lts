@@ -28,10 +28,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Retreiver extends Mage_Core_Model_Resource_Db_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalog/product', 'entity_id');

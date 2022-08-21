@@ -1879,8 +1879,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 /*********************** STATUSES ***************************/
 
     /**
-     * Enter description here...
-     *
      * @param bool $reload
      * @return Mage_Sales_Model_Resource_Order_Status_History_Collection
      */
@@ -1968,8 +1966,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getRealOrderId()

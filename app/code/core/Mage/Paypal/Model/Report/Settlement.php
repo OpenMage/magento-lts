@@ -26,8 +26,6 @@
  *
  */
 /**
- * Enter description here ...
- *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
  * @method string getReportDate()

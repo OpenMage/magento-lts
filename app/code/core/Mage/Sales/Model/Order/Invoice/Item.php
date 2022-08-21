@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here ...
- *
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice_Item getResource()
  * @method int getParentId()

@@ -28,8 +28,6 @@
 class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_Product_Abstract
 {
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function getLinksPurchasedSeparately()
@@ -38,8 +36,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function getLinkSelectionRequired()
@@ -49,8 +45,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     public function hasLinks()
@@ -60,8 +54,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getLinks()
@@ -71,8 +63,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Downloadable_Model_Link $link
      * @return string
      */
@@ -125,8 +115,6 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getJsonConfig()

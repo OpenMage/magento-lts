@@ -114,8 +114,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
      * @param boolean $sorted
      * @param array $exclude
@@ -345,8 +343,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Resource_Category_Collection $collection
      * @return $this
      */
@@ -360,8 +356,6 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
     }
 
     /**
-     * Enter description here...
-     *
      * @param boolean $sorted
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */

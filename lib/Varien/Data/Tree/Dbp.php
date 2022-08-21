@@ -231,8 +231,6 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     }
 
     /**
-     * Enter description here...
-     *
      * @param int|string $nodeId
      * @return Varien_Data_Tree_Node
      */

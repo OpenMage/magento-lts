@@ -28,10 +28,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Price extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/price', 'index_id');
