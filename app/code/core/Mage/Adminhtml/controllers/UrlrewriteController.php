@@ -159,7 +159,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
 
                     // if redirect specified try to find friendly URL
                     $found = false;
-                    if (in_array($model->getOptions(), array('R', 'RP'))) {
+                    if (in_array($model->getOptions(), ['R', 'RP'])) {
                         $rewrite = Mage::getResourceModel('catalog/url')
                             ->getRewriteByIdPath($idPath, $model->getStoreId());
                         if (!$rewrite) {
@@ -213,7 +213,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')
                     ->addException($e, Mage::helper('adminhtml')->__('An error occurred while deleting URL Rewrite.'));
-                $this->_redirect('*/*/edit/', array('id'=>Mage::registry('current_urlrewrite')->getId()));
+                $this->_redirect('*/*/edit/', ['id'=>Mage::registry('current_urlrewrite')->getId()]);
                 return;
             }
         }

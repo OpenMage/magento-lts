@@ -44,6 +44,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Reviews extends Mage_Adminht
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/reviews', array('_current' => true));
+        return $this->getUrl('*/*/reviews', ['_current' => true]);
     }
 }

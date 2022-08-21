@@ -31,7 +31,7 @@ $installer->getConnection()->addColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('core/layout_link'),
-    array('area' => Mage::getSingleton('core/design_package')->getArea())
+    ['area' => Mage::getSingleton('core/design_package')->getArea()]
 );
 
 $installer->endSetup();

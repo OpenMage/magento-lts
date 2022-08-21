@@ -44,7 +44,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
      */
     public function toOptionArray()
     {
-        return $this->_toOptionArray('language_code', 'language_title', array('title'=>'language_title'));
+        return $this->_toOptionArray('language_code', 'language_title', ['title'=>'language_title']);
     }
 
     /**

@@ -50,10 +50,10 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
                 $collection->addAttributeToFilter('store_id', $this->getParam('store'));
             } else if ($this->getParam('website')){
                 $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
-                $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
+                $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
             } else if ($this->getParam('group')){
                 $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
-                $collection->addAttributeToFilter('store_id', array('in' => $storeIds));
+                $collection->addAttributeToFilter('store_id', ['in' => $storeIds]);
             }
 
             $collection->addRevenueToSelect();
@@ -80,31 +80,31 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('customer', array(
+        $this->addColumn('customer', [
             'header'    => $this->__('Customer'),
             'sortable'  => false,
             'index'     => 'customer',
             'default'   => $this->__('Guest'),
-        ));
+        ]);
 
-        $this->addColumn('items', array(
+        $this->addColumn('items', [
             'header'    => $this->__('Items'),
             'align'     => 'right',
             'type'      => 'number',
             'sortable'  => false,
             'index'     => 'items_count'
-        ));
+        ]);
 
         $baseCurrencyCode = Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode();
 
-        $this->addColumn('total', array(
+        $this->addColumn('total', [
             'header'    => $this->__('Grand Total'),
             'align'     => 'right',
             'sortable'  => false,
             'type'      => 'currency',
             'currency_code'  => $baseCurrencyCode,
             'index'     => 'revenue'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -118,6 +118,6 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$row->getId()));
+        return $this->getUrl('*/sales_order/view', ['order_id'=>$row->getId()]);
     }
 }

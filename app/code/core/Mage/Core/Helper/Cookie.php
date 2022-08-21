@@ -74,7 +74,7 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
      * @param array $data
      * @throws InvalidArgumentException
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_currentStore = isset($data['current_store']) ? $data['current_store'] : Mage::app()->getStore();
 
@@ -129,7 +129,7 @@ class Mage_Core_Helper_Cookie extends Mage_Core_Helper_Abstract
     {
         $serializedList = $this->_cookieModel->get(self::IS_USER_ALLOWED_SAVE_COOKIE);
         $unSerializedList = json_decode($serializedList, true);
-        return is_array($unSerializedList) ? $unSerializedList : array();
+        return is_array($unSerializedList) ? $unSerializedList : [];
     }
 
     /**

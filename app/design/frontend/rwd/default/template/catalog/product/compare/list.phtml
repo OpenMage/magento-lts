@@ -24,7 +24,7 @@
     <a href="#" onclick="window.print(); return false;" class="link-print"><?php echo $this->__('Print This Page') ?></a>
 </div>
 <?php $_total=$this->getItems()->count() ?>
-<?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
+<?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
 <?php if($_total): ?>
     <table class="data-table compare-table" id="product_comparison">
         <?php $_i=0 ?>

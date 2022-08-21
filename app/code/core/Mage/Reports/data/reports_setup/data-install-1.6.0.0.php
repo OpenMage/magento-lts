@@ -27,32 +27,32 @@ $installer->startSetup();
 /*
  * Report Event Types default data
  */
-$eventTypeData = array(
-    array(
+$eventTypeData = [
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW,
         'event_name'    => 'catalog_product_view'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
         'event_name'    => 'sendfriend_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE,
         'event_name'    => 'catalog_product_compare_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_CART,
         'event_name'    => 'checkout_cart_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
         'event_name'    => 'wishlist_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
         'event_name'    => 'wishlist_share'
-    )
-);
+    ]
+];
 
 foreach ($eventTypeData as $row) {
     $installer->getConnection()->insertForce($installer->getTable('reports/event_type'), $row);

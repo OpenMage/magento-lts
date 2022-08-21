@@ -108,7 +108,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
         }
 
         if ($recursive && is_dir($fullPath)) {
-            $skipFileNames = array('.svn', '.htaccess');
+            $skipFileNames = ['.svn', '.htaccess'];
             foreach (new DirectoryIterator($fullPath) as $file) {
                 $fileName = $file->getFilename();
                 if (!$file->isDot() && !in_array($fileName, $skipFileNames)) {

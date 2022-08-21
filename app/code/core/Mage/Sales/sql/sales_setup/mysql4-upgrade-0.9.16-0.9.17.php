@@ -23,6 +23,6 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('quote_address_rate', 'method_title', array('type' => 'text'));
+$installer->addAttribute('quote_address_rate', 'method_title', ['type' => 'text']);
 
 $installer->endSetup();

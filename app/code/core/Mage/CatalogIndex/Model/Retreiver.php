@@ -50,7 +50,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     const CHILDREN_FOR_PRICES = 2;
     const CHILDREN_FOR_ATTRIBUTES = 3;
 
-    protected $_attributeIdCache = array();
+    protected $_attributeIdCache = [];
 
     /**
      * Customer group cache
@@ -64,7 +64,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_retreivers = array();
+    protected $_retreivers = [];
 
     /**
      * Retriever factory init, load retriever settings
@@ -119,7 +119,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     public function assignProductTypes($products)
     {
         $flat = $this->_getResource()->getProductTypes($products);
-        $result = array();
+        $result = [];
         foreach ($flat as $one) {
             $result[$one['type']][] = $one['id'];
         }

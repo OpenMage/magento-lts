@@ -29,9 +29,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
      */
     protected $_read;
 
-    protected $_items = array();
+    protected $_items = [];
 
-    protected $_totals = array('lifetime' => 0, 'num_orders' => 0);
+    protected $_totals = ['lifetime' => 0, 'num_orders' => 0];
 
     /**
      * Entity attribute
@@ -84,13 +84,13 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         $idField    = $this->getEntity()->getIdFieldName();
         $this->getSelect()
             ->from(
-                array('sales' => $entityTable),
-                array(
+                ['sales' => $entityTable],
+                [
                     'store_id',
                     'lifetime'  => 'sum(sales.base_grand_total)',
                     'avgsale'   => 'avg(sales.base_grand_total)',
                     'num_orders'=> 'count(sales.base_grand_total)'
-                )
+                ]
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
             ->group('sales.store_id')

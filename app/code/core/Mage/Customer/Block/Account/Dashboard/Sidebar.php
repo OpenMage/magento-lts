@@ -74,7 +74,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image')
-                ->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
+                ->addAttributeToFilter('store_id', ['in' => $this->_wishlist->getSharedStoreIds()])
                 ->addAttributeToSort('added_at', 'desc')
                 ->setCurPage(1)
                 ->setPageSize(3)
@@ -98,7 +98,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getWishlistAddToCartLink($wishlistItem)
     {
-        return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
+        return Mage::getUrl('wishlist/index/cart', ['item' => $wishlistItem->getId()]);
     }
 
     /**
@@ -133,7 +133,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareRemoveUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/remove', array('product'=>'#{id}'));
+         return $this->getUrl('catalog/product_compare/remove', ['product'=>'#{id}']);
     }
 
     /**
@@ -141,7 +141,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareAddUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/add', array('product'=>'#{id}'));
+         return $this->getUrl('catalog/product_compare/add', ['product'=>'#{id}']);
     }
 
     /**

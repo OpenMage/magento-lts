@@ -27,9 +27,9 @@ $this->getConnection()
     ->addColumn(
         $this->getTable('tax/tax_calculation_rule'),
         'calculate_subtotal',
-        array(
+        [
             'TYPE' => Varien_Db_Ddl_Table::TYPE_INTEGER,
             'NULLABLE' => false,
             'COMMENT' => 'Calculate off subtotal option',
-        )
+        ]
     );

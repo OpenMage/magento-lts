@@ -57,7 +57,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         $this->_validate();
         $this->_getScope();
 
-        Mage::dispatchEvent('model_config_data_save_before', array('object' => $this));
+        Mage::dispatchEvent('model_config_data_save_before', ['object' => $this]);
 
         $section = $this->getSection();
         $website = $this->getWebsite();
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         /** @var Mage_Core_Model_Resource_Transaction $saveTransaction */
 
         // Extends for old config data
-        $oldConfigAdditionalGroups = array();
+        $oldConfigAdditionalGroups = [];
 
         foreach ($groups as $group => $groupData) {
             /**
@@ -95,7 +95,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 } else {
                     Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
-                $mappedFields = array();
+                $mappedFields = [];
                 $fieldsConfig = $sections->descend($section.'/groups/'.$group.'/fields');
 
                 if ($fieldsConfig->hasChildren()) {
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
             // set value for group field entry by fieldname
             // use extra memory
-            $fieldsetData = array();
+            $fieldsetData = [];
             foreach ($groupData['fields'] as $field => $fieldData) {
                 $fieldsetData[$field] = (is_array($fieldData) && isset($fieldData['value']))
                     ? $fieldData['value'] : null;
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
      * @param array $oldConfig Config data to extend
      * @return array
      */
-    public function extendConfig($path, $full = true, $oldConfig = array())
+    public function extendConfig($path, $full = true, $oldConfig = [])
     {
         $extended = $this->_getPathConfig($path, $full);
         if (is_array($oldConfig) && !empty($oldConfig)) {
@@ -332,14 +332,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             ->getCollection()
             ->addScopeFilter($this->getScope(), $this->getScopeId(), $path);
 
-        $config = array();
+        $config = [];
         foreach ($configDataCollection as $data) {
             if ($full) {
-                $config[$data->getPath()] = array(
+                $config[$data->getPath()] = [
                     'path'      => $data->getPath(),
                     'value'     => $data->getValue(),
                     'config_id' => $data->getConfigId()
-                );
+                ];
             }
             else {
                 $config[$data->getPath()] = $data->getValue();
@@ -399,7 +399,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         $this->_validate();
         $this->_getScope();
 
-        $groupsSecure = array();
+        $groupsSecure = [];
         $section = $this->getSection();
         $sections = Mage::getModel('adminhtml/config')->getSections();
 

@@ -33,19 +33,19 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
-    protected $_layoutHandles = array();
+    protected $_layoutHandles = [];
 
     /**
      * layout handles wildcar patterns
      *
      * @var array
      */
-    protected $_layoutHandlePatterns = array(
+    protected $_layoutHandlePatterns = [
         '^default$',
         '^catalog_category_*',
         '^catalog_product_*',
         '^PRODUCT_*'
-    );
+    ];
 
     /**
      * Constructor

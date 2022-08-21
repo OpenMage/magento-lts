@@ -69,9 +69,9 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     {
         parent::_initSelect();
         $this->getSelect()->join(
-            array('selection' => $this->_selectionTable),
+            ['selection' => $this->_selectionTable],
             'selection.product_id = e.entity_id',
-            array('*')
+            ['*']
         );
     }
 
@@ -95,13 +95,13 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
             'selection.selection_price_value'
         );
         $this->getSelect()->joinLeft(
-            array('price' => $this->getTable('bundle/selection_price')),
+            ['price' => $this->getTable('bundle/selection_price')],
             'selection.selection_id = price.selection_id AND price.website_id = ' . (int)$websiteId,
-            array(
+            [
                 'selection_price_type' => $priceType,
                 'selection_price_value' => $priceValue,
                 'price_scope' => 'price.website_id'
-            )
+            ]
         );
         return $this;
     }

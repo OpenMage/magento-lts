@@ -78,11 +78,11 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     public function addStoreFilter($storeId, $withAdmin = true)
     {
         $this->getSelect()->join(
-            array('store_table' => $this->getTable('poll/poll_store')),
+            ['store_table' => $this->getTable('poll/poll_store')],
             'main_table.poll_id = store_table.poll_id',
-            array()
+            []
         )
-        ->where('store_table.store_id in (?)', ($withAdmin ? array(0, $storeId) : $storeId))
+        ->where('store_table.store_id in (?)', ($withAdmin ? [0, $storeId] : $storeId))
         ->group('main_table.poll_id');
 
         /*
@@ -101,7 +101,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     public function addStoreData()
     {
         $pollIds = $this->getColumnValues('poll_id');
-        $storesToPoll = array();
+        $storesToPoll = [];
 
         if (count($pollIds) > 0) {
             $select = $this->getConnection()->select()
@@ -111,7 +111,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
 
             foreach ($result as $row) {
                 if (!isset($storesToPoll[$row['poll_id']])) {
-                    $storesToPoll[$row['poll_id']] = array();
+                    $storesToPoll[$row['poll_id']] = [];
                 }
                 $storesToPoll[$row['poll_id']][] = $row['store_id'];
             }
@@ -121,7 +121,7 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
             if (isset($storesToPoll[$item->getId()])) {
                 $item->setStores($storesToPoll[$item->getId()]);
             } else {
-                $item->setStores(array());
+                $item->setStores([]);
             }
         }
 
@@ -137,9 +137,9 @@ class Mage_Poll_Model_Resource_Poll_Collection extends Mage_Core_Model_Resource_
     {
         $pollId = $this->getId();
         $select = $this->getConnection()->select()
-            ->from($this->getTable('poll/poll_store'), array('stor_id'))
+            ->from($this->getTable('poll/poll_store'), ['stor_id'])
             ->where('poll_id = :poll_id');
-        $stores = $this->getConnection()->fetchCol($select, array(':poll_id' => $pollId));
+        $stores = $this->getConnection()->fetchCol($select, [':poll_id' => $pollId]);
         $this->setSelectStores($stores);
 
         return $this;

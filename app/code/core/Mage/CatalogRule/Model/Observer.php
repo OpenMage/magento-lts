@@ -28,7 +28,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @var array
      */
-    protected $_preloadedPrices = array();
+    protected $_preloadedPrices = [];
 
     /**
      * Store calculated catalog rules prices for products
@@ -36,7 +36,7 @@ class Mage_CatalogRule_Model_Observer
      *
      * @var array
      */
-    protected $_rulePrices = array();
+    protected $_rulePrices = [];
 
     /**
      * Apply all catalog price rules for specific product
@@ -110,7 +110,7 @@ class Mage_CatalogRule_Model_Observer
         $wId = $quote->getStore()->getWebsiteId();
         $gId = $quote->getCustomerGroupId();
 
-        $productIds = array();
+        $productIds = [];
         foreach ($quote->getAllItems() as $item) {
             $productIds[] = $item->getProductId();
         }
@@ -123,7 +123,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         foreach ($this->_preloadedPrices[$cacheKey] as $pId => $price) {
-            $key = $this->_getRulePricesKey(array($date, $wId, $gId, $pId));
+            $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
             $this->_rulePrices[$key] = $price;
         }
 
@@ -164,7 +164,7 @@ class Mage_CatalogRule_Model_Observer
             $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
 
-        $key = $this->_getRulePricesKey(array($date, $wId, $gId, $pId));
+        $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
         if (!isset($this->_rulePrices[$key])) {
             $rulePrice = Mage::getResourceModel('catalogrule/rule')
                 ->getRulePrice($date, $wId, $gId, $pId);
@@ -197,12 +197,12 @@ class Mage_CatalogRule_Model_Observer
             $gId = $ruleData->getCustomerGroupId();
             $pId = $product->getId();
 
-            $key = $this->_getRulePricesKey(array($date, $wId, $gId, $pId));
+            $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
         } elseif (!is_null($storeId) && !is_null($product->getCustomerGroupId())) {
             $wId = Mage::app()->getStore($storeId)->getWebsiteId();
             $gId = $product->getCustomerGroupId();
             $pId = $product->getId();
-            $key = $this->_getRulePricesKey(array($date, $wId, $gId, $pId));
+            $key = $this->_getRulePricesKey([$date, $wId, $gId, $pId]);
         }
 
         if ($key) {
@@ -268,7 +268,7 @@ class Mage_CatalogRule_Model_Observer
      */
     public function flushPriceCache()
     {
-        $this->_rulePrices = array();
+        $this->_rulePrices = [];
     }
 
     /**
@@ -423,10 +423,10 @@ class Mage_CatalogRule_Model_Observer
             $date = Mage::app()->getLocale()->storeTimeStamp($store);
         }
 
-        $productIds = array();
+        $productIds = [];
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
-            $key = $this->_getRulePricesKey(array($date, $websiteId, $groupId, $product->getId()));
+            $key = $this->_getRulePricesKey([$date, $websiteId, $groupId, $product->getId()]);
             if (!isset($this->_rulePrices[$key])) {
                 $productIds[] = $product->getId();
             }
@@ -436,7 +436,7 @@ class Mage_CatalogRule_Model_Observer
             $rulePrices = Mage::getResourceModel('catalogrule/rule')
                 ->getRulePrices($date, $websiteId, $groupId, $productIds);
             foreach ($productIds as $productId) {
-                $key = $this->_getRulePricesKey(array($date, $websiteId, $groupId, $productId));
+                $key = $this->_getRulePricesKey([$date, $websiteId, $groupId, $productId]);
                 $this->_rulePrices[$key] = isset($rulePrices[$productId]) ? $rulePrices[$productId] : false;
             }
         }

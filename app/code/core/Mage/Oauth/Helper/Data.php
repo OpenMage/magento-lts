@@ -65,14 +65,14 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_endpoints = array(
+    protected $_endpoints = [
         self::ENDPOINT_AUTHORIZE_CUSTOMER,
         self::ENDPOINT_AUTHORIZE_ADMIN,
         self::ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE,
         self::ENDPOINT_AUTHORIZE_ADMIN_SIMPLE,
         self::ENDPOINT_INITIATE,
         self::ENDPOINT_TOKEN
-    );
+    ];
 
     /**
      * Generate random string for token or secret or verifier
@@ -237,13 +237,13 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY),
             $userEmail,
             $userName,
-            array(
+            [
                 'name'              => $userName,
                 'email'             => $userEmail,
                 'applicationName'   => $applicationName,
                 'status'            => $status,
 
-            )
+            ]
         );
     }
 
@@ -290,7 +290,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Exception('Invalid user type.');
         }
 
-        return $this->_getUrl($route, array('_query' => array('oauth_token' => $this->getOauthToken())));
+        return $this->_getUrl($route, ['_query' => ['oauth_token' => $this->getOauthToken()]]);
     }
 
     /**

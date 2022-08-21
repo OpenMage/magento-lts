@@ -44,20 +44,20 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('eav')->__('Delete'),
                     'class' => 'delete delete-option'
-                ))
+                ])
         );
 
         $this->setChild(
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('eav')->__('Add Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option_button'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }
@@ -112,7 +112,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         if ($attributeType == 'select' || $attributeType == 'multiselect') {
             $defaultValues = explode(',', $defaultValues);
         } else {
-            $defaultValues = array();
+            $defaultValues = [];
         }
 
         switch ($attributeType) {
@@ -129,7 +129,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
 
         $values = $this->getData('option_values');
         if (is_null($values)) {
-            $values = array();
+            $values = [];
             $optionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setPositionOrder('desc', true)
@@ -138,7 +138,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $helper = Mage::helper('core');
             /** @var Mage_Eav_Model_Entity_Attribute_Option $option */
             foreach ($optionCollection as $option) {
-                $value = array();
+                $value = [];
                 if (in_array($option->getId(), $defaultValues)) {
                     $value['checked'] = 'checked="checked"';
                 } else {
@@ -168,7 +168,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
      */
     public function getLabelValues()
     {
-        $values = array();
+        $values = [];
         $frontendLabel = $this->getAttributeObject()->getFrontend()->getLabel();
         if (is_array($frontendLabel)) {
             return $frontendLabel;
@@ -193,7 +193,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         $values = $this->getData('store_option_values_'.$storeId);
         if (is_null($values)) {
-            $values = array();
+            $values = [];
             $valuesCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
                 ->setAttributeFilter($this->getAttributeObject()->getId())
                 ->setStoreFilter($storeId, false)

@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items extends Mage_Adminhtml_Block
      * Contains button descriptions to be shown at the top of accordion
      * @var array
      */
-    protected $_buttons = array();
+    protected $_buttons = [];
 
     /**
      * Define block ID

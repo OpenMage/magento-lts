@@ -45,17 +45,17 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
      */
     public function getCollection($storeId)
     {
-        $pages = array();
+        $pages = [];
 
         $select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName(), 'identifier AS url'))
+            ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName(), 'identifier AS url'])
             ->join(
-                array('store_table' => $this->getTable('cms/page_store')),
+                ['store_table' => $this->getTable('cms/page_store')],
                 'main_table.page_id=store_table.page_id',
-                array()
+                []
             )
             ->where('main_table.is_active=1')
-            ->where('store_table.store_id IN(?)', array(0, $storeId));
+            ->where('store_table.store_id IN(?)', [0, $storeId]);
         $query = $this->_getWriteAdapter()->query($select);
         while ($row = $query->fetch()) {
             if ($row['url'] == Mage_Cms_Model_Page::NOROUTE_PAGE_ID) {

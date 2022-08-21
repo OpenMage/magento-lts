@@ -85,7 +85,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
         $years = $this->getData('cc_years');
         if (is_null($years)) {
             $years = $this->_getConfig()->getYears();
-            $years = array(0=>$this->__('Year'))+$years;
+            $years = [0=>$this->__('Year')] +$years;
             $this->setData('cc_years', $years);
         }
         return $years;
@@ -117,7 +117,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     public function hasSsCardType()
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
-        $ssPresenations = array_intersect(array('SS', 'SM', 'SO'), $availableTypes);
+        $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
         if ($availableTypes && count($ssPresenations) > 0) {
             return true;
         }
@@ -133,14 +133,14 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     public function getSsStartYears()
     {
-        $years = array();
+        $years = [];
         $first = date("Y");
 
         for ($index=5; $index>=0; $index--) {
             $year = $first - $index;
             $years[$year] = $year;
         }
-        $years = array(0=>$this->__('Year'))+$years;
+        $years = [0=>$this->__('Year')] +$years;
         return $years;
     }
 
@@ -151,9 +151,9 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
      */
     protected function _toHtml()
     {
-        Mage::dispatchEvent('payment_form_block_to_html_before', array(
+        Mage::dispatchEvent('payment_form_block_to_html_before', [
             'block'     => $this
-        ));
+        ]);
         return parent::_toHtml();
     }
 }

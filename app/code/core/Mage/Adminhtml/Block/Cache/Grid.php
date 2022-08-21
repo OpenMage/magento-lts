@@ -20,7 +20,7 @@
 
 class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-    protected $_invalidatedTypes = array();
+    protected $_invalidatedTypes = [];
     /**
      * Class constructor
      */
@@ -62,38 +62,38 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     protected function _prepareColumns()
     {
         $baseUrl = $this->getUrl();
-        $this->addColumn('cache_type', array(
+        $this->addColumn('cache_type', [
             'header'    => $this->__('Cache Type'),
             'width'     => '180',
             'align'     => 'left',
             'index'     => 'cache_type',
             'sortable'  => false,
-        ));
+        ]);
 
-        $this->addColumn('description', array(
+        $this->addColumn('description', [
             'header'    => $this->__('Description'),
             'align'     => 'left',
             'index'     => 'description',
             'sortable'  => false,
-        ));
+        ]);
 
-        $this->addColumn('tags', array(
+        $this->addColumn('tags', [
             'header'    => $this->__('Associated Tags'),
             'align'     => 'left',
             'index'     => 'tags',
             'width'     => '180',
             'sortable'  => false,
-        ));
+        ]);
 
-        $this->addColumn('status', array(
+        $this->addColumn('status', [
             'header'    => $this->__('Status'),
             'width'     => '120',
             'align'     => 'left',
             'index'     => 'status',
             'type'      => 'options',
-            'options'   => array(0 => $this->__('Disabled'), 1 => $this->__('Enabled')),
-            'frame_callback' => array($this, 'decorateStatus')
-        ));
+            'options'   => [0 => $this->__('Disabled'), 1 => $this->__('Enabled')],
+            'frame_callback' => [$this, 'decorateStatus']
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -138,19 +138,19 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         $modeOptions = Mage::getModel('index/process')->getModesOptions();
 
-        $this->getMassactionBlock()->addItem('enable', array(
+        $this->getMassactionBlock()->addItem('enable', [
             'label'         => Mage::helper('index')->__('Enable'),
             'url'           => $this->getUrl('*/*/massEnable'),
-        ));
-        $this->getMassactionBlock()->addItem('disable', array(
+        ]);
+        $this->getMassactionBlock()->addItem('disable', [
             'label'    => Mage::helper('index')->__('Disable'),
             'url'      => $this->getUrl('*/*/massDisable'),
-        ));
-        $this->getMassactionBlock()->addItem('refresh', array(
+        ]);
+        $this->getMassactionBlock()->addItem('refresh', [
             'label'    => Mage::helper('index')->__('Refresh'),
             'url'      => $this->getUrl('*/*/massRefresh'),
             'selected' => true,
-        ));
+        ]);
 
         return $this;
     }

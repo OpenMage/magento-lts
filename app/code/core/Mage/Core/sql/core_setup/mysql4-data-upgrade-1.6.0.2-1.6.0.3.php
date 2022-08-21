@@ -21,6 +21,6 @@
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $connection = $installer->getConnection();
-$connection->update($installer->getTable('core/translate'), array(
+$connection->update($installer->getTable('core/translate'), [
     'crc_string' => new Zend_Db_Expr('CRC32(' . $connection->quoteIdentifier('string') . ')')
-));
+]);

@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'shipment_type', array(
+$installer->addAttribute('catalog_product', 'shipment_type', [
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
@@ -43,6 +43,6 @@ $installer->addAttribute('catalog_product', 'shipment_type', array(
         'unique'            => false,
         'apply_to'          => 'bundle',
         'is_configurable'   => false
-    ));
+]);
 
 $installer->endSetup();

@@ -39,7 +39,7 @@ abstract class Mage_Api2_Model_Resource_Validator
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Set an array of errors

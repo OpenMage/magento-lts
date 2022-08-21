@@ -28,11 +28,11 @@ $installer->getConnection()
     ->addColumn(
         $installer->getTable('tax/sales_order_tax_item'),
         'tax_percent',
-        array(
+        [
             'TYPE'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
             'SCALE'     => 4,
             'PRECISION' => 12,
             'NULLABLE'  => false,
             'COMMENT'   => 'Real Tax Percent For Item',
-        )
+        ]
     );

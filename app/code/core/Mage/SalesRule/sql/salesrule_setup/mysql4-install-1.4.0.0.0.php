@@ -122,13 +122,13 @@ CREATE TABLE `{$installer->getTable('coupon_aggregated_order')}` (
 /**
  * add attributes discount_description, shipping_discount_amount, base_shipping_discount_amount
  */
-$installer->addAttribute('quote_address', 'discount_description', array('type'=>'varchar'));
-$installer->addAttribute('quote_address', 'shipping_discount_amount', array('type'=>'decimal'));
-$installer->addAttribute('quote_address', 'base_shipping_discount_amount', array('type'=>'decimal'));
+$installer->addAttribute('quote_address', 'discount_description', ['type'=>'varchar']);
+$installer->addAttribute('quote_address', 'shipping_discount_amount', ['type'=>'decimal']);
+$installer->addAttribute('quote_address', 'base_shipping_discount_amount', ['type'=>'decimal']);
 
 
-$installer->addAttribute('order', 'discount_description', array('type'=>'varchar'));
-$installer->addAttribute('order', 'shipping_discount_amount', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_shipping_discount_amount', array('type'=>'decimal'));
+$installer->addAttribute('order', 'discount_description', ['type'=>'varchar']);
+$installer->addAttribute('order', 'shipping_discount_amount', ['type'=>'decimal']);
+$installer->addAttribute('order', 'base_shipping_discount_amount', ['type'=>'decimal']);
 
 $installer->endSetup();

@@ -71,6 +71,6 @@ class Mage_Review_Block_Product_View_List extends Mage_Review_Block_Product_View
      */
     public function getReviewUrl($id)
     {
-        return Mage::getUrl('review/product/view', array('id' => $id));
+        return Mage::getUrl('review/product/view', ['id' => $id]);
     }
 }

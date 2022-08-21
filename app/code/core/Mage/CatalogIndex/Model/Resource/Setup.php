@@ -58,7 +58,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     protected function _getStoreToWebsiteAssignments()
     {
         if (is_null($this->_storeToWebsite)) {
-            $this->_storeToWebsite = array();
+            $this->_storeToWebsite = [];
             $websiteCollection = Mage::getModel('core/website')->getCollection();
             foreach ($websiteCollection as $website) {
                 $this->_storeToWebsite[$website->getId()] = $website->getStoreIds();
@@ -80,7 +80,7 @@ class Mage_CatalogIndex_Model_Resource_Setup extends Mage_Core_Model_Resource_Se
     {
         $this->getConnection()->update(
             $table,
-            array('website_id'=>$websiteId),
+            ['website_id'=>$websiteId],
             $this->getConnection()->quoteInto('store_id IN (?)', $storeIds)
         );
 

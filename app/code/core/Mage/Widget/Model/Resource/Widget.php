@@ -50,7 +50,7 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
         $select = $readAdapter->select()
             ->from($this->getMainTable())
             ->where($this->getIdFieldName() . '=:' . $this->getIdFieldName());
-        $bind = array($this->getIdFieldName() => $widgetId);
+        $bind = [$this->getIdFieldName() => $widgetId];
         $widget = $readAdapter->fetchRow($select, $bind);
         if (is_array($widget)) {
             if ($widget['parameters']) {

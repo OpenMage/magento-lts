@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
             ->setEntity($customerModel);
 
         // prepare customer attributes to show
-        $attributes     = array();
+        $attributes     = [];
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
             $attributes[$attribute->getAttributeCode()] = $attribute;
         }
 
-        $fieldset = $this->_form->addFieldset('main', array());
+        $fieldset = $this->_form->addFieldset('main', []);
 
         $this->_addAttributesToForm($attributes, $fieldset);
 

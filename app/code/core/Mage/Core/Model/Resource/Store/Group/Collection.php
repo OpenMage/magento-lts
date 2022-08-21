@@ -75,7 +75,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      */
     public function setWithoutDefaultFilter()
     {
-        return $this->addFieldToFilter('main_table.group_id', array('gt' => 0));
+        return $this->addFieldToFilter('main_table.group_id', ['gt' => 0]);
     }
 
     /**
@@ -85,7 +85,7 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      */
     public function setWithoutStoreViewFilter()
     {
-        return $this->addFieldToFilter('main_table.default_store_id', array('gt' => 0));
+        return $this->addFieldToFilter('main_table.default_store_id', ['gt' => 0]);
     }
 
     /**
@@ -119,6 +119,6 @@ class Mage_Core_Model_Resource_Store_Group_Collection extends Mage_Core_Model_Re
      */
     public function addWebsiteFilter($website)
     {
-        return $this->addFieldToFilter('main_table.website_id', array('in' => $website));
+        return $this->addFieldToFilter('main_table.website_id', ['in' => $website]);
     }
 }

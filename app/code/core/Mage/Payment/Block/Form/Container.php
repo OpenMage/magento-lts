@@ -102,7 +102,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
         if ($methods === null) {
             $quote = $this->getQuote();
             $store = $quote ? $quote->getStoreId() : null;
-            $methods = array();
+            $methods = [];
             foreach ($this->helper('payment')->getStoreMethods($store, $quote) as $method) {
                 if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
                     $quote,

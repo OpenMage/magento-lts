@@ -30,7 +30,7 @@
 class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Model_Currency_Import_Abstract
 {
     protected $_url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency={{CURRENCY_FROM}}&ToCurrency={{CURRENCY_TO}}';
-    protected $_messages = array();
+    protected $_messages = [];
 
      /**
      * HTTP client
@@ -58,7 +58,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
         try {
             $response = $this->_httpClient
                 ->setUri($url)
-                ->setConfig(array('timeout' => Mage::getStoreConfig('currency/webservicex/timeout')))
+                ->setConfig(['timeout' => Mage::getStoreConfig('currency/webservicex/timeout')])
                 ->request('GET')
                 ->getBody();
 

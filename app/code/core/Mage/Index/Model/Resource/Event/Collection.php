@@ -46,7 +46,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addEntityFilter($entity)
     {
         if (is_array($entity) && !empty($entity)) {
-            $this->addFieldToFilter('entity', array('in'=>$entity));
+            $this->addFieldToFilter('entity', ['in'=>$entity]);
         } else {
             $this->addFieldToFilter('entity', $entity);
         }
@@ -62,7 +62,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     public function addTypeFilter($type)
     {
         if (is_array($type) && !empty($type)) {
-            $this->addFieldToFilter('type', array('in'=>$type));
+            $this->addFieldToFilter('type', ['in'=>$type]);
         } else {
             $this->addFieldToFilter('type', $type);
         }
@@ -82,14 +82,14 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         if ($process instanceof Mage_Index_Model_Process) {
             $this->addFieldToFilter('process_event.process_id', $process->getId());
         } elseif (is_array($process) && !empty($process)) {
-            $this->addFieldToFilter('process_event.process_id', array('in' => $process));
+            $this->addFieldToFilter('process_event.process_id', ['in' => $process]);
         } else {
             $this->addFieldToFilter('process_event.process_id', $process);
         }
 
         if ($status !== null) {
             if (is_array($status) && !empty($status)) {
-                $this->addFieldToFilter('process_event.status', array('in' => $status));
+                $this->addFieldToFilter('process_event.status', ['in' => $status]);
             } else {
                 $this->addFieldToFilter('process_event.status', $status);
             }
@@ -106,9 +106,9 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
     {
         if (!$this->getFlag('process_event_table_joined')) {
             $this->getSelect()->join(
-                array('process_event' => $this->getTable('index/process_event')),
+                ['process_event' => $this->getTable('index/process_event')],
                 'process_event.event_id=main_table.event_id',
-                array('process_event_status' => 'status')
+                ['process_event_status' => 'status']
             );
             $this->setFlag('process_event_table_joined', true);
         }
@@ -125,7 +125,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         $this->_totalRecords = null;
         $this->_data = null;
         $this->_isCollectionLoaded = false;
-        $this->_items = array();
+        $this->_items = [];
         return $this;
     }
 }

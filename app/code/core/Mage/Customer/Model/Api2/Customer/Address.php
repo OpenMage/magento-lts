@@ -44,7 +44,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
      */
     protected function _getValidator()
     {
-        return Mage::getModel('customer/api2_customer_address_validator', array('resource' => $this));
+        return Mage::getModel('customer/api2_customer_address_validator', ['resource' => $this]);
     }
 
     /**
@@ -84,10 +84,10 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
 
         $collection->getSelect()
             ->reset() // to avoid locale usage
-            ->from(array('main_table' => $collection->getMainTable()), 'region_id');
+            ->from(['main_table' => $collection->getMainTable()], 'region_id');
 
         $collection->addCountryFilter($countryId)
-            ->addFieldToFilter(array('default_name', 'code'), array($region, $region));
+            ->addFieldToFilter(['default_name', 'code'], [$region, $region]);
 
         $id = $collection->getResource()->getReadConnection()->fetchOne($collection->getSelect());
 

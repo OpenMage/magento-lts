@@ -39,7 +39,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
      */
     public function validatePaymentDataAction()
     {
-        $result = array();
+        $result = [];
         try {
             $paymentData = $this->getRequest()->getParam('payment');
             $validator = $this->_getValidator();

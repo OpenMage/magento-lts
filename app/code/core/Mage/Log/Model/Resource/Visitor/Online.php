@@ -57,8 +57,8 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
         try {
             $writeAdapter->delete($this->getMainTable());
 
-            $visitors = array();
-            $lastUrls = array();
+            $visitors = [];
+            $lastUrls = [];
 
             // retrieve online visitors general data
 
@@ -67,7 +67,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor'),
-                    array('visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id')
+                    ['visitor_id', 'first_visit_at', 'last_visit_at', 'last_url_id']
                 )
                 ->where('last_visit_at >= ?', $readAdapter->formatDate($lastDate));
 
@@ -88,7 +88,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/visitor_info'),
-                    array('visitor_id', 'remote_addr')
+                    ['visitor_id', 'remote_addr']
                 )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 
@@ -101,7 +101,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/url_info_table'),
-                    array('url_id', 'url')
+                    ['url_id', 'url']
                 )
                 ->where('url_id IN(?)', array_keys($lastUrls));
 
@@ -115,7 +115,7 @@ class Mage_Log_Model_Resource_Visitor_Online extends Mage_Core_Model_Resource_Db
             $select = $readAdapter->select()
                 ->from(
                     $this->getTable('log/customer'),
-                    array('visitor_id', 'customer_id')
+                    ['visitor_id', 'customer_id']
                 )
                 ->where('visitor_id IN(?)', array_keys($visitors));
 

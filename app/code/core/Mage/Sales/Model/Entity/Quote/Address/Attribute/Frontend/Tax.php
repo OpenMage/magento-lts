@@ -29,11 +29,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Tax extends Mage_
     {
         $amount = $address->getTaxAmount();
         if ($amount!=0) {
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'=>'tax',
                 'title'=>Mage::helper('sales')->__('Tax'),
                 'value'=>$amount
-            ));
+            ]);
         }
         return $this;
     }

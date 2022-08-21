@@ -30,14 +30,14 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
 
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        $_months = array();
+        $_months = [];
         for ($i = 1; $i <= 12; $i++) {
             $_months[$i] = Mage::app()->getLocale()
                 ->date(mktime(null,null,null,$i))
                 ->get(Zend_Date::MONTH_NAME);
         }
 
-        $_days = array();
+        $_days = [];
         for ($i = 1; $i <= 31; $i++) {
             $_days[$i] = $i < 10 ? '0'.$i : $i;
         }
@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
         if ($element->getValue()) {
             $values = explode(',', $element->getValue());
         } else {
-            $values = array();
+            $values = [];
         }
 
         $element->setName($element->getName() . '[]');

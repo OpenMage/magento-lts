@@ -35,15 +35,15 @@ class Mage_CatalogInventory_Model_Source_Stock
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_CatalogInventory_Model_Stock::STOCK_IN_STOCK,
                 'label' => Mage::helper('cataloginventory')->__('In Stock')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_CatalogInventory_Model_Stock::STOCK_OUT_OF_STOCK,
                 'label' => Mage::helper('cataloginventory')->__('Out of Stock')
-            ),
-        );
+            ],
+        ];
     }
 }

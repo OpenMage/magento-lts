@@ -98,7 +98,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     public function __construct()
     {
@@ -255,7 +255,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function fetchTransactionInfo(Mage_Payment_Model_Info $payment, $transactionId)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -665,11 +665,11 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
-        Mage::dispatchEvent('payment_method_is_active', array(
+        Mage::dispatchEvent('payment_method_is_active', [
             'result'          => $checkResult,
             'method_instance' => $this,
             'quote'           => $quote,
-        ));
+        ]);
 
         if ($checkResult->isAvailable && $quote) {
             $checkResult->isAvailable = $this->isApplicableToQuote($quote, self::CHECK_RECURRING_PROFILES);

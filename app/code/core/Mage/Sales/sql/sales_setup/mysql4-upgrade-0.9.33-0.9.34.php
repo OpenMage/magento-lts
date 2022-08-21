@@ -23,6 +23,6 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('quote', 'ext_shipping_info', array('type' => 'text'));
+$installer->addAttribute('quote', 'ext_shipping_info', ['type' => 'text']);
 
 $installer->endSetup();

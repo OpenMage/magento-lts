@@ -59,28 +59,28 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'sortable'  => false,
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    =>Mage::helper('reports')->__('Price'),
             'width'     =>'120px',
             'type'      =>'currency',
             'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
             'index'     =>'price'
-        ));
+        ]);
 
-        $this->addColumn('views', array(
+        $this->addColumn('views', [
             'header'    =>Mage::helper('reports')->__('Number of Views'),
             'width'     =>'120px',
             'align'     =>'right',
             'sortable'  => false,
             'index'     =>'views'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
 
     public function getRowUrl($row)
     {
-        $params = array('id'=>$row->getId());
+        $params = ['id'=>$row->getId()];
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }

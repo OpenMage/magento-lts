@@ -28,7 +28,7 @@ class Mage_Centinel_Block_Authentication extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_relatedBlocks = array();
+    protected $_relatedBlocks = [];
 
     /**
      * Flag - authentication start mode

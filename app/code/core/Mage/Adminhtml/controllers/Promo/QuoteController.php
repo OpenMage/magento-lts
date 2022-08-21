@@ -129,12 +129,12 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $model = Mage::getModel('salesrule/rule');
                 Mage::dispatchEvent(
                     'adminhtml_controller_salesrule_prepare_save',
-                    array('request' => $this->getRequest()));
+                    ['request' => $this->getRequest()]);
                 $data = $this->getRequest()->getPost();
-                if (Mage::helper('adminhtml')->hasTags($data['rule'], array('attribute'), false)) {
+                if (Mage::helper('adminhtml')->hasTags($data['rule'], ['attribute'], false)) {
                     Mage::throwException(Mage::helper('catalogrule')->__('Wrong rule specified'));
                 }
-                $data = $this->_filterDates($data, array('from_date', 'to_date'));
+                $data = $this->_filterDates($data, ['from_date', 'to_date']);
                 $id = $this->getRequest()->getParam('rule_id');
                 if ($id) {
                     $model->load($id);
@@ -151,7 +151,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                         $session->addError($errorMessage);
                     }
                     $session->setPageData($data);
-                    $this->_redirect('*/*/edit', array('id'=>$model->getId()));
+                    $this->_redirect('*/*/edit', ['id'=>$model->getId()]);
                     return;
                 }
 
@@ -177,7 +177,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $session->addSuccess(Mage::helper('salesrule')->__('The rule has been saved.'));
                 $session->setPageData(false);
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('id' => $model->getId()));
+                    $this->_redirect('*/*/edit', ['id' => $model->getId()]);
                     return;
                 }
                 $this->_redirect('*/*/');
@@ -186,7 +186,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addError($e->getMessage());
                 $id = (int)$this->getRequest()->getParam('rule_id');
                 if (!empty($id)) {
-                    $this->_redirect('*/*/edit', array('id' => $id));
+                    $this->_redirect('*/*/edit', ['id' => $id]);
                 } else {
                     $this->_redirect('*/*/new');
                 }
@@ -197,7 +197,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                     Mage::helper('catalogrule')->__('An error occurred while saving the rule data. Please review the log and try again.'));
                 Mage::logException($e);
                 Mage::getSingleton('adminhtml/session')->setPageData($data);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('rule_id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('rule_id')]);
                 return;
             }
         }
@@ -230,7 +230,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addError(
                     Mage::helper('catalogrule')->__('An error occurred while deleting the rule. Please review the log and try again.'));
                 Mage::logException($e);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
@@ -250,7 +250,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         $typeArr = explode('|', str_replace('-', '/', $this->getRequest()->getParam('type')));
         $type = $typeArr[0];
 
-        if (!$this->_validateRequestParams(array($id, $type))) {
+        if (!$this->_validateRequestParams([$id, $type])) {
             if ($this->getRequest()->getQuery('id')) {
                 $this->getRequest()->setQuery('id', '');
             }
@@ -333,7 +333,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 ->getExcelFile($fileName);
             $this->_prepareDownloadResponse($fileName, $content);
         } else {
-            $this->_redirect('*/*/detail', array('_current' => true));
+            $this->_redirect('*/*/detail', ['_current' => true]);
             return;
         }
     }
@@ -352,7 +352,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
                 ->getCsvFile();
             $this->_prepareDownloadResponse($fileName, $content);
         } else {
-            $this->_redirect('*/*/detail', array('_current' => true));
+            $this->_redirect('*/*/detail', ['_current' => true]);
             return;
         }
     }
@@ -374,7 +374,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
         if (is_array($codesIds)) {
 
             $couponsCollection = Mage::getResourceModel('salesrule/coupon_collection')
-                ->addFieldToFilter('coupon_id', array('in' => $codesIds));
+                ->addFieldToFilter('coupon_id', ['in' => $codesIds]);
 
             foreach ($couponsCollection as $coupon) {
                 $coupon->delete();
@@ -391,7 +391,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             $this->_forward('noRoute');
             return;
         }
-        $result = array();
+        $result = [];
         $this->_initRule();
 
         /** @var Mage_SalesRule_Model_Rule $rule */
@@ -403,7 +403,7 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
             try {
                 $data = $this->getRequest()->getParams();
                 if (!empty($data['to_date'])) {
-                    $data = array_merge($data, $this->_filterDates($data, array('to_date')));
+                    $data = array_merge($data, $this->_filterDates($data, ['to_date']));
                 }
 
                 /** @var Mage_SalesRule_Model_Coupon_Massgenerator $generator */
@@ -434,9 +434,9 @@ class Mage_Adminhtml_Promo_QuoteController extends Mage_Adminhtml_Controller_Act
     public function chooserAction()
     {
         $uniqId = $this->getRequest()->getParam('uniq_id');
-        $chooserBlock = $this->getLayout()->createBlock('adminhtml/promo_widget_chooser', '', array(
+        $chooserBlock = $this->getLayout()->createBlock('adminhtml/promo_widget_chooser', '', [
             'id' => $uniqId
-        ));
+        ]);
         $this->getResponse()->setBody($chooserBlock->toHtml());
     }
 }

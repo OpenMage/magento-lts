@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
      */
     public function getItems()
     {
-        $items = array();
+        $items = [];
         $collection = $this->getItemCollection();
         if ($collection) {
             $productTypes = Mage::getConfig()->getNode('adminhtml/sales/order/create/available_product_types')->asArray();

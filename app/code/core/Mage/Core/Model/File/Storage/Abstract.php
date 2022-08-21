@@ -76,17 +76,17 @@ abstract class Mage_Core_Model_File_Storage_Abstract extends Mage_Core_Model_Abs
             Mage::throwException(Mage::helper('core')->__('File %s is not readable', $io->getFilteredPath($fullPath)));
         }
 
-        $path = str_replace(array('/', '\\'), '/', $path);
+        $path = str_replace(['/', '\\'], '/', $path);
         $directory = dirname($path);
         if ($directory == '.') {
             $directory = null;
         }
 
-        return array(
+        return [
             'filename'      => basename($path),
             'content'       => @file_get_contents($fullPath),
             'update_time'   => Mage::getSingleton('core/date')->date(),
             'directory'     => $directory
-        );
+        ];
     }
 }

@@ -41,7 +41,7 @@ class Mage_Backup_Model_Resource_Db
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys    = [];
 
     /**
      * Initialize Backup DB resource model
@@ -69,7 +69,7 @@ class Mage_Backup_Model_Resource_Db
      */
     public function clear()
     {
-        $this->_foreignKeys = array();
+        $this->_foreignKeys = [];
     }
 
     /**

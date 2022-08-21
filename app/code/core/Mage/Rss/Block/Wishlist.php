@@ -112,20 +112,20 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
         $rssObj = Mage::getModel('rss/rss');
 
         if ($this->_getWishlist()->getId()) {
-            $newUrl = Mage::getUrl('wishlist/shared/index', array(
+            $newUrl = Mage::getUrl('wishlist/shared/index', [
                 'code'  => $this->_getWishlist()->getSharingCode()
-            ));
+            ]);
 
             $title  = $this->_getTitle();
             $lang   = Mage::getStoreConfig('general/locale/code');
 
-            $rssObj->_addHeader(array(
+            $rssObj->_addHeader([
                 'title'         => $title,
                 'description'   => $title,
                 'link'          => $newUrl,
                 'charset'       => 'UTF-8',
                 'language'      => $lang
-            ));
+            ]);
 
             /** @var Mage_Wishlist_Model_Item $wishlistItem */
             foreach ($this->getWishlistItems() as $wishlistItem) {
@@ -134,7 +134,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $product->setAllowedInRss(true);
                 $product->setAllowedPriceInRss(true);
                 $product->setProductUrl($productUrl);
-                $args = array('product' => $product);
+                $args = ['product' => $product];
 
                 Mage::dispatchEvent('rss_wishlist_xml_callback', $args);
 
@@ -166,20 +166,20 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
 
                 $description .= '</td></tr></table>';
 
-                $rssObj->_addEntry(array(
+                $rssObj->_addEntry([
                     'title'         => $outputHelper->productAttribute($product, $product->getName(), 'name'),
                     'link'          => $productUrl,
                     'description'   => $description,
-                ));
+                ]);
             }
         }
         else {
-            $rssObj->_addHeader(array(
+            $rssObj->_addHeader([
                 'title'         => Mage::helper('rss')->__('Cannot retrieve the wishlist'),
                 'description'   => Mage::helper('rss')->__('Cannot retrieve the wishlist'),
                 'link'          => Mage::getUrl(),
                 'charset'       => 'UTF-8',
-            ));
+            ]);
         }
 
         return $rssObj->createRssXml();
@@ -192,7 +192,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      * @param array $additional
      * @return string
      */
-    public function getProductUrl($product, $additional = array())
+    public function getProductUrl($product, $additional = [])
     {
         $additional['_rss'] = true;
         return parent::getProductUrl($product, $additional);
@@ -208,10 +208,10 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_priceBlockTypes[$type] = array(
+            $this->_priceBlockTypes[$type] = [
                 'block' => $block,
                 'template' => $template
-            );
+            ];
         }
     }
 }

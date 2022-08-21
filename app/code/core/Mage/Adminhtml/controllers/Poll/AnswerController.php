@@ -62,11 +62,11 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('poll')->__('The answer has been saved.'));
                 $this->_redirect('*/poll/edit',
-                                 array('id' => $this->getRequest()->getParam('poll_id'), 'tab' => 'answers_section'));
+                                 ['id' => $this->getRequest()->getParam('poll_id'), 'tab' => 'answers_section']);
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }

@@ -20,7 +20,7 @@
 class Mage_Adminhtml_Model_Report_Item extends Varien_Object
 {
     protected $_isEmpty  = false;
-    protected $_children = array();
+    protected $_children = [];
 
     public function setIsEmpty($flag = true)
     {

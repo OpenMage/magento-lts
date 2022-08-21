@@ -52,7 +52,7 @@ class Mage_Adminhtml_Model_Sales_Order
         /**
          * Check Item products existing
          */
-        $productIds = array();
+        $productIds = [];
         foreach ($order->getAllItems() as $item) {
             $productIds[] = $item->getProductId();
         }

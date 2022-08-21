@@ -48,53 +48,53 @@ class Mage_Adminhtml_Block_Poll_Edit_Tab_Answers_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-        $this->addColumn('answer_id', array(
+        $this->addColumn('answer_id', [
             'header'    => Mage::helper('poll')->__('ID'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'answer_id',
-        ));
+        ]);
 
-        $this->addColumn('answer_title', array(
+        $this->addColumn('answer_title', [
             'header'    => Mage::helper('poll')->__('Answer Title'),
             'align'     =>'left',
             'index'     => 'answer_title',
-        ));
+        ]);
 
-        $this->addColumn('votes_count', array(
+        $this->addColumn('votes_count', [
             'header'    => Mage::helper('poll')->__('Votes Count'),
             'type'      => 'number',
             'width'     => '50px',
             'index'     => 'votes_count',
-        ));
+        ]);
 
-        $this->addColumn('actions', array(
+        $this->addColumn('actions', [
             'header'    => Mage::helper('poll')->__('Actions'),
             'align'     => 'center',
             'type'      => 'action',
             'width'     => '10px',
             'filter'    => false,
             'sortable'  => false,
-            'actions'   => array(
-                array(
+            'actions'   => [
+                [
                     'caption'   => Mage::helper('poll')->__('Delete'),
                     'onClick'   => 'return answers.delete(\'$answer_id\')',
                     'url'       => '#',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/poll_answer/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/poll_answer/edit', ['id' => $row->getId()]);
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/poll_answer/grid', array('id' => $this->getRequest()->getParam('id')));
+        return $this->getUrl('*/poll_answer/grid', ['id' => $this->getRequest()->getParam('id')]);
     }
 
 }

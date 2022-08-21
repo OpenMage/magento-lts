@@ -53,7 +53,7 @@ class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
      * @param array $params
      * @return string
      */
-    public function getUrl($route = '', $params = array())
+    public function getUrl($route = '', $params = [])
     {
         return Mage::helper('productalert')->getSaveUrl('stock');
     }

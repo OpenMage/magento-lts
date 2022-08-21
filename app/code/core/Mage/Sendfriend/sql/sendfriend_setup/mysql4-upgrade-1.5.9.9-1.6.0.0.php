@@ -39,44 +39,44 @@ $installer->getConnection()->dropIndex(
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('sendfriend/sendfriend') => array(
-        'columns' => array(
-            'log_id' => array(
+$tables = [
+    $installer->getTable('sendfriend/sendfriend') => [
+        'columns' => [
+            'log_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Log ID'
-            ),
-            'ip' => array(
+            ],
+            'ip' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'length'    => 20,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer IP address'
-            ),
-            'time' => array(
+            ],
+            'time' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Log time'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Website ID'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Send to friend function log storage table',
         'engine'  => 'InnoDB'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -85,14 +85,14 @@ $installer->getConnection()->modifyTables($tables);
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('sendfriend/sendfriend'),
-    $installer->getIdxName('sendfriend/sendfriend', array('ip')),
-    array('ip')
+    $installer->getIdxName('sendfriend/sendfriend', ['ip']),
+    ['ip']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('sendfriend/sendfriend'),
-    $installer->getIdxName('sendfriend/sendfriend', array('time')),
-    array('time')
+    $installer->getIdxName('sendfriend/sendfriend', ['time']),
+    ['time']
 );
 
 $installer->endSetup();

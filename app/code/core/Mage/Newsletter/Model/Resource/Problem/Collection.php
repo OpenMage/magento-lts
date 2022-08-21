@@ -63,9 +63,9 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     public function addSubscriberInfo()
     {
         $this->getSelect()->joinLeft(
-            array('subscriber'=>$this->getTable('newsletter/subscriber')),
+            ['subscriber'=>$this->getTable('newsletter/subscriber')],
             'main_table.subscriber_id = subscriber.subscriber_id',
-            array('subscriber_email','customer_id','subscriber_status')
+            ['subscriber_email','customer_id','subscriber_status']
         );
         $this->addFilterToMap('subscriber_id', 'main_table.subscriber_id');
         $this->_subscribersInfoJoinedFlag = true;
@@ -81,14 +81,14 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     public function addQueueInfo()
     {
         $this->getSelect()->joinLeft(
-            array('queue'=>$this->getTable('newsletter/queue')),
+            ['queue'=>$this->getTable('newsletter/queue')],
             'main_table.queue_id = queue.queue_id',
-            array('queue_start_at', 'queue_finish_at')
+            ['queue_start_at', 'queue_finish_at']
         )
         ->joinLeft(
-            array('template'=>$this->getTable('newsletter/template')),
+            ['template'=>$this->getTable('newsletter/template')],
             'queue.template_id = template.template_id',
-            array('template_subject','template_code','template_sender_name','template_sender_email')
+            ['template_subject','template_code','template_sender_name','template_sender_email']
         );
         return $this;
     }
@@ -99,7 +99,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     protected function _addCustomersData()
     {
-        $customersIds = array();
+        $customersIds = [];
 
         foreach ($this->getItems() as $item) {
             if ($item->getCustomerId()) {
@@ -113,7 +113,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
 
         $customers = Mage::getResourceModel('customer/customer_collection')
             ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', array("in"=>$customersIds));
+            ->addAttributeToFilter('entity_id', ["in"=>$customersIds]);
 
         $customers->load();
 

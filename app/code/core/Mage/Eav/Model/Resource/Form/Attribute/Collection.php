@@ -169,9 +169,9 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         $entityType = $this->getEntityType();
         $this->setItemObjectClass($entityType->getAttributeModel());
 
-        $eaColumns  = array();
-        $caColumns  = array();
-        $saColumns  = array();
+        $eaColumns  = [];
+        $caColumns  = [];
+        $saColumns  = [];
 
         $eaDescribe = $connection->describeTable($this->getTable('eav/attribute'));
         unset($eaDescribe['attribute_id']);
@@ -180,7 +180,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         }
 
         $select->join(
-            array('ea' => $this->getTable('eav/attribute')),
+            ['ea' => $this->getTable('eav/attribute')],
             'main_table.attribute_id = ea.attribute_id',
             $eaColumns
         );
@@ -195,7 +195,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
             }
 
             $select->join(
-                array('ca' => $this->getTable($additionalTable)),
+                ['ca' => $this->getTable($additionalTable)],
                 'main_table.attribute_id = ca.attribute_id',
                 $caColumns
             );
@@ -238,7 +238,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                     (int)$store->getWebsiteId()
                 );
             $select->joinLeft(
-                array('sa' => $this->_getEavWebsiteTable()),
+                ['sa' => $this->_getEavWebsiteTable()],
                 $joinWebsiteExpression,
                 $saColumns
             );
@@ -247,15 +247,15 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
 
         // add store attribute label
         if ($store->isAdmin()) {
-            $select->columns(array('store_label' => 'ea.frontend_label'));
+            $select->columns(['store_label' => 'ea.frontend_label']);
         } else {
             $storeLabelExpr = $connection->getCheckSql('al.value IS NULL', 'ea.frontend_label', 'al.value');
             $joinExpression = $connection
                 ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int)$store->getId());
             $select->joinLeft(
-                array('al' => $this->getTable('eav/attribute_label')),
+                ['al' => $this->getTable('eav/attribute_label')],
                 $joinExpression,
-                array('store_label' => $storeLabelExpr)
+                ['store_label' => $storeLabelExpr]
             );
         }
 

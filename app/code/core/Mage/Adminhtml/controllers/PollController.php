@@ -86,7 +86,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
@@ -142,7 +142,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if (is_array($stores)) {
-                    $storeIds = array();
+                    $storeIds = [];
                     foreach ($stores as $storeIdList) {
                         $storeIdList = explode(',', $storeIdList);
                         if(!$storeIdList) {
@@ -167,7 +167,7 @@ class Mage_Adminhtml_PollController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if( is_array($answers) ) {
-                    $_titles = array();
+                    $_titles = [];
                     foreach( $answers as $key => $answer ) {
                         if( in_array($answer['title'], $_titles) ) {
                             Mage::throwException(Mage::helper('adminhtml')->__('Your answers contain duplicates.'));

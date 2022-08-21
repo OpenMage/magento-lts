@@ -27,17 +27,17 @@ $this->startSetup();
 $orderEntityType = $installer->getEntityType('order');
 $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
-$attributesToModify = array(
+$attributesToModify = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
-);
+];
 
-$attributesToMove = array(
+$attributesToMove = [
     $installer->getAttribute($orderEntityTypeId, 'status'),
     $installer->getAttribute($orderEntityTypeId, 'state')
-);
+];
 
 // modify existing attributes in sales/order table
 foreach ($attributesToModify as $attribute) {
@@ -66,7 +66,7 @@ foreach ($attributesToMove as $attribute) {
 }
 
 foreach ($attributesToMove as $attribute) {
-    $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
+    $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], ['backend_type' => 'static']);
 }
 
 $installer->run("

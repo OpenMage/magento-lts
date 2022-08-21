@@ -32,7 +32,7 @@ class Mage_Api2_Model_Router
      *
      * @var array
      */
-    protected $_routes = array();
+    protected $_routes = [];
 
     /**
      * Set routes

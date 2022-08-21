@@ -46,11 +46,11 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
         $select = clone $this->getSelect();
 
         $select->reset()
-            ->from(array('rel' => $this->getTable('tag/relation')), 'COUNT(DISTINCT rel.tag_id)')
+            ->from(['rel' => $this->getTable('tag/relation')], 'COUNT(DISTINCT rel.tag_id)')
             ->where('rel.product_id = e.entity_id');
 
         $this->getSelect()
-            ->columns(array('utaged' => new Zend_Db_Expr(sprintf('(%s)', $select))));
+            ->columns(['utaged' => new Zend_Db_Expr(sprintf('(%s)', $select))]);
         return $this;
     }
 
@@ -62,7 +62,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addAllTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'COUNT(relation.tag_id)'));
+            ->columns(['taged' => 'COUNT(relation.tag_id)']);
         return $this;
     }
 
@@ -74,7 +74,7 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
     public function addTagedCount()
     {
         $this->getSelect()
-            ->columns(array('taged' => 'COUNT(relation.tag_relation_id)'));
+            ->columns(['taged' => 'COUNT(relation.tag_relation_id)']);
 
         return $this;
     }
@@ -148,14 +148,14 @@ class Mage_Reports_Model_Resource_Tag_Product_Collection extends Mage_Tag_Model_
         $this->addAttributeToSelect('name');
         $this->getSelect()
             ->join(
-                array('relation' => $this->getTable('tag/relation')),
+                ['relation' => $this->getTable('tag/relation')],
                 'relation.product_id = e.entity_id',
-                array()
+                []
             )
             ->join(
-                array('t' => $this->getTable('tag/tag')),
+                ['t' => $this->getTable('tag/tag')],
                 't.tag_id = relation.tag_id',
-                array('tag_id',  'status', 'tag_name' => 'name')
+                ['tag_id',  'status', 'tag_name' => 'name']
             );
 
         return $this;

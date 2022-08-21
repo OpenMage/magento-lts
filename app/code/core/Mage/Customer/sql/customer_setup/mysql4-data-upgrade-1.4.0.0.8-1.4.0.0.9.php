@@ -36,14 +36,14 @@ foreach ($websites as $website) {
     }
 
     // customer attributes
-    $attributes = array(
+    $attributes = [
         'prefix',
         'middlename',
         'suffix',
         'dob',
         'taxvat',
         'gender'
-    );
+    ];
 
     foreach ($attributes as $attributeCode) {
         /** @var Mage_Customer_Model_Attribute $attribute */
@@ -72,11 +72,11 @@ foreach ($websites as $website) {
     }
 
     // customer address attributes
-    $attributes = array(
+    $attributes = [
         'prefix',
         'middlename',
         'suffix',
-    );
+    ];
 
     foreach ($attributes as $attributeCode) {
         $attribute      = $eavConfig->getAttribute('customer_address', $attributeCode);

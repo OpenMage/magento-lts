@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Concat
      */
     public function render(Varien_Object $row)
     {
-        $dataArr = array();
+        $dataArr = [];
         foreach ($this->getColumn()->getIndex() as $index) {
             if ($data = $row->getData($index)) {
                 $dataArr[] = $data;

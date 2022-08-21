@@ -34,11 +34,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Discount extends 
             if (strlen($couponCode)) {
                 $title .= ' ('. $couponCode .')';
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'=>'discount',
                 'title'=>$title,
                 'value'=>-$amount
-            ));
+            ]);
         }
         return $this;
     }

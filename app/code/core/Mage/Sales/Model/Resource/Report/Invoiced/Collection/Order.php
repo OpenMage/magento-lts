@@ -40,7 +40,7 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -71,14 +71,14 @@ class Mage_Sales_Model_Resource_Report_Invoiced_Collection_Order extends Mage_Sa
         }
 
         if (!$this->isTotals()) {
-            $this->_selectedColumns = array(
+            $this->_selectedColumns = [
                 'period'                => $this->_periodFormat,
                 'orders_count'          => 'SUM(orders_count)',
                 'orders_invoiced'       => 'SUM(orders_invoiced)',
                 'invoiced'              => 'SUM(invoiced)',
                 'invoiced_captured'     => 'SUM(invoiced_captured)',
                 'invoiced_not_captured' => 'SUM(invoiced_not_captured)'
-            );
+            ];
         }
 
         if ($this->isTotals()) {

@@ -33,7 +33,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      *
      * @var array
      */
-    protected $_fields   = array();
+    protected $_fields   = [];
 
     /**
      * Initialize collection model
@@ -53,12 +53,12 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     {
         $customer   = Mage::getModel('customer/customer');
         // alias => attribute_code
-        $attributes = array(
+        $attributes = [
             'customer_lastname'   => 'lastname',
             'customer_middlename' => 'middlename',
             'customer_firstname'  => 'firstname',
             'customer_email'      => 'email'
-        );
+        ];
 
         foreach ($attributes as $alias => $attributeCode) {
             $attribute = $customer->getAttribute($attributeCode);
@@ -68,24 +68,24 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
+                    [$tableAlias => $attribute->getBackend()->getTable()],
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
-                    array($alias => $attribute->getAttributeCode())
+                    [$alias => $attribute->getAttributeCode()]
                 );
 
                 $this->_fields[$alias] = sprintf('%s.%s', $tableAlias, $attribute->getAttributeCode());
             } else {
                 $tableAlias = 'customer_' . $attribute->getAttributeCode();
 
-                $joinConds  = array(
+                $joinConds  = [
                     sprintf('%s.entity_id=main_table.customer_id', $tableAlias),
                     $this->getConnection()->quoteInto($tableAlias . '.attribute_id=?', $attribute->getAttributeId())
-                );
+                ];
 
                 $this->getSelect()->joinLeft(
-                    array($tableAlias => $attribute->getBackend()->getTable()),
+                    [$tableAlias => $attribute->getBackend()->getTable()],
                     implode(' AND ', $joinConds),
-                    array($alias => 'value')
+                    [$alias => 'value']
                 );
 
                 $this->_fields[$alias] = sprintf('%s.value', $tableAlias);

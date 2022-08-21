@@ -262,7 +262,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if ($appliedInterval
             && $collection->getPricesCount() <= $this->getIntervalDivisionLimit()
         ) {
-            return array();
+            return [];
         }
         $algorithmModel->setPricesModel($this)->setStatistics(
             $collection->getMinPrice(),
@@ -273,19 +273,19 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
         if ($appliedInterval) {
             if ($appliedInterval[0] == $appliedInterval[1] || $appliedInterval[1] === '0') {
-                return array();
+                return [];
             }
             $algorithmModel->setLimits($appliedInterval[0], $appliedInterval[1]);
         }
 
-        $items = array();
+        $items = [];
         foreach ($algorithmModel->calculateSeparators() as $separator) {
-            $items[] = array(
+            $items[] = [
                 'label' => $this->_renderRangeLabel($separator['from'], $separator['to']),
                 'value' => (($separator['from'] == 0) ? '' : $separator['from'])
                     . '-' . $separator['to'] . $this->_getAdditionalRequestData(),
                 'count' => $separator['count'],
-            );
+            ];
         }
 
         return $items;
@@ -301,12 +301,12 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
             return $this->_getCalculatedItemsData();
         } elseif ($this->getInterval()) {
-            return array();
+            return [];
         }
 
         $range      = $this->getPriceRange();
         $dbRanges   = $this->getRangeItemCounts($range);
-        $data       = array();
+        $data       = [];
 
         if (!empty($dbRanges)) {
             $lastIndex = array_keys($dbRanges);
@@ -316,11 +316,11 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 $fromPrice = ($index == 1) ? '' : (($index - 1) * $range);
                 $toPrice = ($index == $lastIndex) ? '' : ($index * $range);
 
-                $data[] = array(
+                $data[] = [
                     'label' => $this->_renderRangeLabel($fromPrice, $toPrice),
                     'value' => $fromPrice . '-' . $toPrice,
                     'count' => $count,
-                );
+                ];
             }
         }
 
@@ -386,16 +386,16 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
 
         list($from, $to) = $filter;
 
-        $this->setInterval(array($from, $to));
+        $this->setInterval([$from, $to]);
 
-        $priorFilters = array();
+        $priorFilters = [];
         for ($i = 1; $i < count($filterParams); ++$i) {
             $priorFilter = $this->_validateFilter($filterParams[$i]);
             if ($priorFilter) {
                 $priorFilters[] = $priorFilter;
             } else {
                 //not valid data
-                $priorFilters = array();
+                $priorFilters = [];
                 break;
             }
         }
@@ -507,7 +507,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
     public function getResetValue()
     {
         $priorIntervals = $this->getPriorIntervals();
-        $value = array();
+        $value = [];
         if ($priorIntervals) {
             foreach ($priorIntervals as $priorInterval) {
                 $value[] = implode('-', $priorInterval);

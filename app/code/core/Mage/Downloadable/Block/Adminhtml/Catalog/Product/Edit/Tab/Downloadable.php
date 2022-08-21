@@ -117,21 +117,21 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
         $accordion = $this->getLayout()->createBlock('adminhtml/widget_accordion');
         $accordion->setId('downloadableInfo');
 
-        $accordion->addItem('samples', array(
+        $accordion->addItem('samples', [
             'title'   => Mage::helper('adminhtml')->__('Samples'),
             'content' => $this->getLayout()
                 ->createBlock('downloadable/adminhtml_catalog_product_edit_tab_downloadable_samples')->toHtml(),
             'open'    => false,
-        ));
+        ]);
 
-        $accordion->addItem('links', array(
+        $accordion->addItem('links', [
             'title'   => Mage::helper('adminhtml')->__('Links'),
             'content' => $this->getLayout()->createBlock(
                 'downloadable/adminhtml_catalog_product_edit_tab_downloadable_links',
                 'catalog.product.edit.tab.downloadable.links'
             )->toHtml(),
             'open'    => true,
-        ));
+        ]);
 
         $this->setChild('accordion', $accordion);
 

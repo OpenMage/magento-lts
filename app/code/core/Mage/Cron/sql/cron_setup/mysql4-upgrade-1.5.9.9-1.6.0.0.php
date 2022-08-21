@@ -39,57 +39,57 @@ $installer->getConnection()->dropIndex(
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('cron/schedule') => array(
-        'columns' => array(
-            'schedule_id' => array(
+$tables = [
+    $installer->getTable('cron/schedule') => [
+        'columns' => [
+            'schedule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Schedule Id'
-            ),
-            'job_code' => array(
+            ],
+            'job_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Job Code'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 7,
                 'nullable'  => false,
                 'default'   => 'pending',
                 'comment'   => 'Status'
-            ),
-            'messages' => array(
+            ],
+            'messages' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Messages'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
                 'comment'   => 'Created At'
-            ),
-            'scheduled_at' => array(
+            ],
+            'scheduled_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Scheduled At'
-            ),
-            'executed_at' => array(
+            ],
+            'executed_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Executed At'
-            ),
-            'finished_at' => array(
+            ],
+            'finished_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Finished At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Cron Schedule'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
 
@@ -99,14 +99,14 @@ $installer->getConnection()->modifyTables($tables);
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('cron/schedule'),
-    $installer->getIdxName('cron/schedule', array('job_code')),
-    array('job_code')
+    $installer->getIdxName('cron/schedule', ['job_code']),
+    ['job_code']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cron/schedule'),
-    $installer->getIdxName('cron/schedule', array('scheduled_at', 'status')),
-    array('scheduled_at', 'status')
+    $installer->getIdxName('cron/schedule', ['scheduled_at', 'status']),
+    ['scheduled_at', 'status']
 );
 
 $installer->endSetup();

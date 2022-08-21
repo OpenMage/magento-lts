@@ -138,7 +138,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected function _initSectionsAndTabs()
     {
         $config = $this->_config;
-        Mage::dispatchEvent('adminhtml_init_system_config', array('config' => $config));
+        Mage::dispatchEvent('adminhtml_init_system_config', ['config' => $config]);
         $this->_sections = $config->getNode('sections');
         $this->_tabs = $config->getNode('tabs');
     }
@@ -282,7 +282,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     public function getEncryptedNodeEntriesPaths($explodePathToEntities = false)
     {
-        $paths = array();
+        $paths = [];
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
@@ -291,7 +291,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();
                     if ($explodePathToEntities) {
-                        $paths[] = array('section' => $section, 'group' => $group, 'field' => $field);
+                        $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
                     }
                     else {
                         $paths[] = $section . '/' . $group . '/' . $field;

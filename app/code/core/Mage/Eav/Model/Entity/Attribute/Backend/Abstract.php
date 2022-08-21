@@ -47,7 +47,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      *
      * @var array
      */
-    protected $_valueIds = array();
+    protected $_valueIds = [];
 
     /**
      * Table name for this attribute

@@ -56,7 +56,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
             ->addAttributeToFilter('customer_id', $customerId)
             ->addAttributeToFilter(
                 'state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPage(1, 1);
@@ -72,7 +72,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        $items = array();
+        $items = [];
         $order = $this->getLastOrder();
         $limit = 5;
 
@@ -110,7 +110,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
+        return $this->getUrl('checkout/cart/addgroup', ['_secure' => true]);
     }
 
     /**
@@ -170,7 +170,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     protected function _getItemProducts()
     {
-        $products =  array();
+        $products =  [];
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }

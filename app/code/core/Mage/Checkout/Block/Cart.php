@@ -49,7 +49,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function prepareItemUrls()
     {
-        $products = array();
+        $products = [];
         foreach ($this->getItems() as $item) {
             $product    = $item->getProduct();
             $option     = $item->getOptionByCode('product_type');
@@ -127,7 +127,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getCheckoutUrl()
     {
-        return $this->getUrl('checkout/onepage', array('_secure'=>true));
+        return $this->getUrl('checkout/onepage', ['_secure'=>true]);
     }
 
     /**
@@ -137,7 +137,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/updatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/updatePost', ['_secure' => $this->_isSecure()]);
     }
 
     /**
@@ -175,7 +175,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
             return $this->getChild($nameInLayout)->getSortedChildren();
         }
-        return array();
+        return [];
     }
 
     /**

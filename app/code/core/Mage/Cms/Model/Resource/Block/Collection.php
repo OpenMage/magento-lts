@@ -57,18 +57,18 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
     public function addStoreFilter($store, $withAdmin = true)
     {
         if ($store instanceof Mage_Core_Model_Store) {
-            $store = array($store->getId());
+            $store = [$store->getId()];
         }
 
         if (!is_array($store)) {
-            $store = array($store);
+            $store = [$store];
         }
 
         if ($withAdmin) {
             $store[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         }
 
-        $this->addFilter('store', array('in' => $store), 'public');
+        $this->addFilter('store', ['in' => $store], 'public');
 
         return $this;
     }
@@ -95,9 +95,9 @@ class Mage_Cms_Model_Resource_Block_Collection extends Mage_Core_Model_Resource_
     {
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
-                array('store_table' => $this->getTable('cms/block_store')),
+                ['store_table' => $this->getTable('cms/block_store')],
                 'main_table.block_id = store_table.block_id',
-                array()
+                []
             )->group('main_table.block_id');
 
             /*

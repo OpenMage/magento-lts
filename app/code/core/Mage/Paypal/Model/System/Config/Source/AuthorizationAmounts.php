@@ -35,6 +35,6 @@ class Mage_Paypal_Model_System_Config_Source_AuthorizationAmounts
      */
     public function toOptionArray()
     {
-        return array();
+        return [];
     }
 }

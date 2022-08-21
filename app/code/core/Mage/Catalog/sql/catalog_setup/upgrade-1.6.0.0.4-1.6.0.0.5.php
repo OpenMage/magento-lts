@@ -23,11 +23,11 @@ $installer = $this;
 $installer->getConnection()->modifyColumn(
     $installer->getTable('catalog/category_product_index'),
     'position',
-    array(
+    [
         'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
         'unsigned'  => false,
         'nullable'  => true,
         'default'   => null,
         'comment'   => 'Position'
-    )
+    ]
 );

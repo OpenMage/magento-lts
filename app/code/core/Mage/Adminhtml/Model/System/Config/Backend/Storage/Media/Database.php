@@ -29,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Storage_Media_Database extends 
     protected function _afterSave()
     {
         $helper = Mage::helper('core/file_storage');
-        $helper->getStorageModel(null, array('init' => true));
+        $helper->getStorageModel(null, ['init' => true]);
 
         return $this;
     }

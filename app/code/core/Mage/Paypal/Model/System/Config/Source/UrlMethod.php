@@ -30,9 +30,9 @@ class Mage_Paypal_Model_System_Config_Source_UrlMethod
      */
     public function toOptionArray()
     {
-        return array(
-            array('value' => 'GET', 'label' => 'GET'),
-            array('value' => 'POST', 'label' => 'POST'),
-        );
+        return [
+            ['value' => 'GET', 'label' => 'GET'],
+            ['value' => 'POST', 'label' => 'POST'],
+        ];
     }
 }

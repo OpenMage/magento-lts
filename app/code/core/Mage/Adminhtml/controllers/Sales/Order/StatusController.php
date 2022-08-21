@@ -154,7 +154,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             if ($isNew) {
                 $this->_redirect('*/*/new');
             } else {
-                $this->_redirect('*/*/edit', array('status' => $this->getRequest()->getParam('status')));
+                $this->_redirect('*/*/edit', ['status' => $this->getRequest()->getParam('status')]);
             }
             return;
         }
@@ -213,10 +213,10 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         $status = $this->_initStatus();
         if ($status) {
             try {
-                Mage::dispatchEvent('sales_order_status_unassign_before', array(
+                Mage::dispatchEvent('sales_order_status_unassign_before', [
                     'status' => $status, // string {new,     ...}
                     'state'  => $state   // Model  {Pending, ...}
-                ));
+                ]);
                 $status->unassignState($state);
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order status has been unassigned.'));
             } catch (Mage_Core_Exception $e) {

@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Price
     /**
      * Currency objects cache
      */
-    protected static $_currencies = array();
+    protected static $_currencies = [];
 
     /**
      * Renders grid column

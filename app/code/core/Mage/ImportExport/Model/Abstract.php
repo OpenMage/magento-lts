@@ -55,14 +55,14 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Contains all log information
      *
      * @var array
      */
-    protected $_logTrace = array();
+    protected $_logTrace = [];
 
     /**
      * Log debug data to file.
@@ -84,12 +84,12 @@ abstract class Mage_ImportExport_Model_Abstract extends Varien_Object
 
         if (!$this->_logInstance) {
             $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
-            $fileName = implode('_', array(
+            $fileName = implode('_', [
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
                 $this->getOperationType(),
                 $this->getEntity()
-            ));
+            ]);
             $dirPath = Mage::getBaseDir('var') . DS . self::LOG_DIRECTORY
                 . $dirName;
             if (!is_dir($dirPath)) {

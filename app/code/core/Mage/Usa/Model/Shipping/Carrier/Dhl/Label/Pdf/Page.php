@@ -74,7 +74,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
     public function getTextWidth($text, Zend_Pdf_Resource_Font $font, $font_size)
     {
         $drawing_text = iconv('', 'UTF-16BE', $text);
-        $characters = array();
+        $characters = [];
         for ($i = 0; $i < strlen($drawing_text); $i++) {
             $characters[] = (ord($drawing_text[$i++]) << 8) | ord($drawing_text[$i]);
         }

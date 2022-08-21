@@ -117,7 +117,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 }
             }
 
-            $errors = array();
+            $errors = [];
 
             /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form');
@@ -143,7 +143,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
                 if (count($errors) === 0) {
                     $address->save();
                     $this->_getSession()->addSuccess($this->__('The address has been saved.'));
-                    $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
+                    $this->_redirectSuccess(Mage::getUrl('*/*/index', ['_secure'=>true]));
                     return;
                 } else {
                     $this->_getSession()->setAddressFormData($this->getRequest()->getPost());
@@ -160,7 +160,7 @@ class Mage_Customer_AddressController extends Mage_Core_Controller_Front_Action
             }
         }
 
-        return $this->_redirectError(Mage::getUrl('*/*/edit', array('id' => $address->getId())));
+        return $this->_redirectError(Mage::getUrl('*/*/edit', ['id' => $address->getId()]));
     }
 
     /**

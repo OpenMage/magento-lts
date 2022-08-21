@@ -40,14 +40,14 @@ class Mage_Core_Model_Log_Adapter
      *
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Fields that should be replaced in debug data with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Set log file name
@@ -71,7 +71,7 @@ class Mage_Core_Model_Log_Adapter
             $data = $this->_data;
         } else {
             if (!is_array($data)) {
-                $data = array($data);
+                $data = [$data];
             }
         }
         $data = $this->_filterDebugData($data);
@@ -107,7 +107,7 @@ class Mage_Core_Model_Log_Adapter
     public function setFilterDataKeys($keys)
     {
         if (!is_array($keys)) {
-            $keys = array($keys);
+            $keys = [$keys];
         }
         $this->_debugReplacePrivateDataKeys = $keys;
         return $this;

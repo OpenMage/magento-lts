@@ -33,11 +33,11 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Frontend_Shipping extends 
             if ($address->getShippingDescription()) {
                 $title .= ' (' . $address->getShippingDescription() . ')';
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code' => 'shipping',
                 'title' => $title,
                 'value' => $address->getShippingAmount()
-            ));
+            ]);
         }
         return $this;
     }

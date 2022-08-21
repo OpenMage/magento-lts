@@ -40,6 +40,6 @@ while ($row = $stmt->fetch()) {
 $installer->getConnection()->addKey(
     $table,
     'UNQ_CATEGORY_PRODUCT',
-    array('category_id', 'product_id', 'store_id'),
+    ['category_id', 'product_id', 'store_id'],
     'unique'
 );

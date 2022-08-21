@@ -130,7 +130,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getFlatColums()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getFlatIndexes()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -37,7 +37,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_adminSession;
 
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_rssSession = isset($params['rss_session']) ? $params['rss_session'] : Mage::getSingleton('rss/session');
         $this->_adminSession = isset($params['admin_session'])
@@ -81,7 +81,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
                 $adminUserExtra = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             }
             if (!isset($adminUserExtra['indirect_login'])) {
-                $adminUserExtra = array_merge($adminUserExtra, array('indirect_login' => true));
+                $adminUserExtra = array_merge($adminUserExtra, ['indirect_login' => true]);
                 $user->saveExtra($adminUserExtra);
             }
             $this->_adminSession->setIndirectLogin(true);

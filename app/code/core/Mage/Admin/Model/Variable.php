@@ -45,16 +45,16 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
         }
-        if (!Zend_Validate::is($this->getVariableName(), 'Regex', array('/^[-_a-zA-Z0-9\/]*$/'))) {
+        if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
         }
 
-        if (!in_array($this->getIsAllowed(), array('0', '1'))) {
+        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
             $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
         }
 

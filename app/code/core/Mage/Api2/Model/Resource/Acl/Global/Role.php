@@ -64,9 +64,9 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
         $table = $this->getTable('api2/acl_user');
 
         if ($read->fetchOne($select) === false) {
-            $write->insert($table, array('admin_id' => $adminId, 'role_id' => $roleId));
+            $write->insert($table, ['admin_id' => $adminId, 'role_id' => $roleId]);
         } else {
-            $write->update($table, array('role_id' => $roleId), array('admin_id = ?' => $adminId));
+            $write->update($table, ['role_id' => $roleId], ['admin_id = ?' => $adminId]);
         }
 
         return $this;
@@ -84,10 +84,10 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
         $write = $this->_getWriteAdapter();
         $table = $this->getTable('api2/acl_user');
 
-        $where = array(
+        $where = [
             'role_id = ?' => $roleId,
             'admin_id = ?' => $adminId
-        );
+        ];
 
         $write->delete($table, $where);
 

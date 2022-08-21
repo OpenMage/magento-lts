@@ -32,9 +32,9 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     public function getStoreIds($stores)
     {
         if (empty($stores)) {
-            $storeIds = array(0);
+            $storeIds = [0];
         } else {
-            $storeIds = array();
+            $storeIds = [];
             foreach (explode(',', $stores) as $store) {
                 if (is_numeric($store)) {
                     $storeIds[] = $store;
@@ -69,8 +69,8 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->setEntityTypeFilter($entityTypeId)
             ->load();
-        $this->_attributeSetsById = array();
-        $this->_attributeSetsByName = array();
+        $this->_attributeSetsById = [];
+        $this->_attributeSetsByName = [];
         /**
          * @var int $id
          * @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet

@@ -237,7 +237,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             return $matches[1];
         }
 
-        return array($description);
+        return [$description];
     }
 
     /**
@@ -256,28 +256,28 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         $order = $this->getOrder();
         $item  = $this->getItem();
         if (Mage::helper('tax')->displaySalesBothPrices()) {
-            $prices = array(
-                array(
+            $prices = [
+                [
                     'label'    => Mage::helper('tax')->__('Excl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPrice()),
                     'subtotal' => $order->formatPriceTxt($item->getRowTotal())
-                ),
-                array(
+                ],
+                [
                     'label'    => Mage::helper('tax')->__('Incl. Tax') . ':',
                     'price'    => $order->formatPriceTxt($item->getPriceInclTax()),
                     'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax())
-                ),
-            );
+                ],
+            ];
         } elseif (Mage::helper('tax')->displaySalesPriceInclTax()) {
-            $prices = array(array(
+            $prices = [[
                 'price' => $order->formatPriceTxt($item->getPriceInclTax()),
                 'subtotal' => $order->formatPriceTxt($item->getRowTotalInclTax()),
-            ));
+            ]];
         } else {
-            $prices = array(array(
+            $prices = [[
                 'price' => $order->formatPriceTxt($item->getPrice()),
                 'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
-            ));
+            ]];
         }
         return $prices;
     }
@@ -289,7 +289,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
      */
     public function getItemOptions()
     {
-        $result = array();
+        $result = [];
         if ($options = $this->getItem()->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);

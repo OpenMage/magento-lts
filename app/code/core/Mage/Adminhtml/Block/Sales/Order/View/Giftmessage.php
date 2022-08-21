@@ -68,10 +68,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     {
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'   => Mage::helper('giftmessage')->__('Save Gift Message'),
                     'class'   => 'save'
-                ))
+                ])
         );
 
         return $this;
@@ -234,11 +234,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Giftmessage extends Mage_Adminhtml_B
     public function getSaveUrl()
     {
         return $this->getUrl('*/sales_order_view_giftmessage/save',
-            array(
+            [
                 'entity'=>$this->getEntity()->getId(),
                 'type'  =>'order',
                 'reload' => 1
-            )
+            ]
         );
     }
 

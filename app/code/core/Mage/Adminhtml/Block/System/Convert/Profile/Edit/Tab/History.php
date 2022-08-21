@@ -57,29 +57,29 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('action_code', array(
+        $this->addColumn('action_code', [
             'header'    => Mage::helper('adminhtml')->__('Profile Action'),
             'index'     => 'action_code',
             'filter'    => 'adminhtml/system_convert_profile_edit_filter_action',
             'renderer'  => 'adminhtml/system_convert_profile_edit_renderer_action',
-        ));
+        ]);
 
-        $this->addColumn('performed_at', array(
+        $this->addColumn('performed_at', [
             'header'    => Mage::helper('adminhtml')->__('Performed At'),
             'type'      => 'datetime',
             'index'     => 'performed_at',
             'width'     => '150px',
-        ));
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    => Mage::helper('adminhtml')->__('First Name'),
             'index'     => 'firstname',
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    => Mage::helper('adminhtml')->__('Last Name'),
             'index'     => 'lastname',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -89,6 +89,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_History extends Mage_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/history', array('_current' => true));
+        return $this->getUrl('*/*/history', ['_current' => true]);
     }
 }
