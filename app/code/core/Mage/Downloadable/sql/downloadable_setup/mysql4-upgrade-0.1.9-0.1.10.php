@@ -23,7 +23,7 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'samples_title', array(
+$installer->addAttribute('catalog_product', 'samples_title', [
         'type'              => 'varchar',
         'backend'           => '',
         'frontend'          => '',
@@ -43,9 +43,9 @@ $installer->addAttribute('catalog_product', 'samples_title', array(
         'unique'            => false,
         'apply_to'          => 'downloadable',
         'is_configurable'   => false
-    ));
+]);
 
-$installer->addAttribute('catalog_product', 'links_title', array(
+$installer->addAttribute('catalog_product', 'links_title', [
         'type'              => 'varchar',
         'backend'           => '',
         'frontend'          => '',
@@ -65,6 +65,6 @@ $installer->addAttribute('catalog_product', 'links_title', array(
         'unique'            => false,
         'apply_to'          => 'downloadable',
         'is_configurable'   => false
-    ));
+]);
 
 $installer->endSetup();

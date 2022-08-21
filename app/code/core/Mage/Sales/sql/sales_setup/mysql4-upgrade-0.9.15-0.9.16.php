@@ -23,6 +23,6 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('quote', 'is_changed', array('type' => 'int'));
+$installer->addAttribute('quote', 'is_changed', ['type' => 'int']);
 
 $installer->endSetup();

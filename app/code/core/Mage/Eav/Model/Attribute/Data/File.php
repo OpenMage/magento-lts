@@ -50,13 +50,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
-            $value  = array();
+            $value  = [];
             if (strpos($this->_requestScope, '/') !== false) {
                 $scopes = explode('/', $this->_requestScope);
                 $mainScope  = array_shift($scopes);
             } else {
                 $mainScope  = $this->_requestScope;
-                $scopes     = array();
+                $scopes     = [];
             }
 
             if (!empty($_FILES[$mainScope])) {
@@ -65,7 +65,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                         if (isset($scopeData[$scopeName])) {
                             $scopeData = $scopeData[$scopeName];
                         } else {
-                            $scopeData[$scopeName] = array();
+                            $scopeData[$scopeName] = [];
                         }
                     }
 
@@ -74,13 +74,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                     }
                 }
             } else {
-                $value = array();
+                $value = [];
             }
         } else {
             if (isset($_FILES[$attrCode])) {
                 $value = $_FILES[$attrCode];
             } else {
-                $value = array();
+                $value = [];
             }
         }
 
@@ -108,9 +108,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             $extensions = explode(',', $rules['file_extensions']);
             $extensions = array_map('trim', $extensions);
             if (!in_array($extension, $extensions)) {
-                return array(
+                return [
                     Mage::helper('eav')->__('"%s" is not a valid file extension.', $label)
-                );
+                ];
             }
         }
 
@@ -124,21 +124,21 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         if (!is_uploaded_file($value['tmp_name'])) {
-            return array(
+            return [
                 Mage::helper('eav')->__('"%s" is not a valid file.', $label)
-            );
+            ];
         }
 
         if (!empty($rules['max_file_size'])) {
             $size = $value['size'];
             if ($rules['max_file_size'] < $size) {
-                return array(
+                return [
                     Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label)
-                );
+                ];
             }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -154,7 +154,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             return true;
         }
 
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
@@ -271,10 +271,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         if ($value) {
             switch ($format) {
                 case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                    $output = array(
+                    $output = [
                         'value'     => $value,
                         'url_key'   => Mage::helper('core')->urlEncode($value)
-                    );
+                    ];
                     break;
             }
         }

@@ -40,7 +40,7 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
     }

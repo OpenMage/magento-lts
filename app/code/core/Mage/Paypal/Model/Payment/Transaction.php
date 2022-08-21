@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + array('txn_id' => $txnId)
+            $this->_getEventData() + ['txn_id' => $txnId]
         );
         return $this;
     }
@@ -142,7 +142,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         }
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
@@ -157,7 +157,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     {
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         if ($key) {
             return (isset($info[$key]) ? $info[$key] : null);
@@ -178,7 +178,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
                 unset($info[$key]);
             }
         } else {
-            $info = array();
+            $info = [];
         }
         return $this->setData('additional_information', $info);
     }

@@ -46,7 +46,7 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
     {
         $select = $this->getSelect();
         $select->joinLeft(
-            array('c' => $this->getTable('oauth/consumer')),
+            ['c' => $this->getTable('oauth/consumer')],
             'c.entity_id = main_table.consumer_id',
             'name'
         );
@@ -110,7 +110,7 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
      */
     public function addFilterById($id)
     {
-        $this->addFilter('main_table.entity_id', array('in' => $id), 'public');
+        $this->addFilter('main_table.entity_id', ['in' => $id], 'public');
         return $this;
     }
 

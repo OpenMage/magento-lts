@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         $this->getConfig()
             ->setUrl($this->getUrl(
                 '*/catalog_product_attribute/new',
-                array(
+                [
                     'group'     => $this->getConfig()->getGroupId(),
                     'tab'       => $this->getConfig()->getTabId(),
                     'store'     => $this->getConfig()->getStoreId(),
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
                     'set'       => $this->getConfig()->getAttributeSetId(),
                     'type'      => $this->getConfig()->getTypeId(),
                     'popup'     => 1
-                )
+                ]
             ));
 
         return parent::_beforeToHtml();
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     protected function _toHtml()
     {
         $this->setCanShow(true);
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', ['block' => $this]);
         if (!$this->getCanShow()) {
             return '';
         }

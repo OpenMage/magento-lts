@@ -43,7 +43,7 @@ if ($row) {
     $whereBind = $installer->getConnection()->quoteInto('website_id=?', $row['website_id']);
     $installer->getConnection()->update(
         $installer->getTable('core_website'),
-        array('is_default' => 1),
+        ['is_default' => 1],
         $whereBind
     );
 }

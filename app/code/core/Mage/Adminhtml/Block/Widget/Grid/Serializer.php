@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
      *
      * @var array
      */
-    private $_inputsToSerialize = array();
+    private $_inputsToSerialize = [];
 
     /**
      * Set serializer template
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
      */
     public function getDataAsJSON()
     {
-        $result = array();
+        $result = [];
         if ($serializeData = $this->getSerializeData()) {
             $result = $serializeData;
         }

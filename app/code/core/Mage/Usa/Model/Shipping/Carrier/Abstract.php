@@ -31,7 +31,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     const GUAM_COUNTRY_ID = 'GU';
     const GUAM_REGION_CODE = 'GU';
 
-    protected static $_quotesCache = array();
+    protected static $_quotesCache = [];
 
     /**
      * Flag for check carriers for activity
@@ -64,7 +64,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
     public function getTrackingInfo($tracking)
     {
-        $info = array();
+        $info = [];
 
         $result = $this->getTracking($tracking);
 
@@ -135,7 +135,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     public function getAllItems(Mage_Shipping_Model_Rate_Request $request)
     {
-        $items = array();
+        $items = [];
         if ($request->getAllItems()) {
             foreach ($request->getAllItems() as $item) {
                 /** @var Mage_Sales_Model_Quote_Item $item */
@@ -227,7 +227,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     {
         if (is_array($requestParams)) {
             $requestParams = implode(',', array_merge(
-                array($this->getCarrierCode()),
+                [$this->getCarrierCode()],
                 array_keys($requestParams),
                 $requestParams)
             );
@@ -310,7 +310,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
-        $data = array();
+        $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
             $request->setPackagingType($package['params']['container']);
@@ -323,10 +323,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 $this->rollBack($data);
                 break;
             } else {
-                $data[] = array(
+                $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
                     'label_content'   => $result->getShippingLabelContent()
-                );
+                ];
             }
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
@@ -334,9 +334,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             }
         }
 
-        $response = new Varien_Object(array(
+        $response = new Varien_Object([
             'info'   => $data
-        ));
+        ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }
@@ -359,7 +359,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
-        $data = array();
+        $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
             $request->setPackagingType($package['params']['container']);
@@ -372,10 +372,10 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 $this->rollBack($data);
                 break;
             } else {
-                $data[] = array(
+                $data[] = [
                     'tracking_number' => $result->getTrackingNumber(),
                     'label_content'   => $result->getShippingLabelContent()
-                );
+                ];
             }
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
@@ -383,9 +383,9 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
             }
         }
 
-        $response = new Varien_Object(array(
+        $response = new Varien_Object([
             'info'   => $data
-        ));
+        ]);
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }

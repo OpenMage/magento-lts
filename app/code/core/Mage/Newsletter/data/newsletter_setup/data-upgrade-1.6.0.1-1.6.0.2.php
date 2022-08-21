@@ -260,7 +260,7 @@ $newsletterContent = <<<EOD
 {{template config_path="design/email/footer"}}
 EOD;
 
-$data = array(
+$data = [
     'template_code' => 'Example Newsletter Template',
     'template_text' => $newsletterContent ,
     'template_styles' => null,
@@ -271,7 +271,7 @@ $data = array(
     'template_actual' => 1,
     'added_at' => Mage::getSingleton('core/date')->gmtDate(),
     'modified_at' => Mage::getSingleton('core/date')->gmtDate()
-);
+];
 
 $model = Mage::getModel('newsletter/template')->setData($data);
 

@@ -56,10 +56,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
     public function getResourcesPermissions()
     {
         if ($this->_resourcesPermissions === null) {
-            $rulesPairs = array();
+            $rulesPairs = [];
 
             if ($this->_userType) {
-                $allowedAttributes = array();
+                $allowedAttributes = [];
 
                 /** @var Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection $rules */
                 $rules = Mage::getResourceModel('api2/acl_filter_attribute_collection');
@@ -128,10 +128,10 @@ class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Ap
                                             ? Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW
                                             : Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_DENY;
 
-                                    $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = array(
+                                    $rulesPairs[$resource]['operations'][$operation]['attributes'][$attribute] = [
                                         'status'    => $status,
                                         'title'     => $attributeLabel
-                                    );
+                                    ];
                                 }
                             }
                         }

@@ -52,7 +52,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      *
      * @var array
      */
-    protected $_viewVars = array();
+    protected $_viewVars = [];
 
     protected $_baseUrl;
 
@@ -118,7 +118,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function getTemplateFile()
     {
-        $params = array('_relative'=>true);
+        $params = ['_relative'=>true];
         $area = $this->getArea();
         if ($area) {
             $params['_area'] = $area;
@@ -350,12 +350,12 @@ HTML;
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'BLOCK_TPL',
             Mage::app()->getStore()->getCode(),
             $this->getTemplateFile(),
             'template' => $this->getTemplate()
-        );
+        ];
     }
 
     /**

@@ -64,7 +64,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getRecentItems($count = null)
     {
         if (!$this->getSummaryCount()) {
-            return array();
+            return [];
         }
         if ($count === null) {
             $count = $this->getItemCount();
@@ -238,9 +238,9 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     protected function _serializeRenders()
     {
-        $result = array();
+        $result = [];
         foreach ($this->_itemRenders as $type => $renderer) {
-            $result[] = implode('|', array($type, $renderer['block'], $renderer['template']));
+            $result[] = implode('|', [$type, $renderer['block'], $renderer['template']]);
         }
         return implode('|', $result);
     }
@@ -280,7 +280,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     {
         $quoteTags = $this->getQuote()->getCacheIdTags();
 
-        $items = array();
+        $items = [];
         /** @var Mage_Sales_Model_Quote_Item $item */
         foreach ($this->getItems() as $item) {
             $items[] = $item->getProduct();
@@ -288,7 +288,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 
         return array_merge(
             parent::getCacheTags(),
-            (!$quoteTags)? array() : $quoteTags,
+            (!$quoteTags)? [] : $quoteTags,
             $this->getItemsTags($items)
         );
     }
@@ -316,10 +316,10 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         $transport->setHtml($html);
         Mage::dispatchEvent(
             'checkout_block_cart_sidebar_aftertohtml',
-            array(
+            [
                 'block' => $this,
                 'transport' => $transport,
-            )
+            ]
         );
         return $transport->getHtml();
     }

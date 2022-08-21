@@ -125,7 +125,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($e);
         }
         if ($profile) {
-            $this->_redirect('*/*/view', array('profile' => $profile->getId()));
+            $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');
         }
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             Mage::logException($e);
         }
         if ($profile) {
-            $this->_redirect('*/*/view', array('profile' => $profile->getId()));
+            $this->_redirect('*/*/view', ['profile' => $profile->getId()]);
         } else {
             $this->_redirect('*/*/');
         }

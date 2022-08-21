@@ -68,46 +68,46 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
         $form = new Varien_Data_Form();
         $form->setHtmlIdPrefix('rule_');
 
-        $fieldset = $form->addFieldset('default_label_fieldset', array(
+        $fieldset = $form->addFieldset('default_label_fieldset', [
             'legend' => Mage::helper('salesrule')->__('Default Label')
-        ));
+        ]);
         $labels = $rule->getStoreLabels();
-        $fieldset->addField('store_default_label', 'text', array(
+        $fieldset->addField('store_default_label', 'text', [
             'name'      => 'store_labels[0]',
             'required'  => false,
             'label'     => Mage::helper('salesrule')->__('Default Rule Label for All Store Views'),
             'value'     => isset($labels[0]) ? $labels[0] : '',
-        ));
+        ]);
 
-        $fieldset = $form->addFieldset('store_labels_fieldset', array(
+        $fieldset = $form->addFieldset('store_labels_fieldset', [
             'legend'       => Mage::helper('salesrule')->__('Store View Specific Labels'),
             'table_class'  => 'form-list stores-tree',
-        ));
+        ]);
         $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset');
         $fieldset->setRenderer($renderer);
 
         foreach (Mage::app()->getWebsites() as $website) {
-            $fieldset->addField("w_{$website->getId()}_label", 'note', array(
+            $fieldset->addField("w_{$website->getId()}_label", 'note', [
                 'label'    => $website->getName(),
                 'fieldset_html_class' => 'website',
-            ));
+            ]);
             foreach ($website->getGroups() as $group) {
                 $stores = $group->getStores();
                 if (count($stores) == 0) {
                     continue;
                 }
-                $fieldset->addField("sg_{$group->getId()}_label", 'note', array(
+                $fieldset->addField("sg_{$group->getId()}_label", 'note', [
                     'label'    => $group->getName(),
                     'fieldset_html_class' => 'store-group',
-                ));
+                ]);
                 foreach ($stores as $store) {
-                    $fieldset->addField("s_{$store->getId()}", 'text', array(
+                    $fieldset->addField("s_{$store->getId()}", 'text', [
                         'name'      => 'store_labels['.$store->getId().']',
                         'required'  => false,
                         'label'     => $store->getName(),
                         'value'     => isset($labels[$store->getId()]) ? $labels[$store->getId()] : '',
                         'fieldset_html_class' => 'store',
-                    ));
+                    ]);
                 }
             }
         }

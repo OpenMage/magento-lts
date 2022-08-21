@@ -34,7 +34,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_mimeTypes =
-        array(
+        [
             'x123' => 'application/vnd.lotus-1-2-3',
             'x3dml' => 'text/vnd.in3d.3dml',
             'x3g2' => 'video/3gpp2',
@@ -633,7 +633,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             'xzaz' => 'application/vnd.zzazz.deck+xml',
             'xzip' => 'application/zip',
             'xzmm' => 'application/vnd.handheld-entertainment+xml',
-        );
+        ];
 
     /**
      * Extend list of MIME types if needed from config
@@ -686,7 +686,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             $extensionsList = array_map('trim', explode(',', $extensionsList));
         }
 
-        return array_map(array($this, 'getMimeTypeByExtension'), $extensionsList);
+        return array_map([$this, 'getMimeTypeByExtension'], $extensionsList);
     }
 
     /**

@@ -71,10 +71,6 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
     const LINK_STATUS_PAYMENT_REVIEW = 'payment_review';
 
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/link_purchased_item');

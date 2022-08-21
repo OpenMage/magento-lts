@@ -26,8 +26,6 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
     protected $_isFixed = true;
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|false
      */
@@ -64,6 +62,6 @@ class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abs
      */
     public function getAllowedMethods()
     {
-        return array('pickup'=>Mage::helper('shipping')->__('Store Pickup'));
+        return ['pickup'=>Mage::helper('shipping')->__('Store Pickup')];
     }
 }

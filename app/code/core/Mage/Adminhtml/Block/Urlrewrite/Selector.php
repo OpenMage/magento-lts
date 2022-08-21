@@ -42,11 +42,11 @@ class Mage_Adminhtml_Block_Urlrewrite_Selector extends Mage_Core_Block_Template
     public function __construct()
     {
         $this->setTemplate('urlrewrite/selector.phtml');
-        $this->_modes = array(
+        $this->_modes = [
             'category' => Mage::helper('adminhtml')->__('For category'),
             'product'  => Mage::helper('adminhtml')->__('For product'),
             'id'       => Mage::helper('adminhtml')->__('Custom'),
-        );
+        ];
     }
 
     /**

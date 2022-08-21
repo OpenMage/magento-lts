@@ -49,10 +49,6 @@
  */
 class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
 {
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/link_purchased');

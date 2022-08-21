@@ -53,7 +53,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getStoreMethods($store = null, $quote = null)
     {
-        $res = array();
+        $res = [];
         foreach ($this->getPaymentMethods($store) as $code => $methodConfig) {
             $prefix = self::XML_PATH_PAYMENT_METHODS . '/' . $code . '/';
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
@@ -73,7 +73,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $res[] = $methodInstance;
         }
 
-        usort($res, array($this, '_sortMethods'));
+        usort($res, [$this, '_sortMethods']);
         return $res;
     }
 
@@ -135,7 +135,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBillingAgreementMethods($store = null, $quote = null)
     {
-        $result = array();
+        $result = [];
         foreach ($this->getStoreMethods($store, $quote) as $method) {
             if ($method->canManageBillingAgreements()) {
                 $result[] = $method;
@@ -152,7 +152,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRecurringProfileMethods($store = null)
     {
-        $result = array();
+        $result = [];
         foreach ($this->getPaymentMethods($store) as $code => $data) {
             $method = $this->getMethodInstance($code);
             if ($method && $method->canManageRecurringProfiles()) {
@@ -197,9 +197,9 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)
     {
-        $methods = array();
-        $groups = array();
-        $groupRelations = array();
+        $methods = [];
+        $groups = [];
+        $groupRelations = [];
 
         foreach ($this->getPaymentMethods($store) as $code => $data) {
             if ((isset($data['title']))) {
@@ -223,18 +223,18 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             asort($methods);
         }
         if ($asLabelValue) {
-            $labelValues = array();
+            $labelValues = [];
             foreach ($methods as $code => $title) {
-                $labelValues[$code] = array();
+                $labelValues[$code] = [];
             }
             foreach ($methods as $code => $title) {
                 if (isset($groups[$code])) {
                     $labelValues[$code]['label'] = $title;
                 } elseif (isset($groupRelations[$code])) {
                     unset($labelValues[$code]);
-                    $labelValues[$groupRelations[$code]]['value'][$code] = array('value' => $code, 'label' => $title);
+                    $labelValues[$groupRelations[$code]]['value'][$code] = ['value' => $code, 'label' => $title];
                 } else {
-                    $labelValues[$code] = array('value' => $code, 'label' => $title);
+                    $labelValues[$code] = ['value' => $code, 'label' => $title];
                 }
             }
             return $labelValues;
@@ -250,7 +250,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getAllBillingAgreementMethods()
     {
-        $result = array();
+        $result = [];
         $interface = 'Mage_Payment_Model_Billing_Agreement_MethodInterface';
         foreach ($this->getPaymentMethods() as $code => $data) {
             if (!isset($data['model'])) {

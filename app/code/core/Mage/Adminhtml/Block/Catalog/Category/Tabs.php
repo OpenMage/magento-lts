@@ -113,7 +113,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
 
         foreach ($groupCollection as $group) {
             /** @var Mage_Eav_Model_Entity_Attribute_Group $group */
-            $attributes = array();
+            $attributes = [];
             foreach ($categoryAttributes as $attribute) {
                 /** @var Mage_Eav_Model_Entity_Attribute $attribute */
                 if ($attribute->isInGroup($attributeSetId, $group->getId())) {
@@ -132,25 +132,25 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
                 ->setAttributes($attributes)
                 ->setAddHiddenFields($active)
                 ->toHtml();
-            $this->addTab('group_' . $group->getId(), array(
+            $this->addTab('group_' . $group->getId(), [
                 'label'     => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                 'content'   => $block,
                 'active'    => $active
-            ));
+            ]);
         }
 
-        $this->addTab('products', array(
+        $this->addTab('products', [
             'label'     => Mage::helper('catalog')->__('Category Products'),
             'content'   => $this->getLayout()->createBlock(
                 'adminhtml/catalog_category_tab_product',
                 'category.product.grid'
             )->toHtml(),
-        ));
+        ]);
 
         // dispatch event add custom tabs
-        Mage::dispatchEvent('adminhtml_catalog_category_tabs', array(
+        Mage::dispatchEvent('adminhtml_catalog_category_tabs', [
             'tabs'  => $this
-        ));
+        ]);
 
         /*$this->addTab('features', array(
             'label'     => Mage::helper('catalog')->__('Feature Products'),

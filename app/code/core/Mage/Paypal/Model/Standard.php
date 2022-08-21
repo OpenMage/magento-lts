@@ -101,7 +101,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function getOrderPlaceRedirectUrl()
     {
-          return Mage::getUrl('paypal/standard/redirect', array('_secure' => true));
+          return Mage::getUrl('paypal/standard/redirect', ['_secure' => true]);
     }
 
     /**
@@ -133,7 +133,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         }
 
         // add cart totals and line items
-        $api->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+        $api->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($this->_config->lineItemsEnabled)
         ;
         $api->setCartSummary($this->_getAggregatedCartSummary());
@@ -162,7 +162,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     public function getConfig()
     {
         if ($this->_config === null) {
-            $params = array($this->_code);
+            $params = [$this->_code];
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
             }

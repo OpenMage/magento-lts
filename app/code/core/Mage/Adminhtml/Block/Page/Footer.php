@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
 
     public function getUrlForReferer()
     {
-        return $this->getUrlEncoded('*/*/*',array('_current'=>true));
+        return $this->getUrlEncoded('*/*/*', ['_current'=>true]);
     }
 
     public function getRefererParamName()
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
                 ->setValue($locale->getLocaleCode())
                 ->setOptions($locale->getTranslatedOptionLocales())
                 ->getHtml();
-            Mage::app()->saveCache($html, $cacheId, array(self::LOCALE_CACHE_TAG), self::LOCALE_CACHE_LIFETIME);
+            Mage::app()->saveCache($html, $cacheId, [self::LOCALE_CACHE_TAG], self::LOCALE_CACHE_LIFETIME);
         }
 
         return $html;

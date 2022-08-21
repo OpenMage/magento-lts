@@ -358,7 +358,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             ->setDataFromOrder($order, $this)
             ->signRequestData();
 
-        $this->_debug(array('request' => $request->getData()));
+        $this->_debug(['request' => $request->getData()]);
 
         return $request;
     }
@@ -406,9 +406,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
      */
     public function process(array $responseData)
     {
-        $debugData = array(
+        $debugData = [
             'response' => $responseData
-        );
+        ];
         $this->_debug($debugData);
 
         $this->setResponseData($responseData);

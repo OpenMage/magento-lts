@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
 
     public function getImportedFiles()
     {
-        $files = array();
+        $files = [];
         $path = Mage::app()->getConfig()->getTempVarDir().'/import';
         if (!is_readable($path)) {
             return $files;

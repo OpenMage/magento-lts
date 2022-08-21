@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_type;
     protected $_cssClass=null;
 
-    public function __construct($data=array())
+    public function __construct($data= [])
     {
         parent::__construct($data);
     }

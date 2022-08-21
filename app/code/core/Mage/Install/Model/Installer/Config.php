@@ -35,7 +35,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
      */
     protected $_localConfigFile;
 
-    protected $_configData = array();
+    protected $_configData = [];
 
     public function __construct()
     {

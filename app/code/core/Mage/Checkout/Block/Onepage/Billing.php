@@ -48,10 +48,10 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      */
     protected function _construct()
     {
-        $this->getCheckout()->setStepData('billing', array(
+        $this->getCheckout()->setStepData('billing', [
             'label'     => Mage::helper('checkout')->__('Billing Information'),
             'is_show'   => $this->isShow()
-        ));
+        ]);
 
         if ($this->isCustomerLoggedIn()) {
             $this->getCheckout()->setStepData('billing', 'allow', true);

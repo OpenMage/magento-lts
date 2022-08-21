@@ -62,7 +62,7 @@ class Mage_Cms_Model_Observer
         } else {
             $redirect->setRedirect(true)
                 ->setPath('cms/index/noCookies')
-                ->setArguments(array());
+                ->setArguments([]);
         }
         return $this;
     }

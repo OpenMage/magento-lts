@@ -29,12 +29,12 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
 {
     protected $_tmpDir  = '';
     protected $_destDir = '';
-    protected $_allowedMimeTypes = array(
+    protected $_allowedMimeTypes = [
         'jpg' => 'image/jpeg',
         'jpeg' => 'image/jpeg',
         'gif' => 'image/gif',
         'png' => 'image/png'
-    );
+    ];
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
@@ -111,13 +111,13 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
     {
         $fileInfo = pathinfo($filePath);
 
-        return array(
+        return [
             'name' => $fileInfo['basename'],
             'type' => $this->_getMimeTypeByExt($fileInfo['extension']),
             'tmp_name' => $filePath,
             'error' => 0,
             'size' => filesize($filePath)
-        );
+        ];
     }
 
     /**

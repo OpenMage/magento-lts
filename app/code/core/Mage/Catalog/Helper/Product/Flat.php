@@ -65,7 +65,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      *
      * @var array
      */
-    protected $_isEnabled = array();
+    protected $_isEnabled = [];
 
     /**
      * Catalog Product Flat Flag object

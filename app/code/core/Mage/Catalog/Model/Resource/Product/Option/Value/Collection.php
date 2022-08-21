@@ -87,31 +87,31 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
 
         $this->getSelect()
             ->joinLeft(
-                array('default_value_price' => $optionTypePriceTable),
+                ['default_value_price' => $optionTypePriceTable],
                 $joinExprDefaultPrice,
-                array('default_price'=>'price','default_price_type'=>'price_type')
+                ['default_price'=>'price','default_price_type'=>'price_type']
             )
             ->joinLeft(
-                array('store_value_price' => $optionTypePriceTable),
+                ['store_value_price' => $optionTypePriceTable],
                 $joinExprStorePrice,
-                array(
+                [
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                )
+                ]
             )
             ->join(
-                array('default_value_title' => $optionTitleTable),
+                ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                array('default_title' => 'title')
+                ['default_title' => 'title']
             )
             ->joinLeft(
-                array('store_value_title' => $optionTitleTable),
+                ['store_value_title' => $optionTitleTable],
                 $joinExprTitle,
-                array(
+                [
                     'store_title' => 'title',
-                    'title'       => $titleExpr)
+                    'title'       => $titleExpr]
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -134,17 +134,17 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                   . $this->getConnection()->quoteInto('store_value_title.store_id = ?', $storeId);
         $this->getSelect()
             ->join(
-                array('default_value_title' => $optionTitleTable),
+                ['default_value_title' => $optionTitleTable],
                 'default_value_title.option_type_id = main_table.option_type_id',
-                array('default_title' => 'title')
+                ['default_title' => 'title']
             )
             ->joinLeft(
-                array('store_value_title' => $optionTitleTable),
+                ['store_value_title' => $optionTitleTable],
                 $joinExpr,
-                array(
+                [
                     'store_title'   => 'title',
                     'title'         => $titleExpr
-                )
+                ]
             )
             ->where('default_value_title.store_id = ?', Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID);
 
@@ -175,22 +175,22 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
                        . $this->getConnection()->quoteInto('store_value_price.store_id = ?', $storeId);
         $this->getSelect()
             ->joinLeft(
-                array('default_value_price' => $optionTypeTable),
+                ['default_value_price' => $optionTypeTable],
                 $joinExprDefault,
-                array(
+                [
                     'default_price' => 'price',
                     'default_price_type'=>'price_type'
-                )
+                ]
             )
             ->joinLeft(
-                array('store_value_price' => $optionTypeTable),
+                ['store_value_price' => $optionTypeTable],
                 $joinExprStore,
-                array(
+                [
                     'store_price'       => 'price',
                     'store_price_type'  => 'price_type',
                     'price'             => $priceExpr,
                     'price_type'        => $priceTypeExpr
-                )
+                ]
             );
 
         return $this;
@@ -206,10 +206,10 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
     public function getValuesByOption($optionIds, $storeId = null)
     {
         if (!is_array($optionIds)) {
-            $optionIds = array($optionIds);
+            $optionIds = [$optionIds];
         }
 
-        return $this->addFieldToFilter('main_table.option_type_id', array('in' => $optionIds));
+        return $this->addFieldToFilter('main_table.option_type_id', ['in' => $optionIds]);
     }
 
     /**
@@ -223,7 +223,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value_Collection extends Mage_C
         if (empty($option)) {
             $this->addFieldToFilter('option_id', '');
         } elseif (is_array($option)) {
-            $this->addFieldToFilter('option_id', array('in' => $option));
+            $this->addFieldToFilter('option_id', ['in' => $option]);
         } elseif ($option instanceof Mage_Catalog_Model_Product_Option) {
             $this->addFieldToFilter('option_id', $option->getId());
         } else {

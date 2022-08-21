@@ -39,9 +39,9 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_internalStorageList = array(
+    protected $_internalStorageList = [
         Mage_Core_Model_File_Storage::STORAGE_MEDIA_FILE_SYSTEM
-    );
+    ];
 
     /**
      * Return saved storage code
@@ -88,7 +88,7 @@ class Mage_Core_Helper_File_Storage extends Mage_Core_Helper_Abstract
      * @param  array $params
      * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database
      */
-    public function getStorageModel($storage = null, $params = array())
+    public function getStorageModel($storage = null, $params = [])
     {
         return Mage::getSingleton('core/file_storage')->getStorageModel($storage, $params);
     }

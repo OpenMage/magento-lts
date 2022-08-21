@@ -78,8 +78,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Sales_Model_Quote
      */
     public function getQuote()
@@ -93,7 +91,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     public function hasSsCardType()
     {
         $availableTypes = explode(',', $this->getQuote()->getPayment()->getMethod()->getConfigData('cctypes'));
-        $ssPresenations = array_intersect(array('SS', 'SM', 'SO'), $availableTypes);
+        $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
         if ($availableTypes && count($ssPresenations) > 0) {
             return true;
         }

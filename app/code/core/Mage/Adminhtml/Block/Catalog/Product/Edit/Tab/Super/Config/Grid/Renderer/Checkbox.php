@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_C
             return '[]';
         }
 
-        $result = array();
+        $result = [];
         foreach($this->getColumn()->getAttributes() as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             if($productAttribute->getSourceModel()) {
@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid_Renderer_C
             } else {
                 $label = $row->getData($productAttribute->getAttributeCode());
             }
-            $item = array();
+            $item = [];
             $item['label']        = $label;
             $item['attribute_id'] = $productAttribute->getId();
             $item['value_index']  = $row->getData($productAttribute->getAttributeCode());

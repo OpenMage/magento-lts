@@ -75,20 +75,20 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
     public function addWishlistFilter(Mage_Wishlist_Model_Wishlist $wishlist)
     {
         $this->joinTable(
-            array($this->_wishlistItemTableAlias => 'wishlist/item'),
+            [$this->_wishlistItemTableAlias => 'wishlist/item'],
             'product_id=entity_id',
-            array(
+            [
                 'product_id'                => 'product_id',
                 'wishlist_item_description' => 'description',
                 'item_store_id'             => 'store_id',
                 'added_at'                  => 'added_at',
                 'wishlist_id'               => 'wishlist_id',
                 'wishlist_item_id'          => 'wishlist_item_id',
-            ),
-            array(
+            ],
+            [
                 'wishlist_id'               => $wishlist->getId(),
-                'store_id'                  => array('in' => $wishlist->getSharedStoreIds())
-            )
+                'store_id'                  => ['in' => $wishlist->getSharedStoreIds()]
+            ]
         );
 
         $this->_productLimitationFilters['store_table']  = $this->_wishlistItemTableAlias;

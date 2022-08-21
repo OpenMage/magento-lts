@@ -257,7 +257,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         if (empty($types) && $txnId === null) {
             return $this->_children;
         } elseif ($types && !is_array($types)) {
-            $types = array($types);
+            $types = [$types];
         }
 
         // get a specific transaction
@@ -286,7 +286,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
 
         // filter transactions by types
-        $result = array();
+        $result = [];
         foreach ($this->_children as $child) {
             if (in_array($child->getTxnType(), $types, true)) {
                 $result[$child->getId()] = $child;
@@ -411,7 +411,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         $this->_verifyPaymentObject();
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_by_txn_id_before',
-            $this->_getEventData() + array('txn_id' => $txnId)
+            $this->_getEventData() + ['txn_id' => $txnId]
         );
         return $this;
     }
@@ -462,7 +462,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         }
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
@@ -477,7 +477,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         $info = $this->_getData('additional_information');
         if (!$info) {
-            $info = array();
+            $info = [];
         }
         if ($key) {
             return (isset($info[$key]) ? $info[$key] : null);
@@ -498,7 +498,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 unset($info[$key]);
             }
         } else {
-            $info = array();
+            $info = [];
         }
         return $this->setData('additional_information', $info);
     }
@@ -683,8 +683,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             ->addParentIdFilter($this->getId());
 
         // set basic children array and attempt to map them per txn_id, if all of them have txn_id
-        $this->_children = array();
-        $this->_identifiedChildren = array();
+        $this->_children = [];
+        $this->_identifiedChildren = [];
         foreach ($children as $child) {
             if ($payment) {
                 $child->setOrderPaymentObject($payment);
@@ -700,7 +700,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
             }
         }
         if ($this->_identifiedChildren === false) {
-            $this->_identifiedChildren = array();
+            $this->_identifiedChildren = [];
         }
     }
 
@@ -732,13 +732,13 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function getTransactionTypes()
     {
-        return array(
+        return [
             self::TYPE_ORDER   => Mage::helper('sales')->__('Order'),
             self::TYPE_AUTH    => Mage::helper('sales')->__('Authorization'),
             self::TYPE_CAPTURE => Mage::helper('sales')->__('Capture'),
             self::TYPE_VOID    => Mage::helper('sales')->__('Void'),
             self::TYPE_REFUND  => Mage::helper('sales')->__('Refund')
-        );
+        ];
     }
 
     /**
@@ -826,7 +826,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     public function getHtmlTxnId()
     {
-        Mage::dispatchEvent('sales_html_txn_id', array('transaction' => $this, 'payment' => $this->_paymentObject));
+        Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $this, 'payment' => $this->_paymentObject]);
         return isset($this->_data['html_txn_id']) ? $this->_data['html_txn_id'] : $this->getTxnId();
     }
 }

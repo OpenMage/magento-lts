@@ -45,7 +45,7 @@
             <!--<td class="a-center">{$page.orders[io].customer}</td>-->
             <td><?php echo $order->getGrandTotal() ?>&nbsp;</td>
             <td><?php echo $order->getStatus() ?>&nbsp;</td>
-            <td><a href="<?php echo $this->getUrl('customer/order/view', array('order'=>$order->getOrderId())) ?>"><?php echo $this->__('View Order') ?></a>&nbsp;</td>
+            <td><a href="<?php echo $this->getUrl('customer/order/view', ['order'=>$order->getOrderId()]) ?>"><?php echo $this->__('View Order') ?></a>&nbsp;</td>
         </tr>
     <?php endforeach ?>
     </tbody>

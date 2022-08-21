@@ -68,7 +68,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
                 $this->renderLayout();
             }
         } catch (Mage_Core_Exception $e) {
-            $result = array('error' => true, 'message' => $e->getMessage());
+            $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -79,7 +79,7 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
     public function buildWidgetAction()
     {
         $type = $this->getRequest()->getPost('widget_type');
-        $params = $this->getRequest()->getPost('parameters', array());
+        $params = $this->getRequest()->getPost('parameters', []);
         $asIs = $this->getRequest()->getPost('as_is');
         $html = Mage::getSingleton('widget/widget')->getWidgetDeclaration($type, $params, $asIs);
         $this->getResponse()->setBody($html);

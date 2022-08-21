@@ -78,13 +78,13 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
             $collection = $this->helper('catalogsearch')->getSuggestCollection();
             $query = $this->helper('catalogsearch')->getQueryText();
             $counter = 0;
-            $data = array();
+            $data = [];
             foreach ($collection as $item) {
-                $_data = array(
+                $_data = [
                     'title' => $item->getQueryText(),
                     'row_class' => (++$counter)%2?'odd':'even',
                     'num_of_results' => $item->getNumResults()
-                );
+                ];
 
                 if ($item->getQueryText() == $query) {
                     array_unshift($data, $_data);

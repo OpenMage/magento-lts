@@ -24,5 +24,5 @@ $installer = $this;
 $conn = $installer->getConnection();
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $conn */
-$installer->addAttribute('quote_item', 'product_type', array());
-$installer->addAttribute('order_item', 'product_type', array());
+$installer->addAttribute('quote_item', 'product_type', []);
+$installer->addAttribute('order_item', 'product_type', []);

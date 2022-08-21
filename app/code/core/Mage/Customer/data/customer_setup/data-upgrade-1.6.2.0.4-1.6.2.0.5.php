@@ -28,11 +28,11 @@ $eavConfig = Mage::getSingleton('eav/config');
 $customerEntityTypeId = $eavConfig->getEntityType('customer')->getEntityTypeId();
 $customerAddressEntityTypeId = $eavConfig->getEntityType('customer_address')->getEntityTypeId();
 
-$entityTypeIds = array($customerAddressEntityTypeId, $customerEntityTypeId);
+$entityTypeIds = [$customerAddressEntityTypeId, $customerEntityTypeId];
 
 $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
     ->addFieldToFilter('frontend_input', 'multiselect')
-    ->addFieldToFilter('entity_type_id', array('in' => $entityTypeIds))
+    ->addFieldToFilter('entity_type_id', ['in' => $entityTypeIds])
     ->getItems();
 
 foreach ($attributes as $attribute) {
@@ -49,13 +49,13 @@ foreach ($attributes as $attribute) {
             ->disableTableKeys($attributeTableNew);
 
         $select = $connection->select()
-            ->from($attributeTableOld, array('entity_type_id', 'attribute_id', 'entity_id', 'value'))
+            ->from($attributeTableOld, ['entity_type_id', 'attribute_id', 'entity_id', 'value'])
             ->where('entity_type_id = ?', $entityTypeId)
             ->where('attribute_id = ?', $attributeId);
 
         $query = $select->insertFromSelect(
             $attributeTableNew,
-            array('entity_type_id', 'attribute_id', 'entity_id', 'value')
+            ['entity_type_id', 'attribute_id', 'entity_id', 'value']
         );
 
         $connection->query($query);

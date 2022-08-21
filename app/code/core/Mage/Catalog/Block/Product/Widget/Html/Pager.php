@@ -208,7 +208,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
      */
     public function getPages()
     {
-        $pages = array();
+        $pages = [];
         if ($this->getLastPageNum() <= $this->_displayPages) {
             $pages = range(1, $this->getLastPageNum());
         } else {

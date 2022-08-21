@@ -61,16 +61,16 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             return $this;
         }
 
-        $eventArgs = array(
+        $eventArgs = [
             'website_id'        => $store->getWebsiteId(),
             'customer_group_id' => $quote->getCustomerGroupId(),
             'coupon_code'       => $quote->getCouponCode(),
-        );
+        ];
 
         $this->_calculator->init($store->getWebsiteId(), $quote->getCustomerGroupId(), $quote->getCouponCode());
         $this->_calculator->initTotals($items, $address);
 
-        $address->setDiscountDescription(array());
+        $address->setDiscountDescription([]);
         /** @var Mage_Sales_Model_Quote_Item[] $items */
         $items = $this->_calculator->sortItemsByPriority($items);
         foreach ($items as $item) {
@@ -155,11 +155,11 @@ class Mage_SalesRule_Model_Quote_Discount extends Mage_Sales_Model_Quote_Address
             } else {
                 $title = Mage::helper('sales')->__('Discount');
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'  => $this->getCode(),
                 'title' => $title,
                 'value' => $amount
-            ));
+            ]);
         }
         return $this;
     }

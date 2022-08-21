@@ -47,38 +47,38 @@ class Mage_Adminhtml_Block_Permissions_Grid_User extends Mage_Adminhtml_Block_Wi
 
     protected function _prepareColumns()
     {
-        $this->addColumn('user_id', array(
+        $this->addColumn('user_id', [
             'header'    =>Mage::helper('adminhtml')->__('ID'),
             'width'     =>5,
             'align'     =>'right',
             'sortable'  =>true,
             'index'     =>'user_id'
-        ));
-        $this->addColumn('username', array(
+        ]);
+        $this->addColumn('username', [
             'header'    =>Mage::helper('adminhtml')->__('User Name'),
             'index'     =>'username'
-        ));
-        $this->addColumn('firstname', array(
+        ]);
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('adminhtml')->__('First Name'),
             'index'     =>'firstname'
-        ));
-        $this->addColumn('lastname', array(
+        ]);
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('adminhtml')->__('Last Name'),
             'index'     =>'lastname'
-        ));
-        $this->addColumn('email', array(
+        ]);
+        $this->addColumn('email', [
             'header'    =>Mage::helper('adminhtml')->__('Email'),
             'width'     =>40,
             'align'     =>'left',
             'index'     =>'email'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edituser', array('id' => $row->getUserId()));
+        return $this->getUrl('*/*/edituser', ['id' => $row->getUserId()]);
     }
 
 }

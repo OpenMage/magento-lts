@@ -29,8 +29,6 @@ class Mage_Adminhtml_Block_Html_Select extends Mage_Core_Block_Html_Select
 {
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

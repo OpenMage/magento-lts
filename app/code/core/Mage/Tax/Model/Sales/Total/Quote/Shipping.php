@@ -151,8 +151,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             }
         } else {
             $appliedRates = $calc->getAppliedRates($addressTaxRequest);
-            $taxes = array();
-            $baseTaxes = array();
+            $taxes = [];
+            $baseTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $taxId = $appliedRate['id'];

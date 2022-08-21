@@ -21,6 +21,6 @@
 $installer = $this;
 /** @var Mage_Sales_Model_Mysql4_Setup $installer */
 
-$installer->addAttribute('quote', 'customer_gender', array('type' => 'int', 'visible' => false));
+$installer->addAttribute('quote', 'customer_gender', ['type' => 'int', 'visible' => false]);
 
-$installer->addAttribute('order', 'customer_gender', array('type' => 'int', 'visible' => false));
+$installer->addAttribute('order', 'customer_gender', ['type' => 'int', 'visible' => false]);

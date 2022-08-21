@@ -143,7 +143,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function getReviewUrl()
     {
-        return Mage::getUrl('review/product/view', array('id' => $this->getReviewId()));
+        return Mage::getUrl('review/product/view', ['id' => $this->getReviewId()]);
     }
 
     /**
@@ -152,7 +152,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
             $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
@@ -191,7 +191,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function appendSummary($collection)
     {
-        $entityIds = array();
+        $entityIds = [];
         foreach ($collection->getItems() as $_itemId => $_item) {
             $entityIds[] = $_item->getId();
         }

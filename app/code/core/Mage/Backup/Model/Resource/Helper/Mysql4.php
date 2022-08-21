@@ -26,7 +26,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys    = [];
 
     /**
      * Retrieve SQL fragment for drop table
@@ -126,7 +126,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . 'REFERENCES `([^`]*)` \(`([^`]*)`\)'
             . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
             . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?/';
-        $matches = array();
+        $matches = [];
         preg_match_all($regExp, $row['Create Table'], $matches, PREG_SET_ORDER);
 
         if (is_array($matches)) {
@@ -282,8 +282,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $adapter   = $this->_getReadAdapter();
         $describe  = $adapter->describeTable($tableName);
-        $dataTypes = array('bigint', 'mediumint', 'smallint', 'tinyint');
-        $rowData   = array();
+        $dataTypes = ['bigint', 'mediumint', 'smallint', 'tinyint'];
+        $rowData   = [];
         foreach ($row as $k => $v) {
             if ($v === null) {
                 $value = 'NULL';

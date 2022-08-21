@@ -182,7 +182,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
      */
     public function getNumeric($value)
     {
-        static $data = array(
+        static $data = [
             'jan'=>1,
             'feb'=>2,
             'mar'=>3,
@@ -203,7 +203,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             'thu'=>4,
             'fri'=>5,
             'sat'=>6,
-        );
+        ];
 
         if (is_numeric($value)) {
             return $value;

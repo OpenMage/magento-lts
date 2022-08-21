@@ -52,7 +52,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
             ->addColumnCountLayoutDepend('two_columns_right', 4)
             ->addColumnCountLayoutDepend('three_columns', 3);
 
-        $this->addData(array('cache_lifetime' => 86400));
+        $this->addData(['cache_lifetime' => 86400]);
         $this->addCacheTag(Mage_Catalog_Model_Product::CACHE_TAG);
     }
 
@@ -63,7 +63,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
            'CATALOG_PRODUCT_NEW',
            Mage::app()->getStore()->getId(),
            Mage::getDesign()->getPackageName(),
@@ -71,7 +71,7 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
            Mage::getSingleton('customer/session')->getCustomerGroupId(),
            'template' => $this->getTemplate(),
            $this->getProductsCount()
-        );
+        ];
     }
 
     /**
@@ -96,19 +96,19 @@ class Mage_Catalog_Block_Product_New extends Mage_Catalog_Block_Product_Abstract
 
         $collection = $this->_addProductAttributesAndPrices($collection)
             ->addStoreFilter()
-            ->addAttributeToFilter('news_from_date', array('or'=> array(
-                0 => array('date' => true, 'to' => $todayEndOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
-            ->addAttributeToFilter('news_to_date', array('or'=> array(
-                0 => array('date' => true, 'from' => $todayStartOfDayDate),
-                1 => array('is' => new Zend_Db_Expr('null')))
-            ), 'left')
+            ->addAttributeToFilter('news_from_date', ['or'=> [
+                0 => ['date' => true, 'to' => $todayEndOfDayDate],
+                1 => ['is' => new Zend_Db_Expr('null')]]
+            ], 'left')
+            ->addAttributeToFilter('news_to_date', ['or'=> [
+                0 => ['date' => true, 'from' => $todayStartOfDayDate],
+                1 => ['is' => new Zend_Db_Expr('null')]]
+            ], 'left')
             ->addAttributeToFilter(
-                array(
-                    array('attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')),
-                    array('attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null'))
-                    )
+                [
+                    ['attribute' => 'news_from_date', 'is'=>new Zend_Db_Expr('not null')],
+                    ['attribute' => 'news_to_date', 'is'=>new Zend_Db_Expr('not null')]
+                ]
             )
             ->addAttributeToSort('news_from_date', 'desc')
             ->setPageSize($this->getProductsCount())

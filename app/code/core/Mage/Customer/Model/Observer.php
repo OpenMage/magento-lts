@@ -225,7 +225,7 @@ class Mage_Customer_Model_Observer
     {
         $resource   = Mage::getSingleton('core/resource');
         $connection = $resource->getConnection('write');
-        $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
+        $condition  = ['requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day')];
         $connection->delete($resource->getTableName('customer_flowpassword'), $condition);
     }
 

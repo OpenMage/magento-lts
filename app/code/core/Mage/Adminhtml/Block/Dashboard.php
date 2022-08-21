@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         } else {
             $block = $this->getLayout()->createBlock('adminhtml/template')
                 ->setTemplate('dashboard/graph/disabled.phtml')
-                ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', array('section'=>'admin')));
+                ->setConfigUrl($this->getUrl('adminhtml/system_config/edit', ['section'=>'admin']));
         }
         $this->setChild('diagrams', $block);
 
@@ -77,6 +77,6 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current'=>true, 'period'=>null));
+        return $this->getUrl('*/*/*', ['_current'=>true, 'period'=>null]);
     }
 }

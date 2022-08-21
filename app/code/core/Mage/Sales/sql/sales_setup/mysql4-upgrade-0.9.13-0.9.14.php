@@ -28,9 +28,9 @@ $installer->getConnection()->addColumn(
     'customer_taxvat',
     'varchar(255) NULL DEFAULT NULL AFTER `customer_is_guest`'
 );
-$installer->addAttribute('quote', 'customer_taxvat', array('type' => 'static', 'visible' => false));
+$installer->addAttribute('quote', 'customer_taxvat', ['type' => 'static', 'visible' => false]);
 
 // add customer_taxvat
-$installer->addAttribute('order', 'customer_taxvat', array('type' => 'varchar', 'visible' => false));
+$installer->addAttribute('order', 'customer_taxvat', ['type' => 'varchar', 'visible' => false]);
 
 $installer->endSetup();

@@ -36,7 +36,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
      *
      * @var array
      */
-    protected $_emailInfos = array();
+    protected $_emailInfos = [];
 
     /**
      * Add new email info to corresponding list
@@ -66,7 +66,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
             // Handle "Bcc" recipients of the current email
             $emailTemplate->addBcc($emailInfo->getBccEmails());
             // Set required design parameters and delegate email sending to Mage_Core_Model_Email_Template
-            $emailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $this->getStoreId()))
+            $emailTemplate->setDesignConfig(['area' => 'frontend', 'store' => $this->getStoreId()])
                 ->setQueue($this->getQueue())
                 ->sendTransactional(
                     $this->getTemplateId(),

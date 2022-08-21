@@ -97,7 +97,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getReviewUrl($productId)
     {
-        return Mage::getUrl('review/product/list', array('id' => $productId));
+        return Mage::getUrl('review/product/list', ['id' => $productId]);
     }
 
     /**

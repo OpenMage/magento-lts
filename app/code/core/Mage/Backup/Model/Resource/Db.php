@@ -41,7 +41,7 @@ class Mage_Backup_Model_Resource_Db
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys    = [];
 
     /**
      * Initialize Backup DB resource model
@@ -53,8 +53,6 @@ class Mage_Backup_Model_Resource_Db
     }
 
     /**
-     * Enter description here ...
-     *
      * @deprecated after 1.4.0.0-alpha2
      *
      */
@@ -69,7 +67,7 @@ class Mage_Backup_Model_Resource_Db
      */
     public function clear()
     {
-        $this->_foreignKeys = array();
+        $this->_foreignKeys = [];
     }
 
     /**
@@ -183,8 +181,6 @@ class Mage_Backup_Model_Resource_Db
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $tableName
      * @param bool $addDropIfExists
      * @return string

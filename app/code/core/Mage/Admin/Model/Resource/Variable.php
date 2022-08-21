@@ -47,13 +47,13 @@ class Mage_Admin_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abs
     {
         /** @var Mage_Admin_Model_Resource_Variable_Collection $collection */
         $collection = Mage::getResourceModel('admin/variable_collection');
-        $collection->addFieldToFilter('is_allowed', array('eq' => 1));
+        $collection->addFieldToFilter('is_allowed', ['eq' => 1]);
         $data = $collection->getColumnValues('variable_name');
         $data = array_flip($data);
         Mage::app()->saveCache(
             Mage::helper('core')->jsonEncode($data),
             self::CACHE_ID,
-            array(Mage_Core_Model_App::CACHE_TAG)
+            [Mage_Core_Model_App::CACHE_TAG]
         );
     }
 

@@ -85,7 +85,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      *
      * @var array
      */
-    protected $_stores = array();
+    protected $_stores = [];
 
     const STATUS_NEVER = 0;
     const STATUS_SENDING = 1;
@@ -169,7 +169,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      * @param   array   $additionalVariables
      * @return $this
      */
-    public function sendPerSubscriber($count = 20, array $additionalVariables = array())
+    public function sendPerSubscriber($count = 20, array $additionalVariables = [])
     {
         if ($this->getQueueStatus()!=self::STATUS_SENDING
            && ($this->getQueueStatus()!=self::STATUS_NEVER && $this->getQueueStartAt())
@@ -204,7 +204,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $name = $item->getSubscriberFullName();
 
             $sender->emulateDesign($item->getStoreId());
-            $successSend = $sender->send($email, $name, array('subscriber' => $item));
+            $successSend = $sender->send($email, $name, ['subscriber' => $item]);
             $sender->revertDesign();
 
             if ($successSend) {
@@ -247,7 +247,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getDataForSave()
     {
-        $data = array();
+        $data = [];
         $data['template_id'] = $this->getTemplateId();
         $data['queue_status'] = $this->getQueueStatus();
         $data['queue_start_at'] = $this->getQueueStartAt();

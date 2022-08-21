@@ -45,7 +45,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    static protected $_allowedEntityTypes = array(
+    static protected $_allowedEntityTypes = [
         'order'         => 'sales/order',
         'order_item'    => 'sales/order_item',
         'order_address' => 'sales/order_address',
@@ -53,7 +53,7 @@ class Mage_GiftMessage_Model_Message extends Mage_Core_Model_Abstract
         'quote_item'    => 'sales/quote_item',
         'quote_address' => 'sales/quote_address',
         'quote_address_item' => 'sales/quote_address_item'
-    );
+    ];
 
     protected function _construct()
     {

@@ -27,22 +27,22 @@ $installer->startSetup();
  */
 $table = $installer->getConnection()
     ->newTable($installer->getTable('importexport/importdata'))
-    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Id')
-    ->addColumn('entity', Varien_Db_Ddl_Table::TYPE_TEXT, 50, array(
+    ], 'Id')
+    ->addColumn('entity', Varien_Db_Ddl_Table::TYPE_TEXT, 50, [
         'nullable'  => false,
-        ), 'Entity')
-    ->addColumn('behavior', Varien_Db_Ddl_Table::TYPE_TEXT, 10, array(
+    ], 'Entity')
+    ->addColumn('behavior', Varien_Db_Ddl_Table::TYPE_TEXT, 10, [
         'nullable'  => false,
         'default'   => Mage_ImportExport_Model_Import::BEHAVIOR_APPEND,
-        ), 'Behavior')
-    ->addColumn('data', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
+    ], 'Behavior')
+    ->addColumn('data', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', [
         'default'   => '',
-        ), 'Data')
+    ], 'Data')
     ->setComment('Import Data Table');
 $installer->getConnection()->createTable($table);
 
@@ -53,10 +53,10 @@ $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_link'),
     $installer->getIdxName(
         'catalog/product_super_link',
-        array('product_id', 'parent_id'),
+        ['product_id', 'parent_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_id', 'parent_id'),
+    ['product_id', 'parent_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -67,10 +67,10 @@ $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute'),
     $installer->getIdxName(
         'catalog/product_super_attribute',
-        array('product_id', 'attribute_id'),
+        ['product_id', 'attribute_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_id', 'attribute_id'),
+    ['product_id', 'attribute_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -81,10 +81,10 @@ $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_super_attribute_pricing'),
     $installer->getIdxName(
         'catalog/product_super_attribute_pricing',
-        array('product_super_attribute_id', 'value_index', 'website_id'),
+        ['product_super_attribute_id', 'value_index', 'website_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_super_attribute_id', 'value_index', 'website_id'),
+    ['product_super_attribute_id', 'value_index', 'website_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -95,10 +95,10 @@ $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_link_attribute_int'),
     $installer->getIdxName(
         'catalog/product_link_attribute_int',
-        array('product_link_attribute_id', 'link_id'),
+        ['product_link_attribute_id', 'link_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('product_link_attribute_id', 'link_id'),
+    ['product_link_attribute_id', 'link_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 

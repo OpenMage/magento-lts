@@ -52,10 +52,10 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav extends Mage_Catalog_Model
     public function getIndexers()
     {
         if (is_null($this->_types)) {
-            $this->_types   = array(
+            $this->_types   = [
                 'source'    => Mage::getResourceModel('catalog/product_indexer_eav_source'),
                 'decimal'   => Mage::getResourceModel('catalog/product_indexer_eav_decimal'),
-            );
+            ];
         }
 
         return $this->_types;

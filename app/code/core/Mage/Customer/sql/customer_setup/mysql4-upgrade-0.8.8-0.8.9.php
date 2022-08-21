@@ -23,16 +23,16 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->getConnection()->addKey($installer->getTable('customer_address_entity_datetime'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_address_entity_decimal'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_address_entity_int'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_address_entity_text'), 'IDX_VALUE', array('entity_id', 'attribute_id'));
-$installer->getConnection()->addKey($installer->getTable('customer_address_entity_varchar'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
+$installer->getConnection()->addKey($installer->getTable('customer_address_entity_datetime'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_address_entity_decimal'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_address_entity_int'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_address_entity_text'), 'IDX_VALUE', ['entity_id', 'attribute_id']);
+$installer->getConnection()->addKey($installer->getTable('customer_address_entity_varchar'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
 
-$installer->getConnection()->addKey($installer->getTable('customer_entity_datetime'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_entity_decimal'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_entity_int'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
-$installer->getConnection()->addKey($installer->getTable('customer_entity_text'), 'IDX_VALUE', array('entity_id', 'attribute_id'));
-$installer->getConnection()->addKey($installer->getTable('customer_entity_varchar'), 'IDX_VALUE', array('entity_id', 'attribute_id', 'value'));
+$installer->getConnection()->addKey($installer->getTable('customer_entity_datetime'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_entity_decimal'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_entity_int'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
+$installer->getConnection()->addKey($installer->getTable('customer_entity_text'), 'IDX_VALUE', ['entity_id', 'attribute_id']);
+$installer->getConnection()->addKey($installer->getTable('customer_entity_varchar'), 'IDX_VALUE', ['entity_id', 'attribute_id', 'value']);
 
 $installer->endSetup();

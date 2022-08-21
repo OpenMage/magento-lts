@@ -74,7 +74,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             /*
              * '{}' and '!{}' are left for back-compatibility and equal to '==' and '!='
              */
-            $this->_defaultOperatorInputByType['category'] = array('==', '!=', '{}', '!{}', '()', '!()');
+            $this->_defaultOperatorInputByType['category'] = ['==', '!=', '{}', '!{}', '()', '!()'];
             $this->_arrayInputTypes[] = 'category';
         }
         return $this->_defaultOperatorInputByType;
@@ -183,7 +183,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             ->loadAllAttributes()
             ->getAttributesByCode();
 
-        $attributes = array();
+        $attributes = [];
         foreach ($productAttributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
             if (!$attribute->isAllowedForRuleCondition()
@@ -247,7 +247,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 $this->setData('value_select_options', $selectOptions);
             }
             if (!$hashedReady) {
-                $hashedOptions = array();
+                $hashedOptions = [];
                 foreach ($selectOptions as $o) {
                     if (is_array($o['value'])) {
                         continue; // We cannot use array as index
@@ -479,13 +479,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
         $attribute = $this->getAttributeObject();
 
-        $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], array('{}', '!{}'));
+        $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], ['{}', '!{}']);
         if ($attribute && $attribute->getBackendType() == 'decimal' && !$isContainsOperator) {
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
-                    && in_array($arr['operator'], array('!()', '()'))
+                    && in_array($arr['operator'], ['!()', '()'])
                     && strpos($arr['value'], ',') !== false) {
-                    $tmp = array();
+                    $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
                     }
@@ -532,7 +532,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
             if ($attr && $attr->getFrontendInput() == 'multiselect') {
                 $value = $object->getData($attrCode);
-                $value = strlen($value) ? explode(',', $value) : array();
+                $value = strlen($value) ? explode(',', $value) : [];
                 return $this->validateAttribute($value);
             }
 
@@ -547,7 +547,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 if ($attr && $attr->getBackendType() == 'datetime') {
                     $value = strtotime($value);
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
-                    $value = strlen($value) ? explode(',', $value) : array();
+                    $value = strlen($value) ? explode(',', $value) : [];
                 }
 
                 $object->setData($attrCode, $value);

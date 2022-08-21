@@ -51,13 +51,13 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
             $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
         } else if ($this->getRequest()->getParam('website')){
             $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } else if ($this->getRequest()->getParam('group')){
             $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
-            $collection->addFieldToFilter('store_id', array('in' => $storeIds));
+            $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } elseif (!$collection->isLive()) {
             $collection->addFieldToFilter('store_id',
-                array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+                ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
             );
         }
 

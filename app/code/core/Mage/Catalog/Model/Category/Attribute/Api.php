@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
     public function items()
     {
         $attributes = Mage::getModel('catalog/category')->getAttributes();
-        $result = array();
+        $result = [];
 
         foreach ($attributes as $attribute) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
@@ -53,13 +53,13 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
                     $scope = 'store';
                 }
 
-                $result[] = array(
+                $result[] = [
                     'attribute_id' => $attribute->getId(),
                     'code'         => $attribute->getAttributeCode(),
                     'type'         => $attribute->getFrontendInput(),
                     'required'     => $attribute->getIsRequired(),
                     'scope'        => $scope
-                );
+                ];
             }
         }
 
@@ -84,16 +84,16 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
             $this->_fault('not_exists');
         }
 
-        $result = array();
+        $result = [];
         if ($attribute->usesSource()) {
             foreach ($attribute->getSource()->getAllOptions(false) as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $result[] = $optionValue;
                 } else {
-                    $result[] = array(
+                    $result[] = [
                         'value' => $optionId,
                         'label' => $optionValue
-                    );
+                    ];
                 }
             }
         }

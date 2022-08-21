@@ -88,7 +88,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieveCollection()
     {
-        $data = array();
+        $data = [];
         /** @var Mage_Customer_Model_Address $address */
         foreach ($this->_getCollectionForRetrieve() as $address) {
             $addressData           = $address->getData();
@@ -122,10 +122,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
-        return array(
+        return [
             'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
             'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
-        );
+        ];
     }
 
     /**

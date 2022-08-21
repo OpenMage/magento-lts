@@ -45,7 +45,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
 
         Mage::helper('core')->copyFieldset('sales_convert_order', 'to_quote', $order, $quote);
 
-        Mage::dispatchEvent('sales_convert_order_to_quote', array('order'=>$order, 'quote'=>$quote));
+        Mage::dispatchEvent('sales_convert_order_to_quote', ['order'=>$order, 'quote'=>$quote]);
         return $quote;
     }
 

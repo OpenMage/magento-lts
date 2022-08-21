@@ -46,10 +46,10 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
     public function getTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('core/html_select')
-            ->setData(array(
+            ->setData([
                 'id'    => 'quick_search_type_id',
                 'class' => 'select guest-select',
-            ))
+            ])
             ->setName('oar_type')
             ->setOptions($this->_getFormOptions())
             ->setExtraParams('onchange="showIdentifyBlock(this.value);"');
@@ -65,15 +65,15 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
     {
         $options = $this->getData('identifymeby_options');
         if (is_null($options)) {
-            $options = array();
-            $options[] = array(
+            $options = [];
+            $options[] = [
                 'value' => 'email',
                 'label' => 'Email Address'
-            );
-            $options[] = array(
+            ];
+            $options[] = [
                 'value' => 'zip',
                 'label' => 'ZIP Code'
-            );
+            ];
             $this->setData('identifymeby_options', $options);
         }
 
@@ -87,6 +87,6 @@ class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implem
      */
     public function getActionUrl()
     {
-        return $this->getUrl('sales/guest/view', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('sales/guest/view', ['_secure' => $this->_isSecure()]);
     }
 }

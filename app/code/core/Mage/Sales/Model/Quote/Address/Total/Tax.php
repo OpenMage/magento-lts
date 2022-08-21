@@ -21,7 +21,7 @@
 
 class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
-    protected $_appliedTaxes = array();
+    protected $_appliedTaxes = [];
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $address->setBaseTaxAmount(0);
         //$address->setShippingTaxAmount(0);
         //$address->setBaseShippingTaxAmount(0);
-        $address->setAppliedTaxes(array());
+        $address->setAppliedTaxes([]);
 
         $items = $address->getAllItems();
         if (!count($items)) {
@@ -250,12 +250,12 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $amount = $address->getTaxAmount();
 
         if (($amount!=0) || (Mage::helper('tax')->displayZeroTax($store))) {
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'=>$this->getCode(),
                 'title'=>Mage::helper('sales')->__('Tax'),
-                'full_info'=>$applied ? $applied : array(),
+                'full_info'=>$applied ? $applied : [],
                 'value'=>$amount
-            ));
+            ]);
         }
         return $this;
     }

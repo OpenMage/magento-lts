@@ -51,6 +51,6 @@ class Mage_Customer_Model_Form extends Mage_Eav_Model_Form
     protected function _getFormAttributeCollection()
     {
         return parent::_getFormAttributeCollection()
-            ->addFieldToFilter('attribute_code', array('neq' => 'created_at'));
+            ->addFieldToFilter('attribute_code', ['neq' => 'created_at']);
     }
 }

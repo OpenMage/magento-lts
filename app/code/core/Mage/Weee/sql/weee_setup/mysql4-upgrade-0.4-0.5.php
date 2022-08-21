@@ -23,10 +23,10 @@ $installer = $this;
 
 $installer->startSetup();
 
-$installer->addAttribute('quote_item', 'weee_tax_applied_amount', array('type'=>'decimal'));
-$installer->addAttribute('quote_item', 'weee_tax_applied_row_amount', array('type'=>'decimal'));
+$installer->addAttribute('quote_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
+$installer->addAttribute('quote_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
 
-$installer->addAttribute('order_item', 'weee_tax_applied_amount', array('type'=>'decimal'));
-$installer->addAttribute('order_item', 'weee_tax_applied_row_amount', array('type'=>'decimal'));
+$installer->addAttribute('order_item', 'weee_tax_applied_amount', ['type'=>'decimal']);
+$installer->addAttribute('order_item', 'weee_tax_applied_row_amount', ['type'=>'decimal']);
 
 $installer->endSetup();

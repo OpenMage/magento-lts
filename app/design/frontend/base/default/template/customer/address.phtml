@@ -34,7 +34,7 @@
                         <?php echo $_address->format('html') ?>
                     </address>
                     <p>
-                        <strong><a href="<?php echo $this->getUrl('customer/address/form', array('address'=>$_address->getAddressId())) ?>" class="red-link"><?php echo $this->__('Edit Address') ?></a></strong>
+                        <strong><a href="<?php echo $this->getUrl('customer/address/form', ['address'=>$_address->getAddressId()]) ?>" class="red-link"><?php echo $this->__('Edit Address') ?></a></strong>
                     </p>
                     </td>
                 </tr>
@@ -58,7 +58,7 @@
                         <?php echo $_address->format('html') ?>
                     </address>
                     <p>
-                        <strong><a href="<?php echo $this->getUrl('customer/address/form', array('address'=>$_address->getAddressId())) ?>" class="red-link"><?php echo $this->__('Edit Address') ?></a></strong><span class="separator">&nbsp;|&nbsp;</span><strong><a href="#" onclick="return deleteAddress('<?php echo $_address->getAddressId() ?>');" class="red-link"><?php echo $this->__('Delete Address') ?></a></strong>
+                        <strong><a href="<?php echo $this->getUrl('customer/address/form', ['address'=>$_address->getAddressId()]) ?>" class="red-link"><?php echo $this->__('Edit Address') ?></a></strong><span class="separator">&nbsp;|&nbsp;</span><strong><a href="#" onclick="return deleteAddress('<?php echo $_address->getAddressId() ?>');" class="red-link"><?php echo $this->__('Delete Address') ?></a></strong>
                     </p>
                     </td>
                 </tr>

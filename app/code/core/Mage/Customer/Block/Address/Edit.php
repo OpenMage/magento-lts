@@ -48,7 +48,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
         if ($id = $this->getRequest()->getParam('id')) {
             $this->_address->load($id);
             if ($this->_address->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()) {
-                $this->_address->setData(array());
+                $this->_address->setData([]);
             }
         }
 
@@ -121,7 +121,7 @@ class Mage_Customer_Block_Address_Edit extends Mage_Directory_Block_Data
      */
     public function getSaveUrl()
     {
-        return Mage::getUrl('customer/address/formPost', array('_secure'=>true, 'id'=>$this->getAddress()->getId()));
+        return Mage::getUrl('customer/address/formPost', ['_secure'=>true, 'id'=>$this->getAddress()->getId()]);
     }
 
     /**

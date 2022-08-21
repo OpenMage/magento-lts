@@ -43,10 +43,10 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         $this->_initMessageTemplates();
 
         //parent construct with options
-        parent::__construct(array(
+        parent::__construct([
              'haystack' => $haystack,
              'strict'   => true,
-        ));
+        ]);
     }
 
     /**
@@ -57,10 +57,10 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::NOT_IN_ARRAY =>
                     Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
-            );
+            ];
         }
         return $this;
     }

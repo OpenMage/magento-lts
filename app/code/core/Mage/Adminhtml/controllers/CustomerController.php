@@ -40,7 +40,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete', 'massDelete'));
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
@@ -239,7 +239,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     $this->_getSession()->addError($error);
                 }
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             }
 
@@ -250,7 +250,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 unset($data['address']['_template_']);
             }
 
-            $modifiedAddresses = array();
+            $modifiedAddresses = [];
             if (!empty($data['address'])) {
                 /** @var Mage_Customer_Model_Form $addressForm */
                 $addressForm = Mage::getModel('customer/form');
@@ -280,8 +280,8 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                             $this->_getSession()->addError($error);
                         }
                         $this->_getSession()->setCustomerData($data);
-                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array(
-                            'id' => $customer->getId())
+                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', [
+                            'id' => $customer->getId()]
                         ));
                         return;
                     }
@@ -341,10 +341,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     }
                 }
 
-                Mage::dispatchEvent('adminhtml_customer_prepare_save', array(
+                Mage::dispatchEvent('adminhtml_customer_prepare_save', [
                     'customer'  => $customer,
                     'request'   => $this->getRequest()
-                ));
+                ]);
 
                 $customer->save();
 
@@ -377,28 +377,28 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('The customer has been saved.')
                 );
-                Mage::dispatchEvent('adminhtml_customer_save_after', array(
+                Mage::dispatchEvent('adminhtml_customer_save_after', [
                     'customer'  => $customer,
                     'request'   => $this->getRequest()
-                ));
+                ]);
 
                 if ($redirectBack) {
-                    $this->_redirect('*/*/edit', array(
+                    $this->_redirect('*/*/edit', [
                         'id' => $customer->getId(),
                         '_current' => true
-                    ));
+                    ]);
                     return;
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id' => $customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
             } catch (Exception $e) {
                 $this->_getSession()->addException($e,
                     Mage::helper('adminhtml')->__('An error occurred while saving the customer.'));
                 $this->_getSession()->setCustomerData($data);
-                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array('id'=>$customer->getId())));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id'=>$customer->getId()]));
                 return;
             }
         }
@@ -801,7 +801,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $path = Mage::getBaseDir('media') . DS . 'customer';
 
         $ioFile = new Varien_Io_File();
-        $ioFile->open(array('path' => $path));
+        $ioFile->open(['path' => $path]);
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 
@@ -846,10 +846,10 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             }
         } else {
             $name = pathinfo($fileName, PATHINFO_BASENAME);
-            $this->_prepareDownloadResponse($name, array(
+            $this->_prepareDownloadResponse($name, [
                 'type'  => 'filename',
                 'value' => $fileName
-            ));
+            ]);
         }
 
         exit();
@@ -863,7 +863,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
      */
     protected function _filterPostData($data)
     {
-        $data['account'] = $this->_filterDates($data['account'], array('dob'));
+        $data['account'] = $this->_filterDates($data['account'], ['dob']);
         return $data;
     }
 }

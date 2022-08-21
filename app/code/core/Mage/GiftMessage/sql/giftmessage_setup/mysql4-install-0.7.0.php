@@ -39,14 +39,14 @@ CREATE TABLE {$this->getTable('gift_message')} (
 
 $installer->endSetup();
 
-$installer->addAttribute('quote', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('catalog_product', 'gift_message_available', array(
+$installer->addAttribute('quote', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_available', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('catalog_product', 'gift_message_available', [
         'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
         'frontend'      => '',
         'label'         => 'Allow Gift Message',
@@ -59,4 +59,4 @@ $installer->addAttribute('catalog_product', 'gift_message_available', array(
         'user_defined'  => false,
         'default'       => '2',
         'visible_on_front' => false
-    ));
+]);

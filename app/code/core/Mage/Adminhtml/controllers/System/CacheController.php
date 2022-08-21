@@ -79,8 +79,8 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         }
 
         $e = $this->getRequest()->getPost('enable');
-        $enable = array();
-        $clean  = array();
+        $enable = [];
+        $clean  = [];
         $cacheTypes = array_keys(Mage::helper('core')->getCacheTypes());
         foreach ($cacheTypes as $type) {
             $flag = $allCache!='disable' && (!empty($e[$type]) || $allCache=='enable');

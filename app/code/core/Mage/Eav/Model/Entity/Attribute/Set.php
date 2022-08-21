@@ -73,7 +73,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             ->setAttributeSetFilter($skeletonId)
             ->load();
 
-        $newGroups = array();
+        $newGroups = [];
         /** @var Mage_Eav_Model_Entity_Attribute_Group $group */
         foreach ($groups as $group) {
             $newGroup = clone $group;
@@ -86,7 +86,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 ->setAttributeGroupFilter($group->getId())
                 ->load();
 
-            $newAttributes = array();
+            $newAttributes = [];
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             foreach ($groupAttributesCollection as $attribute) {
                 $newAttribute = Mage::getModel('eav/entity_attribute')
@@ -113,11 +113,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      */
     public function organizeData($data)
     {
-        $modelGroupArray = array();
-        $modelAttributeArray = array();
-        $attributeIds = array();
+        $modelGroupArray = [];
+        $modelAttributeArray = [];
+        $attributeIds = [];
         if ($data['attributes']) {
-            $ids = array();
+            $ids = [];
             foreach ($data['attributes'] as $attribute) {
                 $ids[] = $attribute[0];
             }
@@ -145,7 +145,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                         }
                     }
                     $modelGroup->setAttributes($modelAttributeArray);
-                    $modelAttributeArray = array();
+                    $modelAttributeArray = [];
                 }
                 $modelGroupArray[] = $modelGroup;
             }
@@ -154,7 +154,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 
 
         if ($data['not_attributes']) {
-            $modelAttributeArray = array();
+            $modelAttributeArray = [];
             foreach ($data['not_attributes'] as $attributeId) {
                 $modelAttribute = Mage::getModel('eav/entity_attribute');
 
@@ -165,7 +165,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         }
 
         if ($data['removeGroups']) {
-            $modelGroupArray = array();
+            $modelGroupArray = [];
             foreach ($data['removeGroups'] as $groupId) {
                 $modelGroup = Mage::getModel('eav/entity_attribute_group');
                 $modelGroup->setId($groupId);
@@ -208,7 +208,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      */
     public function addSetInfo($entityType, array $attributes, $setId = null)
     {
-        $attributeIds   = array();
+        $attributeIds   = [];
         $config         = Mage::getSingleton('eav/config');
         $entityType     = $config->getEntityType($entityType);
         foreach ($attributes as $attribute) {
@@ -237,7 +237,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 if (is_numeric($setId)) {
                     $attributeSetInfo = $attribute->getAttributeSetInfo();
                     if (!is_array($attributeSetInfo)) {
-                        $attributeSetInfo = array();
+                        $attributeSetInfo = [];
                     }
                     if (isset($setInfo[$attribute->getAttributeId()][$setId])) {
                         $attributeSetInfo[$setId] = $setInfo[$attribute->getAttributeId()][$setId];
@@ -247,7 +247,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                     if (isset($setInfo[$attribute->getAttributeId()])) {
                         $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
                     } else {
-                        $attribute->setAttributeSetInfo(array());
+                        $attribute->setAttributeSetInfo([]);
                     }
                 }
             }

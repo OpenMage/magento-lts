@@ -32,7 +32,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      *
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setId('api2_attributes');
@@ -48,7 +48,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
 
         foreach (Mage_Api2_Model_Auth_User::getUserTypes() as $type => $label) {
             $collection->addItem(
-                new Varien_Object(array('user_type_name' => $label, 'user_type_code' => $type))
+                new Varien_Object(['user_type_name' => $label, 'user_type_code' => $type])
             );
         }
 
@@ -62,10 +62,10 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('user_type_name', array(
+        $this->addColumn('user_type_name', [
             'header'    => $this->__('User Type'),
             'index'     => 'user_type_name'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -94,7 +94,7 @@ class Mage_Api2_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widg
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         if ($session->isAllowed('system/api/attributes/edit')) {
-            return $this->getUrl('*/*/edit', array('type' => $row->getUserTypeCode()));
+            return $this->getUrl('*/*/edit', ['type' => $row->getUserTypeCode()]);
         }
 
         return null;

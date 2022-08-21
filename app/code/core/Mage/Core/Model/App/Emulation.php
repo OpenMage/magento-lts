@@ -46,7 +46,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -150,11 +150,11 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      */
     protected function _emulateDesign($storeId, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {
-        $initialDesign = Mage::getDesign()->setAllGetOld(array(
+        $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
             'area'    => $area
-        ));
+        ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');
         return $initialDesign;

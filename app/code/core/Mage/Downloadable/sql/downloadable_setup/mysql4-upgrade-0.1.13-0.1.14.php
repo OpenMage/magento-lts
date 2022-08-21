@@ -36,16 +36,16 @@ $conn->addConstraint(
 );
 
 $select = $installer->getConnection()->select()
-    ->from($installer->getTable('downloadable/link_purchased_item'), array(
+    ->from($installer->getTable('downloadable/link_purchased_item'), [
         'purchased_id',
         'order_item_id',
-    ));
+    ]);
 $result = $installer->getConnection()->fetchAll($select);
 
 foreach ($result as $row) {
     $installer->getConnection()->update(
         $installer->getTable('downloadable/link_purchased'),
-        array('order_item_id' => $row['order_item_id']),
+        ['order_item_id' => $row['order_item_id']],
         $installer->getConnection()->quoteInto('purchased_id = ?', $row['purchased_id'])
     );
 }

@@ -81,11 +81,11 @@ class Mage_Paygate_Block_Authorizenet_Info_Cc extends Mage_Payment_Block_Info_Cc
     public function getCards()
     {
         $cardsData = $this->getMethod()->getCardsStorage()->getCards();
-        $cards = array();
+        $cards = [];
 
         if (is_array($cardsData)) {
             foreach ($cardsData as $cardInfo) {
-                $data = array();
+                $data = [];
                 if ($cardInfo->getProcessedAmount()) {
                     $amount = Mage::helper('core')->currency($cardInfo->getProcessedAmount(), true, false);
                     $data[Mage::helper('paygate')->__('Processed Amount')] = $amount;

@@ -42,7 +42,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
      */
     public function getIsHomePage()
     {
-        return $this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true));
+        return $this->getUrl('') == $this->getUrl('*/*/*', ['_current'=>true, '_use_rewrite'=>true]);
     }
 
     /**

@@ -31,9 +31,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('sendfriend/sendfriend'),
-    array(
+    [
          'ip' => new Zend_Db_Expr('UNHEX(HEX(CAST(ip as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();

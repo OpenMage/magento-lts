@@ -36,14 +36,14 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_storeCategories = array();
+    protected $_storeCategories = [];
 
     /**
      * Cache for category rewrite suffix
      *
      * @var array
      */
-    protected $_categoryUrlSuffix = array();
+    protected $_categoryUrlSuffix = [];
 
     /**
      * Retrieve current store categories
@@ -71,7 +71,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
             if ($asCollection) {
                 return new Varien_Data_Collection();
             }
-            return array();
+            return [];
         }
 
         $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));

@@ -40,32 +40,32 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
      *
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Category::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Category::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store::ENTITY => array(
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store_Group::ENTITY => array(
+        ],
+        Mage_Core_Model_Store_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Config_Data::ENTITY => array(
+        ],
+        Mage_Core_Model_Config_Data::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => array(
+        ],
+        Mage_Catalog_Model_Convert_Adapter_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
-    protected $_relatedConfigSettings = array(
+    protected $_relatedConfigSettings = [
         Mage_Catalog_Helper_Category::XML_PATH_CATEGORY_URL_SUFFIX,
         Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_SUFFIX,
         Mage_Catalog_Helper_Product::XML_PATH_PRODUCT_URL_USE_CATEGORY,
-    );
+    ];
 
     /**
      * Get Indexer name
@@ -180,7 +180,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             || $product->getIsChangedWebsites();
 
         if (!$product->getExcludeUrlRewrite() && $dataChange) {
-            $event->addNewData('rewrite_product_ids', array($product->getId()));
+            $event->addNewData('rewrite_product_ids', [$product->getId()]);
         }
     }
 
@@ -194,7 +194,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
         $category = $event->getDataObject();
         if (!$category->getInitialSetupFlag() && $category->getLevel() > 1) {
             if ($category->dataHasChangedFor('url_key') || $category->getIsChangedProductList()) {
-                $event->addNewData('rewrite_category_ids', array($category->getId()));
+                $event->addNewData('rewrite_category_ids', [$category->getId()]);
             }
             /**
              * Check if category has another affected category ids (category move result)

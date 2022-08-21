@@ -105,7 +105,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      *
      * @var array
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * Add filter
@@ -258,11 +258,11 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
             throw new Exception("Helper filtration method is not set");
         }
         if (!isset($filterData['args']) || empty($filterData['args'])) {
-            $filterData['args'] = array();
+            $filterData['args'] = [];
         }
-        $filterData['args'] = array(-100 => $value) + $filterData['args'];
+        $filterData['args'] = [-100 => $value] + $filterData['args'];
         // apply filter
-        $value = call_user_func_array(array($helper, $filterData['method']), $filterData['args']);
+        $value = call_user_func_array([$helper, $filterData['method']], $filterData['args']);
         return $value;
     }
 

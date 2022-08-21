@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Con
     {
         $res = $this->getResource();
 
-        $this->setData(array(
+        $this->setData([
             'Products' => $res->exportProducts(),
             'Categories' => $res->exportCategories(),
             'Image Gallery' => $res->exportImageGallery(),
@@ -49,7 +49,7 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Con
             'Attributes' => $res->exportAttributes(),
             'Attribute Sets' => $res->exportAttributeSets(),
             'Attribute Options' => $res->exportAttributeOptions(),
-        ));
+        ]);
 
         return $this;
     }

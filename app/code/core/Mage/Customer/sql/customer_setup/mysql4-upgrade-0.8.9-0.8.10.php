@@ -24,21 +24,21 @@ $installer = $this;
 $tableCustomer =
 $tableCustomerAddress = $this->getTable('customer/address_entity');
 
-$types = array('datetime', 'decimal', 'int', 'text', 'varchar');
+$types = ['datetime', 'decimal', 'int', 'text', 'varchar'];
 
-$tables = array($this->getTable('customer/entity'),
-    $this->getTable('customer/address_entity'));
+$tables = [$this->getTable('customer/entity'),
+    $this->getTable('customer/address_entity')];
 
 foreach ($tables as $table) {
     foreach ($types as $type) {
         $tableName = $table . '_' . $type;
 
         $select = $installer->getConnection()->select()
-            ->from($tableName, array(
+            ->from($tableName, [
                 'entity_id'         => 'entity_id',
                 'attribute_id'      => 'attribute_id',
-                'rows_count'        => 'COUNT(*)'))
-            ->group(array('entity_id', 'attribute_id'))
+                'rows_count'        => 'COUNT(*)'])
+            ->group(['entity_id', 'attribute_id'])
             ->having('rows_count > 1');
         $query = $installer->getConnection()->query($select);
 
@@ -46,12 +46,12 @@ foreach ($tables as $table) {
             $sql = 'DELETE FROM `' . $tableName . '`'
                 . ' WHERE entity_id=? AND attribute_id=?'
                 . ' LIMIT ' . ($row['rows_count'] - 1);
-            $installer->getConnection()->query($sql, array(
+            $installer->getConnection()->query($sql, [
                 $row['entity_id'],
                 $row['attribute_id']
-            ));
+            ]);
         }
 
-        $installer->getConnection()->addKey($tableName, 'IDX_ATTRIBUTE_VALUE', array('entity_id', 'attribute_id'), 'unique');
+        $installer->getConnection()->addKey($tableName, 'IDX_ATTRIBUTE_VALUE', ['entity_id', 'attribute_id'], 'unique');
     }
 }

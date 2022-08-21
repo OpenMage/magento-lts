@@ -155,7 +155,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
     protected function _resortFoundDataByRelevance()
     {
         if (is_array($this->_foundData)) {
-            $data = array();
+            $data = [];
             foreach ($this->_foundData as $id => $relevance) {
                 $this->_foundData[$id] = $relevance . '_' . $id;
             }

@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
         $precision  = null;
         $scale      = null;
 
-        $matches = array();
+        $matches = [];
         if (preg_match('/^((?:var)?char)\((\d+)\)/', $type, $matches)) {
             $type       = $matches[1];
             $length     = $matches[2];

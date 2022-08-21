@@ -95,7 +95,7 @@ class Mage_Sales_Block_Adminhtml_Billing_Agreement_View_Tab_Orders extends Mage_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/ordersGrid', array('_current'=>true));
+        return $this->getUrl('*/*/ordersGrid', ['_current'=>true]);
     }
 
     /**

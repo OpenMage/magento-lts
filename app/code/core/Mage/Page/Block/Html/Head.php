@@ -150,13 +150,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
-        $this->_data['items'][$type . '/' . $name] = array(
+        $this->_data['items'][$type . '/' . $name] = [
             'type' => $type,
             'name' => $name,
             'params' => $params,
             'if' => $if,
             'cond' => $cond,
-        );
+        ];
 
         // that is the standard behaviour
         if ($referenceName === '*' && $before === false) {
@@ -190,7 +190,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     public function getCssJsHtml()
     {
         // separate items by types
-        $lines  = array();
+        $lines  = [];
         foreach ($this->_data['items'] as $item) {
             if (!is_null($item['cond']) && !$this->getData($item['cond']) || !isset($item['name'])) {
                 continue;
@@ -230,17 +230,17 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             // static and skin css
             $html .= $this->_prepareStaticAndSkinElements(
                 '<link rel="stylesheet" type="text/css" href="%s"%s />'."\n",
-                empty($items['js_css']) ? array() : $items['js_css'],
-                empty($items['skin_css']) ? array() : $items['skin_css'],
-                $shouldMergeCss ? array(Mage::getDesign(), 'getMergedCssUrl') : null
+                empty($items['js_css']) ? [] : $items['js_css'],
+                empty($items['skin_css']) ? [] : $items['skin_css'],
+                $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null
             );
 
             // static and skin javascripts
             $html .= $this->_prepareStaticAndSkinElements(
                 '<script type="text/javascript" src="%s"%s></script>' . "\n",
-                empty($items['js']) ? array() : $items['js'],
-                empty($items['skin_js']) ? array() : $items['skin_js'],
-                $shouldMergeJs ? array(Mage::getDesign(), 'getMergedJsUrl') : null
+                empty($items['js']) ? [] : $items['js'],
+                empty($items['skin_js']) ? [] : $items['skin_js'],
+                $shouldMergeJs ? [Mage::getDesign(), 'getMergedJsUrl'] : null
             );
 
             // other stuff
@@ -281,7 +281,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     ) {
         $designPackage = Mage::getDesign();
         $baseJsUrl = Mage::getBaseUrl('js');
-        $items = array();
+        $items = [];
         if ($mergeCallback && !is_callable($mergeCallback)) {
             $mergeCallback = null;
         }
@@ -296,8 +296,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // lookup each file basing on current theme configuration
         foreach ($skinItems as $params => $rows) {
             foreach ($rows as $name) {
-                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, array('_type' => 'skin'))
-                    : $designPackage->getSkinUrl($name, array());
+                $items[$params][] = $mergeCallback ? $designPackage->getFilename($name, ['_type' => 'skin'])
+                    : $designPackage->getSkinUrl($name, []);
             }
         }
 
@@ -373,7 +373,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      */
     public function getChunkedItems($items, $prefix = '', $maxLen = 450)
     {
-        $chunks = array();
+        $chunks = [];
         $chunk  = $prefix;
         foreach ($items as $item) {
             if (strlen($chunk.','.$item)>$maxLen) {
@@ -574,7 +574,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $newKey = key($items);
         $newVal = array_pop($items);
 
-        $newItems = array();
+        $newItems = [];
 
         if ($referenceName === '*' && $before === true) {
             $newItems[$newKey] = $newVal;

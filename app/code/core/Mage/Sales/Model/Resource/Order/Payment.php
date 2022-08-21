@@ -33,9 +33,9 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      *
      * @var array
      */
-    protected $_serializableFields   = array(
-        'additional_information' => array(null, array())
-    );
+    protected $_serializableFields   = [
+        'additional_information' => [null, []]
+    ];
 
     /**
      * Event prefix

@@ -60,21 +60,21 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('variable_id', array(
+        $this->addColumn('variable_id', [
             'header'    => Mage::helper('adminhtml')->__('Variable ID'),
             'width'     => '1',
             'index'     => 'variable_id',
-        ));
+        ]);
 
-        $this->addColumn('code', array(
+        $this->addColumn('code', [
             'header'    => Mage::helper('adminhtml')->__('Variable Code'),
             'index'     => 'code',
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('adminhtml')->__('Name'),
             'index'     => 'name',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -86,6 +86,6 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('variable_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['variable_id' => $row->getId()]);
     }
 }

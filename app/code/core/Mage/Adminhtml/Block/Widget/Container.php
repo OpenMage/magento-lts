@@ -41,11 +41,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      *
      * @var array
      */
-    protected $_buttons = array(
-        -1  => array(),
-        0   => array(),
-        1   => array(),
-    );
+    protected $_buttons = [
+        -1  => [],
+        0   => [],
+        1   => [],
+    ];
 
     /**
      * Header text
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
     {
         if (!isset($this->_buttons[$level])) {
-            $this->_buttons[$level] = array();
+            $this->_buttons[$level] = [];
         }
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
@@ -215,7 +215,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
     {
         $out = '';
         foreach ($this->_buttons as $level => $buttons) {
-            $_buttons = array();
+            $_buttons = [];
             foreach ($buttons as $id => $data) {
                 $_buttons[$data['sort_order']]['id'] = $id;
                 $_buttons[$data['sort_order']]['data'] = $data;
@@ -298,7 +298,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _toHtml()
     {
-        Mage::dispatchEvent('adminhtml_widget_container_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_widget_container_html_before', ['block' => $this]);
         return parent::_toHtml();
     }
 }

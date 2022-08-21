@@ -36,7 +36,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
     public function getLinks(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         $product = $item->getProduct();
-        $itemLinks = array();
+        $itemLinks = [];
         $linkIds = $item->getOptionByCode('downloadable_link_ids');
         if ($linkIds) {
             $productLinks = $product->getTypeInstance(true)
@@ -77,10 +77,10 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
 
         $links = $this->getLinks($item);
         if ($links) {
-            $linksOption = array(
+            $linksOption = [
                 'label' => $this->getLinksTitle($item->getProduct()),
-                'value' => array()
-            );
+                'value' => []
+            ];
             foreach ($links as $link) {
                 $linksOption['value'][] = $link->getTitle();
             }

@@ -84,7 +84,7 @@ class Mage_Api2_Model_Acl_Filter
     public function collectionIn($items)
     {
         foreach ($items as &$data) {
-            $data = is_array($data) ? $this->in($data) : array();
+            $data = is_array($data) ? $this->in($data) : [];
         }
         return $items;
     }

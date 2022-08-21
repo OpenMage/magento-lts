@@ -119,12 +119,12 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      * @param array $options
      * @return string
      */
-    public function escapeLikeValue($value, $options = array())
+    public function escapeLikeValue($value, $options = [])
     {
         $value = str_replace('\\', '\\\\', $value);
 
-        $from = array();
-        $to = array();
+        $from = [];
+        $to = [];
         if (empty($options['allow_symbol_mask'])) {
             $from[] = '_';
             $to[] = '\_';
@@ -164,7 +164,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * @see escapeLikeValue()
      */
-    abstract public function addLikeEscape($value, $options = array());
+    abstract public function addLikeEscape($value, $options = []);
 
     /**
      * Returns case insensitive LIKE construction.
@@ -177,7 +177,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
      *
      * @see escapeLikeValue()
      */
-    public function getCILike($field, $value, $options = array())
+    public function getCILike($field, $value, $options = [])
     {
         $quotedField = $this->_getReadAdapter()->quoteIdentifier($field);
         return new Zend_Db_Expr($quotedField . ' LIKE ' . $this->addLikeEscape($value, $options));
@@ -195,7 +195,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     public function convertOldColumnDefinition($column)
     {
         // Match type and size - e.g. varchar(100) or decimal(12,4) or int
-        $matches    = array();
+        $matches    = [];
         $definition = trim($column['type']);
         if (!preg_match('/([^(]*)(\\((.*)\\))?/', $definition, $matches)) {
             throw Mage::exception(
@@ -299,14 +299,14 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 );
         }
 
-        $result = array(
+        $result = [
             'type'     => $type,
             'length'   => $length,
             'unsigned' => $column['unsigned'],
             'nullable' => $column['is_null'],
             'default'  => $column['default'],
             'identity' => stripos($column['extra'], 'auto_increment') !== false
-        );
+        ];
 
         /**
          * Process the case when 'is_null' prohibits null value, and 'default' proposed to be null.

@@ -65,11 +65,11 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $this->loadRoles($acl, $rolesArr);
 
         $select = $adapter->select()
-            ->from(array('r' => $ruleTable))
+            ->from(['r' => $ruleTable])
             ->joinLeft(
-                array('a' => $assertTable),
+                ['a' => $assertTable],
                 'a.assert_id = r.assert_id',
-                array('assert_type', 'assert_data')
+                ['assert_type', 'assert_data']
             );
 
         $rulesArr = $adapter->fetchAll($select);

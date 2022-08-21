@@ -45,7 +45,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
     /**
      * Set header appropriate to specified MIME type
@@ -68,7 +68,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * return Mage_Api2_Model_Response
      * @return Mage_Api2_Model_Response
      */
-    public function addMessage($message, $code, $params = array(), $type = self::MESSAGE_TYPE_ERROR)
+    public function addMessage($message, $code, $params = [], $type = self::MESSAGE_TYPE_ERROR)
     {
         $params['message'] = $message;
         $params['code'] = $code;
@@ -103,7 +103,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      */
     public function clearMessages()
     {
-        $this->_messages = array();
+        $this->_messages = [];
         return $this;
     }
 }

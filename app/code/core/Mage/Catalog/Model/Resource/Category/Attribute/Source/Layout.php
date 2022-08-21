@@ -36,14 +36,14 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Layout extends Mage_
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $layouts = array();
+            $layouts = [];
             foreach (Mage::getConfig()->getNode('global/cms/layouts')->children() as $layoutName => $layoutConfig) {
-                $this->_options[] = array(
+                $this->_options[] = [
                    'value'=>$layoutName,
                    'label'=>(string)$layoutConfig->label
-                );
+                ];
             }
-            array_unshift($this->_options, array('value'=>'', 'label' => Mage::helper('catalog')->__('No layout updates')));
+            array_unshift($this->_options, ['value'=>'', 'label' => Mage::helper('catalog')->__('No layout updates')]);
         }
         return $this->_options;
     }

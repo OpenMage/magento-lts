@@ -112,14 +112,14 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     public function getConditionForJoin()
     {
         if ($this->getCustomerId()) {
-            return array('customer_id' => $this->getCustomerId());
+            return ['customer_id' => $this->getCustomerId()];
         }
 
         if ($this->getVisitorId()) {
-            return array('visitor_id' => $this->getVisitorId());
+            return ['visitor_id' => $this->getVisitorId()];
         }
 
-        return array('customer_id' => array('null' => true),'visitor_id' => '0');
+        return ['customer_id' => ['null' => true],'visitor_id' => '0'];
     }
 
     /**
@@ -130,15 +130,15 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     public function _addJoinToSelect()
     {
         $this->joinTable(
-            array('t_compare' => 'catalog/compare_item'),
+            ['t_compare' => 'catalog/compare_item'],
             'product_id=entity_id',
-            array(
+            [
                 'product_id'    => 'product_id',
                 'customer_id'   => 'customer_id',
                 'visitor_id'    => 'visitor_id',
                 'item_store_id' => 'store_id',
                 'catalog_compare_item_id' => 'catalog_compare_item_id'
-            ),
+            ],
             $this->getConditionForJoin()
         );
 
@@ -155,9 +155,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     protected function _getAttributeSetIds()
     {
         // prepare compare items table conditions
-        $compareConds = array(
+        $compareConds = [
             'compare.product_id=entity.entity_id',
-        );
+        ];
         if ($this->getCustomerId()) {
             $compareConds[] = $this->getConnection()
                 ->quoteInto('compare.customer_id = ?', $this->getCustomerId());
@@ -168,27 +168,27 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
 
         // prepare website filter
         $websiteId    = (int)Mage::app()->getStore($this->getStoreId())->getWebsiteId();
-        $websiteConds = array(
+        $websiteConds = [
             'website.product_id = entity.entity_id',
             $this->getConnection()->quoteInto('website.website_id = ?', $websiteId)
-        );
+        ];
 
         // retrieve attribute sets
         $select = $this->getConnection()->select()
             ->distinct(true)
             ->from(
-                array('entity' => $this->getEntity()->getEntityTable()),
+                ['entity' => $this->getEntity()->getEntityTable()],
                 'attribute_set_id'
             )
             ->join(
-                array('website' => $this->getTable('catalog/product_website')),
+                ['website' => $this->getTable('catalog/product_website')],
                 implode(' AND ', $websiteConds),
-                array()
+                []
             )
             ->join(
-                array('compare' => $this->getTable('catalog/compare_item')),
+                ['compare' => $this->getTable('catalog/compare_item')],
                 implode(' AND ', $compareConds),
-                array()
+                []
             );
         return $this->getConnection()->fetchCol($select);
     }
@@ -216,27 +216,27 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     public function getComparableAttributes()
     {
         if (is_null($this->_comparableAttributes)) {
-            $this->_comparableAttributes = array();
+            $this->_comparableAttributes = [];
             $setIds = $this->_getAttributeSetIds();
             if ($setIds) {
                 $select = $this->getConnection()->select()
-                    ->from(array('main_table' => $this->getTable('eav/attribute')))
+                    ->from(['main_table' => $this->getTable('eav/attribute')])
                     ->join(
-                        array('additional_table' => $this->getTable('catalog/eav_attribute')),
+                        ['additional_table' => $this->getTable('catalog/eav_attribute')],
                         'additional_table.attribute_id=main_table.attribute_id'
                     )
                     ->joinLeft(
-                        array('al' => $this->getTable('eav/attribute_label')),
+                        ['al' => $this->getTable('eav/attribute_label')],
                         'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
-                        array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
+                        ['store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)')]
                     )
                     ->joinLeft(
-                        array('ai' => $this->getTable('eav/entity_attribute')),
+                        ['ai' => $this->getTable('eav/entity_attribute')],
                         'ai.attribute_id = main_table.attribute_id'
                     )
                     ->where('additional_table.is_comparable=?', 1)
                     ->where('ai.attribute_set_id IN(?)', $setIds)
-                    ->order(array('ai.attribute_group_id ASC', 'ai.sort_order ASC'));
+                    ->order(['ai.attribute_group_id ASC', 'ai.sort_order ASC']);
                 $attributesData = $this->getConnection()->fetchAll($select);
                 if ($attributesData) {
                     $entityType = Mage_Catalog_Model_Product::ENTITY;
@@ -262,7 +262,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
     public function loadComparableAttributes()
     {
         $comparableAttributes = $this->getComparableAttributes();
-        $attributes = array();
+        $attributes = [];
         foreach ($comparableAttributes as $attribute) {
             $attributes[] = $attribute->getAttributeCode();
         }
@@ -293,7 +293,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
      */
     public function getProductIds()
     {
-        $ids = array();
+        $ids = [];
         foreach ($this->getItems() as $item) {
             $ids[] = $item->getProductId();
         }

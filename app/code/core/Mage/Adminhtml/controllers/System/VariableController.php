@@ -100,9 +100,9 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
         $this->_initLayout()
             ->_addContent($this->getLayout()->createBlock('adminhtml/system_variable_edit'))
-            ->_addJs($this->getLayout()->createBlock('core/template', '', array(
+            ->_addJs($this->getLayout()->createBlock('core/template', '', [
                 'template' => 'system/variable/js.phtml'
-            )))
+            ]))
             ->renderLayout();
     }
 
@@ -112,7 +112,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
      */
     public function validateAction()
     {
-        $response = new Varien_Object(array('error' => false));
+        $response = new Varien_Object(['error' => false]);
         $variable = $this->_initVariable();
         $variable->addData($this->getRequest()->getPost('variable'));
         $result = $variable->validate();
@@ -143,18 +143,18 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                     Mage::helper('adminhtml')->__('The custom variable has been saved.')
                 );
                 if ($back) {
-                    $this->_redirect('*/*/edit', array('_current' => true, 'variable_id' => $variable->getId()));
+                    $this->_redirect('*/*/edit', ['_current' => true, 'variable_id' => $variable->getId()]);
                 } else {
-                    $this->_redirect('*/*/', array());
+                    $this->_redirect('*/*/', []);
                 }
                 return;
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('_current' => true, ));
+                $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }
         }
-        $this->_redirect('*/*/', array());
+        $this->_redirect('*/*/', []);
         return;
     }
 
@@ -173,11 +173,11 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('_current' => true, ));
+                $this->_redirect('*/*/edit', ['_current' => true,]);
                 return;
             }
         }
-        $this->_redirect('*/*/', array());
+        $this->_redirect('*/*/', []);
         return;
     }
 
@@ -189,7 +189,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
     {
         $customVariables = Mage::getModel('core/variable')->getVariablesOptionArray(true);
         $storeContactVariabls = Mage::getModel('core/source_email_variables')->toOptionArray(true);
-        $variables = array($storeContactVariabls, $customVariables);
+        $variables = [$storeContactVariabls, $customVariables];
         $this->getResponse()->setBody(Zend_Json::encode($variables));
     }
 }

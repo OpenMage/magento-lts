@@ -50,7 +50,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * @var array
      */
-    protected $_idsMapping = array();
+    protected $_idsMapping = [];
 
     /**
      * Default browse button ID suffix
@@ -84,12 +84,12 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getJsonConfig()
     {
-        return $this->helper('core')->jsonEncode(array(
+        return $this->helper('core')->jsonEncode([
             'uploaderConfig'    => $this->getUploaderConfig()->getData(),
             'elementIds'        => $this->_getElementIdsMapping(),
             'browseConfig'      => $this->getButtonConfig()->getData(),
             'miscConfig'        => $this->getMiscConfig()->getData(),
-        ));
+        ]);
     }
 
     /**
@@ -108,7 +108,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      * @param array $additionalButtons
      * @return $this
      */
-    protected function _addElementIdsMapping($additionalButtons = array())
+    protected function _addElementIdsMapping($additionalButtons = [])
     {
         $this->_idsMapping = array_merge($this->_idsMapping, $additionalButtons);
 
@@ -125,7 +125,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
         $this->setChild(
             'browse_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     // Workaround for IE9
                     'before_html'   => sprintf(
                         '<div style="display:inline-block;" id="%s">',
@@ -135,25 +135,25 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
                     'id'            => $this->getElementId(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX . '_button'),
                     'label'         => Mage::helper('uploader')->__('Browse Files...'),
                     'type'          => 'button',
-                ))
+                ])
         );
 
         $this->setChild(
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => '{{id}}',
                     'class'   => 'delete',
                     'type'    => 'button',
                     'label'   => Mage::helper('uploader')->__('Remove')
-                ))
+                ])
         );
 
-        $this->_addElementIdsMapping(array(
+        $this->_addElementIdsMapping([
             'container'         => $this->getHtmlId(),
             'templateFile'      => $this->getElementId('template'),
-            'browse'            => $this->_prepareElementsIds(array(self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX))
-        ));
+            'browse'            => $this->_prepareElementsIds([self::DEFAULT_BROWSE_BUTTON_ID_SUFFIX])
+        ]);
 
         return parent::_prepareLayout();
     }
@@ -236,6 +236,6 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareElementsIds($targets)
     {
-        return array_map(array($this, 'getElementId'), array_unique(array_values($targets)));
+        return array_map([$this, 'getElementId'], array_unique(array_values($targets)));
     }
 }

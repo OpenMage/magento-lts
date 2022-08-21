@@ -52,10 +52,10 @@ class Mage_Sales_Model_Config
     {
         $states = Mage::getConfig()->getNode(self::XML_PATH_ORDER_STATES);
         if (!isset($states->$state) || !isset($states->$state->statuses)) {
-            return array();
+            return [];
         }
 
-        $statuses = array();
+        $statuses = [];
 
         foreach ($states->$state->statuses->children() as $status => $node) {
             $statuses[] = $status;

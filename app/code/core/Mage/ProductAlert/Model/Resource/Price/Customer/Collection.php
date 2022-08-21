@@ -38,9 +38,9 @@ class Mage_ProductAlert_Model_Resource_Price_Customer_Collection extends Mage_Cu
     public function join($productId, $websiteId)
     {
         $this->getSelect()->join(
-            array('alert' => $this->getTable('productalert/price')),
+            ['alert' => $this->getTable('productalert/price')],
             'e.entity_id=alert.customer_id',
-            array('alert_price_id', 'price', 'add_date', 'last_send_date', 'send_count', 'status')
+            ['alert_price_id', 'price', 'add_date', 'last_send_date', 'send_count', 'status']
         );
 
         $this->getSelect()->where('alert.product_id=?', $productId);

@@ -44,7 +44,7 @@ class Mage_Wishlist_Block_Render_Item_Price extends Mage_Core_Block_Template
         $product = $this->getProduct();
         if ($product->canConfigure()) {
             $product = clone $product;
-            $product->setCustomOptions(array());
+            $product->setCustomOptions([]);
         }
 
         return $renderer->setProduct($product)

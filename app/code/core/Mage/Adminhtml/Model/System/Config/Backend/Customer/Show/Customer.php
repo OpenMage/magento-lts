@@ -44,9 +44,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
      */
     protected function _getAttributeObjects()
     {
-        return array(
+        return [
             Mage::getSingleton('eav/config')->getAttribute('customer', $this->_getAttributeCode())
-        );
+        ];
     }
 
     /**
@@ -58,12 +58,12 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
     {
         $result = parent::_afterSave();
 
-        $valueConfig = array(
-            ''    => array('is_required' => 0, 'is_visible' => 0),
-            'opt' => array('is_required' => 0, 'is_visible' => 1),
-            '1'   => array('is_required' => 0, 'is_visible' => 1),
-            'req' => array('is_required' => 1, 'is_visible' => 1),
-        );
+        $valueConfig = [
+            ''    => ['is_required' => 0, 'is_visible' => 0],
+            'opt' => ['is_required' => 0, 'is_visible' => 1],
+            '1'   => ['is_required' => 0, 'is_visible' => 1],
+            'req' => ['is_required' => 1, 'is_visible' => 1],
+        ];
 
         $value = $this->getValue();
         if (isset($valueConfig[$value])) {

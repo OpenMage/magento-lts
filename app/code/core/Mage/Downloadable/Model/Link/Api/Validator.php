@@ -31,21 +31,21 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      * Acceptable resourceTypes array
      * @var array
      */
-    protected $_types = array('link', 'sample');
+    protected $_types = ['link', 'sample'];
 
     /**
      * Acceptable upload types array
      * @var array
      */
-    protected $_uploadTypes = array('file', 'url');
+    protected $_uploadTypes = ['file', 'url'];
 
     /**
      * List of all attributes and names endings of validation functions
      *
      * @var array
      */
-    protected $_defaultAttributes = array(
-        'link' => array(
+    protected $_defaultAttributes = [
+        'link' => [
             'title' => 'Title',                         // $1
             'price' => 'Price',                         // $2
             'number_of_downloads' => 'NumOfDownloads',  // if no set is_unlimited to 1 $3
@@ -55,20 +55,20 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
             'file' => 'File',                           // array(name, base64_content) $7
             'link_url' => 'Url',                        // URL $8
             'sort_order' => 'Order',                    // int (0) $9
-            'sample' => array(
+            'sample' => [
                 'type' => 'UploadType',                 // file|url (file) $6
                 'file' => 'File',                       // array(name, base64_content) $7
                 'url' => 'Url'                          // URL $8
-            )
-        ),
-        'sample' => array(
+            ]
+        ],
+        'sample' => [
             'title' => 'Title',                         // $1
             'type' => 'UploadType',                     // file|url (file) $6
             'file' => 'File',                           // array(name, base64_content) $7
             'sample_url' => 'Url',                      // URL $8
             'sort_order' => 'Order'                     // int (0) $9
-        )
-    );
+        ]
+    ];
 
     /**
      * Get resource types

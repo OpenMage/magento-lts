@@ -33,20 +33,20 @@ if (file_exists($installFile)) {
         $installer->getTable('reports/viewed_product_index'),
         $installer->getIdxName(
             'reports/viewed_product_index',
-            array('visitor_id', 'product_id'),
+            ['visitor_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
         $installer->getTable('reports/viewed_product_index'),
         $installer->getIdxName(
             'reports/viewed_product_index',
-            array('customer_id', 'product_id'),
+            ['customer_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 
@@ -57,20 +57,20 @@ if (file_exists($installFile)) {
         $installer->getTable('reports/compared_product_index'),
         $installer->getIdxName(
             'reports/compared_product_index',
-            array('visitor_id', 'product_id'),
+            ['visitor_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('visitor_id', 'product_id'),
+        ['visitor_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
     $installer->getConnection()->addIndex(
         $installer->getTable('reports/compared_product_index'),
         $installer->getIdxName(
             'reports/compared_product_index',
-            array('customer_id', 'product_id'),
+            ['customer_id', 'product_id'],
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),
-        array('customer_id', 'product_id'),
+        ['customer_id', 'product_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     );
 }

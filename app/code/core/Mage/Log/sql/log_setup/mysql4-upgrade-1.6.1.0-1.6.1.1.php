@@ -31,9 +31,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_info'),
-    array(
+    [
          'server_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(server_addr as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->getConnection()->changeColumn(
@@ -46,9 +46,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_info'),
-    array(
+    [
          'remote_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(remote_addr as UNSIGNED INT)))')
-    )
+    ]
 );
 
 
@@ -62,9 +62,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_online'),
-    array(
+    [
          'remote_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(remote_addr as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();
