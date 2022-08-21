@@ -30,7 +30,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 {
     const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
     const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
-    const GALLERY_IMAGE_TABLE = 'catalog/product_attribute_media_gallery_image';
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
