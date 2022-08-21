@@ -53,31 +53,31 @@ class Mage_Adminhtml_Block_Rating_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('rating_id', array(
+        $this->addColumn('rating_id', [
             'header'    => Mage::helper('rating')->__('ID'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'rating_id',
-        ));
+        ]);
 
-        $this->addColumn('rating_code', array(
+        $this->addColumn('rating_code', [
             'header'    => Mage::helper('rating')->__('Rating Name'),
             'index'     => 'rating_code',
-        ));
+        ]);
 
-        $this->addColumn('position', array(
+        $this->addColumn('position', [
             'header' => Mage::helper('rating')->__('Sort Order'),
             'align' => 'left',
             'width' => '100px',
             'index' => 'position',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 
 }

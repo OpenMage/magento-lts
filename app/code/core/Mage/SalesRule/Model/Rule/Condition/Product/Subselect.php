@@ -64,10 +64,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function loadAttributeOptions()
     {
-        $this->setAttributeOption(array(
+        $this->setAttributeOption([
             'qty'  => Mage::helper('salesrule')->__('total quantity'),
             'base_row_total'  => Mage::helper('salesrule')->__('total amount'),
-        ));
+        ]);
         return $this;
     }
 
@@ -84,7 +84,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
      */
     public function loadOperatorOptions()
     {
-        $this->setOperatorOption(array(
+        $this->setOperatorOption([
             '=='  => Mage::helper('rule')->__('is'),
             '!='  => Mage::helper('rule')->__('is not'),
             '>='  => Mage::helper('rule')->__('equals or greater than'),
@@ -93,7 +93,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
             '<'   => Mage::helper('rule')->__('less than'),
             '()'  => Mage::helper('rule')->__('is one of'),
             '!()' => Mage::helper('rule')->__('is not one of'),
-        ));
+        ]);
         return $this;
     }
 

@@ -40,7 +40,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      *
      * @var array
      */
-    protected $_attributesCache = array();
+    protected $_attributesCache = [];
 
     /**
      * Catalog factory instance
@@ -54,7 +54,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('catalog/factory');
         parent::__construct();
@@ -105,9 +105,9 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $this->_select->where('main_table.' . $attributeCode . $conditionRule, $value);
         } else {
             $this->_select->join(
-                array('t1_' . $attributeCode => $attribute['table']),
+                ['t1_' . $attributeCode => $attribute['table']],
                 'main_table.entity_id=t1_' . $attributeCode . '.entity_id AND t1_' . $attributeCode . '.store_id=0',
-                array()
+                []
             )
                 ->where('t1_' . $attributeCode . '.attribute_id=?', $attribute['attribute_id']);
 
@@ -120,14 +120,14 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
                     't1_' . $attributeCode . '.value'
                 );
                 $this->_select->joinLeft(
-                    array('t2_' . $attributeCode => $attribute['table']),
+                    ['t2_' . $attributeCode => $attribute['table']],
                     $this->_getWriteAdapter()->quoteInto(
                         't1_' . $attributeCode . '.entity_id = t2_' . $attributeCode . '.entity_id AND t1_'
                             . $attributeCode . '.attribute_id = t2_' . $attributeCode . '.attribute_id AND t2_'
                             . $attributeCode . '.store_id = ?',
                         $storeId
                     ),
-                    array()
+                    []
                 )
                 ->where('(' . $ifCase . ')' . $conditionRule, $value);
             }
@@ -157,7 +157,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
      */
     protected function _loadEntities()
     {
-        $entities = array();
+        $entities = [];
         $query = $this->_getWriteAdapter()->query($this->_select);
         while ($row = $query->fetch()) {
             $entity = $this->_prepareObject($row);

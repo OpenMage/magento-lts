@@ -37,11 +37,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
          */
         $form->setDataObject(Mage::registry('product'));
 
-        $fieldset = $form->addFieldset('group_fields', array());
+        $fieldset = $form->addFieldset('group_fields', []);
 
         $attributes = $this->getGroupAttributes();
 
-        $this->_setFieldset($attributes, $fieldset, array('gallery'));
+        $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
         $values = Mage::registry('product')->getData();
         /**
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
             }
         }
 
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form'=>$form));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form'=>$form]);
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
@@ -64,15 +64,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
 
     protected function _getAdditionalElementTypes()
     {
-        $result = array(
+        $result = [
             'price'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'image'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
-        );
+        ];
 
         $response = new Varien_Object();
-        $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response'=>$response));
+        $response->setTypes([]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response'=>$response]);
 
         foreach ($response->getTypes() as $typeName=>$typeClass) {
             $result[$typeName] = $typeClass;

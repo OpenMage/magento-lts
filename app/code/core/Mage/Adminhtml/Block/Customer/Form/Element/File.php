@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      *
      * @param array $attributes
      */
-    public function __construct($attributes = array())
+    public function __construct($attributes = [])
     {
         parent::__construct($attributes);
         $this->setType('file');
@@ -73,16 +73,16 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
         $html = '';
         if ($this->getValue() && !$this->getRequired() && !is_array($this->getValue())) {
             $checkboxId = sprintf('%s_delete', $this->getHtmlId());
-            $checkbox   = array(
+            $checkbox   = [
                 'type'  => 'checkbox',
                 'name'  => sprintf('%s[delete]', $this->getName()),
                 'value' => '1',
                 'class' => 'checkbox',
                 'id'    => $checkboxId
-            );
-            $label      = array(
+            ];
+            $label      = [
                 'for'   => $checkboxId
-            );
+            ];
             if ($this->getDisabled()) {
                 $checkbox['disabled'] = 'disabled';
                 $label['class'] = 'disabled';
@@ -125,12 +125,12 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     {
         $html = '';
         if ($this->getValue() && !is_array($this->getValue())) {
-            $image = array(
+            $image = [
                 'alt'   => Mage::helper('adminhtml')->__('Download'),
                 'title' => Mage::helper('adminhtml')->__('Download'),
                 'src'   => Mage::getDesign()->getSkinUrl('images/fam_bullet_disk.gif'),
                 'class' => 'v-middle'
-            );
+            ];
             $url = $this->_getPreviewUrl();
             $html .= '<span>';
             $html .= '<a href="' . $url . '">' . $this->_drawElementHtml('img', $image) . '</a> ';
@@ -147,12 +147,12 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _getHiddenInput()
     {
-        return $this->_drawElementHtml('input', array(
+        return $this->_drawElementHtml('input', [
             'type'  => 'hidden',
             'name'  => sprintf('%s[value]', $this->getName()),
             'id'    => sprintf('%s_value', $this->getHtmlId()),
             'value' => $this->getEscapedValue()
-        ));
+        ]);
     }
 
     /**
@@ -162,9 +162,9 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _getPreviewUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', array(
+        return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
             'file'      => Mage::helper('core')->urlEncode($this->getValue()),
-        ));
+        ]);
     }
 
     /**
@@ -177,7 +177,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
     {
-        $parts = array();
+        $parts = [];
         foreach ($attributes as $k => $v) {
             $parts[] = sprintf('%s="%s"', $k, $v);
         }

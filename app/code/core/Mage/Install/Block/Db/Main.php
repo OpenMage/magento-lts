@@ -30,7 +30,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_databases       = array();
+    protected $_databases       = [];
 
     /**
      * Adding customized database block template for database model type
@@ -42,11 +42,11 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      */
     public function addDatabaseBlock($type, $block, $template)
     {
-        $this->_databases[$type] = array(
+        $this->_databases[$type] = [
             'block'     => $block,
             'template'  => $template,
             'instance'  => null
-        );
+        ];
 
         return $this;
     }
@@ -80,7 +80,7 @@ class Mage_Install_Block_Db_Main extends Mage_Core_Block_Template
      */
     public function getDatabaseBlocks()
     {
-        $databases = array();
+        $databases = [];
         foreach ($this->_databases as $type => $blockData) {
             $databases[] = $this->getDatabaseBlock($type);
         }

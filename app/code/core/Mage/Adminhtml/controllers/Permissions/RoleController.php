@@ -162,7 +162,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
+            $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
 
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         if (in_array($role->getId(), $currentUser->getRoles()) ) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
-            $this->_redirect('*/*/editrole', array('rid' => $role->getId()));
+            $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
 
@@ -203,7 +203,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $isAll = $this->getRequest()->getParam('all');
         if ($isAll)
-            $resource = array('all');
+            $resource = ['all'];
 
         $role = $this->_initRole('role_id');
         if (!$role->getId() && $rid) {
@@ -221,7 +221,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
 
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                  ->setRoleType('G');
             Mage::dispatchEvent(
                 'admin_permissions_role_prepare_save',
-                array('object' => $role, 'request' => $this->getRequest())
+                ['object' => $role, 'request' => $this->getRequest()]
             );
             $role->save();
 
@@ -327,9 +327,9 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         try {
             foreach ($roles as $role) {
                 $roleTypeId = $role->getRoleType() . $role->getRoleId();
-                $selectedResourceIds = array();
+                $selectedResourceIds = [];
                 if ($resourceAcl->isAllowed($roleTypeId, 'all')) {
-                    $selectedResourceIds = array('all');
+                    $selectedResourceIds = ['all'];
                 } else {
                     foreach ($resourceAcl->getResources() as $resource) {
                         if ($resourceAcl->isAllowed($roleTypeId, $resource)) {

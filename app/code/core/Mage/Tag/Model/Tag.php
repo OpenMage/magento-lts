@@ -281,7 +281,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getTaggedProductsUrl()
     {
-        return Mage::getUrl('tag/product/list', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/product/list', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -289,7 +289,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getViewTagUrl()
     {
-        return Mage::getUrl('tag/customer/view', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/view', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -297,7 +297,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getEditTagUrl()
     {
-        return Mage::getUrl('tag/customer/edit', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/edit', ['tagId' => $this->getTagId()]);
     }
 
     /**
@@ -305,7 +305,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
      */
     public function getRemoveTagUrl()
     {
-        return Mage::getUrl('tag/customer/remove', array('tagId' => $this->getTagId()));
+        return Mage::getUrl('tag/customer/remove', ['tagId' => $this->getTagId()]);
     }
 
     /**

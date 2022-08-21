@@ -35,9 +35,9 @@ class Mage_Usa_Model_Shipping_Carrier_Abstract_Source_Mode
      */
     public function toOptionArray()
     {
-        return array(
-            array('value' => '0', 'label' => Mage::helper('usa')->__('Development')),
-            array('value' => '1', 'label' => Mage::helper('usa')->__('Live')),
-        );
+        return [
+            ['value' => '0', 'label' => Mage::helper('usa')->__('Development')],
+            ['value' => '1', 'label' => Mage::helper('usa')->__('Live')],
+        ];
     }
 }

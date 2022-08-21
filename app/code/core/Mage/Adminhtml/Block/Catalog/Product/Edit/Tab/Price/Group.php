@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
      */
     protected function _sortValues($data)
     {
-        usort($data, array($this, '_sortGroupPrices'));
+        usort($data, [$this, '_sortGroupPrices']);
         return $data;
     }
 
@@ -76,11 +76,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
     protected function _prepareLayout()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label' => Mage::helper('catalog')->__('Add Group Price'),
                 'onclick' => 'return groupPriceControl.addItem()',
                 'class' => 'add'
-            ));
+            ]);
         $button->setName('add_group_price_item_button');
 
         $this->setChild('add_button', $button);

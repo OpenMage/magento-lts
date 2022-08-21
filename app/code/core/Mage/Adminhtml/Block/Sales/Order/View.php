@@ -48,10 +48,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 Mage::helper('sales')->__('Are you sure? This order will be canceled and a new one will be created instead')
             );
             $onclickJs = 'deleteConfirm(\'' . $confirmationMessage . '\', \'' . $this->getEditUrl() . '\');';
-            $this->_addButton('order_edit', array(
+            $this->_addButton('order_edit', [
                 'label'    => Mage::helper('sales')->__('Edit'),
                 'onclick'  => $onclickJs,
-            ));
+            ]);
             // see if order has non-editable products as items
             $nonEditableTypes = array_keys($this->getOrder()->getResource()->aggregateProductsByTypes(
                 $order->getId(),
@@ -77,20 +77,20 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             $confirmationMessage = $coreHelper->jsQuoteEscape(
                 Mage::helper('sales')->__('Are you sure you want to cancel this order?')
             );
-            $this->_addButton('order_cancel', array(
+            $this->_addButton('order_cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'onclick'   => 'deleteConfirm(\'' . $confirmationMessage . '\', \'' . $this->getCancelUrl() . '\')',
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('emails') && !$order->isCanceled()) {
             $confirmationMessage = $coreHelper->jsQuoteEscape(
                 Mage::helper('sales')->__('Are you sure you want to send order email to customer?')
             );
-            $this->addButton('send_notification', array(
+            $this->addButton('send_notification', [
                 'label'     => Mage::helper('sales')->__('Send Email'),
                 'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$this->getEmailUrl()}')",
-            ));
+            ]);
         }
 
         // invoice action intentionally
@@ -98,24 +98,24 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             $confirmationMessage = $coreHelper->jsQuoteEscape(
                 Mage::helper('sales')->__('Are you sure you want to void the payment?')
             );
-            $this->addButton('void_payment', array(
+            $this->addButton('void_payment', [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'onclick'   => "confirmSetLocation('{$confirmationMessage}', '{$this->getVoidPaymentUrl()}')",
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('hold') && $order->canHold()) {
-            $this->_addButton('order_hold', array(
+            $this->_addButton('order_hold', [
                 'label'     => Mage::helper('sales')->__('Hold'),
                 'onclick'   => 'setLocation(\'' . $this->getHoldUrl() . '\')',
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('unhold') && $order->canUnhold()) {
-            $this->_addButton('order_unhold', array(
+            $this->_addButton('order_unhold', [
                 'label'     => Mage::helper('sales')->__('Unhold'),
                 'onclick'   => 'setLocation(\'' . $this->getUnholdUrl() . '\')',
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('review_payment')) {
@@ -124,24 +124,24 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                     Mage::helper('sales')->__('Are you sure you want to accept this payment?')
                 );
                 $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getReviewPaymentUrl('accept')}')";
-                $this->_addButton('accept_payment', array(
+                $this->_addButton('accept_payment', [
                     'label'     => Mage::helper('sales')->__('Accept Payment'),
                     'onclick'   => $onClick,
-                ));
+                ]);
                 $confirmationMessage = $coreHelper->jsQuoteEscape(
                     Mage::helper('sales')->__('Are you sure you want to deny this payment?')
                 );
                 $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getReviewPaymentUrl('deny')}')";
-                $this->_addButton('deny_payment', array(
+                $this->_addButton('deny_payment', [
                     'label'     => Mage::helper('sales')->__('Deny Payment'),
                     'onclick'   => $onClick,
-                ));
+                ]);
             }
             if ($order->canFetchPaymentReviewUpdate()) {
-                $this->_addButton('get_review_payment_update', array(
+                $this->_addButton('get_review_payment_update', [
                     'label'     => Mage::helper('sales')->__('Get Payment Update'),
                     'onclick'   => 'setLocation(\'' . $this->getReviewPaymentUrl('update') . '\')',
-                ));
+                ]);
             }
         }
 
@@ -149,20 +149,20 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             $_label = $order->getForcedDoShipmentWithInvoice() ?
                 Mage::helper('sales')->__('Invoice and Ship') :
                 Mage::helper('sales')->__('Invoice');
-            $this->_addButton('order_invoice', array(
+            $this->_addButton('order_invoice', [
                 'label'     => $_label,
                 'onclick'   => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
                 'class'     => 'go'
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('ship') && $order->canShip()
             && !$order->getForcedDoShipmentWithInvoice()) {
-            $this->_addButton('order_ship', array(
+            $this->_addButton('order_ship', [
                 'label'     => Mage::helper('sales')->__('Ship'),
                 'onclick'   => 'setLocation(\'' . $this->getShipUrl() . '\')',
                 'class'     => 'go'
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('creditmemo') && $order->canCreditmemo()) {
@@ -173,22 +173,22 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 );
                 $onClick = "confirmSetLocation('{$confirmationMessage}', '{$this->getCreditmemoUrl()}')";
             }
-            $this->_addButton('order_creditmemo', array(
+            $this->_addButton('order_creditmemo', [
                 'label'     => Mage::helper('sales')->__('Credit Memo'),
                 'onclick'   => $onClick,
                 'class'     => 'go'
-            ));
+            ]);
         }
 
         if ($this->_isAllowedAction('reorder')
             && $this->helper('sales/reorder')->isAllowed($order->getStore())
             && $order->canReorderIgnoreSalable()
         ) {
-            $this->_addButton('order_reorder', array(
+            $this->_addButton('order_reorder', [
                 'label'     => Mage::helper('sales')->__('Reorder'),
                 'onclick'   => 'setLocation(\'' . $this->getReorderUrl() . '\')',
                 'class'     => 'go'
-            ));
+            ]);
         }
     }
 
@@ -222,7 +222,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         return Mage::helper('sales')->__('Order # %s %s | %s', $this->getOrder()->getRealOrderId(), $_extOrderId, $this->formatDate($this->getOrder()->getCreatedAtDate(), 'medium', true));
     }
 
-    public function getUrl($params='', $params2=array())
+    public function getUrl($params='', $params2= [])
     {
         $params2['order_id'] = $this->getOrderId();
         return parent::getUrl($params, $params2);
@@ -307,7 +307,7 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
 
     public function getReviewPaymentUrl($action)
     {
-        return $this->getUrl('*/*/reviewPayment', array('action' => $action));
+        return $this->getUrl('*/*/reviewPayment', ['action' => $action]);
     }
 
     /**

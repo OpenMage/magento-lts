@@ -31,7 +31,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
     /**
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * @var bool
@@ -45,14 +45,14 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
      * @param array $urlParams
      * @return $this
      */
-    public function addLink($name, $path, $label, $urlParams = array())
+    public function addLink($name, $path, $label, $urlParams = [])
     {
-        $this->_links[$name] = new Varien_Object(array(
+        $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'path' => $path,
             'label' => $label,
             'url' => $this->getUrl($path, $urlParams),
-        ));
+        ]);
         return $this;
     }
 

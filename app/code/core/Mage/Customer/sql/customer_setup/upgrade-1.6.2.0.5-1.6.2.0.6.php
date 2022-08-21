@@ -22,11 +22,11 @@
 $installer = $this;
 $installer->startSetup();
 
-$installer->addAttribute('customer', 'password_created_at', array(
+$installer->addAttribute('customer', 'password_created_at', [
     'label'    => 'Password created at',
     'visible'  => false,
     'required' => false,
     'type'     => 'int'
-));
+]);
 
 $installer->endSetup();

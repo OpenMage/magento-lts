@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_System_Store_Grid_Render_Group
             return null;
         }
         return '<a title="' . Mage::helper('core')->__('Edit Store') . '"
-            href="' . $this->getUrl('*/*/editGroup', array('group_id' => $row->getGroupId())) . '">'
+            href="' . $this->getUrl('*/*/editGroup', ['group_id' => $row->getGroupId()]) . '">'
             . $this->escapeHtml($row->getData($this->getColumn()->getIndex())) . '</a>';
     }
 }

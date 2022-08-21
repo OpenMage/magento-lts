@@ -31,9 +31,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('poll/poll_vote'),
-    array(
+    [
         'ip_address' => new Zend_Db_Expr('UNHEX(HEX(CAST(ip_address as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();

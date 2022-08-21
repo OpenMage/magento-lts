@@ -64,7 +64,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return $this;
     }
 
-    public static function getUrl($route='', $params=array())
+    public static function getUrl($route='', $params= [])
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
@@ -85,10 +85,10 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      */
     public function prepareFilterString($filterString)
     {
-        $data = array();
+        $data = [];
         $filterString = base64_decode($filterString);
         parse_str($filterString, $data);
-        array_walk_recursive($data, array($this, 'decodeFilter'));
+        array_walk_recursive($data, [$this, 'decodeFilter']);
         return $data;
     }
 

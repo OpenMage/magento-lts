@@ -39,27 +39,27 @@ class Mage_Adminhtml_Block_Backup extends Mage_Adminhtml_Block_Template
         parent::_prepareLayout();
         $this->setChild('createButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('backup')->__('Database Backup'),
                     'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_DB . "')",
                     'class'  => 'task'
-                ))
+                ])
         );
         $this->setChild('createSnapshotButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('backup')->__('System Backup'),
                     'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_SYSTEM_SNAPSHOT . "')",
                     'class'  => ''
-                ))
+                ])
         );
         $this->setChild('createMediaBackupButton',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('backup')->__('Database and Media Backup'),
                     'onclick' => "return backup.backup('" . Mage_Backup_Helper_Data::TYPE_MEDIA . "')",
                     'class'  => ''
-                ))
+                ])
         );
         $this->setChild('backupsGrid',
             $this->getLayout()->createBlock('adminhtml/backup_grid')

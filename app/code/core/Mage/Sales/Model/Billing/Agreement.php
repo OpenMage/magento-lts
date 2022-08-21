@@ -65,7 +65,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      *
      * @var array
      */
-    protected $_relatedOrders = array();
+    protected $_relatedOrders = [];
 
     /**
      * Init model
@@ -207,10 +207,10 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function getStatusesArray()
     {
-        return array(
+        return [
             self::STATUS_ACTIVE     => Mage::helper('sales')->__('Active'),
             self::STATUS_CANCELED   => Mage::helper('sales')->__('Canceled')
-        );
+        ];
     }
 
     /**

@@ -20,5 +20,5 @@
 $installer = $this;
 /** @var Mage_Paypal_Model_Mysql4_Setup $installer */
 $installer->startSetup();
-$installer->addAttribute('order', 'paypal_ipn_customer_notified', array('type'=>'int', 'visible' => false, 'default' => 0));
+$installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type'=>'int', 'visible' => false, 'default' => 0]);
 $installer->endSetup();

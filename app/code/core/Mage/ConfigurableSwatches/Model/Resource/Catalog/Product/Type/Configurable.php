@@ -32,14 +32,14 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     public function getChildrenIds($parentId, $required = true)
     {
         if (is_array($parentId)) {
-            $childrenIds = array();
+            $childrenIds = [];
             if (!empty($parentId)) {
                 $select = $this->_getReadAdapter()->select()
-                    ->from(array('l' => $this->getMainTable()), array('product_id', 'parent_id'))
+                    ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
                     ->join(
-                        array('e' => $this->getTable('catalog/product')),
+                        ['e' => $this->getTable('catalog/product')],
                         'e.entity_id = l.product_id AND e.required_options = 0',
-                        array()
+                        []
                     )
                     ->where('parent_id IN (?)', $parentId);
 

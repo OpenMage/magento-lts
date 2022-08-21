@@ -23,7 +23,7 @@ $installer = $this;
 
 //$installer->getConnection()->addKey($installer->getTable('sales/order_item'), 'IDX_PRODUCT_ID', 'product_id');
 
-foreach (array('daily', 'monthly', 'yearly') as $frequency) {
+foreach (['daily', 'monthly', 'yearly'] as $frequency) {
     $tableName = $installer->getTable('sales/bestsellers_aggregated_' . $frequency);
 
     $installer->run("

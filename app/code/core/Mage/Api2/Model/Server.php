@@ -52,7 +52,7 @@ class Mage_Api2_Model_Server
      *
      * @var array
      */
-    protected static $_apiTypes = array(self::API_TYPE_REST);
+    protected static $_apiTypes = [self::API_TYPE_REST];
 
     /**
      * @var Mage_Api2_Model_Auth_User_Abstract
@@ -266,11 +266,11 @@ class Mage_Api2_Model_Server
             //add last error to stack
             $response->setException($exception);
 
-            $messages = array();
+            $messages = [];
 
             /** @var Exception $exception */
             foreach ($response->getException() as $exception) {
-                $message = array('code' => $exception->getCode(), 'message' => $exception->getMessage());
+                $message = ['code' => $exception->getCode(), 'message' => $exception->getMessage()];
 
                 if (Mage::getIsDeveloperMode()) {
                     $message['trace'] = $exception->getTraceAsString();

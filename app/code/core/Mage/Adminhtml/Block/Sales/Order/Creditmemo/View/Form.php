@@ -54,9 +54,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Form extends Mage_Adminht
      */
     public function getOrderTotalData()
     {
-        return array(
+        return [
             'grand_total_title' => Mage::helper('sales')->__('Total Refund'),
-        );
+        ];
     }
 
     /**
@@ -71,6 +71,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Form extends Mage_Adminht
 
     public function getOrderUrl()
     {
-        return $this->getUrl('*/sales_order/view', array('order_id' => $this->getCreditmemo()->getOrderId()));
+        return $this->getUrl('*/sales_order/view', ['order_id' => $this->getCreditmemo()->getOrderId()]);
     }
 }

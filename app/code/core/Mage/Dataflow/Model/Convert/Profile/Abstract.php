@@ -33,7 +33,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
 
     protected $_containers;
 
-    protected $_exceptions = array();
+    protected $_exceptions = [];
 
     protected $_dryRun;
 

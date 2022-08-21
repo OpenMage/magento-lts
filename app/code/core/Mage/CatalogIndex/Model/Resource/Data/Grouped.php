@@ -38,12 +38,12 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
      */
     public function getMinimalPrice($products, $priceAttributes, $store)
     {
-        $result = array();
+        $result = [];
         $store  = Mage::app()->getStore($store);
 
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getTable('catalogindex/price'), array(
-                'customer_group_id', 'value', 'tax_class_id'))
+            ->from($this->getTable('catalogindex/price'), [
+                'customer_group_id', 'value', 'tax_class_id'])
             ->where('entity_id IN(?)', $products)
             ->where('attribute_id IN(?)', $priceAttributes)
             ->where('website_id=?', $store->getWebsiteId());
@@ -94,11 +94,11 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
             }
 
             if (!is_null($resultMinimal)) {
-                $result[] = array(
+                $result[] = [
                     'customer_group_id' => $customerGroup,
                     'minimal_value'     => $resultMinimal,
                     'tax_class_id'      => $taxClassId
-                );
+                ];
             }
         }
 
@@ -115,7 +115,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
      * @param int $id
      * @param array $additionalWheres
      */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }

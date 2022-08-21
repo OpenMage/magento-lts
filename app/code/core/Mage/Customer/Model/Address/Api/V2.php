@@ -92,7 +92,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
             $this->_fault('not_exists');
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $address->getData($attributeCode);

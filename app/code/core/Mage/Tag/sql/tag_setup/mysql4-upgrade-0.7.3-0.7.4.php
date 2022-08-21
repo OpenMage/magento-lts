@@ -28,13 +28,13 @@ $groupedTags = $installer->getConnection()->select()
 $select = $installer->getConnection()->select()
     ->reset()
     ->joinInner(
-        array('relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")),
+        ['relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")],
         'relation_table.tag_id = main_table.tag_id',
         null
     )
-    ->columns(array('first_customer_id' => 'customer_id'));
+    ->columns(['first_customer_id' => 'customer_id']);
 
-$updateSql = $select->crossUpdateFromSelect(array('main_table' => $installer->getTable('tag/tag')));
+$updateSql = $select->crossUpdateFromSelect(['main_table' => $installer->getTable('tag/tag')]);
 $installer->getConnection()->query($updateSql);
 
 $installer->endSetup();

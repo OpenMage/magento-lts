@@ -90,7 +90,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
 
         $helper->groupMediaGalleryImages($product);
 
-        $helper->attachProductChildrenAttributeMapping(array($product), $product->getStoreId(), false);
+        $helper->attachProductChildrenAttributeMapping([$product], $product->getStoreId(), false);
     }
 
     /**
@@ -122,7 +122,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
         $childrenProducts = $productType->getUsedProducts(null, $product);
         $product->setChildrenProducts($childrenProducts);
 
-        $mediaProductIds = array();
+        $mediaProductIds = [];
         foreach ($childrenProducts as $childProduct) {
             $mediaProductIds[] = $childProduct->getId();
         }

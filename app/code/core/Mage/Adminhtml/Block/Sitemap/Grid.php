@@ -46,51 +46,51 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('sitemap_id', array(
+        $this->addColumn('sitemap_id', [
             'header'    => Mage::helper('sitemap')->__('ID'),
             'width'     => '50px',
             'index'     => 'sitemap_id'
-        ));
+        ]);
 
-        $this->addColumn('sitemap_filename', array(
+        $this->addColumn('sitemap_filename', [
             'header'    => Mage::helper('sitemap')->__('Filename'),
             'index'     => 'sitemap_filename'
-        ));
+        ]);
 
-        $this->addColumn('sitemap_path', array(
+        $this->addColumn('sitemap_path', [
             'header'    => Mage::helper('sitemap')->__('Path'),
             'index'     => 'sitemap_path'
-        ));
+        ]);
 
-        $this->addColumn('link', array(
+        $this->addColumn('link', [
             'header'    => Mage::helper('sitemap')->__('Link for Google'),
             'index'     => 'concat(sitemap_path, sitemap_filename)',
             'renderer'  => 'adminhtml/sitemap_grid_renderer_link',
-        ));
+        ]);
 
-        $this->addColumn('sitemap_time', array(
+        $this->addColumn('sitemap_time', [
             'header'    => Mage::helper('sitemap')->__('Last Time Generated'),
             'width'     => '150px',
             'index'     => 'sitemap_time',
             'type'      => 'datetime',
-        ));
+        ]);
 
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'    => Mage::helper('sitemap')->__('Store View'),
                 'index'     => 'store_id',
                 'type'      => 'store',
-            ));
+            ]);
         }
 
-        $this->addColumn('action', array(
+        $this->addColumn('action', [
             'header'   => Mage::helper('sitemap')->__('Action'),
             'filter'   => false,
             'sortable' => false,
             'width'    => '100',
             'renderer' => 'adminhtml/sitemap_grid_renderer_action'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -102,7 +102,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('sitemap_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['sitemap_id' => $row->getId()]);
     }
 
 }

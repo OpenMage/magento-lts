@@ -35,12 +35,12 @@ class Mage_SalesRule_Model_System_Config_Source_Coupon_Format
     public function toOptionArray()
     {
         $formatsList = Mage::helper('salesrule/coupon')->getFormatsList();
-        $result = array();
+        $result = [];
         foreach ($formatsList as $formatId => $formatTitle) {
-            $result[] = array(
+            $result[] = [
                 'value' => $formatId,
                 'label' => $formatTitle
-            );
+            ];
         }
 
         return $result;

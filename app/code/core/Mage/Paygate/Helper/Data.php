@@ -87,7 +87,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
         $card = $this->__('Credit Card: xxxx-%s', $card->getCcLast4());
 
         $pattern = '%s %s %s - %s.';
-        $texts = array($card, $amount, $operation, $result);
+        $texts = [$card, $amount, $operation, $result];
 
         if (!is_null($lastTransactionId)) {
             $pattern .= ' %s.';
@@ -101,7 +101,7 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
         $pattern .= ' %s';
         $texts[] = $exception;
 
-        return call_user_func_array(array($this, '__'), array_merge(array($pattern), $texts));
+        return call_user_func_array([$this, '__'], array_merge([$pattern], $texts));
     }
 
     /**

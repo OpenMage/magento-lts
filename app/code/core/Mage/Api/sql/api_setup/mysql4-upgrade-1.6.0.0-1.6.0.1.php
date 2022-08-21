@@ -25,11 +25,11 @@ $this->getConnection()->changeColumn(
     $this->getTable('api/user'),
     'api_key',
     'api_key',
-    array(
+    [
         'type' => Varien_Db_Ddl_Table::TYPE_TEXT,
         'length' => 100,
         'comment' => 'Api key'
-    )
+    ]
 );
 
 $this->endSetup();

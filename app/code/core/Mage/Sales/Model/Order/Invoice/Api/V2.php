@@ -88,7 +88,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
      */
     protected function _prepareItemQtyData($data)
     {
-        $quantity = array();
+        $quantity = [];
         foreach ($data as $item) {
             if (isset($item->order_item_id) && isset($item->qty)) {
                 $quantity[$item->order_item_id] = $item->qty;

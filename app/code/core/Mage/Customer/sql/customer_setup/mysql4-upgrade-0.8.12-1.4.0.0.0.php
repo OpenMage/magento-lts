@@ -40,9 +40,9 @@ CREATE TABLE `{$installer->getTable('customer/eav_attribute')}` (
   CONSTRAINT `FK_CUSTOMER_EAV_ATTRIBUTE_ID` FOREIGN KEY (`attribute_id`) REFERENCES `{$installer->getTable('eav/attribute')}` (`attribute_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-$visibleAttributes = array('store_id', 'default_billing', 'default_shipping', 'confirmation');
+$visibleAttributes = ['store_id', 'default_billing', 'default_shipping', 'confirmation'];
 $stmt = $installer->getConnection()->select()
-    ->from($installer->getTable('eav/attribute'), array('attribute_id', 'attribute_code'))
+    ->from($installer->getTable('eav/attribute'), ['attribute_id', 'attribute_code'])
     ->where('entity_type_id = ?', $installer->getEntityTypeId('customer'))
     ->orWhere('entity_type_id = ?', $installer->getEntityTypeId('customer_address'));
 $result = $installer->getConnection()->fetchAll($stmt);
@@ -58,7 +58,7 @@ foreach ($result as $row) {
     if (in_array($row['attribute_code'], $visibleAttributes)) {
         $_visible = false;
     }
-    $attributes = array(
+    $attributes = [
         'attribute_id'              => $row['attribute_id'],
         'is_visible'                => $_visible,
         'is_visible_on_front'       => $_visibleOnFront,
@@ -66,7 +66,7 @@ foreach ($result as $row) {
         'lines_to_divide_multiline' => $_linesToDivideMultiline,
         'min_text_length'           => $_minLength,
         'max_text_length'           => $_maxLength
-    );
+    ];
     $installer->getConnection()->insert($table, $attributes);
 }
 

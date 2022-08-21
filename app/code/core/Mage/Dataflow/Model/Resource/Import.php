@@ -63,14 +63,14 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
     public function loadBySessionId($sessionId, $min = 0, $max = 100)
     {
         if (!is_numeric($min) || !is_numeric($max)) {
-            return array();
+            return [];
         }
-        $bind = array(
+        $bind = [
             'status'     => 0,
             'session_id' => $sessionId,
             'min_id'     => (int)$min,
             'max_id'     => (int)$max,
-        );
+        ];
         $read = $this->_getReadAdapter();
         $select = $read->select()
             ->from($this->getTable('dataflow/import'))
@@ -89,14 +89,14 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
      */
     public function loadTotalBySessionId($sessionId)
     {
-        $bind = array(
+        $bind = [
             'status'    => 0,
             'session_id' => $sessionId
-        );
+        ];
         $read = $this->_getReadAdapter();
         $select = $read->select()
             ->from($this->getTable('dataflow/import'),
-                array('max'=>'max(import_id)', 'min'=>'min(import_id)', 'cnt'=>'count(*)'))
+                ['max'=>'max(import_id)', 'min'=>'min(import_id)', 'cnt'=>'count(*)'])
             ->where('status = :status')
             ->where('session_id = :$session_id');
         return $read->fetchRow($select, $bind);
@@ -110,10 +110,10 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
      */
     public function loadById($importId)
     {
-        $bind = array(
+        $bind = [
             'status'    => 0,
             'import_id' => $importId
-        );
+        ];
         $read = $this->_getReadAdapter();
         $select = $read->select()
             ->from($this->getTable('dataflow/import'))

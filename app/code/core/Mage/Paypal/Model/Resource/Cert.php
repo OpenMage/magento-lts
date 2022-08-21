@@ -58,7 +58,7 @@ class Mage_Paypal_Model_Resource_Cert extends Mage_Core_Model_Resource_Db_Abstra
     public function loadByWebsite($object, $strictLoad = true)
     {
         $adapter = $this->_getReadAdapter();
-        $select  = $adapter->select()->from(array('main_table' => $this->getMainTable()));
+        $select  = $adapter->select()->from(['main_table' => $this->getMainTable()]);
 
         if ($strictLoad) {
             $select->where('main_table.website_id =?', $object->getWebsiteId());

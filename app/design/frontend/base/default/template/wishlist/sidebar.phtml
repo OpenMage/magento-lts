@@ -27,7 +27,7 @@
     <div class="block-content">
     <p class="block-subtitle"><?php echo $this->__('Last Added Items') ?></p>
     <?php if ($this->hasWishlistItems()): ?>
-    <?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
+    <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
     <ol class="mini-products-list" id="wishlist-sidebar">
     <?php foreach ($this->getWishlistItems() as $_item): ?>
         <?php $product = $_item->getProduct(); ?>

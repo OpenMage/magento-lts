@@ -27,9 +27,9 @@ $installer->updateAttribute('customer', 'created_at', 'frontend_input', $datetim
 // implement new input filter for datetime type attribute
 $attribute = $installer->getAttribute('customer', 'created_at');
 
-$attributeBind = array(
+$attributeBind = [
     'input_filter' => $datetimeType,
-);
+];
 
 $attributeWhere = $installer->getConnection()->quoteInto('attribute_id=?', $attribute['attribute_id']);
 $installer->getConnection()->update($installer->getTable('customer/eav_attribute'), $attributeBind, $attributeWhere);

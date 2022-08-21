@@ -29,21 +29,21 @@ class Mage_Adminhtml_Block_Cache extends Mage_Adminhtml_Block_Widget_Grid_Contai
         $this->_headerText = Mage::helper('core')->__('Cache Storage Management');
         parent::__construct();
         $this->_removeButton('add');
-        $this->_addButton('flush_magento', array(
+        $this->_addButton('flush_magento', [
             'label'     => Mage::helper('core')->__('Flush OpenMage Cache'),
             'onclick'   => 'setLocation(\'' . $this->getFlushSystemUrl() .'\')',
             'class'     => 'delete',
-        ));
+        ]);
 
         $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
             Mage::helper('core')->__('Cache storage may contain additional data. Are you sure that you want flush it?')
         );
-        $this->_addButton('flush_system', array(
+        $this->_addButton('flush_system', [
             'label'     => Mage::helper('core')->__('Flush Cache Storage'),
             'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getFlushStorageUrl()
                 . '\')',
             'class'     => 'delete',
-        ));
+        ]);
     }
 
     /**

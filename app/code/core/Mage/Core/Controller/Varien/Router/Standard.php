@@ -20,9 +20,9 @@
 
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
-    protected $_modules = array();
-    protected $_routes = array();
-    protected $_dispatchData = array();
+    protected $_modules = [];
+    protected $_routes = [];
+    protected $_dispatchData = [];
 
     /**
      * @param string $configArea
@@ -30,7 +30,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function collectRoutes($configArea, $useRouterName)
     {
-        $routers = array();
+        $routers = [];
         $routersConfigNode = Mage::getConfig()->getNode($configArea.'/routers');
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
@@ -38,7 +38,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string)$routerConfig->use;
             if ($use == $useRouterName) {
-                $modules = array((string)$routerConfig->args->module);
+                $modules = [(string)$routerConfig->args->module];
                 if ($routerConfig->args->modules) {
                     /** @var Varien_Simplexml_Element $customModule */
                     foreach ($routerConfig->args->modules->children() as $customModule) {
@@ -70,11 +70,11 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function fetchDefault()
     {
-        $this->getFront()->setDefault(array(
+        $this->getFront()->setDefault([
             'module' => 'core',
             'controller' => 'index',
             'action' => 'index'
-        ));
+        ]);
     }
 
     /**

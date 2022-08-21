@@ -88,13 +88,13 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $section      = $sections->$current;
         $hasChildren  = $configFields->hasChildren($section, $website, $store);
         if (!$hasChildren && $current) {
-            $this->_redirect('*/*/', array('website'=>$website, 'store'=>$store));
+            $this->_redirect('*/*/', ['website'=>$website, 'store'=>$store]);
         }
 
         $this->loadLayout();
 
         $this->_setActiveMenu('system/config');
-        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo(array($current));
+        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo([$current]);
 
         $this->_addBreadcrumb(Mage::helper('adminhtml')->__('System'), Mage::helper('adminhtml')->__('System'),
             $this->getUrl('*/system'));
@@ -142,7 +142,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 if (is_array($group)) {
                     foreach ($group['fields'] as $fieldName => $field) {
                         if (!empty($field['value'])) {
-                            $groups[$groupName]['fields'][$fieldName] = array('value' => $field['value']);
+                            $groups[$groupName]['fields'][$fieldName] = ['value' => $field['value']];
                         }
                     }
                 }
@@ -168,16 +168,16 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
             // reinit configuration
             Mage::getConfig()->reinit();
-            Mage::dispatchEvent('admin_system_config_section_save_after', array(
+            Mage::dispatchEvent('admin_system_config_section_save_after', [
                 'website' => $website,
                 'store'   => $store,
                 'section' => $section
-            ));
+            ]);
             Mage::app()->reinitStores();
 
             // website and store codes can be used in event implementation, so set them as well
             Mage::dispatchEvent("admin_system_config_changed_section_{$section}",
-                array('website' => $website, 'store' => $store)
+                ['website' => $website, 'store' => $store]
             );
             $session->addSuccess(Mage::helper('adminhtml')->__('The configuration has been saved.'));
         }
@@ -194,7 +194,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $this->_saveState($this->getRequest()->getPost('config_state'));
 
-        $this->_redirect('*/*/edit', array('_current' => array('section', 'website', 'store')));
+        $this->_redirect('*/*/edit', ['_current' => ['section', 'website', 'store']]);
     }
 
     /**
@@ -214,10 +214,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     protected function _saveAdvanced()
     {
         Mage::app()->cleanCache(
-            array(
+            [
                 'layout',
                 Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
-            ));
+            ]);
     }
 
     /**
@@ -230,9 +230,9 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                     && $this->getRequest()->getParam('container') != ''
                         && $this->getRequest()->getParam('value') != '') {
 
-            $configState = array(
+            $configState = [
                 $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value')
-            );
+            ];
             $this->_saveState($configState);
             $this->getResponse()->setBody('success');
         }
@@ -297,16 +297,16 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
      * @param array $configState
      * @return bool
      */
-    protected function _saveState($configState = array())
+    protected function _saveState($configState = [])
     {
         $adminUser = Mage::getSingleton('admin/session')->getUser();
         if (is_array($configState)) {
             $extra = $adminUser->getExtra();
             if (!is_array($extra)) {
-                $extra = array();
+                $extra = [];
             }
             if (!isset($extra['configState'])) {
-                $extra['configState'] = array();
+                $extra['configState'] = [];
             }
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;

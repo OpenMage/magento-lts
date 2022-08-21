@@ -165,11 +165,11 @@ class Mage_Sendfriend_Block_Send extends Mage_Core_Block_Template
      */
     public function getSendUrl()
     {
-        return Mage::getUrl('*/*/sendmail', array(
+        return Mage::getUrl('*/*/sendmail', [
             'id'     => $this->getProductId(),
             'cat_id' => $this->getCategoryId(),
             '_secure' => $this->_isSecure()
-        ));
+        ]);
     }
 
     /**

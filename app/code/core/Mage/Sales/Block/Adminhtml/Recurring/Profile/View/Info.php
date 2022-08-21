@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Sales_Recurring_Profile_View_Info extends Mage_Adminh
     public function getRecurringProfileInformation()
     {
         $recurringProfile = Mage::registry('current_recurring_profile');
-        $information = array();
+        $information = [];
         foreach ($recurringProfile->getData() as $kay => $value) {
             $information[$recurringProfile->getFieldLabel($kay)] = $value;
         }

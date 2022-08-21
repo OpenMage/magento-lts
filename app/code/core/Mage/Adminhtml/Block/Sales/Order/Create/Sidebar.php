@@ -31,12 +31,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
     protected function _prepareLayout()
     {
         if ($this->getCustomerId()) {
-            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
+            $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
                 'label' => Mage::helper('sales')->__('Update Changes'),
                 'onclick' => 'order.sidebarApplyChanges()',
                 'before_html' => '<div class="sub-btn-set">',
                 'after_html' => '</div>'
-            ));
+            ]);
             $this->setChild('top_button', $button);
         }
 

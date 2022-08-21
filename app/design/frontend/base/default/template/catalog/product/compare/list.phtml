@@ -25,7 +25,7 @@
 </div>
 <?php
 $_total = $this->getItems()->getSize();
-$_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey())));
+$_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()]));
 ?>
 <?php if($_total): ?>
     <table class="data-table compare-table" id="product_comparison">

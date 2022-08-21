@@ -119,7 +119,7 @@ class Mage_Rating_Model_Rating extends Mage_Core_Model_Abstract
                ->load()
                ->getItems();
         }
-        return array();
+        return [];
     }
 
     /**

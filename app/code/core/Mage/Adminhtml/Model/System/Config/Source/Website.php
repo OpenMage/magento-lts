@@ -26,12 +26,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Website
     public function toOptionArray()
     {
         if (!$this->_options) {
-            $this->_options = array();
+            $this->_options = [];
             foreach (Mage::app()->getWebsites() as $website) {
                 $id = $website->getId();
                 $name = $website->getName();
                 if ($id!=0) {
-                    $this->_options[] = array('value'=>$id, 'label'=>$name);
+                    $this->_options[] = ['value'=>$id, 'label'=>$name];
                 }
             }
         }

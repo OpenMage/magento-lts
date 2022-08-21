@@ -147,7 +147,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      */
     public function getAttributes($source, $namespace = null)
     {
-        $attributes = array();
+        $attributes = [];
         if (!is_null($namespace)) {
             $attributes[$namespace] = $source->attributes($namespace);
             return $attributes;
@@ -183,7 +183,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      */
     protected static function _getChildren($source)
     {
-        $children = array();
+        $children = [];
         $namespaces = $source->getNamespaces(true);
 
         $isWsi = Mage::helper('api/data')->isComplianceWSI();

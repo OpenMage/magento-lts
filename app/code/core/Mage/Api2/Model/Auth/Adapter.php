@@ -32,7 +32,7 @@ class Mage_Api2_Model_Auth_Adapter
      *
      * @var array
      */
-    protected $_adapters = array();
+    protected $_adapters = [];
 
     /**
      * Load adapters configuration and create adapters models
@@ -82,6 +82,6 @@ class Mage_Api2_Model_Auth_Adapter
                 throw new Mage_Api2_Exception('Can not determine user type', Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);
             }
         }
-        return (object) array('type' => Mage_Api2_Model_Auth::DEFAULT_USER_TYPE, 'id' => null);
+        return (object) ['type' => Mage_Api2_Model_Auth::DEFAULT_USER_TYPE, 'id' => null];
     }
 }

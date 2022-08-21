@@ -89,7 +89,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
     protected $_templateFilter;
     protected $_preprocessFlag = false;
     protected $_mail;
-    protected $_bccEmails = array();
+    protected $_bccEmails = [];
 
     static protected $_defaultTemplates;
 
@@ -224,11 +224,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public static function getDefaultTemplatesAsOptionsArray()
     {
-        $options = array(
-            array('value'=>'', 'label'=> '')
-        );
+        $options = [
+            ['value'=>'', 'label'=> '']
+        ];
 
-        $idLabel = array();
+        $idLabel = [];
         foreach (self::getDefaultTemplates() as $templateId => $row) {
             if (isset($row['@']) && isset($row['@']['module'])) {
                 $module = $row['@']['module'];
@@ -239,7 +239,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
         asort($idLabel);
         foreach ($idLabel as $templateId => $label) {
-            $options[] = array('value' => $templateId, 'label' => $label);
+            $options[] = ['value' => $templateId, 'label' => $label];
         }
 
         return $options;
@@ -293,7 +293,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array $variables
      * @return  string
      */
-    public function getProcessedTemplate(array $variables = array())
+    public function getProcessedTemplate(array $variables = [])
     {
         $processor = $this->getTemplateFilter();
         $processor->setUseSessionInUrl(false)
@@ -314,8 +314,8 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $variables = $this->_addEmailVariables($variables, $processor->getStoreId());
 
         $processor
-            ->setTemplateProcessor(array($this, 'getTemplateByConfigPath'))
-            ->setIncludeProcessor(array($this, 'getInclude'))
+            ->setTemplateProcessor([$this, 'getTemplateByConfigPath'])
+            ->setIncludeProcessor([$this, 'getInclude'])
             ->setVariables($variables);
 
         try {
@@ -379,7 +379,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array              $variables    template variables
      * @return  boolean
      **/
-    public function send($email, $name = null, array $variables = array())
+    public function send($email, $name = null, array $variables = [])
     {
         if (!$this->isValidForSend()) {
             Mage::logException(new Exception('This letter cannot be sent.')); // translation is intentionally omitted
@@ -419,7 +419,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $emailQueue = $this->getQueue();
             $emailQueue->clearRecipients();
             $emailQueue->setMessageBody($text);
-            $emailQueue->setMessageParameters(array(
+            $emailQueue->setMessageParameters([
                     'subject'           => $subject,
                     'return_path_email' => $returnPathEmail,
                     'is_plain'          => $this->isPlain(),
@@ -427,9 +427,9 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'from_name'         => $this->getSenderName(),
                     'reply_to'          => $this->getMail()->getReplyTo(),
                     'return_to'         => $this->getMail()->getReturnPath(),
-                ))
+            ])
                 ->addRecipients($emails, $names, Mage_Core_Model_Email_Queue::EMAIL_TYPE_TO)
-                ->addRecipients($this->_bccEmails, array(), Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
+                ->addRecipients($this->_bccEmails, [], Mage_Core_Model_Email_Queue::EMAIL_TYPE_BCC);
             $emailQueue->addMessageToQueue();
 
             return true;
@@ -484,7 +484,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      *
      * @return  $this
      */
-    public function sendTransactional($templateId, $sender, $email, $name, $vars = array(), $storeId = null)
+    public function sendTransactional($templateId, $sender, $email, $name, $vars = [], $storeId = null)
     {
         $this->setSentSuccess(false);
         if (($storeId === null) && $this->getDesignConfig()->getStore()) {
@@ -596,7 +596,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     protected function _parseVariablesString($variablesString)
     {
-        $variables = array();
+        $variables = [];
         if ($variablesString && is_string($variablesString)) {
             $variablesString = str_replace("\n", '', $variablesString);
             $variables = Zend_Json::decode($variablesString);
@@ -612,20 +612,20 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getVariablesOptionArray($withGroup = false)
     {
-        $optionArray = array();
+        $optionArray = [];
         $variables = $this->_parseVariablesString($this->getData('orig_template_variables'));
         if ($variables) {
             foreach ($variables as $value => $label) {
-                $optionArray[] = array(
+                $optionArray[] = [
                     'value' => '{{' . $value . '}}',
                     'label' => Mage::helper('core')->__('%s', $label)
-                );
+                ];
             }
             if ($withGroup) {
-                $optionArray = array(
+                $optionArray = [
                     'label' => Mage::helper('core')->__('Template Variables'),
                     'value' => $optionArray
-                );
+                ];
             }
         }
         return $optionArray;

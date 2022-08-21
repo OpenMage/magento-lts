@@ -34,19 +34,19 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
      *
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     public function render(Varien_Object $row)
     {
-        $this->_actions = array();
+        $this->_actions = [];
         if (Mage::helper('sales/reorder')->canReorder($row)) {
-            $reorderAction = array(
-                '@' => array('href' => $this->getUrl('*/sales_order_create/reorder', array('order_id'=>$row->getId()))),
+            $reorderAction = [
+                '@' => ['href' => $this->getUrl('*/sales_order_create/reorder', ['order_id'=>$row->getId()])],
                 '#' =>  Mage::helper('sales')->__('Reorder')
-            );
+            ];
             $this->addToActions($reorderAction);
         }
-        Mage::dispatchEvent('adminhtml_customer_orders_add_action_renderer', array('renderer' => $this, 'row' => $row));
+        Mage::dispatchEvent('adminhtml_customer_orders_add_action_renderer', ['renderer' => $this, 'row' => $row]);
         return $this->_actionsToHtml();
     }
 
@@ -61,9 +61,9 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
      * @param array $actions
      * @return string
      */
-    protected function _actionsToHtml(array $actions = array())
+    protected function _actionsToHtml(array $actions = [])
     {
-        $html = array();
+        $html = [];
         $attributesObject = new Varien_Object();
 
         if (empty($actions)) {

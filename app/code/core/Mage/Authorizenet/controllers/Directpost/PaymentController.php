@@ -67,7 +67,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         /** @var Mage_Authorizenet_Model_Directpost $paymentMethod */
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
-        $result = array();
+        $result = [];
         if (!empty($data['x_invoice_num'])) {
             $result['x_invoice_num'] = $data['x_invoice_num'];
         }
@@ -111,7 +111,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $redirectParams = $this->getRequest()->getParams();
         unset($redirectParams['redirect_parent']);
         unset($redirectParams['redirect']);
-        $params = array();
+        $params = [];
         if (!empty($redirectParams['success'])
             && isset($redirectParams['x_invoice_num'])
             && isset($redirectParams['controller_action_name'])
@@ -145,10 +145,10 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                 $this->getRequest()->getParams()
             );
         } else {
-            $result = array(
+            $result = [
                 'error_messages' => $this->__('Please, choose payment method'),
                 'goto_section'   => 'payment'
-            );
+            ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -160,7 +160,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
     public function returnQuoteAction()
     {
         $this->_returnCustomerQuote();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('success' => 1)));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
     }
 
     /**

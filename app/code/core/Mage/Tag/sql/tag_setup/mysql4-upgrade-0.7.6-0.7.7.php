@@ -25,6 +25,6 @@ $installer->getConnection()
     ->addKey(
         $this->getTable('tag/relation'),
         'UNQ_TAG_CUSTOMER_PRODUCT_STORE',
-        array('tag_id', 'customer_id', 'product_id', 'store_id'),
+        ['tag_id', 'customer_id', 'product_id', 'store_id'],
         'unique'
     );

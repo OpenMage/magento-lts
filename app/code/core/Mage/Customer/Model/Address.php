@@ -105,7 +105,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
     public function delete()
     {
         parent::delete();
-        $this->setData(array());
+        $this->setData([]);
         return $this;
     }
 

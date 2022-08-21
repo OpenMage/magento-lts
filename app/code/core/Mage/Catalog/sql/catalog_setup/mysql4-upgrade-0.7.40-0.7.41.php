@@ -25,7 +25,7 @@ $installer->startSetup();
 
 $defaultValue = 'container2';
 
-$installer->addAttribute('catalog_product', 'options_container', array(
+$installer->addAttribute('catalog_product', 'options_container', [
     'group'             => 'Design',
     'type'              => 'varchar',
     'backend'           => '',
@@ -45,7 +45,7 @@ $installer->addAttribute('catalog_product', 'options_container', array(
     'visible_on_front'  => false,
     'visible_in_advanced_search' => false,
     'unique'            => false,
-    ));
+]);
 
 $newAttributeId = $installer->getAttributeId('catalog_product', 'options_container');
 

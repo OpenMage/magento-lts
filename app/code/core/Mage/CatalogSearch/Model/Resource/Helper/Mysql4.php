@@ -40,7 +40,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
     public function chooseFulltext($table, $alias, $select)
     {
         $field = new Zend_Db_Expr('MATCH ('.$alias.'.data_index) AGAINST (:query IN BOOLEAN MODE)');
-        $select->columns(array('relevance' => $field));
+        $select->columns(['relevance' => $field]);
         return $field;
     }
 
@@ -53,7 +53,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      */
     public function prepareTerms($str, $maxWordLength = 0)
     {
-        $boolWords = array(
+        $boolWords = [
             '+' => '+',
             '-' => '-',
             '|' => '|',
@@ -61,13 +61,13 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
             '>' => '>',
             '~' => '~',
             '*' => '*',
-        );
-        $brackets = array(
+        ];
+        $brackets = [
             '('       => '(',
             ')'       => ')'
-        );
-        $words = array(0=>"");
-        $terms = array();
+        ];
+        $words = [0=>""];
+        $terms = [];
         preg_match_all('/([\(\)]|[\"\'][^"\']*[\"\']|[^\s\"\(\)]*)/uis', $str, $matches);
         $isOpenBracket = 0;
         foreach ($matches[1] as $word) {
@@ -100,7 +100,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
-        $result = array($words, $terms);
+        $result = [$words, $terms];
         return $result;
     }
 
@@ -112,7 +112,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
      * @param array $fields update fields pairs or values
      * @return int The number of affected rows.
      */
-    public function insertOnDuplicate($table, array $data, array $fields = array())
+    public function insertOnDuplicate($table, array $data, array $fields = [])
     {
         return $this->_getWriteAdapter()->insertOnDuplicate($table, $data, $fields);
     }

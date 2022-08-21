@@ -94,20 +94,20 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array('user', 'pwd', 'acct', 'expdate', 'cvv2');
+    protected $_debugReplacePrivateDataKeys = ['user', 'pwd', 'acct', 'expdate', 'cvv2'];
 
     /**
      * Centinel cardinal fields map
      *
      * @var string
      */
-    protected $_centinelFieldMap = array(
+    protected $_centinelFieldMap = [
         'centinel_mpivendor'    => 'MPIVENDOR3DS',
         'centinel_authstatus'   => 'AUTHSTATUS3DS',
         'centinel_cavv'         => 'CAVV',
         'centinel_eci'          => 'ECI',
         'centinel_xid'          => 'XID',
-    );
+    ];
 
     /**
      * Check whether payment method can be used
@@ -332,7 +332,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         }
 
         $rawData = $response->getData();
-        return ($rawData) ? $rawData : array();
+        return ($rawData) ? $rawData : [];
     }
 
     /**
@@ -343,7 +343,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      */
     protected static function _isTransactionUnderReview($status)
     {
-        if (in_array($status, array(self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT))) {
+        if (in_array($status, [self::RESPONSE_CODE_APPROVED, self::RESPONSE_CODE_DECLINED_BY_MERCHANT])) {
             return false;
         }
         return true;
@@ -372,16 +372,16 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
      */
     protected function _postRequest(Varien_Object $request)
     {
-        $debugData = array('request' => $request->getData());
+        $debugData = ['request' => $request->getData()];
 
         $client = new Varien_Http_Client();
         $result = new Varien_Object();
 
-        $_config = array(
+        $_config = [
             'maxredirects' => 5,
             'timeout'    => 30,
             'verifypeer' => $this->getConfigData('verify_peer')
-        );
+        ];
 
         //checking proxy
         $_isProxy = $this->getConfigData('use_proxy', false);
@@ -453,7 +453,7 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
         $request->setCvv2($payment->getCcCid());
 
         if ($this->getIsCentinelValidationEnabled()){
-            $params = array();
+            $params = [];
             $params = $this->getCentinelValidator()->exportCmpiData($params);
             $request = Varien_Object_Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
         }

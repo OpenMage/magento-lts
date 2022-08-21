@@ -25,6 +25,6 @@ $conn = $installer->getConnection();
 /** @var Varien_Db_Adapter_Pdo_Mysql $conn */
 
 $conn->addColumn($installer->getTable('sales_quote'), 'customer_dob', 'datetime after customer_suffix');
-$installer->addAttribute('quote', 'customer_dob', array('type'=>'static', 'backend'=>'eav/entity_attribute_backend_datetime'));
+$installer->addAttribute('quote', 'customer_dob', ['type'=>'static', 'backend'=>'eav/entity_attribute_backend_datetime']);
 
-$installer->addAttribute('order', 'customer_dob', array('type'=>'datetime', 'backend'=>'eav/entity_attribute_backend_datetime'));
+$installer->addAttribute('order', 'customer_dob', ['type'=>'datetime', 'backend'=>'eav/entity_attribute_backend_datetime']);

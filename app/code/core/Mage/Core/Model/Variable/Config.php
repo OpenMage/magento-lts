@@ -35,19 +35,19 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygPluginSettings($config)
     {
-        $variableConfig = array();
-        $onclickParts = array(
-            'search' => array('html_id'),
+        $variableConfig = [];
+        $onclickParts = [
+            'search' => ['html_id'],
             'subject' => 'MagentovariablePlugin.loadChooser(\''.$this->getVariablesWysiwygActionUrl().'\', \'{{html_id}}\');'
-        );
-        $variableWysiwygPlugin = array(array('name' => 'magentovariable',
+        ];
+        $variableWysiwygPlugin = [['name' => 'magentovariable',
             'src' => $this->getWysiwygJsPluginSrc(),
-            'options' => array(
+            'options' => [
                 'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
                 'url' => $this->getVariablesWysiwygActionUrl(),
                 'onclick' => $onclickParts,
                 'class'   => 'add-variable plugin'
-        )));
+            ]]];
         $configPlugins = $config->getData('plugins');
         $variableConfig['plugins'] = array_merge($configPlugins, $variableWysiwygPlugin);
         return $variableConfig;

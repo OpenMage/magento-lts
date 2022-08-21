@@ -22,26 +22,26 @@
 $installer = $this;
 
 // Setup data to configure
-$frequencies = array(
+$frequencies = [
     Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_DAILY,
     Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_MONTHLY,
     Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_YEARLY
-);
+];
 
-$foreignKeys = array(
-    array(
+$foreignKeys = [
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_STORE_ID',
         'column' => 'store_id',
         'refTable' => 'core/store',
         'refColumn' => 'store_id'
-    ),
-    array(
+    ],
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_PRODUCT_ID',
         'column' => 'product_id',
         'refTable' => 'catalog/product',
         'refColumn' => 'entity_id'
-    )
-);
+    ]
+];
 
 /*
  * Alter foreign keys to add 'CASCADE' instead of 'SET_NULL' action

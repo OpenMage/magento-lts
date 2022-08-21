@@ -21,13 +21,13 @@ $installer = $this;
 /** @var Mage_Paypal_Model_Mysql4_Setup $installer */
 $installer->startSetup();
 
-$installer->addAttribute('order_payment', 'cc_secure_verify', array());
+$installer->addAttribute('order_payment', 'cc_secure_verify', []);
 
 // move paypal style settings to new paths
-foreach (array(
+foreach ([
         'paypal/wpp/page_style' => 'paypal/style/page_style',
         'paypal/wps/logo_url' => 'paypal/style/logo_url',
-    ) as $from => $to) {
+         ] as $from => $to) {
     $installer->run("
     UPDATE {$installer->getTable('core/config_data')} SET `path` = '{$to}'
     WHERE `path` = '{$from}'

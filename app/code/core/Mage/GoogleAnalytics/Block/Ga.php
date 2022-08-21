@@ -149,8 +149,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             return;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds));
-        $result = array();
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
         $result[] = "ga('require', 'ecommerce')";
         foreach ($collection as $order) {
             $result[] = sprintf("ga('ecommerce:addTransaction', {
@@ -201,8 +201,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             return;
         }
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds));
-        $result = array();
+            ->addFieldToFilter('entity_id', ['in' => $orderIds]);
+        $result = [];
         foreach ($collection as $order) {
             if ($order->getIsVirtual()) {
                 $address = $order->getBillingAddress();

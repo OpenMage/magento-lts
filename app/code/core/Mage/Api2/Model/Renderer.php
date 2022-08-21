@@ -41,7 +41,7 @@ abstract class Mage_Api2_Model_Renderer
         $adapters = $helper->getResponseRenderAdapters();
 
         if (!is_array($acceptTypes)) {
-            $acceptTypes = array($acceptTypes);
+            $acceptTypes = [$acceptTypes];
         }
 
         $type = null;

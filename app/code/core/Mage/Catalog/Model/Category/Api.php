@@ -42,7 +42,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function level($website = null, $store = null, $categoryId = null)
     {
-        $ids = array();
+        $ids = [];
         $storeId = Mage_Catalog_Model_Category::DEFAULT_STORE_ID;
 
         // load root categories of website
@@ -92,23 +92,23 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             ->addAttributeToSelect('is_active');
 
         if (is_array($ids)) {
-            $collection->addFieldToFilter('entity_id', array('in' => $ids));
+            $collection->addFieldToFilter('entity_id', ['in' => $ids]);
         } else {
             $collection->addFieldToFilter('parent_id', $ids);
         }
 
         // Only basic category data
-        $result = array();
+        $result = [];
         foreach ($collection as $category) {
             /** @var Mage_Catalog_Model_Category $category */
-            $result[] = array(
+            $result[] = [
                 'category_id' => $category->getId(),
                 'parent_id'   => $category->getParentId(),
                 'name'        => $category->getName(),
                 'is_active'   => $category->getIsActive(),
                 'position'    => $category->getPosition(),
                 'level'       => $category->getLevel()
-            );
+            ];
         }
 
         return $result;
@@ -159,14 +159,14 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     protected function _nodeToArray(Varien_Data_Tree_Node $node)
     {
         // Only basic category data
-        $result = array();
+        $result = [];
         $result['category_id'] = $node->getId();
         $result['parent_id']   = $node->getParentId();
         $result['name']        = $node->getName();
         $result['is_active']   = $node->getIsActive();
         $result['position']    = $node->getPosition();
         $result['level']       = $node->getLevel();
-        $result['children']    = array();
+        $result['children']    = [];
 
         foreach ($node->getChildren() as $child) {
             $result['children'][] = $this->_nodeToArray($child);
@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = $this->_initCategory($categoryId, $store);
 
         // Basic category data
-        $result = array();
+        $result = [];
         $result['category_id'] = $category->getId();
 
         $result['is_active']   = $category->getIsActive();
@@ -243,10 +243,10 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $category = Mage::getModel('catalog/category')
             ->setStoreId($this->_getStoreId($store));
 
-        $category->addData(array('path'=>implode('/', $parent_category->getPathIds())));
+        $category->addData(['path'=>implode('/', $parent_category->getPathIds())]);
         $category->setAttributeSetId($category->getDefaultAttributeSetId());
 
-        $useConfig = array();
+        $useConfig = [];
         foreach ($category->getAttributes() as $attribute) {
             if ($this->_isAllowedAttribute($attribute)
                 && isset($categoryData[$attribute->getAttributeCode()])
@@ -432,16 +432,16 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         $collection = $category->setStoreId($storeId)->getProductCollection();
         ($storeId == 0)? $collection->addOrder('position', 'asc') : $collection->setOrder('position', 'asc');
 
-        $result = array();
+        $result = [];
 
         foreach ($collection as $product) {
-            $result[] = array(
+            $result[] = [
                 'product_id' => $product->getId(),
                 'type'       => $product->getTypeId(),
                 'set'        => $product->getAttributeSetId(),
                 'sku'        => $product->getSku(),
                 'position'   => $product->getCatIndexPosition()
-            );
+            ];
         }
 
         return $result;

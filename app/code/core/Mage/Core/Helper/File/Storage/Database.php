@@ -257,17 +257,17 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
      * @param array $result
      * @return string
      */
-    public function saveUploadedFile($result = array())
+    public function saveUploadedFile($result = [])
     {
         if ($this->checkDbUsage()) {
-            $path = rtrim(str_replace(array('\\', '/'), DS, $result['path']), DS);
+            $path = rtrim(str_replace(['\\', '/'], DS, $result['path']), DS);
             $file = '/' . ltrim($result['file'], '\\/');
 
             $uniqueResultFile = $this->getUniqueFilename($path, $file);
 
             if ($uniqueResultFile !== $file) {
                 $ioFile = new Varien_Io_File();
-                $ioFile->open(array('path' => $path));
+                $ioFile->open(['path' => $path]);
                 $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }
             $this->saveFile($path . $uniqueResultFile);

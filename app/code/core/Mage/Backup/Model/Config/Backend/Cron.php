@@ -50,13 +50,13 @@ class Mage_Backup_Model_Config_Backend_Cron extends Mage_Core_Model_Config_Data
         $frequencyMonthly = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
         if ($enabled) {
-            $cronExprArray = array(
+            $cronExprArray = [
                 intval($time[1]),                                   # Minute
                 intval($time[0]),                                   # Hour
                 ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-            );
+            ];
             $cronExprString = implode(' ', $cronExprArray);
         }
         else {

@@ -67,7 +67,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_usedStorageTypes = array('core/session');
+    protected $_usedStorageTypes = ['core/session'];
 
     /**
      * @inheritDoc
@@ -224,12 +224,12 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     public function getGroupedHtml()
     {
-        $types = array(
+        $types = [
             Mage_Core_Model_Message::ERROR,
             Mage_Core_Model_Message::WARNING,
             Mage_Core_Model_Message::NOTICE,
             Mage_Core_Model_Message::SUCCESS
-        );
+        ];
         $html = '';
         foreach ($types as $type) {
             if ($messages = $this->getMessages($type)) {
@@ -291,9 +291,9 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        return array(
+        return [
             'storage_types' => serialize($this->_usedStorageTypes)
-        );
+        ];
     }
 
     /**

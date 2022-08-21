@@ -39,7 +39,7 @@ class Mage_Eav_Model_Attribute_Data
      *
      * @var array
      */
-    protected static $_dataModels   = array();
+    protected static $_dataModels   = [];
 
     /**
      * Return attribute data model by attribute

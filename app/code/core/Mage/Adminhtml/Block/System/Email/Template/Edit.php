@@ -41,11 +41,11 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Back'),
                         'onclick' => "window.location.href = '" . $this->getUrl('*/*') . "'",
                         'class'   => 'back'
-                    )
+                    ]
                 )
         );
 
@@ -53,10 +53,10 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Reset'),
                         'onclick' => 'window.location.href = window.location.href'
-                    )
+                    ]
                 )
         );
 
@@ -64,22 +64,22 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Delete Template'),
                         'onclick' => 'templateControl.deleteTemplate();',
                         'class'   => 'delete'
-                    )
+                    ]
                 )
         );
 
         $this->setChild('to_plain_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Convert to Plain Text'),
                         'onclick' => 'templateControl.stripTags();',
                         'id'      => 'convert_button'
-                    )
+                    ]
                 )
         );
 
@@ -87,23 +87,23 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setChild('to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Return Html Version'),
                         'onclick' => 'templateControl.unStripTags();',
                         'id'      => 'convert_button_back',
                         'style'   => 'display:none'
-                    )
+                    ]
                 )
         );
 
         $this->setChild('toggle_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Toggle Editor'),
                         'onclick' => 'templateControl.toggleEditor();',
                         'id'      => 'toggle_button'
-                    )
+                    ]
                 )
         );
 
@@ -111,33 +111,33 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Preview Template'),
                         'onclick' => 'templateControl.preview();'
-                    )
+                    ]
                 )
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Save Template'),
                         'onclick' => 'templateControl.save();',
                         'class'   => 'save'
-                    )
+                    ]
                 )
         );
 
         $this->setChild('load_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('adminhtml')->__('Load Template'),
                         'onclick' => 'templateControl.load();',
                         'type'    => 'button',
                         'class'   => 'save'
-                    )
+                    ]
                 )
         );
 
@@ -236,7 +236,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true));
+        return $this->getUrl('*/*/save', ['_current' => true]);
     }
 
     /**
@@ -261,7 +261,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     public function getDeleteUrl()
     {
-        return $this->getUrlSecure('*/*/delete', array('_current' => true));
+        return $this->getUrlSecure('*/*/delete', ['_current' => true]);
     }
 
     /**
@@ -339,22 +339,22 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
      */
     protected function _getSystemConfigPathsParts($paths)
     {
-        $result = $urlParams = $prefixParts = array();
+        $result = $urlParams = $prefixParts = [];
         $scopeLabel = Mage::helper('adminhtml')->__('GLOBAL');
         if ($paths) {
             // create prefix path parts
-            $prefixParts[] = array(
+            $prefixParts[] = [
                 'title' => Mage::getSingleton('admin/config')->getMenuItemLabel('system'),
-            );
-            $prefixParts[] = array(
+            ];
+            $prefixParts[] = [
                 'title' => Mage::getSingleton('admin/config')->getMenuItemLabel('system/config'),
                 'url' => $this->getUrl('adminhtml/system_config/'),
-            );
+            ];
 
             $pathParts = $prefixParts;
             foreach ($paths as $id => $pathData) {
                 list($sectionName, $groupName, $fieldName) = explode('/', $pathData['path']);
-                $urlParams = array('section' => $sectionName);
+                $urlParams = ['section' => $sectionName];
                 if (isset($pathData['scope']) && isset($pathData['scope_id'])) {
                     switch ($pathData['scope']) {
                         case 'stores':
@@ -376,17 +376,17 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                             break;
                     }
                 }
-                $pathParts[] = array(
+                $pathParts[] = [
                     'title' => Mage::getSingleton('adminhtml/config')->getSystemConfigNodeLabel($sectionName),
                     'url' => $this->getUrl('adminhtml/system_config/edit', $urlParams),
-                );
-                $pathParts[] = array(
+                ];
+                $pathParts[] = [
                     'title' => Mage::getSingleton('adminhtml/config')->getSystemConfigNodeLabel($sectionName, $groupName)
-                );
-                $pathParts[] = array(
+                ];
+                $pathParts[] = [
                     'title' => Mage::getSingleton('adminhtml/config')->getSystemConfigNodeLabel($sectionName, $groupName, $fieldName),
                     'scope' => $scopeLabel
-                );
+                ];
                 $result[] = $pathParts;
                 $pathParts = $prefixParts;
             }

@@ -143,13 +143,13 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        $data = array(
+        $data = [
             'firstname' => $this->getFirstname(),
             'lastname'  => $this->getLastname(),
             'email'     => $this->getEmail(),
             'modified'  => $this->_getDateNow(),
             'extra'     => serialize($this->getExtra())
-        );
+        ];
 
         if ($this->getId() > 0) {
             $data['user_id'] = $this->getId();
@@ -331,9 +331,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_IDENTITY));
         $mailer->setStoreId(0);
         $mailer->setTemplateId(Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE));
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
             'user' => $this
-        ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -384,10 +384,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $result = false;
 
         try {
-            Mage::dispatchEvent('admin_user_authenticate_before', array(
+            Mage::dispatchEvent('admin_user_authenticate_before', [
                 'username' => $username,
                 'user'     => $this
-            ));
+            ]);
             $this->loadByUsername($username);
             $sensitive = ($config) ? $username == $this->getUsername() : true;
 
@@ -401,12 +401,12 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $result = true;
             }
 
-            Mage::dispatchEvent('admin_user_authenticate_after', array(
+            Mage::dispatchEvent('admin_user_authenticate_after', [
                 'username' => $username,
                 'password' => $password,
                 'user'     => $this,
                 'result'   => $result,
-            ));
+            ]);
         } catch (Mage_Core_Exception $e) {
             $this->unsetData();
             throw $e;
@@ -617,10 +617,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $errors->append(Mage::helper('adminhtml')->__('Password confirmation must be same as password.'));
             }
 
-            Mage::dispatchEvent('admin_user_validate', array(
+            Mage::dispatchEvent('admin_user_validate', [
                 'user' => $this,
                 'errors' => $errors,
-            ));
+            ]);
         }
 
         if ($this->userExists()) {
@@ -644,7 +644,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validateCurrentPassword($password)
     {
-        $result = array();
+        $result = [];
 
         if (!Zend_Validate::is($password, 'NotEmpty')) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
@@ -759,15 +759,15 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $mailer->addEmailInfo($emailInfo);
 
         // Set all required params and send emails
-        $mailer->setSender(array(
+        $mailer->setSender([
             'name'  => $generalContactName,
             'email' => $generalContactEmail,
-        ));
+        ]);
         $mailer->setStoreId(0);
         $mailer->setTemplateId(Mage::getStoreConfig(self::XML_PATH_NOTIFICATION_EMAILS_TEMPLATE));
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
             'user' => $user,
-        ));
+        ]);
         $mailer->send();
 
         return $this;

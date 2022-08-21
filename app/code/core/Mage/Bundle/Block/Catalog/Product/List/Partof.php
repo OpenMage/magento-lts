@@ -44,8 +44,8 @@ class Mage_Bundle_Block_Catalog_Product_List_Partof extends Mage_Catalog_Block_P
             ->addStoreFilter()
             ->addMinimalPrice()
 
-            ->joinTable('bundle/option', 'parent_id=entity_id', array('option_id' => 'option_id'))
-            ->joinTable('bundle/selection', 'option_id=option_id', array('product_id' => 'product_id'), '{{table}}.product_id='.$this->getProduct()->getId());
+            ->joinTable('bundle/option', 'parent_id=entity_id', ['option_id' => 'option_id'])
+            ->joinTable('bundle/selection', 'option_id=option_id', ['product_id' => 'product_id'], '{{table}}.product_id='.$this->getProduct()->getId());
 
             $ids = Mage::getSingleton('checkout/cart')->getProductIds();
 

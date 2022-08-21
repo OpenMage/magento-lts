@@ -37,6 +37,6 @@ class Mage_Paypal_Block_Adminhtml_System_Config_BmlApiWizard extends Mage_Paypal
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {
-        return array();
+        return [];
     }
 }

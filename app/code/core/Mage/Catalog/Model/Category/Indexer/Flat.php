@@ -38,18 +38,18 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Category::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Category::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store::ENTITY => array(
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE
-        ),
-        Mage_Core_Model_Store_Group::ENTITY => array(
+        ],
+        Mage_Core_Model_Store_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-    );
+        ],
+    ];
 
     /**
      * Whether the indexer should be displayed on process/list page

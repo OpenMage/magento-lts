@@ -114,10 +114,10 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 case self::APPLY_FOR_CATEGORY:
                     break;
                 case self::APPLY_FOR_PRODUCT:
-                    $validApplyTo = array(
+                    $validApplyTo = [
                         self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE,
                         self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY
-                    );
+                    ];
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
@@ -129,18 +129,18 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         } else {
             switch ($applyForObject) {
                 case self::APPLY_FOR_CATEGORY:
-                    $validApplyTo = array(
+                    $validApplyTo = [
                         self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE,
                         self::CATEGORY_APPLY_CATEGORY_RECURSIVE
-                    );
+                    ];
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
                     break;
                 case self::APPLY_FOR_PRODUCT:
-                    $validApplyTo = array(
+                    $validApplyTo = [
                         self::CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE
-                    );
+                    ];
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
@@ -286,9 +286,9 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      */
     protected function _applyDesign($designUpdateData, $calledFrom = 0, $loaded = false, $pass = 0)
     {
-        $objects = array();
+        $objects = [];
         if (is_object($designUpdateData)) {
-            $objects = array($designUpdateData);
+            $objects = [$designUpdateData];
         } elseif (is_array($designUpdateData)) {
             $objects = &$designUpdateData;
         }
@@ -307,12 +307,12 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         $pass ++;
 
         if ($loaded === false && is_object($designUpdateData)) {
-            $_designUpdateData = array();
+            $_designUpdateData = [];
             if ($designUpdateData instanceof Mage_Catalog_Model_Product) {
                 $_category = $designUpdateData->getCategory();
                 $_designUpdateData = array_merge(
                     $_designUpdateData,
-                    array($_category)
+                    [$_category]
                 );
                 $pass --;
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {

@@ -29,7 +29,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
      */
     public function loadAttributeOptions()
     {
-        $attributes = array(
+        $attributes = [
             'base_subtotal' => Mage::helper('salesrule')->__('Subtotal'),
             'total_qty' => Mage::helper('salesrule')->__('Total Items Quantity'),
             'weight' => Mage::helper('salesrule')->__('Total Weight'),
@@ -39,7 +39,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             'region' => Mage::helper('salesrule')->__('Shipping Region'),
             'region_id' => Mage::helper('salesrule')->__('Shipping State/Province'),
             'country_id' => Mage::helper('salesrule')->__('Shipping Country'),
-        );
+        ];
 
         $this->setAttributeOption($attributes);
 
@@ -119,7 +119,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
                     break;
 
                 default:
-                    $options = array();
+                    $options = [];
             }
             $this->setData('value_select_options', $options);
         }

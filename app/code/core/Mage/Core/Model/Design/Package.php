@@ -30,8 +30,8 @@ class Mage_Core_Model_Design_Package
      */
     const FALLBACK_THEME  = 'default';
 
-    private static $_regexMatchCache      = array();
-    private static $_customThemeTypeCache = array();
+    private static $_regexMatchCache      = [];
+    private static $_customThemeTypeCache = [];
 
     /**
      * Current Store for generation ofr base_dir and base_url
@@ -98,9 +98,9 @@ class Mage_Core_Model_Design_Package
             $this->_config = Mage::getSingleton('core/design_config');
         }
         if (is_null($this->_fallback)) {
-            $this->_fallback = Mage::getSingleton('core/design_fallback', array(
+            $this->_fallback = Mage::getSingleton('core/design_fallback', [
                 'config' => $this->_config,
-            ));
+            ]);
         }
     }
 
@@ -195,7 +195,7 @@ class Mage_Core_Model_Design_Package
      */
     public function setAllGetOld($storePackageArea)
     {
-        $oldValues = array();
+        $oldValues = [];
         if (array_key_exists('store', $storePackageArea)) {
             $oldValues['store'] = $this->getStore();
             $this->setStore($storePackageArea['store']);
@@ -246,7 +246,7 @@ class Mage_Core_Model_Design_Package
     {
         switch (func_num_args()) {
             case 1:
-                foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+                foreach (['layout', 'template', 'skin', 'locale'] as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
                 break;
@@ -336,7 +336,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getSkinBaseDir(array $params = array())
+    public function getSkinBaseDir(array $params = [])
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
@@ -349,7 +349,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getLocaleBaseDir(array $params = array())
+    public function getLocaleBaseDir(array $params = [])
     {
         $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
@@ -363,7 +363,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getSkinBaseUrl(array $params = array())
+    public function getSkinBaseUrl(array $params = [])
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
@@ -433,7 +433,7 @@ class Mage_Core_Model_Design_Package
      * @param array $fallbackScheme
      * @return string
      */
-    protected function _fallback($file, array &$params, array $fallbackScheme = array(array()))
+    protected function _fallback($file, array &$params, array $fallbackScheme = [[]])
     {
         if ($this->_shouldFallback) {
             foreach ($fallbackScheme as $try) {
@@ -488,7 +488,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getLayoutFilename($file, array $params = array())
+    public function getLayoutFilename($file, array $params = [])
     {
         $params['_type'] = 'layout';
         return $this->getFilename($file, $params);
@@ -499,7 +499,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getTemplateFilename($file, array $params = array())
+    public function getTemplateFilename($file, array $params = [])
     {
         $params['_type'] = 'template';
         return $this->getFilename($file, $params);
@@ -510,7 +510,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getLocaleFileName($file, array $params = array())
+    public function getLocaleFileName($file, array $params = [])
     {
         $params['_type'] = 'locale';
         return $this->getFilename($file, $params);
@@ -524,7 +524,7 @@ class Mage_Core_Model_Design_Package
      * @return string
      * @throws Exception
      */
-    public function getSkinUrl($file = null, array $params = array())
+    public function getSkinUrl($file = null, array $params = [])
     {
         Varien_Profiler::start(__METHOD__);
 
@@ -574,7 +574,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getThemeList($package = null)
     {
-        $result = array();
+        $result = [];
 
         if (is_null($package)) {
             foreach ($this->getPackageList() as $package) {
@@ -597,7 +597,7 @@ class Mage_Core_Model_Design_Package
      */
     private function _listDirectories($path, $fullPath = false)
     {
-        $result = array();
+        $result = [];
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
@@ -731,7 +731,7 @@ class Mage_Core_Model_Design_Package
             $files,
             $targetDir . DS . $targetFilename,
             false,
-            array($this, 'beforeMergeCss'),
+            [$this, 'beforeMergeCss'],
             'css'
         );
         if ($mergeFilesResult) {
@@ -756,7 +756,7 @@ class Mage_Core_Model_Design_Package
         $targetFile = false,
         $mustMerge = false,
         $beforeMergeCallback = null,
-        $extensionsFilter = array()
+        $extensionsFilter = []
     ) {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             if (!file_exists($targetFile)) {
@@ -840,10 +840,10 @@ class Mage_Core_Model_Design_Package
         $this->_setCallbackFileDir($file);
 
         $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
-        $contents = preg_replace_callback($cssImport, array($this, '_cssMergerImportCallback'), $contents);
+        $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
-        $contents = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $contents);
+        $contents = preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
 
         return $contents;
     }

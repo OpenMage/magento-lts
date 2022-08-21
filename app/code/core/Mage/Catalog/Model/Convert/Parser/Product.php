@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
      *
      * @var array
      */
-    protected $_productTypeInstances = array();
+    protected $_productTypeInstances = [];
 
     /**
      * Product Type cache
@@ -48,23 +48,23 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
      */
     protected $_productTypes;
 
-    protected $_inventoryFields = array();
+    protected $_inventoryFields = [];
 
-    protected $_imageFields = array();
+    protected $_imageFields = [];
 
-    protected $_systemFields = array();
-    protected $_internalFields = array();
-    protected $_externalFields = array();
+    protected $_systemFields = [];
+    protected $_internalFields = [];
+    protected $_externalFields = [];
 
-    protected $_inventoryItems = array();
+    protected $_inventoryItems = [];
 
     protected $_productModel;
 
-    protected $_setInstances = array();
+    protected $_setInstances = [];
 
     protected $_store;
     protected $_storeId;
-    protected $_attributes = array();
+    protected $_attributes = [];
 
     public function __construct()
     {
@@ -265,7 +265,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     {
         $data            = $this->getData();
         $entityTypeId    = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY)->getId();
-        $inventoryFields = array();
+        $inventoryFields = [];
 
         foreach ($data as $i => $row) {
             $this->setPosition('Line: '.($i+1));
@@ -422,7 +422,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $position = Mage::helper('catalog')->__('Line %d, SKU: %s', ($i+1), $product->getSku());
             $this->setPosition($position);
 
-            $row = array(
+            $row = [
                 'store'         => $this->getStore()->getCode(),
                 'websites'      => '',
                 'attribute_set' => $this->getAttributeSetName(
@@ -431,10 +431,10 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 ),
                 'type'          => $product->getTypeId(),
                 'category_ids' => implode(',', $product->getCategoryIds())
-            );
+            ];
 
             if ($this->getStore()->getCode() == Mage_Core_Model_Store::ADMIN_CODE) {
-                $websiteCodes = array();
+                $websiteCodes = [];
                 foreach ($product->getWebsiteIds() as $websiteId) {
                     $websiteCode = Mage::app()->getWebsite($websiteId)->getCode();
                     $websiteCodes[$websiteCode] = $websiteCode;
@@ -491,7 +491,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
             $productMediaGallery = $product->getMediaGallery();
             $product->reset();
 
-            $processedImageList = array();
+            $processedImageList = [];
             foreach ($this->_imageFields as $field) {
                 if (isset($row[$field])) {
                     if ($row[$field] == 'no_selection') {
@@ -511,11 +511,11 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                 ->setStatus(1)
                 ->save();
 
-            $baseRowData = array(
+            $baseRowData = [
                 'store'     => $row['store'],
                 'website'   => $row['websites'],
                 'sku'       => $row['sku']
-            );
+            ];
             unset($row);
 
             foreach ($productMediaGallery['images'] as $image) {
@@ -523,12 +523,12 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
                     continue;
                 }
 
-                $rowMediaGallery = array(
+                $rowMediaGallery = [
                     '_media_image'          => $image['file'],
                     '_media_lable'          => $image['label'],
                     '_media_position'       => $image['position'],
                     '_media_is_disabled'    => $image['disabled']
-                );
+                ];
                 $rowMediaGallery = array_merge($baseRowData, $rowMediaGallery);
 
                 $this->getBatchExportModel()

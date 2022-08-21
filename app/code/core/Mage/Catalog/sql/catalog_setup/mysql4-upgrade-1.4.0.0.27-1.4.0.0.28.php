@@ -22,7 +22,7 @@
 $installer = $this;
 
 // is product used for recurring payments
-$installer->addAttribute('catalog_product', 'is_recurring', array(
+$installer->addAttribute('catalog_product', 'is_recurring', [
     'group'             => 'Recurring Profile',
     'type'              => 'int',
     'backend'           => '',
@@ -44,10 +44,10 @@ $installer->addAttribute('catalog_product', 'is_recurring', array(
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
     'is_configurable'   => false
-));
+]);
 
 // recurring payment profile
-$installer->addAttribute('catalog_product', 'recurring_profile', array(
+$installer->addAttribute('catalog_product', 'recurring_profile', [
     'group'             => 'Recurring Profile',
     'type'              => 'text',
     'backend'           => 'catalog/product_attribute_backend_recurring',
@@ -68,4 +68,4 @@ $installer->addAttribute('catalog_product', 'recurring_profile', array(
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
     'is_configurable'   => false
-));
+]);

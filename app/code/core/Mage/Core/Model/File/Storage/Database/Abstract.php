@@ -34,7 +34,7 @@ abstract class Mage_Core_Model_File_Storage_Database_Abstract extends Mage_Core_
      *
      * @param array $params
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $connectionName = (isset($params['connection'])) ? $params['connection'] : null;
         if (empty($connectionName)) {

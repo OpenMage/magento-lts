@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
      */
     public function getItems()
     {
-        $items = array();
+        $items = [];
         $allItems = $this->getQuote()->getAllItems();
 
         foreach ($allItems as $item) {

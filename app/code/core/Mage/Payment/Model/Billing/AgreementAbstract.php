@@ -41,7 +41,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Init billing agreement
@@ -90,7 +90,7 @@ abstract class Mage_Payment_Model_Billing_AgreementAbstract extends Mage_Core_Mo
      */
     public function isValid()
     {
-        $this->_errors = array();
+        $this->_errors = [];
         if (is_null($this->getPaymentMethodInstance()) || !$this->getPaymentMethodInstance()->getCode()) {
             $this->_errors[] = Mage::helper('payment')->__('Payment method code is not set.');
         }

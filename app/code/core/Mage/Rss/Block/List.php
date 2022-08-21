@@ -29,7 +29,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
 {
     const XML_PATH_RSS_METHODS = 'rss';
 
-    protected $_rssFeeds = array();
+    protected $_rssFeeds = [];
 
     /**
      * Add Link elements to head
@@ -70,25 +70,25 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function addRssFeed($url, $label, $param = array(), $customerGroup=false)
+    public function addRssFeed($url, $label, $param = [], $customerGroup=false)
     {
-        $param = array_merge($param, array('store_id' => $this->getCurrentStoreId()));
+        $param = array_merge($param, ['store_id' => $this->getCurrentStoreId()]);
         if ($customerGroup) {
-            $param = array_merge($param, array('cid' => $this->getCurrentCustomerGroupId()));
+            $param = array_merge($param, ['cid' => $this->getCurrentCustomerGroupId()]);
         }
 
         $this->_rssFeeds[] = new Varien_Object(
-            array(
+            [
                 'url'   => Mage::getUrl($url, $param),
                 'label' => $label
-            )
+            ]
         );
         return $this;
     }
 
     public function resetRssFeed()
     {
-        $this->_rssFeeds=array();
+        $this->_rssFeeds= [];
     }
 
     /**
@@ -153,7 +153,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/special';
         if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Special Products'),array(),true);
+            $this->addRssFeed($path, $this->__('Special Products'), [],true);
         }
     }
 
@@ -164,7 +164,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
     {
         $path = self::XML_PATH_RSS_METHODS.'/catalog/salesrule';
         if((bool)Mage::getStoreConfig($path)){
-            $this->addRssFeed($path, $this->__('Coupons/Discounts'),array(),true);
+            $this->addRssFeed($path, $this->__('Coupons/Discounts'), [],true);
         }
     }
 
@@ -182,7 +182,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
             $treeModel = $category->getTreeModel()->loadNode(Mage::app()->getStore()->getRootCategoryId());
             $nodes = $treeModel->loadChildren()->getChildren();
 
-            $nodeIds = array();
+            $nodeIds = [];
             foreach ($nodes as $node) {
                 $nodeIds[] = $node->getId();
             }
@@ -197,7 +197,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
                 ->load();
 
             foreach ($collection as $category) {
-                $this->addRssFeed('rss/catalog/category', $category->getName(),array('cid'=>$category->getId()));
+                $this->addRssFeed('rss/catalog/category', $category->getName(), ['cid'=>$category->getId()]);
             }
         }
     }

@@ -51,7 +51,7 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         /** @var Mage_Eav_Model_Entity_Attribute $lastnameAttr */
         $lastnameAttr       = $customer->getAttribute('lastname');
 
-        $firstnameCondition = array('table_customer_firstname.entity_id = detail.customer_id');
+        $firstnameCondition = ['table_customer_firstname.entity_id = detail.customer_id'];
 
         if ($firstnameAttr->getBackend()->isStatic()) {
             $firstnameField = 'firstname';
@@ -64,12 +64,12 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         $this->getSelect()->joinInner(
-            array('table_customer_firstname' => $firstnameAttr->getBackend()->getTable()),
+            ['table_customer_firstname' => $firstnameAttr->getBackend()->getTable()],
             implode(' AND ', $firstnameCondition),
-            array()
+            []
         );
 
-        $middlenameCondition = array('table_customer_middlename.entity_id = detail.customer_id');
+        $middlenameCondition = ['table_customer_middlename.entity_id = detail.customer_id'];
 
         if ($middlenameAttr->getBackend()->isStatic()) {
             $middlenameField = 'middlename';
@@ -82,12 +82,12 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         $this->getSelect()->joinInner(
-            array('table_customer_middlename' => $middlenameAttr->getBackend()->getTable()),
+            ['table_customer_middlename' => $middlenameAttr->getBackend()->getTable()],
             implode(' AND ', $middlenameCondition),
-            array()
+            []
         );
 
-        $lastnameCondition  = array('table_customer_lastname.entity_id = detail.customer_id');
+        $lastnameCondition  = ['table_customer_lastname.entity_id = detail.customer_id'];
         if ($lastnameAttr->getBackend()->isStatic()) {
             $lastnameField = 'lastname';
         } else {
@@ -99,21 +99,21 @@ class Mage_Reports_Model_Resource_Review_Customer_Collection extends Mage_Review
         }
 
         //Prepare fullname field result
-        $customerFullname = $adapter->getConcatSql(array(
+        $customerFullname = $adapter->getConcatSql([
             "table_customer_firstname.{$firstnameField}",
             "table_customer_middlename.{$middlenameField}",
             "table_customer_lastname.{$lastnameField}"
-        ), ' ');
+        ], ' ');
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS)
             ->joinInner(
-                array('table_customer_lastname' => $lastnameAttr->getBackend()->getTable()),
+                ['table_customer_lastname' => $lastnameAttr->getBackend()->getTable()],
                 implode(' AND ', $lastnameCondition),
-                array()
+                []
             )
-            ->columns(array(
+            ->columns([
                 'customer_id' => 'detail.customer_id',
                 'customer_name' => $customerFullname,
-                'review_cnt'    => 'COUNT(main_table.review_id)'))
+                'review_cnt'    => 'COUNT(main_table.review_id)'])
             ->group('detail.customer_id');
 
         return $this;

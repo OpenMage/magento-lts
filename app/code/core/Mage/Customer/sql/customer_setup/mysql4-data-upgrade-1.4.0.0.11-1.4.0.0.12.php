@@ -21,9 +21,9 @@
 /** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
-$attributes = array(
+$attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix'
-);
+];
 
 foreach ($attributes as $attributeCode) {
     $attribute   = Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);

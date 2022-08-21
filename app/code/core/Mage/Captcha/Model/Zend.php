@@ -110,7 +110,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isRequired($login = null)
     {
-        $nonAuthForms = array('wishlist_sharing', 'sendfriend_send');
+        $nonAuthForms = ['wishlist_sharing', 'sendfriend_send'];
 
         if ((!in_array($this->_formId, $nonAuthForms) && $this->_isUserAuth())
             || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())
@@ -465,7 +465,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            array('data' => $word, 'expires' => time() + $this->getTimeout())
+            ['data' => $word, 'expires' => time() + $this->getTimeout()]
         );
         $this->_word = $word;
         return $this;

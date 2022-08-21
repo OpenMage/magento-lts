@@ -36,10 +36,10 @@ class Mage_Customer_Model_Group_Api extends Mage_Api_Model_Resource_Abstract
     {
         $collection = Mage::getModel('customer/group')->getCollection();
 
-        $result = array();
+        $result = [];
         foreach ($collection as $group) {
             /** @var Mage_Customer_Model_Group $group */
-            $result[] = $group->toArray(array('customer_group_id', 'customer_group_code'));
+            $result[] = $group->toArray(['customer_group_id', 'customer_group_code']);
         }
 
         return $result;

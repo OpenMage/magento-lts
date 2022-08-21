@@ -39,9 +39,9 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
         $stores = Mage::app()->getStores();
 
         // Make result array
-        $result = array();
+        $result = [];
         foreach ($stores as $store) {
-            $result[] = array(
+            $result[] = [
                 'store_id'    => $store->getId(),
                 'code'        => $store->getCode(),
                 'website_id'  => $store->getWebsiteId(),
@@ -49,7 +49,7 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
                 'name'        => $store->getName(),
                 'sort_order'  => $store->getSortOrder(),
                 'is_active'   => $store->getIsActive()
-            );
+            ];
         }
 
         return $result;
@@ -75,7 +75,7 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
         }
 
         // Basic store data
-        $result = array();
+        $result = [];
         $result['store_id'] = $store->getId();
         $result['code'] = $store->getCode();
         $result['website_id'] = $store->getWebsiteId();

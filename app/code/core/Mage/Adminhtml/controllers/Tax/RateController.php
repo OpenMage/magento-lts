@@ -285,7 +285,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         $csvData = $csvObject->getData($fileName);
 
         /** checks columns */
-        $csvFields  = array(
+        $csvFields  = [
             0   => Mage::helper('tax')->__('Code'),
             1   => Mage::helper('tax')->__('Country'),
             2   => Mage::helper('tax')->__('State'),
@@ -294,11 +294,11 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             5   => Mage::helper('tax')->__('Zip/Post is Range'),
             6   => Mage::helper('tax')->__('Range From'),
             7   => Mage::helper('tax')->__('Range To')
-        );
+        ];
 
 
-        $stores = array();
-        $unset = array();
+        $stores = [];
+        $unset = [];
         $storeCollection = Mage::getModel('core/store')->getCollection()->setLoadDefault(false);
         $cvsFieldsNum = count($csvFields);
         $cvsDataNum   = count($csvData[0]);
@@ -318,7 +318,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         }
 
-        $regions = array();
+        $regions = [];
 
         if ($unset) {
             foreach ($unset as $u) {
@@ -366,7 +366,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if (!empty($regions[$v[1]][$v[2]])) {
-                    $rateData  = array(
+                    $rateData  = [
                         'code'           => $v[0],
                         'tax_country_id' => $v[1],
                         'tax_region_id'  => ($regions[$v[1]][$v[2]] == '*') ? 0 : $regions[$v[1]][$v[2]],
@@ -375,14 +375,14 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                         'zip_is_range'   => $v[5],
                         'zip_from'       => $v[6],
                         'zip_to'         => $v[7],
-                    );
+                    ];
 
                     $rateModel = Mage::getModel('tax/calculation_rate')->loadByCode($rateData['code']);
                     foreach($rateData as $dataName => $dataValue) {
                         $rateModel->setData($dataName, $dataValue);
                     }
 
-                    $titles = array();
+                    $titles = [];
                     foreach ($stores as $field=>$id) {
                         $titles[$id] = $v[$field];
                     }
@@ -403,7 +403,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     public function exportPostAction()
     {
         /** start csv content and set template */
-        $headers = new Varien_Object(array(
+        $headers = new Varien_Object([
             'code'         => Mage::helper('tax')->__('Code'),
             'country_name' => Mage::helper('tax')->__('Country'),
             'region_name'  => Mage::helper('tax')->__('State'),
@@ -412,13 +412,13 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             'zip_is_range' => Mage::helper('tax')->__('Zip/Post is Range'),
             'zip_from'     => Mage::helper('tax')->__('Range From'),
             'zip_to'       => Mage::helper('tax')->__('Range To')
-        ));
+        ]);
         $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"'
                 . ',"{{zip_is_range}}","{{zip_from}}","{{zip_to}}"';
         $content = $headers->toString($template);
 
-        $storeTaxTitleTemplate       = array();
-        $taxCalculationRateTitleDict = array();
+        $storeTaxTitleTemplate       = [];
+        $taxCalculationRateTitleDict = [];
 
         foreach (Mage::getModel('core/store')->getCollection()->setLoadDefault(false) as $store) {
             $storeTitle = 'title_' . $store->getId();

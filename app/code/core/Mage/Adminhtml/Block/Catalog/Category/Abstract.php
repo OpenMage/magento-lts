@@ -172,16 +172,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         return $node;
     }
 
-    public function getSaveUrl(array $args = array())
+    public function getSaveUrl(array $args = [])
     {
-        $params = array('_current'=>true);
+        $params = ['_current'=>true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/save', $params);
     }
 
     public function getEditUrl()
     {
-        return $this->getUrl("*/catalog_category/edit", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
+        return $this->getUrl("*/catalog_category/edit", ['_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null]);
     }
 
     /**
@@ -193,7 +193,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     {
         $ids = $this->getData('root_ids');
         if (is_null($ids)) {
-            $ids = array();
+            $ids = [];
             foreach (Mage::app()->getGroups() as $store) {
                 $ids[] = $store->getRootCategoryId();
             }

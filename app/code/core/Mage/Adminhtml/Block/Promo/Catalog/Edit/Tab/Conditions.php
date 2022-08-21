@@ -83,16 +83,16 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions
             ->setTemplate('promo/fieldset.phtml')
             ->setNewChildUrl($this->getUrl('*/promo_catalog/newConditionHtml/form/rule_conditions_fieldset'));
 
-        $fieldset = $form->addFieldset('conditions_fieldset', array(
-            'legend'=>Mage::helper('catalogrule')->__('Conditions (leave blank for all products)'))
+        $fieldset = $form->addFieldset('conditions_fieldset', [
+            'legend'=>Mage::helper('catalogrule')->__('Conditions (leave blank for all products)')]
         )->setRenderer($renderer);
 
-        $fieldset->addField('conditions', 'text', array(
+        $fieldset->addField('conditions', 'text', [
             'name' => 'conditions',
             'label' => Mage::helper('catalogrule')->__('Conditions'),
             'title' => Mage::helper('catalogrule')->__('Conditions'),
             'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
+        ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
 /*
         $fieldset = $form->addFieldset('actions_fieldset', array('legend'=>Mage::helper('catalogrule')->__('Actions')));
 

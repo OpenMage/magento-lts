@@ -49,7 +49,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      */
     public function validateValue($value)
     {
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 

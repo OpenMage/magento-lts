@@ -57,10 +57,10 @@ $attributeId  = $installer->getAttributeId($entityTypeId, 'gift_message_availabl
 
 $installer->getConnection()->update(
     $installer->getTable('catalog_product_entity_varchar'),
-    array('value' => ''),
-    array(
+    ['value' => ''],
+    [
         'entity_type_id =?' => $entityTypeId,
         'attribute_id =?' => $attributeId,
         'value =?' => '2'
-    )
+    ]
 );

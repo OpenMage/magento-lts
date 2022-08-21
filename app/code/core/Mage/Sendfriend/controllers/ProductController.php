@@ -50,9 +50,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         if (!$helper->isAllowForGuest() && !$session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             if ($this->getRequest()->getActionName() == 'sendemail') {
-                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', array(
+                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', [
                     '_current' => true
-                )));
+                ]));
                 Mage::getSingleton('catalog/session')
                     ->setSendfriendFormData($this->getRequest()->getPost());
             }
@@ -122,7 +122,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
 
-        Mage::dispatchEvent('sendfriend_product', array('product' => $product));
+        Mage::dispatchEvent('sendfriend_product', ['product' => $product]);
         $data = Mage::getSingleton('catalog/session')->getSendfriendFormData();
         if ($data) {
             Mage::getSingleton('catalog/session')->setSendfriendFormData(true);
@@ -142,7 +142,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     public function sendmailAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/send', array('_current' => true));
+            return $this->_redirect('*/*/send', ['_current' => true]);
         }
 
         $product    = $this->_initProduct();
@@ -192,6 +192,6 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         // save form data
         Mage::getSingleton('catalog/session')->setSendfriendFormData($data);
 
-        $this->_redirectError(Mage::getUrl('*/*/send', array('_current' => true)));
+        $this->_redirectError(Mage::getUrl('*/*/send', ['_current' => true]));
     }
 }

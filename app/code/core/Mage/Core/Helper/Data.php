@@ -59,12 +59,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected $_encryptor = null;
 
-    protected $_allowedFormats = array(
+    protected $_allowedFormats = [
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-    );
+    ];
 
 
     /**
@@ -337,7 +337,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         static $replacements;
 
         if (empty($replacements[$german])) {
-            $subst = array(
+            $subst = [
                 // single ISO-8859-1 letters
                 192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
                 208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
@@ -359,16 +359,16 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 369=>'u', 378=>'z', 380=>'z',
                 // ligatures
                 198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
-            );
+            ];
 
             if ($german) {
                 // umlauts
-                $subst = array(
+                $subst = [
                     196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
-                ) + $subst;
+                    ] + $subst;
             }
 
-            $replacements[$german] = array();
+            $replacements[$german] = [];
             foreach ($subst as $k => $v) {
                 $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
             }
@@ -414,7 +414,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
             $types[$type] = (string)$node->label;
@@ -429,7 +429,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheBetaTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
@@ -492,11 +492,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $eventName = sprintf('core_copy_fieldset_%s_%s', $fieldset, $aspect);
-        Mage::dispatchEvent($eventName, array(
+        Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
             'root'   => $root
-        ));
+        ]);
 
         return $result;
     }
@@ -654,7 +654,7 @@ XML;
      */
     public function xmlToAssoc(SimpleXMLElement $xml)
     {
-        $array = array();
+        $array = [];
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
@@ -683,7 +683,7 @@ XML;
      * @param  array $options Additional options used during encoding
      * @return string
      */
-    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = array())
+    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = [])
     {
         $json = Zend_Json::encode($valueToEncode, $cycleCheck, $options);
         /** @var Mage_Core_Model_Translate_Inline $inline */
@@ -764,7 +764,7 @@ XML;
         $targetFile = false,
         $mustMerge = false,
         $beforeMergeCallback = null,
-        $extensionsFilter = array()
+        $extensionsFilter = []
     ) {
         try {
             // check whether merger is required
@@ -793,7 +793,7 @@ XML;
                 // filter by extensions
                 if ($extensionsFilter) {
                     if (!is_array($extensionsFilter)) {
-                        $extensionsFilter = array($extensionsFilter);
+                        $extensionsFilter = [$extensionsFilter];
                     }
                     if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
@@ -968,7 +968,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false && in_array($firstLetter, array("=", "+", "-"))) {
+                if ($firstLetter !== false && in_array($firstLetter, ["=", "+", "-"])) {
                     $data[$key] = ' ' . $value;
                 }
             }

@@ -44,12 +44,12 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
         $rssObj = Mage::getModel('rss/rss');
         $order = Mage::registry('current_order');
         $title = Mage::helper('rss')->__('Order # %s Notification(s)',$order->getIncrementId());
-        $newurl = Mage::getUrl('sales/order/view',array('order_id' => $order->getId()));
-        $data = array('title' => $title,
+        $newurl = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
+        $data = ['title' => $title,
                 'description' => $title,
                 'link'        => $newurl,
                 'charset'     => 'UTF-8',
-                );
+        ];
         $rssObj->_addHeader($data);
         $resourceModel = Mage::getResourceModel('rss/order');
         $results = $resourceModel->getAllCommentCollection($order->getId());
@@ -68,27 +68,27 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
                 Mage::helper('rss')->__('Comment: %s<br/>',$result['comment']).
                 '</p>'
                 ;
-                $url = Mage::getUrl('sales/order/'.$urlAppend,array('order_id' => $order->getId()));
-                $data = array(
+                $url = Mage::getUrl('sales/order/'.$urlAppend, ['order_id' => $order->getId()]);
+                $data = [
                     'title'         => $title,
                     'link'          => $url,
                     'description'   => $description,
-                );
+                ];
                 $rssObj->_addEntry($data);
             }
         }
         $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
-        $url = Mage::getUrl('sales/order/view',array('order_id' => $order->getId()));
+        $url = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
         $description = '<p>'.
             Mage::helper('rss')->__('Current Status: %s<br/>',$order->getStatusLabel()).
             Mage::helper('rss')->__('Total: %s<br/>',$order->formatPrice($order->getGrandTotal())).
             '</p>'
         ;
-        $data = array(
+        $data = [
                     'title'         => $title,
                     'link'          => $url,
                     'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
         return $rssObj->createRssXml();
     }

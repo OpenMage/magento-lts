@@ -26,7 +26,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
      *
      * @var Varien_Simplexml_Config
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * Set config

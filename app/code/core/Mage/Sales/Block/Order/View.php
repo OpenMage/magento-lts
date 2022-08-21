@@ -97,7 +97,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getInvoiceUrl($order)
     {
-        return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/invoice', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -106,7 +106,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getShipmentUrl($order)
     {
-        return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/shipment', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -115,6 +115,6 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getCreditmemoUrl($order)
     {
-        return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
 }

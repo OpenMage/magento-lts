@@ -38,10 +38,10 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         $request = Mage::app()->getRequest();
         $port = $request->getServer('SERVER_PORT');
         if ($port) {
-            $defaultPorts = array(
+            $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
-            );
+            ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
         $url = $request->getScheme() . '://' . $request->getHttpHost() . $port . $request->getServer('REQUEST_URI');
@@ -108,7 +108,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $startDelimiter = (strpos($url, '?') === false)? '?' : '&';
 
-        $arrQueryParams = array();
+        $arrQueryParams = [];
         foreach ($param as $key => $value) {
             if (is_numeric($key) || is_object($value)) {
                 continue;
@@ -156,7 +156,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($name, $arguments = array())
+    protected function _getSingletonModel($name, $arguments = [])
     {
         return Mage::getSingleton($name, $arguments);
     }

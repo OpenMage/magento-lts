@@ -49,7 +49,7 @@ class Mage_Api_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
         }
 
         if (!is_array($parents)) {
-            $parents = array($parents);
+            $parents = [$parents];
         }
         foreach ($parents as $parent) {
             try {

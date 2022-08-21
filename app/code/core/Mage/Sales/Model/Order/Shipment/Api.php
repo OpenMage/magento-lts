@@ -29,10 +29,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
 {
     public function __construct()
     {
-        $this->_attributesMap['shipment'] = array('shipment_id' => 'entity_id');
-        $this->_attributesMap['shipment_item'] = array('item_id' => 'entity_id');
-        $this->_attributesMap['shipment_comment'] = array('comment_id' => 'entity_id');
-        $this->_attributesMap['shipment_track'] = array('track_id' => 'entity_id');
+        $this->_attributesMap['shipment'] = ['shipment_id' => 'entity_id'];
+        $this->_attributesMap['shipment_item'] = ['item_id' => 'entity_id'];
+        $this->_attributesMap['shipment_comment'] = ['comment_id' => 'entity_id'];
+        $this->_attributesMap['shipment_track'] = ['track_id' => 'entity_id'];
     }
 
     /**
@@ -43,7 +43,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     public function items($filters = null)
     {
-        $shipments = array();
+        $shipments = [];
         //TODO: add full name logic
         $shipmentCollection = Mage::getResourceModel('sales/order_shipment_collection')
             ->addAttributeToSelect('increment_id')
@@ -87,17 +87,17 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
 
         $result = $this->_getAttributes($shipment, 'shipment');
 
-        $result['items'] = array();
+        $result['items'] = [];
         foreach ($shipment->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'shipment_item');
         }
 
-        $result['tracks'] = array();
+        $result['tracks'] = [];
         foreach ($shipment->getAllTracks() as $track) {
             $result['tracks'][] = $this->_getAttributes($track, 'shipment_track');
         }
 
-        $result['comments'] = array();
+        $result['comments'] = [];
         foreach ($shipment->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'shipment_comment');
         }
@@ -117,7 +117,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     public function create(
         $orderIncrementId,
-        $itemsQty = array(),
+        $itemsQty = [],
         $comment = null,
         $email = false,
         $includeComment = false
@@ -350,7 +350,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
      */
     protected function _getCarriers($object)
     {
-        $carriers = array();
+        $carriers = [];
         $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers(
             $object->getStoreId()
         );

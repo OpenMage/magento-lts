@@ -24,31 +24,31 @@ $installer = $this;
 $eavConfig = Mage::getSingleton('eav/config');
 
 // update customer system attributes used_in_forms data
-$attributes = array(
-    'confirmation'      => array(),
-    'default_billing'   => array(),
-    'default_shipping'  => array(),
-    'password_hash'     => array(),
-    'website_id'        => array('adminhtml_only' => 1),
-    'created_in'        => array('adminhtml_only' => 1),
-    'store_id'          => array(),
-    'group_id'          => array('adminhtml_only' => 1, 'admin_checkout' => 1),
-    'prefix'            => array(),
-    'firstname'         => array(),
-    'middlename'        => array(),
-    'lastname'          => array(),
-    'suffix'            => array(),
-    'email'             => array('admin_checkout' => 1),
-    'dob'               => array('admin_checkout' => 1),
-    'taxvat'            => array('admin_checkout' => 1),
-    'gender'            => array('admin_checkout' => 1),
-);
+$attributes = [
+    'confirmation'      => [],
+    'default_billing'   => [],
+    'default_shipping'  => [],
+    'password_hash'     => [],
+    'website_id'        => ['adminhtml_only' => 1],
+    'created_in'        => ['adminhtml_only' => 1],
+    'store_id'          => [],
+    'group_id'          => ['adminhtml_only' => 1, 'admin_checkout' => 1],
+    'prefix'            => [],
+    'firstname'         => [],
+    'middlename'        => [],
+    'lastname'          => [],
+    'suffix'            => [],
+    'email'             => ['admin_checkout' => 1],
+    'dob'               => ['admin_checkout' => 1],
+    'taxvat'            => ['admin_checkout' => 1],
+    'gender'            => ['admin_checkout' => 1],
+];
 
-$defaultUsedInForms = array(
+$defaultUsedInForms = [
     'customer_account_create',
     'customer_account_edit',
     'checkout_register',
-);
+];
 
 foreach ($attributes as $attributeCode => $data) {
     $attribute = $eavConfig->getAttribute('customer', $attributeCode);
@@ -58,7 +58,7 @@ foreach ($attributes as $attributeCode => $data) {
     if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
         $usedInForms = $defaultUsedInForms;
         if (!empty($data['adminhtml_only'])) {
-            $usedInForms = array('adminhtml_customer');
+            $usedInForms = ['adminhtml_customer'];
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
@@ -71,16 +71,16 @@ foreach ($attributes as $attributeCode => $data) {
 }
 
 // update customer address system attributes used_in_forms data
-$attributes = array(
+$attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix', 'company', 'street', 'city', 'country_id',
     'region', 'region_id', 'postcode', 'telephone', 'fax'
-);
+];
 
-$defaultUsedInForms = array(
+$defaultUsedInForms = [
     'adminhtml_customer_address',
     'customer_address_edit',
     'customer_register_address'
-);
+];
 
 foreach ($attributes as $attributeCode) {
     $attribute = $eavConfig->getAttribute('customer_address', $attributeCode);

@@ -62,34 +62,34 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('reports')->__('First Name'),
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('reports')->__('Last Name'),
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('items', array(
+        $this->addColumn('items', [
             'header'    =>Mage::helper('reports')->__('Items in Cart'),
             'width'     =>'70px',
             'sortable'  =>false,
             'align'     =>'right',
             'index'     =>'items'
-        ));
+        ]);
 
         $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('total', array(
+        $this->addColumn('total', [
             'header'    =>Mage::helper('reports')->__('Total'),
             'width'     =>'70px',
             'sortable'  =>false,
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
             'index'     =>'total',
             'renderer'  =>'adminhtml/report_grid_column_renderer_currency',
             'rate'          => $this->getRate($currencyCode),
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 

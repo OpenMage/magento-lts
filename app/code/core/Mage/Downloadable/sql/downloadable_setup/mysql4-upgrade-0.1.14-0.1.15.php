@@ -25,13 +25,13 @@ $installer->startSetup();
 $installer->getConnection()->addKey(
     $installer->getTable('downloadable/link_title'),
     'UNQ_LINK_TITLE_STORE',
-    array('link_id', 'store_id'),
+    ['link_id', 'store_id'],
     'unique'
 );
 $installer->getConnection()->addKey(
     $installer->getTable('downloadable/sample_title'),
     'UNQ_SAMPLE_TITLE_STORE',
-    array('sample_id', 'store_id'),
+    ['sample_id', 'store_id'],
     'unique'
 );
 $installer->endSetup();

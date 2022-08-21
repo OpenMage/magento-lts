@@ -46,11 +46,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/grid/container.phtml');
 
-        $this->_addButton('add', array(
+        $this->_addButton('add', [
             'label'     => $this->getAddButtonLabel(),
             'onclick'   => 'setLocation(\'' . $this->getCreateUrl() .'\')',
             'class'     => 'add',
-        ));
+        ]);
     }
 
     protected function _prepareLayout()
@@ -83,11 +83,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
     protected function _addBackButton()
     {
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'     => $this->getBackButtonLabel(),
             'onclick'   => 'setLocation(\'' . $this->getBackUrl() .'\')',
             'class'     => 'back',
-        ));
+        ]);
     }
 
     public function getHeaderCssClass()

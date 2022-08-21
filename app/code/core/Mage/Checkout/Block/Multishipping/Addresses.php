@@ -87,12 +87,12 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
     {
         $options = $this->getData('address_options');
         if (is_null($options)) {
-            $options = array();
+            $options = [];
             foreach ($this->getCustomer()->getAddresses() as $address) {
-                $options[] = array(
+                $options[] = [
                     'value' => $address->getId(),
                     'label' => $address->format('oneline')
-                );
+                ];
             }
             $this->setData('address_options', $options);
         }
@@ -123,7 +123,7 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     public function getItemDeleteUrl($item)
     {
-        return $this->getUrl('*/*/removeItem', array('address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()));
+        return $this->getUrl('*/*/removeItem', ['address'=>$item->getQuoteAddressId(), 'id'=>$item->getId()]);
     }
 
     /**

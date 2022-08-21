@@ -112,7 +112,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 return false;
             }
 
-            $count = $regions->addFieldToFilter(array('default_name', 'code'), array($data['region'], $data['region']))
+            $count = $regions->addFieldToFilter(['default_name', 'code'], [$data['region'], $data['region']])
                 ->clear()
                 ->count();
             if (!$count) {

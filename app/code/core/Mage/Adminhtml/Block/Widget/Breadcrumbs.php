@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
      *
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * Mage_Adminhtml_Block_Widget_Breadcrumbs constructor.
@@ -54,11 +54,11 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         if (empty($title)) {
             $title = $label;
         }
-        $this->_links[] = array(
+        $this->_links[] = [
             'label' => $label,
             'title' => $title,
             'url'   => $url
-        );
+        ];
         return $this;
     }
 

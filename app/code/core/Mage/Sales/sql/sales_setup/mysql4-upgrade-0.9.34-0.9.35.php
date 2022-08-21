@@ -23,6 +23,6 @@ $installer = $this;
 
 $installer->startSetup();
 $installer->removeAttribute('order', 'ext_order_item_id');
-$installer->addAttribute('order_item', 'ext_order_item_id', array('type' => 'varchar'));
+$installer->addAttribute('order_item', 'ext_order_item_id', ['type' => 'varchar']);
 
 $installer->endSetup();

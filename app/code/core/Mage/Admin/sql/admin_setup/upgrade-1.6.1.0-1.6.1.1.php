@@ -23,10 +23,10 @@ $installer = $this;
 $installer->startSetup();
 
 //Increase password field length
-$installer->getConnection()->changeColumn($installer->getTable('admin/user'), 'password', 'password', array(
+$installer->getConnection()->changeColumn($installer->getTable('admin/user'), 'password', 'password', [
     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
     'length'    => 100,
     'comment'   => 'User Password'
-));
+]);
 
 $installer->endSetup();

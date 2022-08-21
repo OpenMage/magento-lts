@@ -70,7 +70,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
     public function viewAction()
     {
         if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
-            $this->_forward('view', 'sales_order_creditmemo', null, array('come_from' => 'sales_creditmemo'));
+            $this->_forward('view', 'sales_order_creditmemo', null, ['come_from' => 'sales_creditmemo']);
         } else {
             $this->_forward('noRoute');
         }
@@ -92,9 +92,9 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
                 }
 
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
-                $this->_redirect('*/sales_order_creditmemo/view', array(
+                $this->_redirect('*/sales_order_creditmemo/view', [
                     'creditmemo_id' => $creditmemoId
-                ));
+                ]);
             }
         }
     }
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         if (!empty($creditmemosIds)) {
             $invoices = Mage::getResourceModel('sales/order_creditmemo_collection')
                 ->addAttributeToSelect('*')
-                ->addAttributeToFilter('entity_id', array('in' => $creditmemosIds))
+                ->addAttributeToFilter('entity_id', ['in' => $creditmemosIds])
                 ->load();
             $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf($invoices);
 
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
         /** @see Mage_Adminhtml_Sales_Order_InvoiceController */
         if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
             if ($creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
-                $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf(array($creditmemo));
+                $pdf = Mage::getModel('sales/order_pdf_creditmemo')->getPdf([$creditmemo]);
                 $this->_prepareDownloadResponse('creditmemo'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
                     '.pdf', $pdf->render(), 'application/pdf');
             }

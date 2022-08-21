@@ -59,14 +59,14 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         if ($breadcrumbs) {
             $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getQueryText());
 
-            $breadcrumbs->addCrumb('home', array(
+            $breadcrumbs->addCrumb('home', [
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl()
-            ))->addCrumb('search', array(
+            ])->addCrumb('search', [
                 'label' => $title,
                 'title' => $title
-            ));
+            ]);
         }
 
         // modify page title
@@ -108,9 +108,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         /** @var Mage_Catalog_Model_Category $category */
         $availableOrders = $category->getAvailableSortByOptions();
         unset($availableOrders['position']);
-        $availableOrders = array_merge(array(
+        $availableOrders = array_merge([
             'relevance' => $this->__('Relevance')
-        ), $availableOrders);
+        ], $availableOrders);
 
         $this->getListBlock()
             ->setAvailableOrders($availableOrders)
@@ -128,9 +128,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function setListModes()
     {
         $this->getListBlock()
-            ->setModes(array(
+            ->setModes([
                 'grid' => $this->__('Grid'),
-                'list' => $this->__('List')));
+                'list' => $this->__('List')]);
         return $this;
     }
 

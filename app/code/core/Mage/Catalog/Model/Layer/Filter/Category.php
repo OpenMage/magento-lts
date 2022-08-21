@@ -158,14 +158,14 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
             $this->getLayer()->getProductCollection()
                 ->addCountToCategories($categories);
 
-            $data = array();
+            $data = [];
             foreach ($categories as $category) {
                 if ($category->getIsActive() && $category->getProductCount()) {
-                    $data[] = array(
+                    $data[] = [
                         'label' => Mage::helper('core')->escapeHtml($category->getName()),
                         'value' => $category->getId(),
                         'count' => $category->getProductCount(),
-                    );
+                    ];
                 }
             }
             $tags = $this->getLayer()->getStateTags();

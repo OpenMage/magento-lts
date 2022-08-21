@@ -28,7 +28,7 @@
 
 class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
-    protected $_totals = array();
+    protected $_totals = [];
     protected $_currentCurrencyCode = null;
 
     protected function _construct()
@@ -56,11 +56,11 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
             $value = $this->format($value);
         }
         $decimals = '';
-        $this->_totals[] = array(
+        $this->_totals[] = [
             'label' => $label,
             'value' => $value,
             'decimals' => $decimals,
-        );
+        ];
 
         return $this;
     }

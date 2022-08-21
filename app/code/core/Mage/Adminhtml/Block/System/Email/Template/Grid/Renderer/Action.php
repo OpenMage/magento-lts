@@ -30,13 +30,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 {
     public function render(Varien_Object $row)
     {
-        $actions = array();
+        $actions = [];
 
-        $actions[] = array(
-            'url'		=>  $this->getUrl('*/*/preview', array('id'=>$row->getId())),
+        $actions[] = [
+            'url'		=>  $this->getUrl('*/*/preview', ['id'=>$row->getId()]),
             'popup'     =>  true,
             'caption'	=>	$this->__('Preview')
-        );
+        ];
 
         $this->getColumn()->setActions($actions);
 
@@ -50,7 +50,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 
     protected function _actionsToHtml(array $actions)
     {
-        $html = array();
+        $html = [];
         $attributesObject = new Varien_Object();
         foreach ($actions as $action) {
             $attributesObject->setData($action['@']);

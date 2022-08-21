@@ -121,11 +121,11 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         $yearEnd = Mage::getSingleton('catalog/product_option_type_date')->getYearEnd();
         $yearsHtml = $this->_getSelectFromToHtml('year', $yearStart, $yearEnd);
 
-        $translations = array(
+        $translations = [
             'd' => $daysHtml,
             'm' => $monthsHtml,
             'y' => $yearsHtml
-        );
+        ];
         return strtr($fieldsOrder, $translations);
     }
 
@@ -144,10 +144,10 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
             $hourStart = 1;
             $hourEnd = 12;
             $dayPartHtml = $this->_getHtmlSelect('day_part')
-                ->setOptions(array(
+                ->setOptions([
                     'am' => Mage::helper('catalog')->__('AM'),
                     'pm' => Mage::helper('catalog')->__('PM')
-                ))
+                ])
                 ->getHtml();
         }
         $hoursHtml = $this->_getSelectFromToHtml('hour', $hourStart, $hourEnd);
@@ -167,11 +167,11 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      */
     protected function _getSelectFromToHtml($name, $from, $to, $value = null)
     {
-        $options = array(
-            array('value' => '', 'label' => '-')
-        );
+        $options = [
+            ['value' => '', 'label' => '-']
+        ];
         for ($i = $from; $i <= $to; $i++) {
-            $options[] = array('value' => $i, 'label' => $this->_getValueWithLeadingZeros($i));
+            $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
         return $this->_getHtmlSelect($name, $value)
             ->setOptions($options)

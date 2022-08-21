@@ -38,13 +38,13 @@ class Mage_Adminhtml_Block_Catalog_Helper_Form_Wysiwyg extends Varien_Data_Form_
         if ($this->getIsWysiwygEnabled()) {
             $disabled = ($this->getDisabled() || $this->getReadonly());
             $html .= Mage::getSingleton('core/layout')
-                ->createBlock('adminhtml/widget_button', '', array(
+                ->createBlock('adminhtml/widget_button', '', [
                     'label'   => Mage::helper('catalog')->__('WYSIWYG Editor'),
                     'type'    => 'button',
                     'disabled' => $disabled,
                     'class' => 'btn-wysiwyg',
                     'onclick' => 'catalogWysiwygEditor.open(\''.Mage::helper('adminhtml')->getUrl('*/*/wysiwyg').'\', \''.$this->getHtmlId().'\')'
-                ))->toHtml();
+                ])->toHtml();
         }
         return $html;
     }

@@ -24,7 +24,7 @@ $installer->startSetup();
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_attribute_tier_price'),
     'UNQ_CATALOG_PRODUCT_TIER_PRICE',
-    array('entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id'),
+    ['entity_id', 'all_groups', 'customer_group_id', 'qty', 'website_id'],
     'unique'
 );
 $installer->endSetup();

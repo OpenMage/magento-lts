@@ -31,11 +31,11 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
         $quote = $address->getQuote();
-        $eventArgs = array(
+        $eventArgs = [
             'website_id'=>Mage::app()->getStore($quote->getStoreId())->getWebsiteId(),
             'customer_group_id'=>$quote->getCustomerGroupId(),
             'coupon_code'=>$quote->getCouponCode(),
-        );
+        ];
 
         $address->setFreeShipping(0);
         $totalDiscountAmount = 0;
@@ -145,11 +145,11 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
             if (strlen($code)) {
                 $title = Mage::helper('sales')->__('Discount (%s)', $code);
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'=>$this->getCode(),
                 'title'=>$title,
                 'value'=>-$amount
-            ));
+            ]);
         }
         return $this;
     }

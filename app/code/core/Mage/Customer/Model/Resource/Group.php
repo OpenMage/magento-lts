@@ -43,11 +43,11 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(
-            array(
+        $this->_uniqueFields = [
+            [
                 'field' => 'customer_group_code',
                 'title' => Mage::helper('customer')->__('Customer Group')
-            ));
+            ]];
 
         return $this;
     }

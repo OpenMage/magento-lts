@@ -273,7 +273,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $prices = $item->getProduct()->getTierPrice();
         if ($prices) {
-            $info = array();
+            $info = [];
             foreach ($prices as $data) {
                 $qty    = $data['price_qty'] * 1;
                 $price  = $this->convertPrice($data['price']);
@@ -426,7 +426,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         $product = $item->getProduct();
 
-        $options = array('label' => Mage::helper('sales')->__('Configure'));
+        $options = ['label' => Mage::helper('sales')->__('Configure')];
         if ($product->canConfigure()) {
             $options['onclick'] = sprintf('order.showQuoteItemConfiguration(%s)', $item->getId());
         } else {
