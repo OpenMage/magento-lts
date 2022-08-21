@@ -32,8 +32,7 @@
   },
   "scripts": {
     "set-phpcs-paths": [
-      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility,vendor/magento-ecg/coding-standard",
-      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs -i"
+      "OpenMage\\Scripts\\Devel::setupPhpCs"
     ],
     "post-install-cmd": [
       "@set-phpcs-paths"
@@ -73,6 +72,9 @@
   ],
   "autoload-dev": {
     "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
+  },
+  "autoload": {
+    "psr-4": { "OpenMage\\Scripts\\": "dev/scripts" }
   },
   "extra": {
     "branch-alias": {
