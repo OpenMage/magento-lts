@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = Array("gd");
@@ -65,6 +64,66 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->getMimeType();
         $this->_getFileAttributes();
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
+    }
+
+    /**
+     * Checks whether memory limit is reached.
+     *
+     * @deprecated
+     * @return bool
+     */
+    protected function _isMemoryLimitReached()
+    {
+        $limit = $this->_convertToByte(ini_get('memory_limit'));
+        /**
+         * In case if memory limit was converted to 0, treat it as unlimited
+         */
+        if ($limit === 0) {
+            return false;
+        }
+        $size = getimagesize($this->_fileName);
+        $requiredMemory = $size[0] * $size[1] * 3;
+
+        return (memory_get_usage(true) + $requiredMemory) > $limit;
+    }
+
+    /**
+     * Convert PHP memory limit value into bytes
+     * Notation in value is supported only for PHP
+     * Shorthand byte options are case insensitive
+     *
+     * @deprecated
+     * @param string $memoryValue
+     * @throws Varien_Exception
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
+     * @return int
+     */
+    protected function _convertToByte($memoryValue)
+    {
+        $memoryValue = trim($memoryValue);
+        if (empty($memoryValue)) {
+            return 0;
+        }
+        if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
+            $option = strtolower($matches[2]);
+            $memoryValue = $matches[1];
+            switch ($option) {
+                case 'g':
+                    $memoryValue *= 1024;
+                // no break
+                case 'm':
+                    $memoryValue *= 1024;
+                // no break
+                case 'k':
+                    $memoryValue *= 1024;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $memoryValue = (int)$memoryValue;
+
+        return $memoryValue > 0 ? $memoryValue : 0;
     }
 
     public function save($destination=null, $newName=null)
