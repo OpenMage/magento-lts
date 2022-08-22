@@ -259,13 +259,25 @@ small {
 
       .range {
         .range-line {
-          width: 110px;
+          width: 125px;
         }
 
         .label {
-          font-weight: 600;
+          font-weight: 400;
           width: 40px;
           padding: 4px;
+        }
+
+        div.date {
+          min-width: 140px;
+        }
+
+        input, select {
+          width: 75px !important;
+        }
+
+        select {
+          float: none;
         }
       }
 
@@ -358,6 +370,7 @@ small {
 
 .header {
   background: $openmage_base_blue;
+  position: relative;
 }
 
 .header-top {

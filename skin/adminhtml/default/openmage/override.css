@@ -343,12 +343,21 @@ small {
   border-top: 0;
 }
 .grid tr.filter .range .range-line {
-  width: 110px;
+  width: 125px;
 }
 .grid tr.filter .range .label {
-  font-weight: 600;
+  font-weight: 400;
   width: 40px;
   padding: 4px;
+}
+.grid tr.filter .range div.date {
+  min-width: 140px;
+}
+.grid tr.filter .range input, .grid tr.filter .range select {
+  width: 75px !important;
+}
+.grid tr.filter .range select {
+  float: none;
 }
 .grid tr.filter .date img {
   padding-left: 17px;
@@ -412,6 +421,7 @@ small {
 
 .header {
   background: #3A499D;
+  position: relative;
 }
 
 .header-top {
