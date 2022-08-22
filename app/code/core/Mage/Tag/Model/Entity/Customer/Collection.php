@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -42,15 +36,6 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         parent::__construct();
         $this->_tagTable = $resource->getTableName('tag/tag');
         $this->_tagRelTable = $resource->getTableName('tag/tag_relation');
-
-//        $this->joinField('tag_total_used', $this->_tagRelTable, 'count(_table_tag_total_used.tag_relations_id)', 'entity_val_id=entity_id', array('entity_id' => '2'));
-//        $this->getSelect()->group('tag_tag_id');
-//        echo $this->getSelect();
-//        $this->_productTable = $resource->getTableName('catalog/product');
-//        $this->_select->from(array('p' => $this->_productTable))
-//            ->join(array('tr' => $this->_tagRelTable), 'tr.entity_val_id=p.product_id and tr.entity_id=1', array('total_used' => 'count(tr.tag_relations_id)'))
-//            ->group('p.product_id', 'tr.tag_id')
-//        ;
     }
 
     /**

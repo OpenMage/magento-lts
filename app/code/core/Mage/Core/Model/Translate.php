@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -422,10 +416,12 @@ class Mage_Core_Model_Translate
             $translated = $this->_getTranslatedString($text, $code);
         }
 
-        //array_unshift($args, $translated);
-        //$result = @call_user_func_array('sprintf', $args);
+        try {
+            $result = !empty($args) ? vsprintf($translated, $args) : false;
+        } catch (ValueError $e) {
+            $result = false;
+        }
 
-        $result = !empty($args) ? @vsprintf($translated, $args) : false;
         if ($result === false) {
             $result = $translated;
         }
@@ -462,7 +458,7 @@ class Mage_Core_Model_Translate
     }
 
     /**
-     * Retrive translated template file
+     * Retrieve translated template file
      *
      * @param string $file
      * @param string $type

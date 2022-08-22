@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -31,7 +25,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
- 
+
 class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     public function render(Varien_Object $row)
@@ -39,13 +33,13 @@ class Mage_Adminhtml_Block_Newsletter_Template_Grid_Renderer_Sender extends Mage
         $str = '';
         if($row->getTemplateSenderName()) {
             $str .= $this->escapeHtml($row->getTemplateSenderName()) . ' ';
-        }        
+        }
         if($row->getTemplateSenderEmail()) {
             $str .= '[' .$this->escapeHtml($row->getTemplateSenderEmail()) . ']';
-        }        
+        }
         if($str == '') {
             $str .= '---';
-        }        
+        }
         return $str;
     }
 }

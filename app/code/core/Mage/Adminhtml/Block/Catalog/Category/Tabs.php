@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -104,7 +98,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         }
 
         $attributeSetId     = $this->getCategory()->getDefaultAttributeSetId();
-        /** @var $groupCollection Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection */
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection $groupCollection */
         $groupCollection    = Mage::getResourceModel('eav/entity_attribute_group_collection')
             ->setAttributeSetFilter($attributeSetId)
             ->setSortOrder()

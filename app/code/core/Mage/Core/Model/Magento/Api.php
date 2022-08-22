@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -43,6 +37,7 @@ class Mage_Core_Model_Magento_Api extends Mage_Api_Model_Resource_Abstract
         $result = array();
         $result['magento_edition'] = Mage::getEdition();
         $result['magento_version'] = Mage::getVersion();
+        $result['openmage_version'] = Mage::getOpenMageVersion();
 
         return $result;
     }

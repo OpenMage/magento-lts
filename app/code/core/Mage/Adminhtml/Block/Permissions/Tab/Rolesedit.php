@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -99,13 +93,13 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
 
         $selrids = array();
 
-        /** @var $item Mage_Admin_Model_Rules */
+        /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules_set->getItems() as $item) {
             $itemResourceId = $item->getResource_id();
             if (array_key_exists(strtolower($itemResourceId), $resources)) {
                 if ($item->isAllowed()) {
                     $resources[$itemResourceId]['checked'] = true;
-                    array_push($selrids, $itemResourceId);
+                    $selrids[] = $itemResourceId;
                 }
             }
         }
@@ -119,7 +113,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                     $undefinedResourceId
                 ) == Mage_Admin_Model_Rules::RULE_PERMISSION_ALLOWED
             ) {
-                array_push($selrids, $undefinedResourceId);
+                $selrids[] = $undefinedResourceId;
             }
         }
 

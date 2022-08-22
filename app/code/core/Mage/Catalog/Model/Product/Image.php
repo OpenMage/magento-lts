@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -242,6 +236,84 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $this->setWidth($width)->setHeight($height);
 
         return $this;
+    }
+
+    /**
+     * @deprecated
+     * @param null $file
+     * @return bool
+     */
+    protected function _checkMemory($file = null)
+    {
+        return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
+    }
+
+    /**
+     * @deprecated
+     * @return float|int|string
+     */
+    protected function _getMemoryLimit()
+    {
+        $memoryLimit = trim(strtoupper(ini_get('memory_limit')));
+
+        if (!isset($memoryLimit[0])) {
+            $memoryLimit = "128M";
+        }
+
+        if (substr($memoryLimit, -1) == 'K') {
+            return substr($memoryLimit, 0, -1) * 1024;
+        }
+        if (substr($memoryLimit, -1) == 'M') {
+            return substr($memoryLimit, 0, -1) * 1024 * 1024;
+        }
+        if (substr($memoryLimit, -1) == 'G') {
+            return substr($memoryLimit, 0, -1) * 1024 * 1024 * 1024;
+        }
+        return $memoryLimit;
+    }
+
+    /**
+     * @deprecated
+     * @return int
+     */
+    protected function _getMemoryUsage()
+    {
+        if (function_exists('memory_get_usage')) {
+            return memory_get_usage();
+        }
+        return 0;
+    }
+
+    /**
+     * @deprecated
+     * @param string $file
+     * @return float|int
+     */
+    protected function _getNeedMemoryForFile($file = null)
+    {
+        $file = is_null($file) ? $this->getBaseFile() : $file;
+        if (!$file) {
+            return 0;
+        }
+
+        if (!file_exists($file) || !is_file($file)) {
+            return 0;
+        }
+
+        $imageInfo = getimagesize($file);
+
+        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+            return 0;
+        }
+        if (!isset($imageInfo['channels'])) {
+            // if there is no info about this parameter lets set it for maximum
+            $imageInfo['channels'] = 4;
+        }
+        if (!isset($imageInfo['bits'])) {
+            // if there is no info about this parameter lets set it for maximum
+            $imageInfo['bits'] = 8;
+        }
+        return round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + pow(2, 16)) * 1.65);
     }
 
     /**

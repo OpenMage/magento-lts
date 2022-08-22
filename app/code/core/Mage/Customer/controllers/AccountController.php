@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -851,7 +845,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $errorMessages = array();
         if (iconv_strlen($password) <= 0) {
-            array_push($errorMessages, $this->_getHelper('customer')->__('New password field cannot be empty.'));
+            $errorMessages[] = $this->_getHelper('customer')->__('New password field cannot be empty.');
         }
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_getModel('customer/customer')->load($customerId);
@@ -1020,6 +1014,11 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                          */
                         $customer->setPassword($newPass);
                         $customer->setPasswordConfirmation($confPass);
+
+                        // Invalidate reset password token when user changes password
+                        $customer->setRpToken(null);
+                        $customer->setRpTokenCreatedAt(null);
+                        $customer->setRpCustomerId(null);
                     } else {
                         $errors[] = $this->__('New password field cannot be empty.');
                     }
@@ -1076,7 +1075,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array
+     * @param array $data
      * @return array
      */
     protected function _filterPostData($data)

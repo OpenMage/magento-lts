@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -31,7 +25,6 @@
             <groups>
                 <dhl translate="label" module="usa">
                     <label>DHL (Deprecated)</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>130</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -39,7 +32,6 @@
                     <fields>
                         <account translate="label">
                             <label>Account Number</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -66,7 +58,6 @@
                         </allowed_methods>
                         <contentdesc translate="label">
                             <label>Package Description</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -87,7 +78,6 @@
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1220</sort_order>
                             <show_in_default>1</show_in_default>
@@ -124,7 +114,6 @@
                         </free_method>
                         <gateway_url translate="label">
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_gatewayurl</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -160,7 +149,6 @@
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
@@ -169,7 +157,6 @@
                         </handling_fee>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
@@ -232,7 +219,6 @@
                         </shipping_key>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2000</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -240,7 +226,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -296,7 +281,6 @@
                         </additional_protection_enabled>
                         <additional_protection_min_value translate="label">
                             <label>Additional Protection Min Subtotal</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1310</sort_order>
                             <show_in_default>1</show_in_default>
@@ -315,7 +299,6 @@
                         <additional_protection_value translate="label comment">
                             <label>Additional Protection Configuration Value</label>
                             <comment>Used only when "Additional Protection Value" is set to "Configuration". Can contain only numeric amount.</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1330</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -344,7 +327,6 @@
 
                         <default_length translate="label">
                             <label>Default Package Length</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1360</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -352,7 +334,6 @@
                         </default_length>
                         <default_width translate="label">
                             <label>Default Package Width</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1370</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -360,7 +341,6 @@
                         </default_width>
                         <default_height translate="label">
                             <label>Default Package Height</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1380</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -401,7 +381,6 @@
                 </dhl>
                 <fedex translate="label" module="usa">
                     <label>FedEx</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>120</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -418,7 +397,6 @@
                         </active>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -508,7 +486,6 @@
                         </unit_of_measure>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
@@ -535,7 +512,6 @@
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
@@ -563,7 +539,6 @@
                         </allowed_methods>
                         <smartpost_hubid translate="label comment">
                             <label>Hub ID</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>155</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -591,7 +566,6 @@
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
@@ -647,7 +621,6 @@
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>240</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -657,7 +630,6 @@
                 </fedex>
                 <ups translate="label" module="usa">
                     <label>UPS</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -720,7 +692,6 @@
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>220</sort_order>
                             <show_in_default>1</show_in_default>
@@ -749,7 +720,6 @@
                         </free_method>
                         <gateway_url translate="label">
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -766,7 +736,6 @@
                         </verify_peer>
                         <gateway_xml_url translate="label">
                             <label>Gateway XML URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_gatewayurl</backend_model>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
@@ -775,7 +744,6 @@
                         </gateway_xml_url>
                         <tracking_xml_url translate="label">
                             <label>Tracking XML URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_gatewayurl</backend_model>
                             <sort_order>24</sort_order>
                             <show_in_default>1</show_in_default>
@@ -784,7 +752,6 @@
                         </tracking_xml_url>
                         <shipconfirm_xml_url translate="label">
                             <label>Shipping Confirm XML URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_gatewayurl</backend_model>
                             <sort_order>26</sort_order>
                             <show_in_default>1</show_in_default>
@@ -793,7 +760,6 @@
                         </shipconfirm_xml_url>
                         <shipaccept_xml_url translate="label">
                             <label>Shipping Accept XML URL</label>
-                            <frontend_type>text</frontend_type>
                             <backend_model>adminhtml/system_config_backend_gatewayurl</backend_model>
                             <sort_order>28</sort_order>
                             <show_in_default>1</show_in_default>
@@ -820,7 +786,6 @@
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
@@ -829,7 +794,6 @@
                         </handling_fee>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
@@ -838,7 +802,6 @@
                         </max_package_weight>
                         <min_package_weight translate="label">
                             <label>Minimum Package Weight (Please consult your shipping carrier for minimum supported shipping weight)</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
@@ -875,7 +838,6 @@
                         </pickup>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>1000</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -883,7 +845,6 @@
                         </sort_order>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -928,7 +889,6 @@
                         </negotiated_active>
                         <shipper_number translate="label comment">
                             <label>Shipper Number</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -996,7 +956,6 @@
                 </ups>
                 <usps translate="label" module="usa">
                     <label>USPS</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1013,7 +972,6 @@
                         </active>
                         <gateway_url translate="label">
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1021,7 +979,6 @@
                         </gateway_url>
                         <gateway_secure_url translate="label">
                             <label>Secure Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1029,7 +986,6 @@
                         </gateway_secure_url>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1091,7 +1047,6 @@
                         </size>
                         <width translate="label">
                             <label>Width</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>73</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1100,7 +1055,6 @@
                         </width>
                         <length translate="label">
                             <label>Length</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>72</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1109,7 +1063,6 @@
                         </length>
                         <height translate="label">
                             <label>Height</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>74</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1118,7 +1071,6 @@
                         </height>
                         <girth translate="label">
                             <label>Girth</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>76</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1136,7 +1088,6 @@
                         </machinable>
                         <max_package_weight translate="label">
                             <label>Maximum Package Weight (Please consult your shipping carrier for maximum supported shipping weight)</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1163,7 +1114,6 @@
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1201,7 +1151,6 @@
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>160</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1257,7 +1206,6 @@
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>220</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1267,7 +1215,6 @@
                 </usps>
                 <dhlint translate="label" module="usa">
                     <label>DHL</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>140</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -1284,7 +1231,6 @@
                         </active>
                         <gateway_url translate="label">
                             <label>Gateway URL</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1301,7 +1247,6 @@
                         </verify_peer>
                         <title translate="label">
                             <label>Title</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1327,7 +1272,6 @@
                         </password>
                         <account translate="label">
                             <label>Account Number</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1363,7 +1307,6 @@
                         </handling_action>
                         <handling_fee translate="label">
                             <label>Handling Fee</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1401,7 +1344,6 @@
                         </size>
                         <height translate="label">
                             <label>Height</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>151</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1410,7 +1352,6 @@
                         </height>
                         <depth translate="label">
                             <label>Depth</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>152</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1419,7 +1360,6 @@
                         </depth>
                         <width translate="label">
                             <label>Width</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>153</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1449,7 +1389,6 @@
                         <ready_time>
                             <label>Ready time</label>
                             <comment>Package ready time after order submission (in hours)</comment>
-                            <frontend_type>text</frontend_type>
                             <sort_order>180</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1500,7 +1439,6 @@
                         </free_shipping_enable>
                         <free_shipping_subtotal translate="label">
                             <label>Minimum Order Amount for Free Shipping</label>
-                            <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
                             <sort_order>1220</sort_order>
                             <show_in_default>1</show_in_default>
@@ -1539,7 +1477,6 @@
                         </showmethod>
                         <sort_order translate="label">
                             <label>Sort Order</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>2000</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

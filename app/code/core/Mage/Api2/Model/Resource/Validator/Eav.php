@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -225,11 +219,11 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         // business asked to avoid additional validation message, so we filter it here
         $errors        = array();
         $requiredAttrs = array();
-        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'))) . '$/';
+        $isRequiredRE  = '/^' . str_replace('%s', '(.+)', preg_quote(Mage::helper('eav')->__('"%s" is a required value.'), '/') ) . '$/';
         $greaterThanRE = '/^' . str_replace(
             '%s',
             '(.+)',
-            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'))
+            preg_quote(Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.'), '/')
         ) . '$/';
 
         // find all required attributes labels

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Event
@@ -40,11 +34,11 @@ class Varien_Event_Collection
      * @var array
      */
     protected $_events;
-    
+
     /**
      * Global observers
-     * 
-     * For example regex observers will watch all events that 
+     *
+     * For example regex observers will watch all events that
      *
      * @var Varien_Event_Observer_Collection
      */
@@ -57,14 +51,14 @@ class Varien_Event_Collection
 
     /**
      * Initializes global observers collection
-     * 
+     *
      */
     public function __construct()
     {
         $this->_events = array();
         $this->_globalObservers = new Varien_Event_Observer_Collection();
     }
-    
+
     /**
      * Returns all registered events in collection
      *
@@ -74,7 +68,7 @@ class Varien_Event_Collection
     {
         return $this->_events;
     }
-    
+
     /**
      * Returns all registered global observers for the collection of events
      *
@@ -84,12 +78,12 @@ class Varien_Event_Collection
     {
         return $this->_globalObservers;
     }
-    
+
     /**
      * Returns event by its name
      *
      * If event doesn't exist creates new one and returns it
-     * 
+     *
      * @param string $eventName
      * @return Varien_Event
      */
@@ -100,7 +94,7 @@ class Varien_Event_Collection
         }
         return $this->_events[$eventName];
     }
-    
+
     /**
      * Register an event for this collection
      *
@@ -112,10 +106,10 @@ class Varien_Event_Collection
         $this->_events[$event->getName()] = $event;
         return $this;
     }
-    
+
     /**
      * Register an observer
-     * 
+     *
      * If observer has event_name property it will be regitered for this specific event.
      * If not it will be registered as global observer
      *
@@ -132,12 +126,12 @@ class Varien_Event_Collection
         }
         return $this;
     }
-    
+
     /**
      * Dispatch event name with optional data
      *
      * Will dispatch specific event and will try all global observers
-     * 
+     *
      * @param string $eventName
      * @param array $data
      * @return Varien_Event_Collection

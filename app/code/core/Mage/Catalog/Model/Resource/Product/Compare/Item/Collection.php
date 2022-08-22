@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -237,7 +231,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                         array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
                     )
                     ->joinLeft(
-                        array('ai' => $this->getTable('eav/entity_attribute')), 
+                        array('ai' => $this->getTable('eav/entity_attribute')),
                         'ai.attribute_id = main_table.attribute_id'
                     )
                     ->where('additional_table.is_comparable=?', 1)

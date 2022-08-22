@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -754,7 +748,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     /**
      * Join a table
      *
-     * @param string|array $table
+     * @param array|string|Zend_Db_Expr $table
      * @param string $bind
      * @param string|array $fields
      * @param null|array $cond
@@ -772,7 +766,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate table
-        if (strpos($tableName, '/') !== false) {
+        if (is_string($tableName) && strpos($tableName, '/') !== false) {
             $tableName = Mage::getSingleton('core/resource')->getTableName($tableName);
         }
         if (empty($tableAlias)) {
@@ -823,7 +817,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $cond = '('.implode(') AND (', $condArr).')';
 
-// join table
+        // join table
         $this->getSelect()->$joinMethod(array($tableAlias => $tableName), $cond, $fields);
 
         return $this;
@@ -923,7 +917,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retrive all ids for collection
+     * Retrieve all ids for collection
      *
      * @param int $limit
      * @param int $offset
@@ -935,7 +929,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     }
 
     /**
-     * Retrive all ids sql
+     * Retrieve all ids sql
      *
      * @deprecated
      * @return Varien_Db_Select

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -74,7 +68,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function toPdf()
     {
-        $this->setTemplate('payment/info/default.phtml');
+        $this->setTemplate('payment/info/pdf/default.phtml');
         return $this->toHtml();
     }
 

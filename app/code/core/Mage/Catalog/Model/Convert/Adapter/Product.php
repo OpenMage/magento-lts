@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -503,7 +497,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         }
 
         $collections = $this->getData();
-        if ($collections instanceof Mage_Catalog_Model_Entity_Product_Collection) {
+        if ($collections instanceof Mage_Catalog_Model_Resource_Product_Collection) {
             $collections = array($collections->getEntity()->getStoreId()=>$collections);
         } elseif (!is_array($collections)) {
             $this->addException(
@@ -517,7 +511,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             foreach ($collections as $storeId => $collection) {
                 $this->addException(Mage::helper('catalog')->__('Records for "%s" store found.', $stores[$storeId]));
 
-                if (!$collection instanceof Mage_Catalog_Model_Entity_Product_Collection) {
+                if (!$collection instanceof Mage_Catalog_Model_Resource_Product_Collection) {
                     $this->addException(
                         Mage::helper('catalog')->__('Product collection expected.'),
                         Mage_Dataflow_Model_Convert_Exception::FATAL

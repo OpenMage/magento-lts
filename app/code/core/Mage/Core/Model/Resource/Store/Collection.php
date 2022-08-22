@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -198,6 +192,55 @@ class Mage_Core_Model_Resource_Store_Collection extends Mage_Core_Model_Resource
                 array('root_category_id')
             );
             $this->setFlag('core_store_group_table_joined', true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Initializes the config cache for each store
+     * @return $this
+     */
+    public function initConfigCache()
+    {
+        if (!Mage::app()->useCache('config')) {
+            return $this;
+        }
+
+        $cacheId = 'store_global_config_cache';
+        $globalConfigCache = Mage::app()->loadCache($cacheId);
+
+        $data = [];
+        $needsRefresh = false;
+
+        if ($globalConfigCache !== false) {
+            try {
+                $data = unserialize($globalConfigCache);
+            } catch (Exception $exception) {
+                Mage::logException($exception);
+            }
+        }
+
+        /** @var Mage_Core_Model_Store $store */
+        foreach ($this as $store) {
+            $code = $store->getCode();
+            if (!$code) {
+                continue;
+            }
+
+            if (!isset($data[$code])) {
+                $data[$code] = $store->getConfigCache();
+                $needsRefresh = true;
+            }
+
+            $store->setConfigCache($data[$code]);
+        }
+
+        if ($needsRefresh) {
+            Mage::app()->saveCache(serialize($data), $cacheId, [
+                Mage_Core_Model_Store::CACHE_TAG,
+                Mage_Core_Model_Config::CACHE_TAG,
+            ]);
         }
 
         return $this;

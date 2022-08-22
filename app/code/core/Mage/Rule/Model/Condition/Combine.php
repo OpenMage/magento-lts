@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -137,7 +131,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAggregatorName()
     {
@@ -177,7 +171,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $condition
+     * @param Mage_Rule_Model_Condition_Abstract $condition
      * @return $this
      */
     public function addCondition($condition)
@@ -253,9 +247,9 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $arr
+     * @param array $arr
      * @param string $key
-     * @return $this|Mage_Rule_Model_Condition_Abstract
+     * @return $this
      */
     public function loadArray($arr, $key = 'conditions')
     {
@@ -281,8 +275,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $xml
-     * @return $this|Mage_Rule_Model_Condition_Abstract
+     * @param string|SimpleXMLElement $xml
+     * @return $this
      */
     public function loadXml($xml)
     {
@@ -384,7 +378,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
     }
 
     /**
-     * @param $form
+     * @param string $form
      * @return $this
      */
     public function setJsFormObject($form)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api
@@ -93,7 +87,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getTable('api/session'), 'user_id')
             ->where('user_id = ?', $user->getId())
             ->where('sessid = ?', $user->getSessid());
-        $loginDate = now();
+        $loginDate = Varien_Date::now();
         if ($readAdapter->fetchRow($select)) {
             $writeAdapter->update(
                 $this->getTable('api/session'),
@@ -133,7 +127,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         );
         $writeAdapter->delete(
             $this->getTable('api/session'),
-            array('user_id = ?' => $user->getId(), $readAdapter->quote(now()) . ' > '.$timeSubtract)
+            array('user_id = ?' => $user->getId(), $readAdapter->quote(Varien_Date::now()) . ' > '.$timeSubtract)
         );
         return $this;
     }
@@ -225,10 +219,11 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
+        $now = Varien_Date::now();
         if (!$user->getId()) {
-            $user->setCreated(now());
+            $user->setCreated($now);
         }
-        $user->setModified(now());
+        $user->setModified($now);
         return $this;
     }
 

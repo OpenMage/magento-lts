@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -665,7 +659,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $helper = Mage::getResourceHelper('catalog');
         $columns = array();
         $columnsToSkip = array('entity_type_id', 'attribute_set_id');
-        $describe = $this->_getWriteAdapter()->describeTable($this->getTable('catalog/category'));
+        $describe = $this->_getReadAdapter()->describeTable($this->getTable('catalog/category'));
 
         foreach ($describe as $column) {
             if (in_array($column['COLUMN_NAME'], $columnsToSkip)) {
@@ -1144,7 +1138,6 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $prevParent   = null;
         $parent       = null;
         $_tmpCategory = null;
-//        $this->_move($categoryId, $prevParentPath, $parentPath);
         return $this;
     }
 
@@ -1162,7 +1155,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     {
         $table = $this->getMainStoreTable($category->getStoreId());
         $this->_getWriteAdapter()->resetDdlCache($table);
-        $table = $this->_getWriteAdapter()->describeTable($table);
+        $table = $this->_getReadAdapter()->describeTable($table);
         $data = array();
         $idFieldName = Mage::getSingleton('catalog/category')->getIdFieldName();
         foreach ($table as $column => $columnData) {
@@ -1227,6 +1220,23 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             ->where("{$this->getTable('catalog/category_product')}.category_id = ?", $category->getId())
             ->group("{$this->getTable('catalog/category_product')}.category_id");
         return (int) $this->_getReadAdapter()->fetchOne($select);
+    }
+
+    /**
+     * Get positions of associated to category products
+     *
+     * @param Mage_Catalog_Model_Category $category
+     * @return array
+     */
+    public function getProductsPosition($category)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from(
+                $this->getTable('catalog/category_product'),
+                array('product_id', 'position'))
+            ->where('category_id = :category_id');
+        $bind = array('category_id' => (int)$category->getId());
+        return $this->_getReadAdapter()->fetchPairs($select, $bind);
     }
 
     /**

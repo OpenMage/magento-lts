@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -723,7 +717,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         if ($siblingName === '') {
             if ($after) {
-                array_push($this->_sortedChildren, $name);
+                $this->_sortedChildren[] = $name;
             } else {
                 array_unshift($this->_sortedChildren, $name);
             }
@@ -736,7 +730,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                 array_splice($this->_sortedChildren, $key, 0, $name);
             } else {
                 if ($after) {
-                    array_push($this->_sortedChildren, $name);
+                    $this->_sortedChildren[] = $name;
                 } else {
                     array_unshift($this->_sortedChildren, $name);
                 }
@@ -898,8 +892,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Specify block output frame tags
      *
-     * @param $openTag
-     * @param $closeTag
+     * @param string $openTag
+     * @param string $closeTag
      * @return $this
      */
     public function setFrameTags($openTag, $closeTag = null)
@@ -1128,11 +1122,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * @param   string $date
      * @param   string $format
      * @param   bool $showTime
+     * @param   bool $useTimezone
      * @return  string
      */
-    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
+    public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
     {
-        return $this->helper('core')->formatDate($date, $format, $showTime);
+        return $this->helper('core')->formatDate($date, $format, $showTime, $useTimezone);
     }
 
     /**

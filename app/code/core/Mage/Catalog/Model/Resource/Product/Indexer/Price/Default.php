@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -390,11 +384,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                 array()
             )
             ->join(
-                array('cs' => $this->getTable('core/store')),
-                'cs.store_id = csg.default_store_id',
-                array()
-            )
-            ->join(
                 array('o' => $this->getTable('catalog/product_option')),
                 'o.product_id = i.entity_id',
                 array('option_id')
@@ -411,7 +400,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             )
             ->joinLeft(
                 array('otps' => $this->getTable('catalog/product_option_type_price')),
-                'otps.option_type_id = otpd.option_type_id AND otpd.store_id = cs.store_id',
+                'otps.option_type_id = otpd.option_type_id AND otps.store_id = csg.default_store_id',
                 array()
             )
             ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id', 'o.option_id'));
@@ -469,11 +458,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
                 array()
             )
             ->join(
-                array('cs' => $this->getTable('core/store')),
-                'cs.store_id = csg.default_store_id',
-                array()
-            )
-            ->join(
                 array('o' => $this->getTable('catalog/product_option')),
                 'o.product_id = i.entity_id',
                 array('option_id')
@@ -485,7 +469,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             )
             ->joinLeft(
                 array('ops' => $this->getTable('catalog/product_option_price')),
-                'ops.option_id = opd.option_id AND ops.store_id = cs.store_id',
+                'ops.option_id = opd.option_id AND ops.store_id = csg.default_store_id',
                 array()
             );
 

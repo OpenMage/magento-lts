@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -53,6 +47,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
                     'onclick' => 'addProduct(true)'
                 ))
         );
+        return $this;
     }
 
 
@@ -77,7 +72,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive serialized json with configurable attributes values of simple
+     * Retrieve serialized json with configurable attributes values of simple
      *
      * @return string
      */
@@ -121,7 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive configurable product for created/edited simple
+     * Retrieve configurable product for created/edited simple
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -136,7 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
     }
 
     /**
-     * Retrive product
+     * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
      */
@@ -149,4 +144,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         }
         return $this->_product;
     }
-} // Class Mage_Adminhtml_Block_Catalog_Product_Created End
+}

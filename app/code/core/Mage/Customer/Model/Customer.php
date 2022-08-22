@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -422,9 +416,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->_addressesCollection === null) {
             $this->_addressesCollection = $this->getAddressCollection()
                 ->setCustomerFilter($this)
-                ->addAttributeToSelect('*');
+                ->addAttributeToSelect('*')
+                ->setOrder('entity_id', 'desc');
             foreach ($this->_addressesCollection as $address) {
                 $address->setCustomer($this);
+                $address->setDataChanges(false);
             }
         }
 
@@ -939,7 +935,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive shared website ids
+     * Retrieve shared website ids
      *
      * @return array
      */
@@ -978,7 +974,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Validate customer attribute values.
      * For existing customer password + confirmation will be validated only when password is set (i.e. its change is requested)
      *
-     * @return array|bool
+     * @return array|true
      */
     public function validate()
     {
@@ -1035,7 +1031,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
     /**
      * Validate customer password on reset
-     * @return array|bool
+     * @return array|true
      */
     public function validateResetPassword()
     {
@@ -1298,8 +1294,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Print error
      *
-     * @param $error
-     * @param $line
+     * @param null|string $error
+     * @param string $line
      * @return boolean
      */
     public function printError($error, $line = null)

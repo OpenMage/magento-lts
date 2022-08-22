@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -36,6 +30,7 @@
  * @method int getProductId()
  * @method $this setProductId(int $value)
  * @method $this setWishlistItemId(int $value)
+ * @method int getWishlistItemId()
  * @method $this setValue(string $sBuyRequest)
  */
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
@@ -73,8 +68,10 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      */
     public function setItem($item)
     {
-        $this->setWishlistItemId($item->getId());
         $this->_item = $item;
+        if ($this->getWishlistItemId() != $item->getId()) {
+            $this->setWishlistItemId($item->getId());
+        }
         return $this;
     }
 
@@ -96,8 +93,10 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
      */
     public function setProduct($product)
     {
-        $this->setProductId($product->getId());
         $this->_product = $product;
+        if ($this->getProductId() != $product->getId()) {
+            $this->setProductId($product->getId());
+        }
         return $this;
     }
 

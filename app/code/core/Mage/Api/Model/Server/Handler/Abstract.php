@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api
@@ -58,7 +52,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
 
     /**
-     * Retrive webservice session
+     * Retrieve webservice session
      *
      * @return Mage_Api_Model_Session
      */
@@ -68,7 +62,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice configuration
+     * Retrieve webservice configuration
      *
      * @return Mage_Api_Model_Config
      */
@@ -78,7 +72,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice server
+     * Retrieve webservice server
      *
      * @return Mage_Api_Model_Server
      */
@@ -147,7 +141,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Retrive webservice fault as array
+     * Retrieve webservice fault as array
      *
      * @param string $faultName
      * @param string $resourceName

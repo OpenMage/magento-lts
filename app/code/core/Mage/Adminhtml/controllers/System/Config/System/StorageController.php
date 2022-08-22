@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/config';
+
     /**
      * Return file storage singleton
      *
@@ -55,8 +55,6 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
     /**
      * Synchronize action between storages
-     *
-     * @return void
      */
     public function synchronizeAction()
     {
@@ -94,8 +92,6 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
     /**
      * Retrieve synchronize process state and it's parameters in json format
-     *
-     * @return void
      */
     public function statusAction()
     {
@@ -179,15 +175,5 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
 
         $result = Mage::helper('core')->jsonEncode($result);
         Mage::app()->getResponse()->setBody($result);
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -220,12 +214,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
              */
             $websites = array();
             $attributeCodes = $priceAttributeCodes = array();
-//            $status = Mage_Catalog_Model_Product_Status::STATUS_ENABLED;
-//            $visibility = array(
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH,
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG,
-//                Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_SEARCH,
-//            );
 
             /**
              * Prepare stores and websites information
@@ -814,8 +802,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param $store
-     * @param mixed $products
+     * @param Mage_Core_Model_Store|int $store
+     * @param Mage_Catalog_Model_Product|int|array|null $products
      * @param string $resourceTable
      * @return $this
      */

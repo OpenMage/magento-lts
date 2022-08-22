@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -53,7 +47,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @param Mage_Sales_Model_Quote $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
@@ -84,8 +78,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param object $a
+     * @param object $b
      * @return int
      */
     protected function _sortMethods($a, $b)
@@ -171,7 +165,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve all payment methods
      *
-     * @param mixed $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getPaymentMethods($store = null)
@@ -198,7 +192,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $sorted
      * @param bool $asLabelValue
      * @param bool $withGroups
-     * @param null $store
+     * @param null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)

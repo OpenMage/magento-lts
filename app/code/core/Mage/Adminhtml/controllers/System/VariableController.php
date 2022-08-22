@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/variable';
+
     /**
      * Initialize Layout and set breadcrumbs
      *
@@ -69,7 +69,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Index Action
-     *
      */
     public function indexAction()
     {
@@ -82,7 +81,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * New Action (forward to edit action)
-     *
      */
     public function newAction()
     {
@@ -91,7 +89,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Edit Action
-     *
      */
     public function editAction()
     {
@@ -109,7 +106,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Validate Action
-     *
      */
     public function validateAction()
     {
@@ -128,7 +124,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Save Action
-     *
      */
     public function saveAction()
     {
@@ -161,7 +156,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
 
     /**
      * Delete Action
-     *
      */
     public function deleteAction()
     {
@@ -192,15 +186,5 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $storeContactVariabls = Mage::getModel('core/source_email_variables')->toOptionArray(true);
         $variables = array($storeContactVariabls, $customVariables);
         $this->getResponse()->setBody(Zend_Json::encode($variables));
-    }
-
-    /**
-     * Check current user permission
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/variable');
     }
 }

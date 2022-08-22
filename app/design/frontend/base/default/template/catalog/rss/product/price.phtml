@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -385,7 +379,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <?php endif ?>
             <?php endif ?>
 
-        <?php endif; /* if ($_finalPrice == $_price): */ ?>
+        <?php endif /* if ($_finalPrice == $_price): */ ?>
 
         <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
@@ -407,7 +401,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
             <?php else: ?>
                 </span>
             <?php endif ?>
-        <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
+        <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
         </div>
 
     <?php else: /* if (!$_product->isGrouped()): */ ?>
@@ -442,8 +436,8 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                     <?php endif ?>
                 </p>
             </div>
-        <?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
-    <?php endif; /* if (!$_product->isGrouped()): */ ?>
+        <?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice): */ ?>
+    <?php endif /* if (!$_product->isGrouped()): */ ?>
 <?php else: ?>
     <?php //echo $this->helper('catalog')->__('Price is not available');?>
-<?php endif; /* if (!$_product->getCanShowPrice()): */ ?>
+<?php endif /* if (!$_product->getCanShowPrice()): */ ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -87,7 +81,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * @param bool $minimal clear minimal price index data flag
      * @param bool $finalPrice clear final price index data flag
      * @param bool $tierPrice clear tier price index data flag
-     * @param mixed $products applicable products
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Product_Condition_Interface|int|array|null $products applicable products
      * @param mixed $store applicable stores
      */
     public function clear(
@@ -640,7 +634,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
      * Update prices for Catalog Product flat
      *
      * @param int $storeId
-     * @param array $productIds
+     * @param array|Mage_Catalog_Model_Product_Condition_Interface $productIds
      * @param string $tableName
      * @return $this
      */

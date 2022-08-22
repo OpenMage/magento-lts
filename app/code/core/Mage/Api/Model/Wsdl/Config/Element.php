@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api
@@ -85,7 +79,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     return $this;
                 }
                 if ($overwrite) {
-//                    unset($this->$sourceName);
                     unset($elm);
                 } else {
                     return $this;
@@ -175,6 +168,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
      * @param Varien_Simplexml_Element $source
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function getChildren($source = null)
     {
         Mage::log('Use of deprecated method: '.__METHOD__);
@@ -207,8 +201,9 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     /**
      * Return if has children
      *
-     * @return boolean
+     * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function hasChildren()
     {
         if (!self::_getChildren($this)) {
@@ -239,16 +234,6 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             if ($child->getName() == $sourceName) {
                 $elm = true;
                 foreach ($extendElmAttributes as $namespace => $attributes) {
-                    /**
-                     * if count of attributes of extend element is 0 in $namespace,
-                     * and current element has attributes in $namespace - different elements
-                     */
-//                    if (!count($attributes) && count($this->getAttributes($child, $namespace))) {
-//                        foreach ($this->getAttributes($child, $namespace) as $attribute) {
-//                            $elm = false;
-//                            break;
-//                        }
-//                    }
                     foreach ($attributes as $key => $value) {
                         if (is_null($child->getAttribute($key, $namespace)) || $child->getAttribute($key, $namespace) != $value) {
                             $elm = false;

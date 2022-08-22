@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -193,7 +187,7 @@ $regionsToIns = array(
     array('LV', 'Ērgļu novads', 'Ērgļu novads'),
     array('LV', 'Ķeguma novads', 'Ķeguma novads'),
     array('LV', 'Ķekavas novads', 'Ķekavas novads'),
-    
+
     //ISO-3166-2:LT
     array('LT', 'LT-AL', 'Alytaus Apskritis'),
     array('LT', 'LT-KU', 'Kauno Apskritis'),

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogRule
@@ -118,7 +112,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
         /** @var Mage_Core_Model_Date $coreDate */
         $coreDate  = $this->_factory->getModel('core/date');
-        $timestamp = $coreDate->gmtTimestamp('Today');
+        $timestamp = $coreDate->gmtTimestamp();
 
         foreach ($this->_app->getWebsites(false) as $website) {
             /** @var Mage_Core_Model_Website $website */
@@ -561,7 +555,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                     new Zend_Db_Expr($this->_connection->getUnixTimestamp('dates.rule_date') . " <= to_time")
                 )
             )
-            ->group(array('customer_group_id', 'product_id', 'dates.rule_date'));
+            ->group(array('customer_group_id', 'product_id', 'dates.rule_date', 'website_id'));
 
         return $select;
     }
@@ -590,7 +584,9 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
         $this->_connection->query(
             $this->_connection->insertFromSelect(
                 $this->_prepareIndexSelect($website, $time),
-                $this->_resource->getTable('catalogrule/rule_product_price')
+                $this->_resource->getTable('catalogrule/rule_product_price'),
+                [],
+                Varien_Db_Adapter_Interface::INSERT_IGNORE
             )
         );
     }

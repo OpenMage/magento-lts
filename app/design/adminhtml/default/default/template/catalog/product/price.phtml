@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -356,7 +350,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
         <?php endif ?>
     <?php endif ?>
 
-<?php endif; /* if ($_finalPrice == $_price): */ ?>
+<?php endif /* if ($_finalPrice == $_price): */ ?>
 
 <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
@@ -365,7 +359,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
         <?php $_minimalPriceDisplayValue = $_minimalPrice+$_weeeTaxAmount; ?>
     <?php endif ?>
 
-    <?php if ($this->getUseLinkForAsLowAs()):?>
+    <?php if ($this->getUseLinkForAsLowAs()): ?>
     <a href="<?php echo $_product->getProductUrl(); ?>" class="minimal-price-link">
     <?php else: ?>
     <span class="minimal-price-link">
@@ -374,10 +368,10 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
         <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
             <?php echo $_coreHelper->currencyByStore($_minimalPriceDisplayValue, $_storeId, true, false) ?>
         </span>
-    <?php if ($this->getUseLinkForAsLowAs()):?>
+    <?php if ($this->getUseLinkForAsLowAs()): ?>
     </a>
     <?php else: ?>
     </span>
     <?php endif ?>
-<?php endif; /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
+<?php endif /* if ($this->getDisplayMinimalPrice() && $_minimalPrice && $_minimalPrice < $_finalPrice): */ ?>
 </div>

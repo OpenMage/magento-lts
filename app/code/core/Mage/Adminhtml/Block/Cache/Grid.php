@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -101,24 +95,6 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'frame_callback' => array($this, 'decorateStatus')
         ));
 
-//        $this->addColumn('action',
-//            array(
-//                'header'    =>  $this->__('Action'),
-//                'width'     => '100',
-//                'type'      => 'action',
-//                'getter'    => 'getId',
-//                'actions'   => array(
-//                    array(
-//                        'caption'   => $this->__('Refresh'),
-//                        'url'       => array('base'=> '*/*/refresh'),
-//                        'field'     => 'type'
-//                    ),
-//                ),
-//                'filter'    => false,
-//                'sortable'  => false,
-//                'is_system' => true,
-//        ));
-
         return parent::_prepareColumns();
     }
 
@@ -145,12 +121,11 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get row edit url
      *
-     * @return string
+     * @return false
      */
     public function getRowUrl($row)
     {
         return false;
-        //return $this->getUrl('*/*/edit', array('type'=>$row->getId()));
     }
 
     /**

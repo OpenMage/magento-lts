@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -275,7 +269,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Magento helper for filtration based on $filterData. Return false on failure
      *
-     * @param $filterData
+     * @param array $filterData
      * @return bool|Mage_Core_Helper_Abstract
      * @throws Exception
      */
@@ -297,8 +291,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Try to create Zend filter based on $filterData. Return false on failure
      *
-     * @param $filterData
-     * @return bool|Zend_Filter_Interface
+     * @param Zend_Filter_Interface|array $filterData
+     * @return false|Zend_Filter_Interface
      */
     protected function _getZendFilter($filterData)
     {
@@ -317,7 +311,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get Magento filters
      *
-     * @param $filterData
+     * @param array $filterData
      * @return Zend_Filter_Interface
      * @throws Exception
      */
@@ -342,7 +336,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Get native Zend_Filter
      *
-     * @param $filterData
+     * @param array $filterData
      * @return Zend_Filter_Interface
      * @throws Exception
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_HTTP
@@ -421,31 +415,29 @@ implements Mage_HTTP_IClient
      * Parse headers - CURL callback functin
      *
      * @param resource $ch curl handle, not needed
-     * @param string $data
+     * @param string   $data
+     *
      * @return int
      */
-    protected function parseHeaders($ch, $data)
+    protected function parseHeaders($ch, $data): int
     {
-        if($this->_headerCount == 0) {
+        if ($this->_headerCount === 0) {
+            $line = explode(' ', trim($data), 3);
 
-            $line = explode(" ", trim($data), 3);
-            if(count($line) != 3) {
-                return $this->doError("Invalid response line returned from server: ".$data);
-            }
-            $this->_responseStatus = intval($line[1]);
+            $this->validateHttpVersion($line);
+            $this->_responseStatus = (int)$line[1];
         } else {
             //var_dump($data);
             $name = $value = '';
-            $out = explode(": ", trim($data), 2);
-            if(count($out) == 2) {
-                $name = $out[0];
-                $value = $out[1];
+            $out  = explode(': ', trim($data), 2);
+            if (count($out) === 2) {
+                list($name, $value) = $out;
             }
 
-            if(strlen($name)) {
-                if("Set-Cookie" == $name) {
-                    if(!isset($this->_responseHeaders[$name])) {
-                        $this->_responseHeaders[$name] = array();
+            if ($name !== '') {
+                if ($name === 'Set-Cookie') {
+                    if (!isset($this->_responseHeaders[$name])) {
+                        $this->_responseHeaders[$name] = [];
                     }
                     $this->_responseHeaders[$name][] = $value;
                 } else {
@@ -456,8 +448,32 @@ implements Mage_HTTP_IClient
         }
         $this->_headerCount++;
 
-
         return strlen($data);
+    }
+
+    /**
+     * @param array $line
+     *
+     * @throws Exception
+     */
+    protected function validateHttpVersion(array $line)
+    {
+        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
+            if (count($line) !== 3) {
+                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
+            }
+
+            return;
+        }
+
+        if ($line[0] === 'HTTP/2') {
+            if (!in_array(count($line), [2, 3])) {
+                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
+            }
+
+            return;
+        }
+        $this->doError('Invalid response line returned from server: ' . $data);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -437,7 +431,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     const REPORT_DATE_TYPE_CREATED = 'created';
     const REPORT_DATE_TYPE_UPDATED = 'updated';
-    /*
+    /**
      * Identifier for history item
      */
     const HISTORY_ENTITY_NAME = 'order';
@@ -503,7 +497,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected $_canSendNewEmailFlag = true;
 
-    /*
+    /**
      * Identifier for history item
      *
      * @var string
@@ -526,7 +520,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order');
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'payment_authorization_expiration' => 'payment_auth_expiration',
+            'forced_do_shipment_with_invoice' => 'forced_shipment_with_invoice',
+            'base_shipping_hidden_tax_amount' => 'base_shipping_hidden_tax_amnt',
+        ];
         return $this;
     }
 
@@ -869,7 +868,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function canReorder()
     {
-        return $this->_canReorder(false);
+        return $this->_canReorder(true);
     }
 
     /**
@@ -890,7 +889,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     protected function _canReorder($ignoreSalable = false)
     {
-        if ($this->canUnhold() || $this->isPaymentReview() || !$this->getCustomerId()) {
+        if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
 
@@ -1093,7 +1092,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * @param string|bool $status
      * @param string $comment
      * @param bool $isCustomerNotified
-     * @param $shouldProtectState
+     * @param bool $shouldProtectState
      * @return $this
      */
     protected function _setState(
@@ -1127,7 +1126,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Whether specified state can be set from outside
-     * @param $state
+     * @param string $state
      * @return bool
      */
     public function isStateProtected($state)
@@ -1164,18 +1163,13 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-    /*
+    /**
      * Add a comment to order
      * Different or default status may be specified
      *
      * @param string $comment
-     * @param string $status
+     * @param bool|string $status
      * @return Mage_Sales_Model_Order_Status_History
-     */
-    /**
-     * @param $comment
-     * @param bool $status
-     * @return mixed
      */
     public function addStatusHistoryComment($comment, $status = false)
     {
@@ -1253,15 +1247,14 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     /**
      * Cancel order
-     *
+     * @param string $comment
      * @return $this
      */
-    public function cancel()
+    public function cancel($comment = '')
     {
         if ($this->canCancel()) {
             $this->getPayment()->cancel();
-            $this->registerCancellation();
-
+            $this->registerCancellation($comment);
             Mage::dispatchEvent('order_cancel_after', array('order' => $this));
         }
 
@@ -1575,8 +1568,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $configPath
-     * @return array|bool
+     * @param string $configPath
+     * @return array|false
      */
     protected function _getEmails($configPath)
     {
@@ -1609,8 +1602,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param $addressId
-     * @return bool|mixed
+     * @param int|string $addressId
+     * @return false|Mage_Sales_Model_Order_Address
      */
     public function getAddressById($addressId)
     {
@@ -2354,7 +2347,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             $this->unsShippingAddressId();
         }
 
-        $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        if (!$this->getId()) {
+            $this->setData('protect_code', substr(md5(uniqid(mt_rand(), true) . ':' . microtime(true)), 5, 6));
+        }
         return $this;
     }
 

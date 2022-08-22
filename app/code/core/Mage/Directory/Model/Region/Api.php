@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -53,10 +47,13 @@ class Mage_Directory_Model_Region_Api extends Mage_Api_Model_Resource_Abstract
 
         $result = array();
         foreach ($country->getRegions() as $region) {
-            $region->getName();
-            $result[] = $region->toArray(array('region_id', 'code', 'name'));
+            $result[] = array(
+                'region_id' => $region->getRegionId(),
+                'code' => $region->getCode(),
+                'name' => $region->getName(), //use the logic of default name
+            );
         }
 
         return $result;
     }
-} // Class Mage_Directory_Model_Region_Api End
+}

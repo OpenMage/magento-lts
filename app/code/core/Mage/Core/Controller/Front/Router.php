@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -56,7 +50,7 @@ class Mage_Core_Controller_Front_Router
         $routeParams = array('module'=>$moduleName, 'controller'=>'index', 'action'=>'index', '_frontName'=>$frontName);
         $route = new Zend_Controller_Router_Route($routeMatch, $routeParams);
         $router->addRoute($moduleName, $route);
-        
+
         return $this;
     }
 
@@ -67,12 +61,12 @@ class Mage_Core_Controller_Front_Router
     public function getUrl($params = array())
     {
         static $reservedKeys = array('module'=>1, 'controller'=>1, 'action'=>1, 'array'=>1);
-        
+
         if (is_string($params)) {
             $paramsArr = explode('/', $params);
             $params = array('controller'=>$paramsArr[0], 'action'=>$paramsArr[1]);
         }
-        
+
         $url = Mage::getBaseUrl($params);
 
         if (!empty($params['frontName'])) {
@@ -80,7 +74,7 @@ class Mage_Core_Controller_Front_Router
         } else {
             $url .= $this->_config->getName().'/';
         }
-        
+
         if (!empty($params)) {
             $paramsStr = '';
             foreach ($params as $key => $value) {
@@ -88,19 +82,19 @@ class Mage_Core_Controller_Front_Router
                     $paramsStr .= $key.'/'.$value.'/';
                 }
             }
-            
+
             if (empty($params['controller']) && !empty($paramsStr)) {
                 $params['controller'] = 'index';
             }
             $url .= empty($params['controller']) ? '' : $params['controller'].'/';
-            
+
             if (empty($params['action']) && !empty($paramsStr)) {
                 $params['action'] = 'index';
             }
             $url .= empty($params['action']) ? '' : $params['action'].'/';
-            
+
             $url .= $paramsStr;
-            
+
             $url .= empty($params['array']) ? '' : '?' . http_build_query($params['array']);
         }
 

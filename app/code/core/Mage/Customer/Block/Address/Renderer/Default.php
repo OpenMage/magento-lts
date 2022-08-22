@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -42,7 +36,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     protected $_type;
 
     /**
-     * Retrive format type object
+     * Retrieve format type object
      *
      * @return Varien_Object
      */
@@ -52,7 +46,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
     }
 
     /**
-     * Retrive format type object
+     * Retrieve format type object
      *
      * @param  Varien_Object $type
      * @return $this
@@ -149,7 +143,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
 
     /**
      * Get address template data without url and js code
-     * @param $data
+     * @param string $data
      * @return string
      */
     protected function _prepareAddressTemplateData($data)
@@ -157,7 +151,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         $result = '';
         if (is_string($data)) {
             $urlRegExp = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
-            /** @var $maliciousCodeFilter Mage_Core_Model_Input_Filter_MaliciousCode */
+            /** @var Mage_Core_Model_Input_Filter_MaliciousCode $maliciousCodeFilter */
             $maliciousCodeFilter = Mage::getSingleton('core/input_filter_maliciousCode');
             $result = preg_replace($urlRegExp, ' ', $maliciousCodeFilter->filter($data));
         }
