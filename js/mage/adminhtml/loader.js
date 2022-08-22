@@ -201,7 +201,7 @@ varienLoaderHandler.handler = {
             }
             this.timeout = setTimeout(function() {
                 Element.childElements('loading-mask').invoke('show');
-            }, typeof window.LOADING_TIMEOUT === 'undefined' ? 100 : window.LOADING_TIMEOUT);
+            }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
         }
     },
 
