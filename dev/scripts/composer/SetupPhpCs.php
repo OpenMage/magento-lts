@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenMage\Scripts;
+namespace OpenMage\Scripts\Composer;
 
 use Composer\Script\Event;
 
-class Devel
+class SetupPhpCs implements ScriptInterface
 {
     /** @var Composer\Composer $composer */
     static $composer;
@@ -15,7 +15,7 @@ class Devel
     /** @var string $binPath */
     static $binPath;
 
-    private static function _init(Event $event)
+    private static function init(Event $event)
     {
         self::$composer = $event->getComposer();
         self::$vendorPath = self::$composer->getConfig()->get('vendor-dir');
@@ -27,9 +27,9 @@ class Devel
      *
      * @param Event $event
      */
-    public static function setupPhpCs(Event $event)
+    public static function run(Event $event)
     {
-        self::_init($event);
+        self::init($event);
 
         if ($event->isDevMode() === false) {
             return;
