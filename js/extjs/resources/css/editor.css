@@ -1,5 +1,5 @@
 /*
- * Ext JS Library 1.1 Beta 1
+ * Ext JS Library 1.1.1
  * Copyright(c) 2006-2007, Ext JS, LLC.
  * licensing@extjs.com
  * 
@@ -52,8 +52,15 @@
 .x-html-editor-tb .x-edit-sourceedit .x-btn-text {
     background-position:-192px 0;
 }
+.x-html-editor-tb .x-edit-createlink .x-btn-text {
+    background-position:-208px 0;
+}
 
 .x-html-editor-tip .x-tip-bd .x-tip-bd-inner {
     padding:5px;
     padding-bottom:1px;
+}
+
+.x-html-editor-tb .x-toolbar {
+    position:static !important;
 }

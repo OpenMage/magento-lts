@@ -1,5 +1,5 @@
 /*
- * Ext JS Library 1.1 Beta 1
+ * Ext JS Library 1.1.1
  * Copyright(c) 2006-2007, Ext JS, LLC.
  * licensing@extjs.com
  * 
@@ -241,6 +241,9 @@
     background: transparent url(../images/default/grid/dirty.gif) no-repeat 0 0;
 }
 
+.x-grid-row-alt .x-grid-dirty-cell{
+	background-color:#f1f1f1;
+}
 /* Grid Toolbars */
 .x-grid-topbar, .x-grid-bottombar{
 	font:normal 11px arial, tahoma, helvetica, sans-serif;

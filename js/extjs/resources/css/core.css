@@ -1,5 +1,5 @@
 /*
- * Ext JS Library 1.1 Beta 1
+ * Ext JS Library 1.1.1
  * Copyright(c) 2006-2007, Ext JS, LLC.
  * licensing@extjs.com
  * 
@@ -57,9 +57,8 @@
 /* class for hiding elements without using display:none */
 .x-hidden {
     position:absolute;
-    left:-2000px;
-    top:-2000px;
-    visibility:hidden;
+    left:-10000px;
+    top:-10000px;
 }
 
 .x-masked {

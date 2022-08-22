@@ -1,5 +1,5 @@
 /*
- * Ext JS Library 1.1 Beta 1
+ * Ext JS Library 1.1.1
  * Copyright(c) 2006-2007, Ext JS, LLC.
  * licensing@extjs.com
  * 
@@ -44,4 +44,7 @@
 }
 .x-combo-noedit{
     cursor:pointer;
+}
+.x-combo-list-small .x-combo-list-item {
+    font:normal 11px tahoma, arial, helvetica, sans-serif;
 }

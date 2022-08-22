@@ -1,5 +1,5 @@
 /*
- * Ext JS Library 1.1 Beta 1
+ * Ext JS Library 1.1.1
  * Copyright(c) 2006-2007, Ext JS, LLC.
  * licensing@extjs.com
  * 
@@ -87,6 +87,10 @@
     height:19px; /* safari doesn't allow height adjustments to the fields, so adjust trigger */
 }
 
+.x-form-field-wrap .x-form-date-trigger{
+    background-image: url(../images/default/form/date-trigger.gif);
+    cursor:pointer;
+}
 .x-form-field-wrap .x-form-clear-trigger{
     background-image: url(../images/default/form/clear-trigger.gif);
     cursor:pointer;
@@ -394,4 +398,10 @@
     top:0;
     display:block;
     background:transparent url(../images/default/form/exclamation.gif) no-repeat 0 2px;
+}
+
+
+.ext-ie td .x-form-text {
+    position:relative;
+    top:-1px;
 }
