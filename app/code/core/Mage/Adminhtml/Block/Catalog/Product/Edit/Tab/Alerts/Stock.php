@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
 
         $this->setId('alertStock');
         $this->setDefaultSort('add_date');
-        $this->setDefaultSort('DESC');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
         $this->setFilterVisibility(false);
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert.'));
