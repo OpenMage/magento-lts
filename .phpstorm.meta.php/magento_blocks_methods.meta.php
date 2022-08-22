@@ -1273,7 +1273,6 @@ namespace PHPSTORM_META {
             'shipping/tracking_ajax' => \Mage_Shipping_Block_Tracking_Ajax::class,
             'shipping/tracking_popup' => \Mage_Shipping_Block_Tracking_Popup::class,
             'tag/all' => \Mage_Tag_Block_All::class,
-            'tag/customer_edit' => \Mage_Tag_Block_Customer_Edit::class,
             'tag/customer_recent' => \Mage_Tag_Block_Customer_Recent::class,
             'tag/customer_tags' => \Mage_Tag_Block_Customer_Tags::class,
             'tag/customer_view' => \Mage_Tag_Block_Customer_View::class,
