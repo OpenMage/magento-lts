@@ -194,21 +194,26 @@ varienLoaderHandler.handler = {
             Element.clonePosition($('loading-mask'), $(request.options.loaderArea), {offsetLeft:-2});
             toggleSelectsUnderBlock($('loading-mask'), false);
             Element.show('loading-mask');
+            Element.childElements('loading-mask').invoke('hide');
             setLoaderPosition();
-            if(request.options.loaderArea=='html-body'){
-                //Element.show('loading-process');
+            if(this.timeout) {
+                clearTimeout(this.timeout);
             }
-        }
-        else{
-            //Element.show('loading-process');
+            this.timeout = setTimeout(function() {
+                Element.childElements('loading-mask').invoke('show');
+            }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
         }
     },
 
     onComplete: function(transport) {
         if(Ajax.activeRequestCount == 0) {
-            //Element.hide('loading-process');
             toggleSelectsUnderBlock($('loading-mask'), true);
             Element.hide('loading-mask');
+            Element.childElements('loading-mask').invoke('hide');
+            if(this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
+            }
         }
     }
 };
