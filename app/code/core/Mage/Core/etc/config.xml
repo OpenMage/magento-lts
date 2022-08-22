@@ -423,6 +423,9 @@
             </browser_capabilities>
         </web>
         <admin>
+            <design>
+                <loading_timeout>200</loading_timeout>
+            </design>
             <startup>
                 <page>dashboard</page>
             </startup>
