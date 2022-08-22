@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'setLocation(\''
                     . $this->getUrl(
                         '*/catalog_product/edit',
-                        array('id' => $this->getRequest()->getParam('productId', false))
+                        ['id' => $this->getRequest()->getParam('productId', false)]
                     )
                     .'\')'
             );
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                 'setLocation(\''
                     . $this->getUrl(
                         '*/customer/edit',
-                        array('id' => $this->getRequest()->getParam('customerId', false))
+                        ['id' => $this->getRequest()->getParam('customerId', false)]
                     )
                     .'\')'
             );
@@ -78,10 +78,10 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                     . '\', '
                     . '\'' . $this->getUrl(
                         '*/*/delete',
-                        array(
+                        [
                             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
                             'ret'           => 'pending',
-                        )
+                        ]
                     ) . '\''
                     . ')'
             );
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
                         $(\'save_button\').disabled = true;
                         new Ajax.Updater(
                             "rating_detail",
-                            "' . $this->getUrl('*/*/ratingItems', array('_current'=>true)).'",
+                            "' . $this->getUrl('*/*/ratingItems', ['_current'=>true]).'",
                             {
                                 parameters:Form.serializeElements(elements),
                                 evalScripts:true,

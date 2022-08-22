@@ -30,12 +30,12 @@ class Mage_Adminhtml_Block_Review_Grid_Filter_Type extends Mage_Adminhtml_Block_
 {
     protected function _getOptions()
     {
-        return array(
-              array('label'=>'', 'value'=>''),
-              array('label'=>Mage::helper('review')->__('Administrator'), 'value'=>1),
-              array('label'=>Mage::helper('review')->__('Customer'), 'value'=>2),
-              array('label'=>Mage::helper('review')->__('Guest'), 'value'=>3)
-        );
+        return [
+              ['label'=>'', 'value'=>''],
+              ['label'=>Mage::helper('review')->__('Administrator'), 'value'=>1],
+              ['label'=>Mage::helper('review')->__('Customer'), 'value'=>2],
+              ['label'=>Mage::helper('review')->__('Guest'), 'value'=>3]
+        ];
     }
 
     public function getCondition()

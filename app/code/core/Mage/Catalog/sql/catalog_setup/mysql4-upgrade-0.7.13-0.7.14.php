@@ -19,15 +19,15 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $mediaAttributeId = (int) $installer->getAttributeId('catalog_product', 'media_gallery');
 
-$imagesAttributesIds = implode(",", array(
+$imagesAttributesIds = implode(",", [
     (int) $installer->getAttributeId('catalog_product', 'small_image'),
     (int) $installer->getAttributeId('catalog_product', 'image'),
     (int) $installer->getAttributeId('catalog_product', 'thumbnail')
-));
+]);
 
 
 $installer->startSetup();

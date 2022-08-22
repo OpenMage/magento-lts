@@ -31,12 +31,12 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Filter_Action
 {
     public function getHtml()
     {
-        $values = array(
+        $values = [
             ''       => '',
             'create' => Mage::helper('adminhtml')->__('Create'),
             'run'    => Mage::helper('adminhtml')->__('Run'),
             'update' => Mage::helper('adminhtml')->__('Update'),
-        );
+        ];
         $value = $this->getValue();
 
         $html  = '<select name="' . ($this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId()) . '" ' . $this->getColumn()->getValidateClass() . '>';

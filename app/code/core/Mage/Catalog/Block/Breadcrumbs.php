@@ -49,13 +49,13 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbsBlock */
         $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbsBlock) {
-            $breadcrumbsBlock->addCrumb('home', array(
+            $breadcrumbsBlock->addCrumb('home', [
                 'label'=>Mage::helper('catalog')->__('Home'),
                 'title'=>Mage::helper('catalog')->__('Go to Home Page'),
                 'link'=>Mage::getBaseUrl()
-            ));
+            ]);
 
-            $title = array();
+            $title = [];
             $path  = Mage::helper('catalog')->getBreadcrumbPath();
 
             foreach ($path as $name => $breadcrumb) {

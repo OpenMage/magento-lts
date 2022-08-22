@@ -34,16 +34,16 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
      */
     public static function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
                 'label' => Mage::helper('api2')->__('Read')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE,
                 'label' => Mage::helper('api2')->__('Write')
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -53,9 +53,9 @@ class Mage_Api2_Model_Acl_Filter_Attribute_Operation
      */
     public static function toArray()
     {
-        return array(
+        return [
             Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ  => Mage::helper('api2')->__('Read'),
             Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_WRITE => Mage::helper('api2')->__('Write')
-        );
+        ];
     }
 }

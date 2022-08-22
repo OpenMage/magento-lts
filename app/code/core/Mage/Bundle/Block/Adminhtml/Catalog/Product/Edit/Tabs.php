@@ -37,11 +37,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
     {
         parent::_prepareLayout();
 
-        $this->addTab('bundle_items', array(
+        $this->addTab('bundle_items', [
             'label'     => Mage::helper('bundle')->__('Bundle Items'),
-            'url'   => $this->getUrl('*/*/bundles', array('_current' => true)),
+            'url'   => $this->getUrl('*/*/bundles', ['_current' => true]),
             'class' => 'ajax',
-        ));
+        ]);
         $this->bindShadowTabs('bundle_items', 'customer_options');
     }
 }

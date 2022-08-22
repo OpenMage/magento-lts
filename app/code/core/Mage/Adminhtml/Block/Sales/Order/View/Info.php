@@ -53,12 +53,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
                 return nl2br($this->getOrder()->getStoreName()) . $deleted;
             }
             $store = Mage::app()->getStore($storeId);
-            $name = array(
+            $name = [
                 $store->getWebsite()->getName(),
                 $store->getGroup()->getName(),
                 $store->getName()
-            );
-            return implode('<br/>', array_map(array($this, 'escapeHtml'), $name));
+            ];
+            return implode('<br/>', array_map([$this, 'escapeHtml'], $name));
         }
         return null;
     }
@@ -76,12 +76,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if ($this->getOrder()->getCustomerIsGuest() || !$this->getOrder()->getCustomerId()) {
             return false;
         }
-        return $this->getUrl('*/customer/edit', array('id' => $this->getOrder()->getCustomerId()));
+        return $this->getUrl('*/customer/edit', ['id' => $this->getOrder()->getCustomerId()]);
     }
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/sales_order/view', array('order_id'=>$orderId));
+        return $this->getUrl('*/sales_order/view', ['order_id'=>$orderId]);
     }
 
     /**
@@ -108,14 +108,14 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
      */
     public function getCustomerAccountData()
     {
-        $accountData = array();
+        $accountData = [];
 
-        /* @var $config Mage_Eav_Model_Config */
+        /** @var Mage_Eav_Model_Config $config */
         $config     = Mage::getSingleton('eav/config');
         $entityType = 'customer';
         $customer   = Mage::getModel('customer/customer');
         foreach ($config->getEntityAttributeCodes($entityType) as $attributeCode) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attribute = $config->getAttribute($entityType, $attributeCode);
             if (!$attribute->getIsVisible() || $attribute->getIsSystem()) {
                 continue;
@@ -128,10 +128,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
                 $value      = $dataModel->outputValue(Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML);
                 $sortOrder  = $attribute->getSortOrder() + $attribute->getIsUserDefined() ? 200 : 0;
                 $sortOrder  = $this->_prepareAccountDataSortOrder($accountData, $sortOrder);
-                $accountData[$sortOrder] = array(
+                $accountData[$sortOrder] = [
                     'label' => $attribute->getFrontendLabel(),
-                    'value' => $this->escapeHtml($value, array('br'))
-                );
+                    'value' => $this->escapeHtml($value, ['br'])
+                ];
             }
         }
 
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Info extends Mage_Adminhtml_Block_Sa
         if (empty($label)) {
             $label = $this->__('Edit');
         }
-        $url = $this->getUrl('*/sales_order/address', array('address_id'=>$address->getId()));
+        $url = $this->getUrl('*/sales_order/address', ['address_id'=>$address->getId()]);
         return '<a href="'.$url.'">' . $label . '</a>';
     }
 

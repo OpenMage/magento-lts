@@ -21,10 +21,10 @@
 /** @var Mage_GiftMessage_Model_Mysql4_Setup $this */
 $installer = $this;
 
-$installer->addAttribute('quote', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false));
+$installer->addAttribute('quote', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_available', ['type' => 'int', 'visible' => false, 'required' => false]);

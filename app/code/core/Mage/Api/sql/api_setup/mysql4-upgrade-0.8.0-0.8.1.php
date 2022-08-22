@@ -25,7 +25,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();

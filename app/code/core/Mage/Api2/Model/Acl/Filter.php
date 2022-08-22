@@ -84,7 +84,7 @@ class Mage_Api2_Model_Acl_Filter
     public function collectionIn($items)
     {
         foreach ($items as &$data) {
-            $data = is_array($data) ? $this->in($data) : array();
+            $data = is_array($data) ? $this->in($data) : [];
         }
         return $items;
     }
@@ -111,11 +111,11 @@ class Mage_Api2_Model_Acl_Filter
      */
     public function getAllowedAttributes($operationType = null)
     {
-        if (null === $this->_allowedAttributes) {
+        if ($this->_allowedAttributes === null) {
             /** @var Mage_Api2_Helper_Data $helper */
             $helper = Mage::helper('api2/data');
 
-            if (null === $operationType) {
+            if ($operationType === null) {
                 $operationType = $helper->getTypeOfOperation($this->_resource->getOperation());
             }
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
@@ -147,7 +147,7 @@ class Mage_Api2_Model_Acl_Filter
      */
     public function getAttributesToInclude()
     {
-        if (null === $this->_attributesToInclude) {
+        if ($this->_attributesToInclude === null) {
             $allowedAttrs   = $this->getAllowedAttributes(Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ);
             $requestedAttrs = $this->_resource->getRequest()->getRequestedAttributes();
 

@@ -31,10 +31,11 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * Initialize requested category object
      *
      * @return Mage_Catalog_Model_Category|false
+     * @throws Mage_Core_Exception
      */
     protected function _initCategory()
     {
-        Mage::dispatchEvent('catalog_controller_category_init_before', array('controller_action' => $this));
+        Mage::dispatchEvent('catalog_controller_category_init_before', ['controller_action' => $this]);
         $categoryId = (int) $this->getRequest()->getParam('id', false);
         if (!$categoryId) {
             return false;
@@ -54,10 +55,10 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         try {
             Mage::dispatchEvent(
                 'catalog_controller_category_init_after',
-                array(
+                [
                     'category' => $category,
                     'controller_action' => $this
-                )
+                ]
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);
@@ -70,9 +71,10 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
     /**
      * Initialize requested category object
      *
+     * @return Mage_Catalog_Model_Category
+     * @throws Mage_Core_Exception
      * @deprecated use method _initCategory
      *
-     * @return Mage_Catalog_Model_Category
      */
     protected function _initCatagory()
     {
@@ -116,6 +118,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
     /**
      * Category view action
+     * @throws Mage_Core_Exception
      */
     public function viewAction()
     {
@@ -157,7 +160,9 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $this->getLayout()->helper('page/layout')->applyTemplate($settings->getPageLayout());
             }
 
-            if ($root = $this->getLayout()->getBlock('root')) {
+            /** @var Mage_Page_Block_Html $root */
+            $root = $this->getLayout()->getBlock('root');
+            if ($root) {
                 $root->addBodyClass('categorypath-' . $category->getUrlPath())
                     ->addBodyClass('category-' . $category->getUrlKey());
             }

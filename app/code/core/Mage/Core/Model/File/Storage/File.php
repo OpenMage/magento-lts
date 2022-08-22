@@ -50,7 +50,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class construct
@@ -121,7 +121,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
      */
     public function collectData($offset = 0, $count = 100, $type = 'files')
     {
-        if (!in_array($type, array('files', 'directories'))) {
+        if (!in_array($type, ['files', 'directories'])) {
             return false;
         }
 
@@ -167,7 +167,7 @@ class Mage_Core_Model_File_Storage_File extends Mage_Core_Model_File_Storage_Abs
             return false;
         }
 
-        $result = array();
+        $result = [];
         foreach ($slice as $fileName) {
             try {
                 $fileInfo = $this->collectFileInfo($fileName);

@@ -40,11 +40,11 @@ $adapter->modifyColumn(
 $adapter->beginTransaction();
 //update downloadable purchased data
 $select = $adapter->select()
-    ->from(array('d' => $installer->getTable('downloadable/link_purchased')), array('purchased_id', 'purchased_id'))
+    ->from(['d' => $installer->getTable('downloadable/link_purchased')], ['purchased_id', 'purchased_id'])
     ->joinLeft(
-        array('o' => $installer->getTable('sales/order')),
+        ['o' => $installer->getTable('sales/order')],
         'd.order_id = o.entity_id',
-        array()
+        []
     )
     ->where('o.entity_id IS NULL')
     ->where('d.order_id IS NOT NULL')
@@ -53,17 +53,17 @@ $ids = $adapter->fetchPairs($select);
 if ($ids) {
     $adapter->update(
         $installer->getTable('downloadable/link_purchased'),
-        array('order_id' => new Zend_Db_Expr('(NULL)')),
+        ['order_id' => new Zend_Db_Expr('(NULL)')],
         $adapter->quoteInto('purchased_id IN (?)', $ids)
     );
 }
 //update downloadable purchased items data
 $select = $adapter->select()
-    ->from(array('d' => $installer->getTable('downloadable/link_purchased_item')), array('item_id', 'item_id'))
+    ->from(['d' => $installer->getTable('downloadable/link_purchased_item')], ['item_id', 'item_id'])
     ->joinLeft(
-        array('o' => $installer->getTable('sales/order_item')),
+        ['o' => $installer->getTable('sales/order_item')],
         'd.order_item_id = o.item_id',
-        array()
+        []
     )
     ->where('o.item_id IS NULL')
     ->where('d.order_item_id IS NOT NULL')
@@ -72,7 +72,7 @@ $ids = $adapter->fetchPairs($select);
 if ($ids) {
     $adapter->update(
         $installer->getTable('downloadable/link_purchased_item'),
-        array('order_item_id' => new Zend_Db_Expr('(NULL)')),
+        ['order_item_id' => new Zend_Db_Expr('(NULL)')],
         $adapter->quoteInto('item_id IN (?)', $ids)
     );
 }

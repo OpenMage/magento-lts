@@ -46,11 +46,11 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function _construct()
     {
-        $this->_menu = new Varien_Data_Tree_Node(array(), 'root', new Varien_Data_Tree());
+        $this->_menu = new Varien_Data_Tree_Node([], 'root', new Varien_Data_Tree());
         /*
         * setting cache to save the topmenu block
         */
-        $this->setCacheTags(array(Mage_Catalog_Model_Category::CACHE_TAG));
+        $this->setCacheTags([Mage_Catalog_Model_Category::CACHE_TAG]);
         $this->setCacheLifetime(false);
     }
 
@@ -63,10 +63,10 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getHtml($outermostClass = '', $childrenWrapClass = '')
     {
-        Mage::dispatchEvent('page_block_html_topmenu_gethtml_before', array(
+        Mage::dispatchEvent('page_block_html_topmenu_gethtml_before', [
             'menu' => $this->_menu,
             'block' => $this
-        ));
+        ]);
 
         $this->_menu->setOutermostClass($outermostClass);
         $this->_menu->setChildrenWrapClass($childrenWrapClass);
@@ -78,10 +78,10 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             $html = $this->_getHtml($this->_menu, $childrenWrapClass);
         }
 
-        Mage::dispatchEvent('page_block_html_topmenu_gethtml_after', array(
+        Mage::dispatchEvent('page_block_html_topmenu_gethtml_after', [
             'menu' => $this->_menu,
             'html' => $html
-        ));
+        ]);
 
         return $html;
     }
@@ -173,9 +173,9 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
     {
         $menuItemClasses = $this->_getMenuItemClasses($item);
-        $attributes = array(
+        $attributes = [
             'class' => implode(' ', $menuItemClasses)
-        );
+        ];
 
         return $attributes;
     }
@@ -188,7 +188,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     protected function _getMenuItemClasses(Varien_Data_Tree_Node $item)
     {
-        $classes = array();
+        $classes = [];
 
         $classes[] = 'level' . $item->getLevel();
         $classes[] = $item->getPositionClass();
@@ -223,7 +223,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $shortCacheId = array(
+        $shortCacheId = [
             'TOPMENU',
             Mage::app()->getStore()->getId(),
             Mage::getDesign()->getPackageName(),
@@ -232,7 +232,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             'template' => $this->getTemplate(),
             'name' => $this->getNameInLayout(),
             $this->getCurrentEntityKey()
-        );
+        ];
         $cacheId = $shortCacheId;
 
         $shortCacheId = array_values($shortCacheId);
@@ -252,7 +252,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
      */
     public function getCurrentEntityKey()
     {
-        if (null === $this->_currentEntityKey) {
+        if ($this->_currentEntityKey === null) {
             $this->_currentEntityKey = Mage::registry('current_entity_key')
                 ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
         }

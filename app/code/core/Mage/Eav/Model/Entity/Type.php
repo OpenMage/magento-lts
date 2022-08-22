@@ -68,7 +68,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_attributesBySet             = array();
+    protected $_attributesBySet             = [];
 
     /**
      * Collection of sets
@@ -125,7 +125,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Init and retreive attribute collection
+     * Init and retrieve attribute collection
      *
      * @return Mage_Core_Model_Mysql4_Collection_Abstract|object
      */
@@ -155,7 +155,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive new incrementId
+     * Retrieve new incrementId
      *
      * @param int $storeId
      * @return string
@@ -217,7 +217,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity id field
+     * Retrieve entity id field
      *
      * @return string|null
      */
@@ -227,7 +227,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity table name
+     * Retrieve entity table name
      *
      * @return string|null
      */
@@ -278,7 +278,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity type id
+     * Retrieve entity type id
      *
      * @return string|null
      */
@@ -288,7 +288,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive entity type code
+     * Retrieve entity type code
      *
      * @return string|null
      */
@@ -298,7 +298,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive attribute codes
+     * Retrieve attribute codes
      *
      * @return array|null
      */
@@ -322,7 +322,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive resource entity object
+     * Retrieve resource entity object
      *
      * @return Mage_Core_Model_Resource_Abstract
      */

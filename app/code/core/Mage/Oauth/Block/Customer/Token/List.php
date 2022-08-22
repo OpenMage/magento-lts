@@ -106,7 +106,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
     {
         return Mage::getUrl(
             'oauth/customer_token/revoke/',
-            array('id' => $model->getId(), 'status' => (int) !$model->getRevoked())
+            ['id' => $model->getId(), 'status' => (int) !$model->getRevoked()]
         );
     }
 
@@ -118,7 +118,7 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getDeleteLink(Mage_Oauth_Model_Token $model)
     {
-        return Mage::getUrl('oauth/customer_token/delete/', array('id' => $model->getId()));
+        return Mage::getUrl('oauth/customer_token/delete/', ['id' => $model->getId()]);
     }
 
     /**
@@ -129,10 +129,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getStatusLabel($revokedStatus)
     {
-        $labels = array(
+        $labels = [
             $this->__('Enabled'),
             $this->__('Disabled')
-        );
+        ];
         return $labels[$revokedStatus];
     }
 
@@ -144,10 +144,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getChangeStatusLabel($revokedStatus)
     {
-        $labels = array(
+        $labels = [
             $this->__('Disable'),
             $this->__('Enable')
-        );
+        ];
         return $labels[$revokedStatus];
     }
 
@@ -159,10 +159,10 @@ class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_D
      */
     public function getChangeStatusConfirmMessage($revokedStatus)
     {
-        $messages = array(
+        $messages = [
             $this->__('Are you sure you want to disable this application?'),
             $this->__('Are you sure you want to enable this application?')
-        );
+        ];
         return $messages[$revokedStatus];
     }
 }

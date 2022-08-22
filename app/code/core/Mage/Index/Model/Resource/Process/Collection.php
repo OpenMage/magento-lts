@@ -60,18 +60,18 @@ class Mage_Index_Model_Resource_Process_Collection extends Mage_Core_Model_Resou
     {
         $countsSelect = $this->getConnection()
             ->select()
-            ->from($this->getTable('index/process_event'), array('process_id', 'events' => 'COUNT(*)'))
+            ->from($this->getTable('index/process_event'), ['process_id', 'events' => 'COUNT(*)'])
             ->where('status=?', Mage_Index_Model_Process::EVENT_STATUS_NEW)
             ->group('process_id');
         $this->getSelect()
             ->joinLeft(
-                array('e' => $countsSelect),
+                ['e' => $countsSelect],
                 'e.process_id=main_table.process_id',
-                array('events' => $this->getConnection()->getCheckSql(
-                    $this->getConnection()->prepareSqlCondition('e.events', array('null' => null)),
+                ['events' => $this->getConnection()->getCheckSql(
+                    $this->getConnection()->prepareSqlCondition('e.events', ['null' => null]),
                     0,
                     'e.events'
-                ))
+                )]
             );
         return $this;
     }

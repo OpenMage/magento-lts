@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
     /**
      * ids of current stores
      */
-    protected $_storeIds            = array();
+    protected $_storeIds            = [];
 
     /**
      * storeIds setter

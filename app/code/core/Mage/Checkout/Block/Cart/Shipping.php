@@ -31,14 +31,14 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      * Estimate Rates
      * @var array
      */
-    protected $_rates = array();
+    protected $_rates = [];
 
     /**
      * Address Model
      *
      * @var array
      */
-    protected $_address = array();
+    protected $_address = [];
 
     /**
      * Get Estimate Rates
@@ -199,8 +199,8 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getCarriers()
     {
-        if (null === $this->_carriers) {
-            $this->_carriers = array();
+        if ($this->_carriers === null) {
+            $this->_carriers = [];
             $this->getEstimateRates();
             foreach ($this->_rates as $rateGroup) {
                 if (!empty($rateGroup)) {
@@ -265,7 +265,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/estimatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/estimatePost', ['_secure' => $this->_isSecure()]);
     }
 
     /**
@@ -275,6 +275,6 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getUpdateFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/estimateUpdatePost', array('_secure' => $this->_isSecure()));
+        return $this->getUrl('checkout/cart/estimateUpdatePost', ['_secure' => $this->_isSecure()]);
     }
 }

@@ -43,7 +43,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
      */
     public function getPrintCreditmemoUrl($creditmemo)
     {
-        return Mage::getUrl('*/*/printCreditmemo', array('creditmemo_id' => $creditmemo->getId()));
+        return Mage::getUrl('*/*/printCreditmemo', ['creditmemo_id' => $creditmemo->getId()]);
     }
 
     /**
@@ -52,7 +52,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
      */
     public function getPrintAllCreditmemosUrl($order)
     {
-        return Mage::getUrl('*/*/printCreditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printCreditmemo', ['order_id' => $order->getId()]);
     }
 
     /**

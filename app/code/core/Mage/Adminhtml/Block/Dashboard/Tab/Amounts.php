@@ -50,10 +50,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Amounts extends Mage_Adminhtml_Block_Da
         $this->getDataHelper()->setParam('group', $this->getRequest()->getParam('group'));
 
         $this->setDataRows('revenue');
-        $this->_axisMaps = array(
+        $this->_axisMaps = [
             'x' => 'range',
             'y' => 'revenue'
-        );
+        ];
 
         parent::_prepareData();
     }

@@ -63,9 +63,9 @@ class Mage_Sales_Model_Resource_Order_Address_Collection extends Mage_Sales_Mode
     {
         parent::_afterLoad();
 
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after', array(
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
             $this->_eventObject => $this
-        ));
+        ]);
 
         return $this;
     }

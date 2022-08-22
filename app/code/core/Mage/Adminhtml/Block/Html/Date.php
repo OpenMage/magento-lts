@@ -30,8 +30,6 @@ class Mage_Adminhtml_Block_Html_Date extends Mage_Core_Block_Html_Date
 {
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

@@ -96,7 +96,7 @@
                                 $("liBeforeFinish").show();
                             }
 
-                            new Ajax.Request("<?php echo $this->getUrl('*/*/batchFinish', array('id' => $batchId));?>", {
+                            new Ajax.Request("<?php echo $this->getUrl('*/*/batchFinish', ['id' => $batchId]);?>", {
                                 method: "post",
                                 parameters: {form_key: FORM_KEY},
                                 onComplete: function(transport) {

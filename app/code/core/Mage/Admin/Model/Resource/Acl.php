@@ -65,11 +65,11 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         $this->loadRoles($acl, $rolesArr);
 
         $select = $adapter->select()
-            ->from(array('r' => $ruleTable))
+            ->from(['r' => $ruleTable])
             ->joinLeft(
-                array('a' => $assertTable),
+                ['a' => $assertTable],
                 'a.assert_id = r.assert_id',
-                array('assert_type', 'assert_data')
+                ['assert_type', 'assert_data']
             );
 
         $rulesArr = $adapter->fetchAll($select);
@@ -125,7 +125,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
             $privileges = !empty($rule['privileges']) ? explode(',', $rule['privileges']) : null;
 
             $assert = null;
-            if (0 != $rule['assert_id']) {
+            if ($rule['assert_id'] != 0) {
                 $assertClass = Mage::getSingleton('admin/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }

@@ -32,10 +32,10 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      */
     public function __construct()
     {
-        $this->_attributesMap = array(
-            'invoice' => array('invoice_id' => 'entity_id'),
-            'invoice_item' => array('item_id' => 'entity_id'),
-            'invoice_comment' => array('comment_id' => 'entity_id'));
+        $this->_attributesMap = [
+            'invoice' => ['invoice_id' => 'entity_id'],
+            'invoice_item' => ['item_id' => 'entity_id'],
+            'invoice_comment' => ['comment_id' => 'entity_id']];
     }
 
     /**
@@ -46,7 +46,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
      */
     public function items($filters = null)
     {
-        $invoices = array();
+        $invoices = [];
         /** @var Mage_Sales_Model_Mysql4_Order_Invoice_Collection $invoiceCollection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
@@ -84,7 +84,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -97,12 +97,12 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         $result['billing_middlename'] = $invoice->getBillingAddress()->getMiddlename();
         $result['billing_lastname'] = $invoice->getBillingAddress()->getLastname();
 
-        $result['items'] = array();
+        $result['items'] = [];
         foreach ($invoice->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'invoice_item');
         }
 
-        $result['comments'] = array();
+        $result['comments'] = [];
         foreach ($invoice->getCommentsCollection() as $comment) {
             $result['comments'][] = $this->_getAttributes($comment, 'invoice_comment');
         }
@@ -124,7 +124,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         /**
           * Check order existing
           */
@@ -180,7 +180,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -208,7 +208,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -245,7 +245,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');
@@ -281,7 +281,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
-        /* @var Mage_Sales_Model_Order_Invoice $invoice */
+        /** @var Mage_Sales_Model_Order_Invoice $invoice */
 
         if (!$invoice->getId()) {
             $this->_fault('not_exists');

@@ -103,17 +103,16 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
 - bug fixes and PHP 7.x and 8.0 compatibility
-- added config cache for system.xml #1916
+- added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 
 ### Between OpenMage 19.x and 20.x
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files #1073
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) #1600
-- fixed incorrect datetime in customer block (`$useTimezone` parameter) #1525
-- add redis as a valid option for `global/session_save` #1513
-- possibility to disable global search in backend #1532
+- removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
+- removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
+- fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
+- add redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -165,7 +164,7 @@ To add class maps for installed extensions, you have to install [N98-magerun](ht
 and run command:
 
 ```
-n98-magerun dev:ide:phpstorm:meta
+n98-magerun.phar dev:ide:phpstorm:meta
 ```
 
 You can add additional meta files in this directory to cover your own project files. See

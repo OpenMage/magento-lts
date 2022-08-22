@@ -56,6 +56,6 @@ class Mage_Downloadable_Block_Checkout_Success extends Mage_Checkout_Block_Onepa
      */
     public function getDownloadableProductsUrl()
     {
-        return $this->getUrl('downloadable/customer/products', array('_secure' => true));
+        return $this->getUrl('downloadable/customer/products', ['_secure' => true]);
     }
 }

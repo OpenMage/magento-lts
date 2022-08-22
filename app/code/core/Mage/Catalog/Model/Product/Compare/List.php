@@ -35,7 +35,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      */
     public function addProduct($product)
     {
-        /* @var Mage_Catalog_Model_Product_Compare_Item $item */
+        /** @var Mage_Catalog_Model_Product_Compare_Item $item */
         $item = Mage::getModel('catalog/product_compare_item');
         $this->_addVisitorToItem($item);
         $item->loadByProduct($product);
@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
      */
     public function removeProduct($product)
     {
-        /* @var Mage_Catalog_Model_Product_Compare_Item $item */
+        /** @var Mage_Catalog_Model_Product_Compare_Item $item */
         $item = Mage::getModel('catalog/product_compare_item');
         $this->_addVisitorToItem($item);
         $item->loadByProduct($product);

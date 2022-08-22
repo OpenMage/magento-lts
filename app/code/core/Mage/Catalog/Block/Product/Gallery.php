@@ -158,7 +158,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     public function getPreviusImageUrl()
     {
         if ($image = $this->getPreviusImage()) {
-            return $this->getUrl('*/*/*', array('_current'=>true, 'image'=>$image->getValueId()));
+            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
         }
         return false;
     }
@@ -169,7 +169,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     public function getNextImageUrl()
     {
         if ($image = $this->getNextImage()) {
-            return $this->getUrl('*/*/*', array('_current'=>true, 'image'=>$image->getValueId()));
+            return $this->getUrl('*/*/*', ['_current'=>true, 'image'=>$image->getValueId()]);
         }
         return false;
     }

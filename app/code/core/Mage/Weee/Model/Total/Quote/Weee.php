@@ -81,7 +81,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         }
 
         $address->setAppliedTaxesReset(true);
-        $address->setAppliedTaxes(array());
+        $address->setAppliedTaxes([]);
 
         $this->_store = $address->getQuote()->getStore();
         $this->_helper->setStore($this->_store);
@@ -130,8 +130,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $this->_store->getWebsiteId()
         );
 
-        $applied = array();
-        $productTaxes = array();
+        $applied = [];
+        $productTaxes = [];
 
         $totalValue = 0;
         $baseTotalValue = 0;
@@ -183,7 +183,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
              * *_incl_tax only holds the tax associated with Tax included products
              */
 
-            $productTaxes[] = array(
+            $productTaxes[] = [
                 'title' => $title,
                 'base_amount' => $baseValueExclTax,
                 'amount' => $valueExclTax,
@@ -196,13 +196,13 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 'amount_incl_tax' => $value,
                 'row_amount_incl_tax' => $rowValue,
                 'base_row_amount_incl_tax' => $baseRowValue,
-            );
+            ];
 
-            $applied[] = array(
+            $applied[] = [
                 'id' => $attribute->getCode(),
                 'percent' => null,
                 'hidden' => $this->_helper->includeInSubtotal($this->_store),
-                'rates' => array(array(
+                'rates' => [[
                     'base_real_amount' => $baseRowValue,
                     'base_amount' => $baseRowValue,
                     'amount' => $rowValue,
@@ -211,8 +211,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     'percent' => null,
                     'position' => 1,
                     'priority' => -1000 + $k,
-                ))
-            );
+                ]]
+            ];
         }
 
         //We set the TAX exclusive value
@@ -352,7 +352,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
      */
     protected function _resetItemData($item)
     {
-        $this->_helper->setApplied($item, array());
+        $this->_helper->setApplied($item, []);
 
         $item->setBaseWeeeTaxDisposition(0);
         $item->setWeeeTaxDisposition(0);
@@ -409,7 +409,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
-        /* @var Mage_Tax_Model_Calculation $taxCalculationModel */
+        /** @var Mage_Tax_Model_Calculation $taxCalculationModel */
         $request = $taxCalculationModel->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
@@ -425,8 +425,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $store->getWebsiteId()
         );
 
-        $applied = array();
-        $productTaxes = array();
+        $applied = [];
+        $productTaxes = [];
 
         foreach ($attributes as $k => $attribute) {
             $baseValue = $attribute->getAmount();
@@ -521,7 +521,7 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                 $address->setBaseTaxAmount($address->getBaseTaxAmount() + $baseRowValue);
             }
 
-            $productTaxes[] = array(
+            $productTaxes[] = [
                 'title' => $title,
                 'base_amount' => $baseValue,
                 'amount' => $value,
@@ -534,13 +534,13 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
 
                 'row_amount_incl_tax' => $rowValue+$disposition,
                 'base_row_amount_incl_tax' => $baseRowValue+$baseDisposition,
-            );
+            ];
 
-            $applied[] = array(
+            $applied[] = [
                 'id' => $attribute->getCode(),
                 'percent' => null,
                 'hidden' => $this->_helper->includeInSubtotal($store),
-                'rates' => array(array(
+                'rates' => [[
                     'amount' => $rowValue,
                     'base_amount' => $baseRowValue,
                     'base_real_amount' => $baseRowValue,
@@ -549,8 +549,8 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
                     'percent' => null,
                     'position' => 1,
                     'priority' => -1000 + $k,
-                ))
-            );
+                ]]
+            ];
 
             $item->setBaseWeeeTaxAppliedAmount($item->getBaseWeeeTaxAppliedAmount() + $baseValue);
             $item->setBaseWeeeTaxAppliedRowAmount($item->getBaseWeeeTaxAppliedRowAmount() + $baseRowValue);

@@ -131,12 +131,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     public function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('main', array('no_container'=>true));
+        $fieldset = $form->addFieldset('main', ['no_container'=>true]);
 
         $fieldset->addField('type','hidden',
-            array(
+            [
                 'name' =>  $this->_getFieldName('type'),
-            )
+            ]
         );
 
         $form->setHtmlIdPrefix($this->_getFieldIdPrefix());
@@ -178,20 +178,20 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     protected function _prepareHiddenFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
         $fieldset->addField('sender', 'hidden',
-            array(
+            [
                 'name' => $this->_getFieldName('sender')
-            )
+            ]
         );
         $fieldset->addField('recipient', 'hidden',
-            array(
+            [
                 'name' => $this->_getFieldName('recipient')
-            )
+            ]
         );
 
         $fieldset->addField('message', 'hidden',
-            array(
+            [
                 'name' => $this->_getFieldName('message')
-            )
+            ]
         );
         return $this;
     }
@@ -207,27 +207,27 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
     protected function _prepareVisibleFields(Varien_Data_Form_Element_Fieldset $fieldset)
     {
         $fieldset->addField('sender', 'text',
-            array(
+            [
                 'name'     => $this->_getFieldName('sender'),
                 'label'    => Mage::helper('sales')->__('From'),
                 'required' => $this->getMessage()->getMessage() ? true : false
-            )
+            ]
         );
         $fieldset->addField('recipient', 'text',
-            array(
+            [
                 'name'     => $this->_getFieldName('recipient'),
                 'label'    => Mage::helper('sales')->__('To'),
                 'required' => $this->getMessage()->getMessage() ? true : false
-            )
+            ]
         );
 
         $fieldset->addField('message', 'textarea',
-            array(
+            [
                 'name'      => $this->_getFieldName('message'),
                 'label'     => Mage::helper('sales')->__('Message'),
                 'rows'      => '5',
                 'cols'      => '20',
-            )
+            ]
         );
         return $this;
     }

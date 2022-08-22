@@ -151,10 +151,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                 );
             }
             if ($result) {
-                $this->addLogComment(array(
+                $this->addLogComment([
                     Mage::helper('importexport')->__('Exported %s rows.', $countRows),
                     Mage::helper('importexport')->__('Export has been done.')
-                ));
+                ]);
             }
             return $result;
         } else {
@@ -193,10 +193,10 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
                     );
                 }
                 if ($result['rows']) {
-                    $this->addLogComment(array(
+                    $this->addLogComment([
                         Mage::helper('importexport')->__('Exported %s rows.', $result['rows']),
                         Mage::helper('importexport')->__('Export has been done.')
-                    ));
+                    ]);
                 }
             }
 
@@ -231,13 +231,13 @@ class Mage_ImportExport_Model_Export extends Mage_ImportExport_Model_Abstract
     {
         if ($attribute->usesSource() || $attribute->getFilterOptions()) {
             return self::FILTER_TYPE_SELECT;
-        } elseif ('datetime' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'datetime') {
             return self::FILTER_TYPE_DATE;
-        } elseif ('decimal' == $attribute->getBackendType() || 'int' == $attribute->getBackendType()) {
+        } elseif ($attribute->getBackendType() == 'decimal' || $attribute->getBackendType() == 'int') {
             return self::FILTER_TYPE_NUMBER;
         } elseif ($attribute->isStatic()
-                  || 'varchar' == $attribute->getBackendType()
-                  || 'text' == $attribute->getBackendType()
+                  || $attribute->getBackendType() == 'varchar'
+                  || $attribute->getBackendType() == 'text'
         ) {
             return self::FILTER_TYPE_INPUT;
         } else {

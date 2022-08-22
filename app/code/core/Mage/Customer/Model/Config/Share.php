@@ -67,10 +67,10 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      */
     public function toOptionArray()
     {
-        return array(
+        return [
             self::SHARE_GLOBAL  => Mage::helper('customer')->__('Global'),
             self::SHARE_WEBSITE => Mage::helper('customer')->__('Per Website'),
-        );
+        ];
     }
 
     /**

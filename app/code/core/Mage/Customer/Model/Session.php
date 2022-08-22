@@ -98,7 +98,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
 
         $this->init($namespace);
-        Mage::dispatchEvent('customer_session_init', array('customer_session'=>$this));
+        Mage::dispatchEvent('customer_session_init', ['customer_session'=>$this]);
     }
 
     /**
@@ -253,7 +253,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         $this->setCustomer($customer);
         $this->renewSession();
         Mage::getSingleton('core/session')->renewFormKey();
-        Mage::dispatchEvent('customer_login', array('customer'=>$customer));
+        Mage::dispatchEvent('customer_login', ['customer'=>$customer]);
         return $this;
     }
 
@@ -281,7 +281,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     public function logout()
     {
         if ($this->isLoggedIn()) {
-            Mage::dispatchEvent('customer_logout', array('customer' => $this->getCustomer()));
+            Mage::dispatchEvent('customer_logout', ['customer' => $this->getCustomer()]);
             $this->_logout();
         }
         return $this;
@@ -300,7 +300,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             return true;
         }
 
-        $this->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current' => true)));
+        $this->setBeforeAuthUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         if (isset($loginUrl)) {
             $action->getResponse()->setRedirect($loginUrl);
         } else {

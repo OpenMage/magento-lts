@@ -74,7 +74,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         } else {
             $this->setUpdatedAt(Varien_Date::now());
@@ -123,7 +123,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getPermissionModel()
     {
-        if (null == $this->_permissionModel) {
+        if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_global_rule_resourcePermission');
         }
         return $this->_permissionModel;
@@ -136,10 +136,10 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public static function getSystemRoles()
     {
-        return array(
+        return [
             self::ROLE_GUEST_ID,
             self::ROLE_CUSTOMER_ID
-        );
+        ];
     }
 
     /**

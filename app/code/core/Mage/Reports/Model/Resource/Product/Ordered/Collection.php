@@ -45,8 +45,6 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $from
      * @param int $to
      * @return $this

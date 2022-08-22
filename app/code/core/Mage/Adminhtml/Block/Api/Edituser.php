@@ -28,18 +28,18 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
 
     protected function _beforeToHtml()
     {
-        $this->addTab('account', array(
+        $this->addTab('account', [
             'label'     => Mage::helper('adminhtml')->__('User Info'),
             'title'     => Mage::helper('adminhtml')->__('User Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_useredit')->toHtml(),
             'active'    => true
-        ));
+        ]);
         if( $this->getUser()->getUserId() ) {
-            $this->addTab('roles', array(
+            $this->addTab('roles', [
                 'label'     => Mage::helper('adminhtml')->__('Roles'),
                 'title'     => Mage::helper('adminhtml')->__('Roles'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_userroles')->toHtml(),
-            ));
+            ]);
         }
         return parent::_beforeToHtml();
     }

@@ -18,18 +18,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-$data = array(
-    array('directory/country_region', 'default_name'),
-    array('directory/country_region_name', 'name')
-);
+$data = [
+    ['directory/country_region', 'default_name'],
+    ['directory/country_region_name', 'name']
+];
 
 foreach ($data as $row) {
     $installer->getConnection()->update(
         $installer->getTable($row[0]),
-        array($row[1]          => 'Vorarlberg'),
-        array($row[1] . ' = ?' => 'Voralberg')
+        [$row[1]          => 'Vorarlberg'],
+        [$row[1] . ' = ?' => 'Voralberg']
     );
 }

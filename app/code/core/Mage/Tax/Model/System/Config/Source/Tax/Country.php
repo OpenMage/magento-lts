@@ -35,7 +35,7 @@ class Mage_Tax_Model_System_Config_Source_Tax_Country extends Mage_Adminhtml_Mod
             if ($options) {
                 $options[0]['label'] = Mage::helper('tax')->__('None');
             } else {
-                $options = array(array('value'=>'', 'label'=>Mage::helper('tax')->__('None')));
+                $options = [['value'=>'', 'label'=>Mage::helper('tax')->__('None')]];
             }
         }
 

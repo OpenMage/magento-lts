@@ -88,11 +88,11 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _getAdditionalFormElementTypes()
     {
-        return array(
+        return [
             'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
             'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
             'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
-        );
+        ];
     }
 
     /**
@@ -102,9 +102,9 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     protected function _getAdditionalFormElementRenderers()
     {
-        return array(
+        return [
             'region'    => $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_region'),
-        );
+        ];
     }
 
     /**
@@ -140,13 +140,13 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
             $inputType = $attribute->getFrontend()->getInputType();
 
             if ($inputType) {
-                $element = $form->addField($attribute->getAttributeCode(), $inputType, array(
+                $element = $form->addField($attribute->getAttributeCode(), $inputType, [
                     'name'      => $attribute->getAttributeCode(),
                     'label'     => $this->__($attribute->getStoreLabel()),
                     'class'     => $attribute->getFrontend()->getClass(),
                     'required'  => $attribute->getIsRequired(),
                     'note'      => $this->escapeHtml($this->__($attribute->getNote()))
-                ));
+                ]);
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
                 }
@@ -177,6 +177,6 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract
      */
     public function getFormValues()
     {
-        return array();
+        return [];
     }
 }

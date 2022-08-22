@@ -77,7 +77,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
      */
     public function getBundleOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
-        $options = array();
+        $options = [];
         $product = $item->getProduct();
 
         /** @var Mage_Bundle_Model_Product_Type $typeInstance */
@@ -85,7 +85,7 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
 
         // get bundle options
         $optionsQuoteItemOption = $item->getOptionByCode('bundle_option_ids');
-        $bundleOptionsIds = $optionsQuoteItemOption ? unserialize($optionsQuoteItemOption->getValue(), ['allowed_classes' => false]) : array();
+        $bundleOptionsIds = $optionsQuoteItemOption ? unserialize($optionsQuoteItemOption->getValue(), ['allowed_classes' => false]) : [];
         if ($bundleOptionsIds) {
             /**
             * @var Mage_Bundle_Model_Resource_Option_Collection
@@ -107,10 +107,10 @@ class Mage_Bundle_Helper_Catalog_Product_Configuration extends Mage_Core_Helper_
                 $bundleOptions = $optionsCollection->appendSelections($selectionsCollection, true);
                 foreach ($bundleOptions as $bundleOption) {
                     if ($bundleOption->getSelections()) {
-                        $option = array(
+                        $option = [
                             'label' => $bundleOption->getTitle(),
-                            'value' => array()
-                        );
+                            'value' => []
+                        ];
 
                         $bundleSelections = $bundleOption->getSelections();
 

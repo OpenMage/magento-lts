@@ -27,11 +27,11 @@ class Mage_Weee_Model_Config_Source_Fpt_Tax
     public function toOptionArray()
     {
         $weeeHelper = $this->_getHelper('weee');
-        return array(
-            array('value' => 0, 'label' => $weeeHelper->__('Not Taxed')),
-            array('value' => 1, 'label' => $weeeHelper->__('Taxed')),
-            array('value' => 2, 'label' => $weeeHelper->__('Loaded and Displayed with Tax')),
-        );
+        return [
+            ['value' => 0, 'label' => $weeeHelper->__('Not Taxed')],
+            ['value' => 1, 'label' => $weeeHelper->__('Taxed')],
+            ['value' => 2, 'label' => $weeeHelper->__('Loaded and Displayed with Tax')],
+        ];
     }
 
     /**

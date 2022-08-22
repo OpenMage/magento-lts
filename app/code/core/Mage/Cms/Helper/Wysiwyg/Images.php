@@ -164,10 +164,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         $checkResult = new stdClass;
         $checkResult->isAllowed = false;
-        Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', array(
+        Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', [
             'result'   => $checkResult,
             'store_id' => $this->_storeId
-        ));
+        ]);
         return $checkResult->isAllowed;
     }
 
@@ -190,7 +190,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                 $html = $fileurl; // $mediaPath;
             } else {
                 $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', array('___directive' => $directive));
+                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
             }
         }
         return $html;
@@ -210,7 +210,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
                 $path = realpath($this->convertIdToPath($node));
-                if (is_dir($path) && false !== stripos($path, $currentPath)) {
+                if (is_dir($path) && stripos($path, $currentPath) !== false) {
                     $currentPath = $path;
                 }
             }

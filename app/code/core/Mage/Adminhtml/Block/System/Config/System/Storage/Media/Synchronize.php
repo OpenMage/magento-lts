@@ -89,11 +89,11 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
     public function getButtonHtml()
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'id'        => 'synchronize_button',
                 'label'     => $this->helper('adminhtml')->__('Synchronize'),
                 'onclick'   => 'javascript:synchronize(); return false;'
-            ));
+            ]);
 
         return $button->toHtml();
     }
@@ -126,9 +126,9 @@ class Mage_Adminhtml_Block_System_Config_System_Storage_Media_Synchronize
             $connectionName = '';
         }
 
-        return array(
+        return [
             'storage_type'      => $storageType,
             'connection_name'   => $connectionName
-        );
+        ];
     }
 }

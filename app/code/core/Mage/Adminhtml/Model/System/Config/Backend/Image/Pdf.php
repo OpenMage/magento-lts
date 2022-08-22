@@ -30,6 +30,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Pdf extends Mage_Adminhtm
 {
     protected function _getAllowedExtensions()
     {
-        return array('tif', 'tiff', 'png', 'jpg', 'jpe', 'jpeg');
+        return ['tif', 'tiff', 'png', 'jpg', 'jpe', 'jpeg'];
     }
 }

@@ -86,7 +86,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
     {
         if ($data = $this->getRequest()->getPost()) {
             if (!empty($data['design'])) {
-                $data['design'] = $this->_filterDates($data['design'], array('date_from', 'date_to'));
+                $data['design'] = $this->_filterDates($data['design'], ['date_from', 'date_to']);
             }
 
             $id = (int) $this->getRequest()->getParam('id');
@@ -108,7 +108,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                 Mage::getSingleton('adminhtml/session')
                     ->addError($e->getMessage())
                     ->setDesignData($data);
-                $this->_redirect('*/*/edit', array('id'=>$design->getId()));
+                $this->_redirect('*/*/edit', ['id'=>$design->getId()]);
                 return;
             }
         }

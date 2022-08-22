@@ -64,9 +64,9 @@ class Mage_Adminhtml_Catalog_Category_WidgetController extends Mage_Adminhtml_Co
 
     protected function _getCategoryTreeBlock()
     {
-        return $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', array(
+        return $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', [
             'id' => $this->getRequest()->getParam('uniq_id'),
             'use_massaction' => $this->getRequest()->getParam('use_massaction', false)
-        ));
+        ]);
     }
 }

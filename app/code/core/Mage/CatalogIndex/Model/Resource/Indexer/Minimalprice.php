@@ -28,10 +28,6 @@
  */
 class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_CatalogIndex_Model_Resource_Indexer_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/minimal_price', 'index_id');
@@ -41,8 +37,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array $conditions
      * @return string
      */
@@ -63,8 +57,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Minimalprice extends Mage_Catalog
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $productId
      * @param int $storeId
      * @param int $attributeId

@@ -31,7 +31,7 @@ class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template
      * Request params
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Internal constructor

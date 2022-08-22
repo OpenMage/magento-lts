@@ -40,7 +40,7 @@ class Mage_Bundle_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_
             $product = $this->getProduct();
         }
 
-        $res = array();
+        $res = [];
 
         $prices = $product->getFormatedTierPrice();
         if (is_array($prices)) {

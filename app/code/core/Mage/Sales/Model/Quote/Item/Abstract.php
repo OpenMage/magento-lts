@@ -184,13 +184,13 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
      *
      * @var array
      */
-    protected $_children    = array();
+    protected $_children    = [];
 
     /**
      *
      * @var array
      */
-    protected $_messages    = array();
+    protected $_messages    = [];
 
     /**
      * Retrieve Quote instance
@@ -312,7 +312,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $messagesExists = $this->getMessage(false);
         if (!is_array($messages)) {
-            $messages = array($messages);
+            $messages = [$messages];
         }
         foreach ($messages as $message) {
             if (!in_array($message, $messagesExists)) {
@@ -372,7 +372,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function clearMessage()
     {
         $this->unsMessage(); // For older compatibility, when we kept message inside data array
-        $this->_messages = array();
+        $this->_messages = [];
         return $this;
     }
 
@@ -573,7 +573,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     public function isNominal()
     {
         if (!$this->hasData('is_nominal')) {
-            $this->setData('is_nominal', $this->getProduct() ? '1' == $this->getProduct()->getIsRecurring() : false);
+            $this->setData('is_nominal', $this->getProduct() ? $this->getProduct()->getIsRecurring() == '1' : false);
         }
         return $this->_getData('is_nominal');
     }
@@ -697,8 +697,8 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         $this->setId(null);
         $this->_parentItem  = null;
-        $this->_children    = array();
-        $this->_messages    = array();
+        $this->_children    = [];
+        $this->_messages    = [];
         return $this;
     }
 
@@ -716,7 +716,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $calculate = $this->getProduct()->getPriceType();
         }
 
-        if ((null !== $calculate) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
+        if (($calculate !== null) && (int)$calculate === Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD) {
             return true;
         }
         return false;
@@ -736,7 +736,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             $shipmentType = $this->getProduct()->getShipmentType();
         }
 
-        if ((null !== $shipmentType) &&
+        if (($shipmentType !== null) &&
             (int)$shipmentType === Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY) {
             return true;
         }

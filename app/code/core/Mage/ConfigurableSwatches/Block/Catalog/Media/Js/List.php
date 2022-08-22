@@ -57,6 +57,6 @@ class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_Configu
      */
     protected function _getImageSizes()
     {
-        return array('small_image');
+        return ['small_image'];
     }
 }

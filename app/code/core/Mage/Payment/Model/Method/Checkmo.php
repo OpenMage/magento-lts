@@ -34,7 +34,7 @@ class Mage_Payment_Model_Method_Checkmo extends Mage_Payment_Model_Method_Abstra
      */
     public function assignData($data)
     {
-        $details = array();
+        $details = [];
         if ($this->getPayableTo()) {
             $details['payable_to'] = $this->getPayableTo();
         }

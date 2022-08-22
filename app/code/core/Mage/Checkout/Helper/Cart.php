@@ -52,7 +52,7 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param array $additional
      * @return string
      */
-    public function getAddUrl($product, $additional = array())
+    public function getAddUrl($product, $additional = [])
     {
         return $this->getAddUrlCustom($product, $additional);
     }
@@ -76,10 +76,10 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($item)
     {
-        $params = array(
+        $params = [
             'id' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_BASE64_URL => $this->getCurrentBase64Url()
-        );
+        ];
         return $this->_getUrl('checkout/cart/delete', $params);
     }
 
@@ -162,13 +162,13 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
      * @param bool $addFormKey
      * @return string
      */
-    public function getAddUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddUrlCustom($product, $additional = [], $addFormKey = true)
     {
-        $routeParams = array(
+        $routeParams = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->_getHelperInstance('core')
                 ->urlEncode($this->getCurrentUrl()),
             'product' => $product->getEntityId(),
-        );
+        ];
         if ($addFormKey) {
             $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }

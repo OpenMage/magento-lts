@@ -61,11 +61,11 @@ class Mage_SalesRule_Helper_Coupon extends Mage_Core_Helper_Abstract
      */
     public function getFormatsList()
     {
-        return array(
+        return [
             self::COUPON_FORMAT_ALPHANUMERIC => $this->__('Alphanumeric'),
             self::COUPON_FORMAT_ALPHABETICAL => $this->__('Alphabetical'),
             self::COUPON_FORMAT_NUMERIC      => $this->__('Numeric'),
-        );
+        ];
     }
 
     /**

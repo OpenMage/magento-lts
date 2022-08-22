@@ -38,13 +38,13 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
         $helper = Mage::helper('cms/wysiwyg_images');
         $storageRoot = $helper->getStorageRoot();
         $collection = Mage::registry('storage')->getDirsCollection($helper->getCurrentPath());
-        $jsonArray = array();
+        $jsonArray = [];
         foreach ($collection as $item) {
-            $jsonArray[] = array(
+            $jsonArray[] = [
                 'text'  => $helper->getShortFilename($item->getBasename(), 20),
                 'id'    => $helper->convertPathToId($item->getFilename()),
                 'cls'   => 'folder'
-            );
+            ];
         }
         return Zend_Json::encode($jsonArray);
     }

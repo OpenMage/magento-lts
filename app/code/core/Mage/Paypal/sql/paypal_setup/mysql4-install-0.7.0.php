@@ -20,7 +20,7 @@
 
 
 $installer = $this;
-/* @var $installer Mage_Paypal_Model_Mysql4_Setup */
+/** @var Mage_Paypal_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -40,6 +40,6 @@ CREATE TABLE `{$this->getTable('paypal_api_debug')}` (
 
 $installer->endSetup();
 
-$installer->addAttribute('quote_payment', 'paypal_payer_id', array());
-$installer->addAttribute('quote_payment', 'paypal_payer_status', array());
-$installer->addAttribute('quote_payment', 'paypal_correlation_id', array());
+$installer->addAttribute('quote_payment', 'paypal_payer_id', []);
+$installer->addAttribute('quote_payment', 'paypal_payer_status', []);
+$installer->addAttribute('quote_payment', 'paypal_correlation_id', []);

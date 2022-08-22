@@ -51,23 +51,23 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta
 
         $model = Mage::registry('cms_page');
 
-        $fieldset = $form->addFieldset('meta_fieldset', array('legend' => Mage::helper('cms')->__('Meta Data'), 'class' => 'fieldset-wide'));
+        $fieldset = $form->addFieldset('meta_fieldset', ['legend' => Mage::helper('cms')->__('Meta Data'), 'class' => 'fieldset-wide']);
 
-        $fieldset->addField('meta_keywords', 'textarea', array(
+        $fieldset->addField('meta_keywords', 'textarea', [
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        $fieldset->addField('meta_description', 'textarea', array(
+        $fieldset->addField('meta_description', 'textarea', [
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', array('form' => $form));
+        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);
 
         $form->setValues($model->getData());
 

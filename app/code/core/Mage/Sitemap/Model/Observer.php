@@ -61,7 +61,7 @@ class Mage_Sitemap_Model_Observer
      */
     public function scheduledGenerateSitemaps($schedule)
     {
-        $errors = array();
+        $errors = [];
 
         // check if scheduled generation enabled
         if (!Mage::getStoreConfigFlag(self::XML_PATH_GENERATION_ENABLED)) {
@@ -69,9 +69,9 @@ class Mage_Sitemap_Model_Observer
         }
 
         $collection = Mage::getModel('sitemap/sitemap')->getCollection();
-        /* @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
+        /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
         foreach ($collection as $sitemap) {
-            /* @var Mage_Sitemap_Model_Sitemap $sitemap */
+            /** @var Mage_Sitemap_Model_Sitemap $sitemap */
 
             try {
                 $sitemap->generateXml();
@@ -82,18 +82,18 @@ class Mage_Sitemap_Model_Observer
 
         if ($errors && Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT)) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var Mage_Core_Model_Translate $translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
 
             $emailTemplate = Mage::getModel('core/email_template');
-            /* @var Mage_Core_Model_Email_Template $emailTemplate */
-            $emailTemplate->setDesignConfig(array('area' => 'backend'))
+            /** @var Mage_Core_Model_Email_Template $emailTemplate */
+            $emailTemplate->setDesignConfig(['area' => 'backend'])
                 ->sendTransactional(
                     Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
                     Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                     null,
-                    array('warnings' => implode("\n", $errors))
+                    ['warnings' => implode("\n", $errors)]
                 );
 
             $translate->setTranslateInline(true);

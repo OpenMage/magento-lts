@@ -96,7 +96,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                 $this->renderLayout();
                 return;
             }
-            $resultBlock->addAction('hide', array('edit_form', 'upload_button', 'messages'))
+            $resultBlock->addAction('hide', ['edit_form', 'upload_button', 'messages'])
                 ->addSuccess($this->__('Import successfully done.'));
             $this->renderLayout();
         } else {
@@ -116,9 +116,9 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             // common actions
             $resultBlock->addAction('show', 'import_validation_container')
-                ->addAction('clear', array(
+                ->addAction('clear', [
                     Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
-                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE));
+                    Mage_ImportExport_Model_Import::FIELD_NAME_IMG_ARCHIVE_FILE]);
 
             try {
                 /** @var Mage_ImportExport_Model_Import $import */
@@ -163,8 +163,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'),
-                                false
+                                $this->__('File is valid, but import is not possible')
                             );
                         }
                     }
@@ -178,6 +177,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
             $this->renderLayout();
         } elseif ($this->getRequest()->isPost() && empty($_FILES)) {
             $this->loadLayout(false);
+            /** @var Mage_ImportExport_Block_Adminhtml_Import_Frame_Result $resultBlock */
             $resultBlock = $this->getLayout()->getBlock('import.frame.result');
             $resultBlock->addError($this->__('File was not uploaded'));
             $this->renderLayout();

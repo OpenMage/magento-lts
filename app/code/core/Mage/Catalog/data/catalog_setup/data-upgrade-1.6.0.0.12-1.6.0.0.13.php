@@ -27,22 +27,22 @@ $connection = $installer->getConnection();
 // update sort_order of Group Price attribute to be after Price
 $select = $connection->select()
     ->join(
-        array('t2' => $installer->getTable('eav/entity_attribute')),
+        ['t2' => $installer->getTable('eav/entity_attribute')],
         't1.attribute_group_id = t2.attribute_group_id',
-        array('sort_order' => new Zend_Db_Expr('t2.sort_order + 1'))
+        ['sort_order' => new Zend_Db_Expr('t2.sort_order + 1')]
     )->where('t1.attribute_id = ?', $groupPriceAttrId)
     ->where('t2.attribute_id = ?', $priceAttrId);
-$query = $select->crossUpdateFromSelect(array('t1' => $installer->getTable('eav/entity_attribute')));
+$query = $select->crossUpdateFromSelect(['t1' => $installer->getTable('eav/entity_attribute')]);
 $connection->query($query);
 
 // update sort_order of all other attributes to be after Group Price
 $select = $connection->select()
     ->join(
-        array('t2' => $installer->getTable('eav/entity_attribute')),
+        ['t2' => $installer->getTable('eav/entity_attribute')],
         't1.attribute_group_id = t2.attribute_group_id',
-        array('sort_order' => new Zend_Db_Expr('t1.sort_order + 1'))
+        ['sort_order' => new Zend_Db_Expr('t1.sort_order + 1')]
     )->where('t1.attribute_id != ?', $groupPriceAttrId)
     ->where('t1.sort_order >= t2.sort_order')
     ->where('t2.attribute_id = ?', $groupPriceAttrId);
-$query = $select->crossUpdateFromSelect(array('t1' => $installer->getTable('eav/entity_attribute')));
+$query = $select->crossUpdateFromSelect(['t1' => $installer->getTable('eav/entity_attribute')]);
 $connection->query($query);

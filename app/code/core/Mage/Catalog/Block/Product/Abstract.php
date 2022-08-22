@@ -33,7 +33,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_priceBlock = array();
+    protected $_priceBlock = [];
 
     /**
      * Default price block
@@ -61,7 +61,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_priceBlockTypes = array();
+    protected $_priceBlockTypes = [];
 
     /**
      * Flag which allow/disallow to use link for as low as price
@@ -89,7 +89,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @var array
      */
-    protected $_columnCountLayoutDepend = array();
+    protected $_columnCountLayoutDepend = [];
 
     /**
      * Default MAP renderer type
@@ -116,7 +116,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional
      * @return string
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
     }
@@ -128,7 +128,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($className, $arguments = array())
+    protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
     }
@@ -142,7 +142,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional
      * @return string
      */
-    public function getSubmitUrl($product, $additional = array())
+    public function getSubmitUrl($product, $additional = [])
     {
         return $this->getSubmitUrlCustom($product, $additional);
     }
@@ -269,10 +269,10 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_priceBlockTypes[$type] = array(
+            $this->_priceBlockTypes[$type] = [
                 'block' => $block,
                 'template' => $template
-            );
+            ];
         }
     }
 
@@ -403,7 +403,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         }
         $prices = $product->getFormatedTierPrice();
 
-        $res = array();
+        $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
                 $price['price_qty'] = $price['price_qty'] * 1;
@@ -499,7 +499,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param array $additional the route params
      * @return string
      */
-    public function getProductUrl($product, $additional = array())
+    public function getProductUrl($product, $additional = [])
     {
         if ($this->hasProductUrl($product)) {
             if (!isset($additional['_escape'])) {
@@ -618,8 +618,8 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function displayProductStockStatus()
     {
-        $statusInfo = new Varien_Object(array('display_status' => true));
-        Mage::dispatchEvent('catalog_block_product_status_display', array('status' => $statusInfo));
+        $statusInfo = new Varien_Object(['display_status' => true]);
+        Mage::dispatchEvent('catalog_block_product_status_display', ['status' => $statusInfo]);
         return (boolean)$statusInfo->getDisplayStatus();
     }
 
@@ -636,7 +636,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $helper = $this->helper('wishlist');
 
         if (!$addFormKey) {
-            return $helper->getAddUrlWithCustomParams($product, array(), false);
+            return $helper->getAddUrlWithCustomParams($product, [], false);
         }
         return $helper->getAddUrl($product);
     }
@@ -668,7 +668,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
     {
         parent::_prepareLayout();
 
-        /* @var Mage_Catalog_Block_Product_Price_Template $block */
+        /** @var Mage_Catalog_Block_Product_Price_Template $block */
         $block = $this->getLayout()->getBlock('catalog_product_price_template');
         if ($block) {
             foreach ($block->getPriceBlockTypes() as $type => $priceBlock) {
@@ -688,7 +688,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function  getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function  getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         /** @var Mage_Checkout_Helper_Cart $helper */
         $helper = $this->helper('checkout/cart');
@@ -703,14 +703,14 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($addFormKey) {
             $additional = array_merge(
                 $additional,
-                array(Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey())
+                [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()]
             );
         }
         if (!isset($additional['_escape'])) {
             $additional['_escape'] = true;
         }
         if (!isset($additional['_query'])) {
-            $additional['_query'] = array();
+            $additional['_query'] = [];
         }
         $additional['_query']['options'] = 'cart';
         return $this->getProductUrl($product, $additional);
@@ -726,12 +726,12 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function getSubmitUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getSubmitUrlCustom($product, $additional = [], $addFormKey = true)
     {
         $submitRouteData = $this->getData('submit_route_data');
         if ($submitRouteData) {
             $route = $submitRouteData['route'];
-            $params = isset($submitRouteData['params']) ? $submitRouteData['params'] : array();
+            $params = isset($submitRouteData['params']) ? $submitRouteData['params'] : [];
             $submitUrl = $this->getUrl($route, array_merge($params, $additional));
         } else {
             if ($addFormKey) {

@@ -40,7 +40,7 @@
          *
          * @var array
          */
-        protected  $_params = array();
+        protected  $_params = [];
 
         public function getCollection()
         {
@@ -69,7 +69,7 @@
 
         public function getColumn($index)
         {
-            $result = array();
+            $result = [];
             foreach ($this->getItems() as $item) {
                 if (is_array($item)) {
                     if(isset($item[$index])) {

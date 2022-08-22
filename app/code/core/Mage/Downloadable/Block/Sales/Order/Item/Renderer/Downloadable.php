@@ -33,8 +33,6 @@ class Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable extends Mag
     protected $_purchasedLinks = null;
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Downloadable_Model_Link_Purchased
      */
     public function getLinks()

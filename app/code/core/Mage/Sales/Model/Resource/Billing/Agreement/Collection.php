@@ -33,14 +33,14 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
      *
      * @var array
      */
-    protected $_map = array('fields' => array(
+    protected $_map = ['fields' => [
         'customer_email'       => 'ce.email',
         'customer_firstname'   => 'firstname.value',
         'customer_middlename'  => 'middlename.value',
         'customer_lastname'    => 'lastname.value',
         'agreement_created_at' => 'main_table.created_at',
         'agreement_updated_at' => 'main_table.updated_at',
-    ));
+    ]];
 
     /**
      * Collection initialization
@@ -59,9 +59,9 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
     public function addCustomerDetails()
     {
         $select = $this->getSelect()->joinInner(
-            array('ce' => $this->getTable('customer/entity')),
+            ['ce' => $this->getTable('customer/entity')],
             'ce.entity_id = main_table.customer_id',
-            array('customer_email' => 'email')
+            ['customer_email' => 'email']
         );
 
         $customer = Mage::getResourceSingleton('customer/customer');
@@ -72,9 +72,9 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
             . $adapter->quoteInto('firstname.attribute_id = ?', $attr->getAttributeId());
 
         $select->joinLeft(
-            array('firstname' => $attr->getBackend()->getTable()),
+            ['firstname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            array('customer_firstname' => 'value')
+            ['customer_firstname' => 'value']
         );
 
         $attr     = $customer->getAttribute('middlename');
@@ -83,9 +83,9 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
             . $adapter->quoteInto('middlename.attribute_id = ?', $attr->getAttributeId());
 
         $select->joinLeft(
-            array('middlename' => $attr->getBackend()->getTable()),
+            ['middlename' => $attr->getBackend()->getTable()],
             $joinExpr,
-            array('customer_middlename' => 'value')
+            ['customer_middlename' => 'value']
         );
 
         $attr = $customer->getAttribute('lastname');
@@ -94,9 +94,9 @@ class Mage_Sales_Model_Resource_Billing_Agreement_Collection extends Mage_Core_M
             . $adapter->quoteInto('lastname.attribute_id = ?', $attr->getAttributeId());
 
         $select->joinLeft(
-            array('lastname' => $attr->getBackend()->getTable()),
+            ['lastname' => $attr->getBackend()->getTable()],
             $joinExpr,
-            array('customer_lastname' => 'value')
+            ['customer_lastname' => 'value']
         );
         return $this;
     }

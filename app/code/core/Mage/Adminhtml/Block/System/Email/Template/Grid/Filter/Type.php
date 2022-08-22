@@ -29,17 +29,17 @@
 class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select
 {
-    protected static $_types = array(
+    protected static $_types = [
         null                                        =>  null,
         Mage_Newsletter_Model_Template::TYPE_HTML   => 'HTML',
         Mage_Newsletter_Model_Template::TYPE_TEXT   => 'Text',
-    );
+    ];
 
     protected function _getOptions()
     {
-        $result = array();
+        $result = [];
         foreach (self::$_types as $code => $label) {
-            $result[] = array('value' => $code, 'label' => Mage::helper('adminhtml')->__($label));
+            $result[] = ['value' => $code, 'label' => Mage::helper('adminhtml')->__($label)];
         }
 
         return $result;
@@ -52,6 +52,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Filter_Type
             return null;
         }
 
-        return array('eq' => $this->getValue());
+        return ['eq' => $this->getValue()];
     }
 }

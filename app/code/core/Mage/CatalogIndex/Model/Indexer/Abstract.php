@@ -35,7 +35,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
      */
     public function processAfterSave(Mage_Catalog_Model_Product $object, $forceId = null)
     {
-        $associated = array();
+        $associated = [];
         switch ($object->getTypeId()) {
             case Mage_Catalog_Model_Product_Type::TYPE_GROUPED:
                 $associated = $object->getTypeInstance(true)->getAssociatedProducts($object);
@@ -50,7 +50,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
             return;
         }
 
-        $data = array();
+        $data = [];
 
         if ($this->_runOnce) {
             $data = $this->createIndexData($object);
@@ -161,7 +161,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
      */
     protected function _getIndexableAttributeConditions()
     {
-        return array();
+        return [];
     }
 
     /**

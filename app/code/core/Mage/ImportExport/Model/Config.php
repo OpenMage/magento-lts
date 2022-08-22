@@ -37,16 +37,16 @@ class Mage_ImportExport_Model_Config
      */
     public static function getModels($configKey)
     {
-        $entities = array();
+        $entities = [];
 
         foreach (Mage::getConfig()->getNode($configKey)->asCanonicalArray() as $entityType => $entityParams) {
             if (empty($entityParams['model_token'])) {
                 Mage::throwException(Mage::helper('importexport')->__('Node does not has model token tag'));
             }
-            $entities[$entityType] = array(
+            $entities[$entityType] = [
                 'model' => $entityParams['model_token'],
                 'label' => empty($entityParams['label']) ? $entityType : $entityParams['label']
-            );
+            ];
         }
         return $entities;
     }
@@ -61,13 +61,13 @@ class Mage_ImportExport_Model_Config
      */
     public static function getModelsComboOptions($configKey, $withEmpty = false)
     {
-        $options = array();
+        $options = [];
 
         if ($withEmpty) {
-            $options[] = array('label' => Mage::helper('importexport')->__('-- Please Select --'), 'value' => '');
+            $options[] = ['label' => Mage::helper('importexport')->__('-- Please Select --'), 'value' => ''];
         }
         foreach (self::getModels($configKey) as $type => $params) {
-            $options[] = array('value' => $type, 'label' => $params['label']);
+            $options[] = ['value' => $type, 'label' => $params['label']];
         }
         return $options;
     }
@@ -82,7 +82,7 @@ class Mage_ImportExport_Model_Config
      */
     public static function getModelsArrayOptions($configKey, $withEmpty = false)
     {
-        $options = array();
+        $options = [];
         if ($withEmpty) {
             $options[0] = Mage::helper('importexport')->__('-- Please Select --');
         }

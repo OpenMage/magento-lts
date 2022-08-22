@@ -49,34 +49,34 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
     {
         $read = $this->_getReadAdapter();
         $select = $read->select();
-        $select->from($this->getMainTable(), array('times_used'))
+        $select->from($this->getMainTable(), ['times_used'])
                 ->where('coupon_id = :coupon_id')
                 ->where('customer_id = :customer_id');
 
-        $timesUsed = $read->fetchOne($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
+        $timesUsed = $read->fetchOne($select, [':coupon_id' => $couponId, ':customer_id' => $customerId]);
 
         if ($timesUsed !== false) {
             $timesUsed += ($decrement ? -1 : 1);
             if($timesUsed >= 0) {
                 $this->_getWriteAdapter()->update(
                     $this->getMainTable(),
-                    array(
+                    [
                         'times_used' => $timesUsed
-                    ),
-                    array(
+                    ],
+                    [
                         'coupon_id = ?' => $couponId,
                         'customer_id = ?' => $customerId,
-                    )
+                    ]
                 );
             }
         } else {
             $this->_getWriteAdapter()->insert(
                 $this->getMainTable(),
-                array(
+                [
                     'coupon_id' => $couponId,
                     'customer_id' => $customerId,
                     'times_used' => 1
-                )
+                ]
             );
         }
     }
@@ -98,7 +98,7 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 ->from($this->getMainTable())
                 ->where('customer_id =:customer_id')
                 ->where('coupon_id = :coupon_id');
-            $data = $read->fetchRow($select, array(':coupon_id' => $couponId, ':customer_id' => $customerId));
+            $data = $read->fetchRow($select, [':coupon_id' => $couponId, ':customer_id' => $customerId]);
             if ($data) {
                 $object->setData($data);
             }

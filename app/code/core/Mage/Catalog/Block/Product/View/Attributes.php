@@ -48,9 +48,9 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
      * @param array $excludeAttr
      * @return array
      */
-    public function getAdditionalData(array $excludeAttr = array())
+    public function getAdditionalData(array $excludeAttr = [])
     {
-        $data = array();
+        $data = [];
         $product = $this->getProduct();
         $attributes = $product->getAttributes();
         foreach ($attributes as $attribute) {
@@ -66,11 +66,11 @@ class Mage_Catalog_Block_Product_View_Attributes extends Mage_Core_Block_Templat
                 }
 
                 if (is_string($value) && strlen($value)) {
-                    $data[$attribute->getAttributeCode()] = array(
+                    $data[$attribute->getAttributeCode()] = [
                         'label' => $attribute->getStoreLabel(),
                         'value' => $value,
                         'code'  => $attribute->getAttributeCode()
-                    );
+                    ];
                 }
             }
         }

@@ -38,7 +38,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Send Log Clean Warnings
@@ -55,18 +55,18 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $emailTemplate = Mage::getModel('core/email_template');
-        /* @var Mage_Core_Model_Email_Template $emailTemplate */
-        $emailTemplate->setDesignConfig(array('area' => 'backend'))
+        /** @var Mage_Core_Model_Email_Template $emailTemplate */
+        $emailTemplate->setDesignConfig(['area' => 'backend'])
             ->sendTransactional(
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE),
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_IDENTITY),
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT),
                 null,
-                array('warnings' => implode("\n", $this->_errors))
+                ['warnings' => implode("\n", $this->_errors)]
             );
 
         $translate->setTranslateInline(true);
@@ -85,7 +85,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $this->_errors = array();
+        $this->_errors = [];
 
         try {
             Mage::getModel('log/log')->clean();

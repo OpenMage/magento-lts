@@ -83,15 +83,15 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
             ->setTemplate('promo/fieldset.phtml')
             ->setNewChildUrl($this->getUrl('*/promo_quote/newConditionHtml/form/rule_conditions_fieldset'));
 
-        $fieldset = $form->addFieldset('conditions_fieldset', array(
+        $fieldset = $form->addFieldset('conditions_fieldset', [
             'legend'=>Mage::helper('salesrule')->__('Apply the rule only if the following conditions are met (leave blank for all products)')
-        ))->setRenderer($renderer);
+        ])->setRenderer($renderer);
 
-        $fieldset->addField('conditions', 'text', array(
+        $fieldset->addField('conditions', 'text', [
             'name' => 'conditions',
             'label' => Mage::helper('salesrule')->__('Conditions'),
             'title' => Mage::helper('salesrule')->__('Conditions'),
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
+        ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
 /*
         $fieldset = $form->addFieldset('actions_fieldset', array(
             'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')

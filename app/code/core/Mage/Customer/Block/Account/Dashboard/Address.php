@@ -69,7 +69,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
      */
     public function getPrimaryShippingAddressEditUrl()
     {
-        return Mage::getUrl('customer/address/edit', array('id'=>$this->getCustomer()->getDefaultShipping()));
+        return Mage::getUrl('customer/address/edit', ['id'=>$this->getCustomer()->getDefaultShipping()]);
     }
 
     /**
@@ -77,7 +77,7 @@ class Mage_Customer_Block_Account_Dashboard_Address extends Mage_Core_Block_Temp
      */
     public function getPrimaryBillingAddressEditUrl()
     {
-        return Mage::getUrl('customer/address/edit', array('id'=>$this->getCustomer()->getDefaultBilling()));
+        return Mage::getUrl('customer/address/edit', ['id'=>$this->getCustomer()->getDefaultBilling()]);
     }
 
     /**

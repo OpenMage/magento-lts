@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $queueTable = $installer->getTable('newsletter_queue');
 $templateTable = $installer->getTable('newsletter_template');
@@ -42,18 +42,18 @@ $conn->beginTransaction();
 
 try {
     $select = $conn->select()
-        ->from(array('main_table' => $queueTable), array('main_table.queue_id', 'main_table.template_id'))
+        ->from(['main_table' => $queueTable], ['main_table.queue_id', 'main_table.template_id'])
         ->joinLeft(
             $templateTable,
             "$templateTable.template_id = main_table.template_id",
-            array(
+            [
                 'template_type',
                 'template_text',
                 'template_styles',
                 'template_subject',
                 'template_sender_name',
                 'template_sender_email'
-            )
+            ]
         );
     $rows = $conn->fetchAll($select);
 
@@ -65,14 +65,14 @@ try {
             $conn
                 ->update(
                     $queueTable,
-                    array(
+                    [
                         'newsletter_type'           => $row['template_type'],
                         'newsletter_text'           => $row['template_text'],
                         'newsletter_styles'         => $row['template_styles'],
                         'newsletter_subject'        => $row['template_subject'],
                         'newsletter_sender_name'    => $row['template_sender_name'],
                         'newsletter_sender_email'   => $row['template_sender_email']
-                    ),
+                    ],
                     $whereBind
                 );
         }

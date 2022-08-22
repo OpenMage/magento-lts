@@ -32,7 +32,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      *
      * @var array
      */
-    protected $_publicActions = array('view', 'index');
+    protected $_publicActions = ['view', 'index'];
 
     /**
      * Additional initialization
@@ -147,7 +147,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 Mage::logException($e);
             }
         }
-        $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+        $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
     }
     /**
      * Cancel order
@@ -169,7 +169,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->_getSession()->addError($this->__('The order has not been cancelled.'));
                 Mage::logException($e);
             }
-            $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+            $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
         }
     }
 
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             catch (Exception $e) {
                 $this->_getSession()->addError($this->__('The order was not put on hold.'));
             }
-            $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+            $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
         }
     }
 
@@ -215,7 +215,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             catch (Exception $e) {
                 $this->_getSession()->addError($this->__('The order was not unheld.'));
             }
-            $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+            $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
         }
     }
 
@@ -256,7 +256,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             $this->_getSession()->addError($this->__('Failed to update the payment.'));
             Mage::logException($e);
         }
-        $this->_redirect('*/sales_order/view', array('order_id' => $order->getId()));
+        $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -284,16 +284,16 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $this->renderLayout();
             }
             catch (Mage_Core_Exception $e) {
-                $response = array(
+                $response = [
                     'error'     => true,
                     'message'   => $e->getMessage(),
-                );
+                ];
             }
             catch (Exception $e) {
-                $response = array(
+                $response = [
                     'error'     => true,
                     'message'   => $this->__('Cannot add order history.')
-                );
+                ];
             }
             if (is_array($response)) {
                 $response = Mage::helper('core')->jsonEncode($response);
@@ -342,7 +342,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     {
         $this->_initOrder();
         $html = $this->getLayout()->createBlock('adminhtml/sales_order_view_tab_history')->toHtml();
-        /* @var $translate Mage_Core_Model_Translate_Inline */
+        /** @var Mage_Core_Model_Translate_Inline $translate */
         $translate = Mage::getModel('core/translate_inline');
         if ($translate->isAllowed()) {
             $translate->processResponseBody($html);
@@ -355,7 +355,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function massCancelAction()
     {
-        $orderIds = $this->getRequest()->getPost('order_ids', array());
+        $orderIds = $this->getRequest()->getPost('order_ids', []);
         $countCancelOrder = 0;
         $countNonCancelOrder = 0;
         foreach ($orderIds as $orderId) {
@@ -386,7 +386,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function massHoldAction()
     {
-        $orderIds = $this->getRequest()->getPost('order_ids', array());
+        $orderIds = $this->getRequest()->getPost('order_ids', []);
         $countHoldOrder = 0;
 
         foreach ($orderIds as $orderId) {
@@ -419,7 +419,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
      */
     public function massUnholdAction()
     {
-        $orderIds = $this->getRequest()->getPost('order_ids', array());
+        $orderIds = $this->getRequest()->getPost('order_ids', []);
         $countUnholdOrder = 0;
         $countNonUnholdOrder = 0;
 
@@ -645,7 +645,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
             $this->_getSession()->addError($this->__('Failed to void the payment.'));
             Mage::logException($e);
         }
-        $this->_redirect('*/*/view', array('order_id' => $order->getId()));
+        $this->_redirect('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -757,7 +757,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                 $address->implodeStreetAddress()
                     ->save();
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The order address has been updated.'));
-                $this->_redirect('*/*/view', array('order_id'=>$address->getParentId()));
+                $this->_redirect('*/*/view', ['order_id'=>$address->getParentId()]);
                 return;
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -767,7 +767,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     Mage::helper('sales')->__('An error occurred while updating the order address. The address has not been changed.')
                 );
             }
-            $this->_redirect('*/*/address', array('address_id'=>$address->getId()));
+            $this->_redirect('*/*/address', ['address_id'=>$address->getId()]);
         } else {
             $this->_redirect('*/*/');
         }

@@ -20,7 +20,7 @@
 ?>
 
 <?php $_product = $this->getProduct(); ?>
-<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, array(), false); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrlWithCustomParams($_product, [], false); ?>
 
 <ul class="sharing-links">
     <?php if ($this->canEmailToFriend()): ?>

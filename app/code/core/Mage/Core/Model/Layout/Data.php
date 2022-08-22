@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here ...
- *
  * @method Mage_Core_Model_Resource_Layout _getResource()
  * @method Mage_Core_Model_Resource_Layout getResource()
  * @method string getHandle()

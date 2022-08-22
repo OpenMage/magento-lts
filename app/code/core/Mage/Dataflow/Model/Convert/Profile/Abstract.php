@@ -33,7 +33,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
 
     protected $_containers;
 
-    protected $_exceptions = array();
+    protected $_exceptions = [];
 
     protected $_dryRun;
 
@@ -124,7 +124,7 @@ abstract class Mage_Dataflow_Model_Convert_Profile_Abstract
         }
 
         foreach ($this->_actions as $action) {
-            /* @var $action Mage_Dataflow_Model_Convert_Action */
+            /** @var Mage_Dataflow_Model_Convert_Action $action */
             try {
                 $action->run();
             }

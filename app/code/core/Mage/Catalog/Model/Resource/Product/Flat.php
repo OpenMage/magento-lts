@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_isBuilt                  = array();
+    protected $_isBuilt                  = [];
 
     /**
      * Init connection and resource table
@@ -89,7 +89,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if ($store === null) {
             $store = $this->getStoreId();
         }
-        return $this->getTable(array('catalog/product_flat', $store));
+        return $this->getTable(['catalog/product_flat', $store]);
     }
 
     /**
@@ -116,7 +116,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
-        $columns = array($attributeCode => $attributeCode);
+        $columns = [$attributeCode => $attributeCode];
 
         $attributeIndex = sprintf('%s_value', $attributeCode);
         if (isset($describe[$attributeIndex])) {

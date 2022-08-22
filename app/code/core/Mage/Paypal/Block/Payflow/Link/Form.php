@@ -45,6 +45,6 @@ class Mage_Paypal_Block_Payflow_Link_Form extends Mage_Payment_Block_Form
      */
     public function getFrameActionUrl()
     {
-        return $this->getUrl('paypal/payflow/form', array('_secure' => true));
+        return $this->getUrl('paypal/payflow/form', ['_secure' => true]);
     }
 }

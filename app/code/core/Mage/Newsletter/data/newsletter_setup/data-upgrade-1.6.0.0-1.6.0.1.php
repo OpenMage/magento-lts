@@ -18,17 +18,17 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $subscriberTable = $installer->getTable('newsletter/subscriber');
 
 $select = $installer->getConnection()->select()
-    ->from(array('main_table' => $subscriberTable))
+    ->from(['main_table' => $subscriberTable])
     ->join(
-        array('customer' => $installer->getTable('customer/entity')),
+        ['customer' => $installer->getTable('customer/entity')],
         'main_table.customer_id = customer.entity_id',
-        array('website_id')
+        ['website_id']
     )
     ->where('customer.website_id = 0');
 

@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
 
         $this->setId('alertPrice');
         $this->setDefaultSort('add_date');
-        $this->setDefaultSort('DESC');
+        $this->setDefaultDir('desc');
         $this->setUseAjax(true);
         $this->setFilterVisibility(false);
         $this->setEmptyText(Mage::helper('catalog')->__('There are no customers for this alert'));
@@ -58,51 +58,51 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
 
     protected function _prepareColumns()
     {
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    => Mage::helper('catalog')->__('First Name'),
             'index'     => 'firstname',
-        ));
+        ]);
 
-        $this->addColumn('middlename', array(
+        $this->addColumn('middlename', [
             'header'    => Mage::helper('catalog')->__('Middle Name'),
             'index'     => 'middlename',
-        ));
+        ]);
 
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    => Mage::helper('catalog')->__('Last Name'),
             'index'     => 'lastname',
-        ));
+        ]);
 
-        $this->addColumn('email', array(
+        $this->addColumn('email', [
             'header'    => Mage::helper('catalog')->__('Email'),
             'index'     => 'email',
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    => Mage::helper('catalog')->__('Price'),
             'index'     => 'price',
             'type'      => 'currency',
             'currency_code'
                         => Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE)
-        ));
+        ]);
 
-        $this->addColumn('add_date', array(
+        $this->addColumn('add_date', [
             'header'    => Mage::helper('catalog')->__('Date Subscribed'),
             'index'     => 'add_date',
             'type'      => 'date'
-        ));
+        ]);
 
-        $this->addColumn('last_send_date', array(
+        $this->addColumn('last_send_date', [
             'header'    => Mage::helper('catalog')->__('Last Notification'),
             'index'     => 'last_send_date',
             'type'      => 'date'
-        ));
+        ]);
 
-        $this->addColumn('send_count', array(
+        $this->addColumn('send_count', [
             'header'    => Mage::helper('catalog')->__('Send Count'),
             'index'     => 'send_count',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -114,9 +114,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
         if ($storeId) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
-        return $this->getUrl('*/catalog_product/alertsPriceGrid', array(
+        return $this->getUrl('*/catalog_product/alertsPriceGrid', [
             'id'    => $productId,
             'store' => $storeId
-        ));
+        ]);
     }
 }

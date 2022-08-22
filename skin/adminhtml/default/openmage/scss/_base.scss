@@ -5,7 +5,7 @@
 //original selectors
 //body, .popup-window .content-header
 %extend_1 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font: 400 12px/1.33 'Open Sans', sans-serif;
   background: $color_wild_sand_approx;
 }
@@ -24,7 +24,7 @@
 //.content-header, .content-header h3
 %extend_3 {
   border: 0;
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-size: 24px;
   font-weight: 400;
 }
@@ -33,7 +33,7 @@
 //dl.accordion dt, .entry-edit .entry-edit-head
 %extend_4 {
   background: $color_white_approx;
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   padding: 4px 16px;
   border: 1px solid $color_alto_approx;
 }
@@ -84,7 +84,7 @@
 //ul.tabs a.active, ul.tabs a:hover
 %extend_9 {
   background: $wild_sand;
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
   transition: background 0.3s ease-in-out;
 }
@@ -92,7 +92,7 @@
 //original selectors
 //dl.accordion dt a, div.collapseable a, .entry-edit .entry-edit-head strong, .entry-edit .entry-edit-head a, dl.accordion dt a:hover, div.collapseable a:hover, dl.accordion dt.open a, div.collapseable a.open
 %extend_10 {
-  color: $color_dolphin_approx;
+  color: $color_dark_grey;
   font-weight: 300;
   font-size: 18px;
   line-height: 32px;

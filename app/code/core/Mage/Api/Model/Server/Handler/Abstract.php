@@ -31,7 +31,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
     public function __construct()
     {
-        set_error_handler(array($this, 'handlePhpError'), E_ALL);
+        set_error_handler([$this, 'handlePhpError'], E_ALL);
         Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Model_App_Area::PART_EVENTS);
     }
 
@@ -44,7 +44,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     public function handlePhpError($errorCode, $errorMessage, $errorFile)
     {
         Mage::log($errorMessage . $errorFile);
-        if (in_array($errorCode, array(E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR))) {
+        if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }
         return true;
@@ -157,11 +157,11 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return $this->_faultAsArray('unknown');
         }
 
-        return array(
+        return [
             'isFault'      => true,
             'faultCode'    => $faults[$faultName]['code'],
             'faultMessage' => (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage)
-        );
+        ];
     }
 
     /**
@@ -190,14 +190,12 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $resource
      * @return string
      */
     protected function _prepareResourceModelName($resource)
     {
-        if (null !== $this->_resourceSuffix) {
+        if ($this->_resourceSuffix !== null) {
             return $resource . $this->_resourceSuffix;
         }
         return $resource;
@@ -233,7 +231,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param array  $args
      * @return mixed
      */
-    public function call($sessionId, $apiPath, $args = array())
+    public function call($sessionId, $apiPath, $args = [])
     {
         $this->_startSession($sessionId);
 
@@ -287,13 +285,13 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             if (method_exists($model, $method)) {
-                $result = array();
+                $result = [];
                 if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
-                    $result = $model->$method((is_array($args) ? $args : array($args)));
+                    $result = $model->$method((is_array($args) ? $args : [$args]));
                 } elseif (!is_array($args)) {
                     $result = $model->$method($args);
                 } else {
-                    $result = call_user_func_array(array(&$model, $method), $args);
+                    $result = call_user_func_array([&$model, $method], $args);
                 }
                 return $this->processingMethodResult($result);
             } else {
@@ -315,7 +313,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param array $options
      * @return array|void
      */
-    public function multiCall($sessionId, array $calls = array(), $options = array())
+    public function multiCall($sessionId, array $calls = [], $options = [])
     {
         $this->_startSession($sessionId);
 
@@ -323,7 +321,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return $this->_fault('session_expired');
         }
 
-        $result = array();
+        $result = [];
 
         $resourcesAlias = $this->_getConfig()->getResourcesAlias();
         $resources      = $this->_getConfig()->getResources();
@@ -339,7 +337,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             }
 
             $apiPath = $call[0];
-            $args    =  (isset($call[1]) ? $call[1] : array());
+            $args    =  (isset($call[1]) ? $call[1] : []);
 
             list($resourceName, $methodName) = explode('.', $apiPath);
 
@@ -402,13 +400,13 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
 
                 if (method_exists($model, $method)) {
-                    $callResult = array();
+                    $callResult = [];
                     if (isset($methodInfo->arguments) && ((string)$methodInfo->arguments) == 'array') {
-                        $callResult = $model->$method((is_array($args) ? $args : array($args)));
+                        $callResult = $model->$method((is_array($args) ? $args : [$args]));
                     } elseif (!is_array($args)) {
                         $callResult = $model->$method($args);
                     } else {
-                        $callResult = call_user_func_array(array(&$model, $method), $args);
+                        $callResult = call_user_func_array([&$model, $method], $args);
                     }
                     $result[] = $this->processingMethodResult($callResult);
                 } else {
@@ -449,9 +447,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return $this->_fault('session_expired');
         }
 
-        $resources = array();
+        $resources = [];
 
-        $resourcesAlias = array();
+        $resourcesAlias = [];
         foreach ($this->_getConfig()->getResourcesAlias() as $alias => $resourceName) {
             $resourcesAlias[(string) $resourceName][] = $alias;
         }
@@ -462,38 +460,38 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 continue;
             }
 
-            $methods = array();
+            $methods = [];
             foreach ($resource->methods->children() as $methodName => $method) {
                 if (isset($method->acl) && !$this->_isAllowed((string) $method->acl)) {
                     continue;
                 }
-                $methodAliases = array();
+                $methodAliases = [];
                 if (isset($resourcesAlias[$resourceName])) {
                     foreach ($resourcesAlias[$resourceName] as $alias) {
                         $methodAliases[] =  $alias . '.' . $methodName;
                     }
                 }
 
-                $methods[] = array(
+                $methods[] = [
                     'title'       => (string) $method->title,
                     'description' => (isset($method->description) ? (string)$method->description : null),
                     'path'        => $resourceName . '.' . $methodName,
                     'name'        => $methodName,
                     'aliases'     => $methodAliases
-                );
+                ];
             }
 
             if (count($methods) == 0) {
                 continue;
             }
 
-            $resources[] = array(
+            $resources[] = [
                 'title'       => (string) $resource->title,
                 'description' => (isset($resource->description) ? (string)$resource->description : null),
                 'name'        => $resourceName,
-                'aliases'     => (isset($resourcesAlias[$resourceName]) ? $resourcesAlias[$resourceName] : array()),
+                'aliases'     => (isset($resourcesAlias[$resourceName]) ? $resourcesAlias[$resourceName] : []),
                 'methods'     => $methods
-            );
+            ];
         }
 
         return $resources;

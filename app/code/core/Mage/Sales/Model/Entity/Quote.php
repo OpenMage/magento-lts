@@ -68,7 +68,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
             ->addAttributeToFilter('is_active', 1);
 
         if ($quote->getSharedStoreIds()) {
-            $collection->addAttributeToFilter('store_id', array('in', $quote->getSharedStoreIds()));
+            $collection->addAttributeToFilter('store_id', ['in', $quote->getSharedStoreIds()]);
         }
 
         $collection->setOrder('updated_at', 'desc')

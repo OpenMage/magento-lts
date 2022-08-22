@@ -49,7 +49,7 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
 
      /**
      * HTTP client
@@ -85,13 +85,13 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     public function fetchRates()
     {
-        $data = array();
+        $data = [];
         $currencies = $this->_getCurrencyCodes();
         $defaultCurrencies = $this->_getDefaultCurrencyCodes();
 
         foreach ($defaultCurrencies as $currencyFrom) {
             if (!isset($data[$currencyFrom])) {
-                $data[$currencyFrom] = array();
+                $data[$currencyFrom] = [];
             }
 
             $data = $this->_convertBatch($data, $currencyFrom, $currencies);
@@ -122,8 +122,8 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
         foreach ($currenciesTo as $currencyTo) {
             $currenciesCombined = $currencyFrom . '_' . $currencyTo;
             $url = str_replace(
-                array('{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'),
-                array($apiKey, $currenciesCombined),
+                ['{{API_KEY}}', '{{CURRENCY_FROM}}_{{CURRENCY_TO}}'],
+                [$apiKey, $currenciesCombined],
                 $this->_url
             );
 
@@ -162,11 +162,11 @@ class Mage_Directory_Model_Currency_Import_Currencyconverterapi extends Mage_Dir
      */
     protected function _getServiceResponse($url, $retry = 0)
     {
-        $response = array();
+        $response = [];
         try {
             $jsonResponse = $this->_httpClient
                 ->setUri($url)
-                ->setConfig(array('timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)))
+                ->setConfig(['timeout' => Mage::getStoreConfig(self::XML_PATH_CURRENCY_CONVERTER_TIMEOUT)])
                 ->request('GET')
                 ->getBody();
 

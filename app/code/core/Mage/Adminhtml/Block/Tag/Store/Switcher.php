@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_Tag_Store_Switcher extends Mage_Adminhtml_Block_Store
     {
         parent::__construct();
         $this->setUseConfirm(false)->setSwitchUrl(
-            $this->getUrl('*/*/*/', array('store' => null, '_current' => true))
+            $this->getUrl('*/*/*/', ['store' => null, '_current' => true])
         );
     }
 }

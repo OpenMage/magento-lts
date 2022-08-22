@@ -20,11 +20,11 @@
 
 
  $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->getConnection()->addKey(
     $installer->getTable('catalogrule_product'),
     'sort_order',
-    array('rule_id', 'from_time','to_time','website_id','customer_group_id','product_id','sort_order'),
+    ['rule_id', 'from_time','to_time','website_id','customer_group_id','product_id','sort_order'],
     'unique'
 );

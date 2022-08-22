@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form
         parent::_prepareForm();
         $this->_form->setId('edit_form');
         $this->_form->setMethod('post');
-        $this->_form->setAction($this->getUrl('*/*/addressSave', array('address_id'=>$this->_getAddress()->getId())));
+        $this->_form->setAction($this->getUrl('*/*/addressSave', ['address_id'=>$this->_getAddress()->getId()]));
         $this->_form->setUseContainer(true);
         return $this;
     }

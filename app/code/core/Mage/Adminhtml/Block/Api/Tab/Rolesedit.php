@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $rules_set = Mage::getResourceModel('api/rules_collection')->getByRoles($rid)->load();
 
-        $selrids = array();
+        $selrids = [];
 
         foreach ($rules_set->getItems() as $item) {
             if (array_key_exists(strtolower($item->getResource_id()), $resources)
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $rootArray = $this->_getNodeJson($resources,1);
 
-        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
+        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
 
         return $json;
     }
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
     protected function _getNodeJson($node, $level=0)
     {
-        $item = array();
+        $item = [];
         $selres = $this->getSelectedResources();
 
         if ($level != 0) {
@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
         }
 
         if ($children) {
-            $item['children'] = array();
+            $item['children'] = [];
             //$item['cls'] = 'fiche-node';
             foreach ($children as $child) {
                 if ($child->getName()!='title' && $child->getName()!='sort_order' && $child->attributes()->module) {
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
                 }
             }
             if (!empty($item['children'])) {
-                usort($item['children'], array($this, '_sortTree'));
+                usort($item['children'], [$this, '_sortTree']);
             }
         }
         return $item;

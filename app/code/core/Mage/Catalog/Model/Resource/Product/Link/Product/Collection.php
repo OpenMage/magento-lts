@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         if (!empty($products)) {
             if (!is_array($products)) {
-                $products = array($products);
+                $products = [$products];
             }
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
@@ -153,7 +153,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         if (!empty($products)) {
             if (!is_array($products)) {
-                $products = array($products);
+                $products = [$products];
             }
             $this->getSelect()->where('links.product_id IN (?)', $products);
             $this->_hasLinkFilter = true;
@@ -214,10 +214,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         $select  = $this->getSelect();
         $adapter = $select->getAdapter();
 
-        $joinCondition = array(
+        $joinCondition = [
             'links.linked_product_id = e.entity_id',
             $adapter->quoteInto('links.link_type_id = ?', $this->_linkTypeId)
-        );
+        ];
         $joinType = 'join';
         if ($this->getProduct() && $this->getProduct()->getId()) {
             $productId = $this->getProduct()->getId();
@@ -227,15 +227,15 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
-            $this->addFieldToFilter('entity_id', array('neq' => $productId));
+            $this->addFieldToFilter('entity_id', ['neq' => $productId]);
         } elseif ($this->_isStrongMode) {
-            $this->addFieldToFilter('entity_id', array('eq' => -1));
+            $this->addFieldToFilter('entity_id', ['eq' => -1]);
         }
         if ($this->_hasLinkFilter) {
             $select->$joinType(
-                array('links' => $this->getTable('catalog/product_link')),
+                ['links' => $this->getTable('catalog/product_link')],
                 implode(' AND ', $joinCondition),
-                array('link_id')
+                ['link_id']
             );
             $this->joinAttributes();
         }
@@ -268,9 +268,9 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
     {
         $this->getSelect()
             ->joinLeft(
-                array('set' => $this->getTable('eav/attribute_set')),
+                ['set' => $this->getTable('eav/attribute_set')],
                 'e.attribute_set_id = set.attribute_set_id',
-                array('attribute_set_name')
+                ['attribute_set_name']
             )
             ->order('set.attribute_set_name ' . $dir);
         return $this;
@@ -305,14 +305,14 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $table = $this->getLinkModel()->getAttributeTypeTable($attribute['type']);
             $alias = $this->_getLinkAttributeTableAlias($attribute['code'], $attribute['type']);
 
-            $joinCondiotion = array(
+            $joinCondiotion = [
                 "{$alias}.link_id = links.link_id",
                 $this->getSelect()->getAdapter()->quoteInto("{$alias}.product_link_attribute_id = ?", $attribute['id'])
-            );
+            ];
             $this->getSelect()->joinLeft(
-                array($alias => $table),
+                [$alias => $table],
                 implode(' AND ', $joinCondiotion),
-                array($attribute['code'] => 'value')
+                [$attribute['code'] => 'value']
             );
         }
 

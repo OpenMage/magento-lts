@@ -33,7 +33,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     {
         parent::_construct();
         $this->setTagName('script');
-        $this->setTagParams(array('language'=>'javascript', 'type'=>'text/javascript'));
+        $this->setTagParams(['language'=>'javascript', 'type'=>'text/javascript']);
     }
 
     /**

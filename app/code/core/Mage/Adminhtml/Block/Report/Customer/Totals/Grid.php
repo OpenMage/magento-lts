@@ -42,25 +42,25 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => $this->__('Customer Name'),
             'sortable'  => false,
             'index'     => 'name'
-        ));
+        ]);
 
-        $this->addColumn('orders_count', array(
+        $this->addColumn('orders_count', [
             'header'    => $this->__('Number of Orders'),
             'width'     => '100px',
             'sortable'  => false,
             'index'     => 'orders_count',
             'total'     => 'sum',
             'type'      => 'number'
-        ));
+        ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
         $rate = $this->getRate($baseCurrencyCode);
 
-        $this->addColumn('orders_avg_amount', array(
+        $this->addColumn('orders_avg_amount', [
             'header'    => $this->__('Average Order Amount'),
             'width'     => '200px',
             'align'     => 'right',
@@ -71,9 +71,9 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'total'     => 'orders_sum_amount/orders_count',
             'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
             'rate'      => $rate,
-        ));
+        ]);
 
-        $this->addColumn('orders_sum_amount', array(
+        $this->addColumn('orders_sum_amount', [
             'header'    => $this->__('Total Order Amount'),
             'width'     => '200px',
             'align'     => 'right',
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Report_Customer_Totals_Grid extends Mage_Adminhtml_Bl
             'total'     => 'sum',
             'renderer'  => 'adminhtml/report_grid_column_renderer_currency',
             'rate'      => $rate,
-        ));
+        ]);
 
         $this->addExportType('*/*/exportTotalsCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportTotalsExcel', Mage::helper('reports')->__('Excel XML'));

@@ -32,11 +32,11 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      */
     public function __construct()
     {
-        $this->_attributesMap = array(
-            'order' => array('order_id' => 'entity_id'),
-            'order_address' => array('address_id' => 'entity_id'),
-            'order_payment' => array('payment_id' => 'entity_id')
-        );
+        $this->_attributesMap = [
+            'order' => ['order_id' => 'entity_id'],
+            'order_address' => ['address_id' => 'entity_id'],
+            'order_payment' => ['payment_id' => 'entity_id']
+        ];
     }
 
     /**
@@ -49,7 +49,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
     {
         $order = Mage::getModel('sales/order');
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
 
         $order->loadByIncrementId($orderIncrementId);
 
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
      */
     public function items($filters = null)
     {
-        $orders = array();
+        $orders = [];
 
         //TODO: add full name logic
         $billingAliasName = 'billing_o_a';
@@ -84,32 +84,32 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             ->addExpressionFieldToSelect(
                 'billing_firstname',
                 "{{billing_firstname}}",
-                array('billing_firstname' => $billingFirstnameField)
+                ['billing_firstname' => $billingFirstnameField]
             )
             ->addExpressionFieldToSelect(
                 'billing_lastname',
                 "{{billing_lastname}}",
-                array('billing_lastname' => $billingLastnameField)
+                ['billing_lastname' => $billingLastnameField]
             )
             ->addExpressionFieldToSelect(
                 'shipping_firstname',
                 "{{shipping_firstname}}",
-                array('shipping_firstname' => $shippingFirstnameField)
+                ['shipping_firstname' => $shippingFirstnameField]
             )
             ->addExpressionFieldToSelect(
                 'shipping_lastname',
                 "{{shipping_lastname}}",
-                array('shipping_lastname' => $shippingLastnameField)
+                ['shipping_lastname' => $shippingLastnameField]
             )
             ->addExpressionFieldToSelect(
                 'billing_name',
                 "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
-                array('billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField)
+                ['billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField]
             )
             ->addExpressionFieldToSelect(
                 'shipping_name',
                 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-                array('shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField)
+                ['shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField]
             );
 
         /** @var Mage_Api_Helper_Data $apiHelper */
@@ -148,7 +148,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
 
         $result['shipping_address'] = $this->_getAttributes($order->getShippingAddress(), 'order_address');
         $result['billing_address']  = $this->_getAttributes($order->getBillingAddress(), 'order_address');
-        $result['items'] = array();
+        $result['items'] = [];
 
         foreach ($order->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
@@ -162,7 +162,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
 
         $result['payment'] = $this->_getAttributes($order->getPayment(), 'order_payment');
 
-        $result['status_history'] = array();
+        $result['status_history'] = [];
 
         foreach ($order->getAllStatusHistory() as $history) {
             $result['status_history'][] = $this->_getAttributes($history, 'order_status_history');

@@ -32,7 +32,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
     /**
      * Return html for control element
      *
-     * @return string
+     * @return string|void
      */
     public function getValuesHtml()
     {
@@ -44,11 +44,12 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
             $require = ($_option->getIsRequire()) ? ' required-entry' : '';
             $extraParams = '';
-            $select = $this->getLayout()->createBlock('core/html_select')
-                ->setData(array(
-                    'id' => 'select_'.$_option->getId(),
-                    'class' => $require.' product-custom-option'
-                ));
+            /** @var Mage_Core_Block_Html_Select $block */
+            $block = $this->getLayout()->createBlock('core/html_select');
+            $select = $block->setData([
+                'id' => 'select_'.$_option->getId(),
+                'class' => $require.' product-custom-option'
+            ]);
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN) {
                 $select->setName('options['.$_option->getId().']')
                     ->addOption('', $this->__('-- Please Select --'));
@@ -57,14 +58,14 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 $select->setClass('multiselect'.$require.' product-custom-option');
             }
             foreach ($_option->getValues() as $_value) {
-                $priceStr = $this->_formatPrice(array(
+                $priceStr = $this->_formatPrice([
                     'is_percent'    => ($_value->getPriceType() == 'percent'),
                     'pricing_value' => $_value->getPrice(($_value->getPriceType() == 'percent'))
-                ), false);
+                ], false);
                 $select->addOption(
                     $_value->getOptionTypeId(),
                     $_value->getTitle() . ' ' . $priceStr . '',
-                    array('price' => $this->helper('core')->currencyByStore($_value->getPrice(true), $store, false))
+                    ['price' => $this->helper('core')->currencyByStore($_value->getPrice(true), $store, false)]
                 );
             }
             if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
@@ -110,10 +111,10 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
             foreach ($_option->getValues() as $_value) {
                 $count++;
 
-                $priceStr = $this->_formatPrice(array(
+                $priceStr = $this->_formatPrice([
                     'is_percent'    => ($_value->getPriceType() == 'percent'),
                     'pricing_value' => $_value->getPrice($_value->getPriceType() == 'percent')
-                ));
+                ]);
 
                 $htmlValue = $_value->getOptionTypeId();
                 if ($arraySign) {

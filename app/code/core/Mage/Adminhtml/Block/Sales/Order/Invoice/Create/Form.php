@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('order_id' => $this->getInvoice()->getOrderId()));
+        return $this->getUrl('*/*/save', ['order_id' => $this->getInvoice()->getOrderId()]);
     }
 
     public function canCreateShipment()

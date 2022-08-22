@@ -57,17 +57,17 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
     public function setListOrders()
     {
         $this->getChild('search_result_list')
-            ->setAvailableOrders(array(
+            ->setAvailableOrders([
                 'name' => Mage::helper('tag')->__('Name'),
-                'price'=>Mage::helper('tag')->__('Price')));
+                'price'=>Mage::helper('tag')->__('Price')]);
     }
 
     public function setListModes()
     {
         $this->getChild('search_result_list')
-            ->setModes(array(
+            ->setModes([
                 'grid' => Mage::helper('tag')->__('Grid'),
-                'list' => Mage::helper('tag')->__('List')));
+                'list' => Mage::helper('tag')->__('List')]);
     }
 
     /**

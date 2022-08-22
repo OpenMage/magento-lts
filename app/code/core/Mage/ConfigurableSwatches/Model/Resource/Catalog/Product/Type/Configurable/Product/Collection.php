@@ -48,7 +48,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
         try {
             /**
              * Prepare select query
-             * @var string $query
+             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
@@ -62,12 +62,12 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             if (!isset($this->_items[$v['entity_id']])) {
                 $object = $this->getNewEmptyItem()
                     ->setData($v)
-                    ->setParentIds(array($v['parent_id']));
+                    ->setParentIds([$v['parent_id']]);
                 $this->addItem($object);
                 if (isset($this->_itemsById[$object->getId()])) {
                     $this->_itemsById[$object->getId()][] = $object;
                 } else {
-                    $this->_itemsById[$object->getId()] = array($object);
+                    $this->_itemsById[$object->getId()] = [$object];
                 }
             } else {
                 $parents = $this->_items[$v['entity_id']]->getParentIds();

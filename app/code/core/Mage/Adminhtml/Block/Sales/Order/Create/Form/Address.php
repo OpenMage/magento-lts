@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
     public function getAddressCollectionJson()
     {
         $addressForm = $this->_getAddressForm();
-        $data = array();
+        $data = [];
 
         $emptyAddress = $this->getCustomer()
             ->getAddressById(null)
@@ -92,11 +92,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
      */
     protected function _prepareForm()
     {
-        $fieldset = $this->_form->addFieldset('main', array(
+        $fieldset = $this->_form->addFieldset('main', [
             'no_container' => true
-        ));
+        ]);
 
-        /* @var $addressModel Mage_Customer_Model_Address */
+        /** @var Mage_Customer_Model_Address $addressModel */
         $addressModel = Mage::getModel('customer/address');
 
         $addressForm = $this->_getAddressForm()

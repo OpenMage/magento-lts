@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer->startSetup();
 
 $ruleGroupWebsiteTable = $installer->getTable('catalogrule/rule_group_website');

@@ -34,11 +34,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Contenttype
      */
     public function toOptionArray()
     {
-        return array(
-            array('label' => Mage::helper('usa')->__('Documents'),
-                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_DOC),
-            array('label' => Mage::helper('usa')->__('Non documents'),
-                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_NON_DOC),
-        );
+        return [
+            ['label' => Mage::helper('usa')->__('Documents'),
+                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_DOC],
+            ['label' => Mage::helper('usa')->__('Non documents'),
+                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_NON_DOC],
+        ];
     }
 }

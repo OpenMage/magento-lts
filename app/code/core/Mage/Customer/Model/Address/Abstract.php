@@ -91,21 +91,21 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Directory country models
      *
      * @var array
      */
-    static protected $_countryModels = array();
+    static protected $_countryModels = [];
 
     /**
      * Directory region models
      *
      * @var array
      */
-    static protected $_regionModels = array();
+    static protected $_regionModels = [];
 
     /**
      * Get full customer name
@@ -139,11 +139,11 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     public function getStreet($line = 0)
     {
         $street = parent::getData('street');
-        if (-1 === $line) {
+        if ($line === -1) {
             return $street;
         } else {
             $arr = is_array($street) ? $street : explode("\n", $street);
-            if (0 === $line || $line === null) {
+            if ($line === 0 || $line === null) {
                 return $arr;
             } elseif (isset($arr[$line-1])) {
                 return $arr[$line-1];
@@ -394,7 +394,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             || !$formatType->getRenderer()) {
             return null;
         }
-        Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
+        Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);
         return $formatType->getRenderer()->render($this);
     }
 
@@ -431,7 +431,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $this->_basicCheck();
 
-        Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
+        Mage::dispatchEvent('customer_address_validation_after', ['address' => $this]);
 
         $errors = $this->_getErrors();
 
@@ -500,7 +500,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retreive errors
+     * Retrieve errors
      *
      * @return array
      */
@@ -516,7 +516,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _resetErrors()
     {
-        $this->_errors = array();
+        $this->_errors = [];
         return $this;
     }
 }

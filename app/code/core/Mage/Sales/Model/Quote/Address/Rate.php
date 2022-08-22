@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here ...
- *
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Rate_Collection getCollection()

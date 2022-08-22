@@ -49,7 +49,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
     {
         $cart = $observer->getEvent()->getCart();
         $data = $observer->getEvent()->getInfo();
-        $productIds = array();
+        $productIds = [];
 
         $wishlist = $this->_getWishlist($cart->getQuote()->getCustomerId());
         if (!$wishlist) {
@@ -97,7 +97,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         $singleWishlistId = Mage::getSingleton('checkout/session')->getSingleWishlistId();
 
         if ($singleWishlistId) {
-            $wishlistIds = array($singleWishlistId);
+            $wishlistIds = [$singleWishlistId];
         }
 
         if (!empty($wishlistIds) && $request->getParam('wishlist_next')) {

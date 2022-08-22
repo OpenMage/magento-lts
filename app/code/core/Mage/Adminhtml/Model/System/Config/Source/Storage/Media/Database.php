@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
      *
      * @var array
      */
-    protected $_connections = array();
+    protected $_connections = [];
 
     /**
      * Recursively collect connection configuration
@@ -38,7 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
      */
     protected function _collectConnectionConfig($connectionName)
     {
-        $config = array();
+        $config = [];
 
         if (isset($this->_connections[$connectionName])) {
             $connection = $this->_connections[$connectionName];
@@ -61,7 +61,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
      */
     public function toOptionArray()
     {
-        $media_storages = array();
+        $media_storages = [];
 
         $this->_connections = (array) Mage::app()->getConfig()->getNode('global/resources')->children();
         foreach (array_keys($this->_connections) as $connectionName) {
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Storage_Media_Database
                 continue;
             }
 
-            $media_storages[] = array('value' => $connectionName, 'label' => $connectionName);
+            $media_storages[] = ['value' => $connectionName, 'label' => $connectionName];
         }
         sort($media_storages);
         reset($media_storages);

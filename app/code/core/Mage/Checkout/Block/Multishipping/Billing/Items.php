@@ -64,7 +64,7 @@ class Mage_Checkout_Block_Multishipping_Billing_Items extends Mage_Sales_Block_I
      */
     public function getVirtualQuoteItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getQuote()->getItemsCollection() as $_item) {
             if ($_item->getProduct()->getIsVirtual() && !$_item->getParentItemId()) {
                 $items[] = $_item;

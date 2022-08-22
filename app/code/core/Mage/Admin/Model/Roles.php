@@ -146,7 +146,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), array('title', 'sort_order', 'children', 'disabled'))) {
+            if (!in_array($resource->getName(), ['title', 'sort_order', 'children', 'disabled'])) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
@@ -171,7 +171,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 $resource->{$key} = null;
                 continue;
             }

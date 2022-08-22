@@ -108,7 +108,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   int|null|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
-    public function clearCacheData($tags = array(), $store = null)
+    public function clearCacheData($tags = [], $store = null)
     {
         $tags    = $this->_processTags($tags);
         if ($store !== null) {
@@ -128,7 +128,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $categoryPaths = $this->_getResource()->getProductCategoryPaths($productIds);
         if (!empty($categoryPaths)) {
-            $tags = array();
+            $tags = [];
             foreach ($categoryPaths as $path) {
                 $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.':'.$path;
             }
@@ -160,7 +160,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      */
     protected function _processTags($tags)
     {
-        $newTags = array();
+        $newTags = [];
         foreach ($tags as $tag) {
             $tagInfo = explode(':', $tag);
             if (count($tagInfo)==1) {

@@ -29,8 +29,6 @@ class Mage_Adminhtml_Block_Abstract extends Mage_Core_Block_Template
 {
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

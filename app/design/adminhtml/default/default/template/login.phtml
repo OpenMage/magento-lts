@@ -58,7 +58,7 @@
                     <?php echo $this->getChildHtml('form.additional.info') ?>
                     <div class="clear"></div>
                     <div class="form-buttons">
-                        <a class="left" href="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/index/forgotpassword', array('_nosecret' => true)) ?>"><?php echo Mage::helper('adminhtml')->__('Forgot your password?') ?></a>
+                        <a class="left" href="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/index/forgotpassword', ['_nosecret' => true]) ?>"><?php echo Mage::helper('adminhtml')->__('Forgot your password?') ?></a>
                         <button type="submit" class="form-button"><span><span><span><?php echo Mage::helper('adminhtml')->__('Login') ?></span></span></span></button>
                     </div>
                 </div>

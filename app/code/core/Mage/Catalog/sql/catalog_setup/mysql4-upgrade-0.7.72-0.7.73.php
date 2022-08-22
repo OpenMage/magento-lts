@@ -19,7 +19,7 @@
  */
 
 
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -63,7 +63,7 @@ $installer->getConnection()->addConstraint(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute_label'),
     'UNQ_ATTRIBUTE_STORE',
-    array('product_super_attribute_id', 'store_id'),
+    ['product_super_attribute_id', 'store_id'],
     'unique'
 );
 $installer->endSetup();

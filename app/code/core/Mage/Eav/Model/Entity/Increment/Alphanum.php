@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here...
- *
  * Properties:
  * - prefix
  * - pad_length
@@ -60,7 +58,7 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
 
         for ($i = $lid; $i >= 0; $i--) {
             $p = strpos($chars, $lastId[$i]);
-            if (false===$p) {
+            if ($p === false) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid character encountered in increment ID: %s', $lastId));
             }
             if ($bumpNextChar) {

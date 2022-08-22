@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Catalog_Form_Renderer_Config_YearRange extends Mage_A
         if ($element->getValue()) {
             $values = explode(',', $element->getValue());
         } else {
-            $values = array();
+            $values = [];
         }
 
         $from = $element->setValue(isset($values[0]) ? $values[0] : null)->getElementHtml();

@@ -37,20 +37,20 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $this->_options = array(
-                array(
+            $this->_options = [
+                [
                     'label' => Mage::helper('giftmessage')->__('Yes'),
                     'value' =>  1
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('giftmessage')->__('No'),
                     'value' =>  0
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('giftmessage')->__('Use config'),
                     'value' =>  2
-                )
-            );
+                ]
+            ];
         }
         return $this->_options;
     }

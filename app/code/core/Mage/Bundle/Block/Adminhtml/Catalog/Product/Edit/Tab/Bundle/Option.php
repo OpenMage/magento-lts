@@ -147,33 +147,33 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
         $this->setChild(
             'add_selection_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'id'    => $this->getFieldId().'_{{index}}_add_button',
                     'label'     => Mage::helper('bundle')->__('Add Selection'),
                     'on_click'   => 'bSelection.showSearch(event)',
                     'class' => 'add'
-                ))
+                ])
         );
 
         $this->setChild(
             'close_search_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'id'    => $this->getFieldId().'_{{index}}_close_button',
                     'label'     => Mage::helper('bundle')->__('Close'),
                     'on_click'   => 'bSelection.closeSearch(event)',
                     'class' => 'back no-display'
-                ))
+                ])
         );
 
         $this->setChild(
             'option_delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Option'),
                     'class' => 'delete delete-product-option',
                     'on_click' => 'bOption.remove(event)'
-                ))
+                ])
         );
 
         $this->setChild(
@@ -278,11 +278,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     public function getTypeSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{index}}_type',
                 'class' => 'select select-product-option-type required-option-select',
                 'extra_params' => 'onchange="bOption.changeType(event)"'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{index}}][type]')
             ->setOptions(Mage::getSingleton('bundle/source_option_type')->toOptionArray());
 
@@ -295,10 +295,10 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
     public function getRequireSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
-            ->setData(array(
+            ->setData([
                 'id' => $this->getFieldId().'_{{index}}_required',
                 'class' => 'select'
-            ))
+            ])
             ->setName($this->getFieldName().'[{{index}}][required]')
             ->setOptions(Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray());
 

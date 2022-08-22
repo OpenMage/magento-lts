@@ -84,7 +84,7 @@
                 packaging.setLabelCreatedCallback(function(response){
                     setLocation("<?php echo $this->getUrl(
                         '*/sales_order_shipment/view',
-                        array('shipment_id' => $this->getShipment()->getId())
+                        ['shipment_id' => $this->getShipment()->getId()]
                     ); ?>");
                 });
             }, 500);

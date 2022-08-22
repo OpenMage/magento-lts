@@ -32,6 +32,6 @@ class Mage_Core_Model_Store_Observer
      */
     public function cleanCache()
     {
-        Mage::app()->cleanCache(array(Mage_Core_Model_Store::CACHE_TAG));
+        Mage::app()->cleanCache([Mage_Core_Model_Store::CACHE_TAG]);
     }
 }

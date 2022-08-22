@@ -77,7 +77,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_null($this->_agreements)) {
             if (!Mage::getStoreConfigFlag('checkout/options/enable_agreements')) {
-                $this->_agreements = array();
+                $this->_agreements = [];
             } else {
                 $this->_agreements = Mage::getModel('checkout/agreement')->getCollection()
                     ->addStoreFilter(Mage::app()->getStore()->getId())
@@ -181,11 +181,11 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function sendPaymentFailedEmail($checkout, $message, $checkoutType = 'onepage')
     {
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $mailTemplate = Mage::getModel('core/email_template');
-        /* @var Mage_Core_Model_Email_Template $mailTemplate */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
 
         $template = Mage::getStoreConfig('checkout/payment_failed/template', $checkout->getStoreId());
 
@@ -196,19 +196,19 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $_reciever = Mage::getStoreConfig('checkout/payment_failed/reciever', $checkout->getStoreId());
-        $sendTo = array(
-            array(
+        $sendTo = [
+            [
                 'email' => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/email', $checkout->getStoreId()),
                 'name'  => Mage::getStoreConfig('trans_email/ident_'.$_reciever.'/name', $checkout->getStoreId())
-            )
-        );
+            ]
+        ];
 
         if ($copyTo && $copyMethod == 'copy') {
             foreach ($copyTo as $email) {
-                $sendTo[] = array(
+                $sendTo[] = [
                     'email' => $email,
                     'name'  => null
-                );
+                ];
             }
         }
         $shippingMethod = '';
@@ -224,7 +224,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 
         $items = '';
         foreach ($checkout->getAllVisibleItems() as $_item) {
-            /* @var Mage_Sales_Model_Quote_Item $_item */
+            /** @var Mage_Sales_Model_Quote_Item $_item */
             $items .= $_item->getProduct()->getName() . '  x '. $_item->getQty() . '  '
                 . $checkout->getStoreCurrencyCode() . ' '
                 . $_item->getProduct()->getFinalPrice($_item->getQty()) . "\n";
@@ -232,13 +232,13 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
-            $mailTemplate->setDesignConfig(array('area'=>'frontend', 'store'=>$checkout->getStoreId()))
+            $mailTemplate->setDesignConfig(['area'=>'frontend', 'store'=>$checkout->getStoreId()])
                 ->sendTransactional(
                     $template,
                     Mage::getStoreConfig('checkout/payment_failed/identity', $checkout->getStoreId()),
                     $recipient['email'],
                     $recipient['name'],
-                    array(
+                    [
                         'reason'          => $message,
                         'checkoutType'    => $checkoutType,
                         'dateAndTime'     => Mage::app()->getLocale()->date(),
@@ -250,7 +250,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                         'paymentMethod'   => Mage::getStoreConfig('payment/' . $paymentMethod . '/title'),
                         'items'           => nl2br($items),
                         'total'           => $total,
-                    )
+                    ]
                 );
         }
 
@@ -314,11 +314,11 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($guestCheckout == true) {
             $result = new Varien_Object();
             $result->setIsAllowed($guestCheckout);
-            Mage::dispatchEvent('checkout_allow_guest', array(
+            Mage::dispatchEvent('checkout_allow_guest', [
                 'quote'  => $quote,
                 'store'  => $store,
                 'result' => $result
-            ));
+            ]);
 
             $guestCheckout = $result->getIsAllowed();
         }

@@ -40,7 +40,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete', 'save'));
+        $this->_setForcedFormKeyActions(['delete', 'save']);
         return parent::preDispatch();
     }
 
@@ -127,7 +127,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
 
@@ -161,7 +161,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
-            $this->_redirect('*/*/editrole', array('rid' => $rid));
+            $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
 
@@ -176,7 +176,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         $isAll = $this->getRequest()->getParam('all');
         if ($isAll) {
-            $resource = array("all");
+            $resource = ["all"];
         }
 
         try {
@@ -205,7 +205,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 
-        $this->_redirect('*/*/editrole', array('rid' => $rid));
+        $this->_redirect('*/*/editrole', ['rid' => $rid]);
         return;
     }
 

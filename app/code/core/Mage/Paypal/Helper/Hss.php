@@ -28,11 +28,11 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_hssMethods = array(
+    protected $_hssMethods = [
         Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
         Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK,
         Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED
-    );
+    ];
 
     /**
      * Get template for button in order review page if HSS method was selected

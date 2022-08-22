@@ -114,7 +114,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             $attributesToSelect = $this->getVar('map');
         }
         else {
-            $attributesToSelect = array();
+            $attributesToSelect = [];
         }
 
         if (!$attributesToSelect) {
@@ -129,7 +129,7 @@ class Mage_Dataflow_Model_Convert_Mapper_Column extends Mage_Dataflow_Model_Conv
             $batchExport = $this->getBatchExportModel()->load($batchExportId);
             $row = $batchExport->getBatchData();
 
-            $newRow = array();
+            $newRow = [];
             foreach ($attributesToSelect as $field => $mapField) {
                 $newRow[$mapField] = isset($row[$field]) ? $row[$field] : null;
             }

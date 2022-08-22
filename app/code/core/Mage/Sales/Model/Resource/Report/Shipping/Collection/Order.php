@@ -40,7 +40,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -62,22 +62,22 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
              $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
-            $this->_selectedColumns = array(
+            $this->_selectedColumns = [
                 'period'                => $this->_periodFormat,
                 'shipping_description'  => 'shipping_description',
                 'orders_count'          => 'SUM(orders_count)',
                 'total_shipping'        => 'SUM(total_shipping)',
                 'total_shipping_actual' => 'SUM(total_shipping_actual)',
-            );
+            ];
         }
 
         if ($this->isTotals()) {
@@ -85,7 +85,7 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
         }
 
         if ($this->isSubTotals()) {
-            $this->_selectedColumns = $this->getAggregatedColumns() + array('period' => $this->_periodFormat);
+            $this->_selectedColumns = $this->getAggregatedColumns() + ['period' => $this->_periodFormat];
         }
 
         return $this->_selectedColumns;
@@ -104,15 +104,15 @@ class Mage_Sales_Model_Resource_Report_Shipping_Collection_Order extends Mage_Sa
         );
 
         if (!$this->isTotals() && !$this->isSubTotals()) {
-            $this->getSelect()->group(array(
+            $this->getSelect()->group([
                 $this->_periodFormat,
                 'shipping_description'
-            ));
+            ]);
         }
         if ($this->isSubTotals()) {
-            $this->getSelect()->group(array(
+            $this->getSelect()->group([
                 $this->_periodFormat
-            ));
+            ]);
         }
         return $this;
     }

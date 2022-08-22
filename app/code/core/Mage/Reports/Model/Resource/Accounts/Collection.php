@@ -40,8 +40,8 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     {
 
         $this->getSelect()->reset(Zend_Db_Select::COLUMNS);
-        $this->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true))
-             ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', array('entity_id'));
+        $this->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true])
+             ->addExpressionAttributeToSelect('accounts', 'COUNT({{entity_id}})', ['entity_id']);
 
         $this->getSelect()->having("{$this->_joinFields['accounts']['field']} > ?", 0);
 
@@ -71,7 +71,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
+            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds]);
         }
         return $this;
     }

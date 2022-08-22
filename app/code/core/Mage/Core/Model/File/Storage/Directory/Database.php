@@ -47,7 +47,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class construct
@@ -74,13 +74,13 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
          * addData() is used because it's needed to clear only db storaged data
          */
         $this->addData(
-            array(
+            [
                 'directory_id'  => null,
                 'name'          => null,
                 'path'          => null,
                 'upload_time'   => null,
                 'parent_id'     => null
-            )
+            ]
         );
 
         $this->_getResource()->loadByPath($this, $path);
@@ -189,7 +189,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
             try {
                 $directory = Mage::getModel(
                     'core/file_storage_directory_database',
-                    array('connection' => $this->getConnectionName())
+                    ['connection' => $this->getConnectionName()]
                 );
                 $directory->setPath($dir['path']);
 
@@ -245,7 +245,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
         $name = basename($dirPath);
         $path = dirname($dirPath);
 
-        if ('.' == $path) {
+        if ($path == '.') {
             $path = '';
         }
 

@@ -371,7 +371,7 @@ Event.observe(window, 'load', function(){
     </div>
     <fieldset>
         <legend><?php echo $this->__("Field Mapping") ?></legend>
-        <?php foreach (array('product', 'customer') as $_entityType): ?>
+        <?php foreach (['product', 'customer'] as $_entityType): ?>
             <div class="profile_entity_type_<?php echo $_entityType ?>">
                 <div id="map_template_<?php echo $_entityType ?>" style="display:none">
                     <span class="field-row">

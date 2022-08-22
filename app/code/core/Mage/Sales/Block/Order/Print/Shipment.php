@@ -33,7 +33,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      *
      * @var array
      */
-    protected $_tracks = array();
+    protected $_tracks = [];
 
      /**
      * Order shipments collection
@@ -58,7 +58,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
 
         $shipment = Mage::registry('current_shipment');
         if ($shipment) {
-            $this->_shipmentsCollection = array($shipment);
+            $this->_shipmentsCollection = [$shipment];
         } else {
             $this->_shipmentsCollection = $this->getOrder()->getShipmentsCollection();
         }
@@ -149,7 +149,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentTracks($shipment)
     {
-        $tracks = array();
+        $tracks = [];
         if (!empty($this->_tracks[$shipment->getId()])) {
             $tracks = $this->_tracks[$shipment->getId()];
         }
@@ -194,7 +194,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      */
     public function getShipmentItems($shipment)
     {
-        $res = array();
+        $res = [];
         foreach ($shipment->getItemsCollection() as $item) {
             if (!$item->getOrderItem()->getParentItem()) {
                 $res[] = $item;
