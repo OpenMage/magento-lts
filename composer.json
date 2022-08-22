@@ -32,7 +32,7 @@
   },
   "scripts": {
     "set-phpcs-paths": [
-      "OpenMage\\Scripts\\Devel::setupPhpCs"
+      "OpenMage\\Scripts\\Composer\\SetupPhpCs::run"
     ],
     "post-install-cmd": [
       "@set-phpcs-paths"
@@ -74,7 +74,7 @@
     "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
   },
   "autoload": {
-    "psr-4": { "OpenMage\\Scripts\\": "dev/scripts" }
+    "psr-4": { "OpenMage\\Scripts\\Composer\\": "dev/scripts/composer" }
   },
   "extra": {
     "branch-alias": {
