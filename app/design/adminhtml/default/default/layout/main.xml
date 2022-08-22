@@ -88,7 +88,6 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js</type><name>extjs/ext-tree.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js</type><name>extjs/fix-defer.js</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js</type><name>extjs/ext-tree-checkbox.js</name><params/><if/><condition>can_load_ext_js</condition></action>
-                <action method="addItem"><type>js_css</type><name>extjs/resources/css/ext-all.css</name><params/><if/><condition>can_load_ext_js</condition></action>
                 <action method="addItem"><type>js_css</type><name>extjs/resources/css/ytheme-magento.css</name><params/><if/><condition>can_load_ext_js</condition></action>
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>
