@@ -247,19 +247,19 @@ class Error_Processor
             $this->_setSkin($skin, $config);
         }
         if ($local !== null) {
-            if (($action = (string)$local->report->action)) {
+            if ($action = (string)$local->report->action) {
                 $config->action = $action;
             }
-            if (($subject = (string)$local->report->subject)) {
+            if ($subject = (string)$local->report->subject) {
                 $config->subject = $subject;
             }
-            if (($emailAddress = (string)$local->report->email_address)) {
+            if ($emailAddress = (string)$local->report->email_address) {
                 $config->email_address = $emailAddress;
             }
-            if (($trash = (string)$local->report->trash)) {
+            if ($trash = (string)$local->report->trash) {
                 $config->trash = $trash;
             }
-            if (($localSkin = (string)$local->skin)) {
+            if ($localSkin = (string)$local->skin) {
                 $this->_setSkin($localSkin, $config);
             }
         }
