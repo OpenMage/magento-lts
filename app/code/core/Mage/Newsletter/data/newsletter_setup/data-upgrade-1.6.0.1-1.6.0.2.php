@@ -60,7 +60,7 @@ $newsletterContent = <<<EOD
         <table class="columns">
             <tr>
                 <td>
-                    <img width="600" src="http://placehold.it/600x200" class="main-image">
+                    <img width="600" src="https://via.placeholder.com/600x200" class="main-image">
                 </td>
                 <td class="expander"></td>
             </tr>
