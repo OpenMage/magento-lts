@@ -147,7 +147,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
     protected function _getRandomDate()
     {
         $timestamp = mktime(rand(0,23), rand(0,59), 0, rand(1,11), rand(1,28), rand(2006, 2007));
-        return date('Y-m-d H:i:s', $timestamp);
+        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
     }
 
     public function save()
