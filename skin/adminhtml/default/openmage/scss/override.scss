@@ -690,11 +690,16 @@ div {
 }
 
 #loading-mask {
-  background: $black_40;
-  z-index: 1000;
-  color: $color_dark_grey;
   opacity: 1;
-
+  .backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: $black_40;
+    color: $color_dark_grey;
+  }
   .loader {
     width: 160px;
     height: 100px;
