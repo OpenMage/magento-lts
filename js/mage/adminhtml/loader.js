@@ -202,16 +202,18 @@ function showLoader(loaderArea) {
     if($(loaderArea) === undefined) {
         loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
     }
-    Element.clonePosition($('loading-mask'), $(loaderArea), {offsetLeft:-2});
-    toggleSelectsUnderBlock($('loading-mask'), false);
-    Element.show('loading-mask');
-    Element.childElements('loading-mask').invoke('hide');
-    setLoaderPosition();
-    if(!loaderTimeout) {
-        loaderTimeout = setTimeout(function() {
-            Element.childElements('loading-mask').invoke('show');
-        }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
+    var loadingMask = $('loading-mask');
+    if(Element.visible(loadingMask)) {
+        return;
     }
+    Element.clonePosition(loadingMask, loaderArea, {offsetLeft:-2});
+    toggleSelectsUnderBlock(loadingMask, false);
+    Element.show(loadingMask);
+    Element.childElements(loadingMask).invoke('hide');
+    setLoaderPosition();
+    loaderTimeout = setTimeout(function() {
+        Element.childElements(loadingMask).invoke('show');
+    }, typeof window.LOADING_TIMEOUT === 'undefined' ? 200 : window.LOADING_TIMEOUT);
 }
 
 function hideLoader() {
