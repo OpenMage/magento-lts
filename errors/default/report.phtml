@@ -17,6 +17,10 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @var Error_Processor $this
+ */
 ?>
 <div class="col-main">
     <div class="page-title">
@@ -85,11 +89,11 @@
         </div>
         <p class="required">* Required Fields</p>
     </form>
-    <?php elseif ('' == $this->reportAction): ?>
+    <?php elseif ($this->reportAction === ''): ?>
         <p><em>Exception printing is disabled by default for security reasons.</em></p>
     <?php endif ?>
 
-    <?php if ($this->reportAction == 'print'): ?>
+    <?php if ($this->reportAction === 'print'): ?>
     <div class="trace-container">
         <div class="trace">
             <pre><?php echo $this->reportData[0] ?><br />
