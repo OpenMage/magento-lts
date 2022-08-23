@@ -35,8 +35,8 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     {
         parent::__construct();
         $this->setId('catalog_search_grid');
-        $this->setDefaultSort('search_query');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('query_id');
+        $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
     }
 
@@ -62,6 +62,12 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
+        $this->addColumn('query_id', array(
+            'header'    => Mage::helper('catalog')->__('ID'),
+            'width'     => '50px',
+            'index'     => 'query_id',
+        ));
+
         $this->addColumn('search_query', [
             'header'    => Mage::helper('catalog')->__('Search Query'),
             'index'     => 'query_text',
