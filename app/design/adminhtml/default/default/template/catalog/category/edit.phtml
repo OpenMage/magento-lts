@@ -183,10 +183,7 @@
 
     function displayLoadingMask()
     {
-       var loaderArea = $$('#html-body .wrapper')[0]; // Blocks all page
-        Position.clone($(loaderArea), $('loading-mask'), {offsetLeft:-2});
-        toggleSelectsUnderBlock($('loading-mask'), false);
-        Element.show('loading-mask');
+        showLoader();
     }
 //]]>
 </script>
