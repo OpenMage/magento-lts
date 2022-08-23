@@ -1126,7 +1126,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false, $useTimezone = true)
     {
-        return $this->helper('core')->formatDate($date, $format, $showTime, $useTimezone);
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatDate($date, $format, $showTime, $useTimezone);
     }
 
     /**
@@ -1139,7 +1141,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      */
     public function formatTime($time = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showDate = false)
     {
-        return $this->helper('core')->formatTime($time, $format, $showDate);
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->formatTime($time, $format, $showDate);
     }
 
     /**
@@ -1266,7 +1270,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * Get chilren blocks count
+     * Get children blocks count
      * @return int
      */
     public function countChildren()
