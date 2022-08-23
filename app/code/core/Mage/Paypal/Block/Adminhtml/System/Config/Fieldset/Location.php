@@ -374,6 +374,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Location
                 }
             });
         ';
-        return parent::_getExtraJs($element, $tooltipsExist) . $this->helper('adminhtml/js')->getScript($js);
+
+        /** @var Mage_Adminhtml_Helper_Js $helper */
+        $helper = $this->helper('adminhtml/js');
+        return parent::_getExtraJs($element, $tooltipsExist) . $helper->getScript($js);
     }
 }
