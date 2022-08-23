@@ -19,19 +19,17 @@
  */
 ?>
 <p class="bug-report">
-    <a href="<?php echo $this->getBugreportUrl() ?>" id="footer_bug_tracking"><?php echo $this->__('Help Us Keep OpenMage Healthy - Report All Bugs') ?></a><br/>
     <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
 </p>
 <p class="legality">
-    <a href="<?php echo $this->getConnectWithMagentoUrl() ?>" id="footer_connect"><?php echo $this->__('Connect with the OpenMage Community') ?></a>
+    <a href="<?php echo $this->getConnectWithMagentoUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Community') ?></a> |
+    <a href="<?php echo $this->getBugreportUrl() ?>" target="_blank"><?php echo $this->__('Report A Bug') ?></a>
 </p>
 <?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion()) ?>
 <script type="text/javascript">
-    $('footer_bug_tracking').target = 'Varien_External';
-    $('footer_connect').target = 'Varien_External';
-    function setInterfaceLanguage(evt){
+    function setInterfaceLanguage(evt) {
         var elem = Event.element(evt);
-        if(elem){
+        if (elem) {
             setLocation('<?php echo $this->getChangeLocaleUrl() ?>locale/'+elem.value+'/<?php echo $this->getRefererParamName() ?>/<?php echo $this->getUrlForReferer() ?>');
         }
     }
