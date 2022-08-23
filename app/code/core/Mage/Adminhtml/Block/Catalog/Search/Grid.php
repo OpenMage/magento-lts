@@ -30,21 +30,21 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
 {
     /**
      * Init Grid default properties
-     *
      */
     public function __construct()
     {
         parent::__construct();
         $this->setId('catalog_search_grid');
-        $this->setDefaultSort('name');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('query_id');
+        $this->setDefaultDir('asc');
         $this->setSaveParametersInSession(true);
     }
 
     /**
      * Prepare collection for Grid
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _prepareCollection()
     {
@@ -57,15 +57,16 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare Grid columns
      *
-     * @return $this
+     * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        /*$this->addColumn('query_id', array(
+        $this->addColumn('query_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'width'     => '50px',
             'index'     => 'query_id',
-        ));*/
+        ));
 
         $this->addColumn('search_query', [
             'header'    => Mage::helper('catalog')->__('Search Query'),
@@ -143,7 +144,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Prepare grid massaction actions
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareMassaction()
     {
@@ -162,11 +163,11 @@ class Mage_Adminhtml_Block_Catalog_Search_Grid extends Mage_Adminhtml_Block_Widg
     /**
      * Retrieve Row Click callback URL
      *
+     * @param Mage_CatalogSearch_Model_Query $row
      * @return string
      */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
-
 }
