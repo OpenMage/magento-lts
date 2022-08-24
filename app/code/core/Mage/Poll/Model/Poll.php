@@ -60,8 +60,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * @var Mage_Poll_Model_Poll_Answer[]
      */
-    protected $_answersCollection   = array();
-    protected $_storeCollection     = array();
+    protected $_answersCollection   = [];
+    protected $_storeCollection     = [];
 
     /**
      * Model event prefix
@@ -130,7 +130,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function isValidationByIp()
     {
-        return (1 == Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP));
+        return (Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP) == 1);
     }
 
     /**
@@ -158,7 +158,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 
         // check if it is in cookie
         $cookie = $this->getCookie()->get($this->getCookieName($pollId));
-        if (false !== $cookie) {
+        if ($cookie !== false) {
             return true;
         }
 
@@ -242,11 +242,11 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function getVotedPollsIds()
     {
-        $idsArray = array();
+        $idsArray = [];
 
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
             $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
-            $match   = array();
+            $match   = [];
             if (preg_match($pattern, $cookieName, $match)) {
                 if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
                     $idsArray[$match[1]] = $match[1];

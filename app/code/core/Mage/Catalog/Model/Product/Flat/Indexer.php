@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $this->_getResource()->prepareFlatTable($store);
         }
         Mage::getSingleton('index/indexer')->processEntityAction(
-            new Varien_Object(array('id' => $store)),
+            new Varien_Object(['id' => $store]),
             self::ENTITY,
             self::EVENT_TYPE_REBUILD
         );

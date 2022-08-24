@@ -82,18 +82,18 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
         $tmpFileName = $this->_getTmpFilePath();
 
         $file = new Varien_Io_File();
-        $file->open(array('path' => sys_get_temp_dir()));
+        $file->open(['path' => sys_get_temp_dir()]);
         $file->streamOpen($tmpFileName);
         $file->streamWrite(base64_decode($fileInfo['base64_content']));
         $file->streamClose();
 
-        return array(
+        return [
             'name' => $fileInfo['name'],
             'type' => isset($fileInfo['type'])? $fileInfo['type'] : self::DEFAULT_FILE_TYPE,
             'tmp_name' => $tmpFileName,
             'error' => 0,
             'size' => filesize($tmpFileName)
-        );
+        ];
     }
 
     /**

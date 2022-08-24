@@ -47,7 +47,7 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -69,16 +69,16 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
     protected function _getSelectedColumns()
     {
         $adapter = $this->getConnection();
-        if ('month' == $this->_period) {
+        if ($this->_period == 'month') {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m');
-        } elseif ('year' == $this->_period) {
+        } elseif ($this->_period == 'year') {
             $this->_periodFormat = $adapter->getDateExtractSql('period', Varien_Db_Adapter_Interface::INTERVAL_YEAR);
         } else {
             $this->_periodFormat = $adapter->getDateFormatSql('period', '%Y-%m-%d');
         }
 
         if (!$this->isTotals()) {
-            $this->_selectedColumns = array(
+            $this->_selectedColumns = [
                 'period'                         => $this->_periodFormat,
                 'orders_count'                   => 'SUM(orders_count)',
                 'total_qty_ordered'              => 'SUM(total_qty_ordered)',
@@ -96,7 +96,7 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
                 'total_shipping_amount_actual'   => 'SUM(total_shipping_amount_actual)',
                 'total_discount_amount'          => 'SUM(total_discount_amount)',
                 'total_discount_amount_actual'   => 'SUM(total_discount_amount_actual)',
-            );
+            ];
         }
 
         if ($this->isTotals()) {

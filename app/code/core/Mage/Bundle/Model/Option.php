@@ -85,7 +85,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
             return false;
         }
         if (!$selections = $this->getData('selections')) {
-            $selections = array();
+            $selections = [];
         }
         $selections[] = $selection;
         $this->setSelections($selections);

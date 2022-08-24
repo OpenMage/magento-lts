@@ -192,7 +192,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                     Mage::helper('adminhtml')->__('An error occurred while deleting email template data. Please review log and try again.')
                 );
                 Mage::logException($e);
-                $this->_redirect('*/*/edit', array('id' => $template));
+                $this->_redirect('*/*/edit', ['id' => $template]);
                 return;
             }
         }

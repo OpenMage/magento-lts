@@ -59,14 +59,14 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
      *
      * @var array
      */
-    protected $_protectedPaths = array();
+    protected $_protectedPaths = [];
 
     /**
      * Available paths
      *
      * @var array
      */
-    protected $_availablePaths = array();
+    protected $_availablePaths = [];
 
     /**
      * Cache of made regular expressions from path masks
@@ -91,14 +91,14 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     protected function _initMessageTemplates()
     {
         if (!$this->_messageTemplates) {
-            $this->_messageTemplates = array(
+            $this->_messageTemplates = [
                 self::PROTECTED_PATH =>
                     Mage::helper('core')->__('Path "%value%" is protected and cannot be used.'),
                 self::NOT_AVAILABLE_PATH =>
                     Mage::helper('core')->__('Path "%value%" is not available and cannot be used.'),
                 self::PROTECTED_LFI =>
                     Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
-            );
+            ];
         }
         return $this;
     }
@@ -225,7 +225,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
 
         //validation
         $protectedExtensions = Mage::helper('core/data')->getProtectedFileExtensions();
-        $value = str_replace(array('/', '\\'), DS, $this->_value);
+        $value = str_replace(['/', '\\'], DS, $this->_value);
         $valuePathInfo = pathinfo(ltrim($value, '\\/'));
         $fileNameExtension = pathinfo($valuePathInfo['filename'], PATHINFO_EXTENSION);
 
@@ -268,7 +268,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 if ($pathInfo['dirname'] == '.' || $pathInfo['dirname'] == DS) {
                     $pathInfo['dirname'] = '';
                 } else {
-                    $pathInfo['dirname'] = str_replace(array('/', '\\'), DS, $pathInfo['dirname']);
+                    $pathInfo['dirname'] = str_replace(['/', '\\'], DS, $pathInfo['dirname']);
                 }
                 $options['dir_mask'] = $pathInfo['dirname'];
                 $this->_pathsData[$path]['options'] = $options;
@@ -277,7 +277,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
             }
 
             //file mask
-            if (false !== (strpos($options['file_mask'], '*'))) {
+            if ((strpos($options['file_mask'], '*')) !== false) {
                 if (!isset($this->_pathsData[$path]['regFilename'])) {
                     //make regular
                     $reg = $options['file_mask'];

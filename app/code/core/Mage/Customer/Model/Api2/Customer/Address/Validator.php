@@ -99,7 +99,6 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
      */
     protected function _checkRegion($data, Mage_Directory_Model_Country $country)
     {
-        /* @var Mage_Directory_Model_Resource_Region_Collection $regions */
         $regions = $country->getRegions();
         // Is it the country with predifined regions?
         if ($regions->count()) {
@@ -113,7 +112,7 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 return false;
             }
 
-            $count = $regions->addFieldToFilter(array('default_name', 'code'), array($data['region'], $data['region']))
+            $count = $regions->addFieldToFilter(['default_name', 'code'], [$data['region'], $data['region']])
                 ->clear()
                 ->count();
             if (!$count) {

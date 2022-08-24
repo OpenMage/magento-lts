@@ -30,7 +30,7 @@
 </tr>
 <?php foreach ($this->getTotalItems() as $i => $item): ?>
 <?php foreach ($this->getTotalItemDetails($item) as $j => $row):?>
-<tr class="summary-details <?php echo "summary-details-nominal-{$i}" . (0 == $j ? ' summary-details-first' : '') . ($this->getItemDetailsRowIsCompounded($row) ? '' : ' summary-details-excluded')?>" style="display:none;">
+<tr class="summary-details <?php echo "summary-details-nominal-{$i}" . ($j == 0 ? ' summary-details-first' : '') . ($this->getItemDetailsRowIsCompounded($row) ? '' : ' summary-details-excluded')?>" style="display:none;">
     <td colspan="<?php echo $this->getColspan(); ?>" style="<?php echo $this->getTotalStyle() ?>" class="a-right">
         <?php echo $this->escapeHtml($this->getItemDetailsRowLabel($row)) ?>
     </td>

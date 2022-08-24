@@ -33,7 +33,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
      *
      * @var array
      */
-    protected $_convertTable = array(
+    protected $_convertTable = [
         '&amp;' => 'and',   '@' => 'at',    '©' => 'c', '®' => 'r', 'À' => 'a',
         'Á' => 'a', 'Â' => 'a', 'Ä' => 'a', 'Å' => 'a', 'Æ' => 'ae','Ç' => 'c',
         'È' => 'e', 'É' => 'e', 'Ë' => 'e', 'Ì' => 'i', 'Í' => 'i', 'Î' => 'i',
@@ -87,7 +87,7 @@ class Mage_Catalog_Helper_Product_Url extends Mage_Core_Helper_Url
         'ך' => 'k', 'כ' => 'k', 'ל' => 'l', 'ם' => 'm', 'מ' => 'm', 'ן' => 'n',
         'נ' => 'n', 'ס' => 's', 'ע' => 'e', 'ף' => 'p', 'פ' => 'p', 'ץ' => 'C',
         'צ' => 'c', 'ק' => 'q', 'ר' => 'r', 'ש' => 'w', 'ת' => 't', '™' => 'tm',
-    );
+    ];
 
     /**
      * Check additional instruction for convertation table in configuration

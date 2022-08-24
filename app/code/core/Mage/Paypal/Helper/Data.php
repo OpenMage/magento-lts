@@ -49,7 +49,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function shouldAskToCreateBillingAgreement(Mage_Paypal_Model_Config $config, $customerId)
     {
-        if (null === self::$_shouldAskToCreateBillingAgreement) {
+        if (self::$_shouldAskToCreateBillingAgreement === null) {
             self::$_shouldAskToCreateBillingAgreement = false;
             if ($customerId && $config->shouldAskToCreateBillingAgreement()) {
                 if (Mage::getModel('sales/billing_agreement')->needToCreateForCustomer($customerId)) {
@@ -109,12 +109,12 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getHtmlTransactionId($methodCode, $txnId)
     {
-        if (in_array($methodCode, array(
+        if (in_array($methodCode, [
             Mage_Paypal_Model_Config::METHOD_WPP_DIRECT,
             Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS,
             Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
             Mage_Paypal_Model_Config::METHOD_WPS,
-        ))) {
+        ])) {
             /** @var Mage_Paypal_Model_Config $config */
             $config = Mage::getModel('paypal/config')->setMethod($methodCode);
             $url = 'https://www.' . ($config->sandboxFlag ? 'sandbox.' : '')

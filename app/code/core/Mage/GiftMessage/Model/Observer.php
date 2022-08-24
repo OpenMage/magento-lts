@@ -104,7 +104,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
     {
         $giftMessages = $observer->getEvent()->getRequest()->getParam('giftmessage');
         $quote = $observer->getEvent()->getQuote();
-        /* @var Mage_Sales_Model_Quote $quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         if (is_array($giftMessages)) {
             foreach ($giftMessages as $entityId => $message) {
                 $giftMessage = Mage::getModel('giftmessage/message');

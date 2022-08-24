@@ -50,50 +50,50 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
     protected function _prepareColumns()
     {
 
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     => '50px',
             'align'     =>'right',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('reports')->__('First Name'),
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('reports')->__('Last Name'),
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Total Tags'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'taged'
-        ));
+        ]);
 
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
                 'type'      => 'action',
                 'getter'    => 'getId',
-                'actions'   => array(
-                    array(
+                'actions'   => [
+                    [
                         'caption' => Mage::helper('catalog')->__('Show Tags'),
-                        'url'     => array(
+                        'url'     => [
                             'base'=>'*/*/customerDetail'
-                        ),
+                        ],
                         'field'   => 'id'
-                    )
-                ),
+                    ]
+                ],
                 'is_system' => true,
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-        ));
+            ]);
 
         $this->setFilterVisibility(false);
 
@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Grid extends Mage_Adminhtml_Block
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/customerDetail', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/customerDetail', ['id'=>$row->getId()]);
     }
 
 }

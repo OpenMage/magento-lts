@@ -38,18 +38,18 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tabs extends Mage_Adminhtml_Blo
 
     protected function _beforeToHtml()
     {
-        $this->addTab('main_section', array(
+        $this->addTab('main_section', [
             'label'     => Mage::helper('adminhtml')->__('User Info'),
             'title'     => Mage::helper('adminhtml')->__('User Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/permissions_user_edit_tab_main')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
-        $this->addTab('roles_section', array(
+        $this->addTab('roles_section', [
             'label'     => Mage::helper('adminhtml')->__('User Role'),
             'title'     => Mage::helper('adminhtml')->__('User Role'),
             'content'   => $this->getLayout()->createBlock('adminhtml/permissions_user_edit_tab_roles', 'user.roles.grid')->toHtml(),
-        ));
+        ]);
         return parent::_beforeToHtml();
     }
 

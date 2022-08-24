@@ -238,16 +238,16 @@ $pageContent = <<<EOD
 </table>
 EOD;
 
-$privacyPageData = array(
+$privacyPageData = [
     'title'           => 'Privacy Policy',
     'content_heading' => 'Privacy Policy',
     'root_template'   => 'one_column',
     'identifier'      => 'privacy-policy-cookie-restriction-mode',
     'content'         => $pageContent,
     'is_active'       => 1,
-    'stores'          => array(0),
+    'stores'          => [0],
     'sort_order'      => 0
-);
+];
 
 Mage::getModel('cms/page')->setData($privacyPageData)->save();
 

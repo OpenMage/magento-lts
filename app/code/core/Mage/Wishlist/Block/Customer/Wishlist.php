@@ -31,7 +31,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     /**
      * List of product options rendering configurations by product type
      */
-    protected $_optionsCfg = array();
+    protected $_optionsCfg = [];
 
     /**
      * Add wishlist conditions to collection
@@ -104,7 +104,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
     {
-        $this->_optionsCfg[$productType] = array('helper' => $helperName, 'template' => $template);
+        $this->_optionsCfg[$productType] = ['helper' => $helperName, 'template' => $template];
         return $this;
     }
 

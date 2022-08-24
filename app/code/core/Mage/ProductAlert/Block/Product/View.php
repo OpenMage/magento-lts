@@ -56,7 +56,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
     public function preparePriceAlertData()
     {
         if (!$this->_getHelper()->isPriceAlertAllowed()
-            || !$this->_product || false === $this->_product->getCanShowPrice()
+            || !$this->_product || $this->_product->getCanShowPrice() === false
         ) {
             $this->setTemplate('');
             return;

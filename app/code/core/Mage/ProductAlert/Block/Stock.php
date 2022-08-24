@@ -43,7 +43,7 @@ class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
         if (!$product = Mage::helper('productalert')->getProduct()) {
             return false;
         }
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         return !$product->isSaleable();
     }
@@ -53,7 +53,7 @@ class Mage_ProductAlert_Block_Stock extends Mage_Core_Block_Template
      * @param array $params
      * @return string
      */
-    public function getUrl($route = '', $params = array())
+    public function getUrl($route = '', $params = [])
     {
         return Mage::helper('productalert')->getSaveUrl('stock');
     }

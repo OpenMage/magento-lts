@@ -32,8 +32,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
 {
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -43,8 +41,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -96,7 +92,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
 
             $defText = $element->getDefaultValue();
             if ($options) {
-                $defTextArr = array();
+                $defTextArr = [];
                 foreach ($options as $k=>$v) {
                     if ($isMultiple) {
                         if (is_array($v['value']) && in_array($k, $v['value'])) {

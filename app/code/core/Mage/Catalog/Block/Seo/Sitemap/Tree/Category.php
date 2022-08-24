@@ -36,7 +36,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected $_from = 0;
     protected $_to = 0;
     protected $_currentPage = 0;
-    protected $_categoriesToPages = array();
+    protected $_categoriesToPages = [];
     /**
      * Initialize categories collection
      *
@@ -45,7 +45,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var Mage_Catalog_Helper_Category $helper */
+        /** @var Mage_Catalog_Helper_Category $helper */
         $parent = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load(Mage::app()->getStore()->getRootCategoryId());
@@ -65,9 +65,9 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public function bindPager($pagerName)
     {
         $pager = $this->getLayout()->getBlock($pagerName);
-        /* @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
+        /** @var Mage_Catalog_Block_Seo_Sitemap_Tree_Pager $pager */
         if ($pager) {
-            $pager->setAvailableLimit(array(50 => 50));
+            $pager->setAvailableLimit([50 => 50]);
             $pager->setTotalNum($this->_total);
             $pager->setLastPageNum(count($this->_categoriesToPages));
             if (!$this->_currentPage) {
@@ -96,23 +96,23 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
             ->addOrderField('path');
         $count = 0;
         $page = 1;
-        $categories = array();
+        $categories = [];
         foreach ($tmpCollection as $item) {
             $children = $item->getChildrenCount()+1;
             $this->_total += $children;
             if (($children+$count) >= $linesPerPage) {
-                $categories[$page][$item->getId()] = array(
+                $categories[$page][$item->getId()] = [
                     'path' => $item->getPath(),
                     'children_count' => $this->_total
-                );
+                ];
                 $page++;
                 $count = 0;
                 continue;
             }
-            $categories[$page][$item->getId()] = array(
+            $categories[$page][$item->getId()] = [
                 'path' => $item->getPath(),
                 'children_count' => $this->_total
-            );
+            ];
             $count += $children;
         }
         $this->_categoriesToPages = $categories;
@@ -142,7 +142,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     protected function _prepareCollection()
     {
         $_to = 0;
-        $pathFilter = array();
+        $pathFilter = [];
         if (isset($this->_categoriesToPages[$this->_currentPage])) {
             foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId => $_categoryInfo) {
                 $pathFilter[] = $_categoryInfo['path'];

@@ -134,7 +134,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStates()
     {
-        $states = array();
+        $states = [];
         foreach ($this->getNode('states')->children() as $state) {
             $label = (string) $state->label;
             $states[$state->getName()] = Mage::helper('sales')->__($label);
@@ -162,9 +162,9 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         if (isset($this->_stateStatuses[$key])) {
             return $this->_stateStatuses[$key];
         }
-        $statuses = array();
+        $statuses = [];
         if (empty($state) || !is_array($state)) {
-            $state = array($state);
+            $state = [$state];
         }
         foreach ($state as $_state) {
             $stateNode = $this->_getState($_state);
@@ -196,7 +196,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatusStates($status)
     {
-        $states = array();
+        $states = [];
         $collection = Mage::getResourceModel('sales/order_status_collection')->addStatusFilter($status);
         foreach ($collection as $state) {
             $states[] = $state;
@@ -231,13 +231,13 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     private function _getStates()
     {
-        if (null === $this->_states) {
-            $this->_states = array(
-                'all'       => array(),
-                'visible'   => array(),
-                'invisible' => array(),
-                'statuses'  => array(),
-            );
+        if ($this->_states === null) {
+            $this->_states = [
+                'all'       => [],
+                'visible'   => [],
+                'invisible' => [],
+                'statuses'  => [],
+            ];
             foreach ($this->getNode('states')->children() as $state) {
                 $name = $state->getName();
                 $this->_states['all'][] = $name;

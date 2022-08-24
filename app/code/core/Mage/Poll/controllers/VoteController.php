@@ -32,7 +32,7 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
      *
      * @var array
      */
-    protected $_cookieCheckActions = array('add');
+    protected $_cookieCheckActions = ['add'];
 
     /**
      * Add Vote to Poll
@@ -58,10 +58,10 @@ class Mage_Poll_VoteController extends Mage_Core_Controller_Front_Action
             Mage::getSingleton('core/session')->setJustVotedPoll($pollId);
             Mage::dispatchEvent(
                 'poll_vote_add',
-                array(
+                [
                     'poll'  => $poll,
                     'vote'  => $vote
-                )
+                ]
             );
         }
         $this->_redirectReferer();

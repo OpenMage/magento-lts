@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -31,9 +31,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('poll/poll_vote'),
-    array(
+    [
         'ip_address' => new Zend_Db_Expr('UNHEX(HEX(CAST(ip_address as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();

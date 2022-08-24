@@ -47,7 +47,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
         } elseif ($type == 'link_samples') {
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
-        $result = array();
+        $result = [];
         try {
             $uploader = new Mage_Core_Model_File_Uploader($type);
             $uploader->setAllowRenameFiles(true);
@@ -65,15 +65,15 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
                 Mage::helper('core/file_storage_database')->saveFile($fullPath);
             }
 
-            $result['cookie'] = array(
+            $result['cookie'] = [
                 'name'     => session_name(),
                 'value'    => $this->_getSession()->getSessionId(),
                 'lifetime' => $this->_getSession()->getCookieLifetime(),
                 'path'     => $this->_getSession()->getCookiePath(),
                 'domain'   => $this->_getSession()->getCookieDomain()
-            );
+            ];
         } catch (Exception $e) {
-            $result = array('error'=>$e->getMessage(), 'errorcode'=>$e->getCode());
+            $result = ['error'=>$e->getMessage(), 'errorcode'=>$e->getCode()];
         }
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));

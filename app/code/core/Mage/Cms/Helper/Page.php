@@ -97,7 +97,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
 
-        Mage::dispatchEvent('cms_page_render', array('page' => $page, 'controller_action' => $action));
+        Mage::dispatchEvent('cms_page_render', ['page' => $page, 'controller_action' => $action]);
 
         $action->loadLayoutUpdates();
         $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange)
@@ -118,7 +118,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         /* @TODO: Move catalog and checkout storage types to appropriate modules */
         $messageBlock = $action->getLayout()->getMessagesBlock();
-        foreach (array('catalog/session', 'checkout/session', 'customer/session') as $storageType) {
+        foreach (['catalog/session', 'checkout/session', 'customer/session'] as $storageType) {
             $storage = Mage::getSingleton($storageType);
             if ($storage) {
                 $messageBlock->addStorageType($storageType);
@@ -168,6 +168,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return null;
         }
 
-        return Mage::getUrl(null, array('_direct' => $page->getIdentifier()));
+        return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
     }
 }

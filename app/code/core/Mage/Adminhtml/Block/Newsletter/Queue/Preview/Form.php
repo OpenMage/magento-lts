@@ -35,15 +35,15 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
             'id' => 'preview_form',
-            'action' => $this->getUrl('*/*/drop', array('_current' => true)),
+            'action' => $this->getUrl('*/*/drop', ['_current' => true]),
             'method' => 'post'
-        ));
+        ]);
 
         if ($data = $this->getFormData()) {
 
-            $mapper = array('preview_store_id' => 'store_id');
+            $mapper = ['preview_store_id' => 'store_id'];
 
             foreach ($data as $key => $value) {
                 if(array_key_exists($key, $mapper)) {
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
                 } else {
                     $name = $key;
                 }
-                $form->addField($key, 'hidden', array('name' => $name));
+                $form->addField($key, 'hidden', ['name' => $name]);
             }
             $form->setValues($data);
         }

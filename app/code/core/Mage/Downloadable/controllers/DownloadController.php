@@ -182,7 +182,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 $this->_getCustomerSession()->authenticate($this);
                 $this->_getCustomerSession()->setBeforeAuthUrl(
                     Mage::getUrl('downloadable/customer/products/'),
-                    array('_secure' => true)
+                    ['_secure' => true]
                 );
                 return ;
             }

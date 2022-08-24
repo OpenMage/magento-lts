@@ -31,9 +31,9 @@ class Mage_Directory_Helper_Url extends Mage_Core_Helper_Url
      * @param array $params Additional url params
      * @return string
      */
-    public function getSwitchCurrencyUrl($params = array())
+    public function getSwitchCurrencyUrl($params = [])
     {
-        $params = is_array($params) ? $params : array();
+        $params = is_array($params) ? $params : [];
 
         if ($this->_getRequest()->getAlias('rewrite_request_path')) {
             $url = Mage::app()->getStore()->getBaseUrl() . $this->_getRequest()->getAlias('rewrite_request_path');

@@ -65,30 +65,30 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
                 ->where('product_id = :product_id')
                 ->where('website_id = :website_id')
                 ->where('stock_id = :stock_id');
-            $bind = array(
+            $bind = [
                 ':product_id' => $productId,
                 ':website_id' => $websiteId,
                 ':stock_id'   => $stockId
-            );
+            ];
             if ($row = $adapter->fetchRow($select, $bind)) {
-                $bind = array(
+                $bind = [
                     'qty'           => $qty,
                     'stock_status'  => $status
-                );
-                $where = array(
+                ];
+                $where = [
                     $adapter->quoteInto('product_id=?', (int)$row['product_id']),
                     $adapter->quoteInto('website_id=?', (int)$row['website_id']),
                     $adapter->quoteInto('stock_id=?', (int)$row['stock_id']),
-                );
+                ];
                 $adapter->update($this->getMainTable(), $bind, $where);
             } else {
-                $bind = array(
+                $bind = [
                     'product_id'    => $productId,
                     'website_id'    => $websiteId,
                     'stock_id'      => $stockId,
                     'qty'           => $qty,
                     'stock_status'  => $status
-                );
+                ];
                 $adapter->insert($this->getMainTable(), $bind);
             }
         }
@@ -108,11 +108,11 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     public function getProductStatus($productIds, $websiteId, $stockId = 1)
     {
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('product_id', 'stock_status'))
+            ->from($this->getMainTable(), ['product_id', 'stock_status'])
             ->where('product_id IN(?)', $productIds)
             ->where('stock_id=?', (int)$stockId)
             ->where('website_id=?', (int)$websiteId);
@@ -130,10 +130,10 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     public function getProductData($productIds, $websiteId, $stockId = 1)
     {
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
 
-        $result = array();
+        $result = [];
 
         $select = $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
@@ -165,13 +165,13 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     public function getProductsType($productIds)
     {
         if (!is_array($productIds)) {
-            $productIds = array($productIds);
+            $productIds = [$productIds];
         }
 
         $select = $this->_getReadAdapter()->select()
             ->from(
-                array('e' => $this->getTable('catalog/product')),
-                array('entity_id', 'type_id')
+                ['e' => $this->getTable('catalog/product')],
+                ['entity_id', 'type_id']
             )
             ->where('entity_id IN(?)', $productIds);
         return $this->_getReadAdapter()->fetchPairs($select);
@@ -189,13 +189,13 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     {
         $select = $this->_getReadAdapter()->select()
             ->from(
-                array('e' => $this->getTable('catalog/product')),
-                array('entity_id', 'type_id')
+                ['e' => $this->getTable('catalog/product')],
+                ['entity_id', 'type_id']
             )
             ->order('entity_id ASC')
             ->where('entity_id > :entity_id')
             ->limit($limit);
-        return $this->_getReadAdapter()->fetchPairs($select, array(':entity_id' => $lastEntityId));
+        return $this->_getReadAdapter()->fetchPairs($select, [':entity_id' => $lastEntityId]);
     }
 
     /**
@@ -209,9 +209,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     {
         $websiteId = $website->getId();
         $select->joinLeft(
-            array('stock_status' => $this->getMainTable()),
+            ['stock_status' => $this->getMainTable()],
             'e.entity_id = stock_status.product_id AND stock_status.website_id='.$websiteId,
-            array('salable' => 'stock_status.stock_status')
+            ['salable' => 'stock_status.stock_status']
         );
 
         return $this;
@@ -228,9 +228,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
     {
         $select->join(
-            array('ciss' => $this->getMainTable()),
+            ['ciss' => $this->getMainTable()],
             "ciss.product_id = {$entityField} AND ciss.website_id = {$websiteField}",
-            array()
+            []
         );
         $select->where('ciss.stock_status = ?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
 
@@ -257,9 +257,9 @@ class Mage_CatalogInventory_Model_Resource_Stock_Status extends Mage_Core_Model_
 
         $collection->getSelect()
             ->join(
-                array('stock_status_index' => $this->getMainTable()),
+                ['stock_status_index' => $this->getMainTable()],
                 $joinCondition,
-                array()
+                []
             )
             ->where('stock_status_index.stock_status=?', Mage_CatalogInventory_Model_Stock_Status::STATUS_IN_STOCK);
 

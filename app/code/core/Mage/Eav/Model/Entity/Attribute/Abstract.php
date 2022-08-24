@@ -102,7 +102,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      *
      * @var array
      */
-    protected $_attributeIdCache            = array();
+    protected $_attributeIdCache            = [];
 
     /**
      * Attribute data table name
@@ -382,7 +382,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return Mage_Eav_Model_Entity_Type
      */
@@ -417,7 +417,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Retreive entity type
+     * Retrieve entity type
      *
      * @return string
      */
@@ -632,7 +632,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             } else {
                 $backendTable = trim($this->_getData('backend_table'));
                 if (empty($backendTable)) {
-                    $entityTable  = array($this->getEntity()->getEntityTablePrefix(), $this->getBackendType());
+                    $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);
                 }
                 $this->_dataTable = $backendTable;
@@ -668,7 +668,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function _getFlatColumnsDdlDefinition()
     {
         $helper  = Mage::getResourceHelper('eav');
-        $columns = array();
+        $columns = [];
         switch ($this->getBackendType()) {
             case 'static':
                 $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
@@ -679,62 +679,62 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 $type = $prop['DATA_TYPE'];
                 $size = ($prop['LENGTH'] ? $prop['LENGTH'] : null);
 
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
                     'length'    => $size,
                     'unsigned'  => $prop['UNSIGNED'] ? true: false,
                     'nullable'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
-                );
+                ];
                 break;
             case 'datetime':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_DATETIME,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'decimal':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                     'length'    => '12,4',
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'int':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'text':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null,
                     'length'    => Varien_Db_Ddl_Table::MAX_TEXT_SIZE
-                );
+                ];
                 break;
             case 'varchar':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                     'length'    => '255',
                     'unsigned'  => false,
                     'nullable'  => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
         }
 
@@ -749,7 +749,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     protected function _getFlatColumnsOldDefinition()
     {
-        $columns = array();
+        $columns = [];
         switch ($this->getBackendType()) {
             case 'static':
                 $describe = $this->_getResource()->describeTable($this->getBackend()->getTable());
@@ -763,58 +763,58 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 } else {
                     $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : "";
                 }
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
                     'unsigned'  => $prop['UNSIGNED'] ? true: false,
                     'is_null'   => $prop['NULLABLE'],
                     'default'   => $prop['DEFAULT'],
                     'extra'     => null
-                );
+                ];
                 break;
             case 'datetime':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'datetime',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'decimal':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'decimal(12,4)',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'int':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'int',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'text':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'text',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
             case 'varchar':
-                $columns[$this->getAttributeCode()] = array(
+                $columns[$this->getAttributeCode()] = [
                     'type'      => 'varchar(255)',
                     'unsigned'  => false,
                     'is_null'   => true,
                     'default'   => null,
                     'extra'     => null
-                );
+                ];
                 break;
         }
         return $columns;
@@ -840,7 +840,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
                 return $this->getSource()->getFlatIndexes();
             }
-            $indexes = array();
+            $indexes = [];
 
             switch ($this->getBackendType()) {
                 case 'static':
@@ -849,7 +849,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     if (!isset($describe[$this->getAttributeCode()])) {
                         break;
                     }
-                    $indexDataTypes = array(
+                    $indexDataTypes = [
                         'varchar',
                         'varbinary',
                         'char',
@@ -870,14 +870,14 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                         'float',
                         'double',
                         'decimal',
-                    );
+                    ];
                     $prop = $describe[$this->getAttributeCode()];
                     if (in_array($prop['DATA_TYPE'], $indexDataTypes)) {
                         $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
-                        $indexes[$indexName] = array(
+                        $indexes[$indexName] = [
                             'type'      => 'index',
-                            'fields'    => array($this->getAttributeCode())
-                        );
+                            'fields'    => [$this->getAttributeCode()]
+                        ];
                     }
 
                     break;
@@ -886,17 +886,17 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 case 'int':
                 case 'varchar':
                     $indexName = 'IDX_' . strtoupper($this->getAttributeCode());
-                    $indexes[$indexName] = array(
+                    $indexes[$indexName] = [
                         'type'      => 'index',
-                        'fields'    => array($this->getAttributeCode())
-                    );
+                        'fields'    => [$this->getAttributeCode()]
+                    ];
                     break;
             }
 
             return $indexes;
         }
 
-        return array();
+        return [];
     }
 
     /**

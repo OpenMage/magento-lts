@@ -62,7 +62,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
             $email          = $post['oar_email'];
             $zip            = $post['oar_zip'];
 
-            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, array('email', 'zip')))
+            if (empty($incrementId) || empty($lastName) || empty($type) || (!in_array($type, ['email', 'zip']))
                 || ($type == 'email' && empty($email)) || ($type == 'zip' && empty($zip))) {
                 $errors = true;
             }
@@ -131,18 +131,18 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
         $breadcrumbs = $controller->getLayout()->getBlock('breadcrumbs');
         $breadcrumbs->addCrumb(
             'home',
-            array(
+            [
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl()
-            )
+            ]
         );
         $breadcrumbs->addCrumb(
             'cms_page',
-            array(
+            [
                 'label' => $this->__('Order Information'),
                 'title' => $this->__('Order Information')
-            )
+            ]
         );
     }
 

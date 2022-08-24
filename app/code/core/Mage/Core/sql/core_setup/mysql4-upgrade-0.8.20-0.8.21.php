@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'data_version', 'varchar(50)');
 
@@ -28,5 +28,5 @@ $installer->getConnection()->addColumn($installer->getTable('core/resource'), 'd
  */
 $installer->getConnection()->update(
     $this->getTable('core/resource'),
-    array('data_version' => new Zend_Db_Expr('version'))
+    ['data_version' => new Zend_Db_Expr('version')]
 );

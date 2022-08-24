@@ -66,15 +66,15 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     /**
      * Identifier constant for unit based calculation
      */
-    protected $_rates                           = array();
+    protected $_rates                           = [];
     /**
      * Identifier constant for row based calculation
      */
-    protected $_ctc                             = array();
+    protected $_ctc                             = [];
     /**
      * Identifier constant for total based calculation
      */
-    protected $_ptc                             = array();
+    protected $_ptc                             = [];
 
     /**
      * CALC_UNIT_BASE
@@ -96,14 +96,14 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_rateCache = array();
+    protected $_rateCache = [];
 
     /**
      * Store the rate calculation process
      *
      * @var array
      */
-    protected $_rateCalculationProcess = array();
+    protected $_rateCalculationProcess = [];
 
     /**
      * Hold the customer
@@ -147,7 +147,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         parent::__construct();
         $this->_taxHelper = !empty($args['helper']) ? $args['helper'] : Mage::helper('tax');
@@ -265,15 +265,15 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $value = $this->getRateValue();
         $id = $this->getRateId();
 
-        $rate = array(
-            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1);
+        $rate = [
+            'code' => $title, 'title' => $title, 'percent' => $value, 'position' => 1, 'priority' => 1];
 
-        $process = array();
+        $process = [];
         $process['percent'] = $value;
         $process['id'] = "{$id}-{$value}";
         $process['rates'][] = $rate;
 
-        return array($process);
+        return [$process];
     }
 
     /**
@@ -293,8 +293,8 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $this->unsRateValue();
             $this->unsCalculationProcess();
             $this->unsEventModuleId();
-            Mage::dispatchEvent('tax_rate_data_fetch', array(
-                'request' => $request));
+            Mage::dispatchEvent('tax_rate_data_fetch', [
+                'request' => $request]);
             if (!$this->hasRateValue()) {
                 $rateInfo = $this->_getResource()->getRateInfo($request);
                 $this->setCalculationProcess($rateInfo['process']);
@@ -524,7 +524,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $productClassId2 = $second->getProductClassId(); // Save to set it back later
 
         // Ids are equal for both requests, so take any of them to process
-        $ids = is_array($productClassId1) ? $productClassId1 : array($productClassId1);
+        $ids = is_array($productClassId1) ? $productClassId1 : [$productClassId1];
         $identical = true;
         foreach ($ids as $productClassId) {
             $first->setProductClassId($productClassId);
@@ -555,7 +555,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     protected function _getRates($request, $fieldName, $type)
     {
-        $result = array();
+        $result = [];
         $classes = Mage::getModel('tax/class')->getCollection()
             ->addFieldToFilter('class_type', $type)
             ->load();
@@ -599,7 +599,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
     public function getAppliedRates($request)
     {
         if (!$request->getCountryId() || !$request->getCustomerClassId() || !$request->getProductClassId()) {
-            return array();
+            return [];
         }
 
         $cacheKey = $this->_getRequestCacheKey($request);

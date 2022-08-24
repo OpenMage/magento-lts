@@ -72,7 +72,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         } else {
             $options = $this->getCountryCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
+                Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
         $html = $this->getLayout()->createBlock('core/html_select')
@@ -117,7 +117,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         } else {
             $options = $this->getRegionCollection()->toOptionArray();
             if (Mage::app()->useCache('config')) {
-                Mage::app()->saveCache(serialize($options), $cacheKey, array('config'));
+                Mage::app()->saveCache(serialize($options), $cacheKey, ['config']);
             }
         }
         $html = $this->getLayout()->createBlock('core/html_select')
@@ -152,23 +152,23 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
         Varien_Profiler::start('TEST: '.__METHOD__);
         $regionsJs = $this->getData('regions_js');
         if (!$regionsJs) {
-            $countryIds = array();
+            $countryIds = [];
             foreach ($this->getCountryCollection() as $country) {
                 $countryIds[] = $country->getCountryId();
             }
             $collection = Mage::getModel('directory/region')->getResourceCollection()
                 ->addCountryFilter($countryIds)
                 ->load();
-            $regions = array();
+            $regions = [];
             /** @var Mage_Directory_Model_Region $region */
             foreach ($collection as $region) {
                 if (!$region->getRegionId()) {
                     continue;
                 }
-                $regions[$region->getCountryId()][$region->getRegionId()] = array(
+                $regions[$region->getCountryId()][$region->getRegionId()] = [
                     'code'=>$region->getCode(),
                     'name'=>$region->getName()
-                );
+                ];
             }
             $regionsJs = Mage::helper('core')->jsonEncode($regions);
         }

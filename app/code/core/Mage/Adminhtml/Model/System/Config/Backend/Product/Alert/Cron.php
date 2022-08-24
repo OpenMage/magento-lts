@@ -39,13 +39,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Product_Alert_Cron extends Mage
         $frequencyWeekly    = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_WEEKLY;
         $frequencyMonthly   = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
-        $cronExprArray      = array(
+        $cronExprArray      = [
             intval($time[1]),                                   # Minute
             intval($time[0]),                                   # Hour
             ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
             '*',                                                    # Month of the Year
             ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-        );
+        ];
 
         $cronExprString = implode(' ', $cronExprArray);
 

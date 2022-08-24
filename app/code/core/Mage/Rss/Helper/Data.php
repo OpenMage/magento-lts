@@ -37,7 +37,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
 
     protected $_adminSession;
 
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_rssSession = isset($params['rss_session']) ? $params['rss_session'] : Mage::getSingleton('rss/session');
         $this->_adminSession = isset($params['admin_session'])
@@ -81,7 +81,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
                 $adminUserExtra = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             }
             if (!isset($adminUserExtra['indirect_login'])) {
-                $adminUserExtra = array_merge($adminUserExtra, array('indirect_login' => true));
+                $adminUserExtra = array_merge($adminUserExtra, ['indirect_login' => true]);
                 $user->saveExtra($adminUserExtra);
             }
             $this->_adminSession->setIndirectLogin(true);
@@ -118,10 +118,10 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function disableFlat()
     {
-        /* @var Mage_Catalog_Helper_Product_Flat $flatHelper */
+        /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
         $flatHelper = Mage::helper('catalog/product_flat');
         if ($flatHelper->isAvailable()) {
-            /* @var Mage_Core_Model_App_Emulation $emulationModel */
+            /** @var Mage_Core_Model_App_Emulation $emulationModel */
             $emulationModel = Mage::getModel('core/app_emulation');
             // Emulate admin environment to disable using flat model - otherwise we won't get global stats
             // for all stores

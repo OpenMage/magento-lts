@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     {
         $data = $this->getPrices();
         if (is_null($data)) {
-            $data = array();
+            $data = [];
         }
         $data[] = $priceData;
         $this->setPrices($data);

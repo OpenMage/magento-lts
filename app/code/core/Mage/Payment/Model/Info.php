@@ -74,12 +74,12 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      */
     public function getData($key = '', $index = null)
     {
-        if ('cc_number'===$key) {
+        if ($key === 'cc_number') {
             if (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc'])) {
                 $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
             }
         }
-        if ('cc_cid'===$key) {
+        if ($key === 'cc_cid') {
             if (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc'])) {
                 $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
             }
@@ -171,7 +171,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function getAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        if (null === $key) {
+        if ($key === null) {
             return $this->_additionalInformation;
         }
         return isset($this->_additionalInformation[$key]) ? $this->_additionalInformation[$key] : null;
@@ -202,7 +202,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function hasAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        return null === $key
+        return $key === null
             ? !empty($this->_additionalInformation)
             : array_key_exists($key, $this->_additionalInformation);
     }
@@ -212,11 +212,11 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      */
     protected function _initAdditionalInformation()
     {
-        if (-1 === $this->_additionalInformation) {
+        if ($this->_additionalInformation === -1) {
             $this->_additionalInformation = $this->_getData('additional_information');
         }
-        if (null === $this->_additionalInformation) {
-            $this->_additionalInformation = array();
+        if ($this->_additionalInformation === null) {
+            $this->_additionalInformation = [];
         }
     }
 }

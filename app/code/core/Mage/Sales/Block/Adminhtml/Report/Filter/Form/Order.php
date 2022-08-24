@@ -40,14 +40,14 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form_Order extends Mage_Sales_Blo
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
         if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
-            $fieldset->addField('show_actual_columns', 'select', array(
+            $fieldset->addField('show_actual_columns', 'select', [
                 'name'       => 'show_actual_columns',
-                'options'    => array(
+                'options'    => [
                     '1' => Mage::helper('reports')->__('Yes'),
                     '0' => Mage::helper('reports')->__('No')
-                ),
+                ],
                 'label'      => Mage::helper('reports')->__('Show Actual Values'),
-            ));
+            ]);
         }
 
         return $this;

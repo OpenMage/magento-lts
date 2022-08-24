@@ -31,20 +31,20 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
     {
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('core')->__('Back'),
                     'onclick'   => 'setLocation(\''.$this->getUrl('*/*/').'\')',
                     'class' => 'back'
-                ))
+                ])
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('core')->__('Save'),
                     'onclick'   => 'designForm.submit()',
                     'class' => 'save'
-                ))
+                ])
         );
 
         $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
@@ -52,12 +52,12 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
         );
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('core')->__('Delete'),
                     'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getDeleteUrl()
                         . '\')',
                     'class'  => 'delete'
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }
@@ -69,20 +69,20 @@ class Mage_Adminhtml_Block_System_Design_Edit extends Mage_Adminhtml_Block_Widge
 
     public function getDeleteUrl()
     {
-        return $this->getUrlSecure('*/*/delete', array(
+        return $this->getUrlSecure('*/*/delete', [
             'id' => $this->getDesignChangeId(),
             Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()
-        ));
+        ]);
     }
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', ['_current'=>true]);
     }
 
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 
     public function getHeader()

@@ -99,7 +99,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @var array
      */
-    protected $_roundingDeltas = array();
+    protected $_roundingDeltas = [];
 
     /**
      * Class constructor
@@ -130,7 +130,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $this->_baseSubtotalInclTax = 0;
         $this->_subtotal = 0;
         $this->_baseSubtotal = 0;
-        $this->_roundingDeltas = array();
+        $this->_roundingDeltas = [];
 
         $address->setSubtotalInclTax(0);
         $address->setBaseSubtotalInclTax(0);
@@ -146,7 +146,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $storeRequest = $this->_getStoreTaxRequest($address);
         $this->_calculator->setCustomer($address->getQuote()->getCustomer());
         if ($this->_config->priceIncludesTax($this->_store)) {
-            $classIds = array();
+            $classIds = [];
             foreach ($items as $item) {
                 $classIds[] = $item->getProduct()->getTaxClassId();
                 if ($item->getHasChildren()) {
@@ -303,8 +303,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable = $basePrice;
             }
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $taxes = array();
-            $baseTaxes = array();
+            $taxes = [];
+            $baseTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $taxes[] = $this->_calculator->calcTaxAmount($taxable, $taxRate, false);
@@ -444,8 +444,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
             }
 
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $rowTaxes = array();
-            $baseRowTaxes = array();
+            $rowTaxes = [];
+            $baseRowTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxRate = $appliedRate['percent'];
                 $rowTaxes[] = $this->_calculator->calcTaxAmount($taxable, $taxRate, false, true);
@@ -598,8 +598,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxable = $baseSubtotal;
             }
             $appliedRates = $this->_calculator->getAppliedRates($request);
-            $rowTaxes = array();
-            $baseRowTaxes = array();
+            $rowTaxes = [];
+            $baseRowTaxes = [];
             foreach ($appliedRates as $appliedRate) {
                 $taxId = $appliedRate['id'];
                 $taxRate = $appliedRate['percent'];

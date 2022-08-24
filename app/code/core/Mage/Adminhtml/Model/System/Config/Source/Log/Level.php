@@ -11,7 +11,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Log_Level
     {
         $helper = Mage::helper('adminhtml');
 
-        return array(
+        return [
             Zend_Log::EMERG  => $helper->__('Emergency'),
             Zend_Log::ALERT  => $helper->__('Alert'),
             Zend_Log::CRIT   => $helper->__('Critical'),
@@ -20,6 +20,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Log_Level
             Zend_Log::NOTICE => $helper->__('Notice'),
             Zend_Log::INFO   => $helper->__('Informational'),
             Zend_Log::DEBUG  => $helper->__('Debug'),
-        );
+        ];
     }
 }

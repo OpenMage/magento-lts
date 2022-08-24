@@ -47,7 +47,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
         $ioProxy = new Varien_Io_File();
         $ioProxy->mkdir($this->_baseDir);
         if (!is_file($this->_baseDir . DS . '.htaccess')) {
-            $ioProxy->open(array('path' => $this->_baseDir));
+            $ioProxy->open(['path' => $this->_baseDir]);
             $ioProxy->write('.htaccess', 'deny from all', 0644);
         }
 

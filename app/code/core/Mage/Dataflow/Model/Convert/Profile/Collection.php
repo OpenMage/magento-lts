@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     protected $_containers;
 
-    protected $_profiles = array();
+    protected $_profiles = [];
 
     protected $_simplexmlDefaultClass = 'Varien_Simplexml_Element';
 
@@ -157,7 +157,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
             /** @var Varien_Simplexml_Element $varNode */
             foreach ($actionNode->var as $key => $varNode) {
                 if ($varNode['name'] == 'map') {
-                    $mapData = array();
+                    $mapData = [];
                     foreach ($varNode->map as $mapNode) {
                         $mapData[(string)$mapNode['name']] = (string)$mapNode;
                     }
@@ -169,12 +169,12 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
                      * Get state name from directory by iso name
                      * (only for US)
                      */
-                    if ($value && 'filter/country' == (string)$varNode['name']) {
+                    if ($value && (string)$varNode['name'] == 'filter/country') {
                         /**
                          * Save country for convert state iso to name (for US only)
                          */
                         $country = $value;
-                    } elseif ($value && 'filter/region' == (string)$varNode['name'] && 'US' == $country) {
+                    } elseif ($value && (string)$varNode['name'] == 'filter/region' && $country == 'US') {
                         /**
                          * Get state name by iso for US
                          */

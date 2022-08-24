@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -538,7 +538,7 @@ Mage::getModel('catalog/category')
     ->save();
 
 $category = Mage::getModel('catalog/category');
-/* @var Mage_Catalog_Model_Category $category */
+/** @var Mage_Catalog_Model_Category $category */
 
 $category->setStoreId(0)
     ->setName('Default Category')

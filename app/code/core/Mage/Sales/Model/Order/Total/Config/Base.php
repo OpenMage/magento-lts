@@ -40,7 +40,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
      *
      * @var array
      */
-    protected $_totalModels = array();
+    protected $_totalModels = [];
 
     /**
      * Configuration path where to collect registered totals

@@ -36,6 +36,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Error extends Mage_Core_Blo
     public function _toHtml()
     {
         $message = Mage::registry('composite_configure_result_error_message');
-        return Mage::helper('core')->jsonEncode(array('error' => true, 'message' => $message));
+        return Mage::helper('core')->jsonEncode(['error' => true, 'message' => $message]);
     }
 }

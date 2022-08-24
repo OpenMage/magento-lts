@@ -40,7 +40,7 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
         if (is_object($data)) {
             $arr = get_object_vars($data);
             foreach ($arr as $key => $value) {
-                $assocArr = array();
+                $assocArr = [];
                 if (is_array($value)) {
                     foreach ($value as $v) {
                         if (is_object($v) && count(get_object_vars($v))==2

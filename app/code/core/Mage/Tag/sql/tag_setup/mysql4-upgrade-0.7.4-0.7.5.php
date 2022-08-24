@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('tag/tag'), 'first_store_id', "smallint(5) UNSIGNED NOT NULL DEFAULT '0'");
@@ -28,13 +28,13 @@ $groupedTags = $installer->getConnection()->select()
 $select = $installer->getConnection()->select()
     ->reset()
     ->joinInner(
-        array('relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")),
+        ['relation_table' => new Zend_Db_Expr("({$groupedTags->__toString()})")],
         'relation_table.tag_id = main_table.tag_id',
         null
     )
-    ->columns(array('first_store_id' => 'store_id'));
+    ->columns(['first_store_id' => 'store_id']);
 
-$updateSql = $select->crossUpdateFromSelect(array('main_table' => $installer->getTable('tag/tag')));
+$updateSql = $select->crossUpdateFromSelect(['main_table' => $installer->getTable('tag/tag')]);
 $installer->getConnection()->query($updateSql);
 
 $installer->endSetup();

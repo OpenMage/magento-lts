@@ -35,15 +35,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Checktype
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_Sendfriend_Helper_Data::CHECK_IP,
                 'label' => Mage::helper('adminhtml')->__('IP Address')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Sendfriend_Helper_Data::CHECK_COOKIE,
                 'label' => Mage::helper('adminhtml')->__('Cookie (unsafe)')
-            ),
-        );
+            ],
+        ];
     }
 }

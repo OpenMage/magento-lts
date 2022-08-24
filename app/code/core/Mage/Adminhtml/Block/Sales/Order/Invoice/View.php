@@ -34,6 +34,9 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
      */
     protected $_session;
 
+    /**
+     * Mage_Adminhtml_Block_Sales_Order_Invoice_View constructor.
+     */
     public function __construct()
     {
         $this->_objectId    = 'invoice_id';
@@ -48,11 +51,11 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         $this->_removeButton('delete');
 
         if ($this->_isAllowedAction('cancel') && $this->getInvoice()->canCancel()) {
-            $this->_addButton('cancel', array(
+            $this->_addButton('cancel', [
                 'label'     => Mage::helper('sales')->__('Cancel'),
                 'class'     => 'delete',
                 'onclick'   => 'setLocation(\''.$this->getCancelUrl().'\')'
-                )
+                ]
             );
         }
 
@@ -60,10 +63,10 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
             $confirmationMessage = Mage::helper('core')->jsQuoteEscape(
                 Mage::helper('sales')->__('Are you sure you want to send Invoice email to customer?')
             );
-            $this->addButton('send_notification', array(
+            $this->addButton('send_notification', [
                 'label'     => Mage::helper('sales')->__('Send Email'),
                 'onclick'   => 'confirmSetLocation(\'' . $confirmationMessage . '\', \'' . $this->getEmailUrl() . '\')'
-            ));
+            ]);
         }
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
@@ -73,39 +76,39 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
                 && $this->getInvoice()->canRefund()
                 && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded())
                 || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())) {
-                $this->_addButton('capture', array( // capture?
+                $this->_addButton('capture', [ // capture?
                     'label'     => Mage::helper('sales')->__('Credit Memo'),
                     'class'     => 'go',
                     'onclick'   => 'setLocation(\''.$this->getCreditMemoUrl().'\')'
-                    )
+                    ]
                 );
             }
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {
-            $this->_addButton('capture', array(
+            $this->_addButton('capture', [
                 'label'     => Mage::helper('sales')->__('Capture'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getCaptureUrl().'\')'
-                )
+                ]
             );
         }
 
         if ($this->getInvoice()->canVoid()) {
-            $this->_addButton('void', array(
+            $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getVoidUrl().'\')'
-                )
+                ]
             );
         }
 
         if ($this->getInvoice()->getId()) {
-            $this->_addButton('print', array(
+            $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                )
+                ]
             );
         }
     }
@@ -120,6 +123,9 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         return Mage::registry('current_invoice');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if ($this->getInvoice()->getEmailSent()) {
@@ -131,54 +137,79 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
         return Mage::helper('sales')->__('Invoice #%1$s | %2$s | %4$s (%3$s)', $this->getInvoice()->getIncrementId(), $this->getInvoice()->getStateName(), $emailSent, $this->formatDate($this->getInvoice()->getCreatedAtDate(), 'medium', true));
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl(
             '*/sales_order/view',
-            array(
+            [
                 'order_id'  => $this->getInvoice()->getOrderId(),
                 'active_tab'=> 'order_invoices'
-            ));
+            ]);
     }
 
+    /**
+     * @return string
+     */
     public function getCaptureUrl()
     {
-        return $this->getUrl('*/*/capture', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/capture', ['invoice_id'=>$this->getInvoice()->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getVoidUrl()
     {
-        return $this->getUrl('*/*/void', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/void', ['invoice_id'=>$this->getInvoice()->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getCancelUrl()
     {
-        return $this->getUrl('*/*/cancel', array('invoice_id'=>$this->getInvoice()->getId()));
+        return $this->getUrl('*/*/cancel', ['invoice_id'=>$this->getInvoice()->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getEmailUrl()
     {
-        return $this->getUrl('*/*/email', array(
+        return $this->getUrl('*/*/email', [
             'order_id'  => $this->getInvoice()->getOrder()->getId(),
             'invoice_id'=> $this->getInvoice()->getId(),
-        ));
+        ]);
     }
 
+    /**
+     * @return string
+     */
     public function getCreditMemoUrl()
     {
-        return $this->getUrl('*/sales_order_creditmemo/start', array(
+        return $this->getUrl('*/sales_order_creditmemo/start', [
             'order_id'  => $this->getInvoice()->getOrder()->getId(),
             'invoice_id'=> $this->getInvoice()->getId(),
-        ));
+        ]);
     }
 
+    /**
+     * @return string
+     */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/print', array(
+        return $this->getUrl('*/*/print', [
             'invoice_id' => $this->getInvoice()->getId()
-        ));
+        ]);
     }
 
+    /**
+     * @param string $flag
+     * @return $this
+     */
     public function updateBackButtonUrl($flag)
     {
         if ($flag) {

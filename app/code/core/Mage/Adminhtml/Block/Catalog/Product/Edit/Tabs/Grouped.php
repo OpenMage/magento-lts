@@ -31,11 +31,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs_Grouped extends Mage_Adminh
     {
         parent::_prepareLayout();
 
-        $this->addTab('super', array(
+        $this->addTab('super', [
             'label'     => Mage::helper('catalog')->__('Associated Products'),
-            'url'       => $this->getUrl('*/*/superGroup', array('_current'=>true)),
+            'url'       => $this->getUrl('*/*/superGroup', ['_current'=>true]),
             'class'     => 'ajax',
-        ));
+        ]);
         return $this;
     }
 }

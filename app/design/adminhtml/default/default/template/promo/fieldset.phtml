@@ -23,7 +23,7 @@
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
     </div>
-    <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(array('class')) ?>>
+    <fieldset id="<?php echo $_element->getHtmlId() ?>" <?php echo $_element->serialize(['class']) ?>>
     <?php if ($_element->getComment()): ?>
         <p class="comment"><?php echo $this->escapeHtml($_element->getComment()) ?></p>
     <?php endif ?>

@@ -67,7 +67,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     public function getConsumer()
     {
-        if (null === $this->_consumer) {
+        if ($this->_consumer === null) {
             /** @var Mage_Oauth_Model_Token $token */
             $token = Mage::getModel('oauth/token');
             $token->load($this->getToken(), 'token');
@@ -90,11 +90,11 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
         }
 
         //load base template from admin area
-        $params = array(
+        $params = [
             '_relative' => true,
             '_area'     => 'adminhtml',
             '_package'  => 'default'
-        );
+        ];
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 }

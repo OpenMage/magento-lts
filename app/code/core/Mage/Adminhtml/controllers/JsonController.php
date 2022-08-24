@@ -32,7 +32,7 @@ class Mage_Adminhtml_JsonController extends Mage_Adminhtml_Controller_Action
      */
     public function countryRegionAction()
     {
-        $arrRes = array();
+        $arrRes = [];
 
         $countryId = $this->getRequest()->getParam('parent');
         $arrRegions = Mage::getResourceModel('directory/region_collection')

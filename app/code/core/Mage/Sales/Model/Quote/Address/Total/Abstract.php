@@ -112,7 +112,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $this->_setAddress($address);
-        return array();
+        return [];
     }
 
     /**

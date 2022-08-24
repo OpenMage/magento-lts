@@ -99,8 +99,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     public function getCondition()
     {
         $helper = Mage::getResourceHelper('core');
-        $likeExpression = $helper->addLikeEscape($this->getValue(), array('position' => 'any'));
-        return array('like' => $likeExpression);
+        $likeExpression = $helper->addLikeEscape($this->getValue(), ['position' => 'any']);
+        return ['like' => $likeExpression];
     }
 
     /**

@@ -65,19 +65,19 @@ class Mage_Adminhtml_Block_Report_Product_Sold_Grid extends Mage_Adminhtml_Block
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'order_items_name'
-        ));
+        ]);
 
-        $this->addColumn('ordered_qty', array(
+        $this->addColumn('ordered_qty', [
             'header'    =>Mage::helper('reports')->__('Quantity Ordered'),
             'width'     =>'120px',
             'align'     =>'right',
             'index'     =>'ordered_qty',
             'total'     =>'sum',
             'type'      =>'number'
-        ));
+        ]);
 
         $this->addExportType('*/*/exportSoldCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportSoldExcel', Mage::helper('reports')->__('Excel XML'));

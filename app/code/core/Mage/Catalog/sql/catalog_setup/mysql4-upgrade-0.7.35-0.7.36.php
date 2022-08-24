@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 try {
@@ -32,7 +32,7 @@ try {
 
 $installer->rebuildCategoryLevels();
 
-$installer->addAttribute('catalog_category', 'level', array(
+$installer->addAttribute('catalog_category', 'level', [
                         'type'              => 'static',
                         'backend'           => '',
                         'frontend'          => '',
@@ -50,6 +50,6 @@ $installer->addAttribute('catalog_category', 'level', array(
                         'comparable'        => false,
                         'visible_on_front'  => false,
                         'unique'            => false,
-                    ));
+]);
 
 $installer->endSetup();

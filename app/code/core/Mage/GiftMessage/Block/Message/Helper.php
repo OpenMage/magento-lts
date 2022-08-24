@@ -18,12 +18,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * @deprecated after 1.3.2.4
  * @category   Mage
  * @package    Mage_GiftMessage
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method $this setCanDisplayContainer(bool $value)
  */
@@ -35,6 +34,9 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
 
     static protected $_scriptIncluded = false;
 
+    /**
+     * Mage_GiftMessage_Block_Message_Helper constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -116,7 +118,9 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
      */
     public function getEditUrl()
     {
-        return $this->helper('giftmessage/url')->getEditUrl($this->getEntity(), $this->getType());
+        /** @var Mage_GiftMessage_Helper_Url $helper */
+        $helper = $this->helper('giftmessage/url');
+        return $helper->getEditUrl($this->getEntity(), $this->getType());
     }
 
     /**
@@ -124,9 +128,9 @@ class Mage_GiftMessage_Block_Message_Helper extends Mage_Core_Block_Template
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-            $this->getEntity()->getGiftMessageId()
-        );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
         return $this;
     }
 

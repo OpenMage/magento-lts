@@ -24,9 +24,9 @@ class Mage_Shipping_Model_Source_HandlingAction
      */
     public function toOptionArray()
     {
-        return array(
-            array('value' => Mage_Shipping_Model_Carrier_Abstract::HANDLING_ACTION_PERORDER, 'label' => Mage::helper('shipping')->__('Per Order')),
-            array('value' => Mage_Shipping_Model_Carrier_Abstract::HANDLING_ACTION_PERPACKAGE , 'label' => Mage::helper('shipping')->__('Per Package')),
-        );
+        return [
+            ['value' => Mage_Shipping_Model_Carrier_Abstract::HANDLING_ACTION_PERORDER, 'label' => Mage::helper('shipping')->__('Per Order')],
+            ['value' => Mage_Shipping_Model_Carrier_Abstract::HANDLING_ACTION_PERPACKAGE , 'label' => Mage::helper('shipping')->__('Per Package')],
+        ];
     }
 }

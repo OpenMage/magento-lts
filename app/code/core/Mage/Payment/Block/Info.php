@@ -81,7 +81,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     public function getChildPdfAsArray()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getChild() as $child) {
             if (method_exists($child, 'toPdf')) {
                 $result[] = $child->toPdf();
@@ -110,10 +110,10 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     public function getValueAsArray($value, $escapeHtml = false)
     {
         if (empty($value)) {
-            return array();
+            return [];
         }
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
         if ($escapeHtml) {
             foreach ($value as $_key => $_val) {
@@ -152,17 +152,17 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null === $this->_paymentSpecificInformation) {
-            if (null === $transport) {
+        if ($this->_paymentSpecificInformation === null) {
+            if ($transport === null) {
                 $transport = new Varien_Object;
             } elseif (is_array($transport)) {
                 $transport = new Varien_Object($transport);
             }
-            Mage::dispatchEvent('payment_info_block_prepare_specific_information', array(
+            Mage::dispatchEvent('payment_info_block_prepare_specific_information', [
                 'transport' => $transport,
                 'payment'   => $this->getInfo(),
                 'block'     => $this,
-            ));
+            ]);
             $this->_paymentSpecificInformation = $transport;
         }
         return $this->_paymentSpecificInformation;

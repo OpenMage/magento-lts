@@ -32,7 +32,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      *
      * @var array
      */
-    protected $_giftMessage = array();
+    protected $_giftMessage = [];
 
     /**
      * Get Order Item
@@ -129,8 +129,9 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     protected function _initMessage()
     {
-        $this->_giftMessage[$this->getItem()->getGiftMessageId()] =
-            $this->helper('giftmessage/message')->getGiftMessage($this->getItem()->getGiftMessageId());
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage[$this->getItem()->getGiftMessageId()] = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
 
         // init default values for giftmessage form
         if (!$this->getMessage()->getSender()) {
@@ -164,11 +165,11 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Items extends Mage_Admin
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/sales_order_view_giftmessage/save', array(
+        return $this->getUrl('*/sales_order_view_giftmessage/save', [
             'entity'    => $this->getItem()->getId(),
             'type'      => 'order_item',
             'reload'    => true
-        ));
+        ]);
     }
 
     /**

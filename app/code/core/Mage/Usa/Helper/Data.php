@@ -103,7 +103,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function displayGirthValue($shippingMethod)
     {
-        if (in_array($shippingMethod, array(
+        if (in_array($shippingMethod, [
              'usps_0_FCLE', // First-Class Mail Large Envelope
              'usps_1',      // Priority Mail
              'usps_2',      // Priority Mail Express Hold For Pickup
@@ -123,7 +123,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
              'usps_INT_16', // Priority Mail International Small Flat Rate Box
              'usps_INT_20', // Priority Mail International Small Flat Rate Envelope
              'usps_INT_26', // Priority Mail Express International Flat Rate Boxes
-        ))) {
+        ])) {
             return true;
         } else {
             return false;
@@ -133,7 +133,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Validate ups type value
      *
-     * @param $valueForCheck string ups type value for check
+     * @param string $valueForCheck ups type value for check
      *
      * @return bool
      */

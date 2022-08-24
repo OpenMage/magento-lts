@@ -71,12 +71,12 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      */
     public function getSeverities($severity = null)
     {
-        $severities = array(
+        $severities = [
             self::SEVERITY_CRITICAL => Mage::helper('adminnotification')->__('critical'),
             self::SEVERITY_MAJOR    => Mage::helper('adminnotification')->__('major'),
             self::SEVERITY_MINOR    => Mage::helper('adminnotification')->__('minor'),
             self::SEVERITY_NOTICE   => Mage::helper('adminnotification')->__('notice'),
-        );
+        ];
 
         if (!is_null($severity)) {
             if (isset($severities[$severity])) {
@@ -95,7 +95,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      */
     public function loadLatestNotice()
     {
-        $this->setData(array());
+        $this->setData([]);
         $this->getResource()->loadLatestNotice($this);
         return $this;
     }
@@ -140,14 +140,14 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
         }
         $date = date('Y-m-d H:i:s');
-        $this->parse(array(array(
+        $this->parse([[
             'severity'    => $severity,
             'date_added'  => $date,
             'title'       => $title,
             'description' => $description,
             'url'         => $url,
             'internal'    => $isInternal
-        )));
+        ]]);
         return $this;
     }
 

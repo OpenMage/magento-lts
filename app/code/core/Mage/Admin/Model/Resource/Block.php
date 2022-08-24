@@ -37,7 +37,7 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
      *
      * @var array
      */
-    protected $disallowedBlockNames = array('install/end');
+    protected $disallowedBlockNames = ['install/end'];
 
     /**
      * Define main table
@@ -69,17 +69,17 @@ class Mage_Admin_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstra
     {
         /** @var Mage_Admin_Model_Resource_Block_Collection $collection */
         $collection = Mage::getResourceModel('admin/block_collection');
-        $collection->addFieldToFilter('is_allowed', array('eq' => 1));
+        $collection->addFieldToFilter('is_allowed', ['eq' => 1]);
         $disallowedBlockNames = $this->getDisallowedBlockNames();
         if (is_array($disallowedBlockNames) && count($disallowedBlockNames) > 0) {
-            $collection->addFieldToFilter('block_name', array('nin' => $disallowedBlockNames));
+            $collection->addFieldToFilter('block_name', ['nin' => $disallowedBlockNames]);
         }
         $data = $collection->getColumnValues('block_name');
         $data = array_flip($data);
         Mage::app()->saveCache(
             Mage::helper('core')->jsonEncode($data),
             self::CACHE_ID,
-            array(Mage_Core_Model_App::CACHE_TAG)
+            [Mage_Core_Model_App::CACHE_TAG]
         );
     }
 

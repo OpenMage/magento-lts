@@ -49,7 +49,7 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
      *
      * @var array
      */
-    protected $_symbolsData = array();
+    protected $_symbolsData = [];
 
     /**
      * Prepares layout
@@ -80,11 +80,11 @@ class Mage_CurrencySymbol_Block_Adminhtml_System_Currencysymbol extends Mage_Adm
     {
         /** @var Mage_Core_Block_Abstract $block */
         $block = $this->getLayout()->createBlock('adminhtml/widget_button');
-        $block->setData(array(
+        $block->setData([
             'label'     => Mage::helper('currencysymbol')->__('Save Currency Symbols'),
             'onclick'   => 'currencySymbolsForm.submit();',
             'class'     => 'save'
-        ));
+        ]);
 
         return $block->toHtml();
     }

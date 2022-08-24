@@ -128,10 +128,10 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
         $gridBlock = $this->getLayout()->getBlock('report_product_viewed.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }

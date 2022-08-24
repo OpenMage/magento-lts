@@ -75,7 +75,7 @@ class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag
     {
         $data = $this->getFlagData();
         if (!is_array($data)) {
-            $data = array();
+            $data = [];
         }
         $data['has_errors'] = true;
         $this->setFlagData($data);

@@ -19,11 +19,11 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'page_layout', array(
+$installer->addAttribute('catalog_product', 'page_layout', [
     'type'              => 'varchar',
     'backend'           => '',
     'frontend'          => '',
@@ -42,6 +42,6 @@ $installer->addAttribute('catalog_product', 'page_layout', array(
     'visible_on_front'  => false,
     'unique'            => false,
     'group'             => 'Design'
-));
+]);
 
 $installer->endSetup();

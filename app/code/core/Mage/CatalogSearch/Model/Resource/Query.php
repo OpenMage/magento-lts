@@ -59,7 +59,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
 
         $synonymSelect->where('synonym_for = ?', $value);
 
-        $select->union(array($querySelect, "($synonymSelect)"), Zend_Db_Select::SQL_UNION_ALL)
+        $select->union([$querySelect, "($synonymSelect)"], Zend_Db_Select::SQL_UNION_ALL)
             ->order('synonym_for ASC')
             ->limit(1);
 
@@ -111,8 +111,6 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Core_Model_Abstract $object
      * @return $this
      */

@@ -20,8 +20,6 @@
 
 
 /**
- * Enter description here ...
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>

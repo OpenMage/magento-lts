@@ -58,14 +58,14 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_priceProducts = array();
+    protected $_priceProducts = [];
 
     /**
      * Product collection which of back in stock
      *
      * @var array
      */
-    protected $_stockProducts = array();
+    protected $_stockProducts = [];
 
     /**
      * Price block
@@ -157,8 +157,8 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     public function clean()
     {
         $this->_customer      = null;
-        $this->_priceProducts = array();
-        $this->_stockProducts = array();
+        $this->_priceProducts = [];
+        $this->_stockProducts = [];
 
         return $this;
     }
@@ -275,18 +275,18 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
 
         Mage::getModel('core/email_template')
-            ->setDesignConfig(array(
+            ->setDesignConfig([
                 'area'  => 'frontend',
                 'store' => $storeId
-            ))->sendTransactional(
+            ])->sendTransactional(
                 $templateId,
                 Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId),
                 $this->_customer->getEmail(),
                 $this->_customer->getName(),
-                array(
+                [
                     'customerName'  => $this->_customer->getName(),
                     'alertGrid'     => $block
-                )
+                ]
             );
 
         return true;

@@ -45,7 +45,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_unserializableFields = array('persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at');
+    protected $_unserializableFields = ['persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at'];
 
     /**
      * If model loads expired sessions
@@ -114,7 +114,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         parent::_beforeSave();
 
         // Setting info
-        $info = array();
+        $info = [];
         foreach ($this->getData() as $index => $value) {
             if (!in_array($index, $this->_unserializableFields)) {
                 $info[$index] = $value;

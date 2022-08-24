@@ -43,7 +43,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * @var array
      */
-    protected $_productUrlSuffix = array();
+    protected $_productUrlSuffix = [];
 
     protected $_statuses;
 
@@ -165,10 +165,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($category = Mage::registry('current_category')) {
             $categoryId = $category->getId();
         }
-        return $this->_getUrl('sendfriend/product/send', array(
+        return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
             'cat_id' => $categoryId
-        ));
+        ]);
     }
 
     /**
@@ -177,7 +177,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getStatuses()
     {
         if (is_null($this->_statuses)) {
-            $this->_statuses = array();//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
+            $this->_statuses = [];//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
         }
 
         return $this->_statuses;
@@ -196,7 +196,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $product = Mage::getModel('catalog/product')->load($product);
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         if (!$product->getId()) {
             return false;
@@ -247,21 +247,21 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         /**
         * @todo specify there all relations for properties depending on input type
         */
-        $inputTypes = array(
-            'multiselect'   => array(
+        $inputTypes = [
+            'multiselect'   => [
                 'backend_model'     => 'eav/entity_attribute_backend_array'
-            ),
-            'boolean'       => array(
+            ],
+            'boolean'       => [
                 'source_model'      => 'eav/entity_attribute_source_boolean'
-            )
-        );
+            ]
+        ];
 
         if (is_null($inputType)) {
             return $inputTypes;
         } elseif (isset($inputTypes[$inputType])) {
             return $inputTypes[$inputType];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -314,10 +314,10 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         }
 
         // Init and load product
-        Mage::dispatchEvent('catalog_controller_product_init_before', array(
+        Mage::dispatchEvent('catalog_controller_product_init_before', [
             'controller_action' => $controller,
             'params' => $params,
-        ));
+        ]);
 
         if (!$productId) {
             return false;
@@ -356,12 +356,12 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         Mage::register('product', $product);
 
         try {
-            Mage::dispatchEvent('catalog_controller_product_init', array('product' => $product));
+            Mage::dispatchEvent('catalog_controller_product_init', ['product' => $product]);
             Mage::dispatchEvent(
                 'catalog_controller_product_init_after',
-                array('product' => $product,
+                ['product' => $product,
                                 'controller_action' => $controller
-                            )
+                ]
             );
         } catch (Mage_Core_Exception $e) {
             Mage::logException($e);

@@ -24,16 +24,16 @@ class Mage_Tax_Model_System_Config_Source_Apply
 
     public function __construct()
     {
-        $this->_options = array(
-            array(
+        $this->_options = [
+            [
                 'value' => 0,
                 'label' => Mage::helper('tax')->__('Before Discount')
-            ),
-            array(
+            ],
+            [
                 'value' => 1,
                 'label' => Mage::helper('tax')->__('After Discount')
-            ),
-        );
+            ],
+        ];
     }
 
     /**

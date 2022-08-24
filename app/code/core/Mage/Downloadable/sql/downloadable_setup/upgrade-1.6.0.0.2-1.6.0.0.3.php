@@ -17,14 +17,14 @@
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 $connection = $installer->getConnection();
 $connection->delete(
     $this->getTable('core_config_data'),
-    $connection->prepareSqlCondition('path', array(
+    $connection->prepareSqlCondition('path', [
         'like' => 'catalog/downloadable/content_disposition'
-    ))
+    ])
 );
 $installer->endSetup();

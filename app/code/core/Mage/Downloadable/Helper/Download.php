@@ -58,7 +58,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_urlHeaders      = array();
+    protected $_urlHeaders      = [];
 
     /**
      * MIME Content-type for a file
@@ -146,7 +146,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     if ($str == "\r\n") {
                         break;
                     }
-                    $match = array();
+                    $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
                         $k = strtolower($match[1]);
                         if ($k == 'set-cookie') {
@@ -168,7 +168,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
-                $this->_handle->open(array('path'=>Mage::getBaseDir('var')));
+                $this->_handle->open(['path'=>Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }

@@ -36,8 +36,6 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
     protected $_isFixed = true;
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Shipping_Model_Rate_Request $request
      * @return Mage_Shipping_Model_Rate_Result|false
      */
@@ -71,9 +69,9 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
 
         $shippingType = $this->getConfigData('type');
         $shippingPrice = (float)$this->getConfigData('price');
-        if ('I' == $shippingType) { // per item
+        if ($shippingType == 'I') { // per item
             $shippingPrice = ($request->getPackageQty() * $shippingPrice) - ($this->getFreeBoxes() * $shippingPrice);
-        } elseif ('O' != $shippingType) { // not per order
+        } elseif ($shippingType != 'O') { // not per order
             $shippingPrice = false;
         }
 
@@ -107,6 +105,6 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
      */
     public function getAllowedMethods()
     {
-        return array('flatrate'=>$this->getConfigData('name'));
+        return ['flatrate'=>$this->getConfigData('name')];
     }
 }

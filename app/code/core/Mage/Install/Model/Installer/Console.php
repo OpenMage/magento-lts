@@ -40,7 +40,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      *
      * @var array
      */
-    protected $_args = array();
+    protected $_args = [];
 
     /**
      * Installer data model to store data between installations steps
@@ -64,33 +64,33 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
     protected function _getOptions()
     {
         if (is_null($this->_options)) {
-            $this->_options = array(
-                'license_agreement_accepted'    => array('required' => true, 'comment' => ''),
-                'locale'              => array('required' => true, 'comment' => ''),
-                'timezone'            => array('required' => true, 'comment' => ''),
-                'default_currency'    => array('required' => true, 'comment' => ''),
-                'db_model'            => array('comment' => ''),
-                'db_host'             => array('required' => true, 'comment' => ''),
-                'db_name'             => array('required' => true, 'comment' => ''),
-                'db_user'             => array('required' => true, 'comment' => ''),
-                'db_pass'             => array('comment' => ''),
-                'db_prefix'           => array('comment' => ''),
-                'url'                 => array('required' => true, 'comment' => ''),
-                'skip_url_validation' => array('comment' => ''),
-                'use_rewrites'      => array('required' => true, 'comment' => ''),
-                'use_secure'        => array('required' => true, 'comment' => ''),
-                'secure_base_url'   => array('required' => true, 'comment' => ''),
-                'use_secure_admin'  => array('required' => true, 'comment' => ''),
-                'admin_lastname'    => array('required' => true, 'comment' => ''),
-                'admin_firstname'   => array('required' => true, 'comment' => ''),
-                'admin_email'       => array('required' => true, 'comment' => ''),
-                'admin_username'    => array('required' => true, 'comment' => ''),
-                'admin_password'    => array('required' => true, 'comment' => ''),
-                'encryption_key'    => array('comment' => ''),
-                'session_save'      => array('comment' => ''),
-                'admin_frontname'   => array('comment' => ''),
-                'enable_charts'     => array('comment' => ''),
-            );
+            $this->_options = [
+                'license_agreement_accepted'    => ['required' => true, 'comment' => ''],
+                'locale'              => ['required' => true, 'comment' => ''],
+                'timezone'            => ['required' => true, 'comment' => ''],
+                'default_currency'    => ['required' => true, 'comment' => ''],
+                'db_model'            => ['comment' => ''],
+                'db_host'             => ['required' => true, 'comment' => ''],
+                'db_name'             => ['required' => true, 'comment' => ''],
+                'db_user'             => ['required' => true, 'comment' => ''],
+                'db_pass'             => ['comment' => ''],
+                'db_prefix'           => ['comment' => ''],
+                'url'                 => ['required' => true, 'comment' => ''],
+                'skip_url_validation' => ['comment' => ''],
+                'use_rewrites'      => ['required' => true, 'comment' => ''],
+                'use_secure'        => ['required' => true, 'comment' => ''],
+                'secure_base_url'   => ['required' => true, 'comment' => ''],
+                'use_secure_admin'  => ['required' => true, 'comment' => ''],
+                'admin_lastname'    => ['required' => true, 'comment' => ''],
+                'admin_firstname'   => ['required' => true, 'comment' => ''],
+                'admin_email'       => ['required' => true, 'comment' => ''],
+                'admin_username'    => ['required' => true, 'comment' => ''],
+                'admin_password'    => ['required' => true, 'comment' => ''],
+                'encryption_key'    => ['comment' => ''],
+                'session_save'      => ['comment' => ''],
+                'admin_frontname'   => ['comment' => ''],
+                'enable_charts'     => ['comment' => ''],
+            ];
         }
         return $this->_options;
     }
@@ -213,7 +213,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _checkFlag($value)
     {
-        $res = (1 == $value)
+        $res = ($value == 1)
             || preg_match('/^(yes|y|true)$/i', $value);
         return $res;
     }
@@ -273,16 +273,16 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         /**
          * Locale settings
          */
-        $this->_getDataModel()->setLocaleData(array(
+        $this->_getDataModel()->setLocaleData([
             'locale'            => $this->_args['locale'],
             'timezone'          => $this->_args['timezone'],
             'currency'          => $this->_args['default_currency'],
-        ));
+        ]);
 
         /**
          * Database and web config
          */
-        $this->_getDataModel()->setConfigData(array(
+        $this->_getDataModel()->setConfigData([
             'db_model'            => $this->_args['db_model'],
             'db_host'             => $this->_args['db_host'],
             'db_name'             => $this->_args['db_name'],
@@ -298,18 +298,18 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
             'admin_frontname'     => $this->_checkAdminFrontname($this->_args['admin_frontname']),
             'skip_url_validation' => $this->_checkFlag($this->_args['skip_url_validation']),
             'enable_charts'       => $this->_checkFlag($this->_args['enable_charts']),
-        ));
+        ]);
 
         /**
          * Primary admin user
          */
-        $this->_getDataModel()->setAdminData(array(
+        $this->_getDataModel()->setAdminData([
             'firstname'         => $this->_args['admin_firstname'],
             'lastname'          => $this->_args['admin_lastname'],
             'email'             => $this->_args['admin_email'],
             'username'          => $this->_args['admin_username'],
             'new_password'      => $this->_args['admin_password'],
-        ));
+        ]);
 
         return $this;
     }
@@ -446,11 +446,11 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     public function printOptions()
     {
-        $options = array(
+        $options = [
             'locale'    => $this->_app->getLocale()->getOptionLocales(),
             'currency'  => $this->_app->getLocale()->getOptionCurrencies(),
             'timezone'  => $this->_app->getLocale()->getOptionTimezones(),
-        );
+        ];
         var_export($options);
         return $this;
     }

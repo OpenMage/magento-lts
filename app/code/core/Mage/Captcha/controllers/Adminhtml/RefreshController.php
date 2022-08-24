@@ -36,7 +36,7 @@ class Mage_Captcha_Adminhtml_RefreshController extends Mage_Adminhtml_Controller
         $formId = $this->getRequest()->getPost('formId');
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $this->getLayout()->createBlock($captchaModel->getBlockName())->setFormId($formId)->setIsAjax(true)->toHtml();
-        $this->getResponse()->setBody(json_encode(array('imgSrc' => $captchaModel->getImgSrc())));
+        $this->getResponse()->setBody(json_encode(['imgSrc' => $captchaModel->getImgSrc()]));
         $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
     }
 

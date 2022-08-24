@@ -83,10 +83,10 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
      */
     public function getSaveUrl($type)
     {
-        return $this->_getUrl('productalert/add/' . $type, array(
+        return $this->_getUrl('productalert/add/' . $type, [
             'product_id'    => $this->getProduct()->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        ));
+        ]);
     }
 
     /**
@@ -106,7 +106,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
             $fileName = mageFindClassFile($block);
             if ($fileName!==false) {
                 include_once($fileName);
-                $block = new $block(array());
+                $block = new $block([]);
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {

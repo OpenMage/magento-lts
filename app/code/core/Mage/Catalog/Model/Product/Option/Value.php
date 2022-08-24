@@ -42,7 +42,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
-    protected $_values = array();
+    protected $_values = [];
 
     protected $_product;
 
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function unsetValues()
     {
-        $this->_values = array();
+        $this->_values = [];
         return $this;
     }
 
@@ -118,8 +118,6 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Catalog_Model_Product_Option
      */
     public function getOption()
@@ -195,8 +193,6 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Product_Option $option
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */

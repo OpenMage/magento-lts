@@ -28,7 +28,7 @@
 
 class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sales_Order_Abstract
 {
-    protected $_totals = array();
+    protected $_totals = [];
 
     /**
      * Retrieve required options from parent
@@ -56,11 +56,11 @@ class Mage_Adminhtml_Block_Sales_Order_Totalbar extends Mage_Adminhtml_Block_Sal
 
     public function addTotal($label, $value, $grand = false)
     {
-        $this->_totals[] = array(
+        $this->_totals[] = [
             'label' => $label,
             'value' => $value,
             'grand' => $grand
-        );
+        ];
         return $this;
     }
 }

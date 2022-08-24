@@ -33,7 +33,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     protected $_product;
 
-    protected $_optionRenders = array();
+    protected $_optionRenders = [];
 
     public function __construct()
     {
@@ -84,11 +84,11 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function addOptionRenderer($type, $block, $template)
     {
-        $this->_optionRenders[$type] = array(
+        $this->_optionRenders[$type] = [
             'block' => $block,
             'template' => $template,
             'renderer' => null
-        );
+        ];
         return $this;
     }
 
@@ -147,7 +147,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     protected function _getPriceConfiguration($option)
     {
-        $data = array();
+        $data = [];
         $data['price']      = Mage::helper('core')->currency($option->getPrice(true), false, false);
         $data['oldPrice']   = Mage::helper('core')->currency($option->getPrice(false), false, false);
         $data['priceValue'] = $option->getPrice(false);
@@ -164,15 +164,14 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      */
     public function getJsonConfig()
     {
-        $config = array();
+        $config = [];
 
         foreach ($this->getOptions() as $option) {
-            /* @var Mage_Catalog_Model_Product_Option $option */
+            /** @var Mage_Catalog_Model_Product_Option $option */
             $priceValue = 0;
             if ($option->getGroupByType() == Mage_Catalog_Model_Product_Option::OPTION_GROUP_SELECT) {
-                $_tmpPriceValues = array();
+                $_tmpPriceValues = [];
                 foreach ($option->getValues() as $value) {
-                    /* @var Mage_Catalog_Model_Product_Option_Value $value */
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }

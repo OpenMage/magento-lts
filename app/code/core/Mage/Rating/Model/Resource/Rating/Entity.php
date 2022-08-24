@@ -50,6 +50,6 @@ class Mage_Rating_Model_Resource_Rating_Entity extends Mage_Core_Model_Resource_
         $select  = $adapter->select()
             ->from($this->getTable('rating_entity'), $this->getIdFieldName())
             ->where('entity_code = :entity_code');
-        return $adapter->fetchOne($select, array(':entity_code' => $entityCode));
+        return $adapter->fetchOne($select, [':entity_code' => $entityCode]);
     }
 }

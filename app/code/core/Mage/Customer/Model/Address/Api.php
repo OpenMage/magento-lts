@@ -27,9 +27,9 @@
  */
 class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
 {
-    protected $_mapAttributes = array(
+    protected $_mapAttributes = [
         'customer_address_id' => 'entity_id'
-    );
+    ];
 
     public function __construct()
     {
@@ -46,16 +46,16 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
         }
 
-        $result = array();
+        $result = [];
         foreach ($customer->getAddresses() as $address) {
             $data = $address->toArray();
-            $row  = array();
+            $row  = [];
 
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = isset($data[$attributeCode]) ? $data[$attributeCode] : null;
@@ -87,7 +87,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
     {
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /* @var Mage_Customer_Model_Customer $customer */
+        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
@@ -141,7 +141,7 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $address->getData($attributeCode);

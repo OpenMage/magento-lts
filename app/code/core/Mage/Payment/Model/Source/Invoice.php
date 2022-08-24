@@ -30,15 +30,15 @@ class Mage_Payment_Model_Source_Invoice
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE,
                 'label' => Mage::helper('core')->__('Yes')
-            ),
-            array(
+            ],
+            [
                 'value' => '',
                 'label' => Mage::helper('core')->__('No')
-            ),
-        );
+            ],
+        ];
     }
 }

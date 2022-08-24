@@ -42,13 +42,13 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      *
      * @var array
      */
-    protected $_paramsDefaultValues = array(
+    protected $_paramsDefaultValues = [
         self::PARAM_ROUTE      => null,
-        self::PARAM_DEFAULTS   => array(),
-        self::PARAM_REQS       => array(),
+        self::PARAM_DEFAULTS   => [],
+        self::PARAM_REQS       => [],
         self::PARAM_TRANSLATOR => null,
         self::PARAM_LOCALE     => null
-    );
+    ];
 
     /**
      * Process construct param and call parent::__construct() with params

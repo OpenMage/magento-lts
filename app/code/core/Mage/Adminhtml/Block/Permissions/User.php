@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Permissions_User extends Mage_Adminhtml_Block_Widget_
      */
     protected function _toHtml()
     {
-        Mage::dispatchEvent('permissions_user_html_before', array('block' => $this));
+        Mage::dispatchEvent('permissions_user_html_before', ['block' => $this]);
         return parent::_toHtml();
     }
 }

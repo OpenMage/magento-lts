@@ -53,7 +53,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @var array
      */
-    protected $_storeDisplayConfig   = array();
+    protected $_storeDisplayConfig   = [];
 
     /**
      * Get weee amount display type on product view page
@@ -252,7 +252,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
             if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                $result = array();
+                $result = [];
                 foreach ($item->getChildren() as $child) {
                     $childData = $this->getApplied($child);
                     if (is_array($childData)) {
@@ -269,7 +269,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
          */
         $data = $item->getWeeeTaxApplied();
         if (empty($data)) {
-            return array();
+            return [];
         }
         return unserialize($item->getWeeeTaxApplied(), ['allowed_classes' => false]);
     }
@@ -298,7 +298,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->isEnabled()) {
             return $this->getProductWeeeAttributes($product, null, null, null, $this->typeOfDisplay($product, 1));
         }
-        return array();
+        return [];
     }
 
     /**
@@ -327,7 +327,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1)
             );
         }
-        return array();
+        return [];
     }
 
     /**
@@ -350,7 +350,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
             if (is_array($attributes)) {
                 $amount = 0;
                 foreach ($attributes as $attribute) {
-                    /* @var Varien_Object $attribute */
+                    /** @var Varien_Object $attribute */
                     $amount += $attribute->getAmount();
                 }
                 return $amount;
@@ -459,7 +459,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_array($attributes)) {
             $amount = 0;
             foreach ($attributes as $attribute) {
-                /* @var Varien_Object $attribute */
+                /** @var Varien_Object $attribute */
                 $amount += $attribute->getAmount() + $attribute->getTaxAmount();
             }
         } else {

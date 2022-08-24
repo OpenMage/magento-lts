@@ -33,7 +33,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_links = array();
+    protected $_links = [];
 
     /**
      * Cache key info
@@ -81,25 +81,25 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         $url = '',
         $title = '',
         $prepare = false,
-        $urlParams = array(),
+        $urlParams = [],
         $position = null,
         $liParams = null,
         $aParams = null,
         $beforeText = '',
         $afterText = ''
     ) {
-        if (is_null($label) || false===$label) {
+        if (is_null($label) || $label === false) {
             return $this;
         }
-        $link = new Varien_Object(array(
+        $link = new Varien_Object([
             'label'         => $label,
-            'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : array())) : $url),
+            'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : [])) : $url),
             'title'         => $title,
             'li_params'     => $this->_prepareParams($liParams),
             'a_params'      => $this->_prepareParams($aParams),
             'before_text'   => $beforeText,
             'after_text'    => $afterText,
-        ));
+        ]);
 
         $this->_addIntoPosition($link, $position);
 
@@ -182,7 +182,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     public function getCacheKeyInfo()
     {
         if (is_null($this->_cacheKeyInfo)) {
-            $links = array();
+            $links = [];
             if (!empty($this->_links)) {
                 foreach ($this->_links as $position => $link) {
                     if ($link instanceof Varien_Object) {
@@ -190,10 +190,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                     }
                 }
             }
-            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + array(
+            $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
                 'name' => $this->getNameInLayout()
-            );
+                ];
         }
 
         return $this->_cacheKeyInfo;

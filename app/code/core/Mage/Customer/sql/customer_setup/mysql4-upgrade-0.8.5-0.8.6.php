@@ -24,7 +24,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
 $attributeId = $installer->getAttributeId('customer', 'email');

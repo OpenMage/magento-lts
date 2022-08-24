@@ -19,12 +19,12 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $tableCataloginventoryStockItem = $installer->getTable('cataloginventory/stock_item');
 
 $connection = $installer->getConnection();
-/* @var Varien_Db_Adapter_Pdo_Mysql $connection */
+/** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 
 $connection->addColumn($tableCataloginventoryStockItem, 'use_config_enable_qty_increments', "tinyint(1) unsigned NOT NULL default '1'");
 $connection->addColumn($tableCataloginventoryStockItem, 'enable_qty_increments', "tinyint(1) unsigned NOT NULL default '0'");

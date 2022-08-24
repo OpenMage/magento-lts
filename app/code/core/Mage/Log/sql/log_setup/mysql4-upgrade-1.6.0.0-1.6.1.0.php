@@ -18,11 +18,11 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
 $installer->getConnection()->dropIndex($installer->getTable('log/url_table'), 'PRIMARY');
-$installer->getConnection()->addIndex($installer->getTable('log/url_table'), 'url_id', array('url_id'));
+$installer->getConnection()->addIndex($installer->getTable('log/url_table'), 'url_id', ['url_id']);
 
 $installer->endSetup();

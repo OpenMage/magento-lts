@@ -22,8 +22,6 @@
  * Model for report rows
  */
 /**
- * Enter description here ...
- *
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement_Row getResource()
  * @method int getReportId()
@@ -70,14 +68,14 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected static $_eventList = array();
+    protected static $_eventList = [];
 
     /**
      * Casted amount keys registry
      *
      * @var array
      */
-    protected $_castedAmounts = array();
+    protected $_castedAmounts = [];
 
     /**
      * Initialize resource model
@@ -96,12 +94,12 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     public function getReferenceType($code = null)
     {
-        $types = array(
+        $types = [
             'TXN' => Mage::helper('paypal')->__('Transaction ID'),
             'ODR' => Mage::helper('paypal')->__('Order ID'),
             'SUB' => Mage::helper('paypal')->__('Subscription ID'),
             'PAP' => Mage::helper('paypal')->__('Preapproved Payment ID')
-        );
+        ];
         if($code === null) {
             asort($types);
             return $types;
@@ -147,10 +145,10 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
      */
     public function getDebitCreditText($code = null)
     {
-        $options = array(
+        $options = [
             'CR' => Mage::helper('paypal')->__('Credit'),
             'DR' => Mage::helper('paypal')->__('Debit'),
-        );
+        ];
         if($code === null) {
             return $options;
         }
@@ -192,7 +190,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             return;
         }
         $amount = $this->_data[$key] / 100;
-        if ('CR' === $this->_data[$creditKey]) {
+        if ($this->_data[$creditKey] === 'CR') {
             $amount = -1 * $amount;
         }
         $this->_data[$key] = $amount;
@@ -205,7 +203,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
     protected function _generateEventLabels()
     {
         if (!self::$_eventList) {
-            self::$_eventList = array(
+            self::$_eventList = [
             'T0000' => Mage::helper('paypal')->__('General: received payment of a type not belonging to the other T00xx categories'),
             'T0001' => Mage::helper('paypal')->__('Mass Pay Payment'),
             'T0002' => Mage::helper('paypal')->__('Subscription Payment, either payment sent or payment received'),
@@ -287,7 +285,7 @@ class Mage_Paypal_Model_Report_Settlement_Row extends Mage_Core_Model_Abstract
             'T2000' => Mage::helper('paypal')->__('General (Funds Transfer from PayPal Account to Another)'),
             'T2001' => Mage::helper('paypal')->__('Settlement Consolidation'),
             'T9900' => Mage::helper('paypal')->__('General: event not yet categorized'),
-            );
+            ];
             asort(self::$_eventList);
         }
     }

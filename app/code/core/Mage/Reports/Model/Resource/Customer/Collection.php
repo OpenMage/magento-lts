@@ -121,9 +121,9 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
 
         $this->getSelect()
             ->joinLeft(
-                array('orders' => $this->getTable('sales/order')),
+                ['orders' => $this->getTable('sales/order')],
                 "orders.customer_id = e.entity_id".$dateFilter,
-                array()
+                []
             );
 
         return $this;
@@ -137,7 +137,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     public function addOrdersCount()
     {
         $this->getSelect()
-            ->columns(array("orders_count" => "COUNT(orders.entity_id)"))
+            ->columns(["orders_count" => "COUNT(orders.entity_id)"])
             ->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
             ->group("e.entity_id");
 
@@ -165,8 +165,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
             : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
         $this->getSelect()
-            ->columns(array("orders_avg_amount" => "AVG({$expr})"))
-            ->columns(array("orders_sum_amount" => "SUM({$expr})"));
+            ->columns(["orders_avg_amount" => "AVG({$expr})"])
+            ->columns(["orders_sum_amount" => "SUM({$expr})"]);
 
         return $this;
     }
@@ -216,12 +216,12 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
                 : "orders.base_subtotal - {$baseSubtotalCanceled} - {$baseSubtotalRefunded}";
 
             $select = $this->getConnection()->select();
-            $select->from(array('orders' => $this->getTable('sales/order')), array(
+            $select->from(['orders' => $this->getTable('sales/order')], [
                 'orders_avg_amount' => "AVG({$totalExpr})",
                 'orders_sum_amount' => "SUM({$totalExpr})",
                 'orders_count' => 'COUNT(orders.entity_id)',
                 'customer_id'
-            ))->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
+            ])->where('orders.state <> ?', Mage_Sales_Model_Order::STATE_CANCELED)
               ->where('orders.customer_id IN(?)', $customerIds)
               ->group('orders.customer_id');
 

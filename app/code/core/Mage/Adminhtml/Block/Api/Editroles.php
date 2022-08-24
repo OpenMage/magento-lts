@@ -33,25 +33,25 @@ class Mage_Adminhtml_Block_Api_Editroles extends Mage_Adminhtml_Block_Widget_Tab
         $role = Mage::getModel("api/roles")
            ->load($roleId);
 
-        $this->addTab('info', array(
+        $this->addTab('info', [
             'label'     => Mage::helper('adminhtml')->__('Role Info'),
             'title'     => Mage::helper('adminhtml')->__('Role Info'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_roleinfo')->setRole($role)->toHtml(),
             'active'    => true
-        ));
+        ]);
 
-        $this->addTab('account', array(
+        $this->addTab('account', [
             'label'     => Mage::helper('adminhtml')->__('Role Resources'),
             'title'     => Mage::helper('adminhtml')->__('Role Resources'),
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_rolesedit')->toHtml(),
-        ));
+        ]);
 
         if( intval($roleId) > 0 ) {
-            $this->addTab('roles', array(
+            $this->addTab('roles', [
                 'label'     => Mage::helper('adminhtml')->__('Role Users'),
                 'title'     => Mage::helper('adminhtml')->__('Role Users'),
                 'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_rolesusers', 'role.users.grid')->toHtml(),
-            ));
+            ]);
         }
         return parent::_beforeToHtml();
     }

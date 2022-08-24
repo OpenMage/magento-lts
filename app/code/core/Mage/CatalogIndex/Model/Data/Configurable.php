@@ -19,7 +19,7 @@
  */
 
 /**
- * Configurable product data retreiver
+ * Configurable product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -30,11 +30,11 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      *
      * @var int[]|bool[]
      */
-    protected $_haveChildren = array(
+    protected $_haveChildren = [
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-    );
+    ];
 
     /**
      * Defines when product type has parents
@@ -49,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     }
 
    /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */
@@ -65,10 +65,10 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected function _getLinkSettings()
     {
-        return array(
+        return [
                     'table'=>'catalog/product_super_link',
                     'parent_field'=>'parent_id',
                     'child_field'=>'product_id',
-                    );
+        ];
     }
 }

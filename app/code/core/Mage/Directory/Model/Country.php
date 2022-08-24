@@ -37,7 +37,7 @@
  */
 class Mage_Directory_Model_Country extends Mage_Core_Model_Abstract
 {
-    static public $_format = array();
+    static public $_format = [];
 
     /**
      * Model event prefix

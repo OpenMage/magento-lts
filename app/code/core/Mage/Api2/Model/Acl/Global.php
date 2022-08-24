@@ -39,13 +39,13 @@ class Mage_Api2_Model_Acl_Global
     public function isAllowed(Mage_Api2_Model_Auth_User_Abstract $apiUser, $resourceType, $operation)
     {
         // skip user without role, e.g. Customer
-        if (null === $apiUser->getRole()) {
+        if ($apiUser->getRole() === null) {
             return true;
         }
         /** @var Mage_Api2_Model_Acl $aclInstance */
         $aclInstance = Mage::getSingleton(
             'api2/acl',
-            array('resource_type' => $resourceType, 'operation' => $operation)
+            ['resource_type' => $resourceType, 'operation' => $operation]
         );
 
         if (!$aclInstance->hasRole($apiUser->getRole())) {

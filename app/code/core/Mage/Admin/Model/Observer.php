@@ -39,18 +39,17 @@ class Mage_Admin_Model_Observer
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
 
-        /** @var Mage_Core_Controller_Request_Http $request */
         $request = Mage::app()->getRequest();
         $user = $session->getUser();
 
         $requestedActionName = strtolower($request->getActionName());
-        $openActions = array(
+        $openActions = [
             'forgotpassword',
             'resetpassword',
             'resetpasswordpost',
             'logout',
             'refresh' // captcha refresh
-        );
+        ];
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);
         } else {

@@ -20,15 +20,15 @@
 
 $installer = $this;
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
-$this->addAttribute('customer', 'created_at', array(
+$this->addAttribute('customer', 'created_at', [
     'type'     => 'static',
     'label'    => 'Created At',
     'visible'  => false,
     'required' => false,
     'input'    => 'date',
-));
+]);
 
 $installer->endSetup();

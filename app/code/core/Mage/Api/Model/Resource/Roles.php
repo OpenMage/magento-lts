@@ -73,7 +73,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
         if ($role->getPid() > 0) {
             $row = $this->load($role->getPid());
         } else {
-            $row = array('tree_level' => 0);
+            $row = ['tree_level' => 0];
         }
         $role->setTreeLevel($row['tree_level'] + 1);
         $role->setRoleName($role->getName());
@@ -102,8 +102,8 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     protected function _afterDelete(Mage_Core_Model_Abstract $role)
     {
         $adapter = $this->_getWriteAdapter();
-        $adapter->delete($this->getMainTable(), array('parent_id=?'=>$role->getId()));
-        $adapter->delete($this->_ruleTable, array('role_id=?'=>$role->getId()));
+        $adapter->delete($this->getMainTable(), ['parent_id=?'=>$role->getId()]);
+        $adapter->delete($this->_ruleTable, ['role_id=?'=>$role->getId()]);
         return $this;
     }
 
@@ -117,7 +117,7 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
     {
         $adapter   = $this->_getReadAdapter();
         $select     = $adapter->select()
-            ->from($this->getMainTable(), array('user_id'))
+            ->from($this->getMainTable(), ['user_id'])
             ->where('parent_id = ?', $role->getId())
             ->where('role_type = ?', Mage_Api_Model_Acl::ROLE_TYPE_USER)
             ->where('user_id > 0');
@@ -137,8 +137,8 @@ class Mage_Api_Model_Resource_Roles extends Mage_Core_Model_Resource_Db_Abstract
         if (count($users)) {
             $rowsCount = $this->_getWriteAdapter()->update(
                 $this->_usersTable,
-                array('reload_acl_flag' => 1),
-                array('user_id IN(?)' => $users)
+                ['reload_acl_flag' => 1],
+                ['user_id IN(?)' => $users]
             );
         }
         return $rowsCount > 0;

@@ -51,7 +51,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
-        $data = array();
+        $data = [];
 
         $data['store_id'] = $attribute->getStoreId();
         $data['entity_id'] = $object->getId();
@@ -60,7 +60,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
 
         if ($attribute->getFrontendInput() == 'multiselect') {
             $origData = $data;
-            $data = array();
+            $data = [];
 
             $value = explode(',', $origData['value']);
             foreach ($value as $item) {
@@ -98,9 +98,9 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
         return $conditions;
 
-        $conditions = array();
-        $conditions['frontend_input'] = array('select', 'multiselect');
-        $conditions['or']['is_filterable'] = array(1, 2);
+        $conditions = [];
+        $conditions['frontend_input'] = ['select', 'multiselect'];
+        $conditions['or']['is_filterable'] = [1, 2];
         $conditions['or']['is_visible_in_advanced_search'] = 1;
     }
 }

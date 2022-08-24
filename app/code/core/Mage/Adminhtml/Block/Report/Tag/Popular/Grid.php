@@ -57,38 +57,38 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Popularity'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'popularity'
-        ));
+        ]);
 
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
                 'type'      => 'action',
                 'getter'    => 'getId',
-                'actions'   => array(
-                    array(
+                'actions'   => [
+                    [
                         'caption' => Mage::helper('catalog')->__('Show Details'),
-                        'url'     => array(
+                        'url'     => [
                             'base'=>'*/*/tagDetail'
-                        ),
+                        ],
                         'field'   => 'id'
-                    )
-                ),
+                    ]
+                ],
                 'is_system' => true,
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-        ));
+            ]);
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportPopularCsv', Mage::helper('reports')->__('CSV'));
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/tagDetail', array('id'=>$row->getTagId()));
+        return $this->getUrl('*/*/tagDetail', ['id'=>$row->getTagId()]);
     }
 
 }

@@ -28,15 +28,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
         if (!$this->_options) {
             $services = Mage::getConfig()->getNode('global/currency/import/services')->asArray();
             $currencyConfig = Mage::getStoreConfig('currency');
-            $this->_options = array();
+            $this->_options = [];
             foreach ($services as $_code => $_options) {
-                if (isset($currencyConfig[$_code]['active']) && '0' === $currencyConfig[$_code]['active']) {
+                if (isset($currencyConfig[$_code]['active']) && $currencyConfig[$_code]['active'] === '0') {
                     continue;
                 }
-                $this->_options[] = array(
+                $this->_options[] = [
                     'label' => $_options['name'],
                     'value' => $_code,
-                );
+                ];
             }
         }
 

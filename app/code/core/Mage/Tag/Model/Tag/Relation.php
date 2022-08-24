@@ -169,7 +169,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @return $this
      */
-    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
+    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = [])
     {
         $this->setAddedProductIds($productIds);
         $this->setTagId($model->getTagId());

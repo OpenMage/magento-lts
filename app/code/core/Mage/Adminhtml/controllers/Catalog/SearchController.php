@@ -99,7 +99,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         $data       = $this->getRequest()->getPost();
         $queryId    = $this->getRequest()->getPost('query_id', null);
         if ($this->getRequest()->isPost() && $data) {
-            /* @var $model Mage_CatalogSearch_Model_Query */
+            /** @var Mage_CatalogSearch_Model_Query $model */
             $model = Mage::getModel('catalogsearch/query');
 
             // validate query
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
 
         if ($hasError) {
             $this->_getSession()->setPageData($data);
-            $this->_redirect('*/*/edit', array('id' => $queryId));
+            $this->_redirect('*/*/edit', ['id' => $queryId]);
         } else {
             $this->_redirect('*/*');
         }
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }

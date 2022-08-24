@@ -57,10 +57,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
         }
         array_unshift(
             $options,
-            array(
+            [
                 'value'=> $nodeName,
                 'label' => $templateName
-            )
+            ]
         );
         return $options;
     }

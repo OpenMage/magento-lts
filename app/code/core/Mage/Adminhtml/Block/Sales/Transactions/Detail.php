@@ -45,20 +45,20 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->_txn = Mage::registry('current_transaction');
 
         $backUrl = ($this->_txn->getOrderUrl()) ? $this->_txn->getOrderUrl() : $this->getUrl('*/*/');
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'   => Mage::helper('sales')->__('Back'),
             'onclick' => "setLocation('{$backUrl}')",
             'class'   => 'back'
-        ));
+        ]);
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch')
             && $this->_txn->getOrderPaymentObject()->getMethodInstance()->canFetchTransactionInfo()) {
-            $fetchUrl = $this->getUrl('*/*/fetch' , array('_current' => true));
-            $this->_addButton('fetch', array(
+            $fetchUrl = $this->getUrl('*/*/fetch' , ['_current' => true]);
+            $this->_addButton('fetch', [
                 'label'   => Mage::helper('sales')->__('Fetch'),
                 'onclick' => "setLocation('{$fetchUrl}')",
                 'class'   => 'button'
-            ));
+            ]);
         }
     }
 
@@ -76,11 +76,11 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
     {
         $this->setTxnIdHtml(Mage::helper('adminhtml/sales')->escapeHtmlWithLinks(
             $this->_txn->getHtmlTxnId(),
-            array('a')
+            ['a']
         ));
 
         $this->setParentTxnIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_transactions/view', array('txn_id' => $this->_txn->getParentId())))
+            $this->escapeHtml($this->getUrl('*/sales_transactions/view', ['txn_id' => $this->_txn->getParentId()]))
         );
 
         $this->setParentTxnIdHtml(
@@ -92,7 +92,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
         $this->setTxnTypeHtml($this->escapeHtml($this->_txn->getTxnType()));
 
         $this->setOrderIdUrlHtml(
-            $this->escapeHtml($this->getUrl('*/sales_order/view', array('order_id' => $this->_txn->getOrderId())))
+            $this->escapeHtml($this->getUrl('*/sales_order/view', ['order_id' => $this->_txn->getOrderId()]))
         );
 
         $this->setIsClosedHtml(

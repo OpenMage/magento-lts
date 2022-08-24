@@ -285,7 +285,7 @@ class Mage_Reports_Model_Event_Observer
      */
     public function eventClean(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Reports_Model_Event $event */
+        /** @var Mage_Reports_Model_Event $event */
         $event = Mage::getModel('reports/event');
         $event->clean();
 

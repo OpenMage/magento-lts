@@ -68,10 +68,10 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     public function getStorageData($dir = '')
     {
-        $files          = array();
-        $directories    = array();
+        $files          = [];
+        $directories    = [];
         $currentDir     = $this->getMediaBaseDirectory() . $dir;
-        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
+        $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
@@ -84,10 +84,10 @@ class Mage_Core_Model_Resource_File_Storage_File
                     $fullPath = $currentDir . DS . $file;
                     $relativePath = $dir . DS . $file;
                     if (is_dir($fullPath)) {
-                        $directories[] = array(
+                        $directories[] = [
                             'name' => $file,
                             'path' => str_replace(DS, '/', ltrim($dir, DS))
-                        );
+                        ];
 
                         $data = $this->getStorageData($relativePath);
                         $directories = array_merge($directories, $data['directories']);
@@ -100,7 +100,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             }
         }
 
-        return array('files' => $files, 'directories' => $directories);
+        return ['files' => $files, 'directories' => $directories];
     }
 
     /**
@@ -112,7 +112,7 @@ class Mage_Core_Model_Resource_File_Storage_File
     public function clear($dir = '')
     {
         $currentDir = $this->getMediaBaseDirectory() . $dir;
-        $ignoredFiles = array_merge(array('.', '..'), $this->_getIgnoredFiles());
+        $ignoredFiles = array_merge(['.', '..'], $this->_getIgnoredFiles());
 
         if (is_dir($currentDir)) {
             $dh = opendir($currentDir);
@@ -143,10 +143,10 @@ class Mage_Core_Model_Resource_File_Storage_File
      */
     protected function _getIgnoredFiles()
     {
-        if (null === $this->_ignoredFiles) {
+        if ($this->_ignoredFiles === null) {
             $ignored = (string)Mage::app()->getConfig()
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
-            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : array();
+            $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
         }
         return $this->_ignoredFiles;
     }

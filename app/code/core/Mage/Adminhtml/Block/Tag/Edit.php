@@ -41,11 +41,11 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
 
-        $this->addButton('save_and_edit_button', array(
+        $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => "saveAndContinueEdit('" . $this->getSaveAndContinueUrl() . "')",
             'class'   => 'save'
-        ), 1);
+        ], 1);
     }
 
     /**
@@ -94,7 +94,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', array('tag_id' => $this->getRequest()->getParam($this->_objectId), 'ret' => $this->getRequest()->getParam('ret', 'index')));
+        return $this->getUrl('*/*/delete', ['tag_id' => $this->getRequest()->getParam($this->_objectId), 'ret' => $this->getRequest()->getParam('ret', 'index')]);
     }
 
     /**
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', ['_current'=>true]);
     }
 
     /**
@@ -144,7 +144,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()));
+        return $this->getUrl('*/*/save', ['_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()]);
     }
 
     /**

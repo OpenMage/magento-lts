@@ -43,7 +43,7 @@ class Mage_Sales_Block_Payment_Form_Billing_Agreement extends Mage_Payment_Block
      */
     public function getBillingAgreements()
     {
-        $data = array();
+        $data = [];
         $quote = $this->getParentBlock()->getQuote();
         if (!$quote || !$quote->getCustomer()) {
             return $data;

@@ -77,17 +77,17 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     public function checkCustomerForgotPasswordFlowEmail($email)
     {
         $helper = Mage::helper('customer');
-        $checkForgotPasswordFlowTypes = array(
+        $checkForgotPasswordFlowTypes = [
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP_EMAIL,
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_EMAIL
-        );
+        ];
 
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes)) {
             $forgotPassword = $this->getCollection()
-                ->addFieldToFilter('email', array('eq' => $email))
+                ->addFieldToFilter('email', ['eq' => $email])
                 ->addFieldToFilter(
                     'requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day'))
+                    ['gt' => Mage::getModel('core/date')->date(null, '-1 day')]
                 );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordEmailTimes()) {
@@ -107,17 +107,17 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         $helper        = Mage::helper('customer');
         $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
         $remoteAddr    = $validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY];
-        $checkForgotPasswordFlowTypes = array(
+        $checkForgotPasswordFlowTypes = [
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP_EMAIL,
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP
-        );
+        ];
 
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes) && $remoteAddr) {
             $forgotPassword = $this->getCollection()
-                ->addFieldToFilter('ip', array('eq' => $remoteAddr))
+                ->addFieldToFilter('ip', ['eq' => $remoteAddr])
                 ->addFieldToFilter(
                     'requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour'))
+                    ['gt' => Mage::getModel('core/date')->date(null, '-1 hour')]
                 );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordIpTimes()) {

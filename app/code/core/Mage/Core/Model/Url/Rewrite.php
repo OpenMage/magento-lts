@@ -85,7 +85,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     protected function _afterSave()
     {
         if ($this->hasCategoryId()) {
-            $this->_cacheTag = array(Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG);
+            $this->_cacheTag = [Mage_Catalog_Model_Category::CACHE_TAG, Mage_Core_Model_Store_Group::CACHE_TAG];
         }
 
         parent::_afterSave();
@@ -232,7 +232,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         if (is_null($response)) {
             $response = Mage::app()->getFrontController()->getResponse();
         }
-        if (is_null($this->getStoreId()) || false===$this->getStoreId()) {
+        if (is_null($this->getStoreId()) || $this->getStoreId() === false) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 
@@ -241,7 +241,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
          * Each of them matches two url rewrite request paths - with and without slashes at the end ("/somepath/" and "/somepath").
          * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
          */
-        $requestCases = array();
+        $requestCases = [];
         $pathInfo = $request->getPathInfo();
         $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
         $requestPath = trim($pathInfo, '/');
@@ -331,7 +331,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     protected function _getQueryString()
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
-            $queryParams = array();
+            $queryParams = [];
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach ($queryParams as $key => $value) {

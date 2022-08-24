@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
      * @param array $params url parameters
      * @return string current url
      */
-    public function getCurrentUrl($params = array())
+    public function getCurrentUrl($params = [])
     {
         if (!isset($params['_current'])) {
             $params['_current'] = true;
@@ -76,13 +76,13 @@ class Mage_Adminhtml_Block_Widget extends Mage_Adminhtml_Block_Template
     public function getButtonHtml($label, $onclick, $class='', $id=null)
     {
         return $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'     => $label,
                 'onclick'   => $onclick,
                 'class'     => $class,
                 'type'      => 'button',
                 'id'        => $id,
-            ))
+            ])
             ->toHtml();
     }
 

@@ -68,7 +68,7 @@ class Mage_Api2_Model_Observer
             foreach ($collection as $aclFilter) {
                 if ($aclFilter->getResourceId() != Mage_Api2_Model_Acl_Global_Rule::RESOURCE_ALL) {
                     $allowedAttributes = explode(',', $aclFilter->getAllowedAttributes());
-                    $allowedAttributes = array_diff($allowedAttributes, array($attribute->getAttributeCode()));
+                    $allowedAttributes = array_diff($allowedAttributes, [$attribute->getAttributeCode()]);
                     $aclFilter->setAllowedAttributes(implode(',', $allowedAttributes))->save();
                 }
             }

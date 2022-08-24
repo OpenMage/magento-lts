@@ -59,7 +59,6 @@ class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
@@ -74,7 +73,7 @@ class Mage_Downloadable_Model_Link_Purchased extends Mage_Core_Model_Abstract
      */
     public function _beforeSave()
     {
-        if (null == $this->getOrderId()) {
+        if ($this->getOrderId() == null) {
             throw new Exception(
                 Mage::helper('downloadable')->__('Order id cannot be null')
             );

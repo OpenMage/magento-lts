@@ -35,7 +35,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_itemRenders = array();
+    protected $_itemRenders = [];
 
     /**
      * Initialize default item renderer
@@ -56,11 +56,11 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
      */
     public function addItemRender($type, $block, $template)
     {
-        $this->_itemRenders[$type] = array(
+        $this->_itemRenders[$type] = [
             'block'     => $block,
             'template'  => $template,
             'renderer'  => null
-        );
+        ];
 
         return $this;
     }

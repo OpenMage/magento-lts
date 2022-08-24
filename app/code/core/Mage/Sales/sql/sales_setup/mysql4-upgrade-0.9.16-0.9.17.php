@@ -19,10 +19,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('quote_address_rate', 'method_title', array('type' => 'text'));
+$installer->addAttribute('quote_address_rate', 'method_title', ['type' => 'text']);
 
 $installer->endSetup();

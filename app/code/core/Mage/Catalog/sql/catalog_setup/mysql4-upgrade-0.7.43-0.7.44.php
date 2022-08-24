@@ -19,13 +19,13 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('catalog_product', 'required_options', array(
+$installer->addAttribute('catalog_product', 'required_options', [
     'visible' => false,
     'default' => false
-));
+]);
 
 $installer->endSetup();

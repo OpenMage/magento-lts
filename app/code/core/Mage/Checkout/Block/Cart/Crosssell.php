@@ -43,7 +43,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     {
         $items = $this->getData('items');
         if (is_null($items)) {
-            $items = array();
+            $items = [];
             $ninProductIds = $this->_getCartProductIds();
             if ($ninProductIds) {
                 $lastAdded = (int) $this->_getLastAddedProductId();
@@ -101,7 +101,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     {
         $ids = $this->getData('_cart_product_ids');
         if (is_null($ids)) {
-            $ids = array();
+            $ids = [];
             foreach ($this->getQuote()->getAllItems() as $item) {
                 if ($product = $item->getProduct()) {
                     $ids[] = $product->getId();
@@ -120,7 +120,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
      */
     protected function _getCartProductIdsRel()
     {
-        $productIds = array();
+        $productIds = [];
         foreach ($this->getQuote()->getAllItems() as $quoteItem) {
             $productTypeOpt = $quoteItem->getOptionByCode('product_type');
             if ($productTypeOpt instanceof Mage_Sales_Model_Quote_Item_Option

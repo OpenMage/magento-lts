@@ -35,10 +35,10 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
      */
     protected function _prepareCustomerData($data)
     {
-        if (null !== ($_data = get_object_vars($data))) {
+        if (($_data = get_object_vars($data)) !== null) {
             return parent::_prepareCustomerData($_data);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -50,9 +50,9 @@ class Mage_Checkout_Model_Cart_Customer_Api_V2 extends Mage_Checkout_Model_Cart_
     protected function _prepareCustomerAddressData($data)
     {
         if (is_array($data)) {
-            $dataAddresses = array();
+            $dataAddresses = [];
             foreach ($data as $addressItem) {
-                if (null !== ($_addressItem = get_object_vars($addressItem))) {
+                if (($_addressItem = get_object_vars($addressItem)) !== null) {
                     $dataAddresses[] = $_addressItem;
                 }
             }

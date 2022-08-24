@@ -18,12 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Customer_Model_Entity_Setup $this */
+/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 
-$attributes = array(
+$attributes = [
     'prefix', 'firstname', 'middlename', 'lastname', 'suffix'
-);
+];
 
 foreach ($attributes as $attributeCode) {
     $attribute   = Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);

@@ -32,7 +32,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     protected $_collection = null;
     protected $_pageVarName    = 'p';
     protected $_limitVarName   = 'limit';
-    protected $_availableLimit = array(10=>10,20=>20,50=>50);
+    protected $_availableLimit = [10=>10,20=>20,50=>50];
     protected $_dispersion     = 3;
     protected $_displayPages   = 5;
     protected $_showPerPage    = true;
@@ -298,7 +298,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
     {
         $collection = $this->getCollection();
 
-        $pages = array();
+        $pages = [];
         if ($collection->getLastPageNumber() <= $this->_displayPages) {
             $pages = range(1, $collection->getLastPageNumber());
         } else {
@@ -359,7 +359,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getPageUrl($page)
     {
-        return $this->getPagerUrl(array($this->getPageVarName()=>$page));
+        return $this->getPagerUrl([$this->getPageVarName()=>$page]);
     }
 
     /**
@@ -368,16 +368,16 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
      */
     public function getLimitUrl($limit)
     {
-        return $this->getPagerUrl(array($this->getLimitVarName()=>$limit));
+        return $this->getPagerUrl([$this->getLimitVarName()=>$limit]);
     }
 
     /**
      * @param array $params
      * @return string
      */
-    public function getPagerUrl($params = array())
+    public function getPagerUrl($params = [])
     {
-        $urlParams = array();
+        $urlParams = [];
         $urlParams['_current']  = true;
         $urlParams['_escape']   = true;
         $urlParams['_use_rewrite']   = true;

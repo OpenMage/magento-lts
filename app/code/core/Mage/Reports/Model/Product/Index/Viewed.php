@@ -69,7 +69,7 @@ class Mage_Reports_Model_Product_Index_Viewed extends Mage_Reports_Model_Product
      */
     public function getExcludeProductIds()
     {
-        $productIds = array();
+        $productIds = [];
 
         if (Mage::registry('current_product')) {
             $productIds[] = Mage::registry('current_product')->getId();

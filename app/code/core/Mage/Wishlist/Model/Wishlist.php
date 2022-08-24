@@ -179,7 +179,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if (null !== $this->_itemCollection) {
+        if ($this->_itemCollection !== null) {
             $this->getItemCollection()->save();
         }
         return $this;
@@ -216,7 +216,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
                 ->setQty($qty)
                 ->save();
 
-            Mage::dispatchEvent('wishlist_item_add_after', array('wishlist' => $this));
+            Mage::dispatchEvent('wishlist_item_add_after', ['wishlist' => $this]);
 
             if ($item->getId()) {
                 $this->getItemCollection()->addItem($item);
@@ -300,7 +300,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         $item->setWishlist($this);
         if (!$item->getId()) {
             $this->getItemCollection()->addItem($item);
-            Mage::dispatchEvent('wishlist_add_item', array('item' => $item));
+            Mage::dispatchEvent('wishlist_add_item', ['item' => $item]);
         }
         return $this;
     }
@@ -334,7 +334,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')
             ->setStoreId($storeId)
             ->load($productId);
@@ -363,11 +363,11 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
          * If prepare process return one object
          */
         if (!is_array($cartCandidates)) {
-            $cartCandidates = array($cartCandidates);
+            $cartCandidates = [$cartCandidates];
         }
 
-        $errors = array();
-        $items = array();
+        $errors = [];
+        $items = [];
 
         foreach ($cartCandidates as $candidate) {
             if ($candidate->getParentProductId()) {
@@ -385,7 +385,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             }
         }
 
-        Mage::dispatchEvent('wishlist_product_add_after', array('items' => $items));
+        Mage::dispatchEvent('wishlist_product_add_after', ['items' => $items]);
 
         return $item;
     }
@@ -418,7 +418,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      */
     public function getDataForSave()
     {
-        $data = array();
+        $data = [];
         $data[$this->_getResource()->getCustomerIdFieldName()] = $this->getCustomerId();
         $data['shared']      = (int) $this->getShared();
         $data['sharing_code']= $this->getSharingCode();
@@ -437,7 +437,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             if ($current) {
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
-                $_storeIds = array();
+                $_storeIds = [];
                 $stores = Mage::app()->getStores();
                 foreach ($stores as $store) {
                     $_storeIds[] = $store->getId();
@@ -570,7 +570,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $items = $this->getItemCollection();
             $isForceSetQuantity = true;
             foreach ($items as $_item) {
-                /* @var Mage_Wishlist_Model_Item $_item */
+                /** @var Mage_Wishlist_Model_Item $_item */
                 if ($_item->getProductId() == $product->getId()
                     && $_item->representProduct($product)
                     && $_item->getId() != $item->getId()) {

@@ -26,7 +26,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
      *
      * @var Varien_Simplexml_Config
      */
-    protected $_config = array();
+    protected $_config = [];
 
     /**
      * Set config
@@ -46,7 +46,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
      */
     public function getConfig($key = '')
     {
-        if (''===$key) {
+        if ($key === '') {
             return $this->_config;
         } elseif (isset($this->_config->$key)) {
             return $this->_config->$key;

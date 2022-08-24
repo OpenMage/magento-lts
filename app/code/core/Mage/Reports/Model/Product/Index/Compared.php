@@ -69,9 +69,9 @@ class Mage_Reports_Model_Product_Index_Compared extends Mage_Reports_Model_Produ
      */
     public function getExcludeProductIds()
     {
-        $productIds = array();
+        $productIds = [];
 
-        /* @var Mage_Catalog_Helper_Product_Compare $helper */
+        /** @var Mage_Catalog_Helper_Product_Compare $helper */
         $helper = Mage::helper('catalog/product_compare');
 
         if ($helper->hasItems()) {
