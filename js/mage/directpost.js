@@ -116,8 +116,7 @@ directPost.prototype = {
                             this.returnQuote();
                         } else {
                             this.changeInputOptions('disabled', false);
-                            toggleSelectsUnderBlock($('loading-mask'), true);
-                            $('loading-mask').hide();
+                            hideLoader();
                             enableElements('save');
                         }
                     }
@@ -164,8 +163,7 @@ directPost.prototype = {
                     case 'sales_order_edit':
                     case 'sales_order_create':
                         this.changeInputOptions('disabled', false);
-                        toggleSelectsUnderBlock($('loading-mask'), true);
-                        $('loading-mask').hide();
+                        hideLoader();
                         enableElements('save');
                         break;
                 }
@@ -252,9 +250,7 @@ directPost.prototype = {
             });
             this.hasError = false;
             if (paymentMethodEl.value == this.code) {
-                toggleSelectsUnderBlock($('loading-mask'), false);
-                $('loading-mask').show();
-                setLoaderPosition();
+                showLoader();
                 this.changeInputOptions('disabled', 'disabled');
                 this.paymentRequestSent = true;
                 this.orderRequestSent = true;

@@ -76,11 +76,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Composite/Fieldset/Grouped.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Created.php
@@ -224,26 +219,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser\\:\\:getRowClickCallback\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Account.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Customer_Edit_Tab_Cart\\:\\:\\$_parentTemplate\\.$#"
@@ -536,29 +511,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayPriceAttribute\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayPrices\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Abstract.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Data\\:\\:getAvailableCurrencies\\(\\) has invalid return type unknown\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Data.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Form/Address.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIsMessagesAvailable\\(\\)\\.$#"
@@ -726,16 +681,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Tracking.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayPriceAttribute\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Totals/Item.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:displayPrices\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Totals/Item.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View.php
@@ -794,16 +739,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/Creditmemos.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatTime\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Tab/History.php
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setOrderFilter\\(\\)\\.$#"
@@ -1701,16 +1636,6 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
-			message: "#^Call to an undefined static method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Bundle/Block/Catalog/Product/View/Type/Bundle/Option.php
-
-		-
 			message: "#^Variable \\$_items might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Sales/Order/Items/Renderer.php
@@ -1949,16 +1874,6 @@ parameters:
 			message: "#^Cannot call method getValueId\\(\\) on true\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 5
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
 
 		-
 			message: "#^Variable \\$class might not be defined\\.$#"
@@ -3081,16 +2996,6 @@ parameters:
 			path: ../app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatTime\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Block/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:sessionUrlVar\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Block/Abstract.php
@@ -3381,16 +3286,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Block/Widget/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNamePrefixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Widget/Name.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getNameSuffixOptions\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Block/Widget/Name.php
-
-		-
 			message: "#^Cannot call method setRealGroupsFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Helper/Data.php
@@ -3479,51 +3374,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:isConfirmationRequired\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Resource/Customer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:generateResetPasswordLinkCustomerId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:generateResetPasswordLinkToken\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getAccountUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getDashboardUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEmailConfirmationUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getLoginUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getLogoutUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getTaxCalculationAddressType\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isVatValidationEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/controllers/AccountController.php
 
 		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -3723,16 +3573,6 @@ parameters:
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:hasLinks\\(\\)\\.$#"
 			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
-			message: "#^Call to an undefined static method Mage_Core_Helper_Abstract\\:\\:currencyByStore\\(\\)\\.$#"
-			count: 4
 			path: ../app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
 
 		-
@@ -4064,66 +3904,6 @@ parameters:
 			message: "#^PHPDoc tag @param for parameter \\$object with type Mage_Eav_Model_Resource_Form_Type is incompatible with native type Mage_Core_Model_Abstract\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Eav/Model/Resource/Form/Type.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIsMessagesAvailable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/Create/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGiftMessage\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/Create/Items.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getIsMessagesAvailable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/Create/Items.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGiftMessage\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Adminhtml/Sales/Order/View/Items.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getButtonUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEditUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGiftMessage\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getRemoveUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getSaveUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getEditUrl\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Helper.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGiftMessage\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Helper.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getGiftMessage\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/GiftMessage/Block/Message/Inline.php
 
 		-
 			message: "#^Method Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\:\\:afterLoad\\(\\) should return \\$this\\(Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config\\) but return statement is missing\\.$#"
@@ -4624,26 +4404,6 @@ parameters:
 			message: "#^Method Mage_Payment_Model_Recurring_Profile\\:\\:getFieldLabel\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Payment/Model/Recurring/Profile.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/Settlement/Details/Form.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getScript\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Field/Country.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getScript\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Hint.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getScript\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Location.php
 
 		-
 			message: "#^Method Mage_Paypal_Block_Adminhtml_System_Config_Payflowlink_Info\\:\\:getFrontendUrl\\(\\) has invalid return type strting\\.$#"
@@ -5396,84 +5156,14 @@ parameters:
 			path: ../app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Block/Adminhtml/Billing/Agreement/View/Tab/Info.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getBillingAgreementMethods\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreement/View.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:formatDate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreements.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getBillingAgreementMethods\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Block/Billing/Agreements.php
-
-		-
 			message: "#^Cannot call method setParentFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/Comments.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Creditmemo.php
-
-		-
 			message: "#^Call to method setOrderFilter\\(\\) on an unknown class Mage_Sales_Model_Resource_Invoice_Collection\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Block/Order/Details.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Info.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Invoice.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Creditmemo.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Invoice.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Print/Shipment.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/Shipment.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getInfoBlock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Block/Order/View.php
 
 		-
 			message: "#^Method Mage_Sales_Model_Billing_Agreement\\:\\:getStatusLabel\\(\\) should return string but return statement is missing\\.$#"
@@ -5786,36 +5476,6 @@ parameters:
 			path: ../app/code/core/Mage/SalesRule/Model/Resource/Report/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isDiscounted\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isEnabled\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxable\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:setWeeeTaxesAppliedProperty\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
-
-		-
 			message: "#^Call to an undefined method Mage_Rule_Model_Action_Collection\\:\\:validate\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/SalesRule/Model/Validator.php
@@ -5979,21 +5639,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:isAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:getApplied\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:includeInSubtotal\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Helper_Abstract\\:\\:isTaxIncluded\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tax/Block/Checkout/Tax.php
 
 		-
 			message: "#^Call to an undefined method Mage_Tax_Block_Sales_Order_Tax\\:\\:addTotal\\(\\)\\.$#"
