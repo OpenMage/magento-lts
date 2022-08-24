@@ -29,7 +29,9 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
     public function formatValue($total)
     {
         if (!$total->getIsFormated()) {
-            return $this->helper('adminhtml/sales')->displayPrices(
+            /** @var Mage_Adminhtml_Helper_Sales $helper */
+            $helper = $this->helper('adminhtml/sales');
+            return $helper->displayPrices(
                 $this->getOrder(),
                 $total->getBaseValue(),
                 $total->getValue()
@@ -56,8 +58,8 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
         /**
          * Add shipping
          */
-        if (!$this->getSource()->getIsVirtual() && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription()))
-        {
+        if (!$this->getSource()->getIsVirtual()
+            && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription())) {
             $this->_totals['shipping'] = new Varien_Object([
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),
@@ -71,7 +73,10 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
          */
         if (((float)$this->getSource()->getDiscountAmount()) != 0) {
             if ($this->getSource()->getDiscountDescription()) {
-                $discountLabel = $this->helper('sales')->__('Discount (%s)', $this->getSource()->getDiscountDescription());
+                $discountLabel = $this->helper('sales')->__(
+                    'Discount (%s)',
+                    $this->getSource()->getDiscountDescription()
+                );
             } else {
                 $discountLabel = $this->helper('sales')->__('Discount');
             }

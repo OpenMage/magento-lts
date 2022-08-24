@@ -43,7 +43,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getQuery()
     {
-        return $this->helper('catalogsearch')->getQuery();
+        /** @var Mage_CatalogSearch_Helper_Data $hlper */
+        $hlper = $this->helper('catalogsearch');
+        return $hlper->getQuery();
     }
 
     /**
@@ -53,11 +55,14 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
+        /** @var Mage_CatalogSearch_Helper_Data $hlper */
+        $hlper = $this->helper('catalogsearch');
+
         // add Home breadcrumb
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
-            $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getQueryText());
+            $title = $this->__("Search results for: '%s'", $hlper->getQueryText());
 
             $breadcrumbs->addCrumb('home', [
                 'label' => $this->__('Home'),
@@ -70,7 +75,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         }
 
         // modify page title
-        $title = $this->__("Search results for: '%s'", $this->helper('catalogsearch')->getEscapedQueryText());
+        $title = $this->__("Search results for: '%s'", $hlper->getEscapedQueryText());
         $this->getLayout()->getBlock('head')->setTitle($title);
 
         return parent::_prepareLayout();
@@ -191,7 +196,10 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
     public function getNoResultText()
     {
         if (Mage::helper('catalogsearch')->isMinQueryLength()) {
-            return Mage::helper('catalogsearch')->__('Minimum Search query length is %s', $this->_getQuery()->getMinQueryLength());
+            return Mage::helper('catalogsearch')->__(
+                'Minimum Search query length is %s',
+                $this->_getQuery()->getMinQueryLength()
+            );
         }
         return $this->_getData('no_result_text');
     }
