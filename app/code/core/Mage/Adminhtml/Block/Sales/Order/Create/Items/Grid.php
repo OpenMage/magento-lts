@@ -107,12 +107,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             $result = $item->getOriginalCustomPrice() * 1;
         } elseif ($item->hasCustomPrice()) {
             $result = $item->getCustomPrice() * 1;
+        } elseif (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
+            $result = $item->getPriceInclTax() * 1;
         } else {
-            if (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
-                $result = $item->getPriceInclTax() * 1;
-            } else {
-                $result = $item->getOriginalPrice() * 1;
-            }
+            $result = $item->getOriginalPrice() * 1;
         }
         return $result;
     }
@@ -136,15 +134,14 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function isGiftMessagesAvailable($item = null)
     {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+
         if (is_null($item)) {
-            return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-                'items', $this->getQuote(), $this->getStore()
-            );
+            return $helper->getIsMessagesAvailable('items', $this->getQuote(), $this->getStore());
         }
 
-        return $this->helper('giftmessage/message')->getIsMessagesAvailable(
-            'item', $item, $this->getStore()
-        );
+        return $helper->getIsMessagesAvailable('item', $item, $this->getStore());
     }
 
     /**
@@ -183,10 +180,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
                 return $address->getSubtotalInclTax();
             }
             return $address->getSubtotal()+$address->getTaxAmount();
-        } else {
-            return $address->getSubtotal();
         }
-        return false;
+
+        return $address->getSubtotal();
     }
 
     /**
@@ -201,9 +197,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             $subtotalInclTax = $address->getSubtotal() + $address->getTaxAmount()
                     + $address->getHiddenTaxAmount() + $this->getDiscountAmount();
             return $subtotalInclTax;
-        } else {
-            return $address->getSubtotal() + $this->getDiscountAmount();
         }
+
+        return $address->getSubtotal() + $this->getDiscountAmount();
     }
 
     /**
@@ -236,9 +232,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         if ($this->getQuote()->isVirtual()) {
             return $this->getQuote()->getBillingAddress();
         }
-        else {
-            return $this->getQuote()->getShippingAddress();
-        }
+
+        return $this->getQuote()->getShippingAddress();
     }
 
     /**
@@ -281,9 +276,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
             }
             return implode(', ', $info);
         }
-        else {
-            return $this->helper('sales')->__('Item ordered qty');
-        }
+
+        return $this->helper('sales')->__('Item ordered qty');
     }
 
     /**
@@ -360,7 +354,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         if ($item->getTaxBeforeDiscount()) {
             $tax = $item->getTaxBeforeDiscount();
         } else {
-            $tax = $item->getTaxAmount() ? $item->getTaxAmount() : 0;
+            $tax = $item->getTaxAmount() ?: 0;
         }
         return $this->formatPrice($item->getRowTotal() + $tax);
     }
@@ -388,7 +382,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
      */
     public function displayRowTotalWithDiscountInclTax($item)
     {
-        $tax = ($item->getTaxAmount() ? $item->getTaxAmount() : 0);
+        $tax = ($item->getTaxAmount() ?: 0);
         return $this->formatPrice($item->getRowTotal()-$item->getDiscountAmount()+$tax);
     }
 
@@ -401,9 +395,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
     {
         if (Mage::helper('tax')->priceIncludesTax($this->getStore())) {
             return Mage::helper('sales')->__('* - Enter custom price including tax');
-        } else {
-            return Mage::helper('sales')->__('* - Enter custom price excluding tax');
         }
+
+        return Mage::helper('sales')->__('* - Enter custom price excluding tax');
     }
 
     /**
@@ -463,11 +457,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         return Mage::helper('wishlist')->isAllow() && $item->getProduct()->isVisibleInSiteVisibility();
     }
 
-
     /**
      * Retrieve collection of customer wishlists
      *
      * @return Mage_Wishlist_Model_Resource_Wishlist_Collection
+     * @throws Mage_Core_Exception
      */
     public function getCustomerWishlists()
     {

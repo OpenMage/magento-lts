@@ -283,6 +283,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $templateType
      * @param bool $displayIfNoReviews
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getReviewsSummaryHtml(
         Mage_Catalog_Model_Product $product,
@@ -322,9 +323,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (!$this->_reviewsHelperBlock) {
             if (!Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
                 return false;
-            } else {
-                $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
             }
+
+            $this->_reviewsHelperBlock = $this->getLayout()->createBlock('review/helper');
         }
 
         return true;
@@ -395,6 +396,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      *
      * @param Mage_Catalog_Model_Product $product
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTierPrices($product = null)
     {
@@ -583,11 +585,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getColumnCountLayoutDepend($pageLayout)
     {
-        if (isset($this->_columnCountLayoutDepend[$pageLayout])) {
-            return $this->_columnCountLayoutDepend[$pageLayout];
-        }
-
-        return false;
+        return $this->_columnCountLayoutDepend[$pageLayout] ?? false;
     }
 
     /**
@@ -597,7 +595,9 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      */
     public function getPageLayout()
     {
-        return $this->helper('page/layout')->getCurrentPageLayout();
+        /** @var Mage_Page_Helper_Layout $helper */
+        $helper = $this->helper('page/layout');
+        return $helper->getCurrentPageLayout();
     }
 
     /**
@@ -688,7 +688,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
      * @param bool $addFormKey
      * @return string
      */
-    public function  getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         /** @var Mage_Checkout_Helper_Cart $helper */
         $helper = $this->helper('checkout/cart');
@@ -731,14 +731,12 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $submitRouteData = $this->getData('submit_route_data');
         if ($submitRouteData) {
             $route = $submitRouteData['route'];
-            $params = isset($submitRouteData['params']) ? $submitRouteData['params'] : [];
+            $params = $submitRouteData['params'] ?? [];
             $submitUrl = $this->getUrl($route, array_merge($params, $additional));
+        } elseif ($addFormKey) {
+            $submitUrl = $this->getAddToCartUrl($product, $additional);
         } else {
-            if ($addFormKey) {
-                $submitUrl = $this->getAddToCartUrl($product, $additional);
-            } else {
-                $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
-            }
+            $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
         }
         return $submitUrl;
     }

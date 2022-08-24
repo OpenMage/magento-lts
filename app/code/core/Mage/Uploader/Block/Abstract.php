@@ -18,6 +18,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_Uploader_Block_Abstract
+ */
 abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
 {
     /**
@@ -84,7 +87,9 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     public function getJsonConfig()
     {
-        return $this->helper('core')->jsonEncode([
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->jsonEncode([
             'uploaderConfig'    => $this->getUploaderConfig()->getData(),
             'elementIds'        => $this->_getElementIdsMapping(),
             'browseConfig'      => $this->getButtonConfig()->getData(),

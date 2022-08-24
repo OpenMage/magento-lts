@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * GoogleAnalitics Page Block
  *
@@ -77,11 +76,13 @@ class Mage_GoogleAnalytics_Block_Ga extends Mage_Core_Block_Template
      */
     protected function _getPageTrackingCode($accountId)
     {
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseUniversalAnalytics()) {
             return $this->_getPageTrackingCodeUniversal($accountId);
-        } else {
-            return $this->_getPageTrackingCodeAnalytics($accountId);
         }
+
+        return $this->_getPageTrackingCodeAnalytics($accountId);
     }
 
     /**
@@ -127,20 +128,24 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      * Render information about specified orders and their items
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCode()
     {
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseUniversalAnalytics()) {
             return $this->_getOrdersTrackingCodeUniversal();
-        } else {
-            return $this->_getOrdersTrackingCodeAnalytics();
         }
+
+        return $this->_getOrdersTrackingCodeAnalytics();
     }
 
     /**
      * Render information about specified orders and their items
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCodeUniversal()
     {
@@ -193,6 +198,7 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
      *
      * @link http://code.google.com/apis/analytics/docs/gaJS/gaJSApiEcommerce.html#_gat.GA_Tracker_._addTrans
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getOrdersTrackingCodeAnalytics()
     {
@@ -209,7 +215,8 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
             } else {
                 $address = $order->getShippingAddress();
             }
-            $result[] = sprintf("_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
+            $result[] = sprintf(
+                "_gaq.push(['_addTrans', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);",
                 $order->getIncrementId(),
                 $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
                 $order->getBaseGrandTotal(),
@@ -220,11 +227,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
                 $this->jsQuoteEscape(Mage::helper('core')->escapeHtml($address->getCountry()))
             );
             foreach ($order->getAllVisibleItems() as $item) {
-                $result[] = sprintf("_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
+                $result[] = sprintf(
+                    "_gaq.push(['_addItem', '%s', '%s', '%s', '%s', '%s', '%s']);",
                     $order->getIncrementId(),
-                    $this->jsQuoteEscape($item->getSku()), $this->jsQuoteEscape($item->getName()),
+                    $this->jsQuoteEscape($item->getSku()),
+                    $this->jsQuoteEscape($item->getName()),
                     null, // there is no "category" defined for the order item
-                    $item->getBasePrice(), $item->getQtyOrdered()
+                    $item->getBasePrice(),
+                    $item->getQtyOrdered()
                 );
             }
             $result[] = "_gaq.push(['_trackTrans']);";
@@ -242,11 +252,14 @@ _gaq.push(['_trackPageview'{$optPageURL}]);
         if (!Mage::helper('googleanalytics')->isIpAnonymizationEnabled()) {
             return '';
         }
-        if ($this->helper('googleanalytics')->isUseUniversalAnalytics()) {
+
+        /** @var Mage_GoogleAnalytics_Helper_Data $helper */
+        $helper = $this->helper('googleanalytics');
+        if ($helper->isUseUniversalAnalytics()) {
             return $this->_getAnonymizationCodeUniversal();
-        } else {
-            return $this->_getAnonymizationCodeAnalytics();
         }
+
+        return $this->_getAnonymizationCodeAnalytics();
     }
 
     /**
