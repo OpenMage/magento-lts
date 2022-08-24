@@ -43,9 +43,9 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _getQuery()
     {
-        /** @var Mage_CatalogSearch_Helper_Data $hlper */
-        $hlper = $this->helper('catalogsearch');
-        return $hlper->getQuery();
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
+        return $helper->getQuery();
     }
 
     /**
@@ -55,14 +55,14 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_CatalogSearch_Helper_Data $hlper */
-        $hlper = $this->helper('catalogsearch');
+        /** @var Mage_CatalogSearch_Helper_Data $helper */
+        $helper = $this->helper('catalogsearch');
 
         // add Home breadcrumb
         /** @var Mage_Page_Block_Html_Breadcrumbs $breadcrumbs */
         $breadcrumbs = $this->getLayout()->getBlock('breadcrumbs');
         if ($breadcrumbs) {
-            $title = $this->__("Search results for: '%s'", $hlper->getQueryText());
+            $title = $this->__("Search results for: '%s'", $helper->getQueryText());
 
             $breadcrumbs->addCrumb('home', [
                 'label' => $this->__('Home'),
@@ -75,7 +75,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         }
 
         // modify page title
-        $title = $this->__("Search results for: '%s'", $hlper->getEscapedQueryText());
+        $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
         $this->getLayout()->getBlock('head')->setTitle($title);
 
         return parent::_prepareLayout();

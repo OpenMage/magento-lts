@@ -490,7 +490,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected function _addColumnFilterToCollection($column)
     {
         if ($this->getCollection()) {
-            $field = ($column->getFilterIndex()) ?: $column->getIndex();
+            $field = $column->getFilterIndex() ?: $column->getIndex();
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
@@ -513,7 +513,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
      */
     protected function _addLinkModelFilterCallback($collection, $column)
     {
-        $field = ($column->getFilterIndex()) ?: $column->getIndex();
+        $field = $column->getFilterIndex() ?: $column->getIndex();
         $condition = $column->getFilter()->getCondition();
         $collection->addLinkModelFieldToFilter($field, $condition);
 

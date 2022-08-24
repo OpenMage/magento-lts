@@ -59,7 +59,8 @@ class Mage_Adminhtml_Block_Sales_Totals extends Mage_Sales_Block_Order_Totals
          * Add shipping
          */
         if (!$this->getSource()->getIsVirtual()
-            && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription())) {
+            && ((float) $this->getSource()->getShippingAmount() || $this->getSource()->getShippingDescription())
+        ) {
             $this->_totals['shipping'] = new Varien_Object([
                 'code'      => 'shipping',
                 'value'     => $this->getSource()->getShippingAmount(),

@@ -906,7 +906,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Check store availability for customer
      *
-     * @param Mage_Core_Model_Store | int $store
+     * @param Mage_Core_Model_Store|int $store
      * @return bool
      * @throws Mage_Core_Exception
      */
