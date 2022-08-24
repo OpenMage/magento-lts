@@ -239,6 +239,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param null $file
      * @return bool
      */
@@ -248,6 +249,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return float|int|string
      */
     protected function _getMemoryLimit()
@@ -271,6 +273,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return int
      */
     protected function _getMemoryUsage()
@@ -282,6 +285,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param string $file
      * @return float|int
      */
@@ -354,7 +358,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
             $file = null;
         }
         if ($file) {
-            if ((!$this->_fileExists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
+            if ((!$this->_fileExists($baseDir . $file))) {
                 $file = null;
             }
         }
