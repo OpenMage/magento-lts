@@ -518,7 +518,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         }
         $this->_addAmount($item->getTaxAmount());
         $this->_addBaseAmount($item->getBaseTaxAmount());
-        return;
     }
 
     /**
@@ -789,7 +788,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         }
         $this->_addAmount($item->getTaxAmount());
         $this->_addBaseAmount($item->getBaseTaxAmount());
-        return;
     }
 
     /**
@@ -1076,7 +1074,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         if ($rate > 0) {
             $itemTaxGroups[$item->getId()] = $appliedRates;
         }
-        return;
     }
 
     /**
@@ -1337,7 +1334,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 );
             }
         }
-        return;
     }
 
     /**
