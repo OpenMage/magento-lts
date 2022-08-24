@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product EAV additional attribute resource collection
  *
@@ -83,7 +82,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      */
     protected function _getLoadDataFields()
     {
-        $fields = array_merge(
+        return array_merge(
             parent::_getLoadDataFields(),
             [
                 'additional_table.is_global',
@@ -91,8 +90,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
                 'additional_table.is_wysiwyg_enabled'
             ]
         );
-
-        return $fields;
     }
 
     /**

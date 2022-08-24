@@ -351,7 +351,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_config->displaySalesPricesBoth($store);
     }
 
-
     /**
      * Check if we need display price include and exclude tax for order/invoice subtotal
      *
@@ -441,7 +440,6 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getAllRatesByProductClass($store);
     }
-
 
     /**
      * Get all tax rates JSON for all product tax classes of specific store
@@ -625,8 +623,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
         $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
-        $customerPriceInclTax = $store->roundPrice($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $store->roundPrice($priceExclTax + $customerTax);
     }
 
     /**

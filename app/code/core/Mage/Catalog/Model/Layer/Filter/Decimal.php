@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Decimal Attribute Filter Model
  *
@@ -108,9 +107,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     protected function _getCacheKey()
     {
-        $key = $this->getLayer()->getStateKey()
+        return $this->getLayer()->getStateKey()
             . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
-        return $key;
     }
 
     /**

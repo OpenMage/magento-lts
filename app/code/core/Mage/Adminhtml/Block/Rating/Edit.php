@@ -45,7 +45,6 @@ class Mage_Adminhtml_Block_Rating_Edit extends Mage_Adminhtml_Block_Widget_Form_
             Mage::register('rating_data', $ratingData);
         }
 
-
     }
 
     public function getHeaderText()

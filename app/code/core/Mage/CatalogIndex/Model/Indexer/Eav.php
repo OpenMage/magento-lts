@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog indexer eav processor
  *
@@ -95,12 +94,6 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
-        return $conditions;
-
-        $conditions = [];
-        $conditions['frontend_input'] = ['select', 'multiselect'];
-        $conditions['or']['is_filterable'] = [1, 2];
-        $conditions['or']['is_visible_in_advanced_search'] = 1;
+        return "main_table.frontend_input IN ('select', 'multiselect') AND (additional_table.is_filterable IN (1, 2) OR additional_table.is_visible_in_advanced_search = 1)";
     }
 }

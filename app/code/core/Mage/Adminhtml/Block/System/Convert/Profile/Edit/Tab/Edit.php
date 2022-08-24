@@ -57,7 +57,6 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit extends Mage_Adm
             'required' => true,
         ]);
 
-
         $form->setValues($model->getData());
 
         $this->setForm($form);

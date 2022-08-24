@@ -639,7 +639,6 @@ CREATE TABLE `{$installer->getTable('catalog/product_option_type_title')}` (
 ALTER TABLE `{$installer->getTable('core_url_rewrite')}` ADD INDEX `IDX_CATEGORY_REWRITE` (`category_id`, `is_system`, `product_id`, `store_id`, `id_path`);
 ");
 
-
     $installer->run("
 CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -670,9 +669,6 @@ CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
 $installer->endSetup();
 
 $installer->installEntities();
-
-
-
 
 // Create Root Catalog Node
 Mage::getModel('catalog/category')

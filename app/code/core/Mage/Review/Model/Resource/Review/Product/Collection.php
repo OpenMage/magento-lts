@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review Product Collection
  *
@@ -48,7 +47,6 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
      * @var boolean
      */
     protected $_addStoreDataFlag     = false;
-
 
     /**
      * Filter by stores for the collection

@@ -43,8 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     public function getStatuses()
     {
         $state = $this->getOrder()->getState();
-        $statuses = $this->getOrder()->getConfig()->getStateStatuses($state);
-        return $statuses;
+        return $this->getOrder()->getConfig()->getStateStatuses($state);
     }
 
     public function canSendCommentEmail()

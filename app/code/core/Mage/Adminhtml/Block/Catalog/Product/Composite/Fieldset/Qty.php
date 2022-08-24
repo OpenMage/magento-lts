@@ -46,9 +46,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Qty extends Mage_C
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
-        $product = $this->getData('product');
-
-        return $product;
+        return $this->getData('product');
     }
 
     /**

@@ -312,12 +312,10 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      */
     protected function _initCollection($link, $product)
     {
-        $collection = $link
+        return $link
             ->getProductCollection()
             ->setIsStrongMode()
             ->setProduct($product);
-
-        return $collection;
     }
 
     /**

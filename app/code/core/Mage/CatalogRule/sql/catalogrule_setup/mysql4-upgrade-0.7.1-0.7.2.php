@@ -77,7 +77,6 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     $conn->raw_query("ALTER TABLE `$ruleProductTable` ADD CONSTRAINT `FK_catalogrule_product_website` FOREIGN KEY (`website_id`) REFERENCES `{$this->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE");
 }
 
-
 // catalogrule_product_price
 $ruleProductPriceTable = $this->getTable('catalogrule_product_price');
 if ($conn->tableColumnExists($ruleProductPriceTable, 'store_id')) {

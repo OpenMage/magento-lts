@@ -24,7 +24,6 @@ $queueTable = $installer->getTable('newsletter_queue');
 $templateTable = $installer->getTable('newsletter_template');
 $conn = $installer->getConnection();
 
-
 $conn->addColumn($queueTable, 'newsletter_type', "int(3) default NULL AFTER `template_id`");
 $conn->addColumn($queueTable, 'newsletter_text', "text AFTER `newsletter_type`");
 $conn->addColumn($queueTable, 'newsletter_styles', "text AFTER `newsletter_text`");

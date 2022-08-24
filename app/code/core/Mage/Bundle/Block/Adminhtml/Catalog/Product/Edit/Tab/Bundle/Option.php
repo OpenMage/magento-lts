@@ -250,10 +250,9 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
      */
     public function getAddButtonId()
     {
-        $buttonId = $this->getLayout()
+        return $this->getLayout()
                 ->getBlock('admin.product.bundle.items')
                 ->getChild('add_button')->getId();
-        return $buttonId;
     }
 
     /**

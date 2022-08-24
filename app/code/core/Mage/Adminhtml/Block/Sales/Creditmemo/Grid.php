@@ -51,7 +51,6 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
         return parent::_prepareCollection();
     }
 
-
     protected function _prepareColumns()
     {
         $this->addColumn('increment_id', [
@@ -154,7 +153,5 @@ class Mage_Adminhtml_Block_Sales_Creditmemo_Grid extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/*', ['_current' => true]);
     }
-
-
 
 }

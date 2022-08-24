@@ -112,7 +112,6 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
                 return;
             }
 
-
             $wishlist->getItemCollection()->load();
 
             foreach ($wishlist->getItemCollection() as $wishlistItem) {

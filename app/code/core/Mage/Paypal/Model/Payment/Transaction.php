@@ -124,7 +124,6 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         return $this;
     }
 
-
     /**
      * Additional information setter
      * Updates data inside the 'additional_information' array

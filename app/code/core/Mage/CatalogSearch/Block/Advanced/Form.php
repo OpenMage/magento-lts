@@ -54,8 +54,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      */
     public function getSearchableAttributes()
     {
-        $attributes = $this->getModel()->getAttributes();
-        return $attributes;
+        return $this->getModel()->getAttributes();
     }
 
     /**

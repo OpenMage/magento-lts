@@ -698,7 +698,6 @@ class Mage_Core_Model_Resource_Setup
         return $arrRes;
     }
 
-
 /******************* UTILITY METHODS *****************/
 
     /**
@@ -738,7 +737,6 @@ class Mage_Core_Model_Resource_Setup
             ? $this->_setupCache[$table][$parentId][$id][$field]
             : false;
     }
-
 
      /**
      * Delete table row

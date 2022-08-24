@@ -63,7 +63,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         $sections = $configFields->getSections($current);
         $tabs     = (array)$configFields->getTabs()->children();
 
-
         $sections = (array)$sections;
 
         usort($sections, [$this, '_sort']);
@@ -78,7 +77,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 'class' => (string) $tab->class
             ]);
         }
-
 
         foreach ($sections as $section) {
             Mage::dispatchEvent('adminhtml_block_system_config_init_tab_sections_before', ['section' => $section]);

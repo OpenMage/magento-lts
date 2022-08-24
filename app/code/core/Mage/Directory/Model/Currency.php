@@ -55,7 +55,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     protected $_rates;
 
-
     /**
      * Class constructor
      */
@@ -315,10 +314,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigDefaultCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
     }
-
 
     /**
      * Retrieve base currencies according to config
@@ -327,8 +324,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigBaseCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
     }
 
     /**
@@ -343,8 +339,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
-        $data = $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
-        return $data;
+        return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
     }
 
     /**

@@ -41,7 +41,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('Custom Design')]);
 
-
         $this->_setFieldset($this->getCategory()->getDesignAttributes(), $fieldset);
 
         $form->addValues($this->getCategory()->getData());

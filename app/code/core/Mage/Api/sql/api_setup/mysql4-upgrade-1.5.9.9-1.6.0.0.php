@@ -35,7 +35,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_API_SESSION_USER'
 );
 
-
 /**
  * Drop indexes
  */
@@ -68,7 +67,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('api/session'),
     'API_SESSION_SESSID'
 );
-
 
 /*
  * Change columns
@@ -300,7 +298,6 @@ $installer->getConnection()->changeColumn(
         'comment'   => 'Permission'
     ]
 );
-
 
 /**
  * Add indexes

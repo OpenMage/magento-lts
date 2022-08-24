@@ -499,10 +499,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         return $address;
     }
 
-
-
-
-
     /**
      * Collect all product attributes used in serialized rule's action or condition
      *

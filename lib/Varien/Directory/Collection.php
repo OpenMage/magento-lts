@@ -421,7 +421,6 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
 }
 
-
 /* Example */
 /*
  $a = new Varien_Directory_Collection('/usr/home/vasily/dev/magento/lib',false);
@@ -449,7 +448,5 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
  print $filesObj[0]->fgets();
 
  */
-
-
 
 ?>

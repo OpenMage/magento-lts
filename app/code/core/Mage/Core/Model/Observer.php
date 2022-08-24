@@ -99,7 +99,6 @@ class Mage_Core_Model_Observer
         Mage::dispatchEvent('core_clean_cache');
     }
 
-
     /**
      * Cleans cache by tags
      *

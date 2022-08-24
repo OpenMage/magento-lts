@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - entity abstract
  *
@@ -1014,11 +1013,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
-        $select = $this->_getReadAdapter()->select()
+        return $this->_getReadAdapter()->select()
             ->from($this->getEntityTable())
             ->where($this->getEntityIdField() . ' =?', $rowId);
-
-        return $select;
     }
 
     /**
@@ -1030,11 +1027,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _getLoadAttributesSelect($object, $table)
     {
-        $select = $this->_getReadAdapter()->select()
+        return $this->_getReadAdapter()->select()
             ->from($table, [])
             ->where($this->getEntityIdField() . ' =?', $object->getId());
-
-        return $select;
     }
 
     /**
@@ -1214,8 +1209,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
         }
 
-        $result = compact('newObject', 'entityRow', 'insert', 'update', 'delete');
-        return $result;
+        return compact('newObject', 'entityRow', 'insert', 'update', 'delete');
     }
 
     /**

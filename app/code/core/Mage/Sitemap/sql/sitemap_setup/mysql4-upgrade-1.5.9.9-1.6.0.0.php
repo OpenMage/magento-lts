@@ -30,7 +30,6 @@ $connection = $installer->getConnection()->dropForeignKey(
     'FK_SITEMAP_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -86,7 +85,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -95,7 +93,6 @@ $connection = $installer->getConnection()->addIndex(
     $installer->getIdxName('sitemap/sitemap', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

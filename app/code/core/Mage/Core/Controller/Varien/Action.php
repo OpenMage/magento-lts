@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -386,7 +385,6 @@ abstract class Mage_Core_Controller_Varien_Action
 
         Varien_Profiler::start("$_profilerKey::layout_render");
 
-
         if ($output !== '') {
             $this->getLayout()->addOutputBlock($output);
         }
@@ -726,7 +724,6 @@ abstract class Mage_Core_Controller_Varien_Action
         $this->getResponse()->setRedirect(Mage::getUrl($path, $arguments));
         return $this;
     }
-
 
     /**
      * Redirect to success page

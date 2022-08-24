@@ -72,7 +72,6 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
         $this->_init('weee/tax', 'weee/tax');
     }
 
-
     /**
      * Initialize tax helper
      *

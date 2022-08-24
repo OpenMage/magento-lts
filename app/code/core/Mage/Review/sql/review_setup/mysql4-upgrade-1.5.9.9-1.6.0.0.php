@@ -70,7 +70,6 @@ $installer->getConnection()->dropForeignKey(
     'REVIEW_STORE_IBFK_1'
 );
 
-
 /**
  * Drop indexes
  */
@@ -113,7 +112,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('review/review_aggregate'),
     'FK_REVIEW_ENTITY_SUMMARY_STORE'
 );
-
 
 /**
  * Change columns
@@ -313,7 +311,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -364,7 +361,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('review/review_store', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

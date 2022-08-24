@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Reviews collection
  *
@@ -127,7 +126,6 @@ class Mage_Reports_Model_Resource_Report_Collection
             }
             $dateStart  = new Zend_Date($this->_from);
             $dateEnd    = new Zend_Date($this->_to);
-
 
             $t = [];
             $firstInterval = true;

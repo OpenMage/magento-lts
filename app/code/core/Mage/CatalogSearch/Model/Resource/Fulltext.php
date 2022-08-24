@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Fulltext Index resource model
  *
@@ -288,9 +287,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             'store_field'   => $storeId
         ]);
 
-        $result = $writeAdapter->fetchAll($select);
-
-        return $result;
+        return $writeAdapter->fetchAll($select);
     }
 
     /**
@@ -833,10 +830,6 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
 
         return null;
     }
-
-
-
-
 
     // Deprecated methods
 

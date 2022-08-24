@@ -250,7 +250,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
         return $this;
     }
 
-
     /**
      * Set parent item
      *
@@ -812,7 +811,6 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
     {
         return $this->_getData('tax_amount');
     }
-
 
     /**
      * Get item base tax amount

@@ -34,7 +34,6 @@ class Mage_Adminhtml_Block_Newsletter_Template extends Mage_Adminhtml_Block_Temp
         $this->setTemplate('newsletter/template/list.phtml');
     }
 
-
     protected function _prepareLayout()
     {
         $this->setChild('grid', $this->getLayout()->createBlock('adminhtml/newsletter_template_grid', 'newsletter.template.grid'));

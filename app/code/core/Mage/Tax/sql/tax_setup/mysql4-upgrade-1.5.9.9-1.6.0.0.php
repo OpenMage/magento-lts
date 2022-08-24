@@ -60,7 +60,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_TAX_ORDER_AGGREGATED_CREATED_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -138,7 +137,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('tax/tax_order_aggregated_created'),
     'IDX_STORE_ID'
 );
-
 
 /**
  * Change columns
@@ -372,7 +370,6 @@ $installer->getConnection()->addColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -470,7 +467,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('tax/tax_order_aggregated_created', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

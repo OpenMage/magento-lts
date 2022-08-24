@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
@@ -34,7 +33,6 @@ $attributes = [
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], "tinyint(1) UNSIGNED NOT NULL DEFAULT 0");
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[1]['attribute_code'], "varchar(255) NOT NULL DEFAULT ''");
-
 
 try {
     $installer->getConnection()->beginTransaction();

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile collection
  *
@@ -58,7 +57,6 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
     {
         return $this->getContainers()->getItem($name);
     }
-
 
     public function addContainer($name, Mage_Dataflow_Model_Convert_Container_Interface $container)
     {

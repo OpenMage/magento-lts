@@ -86,12 +86,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
      */
     public function createFormBlock($name)
     {
-        $block = $this->getLayout()->createBlock('paypal/standard_form', $name)
+        return $this->getLayout()->createBlock('paypal/standard_form', $name)
             ->setMethod('paypal_standard')
             ->setPayment($this->getPayment())
             ->setTemplate('paypal/standard/form.phtml');
-
-        return $block;
     }
 
     /**
@@ -138,8 +136,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         ;
         $api->setCartSummary($this->_getAggregatedCartSummary());
         $api->setLocale($api->getLocaleCode());
-        $result = $api->getStandardCheckoutRequest();
-        return $result;
+        return $api->getStandardCheckoutRequest();
     }
 
     /**

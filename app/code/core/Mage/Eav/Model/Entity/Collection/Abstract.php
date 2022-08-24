@@ -245,7 +245,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this;
     }
 
-
     /**
      * Add an object to the collection
      *
@@ -531,7 +530,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
         return $this;
     }
-
 
     /**
      * Groups results by specified attribute
@@ -960,7 +958,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this;
     }
 
-
     /**
      * Delete all the entities in the collection
      *
@@ -1156,12 +1153,11 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         $helper = Mage::getResourceHelper('eav');
         $entityIdField = $this->getEntity()->getEntityIdField();
-        $select = $this->getConnection()->select()
+        return $this->getConnection()->select()
             ->from($table, [$entityIdField, 'attribute_id'])
             ->where('entity_type_id =?', $this->getEntity()->getTypeId())
             ->where("$entityIdField IN (?)", array_keys($this->_itemsById))
             ->where('attribute_id IN (?)', $attributeIds);
-        return $select;
     }
 
     /**

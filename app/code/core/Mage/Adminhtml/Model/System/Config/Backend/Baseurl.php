@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model_Config_Data
 {
     protected function _beforeSave()
@@ -42,7 +41,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
         if (!preg_match('#}}$#', $value)) {
             $value.= '/';
         }
-
 
         $this->setValue($value);
         return $this;

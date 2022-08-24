@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Resource Resource Model
  *
@@ -88,7 +87,6 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             $select->where($condition);
         }
         $rowset = $read->fetchAll($select);
-
 
         // set default config values from database
         foreach ($rowset as $r) {

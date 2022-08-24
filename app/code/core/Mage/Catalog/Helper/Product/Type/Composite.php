@@ -130,8 +130,6 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
         ];
     }
 
-
-
     /**
      * Prepare product specific params to be used in getJsonConfig()
      * @see Mage_Catalog_Block_Product_View::getJsonConfig()

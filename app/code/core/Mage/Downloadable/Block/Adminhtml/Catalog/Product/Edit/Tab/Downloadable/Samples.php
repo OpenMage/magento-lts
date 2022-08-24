@@ -57,7 +57,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
          return $this->getProduct()->getDownloadableReadonly();
     }
 
-
     /**
      * Retrieve Add Button HTML
      *
@@ -203,7 +202,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             ->setId('downloadable_sample_{{id}}_file-browse_button')
             ->toHtml();
     }
-
 
     /**
      * @return string

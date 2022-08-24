@@ -60,7 +60,6 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      */
     protected $_toEmails = [];
 
-
     /**
      * Add new "Bcc" recipient to current email
      *

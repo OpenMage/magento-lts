@@ -378,8 +378,6 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         return $options;
     }
 
-
-
     /**
      * Setting flag if dowenloadable product can be or not in complex product
      * based on link can be purchased separately or not
@@ -462,9 +460,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         $links = $buyRequest->getLinks();
         $links = (is_array($links)) ? array_filter($links, '\intval') : [];
 
-        $options = ['links' => $links];
-
-        return $options;
+        return ['links' => $links];
     }
 
     /**

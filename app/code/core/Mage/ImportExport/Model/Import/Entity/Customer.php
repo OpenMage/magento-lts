@@ -606,7 +606,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $this->_processedEntitiesCount ++;
         }
 
-
         $email        = $rowData[self::COL_EMAIL];
         $emailToLower = strtolower($rowData[self::COL_EMAIL]);
         $website      = $rowData[self::COL_WEBSITE];

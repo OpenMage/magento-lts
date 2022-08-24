@@ -411,7 +411,6 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $params = new Varien_Object($params);
         }
 
-
         // Ensure that currentConfig goes as Varien_Object - for easier work with it later
         $currentConfig = $params->getCurrentConfig();
         if ($currentConfig) {

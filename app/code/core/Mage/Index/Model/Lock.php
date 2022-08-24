@@ -239,7 +239,6 @@ class Mage_Index_Model_Lock
         return $result;
     }
 
-
     /**
      * Check whether the named DB lock exists
      *
