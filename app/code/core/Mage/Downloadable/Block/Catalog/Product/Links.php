@@ -65,6 +65,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
     /**
      * @param Mage_Downloadable_Model_Link $link
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getFormattedLinkPrice($link)
     {
@@ -81,6 +82,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
         }
 
         $taxHelper = Mage::helper('tax');
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = $this->helper('core');
         $_priceInclTax = $taxHelper->getPrice($link->getProduct(), $price, true);
         $_priceExclTax = $taxHelper->getPrice($link->getProduct(), $price);
@@ -110,8 +112,10 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
      */
     public function getCurrencyPrice($price)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
-        return $this->helper('core')->currencyByStore($price, $store, false);
+        return $helper::currencyByStore($price, $store, false);
     }
 
     /**

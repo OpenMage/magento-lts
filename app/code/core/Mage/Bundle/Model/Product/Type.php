@@ -1006,12 +1006,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $option     = (is_array($option)) ? array_filter($option, '\intval') : [];
         $optionQty  = (is_array($optionQty)) ? array_filter($optionQty, '\intval') : [];
 
-        $options = [
+        return [
             'bundle_option'     => $option,
             'bundle_option_qty' => $optionQty
         ];
-
-        return $options;
     }
 
     /**

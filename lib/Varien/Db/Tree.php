@@ -359,7 +359,7 @@ class Varien_Db_Tree
 
         if ($eId == $pId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP+1 && $leftId > $leftIdP && $rightId < $rightIdP)) {
             echo "alert('cant_move_tree');";
-            return FALSE;
+            return false;
         }
 
         if ($leftIdP < $leftId && $rightIdP > $rightId && $levelP < $level - 1) {

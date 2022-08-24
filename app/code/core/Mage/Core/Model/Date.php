@@ -105,8 +105,7 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        $result = date($format, $date);
-        return $result;
+        return date($format, $date);
     }
 
     /**
@@ -123,8 +122,7 @@ class Mage_Core_Model_Date
             $format = 'Y-m-d H:i:s';
         }
 
-        $result = date($format, $this->timestamp($input));
-        return $result;
+        return date($format, $this->timestamp($input));
     }
 
     /**

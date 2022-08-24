@@ -441,10 +441,9 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      */
     protected function _getCollectionForLoad($entityType)
     {
-        $collection = parent::_getCollectionForLoad($entityType)
+        return parent::_getCollectionForLoad($entityType)
             ->setStoreId($this->getStoreId())
             ->addStoreFilter($this->getStoreId());
-        return $collection;
     }
 
     /**
@@ -890,8 +889,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     public function saveRowSilently(array $importData)
     {
         try {
-            $result = $this->saveRow($importData);
-            return $result;
+            return $this->saveRow($importData);
         } catch (Exception $e) {
             return false;
         }

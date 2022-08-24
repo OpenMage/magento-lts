@@ -358,13 +358,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
     {
         $product = $this->_getProduct($productId, $store);
 
-        $result = [
+        return [
             'special_price'     => $product->getSpecialPrice(),
             'special_from_date' => $product->getSpecialFromDate(),
             'special_to_date'   => $product->getSpecialToDate()
         ];
-
-        return $result;
     }
 
     /**

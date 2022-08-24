@@ -39,8 +39,7 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
      */
     public function mergeVisitorProductIndex($mainTable, $data, $matchFields)
     {
-        $result = $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));
-        return $result;
+        return $this->_getWriteAdapter()->insertOnDuplicate($mainTable, $data, array_keys($data));
     }
 
     /**

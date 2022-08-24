@@ -35,10 +35,8 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_MtdStart extends Mage_Adminh
             $_days[$i] = $i < 10 ? '0'.$i : $i;
         }
 
-        $_daysHtml = $element->setStyle('width:50px;')
+        return $element->setStyle('width:50px;')
             ->setValues($_days)
             ->getElementHtml();
-
-        return $_daysHtml;
     }
 }

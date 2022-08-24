@@ -137,7 +137,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
      */
     protected function _createOrderFromAddress($address)
     {
-        $order = Mage::getModel('sales/order')->createFromQuoteAddress($address)
+        return Mage::getModel('sales/order')->createFromQuoteAddress($address)
             ->setCustomerId($this->getCustomer()->getId())
             ->setGlobalCurrencyCode('USD')
             ->setBaseCurrencyCode('USD')
@@ -145,7 +145,6 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             ->setOrderCurrencyCode('USD')
             ->setStoreToBaseRate(1)
             ->setStoreToOrderRate(1);
-        return $order;
     }
 
     /**

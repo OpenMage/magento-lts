@@ -164,15 +164,13 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function getTree($parenNodeCategory=null)
     {
            $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
-        $tree = isset($rootArray['children']) ? $rootArray['children'] : [];
-        return $tree;
+        return isset($rootArray['children']) ? $rootArray['children'] : [];
     }
 
     public function getTreeJson($parenNodeCategory=null)
     {
         $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
-        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
-        return $json;
+        return Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
     }
 
     /**

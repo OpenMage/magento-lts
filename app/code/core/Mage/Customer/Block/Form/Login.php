@@ -47,7 +47,9 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
      */
     public function getPostActionUrl()
     {
-        return $this->helper('customer')->getLoginPostUrl();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        return $helper->getLoginPostUrl();
     }
 
     /**
@@ -59,7 +61,9 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
     {
         $url = $this->getData('create_account_url');
         if (is_null($url)) {
-            $url = $this->helper('customer')->getRegisterUrl();
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $url = $helper->getRegisterUrl();
         }
         return $url;
     }
@@ -71,7 +75,9 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
      */
     public function getForgotPasswordUrl()
     {
-        return $this->helper('customer')->getForgotPasswordUrl();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        return $helper->getForgotPasswordUrl();
     }
 
     /**

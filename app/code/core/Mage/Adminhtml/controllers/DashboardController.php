@@ -78,7 +78,6 @@ class Mage_Adminhtml_DashboardController extends Mage_Adminhtml_Controller_Actio
             $output = $this->getLayout()->createBlock('adminhtml/dashboard_' . $blockTab)->toHtml();
         }
         $this->getResponse()->setBody($output);
-        return;
     }
 
     public function tunnelAction()

@@ -53,7 +53,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getPostActionUrl()
     {
-        return $this->helper('customer')->getRegisterPostUrl();
+        /** @var Mage_Customer_Helper_Data $helper */
+        $helper = $this->helper('customer');
+        return $helper->getRegisterPostUrl();
     }
 
     /**
@@ -65,7 +67,9 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     {
         $url = $this->getData('back_url');
         if (is_null($url)) {
-            $url = $this->helper('customer')->getLoginUrl();
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $url = $helper->getLoginUrl();
         }
         return $url;
     }
@@ -114,9 +118,11 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      */
     public function getRegion()
     {
-        if (($region = $this->getFormData()->getRegion()) !== false) {
+        if ($region = $this->getFormData()->getRegion() !== false) {
             return $region;
-        } elseif (($region = $this->getFormData()->getRegionId()) !== false) {
+        }
+
+        if ($region = $this->getFormData()->getRegionId() !== false) {
             return $region;
         }
         return null;

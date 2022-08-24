@@ -111,7 +111,6 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "frontend_input = 'price' AND attribute_code <> 'price'";
-        return $conditions;
+        return "frontend_input = 'price' AND attribute_code <> 'price'";
     }
 }

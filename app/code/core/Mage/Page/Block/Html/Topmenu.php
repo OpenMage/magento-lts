@@ -173,11 +173,9 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     protected function _getMenuItemAttributes(Varien_Data_Tree_Node $item)
     {
         $menuItemClasses = $this->_getMenuItemClasses($item);
-        $attributes = [
+        return [
             'class' => implode(' ', $menuItemClasses)
         ];
-
-        return $attributes;
     }
 
     /**

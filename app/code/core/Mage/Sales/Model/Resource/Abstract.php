@@ -41,7 +41,6 @@ abstract class Mage_Sales_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $object->setCreatedAt($currentTime);
         }
         $object->setUpdatedAt($currentTime);
-        $data = parent::_prepareDataForSave($object);
-        return $data;
+        return parent::_prepareDataForSave($object);
     }
 }

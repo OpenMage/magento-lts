@@ -27,7 +27,10 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
+    /**
+     * Mage_Adminhtml_Block_Sales_Order_View constructor.
+     * @throws Mage_Core_Exception
+     */
     public function __construct()
     {
         $this->_objectId    = 'order_id';
@@ -57,17 +60,20 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
                 $order->getId(),
                 array_keys(Mage::getConfig()
                     ->getNode('adminhtml/sales/order/create/available_product_types')
-                    ->asArray()
-                ),
+                    ->asArray()),
                 false
             ));
             if ($nonEditableTypes) {
                 $confirmationMessage = $coreHelper->jsQuoteEscape(
-                    Mage::helper('sales')
-                        ->__('This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',
-                        implode(', ', $nonEditableTypes), implode(', ', $nonEditableTypes))
+                    Mage::helper('sales')->__(
+                        'This order contains (%s) items and therefore cannot be edited through the admin interface at this time, if you wish to continue editing the (%s) items will be removed, the order will be canceled and a new order will be placed.',
+                        implode(', ', $nonEditableTypes),
+                        implode(', ', $nonEditableTypes)
+                    )
                 );
-                $this->_updateButton('order_edit', 'onclick',
+                $this->_updateButton(
+                    'order_edit',
+                    'onclick',
                     'if (!confirm(\'' . $confirmationMessage . '\')) return false;' . $onclickJs
                 );
             }
@@ -180,8 +186,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
             ]);
         }
 
+        /** @var Mage_Sales_Helper_Reorder $helper */
+        $helper = $this->helper('sales/reorder');
         if ($this->_isAllowedAction('reorder')
-            && $this->helper('sales/reorder')->isAllowed($order->getStore())
+            && $helper->isAllowed($order->getStore())
             && $order->canReorderIgnoreSalable()
         ) {
             $this->_addButton('order_reorder', [
@@ -212,6 +220,9 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         return $this->getOrder()->getId();
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if ($_extOrderId = $this->getOrder()->getExtOrderId()) {
@@ -219,60 +230,104 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         } else {
             $_extOrderId = '';
         }
-        return Mage::helper('sales')->__('Order # %s %s | %s', $this->getOrder()->getRealOrderId(), $_extOrderId, $this->formatDate($this->getOrder()->getCreatedAtDate(), 'medium', true));
+        return Mage::helper('sales')->__(
+            'Order # %s %s | %s',
+            $this->getOrder()->getRealOrderId(),
+            $_extOrderId,
+            $this->formatDate(
+                $this->getOrder()->getCreatedAtDate(),
+                'medium',
+                true
+            )
+        );
     }
 
-    public function getUrl($params='', $params2= [])
+    /**
+     * @param string $params
+     * @param array $params2
+     * @return string
+     */
+    public function getUrl($params = '', $params2 = [])
     {
         $params2['order_id'] = $this->getOrderId();
         return parent::getUrl($params, $params2);
     }
 
+    /**
+     * @return string
+     */
     public function getEditUrl()
     {
         return $this->getUrl('*/sales_order_edit/start');
     }
 
+    /**
+     * @return string
+     */
     public function getEmailUrl()
     {
         return $this->getUrl('*/*/email');
     }
 
+    /**
+     * @return string
+     */
     public function getCancelUrl()
     {
         return $this->getUrlSecure('*/*/cancel');
     }
 
+    /**
+     * @return string
+     */
     public function getInvoiceUrl()
     {
         return $this->getUrl('*/sales_order_invoice/start');
     }
 
+    /**
+     * @return string
+     */
     public function getCreditmemoUrl()
     {
         return $this->getUrl('*/sales_order_creditmemo/start');
     }
 
+    /**
+     * @return string
+     */
     public function getHoldUrl()
     {
         return $this->getUrl('*/*/hold');
     }
 
+    /**
+     * @return string
+     */
     public function getUnholdUrl()
     {
         return $this->getUrl('*/*/unhold');
     }
 
+    /**
+     * @return string
+     */
     public function getShipUrl()
     {
         return $this->getUrl('*/sales_order_shipment/start');
     }
 
+    /**
+     * @return string
+     */
     public function getCommentUrl()
     {
         return $this->getUrl('*/*/comment');
     }
 
+    /**
+     * @return string
+     */
     public function getReorderUrl()
     {
         return $this->getUrl('*/sales_order_create/reorder');
@@ -286,6 +341,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         return $this->getUrl('*/*/voidPayment');
     }
 
+    /**
+     * @param string $action
+     * @return bool
+     */
     protected function _isAllowedAction($action)
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/' . $action);
@@ -305,6 +364,10 @@ class Mage_Adminhtml_Block_Sales_Order_View extends Mage_Adminhtml_Block_Widget_
         return $this->getUrl('*/*/');
     }
 
+    /**
+     * @param string $action
+     * @return string
+     */
     public function getReviewPaymentUrl($action)
     {
         return $this->getUrl('*/*/reviewPayment', ['action' => $action]);
