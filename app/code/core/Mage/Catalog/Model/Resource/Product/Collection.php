@@ -329,8 +329,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
         $storeId = $this->getStoreId();
         if (!isset($this->_flatEnabled[$storeId])) {
+            /** @var Mage_Catalog_Helper_Product_Flat $flatHelper */
             $flatHelper = $this->getFlatHelper();
-            $this->_flatEnabled[$storeId] = $flatHelper->isAvailable() && $flatHelper->isBuilt($storeId);
+            $this->_flatEnabled[$storeId] = $flatHelper->isAccessible() && $flatHelper->isBuilt($storeId);
         }
         return $this->_flatEnabled[$storeId];
     }
