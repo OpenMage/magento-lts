@@ -82,6 +82,5 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     public function viewOldAction()
     {
         $this->_forward('noRoute');
-        return;
     }
 }
