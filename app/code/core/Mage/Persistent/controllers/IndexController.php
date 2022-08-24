@@ -65,7 +65,6 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
             $this->_cleanup();
         }
         $this->_redirect('customer/account/login');
-        return;
     }
 
     /**
