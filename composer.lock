@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "271a010427f621eb17fe389bc16d12dc",
+    "content-hash": "01ea3c45ed300816bf42f441026dfa41",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -354,6 +354,66 @@
                 "source": "https://github.com/justinrainbow/json-schema/tree/5.2.12"
             },
             "time": "2022-04-13T08:02:27+00:00"
+        },
+        {
+            "name": "liborm85/composer-vendor-cleaner",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liborm85/composer-vendor-cleaner.git",
+                "reference": "e4ebaf2a65ac74fd4cc6dcf2b92e2f68cc4bb23c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liborm85/composer-vendor-cleaner/zipball/e4ebaf2a65ac74fd4cc6dcf2b92e2f68cc4bb23c",
+                "reference": "e4ebaf2a65ac74fd4cc6dcf2b92e2f68cc4bb23c",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1 || ^2.0",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.10.23 || ^2.1.9",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.4 || ^9.1"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Liborm85\\ComposerVendorCleaner\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Liborm85\\ComposerVendorCleaner\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Libor M.",
+                    "email": "liborm85@gmail.com"
+                }
+            ],
+            "description": "Composer Vendor Cleaner removes unnecessary development files and directories from vendor directory.",
+            "keywords": [
+                ".gitattributes",
+                "cleaner",
+                "cleanup",
+                "composer",
+                "composer-plugin",
+                "delete",
+                "ignore",
+                "php",
+                "remove"
+            ],
+            "support": {
+                "issues": "https://github.com/liborm85/composer-vendor-cleaner/issues",
+                "source": "https://github.com/liborm85/composer-vendor-cleaner"
+            },
+            "time": "2022-07-29T12:33:34+00:00"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",
