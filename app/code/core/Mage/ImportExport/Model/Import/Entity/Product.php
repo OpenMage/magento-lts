@@ -1910,6 +1910,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         ];
 
         $entityTable = $this->getResourceModel('cataloginventory/stock_item')->getMainTable();
+        /** @var Mage_CatalogInventory_Helper_Data $helper */
         $helper      = $this->getHelper('cataloginventory');
 
         while ($bunch = $this->getNextBunch()) {

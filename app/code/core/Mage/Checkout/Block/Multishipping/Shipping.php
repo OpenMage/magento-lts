@@ -160,6 +160,8 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getShippingPrice($address, $price, $flag)
     {
-        return $address->getQuote()->getStore()->convertPrice($this->helper('tax')->getShippingPrice($price, $flag, $address), true);
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->helper('tax');
+        return $address->getQuote()->getStore()->convertPrice($helper->getShippingPrice($price, $flag, $address), true);
     }
 }

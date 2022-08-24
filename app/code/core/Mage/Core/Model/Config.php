@@ -162,7 +162,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     protected $_isLocalConfigLoaded = false;
 
     /**
-     * Depricated properties
+     * Deprecated properties
      *
      * @deprecated
      */
@@ -788,8 +788,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Load declared modules configuration
      *
-     * @param   null $mergeConfig depricated
-     * @return  $this|void
+     * @param null $mergeConfig deprecated
+     * @return $this|void
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {
