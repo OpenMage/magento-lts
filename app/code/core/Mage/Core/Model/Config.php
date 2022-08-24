@@ -793,7 +793,6 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         $collectModuleFiles = [
-            'base'   => [],
             'mage'   => [],
             'custom' => []
         ];
