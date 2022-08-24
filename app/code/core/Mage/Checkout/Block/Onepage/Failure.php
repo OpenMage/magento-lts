@@ -36,9 +36,8 @@ class Mage_Checkout_Block_Onepage_Failure extends Mage_Core_Block_Template
      */
     public function getErrorMessage()
     {
-        $error = Mage::getSingleton('checkout/session')->getErrorMessage();
         // Mage::getSingleton('checkout/session')->unsErrorMessage();
-        return $error;
+        return Mage::getSingleton('checkout/session')->getErrorMessage();
     }
 
     /**

@@ -361,8 +361,6 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         $superGroup = $buyRequest->getSuperGroup();
         $superGroup = (is_array($superGroup)) ? array_filter($superGroup, '\intval') : [];
 
-        $options = ['super_group' => $superGroup];
-
-        return $options;
+        return ['super_group' => $superGroup];
     }
 }

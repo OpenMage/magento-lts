@@ -98,8 +98,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         }
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        $stringWidth = (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
-        return $stringWidth;
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
     }
 
     /**

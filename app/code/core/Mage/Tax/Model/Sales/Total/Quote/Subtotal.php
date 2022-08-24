@@ -667,8 +667,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $storeTax = $this->_calculator->calcTaxAmount($storePriceInclTax, $storeRate, true, false);
         $priceExclTax = $storePriceInclTax - $storeTax;
         $customerTax = $this->_calculator->calcTaxAmount($priceExclTax, $customerRate, false, false);
-        $customerPriceInclTax = $this->_calculator->round($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $this->_calculator->round($priceExclTax + $customerTax);
     }
 
     /**
@@ -781,13 +780,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      */
     protected function _getAddressTaxRequest($address)
     {
-        $addressTaxRequest = $this->_calculator->getRateRequest(
+        return $this->_calculator->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
             $address->getQuote()->getStore()
         );
-        return $addressTaxRequest;
     }
 
     /**

@@ -121,7 +121,7 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
      */
     protected function _getPaymentData(Mage_Paypal_Model_Hostedpro $paymentMethod)
     {
-        $request = [
+        return [
             'paymentaction' => strtolower($paymentMethod->getConfigData('payment_action')),
             'notify_url'    => $paymentMethod->getNotifyUrl(),
             'cancel_return' => $paymentMethod->getCancelUrl(),
@@ -137,8 +137,6 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
             'showCardInfo'          => 'true',
             'showHostedThankyouPage'=> 'false'
         ];
-
-        return $request;
     }
 
     /**
