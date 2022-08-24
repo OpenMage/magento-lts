@@ -166,10 +166,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
 
     protected function _getSelectedProducts()
     {
-        $products = $this->getRequest()->getPost('selected', []);
-
-        return $products;
+        return $this->getRequest()->getPost('selected', []);
     }
-
 }
 

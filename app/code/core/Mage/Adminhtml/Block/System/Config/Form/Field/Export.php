@@ -41,8 +41,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Export extends Varien_Data_F
             'class'     => '',
         ];
 
-        $html = $buttonBlock->setData($data)->toHtml();
-
-        return $html;
+        return $buttonBlock->setData($data)->toHtml();
     }
 }

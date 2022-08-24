@@ -288,9 +288,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             'store_field'   => $storeId
         ]);
 
-        $result = $writeAdapter->fetchAll($select);
-
-        return $result;
+        return $writeAdapter->fetchAll($select);
     }
 
     /**

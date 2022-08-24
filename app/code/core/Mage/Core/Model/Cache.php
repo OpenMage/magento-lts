@@ -300,11 +300,10 @@ class Mage_Core_Model_Cache
             }
         }
 
-        $backend = [
+        return [
             'type'      => 'TwoLevels',
             'options'   => $options
         ];
-        return $backend;
     }
 
     /**
@@ -453,8 +452,7 @@ class Mage_Core_Model_Cache
      */
     public function flush()
     {
-        $res = $this->getFrontend()->clean();
-        return $res;
+        return $this->getFrontend()->clean();
     }
 
     /**

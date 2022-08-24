@@ -100,8 +100,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
-        $result = [$words, $terms];
-        return $result;
+        return [$words, $terms];
     }
 
     /**

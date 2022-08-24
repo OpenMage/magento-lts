@@ -98,8 +98,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     public function getCard($cardId)
     {
         if (isset($this->_cards[$cardId])) {
-            $card = new Varien_Object($this->_cards[$cardId]);
-            return $card;
+            return new Varien_Object($this->_cards[$cardId]);
         }
         return false;
     }

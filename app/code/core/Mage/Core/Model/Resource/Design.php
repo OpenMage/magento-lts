@@ -139,8 +139,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $bind['date_from'] = $dateFrom;
         }
 
-        $result = $adapter->fetchOne($select, $bind);
-        return $result;
+        return $adapter->fetchOne($select, $bind);
     }
 
     /**

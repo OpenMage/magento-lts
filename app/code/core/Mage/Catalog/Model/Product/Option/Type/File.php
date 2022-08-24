@@ -371,11 +371,9 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         );
 
         if ($validatorChain->isValid($fileFullPath)) {
-            $ok = is_readable($fileFullPath)
+            return is_readable($fileFullPath)
                 && isset($optionValue['secret_key'])
                 && substr(md5(file_get_contents($fileFullPath)), 0, 20) == $optionValue['secret_key'];
-
-            return $ok;
         } elseif ($validatorChain->getErrors()) {
             $errors = $this->_getValidatorErrors($validatorChain->getErrors(), $optionValue);
 
@@ -604,8 +602,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public function prepareOptionValueForRequest($optionValue)
     {
         try {
-            $result = Mage::helper('core/unserializeArray')->unserialize($optionValue);
-            return $result;
+            return Mage::helper('core/unserializeArray')->unserialize($optionValue);
         } catch (Exception $e) {
             return null;
         }

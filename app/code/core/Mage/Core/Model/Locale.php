@@ -719,7 +719,7 @@ class Mage_Core_Model_Locale
         }
         $integerRequired = (strpos($format, '.') - strpos($format, '0'));
 
-        $result = [
+        return [
             'pattern' => Mage::app()->getStore()->getCurrentCurrency()->getOutputFormat(),
             'precision' => $totalPrecision,
             'requiredPrecision' => $requiredPrecision,
@@ -728,8 +728,6 @@ class Mage_Core_Model_Locale
             'groupLength' => $group,
             'integerRequired' => $integerRequired
         ];
-
-        return $result;
     }
 
     /**

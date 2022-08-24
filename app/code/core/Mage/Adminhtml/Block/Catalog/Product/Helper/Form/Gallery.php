@@ -31,9 +31,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
     public function getElementHtml()
     {
-        $html = $this->getContentHtml();
         //$html.= $this->getAfterElementHtml();
-        return $html;
+        return $this->getContentHtml();
     }
 
     /**

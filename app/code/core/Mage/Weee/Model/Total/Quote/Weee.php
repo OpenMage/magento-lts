@@ -260,10 +260,9 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
             $this->_store
         );
 
-        $customerRatePercentage = $taxCalculationModel->getRate(
+        return $taxCalculationModel->getRate(
             $request->setProductClassId($item->getProduct()->getTaxClassId())
         );
-        return $customerRatePercentage;
     }
 
     /**
