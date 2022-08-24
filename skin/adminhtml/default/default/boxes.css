@@ -74,6 +74,10 @@
 #loading-mask {
     background:url(images/blank.gif) repeat;
     position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
     color:#d85909;
     font-size:1.1em;
     font-weight:bold;
