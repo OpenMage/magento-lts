@@ -76,8 +76,8 @@
     <?php echo $this->getChildHtml('js') ?>
     <?php echo $this->getChildHtml('profiler') ?>
 <div id="loading-mask" style="display:none">
-    <div class="backdrop" style="display:none"></div>
-    <p class="loader" id="loading_mask_loader" style="display:none">
+    <div class="backdrop"></div>
+    <p class="loader" id="loading_mask_loader">
         <img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('adminhtml')->__('Loading...')) ?>"/><br/><?php echo Mage::helper('adminhtml')->__('Please wait...') ?>
     </p>
 </div>
