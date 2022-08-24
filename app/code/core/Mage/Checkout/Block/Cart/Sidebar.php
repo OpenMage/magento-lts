@@ -77,7 +77,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      *
      * It will include tax, if required by config settings.
      *
-     * @param   bool $skipTax flag for getting price with tax or not. Ignored in case when we display just subtotal incl.tax
+     * @param   bool $skipTax flag for getting price with tax or not. Ignored when we display just subtotal incl.tax
      * @return  float
      */
     public function getSubtotal($skipTax = true)
@@ -145,7 +145,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     protected function _getShippingTaxAmount()
     {
-        $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+        $quote = $this->getCustomQuote() ?: $this->getQuote();
         return $quote->getShippingAddress()->getShippingTaxAmount();
     }
 
@@ -168,7 +168,9 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function isPossibleOnepageCheckout()
     {
-        return $this->helper('checkout')->canOnepageCheckout() && !$this->getQuote()->getHasError();
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
+        return $helper->canOnepageCheckout() && !$this->getQuote()->getHasError();
     }
 
     /**
@@ -178,13 +180,16 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
      */
     public function getCheckoutUrl()
     {
-        return $this->helper('checkout/url')->getCheckoutUrl();
+        /** @var Mage_Checkout_Helper_Url $helper */
+        $helper = $this->helper('checkout/url');
+        return $helper->getCheckoutUrl();
     }
 
     /**
      * Define if Shopping Cart Sidebar enabled
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsNeedToDisplaySideBar()
     {
@@ -213,7 +218,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
     public function getTotalsCache()
     {
         if (empty($this->_totals)) {
-            $quote = $this->getCustomQuote() ? $this->getCustomQuote() : $this->getQuote();
+            $quote = $this->getCustomQuote() ?: $this->getQuote();
             $this->_totals = $quote->getTotals();
         }
         return $this->_totals;
@@ -291,16 +296,6 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             (!$quoteTags)? [] : $quoteTags,
             $this->getItemsTags($items)
         );
-    }
-
-    /**
-     * Get form key
-     *
-     * @return string
-     */
-    public function getFormKey()
-    {
-        return Mage::getSingleton('core/session')->getFormKey();
     }
 
     /**
