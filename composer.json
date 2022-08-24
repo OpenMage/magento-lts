@@ -8,9 +8,11 @@
   "type": "magento-source",
   "require": {
     "php": ">=7.0 <8.2",
+    "ext-ctype": "*",
     "ext-curl": "*",
     "ext-dom": "*",
     "ext-gd": "*",
+    "ext-hash": "*",
     "ext-iconv": "*",
     "ext-json": "*",
     "ext-libxml": "*",
@@ -33,6 +35,25 @@
   },
   "conflict": {
     "n98/n98_layouthelper": "*"
+  },
+  "suggest": {
+    "magento-hackathon/honeyspam": "Spam protection module for various forms using honey pots."
+  },
+  "config": {
+    "allow-plugins": {
+      "magento-hackathon/magento-composer-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.9.4.x-dev"
+    },
+    "magento-root-dir": "."
+  },
+  "autoload-dev": {
+    "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
   },
   "authors": [
     {
@@ -59,21 +80,5 @@
       "email": "github-sr@hotmail.com",
       "role": "Maintainer"
     }
-  ],
-  "autoload-dev": {
-    "psr-4": { "OpenMage\\Tests\\Unit\\": "dev/tests/unit" }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "1.9.4.x-dev"
-    },
-    "magento-root-dir": "."
-  },
-  "config": {
-    "allow-plugins": {
-      "magento-hackathon/magento-composer-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    },
-    "sort-packages": true
-  }
+  ]
 }
