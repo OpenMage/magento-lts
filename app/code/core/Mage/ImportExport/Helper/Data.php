@@ -51,8 +51,7 @@ class Mage_ImportExport_Helper_Data extends Mage_Core_Helper_Data
      */
     public function getLocalValidPaths()
     {
-        $paths = Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH);
-        return $paths;
+        return Mage::getStoreConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH);
     }
 
     /**

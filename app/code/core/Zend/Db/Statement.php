@@ -125,7 +125,6 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     protected function _prepare($sql)
     {
-        return;
     }
 
     /**

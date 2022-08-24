@@ -30,7 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Method
 {
     public function toOptionArray()
     {
-        $options    = [
+        return [
             [
                 'value' => 'bcc',
                 'label' => Mage::helper('adminhtml')->__('Bcc')
@@ -40,6 +40,5 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Method
                 'label' => Mage::helper('adminhtml')->__('Separate Email')
             ],
         ];
-        return $options;
     }
 }

@@ -87,6 +87,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint
                 });
             });
         ';
-        return $this->toHtml() . $this->helper('adminhtml/js')->getScript($js);
+
+        /** @var Mage_Adminhtml_Helper_Js $helper */
+        $helper = $this->helper('adminhtml/js');
+        return $this->toHtml() . $helper->getScript($js);
     }
 }

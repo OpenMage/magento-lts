@@ -762,8 +762,7 @@ class Mage_Core_Model_Url extends Varien_Object
             $this->setRouteParams($routeParams, false);
         }
 
-        $url = $this->getBaseUrl() . $this->getRoutePath($routeParams);
-        return $url;
+        return $this->getBaseUrl() . $this->getRoutePath($routeParams);
     }
 
     /**

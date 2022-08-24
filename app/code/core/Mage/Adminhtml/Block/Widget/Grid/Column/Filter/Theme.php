@@ -42,10 +42,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
                 'label' => ''
             ]);
         }
-        $html = sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
+        return sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
             . $this->_drawOptions($options)
             . '</select>';
-        return $html;
     }
 
     /**

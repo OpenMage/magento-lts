@@ -360,7 +360,6 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             }
         }
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        return;
     }
 
     public function ratingItemsAction()

@@ -123,8 +123,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
         if ($area) {
             $params['_area'] = $area;
         }
-        $templateName = Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
-        return $templateName;
+        return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 
     /**
@@ -163,7 +162,7 @@ class Mage_Core_Block_Template extends Mage_Core_Block_Abstract
      */
     public function setScriptPath($dir)
     {
-        if (strpos($dir, '..') === FALSE && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
+        if (strpos($dir, '..') === false && ($dir === Mage::getBaseDir('design') || strpos(realpath($dir), realpath(Mage::getBaseDir('design'))) === 0)) {
             $this->_viewDir = $dir;
         } else {
             Mage::log('Not valid script path:' . $dir, Zend_Log::CRIT, null, null, true);
@@ -251,7 +250,7 @@ HTML;
 
         try {
             if (
-                strpos($this->_viewDir . DS . $fileName, '..') === FALSE
+                strpos($this->_viewDir . DS . $fileName, '..') === false
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || strpos(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))) === 0)
             ) {
@@ -286,8 +285,7 @@ HTML;
     public function renderView()
     {
         $this->setScriptPath(Mage::getBaseDir('design'));
-        $html = $this->fetchView($this->getTemplateFile());
-        return $html;
+        return $this->fetchView($this->getTemplateFile());
     }
 
     /**
@@ -300,8 +298,7 @@ HTML;
         if (!$this->getTemplate()) {
             return '';
         }
-        $html = $this->renderView();
-        return $html;
+        return $this->renderView();
     }
 
     /**
@@ -366,6 +363,6 @@ HTML;
      */
     protected function _getAllowSymlinks()
     {
-        return FALSE;
+        return false;
     }
 }

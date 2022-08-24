@@ -173,7 +173,6 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      */
     public function debugRequest($request)
     {
-        return;
     }
 
     /**

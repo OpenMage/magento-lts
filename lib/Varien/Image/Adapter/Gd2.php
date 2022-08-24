@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = Array("gd");
@@ -64,15 +63,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_fileName = $filename;
         $this->getMimeType();
         $this->_getFileAttributes();
-        if ($this->_isMemoryLimitReached()) {
-            throw new Varien_Exception('Memory limit has been reached.');
-        }
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
     }
 
     /**
      * Checks whether memory limit is reached.
      *
+     * @deprecated
      * @return bool
      */
     protected function _isMemoryLimitReached()
@@ -95,11 +92,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
+     * @deprecated
      * @param string $memoryValue
-     *
      * @throws Varien_Exception
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
-     *
      * @return int
      */
     protected function _convertToByte($memoryValue)

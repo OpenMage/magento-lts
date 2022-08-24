@@ -609,8 +609,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->reinit($this->_options);
             return false;
         } else {
-            $xml = simplexml_load_string($xmlString, $this->_elementClass);
-            return $xml;
+            return simplexml_load_string($xmlString, $this->_elementClass);
         }
     }
 
@@ -853,8 +852,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Load declared modules configuration
      *
-     * @param   null $mergeConfig deprecated
-     * @return  $this|void
+     * @param null $mergeConfig deprecated
+     * @return $this|void
      */
     protected function _loadDeclaredModules($mergeConfig = null)
     {

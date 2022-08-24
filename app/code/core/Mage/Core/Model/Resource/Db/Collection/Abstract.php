@@ -668,8 +668,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
      */
     protected function _loadCache($select)
     {
-        $data = Mage::app()->loadCache($this->_getSelectCacheId($select));
-        return $data;
+        return Mage::app()->loadCache($this->_getSelectCacheId($select));
     }
 
     /**

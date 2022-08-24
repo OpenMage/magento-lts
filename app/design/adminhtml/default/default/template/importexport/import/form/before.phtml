@@ -43,16 +43,14 @@
                 });
             }
 
-            // show mask, temporary set new target and submit form
-            var loadingMask = $('loading-mask');
+            // show mask
+            showLoader();
+
+            // temporary set new target and submit form
             var formElem    = $(this.formId);
             var oldTarget   = formElem.target;
             var oldAction   = formElem.action;
 
-            Element.clonePosition(loadingMask, $$('#html-body .wrapper')[0], {offsetLeft:-2})
-            toggleSelectsUnderBlock(loadingMask, false);
-            loadingMask.show();
-            setLoaderPosition();
             formElem.target = this.ifrElemName;
 
             if (newActionUrl) {
@@ -74,10 +72,8 @@
      */
     varienForm.prototype.postToFrameComplete = function(response)
     {
-        var loadingMask = $('loading-mask');
         $(this.ifrElemName).remove();
-        toggleSelectsUnderBlock(loadingMask, true);
-        loadingMask.hide();
+        hideLoader();
         this.postToFrameProcessResponse(response);
     };
 
