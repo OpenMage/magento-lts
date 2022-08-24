@@ -75,7 +75,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_RATING_TITLE_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -128,7 +127,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('rating/rating_title'),
     'FK_RATING_TITLE_STORE'
 );
-
 
 /**
  * Change columns
@@ -405,7 +403,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -472,7 +469,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('rating/rating_title', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

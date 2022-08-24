@@ -228,7 +228,6 @@ abstract class Varien_Image_Adapter_Abstract
         return $this->_watermarkHeigth;
     }
 
-
     /**
      * Get/set keepAspectRatio
      *

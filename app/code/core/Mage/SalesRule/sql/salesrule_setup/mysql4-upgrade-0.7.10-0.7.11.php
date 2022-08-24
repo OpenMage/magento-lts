@@ -22,7 +22,6 @@ $installer = $this;
 /** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer->startSetup();
 
-
 /*
  * @deprecated since 1.4 Sales no more eav, moving attributes from eav to flat table,
  *             already done in sales upgrade

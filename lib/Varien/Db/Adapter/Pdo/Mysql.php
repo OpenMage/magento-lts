@@ -370,7 +370,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             throw new Zend_Db_Adapter_Exception('pdo_mysql extension is not installed');
         }
 
-
         $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null));
 
         switch ($hostInfo->getAddressType()) {
@@ -2706,7 +2705,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         return true;
     }
 
-
     /**
      * Add new index to table name
      *
@@ -3989,10 +3987,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         return $value;
     }
-
-
-
-
 
     /**
      * Returns date that fits into TYPE_DATETIME range and is suggested to act as default 'zero' value

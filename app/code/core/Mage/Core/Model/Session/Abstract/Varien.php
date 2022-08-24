@@ -21,7 +21,6 @@
  * @method $this setSkipEmptySessionCheck(bool $flag)
  */
 
-
 class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 {
     const VALIDATOR_KEY                         = '_session_validator_data';

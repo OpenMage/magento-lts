@@ -51,7 +51,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     const CALC_TAX_BEFORE_DISCOUNT_ON_INCL      = '0_1';
 
-
     /**
      * Identifier constant for Tax calculation after discount excluding TAX
      */
@@ -61,7 +60,6 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Identifier constant for Tax calculation after discount including TAX
      */
     const CALC_TAX_AFTER_DISCOUNT_ON_INCL       = '1_1';
-
 
     /**
      * Identifier constant for unit based calculation

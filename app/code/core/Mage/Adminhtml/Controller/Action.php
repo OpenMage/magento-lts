@@ -307,7 +307,6 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         $this->renderLayout();
     }
 
-
     /**
      * Retrieve currently used module name
      *

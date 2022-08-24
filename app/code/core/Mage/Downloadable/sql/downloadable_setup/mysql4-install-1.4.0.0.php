@@ -143,7 +143,6 @@ CREATE TABLE `{$installer->getTable('downloadable_sample_title')}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-
 $fieldList = [
     'price',
     'special_price',

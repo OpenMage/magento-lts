@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Setup Model of Sales Module
  *
@@ -722,7 +721,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     'is_used_for_refund' => ['type'=>'int'],
                     'transaction_id' => [],
 
-
                     'order_id'              => [
                         'type'=>'int',
                         'backend'=>'sales_entity/order_invoice_attribute_backend_order'
@@ -801,8 +799,6 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     'is_customer_notified' => ['type'=>'int'],
                 ],
             ],
-
-
 
             'shipment' => [
                 'entity_model'      => 'sales/order_shipment',

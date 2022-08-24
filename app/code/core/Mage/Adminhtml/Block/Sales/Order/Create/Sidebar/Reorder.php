@@ -42,7 +42,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $this->setDataId('reorder');
     }
 
-
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Last Ordered Items');

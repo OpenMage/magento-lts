@@ -255,7 +255,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         return false;
     }
 
-
     /**
      * Load subscriber data from resource model by email
      *

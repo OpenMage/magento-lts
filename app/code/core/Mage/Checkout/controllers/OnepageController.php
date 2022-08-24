@@ -307,7 +307,6 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->renderLayout();
     }
 
-
     /**
      * Get additional info action
      */

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemaps grid
  *
@@ -74,7 +73,6 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'index'     => 'sitemap_time',
             'type'      => 'datetime',
         ]);
-
 
         if (!Mage::app()->isSingleStoreMode()) {
             $this->addColumn('store_id', [

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert action abstract
  *
@@ -225,7 +224,6 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
             if ($this->getParam('from')) {
                 $this->getContainer()->setData($this->getContainer($this->getParam('from'))->getData());
             }
-
 
             $this->getContainer()->$method($args);
 

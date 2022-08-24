@@ -467,9 +467,6 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         return $this->_getData('website_ids');
     }
 
-
-
-
     /**
      * @deprecated since 1.7.0.0
      *

@@ -55,7 +55,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     protected $_rates;
 
-
     /**
      * Class constructor
      */
@@ -317,7 +316,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
     }
-
 
     /**
      * Retrieve base currencies according to config

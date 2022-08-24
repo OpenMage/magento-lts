@@ -81,7 +81,6 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
 
         $category ->setAttributeSetId($category->getDefaultAttributeSetId());
 
-
         foreach ($category->getAttributes() as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute)

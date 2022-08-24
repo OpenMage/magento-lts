@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Category tree model
  *
@@ -232,12 +231,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
 
         $this->_inactiveItems = $this->getInactiveCategoryIds();
 
-
         $this->_inactiveItems = array_merge(
             $this->_getInactiveItemIds($collection, $storeId),
             $this->_inactiveItems
         );
-
 
         $allIds = $collection->getAllIds();
         $disabledIds = [];

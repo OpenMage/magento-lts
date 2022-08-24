@@ -51,7 +51,6 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid_Renderer_Action extends Mage_Ad
                 'caption'	=>	Mage::helper('newsletter')->__('Cancel')
             ];
 
-
         } else if ($row->getQueueStatus()==Mage_Newsletter_Model_Queue::STATUS_PAUSE) {
 
             $actions[] = [

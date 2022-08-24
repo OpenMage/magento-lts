@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order create model
  *
@@ -327,7 +326,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         $quote->getShippingAddress()->setShippingDescription($order->getShippingDescription());
 
         $quote->getPayment()->addData($order->getPayment()->getData());
-
 
         $orderCouponCode = $order->getCouponCode();
         if ($orderCouponCode) {
@@ -1776,7 +1774,6 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 $shippingAddress = $billingAddress;
             }
             $customer->save();
-
 
             $customer->setEmail($this->_getNewCustomerEmail($customer))
                 ->setDefaultBilling($billingAddress->getId())

@@ -80,7 +80,6 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Assign_Form extends Mage_Adminhtml
             ]
         );
 
-
         $form->setAction($this->getUrl('*/sales_order_status/assignPost'));
         $form->setUseContainer(true);
         $this->setForm($form);

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * HTML select element block
  *
@@ -82,7 +81,6 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-
 
         return $html;
     }

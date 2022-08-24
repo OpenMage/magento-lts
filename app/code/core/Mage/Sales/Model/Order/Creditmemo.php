@@ -449,7 +449,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         return $canVoid;
     }
 
-
     /**
      * @return $this
      * @throws Mage_Core_Exception
@@ -764,7 +763,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         return $this->_comments;
     }
 
-
     /**
      * Send email with creditmemo data
      *
@@ -969,7 +967,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
                 $comment->save();
             }
         }
-
 
         return parent::_afterSave();
     }

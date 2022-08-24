@@ -84,7 +84,6 @@ $table = $connection->newTable($rulesWebsitesTable)
 
 $connection->createTable($table);
 
-
 /**
  * Create table 'salesrule/customer_group' if not exists. This table will be used instead of
  * column customer_group_ids of main catalog rules table
@@ -145,7 +144,6 @@ $table = $connection->newTable($rulesCustomerGroupsTable)
 
 $connection->createTable($table);
 
-
 /**
  * Fill out relation table 'salesrule/website' with website Ids
  */
@@ -161,7 +159,6 @@ $select = $connection->select()
     );
 $query = $select->insertFromSelect($rulesWebsitesTable, ['rule_id', 'website_id']);
 $connection->query($query);
-
 
 /**
  * Fill out relation table 'salesrule/customer_group' with customer group Ids

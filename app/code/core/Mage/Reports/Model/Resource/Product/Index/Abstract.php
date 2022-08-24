@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Product Index Abstract Resource Model
  *
@@ -142,13 +141,11 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             $matchFields
         );
 
-
         $this->unserializeFields($object);
         $this->_afterSave($object);
 
         return $this;
     }
-
 
     /**
      * Clean index (visitor)

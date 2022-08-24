@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 require_once 'Varien/Db/Tree/Node/Exception.php';
 
 class Varien_Db_Tree_Node {
@@ -30,7 +29,6 @@ class Varien_Db_Tree_Node {
     private $level;
     private $title;
     private $data;
-
 
     public $hasChild = false;
     public $numChild = 0;

@@ -30,7 +30,6 @@ $installer->getConnection()->addColumn($installer->getTable('downloadable/link')
 $conn->dropForeignKey($installer->getTable('downloadable/link_purchased'), 'FK_DOWNLOADABLE_ORDER_ITEM_ID');
 $conn->dropKey($installer->getTable('downloadable/link_purchased'), 'DOWNLOADABLE_ORDER_ITEM_ID');
 
-
 $installer->run("
 CREATE TABLE `{$installer->getTable('downloadable/link_purchased_item')}`(
   `item_id` int(10) unsigned NOT NULL auto_increment,

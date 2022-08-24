@@ -50,7 +50,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_POLL_ANSWER'
 );
 
-
 /**
  * Drop indexes
  */
@@ -73,7 +72,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('poll/poll_vote'),
     'FK_POLL_ANSWER'
 );
-
 
 /**
  * Change columns
@@ -240,7 +238,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -267,7 +264,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('poll/poll_vote', ['poll_answer_id']),
     ['poll_answer_id']
 );
-
 
 /**
  * Add foreign keys

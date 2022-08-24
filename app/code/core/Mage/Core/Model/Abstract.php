@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Abstract model class
  *
@@ -190,7 +189,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
 
         return Mage::getResourceSingleton($this->_resourceName);
     }
-
 
     /**
      * Retrieve identifier field name for model

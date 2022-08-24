@@ -30,7 +30,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_DIRECTORY_REGION_NAME_REGION'
 );
 
-
 /**
  * Drop indexes
  */
@@ -53,7 +52,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('directory/currency_rate'),
     'FK_CURRENCY_RATE_TO'
 );
-
 
 /**
  * Change columns
@@ -202,7 +200,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -234,7 +231,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('directory/currency_rate', ['currency_to']),
     ['currency_to']
 );
-
 
 /**
  * Add foreign keys

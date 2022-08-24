@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product collection
  *
@@ -1789,7 +1788,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         //Clean duplicated fields
         $helper->prepareColumnsList($select);
 
-
         return $this;
     }
 
@@ -1944,7 +1942,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $categoryIds[$info['product_id']] = [$info['category_id']];
             }
         }
-
 
         foreach ($this->getItems() as $item) {
             $productId = $item->getId();
@@ -2142,7 +2139,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         return $this->_priceStandardDeviation;
     }
-
 
     /**
      * Get count of product prices

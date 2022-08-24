@@ -112,7 +112,6 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         $result.= $this->getLabelHtml();
         $result.= $this->getElementHtml();
 
-
         if($this->getSelectAll() && $this->getDeselectAll()) {
             $result .= '<a href="#" onclick="return ' . $this->getJsObjectName() . '.selectAll()">' .
                 $this->getSelectAll() . '</a> <span class="separator">&nbsp;|&nbsp;</span>';
@@ -121,7 +120,6 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         }
 
         $result.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
-
 
         $result.= '<script type="text/javascript">' . "\n";
         $result.= '   var ' . $this->getJsObjectName() . ' = {' . "\n";

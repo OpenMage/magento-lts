@@ -623,7 +623,6 @@ class Mage_Weee_Model_Total_Quote_Weee extends Mage_Tax_Model_Sales_Total_Quote_
         $this->_helper = $helper;
     }
 
-
     /**
      * Set the store Object
      *

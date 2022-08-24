@@ -27,7 +27,6 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-
 require_once 'Varien/Db/Tree/Exception.php';
 Zend_Loader::loadClass('Zend_Db_Select');
 Zend_Loader::loadClass('Varien_Db_Tree_Node');
@@ -96,7 +95,6 @@ class Varien_Db_Tree
             throw new Varien_Db_Tree_Exception('db object is not set in config');
         }
 
-
         if (!empty($config['table'])) {
             $this->setTable($config['table']);
         }
@@ -124,7 +122,6 @@ class Varien_Db_Tree
         } else {
             $this->setLevelField('level');
         }
-
 
         if (!empty($config['pid'])) {
             $this->setPidField($config['pid']);
@@ -297,14 +294,12 @@ class Varien_Db_Tree
         ->from(array('t2'=>$this->_table))
         ->from(array('t3'=>$this->_table), new Zend_Db_Expr('MAX(t3.'.$this->_right.') AS max_right'));
 
-
         $sql->where('t1.'.$this->_left.' <> t2.'.$this->_left)
         ->where('t1.'.$this->_left.' <> t2.'.$this->_right)
         ->where('t1.'.$this->_right.' <> t2.'.$this->_right);
 
         $sql->group('t1.'.$this->_id);
         $sql->having('max_right <> SQRT(4 * rep + 1) + 1');
-
 
         return $this->_db->fetchAll($sql);
     }
@@ -342,12 +337,10 @@ class Varien_Db_Tree
         }
     }
 
-
     public function moveNode($eId, $pId, $aId = 0) {
 
         $eInfo = $this->getNodeInfo($eId);
         $pInfo = $this->getNodeInfo($pId);
-
 
         $leftId = $eInfo[$this->_left];
         $rightId = $eInfo[$this->_right];
@@ -407,7 +400,6 @@ class Varien_Db_Tree
         }
     }
 
-
     public function __moveNode($eId, $pId, $aId = 0) {
 
         $eInfo = $this->getNodeInfo($eId);
@@ -441,7 +433,6 @@ class Varien_Db_Tree
             $right_key_near = $pInfo[$this->_right] - 1;
         }
 
-
         $skew_level = $pInfo[$this->_level] - $eInfo[$this->_level] + 1;
         $skew_tree = $eInfo[$this->_right] - $eInfo[$this->_left] + 1;
 
@@ -467,7 +458,6 @@ class Varien_Db_Tree
                 WHERE
                     '.$this->_right.' > '.$left_key.' AND '.$this->_left.' <= '.$right_key_near;
         }
-
 
         $this->_db->beginTransaction();
         try {

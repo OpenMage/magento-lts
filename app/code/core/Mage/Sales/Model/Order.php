@@ -1833,7 +1833,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return $payments;
     }
 
-
     /**
      * @param int $paymentId
      * @return bool|Mage_Sales_Model_Order_Payment
@@ -1963,7 +1962,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
         return $this;
     }
-
 
     /**
      * @return string
@@ -2230,7 +2228,6 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         }
         return $result;
     }
-
 
     /**
      * Retrieve array of related objects

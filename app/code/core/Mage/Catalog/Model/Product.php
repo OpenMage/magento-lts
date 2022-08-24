@@ -1018,7 +1018,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->_getData('special_to_date');
     }
 
-
 /*******************************************************************************
  ** Linked products API
  */
@@ -1532,7 +1531,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_isDuplicable = (boolean) $value;
         return $this;
     }
-
 
     /**
      * Check is product available for sale
