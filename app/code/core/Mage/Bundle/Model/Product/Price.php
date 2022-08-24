@@ -1037,8 +1037,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     {
         $prices = $this->_getCustomOptionValuesPrices($option);
         $minimalOptionPrice = ($prices) ? min($prices) : (float)$option->getPrice(true);
-        $minimalPrice = ($option->getIsRequire()) ? $minimalOptionPrice : 0;
-        return $minimalPrice;
+        return ($option->getIsRequire()) ? $minimalOptionPrice : 0;
     }
 
     /**

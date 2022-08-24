@@ -107,8 +107,6 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
             ->from($this->getTable('api2/acl_user'))
             ->where('role_id=?', $role->getId());
 
-        $users = $adapter->fetchCol($select);
-
-        return $users;
+        return $adapter->fetchCol($select);
     }
 }

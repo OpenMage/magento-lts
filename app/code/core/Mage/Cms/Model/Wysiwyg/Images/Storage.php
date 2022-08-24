@@ -201,13 +201,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 Mage::getModel('core/file_storage_directory_database')->createRecursive($relativePath);
             }
 
-            $result = [
+            return [
                 'name'          => $name,
                 'short_name'    => $this->getHelper()->getShortFilename($name),
                 'path'          => $newPath,
                 'id'            => $this->getHelper()->convertPathToId($newPath)
             ];
-            return $result;
         }
         Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
     }

@@ -80,9 +80,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
-        $url = Mage::getDesign()->getSkinUrl($params['url'], $params);
-
-        return $url;
+        return Mage::getDesign()->getSkinUrl($params['url'], $params);
     }
 
     /**

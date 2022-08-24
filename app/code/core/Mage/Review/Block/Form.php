@@ -98,7 +98,7 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
      */
     public function getRatings()
     {
-        $ratingCollection = Mage::getModel('rating/rating')
+        return Mage::getModel('rating/rating')
             ->getResourceCollection()
             ->addEntityFilter('product')
             ->setPositionOrder()
@@ -106,6 +106,5 @@ class Mage_Review_Block_Form extends Mage_Core_Block_Template
             ->setStoreFilter(Mage::app()->getStore()->getId())
             ->load()
             ->addOptionToItems();
-        return $ratingCollection;
     }
 }

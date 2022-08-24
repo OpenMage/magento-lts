@@ -533,12 +533,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function isValueEmpty($value)
     {
         $attrType = $this->getBackend()->getType();
-        $isEmpty = is_array($value)
+        return is_array($value)
             || ($value === null)
             || $value === false && $attrType != 'int'
             || $value === '' && ($attrType == 'int' || $attrType == 'decimal' || $attrType == 'datetime');
-
-        return $isEmpty;
     }
 
     /**

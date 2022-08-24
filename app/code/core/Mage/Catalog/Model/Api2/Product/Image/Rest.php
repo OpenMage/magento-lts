@@ -119,7 +119,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
      */
     protected function _formatImageData($image)
     {
-        $result = [
+        return [
             'id'        => $image['value_id'],
             'label'     => $image['label'],
             'position'  => $image['position'],
@@ -127,7 +127,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
             'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
         ];
-        return $result;
     }
 
     /**
