@@ -27,7 +27,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
+class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {
     /**
      * Renders grid column
@@ -37,8 +38,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
      */
     public function render(Varien_Object $row)
     {
-        if(!$this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $row,
-                $this->getColumn()->getGrid()->getStore())) {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if (!$helper->getIsMessagesAvailable('order_item', $row, $this->getColumn()->getGrid()->getStore())) {
             return '&nbsp;';
         }
 

@@ -371,7 +371,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
 
-        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : NULL));
+        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null));
 
         switch ($hostInfo->getAddressType()) {
             case self::ADDRESS_TYPE_UNIX_SOCKET:
@@ -1710,7 +1710,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = array('tinyint', 'smallint', 'mediumint', 'int', 'bigint');
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== FALSE)) {
+                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== false)) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }
