@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat rate shipping model
  *
@@ -89,7 +88,6 @@ class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_A
             if ($request->getFreeShipping() === true || $request->getPackageQty() == $this->getFreeBoxes()) {
                 $shippingPrice = '0.00';
             }
-
 
             $method->setPrice($shippingPrice);
             $method->setCost($shippingPrice);

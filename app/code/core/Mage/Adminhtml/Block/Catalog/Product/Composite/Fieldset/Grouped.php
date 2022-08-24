@@ -82,7 +82,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         return $result;
     }
 
-
     /**
      * Set preconfigured values to grouped associated products
      *

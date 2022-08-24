@@ -274,7 +274,6 @@ class Mage_Tax_Model_Config
         return $this->_needUseShippingExcludeTax;
     }
 
-
     /**
      * Get defined tax calculation agorithm
      *
@@ -335,7 +334,6 @@ class Mage_Tax_Model_Config
         $this->_shippingPriceIncludeTax = $flag;
         return $this;
     }
-
 
     /**
      * Check if need display full tax summary information in totals block

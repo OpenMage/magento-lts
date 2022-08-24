@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * DHL shipping implementation
  *
@@ -342,7 +341,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
         $r->setDestPersonName($request->getDestPersonName());
         $r->setDestCompanyName($request->getDestCompanyName());
 
-
         if (is_numeric($request->getOrigState())) {
             $r->setOrigState(Mage::getModel('directory/region')->load($request->getOrigState())->getCode());
         } else {
@@ -604,7 +602,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
                 if ($apValue) {
                     $apCode = self::ADDITIONAL_PROTECTION_ASSET;
 
-
                     switch ($_apValueRounding) {
                         case self::ADDITIONAL_PROTECTION_ROUNDING_CEIL:
                             $apValue = ceil($apValue);
@@ -674,7 +671,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             $extendedService = $specialServices->addChild('SpecialService');
             $extendedService->addChild('Code', $r->getExtendedService());
         }
-
 
         /*
         * R = Receiver (if receiver, need AccountNbr)
@@ -903,7 +899,6 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl
             ],
 
         ];
-
 
         if (!isset($codes[$type])) {
             return false;

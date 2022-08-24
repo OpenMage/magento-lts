@@ -112,7 +112,6 @@ if ($usedDatabaseStorage) {
     );
 }
 
-
 /**
  * Drop indexes
  */
@@ -312,7 +311,6 @@ if ($usedDatabaseStorage) {
         'parent_id'
     );
 }
-
 
 /*
  * Change columns
@@ -1056,7 +1054,6 @@ $installer->getConnection()->dropColumn(
     'website_id'
 );
 
-
 /**
  * Add indexes
  */
@@ -1331,7 +1328,6 @@ if ($usedDatabaseStorage) {
         ['parent_id']
     );
 }
-
 
 /**
  * Add foreign keys

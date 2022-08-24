@@ -108,7 +108,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Price
         return null;
     }
 
-
     public function getCondition()
     {
         $value = $this->getValue();

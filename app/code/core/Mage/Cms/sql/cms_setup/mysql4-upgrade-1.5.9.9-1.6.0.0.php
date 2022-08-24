@@ -45,7 +45,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CMS_PAGE_STORE_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -63,7 +62,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('cms/page_store'),
     'FK_CMS_PAGE_STORE_STORE'
 );
-
 
 /*
  * Change columns
@@ -248,7 +246,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -269,7 +266,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('cms/block_store', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

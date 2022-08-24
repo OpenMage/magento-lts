@@ -66,7 +66,6 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
     ];
 
-
     /**
      * @return Mage_Core_Model_Encryption
      */

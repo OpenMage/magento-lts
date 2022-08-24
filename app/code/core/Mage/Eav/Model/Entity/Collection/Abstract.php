@@ -245,7 +245,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         return $this;
     }
 
-
     /**
      * Add an object to the collection
      *
@@ -531,7 +530,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
 
         return $this;
     }
-
 
     /**
      * Groups results by specified attribute
@@ -959,7 +957,6 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
         return $this;
     }
-
 
     /**
      * Delete all the entities in the collection

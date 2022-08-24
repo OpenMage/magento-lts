@@ -66,7 +66,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_REPORT_VIEWED_PRODUCT_INDEX_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -144,7 +143,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('reports/viewed_product_index'),
     'PRODUCT_ID'
 );
-
 
 /**
  * Change columns
@@ -310,7 +308,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -423,7 +420,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('reports/viewed_product_index', ['product_id']),
     ['product_id']
 );
-
 
 /**
  * Add foreign keys

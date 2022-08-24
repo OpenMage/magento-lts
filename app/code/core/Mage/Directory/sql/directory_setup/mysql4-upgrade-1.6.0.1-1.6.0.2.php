@@ -41,13 +41,10 @@ $where = ['code = ?' => 'AC'];
 
 $connection->update($regionTable, $bind, $where);
 
-
 /* Armed Forces Africa (AF) is now served by Armed Forces Europe (AE) */
 $bind = ['code' => 'AE'];
 $where = ['code = ?' => 'AF'];
 
 $connection->update($regionTable, $bind, $where);
-
-
 
 $installer->endSetup();

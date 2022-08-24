@@ -1399,7 +1399,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         return $this;
     }
 
-
     /**
      * Get block cache life time
      *

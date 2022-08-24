@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Media library file image resource model
  *
@@ -111,7 +110,6 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
         if (!$resource) {
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
-
 
         return $resource;
     }

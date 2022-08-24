@@ -824,7 +824,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -874,7 +873,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('bundle/selection_price', ['website_id']),
     ['website_id']
 );
-
 
 /**
  * Add foreign keys

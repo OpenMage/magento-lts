@@ -181,7 +181,6 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         ];
     }
 
-
     /**
      * Add poll template
      *
@@ -222,7 +221,6 @@ class Mage_Poll_Block_ActivePoll extends Mage_Core_Block_Template
         }
         return parent::_toHtml();
     }
-
 
     /**
      * Get cache key informative items that must be preserved in cache placeholders

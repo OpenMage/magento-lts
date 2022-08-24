@@ -174,7 +174,6 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         // reset array keys
         $storeIds = array_values($storeIds);
 
-
         $collection->setStoreIds($storeIds);
 
         if ($this->getSubReportSize() !== null) {

@@ -298,7 +298,6 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->getShippingAddressTotals($_address);
     }
 
-
     /**
      * @param Mage_Sales_Model_Order_Total $totals
      * @param null $colspan

@@ -43,7 +43,6 @@ interface Mage_Captcha_Model_Interface
      */
     public function isCorrect($word);
 
-
  /**
      * Get Block Name
      *

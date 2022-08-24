@@ -222,7 +222,6 @@ class Mage_Adminhtml_Block_Report_Sales_Sales_Grid extends Mage_Adminhtml_Block_
             'rate'          => $rate,
         ]);
 
-
         $this->addExportType('*/*/exportSalesCsv', Mage::helper('adminhtml')->__('CSV'));
         $this->addExportType('*/*/exportSalesExcel', Mage::helper('adminhtml')->__('Excel XML'));
 

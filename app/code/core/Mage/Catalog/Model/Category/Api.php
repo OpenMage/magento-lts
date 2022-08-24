@@ -416,7 +416,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         return $product->getId();
     }
 
-
     /**
      * Retrieve list of assigned products to category
      *
@@ -473,7 +472,6 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         return true;
     }
-
 
     /**
      * Update product assignment

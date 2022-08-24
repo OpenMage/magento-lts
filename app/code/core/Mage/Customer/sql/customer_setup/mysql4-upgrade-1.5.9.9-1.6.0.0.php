@@ -60,7 +60,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CUSTOMER_FORM_ATTRIBUTE_ATTRIBUTE'
 );
 
-
 $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_address_entity_datetime'),
     'FK_CUSTOMER_ADDRESS_DATETIME_ATTRIBUTE'
@@ -210,7 +209,6 @@ $connection = $installer->getConnection()->dropForeignKey(
     $installer->getTable('customer_entity_varchar'),
     'FK_CUSTOMER_VARCHAR_ENTITY_TYPE'
 );
-
 
 /**
  * Drop indexes
@@ -489,7 +487,6 @@ $connection = $installer->getConnection()->dropIndex(
     $installer->getTable('customer_entity_varchar'),
     'IDX_VALUE'
 );
-
 
 /**
  * Change columns
@@ -1156,7 +1153,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -1585,7 +1581,6 @@ $connection = $installer->getConnection()->addIndex(
     Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX
 );
 
-
 /**
  * Add foreign keys
  */
@@ -1646,8 +1641,6 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
-
-
 
 $connection = $installer->getConnection()->addForeignKey(
     $installer->getFkName('customer_address_entity_datetime', 'attribute_id', 'eav/attribute', 'attribute_id'),
@@ -1888,7 +1881,6 @@ $connection = $installer->getConnection()->addForeignKey(
     $installer->getTable('eav/entity_type'),
     'entity_type_id'
 );
-
 
 /**
  * Update customer address attributes

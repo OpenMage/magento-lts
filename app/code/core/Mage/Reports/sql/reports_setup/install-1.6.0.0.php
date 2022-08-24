@@ -123,7 +123,6 @@ $table = $installer->getConnection()
     ->setComment('Reports Event Table');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'reports/compared_product_index'.
  * MySQL table differs by having unique keys on (customer/visitor, product) columns and is created
@@ -202,7 +201,6 @@ if (!$installer->tableExists($tableName)) {
         ->setComment('Reports Compared Product Index Table');
     $installer->getConnection()->createTable($table);
 }
-
 
 /**
  * Create table 'reports/viewed_product_index'.

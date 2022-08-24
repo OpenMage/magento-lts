@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $this->run("
 truncate table `{$this->getTable('log_quote')}`;
 truncate table `{$this->getTable('log_url')}`;

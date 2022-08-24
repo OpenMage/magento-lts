@@ -40,7 +40,6 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
      const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
-
     /**
      * @param int $customerId
      * @return Mage_Customer_Model_Customer

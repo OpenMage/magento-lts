@@ -392,7 +392,6 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
             //->setTaxamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseTaxAmount()))
             //->setFreightamt($this->_formatStr('%.2F', $payment->getOrder()->getBaseShippingAmount()));
 
-
         $order = $payment->getOrder();
         if (empty($order)) {
             return $request;

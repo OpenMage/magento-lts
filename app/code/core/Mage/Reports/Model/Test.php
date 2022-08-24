@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Model  for flex reports
  *
@@ -110,11 +109,9 @@ class Mage_Reports_Model_Test extends Varien_Object
     {
         $session = Mage::getModel('review/session');
 
-
         $startPoint = $session->getData('startPoint');
 
         $reset = 12;
-
 
         $newData  = [
             ['time'=> date("Y-m-d H:i", $startPoint), 'value'=>rand(1, 100)]

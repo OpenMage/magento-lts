@@ -188,8 +188,6 @@ $attributes = [
 $select = new Zend_Db_Select($installer->getConnection());
 $select->from(['e' => $this->getTable('sales_order_entity')]);
 
-
-
 $attributeIds = [];
 foreach ($attributes as $code => $params) {
     $attributes[$code] = $installer->getAttribute($orderEntityTypeId, $code);

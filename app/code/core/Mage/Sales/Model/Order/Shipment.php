@@ -143,7 +143,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         return $this;
     }
 
-
     /**
      * Declare order for shipment
      *
@@ -157,7 +156,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             ->setStoreId($order->getStoreId());
         return $this;
     }
-
 
     /**
      * Retrieve hash code of current order
@@ -295,7 +293,6 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
         return $this;
     }
-
 
     /**
      * @return Mage_Sales_Model_Resource_Order_Shipment_Track_Collection

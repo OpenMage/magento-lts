@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Product Items abstract Block
  *
@@ -216,7 +215,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
 
         return $this->getUrl('wishlist/index/configure/', $params);
     }
-
 
     /**
      * Retrieve Escaped Description for Wishlist Item

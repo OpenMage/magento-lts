@@ -117,7 +117,6 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
             }
         }
 
-
         $this->setSelectedResources($selrids);
 
         $this->setTemplate('permissions/rolesedit.phtml');

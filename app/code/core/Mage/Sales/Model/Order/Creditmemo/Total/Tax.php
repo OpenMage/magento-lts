@@ -151,18 +151,15 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Tax extends Mage_Sales_Model_Order
         $allowedBaseHiddenTax = $order->getBaseHiddenTaxInvoiced() + $order->getBaseShippingHiddenTaxAmount()
             - $order->getBaseHiddenTaxRefunded() - $order->getBaseShippingHiddenTaxRefunded();
 
-
         $totalTax = min($allowedTax, $totalTax);
         $baseTotalTax = min($allowedBaseTax, $baseTotalTax);
         $totalHiddenTax = min($allowedHiddenTax, $totalHiddenTax);
         $baseTotalHiddenTax = min($allowedBaseHiddenTax, $baseTotalHiddenTax);
 
-
         $creditmemo->setTaxAmount($creditmemo->getTaxAmount() + $totalTax);
         $creditmemo->setBaseTaxAmount($creditmemo->getBaseTaxAmount() +  $baseTotalTax);
         $creditmemo->setHiddenTaxAmount($totalHiddenTax);
         $creditmemo->setBaseHiddenTaxAmount($baseTotalHiddenTax);
-
 
         $creditmemo->setShippingTaxAmount($shippingTaxAmount);
         $creditmemo->setBaseShippingTaxAmount($baseShippingTaxAmount);
