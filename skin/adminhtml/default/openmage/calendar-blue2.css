@@ -3,14 +3,14 @@
    $ sass calendar-blue2.scss ../calendar-blue2.css
  */
 /*
-                           205 = default,
-                             0 = red,
-                            60 = yellow,
-                           120 = green,
-                           180 = turquoise,
-                           240 = blue,
-                           300 = purple
-                           */
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 .calendar, .calendar table {
   color: #202856;
   cursor: default;

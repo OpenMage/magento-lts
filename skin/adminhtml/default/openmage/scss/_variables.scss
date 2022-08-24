@@ -92,17 +92,16 @@ $black_75: rgba(0, 0, 0, 0.75);
 $color_gothic_10_approx: rgba(117, 146, 163, 0.1);
 $color_gothic_25_approx: rgba(117, 146, 163, 0.25);
 
-
 $hue: 205;
 /*
-                           205 = default,
-                             0 = red,
-                            60 = yellow,
-                           120 = green,
-                           180 = turquoise,
-                           240 = blue,
-                           300 = purple
-                           */
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 
 $color-main-xs: hsla($hue, 52%, 95%, 1);
 $color-main-s: hsla($hue, 52%, 88%, 1);

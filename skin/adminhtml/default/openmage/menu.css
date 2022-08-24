@@ -3,14 +3,14 @@
    $ sass menu.scss ../menu.css
  */
 /*
-                           205 = default,
-                             0 = red,
-                            60 = yellow,
-                           120 = green,
-                           180 = turquoise,
-                           240 = blue,
-                           300 = purple
-                           */
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 #nav ul li, #nav ul li.active {
   float: none;
   height: auto;

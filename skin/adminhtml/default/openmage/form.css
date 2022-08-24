@@ -4,14 +4,14 @@
    $ sass form.scss ../form.css
  */
 /*
-                           205 = default,
-                             0 = red,
-                            60 = yellow,
-                           120 = green,
-                           180 = turquoise,
-                           240 = blue,
-                           300 = purple
-                           */
+ 205 = default,
+   0 = red,
+  60 = yellow,
+ 120 = green,
+ 180 = turquoise,
+ 240 = blue,
+ 300 = purple
+*/
 input.input-text, textarea, select {
   font: 400 12px/1.33 'Open Sans', sans-serif;
   display: inline-block;
