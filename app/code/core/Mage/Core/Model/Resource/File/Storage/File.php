@@ -202,7 +202,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             // If we already opened the file using lockCreateFile method
             if ($this->filePointer) {
                 $fp = $this->filePointer;
-                $this->filePointer = NULL;
+                $this->filePointer = null;
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @flock($fp, LOCK_UN) && @fclose($fp)) {
                     return true;
                 }
@@ -283,7 +283,7 @@ class Mage_Core_Model_Resource_File_Storage_File
         $fullPath = $path . DS . $filename;
         if ($this->filePointer) {
             $fp = $this->filePointer;
-            $this->filePointer = NULL;
+            $this->filePointer = null;
             @flock($fp, LOCK_UN);
             @fclose($fp);
         }
@@ -294,7 +294,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             foreach ($this->_createdDirectories as $directory) {
                 @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
             }
-            $this->_createdDirectories = NULL;
+            $this->_createdDirectories = null;
         }
 
         // Clean up all empty directories

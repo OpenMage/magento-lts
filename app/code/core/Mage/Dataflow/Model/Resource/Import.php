@@ -45,11 +45,10 @@ class Mage_Dataflow_Model_Resource_Import extends Mage_Core_Model_Resource_Db_Ab
      */
     public function select($sessionId)
     {
-        $select = $this->_getReadAdapter()->select()
+        return $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where('session_id=?', $sessionId)
             ->where('status=?', 0);
-        return $select;
     }
 
     /**

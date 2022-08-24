@@ -99,8 +99,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function authValidate($headers = null)
     {
-        $userPass = Mage::helper('core/http')->authValidate($headers);
-        return $userPass;
+        return Mage::helper('core/http')->authValidate($headers);
     }
 
     /**

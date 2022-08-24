@@ -38,11 +38,9 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name extends Mage_Adminhtml_Block_
     {
         $_remainder = '';
         $value = Mage::helper('core/string')->truncate($value, 55, '', $_remainder);
-        $result = [
+        return [
             'value' => nl2br($value),
             'remainder' => nl2br($_remainder)
         ];
-
-        return $result;
     }
 }

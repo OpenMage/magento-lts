@@ -92,9 +92,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      */
     public function getProductAttributes()
     {
-        $attributes = $this->getProduct()->getTypeInstance(true)
+        return $this->getProduct()->getTypeInstance(true)
             ->getSelectedAttributesInfo($this->getProduct());
-        return $attributes;
     }
 
     /**

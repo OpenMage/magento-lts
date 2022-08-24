@@ -95,7 +95,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Frontend_Product_Watermark extends Ma
 
     protected function _getFooterHtml($element)
     {
-        $html = '</tbody></table></fieldset>';
-        return $html;
+        return '</tbody></table></fieldset>';
     }
 }

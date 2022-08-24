@@ -40,8 +40,7 @@ class Mage_Api2_Model_Renderer_Query implements Mage_Api2_Model_Renderer_Interfa
      */
     public function render($data)
     {
-        $query = http_build_query($data);
-        return $query;
+        return http_build_query($data);
     }
 
     /**

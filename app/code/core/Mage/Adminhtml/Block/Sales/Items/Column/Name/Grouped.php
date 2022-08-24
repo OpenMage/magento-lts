@@ -43,8 +43,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name_Grouped extends Mage_Adminhtm
             $item = $this->getItem();
         }
         if ($productType = $item->getRealProductType()) {
-            $renderer = $this->getRenderedBlock()->getColumnHtml($this->getItem(), $productType);
-            return $renderer;
+            return $this->getRenderedBlock()->getColumnHtml($this->getItem(), $productType);
         }
         return parent::_toHtml();
     }

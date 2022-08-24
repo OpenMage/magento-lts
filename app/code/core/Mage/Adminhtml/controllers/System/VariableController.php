@@ -155,7 +155,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             }
         }
         $this->_redirect('*/*/', []);
-        return;
     }
 
     /**
@@ -178,7 +177,6 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             }
         }
         $this->_redirect('*/*/', []);
-        return;
     }
 
     /**

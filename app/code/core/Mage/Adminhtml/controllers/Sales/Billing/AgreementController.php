@@ -69,7 +69,6 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
         }
 
         $this->_redirect('*/*/');
-        return;
     }
 
     /**

@@ -64,6 +64,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
         return $this->_entity;
     }
 
+    /**
+     * @return Mage_Adminhtml_Model_Session_Quote
+     */
     protected function _getSession()
     {
         return Mage::getSingleton('adminhtml/session_quote');
@@ -76,11 +79,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getDefaultSender()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
-        if($this->_getSession()->getCustomer()->getId()) {
+        if ($this->_getSession()->getCustomer()->getId()) {
             return $this->_getSession()->getCustomer()->getName();
         }
 
@@ -100,7 +103,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getDefaultRecipient()
     {
-        if(!$this->getEntity()) {
+        if (!$this->getEntity()) {
             return '';
         }
 
@@ -108,15 +111,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
 
         if ($this->getEntity()->getOrder()) {
             $object = $this->getEntity()->getOrder();
-        }
-        else if ($this->getEntity()->getQuote()){
+        } elseif ($this->getEntity()->getQuote()) {
             $object = $this->getEntity()->getQuote();
         }
 
         if ($object->getShippingAddress()) {
             return $object->getShippingAddress()->getName();
         }
-        else if ($object->getBillingAddress()) {
+
+        if ($object->getBillingAddress()) {
             return $object->getBillingAddress()->getName();
         }
 
@@ -127,6 +130,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Prepares form
      *
      * @return $this
+     * @throws Exception
      */
     public function _prepareForm()
     {
@@ -141,18 +145,18 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
 
         $form->setHtmlIdPrefix($this->_getFieldIdPrefix());
 
-        if ($this->getEntityType() == 'item') {
+        if ($this->getEntityType() === 'item') {
             $this->_prepareHiddenFields($fieldset);
         } else {
             $this->_prepareVisibleFields($fieldset);
         }
 
         // Set default sender and recipient from billing and shipping adresses
-        if(!$this->getMessage()->getSender()) {
+        if (!$this->getMessage()->getSender()) {
             $this->getMessage()->setSender($this->getDefaultSender());
         }
 
-        if(!$this->getMessage()->getRecipient()) {
+        if (!$this->getMessage()->getRecipient()) {
             $this->getMessage()->setRecipient($this->getDefaultRecipient());
         }
 
@@ -239,9 +243,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-                                   $this->getEntity()->getGiftMessageId()
-                              );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
         return $this;
     }
 
@@ -252,7 +256,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      */
     public function getMessage()
     {
-        if(is_null($this->_giftMessage)) {
+        if (is_null($this->_giftMessage)) {
             $this->_initMessage();
         }
 
@@ -295,15 +299,15 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form extends Mage_Admi
      * Aplies posted data to gift message
      *
      * @return $this
+     * @throws Exception
      */
     protected function _applyPostData()
     {
-        if(is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
+        if (is_array($giftmessages = $this->getRequest()->getParam('giftmessage'))
            && isset($giftmessages[$this->getEntity()->getId()])) {
             $this->getMessage()->addData($giftmessages[$this->getEntity()->getId()]);
         }
 
         return $this;
     }
-
 }
