@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity attribute option collection
  *
@@ -54,7 +53,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     {
         return $this->addFieldToFilter('attribute_id', $setId);
     }
-
 
     /**
      * Add store filter to collection
@@ -125,7 +123,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection extends Mage_Co
     {
         return $this->_toOptionArray('option_id', $valueKey);
     }
-
 
     /**
      * Set order by position or alphabetically by values in admin

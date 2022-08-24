@@ -197,7 +197,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_getOrderCreateModel()->collectShippingRates();
         }
 
-
         /**
          * Apply mass changes from sidebar
          */
@@ -342,7 +341,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             ->renderLayout();
     }
 
-
     public function reorderAction()
     {
         $this->_getSession()->clear();
@@ -389,7 +387,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
             $this->_reloadQuote();
             $this->_getSession()->addException($e, $e->getMessage());
         }
-
 
         $asJson= $request->getParam('json');
         $block = $request->getParam('block');
@@ -641,7 +638,6 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
 
         return $this;
     }
-
 
     /**
      * Show item update result from loadBlockAction

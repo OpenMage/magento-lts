@@ -162,7 +162,6 @@ class Magento_Db_Sql_Trigger
         return $this;
     }
 
-
     /**
      * Set body part to trigger
      *

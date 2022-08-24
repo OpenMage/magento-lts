@@ -46,7 +46,6 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
                 $url = $this->getUrl('*/*/');
         }
 
-
         $this->_block = 'tag_customer';
         $this->_controller = 'tag_customer';
         $this->_removeButton('add');

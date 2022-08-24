@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product entity resource model
  *
@@ -465,7 +464,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             []
         );
 
-
         $statusJoinCond = [
             't_s.entity_id = t_v_default.entity_id',
             $adapter->quoteInto('t_s.store_id     = ?', $storeId),
@@ -489,7 +487,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         }
 
         $adapter->query($adapter->insertFromSelect($select, $indexTable));
-
 
         return $this;
     }

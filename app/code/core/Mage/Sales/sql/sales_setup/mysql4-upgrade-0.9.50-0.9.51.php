@@ -25,7 +25,6 @@ $installer->startSetup();
 $installer->addAttribute('order_payment', 'additional_information', ['type' => 'text']);
 $installer->addAttribute('quote_payment', 'additional_information', ['type' => 'text']);
 
-
 $processingItemsCountForOneIteration = 1000;
 
 $connection = $installer->getConnection();

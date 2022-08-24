@@ -19,7 +19,6 @@
  * @version    $Id$
  */
 
-
 /**
  * This class replaces default Zend_Locale_Math_PhpMath because of issues described in MPERF-10261 and MPERF-10262
  * The only difference between current class and original one is overwritten implementation of Sub method
@@ -55,7 +54,6 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
 
     public static $defaultScale;
     public static $defaultPrecision;
-
 
     public static function Add($op1, $op2, $scale = null)
     {

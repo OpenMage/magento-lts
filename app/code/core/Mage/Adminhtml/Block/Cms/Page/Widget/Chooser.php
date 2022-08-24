@@ -59,7 +59,6 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             ->setSourceUrl($sourceUrl)
             ->setUniqId($uniqId);
 
-
         if ($element->getValue()) {
             $page = Mage::getModel('cms/page')->load((int)$element->getValue());
             if ($page->getId()) {

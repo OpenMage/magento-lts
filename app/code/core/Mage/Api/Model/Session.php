@@ -198,7 +198,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
 
-
     /**
      * @param string|false $sessId
      * @return bool

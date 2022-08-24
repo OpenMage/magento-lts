@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Newsletter Template Edit Form Block
  *
@@ -113,7 +112,6 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit_Form extends Mage_Adminhtml_
                 ? $model->getTemplateSenderEmail()
                 : $identityEmail
         ]);
-
 
         $widgetFilters = ['is_email_compatible' => 1];
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(['widget_filters' => $widgetFilters]);

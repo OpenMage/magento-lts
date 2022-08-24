@@ -71,7 +71,6 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         return $value;
     }
 
-
     /**
      * Set date value
      * If Zend_Date instance is provided instead of value, other params will be ignored.

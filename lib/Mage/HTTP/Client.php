@@ -37,7 +37,6 @@ class Mage_HTTP_Client
 
     }
 
-
     /**
      * Factory for HTTP client
      * @param string/false $frontend  'curl'/'socket' or false for auto-detect

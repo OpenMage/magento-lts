@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports quote collection
  *
@@ -68,7 +67,6 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         $this->_useAnalyticFunction = true;
     }
 
-
     /**
      * Prepare for abandoned report
      *
@@ -86,7 +84,6 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
         if (is_array($storeIds) && !empty($storeIds)) {
             $this->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
-
 
         return $this;
     }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reindexer resource model
  *
@@ -140,7 +139,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         if ($minimal) {
             $tables['minimal'] = 'catalogindex/minimal_price';
         }
-
 
         foreach ($tables as $variable => $table) {
             $variable = $$variable;

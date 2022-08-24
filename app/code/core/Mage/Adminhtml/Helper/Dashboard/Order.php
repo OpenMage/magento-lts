@@ -49,8 +49,6 @@ class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashbo
             );
         }
 
-
-
         $this->_collection->load();
     }
 

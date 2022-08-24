@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap edit form
  *
@@ -38,7 +37,6 @@ class Mage_Adminhtml_Block_Sitemap_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setId('sitemap_form');
         $this->setTitle(Mage::helper('adminhtml')->__('Sitemap Information'));
     }
-
 
     protected function _prepareForm()
     {

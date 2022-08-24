@@ -614,7 +614,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_imageSrcHeight = imagesy($this->_imageHandler);
     }
 
-
     /*
      * Fixes saving PNG alpha channel
      */

@@ -46,7 +46,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
         return 'sales/order_creditmemo_grid_collection';
     }
 
-
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())

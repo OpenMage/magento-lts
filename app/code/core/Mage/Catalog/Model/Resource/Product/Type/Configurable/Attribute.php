@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog super product attribute resource model
  *
@@ -263,7 +262,6 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
         if (!empty($insert)) {
             $write->insertMultiple($this->_priceTable, $insert);
         }
-
 
         return $this;
     }

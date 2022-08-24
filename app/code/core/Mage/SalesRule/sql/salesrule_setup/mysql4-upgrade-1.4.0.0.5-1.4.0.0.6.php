@@ -40,7 +40,6 @@ $installer->getConnection()->addConstraint(
     'coupon_id'
 );
 
-
 $installer->getConnection()->addConstraint(
     'FK_SALESRULE_CPN_CUST_CUST_ID_CUST_ENTITY',
     $installer->getTable('salesrule/coupon_usage'),

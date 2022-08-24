@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug _getResource()
  * @method Mage_Paygate_Model_Resource_Authorizenet_Debug getResource()

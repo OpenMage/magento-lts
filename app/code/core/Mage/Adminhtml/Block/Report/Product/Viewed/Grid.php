@@ -97,7 +97,6 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
             'sortable'  => false
         ]);
 
-
         $this->addExportType('*/*/exportViewedCsv', Mage::helper('adminhtml')->__('CSV'));
         $this->addExportType('*/*/exportViewedExcel', Mage::helper('adminhtml')->__('Excel XML'));
 

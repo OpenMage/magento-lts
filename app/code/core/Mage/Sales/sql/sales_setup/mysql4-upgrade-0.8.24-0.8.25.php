@@ -27,7 +27,6 @@ $installer->getConnection()->addColumn($this->getTable('sales_quote_address'), '
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'shipping_tax_amount', 'decimal(12,4) NULL');
 $installer->getConnection()->addColumn($this->getTable('sales_order'), 'base_shipping_tax_amount', 'decimal(12,4) NULL');
 
-
 $installer->addAttribute('quote_address', 'shipping_tax_amount', ['type'=>'static']);
 $installer->addAttribute('quote_address', 'base_shipping_tax_amount', ['type'=>'static']);
 

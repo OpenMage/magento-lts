@@ -70,7 +70,6 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         return parent::_beforeSave($object);
     }
 
-
     /**
      * Check intersections
      *

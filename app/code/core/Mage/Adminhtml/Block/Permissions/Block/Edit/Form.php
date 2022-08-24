@@ -51,7 +51,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
             'name' => 'block_name',
         ]);
 
-
         $yesno = [
             [
                 'value' => 0,
@@ -61,7 +60,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit_Form extends Mage_Adminhtml_Bl
                 'value' => 1,
                 'label' => $this->__('Yes')
             ]];
-
 
         $fieldset->addField('is_allowed', 'select', [
             'name' => 'is_allowed',

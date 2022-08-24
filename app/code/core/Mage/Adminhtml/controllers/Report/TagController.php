@@ -113,7 +113,6 @@ class Mage_Adminhtml_Report_TagController extends Mage_Adminhtml_Controller_Acti
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
-
     public function popularAction()
     {
         $this->_title($this->__('Reports'))

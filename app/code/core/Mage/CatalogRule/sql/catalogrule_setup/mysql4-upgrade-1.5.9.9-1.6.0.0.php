@@ -75,7 +75,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CATALOGRULE_PRODUCT_PRICE_WEBSITE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -153,7 +152,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('catalogrule/rule_product_price'),
     'FK_CATALOGRULE_PRODUCT_PRICE_PRODUCT'
 );
-
 
 /*
  * Change columns
@@ -423,7 +421,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -526,7 +523,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('catalogrule/rule_product_price', ['product_id']),
     ['product_id']
 );
-
 
 /**
  * Add foreign keys

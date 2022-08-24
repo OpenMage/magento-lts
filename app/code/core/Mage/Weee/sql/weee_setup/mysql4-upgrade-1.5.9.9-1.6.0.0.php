@@ -60,7 +60,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_WEEE_TAX_ATTRIBUTE_ID'
 );
 
-
 /**
  * Drop indexes
  */
@@ -98,7 +97,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('weee/tax'),
     'FK_WEEE_TAX_ATTRIBUTE_ID'
 );
-
 
 /**
  * Change columns
@@ -494,7 +492,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('weee/tax', ['attribute_id']),
     ['attribute_id']
 );
-
 
 /**
  * Add foreign keys

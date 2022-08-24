@@ -296,7 +296,6 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             7   => Mage::helper('tax')->__('Range To')
         ];
 
-
         $stores = [];
         $unset = [];
         $storeCollection = Mage::getModel('core/store')->getCollection()->setLoadDefault(false);
