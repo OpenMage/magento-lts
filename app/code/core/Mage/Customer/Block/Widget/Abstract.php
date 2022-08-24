@@ -32,7 +32,9 @@ class Mage_Customer_Block_Widget_Abstract extends Mage_Core_Block_Template
      */
     public function getConfig($key)
     {
-        return $this->helper('customer/address')->getConfig($key);
+        /** @var Mage_Customer_Helper_Address $helper */
+        $helper = $this->helper('customer/address');
+        return $helper->getConfig($key);
     }
 
     /**
