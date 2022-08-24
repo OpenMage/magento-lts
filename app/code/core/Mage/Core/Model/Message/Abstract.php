@@ -94,8 +94,7 @@ abstract class Mage_Core_Model_Message_Abstract
      */
     public function toString()
     {
-        $out = $this->getType().': '.$this->getText();
-        return $out;
+        return $this->getType().': '.$this->getText();
     }
 
     /**

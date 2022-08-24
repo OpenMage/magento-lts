@@ -450,8 +450,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerClassName($realModule, $controller)
     {
-        $class = $realModule.'_'.uc_words($controller).'Controller';
-        return $class;
+        return $realModule.'_'.uc_words($controller).'Controller';
     }
 
     /**

@@ -226,8 +226,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($to)) {
             $to = Mage::app()->getStore()->getCurrentCurrencyCode();
         }
-        $converted = $this->_currencyCache[$from]->convert($amount, $to);
-        return $converted;
+        return $this->_currencyCache[$from]->convert($amount, $to);
     }
 
     /**

@@ -507,7 +507,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 ]
             );
 
-        $select = $this->_connection->select()
+        return $this->_connection->select()
             ->from($indexSelect, [])
             ->joinInner(
                 [
@@ -555,8 +555,6 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
                 )
             )
             ->group(['customer_group_id', 'product_id', 'dates.rule_date', 'website_id']);
-
-        return $select;
     }
 
     /**

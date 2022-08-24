@@ -625,8 +625,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $priceExclTax         = $this->_calculatePrice($storePriceInclTax, $storePercent, false, false);
         $customerTax          = $this->getCalculator()->calcTaxAmount($priceExclTax, $customerPercent, false, false);
-        $customerPriceInclTax = $store->roundPrice($priceExclTax + $customerTax);
-        return $customerPriceInclTax;
+        return $store->roundPrice($priceExclTax + $customerTax);
     }
 
     /**

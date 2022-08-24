@@ -124,8 +124,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
-        $resource = imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
-        return $resource;
+        return imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
     }
 
     /**

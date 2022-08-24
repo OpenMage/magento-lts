@@ -104,8 +104,7 @@ class Mage_Checkout_Block_Multishipping_Shipping extends Mage_Sales_Block_Items_
      */
     public function getShippingRates($address)
     {
-        $groups = $address->getGroupedAllShippingRates();
-        return $groups;
+        return $address->getGroupedAllShippingRates();
     }
 
     /**

@@ -98,8 +98,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         ));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
-        $products = $collection->load()->toArray();
-        return $products;
+        return $collection->load()->toArray();
     }
 
     /**
