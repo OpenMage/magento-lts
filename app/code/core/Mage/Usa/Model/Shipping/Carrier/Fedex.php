@@ -1192,8 +1192,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
                           foreach ($xml->Package->Event as $event) {
                               $tempArr= [];
                               $tempArr['activity'] = (string)$event->Description;
-                              $tempArr['deliverydate'] = (string)$event->Date;//YYYY-MM-DD
-                              $tempArr['deliverytime'] = (string)$event->Time;//HH:MM:ss
+                              $tempArr['deliverydate'] = (string)$event->Date; //YYYY-MM-DD
+                              $tempArr['deliverytime'] = (string)$event->Time; //HH:MM:ss
                               $addArr= [];
                               if (isset($event->Address->City)) {
                                 $addArr[] = (string)$event->Address->City;

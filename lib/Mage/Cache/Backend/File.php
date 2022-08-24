@@ -680,7 +680,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         } else {
             $ids = false;
         }
-        if( ! $ids) {
+        if(! $ids) {
             return array();
         }
         $ids = trim(substr($ids, 0, strrpos($ids, "\n")));
@@ -707,7 +707,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
             if (file_exists($file)) {
                 if ($mode == 'diff' || (rand(1,100) == 1 && filesize($file) > 4096)) {
                     $file = $this->_tagFile($tag);
-                    if ( ! ($fd = fopen($file, 'rb+'))) {
+                    if (! ($fd = fopen($file, 'rb+'))) {
                         $result = false;
                         continue;
                     }

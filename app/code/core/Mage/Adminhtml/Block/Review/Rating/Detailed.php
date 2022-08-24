@@ -33,15 +33,15 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
     {
         parent::__construct();
         $this->setTemplate('rating/detailed.phtml');
-        if( Mage::registry('review_data') ) {
+        if(Mage::registry('review_data')) {
             $this->setReviewId(Mage::registry('review_data')->getReviewId());
         }
     }
 
     public function getRating()
     {
-        if( !$this->getRatingCollection() ) {
-            if( Mage::registry('review_data') ) {
+        if(!$this->getRatingCollection()) {
+            if(Mage::registry('review_data')) {
                 $stores = Mage::registry('review_data')->getStores();
 
                 $stores = array_diff($stores, [0]);
@@ -90,7 +90,7 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                         ->addRatingOptions();
                 }
             }
-            $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
+            $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
         return $this->getRatingCollection();
     }

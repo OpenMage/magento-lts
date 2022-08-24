@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
 
     protected function _addColumnFilterToCollection($column)
     {
-        $field = ( $column->getFilterIndex() ) ? $column->getFilterIndex() : $column->getIndex();
+        $field = ($column->getFilterIndex()) ? $column->getFilterIndex() : $column->getIndex();
         $skip = ['subtotal', 'customer_name', 'email'/*, 'created_at', 'updated_at'*/];
 
         if (in_array($field, $skip)) {

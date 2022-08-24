@@ -108,7 +108,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
      */
     public function getDefaultHtml()
     {
-        $result = ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+        $result = ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
         $result.= $this->getLabelHtml();
         $result.= $this->getElementHtml();
 
@@ -119,7 +119,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
                 $this->getDeselectAll() . '</a>';
         }
 
-        $result.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+        $result.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
 
         $result.= '<script type="text/javascript">' . "\n";
         $result.= '   var ' . $this->getJsObjectName() . ' = {' . "\n";

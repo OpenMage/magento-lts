@@ -67,7 +67,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
             }
         } while ($this->next());
 
-        if($parameterName != '' ) {
+        if($parameterName != '') {
             if($variableSet) {
                     $actions[] = array('type'=>'property',
                                        'name'=>$parameterName);
@@ -101,7 +101,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
         }
 
         while ($this->next()) {
-            if (!$breakSymbol && ($this->isWhiteSpace() || $this->char() == ',' || $this->char() == ')') ) {
+            if (!$breakSymbol && ($this->isWhiteSpace() || $this->char() == ',' || $this->char() == ')')) {
                 $this->prev();
                 break;
             } else if ($breakSymbol && $this->char() == $breakSymbol) {
@@ -165,7 +165,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
      */
     public function getNumber() {
         $value = $this->char();
-        while( ($this->isNumeric() || $this->char()=='.') && $this->next() ) {
+        while(($this->isNumeric() || $this->char()=='.') && $this->next()) {
             $value.= $this->char();
         }
 

@@ -177,7 +177,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getStatuses()
     {
         if (is_null($this->_statuses)) {
-            $this->_statuses = [];//Mage::getModel('catalog/product_status')->getResourceCollection()->load();
+            $this->_statuses = []; //Mage::getModel('catalog/product_status')->getResourceCollection()->load();
         }
 
         return $this->_statuses;

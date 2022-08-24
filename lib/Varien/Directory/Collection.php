@@ -332,7 +332,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      */
     public function toXml(&$xml,$recursionLevel=0,$addOpenTag=true,$rootName='Struct')
     {
-        if($recursionLevel==0 ){
+        if($recursionLevel==0){
             $xml = '';
             if($addOpenTag)
             $xml.= '<?xml version="1.0" encoding="UTF-8"?>'."\n";
@@ -342,7 +342,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         $xml.= str_repeat("\t",$recursionLevel+1)."<$this->_dirName>\n";
         $this->walk('toXml', array(&$xml,$recursionLevel,$addOpenTag,$rootName));
         $xml.= str_repeat("\t",$recursionLevel+1)."</$this->_dirName>"."\n";
-        if($recursionLevel==0 ){
+        if($recursionLevel==0){
             $xml.= '</'.$rootName.'>'."\n";
         }
     }

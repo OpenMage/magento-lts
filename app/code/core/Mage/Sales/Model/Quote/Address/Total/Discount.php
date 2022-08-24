@@ -95,8 +95,8 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
                          */
                         if (!$child->getDiscountAmount() && $item->getDiscountPercent()) {
                         }
-                        $totalDiscountAmount += $child->getDiscountAmount();//*$item->getQty();
-                        $baseTotalDiscountAmount += $child->getBaseDiscountAmount();//*$item->getQty();
+                        $totalDiscountAmount += $child->getDiscountAmount(); //*$item->getQty();
+                        $baseTotalDiscountAmount += $child->getBaseDiscountAmount(); //*$item->getQty();
 
                         $child->setRowTotalWithDiscount($child->getRowTotal()-$child->getDiscountAmount());
                         $child->setBaseRowTotalWithDiscount($child->getBaseRowTotal()-$child->getBaseDiscountAmount());

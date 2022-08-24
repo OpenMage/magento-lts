@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Renderer_Purchases
      */
     public function render(Varien_Object $row)
     {
-        if ( ($value = $row->getData($this->getColumn()->getIndex())) > 0) {
+        if (($value = $row->getData($this->getColumn()->getIndex())) > 0) {
             return $value;
         }
         return $this->__('Unlimited');

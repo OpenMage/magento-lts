@@ -375,7 +375,7 @@ class Mage_System_Ftp
      * @param bool $recursive
      * @return mixed
      */
-    public function rawlist( $dir = "/", $recursive = false )
+    public function rawlist($dir = "/", $recursive = false)
     {
         $this->checkConnected();
         $dir = $this->correctFilePath($dir);
@@ -391,8 +391,8 @@ class Mage_System_Ftp
     public static function byteconvert($bytes)
     {
         $symbol = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-        $exp = floor( log($bytes) / log(1024) );
-        return sprintf( '%.2f ' . $symbol[ $exp ], ($bytes / pow(1024, floor($exp))) );
+        $exp = floor(log($bytes) / log(1024));
+        return sprintf('%.2f ' . $symbol[ $exp ], ($bytes / pow(1024, floor($exp))));
     }
 
     /**

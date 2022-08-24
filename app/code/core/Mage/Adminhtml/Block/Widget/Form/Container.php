@@ -141,7 +141,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     public function getFormInitScripts()
     {
-        if ( !empty($this->_formInitScripts) && is_array($this->_formInitScripts) ) {
+        if (!empty($this->_formInitScripts) && is_array($this->_formInitScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formInitScripts) . '</script>';
         }
         return '';
@@ -149,7 +149,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     public function getFormScripts()
     {
-        if ( !empty($this->_formScripts) && is_array($this->_formScripts) ) {
+        if (!empty($this->_formScripts) && is_array($this->_formScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formScripts) . '</script>';
         }
         return '';

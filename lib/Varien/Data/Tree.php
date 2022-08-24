@@ -90,7 +90,7 @@ class Varien_Data_Tree
     {
         $this->_nodes->add($node);
         $node->setParent($parent);
-        if (!is_null($parent) && ($parent instanceof Varien_Data_Tree_Node) ) {
+        if (!is_null($parent) && ($parent instanceof Varien_Data_Tree_Node)) {
             $parent->addChild($node);
         }
         return $node;
@@ -173,7 +173,7 @@ class Varien_Data_Tree
      */
     public function getPath($node)
     {
-        if ($node instanceof Varien_Data_Tree_Node ) {
+        if ($node instanceof Varien_Data_Tree_Node) {
 
         } elseif (is_numeric($node)){
             if ($_node = $this->getNodeById($node)) {

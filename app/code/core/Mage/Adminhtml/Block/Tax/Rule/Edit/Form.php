@@ -142,7 +142,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit_Form extends Mage_Adminhtml_Block_Widge
             ]
         );
 
-        if ($model->getId() > 0 ) {
+        if ($model->getId() > 0) {
             $fieldset->addField('tax_calculation_rule_id', 'hidden',
                 [
                     'name'      => 'tax_calculation_rule_id',

@@ -141,7 +141,7 @@ class Varien_File_Csv
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0;$i<$len;$i++) {
+                for ($i=0; $i<$len; $i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;
                     } else if (!$escaped && $value[$i] == $enclosure) {

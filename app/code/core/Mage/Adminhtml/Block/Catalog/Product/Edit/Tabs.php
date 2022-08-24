@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 // do not add groups without attributes
 
                 foreach ($attributes as $key => $attribute) {
-                    if( !$attribute->getIsVisible() ) {
+                    if(!$attribute->getIsVisible()) {
                         unset($attributes[$key]);
                     }
                 }
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs extends Mage_Adminhtml_Bloc
                 ]);
             }
 
-            if( $this->getRequest()->getParam('id', false) ) {
+            if($this->getRequest()->getParam('id', false)) {
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_Review')) {
                     if (Mage::getSingleton('admin/session')->isAllowed('admin/catalog/reviews_ratings')){
                         $this->addTab('reviews', [

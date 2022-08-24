@@ -144,7 +144,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      * @return boolean
      */
     public function isRollbackAllowed(){
-        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback' );
+        return Mage::getSingleton('admin/session')->isAllowed('system/tools/backup/rollback');
     }
 
     /**

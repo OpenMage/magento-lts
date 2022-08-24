@@ -30,6 +30,6 @@ class Mage_Adminhtml_Block_Sales_Items_Renderer_Configurable extends  Mage_Admin
 
     public function getItem()
     {
-        return $this->_getData('item');//->getOrderItem();
+        return $this->_getData('item'); //->getOrderItem();
     }
 }

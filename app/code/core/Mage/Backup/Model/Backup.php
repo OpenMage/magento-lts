@@ -150,8 +150,8 @@ class Mage_Backup_Model_Backup extends Varien_Object
         }
 
         $rawContent = '';
-        if ( $compress ) {
-            $rawContent = gzcompress( $content, self::COMPRESS_RATE );
+        if ($compress) {
+            $rawContent = gzcompress($content, self::COMPRESS_RATE);
         } else {
             $rawContent = $content;
         }

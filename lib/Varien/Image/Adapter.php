@@ -27,7 +27,7 @@ class Varien_Image_Adapter
 
     public static function factory($adapter)
     {
-        switch( $adapter ) {
+        switch($adapter) {
             case self::ADAPTER_GD:
                 return new Varien_Image_Adapter_Gd();
                 break;

@@ -503,7 +503,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $this->_debugStat(self::DEBUG_QUERY, $sql, $bind);
 
             // Detect implicit rollback - MySQL SQLSTATE: ER_LOCK_WAIT_TIMEOUT or ER_LOCK_DEADLOCK
-            if( $this->_transactionLevel > 0
+            if($this->_transactionLevel > 0
                 && $e->getPrevious() && isset($e->getPrevious()->errorInfo[1])
                 && in_array($e->getPrevious()->errorInfo[1], [1205, 1213])
             ) {
@@ -2515,7 +2515,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
          *  where default value can be quoted already.
          *  We need to avoid "double-quoting" here
          */
-        if ( $cDefault !== null && strlen($cDefault)) {
+        if ($cDefault !== null && strlen($cDefault)) {
             $cDefault = str_replace("'", '', $cDefault);
         }
 

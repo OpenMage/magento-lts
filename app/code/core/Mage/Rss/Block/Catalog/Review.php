@@ -106,7 +106,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
                      . $this->__('Product: <a href="%s">%s</a> <br/>', $productUrl, $row['name'])
                      . $this->__('Summary of review: %s <br/>', $row['title'])
                      . $this->__('Review: %s <br/>', $row['detail'])
-                     . $this->__('Store: %s <br/>', $storeName )
+                     . $this->__('Store: %s <br/>', $storeName)
                      . $this->__('click <a href="%s">here</a> to view the review', $reviewUrl)
                      . '</p>';
         $data = [

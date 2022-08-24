@@ -244,7 +244,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
                 $str2 = $enclosure;
                 $escaped = 0;
                 $len = strlen($value);
-                for ($i=0;$i<$len;$i++) {
+                for ($i=0; $i<$len; $i++) {
                     if ($value[$i] == $escapeChar) {
                         $escaped = 1;
                     } else if (!$escaped && $value[$i] == $enclosure) {

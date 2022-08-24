@@ -36,20 +36,20 @@ class Mage_Adminhtml_Block_Review_Rating_Summary extends Mage_Adminhtml_Block_Te
 
     public function getRating()
     {
-        if( !$this->getRatingCollection() ) {
+        if(!$this->getRatingCollection()) {
             $ratingCollection = Mage::getModel('rating/rating_option_vote')
                 ->getResourceCollection()
                 ->setReviewFilter($this->getReviewId())
                 ->addRatingInfo()
                 ->load();
-            $this->setRatingCollection( ( $ratingCollection->getSize() ) ? $ratingCollection : false );
+            $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
         return $this->getRatingCollection();
     }
 
     public function getRatingSummary()
     {
-        if( !$this->getRatingSummaryCache() ) {
+        if(!$this->getRatingSummaryCache()) {
             $this->setRatingSummaryCache(Mage::getModel('rating/rating')->getReviewSummary($this->getReviewId()));
         }
 

@@ -92,10 +92,10 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
         $lineCount = $this->getLineCount();
 
         for ($i=0; $i<$lineCount; $i++){
-            $html.= ( $this->getNoSpan() === true ) ? '' : '<span class="field-row">'."\n";
+            $html.= ($this->getNoSpan() === true) ? '' : '<span class="field-row">'."\n";
             if ($i==0) {
                 $html.= '<label for="'.$this->getHtmlId().$i.'">'.$this->getLabel()
-                    .( $this->getRequired() ? ' <span class="required">*</span>' : '' ).'</label>'."\n";
+                    .($this->getRequired() ? ' <span class="required">*</span>' : '').'</label>'."\n";
                 if($this->getRequired()){
                     $this->setClass('input-text required-entry');
                 }
@@ -109,7 +109,7 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
             if ($i==0) {
                 $html.= $this->getAfterElementHtml();
             }
-            $html.= ( $this->getNoSpan() === true ) ? '' : '</span>'."\n";
+            $html.= ($this->getNoSpan() === true) ? '' : '</span>'."\n";
         }
         return $html;
     }

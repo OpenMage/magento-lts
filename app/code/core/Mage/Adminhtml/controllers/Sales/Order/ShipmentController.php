@@ -393,7 +393,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
             ];
         }
 
-        if ( is_object($response)){
+        if (is_object($response)){
             $className = Mage::getConfig()->getBlockClassName('adminhtml/template');
             $block = new $className();
             $block->setType('adminhtml/template')

@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
             ]
         );
 
-        if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode() ) {
+        if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode()) {
             $name->setDisabled(true);
         }
 
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
             );
         }
 
-        if( Mage::getSingleton('adminhtml/session')->getCustomerGroupData() ) {
+        if(Mage::getSingleton('adminhtml/session')->getCustomerGroupData()) {
             $form->addValues(Mage::getSingleton('adminhtml/session')->getCustomerGroupData());
             Mage::getSingleton('adminhtml/session')->setCustomerGroupData(null);
         } else {

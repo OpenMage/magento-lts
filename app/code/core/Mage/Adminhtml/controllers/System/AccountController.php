@@ -59,7 +59,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             ->setFirstname($this->getRequest()->getParam('firstname', false))
             ->setLastname($this->getRequest()->getParam('lastname', false))
             ->setEmail(strtolower($this->getRequest()->getParam('email', false)));
-        if ( $this->getRequest()->getParam('new_password', false) ) {
+        if ($this->getRequest()->getParam('new_password', false)) {
             $user->setNewPassword($this->getRequest()->getParam('new_password', false));
         }
 

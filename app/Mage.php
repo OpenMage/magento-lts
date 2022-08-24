@@ -181,9 +181,9 @@ final class Mage
     {
         $i = self::getOpenMageVersionInfo();
         $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
-        if ( $i['stability'] || $i['number'] ) {
+        if ($i['stability'] || $i['number']) {
             $versionString .= "-";
-            if ( $i['stability'] && $i['number'] ) {
+            if ($i['stability'] && $i['number']) {
                 $versionString .= implode('.', [$i['stability'], $i['number']]);
             } else {
                 $versionString .= implode('', [$i['stability'], $i['number']]);
@@ -877,7 +877,7 @@ final class Mage
                     ',',
                     (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
                 );
-                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
 

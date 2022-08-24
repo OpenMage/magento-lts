@@ -136,7 +136,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         }
         $this->_quote->getPayment()->setMethod('checkmo');
 
-        $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping');//->collectTotals()->save();
+        $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping'); //->collectTotals()->save();
         $this->_quote->getShippingAddress()->setCollectShippingRates(true);
         $this->_quote->collectTotals()
             ->save();

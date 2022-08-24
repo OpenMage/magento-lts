@@ -155,7 +155,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
-                if ( $uRoles = $this->getRequest()->getParam('roles', false) ) {
+                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     if (count($uRoles) === 1) {
                         $model->setRoleIds($uRoles)
                             ->setRoleUserId($model->getUserId())
@@ -165,7 +165,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                         //@TODO:  make proper DB upgrade in the future revisions.
                         $rs = [];
                         $rs[0] = $uRoles[0];
-                        $model->setRoleIds( $rs )->setRoleUserId( $model->getUserId() )->saveRelations();
+                        $model->setRoleIds($rs)->setRoleUserId($model->getUserId())->saveRelations();
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         $currentUser = Mage::getSingleton('admin/session')->getUser();
 
         if ($id = $this->getRequest()->getParam('user_id')) {
-            if ( $currentUser->getId() == $id ) {
+            if ($currentUser->getId() == $id) {
                 Mage::getSingleton('adminhtml/session')->addError($this->__('You cannot delete your own account.'));
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;

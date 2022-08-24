@@ -152,7 +152,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieValue = $cookie->get($secureCookieName);
           
             // Migrate old cookie from 'frontend'
-            if ( ! $cookieValue
+            if (! $cookieValue
                 && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend_cid')
             ) {

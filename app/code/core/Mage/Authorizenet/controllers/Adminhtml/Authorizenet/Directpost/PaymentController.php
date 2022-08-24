@@ -126,7 +126,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             }
             catch (Mage_Core_Exception $e) {
                 $message = $e->getMessage();
-                if( !empty($message) ) {
+                if(!empty($message)) {
                     $this->_getSession()->addError($message);
                 }
                 $isError = true;

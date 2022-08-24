@@ -568,14 +568,14 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function norouteAction($coreRoute = null)
     {
-        $status = ( $this->getRequest()->getParam('__status__') )
+        $status = ($this->getRequest()->getParam('__status__'))
             ? $this->getRequest()->getParam('__status__')
             : new Varien_Object();
 
         Mage::dispatchEvent('controller_action_noroute', ['action'=>$this, 'status'=>$status]);
         if ($status->getLoaded() !== true
             || $status->getForwarded() === true
-            || !is_null($coreRoute) ) {
+            || !is_null($coreRoute)) {
             $this->loadLayout(['default', 'noRoute']);
             $this->renderLayout();
         } else {

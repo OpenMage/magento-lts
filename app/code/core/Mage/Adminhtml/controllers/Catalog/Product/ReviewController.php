@@ -181,7 +181,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 ->delete();
 
             $session->addSuccess(Mage::helper('catalog')->__('The review has been deleted'));
-            if( $this->getRequest()->getParam('ret') == 'pending' ) {
+            if($this->getRequest()->getParam('ret') == 'pending') {
                 $this->getResponse()->setRedirect($this->getUrl('*/*/pending'));
             } else {
                 $this->getResponse()->setRedirect($this->getUrl('*/*/'));
@@ -296,7 +296,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
     {
         $response = new Varien_Object();
         $id = $this->getRequest()->getParam('id');
-        if( intval($id) > 0 ) {
+        if(intval($id) > 0) {
             $product = Mage::getModel('catalog/product')
                 ->load($id);
 
@@ -346,7 +346,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 $review->aggregate();
 
                 $session->addSuccess(Mage::helper('catalog')->__('The review has been saved.'));
-                if( $this->getRequest()->getParam('ret') == 'pending' ) {
+                if($this->getRequest()->getParam('ret') == 'pending') {
                     $this->getResponse()->setRedirect($this->getUrl('*/*/pending'));
                 } else {
                     $this->getResponse()->setRedirect($this->getUrl('*/*/'));

@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             'value' => $data->getAttributeSetName()
         ]);
 
-        if( !$this->getRequest()->getParam('id', false) ) {
+        if(!$this->getRequest()->getParam('id', false)) {
             $fieldset->addField('gotoEdit', 'hidden', [
                 'name' => 'gotoEdit',
                 'value' => '1'

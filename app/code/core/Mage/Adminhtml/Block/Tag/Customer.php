@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
     {
         parent::__construct();
 
-        switch( $this->getRequest()->getParam('ret') ) {
+        switch($this->getRequest()->getParam('ret')) {
             case 'all':
                 $url = $this->getUrl('*/*/');
                 break;

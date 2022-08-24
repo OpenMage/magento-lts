@@ -128,23 +128,23 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function save($destination=null, $newName=null)
     {
-        $fileName = ( !isset($destination) ) ? $this->_fileName : $destination;
+        $fileName = (!isset($destination)) ? $this->_fileName : $destination;
 
-        if( isset($destination) && isset($newName) ) {
+        if(isset($destination) && isset($newName)) {
             $fileName = $destination . "/" . $newName;
-        } elseif( isset($destination) && !isset($newName) ) {
+        } elseif(isset($destination) && !isset($newName)) {
             $info = pathinfo($destination);
             $fileName = $destination;
             $destination = $info['dirname'];
-        } elseif( !isset($destination) && isset($newName) ) {
+        } elseif(!isset($destination) && isset($newName)) {
             $fileName = $this->_fileSrcPath . "/" . $newName;
         } else {
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
 
-        $destinationDir = ( isset($destination) ) ? $destination : $this->_fileSrcPath;
+        $destinationDir = (isset($destination)) ? $destination : $this->_fileSrcPath;
 
-        if( !is_writable($destinationDir) ) {
+        if(!is_writable($destinationDir)) {
             try {
                 $io = new Varien_Io_File();
                 $io->mkdir($destination);
@@ -466,9 +466,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $watermark = $newWatermark;
         }
 
-        if( $this->getWatermarkPosition() == self::POSITION_TILE ) {
+        if($this->getWatermarkPosition() == self::POSITION_TILE) {
             $repeat = true;
-        } elseif( $this->getWatermarkPosition() == self::POSITION_STRETCH ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_STRETCH) {
 
             $newWatermark = imagecreatetruecolor($this->_imageSrcWidth, $this->_imageSrcHeight);
             imagealphablending($newWatermark, false);
@@ -486,7 +486,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             );
             $watermark = $newWatermark;
 
-        } elseif( $this->getWatermarkPosition() == self::POSITION_CENTER ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_CENTER) {
             $positionX = ($this->_imageSrcWidth/2 - imagesx($watermark)/2);
             $positionY = ($this->_imageSrcHeight/2 - imagesy($watermark)/2);
             imagecopymerge(
@@ -497,7 +497,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 imagesx($watermark), imagesy($watermark),
                 $this->getWatermarkImageOpacity()
             );
-        } elseif( $this->getWatermarkPosition() == self::POSITION_TOP_RIGHT ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_TOP_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
             imagecopymerge(
                 $this->_imageHandler,
@@ -507,7 +507,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 imagesx($watermark), imagesy($watermark),
                 $this->getWatermarkImageOpacity()
             );
-        } elseif( $this->getWatermarkPosition() == self::POSITION_TOP_LEFT  ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_TOP_LEFT) {
             imagecopymerge(
                 $this->_imageHandler,
                 $watermark,
@@ -516,7 +516,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 imagesx($watermark), imagesy($watermark),
                 $this->getWatermarkImageOpacity()
             );
-        } elseif( $this->getWatermarkPosition() == self::POSITION_BOTTOM_RIGHT ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_BOTTOM_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
             imagecopymerge(
@@ -527,7 +527,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 imagesx($watermark), imagesy($watermark),
                 $this->getWatermarkImageOpacity()
             );
-        } elseif( $this->getWatermarkPosition() == self::POSITION_BOTTOM_LEFT ) {
+        } elseif($this->getWatermarkPosition() == self::POSITION_BOTTOM_LEFT) {
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
             imagecopymerge(
                 $this->_imageHandler,
@@ -539,7 +539,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             );
         }
 
-        if( $repeat === false && $merged === false ) {
+        if($repeat === false && $merged === false) {
             imagecopymerge(
                 $this->_imageHandler,
                 $watermark,
@@ -551,8 +551,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         } else {
             $offsetX = $positionX;
             $offsetY = $positionY;
-            while( $offsetY <= ($this->_imageSrcHeight+imagesy($watermark)) ) {
-                while( $offsetX <= ($this->_imageSrcWidth+imagesx($watermark)) ) {
+            while($offsetY <= ($this->_imageSrcHeight+imagesy($watermark))) {
+                while($offsetX <= ($this->_imageSrcWidth+imagesx($watermark))) {
                     imagecopymerge(
                         $this->_imageHandler,
                         $watermark,
@@ -574,7 +574,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function crop($top=0, $left=0, $right=0, $bottom=0)
     {
-        if( $left == 0 && $top == 0 && $right == 0 && $bottom == 0 ) {
+        if($left == 0 && $top == 0 && $right == 0 && $bottom == 0) {
             return;
         }
 
@@ -601,8 +601,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function checkDependencies()
     {
-        foreach( $this->_requiredExtensions as $value ) {
-            if( !extension_loaded($value) ) {
+        foreach($this->_requiredExtensions as $value) {
+            if(!extension_loaded($value)) {
                 throw new Exception("Required PHP extension '{$value}' was not loaded.");
             }
         }

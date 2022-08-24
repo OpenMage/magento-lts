@@ -1184,7 +1184,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
             $keyval=substr($nvpstr,$intial,$keypos);
             $valval=substr($nvpstr,$keypos+1,$valuepos-$keypos-1);
             //decoding the respose
-            $nvpArray[urldecode($keyval)] =urldecode( $valval);
+            $nvpArray[urldecode($keyval)] =urldecode($valval);
             $nvpstr=substr($nvpstr,$valuepos+1,strlen($nvpstr));
          }
         return $nvpArray;

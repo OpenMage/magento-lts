@@ -66,7 +66,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         try {
             $service = $this->getRequest()->getParam('rate_services');
             $this->_getSession()->setCurrencyRateService($service);
-            if( !$service ) {
+            if(!$service) {
                 throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
             try {
@@ -98,13 +98,13 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
     public function saveRatesAction()
     {
         $data = $this->getRequest()->getParam('rate');
-        if( is_array($data) ) {
+        if(is_array($data)) {
             try {
                 foreach ($data as $currencyCode => $rate) {
-                    foreach( $rate as $currencyTo => $value ) {
+                    foreach($rate as $currencyTo => $value) {
                         $value = abs(Mage::getSingleton('core/locale')->getNumber($value));
                         $data[$currencyCode][$currencyTo] = $value;
-                        if( $value == 0 ) {
+                        if($value == 0) {
                             Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('Invalid input data for %s => %s rate', $currencyCode, $currencyTo));
                         }
                     }

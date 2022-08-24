@@ -516,7 +516,7 @@ class Varien_File_Uploader
             } elseif(!empty($fileId) && isset($_FILES[$fileId])) {
                 $this->_uploadType = self::SINGLE_STYLE;
                 $this->_file = $_FILES[$fileId];
-            } elseif( $fileId == '' ) {
+            } elseif($fileId == '') {
                 throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
             }
         }
@@ -544,7 +544,7 @@ class Varien_File_Uploader
         if (file_exists($destFile)) {
             $index = 1;
             $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
-            while( file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName) ) {
+            while(file_exists($fileInfo['dirname'] . DIRECTORY_SEPARATOR . $baseName)) {
                 $baseName = $fileInfo['filename']. '_' . $index . '.' . $fileInfo['extension'];
                 $index ++;
             }

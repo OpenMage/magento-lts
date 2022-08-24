@@ -36,7 +36,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
     {
         if ($index) {
             if ($data = $this->getData('value', 'orig_'.$index)) {
-                return $data;//date('Y-m-d', strtotime($data));
+                return $data; //date('Y-m-d', strtotime($data));
             }
             return null;
         }
@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 inputField : "'.$htmlId.'_from",
                 ifFormat : "'.$format.'",
                 button : "'.$htmlId.'_from_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                showsTime: '. ($this->getColumn()->getFilterTime() ? 'true' : 'false') .',
                 align : "Bl",
                 singleClick : true
             });
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime
                 inputField : "'.$htmlId.'_to",
                 ifFormat : "'.$format.'",
                 button : "'.$htmlId.'_to_trig",
-                showsTime: '. ( $this->getColumn()->getFilterTime() ? 'true' : 'false') .',
+                showsTime: '. ($this->getColumn()->getFilterTime() ? 'true' : 'false') .',
                 align : "Bl",
                 singleClick : true
             });

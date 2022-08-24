@@ -34,7 +34,7 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
             'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_useredit')->toHtml(),
             'active'    => true
         ]);
-        if( $this->getUser()->getUserId() ) {
+        if($this->getUser()->getUserId()) {
             $this->addTab('roles', [
                 'label'     => Mage::helper('adminhtml')->__('Roles'),
                 'title'     => Mage::helper('adminhtml')->__('Roles'),

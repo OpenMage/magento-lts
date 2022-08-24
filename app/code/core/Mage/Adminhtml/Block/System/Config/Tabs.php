@@ -103,7 +103,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                     $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', ['section'=>$code]));
                 }
             }
-            if ( $sectionAllowed && $hasChildren) {
+            if ($sectionAllowed && $hasChildren) {
                 $this->addSection($code, (string)$section->tab, [
                     'class'     => (string)$section->class,
                     'label'     => $label,
@@ -326,7 +326,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         }
 
         $showTab = false;
-        if ( $permissions->isAllowed('system/config/'.$code) ) {
+        if ($permissions->isAllowed('system/config/'.$code)) {
             $showTab = true;
         }
         return $showTab;

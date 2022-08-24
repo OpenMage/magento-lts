@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Grid extends Mage_Adminhtml_
             ->addAttributeToFilter('type_id', [Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE])
             ->addSummary();
 
-        if( $storeId ) {
+        if($storeId) {
             $collection->addStoreFilter($storeId);
         }
 

@@ -85,7 +85,7 @@ class Mage_Review_Block_View extends Mage_Catalog_Block_Product_Abstract
                 ->setStoreFilter(Mage::app()->getStore()->getId())
                 ->addRatingInfo(Mage::app()->getStore()->getId())
                 ->load();
-            $this->setRatingCollection(( $ratingCollection->getSize() ) ? $ratingCollection : false);
+            $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
         return $this->getRatingCollection();
     }

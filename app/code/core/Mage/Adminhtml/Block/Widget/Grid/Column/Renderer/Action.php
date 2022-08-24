@@ -38,13 +38,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     public function render(Varien_Object $row)
     {
         $actions = $this->getColumn()->getActions();
-        if ( empty($actions) || !is_array($actions) ) {
+        if (empty($actions) || !is_array($actions)) {
             return '&nbsp;';
         }
 
         if(count($actions) === 1 && !$this->getColumn()->getNoLink()) {
             foreach ($actions as $action) {
-                if ( is_array($action) ) {
+                if (is_array($action)) {
                     return $this->_toLinkHtml($action, $row);
                 }
             }
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $i = 0;
         foreach ($actions as $action){
             $i++;
-            if ( is_array($action) ) {
+            if (is_array($action)) {
                 $out .= $this->_toOptionHtml($action, $row);
             }
         }
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
      */
     protected function _transformActionData(&$action, &$actionCaption, Varien_Object $row)
     {
-        foreach ( $action as $attribute => $value ) {
+        foreach ($action as $attribute => $value) {
             if(isset($action[$attribute]) && !is_array($action[$attribute])) {
                 $this->getColumn()->setFormat($action[$attribute]);
                 $action[$attribute] = parent::render($row);

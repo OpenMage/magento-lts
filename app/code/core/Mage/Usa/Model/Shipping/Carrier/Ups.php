@@ -850,7 +850,7 @@ XMLRequest;
       <Shipper>
 XMLRequest;
 
-        if ($this->getConfigFlag('negotiated_active') && ($shipper = $this->getConfigData('shipper_number')) ) {
+        if ($this->getConfigFlag('negotiated_active') && ($shipper = $this->getConfigData('shipper_number'))) {
             $xmlRequest .= "<ShipperNumber>{$shipper}</ShipperNumber>";
         }
 
@@ -1236,21 +1236,21 @@ XMLAuth;
                             $addArr[] = (string)$activityTag->ActivityLocation->Address->CountryCode;
                         }
                         $dateArr = [];
-                        $date = (string)$activityTag->Date;//YYYYMMDD
+                        $date = (string)$activityTag->Date; //YYYYMMDD
                         $dateArr[] = substr($date,0,4);
                         $dateArr[] = substr($date,4,2);
                         $dateArr[] = substr($date,-2,2);
 
                         $timeArr = [];
-                        $time = (string)$activityTag->Time;//HHMMSS
+                        $time = (string)$activityTag->Time; //HHMMSS
                         $timeArr[] = substr($time,0,2);
                         $timeArr[] = substr($time,2,2);
                         $timeArr[] = substr($time,-2,2);
 
                         if($i==1){
                            $resultArr['status'] = (string)$activityTag->Status->StatusType->Description;
-                           $resultArr['deliverydate'] = implode('-',$dateArr);//YYYY-MM-DD
-                           $resultArr['deliverytime'] = implode(':',$timeArr);//HH:MM:SS
+                           $resultArr['deliverydate'] = implode('-',$dateArr); //YYYY-MM-DD
+                           $resultArr['deliverytime'] = implode(':',$timeArr); //HH:MM:SS
                            $resultArr['deliverylocation'] = (string)$activityTag->ActivityLocation->Description;
                            $resultArr['signedby'] = (string)$activityTag->ActivityLocation->SignedForByName;
                            if ($addArr) {
@@ -1259,8 +1259,8 @@ XMLAuth;
                         }else{
                            $tempArr= [];
                            $tempArr['activity'] = (string)$activityTag->Status->StatusType->Description;
-                           $tempArr['deliverydate'] = implode('-',$dateArr);//YYYY-MM-DD
-                           $tempArr['deliverytime'] = implode(':',$timeArr);//HH:MM:SS
+                           $tempArr['deliverydate'] = implode('-',$dateArr); //YYYY-MM-DD
+                           $tempArr['deliverytime'] = implode(':',$timeArr); //HH:MM:SS
                            if ($addArr) {
                             $tempArr['deliverylocation']=implode(', ',$addArr);
                            }
@@ -1377,7 +1377,7 @@ XMLAuth;
             // UPS Print Return Label
             $returnPart->addChild('Code', '9');
         }
-        $shipmentPart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35));//empirical
+        $shipmentPart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35)); //empirical
 
         $shipperPart = $shipmentPart->addChild('Shipper');
         if ($request->getIsReturn()) {
@@ -1465,7 +1465,7 @@ XMLAuth;
         $servicePart = $shipmentPart->addChild('Service');
         $servicePart->addChild('Code', $request->getShippingMethod());
         $packagePart = $shipmentPart->addChild('Package');
-        $packagePart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35));//empirical
+        $packagePart->addChild('Description', substr(implode(' ', $itemsDesc), 0, 35)); //empirical
         $packagePart->addChild('PackagingType')
             ->addChild('Code', $request->getPackagingType());
         $packageWeight = $packagePart->addChild('PackageWeight');

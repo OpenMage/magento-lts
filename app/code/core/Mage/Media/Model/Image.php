@@ -157,7 +157,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaPath() . DS . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**
@@ -173,7 +173,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         }
 
         return $this->getConfig()->getBaseMediaUrl() . '/' . $this->getName() . $changes . '.'
-             . ( ( $useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension() );
+             . (($useParams && $this->getParam('extension')) ? $this->getParam('extension') : $this->getExtension());
     }
 
     /**

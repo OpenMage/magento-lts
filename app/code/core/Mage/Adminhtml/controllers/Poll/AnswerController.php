@@ -52,7 +52,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
     public function saveAction()
     {
         //print '@@';
-        if ( $post = $this->getRequest()->getPost() ) {
+        if ($post = $this->getRequest()->getPost()) {
             try {
                 $model = Mage::getModel('poll/poll_answer');
                 $model->setData($post)
@@ -85,10 +85,10 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
         $response = new Varien_Object();
         $response->setError(0);
 
-        if ( $post = $this->getRequest()->getPost() ) {
+        if ($post = $this->getRequest()->getPost()) {
             $data = Zend_Json::decode($post['data']);
             try {
-                if( trim($data['answer_title']) == '' ) {
+                if(trim($data['answer_title']) == '') {
                     throw new Exception(Mage::helper('poll')->__('Invalid Answer.'));
                 }
                 $model = Mage::getModel('poll/poll_answer');
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
                 $response->setMessage($e->getMessage());
             }
         }
-        $this->getResponse()->setBody( $response->toJson() );
+        $this->getResponse()->setBody($response->toJson());
     }
 
     public function jsonDeleteAction()
@@ -107,7 +107,7 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
         $response = new Varien_Object();
         $response->setError(0);
 
-        if ( $id = $this->getRequest()->getParam('id') ) {
+        if ($id = $this->getRequest()->getParam('id')) {
             try {
                 $model = Mage::getModel('poll/poll_answer');
                 $model->setId(Zend_Json::decode($id))
@@ -120,6 +120,6 @@ class Mage_Adminhtml_Poll_AnswerController extends Mage_Adminhtml_Controller_Act
             $response->setError(1);
             $response->setMessage(Mage::helper('poll')->__('Unable to find an answer to delete.'));
         }
-        $this->getResponse()->setBody( $response->toJson() );
+        $this->getResponse()->setBody($response->toJson());
     }
 }

@@ -180,8 +180,8 @@ class Mage_HTTP_Client_Socket
      */
     public function setCredentials($login, $pass)
     {
-        $val= base64_encode( "$login:$pass" );
-        $this->addHeader( "Authorization", "Basic $val" );
+        $val= base64_encode("$login:$pass");
+        $this->addHeader("Authorization", "Basic $val");
     }
 
     /**
@@ -306,7 +306,7 @@ class Mage_HTTP_Client_Socket
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
             if(!$c) {
@@ -332,7 +332,7 @@ class Mage_HTTP_Client_Socket
             return array();
         }
         $out = array();
-        foreach( $this->_responseHeaders['Set-Cookie'] as $row) {
+        foreach($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode("; ", $row);
             $c = count($values);
             if(!$c) {

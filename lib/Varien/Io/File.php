@@ -413,7 +413,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     public function cd($dir)
     {
-        if( is_dir($dir) ) {
+        if(is_dir($dir)) {
             @chdir($this->_iwd);
             $this->_cwd = realpath($dir);
             return true;
@@ -734,9 +734,9 @@ class Varien_Io_File extends Varien_Io_Abstract
     {
         $ignoredDirectories = Array('.', '..');
 
-        if( is_dir($this->_cwd) ) {
+        if(is_dir($this->_cwd)) {
             $dir = $this->_cwd;
-        } elseif( is_dir($this->_iwd) ) {
+        } elseif(is_dir($this->_iwd)) {
             $dir = $this->_iwd;
         } else {
             throw new Exception('Unable to list current working directory.');
@@ -750,11 +750,11 @@ class Varien_Io_File extends Varien_Io_Abstract
 
                 $fullpath = $dir . DIRECTORY_SEPARATOR . $entry;
 
-                if( ($grep == self::GREP_DIRS) && (!is_dir($fullpath)) ) {
+                if(($grep == self::GREP_DIRS) && (!is_dir($fullpath))) {
                     continue;
-                } elseif( ($grep == self::GREP_FILES) && (!is_file($fullpath)) ) {
+                } elseif(($grep == self::GREP_FILES) && (!is_file($fullpath))) {
                     continue;
-                } elseif( in_array($entry, $ignoredDirectories) ) {
+                } elseif(in_array($entry, $ignoredDirectories)) {
                     continue;
                 }
 
@@ -763,20 +763,20 @@ class Varien_Io_File extends Varien_Io_Abstract
                 $list_item['permissions'] = $this->_parsePermissions(fileperms($fullpath));
                 $list_item['owner'] = $this->_getFileOwner($fullpath);
 
-                if( is_file($fullpath) ) {
+                if(is_file($fullpath)) {
                     $pathinfo = pathinfo($fullpath);
                     $list_item['size'] = filesize($fullpath);
                     $list_item['leaf'] = true;
-                    if( isset($pathinfo['extension'])
+                    if(isset($pathinfo['extension'])
                         && in_array(strtolower($pathinfo['extension']), Array('jpg', 'jpeg', 'gif', 'bmp', 'png'))
                         && $list_item['size'] > 0
                     ) {
                         $list_item['is_image'] = true;
                         $list_item['filetype'] = $pathinfo['extension'];
-                    } elseif( $list_item['size'] == 0 ) {
+                    } elseif($list_item['size'] == 0) {
                         $list_item['is_image'] = false;
                         $list_item['filetype'] = 'unknown';
-                    } elseif( isset($pathinfo['extension']) ) {
+                    } elseif(isset($pathinfo['extension'])) {
                         $list_item['is_image'] = false;
                         $list_item['filetype'] = $pathinfo['extension'];
                     } else {
@@ -807,19 +807,19 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected function _parsePermissions($mode)
     {
-        if( $mode & 0x1000 )
+        if($mode & 0x1000)
             $type='p'; /* FIFO pipe */
-        else if( $mode & 0x2000 )
+        else if($mode & 0x2000)
             $type='c'; /* Character special */
-        else if( $mode & 0x4000 )
+        else if($mode & 0x4000)
             $type='d'; /* Directory */
-        else if( $mode & 0x6000 )
+        else if($mode & 0x6000)
             $type='b'; /* Block special */
-        else if( $mode & 0x8000 )
+        else if($mode & 0x8000)
             $type='-'; /* Regular */
-        else if( $mode & 0xA000 )
+        else if($mode & 0xA000)
             $type='l'; /* Symbolic Link */
-        else if( $mode & 0xC000 )
+        else if($mode & 0xC000)
             $type='s'; /* Socket */
         else
             $type='u'; /* UNKNOWN */
@@ -836,11 +836,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         $world['execute'] = ($mode & 00001) ? 'x' : '-';
 
         /* Adjust for SUID, SGID and sticky bit */
-        if( $mode & 0x800 )
+        if($mode & 0x800)
             $owner["execute"] = ($owner['execute']=='x') ? 's' : 'S';
-        if( $mode & 0x400 )
+        if($mode & 0x400)
             $group["execute"] = ($group['execute']=='x') ? 's' : 'S';
-        if( $mode & 0x200 )
+        if($mode & 0x200)
             $world["execute"] = ($world['execute']=='x') ? 't' : 'T';
 
         $s=sprintf('%1s', $type);
@@ -859,7 +859,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      */
     protected function _getFileOwner($filename)
     {
-        if( !function_exists('posix_getpwuid') ) {
+        if(!function_exists('posix_getpwuid')) {
             return 'n/a';
         }
 
