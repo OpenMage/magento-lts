@@ -112,7 +112,6 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
             }
         }
 
-
         if ($rule->isReadonly()) {
             foreach ($fieldset->getElements() as $element) {
                 $element->setReadonly(true, true);

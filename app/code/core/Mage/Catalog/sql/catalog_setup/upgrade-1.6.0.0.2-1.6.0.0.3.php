@@ -23,7 +23,6 @@ $installer = $this;
 $tableName = $installer->getTable('catalog/product_index_eav_decimal');
 $indexName = $installer->getConnection()->getPrimaryKeyName($tableName);
 
-
 $tableNameTmp = $installer->getTable('catalog/product_eav_decimal_indexer_tmp');
 $indexNameTmp = $installer->getConnection()->getPrimaryKeyName($tableNameTmp);
 

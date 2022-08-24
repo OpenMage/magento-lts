@@ -95,7 +95,6 @@ class Mage_Core_Model_Cache
      */
     protected $_allowedCacheOptions;
 
-
     /**
      * DB connection
      *

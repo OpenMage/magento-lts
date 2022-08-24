@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $pageContent = <<<EOD
 <p style="color: #ff0000; font-weight: bold; font-size: 13px">
     Please replace this text with you Privacy Policy.

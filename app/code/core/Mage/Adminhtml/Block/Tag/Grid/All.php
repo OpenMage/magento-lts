@@ -78,8 +78,6 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
             ],
         ]);
 
-
-
         $this->setColumnFilter('id')
             ->setColumnFilter('name')
             ->setColumnFilter('total_used')

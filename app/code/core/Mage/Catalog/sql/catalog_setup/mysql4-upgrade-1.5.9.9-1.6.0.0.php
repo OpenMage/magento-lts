@@ -525,7 +525,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CATALOG_PROD_ENTITY_VARCHAR_PROD_ENTITY'
 );
 
-
 /**
  * Drop indexes
  */
@@ -1308,7 +1307,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable(['catalog/product', 'varchar']),
     'FK_CATALOG_PRODUCT_ENTITY_VARCHAR_PRODUCT_ENTITY'
 );
-
 
 /**
  * Change columns
@@ -5215,7 +5213,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName(['catalog/product', 'varchar'], ['entity_id']),
     ['entity_id']
 );
-
 
 /**
  * Add foreign keys

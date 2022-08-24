@@ -83,7 +83,6 @@ abstract class Mage_Backup_Abstract implements  Mage_Backup_Interface
      */
     protected $_lastErrorMessage;
 
-
     /**
      * Set Backup Extension
      *

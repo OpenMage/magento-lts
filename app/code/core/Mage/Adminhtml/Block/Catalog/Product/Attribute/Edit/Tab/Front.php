@@ -49,7 +49,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
                 'label' => Mage::helper('catalog')->__('Yes')
             ]];
 
-
         $fieldset->addField('is_searchable', 'select', [
             'name' => 'is_searchable',
             'label' => Mage::helper('catalog')->__('Use in Quick Search'),
@@ -70,7 +69,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Front extends Mage
             'title' => Mage::helper('catalog')->__('Comparable on the Frontend'),
             'values' => $yesno,
         ]);
-
 
         $fieldset->addField('is_filterable', 'select', [
             'name' => 'is_filterable',

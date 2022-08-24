@@ -291,7 +291,6 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         return '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
     }
 
-
     /**
      * @return string
      */

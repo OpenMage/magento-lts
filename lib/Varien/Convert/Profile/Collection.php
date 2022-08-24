@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile collection
  *
@@ -51,7 +50,6 @@ class Varien_Convert_Profile_Collection
     {
         return $this->getContainers()->getItem($name);
     }
-
 
     public function addContainer($name, Varien_Convert_Container_Interface $container)
     {

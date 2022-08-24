@@ -182,7 +182,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $select->getHtml();
     }
 
-
     /**
      * @param string $type
      * @return string
@@ -234,7 +233,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     {
         return ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
     }
-
 
     /**
      * Retrieve is allow and show block

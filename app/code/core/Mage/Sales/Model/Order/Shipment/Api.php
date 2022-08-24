@@ -310,7 +310,6 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             $this->_fault('not_exists');
         }
 
-
         try {
             $shipment->addComment($comment, $email);
             $shipment->sendUpdateEmail($email, ($includeInEmail ? $comment : ''));

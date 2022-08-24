@@ -283,7 +283,6 @@ class Mage_Sales_Model_Service_Order
             $invoiceQtysRefundLimits[$orderItemId] = $invoiceQtyCanBeRefunded;
         }
 
-
         foreach ($invoice->getAllItems() as $invoiceItem) {
             $orderItem = $invoiceItem->getOrderItem();
 

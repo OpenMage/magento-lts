@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
 
@@ -52,8 +51,6 @@ $installer->addAttribute($entityTypeId, 'custom_apply_to_products', [
 ]);
 $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_use_parent_settings');
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
-
-
 
 $attributeIdExpr = new Zend_Db_Expr(
     'IF (e_a.attribute_id = e.attribute_id,'.

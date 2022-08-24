@@ -39,7 +39,6 @@ $disableAGCAttribute->setData('used_in_forms', [
 ]);
 $disableAGCAttribute->save();
 
-
 $attributesInfo = [
     'vat_id' => [
         'label'     => 'VAT number',

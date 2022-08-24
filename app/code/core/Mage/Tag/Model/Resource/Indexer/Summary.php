@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag Indexer Model
  *
@@ -226,7 +225,6 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                     'base_popularity'  // deprecated since 1.4.0.1
                 ])
             );
-
 
             $selectedFields = [
                 'tag_id'            => 'tag_id',

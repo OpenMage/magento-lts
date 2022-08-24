@@ -50,7 +50,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return true;
     }
 
-
     /**
      * Retrieve webservice session
      *
@@ -175,7 +174,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return $this->_getSession()->getSessionId();
     }
 
-
     /**
      * End web service session
      *
@@ -261,7 +259,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             && !$this->_isAllowed((string)$resources->$resourceName->acl)) {
             return $this->_fault('access_denied');
         }
-
 
         if (!isset($resources->$resourceName->methods->$methodName->public)
             && isset($resources->$resourceName->methods->$methodName->acl)
@@ -375,7 +372,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
             }
 
-
             if (!isset($resources->$resourceName->methods->$methodName->public)
                 && isset($resources->$resourceName->methods->$methodName->acl)
                 && !$this->_isAllowed((string)$resources->$resourceName->methods->$methodName->acl)) {
@@ -454,7 +450,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $resourcesAlias[(string) $resourceName][] = $alias;
         }
 
-
         foreach ($this->_getConfig()->getResources() as $resourceName => $resource) {
             if (isset($resource->acl) && !$this->_isAllowed((string) $resource->acl)) {
                 continue;
@@ -518,7 +513,6 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (isset($resourcesAlias->$resourceName)) {
             $resourceName = (string) $resourcesAlias->$resourceName;
         }
-
 
         if (empty($resourceName)
             || !isset($resources->$resourceName)) {

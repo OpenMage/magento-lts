@@ -50,7 +50,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     const SWATCH_DEFAULT_WIDTH = 21;
     const SWATCH_DEFAULT_HEIGHT = 21;
 
-
     /**
      * Determine if the passed text matches the label of any of the passed product's images
      *

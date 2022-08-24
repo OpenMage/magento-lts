@@ -99,8 +99,6 @@ $table = $installer->getConnection()
     ->setComment('Catalog Product Table');
 $installer->getConnection()->createTable($table);
 
-
-
 /**
  * Create table array('catalog/product', 'datetime')
  */
@@ -676,7 +674,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Catalog Category Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table array('catalog/category', 'datetime')
@@ -3823,7 +3820,6 @@ $table = $installer->getConnection()
     ], 'Product ID')
     ->setComment('Catalog Category Anchor Product Indexer Temp Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Modify core/url_rewrite table

@@ -493,7 +493,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Order Grid');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/order_address'
  */
@@ -561,7 +560,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Order Address');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/order_status_history'
  */
@@ -608,7 +606,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Order Status History');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/order_item'
@@ -834,7 +831,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Order Item');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/order_payment'
  */
@@ -971,7 +967,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Order Payment');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/shipment'
  */
@@ -1058,7 +1053,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Shipment');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/shipment_grid'
@@ -1151,7 +1145,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Shipment Grid');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/shipment_item'
  */
@@ -1201,7 +1194,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Shipment Item');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/shipment_track'
@@ -1261,7 +1253,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Shipment Track');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/shipment_comment'
  */
@@ -1306,7 +1297,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Shipment Comment');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/invoice'
@@ -1457,7 +1447,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Invoice');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/invoice_grid'
  */
@@ -1559,7 +1548,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Invoice Grid');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/invoice_item'
  */
@@ -1634,7 +1622,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Invoice Item');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/invoice_comment'
  */
@@ -1680,7 +1667,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Invoice Comment');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/creditmemo'
@@ -1837,7 +1823,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Creditmemo');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/creditmemo_grid'
  */
@@ -1959,7 +1944,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Creditmemo Grid');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/creditmemo_item'
  */
@@ -2078,7 +2062,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Creditmemo Comment');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/quote'
@@ -2240,7 +2223,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Quote');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/quote_address'
@@ -2421,7 +2403,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Quote Address');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/quote_item'
@@ -2772,7 +2753,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Quote Address Item');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/quote_item_option'
  */
@@ -2811,7 +2791,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Flat Quote Item Option');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/quote_payment'
@@ -2888,7 +2867,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Quote Payment');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/quote_address_shipping_rate'
  */
@@ -2949,7 +2927,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Flat Quote Shipping Rate');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/invoiced_aggregated'
  */
@@ -3003,7 +2980,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Invoiced Aggregated');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/invoiced_aggregated_order'
@@ -3060,7 +3036,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Invoiced Aggregated Order');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/order_aggregated_created'
@@ -3170,7 +3145,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Order Aggregated Created');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/payment_transaction'
  */
@@ -3268,7 +3242,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Payment Transaction');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/refunded_aggregated'
  */
@@ -3323,7 +3296,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Refunded Aggregated');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/refunded_aggregated_order'
  */
@@ -3375,7 +3347,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Refunded Aggregated Order');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/shipping_aggregated'
@@ -3429,7 +3400,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Shipping Aggregated');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/shipping_aggregated_order'
  */
@@ -3481,7 +3451,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Shipping Aggregated Order');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/bestsellers_aggregated_daily'
@@ -3558,7 +3527,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Bestsellers Aggregated Daily');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/bestsellers_aggregated_monthly'
@@ -3722,7 +3690,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Bestsellers Aggregated Yearly');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/billing_agreement'
  */
@@ -3784,7 +3751,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Billing Agreement');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/billing_agreement_order'
  */
@@ -3827,7 +3793,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Billing Agreement Order');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/recurring_profile'
@@ -3966,7 +3931,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Recurring Profile');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/recurring_profile_order'
  */
@@ -4030,7 +3994,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Recurring Profile Order');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/order_tax'
  */
@@ -4079,7 +4042,6 @@ $table = $installer->getConnection()
     ->setComment('Sales Order Tax Table');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Create table 'sales/order_status'
  */
@@ -4094,7 +4056,6 @@ $table = $installer->getConnection()
     ], 'Label')
     ->setComment('Sales Order Status Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/order_status_state'
@@ -4124,7 +4085,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Order Status Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Create table 'sales/order_status_label'
@@ -4165,7 +4125,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Sales Order Status Label Table');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Install eav entity types to the eav/entity_type table

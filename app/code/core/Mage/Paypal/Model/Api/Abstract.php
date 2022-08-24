@@ -498,7 +498,6 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         return $this->_config->$key ? $this->_config->$key : $default;
     }
 
-
     /**
      * region_id workaround: PayPal requires state code, try to find one in the address
      *

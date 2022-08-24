@@ -171,10 +171,6 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
         );
     }
 
-
-
-
-
     /**
      * Set environment for all rules in collection
      *
