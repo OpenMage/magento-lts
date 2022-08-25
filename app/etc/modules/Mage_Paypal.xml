@@ -14,22 +14,21 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
- * @package     Mage_Captcha
+ * @package     Mage_Paypal
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
-        <Mage_Captcha>
+        <Mage_Paypal>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Adminhtml/>
-                <Mage_Customer/>
-                <Mage_Sendfriend/>
-                <Mage_Wishlist/>
+                <Mage_Checkout/>
+                <Mage_Paygate/>
+                <Mage_Sales/>
             </depends>
-        </Mage_Captcha>
+        </Mage_Paypal>
     </modules>
 </config>

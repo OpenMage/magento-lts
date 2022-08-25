@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Adminhtml />
-                <Mage_Checkout />
+                <Mage_Adminhtml/>
+                <Mage_Checkout/>
             </depends>
         </Mage_Persistent>
     </modules>
