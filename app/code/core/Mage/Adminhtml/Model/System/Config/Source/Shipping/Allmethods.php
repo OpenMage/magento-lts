@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -35,7 +29,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
      */
     public function toOptionArray($isActiveOnlyFlag=false)
     {
-        $methods = array(array('value'=>'', 'label'=>''));
+        $methods = [['value'=>'', 'label'=>'']];
         $carriers = Mage::getSingleton('shipping/config')->getAllCarriers();
         foreach ($carriers as $carrierCode=>$carrierModel) {
             if (!$carrierModel->isActive() && (bool)$isActiveOnlyFlag === true) {
@@ -46,15 +40,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Allmethods
                 continue;
             }
             $carrierTitle = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
-            $methods[$carrierCode] = array(
+            $methods[$carrierCode] = [
                 'label'   => $carrierTitle,
-                'value' => array(),
-            );
+                'value' => [],
+            ];
             foreach ($carrierMethods as $methodCode=>$methodTitle) {
-                $methods[$carrierCode]['value'][] = array(
+                $methods[$carrierCode]['value'][] = [
                     'value' => $carrierCode.'_'.$methodCode,
                     'label' => '['.$carrierCode.'] '.$methodTitle,
-                );
+                ];
             }
         }
 

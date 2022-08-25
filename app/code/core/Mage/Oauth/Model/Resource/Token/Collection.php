@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -35,8 +29,6 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
 {
     /**
      * Initialize collection model
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -54,7 +46,7 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
     {
         $select = $this->getSelect();
         $select->joinLeft(
-            array('c' => $this->getTable('oauth/consumer')),
+            ['c' => $this->getTable('oauth/consumer')],
             'c.entity_id = main_table.consumer_id',
             'name'
         );
@@ -118,7 +110,7 @@ class Mage_Oauth_Model_Resource_Token_Collection extends Mage_Core_Model_Resourc
      */
     public function addFilterById($id)
     {
-        $this->addFilter('main_table.entity_id', array('in' => $id), 'public');
+        $this->addFilter('main_table.entity_id', ['in' => $id], 'public');
         return $this;
     }
 

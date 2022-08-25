@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -35,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * name => id mapper
      * @var array
      */
-    protected $_fields = array();
+    protected $_fields = [];
 
     /**
      * Dependencies mapper (by names)
@@ -48,14 +42,14 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
      * )
      * @var array
      */
-    protected $_depends = array();
+    protected $_depends = [];
 
     /**
      * Additional configuration options for the dependencies javascript controller
      *
      * @var array
      */
-    protected $_configOptions = array();
+    protected $_configOptions = [];
 
     /**
      * Add name => id mapping
@@ -112,12 +106,12 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Dependence extends Mage_Adminhtml
     }
 
     /**
-     * Field dependences JSON map generator
+     * Field dependencies JSON map generator
      * @return string
      */
     protected function _getDependsJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->_depends as $to => $row) {
             foreach ($row as $from => $value) {
                 $result[$this->_fields[$to]][$this->_fields[$from]] = $value;

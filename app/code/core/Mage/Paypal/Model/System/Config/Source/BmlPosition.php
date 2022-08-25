@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -36,11 +30,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsHP()
     {
-        $bmlPositionsHP = array(
+        return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Sidebar (right)')
-        );
-        return $bmlPositionsHP;
+        ];
     }
 
     /**
@@ -50,11 +43,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCCP()
     {
-        $bmlPositionsCCP = array(
+        return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Sidebar (right)')
-        );
-        return $bmlPositionsCCP;
+        ];
     }
 
     /**
@@ -64,11 +56,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCPP()
     {
-        $bmlPositionsCPP = array(
+        return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
-        );
-        return $bmlPositionsCPP;
+        ];
     }
 
     /**
@@ -78,10 +69,9 @@ class Mage_Paypal_Model_System_Config_Source_BmlPosition
      */
     public function getBmlPositionsCheckout()
     {
-        $bmlPositionsCheckout = array(
+        return [
             '0' => Mage::helper('paypal')->__('Header (center)'),
             '1' => Mage::helper('paypal')->__('Near Paypal Credit checkout button')
-        );
-        return $bmlPositionsCheckout;
+        ];
     }
 }

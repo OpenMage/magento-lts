@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -68,11 +62,11 @@ class Mage_Adminhtml_Block_Customer_System_Config_Validatevat extends Mage_Admin
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $originalData = $element->getOriginalData();
-        $this->addData(array(
+        $this->addData([
             'button_label' => Mage::helper('customer')->__($originalData['button_label']),
             'html_id' => $element->getHtmlId(),
             'ajax_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/customer_system_config_validatevat/validate')
-        ));
+        ]);
 
         return $this->_toHtml();
     }

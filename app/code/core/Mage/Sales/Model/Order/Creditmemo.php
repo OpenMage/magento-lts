@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -177,7 +171,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
     const REPORT_DATE_TYPE_REFUND_CREATED       = 'refund_created';
 
-    /*
+    /**
      * Identifier for order history item
      */
     const HISTORY_ENTITY_NAME = 'creditmemo';
@@ -204,7 +198,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      *
      * @var array
      */
-    protected $_calculators = array();
+    protected $_calculators = [];
 
     protected $_eventPrefix = 'sales_order_creditmemo';
     protected $_eventObject = 'creditmemo';
@@ -318,7 +312,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function getAllItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted()) {
                 $items[] =  $item;
@@ -456,7 +450,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         return $canVoid;
     }
 
-
     /**
      * @return $this
      * @throws Mage_Core_Exception
@@ -464,7 +457,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function refund()
     {
-        Mage::dispatchEvent('sales_order_creditmemo_refund_before', array($this->_eventObject=>$this));
+        Mage::dispatchEvent('sales_order_creditmemo_refund_before', [$this->_eventObject=>$this]);
 
         $this->setState(self::STATE_REFUNDED);
         $orderRefund = Mage::app()->getStore()->roundPrice(
@@ -520,7 +513,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
             $order->getPayment()->refund($this);
         }
 
-        Mage::dispatchEvent('sales_order_creditmemo_refund', array($this->_eventObject=>$this));
+        Mage::dispatchEvent('sales_order_creditmemo_refund', [$this->_eventObject=>$this]);
         return $this;
     }
 
@@ -566,7 +559,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         );
         $this->getOrder()->setShippingRefunded($this->getOrder()->getShippingRefunded()-$this->getShippingAmount());
 
-        Mage::dispatchEvent('sales_order_creditmemo_cancel', array($this->_eventObject=>$this));
+        Mage::dispatchEvent('sales_order_creditmemo_cancel', [$this->_eventObject=>$this]);
         return $this;
     }
 
@@ -634,11 +627,11 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public static function getStates()
     {
         if (is_null(self::$_states)) {
-            self::$_states = array(
+            self::$_states = [
                 self::STATE_OPEN       => Mage::helper('sales')->__('Pending'),
                 self::STATE_REFUNDED   => Mage::helper('sales')->__('Refunded'),
                 self::STATE_CANCELED   => Mage::helper('sales')->__('Canceled'),
-            );
+            ];
         }
         return self::$_states;
     }
@@ -670,17 +663,9 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     public function setShippingAmount($amount)
     {
-        // base shipping amount calculated in total model
-//        $amount = $this->getStore()->roundPrice($amount);
-//        $this->setData('base_shipping_amount', $amount);
-//
-//        $amount = $this->getStore()->roundPrice(
-//            $amount*$this->getOrder()->getStoreToOrderRate()
-//        );
         $this->setData('shipping_amount', $amount);
         return $this;
     }
-
 
     /**
      * @param float $amount
@@ -779,7 +764,6 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         return $this->_comments;
     }
 
-
     /**
      * Send email with creditmemo data
      *
@@ -857,13 +841,13 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'        => $order,
                 'creditmemo'   => $this,
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml
-            ));
+        ]);
         $mailer->send();
 
         if ($notifyCustomer) {
@@ -932,12 +916,12 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'      => $order,
                 'creditmemo' => $this,
                 'comment'    => $comment,
                 'billing'    => $order->getBillingAddress()
-            ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -973,18 +957,17 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
      */
     protected function _afterSave()
     {
-        if (null != $this->_items) {
+        if ($this->_items != null) {
             foreach ($this->_items as $item) {
                 $item->save();
             }
         }
 
-        if (null != $this->_comments) {
+        if ($this->_comments != null) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }
         }
-
 
         return parent::_afterSave();
     }

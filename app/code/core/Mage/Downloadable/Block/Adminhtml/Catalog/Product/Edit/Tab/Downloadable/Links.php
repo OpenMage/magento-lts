@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -107,11 +101,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     public function getAddButtonHtml()
     {
         $addButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label' => Mage::helper('downloadable')->__('Add New Row'),
                 'id'    => 'add_link_item',
                 'class' => 'add'
-            ));
+            ]);
         return $addButton->toHtml();
     }
 
@@ -153,12 +147,12 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
      */
     public function getLinkData()
     {
-        $linkArr = array();
+        $linkArr = [];
         /** @var Mage_Downloadable_Model_Link[] $links */
         $links = $this->getProduct()->getTypeInstance(true)->getLinks($this->getProduct());
         $priceWebsiteScope = Mage::helper('downloadable')->getIsPriceWebsiteScope();
         foreach ($links as $item) {
-            $tmpLinkItem = array(
+            $tmpLinkItem = [
                 'link_id' => $item->getId(),
                 'title' => $this->escapeHtml($item->getTitle()),
                 'price' => $this->getCanReadPrice() ? $this->getPriceValue($item->getPrice()) : '',
@@ -170,7 +164,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 'sample_url' => $item->getSampleUrl(),
                 'sample_type' => $item->getSampleType(),
                 'sort_order' => $item->getSortOrder(),
-            );
+            ];
             $file = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBasePath(),
                 $item->getLinkFile()
@@ -182,30 +176,30 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
 
             if ($item->getLinkFile() && is_file($file)) {
                 $name = '<a href="'
-                    . $this->getUrl('*/downloadable_product_edit/link', array(
+                    . $this->getUrl('*/downloadable_product_edit/link', [
                         'id' => $item->getId(),
                         '_secure' => true
-                    )) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
-                $tmpLinkItem['file_save'] = array(
-                    array(
+                    ]) . '">' . Mage::helper('downloadable/file')->getFileFromPathFile($item->getLinkFile()) . '</a>';
+                $tmpLinkItem['file_save'] = [
+                    [
                         'file' => $item->getLinkFile(),
                         'name' => $name,
                         'size' => filesize($file),
                         'status' => 'old'
-                    ));
+                    ]];
             }
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBaseSamplePath(),
                 $item->getSampleFile()
             );
             if ($item->getSampleFile() && is_file($sampleFile)) {
-                $tmpLinkItem['sample_file_save'] = array(
-                    array(
+                $tmpLinkItem['sample_file_save'] = [
+                    [
                         'file' => $item->getSampleFile(),
                         'name' => Mage::helper('downloadable/file')->getFileFromPathFile($item->getSampleFile()),
                         'size' => filesize($sampleFile),
                         'status' => 'old'
-                    ));
+                    ]];
             }
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = ' checked="checked"';
@@ -251,17 +245,18 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
         parent::_prepareLayout();
         $this->setChild(
             'upload_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')->addData(array(
+            $this->getLayout()->createBlock('adminhtml/widget_button')->addData([
                'id'      => '',
                'label'   => Mage::helper('adminhtml')->__('Upload Files'),
                'type'    => 'button',
                'onclick' => 'Downloadable.massUploadByType(\'links\');Downloadable.massUploadByType(\'linkssample\')'
-            ))
+            ])
         );
-        $this->_addElementIdsMapping(array(
+        $this->_addElementIdsMapping([
            'container' => $this->getHtmlId() . '-new',
            'delete'    => $this->getHtmlId() . '-delete'
-        ));
+        ]);
+        return $this;
     }
 
     /**
@@ -275,7 +270,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * Retrive config json
+     * Retrieve config json
      *
      * @param string $type
      * @return string
@@ -287,7 +282,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->setFileParameterName($type)
             ->setTarget(
                 Mage::getModel('adminhtml/url')
-                    ->getUrl('*/downloadable_file/upload', array('type' => $type, '_secure' => true))
+                    ->getUrl('*/downloadable_file/upload', ['type' => $type, '_secure' => true])
             );
         $this->getMiscConfig()
             ->setReplaceBrowseWithRemove(true)
@@ -310,7 +305,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->setId('downloadable_link_{{id}}_' . $type . 'file-browse_button')
             ->toHtml();
     }
-
 
     /**
      * @param string $type

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -34,9 +28,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     const RESULT_REDIRECT = '_redirect';
 
     protected $_resultCallback       = null;
-    protected $_resultCallbackParams = array();
+    protected $_resultCallbackParams = [];
     protected $_defaultActionName    = 'noroute';
-    protected $_flags                = array();
+    protected $_flags                = [];
 
     /**
      * Prepare data for forwarding action
@@ -47,13 +41,13 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $params
      * @return $this
      */
-    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = array())
+    public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = [])
     {
         $this->_resultCallback = self::RESULT_FORWARD;
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
-        $this->_resultCallbackParams = array($actionName, $controllerName, $moduleName, $params);
+        $this->_resultCallbackParams = [$actionName, $controllerName, $moduleName, $params];
         return $this;
     }
 
@@ -64,10 +58,10 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      * @param array $arguments
      * @return $this
      */
-    public function prepareRedirect($path, $arguments = array())
+    public function prepareRedirect($path, $arguments = [])
     {
         $this->_resultCallback = self::RESULT_REDIRECT;
-        $this->_resultCallbackParams = array($path, $arguments);
+        $this->_resultCallbackParams = [$path, $arguments];
         return $this;
     }
 
@@ -79,7 +73,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFork($actionName = null)
     {
-        if (null === $actionName) {
+        if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
         $this->_resultCallback = $actionName;
@@ -96,7 +90,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function prepareFlag($action, $flag, $value)
     {
-        $this->_flags[] = array($action, $flag, $value);
+        $this->_flags[] = [$action, $flag, $value];
         return $this;
     }
 
@@ -117,9 +111,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
      */
     public function getResultCallback()
     {
-        if (null === $this->_resultCallback) {
+        if ($this->_resultCallback === null) {
             $this->prepareFork();
         }
-        return array($this->_resultCallback, $this->_resultCallbackParams);
+        return [$this->_resultCallback, $this->_resultCallbackParams];
     }
 }

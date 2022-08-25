@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Media
@@ -62,8 +56,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_params = array();
-
+    protected $_params = [];
 
     protected function _construct()
     {
@@ -83,7 +76,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive media image config instance
+     * Retrieve media image config instance
      *
      * @return Mage_Media_Model_Image_Config_Interface
      */
@@ -117,7 +110,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive source dimensions object
+     * Retrieve source dimensions object
      *
      * @return Varien_Object
      */
@@ -130,7 +123,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive destanation dimensions object
+     * Retrieve destanation dimensions object
      *
      * @return Varien_Object
      */
@@ -264,8 +257,8 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     public function getSpecialLink($file, $size, $extension = null, $watermark = null)
     {
         $this->_removeResources();
-        $this->setData(array());
-        $this->setParam(array());
+        $this->setData([]);
+        $this->setParam([]);
         $this->setFileName($file);
 
         $this->addParam('size', $size);
@@ -292,7 +285,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             $this->getDestanationDimensions()
                 ->setWidth($rate*$this->getDimensions()->getWidth())
                 ->setHeight($rate*$this->getDimensions()->getHeight());
-
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);

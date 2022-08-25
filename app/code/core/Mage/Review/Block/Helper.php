@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Review
@@ -37,10 +31,10 @@
  */
 class Mage_Review_Block_Helper extends Mage_Core_Block_Template
 {
-    protected $_availableTemplates = array(
+    protected $_availableTemplates = [
         'default' => 'review/helper/summary.phtml',
         'short'   => 'review/helper/summary_short.phtml'
-    );
+    ];
 
     /**
      * @param Mage_Catalog_Model_Product $product
@@ -89,10 +83,10 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
      */
     public function getReviewsUrl()
     {
-        return Mage::getUrl('review/product/list', array(
+        return Mage::getUrl('review/product/list', [
            'id'        => $this->getProduct()->getId(),
            'category'  => $this->getProduct()->getCategoryId()
-        ));
+        ]);
     }
 
     /**

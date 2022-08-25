@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -38,8 +32,6 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
 {
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -71,10 +63,10 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
         $write = $this->_getWriteAdapter();
         $table = $this->getTable('api2/acl_user');
 
-        if (false === $read->fetchOne($select)) {
-            $write->insert($table, array('admin_id' => $adminId, 'role_id' => $roleId));
+        if ($read->fetchOne($select) === false) {
+            $write->insert($table, ['admin_id' => $adminId, 'role_id' => $roleId]);
         } else {
-            $write->update($table, array('role_id' => $roleId), array('admin_id = ?' => $adminId));
+            $write->update($table, ['role_id' => $roleId], ['admin_id = ?' => $adminId]);
         }
 
         return $this;
@@ -92,10 +84,10 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
         $write = $this->_getWriteAdapter();
         $table = $this->getTable('api2/acl_user');
 
-        $where = array(
+        $where = [
             'role_id = ?' => $roleId,
             'admin_id = ?' => $adminId
-        );
+        ];
 
         $write->delete($table, $where);
 
@@ -115,8 +107,6 @@ class Mage_Api2_Model_Resource_Acl_Global_Role extends Mage_Core_Model_Resource_
             ->from($this->getTable('api2/acl_user'))
             ->where('role_id=?', $role->getId());
 
-        $users = $adapter->fetchCol($select);
-
-        return $users;
+        return $adapter->fetchCol($select);
     }
 }

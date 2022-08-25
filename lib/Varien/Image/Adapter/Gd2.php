@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
@@ -63,7 +56,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        @imagedestroy($this->_imageHandler);
+        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+            @imagedestroy($this->_imageHandler);
+        }
     }
 
     /**
@@ -77,15 +72,13 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_fileName = $filename;
         $this->getMimeType();
         $this->_getFileAttributes();
-        if ($this->_isMemoryLimitReached()) {
-            throw new Varien_Exception('Memory limit has been reached.');
-        }
         $this->_imageHandler = call_user_func($this->_getCallback('create'), $this->_fileName);
     }
 
     /**
      * Checks whether memory limit is reached.
      *
+     * @deprecated
      * @return bool
      */
     protected function _isMemoryLimitReached()
@@ -108,11 +101,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
+     * @deprecated
      * @param string $memoryValue
-     *
      * @throws Varien_Exception
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
-     *
      * @return int
      */
     protected function _convertToByte($memoryValue)
@@ -277,7 +269,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fill image with indexed non-alpha transparency
                 elseif (false !== $transparentIndex) {
                     $transparentColor = false;
-                    if ($transparentIndex >=0 && $transparentIndex <= imagecolorstotal($this->_imageHandler)) {
+                    if ($transparentIndex >=0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
                     }
@@ -630,7 +622,6 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $this->_imageSrcWidth = imagesx($this->_imageHandler);
         $this->_imageSrcHeight = imagesy($this->_imageHandler);
     }
-
 
     /*
      * Fixes saving PNG alpha channel

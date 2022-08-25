@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -71,9 +65,9 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
     public function getSaveUrl()
     {
         if ($this->getTemplateId()) {
-            $params = array('template_id' => $this->getTemplateId());
+            $params = ['template_id' => $this->getTemplateId()];
         } else {
-            $params = array('id' => $this->getRequest()->getParam('id'));
+            $params = ['id' => $this->getRequest()->getParam('id')];
         }
         return $this->getUrl('*/*/save', $params);
     }
@@ -87,48 +81,48 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
 
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'queueControl.preview();',
                     'class'     => 'task'
-                ))
+                ])
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Newsletter'),
                     'onclick'   => 'queueControl.save()',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('save_and_resume',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save and Resume'),
                     'onclick'   => 'queueControl.resume()',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
                     'onclick'   => 'window.location = window.location'
-                ))
+                ])
         );
 
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
-                    array(
+                    [
                         'label'   => Mage::helper('newsletter')->__('Back'),
                         'onclick' => "window.location.href = '" . $this->getUrl((
                             $this->getTemplateId() ? '*/newsletter_template/' : '*/*')) . "'",
                         'class'   => 'back'
-                    )
+                    ]
                 )
         );
 
@@ -202,10 +196,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getIsPreview()
     {
-        return !in_array($this->getQueue()->getQueueStatus(), array(
+        return !in_array($this->getQueue()->getQueueStatus(), [
             Mage_Newsletter_Model_Queue::STATUS_NEVER,
             Mage_Newsletter_Model_Queue::STATUS_PAUSE
-        ));
+        ]);
     }
 
     /**
@@ -245,9 +239,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
      */
     public function getCanResume()
     {
-        return in_array($this->getQueue()->getQueueStatus(), array(
-            Mage_Newsletter_Model_Queue::STATUS_PAUSE
-        ));
+        return $this->getQueue()->getQueueStatus() == Mage_Newsletter_Model_Queue::STATUS_PAUSE;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Usa
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-$codes = array(
-    'method' => array(
+$codes = [
+    'method' => [
         'EUROPEFIRSTINTERNATIONALPRIORITY'  => 'EUROPE_FIRST_INTERNATIONAL_PRIORITY',
         'FEDEX1DAYFREIGHT'                  => 'FEDEX_1_DAY_FREIGHT',
         'FEDEX2DAYFREIGHT'                  => 'FEDEX_2_DAY_FREIGHT',
@@ -46,15 +40,15 @@ $codes = array(
         'STANDARDOVERNIGHT'                 => 'STANDARD_OVERNIGHT',
         'FEDEXFREIGHT'                      => 'FEDEX_FREIGHT',
         'FEDEXNATIONALFREIGHT'              => 'FEDEX_NATIONAL_FREIGHT',
-    ),
-    'dropoff' => array(
+    ],
+    'dropoff' => [
         'REGULARPICKUP'         => 'REGULAR_PICKUP',
         'REQUESTCOURIER'        => 'REQUEST_COURIER',
         'DROPBOX'               => 'DROP_BOX',
         'BUSINESSSERVICECENTER' => 'BUSINESS_SERVICE_CENTER',
         'STATION'               => 'STATION'
-    ),
-    'packaging' => array(
+    ],
+    'packaging' => [
         'FEDEXENVELOPE'     => 'FEDEX_ENVELOPE',
         'FEDEXPAK'          => 'FEDEX_PAK',
         'FEDEXBOX'          => 'FEDEX_BOX',
@@ -62,10 +56,10 @@ $codes = array(
         'FEDEX10KGBOX'      => 'FEDEX_10KG_BOX',
         'FEDEX25KGBOX'      => 'FEDEX_25KG_BOX',
         'YOURPACKAGING'     => 'YOUR_PACKAGING'
-    ),
-);
+    ],
+];
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $configDataTable = $installer->getTable('core/config_data');
 $conn = $installer->getConnection();
@@ -73,12 +67,12 @@ $conn = $installer->getConnection();
 $select = $conn->select()
         ->from($configDataTable)
         ->where('path IN (?)',
-                array(
+                [
                     'carriers/fedex/packaging',
                     'carriers/fedex/dropoff',
                     'carriers/fedex/free_method',
                     'carriers/fedex/allowed_methods'
-               )
+                ]
         );
 $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
@@ -89,7 +83,7 @@ foreach ($mapsOld as $mapOld) {
     } else if (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
     } else if (stripos($mapOld['path'], 'allowed_methods')) {
-        $mapNew = array();
+        $mapNew = [];
         foreach (explode(',', $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
                 $mapNew[] = $codes['method'][$shippingMethod];
@@ -105,7 +99,7 @@ foreach ($mapsOld as $mapOld) {
     if (!empty($mapNew) && $mapNew != $mapOld['value']) {
         $whereConfigId = $conn->quoteInto('config_id = ?', $mapOld['config_id']);
         $conn->update($configDataTable,
-                      array('value' => $mapNew),
+                      ['value' => $mapNew],
                       $whereConfigId
         );
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Checkout
@@ -40,11 +34,11 @@ class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
      */
     public function getSteps()
     {
-        $steps = array();
+        $steps = [];
         $stepCodes = $this->_getStepCodes();
 
         if ($this->isCustomerLoggedIn()) {
-            $stepCodes = array_diff($stepCodes, array('login'));
+            $stepCodes = array_diff($stepCodes, ['login']);
         }
 
         foreach ($stepCodes as $step) {

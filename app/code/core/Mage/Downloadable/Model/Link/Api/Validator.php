@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -37,21 +31,21 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
      * Acceptable resourceTypes array
      * @var array
      */
-    protected $_types = array('link', 'sample');
+    protected $_types = ['link', 'sample'];
 
     /**
      * Acceptable upload types array
      * @var array
      */
-    protected $_uploadTypes = array('file', 'url');
+    protected $_uploadTypes = ['file', 'url'];
 
     /**
      * List of all attributes and names endings of validation functions
      *
      * @var array
      */
-    protected $_defaultAttributes = array(
-        'link' => array(
+    protected $_defaultAttributes = [
+        'link' => [
             'title' => 'Title',                         // $1
             'price' => 'Price',                         // $2
             'number_of_downloads' => 'NumOfDownloads',  // if no set is_unlimited to 1 $3
@@ -61,20 +55,20 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
             'file' => 'File',                           // array(name, base64_content) $7
             'link_url' => 'Url',                        // URL $8
             'sort_order' => 'Order',                    // int (0) $9
-            'sample' => array(
+            'sample' => [
                 'type' => 'UploadType',                 // file|url (file) $6
                 'file' => 'File',                       // array(name, base64_content) $7
                 'url' => 'Url'                          // URL $8
-            )
-        ),
-        'sample' => array(
+            ]
+        ],
+        'sample' => [
             'title' => 'Title',                         // $1
             'type' => 'UploadType',                     // file|url (file) $6
             'file' => 'File',                           // array(name, base64_content) $7
             'sample_url' => 'Url',                      // URL $8
             'sort_order' => 'Order'                     // int (0) $9
-        )
-    );
+        ]
+    ];
 
     /**
      * Get resource types

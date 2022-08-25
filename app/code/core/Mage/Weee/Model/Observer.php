@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Weee
@@ -112,16 +106,16 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         $attributes = Mage::getSingleton('weee/tax')->getWeeeAttributeCodes();
 
         if ($attributes && Mage::helper('weee')->isDiscounted()) {
-            $joinConditions = array(
+            $joinConditions = [
                 "discount_percent.entity_id = {$table}.entity_id",
                 $select->getAdapter()->quoteInto('discount_percent.website_id = ?', $websiteId),
                 $select->getAdapter()->quoteInto('discount_percent.customer_group_id = ?', $customerGroupId)
-            );
+            ];
             $tableWeeDiscount = Mage::getSingleton('weee/tax')->getResource()->getTable('weee/discount');
             $select->joinLeft(
-                array('discount_percent' => $tableWeeDiscount),
+                ['discount_percent' => $tableWeeDiscount],
                 implode(' AND ', $joinConditions),
-                array()
+                []
             );
         }
         $checkDiscountField = $select->getAdapter()->getCheckSql(
@@ -151,23 +145,23 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
             $quotedTableAlias = $select->getAdapter()->quoteTableAs($tableAlias, null);
             $attributeSelect = $this->_getSelect();
             $attributeSelect
-                ->from(array($tableAlias => Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')))
+                ->from([$tableAlias => Mage::getSingleton('weee/tax')->getResource()->getTable('weee/tax')])
                 ->where("{$quotedTableAlias}.attribute_id = ?", $attributeId)
-                ->where("{$quotedTableAlias}.website_id IN(?)", array($websiteId, 0))
+                ->where("{$quotedTableAlias}.website_id IN(?)", [$websiteId, 0])
                 ->where("{$quotedTableAlias}.country = ?", $rateRequest->getCountryId())
-                ->where("{$quotedTableAlias}.state IN(?)", array($rateRequest->getRegionId(), '*'));
+                ->where("{$quotedTableAlias}.state IN(?)", [$rateRequest->getRegionId(), '*']);
 
-            $order = array(
+            $order = [
                 sprintf('%s.state %s', $tableAlias, Varien_Db_Select::SQL_DESC),
                 sprintf('%s.website_id %s', $tableAlias, Varien_Db_Select::SQL_DESC)
-            );
+            ];
             $attributeSelect->order($order);
 
             $joinCondition = sprintf('%s.entity_id = %s.entity_id', $table, $quotedTableAlias);
             $select->joinLeft(
-                array($tableAlias => $attributeSelect),
+                [$tableAlias => $attributeSelect],
                 $joinCondition,
-                array()
+                []
             );
         }
         return $this;
@@ -195,10 +189,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $response = $observer->getEvent()->getResponse();
         $types = $response->getTypes();
-        $types[] = array(
+        $types[] = [
             'value' => 'weee',
             'label' => Mage::helper('weee')->__('Fixed Product Tax'),
-            'hide_fields' => array(
+            'hide_fields' => [
                 'is_unique',
                 'is_required',
                 'frontend_class',
@@ -207,11 +201,11 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 '_scope',
                 '_default_value',
                 '_front_fieldset',
-            ),
-            'disabled_types' => array(
+            ],
+            'disabled_types' => [
                 Mage_Catalog_Model_Product_Type::TYPE_GROUPED,
-            )
-        );
+            ]
+        ];
 
         $response->setTypes($types);
 
@@ -232,7 +226,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         if ($object->getFrontendInput() == 'weee') {
             $object->setBackendModel($backendModel);
             if (!$object->getApplyTo()) {
-                $applyTo = array();
+                $applyTo = [];
                 foreach (Mage_Catalog_Model_Product_Type::getOptions() as $option) {
                     if ($option['value'] == Mage_Catalog_Model_Product_Type::TYPE_GROUPED) {
                         continue;
@@ -292,7 +286,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
             return $this;
@@ -327,7 +321,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         // Exclude Weee amount from excluding tax amount
-        if (!$weeeHelper->typeOfDisplay($_product, array(0, 1, 4))) {
+        if (!$weeeHelper->typeOfDisplay($_product, [0, 1, 4])) {
             $options['exclDisposition'] = true;
         }
 
@@ -344,7 +338,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
             return $this;
@@ -376,7 +370,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         // Exclude Weee amount from excluding tax amount
-        if (!$weeeHelper->typeOfDisplay($_product, array(0, 1, 4))) {
+        if (!$weeeHelper->typeOfDisplay($_product, [0, 1, 4])) {
             $options['exclDisposition'] = true;
         }
 
@@ -394,7 +388,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function setSessionQuoteStore(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Weee_Helper_Data $weeeHelper */
+        /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
 
         /** @var Mage_Adminhtml_Model_Session_Quote $sessionQuote */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sendfriend
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,33 +19,33 @@
  */
 
 $installer = $this;
-/* @var Mage_Sendfriend_Model_Resource_Setup $installer */
+/** @var Mage_Sendfriend_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('sendfriend/sendfriend'))
-    ->addColumn('log_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('log_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-        ), 'Log ID')
-    ->addColumn('ip', Varien_Db_Ddl_Table::TYPE_BIGINT, '20', array(
+    ], 'Log ID')
+    ->addColumn('ip', Varien_Db_Ddl_Table::TYPE_BIGINT, '20', [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Customer IP address')
-    ->addColumn('time', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ], 'Customer IP address')
+    ->addColumn('time', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Log time')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ], 'Log time')
+    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
         'unsigned'  => true,
         'nullable'  => false,
         'default'   => '0',
-        ), 'Website ID')
+    ], 'Website ID')
     ->addIndex($installer->getIdxName('sendfriend/sendfriend', 'ip'), 'ip')
     ->addIndex($installer->getIdxName('sendfriend/sendfriend', 'time'), 'time')
     ->setComment('Send to friend function log storage table');

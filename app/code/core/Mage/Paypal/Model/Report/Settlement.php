@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -32,8 +26,6 @@
  *
  */
 /**
- * Enter description here ...
- *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
  * @method string getReportDate()
@@ -85,11 +77,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * Reports rows storage
      * @var array
      */
-    protected $_rows = array();
+    protected $_rows = [];
 
-    protected $_csvColumns = array(
-        'old' => array(
-            'section_columns' => array(
+    protected $_csvColumns = [
+        'old' => [
+            'section_columns' => [
                 '' => 0,
                 'TransactionID' => 1,
                 'InvoiceID' => 2,
@@ -106,8 +98,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'FeeCurrency' => 13,
                 'CustomField' => 14,
                 'ConsumerID' => 15
-            ),
-            'rowmap' => array(
+            ],
+            'rowmap' => [
                 'TransactionID' => 'transaction_id',
                 'InvoiceID' => 'invoice_id',
                 'PayPalReferenceID' => 'paypal_reference_id',
@@ -123,10 +115,10 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'FeeCurrency' => 'fee_currency',
                 'CustomField' => 'custom_field',
                 'ConsumerID' => 'consumer_id'
-            )
-        ),
-        'new' => array(
-            'section_columns' => array(
+            ]
+        ],
+        'new' => [
+            'section_columns' => [
                 '' => 0,
                 'Transaction ID' => 1,
                 'Invoice ID' => 2,
@@ -145,8 +137,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Consumer ID' => 15,
                 'Payment Tracking ID' => 16,
                 'Store ID' => 17,
-            ),
-            'rowmap' => array(
+            ],
+            'rowmap' => [
                 'Transaction ID' => 'transaction_id',
                 'Invoice ID' => 'invoice_id',
                 'PayPal Reference ID' => 'paypal_reference_id',
@@ -164,9 +156,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Consumer ID' => 'consumer_id',
                 'Payment Tracking ID' => 'payment_tracking_id',
                 'Store ID' => 'store_id'
-            )
-        )
-    );
+            ]
+        ]
+    ];
     /**
      * Initialize resource model
      */
@@ -202,11 +194,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     public function fetchAndSave($config)
     {
         $connection = new Varien_Io_Sftp();
-        $connection->open(array(
+        $connection->open([
             'host'     => $config['hostname'],
             'username' => $config['username'],
             'password' => $config['password']
-        ));
+        ]);
         $connection->cd($config['path']);
         $fetched = 0;
         $listing = $this->_filterReportsList($connection->rawls());
@@ -262,7 +254,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     public function parseCsv($localCsv, $format = 'new')
     {
-        $this->_rows = array();
+        $this->_rows = [];
 
         $sectionColumns = $this->_csvColumns[$format]['section_columns'];
         $rowMap = $this->_csvColumns[$format]['rowmap'];
@@ -296,7 +288,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
-                    $bodyItem = array();
+                    $bodyItem = [];
                     for($i = 1; $i < count($line); $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
@@ -388,21 +380,21 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     public function getSftpCredentials($automaticMode = false)
     {
-        $configs = array();
-        $uniques = array();
+        $configs = [];
+        $uniques = [];
         foreach(Mage::app()->getStores() as $store) {
             /*@var $store Mage_Core_Model_Store */
             $active = (bool)$store->getConfig('paypal/fetch_reports/active');
             if (!$active && $automaticMode) {
                 continue;
             }
-            $cfg = array(
+            $cfg = [
                 'hostname'  => $store->getConfig('paypal/fetch_reports/ftp_ip'),
                 'path'      => $store->getConfig('paypal/fetch_reports/ftp_path'),
                 'username'  => $store->getConfig('paypal/fetch_reports/ftp_login'),
                 'password'  => $store->getConfig('paypal/fetch_reports/ftp_password'),
                 'sandbox'   => $store->getConfig('paypal/fetch_reports/ftp_sandbox'),
-            );
+            ];
             if (empty($cfg['username']) || empty($cfg['password'])) {
                 continue;
             }
@@ -432,8 +424,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     {
         // Currently filenames look like STL-YYYYMMDD, so that is what we care about.
         $dateSnippet = substr(basename($filename), 4, 8);
-        $result = substr($dateSnippet, 0, 4).'-'.substr($dateSnippet, 4, 2).'-'.substr($dateSnippet, 6, 2);
-        return $result;
+        return substr($dateSnippet, 0, 4).'-'.substr($dateSnippet, 4, 2).'-'.substr($dateSnippet, 6, 2);
     }
 
     /**
@@ -444,7 +435,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     protected function _filterReportsList($list)
     {
-        $result = array();
+        $result = [];
         $pattern = '/^STL-(\d{8,8})\.(\d{2,2})\.(.{3,3})\.CSV$/';
         foreach ($list as $filename => $data) {
             if (preg_match($pattern, $filename)) {

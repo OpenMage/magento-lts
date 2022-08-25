@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -28,8 +22,8 @@ if (version_compare(phpversion(), '7.0.0', '<')===true) {
         . 'border-bottom:1px solid #ccc;"><h3 style="margin:0; font-size:1.7em; font-weight:normal; '
         . 'text-transform:none; text-align:left; color:#2f2f2f;">Whoops, it looks like you have an invalid PHP version.'
 
-        . '</h3></div><p>Magento supports PHP 7.0.0 or newer. <a href="https://www.openmage.org/magento-lts/install.html" '
-        . 'target="">Find out</a> how to install</a> Magento using PHP-CGI as a work-around.</p></div>';
+        . '</h3></div><p>OpenMage supports PHP 7.0.0 or newer. <a href="https://www.openmage.org/magento-lts/install.html" '
+        . 'target="">Find out</a> how to install</a> OpenMage using PHP-CGI as a work-around.</p></div>';
     exit;
 }
 $start = microtime(true);
@@ -142,6 +136,9 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+if (substr_count($relativeFilename, '/') > 10) {
+    sendNotFoundPage();
+}
 
 $localStorage = Mage::getModel('core/file_storage_file');
 $remoteStorage = Mage::getModel('core/file_storage_database');
@@ -150,7 +147,7 @@ try {
         try {
             $remoteStorage->loadByFilename($relativeFilename);
         } catch (Exception $e) {
-            // Ignore errors
+            Mage::logException($e);
         }
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);

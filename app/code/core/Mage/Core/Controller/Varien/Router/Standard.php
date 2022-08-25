@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -26,9 +20,9 @@
 
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
-    protected $_modules = array();
-    protected $_routes = array();
-    protected $_dispatchData = array();
+    protected $_modules = [];
+    protected $_routes = [];
+    protected $_dispatchData = [];
 
     /**
      * @param string $configArea
@@ -36,7 +30,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function collectRoutes($configArea, $useRouterName)
     {
-        $routers = array();
+        $routers = [];
         $routersConfigNode = Mage::getConfig()->getNode($configArea.'/routers');
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
@@ -44,7 +38,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string)$routerConfig->use;
             if ($use == $useRouterName) {
-                $modules = array((string)$routerConfig->args->module);
+                $modules = [(string)$routerConfig->args->module];
                 if ($routerConfig->args->modules) {
                     /** @var Varien_Simplexml_Element $customModule */
                     foreach ($routerConfig->args->modules->children() as $customModule) {
@@ -76,11 +70,11 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     public function fetchDefault()
     {
-        $this->getFront()->setDefault(array(
+        $this->getFront()->setDefault([
             'module' => 'core',
             'controller' => 'index',
             'action' => 'index'
-        ));
+        ]);
     }
 
     /**
@@ -360,20 +354,20 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
     /**
      * @param string $frontName
-     * @param string $moduleName
+     * @param array $moduleNames
      * @param string $routeName
      * @return $this
      */
-    public function addModule($frontName, $moduleName, $routeName)
+    public function addModule($frontName, $moduleNames, $routeName)
     {
-        $this->_modules[$frontName] = $moduleName;
+        $this->_modules[$frontName] = $moduleNames;
         $this->_routes[$routeName] = $frontName;
         return $this;
     }
 
     /**
      * @param string $frontName
-     * @return bool|string
+     * @return bool|array
      */
     public function getModuleByFrontName($frontName)
     {
@@ -443,7 +437,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function validateControllerFileName($fileName)
     {
-        if ($fileName && is_readable($fileName) && false===strpos($fileName, '//')) {
+        if ($fileName && is_readable($fileName) && strpos($fileName, '//') === false) {
             return true;
         }
         return false;
@@ -456,8 +450,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getControllerClassName($realModule, $controller)
     {
-        $class = $realModule.'_'.uc_words($controller).'Controller';
-        return $class;
+        return $realModule.'_'.uc_words($controller).'Controller';
     }
 
     /**
@@ -492,7 +485,6 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      *
      * @param Mage_Core_Controller_Request_Http $request
      * @param string $path
-     * @return void
      */
     protected function _checkShouldBeSecure($request, $path = '')
     {

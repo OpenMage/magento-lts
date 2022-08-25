@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -60,31 +54,31 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('agreement_id',
-            array(
+            [
                 'header'=>Mage::helper('checkout')->__('ID'),
                 'align' =>'right',
                 'width' => '50px',
                 'index' => 'agreement_id'
-            )
+            ]
         );
 
-        $this->addColumn('position', array(
+        $this->addColumn('position', [
             'header'    => Mage::helper('adminhtml')->__('Position'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'position',
             'type'      => 'text',
-        ));
+        ]);
 
         $this->addColumn('name',
-            array(
+            [
                 'header'=>Mage::helper('checkout')->__('Condition Name'),
                 'index' => 'name'
-            )
+            ]
         );
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('adminhtml')->__('Store View'),
                 'index'         => 'store_id',
                 'type'          => 'store',
@@ -92,43 +86,41 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
                 'store_view'    => true,
                 'sortable'      => false,
                 'filter_condition_callback'
-                                => array($this, '_filterStoreCondition'),
-            ));
+                                => [$this, '_filterStoreCondition'],
+            ]);
         }
 
-        $this->addColumn('is_active', array(
+        $this->addColumn('is_active', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_active',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 0 => Mage::helper('adminhtml')->__('Disabled'),
                 1 => Mage::helper('adminhtml')->__('Enabled')
-            ),
-        ));
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->walk('afterLoad');
-        parent::_afterLoadCollection();
+        return parent::_afterLoadCollection();
     }
 
     /**
-     * @param $collection
+     * @param Mage_Checkout_Model_Resource_Agreement_Collection $collection
      * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
      */
     protected function _filterStoreCondition($collection, $column)
     {
-        if (!$value = $column->getFilter()->getValue()) {
-            return;
+        if ($value = $column->getFilter()->getValue()) {
+            $collection->addStoreFilter($value);
         }
-
-        $this->getCollection()->addStoreFilter($value);
     }
 
     /**
@@ -137,6 +129,6 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Grid extends Mage_Adminhtml_Block_
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 }

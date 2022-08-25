@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -36,14 +30,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeHPH()
     {
-        return array(
+        return [
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
             '800x66' => Mage::helper('paypal')->__('800 x 66')
-        );
+        ];
     }
 
     /**
@@ -53,7 +47,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeHPS()
     {
-        return array(
+        return [
             '120x90' => Mage::helper('paypal')->__('120 x 90'),
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
@@ -61,7 +55,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
             '250x250' => Mage::helper('paypal')->__('250 x 250')
-        );
+        ];
     }
 
     /**
@@ -71,14 +65,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCCPC()
     {
-        return array(
+        return [
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
             '800x66' => Mage::helper('paypal')->__('800 x 66')
-        );
+        ];
     }
 
     /**
@@ -88,7 +82,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCCPS()
     {
-        return array(
+        return [
             '120x90' => Mage::helper('paypal')->__('120 x 90'),
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
@@ -96,7 +90,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
             '250x250' => Mage::helper('paypal')->__('250 x 250')
-        );
+        ];
     }
 
     /**
@@ -106,14 +100,14 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCPPC()
     {
-        return array(
+        return [
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
             '800x66' => Mage::helper('paypal')->__('800 x 66')
-        );
+        ];
     }
 
     /**
@@ -123,7 +117,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCPPN()
     {
-        return array(
+        return [
             '120x90' => Mage::helper('paypal')->__('120 x 90'),
             '190x100' => Mage::helper('paypal')->__('190 x 100'),
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
@@ -131,7 +125,7 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
             '120x600' => Mage::helper('paypal')->__('120 x 600'),
             '234x400' => Mage::helper('paypal')->__('234 x 400'),
             '250x250' => Mage::helper('paypal')->__('250 x 250')
-        );
+        ];
     }
 
     /**
@@ -141,13 +135,13 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCheckoutC()
     {
-        return array(
+        return [
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60'),
             '728x90' => Mage::helper('paypal')->__('728 x 90'),
             '800x66' => Mage::helper('paypal')->__('800 x 66')
-        );
+        ];
     }
 
     /**
@@ -157,10 +151,10 @@ class Mage_Paypal_Model_System_Config_Source_BmlSize
      */
     public function getBmlSizeCheckoutN()
     {
-        return array(
+        return [
             '234x60' => Mage::helper('paypal')->__('234 x 60'),
             '300x50' => Mage::helper('paypal')->__('300 x 50'),
             '468x60' => Mage::helper('paypal')->__('468 x 60')
-        );
+        ];
     }
 }

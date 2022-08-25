@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -40,11 +34,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Contenttype
      */
     public function toOptionArray()
     {
-        return array(
-            array('label' => Mage::helper('usa')->__('Documents'),
-                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_DOC),
-            array('label' => Mage::helper('usa')->__('Non documents'),
-                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_NON_DOC),
-        );
+        return [
+            ['label' => Mage::helper('usa')->__('Documents'),
+                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_DOC],
+            ['label' => Mage::helper('usa')->__('Non documents'),
+                'value' => Mage_Usa_Model_Shipping_Carrier_Dhl_International::DHL_CONTENT_TYPE_NON_DOC],
+        ];
     }
 }

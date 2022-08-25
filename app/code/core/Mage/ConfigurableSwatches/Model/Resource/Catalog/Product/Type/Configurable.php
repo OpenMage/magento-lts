@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -38,14 +32,14 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
     public function getChildrenIds($parentId, $required = true)
     {
         if (is_array($parentId)) {
-            $childrenIds = array();
+            $childrenIds = [];
             if (!empty($parentId)) {
                 $select = $this->_getReadAdapter()->select()
-                    ->from(array('l' => $this->getMainTable()), array('product_id', 'parent_id'))
+                    ->from(['l' => $this->getMainTable()], ['product_id', 'parent_id'])
                     ->join(
-                        array('e' => $this->getTable('catalog/product')),
+                        ['e' => $this->getTable('catalog/product')],
                         'e.entity_id = l.product_id AND e.required_options = 0',
-                        array()
+                        []
                     )
                     ->where('parent_id IN (?)', $parentId);
 

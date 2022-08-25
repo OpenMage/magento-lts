@@ -17,7 +17,7 @@
 }
 
 .nav-bar {
-  background: #202856;
+  background: #3A499D;
   padding: 0 350px 0 70px;
 }
 .nav-bar:after {
@@ -39,7 +39,7 @@
   float: left;
 }
 #nav li.over {
-  z-index: 99;
+  z-index: 999;
 }
 #nav li.over a {
   color: #d6e2e5;
@@ -64,7 +64,7 @@
   left: 100px;
 }
 #nav li.active {
-  z-index: 100;
+  z-index: 1000;
   margin-left: -1px;
   color: #fff;
   font-weight: bold;

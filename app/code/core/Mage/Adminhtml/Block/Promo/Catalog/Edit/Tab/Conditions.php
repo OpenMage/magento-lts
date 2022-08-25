@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -89,16 +83,16 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions
             ->setTemplate('promo/fieldset.phtml')
             ->setNewChildUrl($this->getUrl('*/promo_catalog/newConditionHtml/form/rule_conditions_fieldset'));
 
-        $fieldset = $form->addFieldset('conditions_fieldset', array(
-            'legend'=>Mage::helper('catalogrule')->__('Conditions (leave blank for all products)'))
+        $fieldset = $form->addFieldset('conditions_fieldset', [
+            'legend'=>Mage::helper('catalogrule')->__('Conditions (leave blank for all products)')]
         )->setRenderer($renderer);
 
-        $fieldset->addField('conditions', 'text', array(
+        $fieldset->addField('conditions', 'text', [
             'name' => 'conditions',
             'label' => Mage::helper('catalogrule')->__('Conditions'),
             'title' => Mage::helper('catalogrule')->__('Conditions'),
             'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
+        ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
 /*
         $fieldset = $form->addFieldset('actions_fieldset', array('legend'=>Mage::helper('catalogrule')->__('Actions')));
 

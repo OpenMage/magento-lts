@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -45,11 +39,12 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+        return $this;
     }
 
     protected function _prepareForm()
     {
-        /** @var $model Mage_Cms_Model_Page */
+        /** @var Mage_Cms_Model_Page $model */
         $model = Mage::registry('cms_page');
 
         /*
@@ -61,31 +56,30 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
             $isElementDisabled = true;
         }
 
-
         $form = new Varien_Data_Form();
 
         $form->setHtmlIdPrefix('page_');
 
-        $fieldset = $form->addFieldset('content_fieldset', array('legend'=>Mage::helper('cms')->__('Content'),'class'=>'fieldset-wide'));
+        $fieldset = $form->addFieldset('content_fieldset', ['legend'=>Mage::helper('cms')->__('Content'),'class'=>'fieldset-wide']);
 
         $wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
-            array('tab_id' => $this->getTabId())
+            ['tab_id' => $this->getTabId()]
         );
 
-        $fieldset->addField('content_heading', 'text', array(
+        $fieldset->addField('content_heading', 'text', [
             'name'      => 'content_heading',
             'label'     => Mage::helper('cms')->__('Content Heading'),
             'title'     => Mage::helper('cms')->__('Content Heading'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        $contentField = $fieldset->addField('content', 'editor', array(
+        $contentField = $fieldset->addField('content', 'editor', [
             'name'      => 'content',
             'style'     => 'height:36em;',
             'required'  => true,
             'disabled'  => $isElementDisabled,
             'config'    => $wysiwygConfig
-        ));
+        ]);
 
         // Setting custom renderer for content field to remove label column
         $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element')
@@ -95,7 +89,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         $form->setValues($model->getData());
         $this->setForm($form);
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', array('form' => $form));
+        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_content_prepare_form', ['form' => $form]);
 
         return parent::_prepareForm();
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -51,32 +45,30 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
             ->addFieldToFilter('customer_id', $session->getCustomerId())
             ->addOrder('created_at', 'desc');
         $this->setPurchased($purchased);
-        $purchasedIds = array();
+        $purchasedIds = [];
         /** @var Mage_Downloadable_Model_Link_Purchased_Item $_item */
         foreach ($purchased as $_item) {
             $purchasedIds[] = $_item->getId();
         }
         if (empty($purchasedIds)) {
-            $purchasedIds = array(null);
+            $purchasedIds = [null];
         }
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
-            ->addFieldToFilter('purchased_id', array('in' => $purchasedIds))
+            ->addFieldToFilter('purchased_id', ['in' => $purchasedIds])
             ->addFieldToFilter(
                 'status',
-                array(
-                    'nin' => array(
+                [
+                    'nin' => [
                         Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
                         Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
-                    )
-                )
+                    ]
+                ]
             )
             ->setOrder('item_id', 'desc');
         $this->setItems($purchasedItems);
     }
 
     /**
-     * Enter description here...
-     *
      * @return $this
      */
     protected function _prepareLayout()
@@ -102,12 +94,10 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
      */
     public function getOrderViewUrl($orderId)
     {
-        return $this->getUrl('sales/order/view', array('order_id' => $orderId));
+        return $this->getUrl('sales/order/view', ['order_id' => $orderId]);
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getBackUrl()
@@ -127,8 +117,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
     public function getRemainingDownloads($item)
     {
         if ($item->getNumberOfDownloadsBought()) {
-            $downloads = $item->getNumberOfDownloadsBought() - $item->getNumberOfDownloadsUsed();
-            return $downloads;
+            return $item->getNumberOfDownloadsBought() - $item->getNumberOfDownloadsUsed();
         }
         return Mage::helper('downloadable')->__('Unlimited');
     }
@@ -141,7 +130,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
      */
     public function getDownloadUrl($item)
     {
-        return $this->getUrl('*/download/link', array('id' => $item->getLinkHash(), '_secure' => true));
+        return $this->getUrl('*/download/link', ['id' => $item->getLinkHash(), '_secure' => true]);
     }
 
     /**

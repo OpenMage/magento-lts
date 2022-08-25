@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -36,14 +30,14 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
 
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        $_months = array();
+        $_months = [];
         for ($i = 1; $i <= 12; $i++) {
             $_months[$i] = Mage::app()->getLocale()
                 ->date(mktime(null,null,null,$i))
                 ->get(Zend_Date::MONTH_NAME);
         }
 
-        $_days = array();
+        $_days = [];
         for ($i = 1; $i <= 31; $i++) {
             $_days[$i] = $i < 10 ? '0'.$i : $i;
         }
@@ -51,7 +45,7 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
         if ($element->getValue()) {
             $values = explode(',', $element->getValue());
         } else {
-            $values = array();
+            $values = [];
         }
 
         $element->setName($element->getName() . '[]');

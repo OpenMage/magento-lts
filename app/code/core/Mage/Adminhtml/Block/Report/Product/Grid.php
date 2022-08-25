@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -42,9 +35,12 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         $this->setDefaultDir('desc');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
-
         $collection = Mage::getResourceModel('reports/product_collection');
         $collection->getEntity()->setStore(0);
 
@@ -53,65 +49,72 @@ class Mage_Adminhtml_Block_Report_Product_Grid extends Mage_Adminhtml_Block_Widg
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return void
+     */
     protected function _afterLoadCollection()
     {
         $totalObj = new Mage_Reports_Model_Totals();
         $this->setTotals($totalObj->countTotals($this));
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'index'     =>'entity_id',
             'total'     =>'Total'
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Name'),
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('viewed', array(
+        $this->addColumn('viewed', [
             'header'    =>Mage::helper('reports')->__('Number Viewed'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'viewed',
             'total'     =>'sum'
-        ));
+        ]);
 
-        $this->addColumn('added', array(
+        $this->addColumn('added', [
             'header'    =>Mage::helper('reports')->__('Number Added'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'added',
             'total'     =>'sum'
-        ));
+        ]);
 
-        $this->addColumn('purchased', array(
+        $this->addColumn('purchased', [
             'header'    =>Mage::helper('reports')->__('Number Purchased'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'purchased',
             'total'     =>'sum'
-        ));
+        ]);
 
-        $this->addColumn('fulfilled', array(
+        $this->addColumn('fulfilled', [
             'header'    =>Mage::helper('reports')->__('Number Fulfilled'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'fulfilled',
             'total'     =>'sum'
-        ));
+        ]);
 
-        $this->addColumn('revenue', array(
+        $this->addColumn('revenue', [
             'header'    =>Mage::helper('reports')->__('Revenue'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'revenue',
             'total'     =>'sum'
-        ));
+        ]);
 
         $this->setCountTotals(true);
 

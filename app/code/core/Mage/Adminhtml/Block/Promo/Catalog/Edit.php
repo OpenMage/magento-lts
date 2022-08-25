@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -43,17 +37,17 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
 
         parent::__construct();
 
-        $this->_addButton('save_apply', array(
+        $this->_addButton('save_apply', [
             'class'   => 'save',
             'label'   => Mage::helper('catalogrule')->__('Save and Apply'),
             'onclick' => "$('rule_auto_apply').value=1; editForm.submit()",
-        ));
+        ]);
 
-        $this->_addButton('save_and_continue_edit', array(
+        $this->_addButton('save_and_continue_edit', [
             'class'   => 'save',
             'label'   => Mage::helper('catalogrule')->__('Save and Continue Edit'),
             'onclick' => 'editForm.submit($(\'edit_form\').action + \'back/edit/\')',
-        ), 10);
+        ], 10);
     }
 
     /**

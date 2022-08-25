@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Install
@@ -114,7 +108,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
         }
 
         if ($recursive && is_dir($fullPath)) {
-            $skipFileNames = array('.svn', '.htaccess');
+            $skipFileNames = ['.svn', '.htaccess'];
             foreach (new DirectoryIterator($fullPath) as $file) {
                 $fileName = $file->getFilename();
                 if (!$file->isDot() && !in_array($fileName, $skipFileNames)) {

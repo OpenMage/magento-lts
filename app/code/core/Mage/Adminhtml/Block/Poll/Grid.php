@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -58,36 +52,36 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('poll_id', array(
+        $this->addColumn('poll_id', [
             'header'    => Mage::helper('poll')->__('ID'),
             'align'     =>'right',
             'width'     => '50px',
             'index'     => 'poll_id',
-        ));
+        ]);
 
-        $this->addColumn('poll_title', array(
+        $this->addColumn('poll_title', [
             'header'    => Mage::helper('poll')->__('Poll Question'),
             'align'     =>'left',
             'index'     => 'poll_title',
-        ));
+        ]);
 
-        $this->addColumn('votes_count', array(
+        $this->addColumn('votes_count', [
             'header'    => Mage::helper('poll')->__('Number of Responses'),
             'width'     => '50px',
             'type'      => 'number',
             'index'     => 'votes_count',
-        ));
+        ]);
 
-        $this->addColumn('date_posted', array(
+        $this->addColumn('date_posted', [
             'header'    => Mage::helper('poll')->__('Date Posted'),
             'align'     => 'left',
             'width'     => '120px',
             'type'      => 'datetime',
             'index'     => 'date_posted',
             'format'	=> Mage::app()->getLocale()->getDateFormat()
-        ));
+        ]);
 
-        $this->addColumn('date_closed', array(
+        $this->addColumn('date_closed', [
             'header'    => Mage::helper('poll')->__('Date Closed'),
             'align'     => 'left',
             'width'     => '120px',
@@ -95,16 +89,16 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             'default'   => '--',
             'index'     => 'date_closed',
             'format'	=> Mage::app()->getLocale()->getDateFormat()
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('visible_in', array(
+            $this->addColumn('visible_in', [
                 'header'    => Mage::helper('review')->__('Visible In'),
                 'index'     => 'stores',
                 'type'      => 'store',
                 'store_view' => true,
                 'sortable'   => false,
-            ));
+            ]);
         }
 
         /*
@@ -120,24 +114,24 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ),
         ));
         */
-        $this->addColumn('closed', array(
+        $this->addColumn('closed', [
             'header'    => Mage::helper('poll')->__('Status'),
             'align'     => 'left',
             'width'     => '80px',
             'index'     => 'closed',
             'type'      => 'options',
-            'options'   => array(
+            'options'   => [
                 1 => Mage::helper('poll')->__('Closed'),
                 0 => Mage::helper('poll')->__('Open')
-            ),
-        ));
+            ],
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 
 }

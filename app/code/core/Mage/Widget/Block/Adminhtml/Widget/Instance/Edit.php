@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -66,11 +60,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
                 'save_and_edit_button',
-                array(
+                [
                     'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
                     'class'     => 'save',
                     'onclick'   => 'saveAndContinueEdit()'
-                ),
+                ],
                 100
             );
         } else {
@@ -100,7 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 
     /**
@@ -110,6 +104,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
     }
 }

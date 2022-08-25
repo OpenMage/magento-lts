@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
 $tagsTableName = $installer->getTable('core/cache_tag');
 $installer->getConnection()->truncate($tagsTableName);
 $installer->getConnection()->modifyColumn($tagsTableName, 'tag', 'VARCHAR(100)');
 $installer->getConnection()->modifyColumn($tagsTableName, 'cache_id', 'VARCHAR(200)');
-$installer->getConnection()->addKey($tagsTableName, '', array('tag', 'cache_id'), 'PRIMARY');
+$installer->getConnection()->addKey($tagsTableName, '', ['tag', 'cache_id'], 'PRIMARY');
 $installer->getConnection()->dropKey($tagsTableName, 'IDX_TAG');

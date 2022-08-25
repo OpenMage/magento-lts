@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -38,18 +32,18 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      *
      * @var array
      */
-    protected $_ignoredAttributeCodes = array(
-        'global'    =>  array('entity_id', 'attribute_set_id', 'entity_type_id')
-    );
+    protected $_ignoredAttributeCodes = [
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+    ];
 
     /**
      * Attributes map array per entity type
      *
      * @var array
      */
-    protected $_attributesMap = array(
-        'global'    => array()
-    );
+    protected $_attributesMap = [
+        'global'    => []
+    ];
 
     /**
      * Update attributes for entity
@@ -82,7 +76,7 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _getAttributes($object, $type, array $attributes = null)
     {
-        $result = array();
+        $result = [];
 
         if (!is_object($object)) {
             return $result;
@@ -135,4 +129,4 @@ class Mage_Sales_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         return true;
     }
-} // Class Mage_Sales_Model_Api_Resource End
+}

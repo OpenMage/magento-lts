@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,49 +27,56 @@
  */
 class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
 {
+    /**
+     * Mage_Adminhtml_Block_Tag_Grid_All constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         $this->setId('tagsGrid');
-        $this->setDefaultSort('tag_id', 'desc');
+        $this->setDefaultSort('tag_id');
+        $this->setDefaultDir('desc');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('tag/tag_collection')
-//            ->addStoreFilter(Mage::app()->getStore()->getId())
-               ->addStoresVisibility()
-        ;
+        $collection = Mage::getResourceModel('tag/tag_collection')->addStoresVisibility();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
+
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('tag')->__('Tag'),
             'index'     => 'name',
-        ));
-        $this->addColumn('total_used', array(
+        ]);
+        $this->addColumn('total_used', [
             'header'    => Mage::helper('tag')->__('# of Uses'),
             'width'     => '140px',
             'align'     => 'center',
             'index'     => 'total_used',
             'type'      => 'number',
-        ));
-        $this->addColumn('status', array(
+        ]);
+        $this->addColumn('status', [
             'header'    => Mage::helper('tag')->__('Status'),
             'width'     => '90px',
             'index'     => 'status',
             'type'      => 'options',
-            'options'    => array(
+            'options'    => [
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
-            ),
-        ));
-
-
+            ],
+        ]);
 
         $this->setColumnFilter('id')
             ->setColumnFilter('name')
@@ -97,9 +98,12 @@ class Mage_Adminhtml_Block_Tag_Grid_All extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/products', array('tag_id' => $row->getId()));
+        return $this->getUrl('*/*/products', ['tag_id' => $row->getId()]);
     }
-
 }

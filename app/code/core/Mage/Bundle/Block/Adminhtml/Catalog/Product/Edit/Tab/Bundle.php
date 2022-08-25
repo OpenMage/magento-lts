@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -46,7 +40,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/bundle_product_edit/form', array('_current' => true));
+        return $this->getUrl('*/bundle_product_edit/form', ['_current' => true]);
     }
 
     /**
@@ -67,12 +61,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         $this->setChild(
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('bundle')->__('Add New Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option',
                     'on_click' => 'bOption.add()'
-                ))
+                ])
         );
 
         $this->setChild(

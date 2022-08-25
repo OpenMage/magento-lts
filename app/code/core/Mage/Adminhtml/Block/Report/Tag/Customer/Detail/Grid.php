@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -59,39 +53,39 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'original_name'
-        ));
+        ]);
 
-        $this->addColumn('tag_name', array(
+        $this->addColumn('tag_name', [
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'tag_name'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('visible', array(
+            $this->addColumn('visible', [
                 'header'    => Mage::helper('reports')->__('Visible In'),
                 'index'     => 'stores',
                 'type'      => 'store',
                 'sortable'  => false,
                 'store_view'=> true
-            ));
+            ]);
 
-            $this->addColumn('added_in', array(
+            $this->addColumn('added_in', [
                 'header'    =>Mage::helper('reports')->__('Submitted In'),
                 'index'     =>'store_id',
                 'type'      =>'store',
                 'store_view'=>true
-            ));
+            ]);
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    =>Mage::helper('reports')->__('Submitted On'),
             'width'     => '140px',
             'type'      => 'datetime',
             'index'     => 'created_at'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Index Setup Model
@@ -57,7 +50,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
             return $this;
         }
         $indexes = Mage::getConfig()->getNode(Mage_Index_Model_Process::XML_PATH_INDEXER_DATA);
-        $indexCodes = array();
+        $indexCodes = [];
         foreach ($indexes->children() as $code => $index) {
             $indexCodes[] = $code;
         }
@@ -71,15 +64,15 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
             $connection->delete($table, $connection->quoteInto('indexer_code IN (?)', $delete));
         }
         if (!empty($insert)) {
-            $insertData = array();
+            $insertData = [];
             foreach ($insert as $code) {
-                $insertData[] = array(
+                $insertData[] = [
                     'indexer_code' => $code,
                     'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX
-                );
+                ];
             }
             if (method_exists($connection, 'insertArray')) {
-                $connection->insertArray($table, array('indexer_code', 'status'), $insertData);
+                $connection->insertArray($table, ['indexer_code', 'status'], $insertData);
             }
         }
     }

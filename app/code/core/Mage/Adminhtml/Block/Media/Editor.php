@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml media library image editor
@@ -50,41 +43,41 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
         $this->setChild(
             'rotatecw_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->_getButtonId('rotatecw'),
                     'label'   => Mage::helper('adminhtml')->__('Rotate CW'),
                     'onclick' => $this->getJsObjectName() . '.rotateCw()'
-                ))
+                ])
         );
 
         $this->setChild(
             'rotateccw_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->_getButtonId('rotateccw'),
                     'label'   => Mage::helper('adminhtml')->__('Rotate CCW'),
                     'onclick' => $this->getJsObjectName() . '.rotateCCw()'
-                ))
+                ])
         );
 
         $this->setChild(
             'resize_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->_getButtonId('upload'),
                     'label'   => Mage::helper('adminhtml')->__('Resize'),
                     'onclick' => $this->getJsObjectName() . '.resize()'
-                ))
+                ])
         );
 
         $this->setChild(
             'image_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->_getButtonId('image'),
                     'label'   => Mage::helper('adminhtml')->__('Get Image Base64'),
                     'onclick' => $this->getJsObjectName() . '.getImage()'
-                ))
+                ])
         );
 
         return parent::_prepareLayout();
@@ -116,7 +109,7 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive uploader js object name
+     * Retrieve uploader js object name
      *
      * @return string
      */
@@ -126,7 +119,7 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive config json
+     * Retrieve config json
      *
      * @return string
      */
@@ -136,7 +129,7 @@ class Mage_Adminhtml_Block_Media_Editor extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-     * Retrive config object
+     * Retrieve config object
      *
      * @return Varien_Config
      */

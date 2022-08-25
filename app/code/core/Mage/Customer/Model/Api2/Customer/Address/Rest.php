@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -42,7 +36,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
         $validator = $this->_getValidator();
 
@@ -58,7 +51,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $data['region'] = $this->_getRegionIdByNameOrCode($data['region'], $data['country_id']);
         }
 
-        /* @var Mage_Customer_Model_Address $address */
+        /** @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address');
         $address->setData($data);
         $address->setCustomer($customer);
@@ -82,7 +75,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieve()
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $addressData = $address->getData();
         $addressData['street'] = $address->getStreet();
@@ -96,8 +88,8 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _retrieveCollection()
     {
-        $data = array();
-        /* @var Mage_Customer_Model_Address $address */
+        $data = [];
+        /** @var Mage_Customer_Model_Address $address */
         foreach ($this->_getCollectionForRetrieve() as $address) {
             $addressData           = $address->getData();
             $addressData['street'] = $address->getStreet();
@@ -113,10 +105,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
 
-        /* @var Mage_Customer_Model_Resource_Address_Collection $collection */
+        /** @var Mage_Customer_Model_Resource_Address_Collection $collection */
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
@@ -131,10 +122,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _getDefaultAddressesInfo(Mage_Customer_Model_Address $address)
     {
-        return array(
+        return [
             'is_default_billing'  => (int)$this->_isDefaultBillingAddress($address),
             'is_default_shipping' => (int)$this->_isDefaultShippingAddress($address)
-        );
+        ];
     }
 
     /**
@@ -145,7 +136,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _update(array $data)
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $validator = $this->_getValidator();
 
@@ -181,7 +171,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
      */
     protected function _delete()
     {
-        /* @var Mage_Customer_Model_Address $address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
 
         if ($this->_isDefaultBillingAddress($address) || $this->_isDefaultShippingAddress($address)) {

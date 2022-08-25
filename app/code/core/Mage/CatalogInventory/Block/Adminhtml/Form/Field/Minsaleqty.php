@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -49,7 +43,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
             $this->_groupRenderer = $this->getLayout()->createBlock(
                 'cataloginventory/adminhtml_form_field_customergroup',
                 '',
-                array('is_render_to_js_template' => true)
+                ['is_render_to_js_template' => true]
             );
             $this->_groupRenderer->setClass('customer_group_select');
             $this->_groupRenderer->setExtraParams('style="width:120px"');
@@ -62,14 +56,14 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
      */
     protected function _prepareToRender()
     {
-        $this->addColumn('customer_group_id', array(
+        $this->addColumn('customer_group_id', [
             'label' => Mage::helper('customer')->__('Customer Group'),
             'renderer' => $this->_getGroupRenderer(),
-        ));
-        $this->addColumn('min_sale_qty', array(
+        ]);
+        $this->addColumn('min_sale_qty', [
             'label' => Mage::helper('cataloginventory')->__('Minimum Qty'),
             'style' => 'width:100px',
-        ));
+        ]);
         $this->_addAfter = false;
         $this->_addButtonLabel = Mage::helper('cataloginventory')->__('Add Minimum Qty');
     }

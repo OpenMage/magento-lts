@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Captcha
@@ -116,7 +110,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
      */
     public function isRequired($login = null)
     {
-        $nonAuthForms = array('wishlist_sharing', 'sendfriend_send');
+        $nonAuthForms = ['wishlist_sharing', 'sendfriend_send'];
 
         if ((!in_array($this->_formId, $nonAuthForms) && $this->_isUserAuth())
             || !$this->_isEnabled() || !in_array($this->_formId, $this->_getTargetForms())
@@ -471,7 +465,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     {
         $this->getSession()->setData(
             $this->_getFormIdKey(self::SESSION_WORD),
-            array('data' => $word, 'expires' => time() + $this->getTimeout())
+            ['data' => $word, 'expires' => time() + $this->getTimeout()]
         );
         $this->_word = $word;
         return $this;

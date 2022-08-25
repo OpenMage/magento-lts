@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_GiftMessage
@@ -106,9 +100,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-            $this->getEntity()->getGiftMessageId()
-        );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
         return $this;
     }
 
@@ -154,9 +148,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 
         if ($entity) {
             if (!$entity->getGiftMessage()) {
-                $entity->setGiftMessage(
-                    $this->helper('giftmessage/message')->getGiftMessage($entity->getGiftMessageId())
-                );
+                /** @var Mage_GiftMessage_Helper_Message $helper */
+                $helper = $this->helper('giftmessage/message');
+                $entity->setGiftMessage($helper->getGiftMessage($entity->getGiftMessageId()));
             }
             return $entity->getGiftMessage();
         }
@@ -172,10 +166,10 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     public function getItems()
     {
         if (!$this->getData('items')) {
-            $items = array();
+            $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
-            Mage::dispatchEvent('gift_options_prepare_items', array('items' => $entityItems));
+            Mage::dispatchEvent('gift_options_prepare_items', ['items' => $entityItems]);
 
             foreach ($entityItems as $item) {
                 if ($item->getParentItem()) {
@@ -275,7 +269,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isItemMessagesAvailable($item)
     {
-        $type = substr($this->getType(), 0, 5) == 'multi' ? 'address_item' : 'item';
+        $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
 }

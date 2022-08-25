@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -46,46 +40,46 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
     {
         $model = Mage::registry('tag_tag');
 
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
                                         'id' => 'edit_form',
-                                        'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'), 'ret' => Mage::registry('ret'))),
+                                        'action' => $this->getUrl('*/*/save', ['id' => $this->getRequest()->getParam('id'), 'ret' => Mage::registry('ret')]),
                                         'method' => 'post'
-        ));
+        ]);
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('tag')->__('General Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('tag')->__('General Information')]);
 
         if ($model->getTagId()) {
-            $fieldset->addField('tag_id', 'hidden', array(
+            $fieldset->addField('tag_id', 'hidden', [
                 'name' => 'tag_id',
-            ));
+            ]);
         }
 
-        $fieldset->addField('name', 'text', array(
+        $fieldset->addField('name', 'text', [
             'name' => 'name',
             'label' => Mage::helper('tag')->__('Tag Name'),
             'title' => Mage::helper('tag')->__('Tag Name'),
             'required' => true,
-        ));
+        ]);
 
-        $fieldset->addField('status', 'select', array(
+        $fieldset->addField('status', 'select', [
             'label' => Mage::helper('tag')->__('Status'),
             'title' => Mage::helper('tag')->__('Status'),
             'name' => 'status',
             'required' => true,
-            'options' => array(
+            'options' => [
                 Mage_Tag_Model_Tag::STATUS_DISABLED => Mage::helper('tag')->__('Disabled'),
                 Mage_Tag_Model_Tag::STATUS_PENDING  => Mage::helper('tag')->__('Pending'),
                 Mage_Tag_Model_Tag::STATUS_APPROVED => Mage::helper('tag')->__('Approved'),
-            ),
-        ));
+            ],
+        ]);
 
         $form->setValues($model->getData());
         $form->setUseContainer(true);
-        $form->setAction( $this->getUrl($form->getAction(), array(
+        $form->setAction( $this->getUrl($form->getAction(), [
             'ret' => $this->getRequest()->getParam('ret'),
             'customer_id' => $this->getRequest()->getParam('customer_id'),
             'product_id' => $this->getRequest()->getParam('product_id'),
-        )));
+        ]));
         $this->setForm($form);
         return parent::_prepareForm();
     }

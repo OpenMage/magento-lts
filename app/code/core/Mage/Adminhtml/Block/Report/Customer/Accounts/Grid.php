@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -46,14 +40,17 @@ class Mage_Adminhtml_Block_Report_Customer_Accounts_Grid extends Mage_Adminhtml_
         $this->getCollection()->initReport('reports/accounts_collection');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('accounts', array(
+        $this->addColumn('accounts', [
             'header'    =>Mage::helper('reports')->__('Number of New Accounts'),
             'index'     =>'accounts',
             'total'     =>'sum',
             'type'      =>'number'
-        ));
+        ]);
 
         $this->addExportType('*/*/exportAccountsCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportAccountsExcel', Mage::helper('reports')->__('Excel XML'));

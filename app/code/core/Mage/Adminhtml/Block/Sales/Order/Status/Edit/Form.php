@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -47,7 +41,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Edit_Form extends Mage_Adminhtml_B
         $form->getElement('base_fieldset')->removeField('is_new');
         $form->getElement('base_fieldset')->removeField('status');
         $form->setAction(
-            $this->getUrl('*/sales_order_status/save', array('status'=>$this->getRequest()->getParam('status')))
+            $this->getUrl('*/sales_order_status/save', ['status'=>$this->getRequest()->getParam('status')])
         );
         return $this;
     }

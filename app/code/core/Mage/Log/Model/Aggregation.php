@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Log
@@ -89,12 +83,12 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         while ($date < $end) {
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
-            $data = array(
+            $data = [
                 'store_id'=>$store,
                 'visitor_count'=>$counts['visitors'],
                 'customer_count'=>$counts['customers'],
                 'add_date'=>$this->_date($date)
-                );
+            ];
 
             if ($counts['visitors'] || $counts['customers']) {
                 $this->_save($data, $this->_date($date), $this->_date($to));

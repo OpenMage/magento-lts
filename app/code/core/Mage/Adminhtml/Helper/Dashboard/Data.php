@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -68,13 +62,13 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getDatePeriods()
     {
-        return array(
+        return [
             '24h' => $this->__('Last 24 Hours'),
             '7d'  => $this->__('Last 7 Days'),
             '1m'  => $this->__('Current Month'),
             '1y'  => $this->__('YTD'),
             '2y'  => $this->__('2YTD')
-        );
+        ];
     }
 
     /**

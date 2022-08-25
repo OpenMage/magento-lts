@@ -413,7 +413,7 @@ class Zend_Pdf
     }
 
     /**
-     * Retrive number of revisions.
+     * Retrieve number of revisions.
      *
      * @return integer
      */

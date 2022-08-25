@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -65,28 +59,28 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'sortable'  => false,
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    =>Mage::helper('reports')->__('Price'),
             'width'     =>'120px',
             'type'      =>'currency',
             'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
             'index'     =>'price'
-        ));
+        ]);
 
-        $this->addColumn('views', array(
+        $this->addColumn('views', [
             'header'    =>Mage::helper('reports')->__('Number of Views'),
             'width'     =>'120px',
             'align'     =>'right',
             'sortable'  => false,
             'index'     =>'views'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -96,7 +90,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
 
     public function getRowUrl($row)
     {
-        $params = array('id'=>$row->getId());
+        $params = ['id'=>$row->getId()];
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }

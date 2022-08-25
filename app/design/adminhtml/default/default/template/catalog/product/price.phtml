@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     default_default
@@ -57,7 +51,7 @@ $_exclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax = true);
 ?>
 <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
-<?php if ($_weeeHelper->typeOfDisplay($_product, array(1,2,4))): ?>
+<?php if ($_weeeHelper->typeOfDisplay($_product, [1,2,4])): ?>
     <?php $_weeeTaxAmount = $_weeeHelper->getAmount($_product, null, null, $_website); ?>
     <?php $_weeeTaxAttributes = $_weeeHelper->getProductWeeeAttributesForRenderer($_product, null, null, $_website); ?>
 <?php endif ?>
@@ -361,7 +355,7 @@ $_inclTax = $_taxHelper->getPrice($_product, $_minimalPriceValue, $includingTax 
 <?php if ($this->getDisplayMinimalPrice() && $_minimalPriceValue && $_minimalPriceValue < $_product->getFinalPrice()): ?>
 
     <?php $_minimalPriceDisplayValue = $_minimalPrice; ?>
-    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, array(0, 1, 4))): ?>
+    <?php if ($_weeeTaxAmount && $_weeeHelper->typeOfDisplay($_product, [0, 1, 4])): ?>
         <?php $_minimalPriceDisplayValue = $_minimalPrice+$_weeeTaxAmount; ?>
     <?php endif ?>
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -33,9 +27,9 @@
  */
 class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
 {
-    protected $_mapAttributes = array(
+    protected $_mapAttributes = [
         'customer_id' => 'entity_id'
-    );
+    ];
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -90,10 +84,10 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         }
 
         if (!is_null($attributes) && !is_array($attributes)) {
-            $attributes = array($attributes);
+            $attributes = [$attributes];
         }
 
-        $result = array();
+        $result = [];
 
         foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
             $result[$attributeAlias] = $customer->getData($attributeCode);
@@ -125,11 +119,11 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
-        $result = array();
+        $result = [];
         /** @var Mage_Customer_Model_Customer $customer */
         foreach ($collection as $customer) {
             $data = $customer->toArray();
-            $row  = array();
+            $row  = [];
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = (isset($data[$attributeCode]) ? $data[$attributeCode] : null);
             }

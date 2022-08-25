@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,13 +28,13 @@
 class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('create', 'massDelete'));
+        $this->_setForcedFormKeyActions(['create', 'massDelete']);
         return parent::preDispatch();
     }
 
@@ -165,7 +159,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function downloadAction()
     {
-        /* @var $backup Mage_Backup_Model_Backup */
+        /** @var Mage_Backup_Model_Backup $backup */
         $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
             $this->getRequest()->getParam('time'),
             $this->getRequest()->getParam('type')
@@ -204,7 +198,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
         $response = new Varien_Object();
 
         try {
-            /* @var $backup Mage_Backup_Model_Backup */
+            /** @var Mage_Backup_Model_Backup $backup */
             $backup = Mage::getModel('backup/backup')->loadByTimeAndType(
                 $this->getRequest()->getParam('time'),
                 $this->getRequest()->getParam('type')
@@ -309,17 +303,17 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
      */
     public function massDeleteAction()
     {
-        $backupIds = $this->getRequest()->getParam('ids', array());
+        $backupIds = $this->getRequest()->getParam('ids', []);
 
         if (!is_array($backupIds) || !count($backupIds)) {
             return $this->_redirect('*/*/index');
         }
 
-        /** @var $backupModel Mage_Backup_Model_Backup */
+        /** @var Mage_Backup_Model_Backup $backupModel */
         $backupModel = Mage::getModel('backup/backup');
         $resultData = new Varien_Object();
         $resultData->setIsSuccess(false);
-        $resultData->setDeleteResult(array());
+        $resultData->setDeleteResult([]);
         Mage::register('backup_manager', $resultData);
 
         $deleteFailMessage = Mage::helper('backup')->__('Failed to delete one or several backups.');
@@ -341,7 +335,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
                 }
 
                 $resultData->setDeleteResult(
-                    array_merge($resultData->getDeleteResult(), array($backupModel->getFileName() . ' ' . $result))
+                    array_merge($resultData->getDeleteResult(), [$backupModel->getFileName() . ' ' . $result])
                 );
             }
 
@@ -363,9 +357,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Check Permissions for all actions
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -375,7 +367,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Retrive adminhtml session model
+     * Retrieve adminhtml session model
      *
      * @return Mage_Adminhtml_Model_Session
      */

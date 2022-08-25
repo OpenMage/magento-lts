@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Custom Zend_Controller_Request_Http class (formally)
@@ -53,7 +46,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     protected $_rewritedPathInfo= null;
     protected $_requestedRouteName = null;
-    protected $_routingInfo = array();
+    protected $_routingInfo = [];
 
     protected $_route;
 
@@ -73,7 +66,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      *
      * @var array
      */
-    protected $_beforeForwardInfo = array();
+    protected $_beforeForwardInfo = [];
 
     /**
      * Flag for recognizing if request internally forwarded
@@ -137,7 +130,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         if ($pathInfo === null) {
             $requestUri = $this->getRequestUri();
-            if (null === $requestUri) {
+            if ($requestUri === null) {
                 return $this;
             }
 
@@ -150,12 +143,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             $baseUrl = $this->getBaseUrl();
             $pathInfo = substr($requestUri, strlen($baseUrl));
 
-            if ($baseUrl && $pathInfo && (0 !== stripos($pathInfo, '/'))) {
+            if ($baseUrl && $pathInfo && (stripos($pathInfo, '/') !== 0)) {
                 $pathInfo = '';
                 $this->setActionName('noRoute');
-            } elseif ((null !== $baseUrl) && (false === $pathInfo)) {
+            } elseif (($baseUrl !== null) && ($pathInfo === false)) {
                 $pathInfo = '';
-            } elseif (null === $baseUrl) {
+            } elseif ($baseUrl === null) {
                 $pathInfo = $requestUri;
             }
 
@@ -234,7 +227,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
             if ($names) {
                 $this->_directFrontNames = $names->asArray();
             } else {
-                return array();
+                return [];
             }
         }
         return $this->_directFrontNames;
@@ -308,6 +301,20 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getRouteName()
     {
         return $this->_route;
+    }
+
+    /**
+     * Get the request URI scheme
+     *
+     * @return string
+     */
+    public function getScheme()
+    {
+        return $this->getServer('HTTPS') == 'on'
+          || $this->getServer('HTTP_X_FORWARDED_PROTO') == 'https'
+          || (Mage::isInstalled() && Mage::app()->getStore()->isCurrentlySecure()) ?
+            self::SCHEME_HTTPS :
+            self::SCHEME_HTTP;
     }
 
     /**
@@ -512,12 +519,12 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function initForward()
     {
         if (empty($this->_beforeForwardInfo)) {
-            $this->_beforeForwardInfo = array(
+            $this->_beforeForwardInfo = [
                 'params' => $this->getParams(),
                 'action_name' => $this->getActionName(),
                 'controller_name' => $this->getControllerName(),
                 'module_name' => $this->getModuleName()
-            );
+            ];
         }
 
         return $this;

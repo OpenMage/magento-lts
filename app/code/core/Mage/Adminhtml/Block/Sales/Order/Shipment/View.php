@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,7 +27,9 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Block_Widget_Form_Container
 {
-
+    /**
+     * Mage_Adminhtml_Block_Sales_Order_Shipment_View constructor.
+     */
     public function __construct()
     {
         $this->_objectId    = 'shipment_id';
@@ -55,11 +51,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         }
 
         if ($this->getShipment()->getId()) {
-            $this->_addButton('print', array(
+            $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
                 'class'     => 'save',
                 'onclick'   => 'setLocation(\''.$this->getPrintUrl().'\')'
-                )
+                ]
             );
         }
     }
@@ -74,6 +70,9 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         return Mage::registry('current_shipment');
     }
 
+    /**
+     * @return string
+     */
     public function getHeaderText()
     {
         if ($this->getShipment()->getEmailSent()) {
@@ -85,28 +84,41 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         return Mage::helper('sales')->__('Shipment #%1$s | %3$s (%2$s)', $this->getShipment()->getIncrementId(), $emailSent, $this->formatDate($this->getShipment()->getCreatedAtDate(), 'medium', true));
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl(
             '*/sales_order/view',
-            array(
+            [
                 'order_id'  => $this->getShipment()->getOrderId(),
                 'active_tab'=> 'order_shipments'
-            ));
+            ]);
     }
 
+    /**
+     * @return string
+     */
     public function getEmailUrl()
     {
-        return $this->getUrl('*/sales_order_shipment/email', array('shipment_id'  => $this->getShipment()->getId()));
+        return $this->getUrl('*/sales_order_shipment/email', ['shipment_id'  => $this->getShipment()->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/print', array(
+        return $this->getUrl('*/*/print', [
             'invoice_id' => $this->getShipment()->getId()
-        ));
+        ]);
     }
 
+    /**
+     * @param string $flag
+     * @return $this
+     */
     public function updateBackButtonUrl($flag)
     {
         if ($flag) {

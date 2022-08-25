@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -34,11 +28,11 @@ class Mage_Paypal_Helper_Hss extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_hssMethods = array(
+    protected $_hssMethods = [
         Mage_Paypal_Model_Config::METHOD_HOSTEDPRO,
         Mage_Paypal_Model_Config::METHOD_PAYFLOWLINK,
         Mage_Paypal_Model_Config::METHOD_PAYFLOWADVANCED
-    );
+    ];
 
     /**
      * Get template for button in order review page if HSS method was selected

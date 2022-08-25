@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -35,8 +29,8 @@
 class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Widget_Container
 {
     protected $_objectId = 'id';
-    protected $_formScripts = array();
-    protected $_formInitScripts = array();
+    protected $_formScripts = [];
+    protected $_formInitScripts = [];
     protected $_mode = 'edit';
     protected $_blockGroup = 'adminhtml';
 
@@ -48,20 +42,20 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->setTemplate('widget/form/container.phtml');
         }
 
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => 'setLocation(\'' . $this->getBackUrl() . '\')',
             'class'     => 'back',
-        ), -1);
-        $this->_addButton('reset', array(
+        ], -1);
+        $this->_addButton('reset', [
             'label'     => Mage::helper('adminhtml')->__('Reset'),
             'onclick'   => 'setLocation(window.location.href)',
-        ), -1);
+        ], -1);
 
         $objId = $this->getRequest()->getParam($this->_objectId);
 
         if (! empty($objId)) {
-            $this->_addButton('delete', array(
+            $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
                 'onclick'   => 'deleteConfirm(\''
@@ -71,14 +65,14 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
                     .'\', \''
                     . $this->getDeleteUrl()
                     . '\')',
-            ));
+            ]);
         }
 
-        $this->_addButton('save', array(
+        $this->_addButton('save', [
             'label'     => Mage::helper('adminhtml')->__('Save'),
             'onclick'   => 'editForm.submit();',
             'class'     => 'save',
-        ), 1);
+        ], 1);
     }
 
     protected function _prepareLayout()
@@ -108,10 +102,10 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
 
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', array(
+        return $this->getUrl('*/*/delete', [
             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
             Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()
-        ));
+        ]);
     }
 
     /**

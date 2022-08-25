@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -58,7 +52,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @var array
      */
-    protected $_requiredFields;
+    protected $_requiredFields = [];
 
     /**
      * Construct. Set all depends.
@@ -81,7 +75,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
             self::CONFIG_NODE_KEY
         );
         if (!is_array($validationConfig)) {
-            $validationConfig = array();
+            $validationConfig = [];
         }
         $this->_buildValidatorsChain($validationConfig);
     }
@@ -100,7 +94,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                 $chainForOneField = new Zend_Validate();
                 foreach ($validatorsConfig as $validatorName => $validatorConfig) {
                     // it is required field
-                    if ('required' == $validatorName && 1 == $validatorConfig) {
+                    if ($validatorName == 'required' && $validatorConfig == 1) {
                         $this->_requiredFields[] = $field;
                         continue;
                     }
@@ -110,7 +104,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     }
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
-                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : array()
+                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : []
                     );
                     // set custom message
                     if (isset($validatorConfig['message'])) {
@@ -172,7 +166,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         // fields rules
         foreach ($data as $field => $value) {
             if (isset($this->_validators[$field])) {
-                /* @var Zend_Validate_Interface $validator */
+                /** @var Zend_Validate_Interface $validator */
                 $validator = $this->_validators[$field];
                 if (!$validator->isValid($value)) {
                     $isValid = false;

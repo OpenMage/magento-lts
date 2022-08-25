@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Index
@@ -64,7 +58,7 @@ class Mage_Index_Model_Indexer
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class constructor. Initialize index processes based on configuration
@@ -127,8 +121,8 @@ class Mage_Index_Model_Indexer
      */
     public function getProcessesCollectionByCodes(array $codes)
     {
-        $processes = array();
-        $this->_errors = array();
+        $processes = [];
+        $this->_errors = [];
         foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
@@ -213,14 +207,14 @@ class Mage_Index_Model_Indexer
 
         $allowTableChanges = $this->_allowTableChanges && !$resourceModel->isInTransaction();
         if ($allowTableChanges) {
-            $this->_currentEvent = array($entity, $type);
+            $this->_currentEvent = [$entity, $type];
             $this->_changeKeyStatus(false);
         }
 
         $resourceModel->beginTransaction();
         $this->_allowTableChanges = false;
         try {
-            $this->_runAll('indexEvents', array($entity, $type));
+            $this->_runAll('indexEvents', [$entity, $type]);
             $resourceModel->commit();
         } catch (Exception $e) {
             $resourceModel->rollBack();
@@ -243,7 +237,7 @@ class Mage_Index_Model_Indexer
      */
     public function indexEvent(Mage_Index_Model_Event $event)
     {
-        $this->_runAll('safeProcessEvent', array($event));
+        $this->_runAll('safeProcessEvent', [$event]);
         return $this;
     }
 
@@ -255,7 +249,7 @@ class Mage_Index_Model_Indexer
      */
     public function registerEvent(Mage_Index_Model_Event $event)
     {
-        $this->_runAll('register', array($event));
+        $this->_runAll('register', [$event]);
         return $this;
     }
 
@@ -343,12 +337,11 @@ class Mage_Index_Model_Indexer
      *
      * @param string $method
      * @param array $args
-     * @return void
      */
     protected function _runAll($method, $args)
     {
         $checkLocks = $method != 'register';
-        $processed = array();
+        $processed = [];
         foreach ($this->getProcessesCollection() as $process) {
             $code = $process->getIndexerCode();
             if (in_array($code, $processed)) {
@@ -363,7 +356,7 @@ class Mage_Index_Model_Indexer
                         if ($checkLocks && $dependProcess->isLocked()) {
                             $hasLocks = true;
                         } else {
-                            call_user_func_array(array($dependProcess, $method), $args);
+                            call_user_func_array([$dependProcess, $method], $args);
                             if ($checkLocks && $dependProcess->getMode() == Mage_Index_Model_Process::MODE_MANUAL) {
                                 $hasLocks = true;
                             } else {
@@ -375,7 +368,7 @@ class Mage_Index_Model_Indexer
             }
 
             if (!$hasLocks) {
-                call_user_func_array(array($process, $method), $args);
+                call_user_func_array([$process, $method], $args);
                 $processed[] = $code;
             }
         }
@@ -389,7 +382,7 @@ class Mage_Index_Model_Indexer
      */
     protected function _changeKeyStatus($enable = true)
     {
-        $processed = array();
+        $processed = [];
         foreach ($this->getProcessesCollection() as $process) {
             $code = $process->getIndexerCode();
             if (in_array($code, $processed)) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -53,13 +47,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
             return $this;
         }
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Newsletter Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Newsletter Information')]);
 
         $fieldset->addField('subscription', 'checkbox',
-             array(
+             [
                     'label' => Mage::helper('customer')->__('Subscribed to Newsletter?'),
                     'name'  => 'subscription'
-             )
+             ]
         );
 
         if ($customer->isReadonly()) {
@@ -70,11 +64,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter extends Mage_Adminhtml_B
 
         if($changedDate = $this->getStatusChangedDate()) {
              $fieldset->addField('change_status_date', 'label',
-                 array(
+                 [
                         'label' => $subscriber->isSubscribed() ? Mage::helper('customer')->__('Last Date Subscribed') : Mage::helper('customer')->__('Last Date Unsubscribed'),
                         'value' => $changedDate,
                         'bold'  => true
-                 )
+                 ]
             );
         }
 

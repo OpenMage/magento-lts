@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -41,7 +35,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
     {
         parent::_construct();
         $this->setId('widgetInstanceGrid');
-        $this->setDefaultSort('instance_id');
+        $this->setDefaultSort('title');
         $this->setDefaultDir('ASC');
     }
 
@@ -52,7 +46,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     protected function _prepareCollection()
     {
-        /* @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
+        /** @var Mage_Widget_Model_Mysql4_Widget_Instance_Collection $collection */
         $collection = Mage::getModel('widget/widget_instance')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -65,40 +59,40 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('instance_id', array(
+        $this->addColumn('instance_id', [
             'header'    => Mage::helper('widget')->__('Widget ID'),
             'align'     => 'left',
             'index'     => 'instance_id',
-        ));
+        ]);
 
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    => Mage::helper('widget')->__('Widget Instance Title'),
             'align'     => 'left',
             'index'     => 'title',
-        ));
+        ]);
 
-        $this->addColumn('type', array(
+        $this->addColumn('type', [
             'header'    => Mage::helper('widget')->__('Type'),
             'align'     => 'left',
             'index'     => 'instance_type',
             'type'      => 'options',
             'options'   => $this->getTypesOptionsArray()
-        ));
+        ]);
 
-        $this->addColumn('package_theme', array(
+        $this->addColumn('package_theme', [
             'header'    => Mage::helper('widget')->__('Design Package/Theme'),
             'align'     => 'left',
             'index'     => 'package_theme',
             'type'      => 'theme',
             'with_empty' => true,
-        ));
+        ]);
 
-        $this->addColumn('sort_order', array(
+        $this->addColumn('sort_order', [
             'header'    => Mage::helper('widget')->__('Sort Order'),
             'width'     => '100',
             'align'     => 'center',
             'index'     => 'sort_order',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -110,7 +104,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     public function getTypesOptionsArray()
     {
-        $widgets = array();
+        $widgets = [];
         $widgetsOptionsArr = Mage::getModel('widget/widget_instance')->getWidgetsOptionArray();
         foreach ($widgetsOptionsArr as $widget) {
             $widgets[$widget['value']] = $widget['label'];
@@ -125,7 +119,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     public function getPackageThemeOptionsArray()
     {
-        $packageThemeArray = array();
+        $packageThemeArray = [];
         $packageThemeOptions = Mage::getModel('core/design_source_design')
             ->setIsFullLabel(true)->getAllOptions(false);
         foreach ($packageThemeOptions as $item) {
@@ -148,6 +142,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Grid extends Mage_Adminhtml_Bl
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('instance_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['instance_id' => $row->getId()]);
     }
 }

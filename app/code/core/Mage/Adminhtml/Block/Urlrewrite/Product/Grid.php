@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -51,32 +45,32 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('ID'),
                 'width' => 50,
                 'index' => 'entity_id',
-        ));
+            ]);
 
         $this->addColumn('name',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('Name'),
                 'index' => 'name',
-        ));
+            ]);
 
         $this->addColumn('sku',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
-        ));
+            ]);
         $this->addColumn('status',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('Status'),
                 'width' => 50,
                 'index' => 'status',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-        ));
+            ]);
         return $this;
     }
 
@@ -87,7 +81,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/productGrid', array('_current' => true));
+        return $this->getUrl('*/*/productGrid', ['_current' => true]);
     }
 
     /**
@@ -97,6 +91,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('product' => $row->getId())) . 'category';
+        return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';
     }
 }

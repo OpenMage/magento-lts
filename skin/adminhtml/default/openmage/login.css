@@ -17,37 +17,25 @@
 
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Light.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), url("fonts/opensans/OpenSans-Light.woff") format("woff"), url("fonts/opensans/OpenSans-Light.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Regular.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), url("fonts/opensans/OpenSans-Regular.woff") format("woff"), url("fonts/opensans/OpenSans-Regular.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-Bold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), url("fonts/opensans/OpenSans-Bold.woff") format("woff"), url("fonts/opensans/OpenSans-Bold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url("fonts/opensans/OpenSans-SemiBold.eot");
-  /* IE9 Compat Modes */
-  src: url("fonts/opensans/OpenSans-SemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2");
-  /* Modern Browsers */
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2"); /* Modern Browsers */
   font-weight: 600;
   font-style: normal;
 }
@@ -69,12 +57,12 @@ body {
   background: #e6e6e6;
   color: #2f2f2f;
   font: 400 12px/1.33 Open Sans, sans-serif;
-  background: #ebedef;
+  background: hsl(205deg, 11%, 93%);
   font-size: 13px;
   overflow-x: hidden;
 }
 body#page-login {
-  background-color: #3d4f5c;
+  background-color: hsl(205deg, 20%, 30%);
   background-image: url(images/login_background.jpg);
   background-repeat: no-repeat;
   background-position: center top;
@@ -188,8 +176,6 @@ input.input-text:disabled {
 }
 .login-container .legal {
   margin: 0;
-  background: url(images/logo-magento.png) no-repeat;
-  padding: 8px 8px 5px 8px;
   font-size: 0.95em;
   background: none;
   padding: 0;
@@ -199,7 +185,7 @@ input.input-text:disabled {
   bottom: 30px;
   left: 0;
   width: 100%;
-  color: white;
+  color: hsl(0deg, 0%, 100%);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -207,7 +193,7 @@ input.input-text:disabled {
   padding: 27px 57px 35px;
   background: url(images/icon-error.png) no-repeat;
   text-align: left;
-  background: white;
+  background: hsl(0deg, 0%, 100%);
   border: none;
   padding: 40px 50px;
   box-shadow: 0 30px 150px rgba(0, 0, 0, 0.5);

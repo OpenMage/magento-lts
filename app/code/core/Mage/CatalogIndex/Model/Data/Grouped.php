@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,7 +19,7 @@
  */
 
 /**
- * Grouped product data retreiver
+ * Grouped product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -57,7 +51,7 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
     }
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */
@@ -73,11 +67,11 @@ class Mage_CatalogIndex_Model_Data_Grouped extends Mage_CatalogIndex_Model_Data_
      */
     protected function _getLinkSettings()
     {
-        return array(
+        return [
                     'table'=>'catalog/product_link',
                     'parent_field'=>'product_id',
                     'child_field'=>'linked_product_id',
-                    'additional'=>array('link_type_id'=>Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED)
-                    );
+                    'additional'=> ['link_type_id'=>Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED]
+        ];
     }
 }

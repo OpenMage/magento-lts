@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Data
@@ -42,7 +36,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Varien_Data_Form_Element_Editor constructor.
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         parent::__construct($attributes);
 
@@ -145,7 +139,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             return $html;
         } else {
             // Display only buttons to additional features
-            if ($this->getConfig('widget_window_url')) {
+            if ($this->getConfig('widget_window_url') || $this->getConfig('plugins') || $this->getConfig('add_images')) {
                 $html = $this->_getButtonsHtml() . $js . parent::getElementHtml();
                 $html = $this->_wrapIntoContainer($html);
                 return $html;
@@ -227,15 +221,15 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
             $buttonsHtml .= $this->_getButtonHtml(array(
                 'title'     => $this->translate('Insert Image...'),
                 'onclick'   => "MediabrowserUtility.openDialog('" .
-                               $this->getConfig('files_browser_window_url') .
-                               "target_element_id/" . $this->getHtmlId() . "/" .
-                                ((null !== $this->getConfig('store_id'))
-                                    ? ('store/' . $this->getConfig('store_id') . '/')
-                                    : '')
-                               . "')",
-            'class'     => 'add-image plugin',
-            'style'     => $visible ? '' : 'display:none',
-        ));
+                                   $this->getConfig('files_browser_window_url') .
+                                   "target_element_id/" . $this->getHtmlId() . "/" .
+                                   ((null !== $this->getConfig('store_id'))
+                                       ? ('store/' . $this->getConfig('store_id') . '/')
+                                       : '') .
+                               "')",
+                'class'     => 'add-image plugin',
+                'style'     => $visible ? '' : 'display:none',
+            ));
         }
 
         foreach ($this->getConfig('plugins') as $plugin) {
@@ -380,7 +374,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     public function translate($string)
     {
         $translator = $this->getConfig('translator');
-        if (method_exists($translator, '__')) {
+        if ($translator && method_exists($translator, '__')) {
             $result = $translator->__($string);
             if (is_string($result)) {
                 return $result;

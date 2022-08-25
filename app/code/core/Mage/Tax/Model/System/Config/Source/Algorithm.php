@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -30,20 +24,20 @@ class Mage_Tax_Model_System_Config_Source_Algorithm
 
     public function __construct()
     {
-        $this->_options = array(
-            array(
+        $this->_options = [
+            [
                 'value' => Mage_Tax_Model_Calculation::CALC_UNIT_BASE,
                 'label' => Mage::helper('tax')->__('Unit Price')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Tax_Model_Calculation::CALC_ROW_BASE,
                 'label' => Mage::helper('tax')->__('Row Total')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Tax_Model_Calculation::CALC_TOTAL_BASE,
                 'label' => Mage::helper('tax')->__('Total')
-            ),
-        );
+            ],
+        ];
     }
 
     /**

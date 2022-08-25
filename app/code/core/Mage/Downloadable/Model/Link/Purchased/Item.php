@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -77,10 +71,6 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
     const LINK_STATUS_PAYMENT_REVIEW = 'payment_review';
 
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->_init('downloadable/link_purchased_item');
@@ -94,7 +84,7 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
      */
     public function _beforeSave()
     {
-        if (null == $this->getOrderItemId()) {
+        if ($this->getOrderItemId() == null) {
             throw new Exception(
                 Mage::helper('downloadable')->__('Order item id cannot be null')
             );

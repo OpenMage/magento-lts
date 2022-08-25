@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -55,7 +49,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
     {
         $currencies = $this->getData('currencies');
         if (is_null($currencies)) {
-            $currencies = array();
+            $currencies = [];
             $codes = Mage::app()->getStore()->getAvailableCurrencyCodes(true);
             if (is_array($codes) && count($codes) > 1) {
                 $rates = Mage::getModel('directory/currency')->getCurrencyRates(
@@ -94,7 +88,7 @@ class Mage_Directory_Block_Currency extends Mage_Core_Block_Template
      */
     public function getSwitchCurrencyUrl($code)
     {
-        return Mage::helper('directory/url')->getSwitchCurrencyUrl(array('currency' => $code));
+        return Mage::helper('directory/url')->getSwitchCurrencyUrl(['currency' => $code]);
     }
 
     /**

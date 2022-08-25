@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -51,11 +45,12 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      *
      * @return IteratorIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         $adapter = $this->_getWriteAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('data'))
+            ->from($this->getMainTable(), ['data'])
             ->order('id ASC');
         $stmt = $adapter->query($select);
 
@@ -92,7 +87,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $behaviors = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), array('behavior'))
+                ->from($this->getMainTable(), ['behavior'])
         ));
         if (count($behaviors) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: behaviors are mixed'));
@@ -111,7 +106,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
         $adapter = $this->_getReadAdapter();
         $entityCodes = array_unique($adapter->fetchCol(
             $adapter->select()
-                ->from($this->getMainTable(), array('entity'))
+                ->from($this->getMainTable(), ['entity'])
         ));
         if (count($entityCodes) != 1) {
             Mage::throwException(Mage::helper('importexport')->__('Error in data structure: entity codes are mixed'));
@@ -126,7 +121,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
      */
     public function getNextBunch()
     {
-        if (null === $this->_iterator) {
+        if ($this->_iterator === null) {
             $this->_iterator = $this->getIterator();
             $this->_iterator->rewind();
         }
@@ -153,7 +148,7 @@ class Mage_ImportExport_Model_Resource_Import_Data extends Mage_Core_Model_Resou
     {
         return $this->_getWriteAdapter()->insert(
             $this->getMainTable(),
-            array('behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data))
+            ['behavior' => $behavior, 'entity' => $entity, 'data' => Mage::helper('core')->jsonEncode($data)]
         );
     }
 }

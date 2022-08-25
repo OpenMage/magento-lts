@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -45,17 +39,17 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
-        $pricesFilterKeys = array('price_id', 'all_groups', 'website_price');
+        $pricesFilterKeys = ['price_id', 'all_groups', 'website_price'];
         $groupPrice = $product->getData('group_price');
         $product->setData('group_price', $this->_filterOutArrayKeys($groupPrice, $pricesFilterKeys, true));
         $tierPrice = $product->getData('tier_price');
         $product->setData('tier_price', $this->_filterOutArrayKeys($tierPrice, $pricesFilterKeys, true));
 
         $stockData = $product->getStockItem()->getData();
-        $stockDataFilterKeys = array('item_id', 'product_id', 'stock_id', 'low_stock_date', 'type_id',
+        $stockDataFilterKeys = ['item_id', 'product_id', 'stock_id', 'low_stock_date', 'type_id',
             'stock_status_changed_auto', 'stock_status_changed_automatically', 'product_name', 'store_id',
             'product_type_id', 'product_status_changed', 'product_changed_websites',
-            'use_config_enable_qty_increments');
+            'use_config_enable_qty_increments'];
         $product->setData('stock_data', $this->_filterOutArrayKeys($stockData, $stockDataFilterKeys));
         $product->setData('product_type_name', $product->getTypeId());
     }
@@ -104,8 +98,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         ));
         $this->_applyCategoryFilter($collection);
         $this->_applyCollectionModifiers($collection);
-        $products = $collection->load()->toArray();
-        return $products;
+        return $collection->load()->toArray();
     }
 
     /**
@@ -134,10 +127,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _create(array $data)
     {
-        /* @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
-        $validator = Mage::getModel('catalog/api2_product_validator_product', array(
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        $validator = Mage::getModel('catalog/api2_product_validator_product', [
             'operation' => self::OPERATION_CREATE
-        ));
+        ]);
 
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -195,13 +188,12 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _update(array $data)
     {
-        /** @var Mage_Catalog_Model_Product $product */
         $product = $this->_getProduct();
-        /* @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
-        $validator = Mage::getModel('catalog/api2_product_validator_product', array(
+        /** @var Mage_Catalog_Model_Api2_Product_Validator_Product $validator */
+        $validator = Mage::getModel('catalog/api2_product_validator_product', [
             'operation' => self::OPERATION_UPDATE,
             'product'   => $product
-        ));
+        ]);
 
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
@@ -276,15 +268,15 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             }
             $this->_filterStockData($productData['stock_data']);
         } else {
-            $productData['stock_data'] = array(
+            $productData['stock_data'] = [
                 'use_config_manage_stock' => 1,
                 'use_config_min_sale_qty' => 1,
                 'use_config_max_sale_qty' => 1,
-            );
+            ];
         }
         $product->setStockData($productData['stock_data']);
         // save gift options
-        $this->_filterConfigValueUsed($productData, array('gift_message_available', 'gift_wrapping_available'));
+        $this->_filterConfigValueUsed($productData, ['gift_message_available', 'gift_wrapping_available']);
         if (isset($productData['use_config_gift_message_available'])) {
             $product->setData('use_config_gift_message_available', $productData['use_config_gift_message_available']);
             if (!$productData['use_config_gift_message_available']
@@ -328,7 +320,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             }
 
             if ($this->_isAllowedAttribute($attribute)) {
-                if (isset($productData[$attribute->getAttributeCode()])) {
+                if (array_key_exists($attribute->getAttributeCode(), $productData)) {
                     $product->setData(
                         $attribute->getAttributeCode(),
                         $productData[$attribute->getAttributeCode()]
@@ -345,8 +337,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
      */
     protected function _filterStockData(&$stockData)
     {
-        $fieldsWithPossibleDefautlValuesInConfig = array('manage_stock', 'min_sale_qty', 'max_sale_qty', 'backorders',
-            'qty_increments', 'notify_stock_qty', 'min_qty', 'enable_qty_increments');
+        $fieldsWithPossibleDefautlValuesInConfig = ['manage_stock', 'min_sale_qty', 'max_sale_qty', 'backorders',
+            'qty_increments', 'notify_stock_qty', 'min_qty', 'enable_qty_increments'];
         $this->_filterConfigValueUsed($stockData, $fieldsWithPossibleDefautlValuesInConfig);
 
         if ($this->_isManageStockEnabled($stockData)) {
@@ -360,8 +352,8 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 $stockData['is_decimal_divided'] = 0;
             }
         } else {
-            $nonManageStockFields = array('manage_stock', 'use_config_manage_stock', 'min_sale_qty',
-                'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty');
+            $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
+                'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
             foreach ($stockData as $field => $value) {
                 if (!in_array($field, $nonManageStockFields)) {
                     unset($stockData[$field]);
