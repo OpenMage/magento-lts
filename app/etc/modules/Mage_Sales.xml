@@ -25,10 +25,10 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Rule/>
                 <Mage_Catalog/>
                 <Mage_Customer/>
                 <Mage_Payment/>
+                <Mage_Rule/>
             </depends>
         </Mage_Sales>
     </modules>

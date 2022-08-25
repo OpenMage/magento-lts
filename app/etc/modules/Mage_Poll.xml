@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core/>
                 <Mage_Cms/>
+                <Mage_Core/>
             </depends>
         </Mage_Poll>
     </modules>

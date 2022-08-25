@@ -26,8 +26,8 @@
             <codePool>core</codePool>
             <depends>
                 <Mage_Catalog/>
-                <Mage_Eav/>
                 <Mage_CatalogRule/>
+                <Mage_Eav/>
             </depends>
         </Mage_CatalogIndex>
     </modules>

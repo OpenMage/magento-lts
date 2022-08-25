@@ -25,9 +25,9 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Eav/>
-                <Mage_Dataflow/>
                 <Mage_Cms/>
+                <Mage_Dataflow/>
+                <Mage_Eav/>
                 <Mage_Index/>
             </depends>
         </Mage_Catalog>

@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Sales/>
                 <Mage_Payment/>
+                <Mage_Sales/>
                 <Mage_Usa/>
             </depends>
         </Mage_GoogleCheckout>

@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Customer/>
                 <Mage_Catalog/>
+                <Mage_Customer/>
             </depends>
         </Mage_Wishlist>
     </modules>

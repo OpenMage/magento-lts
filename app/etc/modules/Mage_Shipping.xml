@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core/>
                 <Mage_Catalog/>
+                <Mage_Core/>
             </depends>
         </Mage_Shipping>
     </modules>
