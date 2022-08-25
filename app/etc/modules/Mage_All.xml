@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+==================================================================================================================
+[1]  Why are there no modules in this file anymore?
+==================================================================================================================
+    There were lots of core modules in Mage_All.xml (but not all, as 'Mage_All' would suggest) in unsorted order
+    with unsorted dependencies on other modules. In order to create definiteness and clarity here, the modules
+    contained in this file have been split into separate module XML files and with dependencies sorted.
+    The loading order is unchanged because it was recorded here and can now be traced there:
+    \Mage_Core_Model_Config::MAGE_MODULES
+
+    If you are interested, you can read more here:
+    https://github.com/OpenMage/magento-lts/pull/2455
+
+==================================================================================================================
+[2]  Is this file still needed at all?
+==================================================================================================================
+    No, this file can be safely removed. You can just delete it.
+
+==================================================================================================================
+[3]  Why does this file still exist if it can be safely removed?
+==================================================================================================================
+    There are several ways to update OpenMage. One of them is to download the latest release and just unzip it
+    in the project root. If this method was chosen and additional changes were made to Mage_All.xml, problems
+    could arise if Mage_All.xml had been deleted from OpenMage immediately. So the decision was made to keep
+    this file in the repo for a while without any modules inside.
+
+==================================================================================================================
+[4]  What are the future plans for this file?
+==================================================================================================================
+    There are already ideas to advance the decoupling of the core modules in further PRs and discussions:
+      * Mandatory modules that OpenMage depends on to run could be grouped in a file called Mage_Require.xml.
+      * Maybe there is a better way to control the loading order of the modules than the current one,
+        which should be investigated further.
+      * Mage_All.xml should be deleted from the repository.
+
+    This file is located here without any modules inside since OpenMage v19.4.18/v20.0.16.
+
+==================================================================================================================
+[5]  Do you need my help? Can I contribute my ideas and/or code?
+==================================================================================================================
+    Yes, of course. Any contribution is welcome. :)
+    https://github.com/OpenMage/magento-lts/
+-->
+<config/>
