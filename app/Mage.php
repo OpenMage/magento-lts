@@ -1060,4 +1060,29 @@ final class Mage
     {
 
     }
+    
+    public static function printDebugBacktrace() {
+        $output     = "";
+        $stacks     = debug_backtrace();
+
+        foreach($stacks as $_stack) {
+            if (!isset($_stack['file'])) $_stack['file'] = '[PHP Kernel]';
+            if (!isset($_stack['line'])) $_stack['line'] = '';
+
+            $output .=  $_stack["file"]." ; ".$_stack["line"]." ; ".$_stack["function"]."\n";
+        }
+        return $output;
+    }
+    
+    /*
+    * Print out the value
+    */
+    public static function depura($mixed_var) {
+        $html = '<pre>';
+        $html .= '<div style="display: list-item;font-size: 14px; font-weight: bold; color: #FF0000; background-color: #FFFFCC; border: 1px dotted #000000;" align="left">';
+        $html .= print_r($mixed_var, true);
+        $html .= '</div>';
+        $html .= '</pre>';
+        echo $html;
+    }
 }
