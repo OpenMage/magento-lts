@@ -372,9 +372,9 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             }
 
             if (in_array($attrInstance->getFrontendClass(), $this->_castToIntMap)) {
-                $orderExpr = Mage::getResourceHelper('eav')->getCastToIntExpression(
-                    $this->_prepareOrderExpression($orderExpr)
-                );
+                /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+                $helper = Mage::getResourceHelper('eav');
+                $orderExpr = $helper->getCastToIntExpression($this->_prepareOrderExpression($orderExpr));
             }
 
             $orderExpr .= ' ' . $dir;
@@ -1117,7 +1117,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
                 $attributeTypes[$table]
             );
         }
-        $selectGroups = Mage::getResourceHelper('eav')->getLoadAttributesSelectGroups($selects);
+
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('eav');
+        $selectGroups = $helper->getLoadAttributesSelectGroups($selects);
         foreach ($selectGroups as $selects) {
             if (!empty($selects)) {
                 try {
@@ -1168,6 +1171,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      */
     protected function _addLoadAttributesSelectValues($select, $table, $type)
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('eav');
         $select->columns([
             'value' => $helper->prepareEavAttributeValue($table. '.value', $type),
@@ -1328,7 +1332,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         /**
          * process join type
          */
-        $joinMethod = ($joinType == 'left') ? 'joinLeft' : 'join';
+        $joinMethod = ($joinType === 'left') ? 'joinLeft' : 'join';
 
         $this->_joinAttributeToSelect($joinMethod, $attribute, $attrTable, $condArr, $attributeCode, $attrFieldName);
 
@@ -1509,6 +1513,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
     public function _prepareSelect(Varien_Db_Select $select)
     {
         if ($this->_useAnalyticFunction) {
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('core');
             return $helper->getQueryUsingAnalyticFunction($select);
         }

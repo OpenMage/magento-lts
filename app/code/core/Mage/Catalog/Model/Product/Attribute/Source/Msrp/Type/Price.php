@@ -68,7 +68,9 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
             $column['type']     = $attributeType;
             $column['is_null']  = true;
         } else {
-            $column['type']     = Mage::getResourceHelper('eav')->getDdlTypeByColumnType($attributeType);
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('eav');
+            $column['type']     = $helper->getDdlTypeByColumnType($attributeType);
             $column['nullable'] = true;
         }
 
