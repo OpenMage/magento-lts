@@ -490,7 +490,6 @@ $table = $installer->getConnection()
     ->setOption('type', 'MEMORY');
 $installer->getConnection()->createTable($table);
 
-
 /**
  * Add attributes to the eav/attribute table
  */

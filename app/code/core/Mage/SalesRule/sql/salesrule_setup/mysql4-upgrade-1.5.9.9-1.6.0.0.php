@@ -90,7 +90,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_SALESRULE_PRODUCT_ATTRIBUTE_WEBSITE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -198,7 +197,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('salesrule/product_attribute'),
     'IDX_ATTRIBUTE'
 );
-
 
 /**
  * Change columns
@@ -679,7 +677,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -815,7 +812,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('salesrule/product_attribute', ['attribute_id']),
     ['attribute_id']
 );
-
 
 /**
  * Add foreign keys

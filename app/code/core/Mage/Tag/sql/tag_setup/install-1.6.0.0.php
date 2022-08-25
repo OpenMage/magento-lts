@@ -276,5 +276,4 @@ $table = $installer->getConnection()
     ->setComment('Tag Properties');
 $installer->getConnection()->createTable($table);
 
-
 $installer->endSetup();

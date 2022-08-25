@@ -29,7 +29,6 @@
 class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Block_Widget
 {
 
-
     public function __construct()
     {
         parent::__construct();
@@ -49,7 +48,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
@@ -59,7 +57,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     ]
                 )
         );
-
 
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -83,7 +80,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
@@ -106,7 +102,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     ]
                 )
         );
-
 
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -141,7 +136,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('form',
             $this->getLayout()->createBlock('adminhtml/system_email_template_edit_form')
         );
@@ -157,7 +151,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     {
         return $this->getChildHtml('toggle_button');
     }
-
 
     public function getResetButtonHtml()
     {
@@ -217,7 +210,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
 
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
-
 
     /**
      * Return form block HTML

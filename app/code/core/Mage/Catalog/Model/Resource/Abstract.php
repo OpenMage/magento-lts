@@ -92,8 +92,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         return parent::_isCallableAttributeInstance($instance, $method, $args);
     }
 
-
-
     /**
      * Retrieve select object for loading entity attributes values
      * Join attribute store value

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource model for category product indexer
  *
@@ -430,7 +429,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
 
         return $this;
     }
-
 
     /**
      * Rebuild index for direct associations categories and products
@@ -888,7 +886,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     )
                 .')';
 
-
                 $select = $idxAdapter->select()
                 ->useStraightJoin(true)
                 ->distinct(true)
@@ -989,7 +986,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         }
         return $this;
     }
-
 
     /**
      * Create temporary table with enabled products visibility info
@@ -1104,7 +1100,6 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
 
         return $this->_storesInfo;
     }
-
 
     /**
      * @param int $storeId

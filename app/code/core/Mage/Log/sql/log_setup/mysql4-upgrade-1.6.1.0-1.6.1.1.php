@@ -43,7 +43,6 @@ $installer->getConnection()->changeColumn(
     'varbinary(16)'
 );
 
-
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_info'),
     [
@@ -51,14 +50,12 @@ $installer->getConnection()->update(
     ]
 );
 
-
 $installer->getConnection()->changeColumn(
     $installer->getTable('log/visitor_online'),
     'remote_addr',
     'remote_addr',
     'varbinary(16)'
 );
-
 
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_online'),

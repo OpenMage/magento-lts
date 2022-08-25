@@ -157,7 +157,6 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         return $this->getNode('resources_alias')->children();
     }
 
-
     /**
      * Load Acl resources from config
      *

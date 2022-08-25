@@ -46,7 +46,6 @@ class Mage_Api2_Model_Request_Interpreter_Json implements Mage_Api2_Model_Reques
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
-
         if ($body != 'null' && $decoded === null) {
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }

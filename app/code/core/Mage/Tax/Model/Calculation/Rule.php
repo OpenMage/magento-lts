@@ -185,7 +185,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
 
-
     /**
      * Fetches rules by rate, customer tax class and product tax class
      * and product tax class combination

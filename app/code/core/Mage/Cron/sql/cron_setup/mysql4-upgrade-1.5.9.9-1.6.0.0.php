@@ -35,7 +35,6 @@ $installer->getConnection()->dropIndex(
     'SCHEDULED_AT'
 );
 
-
 /**
  * Change columns
  */
@@ -92,7 +91,6 @@ $tables = [
 ];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes

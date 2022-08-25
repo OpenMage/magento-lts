@@ -30,7 +30,6 @@ $connection = $installer->getConnection()->dropForeignKey(
     'FK_ADMIN_RULE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -58,7 +57,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('admin/user'),
     'UNQ_ADMIN_USER_USERNAME'
 );
-
 
 /**
  * Change columns
@@ -269,7 +267,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -307,7 +304,6 @@ $installer->getConnection()->addIndex(
     ['username'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
-
 
 /**
  * Add foreign keys

@@ -126,7 +126,6 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
         return $this->_cacheKeyInfo;
     }
 
-
     /**
      * @return string
      */

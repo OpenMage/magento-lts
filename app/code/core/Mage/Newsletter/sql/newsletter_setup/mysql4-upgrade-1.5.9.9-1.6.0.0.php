@@ -65,7 +65,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_QUEUE_LINK_QUEUE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -128,7 +127,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('newsletter/template'),
     'MODIFIED_AT'
 );
-
 
 /**
  * Change columns
@@ -405,7 +403,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -480,7 +477,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('newsletter/template', ['modified_at']),
     ['modified_at']
 );
-
 
 /**
  * Add foreign keys

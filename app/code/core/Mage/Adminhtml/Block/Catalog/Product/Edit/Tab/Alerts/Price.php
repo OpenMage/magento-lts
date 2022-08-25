@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sign up for an alert when the product price changes grid
  *
@@ -67,7 +66,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Price extends Mage_Ad
             'header'    => Mage::helper('catalog')->__('Middle Name'),
             'index'     => 'middlename',
         ]);
-
 
         $this->addColumn('lastname', [
             'header'    => Mage::helper('catalog')->__('Last Name'),

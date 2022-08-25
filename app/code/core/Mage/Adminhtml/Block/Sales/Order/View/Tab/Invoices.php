@@ -127,7 +127,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Invoices
         return $this->getUrl('*/*/invoices', ['_current' => true]);
     }
 
-
     /**
      * ######################## TAB settings #################################
      */

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog EAV collection resource abstract model
  * Implement using diferent stores for retrieve attribute values

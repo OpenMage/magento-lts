@@ -21,7 +21,6 @@
 /** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
-
 $installer->startSetup();
 
 $installer->getConnection()->changeColumn(

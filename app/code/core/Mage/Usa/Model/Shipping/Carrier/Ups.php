@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * UPS shipping implementation
  *
@@ -218,7 +217,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             ));
         }
 
-
         if ($request->getDestCountryId()) {
             $destCountry = $request->getDestCountryId();
         } else {
@@ -416,7 +414,6 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
         else
             return false;
     }
-
 
     /**
      * Prepare shipping rate result based on response

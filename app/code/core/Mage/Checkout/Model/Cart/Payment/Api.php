@@ -187,7 +187,6 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
             $payment = $quote->getPayment();
             $payment->importData($paymentData);
 
-
             $quote->setTotalsCollectedFlag(false)
                 ->collectTotals()
                 ->save();

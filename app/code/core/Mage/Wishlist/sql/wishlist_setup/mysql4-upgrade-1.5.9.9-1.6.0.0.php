@@ -50,7 +50,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_WISHLIST_ITEM_OPTION_ITEM_ID'
 );
 
-
 /**
  * Drop indexes
  */
@@ -83,7 +82,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('wishlist/item_option'),
     'FK_WISHLIST_ITEM_OPTION_ITEM_ID'
 );
-
 
 /**
  * Change columns
@@ -214,7 +212,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -252,7 +249,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('wishlist/item', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

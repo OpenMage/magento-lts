@@ -47,7 +47,6 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
         return Mage::getSingleton('checkout/type_multishipping_state');
     }
 
-
     /**
      * Create New Shipping address Form
      */

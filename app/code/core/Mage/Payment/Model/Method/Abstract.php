@@ -498,7 +498,6 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
             Mage::throwException(Mage::helper('payment')->__('Refund action is not available.'));
         }
 
-
         return $this;
     }
 

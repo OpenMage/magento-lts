@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log aggregation resource model
  *
@@ -77,7 +76,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         $customers = $adapter->fetchCol($select);
         $result['customers'] = count($customers);
 
-
         $select = $adapter->select();
         $select->from($this->getTable('log/visitor'), 'COUNT(*)')
             ->where('first_visit_at >= ?', $from)
@@ -91,7 +89,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         }
 
         $result['visitors'] = $adapter->fetchOne($select);
-
 
         return $result;
     }

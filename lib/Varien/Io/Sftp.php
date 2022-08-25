@@ -38,7 +38,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     protected $_connection = null;
 
-
     /**
      * Open a SFTP connection to a remote site.
      *

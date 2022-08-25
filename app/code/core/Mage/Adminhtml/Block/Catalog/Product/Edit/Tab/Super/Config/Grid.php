@@ -199,7 +199,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             'index'     => 'name'
         ]);
 
-
         $sets = Mage::getModel('eav/entity_attribute_set')->getCollection()
             ->setEntityTypeFilter($this->_getProduct()->getResource()->getTypeId())
             ->load()

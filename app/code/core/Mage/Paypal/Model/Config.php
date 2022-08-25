@@ -1874,7 +1874,6 @@ class Mage_Paypal_Model_Config
         return Mage::getModel('paypal/cert')->loadByWebsite($websiteId, false)->getCertPath();
     }
 
-
     /**
      * Get PublisherId from stored config
      *
