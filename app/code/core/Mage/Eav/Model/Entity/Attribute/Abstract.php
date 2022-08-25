@@ -676,7 +676,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
-                $size = ($prop['LENGTH'] ?: null);
+                $size = $prop['LENGTH'] ?: null;
 
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
