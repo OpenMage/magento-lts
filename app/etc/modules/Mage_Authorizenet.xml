@@ -25,9 +25,9 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
+                <Mage_Checkout/>
                 <Mage_Paygate/>
                 <Mage_Sales/>
-                <Mage_Checkout/>
             </depends>
         </Mage_Authorizenet>
     </modules>

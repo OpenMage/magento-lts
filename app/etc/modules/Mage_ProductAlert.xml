@@ -14,22 +14,20 @@
  * to license@magento.com so we can send you a copy immediately.
  *
  * @category    Mage
- * @package     Mage_Captcha
+ * @package     Mage_ProductAlert
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config>
     <modules>
-        <Mage_Captcha>
+        <Mage_ProductAlert>
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Adminhtml/>
+                <Mage_Catalog/>
                 <Mage_Customer/>
-                <Mage_Sendfriend/>
-                <Mage_Wishlist/>
             </depends>
-        </Mage_Captcha>
+        </Mage_ProductAlert>
     </modules>
 </config>
