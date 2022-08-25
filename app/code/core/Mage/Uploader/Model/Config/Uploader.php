@@ -103,14 +103,23 @@ class Mage_Uploader_Model_Config_Uploader extends Mage_Uploader_Model_Config_Abs
      */
     protected function _construct()
     {
+        // Fix error where setting post_max_size or upload_max_filesize to 0
+        // causes the flow.js to make infinite chunks and crash the browser
+        $maxSize = $this->_getHelper()->getDataMaxSizeInBytes();
+
+        if ($maxSize === 0) {
+            $maxSize = PHP_INT_MAX;
+        }
+
         $this
-            ->setChunkSize($this->_getHelper()->getDataMaxSizeInBytes())
+            ->setChunkSize($maxSize)
             ->setWithCredentials(false)
             ->setForceChunkSize(false)
             ->setQuery(array(
                 'form_key' => Mage::getSingleton('core/session')->getFormKey()
             ))
             ->setMethod(self::UPLOAD_TYPE)
+            ->setSimultaneousUploads(1)
             ->setAllowDuplicateUploads(true)
             ->setPrioritizeFirstAndLastChunk(false)
             ->setTestChunks(self::TEST_CHUNKS)

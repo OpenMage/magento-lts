@@ -158,8 +158,6 @@ Layout for editor element
             <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
             <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
             <action method="addJs"><name>lib/uploader/flow.min.js</name></action>
-            <action method="addJs"><name>lib/uploader/fusty-flow.js</name></action>
-            <action method="addJs"><name>lib/uploader/fusty-flow-factory.js</name></action>
             <action method="addJs"><name>mage/adminhtml/uploader/instance.js</name></action>
             <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
             <action method="addJs"><script>prototype/window.js</script></action>
