@@ -706,7 +706,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 'type' => [$ddlType, $options],
                 'unsigned' => $_is_unsigned,
                 'nullable' => $column['NULLABLE'],
-                'default' => ($column['DEFAULT'] ?? false),
+                'default' => $column['DEFAULT'] ?? false,
                 'comment' => $column['COLUMN_NAME']
             ];
         }
