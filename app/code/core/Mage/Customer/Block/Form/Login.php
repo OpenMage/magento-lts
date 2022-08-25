@@ -111,7 +111,7 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         } else {
             /** @var string $pathInfo 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc */
             $pathInfo = $this->getRequest()->getOriginalPathInfo();
-            if (strtolower(substr($pathInfo, -5)) == '.html') {
+            if (strtolower(substr($pathInfo, -5)) === '.html') {
                 // For URL rewrite, preserve the path without considering query or post.
                 $url = Mage::getBaseUrl() . ltrim($pathInfo, '/');
             } else {
