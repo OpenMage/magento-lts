@@ -126,7 +126,7 @@ Default layout, loads most of the pages
             <block type="core/messages" name="messages" as="messages"/>
             <block type="core/text_list" name="js" as="js"/>
             <block type="adminhtml/page_footer" name="footer" as="footer">
-                <action method="setOpenMageProjectUrl"><url>https://github.com/OpenMage/magento-lts</url></action>
+                <action method="setOpenMageProjectUrl"><url>https://www.openmage.org</url></action>
                 <action method="setReportIssuesUrl"><url>https://github.com/OpenMage/magento-lts/issues</url></action>
             </block>
             <block type="core/profiler" name="profiler" as="profiler"/>
