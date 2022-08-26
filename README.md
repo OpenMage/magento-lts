@@ -24,8 +24,6 @@ dependency definition. Each Magento `1.<minor>.<revision>` release will get its 
 that will be independently maintained with upstream patches and community bug fixes for as long as it makes sense
 to do so (based on available resources). For example, Magento version `1.9.3.4` was merged into the `1.9.3.x` branch.
 
-Note, the branches older than `1.9.4.x` and that were created before this strategy came into practice are **not maintained**.
-
 ## Requirements
 
 - PHP 7.0+ (PHP 7.3 with OpenSSL extension strongly recommended and verified compatible) (PHP 7.4 and 8.0 are supported)
