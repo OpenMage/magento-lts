@@ -91,11 +91,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\:\\:getProducts\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
@@ -321,11 +316,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Page\\:\\:getLang\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Page.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Page/Menu.php
@@ -339,11 +329,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Permissions_Roles\\:\\:getGridHtml\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Roles.php
 
 		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
@@ -421,11 +406,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid\\:\\:getExcel\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -489,11 +469,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Block_Review_Grid_Renderer_Type\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Data\\:\\:getAvailableCurrencies\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Data.php
 
 		-
 			message: "#^Undefined variable\\: \\$info$#"
@@ -606,16 +581,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create/Tracking.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Tracking.php
-
-		-
 			message: "#^Call to an undefined method Mage_Shipping_Model_Carrier_Abstract\\:\\:isGirthAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
@@ -634,11 +599,6 @@ parameters:
 			message: "#^Variable \\$itemsOrderItemId might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Tracking.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:load\\(\\)\\.$#"
@@ -901,11 +861,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Action.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime\\:\\:_getFormat\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Datetime.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
@@ -984,16 +939,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:save\\(\\) invoked with 0 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:_saveCustomer\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrder\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
@@ -3046,11 +2991,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Batch_Io\\:\\:getFileSize\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch/Io.php
-
-		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action\\:\\:getData\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Convert.php
@@ -3697,11 +3637,6 @@ parameters:
 
 		-
 			message: "#^Constant data not found\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Installer.php
-
-		-
-			message: "#^Method Mage_Install_Model_Installer\\:\\:validateEncryptionKey\\(\\) has invalid return type unknown_type\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Install/Model/Installer.php
 
