@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
-                <Mage_CatalogSearch />
+                <Mage_Catalog/>
+                <Mage_CatalogSearch/>
             </depends>
         </Mage_ConfigurableSwatches>
     </modules>

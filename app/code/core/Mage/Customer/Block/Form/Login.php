@@ -92,4 +92,41 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         }
         return $this->_username;
     }
+
+    /**
+     * Can show the login form?
+     * For mini login, which can be login from any page, which should be SSL enabled.
+     *
+     * @return bool
+     */
+    public function canShowLogin()
+    {
+        if (Mage::helper('customer')->isLoggedIn()) {
+            return false;
+        }
+
+        // Set redirect URL after login
+        if (Mage::getStoreConfigFlag(Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)) {
+            $url = Mage::helper('customer')->getDashboardUrl();
+        } else {
+            /** @var string $pathInfo 'something.html'|'/'|'/path0'|'/path0/path1/'|'/path0/path1/path2'|etc */
+            $pathInfo = $this->getRequest()->getOriginalPathInfo();
+            if (strtolower(substr($pathInfo, -5)) === '.html') {
+                // For URL rewrite, preserve the path without considering query or post.
+                $url = Mage::getBaseUrl() . ltrim($pathInfo, '/');
+            } else {
+                /**
+                 * If login in homepage, $pathInfo === '/', $url becomes 'cms/index/index/',
+                 * this prevents redirection to My Account after login
+                 * @see Mage_Customer_AccountController::_loginPostRedirect()
+                 *
+                 * Login in all other pages should redirect correctly.
+                 */
+                $url = $this->getUrl('*/*/*', ['_current' => true]);
+            }
+        }
+        Mage::getSingleton('customer/session')->setBeforeAuthUrl($url);
+
+        return true;
+    }
 }
