@@ -1426,61 +1426,6 @@ parameters:
 			path: ../app/code/core/Mage/Backup/Model/Observer.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getFooter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getHeader\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getPartInsertSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableCreateScript\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableCreateSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDataAfterSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDataBeforeSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableDropSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getTableForeignKeysSql\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:turnOnReadCommittedMode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:turnOnSerializableMode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Resource/Db.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getOptionsCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Block/Adminhtml/Catalog/Product/Edit/Tab/Bundle/Option.php
@@ -2076,11 +2021,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Source/Countryofmanufacture.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getDdlTypeByColumnType\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Source/Msrp/Type/Price.php
-
-		-
 			message: "#^Cannot call method clean\\(\\) on object\\|string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
@@ -2171,11 +2111,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Website.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:attributeSelectFields\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeStore\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Abstract.php
@@ -2206,22 +2141,12 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Attribute.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Attribute.php
-
-		-
 			message: "#^Variable \\$ids in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Resource_Category_Collection\\:\\:addSortedField\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getDdlTypeByColumnType\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Flat.php
 
@@ -2291,11 +2216,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareEavAttributeValue\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Collection/Abstract.php
-
-		-
 			message: "#^Binary operation \"\\-\" between int and non\\-empty\\-string results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
@@ -2314,16 +2234,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Url\\:\\:refreshProductRewrites\\(\\) invoked with 3 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Backend/Urlkey.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:castField\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Attribute/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareColumnsList\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getAllTableColumns\\(\\)\\.$#"
@@ -2361,19 +2271,9 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:compareIndexColumnProperties\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
-
-		-
 			message: "#^Comparison operation \"\\>\" between int\\<0, max\\> and Varien_Simplexml_Element\\|false results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getIsNullNotNullCondition\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
 
 		-
 			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
@@ -2419,11 +2319,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProducts\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Type/Configurable/Attribute/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getCastToIntExpression\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Url.php
 
 		-
 			message: "#^Variable \\$category might not be defined\\.$#"
@@ -2619,26 +2514,6 @@ parameters:
 			message: "#^Variable \\$select might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Advanced/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:castField\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:chooseFulltext\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareTerms\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:insertOnDuplicate\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Resource/Fulltext/Engine.php
 
 		-
 			message: "#^Cannot call method setItem\\(\\) on array\\.$#"
@@ -3461,16 +3336,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:attributeSelectFields\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getLoadAttributesSelectGroups\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: "#^Variable \\$attributeCode might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Abstract.php
@@ -3497,11 +3362,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getIdByCode\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getDdlTypeByColumnType\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
@@ -3534,26 +3394,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Source/Table.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getCastToIntExpression\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getLoadAttributesSelectGroups\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareEavAttributeValue\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Interface\\:\\:getAttributeCode\\(\\)\\.$#"
@@ -3706,19 +3546,9 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Export/Entity/Product.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getMaxDataSize\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Abstract.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getNextAutoincrement\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
 
 		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
@@ -3751,11 +3581,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getNextAutoincrement\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
-
-		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getBackend\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
@@ -3779,11 +3604,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Convert_Adapter_Interface\\:\\:quoteInto\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Customer/Address.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getNextAutoincrement\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
 			message: "#^Call to an undefined method Varien_Convert_Adapter_Interface\\:\\:delete\\(\\)\\.$#"
@@ -3836,11 +3656,6 @@ parameters:
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getNextAutoincrement\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Configurable.php
-
-		-
 			message: "#^Variable \\$productId might not be defined\\.$#"
 			count: 4
 			path: ../app/code/core/Mage/ImportExport/Model/Import/Entity/Product/Type/Configurable.php
@@ -3861,29 +3676,9 @@ parameters:
 			path: ../app/code/core/Mage/Index/Block/Adminhtml/Process/Edit.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:isLocked\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:releaseLock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:setLock\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
 			message: "#^Method Mage_Core_Model_Resource\\:\\:getConnection\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:insertData\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Index/Model/Resource/Abstract.php
 
 		-
 			message: "#^Method Mage_Index_Model_Resource_Setup\\:\\:_syncIndexes\\(\\) should return \\$this\\(Mage_Index_Model_Resource_Setup\\) but return statement is missing\\.$#"
@@ -4661,11 +4456,6 @@ parameters:
 			path: ../app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
-
-		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Customer\\:\\:remove\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Customer/Collection.php
@@ -4691,34 +4481,9 @@ parameters:
 			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:mergeVisitorProductIndex\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php
-
-		-
 			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareColumn\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:updateReportRatingPos\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
@@ -4739,11 +4504,6 @@ parameters:
 			message: "#^Call to an undefined static method Mage_Review_Model_Resource_Review_Collection\\:\\:resetSelect\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Review/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareColumn\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Reports/Model/Resource/Review/Product/Collection.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
@@ -5026,11 +4786,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Address.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareColumnsList\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Collection.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Resource_Order_Invoice_Collection\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Sales_Model_Resource_Order_Invoice_Collection\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Invoice/Collection.php
@@ -5041,26 +4796,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Resource/Order/Payment/Transaction.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getBestsellersReportUpdateRatingPos\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:prepareColumn\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getQueryUsingAnalyticFunction\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
@@ -5069,21 +4804,6 @@ parameters:
 			message: "#^Variable \\$currentStoreIds in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Invoiced.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Refunded.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getInsertFromSelectUsingAnalytic\\(\\)\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Sales/Model/Resource/Report/Shipping.php
 
 		-
 			message: "#^Access to an undefined property Mage_Sales_Model_Resource_Sale_Collection\\:\\:\\$_orderStateValue\\.$#"
@@ -5462,19 +5182,9 @@ parameters:
 			path: ../app/code/core/Mage/Wishlist/Model/Item/Option.php
 
 		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getDateDiff\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isInStock\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
-			message: "#^Call to an undefined method Mage_Core_Model_Resource_Helper_Abstract\\:\\:getDateDiff\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Model/Resource/Product/Collection.php
 
 		-
 			message: "#^Variable \\$item might not be defined\\.$#"

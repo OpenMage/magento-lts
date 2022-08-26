@@ -29,7 +29,6 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
 {
     /**
      * Model initialization
-     *
      */
     protected function _construct()
     {
@@ -110,6 +109,7 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
 
             $select->having('orders_count > 0');
 
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper      = Mage::getResourceHelper('core');
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);
@@ -240,6 +240,7 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
 
             $select->having('orders_count > 0');
 
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
             $helper        = Mage::getResourceHelper('core');
             $insertQuery   = $helper->getInsertFromSelectUsingAnalytic($select, $table, array_keys($columns));
             $adapter->query($insertQuery);

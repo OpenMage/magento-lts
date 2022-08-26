@@ -28,7 +28,7 @@
 class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_Interface
 {
     /**
-     * @var Mage_Core_Model_Resource_Helper_Abstract
+     * @var Mage_Index_Model_Resource_Helper_Mysql4
      */
     protected $_helper;
 

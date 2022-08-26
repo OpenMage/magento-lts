@@ -135,7 +135,9 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
 
         $matchFields = ['product_id', 'store_id'];
 
-        Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
+        $helper->mergeVisitorProductIndex(
             $this->getMainTable(),
             $data,
             $matchFields
@@ -207,8 +209,11 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         }
 
         $matchFields = ['product_id', 'store_id'];
+
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
         foreach ($data as $row) {
-            Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+            $helper->mergeVisitorProductIndex(
                 $this->getMainTable(),
                 $row,
                 $matchFields
