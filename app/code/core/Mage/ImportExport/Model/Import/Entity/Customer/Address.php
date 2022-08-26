@@ -159,7 +159,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
         $resource       = Mage::getModel('customer/address');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table          = $resource->getResource()->getEntityTable();
-        $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper         = Mage::getResourceHelper('importexport');
+        $nextEntityId   = $helper->getNextAutoincrement($table);
         $customerId     = null;
         $regionColName  = self::getColNameForAttrCode('region');
         $countryColName = self::getColNameForAttrCode('country_id');
@@ -197,11 +199,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 $addressAttributes = [];
                 foreach ($this->_attributes as $attrAlias => $attrParams) {
                     if (isset($rowData[$attrAlias]) && strlen($rowData[$attrAlias])) {
-                        if ($attrParams['type'] == 'select') {
+                        if ($attrParams['type'] === 'select') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
-                        } elseif ($attrParams['type'] == 'datetime') {
+                        } elseif ($attrParams['type'] === 'datetime') {
                             $value = gmstrftime($strftimeFormat, strtotime($rowData[$attrAlias]));
-                        } elseif ($attrParams['type'] == 'multiselect') {
+                        } elseif ($attrParams['type'] === 'multiselect') {
                             $value = $attrParams['options'][strtolower($rowData[$attrAlias])];
                             $multiSelect[$attrParams['id']][] = $value;
                         } else {
@@ -263,7 +265,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                 } else {
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         $attrParams = $this->_attributes[$attrCode];
-                        if ($attrParams['type'] == 'multiselect') {
+                        if ($attrParams['type'] === 'multiselect') {
                             $value = '';
                             if (isset($multiSelect[$attrParams['id']])) {
                                 $value = implode(',', $multiSelect[$attrParams['id']]);
@@ -491,9 +493,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             if ($rowIsValid) {
                 $regionColName  = self::getColNameForAttrCode('region');
                 $countryColName = self::getColNameForAttrCode('country_id');
-                $countryRegions = isset($this->_countryRegions[strtolower($rowData[$countryColName])])
-                                ? $this->_countryRegions[strtolower($rowData[$countryColName])]
-                                : [];
+                $countryRegions = $this->_countryRegions[strtolower($rowData[$countryColName])] ?? [];
 
                 if (!empty($rowData[$regionColName])
                     && !empty($countryRegions)

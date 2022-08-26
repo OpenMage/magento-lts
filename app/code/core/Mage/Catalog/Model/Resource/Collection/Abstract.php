@@ -137,6 +137,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     {
         $storeId = $this->getStoreId();
         if ($storeId) {
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('eav');
             $adapter        = $this->getConnection();
             $valueExpr      = $adapter->getCheckSql(

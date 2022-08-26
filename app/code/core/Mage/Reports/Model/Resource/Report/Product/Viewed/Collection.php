@@ -331,6 +331,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             if ($selectUnions) {
                 $unionParts = [];
                 $cloneSelect = clone $this->getSelect();
+                /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
                 $helper = Mage::getResourceHelper('core');
                 $unionParts[] = '(' . $cloneSelect . ')';
                 foreach ($selectUnions as $union) {
