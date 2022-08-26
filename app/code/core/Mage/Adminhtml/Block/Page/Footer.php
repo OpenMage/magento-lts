@@ -37,21 +37,33 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         $this->setShowProfiler(true);
     }
 
+    /**
+     * @return string
+     */
     public function getChangeLocaleUrl()
     {
         return $this->getUrl('adminhtml/index/changeLocale');
     }
 
+    /**
+     * @return string
+     */
     public function getUrlForReferer()
     {
         return $this->getUrlEncoded('*/*/*', ['_current'=>true]);
     }
 
+    /**
+     * @return string
+     */
     public function getRefererParamName()
     {
         return Mage_Core_Controller_Varien_Action::PARAM_NAME_URL_ENCODED;
     }
 
+    /**
+     * @return string
+     */
     public function getLanguageSelect()
     {
         $locale  = Mage::app()->getLocale();
@@ -71,5 +83,77 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
         }
 
         return $html;
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     * @deprecated see setReportIssuesUrl()
+     */
+    public function setBugreportUrl(string $url)
+    {
+        return $this->setReportIssuesUrl($url);
+    }
+
+    /**
+     * @return string
+     * @deprecated see getReportIssuesUrl()
+     */
+    public function getBugreportUrl(): string
+    {
+        return $this->getReportIssuesUrl();
+    }
+
+      /**
+     * @param string $url
+     * @return $this
+     */
+    public function setReportIssuesUrl(string $url)
+    {
+        return $this->setData('report_issues_url', $url);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportIssuesUrl(): string
+    {
+        return (string) $this->_getData('report_issues_url');
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     * @deprecated see setOpenMageProjectUrl()
+     */
+    public function setConnectWithMagentoUrl(string $url)
+    {
+        return $this->setOpenMageProjectUrl($url);
+    }
+
+    /**
+     * @return string
+     * @deprecated see getOpenMageProjectUrl()
+     */
+    public function getConnectWithMagentoUrl(): string
+    {
+        return $this->getOpenMageProjectUrl();
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setOpenMageProjectUrl(string $url)
+    {
+        return $this->setData('openmage_project_url', $url);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOpenMageProjectUrl(): string
+    {
+        return (string) $this->_getData('openmage_project_url');
     }
 }
