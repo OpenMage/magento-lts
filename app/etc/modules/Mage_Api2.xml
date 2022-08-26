@@ -25,8 +25,8 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Core />
-                <Mage_Oauth />
+                <Mage_Core/>
+                <Mage_Oauth/>
             </depends>
         </Mage_Api2>
     </modules>
