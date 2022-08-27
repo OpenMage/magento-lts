@@ -666,11 +666,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
-
-		-
 			message: "#^Variable \\$img might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
@@ -1072,26 +1067,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:clearAffectedEntityIds\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
 
@@ -1762,21 +1737,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection\\:\\:setStoreId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
@@ -2866,21 +2826,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Api2/Customer/Rest/Customer/V1.php
 
 		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
@@ -2956,11 +2901,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:deleteCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
@@ -3004,21 +2944,6 @@ parameters:
 			message: "#^Method Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
-
-		-
-			message: "#^Call to method setId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
-
-		-
-			message: "#^Call to method setId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
 
 		-
 			message: "#^Undefined variable\\: \\$profile$#"
