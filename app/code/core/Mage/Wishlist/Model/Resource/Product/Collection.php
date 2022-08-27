@@ -136,6 +136,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
 
         $this->setDaysInWishlist(false);
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resourceHelper */
         $resourceHelper = Mage::getResourceHelper('core');
         $nowDate = $adapter->formatDate(Mage::getSingleton('core/date')->date());
 
@@ -157,7 +158,7 @@ class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model
      */
     protected function _getAttributeFieldName($attributeCode)
     {
-        if ($attributeCode == 'days_in_wishlist') {
+        if ($attributeCode === 'days_in_wishlist') {
             return $this->_joinFields[$attributeCode]['field'];
         }
         return parent::_getAttributeFieldName($attributeCode);

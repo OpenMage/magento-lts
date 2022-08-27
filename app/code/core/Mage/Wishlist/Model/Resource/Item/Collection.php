@@ -370,6 +370,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
         $adapter = $this->getConnection();
         $dateModel = Mage::getSingleton('core/date');
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resHelper */
         $resHelper = Mage::getResourceHelper('core');
 
         $offsetFromDb = (int) $dateModel->getGmtOffset();

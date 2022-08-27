@@ -39,6 +39,7 @@ class Mage_Reports_Model_Resource_Review_Product_Collection extends Mage_Catalog
      */
     public function joinReview()
     {
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper    = Mage::getResourceHelper('core');
 
         $subSelect = clone $this->getSelect();
