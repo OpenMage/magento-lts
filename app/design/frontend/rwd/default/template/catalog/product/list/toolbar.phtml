@@ -74,16 +74,19 @@
                 </p>
             <?php endif ?>
 
-            <div class="limiter">
-                <label><?php echo $this->__('Show') ?></label>
-                <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
-                <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-                    <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-                        <?php echo $_limit ?>
-                    </option>
-                <?php endforeach ?>
-                </select>
-            </div>
+            <?php $available_limits = $this->getAvailableLimit() ?>
+            <?php if (count($available_limits) > 1): ?>
+                <div class="limiter">
+                    <label><?php echo $this->__('Show') ?></label>
+                    <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
+                    <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                        <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                            <?php echo $_limit ?>
+                        </option>
+                    <?php endforeach ?>
+                    </select>
+                </div>
+            <?php endif ?>
         </div>
 
         <?php echo $this->getPagerHtml() ?>
