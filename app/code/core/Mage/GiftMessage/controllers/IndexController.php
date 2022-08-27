@@ -40,7 +40,6 @@ class Mage_GiftMessage_IndexController extends Mage_Core_Controller_Front_Action
                 ->setMessage($this->getRequest()->getParam('messagetext'))
                 ->save();
 
-
             $entity->load($this->getRequest()->getParam('item'))
                 ->setGiftMessageId($giftMessage->getId())
                 ->save();

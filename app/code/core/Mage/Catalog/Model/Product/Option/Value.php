@@ -186,8 +186,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
-            $price = $basePrice*($this->_getData('price')/100);
-            return $price;
+            return $basePrice*($this->_getData('price')/100);
         }
         return $this->_getData('price');
     }
@@ -198,11 +197,9 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function getValuesCollection(Mage_Catalog_Model_Product_Option $option)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option->getId())
             ->getValues($option->getStoreId());
-
-        return $collection;
     }
 
     /**
@@ -213,11 +210,9 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      */
     public function getValuesByOption($optionIds, $option_id, $store_id)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option_id)
             ->getValuesByOption($optionIds, $store_id);
-
-        return $collection;
     }
 
     /**

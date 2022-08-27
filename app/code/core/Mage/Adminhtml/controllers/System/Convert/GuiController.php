@@ -97,7 +97,6 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         $this->_setActiveMenu('system/convert');
 
-
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
         );

@@ -332,10 +332,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getProductCollection()
     {
-        $collection = Mage::getResourceModel('catalog/product_collection')
+        return Mage::getResourceModel('catalog/product_collection')
             ->setStoreId($this->getStoreId())
             ->addCategoryFilter($this);
-        return $collection;
     }
 
     /**
@@ -845,9 +844,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
-        $categories = $this->getResource()
+        return $this->getResource()
             ->getCategories($parent, $recursionLevel, $sorted, $asCollection, $toLoad);
-        return $categories;
     }
 
     /**

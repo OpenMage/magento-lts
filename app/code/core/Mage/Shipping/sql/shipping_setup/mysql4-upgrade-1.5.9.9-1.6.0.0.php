@@ -30,7 +30,6 @@ $installer->getConnection()->dropIndex(
     'DEST_COUNTRY'
 );
 
-
 /**
  * Change columns
  */
@@ -107,7 +106,6 @@ $tables = [
 ];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes

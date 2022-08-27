@@ -103,7 +103,6 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Design
             'disabled'  => $isElementDisabled
         ]);
 
-
         $designFieldset->addField('custom_root_template', 'select', [
             'name'      => 'custom_root_template',
             'label'     => Mage::helper('cms')->__('Custom Layout'),

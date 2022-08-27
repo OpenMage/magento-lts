@@ -173,11 +173,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
     {
-        $request = $this->_buildBasicRequest()
+        return $this->_buildBasicRequest()
             ->setOrder($payment->getOrder())
             ->setPaymentMethod($this);
-
-        return $request;
     }
 
     /**

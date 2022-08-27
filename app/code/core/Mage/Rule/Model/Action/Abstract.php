@@ -70,13 +70,12 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asArray(array $arrAttributes = [])
     {
-        $out = [
+        return [
             'type'=>$this->getType(),
             'attribute'=>$this->getAttribute(),
             'operator'=>$this->getOperator(),
             'value'=>$this->getValue(),
         ];
-        return $out;
     }
 
     /**
@@ -84,11 +83,10 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asXml()
     {
-        $xml = "<type>".$this->getType()."</type>"
+        return "<type>".$this->getType()."</type>"
             ."<attribute>".$this->getAttribute()."</attribute>"
             ."<operator>".$this->getOperator()."</operator>"
             ."<value>".$this->getValue()."</value>";
-        return $xml;
     }
 
     /**
@@ -231,8 +229,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asHtmlRecursive()
     {
-        $str = $this->asHtml();
-        return $str;
+        return $this->asHtml();
     }
 
     /**
@@ -291,10 +288,8 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getAddLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_add.gif');
-        $html = '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
-        return $html;
+        return '<img src="'.$src.'" alt="" class="rule-param-add v-middle" />';
     }
-
 
     /**
      * @return string
@@ -302,9 +297,8 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
     public function getRemoveLinkHtml()
     {
         $src = Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif');
-        $html = '<span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove"><img src="'
+        return '<span class="rule-param"><a href="javascript:void(0)" class="rule-param-remove"><img src="'
             . $src . '" alt="" class="v-middle" /></a></span>';
-        return $html;
     }
 
     /**
@@ -322,8 +316,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function asStringRecursive($level = 0)
     {
-        $str = str_pad('', $level*3, ' ', STR_PAD_LEFT).$this->asString();
-        return $str;
+        return str_pad('', $level*3, ' ', STR_PAD_LEFT).$this->asString();
     }
 
     /**

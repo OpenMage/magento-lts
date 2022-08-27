@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * TODO implements iterators
  *
@@ -29,15 +28,12 @@ class Varien_Db_Tree_NodeSet implements Iterator
     private $_currentNode = 0;
     private $_current = 0;
 
-
     function __construct() {
         $this->_nodes = array();
         $this->_current = 0;
         $this->_currentNode = 0;
         $this->count = 0;
     }
-
-
 
     function addNode(Varien_Db_Tree_Node $node) {
         $this->_nodes[$this->_currentNode] = $node;
@@ -48,7 +44,6 @@ class Varien_Db_Tree_NodeSet implements Iterator
     function count() {
         return $this->count;
     }
-
 
     function valid() {
         return  isset($this->_nodes[$this->_current]);
@@ -65,7 +60,6 @@ class Varien_Db_Tree_NodeSet implements Iterator
     function key() {
         return $this->_current;
     }
-
 
     function current() {
         return $this->_nodes[$this->_current];

@@ -109,7 +109,6 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         parent::__construct($data);
     }
 
-
     /**
      * Object initialization
      */

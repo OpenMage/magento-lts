@@ -36,7 +36,6 @@ $connection->addIndex(
     ['product_id', 'visibility']
 );
 
-
 $table = $installer->getTable('catalog/category_product_enabled_indexer_tmp');
 $connection->dropIndex($table, 'IDX_CATALOG_CATEGORY_PRODUCT_INDEX_ENBL_TMP_PRODUCT_ID');
 $connection->addIndex(

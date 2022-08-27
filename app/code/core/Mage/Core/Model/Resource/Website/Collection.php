@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Websites collection
  *
@@ -107,7 +106,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
     {
         return $this->_toOptionHash('website_id', 'name');
     }
-
 
     /**
      * Add website filter to collection

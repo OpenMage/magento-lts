@@ -121,7 +121,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             return false;
         }
 
-
         $shipment->register();
         $tracks = $this->getRequest()->getPost('tracking');
         if ($tracks) {
@@ -312,7 +311,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         }
         $this->_redirect('*/*/new', ['order_id' => $orderId]);
     }
-
 
     /**
      * Capture invoice action

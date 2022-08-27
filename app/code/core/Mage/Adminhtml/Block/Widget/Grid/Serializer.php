@@ -94,7 +94,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
         return Mage::helper('core')->jsonEncode($result);
     }
 
-
     /**
      * Initialize grid block
      *

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Form Attribute Resource Collection
  *
@@ -243,7 +242,6 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                 $saColumns
             );
         }
-
 
         // add store attribute label
         if ($store->isAdmin()) {

@@ -829,8 +829,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $typePriceTable = $coreResource->getTableName('catalog/product_option_type_price');
         $typeTitleTable = $coreResource->getTableName('catalog/product_option_type_title');
         $typeValueTable = $coreResource->getTableName('catalog/product_option_type_value');
-        $nextOptionId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($optionTable);
-        $nextValueId    = Mage::getResourceHelper('importexport')->getNextAutoincrement($typeValueTable);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper         = Mage::getResourceHelper('importexport');
+        $nextOptionId   = $helper->getNextAutoincrement($optionTable);
+        $nextValueId    = $helper->getNextAutoincrement($typeValueTable);
         $priceIsGlobal  = Mage::helper('catalog')->isPriceGlobal();
         $type           = null;
         $typeSpecific   = [
@@ -932,13 +934,14 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         ];
 
                         foreach ($typeSpecific[$type] as $paramSuffix) {
-                            if (isset($rowData['_custom_option_' . $paramSuffix])) {
-                                $data = $rowData['_custom_option_' . $paramSuffix];
+                            $optionSuffix = '_custom_option_' . $paramSuffix;
+                            if (isset($rowData[$optionSuffix])) {
+                                $data = $rowData[$optionSuffix];
 
                                 if (array_key_exists($paramSuffix, $solidParams)) {
                                     $solidParams[$paramSuffix] = $data;
-                                } elseif ($paramSuffix == 'price') {
-                                    if (substr($data, -1) == '%') {
+                                } elseif ($paramSuffix === 'price') {
+                                    if (substr($data, -1) === '%') {
                                         $priceTableRow['price_type'] = 'percent';
                                     }
                                     $priceTableRow['price'] = (float) rtrim($data, '%');
@@ -976,7 +979,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 'price'      => (float) rtrim($rowData['_custom_option_row_price'], '%'),
                                 'price_type' => 'fixed'
                             ];
-                            if (substr($rowData['_custom_option_row_price'], -1) == '%') {
+                            if (substr($rowData['_custom_option_row_price'], -1) === '%') {
                                 $typePriceRow['price_type'] = 'percent';
                             }
                             if ($priceIsGlobal) {
@@ -1150,7 +1153,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             ];
             $positionAttrId[$linkId] = $adapter->fetchOne($select, $bind);
         }
-        $nextLinkId = Mage::getResourceHelper('importexport')->getNextAutoincrement($mainTable);
+
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('importexport');
+        $nextLinkId = $helper->getNextAutoincrement($mainTable);
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $productIds   = [];
             $linkRows     = [];
@@ -1454,16 +1460,16 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
                 if (!empty($rowData['_media_image'])) {
                     $mediaGallery[$rowSku][] = [
-                        'attribute_id' => isset($rowData['_media_attribute_id']) ? $rowData['_media_attribute_id'] : '',
-                        'label'        => isset($rowData['_media_lable']) ? $rowData['_media_lable'] : '',
-                        'position'     => isset($rowData['_media_position']) ? $rowData['_media_position'] : '',
-                        'disabled'     => isset($rowData['_media_is_disabled']) ? $rowData['_media_is_disabled'] : '',
+                        'attribute_id' => $rowData['_media_attribute_id'] ?? '',
+                        'label'        => $rowData['_media_lable'] ?? '',
+                        'position'     => $rowData['_media_position'] ?? '',
+                        'disabled'     => $rowData['_media_is_disabled'] ?? '',
                         'value'        => $rowData['_media_image']
                     ];
                 }
                 // 6. Attributes phase
                 $rowStore     = self::SCOPE_STORE == $rowScope ? $this->_storeCodeToId[$rowData[self::COL_STORE]] : 0;
-                $productType  = isset($rowData[self::COL_TYPE]) ? $rowData[self::COL_TYPE] : null;
+                $productType  = $rowData[self::COL_TYPE] ?? null;
                 if (!is_null($productType)) {
                     $previousType = $productType;
                 }
@@ -1550,7 +1556,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
         foreach ($rowData as $attrCode => $attrValue) {
             $attribute = $this->_getAttribute($attrCode);
-            if ($attribute->getFrontendInput() != 'multiselect'
+            if ($attribute->getFrontendInput() !== 'multiselect'
                 && self::SCOPE_NULL == $rowScope
             ) {
                 continue; // skip attribute processing for SCOPE_NULL rows
@@ -1560,9 +1566,9 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = [0];
 
-            if ($attribute->getBackendType() == 'datetime' && strtotime($attrValue)) {
+            if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
                 $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
-            } elseif ($attribute->getAttributeCode() == 'url_key') {
+            } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $attrValue = $product->formatUrlKey($product->getName());
                 }
@@ -1583,7 +1589,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 }
             }
             foreach ($storeIds as $storeId) {
-                if ($attribute->getFrontendInput() == 'multiselect') {
+                if ($attribute->getFrontendInput() === 'multiselect') {
                     if (!isset($attributes[$attrTable][$rowSku][$attrId][$storeId])) {
                         $attributes[$attrTable][$rowSku][$attrId][$storeId] = '';
                     } else {
@@ -1910,6 +1916,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         ];
 
         $entityTable = $this->getResourceModel('cataloginventory/stock_item')->getMainTable();
+        /** @var Mage_CatalogInventory_Helper_Data $helper */
         $helper      = $this->getHelper('cataloginventory');
 
         while ($bunch = $this->getNextBunch()) {

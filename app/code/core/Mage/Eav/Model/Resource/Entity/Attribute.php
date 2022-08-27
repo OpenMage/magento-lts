@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV attribute resource model
  *
@@ -370,7 +369,6 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
 
         return $this;
     }
-
 
     /**
      * Retrieve attribute id by entity type code and attribute code

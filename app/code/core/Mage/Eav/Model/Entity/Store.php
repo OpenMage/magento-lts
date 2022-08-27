@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()

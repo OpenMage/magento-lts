@@ -155,7 +155,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_EAV_FORM_FIELDSET_FORM_TYPE'
 );
 
-
 $installer->getConnection()->dropForeignKey(
     $installer->getTable(['eav/entity_value_prefix', 'datetime']),
     'FK_EAV_ENTITY_DATETIME_ENTITY'
@@ -230,7 +229,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable(['eav/entity_value_prefix', 'varchar']),
     'FK_EAV_ENTITY_VARCHAR_STORE'
 );
-
 
 /**
  * Drop indexes
@@ -554,7 +552,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable(['eav/entity_value_prefix', 'varchar']),
     'VALUE_BY_ENTITY_TYPE'
 );
-
 
 /**
  * Change columns
@@ -1460,7 +1457,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -1919,7 +1915,6 @@ $installer->getConnection()->addIndex(
     ['entity_type_id', 'value']
 );
 
-
 /**
  * Add foreign keys
  */
@@ -2010,7 +2005,6 @@ $installer->getConnection()->addForeignKey(
     $installer->getTable('eav/attribute'),
     'attribute_id'
 );
-
 
 $installer->getConnection()->addForeignKey(
     $installer->getFkName('eav/entity_attribute', 'attribute_group_id', 'eav/attribute_group', 'attribute_group_id'),

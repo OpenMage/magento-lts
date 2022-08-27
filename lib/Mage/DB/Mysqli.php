@@ -56,7 +56,6 @@ class Mage_DB_Mysqli
      */
     private $fetch_mode = MYSQLI_ASSOC;
 
-
     /**
      * Constructor
      */
@@ -268,7 +267,6 @@ class Mage_DB_Mysqli
         return $this->fetchGroupedArrayByKey($sql, $key, $forcedArrayMode);
     }
 
-
     /**
      * Escape field names
      * @param array $arrNames
@@ -300,7 +298,6 @@ class Mage_DB_Mysqli
         }
         return $out;
     }
-
 
     /**
      * Throw connect exception
@@ -406,7 +403,6 @@ class Mage_DB_Mysqli
         return $this->query($sql);
     }
 
-
     /**
      * Set table data by condition
      * @param $table
@@ -427,7 +423,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$condition}";
         return $this->query($sql);
     }
-
 
     /**
      * Update entry by pk
@@ -452,7 +447,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$key} = {$value}";
         return $this->query($sql);
     }
-
 
     /**
      * Convert ids to string
@@ -482,7 +476,6 @@ class Mage_DB_Mysqli
         $condition = is_scalar($ids) ? " = {$vals} " : " IN ({$vals}) ";
         return $condition;
     }
-
 
     /**
      * Delete items by id

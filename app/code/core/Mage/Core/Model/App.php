@@ -213,7 +213,6 @@ class Mage_Core_Model_App
      */
     protected $_response;
 
-
     /**
      * Events cache
      *

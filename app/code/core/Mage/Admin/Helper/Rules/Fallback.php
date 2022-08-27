@@ -41,7 +41,6 @@ class Mage_Admin_Helper_Rules_Fallback extends Mage_Core_Helper_Abstract
         return implode('/', $resourcePathInfo);
     }
 
-
     /**
      * Fallback resource permissions similarly to zend_acl
      * @param array $resources

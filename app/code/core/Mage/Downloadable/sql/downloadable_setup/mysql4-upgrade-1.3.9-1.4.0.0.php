@@ -39,5 +39,4 @@ $installer->getConnection()->dropForeignKey(
     'FK_DOWNLOADABLE_ORDER_ITEM_ID'
 );
 
-
 $installer->endSetup();

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Checkout_Block_Onepage_Failure extends Mage_Core_Block_Template
 {
     /**
@@ -36,9 +35,8 @@ class Mage_Checkout_Block_Onepage_Failure extends Mage_Core_Block_Template
      */
     public function getErrorMessage()
     {
-        $error = Mage::getSingleton('checkout/session')->getErrorMessage();
         // Mage::getSingleton('checkout/session')->unsErrorMessage();
-        return $error;
+        return Mage::getSingleton('checkout/session')->getErrorMessage();
     }
 
     /**

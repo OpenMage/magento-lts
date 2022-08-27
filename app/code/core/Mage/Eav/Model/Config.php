@@ -310,7 +310,6 @@ class Mage_Eav_Model_Config
             return $entityType;
         }
 
-
         $entityType = Mage::getModel('eav/entity_type');
         if (isset($this->_entityData[$code])) {
             $entityType->setData($this->_entityData[$code]);

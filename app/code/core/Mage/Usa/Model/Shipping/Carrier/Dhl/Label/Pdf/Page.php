@@ -80,8 +80,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
         }
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        $text_width = (array_sum($widths) / $font->getUnitsPerEm()) * $font_size;
-        return $text_width;
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $font_size;
     }
 
     /**

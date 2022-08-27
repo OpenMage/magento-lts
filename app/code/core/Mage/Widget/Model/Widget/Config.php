@@ -36,14 +36,12 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
      */
     public function getPluginSettings($config)
     {
-        $settings = [
+        return [
             'widget_plugin_src'   => Mage::getBaseUrl('js').'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js',
             'widget_images_url'   => $this->getPlaceholderImagesBaseUrl(),
             'widget_placeholders' => $this->getAvailablePlaceholderFilenames(),
             'widget_window_url'   => $this->getWidgetWindowUrl($config)
         ];
-
-        return $settings;
     }
 
     /**

@@ -34,13 +34,16 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+
         /**
          * Create child blocks for payment methods forms
          */
         foreach ($this->getMethods() as $method) {
             $this->setChild(
                 'payment.method.' . $method->getCode(),
-                $this->helper('payment')->getMethodFormBlock($method)
+                $helper->getMethodFormBlock($method)
             );
         }
 
@@ -100,10 +103,13 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
     {
         $methods = $this->getData('methods');
         if ($methods === null) {
+            /** @var Mage_Payment_Helper_Data $helper */
+            $helper = $this->helper('payment');
+
             $quote = $this->getQuote();
             $store = $quote ? $quote->getStoreId() : null;
             $methods = [];
-            foreach ($this->helper('payment')->getStoreMethods($store, $quote) as $method) {
+            foreach ($helper->getStoreMethods($store, $quote) as $method) {
                 if ($this->_canUseMethod($method) && $method->isApplicableToQuote(
                     $quote,
                     Mage_Payment_Model_Method_Abstract::CHECK_ZERO_TOTAL

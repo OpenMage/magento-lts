@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product EAV additional attribute resource collection
  *
@@ -48,10 +47,12 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
         $columns = $this->getConnection()->describeTable($this->getResource()->getMainTable());
         unset($columns['attribute_id']);
         $retColumns = [];
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
         foreach ($columns as $labelColumn => $columnData) {
             $retColumns[$labelColumn] = $labelColumn;
             if ($columnData['DATA_TYPE'] == Varien_Db_Ddl_Table::TYPE_TEXT) {
-                $retColumns[$labelColumn] = Mage::getResourceHelper('core')->castField('main_table.'.$labelColumn);
+                $retColumns[$labelColumn] = $helper->castField('main_table.'.$labelColumn);
             }
         }
         $this->getSelect()
@@ -83,7 +84,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      */
     protected function _getLoadDataFields()
     {
-        $fields = array_merge(
+        return array_merge(
             parent::_getLoadDataFields(),
             [
                 'additional_table.is_global',
@@ -91,8 +92,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
                 'additional_table.is_wysiwyg_enabled'
             ]
         );
-
-        return $fields;
     }
 
     /**

@@ -165,16 +165,11 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             return $this->_associatedEntitiesMap[$entityType];
         }
 
-        $e = Mage::exception(
+        throw Mage::exception(
             'Mage_Core',
             Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
-        throw $e;
     }
-
-
-
-
 
     /**
      * Set environment for all rules in collection

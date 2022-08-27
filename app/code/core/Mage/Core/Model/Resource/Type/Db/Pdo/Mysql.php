@@ -50,8 +50,7 @@ class Mage_Core_Model_Resource_Type_Db_Pdo_Mysql extends Mage_Core_Model_Resourc
     protected function _getDbAdapterInstance($configArr)
     {
         $className = $this->_getDbAdapterClassName();
-        $adapter = new $className($configArr);
-        return $adapter;
+        return new $className($configArr);
     }
 
     /**

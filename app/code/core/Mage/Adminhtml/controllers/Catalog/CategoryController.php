@@ -116,7 +116,6 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $_prevCategoryId = Mage::getSingleton('admin/session')
             ->getLastEditedCategory(true);
 
-
         if ($_prevCategoryId
             && !$this->getRequest()->getQuery('isAjax')
             && !$this->getRequest()->getParam('clear')) {

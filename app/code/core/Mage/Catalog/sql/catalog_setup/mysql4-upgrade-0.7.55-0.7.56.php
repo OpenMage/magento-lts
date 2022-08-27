@@ -37,7 +37,6 @@ $installer->getConnection()->addColumn(
     'tinyint(3) unsigned NOT NULL'
 );
 
-
 /**
  * Clear relation with root category
  */

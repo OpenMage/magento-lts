@@ -453,8 +453,6 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $this->getResponse()->setBody($response);
     }
 
-
-
     /**
      * Decides if we need to create dummy shipment item or not
      * for example we don't need create dummy parent if all

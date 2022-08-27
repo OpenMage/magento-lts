@@ -35,7 +35,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_INDEX_PROCESS_EVENT'
 );
 
-
 /**
  * Drop indexes
  */
@@ -53,7 +52,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('index/process_event'),
     'FK_INDEX_EVNT_PROCESS'
 );
-
 
 /**
  * Change columns
@@ -174,7 +172,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -205,7 +202,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('index/process_event', ['event_id']),
     ['event_id']
 );
-
 
 /**
  * Add foreign keys

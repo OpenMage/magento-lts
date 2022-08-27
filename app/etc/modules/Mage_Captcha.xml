@@ -25,10 +25,10 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Customer />
-                <Mage_Adminhtml />
-                <Mage_Wishlist />
-                <Mage_Sendfriend />
+                <Mage_Adminhtml/>
+                <Mage_Customer/>
+                <Mage_Sendfriend/>
+                <Mage_Wishlist/>
             </depends>
         </Mage_Captcha>
     </modules>
