@@ -266,26 +266,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
 
 		-
-			message: "#^Call to method getData\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Call to method setImage\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Call to method setParams\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Media_Editor\\:\\:getConfig\\(\\) has invalid return type Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isValidForSend\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php
