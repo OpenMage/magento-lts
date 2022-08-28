@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -42,7 +36,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     protected function _create(array $data)
     {
         /** @var Mage_Api2_Model_Resource_Validator_Eav $validator */
-        $validator = Mage::getResourceModel('api2/validator_eav', array('resource' => $this));
+        $validator = Mage::getResourceModel('api2/validator_eav', ['resource' => $this]);
 
         $data = $validator->filter($data);
         if (!$validator->isValidData($data)) {
@@ -76,7 +70,6 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _retrieve()
     {
-        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('id'));
         return $customer->getData();
     }
@@ -100,10 +93,9 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
      */
     protected function _update(array $data)
     {
-        /** @var Mage_Customer_Model_Customer $customer */
         $customer = $this->_loadCustomerById($this->getRequest()->getParam('id'));
         /** @var Mage_Api2_Model_Resource_Validator_Eav $validator */
-        $validator = Mage::getResourceModel('api2/validator_eav', array('resource' => $this));
+        $validator = Mage::getResourceModel('api2/validator_eav', ['resource' => $this]);
 
         $data = $validator->filter($data);
 

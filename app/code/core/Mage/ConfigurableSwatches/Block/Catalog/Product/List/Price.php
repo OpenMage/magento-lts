@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -57,9 +51,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
         /** @var Mage_Catalog_Helper_Product_Type_Composite $compositeProductHelper */
         $compositeProductHelper = $this->helper('catalog/product_type_composite');
 
-        $config = array(
+        $config = [
             'generalConfig' => $compositeProductHelper->prepareJsonGeneralConfig()
-        );
+        ];
         foreach ($this->getProducts() as $product) {
             /** @var Mage_Catalog_Model_Product $product */
             if (!$product->getSwatchPrices()) {
@@ -70,17 +64,20 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
             $config['products'][$product->getId()]['swatchPrices'] = $product->getSwatchPrices();
 
             $responseObject = new Varien_Object();
-            Mage::dispatchEvent('catalog_product_view_config', array(
+            Mage::dispatchEvent('catalog_product_view_config', [
                 'response_object' => $responseObject,
                 'product' => $product,
-            ));
+            ]);
             if (is_array($responseObject->getAdditionalOptions())) {
                 foreach ($responseObject->getAdditionalOptions() as $option => $value) {
                     $config['products'][$product->getId()][$option] = $value;
                 }
             }
         }
-        return $this->helper('core')->jsonEncode($config);
+
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->jsonEncode($config);
     }
 
     /**
@@ -90,7 +87,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
      */
     protected function _toHtml()
     {
-        if (!$this->helper('configurableswatches/list_price')->isEnabled()) {
+        /** @var Mage_ConfigurableSwatches_Helper_List_Price $helper */
+        $helper = $this->helper('configurableswatches/list_price');
+        if (!$helper->isEnabled()) {
             return '';
         }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_GiftMessage
@@ -63,10 +57,10 @@ $attributeId  = $installer->getAttributeId($entityTypeId, 'gift_message_availabl
 
 $installer->getConnection()->update(
     $installer->getTable('catalog_product_entity_varchar'),
-    array('value' => ''),
-    array(
+    ['value' => ''],
+    [
         'entity_type_id =?' => $entityTypeId,
         'attribute_id =?' => $attributeId,
         'value =?' => '2'
-    )
+    ]
 );

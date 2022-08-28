@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -43,7 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
         /** @var Mage_Sales_Model_Order $source */
         $source = $this->getOrder();
 
-        $taxClassAmount = array();
+        $taxClassAmount = [];
         if ($source instanceof Mage_Sales_Model_Order) {
             $taxClassAmount = $this->_getTaxHelper()->getCalculatedTaxes($source);
         }

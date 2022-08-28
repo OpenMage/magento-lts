@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -45,7 +39,7 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
 
     /**
      * Init customer groups collection
-     * @return void
+     * @inheritDoc
      */
     protected function _prepareCollection()
     {
@@ -61,30 +55,30 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('time', array(
+        $this->addColumn('time', [
             'header' => Mage::helper('customer')->__('ID'),
             'width' => '50px',
             'align' => 'right',
             'index' => 'customer_group_id',
-        ));
+        ]);
 
-        $this->addColumn('type', array(
+        $this->addColumn('type', [
             'header' => Mage::helper('customer')->__('Group Name'),
             'index' => 'customer_group_code',
-        ));
+        ]);
 
-        $this->addColumn('class_name', array(
+        $this->addColumn('class_name', [
             'header' => Mage::helper('customer')->__('Tax Class'),
             'index' => 'class_name',
             'width' => '200px'
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id'=>$row->getId()));
+        return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
     }
 
 }

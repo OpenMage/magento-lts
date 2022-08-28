@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Widget
@@ -44,18 +38,18 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     /**
      * @var Varien_Simplexml_Element[]
      */
-    protected $_layoutHandleUpdates = array();
+    protected $_layoutHandleUpdates = [];
 
     /**
      * @var SimpleXMLElement
      */
     protected $_layoutHandleUpdatesXml = null;
 
-    protected $_layoutHandle = array();
+    protected $_layoutHandle = [];
 
-    protected $_blocks = array();
+    protected $_blocks = [];
 
-    protected $_allowedBlocks = array();
+    protected $_allowedBlocks = [];
 
     /**
      * Setter
@@ -103,7 +97,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         if (is_string($layoutHandle)) {
             $layoutHandle = explode(',', $layoutHandle);
         }
-        $this->_layoutHandle = array_merge(array('default'), (array)$layoutHandle);
+        $this->_layoutHandle = array_merge(['default'], (array)$layoutHandle);
         return $this;
     }
 
@@ -189,10 +183,10 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
             );
             $this->_collectLayoutHandles();
             $this->_collectBlocks();
-            array_unshift($this->_blocks, array(
+            array_unshift($this->_blocks, [
                 'value' => '',
                 'label' => Mage::helper('widget')->__('-- Please Select --')
-            ));
+            ]);
         }
         return $this->_blocks;
     }
@@ -226,14 +220,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         }
     }
 
-
     /**
      * Filter and collect blocks into array
      */
     protected function _collectBlocks()
     {
         if ($blocks = $this->_layoutHandleUpdatesXml->xpath('//block/label/..')) {
-            /* @var Mage_Core_Model_Layout_Element $block */
+            /** @var Mage_Core_Model_Layout_Element $block */
             foreach ($blocks as $block) {
                 if ((string)$block->getAttribute('name') && $this->_filterBlock($block)) {
                     $helper = Mage::helper(Mage_Core_Model_Layout::findTranslationModuleName($block));

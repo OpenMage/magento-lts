@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -114,7 +108,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      * @param   int|null|string $store
      * @return  Mage_CatalogIndex_Model_Aggregation
      */
-    public function clearCacheData($tags = array(), $store = null)
+    public function clearCacheData($tags = [], $store = null)
     {
         $tags    = $this->_processTags($tags);
         if ($store !== null) {
@@ -134,7 +128,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $categoryPaths = $this->_getResource()->getProductCategoryPaths($productIds);
         if (!empty($categoryPaths)) {
-            $tags = array();
+            $tags = [];
             foreach ($categoryPaths as $path) {
                 $tags[] = Mage_Catalog_Model_Category::CACHE_TAG.':'.$path;
             }
@@ -166,7 +160,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
      */
     protected function _processTags($tags)
     {
-        $newTags = array();
+        $newTags = [];
         foreach ($tags as $tag) {
             $tagInfo = explode(':', $tag);
             if (count($tagInfo)==1) {

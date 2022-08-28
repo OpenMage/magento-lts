@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -73,7 +67,7 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
      */
     public function getConsumer()
     {
-        if (null === $this->_consumer) {
+        if ($this->_consumer === null) {
             /** @var Mage_Oauth_Model_Token $token */
             $token = Mage::getModel('oauth/token');
             $token->load($this->getToken(), 'token');
@@ -96,11 +90,11 @@ abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Templ
         }
 
         //load base template from admin area
-        $params = array(
+        $params = [
             '_relative' => true,
             '_area'     => 'adminhtml',
             '_package'  => 'default'
-        );
+        ];
         return Mage::getDesign()->getTemplateFilename($this->getTemplate(), $params);
     }
 }

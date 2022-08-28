@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -95,7 +89,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('salesrule/product_attribute'),
     'FK_SALESRULE_PRODUCT_ATTRIBUTE_WEBSITE'
 );
-
 
 /**
  * Drop indexes
@@ -205,486 +198,484 @@ $installer->getConnection()->dropIndex(
     'IDX_ATTRIBUTE'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('salesrule/rule') => array(
-        'columns' => array(
-            'rule_id' => array(
+$tables = [
+    $installer->getTable('salesrule/rule') => [
+        'columns' => [
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Rule Id'
-            ),
-            'name' => array(
+            ],
+            'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Name'
-            ),
-            'description' => array(
+            ],
+            'description' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Description'
-            ),
-            'from_date' => array(
+            ],
+            'from_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
                 'comment'   => 'From Date'
-            ),
-            'to_date' => array(
+            ],
+            'to_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
                 'comment'   => 'To Date'
-            ),
-            'uses_per_customer' => array(
+            ],
+            'uses_per_customer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Uses Per Customer'
-            ),
-            'customer_group_ids' => array(
+            ],
+            'customer_group_ids' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Customer Group Ids'
-            ),
-            'is_active' => array(
+            ],
+            'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Active'
-            ),
-            'conditions_serialized' => array(
+            ],
+            'conditions_serialized' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
                 'comment'   => 'Conditions Serialized'
-            ),
-            'actions_serialized' => array(
+            ],
+            'actions_serialized' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2M',
                 'comment'   => 'Actions Serialized'
-            ),
-            'stop_rules_processing' => array(
+            ],
+            'stop_rules_processing' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Stop Rules Processing'
-            ),
-            'is_advanced' => array(
+            ],
+            'is_advanced' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Is Advanced'
-            ),
-            'product_ids' => array(
+            ],
+            'product_ids' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Product Ids'
-            ),
-            'sort_order' => array(
+            ],
+            'sort_order' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Sort Order'
-            ),
-            'simple_action' => array(
+            ],
+            'simple_action' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'Simple Action'
-            ),
-            'discount_amount' => array(
+            ],
+            'discount_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Discount Amount'
-            ),
-            'discount_qty' => array(
+            ],
+            'discount_qty' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'comment'   => 'Discount Qty'
-            ),
-            'discount_step' => array(
+            ],
+            'discount_step' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Discount Step'
-            ),
-            'simple_free_shipping' => array(
+            ],
+            'simple_free_shipping' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Simple Free Shipping'
-            ),
-            'apply_to_shipping' => array(
+            ],
+            'apply_to_shipping' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Apply To Shipping'
-            ),
-            'times_used' => array(
+            ],
+            'times_used' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Times Used'
-            ),
-            'is_rss' => array(
+            ],
+            'is_rss' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Rss'
-            ),
-            'website_ids' => array(
+            ],
+            'website_ids' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Website Ids'
-            ),
-            'coupon_type' => array(
+            ],
+            'coupon_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '1',
                 'comment'   => 'Coupon Type'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule'
-    ),
-    $installer->getTable('salesrule/rule_customer') => array(
-        'columns' => array(
-            'rule_customer_id' => array(
+    ],
+    $installer->getTable('salesrule/rule_customer') => [
+        'columns' => [
+            'rule_customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Rule Customer Id'
-            ),
-            'rule_id' => array(
+            ],
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Rule Id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Customer Id'
-            ),
-            'times_used' => array(
+            ],
+            'times_used' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Times Used'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule Customer'
-    ),
-    $installer->getTable('salesrule/label') => array(
-        'columns' => array(
-            'label_id' => array(
+    ],
+    $installer->getTable('salesrule/label') => [
+        'columns' => [
+            'label_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Label Id'
-            ),
-            'rule_id' => array(
+            ],
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Rule Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Store Id'
-            ),
-            'label' => array(
+            ],
+            'label' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Label'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule Label'
-    ),
-    $installer->getTable('salesrule/coupon') => array(
-        'columns' => array(
-            'coupon_id' => array(
+    ],
+    $installer->getTable('salesrule/coupon') => [
+        'columns' => [
+            'coupon_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Coupon Id'
-            ),
-            'rule_id' => array(
+            ],
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'comment'   => 'Rule Id'
-            ),
-            'code' => array(
+            ],
+            'code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Code'
-            ),
-            'usage_limit' => array(
+            ],
+            'usage_limit' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Usage Limit'
-            ),
-            'usage_per_customer' => array(
+            ],
+            'usage_per_customer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'comment'   => 'Usage Per Customer'
-            ),
-            'times_used' => array(
+            ],
+            'times_used' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Times Used'
-            ),
-            'expiration_date' => array(
+            ],
+            'expiration_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Expiration Date'
-            ),
-            'is_primary' => array(
+            ],
+            'is_primary' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Is Primary'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule Coupon'
-    ),
-    $installer->getTable('salesrule/coupon_usage') => array(
-        'columns' => array(
-            'coupon_id' => array(
+    ],
+    $installer->getTable('salesrule/coupon_usage') => [
+        'columns' => [
+            'coupon_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Coupon Id'
-            ),
-            'customer_id' => array(
+            ],
+            'customer_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Customer Id'
-            ),
-            'times_used' => array(
+            ],
+            'times_used' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Times Used'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule Coupon Usage'
-    ),
-    $installer->getTable('salesrule/coupon_aggregated') => array(
-        'columns' => array(
-            'id' => array(
+    ],
+    $installer->getTable('salesrule/coupon_aggregated') => [
+        'columns' => [
+            'id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Id'
-            ),
-            'period' => array(
+            ],
+            'period' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
                 'nullable'  => false,
                 'comment'   => 'Period'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Store Id'
-            ),
-            'order_status' => array(
+            ],
+            'order_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'Order Status'
-            ),
-            'coupon_code' => array(
+            ],
+            'coupon_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'Coupon Code'
-            ),
-            'coupon_uses' => array(
+            ],
+            'coupon_uses' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Coupon Uses'
-            ),
-            'subtotal_amount' => array(
+            ],
+            'subtotal_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Subtotal Amount'
-            ),
-            'discount_amount' => array(
+            ],
+            'discount_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Discount Amount'
-            ),
-            'total_amount' => array(
+            ],
+            'total_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Total Amount'
-            ),
-            'subtotal_amount_actual' => array(
+            ],
+            'subtotal_amount_actual' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Subtotal Amount Actual'
-            ),
-            'discount_amount_actual' => array(
+            ],
+            'discount_amount_actual' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Discount Amount Actual'
-            ),
-            'total_amount_actual' => array(
+            ],
+            'total_amount_actual' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Total Amount Actual'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Coupon Aggregated'
-    ),
-    $installer->getTable('salesrule/coupon_aggregated_order') => array(
-        'columns' => array(
-            'id' => array(
+    ],
+    $installer->getTable('salesrule/coupon_aggregated_order') => [
+        'columns' => [
+            'id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Id'
-            ),
-            'period' => array(
+            ],
+            'period' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DATE,
                 'nullable'  => false,
                 'comment'   => 'Period'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'comment'   => 'Store Id'
-            ),
-            'order_status' => array(
+            ],
+            'order_status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'Order Status'
-            ),
-            'coupon_code' => array(
+            ],
+            'coupon_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 50,
                 'comment'   => 'Coupon Code'
-            ),
-            'coupon_uses' => array(
+            ],
+            'coupon_uses' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Coupon Uses'
-            ),
-            'subtotal_amount' => array(
+            ],
+            'subtotal_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Subtotal Amount'
-            ),
-            'discount_amount' => array(
+            ],
+            'discount_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Discount Amount'
-            ),
-            'total_amount' => array(
+            ],
+            'total_amount' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_DECIMAL,
                 'scale'     => 4,
                 'precision' => 12,
                 'nullable'  => false,
                 'default'   => '0.0000',
                 'comment'   => 'Total Amount'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Coupon Aggregated Order'
-    ),
-    $installer->getTable('salesrule/product_attribute') => array(
-        'columns' => array(
-            'rule_id' => array(
+    ],
+    $installer->getTable('salesrule/product_attribute') => [
+        'columns' => [
+            'rule_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Rule Id'
-            ),
-            'website_id' => array(
+            ],
+            'website_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Website Id'
-            ),
-            'customer_group_id' => array(
+            ],
+            'customer_group_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Customer Group Id'
-            ),
-            'attribute_id' => array(
+            ],
+            'attribute_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Attribute Id'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Salesrule Product Attribute'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
@@ -693,50 +684,50 @@ $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_aggregated'),
     $installer->getIdxName(
         'salesrule/coupon_aggregated',
-        array('period', 'store_id', 'order_status', 'coupon_code'),
+        ['period', 'store_id', 'order_status', 'coupon_code'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('period', 'store_id', 'order_status', 'coupon_code'),
+    ['period', 'store_id', 'order_status', 'coupon_code'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_aggregated'),
-    $installer->getIdxName('salesrule/coupon_aggregated', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('salesrule/coupon_aggregated', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_aggregated_order'),
     $installer->getIdxName(
         'salesrule/coupon_aggregated_order',
-        array('period', 'store_id', 'order_status', 'coupon_code'),
+        ['period', 'store_id', 'order_status', 'coupon_code'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('period', 'store_id', 'order_status', 'coupon_code'),
+    ['period', 'store_id', 'order_status', 'coupon_code'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_aggregated_order'),
-    $installer->getIdxName('salesrule/coupon_aggregated_order', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('salesrule/coupon_aggregated_order', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/rule'),
-    $installer->getIdxName('salesrule/rule', array('is_active', 'sort_order', 'to_date', 'from_date')),
-    array('is_active', 'sort_order', 'to_date', 'from_date')
+    $installer->getIdxName('salesrule/rule', ['is_active', 'sort_order', 'to_date', 'from_date']),
+    ['is_active', 'sort_order', 'to_date', 'from_date']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon'),
     $installer->getIdxName(
         'salesrule/coupon',
-        array('code'),
+        ['code'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('code'),
+    ['code'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
@@ -744,84 +735,83 @@ $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon'),
     $installer->getIdxName(
         'salesrule/coupon',
-        array('rule_id', 'is_primary'),
+        ['rule_id', 'is_primary'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('rule_id', 'is_primary'),
+    ['rule_id', 'is_primary'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon'),
-    $installer->getIdxName('salesrule/coupon', array('rule_id')),
-    array('rule_id')
+    $installer->getIdxName('salesrule/coupon', ['rule_id']),
+    ['rule_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_usage'),
-    $installer->getIdxName('salesrule/coupon_usage', array('coupon_id')),
-    array('coupon_id')
+    $installer->getIdxName('salesrule/coupon_usage', ['coupon_id']),
+    ['coupon_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/coupon_usage'),
-    $installer->getIdxName('salesrule/coupon_usage', array('customer_id')),
-    array('customer_id')
+    $installer->getIdxName('salesrule/coupon_usage', ['customer_id']),
+    ['customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/rule_customer'),
-    $installer->getIdxName('salesrule/rule_customer', array('rule_id', 'customer_id')),
-    array('rule_id', 'customer_id')
+    $installer->getIdxName('salesrule/rule_customer', ['rule_id', 'customer_id']),
+    ['rule_id', 'customer_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/rule_customer'),
-    $installer->getIdxName('salesrule/rule_customer', array('customer_id', 'rule_id')),
-    array('customer_id', 'rule_id')
+    $installer->getIdxName('salesrule/rule_customer', ['customer_id', 'rule_id']),
+    ['customer_id', 'rule_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/label'),
     $installer->getIdxName(
         'salesrule/label',
-        array('rule_id', 'store_id'),
+        ['rule_id', 'store_id'],
         Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     ),
-    array('rule_id', 'store_id'),
+    ['rule_id', 'store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/label'),
-    $installer->getIdxName('salesrule/label', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('salesrule/label', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/label'),
-    $installer->getIdxName('salesrule/label', array('rule_id')),
-    array('rule_id')
+    $installer->getIdxName('salesrule/label', ['rule_id']),
+    ['rule_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/product_attribute'),
-    $installer->getIdxName('salesrule/product_attribute', array('website_id')),
-    array('website_id')
+    $installer->getIdxName('salesrule/product_attribute', ['website_id']),
+    ['website_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/product_attribute'),
-    $installer->getIdxName('salesrule/product_attribute', array('customer_group_id')),
-    array('customer_group_id')
+    $installer->getIdxName('salesrule/product_attribute', ['customer_group_id']),
+    ['customer_group_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('salesrule/product_attribute'),
-    $installer->getIdxName('salesrule/product_attribute', array('attribute_id')),
-    array('attribute_id')
+    $installer->getIdxName('salesrule/product_attribute', ['attribute_id']),
+    ['attribute_id']
 );
-
 
 /**
  * Add foreign keys

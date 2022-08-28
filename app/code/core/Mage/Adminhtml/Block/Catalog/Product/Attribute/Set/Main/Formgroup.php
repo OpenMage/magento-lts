@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -41,33 +35,33 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formgroup extends 
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('set_fieldset', array('legend'=>Mage::helper('catalog')->__('Add New Group')));
+        $fieldset = $form->addFieldset('set_fieldset', ['legend'=>Mage::helper('catalog')->__('Add New Group')]);
 
         $fieldset->addField('attribute_group_name', 'text',
-                            array(
+                            [
                                 'label' => Mage::helper('catalog')->__('Name'),
                                 'name' => 'attribute_group_name',
                                 'required' => true,
-                            )
+                            ]
         );
 
         $fieldset->addField('submit', 'note',
-                            array(
+                            [
                                 'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                                            ->setData(array(
+                                            ->setData([
                                                 'label'     => Mage::helper('catalog')->__('Add Group'),
                                                 'onclick'   => 'this.form.submit();',
                                                                                                 'class' => 'add'
-                                            ))
+                                            ])
                                             ->toHtml(),
-                            )
+                            ]
         );
 
         $fieldset->addField('attribute_set_id', 'hidden',
-                            array(
+                            [
                                 'name' => 'attribute_set_id',
                                 'value' => $this->_getSetId(),
-                            )
+                            ]
 
         );
 

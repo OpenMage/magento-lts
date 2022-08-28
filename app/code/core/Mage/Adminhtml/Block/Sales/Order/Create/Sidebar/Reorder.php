@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -48,7 +42,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $this->setDataId('reorder');
     }
 
-
     public function getHeaderText()
     {
         return Mage::helper('sales')->__('Last Ordered Items');
@@ -64,7 +57,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
         $storeIds = $this->getQuote()->getStore()->getWebsite()->getStoreIds();
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('customer_id', $this->getCustomerId())
-            ->addFieldToFilter('store_id', array('in' => $storeIds))
+            ->addFieldToFilter('store_id', ['in' => $storeIds])
             ->setOrder('created_at', 'desc')
             ->setPageSize(1)
             ->load();
@@ -82,7 +75,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Reorder extends Mage_Admin
     public function getItemCollection()
     {
         if ($order = $this->getLastOrder()) {
-            $items = array();
+            $items = [];
             foreach ($order->getItemsCollection() as $item) {
                 if (!$item->getParentItem()) {
                     $items[] = $item;

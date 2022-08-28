@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -39,7 +33,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_paymentMethods = array();
+    protected $_paymentMethods = [];
 
     /**
      * Billing agreements collection
@@ -92,20 +86,20 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
             case 'created_at':
             case 'updated_at':
                 $value = ($item->getData($key))
-                    ? $this->helper('core')->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
+                    ? $this->formatDate($item->getData($key), 'short', true) : $this->__('N/A');
                 break;
             case 'edit_url':
-                $value = $this->getUrl('*/billing_agreement/view', array('agreement' => $item->getAgreementId()));
+                $value = $this->getUrl('*/billing_agreement/view', ['agreement' => $item->getAgreementId()]);
                 break;
             case 'payment_method_label':
                 $label = $item->getAgreementLabel();
-                $value = ($label) ? $label : $this->__('N/A');
+                $value = ($label) ?: $this->__('N/A');
                 break;
             case 'status':
                 $value = $item->getStatusLabel();
                 break;
             default:
-                $value = ($item->getData($key)) ? $item->getData($key) : $this->__('N/A');
+                $value = $item->getData($key) ?: $this->__('N/A');
         }
         return $this->escapeHtml($value);
     }
@@ -118,7 +112,9 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
     protected function _loadPaymentMethods()
     {
         if (!$this->_paymentMethods) {
-            foreach ($this->helper('payment')->getBillingAgreementMethods() as $paymentMethod) {
+            /** @var Mage_Payment_Helper_Data $helper */
+            $helper = $this->helper('payment');
+            foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
@@ -132,8 +128,10 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      */
     public function getWizardPaymentMethodOptions()
     {
-        $paymentMethodOptions = array();
-        foreach ($this->helper('payment')->getBillingAgreementMethods() as $paymentMethod) {
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
+        $paymentMethodOptions = [];
+        foreach ($helper->getBillingAgreementMethods() as $paymentMethod) {
             if ($paymentMethod->getConfigData('allow_billing_agreement_wizard') == 1) {
                 $paymentMethodOptions[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
@@ -148,7 +146,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', array('_secure' => $this->_isSecure())));
+        $this->setCreateUrl($this->getUrl('*/billing_agreement/startWizard', ['_secure' => $this->_isSecure()]));
         return parent::_toHtml();
     }
 }

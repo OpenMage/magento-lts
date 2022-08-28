@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -39,7 +33,7 @@ $_finalPriceInclTax = $this->helper('tax')->getPrice($_product, $_product->getFi
 $_catalogHelper = Mage::helper('catalog');
 
 $_weeeTaxAmount = Mage::helper('weee')->getAmountForDisplay($_product);
-if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
+if (Mage::helper('weee')->typeOfDisplay($_product, [1,2,4])) {
     $_weeeTaxAttributes = Mage::helper('weee')->getProductWeeeAttributesForDisplay($_product);
 }
 
@@ -198,7 +192,7 @@ if (Mage::helper('weee')->typeOfDisplay($_product, array(1,2,4))) {
             <script type="text/javascript">
             <?php
                 $addToCartUrl = $this->getProduct()->isSalable()
-                    ? $this->getAddToCartUrlCustom($_product, array('qty' => $_price['price_qty']), false)
+                    ? $this->getAddToCartUrlCustom($_product, ['qty' => $_price['price_qty']], false)
                     : '';
             ?>
             <?php if (!$this->getInGrouped()): ?>

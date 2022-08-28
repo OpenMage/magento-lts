@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -89,7 +83,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _getRolesCollection()
     {
-        if (null === $this->_rolesCollection) {
+        if ($this->_rolesCollection === null) {
             $this->_rolesCollection = Mage::getResourceModel('api2/acl_global_role_collection');
         }
         return $this->_rolesCollection;
@@ -102,7 +96,7 @@ class Mage_Api2_Model_Acl extends Zend_Acl
      */
     protected function _getConfig()
     {
-        if (null === $this->_config) {
+        if ($this->_config === null) {
             $this->_config = Mage::getModel('api2/config');
         }
         return $this->_config;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Captcha
@@ -120,7 +114,7 @@ class Mage_Captcha_Model_Observer
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
             }
@@ -144,7 +138,7 @@ class Mage_Captcha_Model_Observer
                 $controller = $observer->getControllerAction();
                 if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
                     $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = array('error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
                     $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
                 }
             }
@@ -162,7 +156,7 @@ class Mage_Captcha_Model_Observer
     {
         $formId = 'backend_login';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
-        $loginParams = Mage::app()->getRequest()->getPost('login', array());
+        $loginParams = Mage::app()->getRequest()->getPost('login', []);
         $login = array_key_exists('username', $loginParams) ? $loginParams['username'] : null;
         if ($captchaModel->isRequired($login)) {
             if (!$captchaModel->isCorrect($this->_getCaptchaString(Mage::app()->getRequest(), $formId))) {
@@ -334,7 +328,7 @@ class Mage_Captcha_Model_Observer
                 Mage::getSingleton('catalog/session')->setFormData($request->getPost());
                 $id = (int)$request->getParam('id');
                 $catId = $request->getParam('cat_id');
-                if (null !== $catId) {
+                if ($catId !== null) {
                     $id .= '/cat_id/' . (int)$catId;
                 }
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));

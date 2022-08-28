@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Index
@@ -36,10 +30,10 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
         parent::__construct();
 
         $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Process'));
-        $this->_addButton('reindex', array(
+        $this->_addButton('reindex', [
             'label'     => Mage::helper('index')->__('Reindex Data'),
             'onclick'   => "setLocation('{$this->getRunUrl()}')"
-        ));
+        ]);
         $this->_removeButton('reset');
         $this->_removeButton('delete');
     }
@@ -61,9 +55,9 @@ class Mage_Index_Block_Adminhtml_Process_Edit extends Mage_Adminhtml_Block_Widge
      */
     public function getRunUrl()
     {
-        return $this->getUrl('adminhtml/process/reindexProcess', array(
+        return $this->getUrl('adminhtml/process/reindexProcess', [
             'process' => Mage::registry('current_index_process')->getId()
-        ));
+        ]);
     }
 
     /**

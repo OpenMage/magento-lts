@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -35,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
 {
     protected function _getOptions()
     {
-        $emptyOption = array('value' => null, 'label' => '');
+        $emptyOption = ['value' => null, 'label' => ''];
 
         $optionGroups = $this->getColumn()->getOptionGroups();
         if ($optionGroups) {
@@ -45,13 +39,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
 
         $colOptions = $this->getColumn()->getOptions();
         if (!empty($colOptions) && is_array($colOptions) ) {
-            $options = array($emptyOption);
+            $options = [$emptyOption];
             foreach ($colOptions as $value => $label) {
-                $options[] = array('value' => $value, 'label' => $label);
+                $options[] = ['value' => $value, 'label' => $label];
             }
             return $options;
         }
-        return array();
+        return [];
     }
 
     /**
@@ -91,7 +85,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         if (is_null($this->getValue())) {
             return null;
         }
-        return array('eq' => $this->getValue());
+        return ['eq' => $this->getValue()];
     }
 
 }

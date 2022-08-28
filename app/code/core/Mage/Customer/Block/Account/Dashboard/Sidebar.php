@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -37,8 +31,6 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
     protected $_cartItemsCount;
 
     /**
-     * Enter description here...
-     *
      * @var Mage_Wishlist_Model_Wishlist
      */
     protected $_wishlist;
@@ -80,7 +72,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
                 ->addAttributeToSelect('name')
                 ->addAttributeToSelect('price')
                 ->addAttributeToSelect('small_image')
-                ->addAttributeToFilter('store_id', array('in' => $this->_wishlist->getSharedStoreIds()))
+                ->addAttributeToFilter('store_id', ['in' => $this->_wishlist->getSharedStoreIds()])
                 ->addAttributeToSort('added_at', 'desc')
                 ->setCurPage(1)
                 ->setPageSize(3)
@@ -104,7 +96,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getWishlistAddToCartLink($wishlistItem)
     {
-        return Mage::getUrl('wishlist/index/cart', array('item' => $wishlistItem->getId()));
+        return Mage::getUrl('wishlist/index/cart', ['item' => $wishlistItem->getId()]);
     }
 
     /**
@@ -139,7 +131,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareRemoveUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/remove', array('product'=>'#{id}'));
+         return $this->getUrl('catalog/product_compare/remove', ['product'=>'#{id}']);
     }
 
     /**
@@ -147,7 +139,7 @@ class Mage_Customer_Block_Account_Dashboard_Sidebar extends Mage_Core_Block_Temp
      */
     public function getCompareAddUrlTemplate()
     {
-         return $this->getUrl('catalog/product_compare/add', array('product'=>'#{id}'));
+         return $this->getUrl('catalog/product_compare/add', ['product'=>'#{id}']);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -60,7 +54,6 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('dataflow/profile_history'),
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
-
 
 /**
  * Drop indexes
@@ -99,334 +92,331 @@ $installer->getConnection()->dropIndex(
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
 
-
 /**
  * Change columns
  */
-$tables = array(
-    $installer->getTable('dataflow/session') => array(
-        'columns' => array(
-            'session_id' => array(
+$tables = [
+    $installer->getTable('dataflow/session') => [
+        'columns' => [
+            'session_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Session Id'
-            ),
-            'user_id' => array(
+            ],
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'comment'   => 'User Id'
-            ),
-            'created_date' => array(
+            ],
+            'created_date' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Created Date'
-            ),
-            'file' => array(
+            ],
+            'file' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'File'
-            ),
-            'type' => array(
+            ],
+            'type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'Type'
-            ),
-            'direction' => array(
+            ],
+            'direction' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 32,
                 'comment'   => 'Direction'
-            ),
-            'comment' => array(
+            ],
+            'comment' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Comment'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Session'
-    ),
-    $installer->getTable('dataflow/import') => array(
-        'columns' => array(
-            'import_id' => array(
+    ],
+    $installer->getTable('dataflow/import') => [
+        'columns' => [
+            'import_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Import Id'
-            ),
-            'session_id' => array(
+            ],
+            'session_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'comment'   => 'Session Id'
-            ),
-            'serial_number' => array(
+            ],
+            'serial_number' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Serial Number'
-            ),
-            'value' => array(
+            ],
+            'value' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Value'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Import Data'
-    ),
-    $installer->getTable('dataflow/profile') => array(
-        'columns' => array(
-            'profile_id' => array(
+    ],
+    $installer->getTable('dataflow/profile') => [
+        'columns' => [
+            'profile_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Profile Id'
-            ),
-            'name' => array(
+            ],
+            'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Name'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Created At'
-            ),
-            'updated_at' => array(
+            ],
+            'updated_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Updated At'
-            ),
-            'actions_xml' => array(
+            ],
+            'actions_xml' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Actions Xml'
-            ),
-            'gui_data' => array(
+            ],
+            'gui_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Gui Data'
-            ),
-            'direction' => array(
+            ],
+            'direction' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 6,
                 'comment'   => 'Direction'
-            ),
-            'entity_type' => array(
+            ],
+            'entity_type' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'comment'   => 'Entity Type'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store Id'
-            ),
-            'data_transfer' => array(
+            ],
+            'data_transfer' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 11,
                 'comment'   => 'Data Transfer'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Profile'
-    ),
-    $installer->getTable('dataflow/profile_history') => array(
-        'columns' => array(
-            'history_id' => array(
+    ],
+    $installer->getTable('dataflow/profile_history') => [
+        'columns' => [
+            'history_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'History Id'
-            ),
-            'profile_id' => array(
+            ],
+            'profile_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Profile Id'
-            ),
-            'action_code' => array(
+            ],
+            'action_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 64,
                 'comment'   => 'Action Code'
-            ),
-            'user_id' => array(
+            ],
+            'user_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'User Id'
-            ),
-            'performed_at' => array(
+            ],
+            'performed_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Performed At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Profile History'
-    ),
-    $installer->getTable('dataflow/batch') => array(
-        'columns' => array(
-            'batch_id' => array(
+    ],
+    $installer->getTable('dataflow/batch') => [
+        'columns' => [
+            'batch_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Batch Id'
-            ),
-            'profile_id' => array(
+            ],
+            'profile_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Profile ID'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Store Id'
-            ),
-            'adapter' => array(
+            ],
+            'adapter' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 128,
                 'comment'   => 'Adapter'
-            ),
-            'params' => array(
+            ],
+            'params' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Parameters'
-            ),
-            'created_at' => array(
+            ],
+            'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'comment'   => 'Created At'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Batch'
-    ),
-    $installer->getTable('dataflow/batch_export') => array(
-        'columns' => array(
-            'batch_export_id' => array(
+    ],
+    $installer->getTable('dataflow/batch_export') => [
+        'columns' => [
+            'batch_export_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Batch Export Id'
-            ),
-            'batch_id' => array(
+            ],
+            'batch_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Batch Id'
-            ),
-            'batch_data' => array(
+            ],
+            'batch_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2G',
                 'comment'   => 'Batch Data'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Batch Export'
-    ),
-    $installer->getTable('dataflow/batch_import') => array(
-        'columns' => array(
-            'batch_import_id' => array(
+    ],
+    $installer->getTable('dataflow/batch_import') => [
+        'columns' => [
+            'batch_import_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_BIGINT,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Batch Import Id'
-            ),
-            'batch_id' => array(
+            ],
+            'batch_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Batch Id'
-            ),
-            'batch_data' => array(
+            ],
+            'batch_data' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '2G',
                 'comment'   => 'Batch Data'
-            ),
-            'status' => array(
+            ],
+            'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Status'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Dataflow Batch Import'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
  */
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/batch'),
-    $installer->getIdxName('dataflow/batch', array('profile_id')),
-    array('profile_id')
+    $installer->getIdxName('dataflow/batch', ['profile_id']),
+    ['profile_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/batch'),
-    $installer->getIdxName('dataflow/batch', array('store_id')),
-    array('store_id')
+    $installer->getIdxName('dataflow/batch', ['store_id']),
+    ['store_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/batch'),
-    $installer->getIdxName('dataflow/batch', array('created_at')),
-    array('created_at')
+    $installer->getIdxName('dataflow/batch', ['created_at']),
+    ['created_at']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/batch_export'),
-    $installer->getIdxName('dataflow/batch_export', array('batch_id')),
-    array('batch_id')
+    $installer->getIdxName('dataflow/batch_export', ['batch_id']),
+    ['batch_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/batch_import'),
-    $installer->getIdxName('dataflow/batch_import', array('batch_id')),
-    array('batch_id')
+    $installer->getIdxName('dataflow/batch_import', ['batch_id']),
+    ['batch_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/import'),
-    $installer->getIdxName('dataflow/import', array('session_id')),
-    array('session_id')
+    $installer->getIdxName('dataflow/import', ['session_id']),
+    ['session_id']
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('dataflow/profile_history'),
-    $installer->getIdxName('dataflow/profile_history', array('profile_id')),
-    array('profile_id')
+    $installer->getIdxName('dataflow/profile_history', ['profile_id']),
+    ['profile_id']
 );
-
 
 /**
  * Add foreign keys

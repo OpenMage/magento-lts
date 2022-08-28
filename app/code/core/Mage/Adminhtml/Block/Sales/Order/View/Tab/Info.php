@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -62,18 +56,18 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
      */
     public function getOrderTotalData()
     {
-        return array(
+        return [
             'can_display_total_due'      => true,
             'can_display_total_paid'     => true,
             'can_display_total_refunded' => true,
-        );
+        ];
     }
 
     public function getOrderInfoData()
     {
-        return array(
+        return [
             'no_use_order_link' => true,
-        );
+        ];
     }
 
     public function getTrackingHtml()
@@ -114,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/*/*', array('order_id'=>$orderId));
+        return $this->getUrl('*/*/*', ['order_id'=>$orderId]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,6 +27,12 @@
  */
 class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/rules';
+
     /**
      * Index action
      *
@@ -128,7 +128,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
                 ->addSuccess($this->_getHelperModel('tax')->__('The tax rule has been saved.'));
 
             if ($this->getRequest()->getParam('back')) {
-                return $this->_redirect('*/*/edit', array('rule' => $ruleModel->getId()));
+                return $this->_redirect('*/*/edit', ['rule' => $ruleModel->getId()]);
             }
 
             return $this->_redirect('*/*/');
@@ -145,7 +145,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_redirectReferer();
     }
 
-
     /**
      * Check if this a duplicate rule creation request
      *
@@ -161,7 +160,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         );
 
         //Remove the current one from the list
-        $existingRules = array_diff($existingRules, array($ruleModel->getOrigData('code')));
+        $existingRules = array_diff($existingRules, [$ruleModel->getOrigData('code')]);
 
         //Verify if a Rule already exists. If not throw an error
         if (count($existingRules) > 0) {
@@ -224,23 +223,13 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Check if sales rules is allowed
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rules');
-    }
-
-    /**
      * Return model instance
      *
      * @param string $className
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($className, $arguments = array())
+    protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
     }
@@ -257,7 +246,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */

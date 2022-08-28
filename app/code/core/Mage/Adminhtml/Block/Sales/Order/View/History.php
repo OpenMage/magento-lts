@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -37,11 +31,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     {
         $onclick = "submitAndReloadArea($('order_history_block').parentNode, '".$this->getSubmitUrl()."')";
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'   => Mage::helper('sales')->__('Submit Comment'),
                 'class'   => 'save',
                 'onclick' => $onclick
-            ));
+            ]);
         $this->setChild('submit_button', $button);
         return parent::_prepareLayout();
     }
@@ -49,8 +43,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
     public function getStatuses()
     {
         $state = $this->getOrder()->getState();
-        $statuses = $this->getOrder()->getConfig()->getStateStatuses($state);
-        return $statuses;
+        return $this->getOrder()->getConfig()->getStateStatuses($state);
     }
 
     public function canSendCommentEmail()
@@ -76,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_History extends Mage_Adminhtml_Block
 
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addComment', array('order_id'=>$this->getOrder()->getId()));
+        return $this->getUrl('*/*/addComment', ['order_id'=>$this->getOrder()->getId()]);
     }
 
     /**

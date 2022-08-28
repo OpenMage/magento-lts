@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -70,15 +64,15 @@ class Mage_Core_Model_Resource_Config_Data extends Mage_Core_Model_Resource_Db_A
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array($this->getIdFieldName()))
+            ->from($this->getMainTable(), [$this->getIdFieldName()])
             ->where('scope = :scope')
             ->where('scope_id = :scope_id')
             ->where('path = :path');
-        $bind   = array(
+        $bind   = [
             'scope'     => $object->getScope(),
             'scope_id'  => $object->getScopeId(),
             'path'      => $object->getPath()
-        );
+        ];
 
         $configId = $this->_getReadAdapter()->fetchOne($select, $bind);
         if ($configId) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -44,12 +38,17 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -103,7 +102,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getInvoiceUrl($order)
     {
-        return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/invoice', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -112,7 +111,7 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getShipmentUrl($order)
     {
-        return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/shipment', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -121,6 +120,6 @@ class Mage_Sales_Block_Order_View extends Mage_Core_Block_Template
      */
     public function getCreditmemoUrl($order)
     {
-        return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
 }

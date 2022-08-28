@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -51,41 +45,41 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::_prepareColumns();
 
-        $this->addColumn('frontend_label', array(
+        $this->addColumn('frontend_label', [
             'header'=>Mage::helper('eav')->__('Attribute Label'),
             'sortable'=>true,
             'index'=>'frontend_label'
-        ));
+        ]);
 
-        $this->addColumn('attribute_code', array(
+        $this->addColumn('attribute_code', [
             'header'=>Mage::helper('eav')->__('Attribute Code'),
             'sortable'=>true,
             'index'=>'attribute_code'
-        ));
+        ]);
 
-        $this->addColumn('is_required', array(
+        $this->addColumn('is_required', [
             'header'=>Mage::helper('eav')->__('Required'),
             'sortable'=>true,
             'index'=>'is_required',
             'type' => 'options',
-            'options' => array(
+            'options' => [
                 '1' => Mage::helper('eav')->__('Yes'),
                 '0' => Mage::helper('eav')->__('No'),
-            ),
+            ],
             'align' => 'center',
-        ));
+        ]);
 
-        $this->addColumn('is_user_defined', array(
+        $this->addColumn('is_user_defined', [
             'header'=>Mage::helper('eav')->__('System'),
             'sortable'=>true,
             'index'=>'is_user_defined',
             'type' => 'options',
             'align' => 'center',
-            'options' => array(
+            'options' => [
                 '0' => Mage::helper('eav')->__('Yes'),   // intended reverted use
                 '1' => Mage::helper('eav')->__('No'),    // intended reverted use
-            ),
-        ));
+            ],
+        ]);
 
         return $this;
     }
@@ -98,6 +92,6 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('attribute_id' => $row->getAttributeId()));
+        return $this->getUrl('*/*/edit', ['attribute_id' => $row->getAttributeId()]);
     }
 }

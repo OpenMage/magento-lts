@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -41,15 +35,15 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
                 'id' => 'preview_form',
-                'action' => $this->getUrl('*/*/drop', array('_current' => true)),
+                'action' => $this->getUrl('*/*/drop', ['_current' => true]),
                 'method' => 'post'
-            ));
+        ]);
 
         if ($data = $this->getFormData()) {
 
-            $mapper = array('preview_store_id' => 'store_id');
+            $mapper = ['preview_store_id' => 'store_id'];
 
             foreach ($data as $key => $value) {
                 if(array_key_exists($key, $mapper)) {
@@ -57,7 +51,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Preview_Form extends Mage_Adminht
                 } else {
                     $name = $key;
                 }
-                $form->addField($key, 'hidden', array('name' => $name));
+                $form->addField($key, 'hidden', ['name' => $name]);
             }
             $form->setValues($data);
         }

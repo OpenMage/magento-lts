@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tag
@@ -126,9 +120,9 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
                 Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
-                $this->getResponse()->setRedirect(Mage::getUrl('*/*/', array(
+                $this->getResponse()->setRedirect(Mage::getUrl('*/*/', [
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
-                )));
+                ]));
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));

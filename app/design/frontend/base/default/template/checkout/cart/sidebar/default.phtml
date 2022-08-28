@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -39,7 +33,7 @@
         <a href="#"
            title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"
            onclick="if (confirm('<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Are you sure you would like to remove this item from the shopping cart?')) ?>')) {
-                   customFormSubmit('<?php echo $this->getDeleteUrlCustom(false) ?>','<?php echo $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))) ?>', 'post')
+                   customFormSubmit('<?php echo $this->getDeleteUrlCustom(false) ?>','<?php echo $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>', 'post')
                    }"
            class="btn-remove">
             <?php echo $this->__('Remove This Item') ?>
@@ -60,7 +54,7 @@
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
             <?php echo $this->__('Excl. Tax'); ?>:
         <?php endif ?>
-        <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+        <?php if (Mage::helper('weee')->typeOfDisplay($_item, [0, 1, 4], 'sales')): ?>
             <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition()); ?>
         <?php else: ?>
             <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
@@ -97,7 +91,7 @@
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
             <br /><?php echo $this->__('Incl. Tax'); ?>:
         <?php endif ?>
-        <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+        <?php if (Mage::helper('weee')->typeOfDisplay($_item, [0, 1, 4], 'sales')): ?>
             <?php echo $this->helper('checkout')->formatPrice($_incl + Mage::helper('weee')->getWeeeTaxInclTax($_item)); ?>
         <?php else: ?>
             <?php echo $this->helper('checkout')->formatPrice($_incl-$_item->getWeeeTaxDisposition()) ?>

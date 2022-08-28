@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -33,9 +27,9 @@ $installer->updateAttribute('customer', 'created_at', 'frontend_input', $datetim
 // implement new input filter for datetime type attribute
 $attribute = $installer->getAttribute('customer', 'created_at');
 
-$attributeBind = array(
+$attributeBind = [
     'input_filter' => $datetimeType,
-);
+];
 
 $attributeWhere = $installer->getConnection()->quoteInto('attribute_id=?', $attribute['attribute_id']);
 $installer->getConnection()->update($installer->getTable('customer/eav_attribute'), $attributeBind, $attributeWhere);

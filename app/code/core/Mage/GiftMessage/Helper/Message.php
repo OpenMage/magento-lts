@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_GiftMessage
@@ -52,7 +46,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      * @var array
      */
-    protected $_innerCache = array();
+    protected $_innerCache = [];
 
     /**
      * Retrieve old stule edit button html for editing of giftmessage in popup
@@ -84,7 +78,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      */
     public function getInline($type, Varien_Object $entity, $dontDisplayContainer = false)
     {
-        if (!in_array($type, array('onepage_checkout','multishipping_adress'))
+        if (!in_array($type, ['onepage_checkout','multishipping_adress'])
             && !$this->isMessagesAvailable($type, $entity)
         ) {
             return '';

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -71,11 +65,11 @@ class Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable extends
      */
     public function getPurchasedLinkUrl($item)
     {
-        return $this->getUrl('downloadable/download/link', array(
+        return $this->getUrl('downloadable/download/link', [
             'id'        => $item->getLinkHash(),
             '_store'    => $this->getOrder()->getStore(),
             '_secure'   => true,
             '_nosid'    => true
-        ));
+        ]);
     }
 }

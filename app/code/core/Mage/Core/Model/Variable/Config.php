@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -41,19 +35,19 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygPluginSettings($config)
     {
-        $variableConfig = array();
-        $onclickParts = array(
-            'search' => array('html_id'),
+        $variableConfig = [];
+        $onclickParts = [
+            'search' => ['html_id'],
             'subject' => 'MagentovariablePlugin.loadChooser(\''.$this->getVariablesWysiwygActionUrl().'\', \'{{html_id}}\');'
-        );
-        $variableWysiwygPlugin = array(array('name' => 'magentovariable',
+        ];
+        $variableWysiwygPlugin = [['name' => 'magentovariable',
             'src' => $this->getWysiwygJsPluginSrc(),
-            'options' => array(
+            'options' => [
                 'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
                 'url' => $this->getVariablesWysiwygActionUrl(),
                 'onclick' => $onclickParts,
                 'class'   => 'add-variable plugin'
-        )));
+            ]]];
         $configPlugins = $config->getData('plugins');
         $variableConfig['plugins'] = array_merge($configPlugins, $variableWysiwygPlugin);
         return $variableConfig;

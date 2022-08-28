@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Usa
@@ -186,11 +180,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     public function addProductContentCode($code)
     {
         $this->_page->saveGS();
-        $codes = array(
+        $codes = [
             'TDK' => 0, 'TDE' => 1, 'TDL' => 0, 'TDM' => 1, 'TDT' => 0,
             'TDY' => 1, 'XPD' => 0, 'DOX' => 0, 'WPX' => 1, 'ECX' => 0,
             'DOM' => 0
-        );
+        ];
         if (!array_key_exists($code, $codes)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product content code is invalid'));
         }
@@ -258,22 +252,22 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('From:', $this->_x(8), $this->_y(36));
-        $contactName = implode(' ', array_filter(array((string)$sender->CompanyName,
-            (string)$sender->Contact->PersonName))
+        $contactName = implode(' ', array_filter([(string)$sender->CompanyName,
+            (string)$sender->Contact->PersonName])
         );
         if (!$contactName) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender contact name is missing'));
         }
         $this->_page->drawText($contactName, $this->_x(25), $this->_y(36));
 
-        $phoneNumber = implode(' ', array_filter(array((string)$sender->Contact->PhoneNumber,
-            (string)$sender->Contact->PhoneExtension))
+        $phoneNumber = implode(' ', array_filter([(string)$sender->Contact->PhoneNumber,
+            (string)$sender->Contact->PhoneExtension])
         );
         $phoneNumber = $phoneNumber ? "Phone: " . $phoneNumber : null;
         $pageY = $this->_drawSenderAddress($sender->AddressLine, $phoneNumber);
 
         $divisionCode = (string)(strlen($sender->DivisionCode) ? $sender->DivisionCode . ' ' : null);
-        $cityInfo = implode(' ', array_filter(array($sender->City, $divisionCode, $sender->PostalCode)));
+        $cityInfo = implode(' ', array_filter([$sender->City, $divisionCode, $sender->PostalCode]));
         if (!strlen($cityInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender city info is missing'));
         }
@@ -299,7 +293,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
      */
     protected function _drawSenderAddress(SimpleXMLElement $addressLines, $phoneNumber)
     {
-        $lines = array();
+        $lines = [];
         foreach ($addressLines as $line) {
             $lines [] = $line;
         }
@@ -307,7 +301,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $pageY = 0;
         if (strlen($lines[0]) > 28) {
             $firstLine = array_shift($lines);
-            $pageY = $this->_page->drawLines(array($firstLine), $this->_x(25), $this->_y(42), 28);
+            $pageY = $this->_page->drawLines([$firstLine], $this->_x(25), $this->_y(42), 28);
             $this->_page->drawText($phoneNumber, $this->_x(103), $this->_y(42));
         } else {
             $pageY = $this->_y(42);
@@ -358,20 +352,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $y = $this->_page->drawLines($consignee->AddressLine, $this->_x(19), $this->_y(100), 50);
 
         $this->_page->setFont($this->_fontBold, 11);
-        $cityInfo = implode(' ', array_filter(array($consignee->PostalCode, $consignee->City,
-            $consignee->DivisionCode))
+        $cityInfo = implode(' ', array_filter([$consignee->PostalCode, $consignee->City,
+            $consignee->DivisionCode])
         );
         $y = min($y - 3, 460);
-        $this->_page->drawLines(array($cityInfo, $consignee->CountryName), $this->_x(20), $y, 44);
+        $this->_page->drawLines([$cityInfo, $consignee->CountryName], $this->_x(20), $y, 44);
 
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('Contact:', $this->_x(260), $this->_y(90));
 
-        $y = $this->_page->drawLines(array($consignee->Contact->PersonName), $this->_x(283), $this->_y(98), 25,
+        $y = $this->_page->drawLines([$consignee->Contact->PersonName], $this->_x(283), $this->_y(98), 25,
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_RIGHT
         );
-        $phoneNumber = implode(' ', array_filter(array($consignee->Contact->PhoneNumber,
-            $consignee->Contact->PhoneExtension))
+        $phoneNumber = implode(' ', array_filter([$consignee->Contact->PhoneNumber,
+            $consignee->Contact->PhoneExtension])
         );
         $this->_page->drawText($phoneNumber, $this->_x(283), $y, 'UTF-8',
             Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page::ALIGN_RIGHT
@@ -394,7 +388,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 20);
-        $code = implode('-', array_filter(array($countryCode, $serviceAreaCode, $facilityCode)));
+        $code = implode('-', array_filter([$countryCode, $serviceAreaCode, $facilityCode]));
 
         if (!strlen($code)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Destination facility code is empty'));
@@ -493,7 +487,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
     {
         $this->_page->saveGS();
 
-        $units = array("K" => 'kg', "L" => 'lb');
+        $units = ["K" => 'kg', "L" => 'lb'];
         if (!isset($units[$unit])) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Weight unit is invalid'));
         }

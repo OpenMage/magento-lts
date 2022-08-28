@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -40,7 +34,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         $this->setDefaultSort('role_user_id');
         $this->setDefaultDir('asc');
         $this->setId('roleUserGrid');
-        $this->setDefaultFilter(array('in_role_users'=>1));
+        $this->setDefaultFilter(['in_role_users'=>1]);
         $this->setUseAjax(true);
     }
 
@@ -52,10 +46,10 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
                 $inRoleIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('user_id', array('in'=>$inRoleIds));
+                $this->getCollection()->addFieldToFilter('user_id', ['in'=>$inRoleIds]);
             } else {
                 if ($inRoleIds) {
-                    $this->getCollection()->addFieldToFilter('user_id', array('nin'=>$inRoleIds));
+                    $this->getCollection()->addFieldToFilter('user_id', ['nin'=>$inRoleIds]);
                 }
             }
         } else {
@@ -75,55 +69,55 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareColumns()
     {
-        $this->addColumn('in_role_users', array(
+        $this->addColumn('in_role_users', [
             'header_css_class' => 'a-center',
             'type'      => 'checkbox',
             'name'      => 'in_role_users',
             'values'    => $this->_getUsers(),
             'align'     => 'center',
             'index'     => 'user_id'
-        ));
+        ]);
 
-        $this->addColumn('role_user_id', array(
+        $this->addColumn('role_user_id', [
             'header'    =>Mage::helper('adminhtml')->__('User ID'),
             'width'     =>5,
             'align'     =>'left',
             'sortable'  =>true,
             'index'     =>'user_id'
-        ));
+        ]);
 
-        $this->addColumn('role_user_username', array(
+        $this->addColumn('role_user_username', [
             'header'    =>Mage::helper('adminhtml')->__('User Name'),
             'align'     =>'left',
             'index'     =>'username'
-        ));
+        ]);
 
-        $this->addColumn('role_user_firstname', array(
+        $this->addColumn('role_user_firstname', [
             'header'    =>Mage::helper('adminhtml')->__('First Name'),
             'align'     =>'left',
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('role_user_lastname', array(
+        $this->addColumn('role_user_lastname', [
             'header'    =>Mage::helper('adminhtml')->__('Last Name'),
             'align'     =>'left',
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('role_user_email', array(
+        $this->addColumn('role_user_email', [
             'header'    =>Mage::helper('adminhtml')->__('Email'),
             'width'     =>40,
             'align'     =>'left',
             'index'     =>'email'
-        ));
+        ]);
 
-        $this->addColumn('role_user_is_active', array(
+        $this->addColumn('role_user_is_active', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_active',
             'align'     =>'left',
             'type'      => 'options',
-            'options'   => array('1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')),
-        ));
+            'options'   => ['1' => Mage::helper('adminhtml')->__('Active'), '0' => Mage::helper('adminhtml')->__('Inactive')],
+        ]);
 
        /*
         $this->addColumn('grid_actions',
@@ -149,7 +143,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
     public function getGridUrl()
     {
         $roleId = $this->getRequest()->getParam('rid');
-        return $this->getUrl('*/*/editrolegrid', array('rid' => $roleId));
+        return $this->getUrl('*/*/editrolegrid', ['rid' => $roleId]);
     }
 
     protected function _getUsers($json = false)
@@ -161,7 +155,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
         $users  = Mage::getModel('api/roles')->setId($roleId)->getRoleUsers();
         if (count($users)) {
             if ($json) {
-                $jsonUsers = array();
+                $jsonUsers = [];
                 foreach ($users as $usrid) {
                     $jsonUsers[$usrid] = 0;
                 }
@@ -173,7 +167,7 @@ class Mage_Adminhtml_Block_Api_Role_Grid_User extends Mage_Adminhtml_Block_Widge
             if ($json) {
                 return '{}';
             } else {
-                return array();
+                return [];
             }
         }
     }

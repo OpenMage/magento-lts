@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -58,21 +52,21 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
      */
     protected function _prepareForm()
     {
-        /* @var $customerModel Mage_Customer_Model_Customer */
+        /** @var Mage_Customer_Model_Customer $customerModel */
         $customerModel = Mage::getModel('customer/customer');
 
-        /* @var $customerForm Mage_Customer_Model_Form */
+        /** @var Mage_Customer_Model_Form $customerForm */
         $customerForm   = Mage::getModel('customer/form');
         $customerForm->setFormCode('adminhtml_checkout')
             ->setStore($this->getStore())
             ->setEntity($customerModel);
 
         // prepare customer attributes to show
-        $attributes     = array();
+        $attributes     = [];
 
         // add system required attributes
         foreach ($customerForm->getSystemAttributes() as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             if ($attribute->getIsRequired()) {
                 $attributes[$attribute->getAttributeCode()] = $attribute;
             }
@@ -84,11 +78,11 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
 
         // add user defined attributes
         foreach ($customerForm->getUserAttributes() as $attribute) {
-            /* @var $attribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             $attributes[$attribute->getAttributeCode()] = $attribute;
         }
 
-        $fieldset = $this->_form->addFieldset('main', array());
+        $fieldset = $this->_form->addFieldset('main', []);
 
         $this->_addAttributesToForm($attributes, $fieldset);
 

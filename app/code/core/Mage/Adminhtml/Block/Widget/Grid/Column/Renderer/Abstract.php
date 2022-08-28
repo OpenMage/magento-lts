@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -127,7 +121,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
      */
     public function renderHeader()
     {
-        if (false !== $this->getColumn()->getGrid()->getSortable() && false !== $this->getColumn()->getSortable()) {
+        if ($this->getColumn()->getGrid()->getSortable() !== false && $this->getColumn()->getSortable() !== false) {
             $className = 'not-sort';
             $dir = strtolower($this->getColumn()->getDir());
             $nDir= ($dir=='asc') ? 'desc' : 'asc';
@@ -153,7 +147,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 
         if ($this->getColumn()->hasData('width')) {
             $customWidth = $this->getColumn()->getData('width');
-            if ((null === $customWidth) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
+            if (($customWidth === null) || (preg_match('/^[0-9]+%?$/', $customWidth))) {
                 $width = $customWidth;
             }
             elseif (preg_match('/^([0-9]+)px$/', $customWidth, $matches)) {
@@ -161,7 +155,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
             }
         }
 
-        if (null !== $width) {
+        if ($width !== null) {
             $out .= ' width="' . $width . '"';
         }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -44,20 +38,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tabs extends Mage_Admi
 
     protected function _beforeToHtml()
     {
-        $this->addTab('main', array(
+        $this->addTab('main', [
             'label'     => Mage::helper('catalog')->__('Properties'),
             'title'     => Mage::helper('catalog')->__('Properties'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_main')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
         $model = Mage::registry('entity_attribute');
 
-        $this->addTab('labels', array(
+        $this->addTab('labels', [
             'label'     => Mage::helper('catalog')->__('Manage Label / Options'),
             'title'     => Mage::helper('catalog')->__('Manage Label / Options'),
             'content'   => $this->getLayout()->createBlock('adminhtml/catalog_product_attribute_edit_tab_options')->toHtml(),
-        ));
+        ]);
 
         /*if ('select' == $model->getFrontendInput()) {
             $this->addTab('options_section', array(

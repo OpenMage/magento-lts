@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -52,7 +46,7 @@ class Mage_Core_Model_Factory
      *
      * @param array $arguments
      */
-    public function __construct(array $arguments = array())
+    public function __construct(array $arguments = [])
     {
         $this->_config = !empty($arguments['config']) ? $arguments['config'] : Mage::getConfig();
     }
@@ -64,7 +58,7 @@ class Mage_Core_Model_Factory
      * @param array|object $arguments
      * @return bool|Mage_Core_Model_Abstract
      */
-    public function getModel($modelClass = '', $arguments = array())
+    public function getModel($modelClass = '', $arguments = [])
     {
         return Mage::getModel($modelClass, $arguments);
     }
@@ -76,7 +70,7 @@ class Mage_Core_Model_Factory
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    public function getSingleton($modelClass = '', array $arguments = array())
+    public function getSingleton($modelClass = '', array $arguments = [])
     {
         return Mage::getSingleton($modelClass, $arguments);
     }
@@ -88,7 +82,7 @@ class Mage_Core_Model_Factory
      * @param array $arguments
      * @return Object
      */
-    public function getResourceModel($modelClass, $arguments = array())
+    public function getResourceModel($modelClass, $arguments = [])
     {
         return Mage::getResourceModel($modelClass, $arguments);
     }

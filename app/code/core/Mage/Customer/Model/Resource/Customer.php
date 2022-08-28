@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer entity resource model
@@ -50,7 +43,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _getDefaultAttributes()
     {
-        return array(
+        return [
             'entity_type_id',
             'attribute_set_id',
             'created_at',
@@ -58,7 +51,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             'increment_id',
             'store_id',
             'website_id'
-        );
+        ];
     }
 
     /**
@@ -77,10 +70,10 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         }
 
         $adapter = $this->_getWriteAdapter();
-        $bind    = array('email' => $customer->getEmail());
+        $bind    = ['email' => $customer->getEmail()];
 
         $select = $adapter->select()
-            ->from($this->getEntityTable(), array($this->getEntityIdField()))
+            ->from($this->getEntityTable(), [$this->getEntityIdField()])
             ->where('email = :email');
         if ($customer->getSharingConfig()->isWebsiteScope()) {
             $bind['website_id'] = (int)$customer->getWebsiteId();
@@ -211,9 +204,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('customer_email' => $email);
+        $bind    = ['customer_email' => $email];
         $select  = $adapter->select()
-            ->from($this->getEntityTable(), array($this->getEntityIdField()))
+            ->from($this->getEntityTable(), [$this->getEntityIdField()])
             ->where('email = :customer_email');
 
         if ($customer->getSharingConfig()->isWebsiteScope()) {
@@ -230,7 +223,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if ($customerId) {
             $this->load($customer, $customerId);
         } else {
-            $customer->setData(array());
+            $customer->setData([]);
         }
 
         return $this;
@@ -260,7 +253,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     {
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
-            ->from($this->getTable('customer/entity'), array('email', 'cnt' => 'COUNT(*)'))
+            ->from($this->getTable('customer/entity'), ['email', 'cnt' => 'COUNT(*)'])
             ->group('email')
             ->order('cnt DESC')
             ->limit(1);
@@ -280,7 +273,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function checkCustomerId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('entity_id' => (int)$customerId);
+        $bind    = ['entity_id' => (int)$customerId];
         $select  = $adapter->select()
             ->from($this->getTable('customer/entity'), 'entity_id')
             ->where('entity_id = :entity_id')
@@ -302,7 +295,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     public function getWebsiteId($customerId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array('entity_id' => (int)$customerId);
+        $bind    = ['entity_id' => (int)$customerId];
         $select  = $adapter->select()
             ->from($this->getTable('customer/entity'), 'website_id')
             ->where('entity_id = :entity_id');

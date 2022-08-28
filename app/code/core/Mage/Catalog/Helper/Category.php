@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -42,14 +36,14 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_storeCategories = array();
+    protected $_storeCategories = [];
 
     /**
      * Cache for category rewrite suffix
      *
      * @var array
      */
-    protected $_categoryUrlSuffix = array();
+    protected $_categoryUrlSuffix = [];
 
     /**
      * Retrieve current store categories
@@ -72,12 +66,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
          * Check if parent node of the store still exists
          */
         $category = Mage::getModel('catalog/category');
-        /* @var Mage_Catalog_Model_Category $category */
+        /** @var Mage_Catalog_Model_Category $category */
         if (!$category->checkId($parent)) {
             if ($asCollection) {
                 return new Varien_Data_Collection();
             }
-            return array();
+            return [];
         }
 
         $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));

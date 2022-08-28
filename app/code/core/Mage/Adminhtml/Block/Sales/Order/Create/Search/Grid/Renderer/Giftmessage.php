@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,7 +27,8 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
+class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage
+    extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox
 {
     /**
      * Renders grid column
@@ -43,8 +38,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Search_Grid_Renderer_Giftmessage e
      */
     public function render(Varien_Object $row)
     {
-        if(!$this->helper('giftmessage/message')->getIsMessagesAvailable('order_item', $row,
-                $this->getColumn()->getGrid()->getStore())) {
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        if (!$helper->getIsMessagesAvailable('order_item', $row, $this->getColumn()->getGrid()->getStore())) {
             return '&nbsp;';
         }
 

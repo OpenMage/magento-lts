@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -54,7 +48,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         parent::_construct();
         $this->setTemplate('page/menu.phtml');
         $this->_url = Mage::getModel('adminhtml/url');
-        $this->setCacheTags(array(self::CACHE_TAGS));
+        $this->setCacheTags([self::CACHE_TAGS]);
     }
 
     /**
@@ -74,12 +68,12 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $cacheKeyInfo = array(
+        $cacheKeyInfo = [
             'admin_top_nav',
             $this->getActive(),
             Mage::getSingleton('admin/session')->getUser()->getId(),
             Mage::app()->getLocale()->getLocaleCode()
-        );
+        ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
         if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
@@ -114,9 +108,6 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         if (isset($childAttributes['module'])) {
             $helperName     = (string)$childAttributes['module'];
         }
-//        if (isset($childAttributes['translate'])) {
-//            $titleNodeName  = (string)$childAttributes['translate'];
-//        }
 
         return Mage::helper($helperName)->__((string)$child->$titleNodeName);
     }
@@ -131,10 +122,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
     {
-        $parentArr = array();
+        $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 continue;
             }
 
@@ -147,14 +138,14 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 continue;
             }
 
-            $menuArr = array();
+            $menuArr = [];
 
             $menuArr['label'] = $this->_getHelperValue($child);
 
             $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = $this->_url->getUrl((string)$child->action, array('_cache_secret_key' => true));
+                $menuArr['url'] = $this->_url->getUrl((string)$child->action, ['_cache_secret_key' => true]);
             } else {
                 $menuArr['url'] = '#';
                 $menuArr['click'] = 'return false';
@@ -177,7 +168,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             $sortOrder++;
         }
 
-        uasort($parentArr, array($this, '_sortMenu'));
+        uasort($parentArr, [$this, '_sortMenu']);
 
         foreach($parentArr as $key => $value) {
             $last = $key;
@@ -261,7 +252,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', array($this, '_callbackSecretKey'), $html);
+        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
 
         return $html;
     }
@@ -289,6 +280,9 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     {
         $html = '<ul ' . (!$level ? 'id="nav"' : '') . '>' . PHP_EOL;
         foreach ($menu as $item) {
+            if ((empty($item['url']) || ($item['url'] == '#')) && empty($item['children'])) {
+                continue; // for example hide System/Tools when empty
+            }
             $html .= '<li ' . (!empty($item['children']) ? 'onmouseover="Element.addClassName(this,\'over\')" '
                 . 'onmouseout="Element.removeClassName(this,\'over\')"' : '') . ' class="'
                 . (!$level && !empty($item['active']) ? ' active' : '') . ' '

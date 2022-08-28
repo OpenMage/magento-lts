@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Cache
@@ -72,7 +66,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         'read_control'           => false,   // Use a checksum to detect corrupt data
         'read_control_type'      => 'crc32', // If read_control is enabled, which checksum algorithm to use
         'hashed_directory_level' => 2,       // How many characters should be used to create sub-directories
-        'use_chmod' => FALSE,              // Do not use chmod on files and directories (should use umask() to control permissions)
+        'use_chmod' => false,              // Do not use chmod on files and directories (should use umask() to control permissions)
         'file_mode' => 0660,               // Filesystem permissions for created files (requires use_chmod)
         'directory_mode' => 0770,          // Filesystem permissions for created directories (requires use_chmod)
         'file_name_prefix'       => 'mage',  // Prefix for cache directories created
@@ -100,7 +94,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
 
         // Auto-enable chmod if modes are specified.
         if (isset($options['directory_mode']) || isset($options['file_mode'])) {
-            $options['use_chmod'] = TRUE;
+            $options['use_chmod'] = true;
         }
 
         // Don't use parent constructor

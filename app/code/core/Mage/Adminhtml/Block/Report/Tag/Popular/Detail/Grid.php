@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -47,7 +41,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Reports_Model_Resource_Tag_Customer_Collection */
+        /** @var Mage_Reports_Model_Resource_Tag_Customer_Collection $collection */
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
         $collection->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
             ->addTagFilter($this->getRequest()->getParam('id'))
@@ -66,28 +60,28 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('reports')->__('First Name'),
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('reports')->__('Last Name'),
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('product', array(
+        $this->addColumn('product', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'product_name'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('added_in', array(
+            $this->addColumn('added_in', [
                 'header'    => Mage::helper('reports')->__('Submitted In'),
                 'index'     => 'added_in',
                 'type'      => 'store',
                 'store_view'=> true
-            ));
+            ]);
         }
 
         $this->setFilterVisibility(false);

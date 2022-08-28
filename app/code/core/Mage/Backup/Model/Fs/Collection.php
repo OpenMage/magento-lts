@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Backup
@@ -53,7 +47,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
         $ioProxy = new Varien_Io_File();
         $ioProxy->mkdir($this->_baseDir);
         if (!is_file($this->_baseDir . DS . '.htaccess')) {
-            $ioProxy->open(array('path' => $this->_baseDir));
+            $ioProxy->open(['path' => $this->_baseDir]);
             $ioProxy->write('.htaccess', 'deny from all', 0644);
         }
 

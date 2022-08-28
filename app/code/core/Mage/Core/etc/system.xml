@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -61,20 +55,20 @@
                         </use_form_key>
                     </fields>
                 </csrf>
-                <cache>
-                    <label>Advanced Magento cache settings</label>
-                    <sort_order>10000</sort_order>
+                <cache translate="label" module="core">
+                    <label>Advanced Cache Settings</label>
+                    <sort_order>1000</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
-                        <flush_cron_expr>
-                            <label>Cron expression for regular cache flushing</label>
+                        <flush_cron_expr translate="label comment">
+                            <label>Cron Expression for Cache Flushing</label>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Use 0 0 30 2 0 to never run cron, the recommended setting is 30 3 * * 6</comment>
+                            <comment>The default value is "30 2 * * *". An empty value disables automatic cache flushing.</comment>
                         </flush_cron_expr>
                     </fields>
                 </cache>
@@ -1066,8 +1060,36 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_legacy_theme>
+                        <loading_timeout translate="label comment">
+                            <label>Loading Indicator Timeout</label>
+                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "200". An empty value disables the delay.</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loading_timeout>
                     </fields>
                 </design>
+
+                <global_search>
+                    <label>Global Search</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>6</sort_order>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable global search</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                    </fields>
+                </global_search>
 
                 <emails translate="label">
                     <label>Admin User Emails</label>

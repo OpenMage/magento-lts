@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -46,14 +40,14 @@ class Mage_Core_Model_Log_Adapter
      *
      * @var array
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Fields that should be replaced in debug data with '***'
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Set log file name
@@ -77,7 +71,7 @@ class Mage_Core_Model_Log_Adapter
             $data = $this->_data;
         } else {
             if (!is_array($data)) {
-                $data = array($data);
+                $data = [$data];
             }
         }
         $data = $this->_filterDebugData($data);
@@ -113,7 +107,7 @@ class Mage_Core_Model_Log_Adapter
     public function setFilterDataKeys($keys)
     {
         if (!is_array($keys)) {
-            $keys = array($keys);
+            $keys = [$keys];
         }
         $this->_debugReplacePrivateDataKeys = $keys;
         return $this;

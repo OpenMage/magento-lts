@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -144,12 +138,12 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         foreach ($ctc as $c) {
             foreach ($ptc as $p) {
                 foreach ($rates as $r) {
-                    $dataArray = array(
+                    $dataArray = [
                         'tax_calculation_rule_id'   =>$this->getId(),
                         'tax_calculation_rate_id'   =>$r,
                         'customer_tax_class_id'     =>$c,
                         'product_tax_class_id'      =>$p,
-                    );
+                    ];
                     Mage::getSingleton('tax/calculation')->setData($dataArray)->save();
                 }
             }
@@ -190,7 +184,6 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
     {
         return $this->getCalculationModel()->getProductTaxClasses($this->getId());
     }
-
 
     /**
      * Fetches rules by rate, customer tax class and product tax class

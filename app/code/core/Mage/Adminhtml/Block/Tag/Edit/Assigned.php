@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -48,11 +42,11 @@ class Mage_Adminhtml_Block_Tag_Edit_Assigned extends Mage_Adminhtml_Block_Widget
 
         $this->setId('tag_assigned_grid');
 
-        $this->addItem('tag_assign', array(
+        $this->addItem('tag_assign', [
             'title'         => Mage::helper('tag')->__('Products Tagged by Administrators'),
             'ajax'          => true,
-            'content_url'   => $this->getUrl('*/*/assigned', array('ret' => 'all', 'tag_id'=>$tagModel->getId(), 'store'=>$tagModel->getStoreId())),
-        ));
+            'content_url'   => $this->getUrl('*/*/assigned', ['ret' => 'all', 'tag_id'=>$tagModel->getId(), 'store'=>$tagModel->getStoreId()]),
+        ]);
         return parent::_prepareLayout();
     }
 }

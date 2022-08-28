@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -30,7 +24,6 @@
  * @category   Mage
  * @package    Mage_Sales
  */
-
 class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
 {
     /**
@@ -38,12 +31,17 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Print Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 

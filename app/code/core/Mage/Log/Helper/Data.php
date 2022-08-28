@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Log
@@ -39,13 +33,13 @@ class Mage_Log_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Allowed extensions that can be used to create a log file
      */
-    private $_allowedFileExtensions = array('log', 'txt', 'html', 'csv');
+    private $_allowedFileExtensions = ['log', 'txt', 'html', 'csv'];
 
     /**
      * Mage_Log_Helper_Data constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_logLevel = isset($data['log_level']) ? $data['log_level']
             : intval(Mage::getStoreConfig(self::XML_PATH_LOG_ENABLED));

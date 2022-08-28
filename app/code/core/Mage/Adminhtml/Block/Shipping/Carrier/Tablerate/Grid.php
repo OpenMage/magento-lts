@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -50,8 +44,6 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
 
     /**
      * Define grid properties
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -88,7 +80,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $websiteId
+     * @param int $name
      * @return $this
      */
     public function setConditionName($name)
@@ -131,35 +123,35 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('dest_country', array(
+        $this->addColumn('dest_country', [
             'header'    => Mage::helper('adminhtml')->__('Country'),
             'index'     => 'dest_country',
             'default'   => '*',
-        ));
+        ]);
 
-        $this->addColumn('dest_region', array(
+        $this->addColumn('dest_region', [
             'header'    => Mage::helper('adminhtml')->__('Region/State'),
             'index'     => 'dest_region',
             'default'   => '*',
-        ));
+        ]);
 
-        $this->addColumn('dest_zip', array(
+        $this->addColumn('dest_zip', [
             'header'    => Mage::helper('adminhtml')->__('Zip/Postal Code'),
             'index'     => 'dest_zip',
             'default'   => '*',
-        ));
+        ]);
 
         $label = Mage::getSingleton('shipping/carrier_tablerate')
             ->getCode('condition_name_short', $this->getConditionName());
-        $this->addColumn('condition_value', array(
+        $this->addColumn('condition_value', [
             'header'    => $label,
             'index'     => 'condition_value',
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    => Mage::helper('adminhtml')->__('Shipping Price'),
             'index'     => 'price',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }

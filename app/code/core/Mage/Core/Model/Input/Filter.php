@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -111,7 +105,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      *
      * @var array
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * Add filter
@@ -192,7 +186,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      */
     public function getFilters($name = null)
     {
-        if (null === $name) {
+        if ($name === null) {
             return $this->_filters;
         } else {
             return isset($this->_filters[$name]) ? $this->_filters[$name] : null;
@@ -221,7 +215,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
      */
     protected function _filter(array $data, &$filters = null, $isFilterListSimple = false)
     {
-        if (null === $filters) {
+        if ($filters === null) {
             $filters = &$this->_filters;
         }
         foreach ($data as $key => $value) {
@@ -264,11 +258,11 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
             throw new Exception("Helper filtration method is not set");
         }
         if (!isset($filterData['args']) || empty($filterData['args'])) {
-            $filterData['args'] = array();
+            $filterData['args'] = [];
         }
-        $filterData['args'] = array(-100 => $value) + $filterData['args'];
+        $filterData['args'] = [-100 => $value] + $filterData['args'];
         // apply filter
-        $value = call_user_func_array(array($helper, $filterData['method']), $filterData['args']);
+        $value = call_user_func_array([$helper, $filterData['method']], $filterData['args']);
         return $value;
     }
 
@@ -304,7 +298,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     {
         $zendFilter = false;
         if (is_object($filterData) && $filterData instanceof Zend_Filter_Interface) {
-            /** @var Zend_Filter_Interface $zendFilter */
             $zendFilter = $filterData;
         } elseif (isset($filterData['model'])) {
             $zendFilter = $this->_createCustomZendFilter($filterData);

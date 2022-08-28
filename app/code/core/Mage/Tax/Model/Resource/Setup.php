@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax Setup Resource Model
@@ -44,14 +37,14 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
 
         $oldRateTypes = $this->_loadTableData('tax_rate_type');
 
-        $rateById = array();
+        $rateById = [];
         foreach ($oldRateTypes as $type) {
             $rateById[$type['type_id']] = $type['type_name'];
         }
 
         $oldRates = $this->_loadOldRates($oldRateTypes);
 
-        $oldToNewRateIds = array();
+        $oldToNewRateIds = [];
 
         foreach ($oldRates as $rate) {
             foreach ($oldRateTypes as $type) {
@@ -67,13 +60,13 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 $code       = "{$rate['tax_country_id']}-{$regionName}-{$rate['tax_postcode']}-{$type['type_name']}";
 
                 if ($rateValue > 0) {
-                    $insertData = array(
+                    $insertData = [
                         'tax_country_id'    => $rate['tax_country_id'],
                         'tax_region_id'     => $rate['tax_region_id'],
                         'tax_postcode'      => $rate['tax_postcode'],
                         'code'              => $code,
                         'rate'              => $rateValue,
-                    );
+                    ];
 
                     $newRateModel = Mage::getModel('tax/calculation_rate');
 
@@ -89,8 +82,8 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 continue;
             }
 
-            $customerTaxClasses = array($rule['tax_customer_class_id']);
-            $productTaxClasses = array($rule['tax_product_class_id']);
+            $customerTaxClasses = [$rule['tax_customer_class_id']];
+            $productTaxClasses = [$rule['tax_product_class_id']];
 
             $ctc    = Mage::getModel('tax/class')->load($rule['tax_customer_class_id']);
             $ptc    = Mage::getModel('tax/class')->load($rule['tax_product_class_id']);
@@ -99,14 +92,14 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
             $rates  = $ratesByType[$rule['tax_rate_type_id']];
             $code   = "{$ctc->getClassName()}-{$ptc->getClassName()}-{$type}";
 
-            $ruleData = array(
+            $ruleData = [
                 'tax_rate'              => $rates,
                 'tax_product_class'     => $productTaxClasses,
                 'tax_customer_class'    => $customerTaxClasses,
                 'code'                  => $code,
                 'priority'              => 1,
                 'position'              => 1
-            );
+            ];
             Mage::getModel('tax/calculation_rule')->setData($ruleData)->save();
         }
 
@@ -138,13 +131,13 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
     {
         $table  = $this->getTable('tax_rate');
         $select = $this->_conn->select()
-            ->from(array('main_table'=>$table));
+            ->from(['main_table'=>$table]);
         foreach ($oldRateTypes as $type) {
             $id = $type['type_id'];
             $select->joinLeft(
-                array("data_{$id}"=>$this->getTable('tax_rate_data')),
+                ["data_{$id}"=>$this->getTable('tax_rate_data')],
                 "data_{$id}.rate_type_id = {$id} AND data_{$id}.tax_rate_id = main_table.tax_rate_id",
-                array("data_{$id}"=>'rate_value')
+                ["data_{$id}"=>'rate_value']
             );
         }
         return $this->_conn->fetchAll($select);

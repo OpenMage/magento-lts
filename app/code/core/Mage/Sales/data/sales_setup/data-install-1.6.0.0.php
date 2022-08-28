@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -30,39 +24,39 @@ $installer = $this;
 /**
  * Install order statuses from config
  */
-$data     = array();
+$data     = [];
 $statuses = Mage::getConfig()->getNode('global/sales/order/statuses')->asArray();
 foreach ($statuses as $code => $info) {
-    $data[] = array(
+    $data[] = [
         'status' => $code,
         'label'  => $info['label']
-    );
+    ];
 }
 $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
-    array('status', 'label'),
+    ['status', 'label'],
     $data
 );
 
 /**
  * Install order states from config
  */
-$data   = array();
+$data   = [];
 $states = Mage::getConfig()->getNode('global/sales/order/states')->asArray();
 
 foreach ($states as $code => $info) {
     if (isset($info['statuses'])) {
         foreach ($info['statuses'] as $status => $statusInfo) {
-            $data[] = array(
+            $data[] = [
                 'status'     => $status,
                 'state'      => $code,
                 'is_default' => is_array($statusInfo) && isset($statusInfo['@']['default']) ? 1 : 0
-            );
+            ];
         }
     }
 }
 $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status_state'),
-    array('status', 'state', 'is_default'),
+    ['status', 'state', 'is_default'],
     $data
 );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_AdminNotification
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * AdminNotification Inbox model
@@ -69,12 +62,12 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      */
     public function getSeverities($severity = null)
     {
-        $severities = array(
+        $severities = [
             self::SEVERITY_CRITICAL => Mage::helper('adminnotification')->__('critical'),
             self::SEVERITY_MAJOR    => Mage::helper('adminnotification')->__('major'),
             self::SEVERITY_MINOR    => Mage::helper('adminnotification')->__('minor'),
             self::SEVERITY_NOTICE   => Mage::helper('adminnotification')->__('notice'),
-        );
+        ];
 
         if (!is_null($severity)) {
             if (isset($severities[$severity])) {
@@ -93,7 +86,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
      */
     public function loadLatestNotice()
     {
-        $this->setData(array());
+        $this->setData([]);
         $this->getResource()->loadLatestNotice($this);
         return $this;
     }
@@ -138,14 +131,14 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
         }
         $date = date('Y-m-d H:i:s');
-        $this->parse(array(array(
+        $this->parse([[
             'severity'    => $severity,
             'date_added'  => $date,
             'title'       => $title,
             'description' => $description,
             'url'         => $url,
             'internal'    => $isInternal
-        )));
+        ]]);
         return $this;
     }
 

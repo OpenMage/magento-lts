@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_DB
@@ -61,7 +55,6 @@ class Mage_DB_Mysqli
      * @var unknown_type
      */
     private $fetch_mode = MYSQLI_ASSOC;
-
 
     /**
      * Constructor
@@ -274,7 +267,6 @@ class Mage_DB_Mysqli
         return $this->fetchGroupedArrayByKey($sql, $key, $forcedArrayMode);
     }
 
-
     /**
      * Escape field names
      * @param array $arrNames
@@ -306,7 +298,6 @@ class Mage_DB_Mysqli
         }
         return $out;
     }
-
 
     /**
      * Throw connect exception
@@ -412,7 +403,6 @@ class Mage_DB_Mysqli
         return $this->query($sql);
     }
 
-
     /**
      * Set table data by condition
      * @param $table
@@ -433,7 +423,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$condition}";
         return $this->query($sql);
     }
-
 
     /**
      * Update entry by pk
@@ -458,7 +447,6 @@ class Mage_DB_Mysqli
         $sql = "UPDATE {$table} SET {$set} WHERE {$key} = {$value}";
         return $this->query($sql);
     }
-
 
     /**
      * Convert ids to string
@@ -488,7 +476,6 @@ class Mage_DB_Mysqli
         $condition = is_scalar($ids) ? " = {$vals} " : " IN ({$vals}) ";
         return $condition;
     }
-
 
     /**
      * Delete items by id

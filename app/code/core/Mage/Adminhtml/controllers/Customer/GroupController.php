@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,7 +28,13 @@
 class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'customer/group';
+
+    /**
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -53,8 +53,8 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
         if (!is_null($groupId)) {
             Mage::registry('current_group')->load($groupId);
         }
-
     }
+
     /**
      * Customer groups list.
      */
@@ -133,7 +133,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setCustomerGroupData($customerGroup->getData());
-                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', array('id' => $id)));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
             }
         } else {
@@ -156,16 +156,11 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', array('id' => $id)));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
             }
         }
 
         $this->_redirect('*/customer_group');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('customer/group');
     }
 }

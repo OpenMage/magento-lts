@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -52,21 +46,21 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
 
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'name'
-        ));
+        ]);
 
         $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    =>Mage::helper('reports')->__('Price'),
             'width'     =>'80px',
             'type'      =>'currency',
@@ -74,21 +68,21 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
             'index'     =>'price',
             'renderer'  =>'adminhtml/report_grid_column_renderer_currency',
             'rate'          => $this->getRate($currencyCode),
-        ));
+        ]);
 
-        $this->addColumn('carts', array(
+        $this->addColumn('carts', [
             'header'    =>Mage::helper('reports')->__('Carts'),
             'width'     =>'80px',
             'align'     =>'right',
             'index'     =>'carts'
-        ));
+        ]);
 
-        $this->addColumn('orders', array(
+        $this->addColumn('orders', [
             'header'    =>Mage::helper('reports')->__('Orders'),
             'width'     =>'80px',
             'align'     =>'right',
             'index'     =>'orders'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 
@@ -100,7 +94,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Product_Grid extends Mage_Adminhtml_B
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/catalog_product/edit', array('id'=>$row->getEntityId()));
+        return $this->getUrl('*/catalog_product/edit', ['id'=>$row->getEntityId()]);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -35,7 +29,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      *
      * @var array
      */
-    protected $_dateInputs = array();
+    protected $_dateInputs = [];
 
     public function _construct()
     {
@@ -72,6 +66,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
                 $dateTime = new DateTime($date);
                 $this->setTime($dateTime);
             } catch (Exception $e) {
+                Mage::logException($e);
             }
         }
 
@@ -140,7 +135,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
      */
     public function getSortedDateInputs()
     {
-        $strtr = array(
+        $strtr = [
             '%b' => '%1$s',
             '%B' => '%1$s',
             '%m' => '%1$s',
@@ -148,7 +143,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
             '%e' => '%2$s',
             '%Y' => '%3$s',
             '%y' => '%3$s'
-        );
+        ];
 
         $dateFormat = preg_replace('/[^\%\w]/', '\\1', $this->getDateFormat());
 

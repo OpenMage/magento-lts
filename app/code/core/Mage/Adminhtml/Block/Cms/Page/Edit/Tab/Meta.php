@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -57,23 +51,23 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Meta
 
         $model = Mage::registry('cms_page');
 
-        $fieldset = $form->addFieldset('meta_fieldset', array('legend' => Mage::helper('cms')->__('Meta Data'), 'class' => 'fieldset-wide'));
+        $fieldset = $form->addFieldset('meta_fieldset', ['legend' => Mage::helper('cms')->__('Meta Data'), 'class' => 'fieldset-wide']);
 
-        $fieldset->addField('meta_keywords', 'textarea', array(
+        $fieldset->addField('meta_keywords', 'textarea', [
             'name' => 'meta_keywords',
             'label' => Mage::helper('cms')->__('Keywords'),
             'title' => Mage::helper('cms')->__('Meta Keywords'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        $fieldset->addField('meta_description', 'textarea', array(
+        $fieldset->addField('meta_description', 'textarea', [
             'name' => 'meta_description',
             'label' => Mage::helper('cms')->__('Description'),
             'title' => Mage::helper('cms')->__('Meta Description'),
             'disabled'  => $isElementDisabled
-        ));
+        ]);
 
-        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', array('form' => $form));
+        Mage::dispatchEvent('adminhtml_cms_page_edit_tab_meta_prepare_form', ['form' => $form]);
 
         $form->setValues($model->getData());
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -40,27 +34,27 @@ class Mage_ImportExport_Block_Adminhtml_Export_Edit_Form extends Mage_Adminhtml_
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
             'id'     => 'edit_form',
             'action' => $this->getUrl('*/*/getFilter'),
             'method' => 'post'
-        ));
-        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('importexport')->__('Export Settings')));
-        $fieldset->addField('entity', 'select', array(
+        ]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('importexport')->__('Export Settings')]);
+        $fieldset->addField('entity', 'select', [
             'name'     => 'entity',
             'title'    => Mage::helper('importexport')->__('Entity Type'),
             'label'    => Mage::helper('importexport')->__('Entity Type'),
             'required' => false,
             'onchange' => 'editForm.getFilter();',
             'values'   => Mage::getModel('importexport/source_export_entity')->toOptionArray()
-        ));
-        $fieldset->addField('file_format', 'select', array(
+        ]);
+        $fieldset->addField('file_format', 'select', [
             'name'     => 'file_format',
             'title'    => Mage::helper('importexport')->__('Export File Format'),
             'label'    => Mage::helper('importexport')->__('Export File Format'),
             'required' => false,
             'values'   => Mage::getModel('importexport/source_export_format')->toOptionArray()
-        ));
+        ]);
 
         $form->setUseContainer(true);
         $this->setForm($form);

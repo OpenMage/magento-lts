@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -42,17 +36,17 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/view/container.phtml');
 
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
             'class'     => 'back',
-        ));
+        ]);
 
-        $this->_addButton('edit', array(
+        $this->_addButton('edit', [
             'label'     => Mage::helper('adminhtml')->__('Edit'),
             'class'     => 'edit',
             'onclick'   => 'window.location.href=\'' . $this->getEditUrl() . '\'',
-        ));
+        ]);
 
     }
 
@@ -64,7 +58,7 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
     public function getEditUrl()
     {
-        return $this->getUrl('*/*/edit', array($this->_objectId => $this->getRequest()->getParam($this->_objectId)));
+        return $this->getUrl('*/*/edit', [$this->_objectId => $this->getRequest()->getParam($this->_objectId)]);
     }
 
     public function getViewHtml()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_GiftMessage
@@ -41,13 +35,13 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      * @param array $params
      * @return string
      */
-    public function getEditUrl(Varien_Object $item, $type, $params = array())
+    public function getEditUrl(Varien_Object $item, $type, $params = [])
     {
         if ($item->getGiftMessageId()) {
-            $params = array_merge($params, array('message'=>$item->getGiftMessageId(), 'item'=>$item->getId(), 'type'=>$type));
+            $params = array_merge($params, ['message'=>$item->getGiftMessageId(), 'item'=>$item->getId(), 'type'=>$type]);
             return $this->_getUrl('giftmessage/index/edit', $params);
         } else {
-            $params = array_merge($params, array('item'=>$item->getId(), 'type'=>$type));
+            $params = array_merge($params, ['item'=>$item->getId(), 'type'=>$type]);
             return $this->_getUrl('giftmessage/index/new', $params);
         }
     }
@@ -60,9 +54,9 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      * @param array $params
      * @return string
      */
-    public function getButtonUrl($itemId, $type, $params = array())
+    public function getButtonUrl($itemId, $type, $params = [])
     {
-         $params = array_merge($params, array('item'=>$itemId, 'type'=>$type));
+         $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
          return $this->_getUrl('giftmessage/index/button', $params);
     }
 
@@ -74,9 +68,9 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      * @param array $params
      * @return string
      */
-    public function getRemoveUrl($itemId, $type, $params = array())
+    public function getRemoveUrl($itemId, $type, $params = [])
     {
-         $params = array_merge($params, array('item'=>$itemId, 'type'=>$type));
+         $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
          return $this->_getUrl('giftmessage/index/remove', $params);
     }
 
@@ -89,13 +83,13 @@ class Mage_GiftMessage_Helper_Url extends Mage_Core_Helper_Url
      * @param array $params
      * @return string
      */
-    public function getSaveUrl($itemId, $type, $giftMessageId = null, $params = array())
+    public function getSaveUrl($itemId, $type, $giftMessageId = null, $params = [])
     {
         if (!is_null($giftMessageId)) {
-            $params = array_merge($params, array('message'=>$giftMessageId, 'item'=>$itemId, 'type'=>$type));
+            $params = array_merge($params, ['message'=>$giftMessageId, 'item'=>$itemId, 'type'=>$type]);
             return $this->_getUrl('giftmessage/index/save', $params);
         } else {
-            $params = array_merge($params, array('item'=>$itemId, 'type'=>$type));
+            $params = array_merge($params, ['item'=>$itemId, 'type'=>$type]);
             return $this->_getUrl('giftmessage/index/save', $params);
         }
     }

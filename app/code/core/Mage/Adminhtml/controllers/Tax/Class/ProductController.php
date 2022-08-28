@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,8 +28,13 @@
 class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/tax/classes_product';
+
+    /**
      * view grid
-     *
      */
     public function indexAction()
     {
@@ -53,7 +52,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * new class action
-     *
      */
     public function newAction()
     {
@@ -62,7 +60,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * edit class action
-     *
      */
     public function editAction()
     {
@@ -107,7 +104,6 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
     /**
      * delete class action
-     *
      */
     public function deleteAction()
     {
@@ -128,7 +124,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         if ($ruleCollection->getSize() > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.'));
-            $this->_redirect('*/*/edit/', array('id' => $classId));
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -139,7 +135,7 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
 
         if ($productCount > 0) {
             $session->addError(Mage::helper('tax')->__('You cannot delete this tax class as it is used for %d products.', $productCount));
-            $this->_redirect('*/*/edit/', array('id' => $classId));
+            $this->_redirect('*/*/edit/', ['id' => $classId]);
             return;
         }
 
@@ -155,13 +151,13 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
             $session->addException($e, Mage::helper('tax')->__('An error occurred while deleting this tax class.'));
         }
 
-        $this->_redirect('*/*/edit/', array('id' => $classId));
+        $this->_redirect('*/*/edit/', ['id' => $classId]);
     }
 
     /**
      * Initialize action
      *
-     * @return Mage_Adminhtml_Controller_Action
+     * @return $this
      */
     protected function _initAction()
     {
@@ -173,15 +169,4 @@ class Mage_Adminhtml_Tax_Class_ProductController extends Mage_Adminhtml_Controll
         ;
         return $this;
     }
-
-    /**
-     * Check current user permission on resource and privilege
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/tax/classes_product');
-    }
-
 }

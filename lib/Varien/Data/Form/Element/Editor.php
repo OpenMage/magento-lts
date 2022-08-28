@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Data
@@ -380,7 +374,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     public function translate($string)
     {
         $translator = $this->getConfig('translator');
-        if (method_exists($translator, '__')) {
+        if ($translator && method_exists($translator, '__')) {
             $result = $translator->__($string);
             if (is_string($result)) {
                 return $result;

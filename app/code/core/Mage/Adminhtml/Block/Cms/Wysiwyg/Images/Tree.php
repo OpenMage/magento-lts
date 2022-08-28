@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -44,13 +38,13 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Tree extends Mage_Adminhtml_Block_
         $helper = Mage::helper('cms/wysiwyg_images');
         $storageRoot = $helper->getStorageRoot();
         $collection = Mage::registry('storage')->getDirsCollection($helper->getCurrentPath());
-        $jsonArray = array();
+        $jsonArray = [];
         foreach ($collection as $item) {
-            $jsonArray[] = array(
+            $jsonArray[] = [
                 'text'  => $helper->getShortFilename($item->getBasename(), 20),
                 'id'    => $helper->convertPathToId($item->getFilename()),
                 'cls'   => 'folder'
-            );
+            ];
         }
         return Zend_Json::encode($jsonArray);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -52,7 +46,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_app = !empty($args['app']) ? $args['app'] : Mage::app();
@@ -156,11 +150,11 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      */
     protected function _emulateDesign($storeId, $area = Mage_Core_Model_App_Area::AREA_FRONTEND)
     {
-        $initialDesign = Mage::getDesign()->setAllGetOld(array(
+        $initialDesign = Mage::getDesign()->setAllGetOld([
             'package' => $this->_getStoreConfig('design/package/name', $storeId),
             'store'   => $storeId,
             'area'    => $area
-        ));
+        ]);
         Mage::getDesign()->setTheme('');
         Mage::getDesign()->setPackageName('');
         return $initialDesign;

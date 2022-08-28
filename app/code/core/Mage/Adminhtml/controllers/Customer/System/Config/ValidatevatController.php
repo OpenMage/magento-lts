@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,6 +28,12 @@
 class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/config';
+
+    /**
      * Perform customer VAT ID validation
      *
      * @return Varien_Object
@@ -48,8 +48,6 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
 
     /**
      * Check whether vat is valid
-     *
-     * @return void
      */
     public function validateAction()
     {
@@ -59,8 +57,6 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
 
     /**
      * Retrieve validation result as JSON
-     *
-     * @return void
      */
     public function validateAdvancedAction()
     {
@@ -81,21 +77,11 @@ class Mage_Adminhtml_Customer_System_Config_ValidatevatController extends Mage_A
             $this->getRequest()->getParam('country'), $result, $storeId
         );
 
-        $body = $coreHelper->jsonEncode(array(
+        $body = $coreHelper->jsonEncode([
             'valid' => $valid,
             'group' => $groupId,
             'success' => $success
-        ));
+        ]);
         $this->getResponse()->setBody($body);
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/config');
     }
 }

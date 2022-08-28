@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract model class
@@ -145,7 +138,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         return Mage::getResourceSingleton($this->_resourceName);
     }
 
-
     /**
      * Retrieve identifier field name for model
      *
@@ -248,10 +240,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _getEventData()
     {
-        return array(
+        return [
             'data_object'       => $this,
             $this->_eventObject => $this,
-        );
+        ];
     }
 
     /**
@@ -263,7 +255,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _beforeLoad($id, $field = null)
     {
-        $params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        $params = ['object' => $this, 'field' => $field, 'value'=> $id];
         Mage::dispatchEvent('model_load_before', $params);
         $params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_load_before', $params);
@@ -277,7 +269,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterLoad()
     {
-        Mage::dispatchEvent('model_load_after', array('object'=>$this));
+        Mage::dispatchEvent('model_load_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_load_after', $this->_getEventData());
         return $this;
     }
@@ -331,7 +323,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_getResource()->save($this);
                 $this->_afterSave();
             }
-            $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
+            $this->_getResource()->addCommitCallback([$this, 'afterCommitCallback'])
                 ->commit();
             $this->_hasDataChanges = false;
             $dataCommited = true;
@@ -354,7 +346,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     public function afterCommitCallback()
     {
         $this->cleanModelCache();
-        Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
+        Mage::dispatchEvent('model_save_commit_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
         return $this;
     }
@@ -401,7 +393,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (!$this->getId()) {
             $this->isObjectNew(true);
         }
-        Mage::dispatchEvent('model_save_before', array('object'=>$this));
+        Mage::dispatchEvent('model_save_before', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_before', $this->_getEventData());
         return $this;
     }
@@ -417,12 +409,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $tags = false;
         if ($this->_cacheTag) {
             if ($this->_cacheTag === true) {
-                $tags = array();
+                $tags = [];
             } else {
                 if (is_array($this->_cacheTag)) {
                     $tags = $this->_cacheTag;
                 } else {
-                    $tags = array($this->_cacheTag);
+                    $tags = [$this->_cacheTag];
                 }
                 $idTags = $this->getCacheIdTags();
                 if ($idTags) {
@@ -442,7 +434,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         $tags = false;
         if ($this->getId() && $this->_cacheTag) {
-            $tags = array();
+            $tags = [];
             if (is_array($this->_cacheTag)) {
                 foreach ($this->_cacheTag as $_tag) {
                     $tags[] = $_tag.'_'.$this->getId();
@@ -475,7 +467,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterSave()
     {
-        Mage::dispatchEvent('model_save_after', array('object'=>$this));
+        Mage::dispatchEvent('model_save_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
         return $this;
     }
@@ -510,7 +502,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _beforeDelete()
     {
-        Mage::dispatchEvent('model_delete_before', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_before', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_before', $this->_getEventData());
         $this->cleanModelCache();
         return $this;
@@ -538,7 +530,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterDelete()
     {
-        Mage::dispatchEvent('model_delete_after', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_after', $this->_getEventData());
         return $this;
     }
@@ -550,7 +542,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _afterDeleteCommit()
     {
-        Mage::dispatchEvent('model_delete_commit_after', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_commit_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', $this->_getEventData());
          return $this;
     }

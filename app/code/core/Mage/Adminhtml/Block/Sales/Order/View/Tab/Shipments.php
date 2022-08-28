@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -68,27 +62,27 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
 
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header' => Mage::helper('sales')->__('Shipment #'),
             'index' => 'increment_id',
-        ));
+        ]);
 
-        $this->addColumn('shipping_name', array(
+        $this->addColumn('shipping_name', [
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('sales')->__('Date Shipped'),
             'index' => 'created_at',
             'type' => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('total_qty', array(
+        $this->addColumn('total_qty', [
             'header' => Mage::helper('sales')->__('Total Qty'),
             'index' => 'total_qty',
             'type'  => 'number',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -107,15 +101,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments
     {
         return $this->getUrl(
             '*/sales_order_shipment/view',
-            array(
+            [
                 'shipment_id'=> $row->getId(),
                 'order_id'  => $row->getOrderId()
-             ));
+            ]);
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/shipments', array('_current' => true));
+        return $this->getUrl('*/*/shipments', ['_current' => true]);
     }
 
     /**

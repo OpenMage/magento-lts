@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -45,25 +39,25 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
     protected function _prepareLayout()
     {
         /* Add website button */
-        $this->_addButton('add', array(
+        $this->_addButton('add', [
             'label'     => Mage::helper('core')->__('Create Website'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newWebsite') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         /* Add Store Group button */
-        $this->_addButton('add_group', array(
+        $this->_addButton('add_group', [
             'label'     => Mage::helper('core')->__('Create Store'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newGroup') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         /* Add Store button */
-        $this->_addButton('add_store', array(
+        $this->_addButton('add_store', [
             'label'     => Mage::helper('core')->__('Create Store View'),
             'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/newStore') .'\')',
             'class'     => 'add',
-        ));
+        ]);
 
         return parent::_prepareLayout();
     }
@@ -85,10 +79,10 @@ class Mage_Adminhtml_Block_System_Store_Store extends Mage_Adminhtml_Block_Widge
      */
     public function getAddNewButtonHtml()
     {
-        return implode(' ', array(
+        return implode(' ', [
             $this->getChildHtml('add_new_website'),
             $this->getChildHtml('add_new_group'),
             $this->getChildHtml('add_new_store')
-        ));
+        ]);
     }
 }

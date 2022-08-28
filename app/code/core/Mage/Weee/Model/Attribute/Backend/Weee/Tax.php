@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Weee
@@ -55,7 +49,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         if (empty($taxes)) {
             return $this;
         }
-        $dup = array();
+        $dup = [];
 
         foreach ($taxes as $tax) {
             if (!empty($tax['delete'])) {
@@ -63,7 +57,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
             }
 
             $state = isset($tax['state']) ? $tax['state'] : '*';
-            $key1 = implode('-', array($tax['website_id'], $tax['country'], $state));
+            $key1 = implode('-', [$tax['website_id'], $tax['country'], $state]);
 
             if (!empty($dup[$key1])) {
                 Mage::throwException(
@@ -131,7 +125,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                 $state = '*';
             }
 
-            $data = array();
+            $data = [];
             $data['website_id']   = $tax['website_id'];
             $data['country']      = $tax['country'];
             $data['state']        = $state;

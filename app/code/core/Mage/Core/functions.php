@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -403,7 +397,7 @@ if (!function_exists('hash_equals')) {
             $result |= (ord($known_string[$i]) ^ ord($user_string[$i]));
         }
 
-        return 0 === $result;
+        return $result === 0;
     }
 }
 
@@ -434,7 +428,7 @@ if (!function_exists('str_contains')) {
      */
     function str_contains($haystack, $needle)
     {
-        return '' === $needle || false !== strpos($haystack, $needle);
+        return $needle === '' || strpos($haystack, $needle) !== false;
     }
 }
 
@@ -449,7 +443,7 @@ if (!function_exists('str_starts_with')) {
      */
     function str_starts_with($haystack, $needle)
     {
-        return 0 === strncmp($haystack, $needle, \strlen($needle));
+        return strncmp($haystack, $needle, \strlen($needle)) === 0;
     }
 }
 
@@ -464,7 +458,7 @@ if (!function_exists('str_ends_with')) {
      */
     function str_ends_with($haystack,  $needle)
     {
-        return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
+        return $needle === '' || ($haystack !== '' && substr_compare($haystack, $needle, -\strlen($needle)) === 0);
     }
 }
 

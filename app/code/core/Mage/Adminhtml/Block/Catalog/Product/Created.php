@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -42,20 +36,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         $this->setTemplate('catalog/product/created.phtml');
     }
 
-
     protected function _prepareLayout()
     {
         $this->setChild(
             'close_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'   => Mage::helper('catalog')->__('Close Window'),
                     'onclick' => 'addProduct(true)'
-                ))
+                ])
         );
         return $this;
     }
-
 
     public function getCloseButtonHtml()
     {
@@ -84,15 +76,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
      */
     public function getAttributesJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAttributes() as $attribute) {
             $value = $this->getProduct()->getAttributeText($attribute->getAttributeCode());
 
-            $result[] = array(
+            $result[] = [
                 'label'         => $value,
                 'value_index'   => $this->getProduct()->getData($attribute->getAttributeCode()),
                 'attribute_id'  => $attribute->getId()
-            );
+            ];
         }
 
         return Mage::helper('core')->jsonEncode($result);
@@ -104,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
             return $this->getConfigurableProduct()->getTypeInstance(true)->getUsedProductAttributes($this->getConfigurableProduct());
         }
 
-        $attributes = array();
+        $attributes = [];
 
         $attributesIds = $this->getRequest()->getParam('required');
         if ($attributesIds) {

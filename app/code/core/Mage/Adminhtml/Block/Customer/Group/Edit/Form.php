@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -42,19 +36,19 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         $form = new Varien_Data_Form();
         $customerGroup = Mage::registry('current_group');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('customer')->__('Group Information')));
+        $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('customer')->__('Group Information')]);
 
         $validateClass = sprintf('required-entry validate-length maximum-length-%d',
             Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH);
         $name = $fieldset->addField('customer_group_code', 'text',
-            array(
+            [
                 'name'  => 'code',
                 'label' => Mage::helper('customer')->__('Group Name'),
                 'title' => Mage::helper('customer')->__('Group Name'),
                 'note'  => Mage::helper('customer')->__('Maximum length must be less then %s symbols', Mage_Customer_Model_Group::GROUP_CODE_MAX_LENGTH),
                 'class' => $validateClass,
                 'required' => true,
-            )
+            ]
         );
 
         if ($customerGroup->getId()==0 && $customerGroup->getCustomerGroupCode() ) {
@@ -62,23 +56,23 @@ class Mage_Adminhtml_Block_Customer_Group_Edit_Form extends Mage_Adminhtml_Block
         }
 
         $fieldset->addField('tax_class_id', 'select',
-            array(
+            [
                 'name'  => 'tax_class',
                 'label' => Mage::helper('customer')->__('Tax Class'),
                 'title' => Mage::helper('customer')->__('Tax Class'),
                 'class' => 'required-entry',
                 'required' => true,
                 'values' => Mage::getSingleton('tax/class_source_customer')->toOptionArray()
-            )
+            ]
         );
 
         if (!is_null($customerGroup->getId())) {
             // If edit add id
             $form->addField('id', 'hidden',
-                array(
+                [
                     'name'  => 'id',
                     'value' => $customerGroup->getId(),
-                )
+                ]
             );
         }
 

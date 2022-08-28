@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -88,9 +82,9 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function eavAttributeChange(Varien_Event_Observer $observer)
     {
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var Mage_Eav_Model_Entity_Attribute $attribute */
+        /** @var Mage_Eav_Model_Entity_Attribute $attribute */
         $entityType = Mage::getSingleton('eav/config')->getEntityType(Mage_Catalog_Model_Product::ENTITY);
-        /* @var Mage_Eav_Model_Entity_Type $entityType */
+        /** @var Mage_Eav_Model_Entity_Type $entityType */
 
         if ($attribute->getEntityTypeId() != $entityType->getId()) {
             return $this;
@@ -183,7 +177,7 @@ class Mage_CatalogSearch_Model_Fulltext_Observer
     public function cleanStoreIndex(Varien_Event_Observer $observer)
     {
         $store = $observer->getEvent()->getStore();
-        /* @var Mage_Core_Model_Store $store */
+        /** @var Mage_Core_Model_Store $store */
 
         $this->_getFulltextModel()
             ->cleanIndex($store->getId());

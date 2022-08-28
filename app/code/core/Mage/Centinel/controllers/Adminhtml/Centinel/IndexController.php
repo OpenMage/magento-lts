@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Centinel
@@ -34,12 +28,18 @@
 class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/order/actions/review_payment';
+
+    /**
      * Process validate payment data action
      *
      */
     public function validatePaymentDataAction()
     {
-        $result = array();
+        $result = [];
         try {
             $paymentData = $this->getRequest()->getParam('payment');
             $validator = $this->_getValidator();
@@ -107,7 +107,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
     /**
      * Return Centinel validation model
      *
-     * @return Mage_Centinel_Model_Service
+     * @return Mage_Centinel_Model_Service|false
      */
     private function _getValidator()
     {
@@ -115,16 +115,6 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
             return $this->_getPayment()->getMethodInstance()->getCentinelValidator();
         }
         return false;
-    }
-
-    /**
-     * Check is allowed access to action
-     *
-     * @return bool
-     */
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/review_payment');
     }
 }
 

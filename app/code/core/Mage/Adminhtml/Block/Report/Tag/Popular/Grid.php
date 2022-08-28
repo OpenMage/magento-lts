@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -63,38 +57,38 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'name'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Popularity'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'popularity'
-        ));
+        ]);
 
         $this->addColumn('action',
-            array(
+            [
                 'header'    => Mage::helper('catalog')->__('Action'),
                 'width'     => '100%',
                 'type'      => 'action',
                 'getter'    => 'getId',
-                'actions'   => array(
-                    array(
+                'actions'   => [
+                    [
                         'caption' => Mage::helper('catalog')->__('Show Details'),
-                        'url'     => array(
+                        'url'     => [
                             'base'=>'*/*/tagDetail'
-                        ),
+                        ],
                         'field'   => 'id'
-                    )
-                ),
+                    ]
+                ],
                 'is_system' => true,
                 'filter'    => false,
                 'sortable'  => false,
                 'index'     => 'stores',
-        ));
+            ]);
         $this->setFilterVisibility(false);
 
         $this->addExportType('*/*/exportPopularCsv', Mage::helper('reports')->__('CSV'));
@@ -105,7 +99,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/tagDetail', array('id'=>$row->getTagId()));
+        return $this->getUrl('*/*/tagDetail', ['id'=>$row->getTagId()]);
     }
 
 }

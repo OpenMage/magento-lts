@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -42,10 +36,10 @@ class Mage_Customer_Model_Group_Api extends Mage_Api_Model_Resource_Abstract
     {
         $collection = Mage::getModel('customer/group')->getCollection();
 
-        $result = array();
+        $result = [];
         foreach ($collection as $group) {
-            /* @var Mage_Customer_Model_Group $group */
-            $result[] = $group->toArray(array('customer_group_id', 'customer_group_code'));
+            /** @var Mage_Customer_Model_Group $group */
+            $result[] = $group->toArray(['customer_group_id', 'customer_group_code']);
         }
 
         return $result;

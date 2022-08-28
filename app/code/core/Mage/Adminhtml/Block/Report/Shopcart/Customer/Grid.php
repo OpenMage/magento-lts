@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,13 +27,16 @@
  */
 class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_Block_Report_Grid_Shopcart
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('grid');
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareCollection()
     {
         //TODO: add full name logic
@@ -51,41 +48,48 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @return void
+     */
     protected function _afterLoadCollection()
     {
         $this->getCollection()->addCartInfo();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header'    =>Mage::helper('reports')->__('ID'),
             'width'     =>'50px',
             'align'     =>'right',
             'index'     =>'entity_id'
-        ));
+        ]);
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('reports')->__('First Name'),
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('reports')->__('Last Name'),
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('items', array(
+        $this->addColumn('items', [
             'header'    =>Mage::helper('reports')->__('Items in Cart'),
             'width'     =>'70px',
             'sortable'  =>false,
             'align'     =>'right',
             'index'     =>'items'
-        ));
+        ]);
 
         $currencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('total', array(
+        $this->addColumn('total', [
             'header'    =>Mage::helper('reports')->__('Total'),
             'width'     =>'70px',
             'sortable'  =>false,
@@ -95,7 +99,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Customer_Grid extends Mage_Adminhtml_
             'index'     =>'total',
             'renderer'  =>'adminhtml/report_grid_column_renderer_currency',
             'rate'          => $this->getRate($currencyCode),
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 

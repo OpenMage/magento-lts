@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -67,7 +61,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_recipients = array();
+    protected $_recipients = [];
 
     /**
      * Initialize object
@@ -132,17 +126,17 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function addRecipients($emails, $names = null, $type = self::EMAIL_TYPE_TO)
     {
-        $_supportedEmailTypes = array(
+        $_supportedEmailTypes = [
             self::EMAIL_TYPE_TO,
             self::EMAIL_TYPE_CC,
             self::EMAIL_TYPE_BCC
-        );
+        ];
         $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
         $emails = array_values((array)$emails);
         $names = is_array($names) ? $names : (array)$names;
         $names = array_values($names);
         foreach ($emails as $key => $email) {
-            $this->_recipients[] = array($email, isset($names[$key]) ? $names[$key] : '', $type);
+            $this->_recipients[] = [$email, isset($names[$key]) ? $names[$key] : '', $type];
         }
         return $this;
     }
@@ -154,7 +148,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function clearRecipients()
     {
-        $this->_recipients = array();
+        $this->_recipients = [];
         return $this;
     }
 

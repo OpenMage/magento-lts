@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -44,17 +38,17 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
 
         // get days names
         $days = Zend_Locale_Data::getList($localeCode, 'days');
-        $this->assign('days', array(
+        $this->assign('days', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($days['format']['wide'])),
             'abbreviated' => Mage::helper('core')->jsonEncode(array_values($days['format']['abbreviated']))
-        ));
+        ]);
 
         // get months names
         $months = Zend_Locale_Data::getList($localeCode, 'months');
-        $this->assign('months', array(
+        $this->assign('months', [
             'wide'        => Mage::helper('core')->jsonEncode(array_values($months['format']['wide'])),
             'abbreviated' => Mage::helper('core')->jsonEncode(array_values($months['format']['abbreviated']))
-        ));
+        ]);
 
         // get "today" and "week" words
         $this->assign('today', Mage::helper('core')->jsonEncode(Zend_Locale_Data::getContent($localeCode, 'relative', 0)));
