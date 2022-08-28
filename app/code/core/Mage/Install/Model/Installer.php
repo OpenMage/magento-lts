@@ -254,7 +254,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param string $key
-     * @return array|true
+     * @return string[]|true
      */
     public function validateEncryptionKey($key)
     {
