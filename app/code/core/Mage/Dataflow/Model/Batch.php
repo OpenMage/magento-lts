@@ -151,7 +151,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
     /**
      * Retrieve Batch import model
      *
-     * @return Mage_Dataflow_Model_Import
+     * @return Mage_Dataflow_Model_Batch_Import
      */
     public function getBatchImportModel()
     {
