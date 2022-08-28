@@ -33,7 +33,6 @@ interface Mage_HTTP_IClient
      */
     function setTimeout($value);
 
-
     /**
      * Set request headers from hash
      * @param array $headers
@@ -47,13 +46,11 @@ interface Mage_HTTP_IClient
      */
     function addHeader($name, $value);
 
-
     /**
      * Remove header from request
      * @param string $name
      */
     function removeHeader($name);
-
 
     /**
      * Set login credentials

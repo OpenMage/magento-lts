@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml abstract  dashboard helper.
  *
@@ -40,7 +39,7 @@
          *
          * @var array
          */
-        protected  $_params = array();
+        protected  $_params = [];
 
         public function getCollection()
         {
@@ -69,7 +68,7 @@
 
         public function getColumn($index)
         {
-            $result = array();
+            $result = [];
             foreach ($this->getItems() as $item) {
                 if (is_array($item)) {
                     if(isset($item[$index])) {

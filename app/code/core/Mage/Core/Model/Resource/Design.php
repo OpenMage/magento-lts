@@ -70,7 +70,6 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         return parent::_beforeSave($object);
     }
 
-
     /**
      * Check intersections
      *
@@ -84,11 +83,11 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('main_table'=>$this->getTable('design_change')))
+            ->from(['main_table'=>$this->getTable('design_change')])
             ->where('main_table.store_id = :store_id')
             ->where('main_table.design_change_id <> :current_id');
 
-        $dateConditions = array('date_to IS NULL AND date_from IS NULL');
+        $dateConditions = ['date_to IS NULL AND date_from IS NULL'];
 
         if (!empty($dateFrom)) {
             $dateConditions[] = ':date_from BETWEEN date_from AND date_to';
@@ -118,7 +117,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $dateConditions[] = 'date_from BETWEEN :date_from AND :date_to';
             $dateConditions[] = 'date_to BETWEEN :date_from AND :date_to';
         } elseif (empty($dateFrom) && empty($dateTo)) {
-            $dateConditions = array();
+            $dateConditions = [];
         }
 
         $condition = '';
@@ -127,10 +126,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $select->where($condition);
         }
 
-        $bind = array(
+        $bind = [
             'store_id'   => (int)$storeId,
             'current_id' => (int)$currentId,
-        );
+        ];
 
         if (!empty($dateTo)) {
             $bind['date_to'] = $dateTo;
@@ -139,8 +138,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $bind['date_from'] = $dateFrom;
         }
 
-        $result = $adapter->fetchOne($select, $bind);
-        return $result;
+        return $adapter->fetchOne($select, $bind);
     }
 
     /**
@@ -157,15 +155,15 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('main_table' => $this->getTable('design_change')))
+            ->from(['main_table' => $this->getTable('design_change')])
             ->where('store_id = :store_id')
             ->where('date_from <= :required_date or date_from IS NULL')
             ->where('date_to >= :required_date or date_to IS NULL');
 
-        $bind = array(
+        $bind = [
             'store_id'      => (int)$storeId,
             'required_date' => $date
-        );
+        ];
 
         return $this->_getReadAdapter()->fetchRow($select, $bind);
     }

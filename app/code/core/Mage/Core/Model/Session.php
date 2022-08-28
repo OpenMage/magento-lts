@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core session model
  *
@@ -42,7 +41,7 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * @param array $data
      */
-    public function __construct($data = array())
+    public function __construct($data = [])
     {
         $name = isset($data['name']) ? $data['name'] : null;
         $this->init('core', $name);

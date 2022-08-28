@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Media library file image resource model
  *
@@ -112,7 +111,6 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-
         return $resource;
     }
 
@@ -124,8 +122,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
-        $resource = imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
-        return $resource;
+        return imagecreatetruecolor($object->getDestanationDimensions()->getWidth(), $object->getDestanationDimensions()->getHeight());
     }
 
     /**
@@ -213,7 +210,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
             Mage::throwException(Mage::helper('media')->__('The image does not exist or is invalid.'));
         }
 
-        $info = array('width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]);
+        $info = ['width'=>$info[0], 'height'=>$info[1], 'type'=>$info[2]];
         return new Varien_Object($info);
     }
 

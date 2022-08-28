@@ -34,9 +34,9 @@ class Mage_Captcha_Model_Config_Font
      */
     public function toOptionArray()
     {
-        $optionArray = array();
+        $optionArray = [];
         foreach (Mage::helper('captcha')->getFonts() as $fontName => $fontData) {
-            $optionArray[] = array('label' => $fontData['label'], 'value' => $fontName);
+            $optionArray[] = ['label' => $fontData['label'], 'value' => $fontName];
         }
         return $optionArray;
     }

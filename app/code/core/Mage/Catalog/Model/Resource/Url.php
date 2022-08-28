@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog url rewrite resource model
  *
@@ -179,8 +178,10 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
     {
         $adapter = $this->_getWriteAdapter();
         $requestPathField = new Zend_Db_Expr($adapter->quoteIdentifier('request_path'));
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('eav');
         //select increment part of request path and cast expression to integer
-        $urlIncrementPartExpression = Mage::getResourceHelper('eav')
+        $urlIncrementPartExpression = $helper
             ->getCastToIntExpression($adapter->getSubstringSql(
                 $requestPathField,
                 strlen($prefix) + 1,
@@ -709,7 +710,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->where('main_table.entity_id IN(?)', $categoryIds);
         } else {
             // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
-            if (substr($path, -1) != '/') {
+            if (substr($path, -1) !== '/') {
                 $path .= '/';
             }
 
@@ -748,7 +749,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
                 }
                 // Second - check non-root category - that it's really a descendant, not a simple string match
                 if ((strlen($row['path']) > $rootCategoryPathLength)
-                    && ($row['path'][$rootCategoryPathLength] != '/')) {
+                    && ($row['path'][$rootCategoryPathLength] !== '/')) {
                     continue;
                 }
             }

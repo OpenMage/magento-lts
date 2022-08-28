@@ -20,7 +20,7 @@
 
 /** @var Mage_Catalog_Model_Resource_Setup $installer */
 $installer  = $this;
-$indexFields = array('website_id', 'customer_group_id', 'min_price');
+$indexFields = ['website_id', 'customer_group_id', 'min_price'];
 $installer->getConnection()->addIndex(
     $installer->getTable('catalog/product_index_price'),
     $installer->getIdxName('catalog/product_index_price', $indexFields),

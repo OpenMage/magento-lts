@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product alert for back in abstract resource model
  *
@@ -43,11 +42,11 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
                 ->where('customer_id = :customer_id')
                 ->where('product_id  = :product_id')
                 ->where('website_id  = :website_id');
-            $bind = array(
+            $bind = [
                 ':customer_id' => $object->getCustomerId(),
                 ':product_id'  => $object->getProductId(),
                 ':website_id'  => $object->getWebsiteId()
-            );
+            ];
             return $adapter->fetchRow($select, $bind);
         }
         return false;
@@ -79,7 +78,7 @@ abstract class Mage_ProductAlert_Model_Resource_Abstract extends Mage_Core_Model
     public function deleteCustomer(Mage_Core_Model_Abstract $object, $customerId, $websiteId = null)
     {
         $adapter = $this->_getWriteAdapter();
-        $where   = array();
+        $where   = [];
         $where[] = $adapter->quoteInto('customer_id=?', $customerId);
         if ($websiteId) {
             $where[] = $adapter->quoteInto('website_id=?', $websiteId);

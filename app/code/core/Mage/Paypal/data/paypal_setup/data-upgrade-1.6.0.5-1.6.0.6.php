@@ -23,8 +23,8 @@ $installer = $this;
 $connection = $installer->getConnection();
 $select = $connection->select()
     ->from(
-        array('config' => $installer->getTable('core/config_data')),
-        array('scope_id' => 'config.scope_id')
+        ['config' => $installer->getTable('core/config_data')],
+        ['scope_id' => 'config.scope_id']
     )
     ->where('config.path=?', 'paypal/general/merchant_country')
     ->where('config.value<>?', 'US');

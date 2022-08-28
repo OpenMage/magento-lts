@@ -48,7 +48,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     protected $_configData;
 
-
     /**
      * Return the name of DB model from config
      *
@@ -58,7 +57,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     {
         return $this->_configData['db_model'];
     }
-
 
     /**
      * Return the DB type from config
@@ -88,13 +86,13 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     public function getConnectionData()
     {
         if (!$this->_connectionData) {
-            $connectionData = array(
+            $connectionData = [
                 'host'      => $this->_configData['db_host'],
                 'username'  => $this->_configData['db_user'],
                 'password'  => $this->_configData['db_pass'],
                 'dbname'    => $this->_configData['db_name'],
                 'pdoType'   => $this->getPdoType()
-            );
+            ];
             $this->_connectionData = $connectionData;
         }
         return $this->_connectionData;
@@ -142,7 +140,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     public function getRequiredExtensions()
     {
-        $extensions = array();
+        $extensions = [];
         $configExt = (array)Mage::getConfig()->getNode(sprintf('install/databases/%s/extensions', $this->getModel()));
         foreach ($configExt as $name=>$value) {
             $extensions[] = $name;

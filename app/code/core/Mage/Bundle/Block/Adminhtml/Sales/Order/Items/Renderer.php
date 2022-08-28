@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order item renderer
  *
@@ -36,7 +35,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
      */
     public function getChilds($item)
     {
-        $_itemsArray = array();
+        $_itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $_items = $item->getInvoice()->getAllItems();
@@ -172,7 +171,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
      */
     public function getOrderOptions($item = null)
     {
-        $result = array();
+        $result = [];
 
         if ($options = $this->getOrderItem()->getProductOptions()) {
             if (isset($options['options'])) {

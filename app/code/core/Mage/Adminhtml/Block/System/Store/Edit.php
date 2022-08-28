@@ -110,14 +110,14 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
     {
         $storeType = uc_words($storeType);
         if ($backupAvailable) {
-            $deleteUrl   = $this->getUrl('*/*/delete' . $storeType, array('item_id' => Mage::registry('store_data')->getId()));
+            $deleteUrl   = $this->getUrl('*/*/delete' . $storeType, ['item_id' => Mage::registry('store_data')->getId()]);
         } else {
             $deleteUrl   = $this->getUrl(
                 '*/*/delete' . $storeType . 'Post',
-                array(
+                [
                     'item_id' => Mage::registry('store_data')->getId(),
                     'form_key' => Mage::getSingleton('core/session')->getFormKey()
-                )
+                ]
             );
         }
 

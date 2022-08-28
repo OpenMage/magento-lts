@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Report collection
  *
@@ -80,17 +79,17 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
 
         $countSelect = clone $customersSelect;
         $countSelect->joinLeft(
-            array('wt' => $this->getWishlistTable()),
+            ['wt' => $this->getWishlistTable()],
             'wt.customer_id = e.entity_id',
-            array()
+            []
         )
             ->group('wt.wishlist_id');
         $count = $collection->count();
         $resultSelect = $this->getConnection()->select()
-            ->union(array($customersSelect, $count), Zend_Db_Select::SQL_UNION_ALL);
+            ->union([$customersSelect, $count], Zend_Db_Select::SQL_UNION_ALL);
         list($customers, $count) = $this->getConnection()->fetchCol($resultSelect);
 
-        return array(($count*100)/$customers, $count);
+        return [($count*100)/$customers, $count];
     }
 
     /**
@@ -104,9 +103,9 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $collection = Mage::getResourceModel('customer/customer_collection');
         $countSelect = $collection->getSelectCountSql();
         $countSelect->joinLeft(
-            array('wt' => $this->getWishlistTable()),
+            ['wt' => $this->getWishlistTable()],
             'wt.customer_id=e.entity_id',
-            array()
+            []
         )
             ->where('wt.shared=1')
             ->group('wt.wishlist_id');

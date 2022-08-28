@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml catalog product edit action attributes update tab block
  *
@@ -36,15 +35,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
         $this->setShowGlobalIcon(true);
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareForm()
     {
-        $this->setFormExcludedFieldList(array(
+        $this->setFormExcludedFieldList([
             'tier_price','gallery', 'media_gallery', 'recurring_profile', 'group_price'
-        ));
-        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', array('object'=>$this));
+        ]);
+        Mage::dispatchEvent('adminhtml_catalog_product_form_prepare_excluded_field_list', ['object'=>$this]);
 
         $form = new Varien_Data_Form();
-        $fieldset = $form->addFieldset('fields', array('legend'=>Mage::helper('catalog')->__('Attributes')));
+        $fieldset = $form->addFieldset('fields', ['legend'=>Mage::helper('catalog')->__('Attributes')]);
         $attributes = $this->getAttributes();
         /**
          * Initialize product object as form property
@@ -64,7 +66,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
      */
     public function getAttributes()
     {
-        return $this->helper('adminhtml/catalog_product_edit_action_attribute')->getAttributes()->getItems();
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute $helper */
+        $helper = $this->helper('adminhtml/catalog_product_edit_action_attribute');
+        return $helper->getAttributes()->getItems();
     }
 
     /**
@@ -74,12 +78,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
      */
     protected function _getAdditionalElementTypes()
     {
-        return array(
+        return [
             'price' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'weight' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_weight'),
             'image' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean')
-        );
+        ];
     }
 
     /**
@@ -101,23 +105,32 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     }
 
     /**
-     * ######################## TAB settings #################################
+     * @return string
      */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Attributes');
     }
 
+    /**
+     * @return string
+     */
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Attributes');
     }
 
+    /**
+     * @return true
+     */
     public function canShowTab()
     {
         return true;
     }
 
+    /**
+     * @return false
+     */
     public function isHidden()
     {
         return false;

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order edit address block
  *
@@ -55,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_Address_Form
         parent::_prepareForm();
         $this->_form->setId('edit_form');
         $this->_form->setMethod('post');
-        $this->_form->setAction($this->getUrl('*/*/addressSave', array('address_id'=>$this->_getAddress()->getId())));
+        $this->_form->setAction($this->getUrl('*/*/addressSave', ['address_id'=>$this->_getAddress()->getId()]));
         $this->_form->setUseContainer(true);
         return $this;
     }

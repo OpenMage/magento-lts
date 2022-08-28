@@ -32,7 +32,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Child_Grid extends Mage_Adminhtml_
      *
      * @var array
      */
-    protected $_columnsToRemove = array('parent_id', 'parent_txn_id');
+    protected $_columnsToRemove = ['parent_id', 'parent_txn_id'];
 
     /**
      * Disable pager and filter

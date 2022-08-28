@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Cms manage blocks controller
  *
@@ -150,7 +149,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
 
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', array('block_id' => $model->getId()));
+                    $this->_redirect('*/*/edit', ['block_id' => $model->getId()]);
                     return;
                 }
                 // go to grid
@@ -163,7 +162,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array('block_id' => $this->getRequest()->getParam('block_id')));
+                $this->_redirect('*/*/edit', ['block_id' => $this->getRequest()->getParam('block_id')]);
                 return;
             }
         }
@@ -194,7 +193,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 // display error message
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 // go back to edit form
-                $this->_redirect('*/*/edit', array('block_id' => $id));
+                $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }

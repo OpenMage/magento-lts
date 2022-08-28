@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Fieldset Resource Collection
  *
@@ -105,9 +104,9 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
         parent::_initSelect();
         $select = $this->getSelect();
         $select->join(
-            array('default_label' => $this->getTable('eav/form_fieldset_label')),
+            ['default_label' => $this->getTable('eav/form_fieldset_label')],
             'main_table.fieldset_id = default_label.fieldset_id AND default_label.store_id = 0',
-            array()
+            []
         );
         if ($this->getStoreId() == 0) {
             $select->columns('label', 'default_label');
@@ -120,9 +119,9 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
                     (int)$this->getStoreId()
                 );
             $select->joinLeft(
-                array('store_label' => $this->getTable('eav/form_fieldset_label')),
+                ['store_label' => $this->getTable('eav/form_fieldset_label')],
                 $joinCondition,
-                array('label' => $labelExpr)
+                ['label' => $labelExpr]
             );
         }
 

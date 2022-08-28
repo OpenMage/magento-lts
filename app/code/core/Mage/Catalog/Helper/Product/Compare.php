@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Compare Helper
  *
@@ -90,7 +89,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      * Mage_Catalog_Helper_Product_Compare constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_logCondition = isset($data['log_condition'])
             ? $data['log_condition'] : Mage::helper('log');
@@ -123,15 +122,15 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getListUrl()
     {
-        $itemIds = array();
+        $itemIds = [];
         foreach ($this->getItemCollection() as $item) {
             $itemIds[] = $item->getId();
         }
 
-         $params = array(
+         $params = [
             'items' => implode(',', $itemIds),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+         ];
 
         return $this->_getUrl('catalog/product_compare', $params);
     }
@@ -188,10 +187,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getRemoveUrl($item)
     {
-        $params = array(
+        $params = [
             'product' => $item->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+        ];
         return $this->_getUrl('catalog/product_compare/remove', $params);
     }
 
@@ -202,9 +201,9 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     public function getClearListUrl()
     {
-        $params = array(
+        $params = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl()
-        );
+        ];
         return $this->_getUrl('catalog/product_compare/clear', $params);
     }
 
@@ -377,10 +376,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getAddToCartUrlCustom($product, $addFormKey = true)
     {
         $beforeCompareUrl = $this->_catalogSession->getBeforeCompareUrl();
-        $params = array(
+        $params = [
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($beforeCompareUrl),
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_coreSession->getFormKey();
         }
@@ -397,10 +396,10 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)
     {
-        $params = array(
+        $params = [
             'product' => $product->getId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl($url),
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_coreSession->getFormKey();
         }

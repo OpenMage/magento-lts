@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert HTTP adapter
  *
@@ -41,7 +40,7 @@ File to upload: <input type="file" name="io_file"/> <input type="submit" value="
 
          if (!empty($_FILES['io_file']['tmp_name'])) {
             $uploader = new Mage_Core_Model_File_Uploader('io_file');
-            $uploader->setAllowedExtensions(array('csv','xml'));
+            $uploader->setAllowedExtensions(['csv','xml']);
             $path = Mage::app()->getConfig()->getTempVarDir().'/import/';
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {

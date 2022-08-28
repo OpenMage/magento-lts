@@ -165,17 +165,17 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      * @param Varien_Data_Form_Element_Fieldset $fieldset
      * @param array $exclude attributes that should be skipped
      */
-    protected function _setFieldset($attributes, $fieldset, $exclude=array())
+    protected function _setFieldset($attributes, $fieldset, $exclude= [])
     {
         $this->_addElementTypes($fieldset);
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
                 continue;
             }
             if ( ($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
-                 && ('media_image' != $inputType)
+                 && ($inputType != 'media_image')
                  ) {
 
                 $fieldType      = $inputType;
@@ -186,13 +186,13 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
                 }
 
                 $element = $fieldset->addField($attribute->getAttributeCode(), $fieldType,
-                    array(
+                    [
                         'name'      => $attribute->getAttributeCode(),
                         'label'     => $attribute->getFrontend()->getLabel(),
                         'class'     => $attribute->getFrontend()->getClass(),
                         'required'  => $attribute->getIsRequired(),
                         'note'      => $this->escapeHtml($attribute->getNote()),
-                    )
+                    ]
                 )
                 ->setEntityAttribute($attribute);
 
@@ -240,12 +240,10 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
      */
     protected function _getAdditionalElementTypes()
     {
-        return array();
+        return [];
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */

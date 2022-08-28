@@ -169,13 +169,13 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
-        $this->setData(array(
+        $this->setData([
             'consumer_id'  => $consumerId,
             'type'         => self::TYPE_REQUEST,
             'token'        => $helper->generateToken(),
             'secret'       => $helper->generateTokenSecret(),
             'callback_url' => $callbackUrl
-        ));
+        ]);
         $this->save();
 
         return $this;
@@ -206,7 +206,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function toString($format = '')
     {
-        return http_build_query(array('oauth_token' => $this->getToken(), 'oauth_token_secret' => $this->getSecret()));
+        return http_build_query(['oauth_token' => $this->getToken(), 'oauth_token_secret' => $this->getSecret()]);
     }
 
     /**
@@ -218,7 +218,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         $this->validate();
 
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         }
         parent::_beforeSave();
@@ -260,7 +260,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             Mage::throwException(array_shift($messages));
         }
 
-        if (null !== ($verifier = $this->getVerifier())) {
+        if (($verifier = $this->getVerifier()) !== null) {
             $validatorLength->setLength(self::LENGTH_VERIFIER);
             $validatorLength->setName('Verifier Key');
             if (!$validatorLength->isValid($verifier)) {

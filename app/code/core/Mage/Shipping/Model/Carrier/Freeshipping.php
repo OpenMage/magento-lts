@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Free shipping model
  *
@@ -111,6 +110,6 @@ class Mage_Shipping_Model_Carrier_Freeshipping extends Mage_Shipping_Model_Carri
      */
     public function getAllowedMethods()
     {
-        return array('freeshipping' => $this->getConfigData('name'));
+        return ['freeshipping' => $this->getConfigData('name')];
     }
 }

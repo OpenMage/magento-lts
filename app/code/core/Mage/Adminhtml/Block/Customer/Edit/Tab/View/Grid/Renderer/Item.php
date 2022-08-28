@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
                 $grid = $column->getGrid();
                 if ($grid) {
                     $productHelpers = $grid->getProductConfigurationHelpers();
-                    $this->setProductHelpers($productHelpers ? $productHelpers : array());
+                    $this->setProductHelpers($productHelpers ? $productHelpers : []);
                 }
             }
         }
@@ -109,9 +109,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Grid_Renderer_Item extends Mag
      */
     protected function getFormattedOptionValue($option)
     {
-        $params = array(
+        $params = [
             'max_length' => 55
-        );
+        ];
         return Mage::helper('catalog/product_configuration')->getFormattedOptionValue($option, $params);
     }
 

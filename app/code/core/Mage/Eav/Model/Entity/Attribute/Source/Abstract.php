@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute selection source abstract
  *
@@ -130,7 +129,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getFlatColums()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -140,7 +139,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getFlatIndexes()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -31,9 +31,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_info'),
-    array(
+    [
          'server_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(server_addr as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->getConnection()->changeColumn(
@@ -43,14 +43,12 @@ $installer->getConnection()->changeColumn(
     'varbinary(16)'
 );
 
-
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_info'),
-    array(
+    [
          'remote_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(remote_addr as UNSIGNED INT)))')
-    )
+    ]
 );
-
 
 $installer->getConnection()->changeColumn(
     $installer->getTable('log/visitor_online'),
@@ -59,12 +57,11 @@ $installer->getConnection()->changeColumn(
     'varbinary(16)'
 );
 
-
 $installer->getConnection()->update(
     $installer->getTable('log/visitor_online'),
-    array(
+    [
          'remote_addr' => new Zend_Db_Expr('UNHEX(HEX(CAST(remote_addr as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();

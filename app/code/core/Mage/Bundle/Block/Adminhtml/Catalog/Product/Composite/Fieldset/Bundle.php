@@ -34,19 +34,19 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Bundle exte
      */
     public function getJsonConfig()
     {
-        $options = array();
+        $options = [];
         $optionsArray = $this->getOptions();
         foreach ($optionsArray as $option) {
             $optionId = $option->getId();
-            $options[$optionId] = array('id' => $optionId, 'selections' => array());
+            $options[$optionId] = ['id' => $optionId, 'selections' => []];
             foreach ($option->getSelections() as $selection) {
-                $options[$optionId]['selections'][$selection->getSelectionId()] = array(
+                $options[$optionId]['selections'][$selection->getSelectionId()] = [
                     'can_change_qty' => $selection->getSelectionCanChangeQty(),
                     'default_qty'    => $selection->getSelectionQty()
-                );
+                ];
             }
         }
-        $config = array('options' => $options);
+        $config = ['options' => $options];
         return Mage::helper('core')->jsonEncode($config);
     }
 }

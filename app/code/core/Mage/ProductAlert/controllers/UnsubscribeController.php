@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert unsubscribe controller
  *
@@ -50,10 +49,10 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
         }
         $session    = Mage::getSingleton('catalog/session');
 
-        /* @var Mage_Catalog_Model_Session $session */
+        /** @var Mage_Catalog_Model_Session $session */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            /* @var Mage_Catalog_Model_Product $product */
+            /** @var Mage_Catalog_Model_Product $product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
             return ;
@@ -79,7 +78,7 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
     public function priceAllAction()
     {
         $session = Mage::getSingleton('customer/session');
-        /* @var Mage_Customer_Model_Session $session */
+        /** @var Mage_Customer_Model_Session $session */
 
         try {
             Mage::getModel('productalert/price')->deleteCustomer(

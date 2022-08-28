@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report most viewed collection
  */
@@ -36,7 +35,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
      *
      * @var array
      */
-    protected $_selectedColumns    = array();
+    protected $_selectedColumns    = [];
 
     /**
      * Initialize custom resource model
@@ -66,16 +65,16 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             if ($this->isTotals()) {
                 $this->_selectedColumns = $this->getAggregatedColumns();
             } else {
-                $this->_selectedColumns = array(
+                $this->_selectedColumns = [
                     'period'         =>  sprintf('MAX(%s)', $adapter->getDateFormatSql('period', '%Y-%m-%d')),
                     'views_num'      => 'SUM(views_num)',
                     'product_id'     => 'product_id',
                     'product_name'   => 'MAX(product_name)',
                     'product_price'  => 'MAX(product_price)',
-                );
-                if ('year' == $this->_period) {
+                ];
+                if ($this->_period == 'year') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y');
-                } elseif ('month' == $this->_period) {
+                } elseif ($this->_period == 'month') {
                     $this->_selectedColumns['period'] = $adapter->getDateFormatSql('period', '%Y-%m');
                 }
             }
@@ -131,7 +130,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
             //exclude removed products
             $subSelect = $this->getConnection()->select();
-            $subSelect->from(array('existed_products' => $this->getTable('catalog/product')), new Zend_Db_Expr('1)'));
+            $subSelect->from(['existed_products' => $this->getTable('catalog/product')], new Zend_Db_Expr('1)'));
 
             $select->exists($subSelect, $mainTable . '.product_id = existed_products.entity_id')
                 ->group('product_id')
@@ -141,10 +140,10 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             return $this;
         }
 
-        if ('year' == $this->_period) {
+        if ($this->_period == 'year') {
             $mainTable = $this->getTable(Mage_Reports_Model_Resource_Report_Product_Viewed::AGGREGATION_YEARLY);
             $select->from($mainTable, $this->_getSelectedColumns());
-        } elseif ('month' == $this->_period) {
+        } elseif ($this->_period == 'month') {
             $mainTable = $this->getTable(Mage_Reports_Model_Resource_Report_Product_Viewed::AGGREGATION_MONTHLY);
             $select->from($mainTable, $this->_getSelectedColumns());
         } else {
@@ -152,7 +151,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             $select->from($mainTable, $this->_getSelectedColumns());
         }
         if (!$this->isTotals()) {
-            $select->group(array('period', 'product_id'));
+            $select->group(['period', 'product_id']);
         }
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
@@ -181,13 +180,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
     public function addStoreRestrictions($storeIds)
     {
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
         $currentStoreIds = $this->_storesIds;
         if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != array(Mage_Core_Model_App::ADMIN_STORE_ID)) {
+            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]) {
             if (!is_array($currentStoreIds)) {
-                $currentStoreIds = array($currentStoreIds);
+                $currentStoreIds = [$currentStoreIds];
             }
             $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
         } else {
@@ -210,13 +209,13 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
         $this->_applyStoresFilter();
 
         if ($this->_period) {
-            $selectUnions = array();
+            $selectUnions = [];
 
             // apply date boundaries (before calling $this->_applyDateRangeFilter())
             $dtFormat   = Varien_Date::DATE_INTERNAL_FORMAT;
             $periodFrom = (!is_null($this->_from) ? new Zend_Date($this->_from, $dtFormat) : null);
             $periodTo   = (!is_null($this->_to)   ? new Zend_Date($this->_to, $dtFormat) : null);
-            if ('year' == $this->_period) {
+            if ($this->_period == 'year') {
                 if ($periodFrom) {
                     // not the first day of the year
                     if ($periodFrom->toValue(Zend_Date::MONTH) != 1 || $periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -273,7 +272,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                         $this->getSelect()->where('1<>1');
                     }
                 }
-            } elseif ('month' == $this->_period) {
+            } elseif ($this->_period == 'month') {
                 if ($periodFrom) {
                     // not the first day of the month
                     if ($periodFrom->toValue(Zend_Date::DAY) != 1) {
@@ -330,8 +329,9 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
 
             // add unions to select
             if ($selectUnions) {
-                $unionParts = array();
+                $unionParts = [];
                 $cloneSelect = clone $this->getSelect();
+                /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
                 $helper = Mage::getResourceHelper('core');
                 $unionParts[] = '(' . $cloneSelect . ')';
                 foreach ($selectUnions as $union) {
@@ -347,7 +347,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 $this->getSelect()->reset()->from($cloneSelect, $this->getAggregatedColumns());
             } else {
                 // add sorting
-                $this->getSelect()->order(array('period ASC', 'views_num DESC'));
+                $this->getSelect()->order(['period ASC', 'views_num DESC']);
             }
         }
 

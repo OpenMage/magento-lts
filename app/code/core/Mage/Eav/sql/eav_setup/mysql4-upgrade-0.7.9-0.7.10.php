@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * update attribute group
  *
@@ -28,7 +27,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('eav/attribute'), "is_used_for_price_rules", "TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '1'");

@@ -18,13 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml AdminNotification Severity Renderer
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
@@ -43,17 +42,19 @@ class Mage_Adminhtml_Block_Notification_Grid_Renderer_Actions
             : '';
 
         $markAsReadHtml = (!$row->getIsRead())
-            ? '<a href="'. $this->getUrl('*/*/markAsRead/', array('_current' => true, 'id' => $row->getId())) .'">' .
+            ? '<a href="'. $this->getUrl('*/*/markAsRead/', ['_current' => true, 'id' => $row->getId()]) .'">' .
                 Mage::helper('adminnotification')->__('Mark as Read') .'</a> | '
             : '';
 
+        /** @var Mage_Core_Helper_Url $helper */
+        $helper = $this->helper('core/url');
         return sprintf('%s%s<a href="%s" onClick="deleteConfirm(\'%s\', this.href); return false;">%s</a>',
             $readDetailsHtml,
             $markAsReadHtml,
-            $this->getUrl('*/*/remove/', array(
+            $this->getUrl('*/*/remove/', [
                 '_current'=>true,
                 'id' => $row->getId(),
-                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->helper('core/url')->getEncodedUrl())
+                Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl()]
             ),
             Mage::helper('adminnotification')->__('Are you sure?'),
             Mage::helper('adminnotification')->__('Remove')

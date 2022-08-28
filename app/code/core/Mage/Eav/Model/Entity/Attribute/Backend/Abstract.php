@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute backend abstract
  *
@@ -47,7 +46,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      *
      * @var array
      */
-    protected $_valueIds = array();
+    protected $_valueIds = [];
 
     /**
      * Table name for this attribute

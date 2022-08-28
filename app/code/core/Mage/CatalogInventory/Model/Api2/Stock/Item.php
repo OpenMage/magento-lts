@@ -36,7 +36,7 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item extends Mage_Api2_Model_Resour
      */
     protected function _loadStockItemById($id)
     {
-        /* @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
+        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = Mage::getModel('cataloginventory/stock_item')->load($id);
         if (!$stockItem->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);

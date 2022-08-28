@@ -133,7 +133,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setCustomerGroupData($customerGroup->getData());
-                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', array('id' => $id)));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
             }
         } else {
@@ -156,7 +156,7 @@ class Mage_Adminhtml_Customer_GroupController extends Mage_Adminhtml_Controller_
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', array('id' => $id)));
+                $this->getResponse()->setRedirect($this->getUrl('*/customer_group/edit', ['id' => $id]));
                 return;
             }
         }

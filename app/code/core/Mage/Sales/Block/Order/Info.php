@@ -27,7 +27,7 @@
  */
 class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
 {
-    protected $_links = array();
+    protected $_links = [];
 
     protected function _construct()
     {
@@ -40,12 +40,17 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -75,14 +80,13 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      */
     public function addLink($name, $path, $label)
     {
-        $this->_links[$name] = new Varien_Object(array(
+        $this->_links[$name] = new Varien_Object([
             'name' => $name,
             'label' => $label,
-            'url' => empty($path) ? '' : Mage::getUrl($path, array('order_id' => $this->getOrder()->getId()))
-        ));
+            'url' => empty($path) ? '' : Mage::getUrl($path, ['order_id' => $this->getOrder()->getId()])
+        ]);
         return $this;
     }
-
 
     /**
      * Remove a link
@@ -131,9 +135,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     public function getReorderUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            return $this->getUrl('sales/guest/reorder', array('order_id' => $order->getId()));
+            return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
         }
-        return $this->getUrl('sales/order/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -146,8 +150,8 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     public function getPrintUrl($order)
     {
         if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
-            return $this->getUrl('sales/guest/print', array('order_id' => $order->getId()));
+            return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
         }
-        return $this->getUrl('sales/order/print', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
     }
 }

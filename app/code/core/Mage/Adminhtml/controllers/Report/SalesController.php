@@ -52,10 +52,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_sales.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -73,10 +73,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_bestsellers.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
      */
     protected function _getCollectionNames()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -171,10 +171,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_tax.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -214,10 +214,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_shipping.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -257,10 +257,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_invoiced.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -300,10 +300,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_refunded.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }
@@ -343,10 +343,10 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
         $gridBlock = $this->getLayout()->getBlock('report_sales_coupons.grid');
         $filterFormBlock = $this->getLayout()->getBlock('grid.filter.form');
 
-        $this->_initReportAction(array(
+        $this->_initReportAction([
             $gridBlock,
             $filterFormBlock
-        ));
+        ]);
 
         $this->renderLayout();
     }

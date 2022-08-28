@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Cache resource model
  *
@@ -51,7 +50,7 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
              */
             if ($adapter->isTableExists($this->getMainTable())) {
                 $select = $adapter->select()
-                    ->from($this->getMainTable(), array('code', 'value'));
+                    ->from($this->getMainTable(), ['code', 'value']);
                 return $adapter->fetchPairs($select);
             }
         }
@@ -72,16 +71,16 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
             return $this;
         }
 
-        $data = array();
+        $data = [];
         foreach ($options as $code => $value) {
-            $data[] = array($code, $value);
+            $data[] = [$code, $value];
         }
 
         $adapter->beginTransaction();
         try {
             $this->_getWriteAdapter()->delete($this->getMainTable());
             if ($data) {
-                $this->_getWriteAdapter()->insertArray($this->getMainTable(), array('code', 'value'), $data);
+                $this->_getWriteAdapter()->insertArray($this->getMainTable(), ['code', 'value'], $data);
             }
             $adapter->commit();
         } catch (Exception $e) {

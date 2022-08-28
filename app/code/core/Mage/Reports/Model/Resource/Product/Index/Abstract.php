@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Product Index Abstract Resource Model
  *
@@ -33,7 +32,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      *
      * @var array
      */
-    protected $_fieldsForUpdate    = array('store_id', 'added_at');
+    protected $_fieldsForUpdate    = ['store_id', 'added_at'];
 
     /**
      * Update Customer from visitor (Customer logged in)
@@ -71,20 +70,20 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
              * One row should be updated with customer_id, second should be deleted
              *
              */
-                $adapter->delete($this->getMainTable(), array('index_id = ?' => $row['index_id']));
-                $where = array('index_id = ?' => $idx['index_id']);
-                $data  = array(
+                $adapter->delete($this->getMainTable(), ['index_id = ?' => $row['index_id']]);
+                $where = ['index_id = ?' => $idx['index_id']];
+                $data  = [
                     'visitor_id'    => $object->getVisitorId(),
                     'store_id'      => $object->getStoreId(),
                     'added_at'      => Varien_Date::now(),
-                );
+                ];
             } else {
-                $where = array('index_id = ?' => $row['index_id']);
-                $data  = array(
+                $where = ['index_id = ?' => $row['index_id']];
+                $data  = [
                     'customer_id'   => $object->getCustomerId(),
                     'store_id'      => $object->getStoreId(),
                     'added_at'      => Varien_Date::now()
-                );
+                ];
             }
 
             $adapter->update($this->getMainTable(), $data, $where);
@@ -107,8 +106,8 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             return $this;
         }
 
-        $bind   = array('visitor_id'      => null);
-        $where  = array('customer_id = ?' => (int)$object->getCustomerId());
+        $bind   = ['visitor_id'      => null];
+        $where  = ['customer_id = ?' => (int)$object->getCustomerId()];
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
 
         return $this;
@@ -134,21 +133,21 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
         $data = $this->_prepareDataForSave($object);
         unset($data[$this->getIdFieldName()]);
 
-        $matchFields = array('product_id', 'store_id');
+        $matchFields = ['product_id', 'store_id'];
 
-        Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
+        $helper->mergeVisitorProductIndex(
             $this->getMainTable(),
             $data,
             $matchFields
         );
-
 
         $this->unserializeFields($object);
         $this->_afterSave($object);
 
         return $this;
     }
-
 
     /**
      * Clean index (visitor)
@@ -159,11 +158,11 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
     {
         while (true) {
             $select = $this->_getReadAdapter()->select()
-                ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+                ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName()])
                 ->joinLeft(
-                    array('visitor_table' => $this->getTable('log/visitor')),
+                    ['visitor_table' => $this->getTable('log/visitor')],
                     'main_table.visitor_id = visitor_table.visitor_id',
-                    array()
+                    []
                 )
                 ->where('main_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
@@ -192,13 +191,13 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
      */
     public function registerIds(Varien_Object $object, $productIds)
     {
-        $row = array(
+        $row = [
             'visitor_id'    => $object->getVisitorId(),
             'customer_id'   => $object->getCustomerId(),
             'store_id'      => $object->getStoreId(),
-        );
+        ];
         $addedAt    = Varien_Date::toTimestamp(true);
-        $data = array();
+        $data = [];
         foreach ($productIds as $productId) {
             $productId = (int) $productId;
             if ($productId) {
@@ -209,9 +208,12 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             $addedAt -= ($addedAt > 0) ? 1 : 0;
         }
 
-        $matchFields = array('product_id', 'store_id');
+        $matchFields = ['product_id', 'store_id'];
+
+        /** @var Mage_Reports_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('reports');
         foreach ($data as $row) {
-            Mage::getResourceHelper('reports')->mergeVisitorProductIndex(
+            $helper->mergeVisitorProductIndex(
                 $this->getMainTable(),
                 $row,
                 $matchFields

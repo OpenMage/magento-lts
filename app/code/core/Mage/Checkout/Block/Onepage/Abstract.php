@@ -122,12 +122,12 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     public function getAddressesHtmlSelect($type)
     {
         if ($this->isCustomerLoggedIn()) {
-            $options = array();
+            $options = [];
             foreach ($this->getCustomer()->getAddresses() as $address) {
-                $options[] = array(
+                $options[] = [
                     'value' => $address->getId(),
                     'label' => $address->format('oneline')
-                );
+                ];
             }
 
             $addressId = $this->getAddress()->getCustomerAddressId();
@@ -182,7 +182,6 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         return $select->getHtml();
     }
 
-
     /**
      * @param string $type
      * @return string
@@ -210,7 +209,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
         $useCache   = Mage::app()->useCache('config');
         if ($useCache) {
             $cacheId    = 'DIRECTORY_COUNTRY_SELECT_STORE_' . Mage::app()->getStore()->getCode();
-            $cacheTags  = array('config');
+            $cacheTags  = ['config'];
             if ($optionsCache = Mage::app()->loadCache($cacheId)) {
                 $options = unserialize($optionsCache, ['allowed_classes' => false]);
             }
@@ -232,9 +231,8 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
      */
     protected function _getStepCodes()
     {
-        return array('login', 'billing', 'shipping', 'shipping_method', 'payment', 'review');
+        return ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
     }
-
 
     /**
      * Retrieve is allow and show block

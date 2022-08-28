@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Checkout_Model_Mysql4_Setup $installer */
+/** @var Mage_Checkout_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -27,7 +26,7 @@ $connection = $installer->getConnection();
 $table = $installer->getTable('core/config_data');
 
 $select = $connection->select()
-    ->from($table, array('config_id', 'value'))
+    ->from($table, ['config_id', 'value'])
     ->where('path = ?', 'checkout/options/onepage_checkout_disabled');
 
 $data = $connection->fetchAll($select);
@@ -37,10 +36,10 @@ if ($data) {
         $connection->beginTransaction();
 
         foreach ($data as $value) {
-            $bind = array(
+            $bind = [
                 'path'  => 'checkout/options/onepage_checkout_enabled',
                 'value' => !((bool)$value['value'])
-            );
+            ];
             $where = 'config_id = ' . $value['config_id'];
             $connection->update($table, $bind, $where);
         }

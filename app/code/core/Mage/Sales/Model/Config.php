@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Sales_Model_Config
 {
     const XML_PATH_ORDER_STATES = 'global/sales/order/states';
@@ -29,8 +28,7 @@ class Mage_Sales_Model_Config
      */
     public function getQuoteRuleConditionInstance($type)
     {
-        $config = Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/$type");
-        return $config;
+        return Mage::getConfig()->getNodeClassInstance("global/sales/quote/rule/conditions/$type");
     }
 
     /**
@@ -52,10 +50,10 @@ class Mage_Sales_Model_Config
     {
         $states = Mage::getConfig()->getNode(self::XML_PATH_ORDER_STATES);
         if (!isset($states->$state) || !isset($states->$state->statuses)) {
-            return array();
+            return [];
         }
 
-        $statuses = array();
+        $statuses = [];
 
         foreach ($states->$state->statuses->children() as $status => $node) {
             $statuses[] = $status;

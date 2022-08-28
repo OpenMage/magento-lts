@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Shopping Cart Data Helper
  *
@@ -170,7 +169,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     public function getCreateAccountUrl($url)
     {
         if (Mage::helper('checkout')->isContextCheckout()) {
-            $url = Mage::helper('core/url')->addRequestParam($url, array('context' => 'checkout'));
+            $url = Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
         }
         return $url;
     }

@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     {
         $order = $this->getOrder();
 
-        $history = array();
+        $history = [];
         foreach ($order->getAllStatusHistory() as $orderComment){
             $history[] = $this->_prepareHistoryItem(
                 $orderComment->getStatusLabel(),
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
             );
         }
 
-        usort($history, array(__CLASS__, "_sortHistoryByTimestamp"));
+        usort($history, [__CLASS__, "_sortHistoryByTimestamp"]);
         return $history;
     }
 
@@ -141,10 +141,10 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if (!isset($item['created_at'])) {
             return '';
         }
-        if ('date' === $dateType) {
-            return $this->helper('core')->formatDate($item['created_at'], $format);
+        if ($dateType === 'date') {
+            return $this->formatDate($item['created_at'], $format);
         }
-        return $this->helper('core')->formatTime($item['created_at'], $format);
+        return $this->formatTime($item['created_at'], $format);
     }
 
     /**
@@ -170,7 +170,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
         if ($isSimpleCheck) {
             return !empty($item['notified']);
         }
-        return isset($item['notified']) && false !== $item['notified'];
+        return isset($item['notified']) && $item['notified'] !== false;
     }
 
     /**
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
     {
         $strItemComment = '';
         if (isset($item['comment'])) {
-            $allowedTags = array('b', 'br', 'strong', 'i', 'u', 'a');
+            $allowedTags = ['b', 'br', 'strong', 'i', 'u', 'a'];
             /** @var Mage_Adminhtml_Helper_Sales $salesHelper */
             $salesHelper = Mage::helper('adminhtml/sales');
             $strItemComment = $salesHelper->escapeHtmlWithLinks($item['comment'], $allowedTags);
@@ -202,12 +202,12 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     protected function _prepareHistoryItem($label, $notified, $created, $comment = '')
     {
-        return array(
+        return [
             'title'      => $label,
             'notified'   => $notified,
             'comment'    => $comment,
             'created_at' => $created
-        );
+        ];
     }
 
     /**
@@ -257,7 +257,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/*/commentsHistory', array('_current' => true));
+        return $this->getUrl('*/*/commentsHistory', ['_current' => true]);
     }
 
     /**

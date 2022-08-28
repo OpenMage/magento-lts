@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
         $defaultSecure  = (string) Mage::getConfig()->getNode('default/'.Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL);
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
-            return $this->getUrl('adminhtml/system_config/edit', array('section'=>'web'));
+            return $this->getUrl('adminhtml/system_config/edit', ['section'=>'web']);
         }
 
         $configData = Mage::getModel('core/config_data');
@@ -42,11 +42,11 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
         foreach ($dataCollection as $data) {
             if ($data->getScope() == 'stores') {
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'store'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'store'=>$code]);
             }
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
-                $url = $this->getUrl('adminhtml/system_config/edit', array('section'=>'web', 'website'=>$code));
+                $url = $this->getUrl('adminhtml/system_config/edit', ['section'=>'web', 'website'=>$code]);
             }
 
             if ($url) {

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog EAV collection resource abstract model
  * Implement using diferent stores for retrieve attribute values
@@ -94,7 +93,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
      * @return Varien_Db_Select|Zend_Db_Select
      * @throws Mage_Core_Exception
      */
-    protected function _getLoadAttributesSelect($table, $attributeIds = array())
+    protected function _getLoadAttributesSelect($table, $attributeIds = [])
     {
         if (empty($attributeIds)) {
             $attributeIds = $this->_selectAttributes;
@@ -104,17 +103,17 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
         if ($storeId) {
             $adapter        = $this->getConnection();
             $entityIdField  = $this->getEntity()->getEntityIdField();
-            $joinCondition  = array(
+            $joinCondition  = [
                 't_s.attribute_id = t_d.attribute_id',
                 't_s.entity_id = t_d.entity_id',
                 $adapter->quoteInto('t_s.store_id = ?', $storeId)
-            );
+            ];
             $select = $adapter->select()
-                ->from(array('t_d' => $table), array($entityIdField, 'attribute_id'))
+                ->from(['t_d' => $table], [$entityIdField, 'attribute_id'])
                 ->joinLeft(
-                    array('t_s' => $table),
+                    ['t_s' => $table],
                     implode(' AND ', $joinCondition),
-                    array()
+                    []
                 )
                 ->where('t_d.entity_type_id = ?', $this->getEntity()->getTypeId())
                 ->where("t_d.{$entityIdField} IN (?)", array_keys($this->_itemsById))
@@ -138,6 +137,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     {
         $storeId = $this->getStoreId();
         if ($storeId) {
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('eav');
             $adapter        = $this->getConnection();
             $valueExpr      = $adapter->getCheckSql(
@@ -146,11 +146,11 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
                 $helper->prepareEavAttributeValue('t_s.value', $type)
             );
 
-            $select->columns(array(
+            $select->columns([
                 'default_value' => $helper->prepareEavAttributeValue('t_d.value', $type),
                 'store_value'   => $helper->prepareEavAttributeValue('t_s.value', $type),
                 'value'         => $valueExpr
-            ));
+            ]);
         } else {
             $select = parent::_addLoadAttributesSelectValues($select, $table, $type);
         }
@@ -196,9 +196,9 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
             );
 
             $this->getSelect()->$method(
-                array($defAlias => $attribute->getBackend()->getTable()),
+                [$defAlias => $attribute->getBackend()->getTable()],
                 $defCondition,
-                array()
+                []
             );
 
             $method = 'joinLeft';

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Attribute Abstract Data Model
  *
@@ -69,7 +68,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @var array
      */
-    protected $_extractedData       = array();
+    protected $_extractedData       = [];
 
     /**
      * Mage_Core_Model_Locale FORMAT
@@ -425,11 +424,11 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     break;
                 case 'date':
@@ -495,7 +494,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (isset($params[$part])) {
                         $params = $params[$part];
                     } else {
-                        $params = array();
+                        $params = [];
                     }
                 }
             } else {

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml config system template source
  *
@@ -57,10 +56,10 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Template extends Varien_Ob
         }
         array_unshift(
             $options,
-            array(
+            [
                 'value'=> $nodeName,
                 'label' => $templateName
-            )
+            ]
         );
         return $options;
     }

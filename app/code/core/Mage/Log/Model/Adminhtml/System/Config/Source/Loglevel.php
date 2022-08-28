@@ -52,7 +52,7 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
      * Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel constructor.
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->_helper = !empty($data['helper']) ? $data['helper'] : Mage::helper('log');
     }
@@ -62,21 +62,19 @@ class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel
      */
     public function toOptionArray()
     {
-        $options = array(
-            array(
+        return [
+            [
                 'label' => $this->_helper->__('Yes'),
                 'value' => self::LOG_LEVEL_ALL,
-            ),
-            array(
+            ],
+            [
                 'label' => $this->_helper->__('No'),
                 'value' => self::LOG_LEVEL_NONE,
-            ),
-            array(
+            ],
+            [
                 'label' => $this->_helper->__('Visitors only'),
                 'value' => self::LOG_LEVEL_VISITORS,
-            ),
-        );
-
-        return $options;
+            ],
+        ];
     }
 }

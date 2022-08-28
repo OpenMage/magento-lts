@@ -19,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
  * @method string getBackUrl()
@@ -178,7 +176,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      *
      * @var array
      */
-    protected $_rounders = array();
+    protected $_rounders = [];
 
     protected $_saveBeforeDestruct = false;
 
@@ -208,7 +206,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     {
         $this->_init('sales/order_invoice');
     }
-
 
     /**
      * Init mapping array of short fields to its full names
@@ -357,7 +354,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
                 if ($canVoid === false) {
                     $this->setCanVoidFlag(false);
                     $this->_saveBeforeDestruct = true;
-                    register_shutdown_function(array($this, 'destruct'));
+                    register_shutdown_function([$this, 'destruct']);
                 }
             } else {
                 $canVoid = (bool) $canVoid;
@@ -432,7 +429,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $this->getOrder()->setBaseTotalPaid(
             $this->getOrder()->getBaseTotalPaid()+$this->getBaseGrandTotal()
         );
-        Mage::dispatchEvent('sales_order_invoice_pay', array($this->_eventObject=>$this));
+        Mage::dispatchEvent('sales_order_invoice_pay', [$this->_eventObject=>$this]);
         return $this;
     }
 
@@ -495,14 +492,13 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $order->setBaseDiscountInvoiced($order->getBaseDiscountInvoiced() - $this->getBaseDiscountAmount());
         $order->setBaseTotalInvoicedCost($order->getBaseTotalInvoicedCost() - $this->getBaseCost());
 
-
         if ($this->getState() == self::STATE_PAID) {
             $this->getOrder()->setTotalPaid($this->getOrder()->getTotalPaid()-$this->getGrandTotal());
             $this->getOrder()->setBaseTotalPaid($this->getOrder()->getBaseTotalPaid()-$this->getBaseGrandTotal());
         }
         $this->setState(self::STATE_CANCELED);
         $this->getOrder()->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true);
-        Mage::dispatchEvent('sales_order_invoice_cancel', array($this->_eventObject=>$this));
+        Mage::dispatchEvent('sales_order_invoice_cancel', [$this->_eventObject=>$this]);
         return $this;
     }
 
@@ -563,7 +559,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      */
     public function getAllItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted()) {
                 $items[] =  $item;
@@ -611,11 +607,11 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     public static function getStates()
     {
         if (is_null(self::$_states)) {
-            self::$_states = array(
+            self::$_states = [
                 self::STATE_OPEN       => Mage::helper('sales')->__('Pending'),
                 self::STATE_PAID       => Mage::helper('sales')->__('Paid'),
                 self::STATE_CANCELED   => Mage::helper('sales')->__('Canceled'),
-            );
+            ];
         }
         return self::$_states;
     }
@@ -695,7 +691,6 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $order->setShippingTaxInvoiced($order->getShippingTaxInvoiced() + $this->getShippingTaxAmount());
         $order->setBaseShippingTaxInvoiced($order->getBaseShippingTaxInvoiced() + $this->getBaseShippingTaxAmount());
 
-
         $order->setShippingInvoiced($order->getShippingInvoiced() + $this->getShippingAmount());
         $order->setBaseShippingInvoiced($order->getBaseShippingInvoiced() + $this->getBaseShippingAmount());
 
@@ -708,7 +703,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             $this->setState(self::STATE_OPEN);
         }
 
-        Mage::dispatchEvent('sales_order_invoice_register', array($this->_eventObject=>$this, 'order' => $order));
+        Mage::dispatchEvent('sales_order_invoice_register', [$this->_eventObject=>$this, 'order' => $order]);
         return $this;
     }
 
@@ -862,13 +857,13 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'        => $order,
                 'invoice'      => $this,
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml
-            ));
+        ]);
         $mailer->send();
 
         if ($notifyCustomer) {
@@ -937,12 +932,12 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
         $mailer->setSender(Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_IDENTITY, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId($templateId);
-        $mailer->setTemplateParams(array(
+        $mailer->setTemplateParams([
                 'order'        => $order,
                 'invoice'      => $this,
                 'comment'      => $comment,
                 'billing'      => $order->getBillingAddress()
-            ));
+        ]);
         $mailer->send();
 
         return $this;
@@ -1013,7 +1008,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     protected function _afterSave()
     {
 
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             /**
              * Save invoice items
              */
@@ -1023,7 +1018,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
             }
         }
 
-        if (null !== $this->_comments) {
+        if ($this->_comments !== null) {
             foreach ($this->_comments as $comment) {
                 $comment->save();
             }

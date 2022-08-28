@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Shipping_Model_Config extends Varien_Object
 {
     /**
@@ -39,7 +38,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      */
     public function getActiveCarriers($store = null)
     {
-        $carriers = array();
+        $carriers = [];
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             if (Mage::getStoreConfigFlag('carriers/'.$code.'/active', $store)) {
@@ -60,7 +59,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      */
     public function getAllCarriers($store = null)
     {
-        $carriers = array();
+        $carriers = [];
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             $model = $this->_getCarrier($code, $carrierConfig, $store);

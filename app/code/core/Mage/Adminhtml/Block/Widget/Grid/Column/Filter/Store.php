@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store grid column filter
  *
@@ -38,7 +37,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
     public function getHtml()
     {
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
         $websiteCollection = $storeModel->getWebsiteCollection();
         $groupCollection = $storeModel->getGroupCollection();
         $storeCollection = $storeModel->getStoreCollection();
@@ -103,9 +102,9 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store
             return null;
         }
         if ($this->getValue() == '_deleted_') {
-            return array('null' => true);
+            return ['null' => true];
         } else {
-            return array('eq' => $this->getValue());
+            return ['eq' => $this->getValue()];
         }
     }
 

@@ -48,6 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Retrieve product
      *
      * @return Mage_Catalog_Model_Product
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getProduct()
     {
@@ -66,12 +67,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Retrieve array of associated products
      *
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAssociatedProducts()
     {
         $product = $this->getProduct();
-        $result = $product->getTypeInstance(true)
-            ->getAssociatedProducts($product);
+        $result = $product->getTypeInstance(true)->getAssociatedProducts($product);
 
         $storeId = $product->getStoreId();
         foreach ($result as $item) {
@@ -81,11 +82,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
         return $result;
     }
 
-
     /**
      * Set preconfigured values to grouped associated products
      *
      * @return Mage_Catalog_Block_Product_View_Type_Grouped
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function setPreconfiguredValue() {
         $configValues = $this->getProduct()->getPreconfiguredValues()->getSuperGroup();
@@ -115,6 +116,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      * Checks whether block is last fieldset in popup
      *
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getIsLastFieldset()
     {
@@ -131,10 +133,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Grouped extends Ma
      *
      * @param float $price
      * @return float
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrencyPrice($price)
     {
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
         $store = $this->getProduct()->getStore();
-        return $this->helper('core')->currencyByStore($price, $store, false);
+        return $helper::currencyByStore($price, $store, false);
     }
 }

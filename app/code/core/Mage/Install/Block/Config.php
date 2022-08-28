@@ -74,21 +74,20 @@ class Mage_Install_Block_Config extends Mage_Install_Block_Abstract
 
     public function getSessionSaveOptions()
     {
-        return array(
+        return [
             'files' => Mage::helper('install')->__('File System'),
             'db'    => Mage::helper('install')->__('Database'),
-        );
+        ];
     }
 
     public function getSessionSaveSelect()
     {
-        $html = $this->getLayout()->createBlock('core/html_select')
+        return $this->getLayout()->createBlock('core/html_select')
             ->setName('config[session_save]')
             ->setId('session_save')
             ->setTitle(Mage::helper('install')->__('Save Session Files In'))
             ->setClass('required-entry')
             ->setOptions($this->getSessionSaveOptions())
             ->getHtml();
-        return $html;
     }
 }

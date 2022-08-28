@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report collection abstract model
  *
@@ -82,7 +81,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
      *
      * @var array
      */
-    protected $_aggregatedColumns  = array();
+    protected $_aggregatedColumns  = [];
 
     /**
      * Set array of columns that should be aggregated
@@ -174,7 +173,7 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
         $storeIds  = $this->_storesIds;
 
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
 
         $storeIds = array_unique($storeIds);

@@ -18,9 +18,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->modifyColumn($installer->getTable('log/visitor_online'), 'remote_addr', 'bigint(20) NOT NULL');

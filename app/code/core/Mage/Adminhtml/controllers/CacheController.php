@@ -125,7 +125,7 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
         if (!empty($types)) {
             foreach ($types as $type) {
                 $tags = Mage::app()->getCacheInstance()->cleanType($type);
-                Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $type));
+                Mage::dispatchEvent('adminhtml_cache_refresh_type', ['type' => $type]);
                 $updatedTypes++;
             }
         }

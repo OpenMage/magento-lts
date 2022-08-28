@@ -134,7 +134,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
      */
     protected function _getItemsData()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -145,7 +145,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     protected function _initItems()
     {
         $data = $this->_getItemsData();
-        $items=array();
+        $items= [];
         foreach ($data as $itemData) {
             $items[] = $this->_createItem(
                 $itemData['label'],
@@ -156,7 +156,6 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
         $this->_items = $items;
         return $this;
     }
-
 
     /**
      * Retrieve layer object

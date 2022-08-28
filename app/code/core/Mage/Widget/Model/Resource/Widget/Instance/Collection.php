@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Widget Instance Collection
  *
@@ -33,8 +32,7 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
      *
      * @var array
      */
-    protected $_map = array('fields' => array('type' => 'instance_type'));
-
+    protected $_map = ['fields' => ['type' => 'instance_type']];
 
     /**
      * Constructor
@@ -53,17 +51,17 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
      * @param boolean $withDefaultStore if TRUE also filter by store id '0'
      * @return $this
      */
-    public function addStoreFilter($storeIds = array(), $withDefaultStore = true)
+    public function addStoreFilter($storeIds = [], $withDefaultStore = true)
     {
         if (!is_array($storeIds)) {
-            $storeIds = array($storeIds);
+            $storeIds = [$storeIds];
         }
         if ($withDefaultStore && !in_array('0', $storeIds)) {
             array_unshift($storeIds, 0);
         }
-        $where = array();
+        $where = [];
         foreach ($storeIds as $storeId) {
-            $where[] = $this->_getConditionSql('store_ids', array('finset' => $storeId));
+            $where[] = $this->_getConditionSql('store_ids', ['finset' => $storeId]);
         }
 
         $this->_select->where(implode(' OR ', $where));

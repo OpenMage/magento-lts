@@ -32,21 +32,21 @@ abstract class Mage_ImportExport_Model_Export_Entity_Product_Type_Abstract
      *
      * @var array
      */
-    protected $_attributeOverrides = array();
+    protected $_attributeOverrides = [];
 
     /**
      * Array of attributes codes which are disabled for export.
      *
      * @var array
      */
-    protected $_disabledAttrs = array();
+    protected $_disabledAttrs = [];
 
     /**
      * Attributes with index (not label) value.
      *
      * @var array
      */
-    protected $_indexValueAttributes = array();
+    protected $_indexValueAttributes = [];
 
     /**
      * Return disabled attributes codes.

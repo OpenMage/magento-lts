@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * List of products tagged by customer Block
  *
@@ -97,7 +96,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
      */
     public function getReviewUrl($productId)
     {
-        return Mage::getUrl('review/product/list', array('id' => $productId));
+        return Mage::getUrl('review/product/list', ['id' => $productId]);
     }
 
     /**

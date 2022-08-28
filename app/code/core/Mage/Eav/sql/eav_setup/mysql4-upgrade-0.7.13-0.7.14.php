@@ -18,9 +18,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($installer->getTable('eav/entity_type'), 'additional_attribute_table', 'varchar(255) NOT NULL DEFAULT \'\'');

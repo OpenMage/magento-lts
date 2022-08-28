@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Calatog Product Flat Flag Model
  *
@@ -44,7 +43,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
     {
         $flagData = parent::getFlagData();
         if (!is_array($flagData)) {
-            $flagData = array();
+            $flagData = [];
             $this->setFlagData($flagData);
         }
         return $flagData;

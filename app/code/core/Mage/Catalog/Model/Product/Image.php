@@ -70,7 +70,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_backgroundColor  = array(255, 255, 255);
+    protected $_backgroundColor  = [255, 255, 255];
 
     /**
      * Absolute path to and original (full resolution) image
@@ -218,7 +218,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         // determine width and height from string
         list($width, $height) = explode('x', strtolower($size), 2);
-        foreach (array('width', 'height') as $wh) {
+        foreach (['width', 'height'] as $wh) {
             $$wh  = (int)$$wh;
             if (empty($$wh)) {
                 $$wh = null;
@@ -232,6 +232,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param null $file
      * @return bool
      */
@@ -241,6 +242,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return float|int|string
      */
     protected function _getMemoryLimit()
@@ -264,6 +266,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @return int
      */
     protected function _getMemoryUsage()
@@ -275,6 +278,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @deprecated
      * @param string $file
      * @return float|int
      */
@@ -313,9 +317,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _rgbToString($rgbArray)
     {
-        $result = array();
+        $result = [];
         foreach ($rgbArray as $value) {
-            if (null === $value) {
+            if ($value === null) {
                 $result[] = 'null';
             } else {
                 $result[] = sprintf('%02s', dechex($value));
@@ -334,16 +338,16 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (0 !== strpos($file, '/', 0))) {
+        if (($file) && (strpos($file, '/', 0) !== 0)) {
             $file = '/' . $file;
         }
         $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
 
-        if ('/no_selection' == $file) {
+        if ($file == '/no_selection') {
             $file = null;
         }
         if ($file) {
-            if ((!$this->_fileExists($baseDir . $file)) || !$this->_checkMemory($baseDir . $file)) {
+            if ((!$this->_fileExists($baseDir . $file))) {
                 $file = null;
             }
         }
@@ -361,9 +365,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 if (file_exists($skinBaseDir . $file)) {
                     $baseDir = $skinBaseDir;
                 } else {
-                    $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default'));
+                    $baseDir = Mage::getDesign()->getSkinBaseDir(['_theme' => 'default']);
                     if (!file_exists($baseDir . $file)) {
-                        $baseDir = Mage::getDesign()->getSkinBaseDir(array('_theme' => 'default', '_package' => 'base'));
+                        $baseDir = Mage::getDesign()->getSkinBaseDir(['_theme' => 'default', '_package' => 'base']);
                     }
                 }
             }
@@ -379,18 +383,18 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         $this->_baseFile = $baseFile;
 
         // build new filename (most important params)
-        $path = array(
+        $path = [
             Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath(),
             'cache',
             Mage::app()->getStore()->getId(),
             $path[] = $this->getDestinationSubdir()
-        );
+        ];
         if ((!empty($this->_width)) || (!empty($this->_height))) {
             $path[] = "{$this->_width}x{$this->_height}";
         }
 
         // add misc params as a hash
-        $miscParams = array(
+        $miscParams = [
                 ($this->_keepAspectRatio  ? '' : 'non') . 'proportional',
                 ($this->_keepFrame        ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
@@ -398,7 +402,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 $this->_rgbToString($this->_backgroundColor),
                 'angle' . $this->_angle,
                 'quality' . $this->_quality
-        );
+        ];
 
         // if has watermark add watermark params to hash
         if ($this->getWatermarkFile()) {

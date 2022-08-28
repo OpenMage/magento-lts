@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales item renderer
  *
@@ -63,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View_Items extends Mage_Adminhtml
      */
     public function getOrderUrl()
     {
-        return $this->getUrl('*/sales_order/view', array('order_id' => $this->getInvoice()->getOrderId()));
+        return $this->getUrl('*/sales_order/view', ['order_id' => $this->getInvoice()->getOrderId()]);
     }
 
     /**

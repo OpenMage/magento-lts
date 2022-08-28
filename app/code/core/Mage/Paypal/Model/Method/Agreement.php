@@ -60,7 +60,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      * @param array $params
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $proInstance = array_shift($params);
         if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
@@ -81,7 +81,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
     public function setStore($store)
     {
         $this->setData('store', $store);
-        if (null === $store) {
+        if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
@@ -119,12 +119,12 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api = $this->_pro->getApi()
             ->setToken($agreement->getToken());
         $api->callGetBillingAgreementCustomerDetails();
-        $responseData = array(
+        $responseData = [
             'token'         => $api->getData('token'),
             'email'         => $api->getData('email'),
             'payer_id'      => $api->getData('payer_id'),
             'payer_status'  => $api->getData('payer_status')
-        );
+        ];
         $agreement->addData($responseData);
         return $responseData;
     }
@@ -201,7 +201,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      */
     public function capture(Varien_Object $payment, $amount)
     {
-        if (false === $this->_pro->capture($payment, $amount)) {
+        if ($this->_pro->capture($payment, $amount) === false) {
             $this->_placeOrder($payment, $amount);
         }
         return $this;
@@ -302,7 +302,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setAmount($amount)
             ->setCurrencyCode($payment->getOrder()->getBaseCurrencyCode())
             ->setNotifyUrl(Mage::getUrl('paypal/ipn/'))
-            ->setPaypalCart(Mage::getModel('paypal/cart', array($order)))
+            ->setPaypalCart(Mage::getModel('paypal/cart', [$order]))
             ->setIsLineItemsEnabled($proConfig->lineItemsEnabled)
             ->setInvNum($order->getIncrementId())
         ;
@@ -324,7 +324,6 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
 
         return $this;
     }
-
 
     protected function _isAvailable($quote)
     {

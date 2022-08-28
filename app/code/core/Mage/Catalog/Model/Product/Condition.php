@@ -38,7 +38,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
             $collection->joinTable(
                 $this->getTable(),
                 $this->getPkFieldName().'=entity_id',
-                array('affected_product_id'=>$this->getPkFieldName())
+                ['affected_product_id'=>$this->getPkFieldName()]
             );
         }
         return $this;
@@ -51,9 +51,8 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
     public function getIdsSelect($dbAdapter)
     {
         if ($this->getTable() && $this->getPkFieldName()) {
-            $select = $dbAdapter->select()
+            return $dbAdapter->select()
                 ->from($this->getTable(), $this->getPkFieldName());
-            return $select;
         }
         return '';
     }

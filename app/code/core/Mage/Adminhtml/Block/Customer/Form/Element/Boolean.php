@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Widget Form Boolean Element Block
  *
@@ -33,18 +32,18 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Boolean extends Varien_Data_For
      *
      * @param array $attributes
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes= [])
     {
         parent::__construct($attributes);
-        $this->setValues(array(
-            array(
+        $this->setValues([
+            [
                 'label' => Mage::helper('adminhtml')->__('No'),
                 'value' => '0',
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('adminhtml')->__('Yes'),
                 'value' => 1,
-            )
-        ));
+            ]
+        ]);
     }
 }

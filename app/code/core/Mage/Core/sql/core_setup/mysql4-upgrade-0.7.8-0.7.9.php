@@ -19,9 +19,9 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
-$configValuesMap = array(
+$configValuesMap = [
     'catalog/productalert/email_stock_template'         => 'catalog_productalert_email_stock_template',
     'catalog/productalert/email_price_template'         => 'catalog_productalert_email_price_template',
     'catalog/productalert_cron/error_email_template'    => 'catalog_productalert_cron_error_email_template',
@@ -43,7 +43,7 @@ $configValuesMap = array(
     'sendfriend/email/template'                         => 'sendfriend_email_template',
     'sitemap/generate/error_email_template'             => 'sitemap_generate_error_email_template',
     'wishlist/email/email_template'                     => 'wishlist_email_email_template',
-);
+];
 
 foreach ($configValuesMap as $configPath => $configValue) {
     $installer->setConfigData($configPath, $configValue);

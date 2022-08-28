@@ -20,14 +20,14 @@
 
 $installer = $this;
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
-$installer->addAttribute('customer', 'taxvat', array(
+$installer->addAttribute('customer', 'taxvat', [
     'label'        => 'Tax/VAT number',
     'visible'      => 1,
     'required'     => 0,
     'position'     => 1,
-));
+]);
 
 $installer->endSetup();

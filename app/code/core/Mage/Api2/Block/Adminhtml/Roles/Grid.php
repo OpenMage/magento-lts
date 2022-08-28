@@ -61,29 +61,29 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
+        $this->addColumn('entity_id', [
             'header' => Mage::helper('oauth')->__('ID'),
             'index'  => 'entity_id',
             'align'  => 'right',
             'width'  => '50px',
-        ));
+        ]);
 
-        $this->addColumn('role_name', array(
+        $this->addColumn('role_name', [
             'header' => Mage::helper('oauth')->__('Role Name'),
             'index'  => 'role_name',
             'escape' => true,
-        ));
+        ]);
 
-        $this->addColumn('tole_user_type', array(
+        $this->addColumn('tole_user_type', [
             'header'         => Mage::helper('oauth')->__('User Type'),
             'sortable'       => false,
-            'frame_callback' => array($this, 'decorateUserType')
-        ));
+            'frame_callback' => [$this, 'decorateUserType']
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('oauth')->__('Created At'),
             'index'  => 'created_at'
-        ));
+        ]);
 
         parent::_prepareColumns();
         return $this;
@@ -96,7 +96,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
     /**
@@ -111,7 +111,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         $session = Mage::getSingleton('admin/session');
 
         if ($session->isAllowed('system/api/roles/edit')) {
-            return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+            return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
         return null;
     }

@@ -34,7 +34,7 @@ class Mage_ImportExport_Model_Source_Import_Entity
      */
     public function toOptionArray()
     {
-        $options = array();
+        $options = [];
         $entities = Mage_ImportExport_Model_Import::CONFIG_KEY_ENTITIES;
         $comboOptions = Mage_ImportExport_Model_Config::getModelsComboOptions($entities);
 

@@ -33,11 +33,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring
     {
         $result = new stdClass;
         $result->output = '';
-        Mage::dispatchEvent('catalog_product_edit_form_render_recurring', array(
+        Mage::dispatchEvent('catalog_product_edit_form_render_recurring', [
             'result' => $result,
             'product_element' => $this->_element,
             'product'   => Mage::registry('current_product'),
-        ));
+        ]);
         return $result->output;
     }
 }

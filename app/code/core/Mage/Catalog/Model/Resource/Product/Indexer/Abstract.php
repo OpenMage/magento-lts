@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Indexer Abstract Resource Model
  *
@@ -63,10 +62,10 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         if ($attribute->isScopeGlobal()) {
             $alias = 'ta_' . $attrCode;
             $select->$joinType(
-                array($alias => $attributeTable),
+                [$alias => $attributeTable],
                 "{$alias}.entity_id = {$entity} AND {$alias}.attribute_id = {$attributeId}"
                     . " AND {$alias}.store_id = 0",
-                array()
+                []
             );
             $expression = new Zend_Db_Expr("{$alias}.value");
         } else {
@@ -74,16 +73,16 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
             $sAlias = 'tas_' . $attrCode;
 
             $select->$joinType(
-                array($dAlias => $attributeTable),
+                [$dAlias => $attributeTable],
                 "{$dAlias}.entity_id = {$entity} AND {$dAlias}.attribute_id = {$attributeId}"
                     . " AND {$dAlias}.store_id = 0",
-                array()
+                []
             );
             $select->joinLeft(
-                array($sAlias => $attributeTable),
+                [$sAlias => $attributeTable],
                 "{$sAlias}.entity_id = {$entity} AND {$sAlias}.attribute_id = {$attributeId}"
                     . " AND {$sAlias}.store_id = {$store}",
-                array()
+                []
             );
             $expression = $adapter->getCheckSql(
                 $adapter->getIfNullSql("{$sAlias}.value_id", -1) . ' > 0',
@@ -119,21 +118,21 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
         }
 
         $select->join(
-            array('cw' => $this->getTable('core/website')),
+            ['cw' => $this->getTable('core/website')],
             $joinCondition,
-            array()
+            []
         );
 
         if ($store) {
             $select->join(
-                array('csg' => $this->getTable('core/store_group')),
+                ['csg' => $this->getTable('core/store_group')],
                 'csg.group_id = cw.default_group_id',
-                array()
+                []
             )
             ->join(
-                array('cs' => $this->getTable('core/store')),
+                ['cs' => $this->getTable('core/store')],
                 'cs.store_id = csg.default_store_id',
-                array()
+                []
             );
         }
 
@@ -152,9 +151,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     protected function _addProductWebsiteJoinToSelect($select, $website, $product)
     {
         $select->join(
-            array('pw' => $this->getTable('catalog/product_website')),
+            ['pw' => $this->getTable('catalog/product_website')],
             "pw.product_id = {$product} AND pw.website_id = {$website}",
-            array()
+            []
         );
 
         return $this;
@@ -185,10 +184,10 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Abstract extends Mage
     public function getRelationsByParent($parentIds)
     {
         if (!is_array($parentIds)) {
-            $parentIds = array($parentIds);
+            $parentIds = [$parentIds];
         }
 
-        $result = array();
+        $result = [];
         if (!empty($parentIds)) {
             $write = $this->_getWriteAdapter();
             $select = $write->select()

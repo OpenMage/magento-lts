@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Decimal Attribute Filter Model
  *
@@ -95,7 +94,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 $this->_createItem($this->_renderItemLabel($range, $index), $filter)
             );
 
-            $this->_items = array();
+            $this->_items = [];
         }
 
         return $this;
@@ -108,9 +107,8 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
      */
     protected function _getCacheKey()
     {
-        $key = $this->getLayer()->getStateKey()
+        return $this->getLayer()->getStateKey()
             . '_ATTR_' . $this->getAttributeModel()->getAttributeCode();
-        return $key;
     }
 
     /**
@@ -209,16 +207,16 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
 
         $data = $this->getLayer()->getAggregator()->getCacheData($key);
         if ($data === null) {
-            $data       = array();
+            $data       = [];
             $range      = $this->getRange();
             $dbRanges   = $this->getRangeItemCounts($range);
 
             foreach ($dbRanges as $index => $count) {
-                $data[] = array(
+                $data[] = [
                     'label' => $this->_renderItemLabel($range, $index),
                     'value' => $index . ',' . $range,
                     'count' => $count,
-                );
+                ];
             }
         }
         return $data;

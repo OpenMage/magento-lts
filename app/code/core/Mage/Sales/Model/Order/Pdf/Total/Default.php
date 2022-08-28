@@ -60,12 +60,12 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         }
 
         $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
-        $total = array(
+        $total = [
             'amount'    => $amount,
             'label'     => $label,
             'font_size' => $fontSize
-        );
-        return array($total);
+        ];
+        return [$total];
     }
 
     /**
@@ -103,7 +103,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
             }
         } else {
             $fullInfo = $this->_getFullRateInfo();
-            $tax_info = array();
+            $tax_info = [];
 
             if ($fullInfo) {
                 foreach ($fullInfo as $info) {
@@ -116,11 +116,11 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     foreach ($info['rates'] as $rate) {
                         $percent = $rate['percent'] ? ' (' . $rate['percent']. '%)' : '';
 
-                        $tax_info[] = array(
+                        $tax_info[] = [
                             'amount'    => $this->getAmountPrefix() . $this->getOrder()->formatPriceTxt($_amount),
                             'label'     => $this->_getTaxHelper()->__($rate['title']) . $percent . ':',
                             'font_size' => $fontSize
-                        );
+                        ];
                     }
                 }
             }
@@ -138,8 +138,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
     protected function _getFullRateInfo()
     {
         $rates = Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($this->getOrder())->toArray();
-        $fullInfo = Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
-        return $fullInfo;
+        return Mage::getSingleton('tax/calculation')->reproduceProcess($rates['items']);
     }
 
     /**

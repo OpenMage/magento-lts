@@ -32,7 +32,7 @@
  */
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
-    public $sessionIds = array();
+    public $sessionIds = [];
     protected $_currentSessId = null;
 
     /**
@@ -197,7 +197,6 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
-
 
     /**
      * @param string|false $sessId

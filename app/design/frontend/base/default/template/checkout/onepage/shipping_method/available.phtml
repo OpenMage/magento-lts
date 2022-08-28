@@ -24,7 +24,7 @@
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
     <dl class="sp-methods">
-    <?php $shippingCodePrice = array(); ?>
+    <?php $shippingCodePrice = []; ?>
     <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
         <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
         <dd>

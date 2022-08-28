@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Reviews collection
  *
@@ -121,15 +120,14 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function getIntervals()
     {
         if (!$this->_intervals) {
-            $this->_intervals = array();
+            $this->_intervals = [];
             if (!$this->_from && !$this->_to) {
                 return $this->_intervals;
             }
             $dateStart  = new Zend_Date($this->_from);
             $dateEnd    = new Zend_Date($this->_to);
 
-
-            $t = array();
+            $t = [];
             $firstInterval = true;
             while ($dateStart->compare($dateEnd) <= 0) {
                 switch ($this->_period) {
@@ -190,11 +188,11 @@ class Mage_Reports_Model_Resource_Report_Collection
      */
     public function getPeriods()
     {
-        return array(
+        return [
             'day'   => Mage::helper('reports')->__('Day'),
             'month' => Mage::helper('reports')->__('Month'),
             'year'  => Mage::helper('reports')->__('Year')
-        );
+        ];
     }
 
     /**
@@ -292,7 +290,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     }
 
     /**
-     * Retreive time shift
+     * Retrieve time shift
      *
      * @param string $datetime
      * @return string

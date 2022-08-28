@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Model_Condition_Combine
 {
     /**
@@ -73,15 +72,15 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
     protected function _addAttributeToConditionGroup($conditionType, $conditionModel, $attributeCode, $attributeLabel)
     {
         if (!array_key_exists($conditionType, $this->_productAttributesInfo)) {
-            $this->_productAttributesInfo[$conditionType] = array();
+            $this->_productAttributesInfo[$conditionType] = [];
         }
 
         $conditionKey = sprintf('%s|%s', $conditionModel, $attributeCode);
 
-        $this->_productAttributesInfo[$conditionType][$conditionKey] = array(
+        $this->_productAttributesInfo[$conditionType][$conditionKey] = [
             'label' => $attributeLabel,
             'value' => $conditionKey
-        );
+        ];
 
         return $this;
     }
@@ -97,7 +96,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $this->_initializeProductAttributesInfo();
         return array_key_exists($conditionsGroup, $this->_productAttributesInfo)
             ? $this->_productAttributesInfo[$conditionsGroup]
-            : array();
+            : [];
     }
 
     /**
@@ -107,7 +106,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
     protected function _initializeProductAttributesInfo()
     {
         if (is_null($this->_productAttributesInfo)) {
-            $this->_productAttributesInfo = array();
+            $this->_productAttributesInfo = [];
             $productAttributes = Mage::getModel('salesrule/rule_condition_product')
                 ->loadAttributeOptions()
                 ->getAttributeOption();
@@ -156,24 +155,24 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         $conditions = parent::getNewChildSelectOptions();
         $conditions = array_merge_recursive(
             $conditions,
-            array(
-                array(
+            [
+                [
                     'label' => Mage::helper('catalog')->__('Conditions Combination'),
                     'value' => 'salesrule/rule_condition_product_combine'
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Cart Item Attribute'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_QUOTE_ITEM)
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('catalog')->__('Product Attribute'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_PRODUCT),
-                ),
-                array(
+                ],
+                [
                     'label' => $this->_getHelper()->__('Product Attribute Assigned'),
                     'value' => $this->_getAttributeConditions(self::PRODUCT_ATTRIBUTES_TYPE_ISSET)
-                )
-            )
+                ]
+            ]
         );
         return $conditions;
     }

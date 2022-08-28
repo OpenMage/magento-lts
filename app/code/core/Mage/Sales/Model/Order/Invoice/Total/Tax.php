@@ -38,7 +38,6 @@ class Mage_Sales_Model_Order_Invoice_Total_Tax extends Mage_Sales_Model_Order_In
 
         $order = $invoice->getOrder();
 
-        /** @var Mage_Sales_Model_Order_Invoice_Item $item */
         foreach ($invoice->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
             $orderItemQty = $orderItem->getQtyOrdered();

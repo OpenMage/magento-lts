@@ -24,7 +24,7 @@ class Mage_Core_Model_Locale_Config
      *
      * @var array
      */
-    protected $_allowedLocales      = array(
+    protected $_allowedLocales      = [
         'af_ZA' /*Afrikaans (South Africa)*/,   'ar_DZ' /*Arabic (Algeria)*/,       'ar_EG' /*Arabic (Egypt)*/,
         'ar_KW' /*Arabic (Kuwait)*/,            'ar_MA' /*Arabic (Morocco)*/,       'ar_SA' /*Arabic (Saudi Arabia)*/,
         'az_AZ' /*Azerbaijani (Azerbaijan)*/,   'be_BY' /*Belarusian (Belarus)*/,   'bg_BG' /*Bulgarian (Bulgaria)*/,
@@ -54,14 +54,14 @@ class Mage_Core_Model_Locale_Config
         'zh_TW' /*Chinese (Taiwan)*/,           'es_CL' /*Spanich (Chile)*/,        'lo_LA' /*Laotian*/,
         'es_VE' /*Spanish (Venezuela)*/,        'en_IE' /*English (Ireland)*/,
         'fr_CH' /*French (Switzerland)*/,
-    );
+    ];
 
     /**
      * List of allowed currencies
      *
      * @var array
      */
-    protected $_allowedCurrencies   = array(
+    protected $_allowedCurrencies   = [
         'AFN' /*Afghani*/,          'ALL' /*Albanian Lek*/,     'AZN' /*Azerbaijanian Manat*/,      'DZD' /*Algerian Dinar*/,
         'AOA' /*Angolan Kwanza*/,   'ARS' /*Argentine Peso*/,   'AMD' /*Armenian Dram*/,            'AWG' /*Aruban Florin*/,
         'AUD' /*Australian Dollar*/,'BSD' /*Bahamian Dollar*/,  'BHD' /*Bahraini Dinar*/,           'BDT' /*Bangladesh Taka*/,
@@ -105,7 +105,7 @@ class Mage_Core_Model_Locale_Config
         'XOF' /*West African CFA franc*/,'WST' /*Western Samoa Tala*/,'YER' /*Yemeni Rial*/,        'ZMK' /*Zambian Kwacha*/,
         'ZWD' /*Zimbabwe Dollar*/,'TRY' /*Turkish Lira*/,'AZM' /*Azerbaijani Manat (1993-2006)*/,   'ROL' /*Old Romanian Leu*/,
         'TRL' /*Old Turkish Lira*/,'XPF' /*CFP Franc*/
-    );
+    ];
 
     /**
      * Get list preconfigured allowed locales
@@ -121,7 +121,7 @@ class Mage_Core_Model_Locale_Config
         if ($configData) {
             $configData = array_keys($configData);
         } else {
-            $configData = array();
+            $configData = [];
         }
         return array_merge($this->_allowedLocales, $configData);
     }
@@ -140,7 +140,7 @@ class Mage_Core_Model_Locale_Config
         if ($configData) {
             $configData = array_keys($configData);
         } else {
-            $configData = array();
+            $configData = [];
         }
         return array_merge($this->_allowedCurrencies, $configData);
     }

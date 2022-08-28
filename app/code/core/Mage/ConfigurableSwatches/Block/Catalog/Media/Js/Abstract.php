@@ -30,7 +30,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      *
      * @var array
      */
-    protected $_productListBlocks = array('product_list', 'search_result_list');
+    protected $_productListBlocks = ['product_list', 'search_result_list'];
 
     /**
      * Get target product IDs
@@ -47,7 +47,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      */
     protected function _getJsImageFallbackString(array $imageFallback)
     {
-        /* @var Mage_Core_Helper_Data $coreHelper */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         return $coreHelper->jsonEncode($imageFallback);
@@ -69,10 +69,10 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
      */
     public function getProductImageFallbacks($keepFrame = null)
     {
-        /* @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
+        /** @var Mage_ConfigurableSwatches_Helper_Mediafallback $helper */
         $helper = Mage::helper('configurableswatches/mediafallback');
 
-        $fallbacks = array();
+        $fallbacks = [];
 
         $products = $this->getProducts();
 
@@ -80,14 +80,14 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
             $keepFrame = $this->isKeepFrame();
         }
 
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($products as $product) {
             $imageFallback = $helper->getConfigurableImagesFallbackArray($product, $this->_getImageSizes(), $keepFrame);
 
-            $fallbacks[$product->getId()] = array(
+            $fallbacks[$product->getId()] = [
                 'product' => $product,
                 'image_fallback' => $this->_getJsImageFallbackString($imageFallback)
-            );
+            ];
         }
 
         return $fallbacks;

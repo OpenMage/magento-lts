@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $this->startSetup();
@@ -57,7 +56,6 @@ $installer->run("
         KEY `IDX_STORE_ID` (`store_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-
 
 $installer->getConnection()->addConstraint(
     'SALES_INVOICED_AGGREGATED_STORE',

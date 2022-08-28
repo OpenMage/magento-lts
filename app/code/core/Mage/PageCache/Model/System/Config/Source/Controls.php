@@ -34,12 +34,12 @@ class Mage_PageCache_Model_System_Config_Source_Controls
      */
     public function toOptionArray()
     {
-        $options = array();
+        $options = [];
         foreach (Mage::helper('pagecache')->getCacheControls() as $code => $type) {
-            $options[] = array(
+            $options[] = [
                 'value' => $code,
                 'label' => $type['label']
-            );
+            ];
         }
         return $options;
     }

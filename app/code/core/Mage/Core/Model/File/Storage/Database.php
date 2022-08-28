@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * File storage database model class
  *
@@ -52,7 +51,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Class construct
@@ -76,7 +75,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
         if (is_null($this->_directoryModel)) {
             $this->_directoryModel = Mage::getModel(
                 'core/file_storage_directory_database',
-                array('connection' => $this->getConnectionName())
+                ['connection' => $this->getConnectionName()]
             );
         }
 
@@ -208,7 +207,7 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
                 $file['directory_id'] = (isset($file['directory']) && strlen($file['directory']))
                     ? Mage::getModel(
                         'core/file_storage_directory_database',
-                        array('connection' => $this->getConnectionName())
+                        ['connection' => $this->getConnectionName()]
                     )
                             ->loadByPath($file['directory'])->getId()
                     : null;

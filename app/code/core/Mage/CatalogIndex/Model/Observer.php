@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Event observer and indexer running application
  *
@@ -26,8 +25,8 @@
  */
 class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
 {
-    protected $_parentProductIds = array();
-    protected $_productIdsMassupdate = array();
+    protected $_parentProductIds = [];
+    protected $_productIdsMassupdate = [];
 
     protected function _construct()
     {
@@ -88,7 +87,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function processAfterSaveEvent(Varien_Event_Observer $observer)
     {
-        $productIds = array();
+        $productIds = [];
         /** @var Mage_Catalog_Model_Product $eventProduct */
         $eventProduct = $observer->getEvent()->getProduct();
         $productIds[] = $eventProduct->getId();
@@ -184,9 +183,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
          * @todo add flag to attribute model which will notify what options was changed
          */
         $attribute = $observer->getEvent()->getAttribute();
-        $tags = array(
+        $tags = [
             Mage_Eav_Model_Entity_Attribute::CACHE_TAG.':'.$attribute->getId()
-        );
+        ];
 
         if ($attribute->getOrigData('is_filterable') != $attribute->getIsFilterable()) {
             if ($attribute->getIsFilterable() != 0) {
@@ -272,9 +271,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         if ($category->getInitialSetupFlag()) {
             return $this;
         }
-        $tags = array(
+        $tags = [
             Mage_Catalog_Model_Category::CACHE_TAG.':'.$category->getPath()
-        );
+        ];
         $this->_getAggregator()->clearCacheData($tags);
         return $this;
     }
@@ -286,9 +285,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function clearPriceAggregation()
     {
-        $this->_getAggregator()->clearCacheData(array(
+        $this->_getAggregator()->clearCacheData([
             Mage_Catalog_Model_Product_Type_Price::CACHE_TAG
-        ));
+        ]);
         return $this;
     }
 
@@ -299,9 +298,9 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function clearSearchLayerCache()
     {
-        $this->_getAggregator()->clearCacheData(array(
+        $this->_getAggregator()->clearCacheData([
             Mage_CatalogSearch_Model_Query::CACHE_TAG
-        ));
+        ]);
         return $this;
     }
 
@@ -316,7 +315,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         $product->loadParentProductIds();
-        $productIds = array($product->getId());
+        $productIds = [$product->getId()];
         $productIds = array_merge($productIds, $product->getParentProductIds());
         $this->_getAggregator()->clearProductData($productIds);
         return $this;

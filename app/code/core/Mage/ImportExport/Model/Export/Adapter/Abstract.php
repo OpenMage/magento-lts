@@ -60,7 +60,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     final public function __construct($destination = null)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
 
         if (!$destination) {
             $destination = tempnam(sys_get_temp_dir(), 'importexport_');
@@ -147,7 +147,7 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
      */
     public function setHeaderCols(array $headerCols)
     {
-        if (null !== $this->_headerCols) {
+        if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
         if ($headerCols) {

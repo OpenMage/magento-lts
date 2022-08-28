@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Address format renderer default
  *
@@ -104,9 +103,9 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
         $formater   = new Varien_Filter_Template();
         $attributes = Mage::helper('customer/address')->getAttributes();
 
-        $data = array();
+        $data = [];
         foreach ($attributes as $attribute) {
-            /* @var Mage_Customer_Model_Attribute $attribute */
+            /** @var Mage_Customer_Model_Attribute $attribute */
             if (!$attribute->getIsVisible()) {
                 continue;
             }

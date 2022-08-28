@@ -45,27 +45,27 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
      */
     protected function _prepareLayout()
     {
-        $buttons = array(
-            'backButton'    => array(
+        $buttons = [
+            'backButton'    => [
                 'label'     => Mage::helper('adminhtml')->__('Back'),
                 'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
                 'class'     => 'back'
-            ),
-            'resetButton'   => array(
+            ],
+            'resetButton'   => [
                 'label'     => Mage::helper('adminhtml')->__('Reset'),
                 'onclick'   => 'window.location.reload()'
-            ),
-            'saveButton'    => array(
+            ],
+            'saveButton'    => [
                 'label'     => Mage::helper('adminhtml')->__('Save Role'),
                 'onclick'   => 'roleForm.submit(); return false;',
                 'class'     => 'save'
-            ),
-            'deleteButton'  => array(
+            ],
+            'deleteButton'  => [
                 'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                 'onclick'   => '',  //roleId is not set at this moment, so we set script later
                 'class'     => 'delete'
-            ),
-        );
+            ],
+        ];
 
         foreach ($buttons as $name => $data) {
             $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData($data);

@@ -215,7 +215,7 @@ $numColumns = count($this->getColumns());
         }
         var formParam = new Array('period_date_from', 'period_date_to', 'report_period');
         var paramURL = '';
-        var switchURL = '<?php echo $this->getAbsoluteGridUrl(array('_current' => false)); ?>'.replace(/(store|group|website)\/\d+\//,'');
+        var switchURL = '<?php echo $this->getAbsoluteGridUrl(['_current' => false]); ?>'.replace(/(store|group|website)\/\d+\//,'');
 
         for(var i=0;i<formParam.length;i++){
             if ($(formParam[i]).value && $(formParam[i]).name) {

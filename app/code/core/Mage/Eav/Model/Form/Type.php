@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Type Model
  *
@@ -133,9 +132,9 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             ->setSortOrder();
 
         // copy fieldsets
-        $fieldsetMap = array();
+        $fieldsetMap = [];
         foreach ($fieldsetCollection as $skeletonFieldset) {
-            /* @var Mage_Eav_Model_Form_Fieldset $skeletonFieldset */
+            /** @var Mage_Eav_Model_Form_Fieldset $skeletonFieldset */
             $fieldset = Mage::getModel('eav/form_fieldset');
             $fieldset->setTypeId($this->getId())
                 ->setCode($skeletonFieldset->getCode())
@@ -147,7 +146,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 
         // copy elements
         foreach ($elementCollection as $skeletonElement) {
-            /* @var Mage_Eav_Model_Form_Element $skeletonElement */
+            /** @var Mage_Eav_Model_Form_Element $skeletonElement */
             $element = Mage::getModel('eav/form_element');
             $fieldsetId = null;
             if ($skeletonElement->getFieldsetId()) {

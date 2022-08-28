@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Add default website
  *
@@ -27,7 +26,7 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -43,7 +42,7 @@ if ($row) {
     $whereBind = $installer->getConnection()->quoteInto('website_id=?', $row['website_id']);
     $installer->getConnection()->update(
         $installer->getTable('core_website'),
-        array('is_default' => 1),
+        ['is_default' => 1],
         $whereBind
     );
 }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CMS Observer model
  *
@@ -62,7 +61,7 @@ class Mage_Cms_Model_Observer
         } else {
             $redirect->setRedirect(true)
                 ->setPath('cms/index/noCookies')
-                ->setArguments(array());
+                ->setArguments([]);
         }
         return $this;
     }

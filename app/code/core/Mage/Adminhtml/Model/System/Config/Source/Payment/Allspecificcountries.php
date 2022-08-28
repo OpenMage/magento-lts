@@ -18,14 +18,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Source_Payment_Allspecificcountries
 {
     public function toOptionArray()
     {
-        return array(
-            array('value'=>0, 'label'=>Mage::helper('adminhtml')->__('All Allowed Countries')),
-            array('value'=>1, 'label'=>Mage::helper('adminhtml')->__('Specific Countries')),
-        );
+        return [
+            ['value'=>0, 'label'=>Mage::helper('adminhtml')->__('All Allowed Countries')],
+            ['value'=>1, 'label'=>Mage::helper('adminhtml')->__('Specific Countries')],
+        ];
     }
 }

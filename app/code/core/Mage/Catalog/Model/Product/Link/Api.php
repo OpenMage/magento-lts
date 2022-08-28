@@ -32,12 +32,12 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      *
      * @var array
      */
-    protected $_typeMap = array(
+    protected $_typeMap = [
         'related'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_RELATED,
         'up_sell'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_UPSELL,
         'cross_sell'    => Mage_Catalog_Model_Product_Link::LINK_TYPE_CROSSSELL,
         'grouped'       => Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED
-    );
+    ];
 
     public function __construct()
     {
@@ -63,15 +63,15 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
 
         $collection = $this->_initCollection($link, $product);
 
-        $result = array();
+        $result = [];
 
         foreach ($collection as $linkedProduct) {
-            $row = array(
+            $row = [
                 'product_id' => $linkedProduct->getId(),
                 'type'       => $linkedProduct->getTypeId(),
                 'set'        => $linkedProduct->getAttributeSetId(),
                 'sku'        => $linkedProduct->getSku()
-            );
+            ];
 
             foreach ($link->getAttributes() as $attribute) {
                 $row[$attribute['code']] = $linkedProduct->getData($attribute['code']);
@@ -93,7 +93,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * @param  string $identifierType
      * @return boolean
      */
-    public function assign($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
+    public function assign($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
 
         $links = $this->_collectionToEditableArray($collection);
 
-        $links[(int)$linkedProductId] = array();
+        $links[(int)$linkedProductId] = [];
 
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
             if (isset($data[$attribute['code']])) {
@@ -150,7 +150,7 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      * @param  string $identifierType
      * @return boolean
      */
-    public function update($type, $productId, $linkedProductId, $data = array(), $identifierType = null)
+    public function update($type, $productId, $linkedProductId, $data = [], $identifierType = null)
     {
         $typeId = $this->_getTypeId($type);
 
@@ -249,13 +249,13 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
         $attributes = Mage::getModel('catalog/product_link')
             ->getAttributes($typeId);
 
-        $result = array();
+        $result = [];
 
         foreach ($attributes as $attribute) {
-            $result[] = array(
+            $result[] = [
                 'code'  => $attribute['code'],
                 'type'  => $attribute['type']
-            );
+            ];
         }
 
         return $result;
@@ -312,12 +312,10 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      */
     protected function _initCollection($link, $product)
     {
-        $collection = $link
+        return $link
             ->getProductCollection()
             ->setIsStrongMode()
             ->setProduct($product);
-
-        return $collection;
     }
 
     /**
@@ -328,10 +326,10 @@ class Mage_Catalog_Model_Product_Link_Api extends Mage_Catalog_Model_Api_Resourc
      */
     protected function _collectionToEditableArray($collection)
     {
-        $result = array();
+        $result = [];
 
         foreach ($collection as $linkedProduct) {
-            $result[$linkedProduct->getId()] = array();
+            $result[$linkedProduct->getId()] = [];
 
             foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
                 $result[$linkedProduct->getId()][$attribute['code']] = $linkedProduct->getData($attribute['code']);

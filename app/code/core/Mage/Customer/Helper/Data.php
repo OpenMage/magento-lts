@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Data Helper
  *
@@ -255,19 +254,19 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginUrlParams()
     {
-        $params = array();
+        $params = [];
 
         $referer = $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME);
 
         if (!$referer && !Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)
             && !Mage::getSingleton('customer/session')->getNoReferer()
         ) {
-            $referer = Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
+            $referer = Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
             $referer = Mage::helper('core')->urlEncode($referer);
         }
 
         if ($referer) {
-            $params = array(self::REFERER_QUERY_PARAM_NAME => $referer);
+            $params = [self::REFERER_QUERY_PARAM_NAME => $referer];
         }
 
         return $params;
@@ -280,11 +279,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginPostUrl()
     {
-        $params = array();
+        $params = [];
         if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
-            $params = array(
+            $params = [
                 self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)
-            );
+            ];
         }
         return $this->_getUrl('customer/account/loginPost', $params);
     }
@@ -387,7 +386,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getEmailConfirmationUrl($email = null)
     {
-        return $this->_getUrl('customer/account/confirmation', array('email' => $email));
+        return $this->_getUrl('customer/account/confirmation', ['email' => $email]);
     }
 
     /**
@@ -397,8 +396,8 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isRegistrationAllowed()
     {
-        $result = new Varien_Object(array('is_allowed' => true));
-        Mage::dispatchEvent('customer_registration_is_allowed', array('result' => $result));
+        $result = new Varien_Object(['is_allowed' => true]);
+        Mage::dispatchEvent('customer_registration_is_allowed', ['result' => $result]);
         return $result->getIsAllowed();
     }
 
@@ -440,7 +439,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($options)) {
             return false;
         }
-        $result = array();
+        $result = [];
         $options = explode(';', $options);
         foreach ($options as $value) {
             $value = $this->escapeHtml(trim($value));
@@ -545,12 +544,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
         $vatClass = $this->getCustomerVatClass($customerCountryCode, $vatValidationResult, $store);
 
-        $vatClassToGroupXmlPathMap = array(
+        $vatClassToGroupXmlPathMap = [
             self::VAT_CLASS_DOMESTIC => self::XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP,
             self::VAT_CLASS_INTRA_UNION => self::XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP,
             self::VAT_CLASS_INVALID => self::XML_PATH_CUSTOMER_VIV_INVALID_GROUP,
             self::VAT_CLASS_ERROR => self::XML_PATH_CUSTOMER_VIV_ERROR_GROUP
-        );
+        ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
             $groupId = (int)Mage::getStoreConfig($vatClassToGroupXmlPathMap[$vatClass], $store);
@@ -572,12 +571,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function checkVatNumber($countryCode, $vatNumber, $requesterCountryCode = '', $requesterVatNumber = '')
     {
         // Default response
-        $gatewayResponse = new Varien_Object(array(
+        $gatewayResponse = new Varien_Object([
             'is_valid' => false,
             'request_date' => '',
             'request_identifier' => '',
             'request_success' => false
-        ));
+        ]);
 
         if (!extension_loaded('soap')) {
             Mage::logException(Mage::exception(
@@ -594,11 +593,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         try {
             $soapClient = $this->_createVatNumberValidationSoapClient();
 
-            $requestParams = array();
+            $requestParams = [];
             $requestParams['countryCode'] = $countryCode;
-            $requestParams['vatNumber'] = str_replace(array(' ', '-'), array('', ''), $vatNumber);
+            $requestParams['vatNumber'] = str_replace([' ', '-'], ['', ''], $vatNumber);
             $requestParams['requesterCountryCode'] = $requesterCountryCode;
-            $requestParams['requesterVatNumber'] = str_replace(array(' ', '-'), array('', ''), $requesterVatNumber);
+            $requestParams['requesterVatNumber'] = str_replace([' ', '-'], ['', ''], $requesterVatNumber);
 
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
@@ -755,6 +754,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _createVatNumberValidationSoapClient($trace = false)
     {
-        return new SoapClient(self::VAT_VALIDATION_WSDL_URL, array('trace' => $trace));
+        return new SoapClient(self::VAT_VALIDATION_WSDL_URL, ['trace' => $trace]);
     }
 }

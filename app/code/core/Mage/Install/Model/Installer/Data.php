@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Installer data model
  *
@@ -34,7 +33,7 @@ class Mage_Install_Model_Installer_Data extends Varien_Object
      *
      * @var array
      */
-    protected $_errors = array();
+    protected $_errors = [];
 
     /**
      * Add error

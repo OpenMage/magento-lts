@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Source_Allregion
 {
     protected $_countries;
@@ -29,30 +28,30 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
         if (!$this->_options) {
             $countriesArray = Mage::getResourceModel('directory/country_collection')->load()
                 ->toOptionArray(false);
-            $this->_countries = array();
+            $this->_countries = [];
             foreach ($countriesArray as $a) {
                 $this->_countries[$a['value']] = $a['label'];
             }
 
-            $countryRegions = array();
+            $countryRegions = [];
             $regionsCollection = Mage::getResourceModel('directory/region_collection')->load();
             foreach ($regionsCollection as $region) {
                 $countryRegions[$region->getCountryId()][$region->getId()] = $region->getDefaultName();
             }
-            uksort($countryRegions, array($this, 'sortRegionCountries'));
+            uksort($countryRegions, [$this, 'sortRegionCountries']);
 
-            $this->_options = array();
+            $this->_options = [];
             foreach ($countryRegions as $countryId=>$regions) {
-                $regionOptions = array();
+                $regionOptions = [];
                 foreach ($regions as $regionId=>$regionName) {
-                    $regionOptions[] = array('label'=>$regionName, 'value'=>$regionId);
+                    $regionOptions[] = ['label'=>$regionName, 'value'=>$regionId];
                 }
-                $this->_options[] = array('label'=>$this->_countries[$countryId], 'value'=>$regionOptions);
+                $this->_options[] = ['label'=>$this->_countries[$countryId], 'value'=>$regionOptions];
             }
         }
         $options = $this->_options;
         if(!$isMultiselect){
-            array_unshift($options, array('value'=>'', 'label'=>''));
+            array_unshift($options, ['value'=>'', 'label'=>'']);
         }
 
         return $options;

@@ -167,7 +167,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
      */
     public function massReindexAction()
     {
-        /* @var Mage_Index_Model_Indexer $indexer */
+        /** @var Mage_Index_Model_Indexer $indexer */
         $indexer    = Mage::getSingleton('index/indexer');
         $processIds = $this->getRequest()->getParam('process');
         if (empty($processIds) || !is_array($processIds)) {
@@ -176,7 +176,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             try {
                 $counter = 0;
                 foreach ($processIds as $processId) {
-                    /* @var Mage_Index_Model_Process $process */
+                    /** @var Mage_Index_Model_Process $process */
                     $process = $indexer->getProcessById($processId);
                     if ($process && $process->getIndexer()->isVisible()) {
                         $process->reindexEverything();
@@ -210,7 +210,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 $counter = 0;
                 $mode = $this->getRequest()->getParam('index_mode');
                 foreach ($processIds as $processId) {
-                    /* @var Mage_Index_Model_Process $process */
+                    /** @var Mage_Index_Model_Process $process */
                     $process = Mage::getModel('index/process')->load($processId);
                     if ($process->getId() && $process->getIndexer()->isVisible()) {
                         $process->setMode($mode)->save();

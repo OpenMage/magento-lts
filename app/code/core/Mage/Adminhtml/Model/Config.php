@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Admin configuration model
  *
@@ -39,8 +38,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_config;
 
     /**
-     * Enter description here...
-     *
      * @var Varien_Simplexml_Element
      */
     protected $_sections;
@@ -53,8 +50,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_tabs;
 
     /**
-     * Enter description here...
-     *
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
@@ -138,14 +133,12 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected function _initSectionsAndTabs()
     {
         $config = $this->_config;
-        Mage::dispatchEvent('adminhtml_init_system_config', array('config' => $config));
+        Mage::dispatchEvent('adminhtml_init_system_config', ['config' => $config]);
         $this->_sections = $config->getNode('sections');
         $this->_tabs = $config->getNode('tabs');
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $sectionCode
      * @param string $websiteCode
      * @param string $storeCode
@@ -163,8 +156,6 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Simplexml_Element $node
      * @param string $websiteCode
      * @param string $storeCode
@@ -282,16 +273,16 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      */
     public function getEncryptedNodeEntriesPaths($explodePathToEntities = false)
     {
-        $paths = array();
+        $paths = [];
         $configSections = $this->getSections();
         if ($configSections) {
             foreach ($configSections->xpath('//sections/*/groups/*/fields/*/backend_model') as $node) {
-                if ('adminhtml/system_config_backend_encrypted' === (string)$node) {
+                if ((string)$node === 'adminhtml/system_config_backend_encrypted') {
                     $section = $node->getParent()->getParent()->getParent()->getParent()->getParent()->getName();
                     $group   = $node->getParent()->getParent()->getParent()->getName();
                     $field   = $node->getParent()->getName();
                     if ($explodePathToEntities) {
-                        $paths[] = array('section' => $section, 'group' => $group, 'field' => $field);
+                        $paths[] = ['section' => $section, 'group' => $group, 'field' => $field];
                     }
                     else {
                         $paths[] = $section . '/' . $group . '/' . $field;

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales item renderer
  *
@@ -55,9 +54,9 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items extends Mage_Adminh
      */
     public function getOrderTotalData()
     {
-        return array(
+        return [
             'grand_total_title' => Mage::helper('sales')->__('Total Refund'),
-        );
+        ];
     }
 
     /**
@@ -72,6 +71,6 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View_Items extends Mage_Adminh
 
     public function getOrderUrl()
     {
-        return $this->getUrl('*/sales_order/view', array('order_id' => $this->getCreditmemo()->getOrderId()));
+        return $this->getUrl('*/sales_order/view', ['order_id' => $this->getCreditmemo()->getOrderId()]);
     }
 }

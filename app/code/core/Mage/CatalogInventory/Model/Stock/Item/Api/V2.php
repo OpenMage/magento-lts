@@ -46,7 +46,6 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
             $this->_fault('not_exists');
         }
 
-        /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = $product->getStockItem();
         $stockData = array_replace($stockItem->getData(), (array)$data);
         $stockItem->setData($stockData);

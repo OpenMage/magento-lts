@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Url rewrite resource collection model class
  *
@@ -49,14 +48,14 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
 
         if (!$this->getFlag('tag_table_joined')) {
             $this->join(
-                array('curt' => $this->getTable('core/url_rewrite_tag')),
+                ['curt' => $this->getTable('core/url_rewrite_tag')],
                 'main_table.url_rewrite_id = curt.url_rewrite_id',
-                array()
+                []
             );
             $this->setFlag('tag_table_joined', true);
         }
 
-        $this->addFieldToFilter('curt.tag', array('in' => $tags));
+        $this->addFieldToFilter('curt.tag', ['in' => $tags]);
         return $this;
     }
 
@@ -70,13 +69,13 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
     public function addStoreFilter($store, $withAdmin = true)
     {
         if (!is_array($store)) {
-            $store = array(Mage::app()->getStore($store)->getId());
+            $store = [Mage::app()->getStore($store)->getId()];
         }
         if ($withAdmin) {
             $store[] = 0;
         }
 
-        $this->addFieldToFilter('store_id', array('in' => $store));
+        $this->addFieldToFilter('store_id', ['in' => $store]);
 
         return $this;
     }

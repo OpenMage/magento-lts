@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Store grid column filter
  *
@@ -80,7 +79,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
         $origStores = $row->getData($this->getColumn()->getIndex());
 
         if (is_null($origStores) && $row->getStoreName()) {
-            $scopes = array();
+            $scopes = [];
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat('&nbsp;', $k * 3) . $label;
             }
@@ -92,7 +91,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
             return '';
         }
         if (!is_array($origStores)) {
-            $origStores = array($origStores);
+            $origStores = [$origStores];
         }
 
         if (empty($origStores)) {
@@ -130,7 +129,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
         $origStores = $row->getData($this->getColumn()->getIndex());
 
         if (is_null($origStores) && $row->getStoreName()) {
-            $scopes = array();
+            $scopes = [];
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat(' ', $k * 3) . $label;
             }
@@ -139,7 +138,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store
         }
 
         if (!is_array($origStores)) {
-            $origStores = array($origStores);
+            $origStores = [$origStores];
         }
 
         if (in_array(0, $origStores) && !$skipAllStoresLabel) {

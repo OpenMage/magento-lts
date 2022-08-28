@@ -33,7 +33,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
      * @var array
      */
-    protected $_columns = array();
+    protected $_columns = [];
 
     /**
      * Enable the "Add after" button or not
@@ -86,13 +86,13 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      */
     public function addColumn($name, $params)
     {
-        $this->_columns[$name] = array(
+        $this->_columns[$name] = [
             'label'     => empty($params['label']) ? 'Column' : $params['label'],
             'size'      => empty($params['size'])  ? false    : $params['size'],
             'style'     => empty($params['style'])  ? null    : $params['style'],
             'class'     => empty($params['class'])  ? null    : $params['class'],
             'renderer'  => false,
-        );
+        ];
         if ((!empty($params['renderer'])) && ($params['renderer'] instanceof Mage_Core_Block_Abstract)) {
             $this->_columns[$name]['renderer'] = $params['renderer'];
         }
@@ -131,10 +131,10 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      */
     public function getArrayRows()
     {
-        if (null !== $this->_arrayRowsCache) {
+        if ($this->_arrayRowsCache !== null) {
             return $this->_arrayRowsCache;
         }
-        $result = array();
+        $result = [];
         /** @var Varien_Data_Form_Element_Abstract */
         $element = $this->getElement();
         if ($element->getValue() && is_array($element->getValue())) {

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Collection Advanced
  *
@@ -42,8 +41,8 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
             foreach ($fields as $table => $conditions) {
                 foreach ($conditions as $attributeId => $conditionValue) {
                     $select = $conn->select();
-                    $select->from(array('t1' => $table), 'entity_id');
-                    $conditionData = array();
+                    $select->from(['t1' => $table], 'entity_id');
+                    $conditionData = [];
 
                     if (!is_numeric($attributeId)) {
                         $field = 't1.'.$attributeId;
@@ -54,9 +53,9 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 . ' AND t2.store_id=?';
 
                         $select->joinLeft(
-                            array('t2' => $table),
+                            ['t2' => $table],
                             $conn->quoteInto($onCondition, $storeId),
-                            array()
+                            []
                         );
                         $select->where('t1.store_id = ?', 0);
                         $select->where('t1.attribute_id = ?', $attributeId);
@@ -70,15 +69,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
 
                     if (is_array($conditionValue)) {
                         if (isset($conditionValue['in'])) {
-                            $conditionData[] = array('in' => $conditionValue['in']);
+                            $conditionData[] = ['in' => $conditionValue['in']];
                         } elseif (isset($conditionValue['in_set'])) {
-                            $conditionParts = array();
+                            $conditionParts = [];
                             foreach ($conditionValue['in_set'] as $value) {
-                                $conditionParts[] = array('finset' => $value);
+                                $conditionParts[] = ['finset' => $value];
                             }
                             $conditionData[] = $conditionParts;
                         } elseif (isset($conditionValue['like'])) {
-                            $conditionData[] = array ('like' => $conditionValue['like']);
+                            $conditionData[] = ['like' => $conditionValue['like']];
                         } elseif (isset($conditionValue['from']) && isset($conditionValue['to'])) {
                             $invalidDateMessage = Mage::helper('catalogsearch')->__('Specified date is invalid.');
                             if ($conditionValue['from']) {
@@ -92,7 +91,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
-                                $conditionData[] = array('gteq' => $conditionValue['from']);
+                                $conditionData[] = ['gteq' => $conditionValue['from']];
                             }
                             if ($conditionValue['to']) {
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
@@ -105,11 +104,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
-                                $conditionData[] = array('lteq' => $conditionValue['to']);
+                                $conditionData[] = ['lteq' => $conditionValue['to']];
                             }
                         }
                     } else {
-                        $conditionData[] = array('eq' => $conditionValue);
+                        $conditionData[] = ['eq' => $conditionValue];
                     }
 
                     foreach ($conditionData as $data) {
@@ -122,7 +121,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                     $previousSelect = $select;
                 }
             }
-            $this->addFieldToFilter('entity_id', array('in' => new Zend_Db_Expr($select)));
+            $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($select)]);
         }
 
         return $this;

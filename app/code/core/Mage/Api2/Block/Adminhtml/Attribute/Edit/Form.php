@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Attribute edit form block
  *
@@ -35,14 +34,13 @@ class Mage_Api2_Block_Adminhtml_Attribute_Edit_Form extends Mage_Adminhtml_Block
      */
     protected function _prepareForm()
     {
-        $form   = new Varien_Data_Form(array(
+        $form   = new Varien_Data_Form([
             'id'        => 'edit_form',
             'action'    => $this->getData('action'),
             'method'    => 'post'
-        ));
+        ]);
 
-
-        $form->setAction($this->getUrl('*/*/save', array('type' => $this->getRequest()->getParam('type'))))
+        $form->setAction($this->getUrl('*/*/save', ['type' => $this->getRequest()->getParam('type')]))
             ->setUseContainer(true);
 
         $this->setForm($form);

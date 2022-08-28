@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Country collection
  *
@@ -69,9 +68,9 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
 
         $this->addBindParam(':region_locale', $locale);
         $this->getSelect()->joinLeft(
-            array('rname' => $this->_regionNameTable),
+            ['rname' => $this->_regionNameTable],
             'main_table.region_id = rname.region_id AND rname.locale = :region_locale',
-            array('name')
+            ['name']
         );
 
         return $this;
@@ -87,7 +86,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     {
         if (!empty($countryId)) {
             if (is_array($countryId)) {
-                $this->addFieldToFilter('main_table.country_id', array('in' => $countryId));
+                $this->addFieldToFilter('main_table.country_id', ['in' => $countryId]);
             } else {
                 $this->addFieldToFilter('main_table.country_id', $countryId);
             }
@@ -105,7 +104,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     {
         $this->getSelect()
             ->joinLeft(
-                array('country' => $this->_countryTable),
+                ['country' => $this->_countryTable],
                 'main_table.country_id = country.country_id'
             )
             ->where('country.iso3_code = ?', $countryCode);
@@ -123,7 +122,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     {
         if (!empty($regionCode)) {
             if (is_array($regionCode)) {
-                $this->addFieldToFilter('main_table.code', array('in' => $regionCode));
+                $this->addFieldToFilter('main_table.code', ['in' => $regionCode]);
             } else {
                 $this->addFieldToFilter('main_table.code', $regionCode);
             }
@@ -141,7 +140,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     {
         if (!empty($regionName)) {
             if (is_array($regionName)) {
-                $this->addFieldToFilter('main_table.default_name', array('in' => $regionName));
+                $this->addFieldToFilter('main_table.default_name', ['in' => $regionName]);
             } else {
                 $this->addFieldToFilter('main_table.default_name', $regionName);
             }
@@ -158,8 +157,8 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
     public function addRegionCodeOrNameFilter($region)
     {
         if (!empty($region)) {
-            $condition = is_array($region) ? array('in' => $region) : $region;
-            $this->addFieldToFilter(array('main_table.code', 'main_table.default_name'), array($condition, $condition));
+            $condition = is_array($region) ? ['in' => $region] : $region;
+            $this->addFieldToFilter(['main_table.code', 'main_table.default_name'], [$condition, $condition]);
         }
         return $this;
     }
@@ -171,13 +170,13 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
      */
     public function toOptionArray()
     {
-        $options = $this->_toOptionArray('region_id', 'default_name', array('title' => 'default_name'));
+        $options = $this->_toOptionArray('region_id', 'default_name', ['title' => 'default_name']);
         if (count($options) > 0) {
-            array_unshift($options, array(
+            array_unshift($options, [
                 'title '=> null,
                 'value' => "",
                 'label' => Mage::helper('directory')->__('-- Please select --')
-            ));
+            ]);
         }
         return $options;
     }

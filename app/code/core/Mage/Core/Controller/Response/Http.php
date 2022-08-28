@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Custom Zend_Controller_Response_Http class (formally)
  *
@@ -77,7 +76,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
      */
     public function sendResponse()
     {
-        Mage::dispatchEvent('http_response_send_before', array('response'=>$this));
+        Mage::dispatchEvent('http_response_send_before', ['response'=>$this]);
         parent::sendResponse();
     }
 
@@ -98,7 +97,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         self::$_transportObject->setCode($code);
         Mage::dispatchEvent(
             'controller_response_redirect',
-            array('response' => $this, 'transport' => self::$_transportObject)
+            ['response' => $this, 'transport' => self::$_transportObject]
         );
 
         return parent::setRedirect(self::$_transportObject->getUrl(), self::$_transportObject->getCode());

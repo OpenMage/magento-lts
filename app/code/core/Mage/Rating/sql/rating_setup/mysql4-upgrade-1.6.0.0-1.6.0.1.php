@@ -18,10 +18,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
-
 
 $installer->getConnection()->changeColumn(
     $installer->getTable('rating/rating_option_vote'),
@@ -39,9 +38,9 @@ $installer->getConnection()->changeColumn(
 
 $installer->getConnection()->update(
     $installer->getTable('rating/rating_option_vote'),
-    array(
+    [
          'remote_ip_long' => new Zend_Db_Expr('UNHEX(HEX(CAST(remote_ip_long as UNSIGNED INT)))')
-    )
+    ]
 );
 
 $installer->endSetup();

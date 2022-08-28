@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order shipping address backend
  *
@@ -53,7 +52,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Shipping extends Mage_Ea
     {
         $shippingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('shipping' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'shipping') {
                 $shippingAddressId = $address->getId();
             }
         }

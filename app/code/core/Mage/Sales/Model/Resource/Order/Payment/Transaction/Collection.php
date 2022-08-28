@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Payment transactions collection
  *
@@ -40,21 +39,21 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      *
      * @var array
      */
-    protected $_addOrderInformation    = array();
+    protected $_addOrderInformation    = [];
 
     /**
      * Columns of payment info that should be selected
      *
      * @var array
      */
-    protected $_addPaymentInformation  = array();
+    protected $_addPaymentInformation  = [];
 
     /**
      * Order Store ids
      *
      * @var array
      */
-    protected $_storeIds               = array();
+    protected $_storeIds               = [];
 
     /**
      * Payment ID filter
@@ -168,7 +167,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
     public function addTxnTypeFilter($txnType)
     {
         if (!is_array($txnType)) {
-            $txnType = array($txnType);
+            $txnType = [$txnType];
         }
         $this->_txnTypes = $txnType;
         return $this;
@@ -182,7 +181,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
      */
     public function addStoreFilter($storeIds)
     {
-        $storeIds = (is_array($storeIds)) ? $storeIds : array($storeIds);
+        $storeIds = (is_array($storeIds)) ? $storeIds : [$storeIds];
         $this->_storeIds = array_merge($this->_storeIds, $storeIds);
         return $this;
     }
@@ -215,18 +214,18 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection extends Mag
         }
         if ($this->_addPaymentInformation) {
             $this->getSelect()->joinInner(
-                array('sop' => $this->getTable('sales/order_payment')),
+                ['sop' => $this->getTable('sales/order_payment')],
                 'main_table.payment_id = sop.entity_id',
                 $this->_addPaymentInformation
             );
         }
         if ($this->_storeIds) {
             $this->getSelect()->where('so.store_id IN(?)', $this->_storeIds);
-            $this->addOrderInformation(array('store_id'));
+            $this->addOrderInformation(['store_id']);
         }
         if ($this->_addOrderInformation) {
             $this->getSelect()->joinInner(
-                array('so' => $this->getTable('sales/order')),
+                ['so' => $this->getTable('sales/order')],
                 'main_table.order_id = so.entity_id',
                 $this->_addOrderInformation
             );

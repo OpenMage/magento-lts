@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Rule report resource model
  *
@@ -73,7 +72,7 @@ class Mage_SalesRule_Model_Resource_Report_Rule extends Mage_Reports_Model_Resou
 
         $rulesNames = $adapter->fetchAll($select);
 
-        $result = array();
+        $result = [];
 
         foreach ($rulesNames as $row) {
             $result[] = $row['rule_name'];

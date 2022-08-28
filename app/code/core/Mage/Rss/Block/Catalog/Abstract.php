@@ -23,13 +23,13 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * Stored price block instances
      * @var array
      */
-    protected $_priceBlock = array();
+    protected $_priceBlock = [];
 
     /**
      * Stored price blocks info
      * @var array
      */
-    protected $_priceBlockTypes = array();
+    protected $_priceBlockTypes = [];
 
     /**
      * Default values for price block and template
@@ -121,10 +121,10 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
     public function addPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_priceBlockTypes[$type] = array(
+            $this->_priceBlockTypes[$type] = [
                 'block' => $block,
                 'template' => $template
-            );
+            ];
         }
     }
 }

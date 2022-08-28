@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow batch collection
  *
@@ -44,7 +43,7 @@ class Mage_Dataflow_Model_Resource_Batch_Collection extends Mage_Core_Model_Reso
     public function addExpireFilter()
     {
         $date = Mage::getSingleton('core/date');
-        /* @var $date Mage_Core_Model_Date */
+        /** @var Mage_Core_Model_Date $date */
         $lifetime = Mage_Dataflow_Model_Batch::LIFETIME;
         $expire   = $date->gmtDate(null, $date->timestamp() - $lifetime);
 

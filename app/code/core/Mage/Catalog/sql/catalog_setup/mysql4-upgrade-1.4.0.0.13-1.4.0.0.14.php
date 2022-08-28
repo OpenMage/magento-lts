@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -30,7 +29,7 @@ $installer->getConnection()->dropKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_option_price'),
     'UNQ_OPTION_STORE',
-    array('option_id', 'store_id'),
+    ['option_id', 'store_id'],
     'unique'
 );
 
@@ -41,7 +40,7 @@ $installer->getConnection()->dropKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_option_title'),
     'UNQ_OPTION_STORE',
-    array('option_id', 'store_id'),
+    ['option_id', 'store_id'],
     'unique'
 );
 
@@ -52,7 +51,7 @@ $installer->getConnection()->dropKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_option_type_price'),
     'UNQ_OPTION_TYPE_STORE',
-    array('option_type_id', 'store_id'),
+    ['option_type_id', 'store_id'],
     'unique'
 );
 
@@ -63,7 +62,7 @@ $installer->getConnection()->dropKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_option_type_title'),
     'UNQ_OPTION_TYPE_STORE',
-    array('option_type_id', 'store_id'),
+    ['option_type_id', 'store_id'],
     'unique'
 );
 

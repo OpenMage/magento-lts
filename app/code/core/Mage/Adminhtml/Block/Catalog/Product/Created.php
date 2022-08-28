@@ -36,20 +36,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
         $this->setTemplate('catalog/product/created.phtml');
     }
 
-
     protected function _prepareLayout()
     {
         $this->setChild(
             'close_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'   => Mage::helper('catalog')->__('Close Window'),
                     'onclick' => 'addProduct(true)'
-                ))
+                ])
         );
         return $this;
     }
-
 
     public function getCloseButtonHtml()
     {
@@ -78,15 +76,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
      */
     public function getAttributesJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAttributes() as $attribute) {
             $value = $this->getProduct()->getAttributeText($attribute->getAttributeCode());
 
-            $result[] = array(
+            $result[] = [
                 'label'         => $value,
                 'value_index'   => $this->getProduct()->getData($attribute->getAttributeCode()),
                 'attribute_id'  => $attribute->getId()
-            );
+            ];
         }
 
         return Mage::helper('core')->jsonEncode($result);
@@ -98,7 +96,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
             return $this->getConfigurableProduct()->getTypeInstance(true)->getUsedProductAttributes($this->getConfigurableProduct());
         }
 
-        $attributes = array();
+        $attributes = [];
 
         $attributesIds = $this->getRequest()->getParam('required');
         if ($attributesIds) {

@@ -60,11 +60,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
         if ($this->getWidgetInstance()->isCompleteToCreate()) {
             $this->_addButton(
                 'save_and_edit_button',
-                array(
+                [
                     'label'     => Mage::helper('widget')->__('Save and Continue Edit'),
                     'class'     => 'save',
                     'onclick'   => 'saveAndContinueEdit()'
-                ),
+                ],
                 100
             );
         } else {
@@ -94,7 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 
     /**
@@ -104,6 +104,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit extends Mage_Adminhtml_Bl
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true, 'back'=>null));
+        return $this->getUrl('*/*/save', ['_current'=>true, 'back'=>null]);
     }
 }

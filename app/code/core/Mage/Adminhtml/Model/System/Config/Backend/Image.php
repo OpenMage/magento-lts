@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System config image field backend model
  *
@@ -35,7 +34,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image extends Mage_Adminhtml_Mo
      */
     protected function _getAllowedExtensions()
     {
-        return array('jpg', 'jpeg', 'gif', 'png');
+        return ['jpg', 'jpeg', 'gif', 'png'];
     }
 
     /**

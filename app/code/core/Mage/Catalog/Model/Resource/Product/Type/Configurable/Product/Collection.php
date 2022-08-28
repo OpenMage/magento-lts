@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog super product link collection
  *
@@ -52,9 +51,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     {
         parent::_initSelect();
         $this->getSelect()->join(
-            array('link_table' => $this->_linkTable),
+            ['link_table' => $this->_linkTable],
             'link_table.product_id = e.entity_id',
-            array('parent_id')
+            ['parent_id']
         );
 
         return $this;

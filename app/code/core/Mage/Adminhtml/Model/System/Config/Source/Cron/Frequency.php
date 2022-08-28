@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency
 {
 
@@ -31,20 +30,20 @@ class Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency
     public function toOptionArray()
     {
         if (!self::$_options) {
-            self::$_options = array(
-                array(
+            self::$_options = [
+                [
                     'label' => Mage::helper('cron')->__('Daily'),
                     'value' => self::CRON_DAILY,
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('cron')->__('Weekly'),
                     'value' => self::CRON_WEEKLY,
-                ),
-                array(
+                ],
+                [
                     'label' => Mage::helper('cron')->__('Monthly'),
                     'value' => self::CRON_MONTHLY,
-                ),
-            );
+                ],
+            ];
         }
         return self::$_options;
     }

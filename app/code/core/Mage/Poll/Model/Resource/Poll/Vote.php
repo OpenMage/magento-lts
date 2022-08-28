@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Poll vote resource model
  *
@@ -49,16 +48,16 @@ class Mage_Poll_Model_Resource_Poll_Vote extends Mage_Core_Model_Resource_Db_Abs
          * Increase answer votes
          */
         $answerTable = $this->getTable('poll/poll_answer');
-        $pollAnswerData = array('votes_count' => new Zend_Db_Expr('votes_count+1'));
-        $condition = array("{$answerTable}.answer_id=?" => $object->getPollAnswerId());
+        $pollAnswerData = ['votes_count' => new Zend_Db_Expr('votes_count+1')];
+        $condition = ["{$answerTable}.answer_id=?" => $object->getPollAnswerId()];
         $this->_getWriteAdapter()->update($answerTable, $pollAnswerData, $condition);
 
         /**
          * Increase poll votes
          */
         $pollTable = $this->getTable('poll/poll');
-        $pollData = array('votes_count' => new Zend_Db_Expr('votes_count+1'));
-        $condition = array("{$pollTable}.poll_id=?" => $object->getPollId());
+        $pollData = ['votes_count' => new Zend_Db_Expr('votes_count+1')];
+        $condition = ["{$pollTable}.poll_id=?" => $object->getPollId()];
         $this->_getWriteAdapter()->update($pollTable, $pollData, $condition);
         return $this;
     }

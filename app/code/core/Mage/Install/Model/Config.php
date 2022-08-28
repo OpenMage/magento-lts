@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Install config
  *
@@ -33,11 +32,11 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
     const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
     const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
-    protected $_optionsMapping = array(self::XML_PATH_CHECK_WRITEABLE => array(
+    protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
         'app_etc' => 'etc_dir',
         'var'     => 'var_dir',
         'media'   => 'media_dir',
-    ));
+    ]];
 
     public function __construct()
     {
@@ -55,7 +54,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getWizardSteps()
     {
-        $steps = array();
+        $steps = [];
         foreach ((array)$this->getNode(self::XML_PATH_WIZARD_STEPS) as $stepName => $step) {
             $stepObject = new Varien_Object((array)$step);
             $stepObject->setName($stepName);
@@ -82,7 +81,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getPathForCheck()
     {
-        $res = array();
+        $res = [];
 
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
 
@@ -100,7 +99,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getWritableFullPathsForCheck()
     {
-        $paths = array();
+        $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
             $value = (array)$item;
@@ -123,12 +122,12 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
      */
     public function getExtensionsForCheck()
     {
-        $res = array();
+        $res = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_EXTENSIONS);
 
         foreach ($items as $name => $value) {
             if (!empty($value)) {
-                $res[$name] = array();
+                $res[$name] = [];
                 foreach ($value as $subname => $subvalue) {
                     $res[$name][] = $subname;
                 }

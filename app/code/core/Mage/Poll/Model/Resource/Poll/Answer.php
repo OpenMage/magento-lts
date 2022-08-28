@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Poll answers resource model
  *
@@ -44,10 +43,10 @@ class Mage_Poll_Model_Resource_Poll_Answer extends Mage_Core_Model_Resource_Db_A
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
-            'field' => array('answer_title', 'poll_id'),
+        $this->_uniqueFields = [[
+            'field' => ['answer_title', 'poll_id'],
             'title' => Mage::helper('poll')->__('Answer with the same title in this poll')
-        ));
+        ]];
         return $this;
     }
 }

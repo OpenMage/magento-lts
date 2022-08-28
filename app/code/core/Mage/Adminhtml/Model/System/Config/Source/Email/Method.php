@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Source for email send method
  *
@@ -30,16 +29,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Method
 {
     public function toOptionArray()
     {
-        $options    = array(
-            array(
+        return [
+            [
                 'value' => 'bcc',
                 'label' => Mage::helper('adminhtml')->__('Bcc')
-            ),
-            array(
+            ],
+            [
                 'value' => 'copy',
                 'label' => Mage::helper('adminhtml')->__('Separate Email')
-            ),
-        );
-        return $options;
+            ],
+        ];
     }
 }

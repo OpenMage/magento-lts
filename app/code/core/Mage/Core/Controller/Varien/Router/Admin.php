@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Varien_Router_Standard
 {
     /**
@@ -28,11 +27,11 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     {
         // set defaults
         $d = explode('/', $this->_getDefaultPath());
-        $this->getFront()->setDefault(array(
+        $this->getFront()->setDefault([
             'module'     => !empty($d[0]) ? $d[0] : '',
             'controller' => !empty($d[1]) ? $d[1] : 'index',
             'action'     => !empty($d[2]) ? $d[2] : 'index'
-        ));
+        ]);
     }
 
     /**

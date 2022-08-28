@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Core Design resource collection
  *
@@ -45,9 +44,9 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     public function joinStore()
     {
         return $this->join(
-            array('cs' => 'core/store'),
+            ['cs' => 'core/store'],
             'cs.store_id = main_table.store_id',
-            array('cs.name')
+            ['cs.name']
         );
     }
 
@@ -65,8 +64,8 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
             $date = $this->formatDate($date);
         }
 
-        $this->addFieldToFilter('date_from', array('lteq' => $date));
-        $this->addFieldToFilter('date_to', array('gteq' => $date));
+        $this->addFieldToFilter('date_from', ['lteq' => $date]);
+        $this->addFieldToFilter('date_to', ['gteq' => $date]);
         return $this;
     }
 
@@ -78,6 +77,6 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
      */
     public function addStoreFilter($storeId)
     {
-        return $this->addFieldToFilter('store_id', array('in' => $storeId));
+        return $this->addFieldToFilter('store_id', ['in' => $storeId]);
     }
 }

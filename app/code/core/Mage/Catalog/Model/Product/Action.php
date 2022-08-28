@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Mass Action processing model
  *
@@ -57,18 +56,18 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
      */
     public function updateAttributes($productIds, $attrData, $storeId)
     {
-        Mage::dispatchEvent('catalog_product_attribute_update_before', array(
+        Mage::dispatchEvent('catalog_product_attribute_update_before', [
             'attributes_data' => &$attrData,
             'product_ids'   => &$productIds,
             'store_id'      => &$storeId
-        ));
+        ]);
 
         $this->_getResource()->updateAttributes($productIds, $attrData, $storeId);
-        $this->setData(array(
+        $this->setData([
             'product_ids'       => array_unique($productIds),
             'attributes_data'   => $attrData,
             'store_id'          => $storeId
-        ));
+        ]);
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
@@ -77,9 +76,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
             Mage_Index_Model_Event::TYPE_MASS_ACTION
         );
 
-        Mage::dispatchEvent('catalog_product_attribute_update_after', array(
+        Mage::dispatchEvent('catalog_product_attribute_update_after', [
             'product_ids'   => $productIds,
-        ));
+        ]);
 
         return $this;
     }
@@ -97,11 +96,11 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
      */
     public function updateWebsites($productIds, $websiteIds, $type)
     {
-        Mage::dispatchEvent('catalog_product_website_update_before', array(
+        Mage::dispatchEvent('catalog_product_website_update_before', [
             'website_ids'   => $websiteIds,
             'product_ids'   => $productIds,
             'action'        => $type
-        ));
+        ]);
 
         if ($type == 'add') {
             Mage::getModel('catalog/product_website')->addProducts($websiteIds, $productIds);
@@ -109,11 +108,11 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
             Mage::getModel('catalog/product_website')->removeProducts($websiteIds, $productIds);
         }
 
-        $this->setData(array(
+        $this->setData([
             'product_ids' => array_unique($productIds),
             'website_ids' => $websiteIds,
             'action_type' => $type
-        ));
+        ]);
 
         // register mass action indexer event
         Mage::getSingleton('index/indexer')->processEntityAction(
@@ -123,10 +122,10 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
         );
 
         // add back compatibility system event
-        Mage::dispatchEvent('catalog_product_website_update', array(
+        Mage::dispatchEvent('catalog_product_website_update', [
             'website_ids'   => $websiteIds,
             'product_ids'   => $productIds,
             'action'        => $type
-        ));
+        ]);
     }
 }

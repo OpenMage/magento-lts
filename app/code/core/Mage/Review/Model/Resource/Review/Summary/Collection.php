@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Review summery collection
  *
@@ -29,16 +28,10 @@
 class Mage_Review_Model_Resource_Review_Summary_Collection extends Varien_Data_Collection_Db
 {
     /**
-     * Enter description here ...
-     *
      * @var string
      */
     protected $_summaryTable;
 
-    /**
-     * Enter description here ...
-     *
-     */
     public function __construct()
     {
         $resources = Mage::getSingleton('core/resource');

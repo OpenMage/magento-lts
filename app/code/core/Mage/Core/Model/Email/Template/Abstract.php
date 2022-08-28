@@ -39,7 +39,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
     const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
-    protected $_cssFileCache = array();
+    protected $_cssFileCache = [];
 
     /**
      * Get template code for template directive
@@ -160,14 +160,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $variables['logo_alt'] = $this->_getLogoAlt($storeId);
         }
 
-        $defaultValuesMap = array(
+        $defaultValuesMap = [
             "logo_width" => self::XML_PATH_DESIGN_EMAIL_LOGO_WIDTH,
             "logo_height" => self::XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT,
             "phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
             "store_phone" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_PHONE,
             "store_hours" => Mage_Core_Model_Store::XML_PATH_STORE_STORE_HOURS,
             "store_email" => Mage_Customer_Helper_Data::XML_PATH_SUPPORT_EMAIL,
-        );
+        ];
 
         foreach ($defaultValuesMap as $variableName => $configValue) {
             if (!isset($variables[$variableName])) {
@@ -228,14 +228,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
         $filePath = Mage::getDesign()->getFilename(
             'css' . DS . $filename,
-            array(
+            [
                 '_type' => 'skin',
                 '_default' => false,
                 '_store' => $storeId,
                 '_area' => $area,
                 '_package' => $package,
                 '_theme' => $theme,
-            )
+            ]
         );
         $validator = new Zend_Validate_File_Extension('css');
 

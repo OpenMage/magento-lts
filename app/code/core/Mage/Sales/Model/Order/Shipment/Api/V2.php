@@ -33,7 +33,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      */
     protected function _prepareItemQtyData($data)
     {
-        $_data = array();
+        $_data = [];
         foreach ($data as $item) {
             if (isset($item->order_item_id) && isset($item->qty)) {
                 $_data[$item->order_item_id] = $item->qty;
@@ -54,7 +54,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
      */
     public function create(
         $orderIncrementId,
-        $itemsQty = array(),
+        $itemsQty = [],
         $comment = null,
         $email = false,
         $includeComment = false
@@ -75,7 +75,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
              $this->_fault('data_invalid', Mage::helper('sales')->__('Cannot do shipment for order.'));
         }
 
-         /* @var Mage_Sales_Model_Order_Shipment $shipment */
+         /** @var Mage_Sales_Model_Order_Shipment $shipment */
         $shipment = $order->prepareShipment($itemsQty);
         if ($shipment) {
             $shipment->register();
@@ -114,9 +114,9 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
-        $carriers = array();
+        $carriers = [];
         foreach ($this->_getCarriers($order) as $key => $value) {
-            $carriers[] = array('key' => $key, 'value' => $value);
+            $carriers[] = ['key' => $key, 'value' => $value];
         }
 
         return $carriers;

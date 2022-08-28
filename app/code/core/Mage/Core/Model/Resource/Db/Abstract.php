@@ -51,7 +51,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_connections          = array();
+    protected $_connections          = [];
 
     /**
      * Resource model name that contains entities (names of tables)
@@ -65,7 +65,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_tables               = array();
+    protected $_tables               = [];
 
     /**
      * Main table name
@@ -100,7 +100,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_fieldsForUpdate      = array();
+    protected $_fieldsForUpdate      = [];
 
     /**
      * Fields of main table
@@ -138,7 +138,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @var array
      */
-    protected $_serializableFields   = array();
+    protected $_serializableFields   = [];
 
     /**
      * Standard resource model initialization
@@ -261,7 +261,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
         if (strpos($entityName, '/')) {
             if (!is_null($entitySuffix)) {
-                $modelEntity = array($entityName, $entitySuffix);
+                $modelEntity = [$entityName, $entitySuffix];
             } else {
                 $modelEntity = $entityName;
             }
@@ -269,7 +269,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
             if (!is_null($entitySuffix)) {
-                $modelEntity = array($entityName, $entitySuffix);
+                $modelEntity = [$entityName, $entitySuffix];
             } else {
                 $modelEntity = $entityName;
             }
@@ -283,7 +283,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         return $this->_tables[$cacheName];
     }
 
-
     /**
      * Retrieve table name for the entity separated value
      *
@@ -293,7 +292,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     public function getValueTable($entityName, $valueType)
     {
-        return $this->getTable(array($entityName, $valueType));
+        return $this->getTable([$entityName, $valueType]);
     }
 
     /**
@@ -414,10 +413,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
 
         $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
         $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
-        $select = $this->_getReadAdapter()->select()
+        return $this->_getReadAdapter()->select()
             ->from($this->getMainTable())
             ->where($field . '=?', $value);
-        return $select;
     }
 
     /**
@@ -446,7 +444,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
                 $this->_getWriteAdapter()->update($this->getMainTable(), $data, $condition);
             } else {
                 $select = $this->_getWriteAdapter()->select()
-                    ->from($this->getMainTable(), array($this->getIdFieldName()))
+                    ->from($this->getMainTable(), [$this->getIdFieldName()])
                     ->where($condition);
                 if ($this->_getWriteAdapter()->fetchOne($select) !== false) {
                     $data = $this->_prepareDataForSave($object);
@@ -547,7 +545,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     public function resetUniqueField()
     {
-        $this->_uniqueFields = array();
+        $this->_uniqueFields = [];
          return $this;
     }
 
@@ -571,7 +569,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array();
+        $this->_uniqueFields = [];
         return $this;
     }
 
@@ -643,15 +641,15 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      */
     protected function _checkUnique(Mage_Core_Model_Abstract $object)
     {
-        $existent = array();
+        $existent = [];
         $fields = $this->getUniqueFields();
         if (!empty($fields)) {
             if (!is_array($fields)) {
-                $this->_uniqueFields = array(
-                    array(
+                $this->_uniqueFields = [
+                    [
                         'field' => $fields,
                         'title' => $fields
-                ));
+                    ]];
             }
 
             $data = new Varien_Object($this->_prepareDataForSave($object));

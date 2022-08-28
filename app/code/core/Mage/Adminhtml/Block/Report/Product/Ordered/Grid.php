@@ -43,30 +43,30 @@ class Mage_Adminhtml_Block_Report_Product_Ordered_Grid extends Mage_Adminhtml_Bl
 
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'name'
-        ));
+        ]);
 
         $baseCurrencyCode = $this->getCurrentCurrencyCode();
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'        => Mage::helper('reports')->__('Price'),
             'width'         => '120px',
             'type'          => 'currency',
             'currency_code' => $baseCurrencyCode,
             'index'         => 'price',
             'rate'          => $this->getRate($baseCurrencyCode),
-        ));
+        ]);
 
-        $this->addColumn('ordered_qty', array(
+        $this->addColumn('ordered_qty', [
             'header'    =>Mage::helper('reports')->__('Quantity Ordered'),
             'width'     =>'120px',
             'align'     =>'right',
             'index'     =>'ordered_qty',
             'total'     =>'sum',
             'type'      =>'number'
-        ));
+        ]);
 
         $this->addExportType('*/*/exportOrderedCsv', Mage::helper('reports')->__('CSV'));
         $this->addExportType('*/*/exportOrderedExcel', Mage::helper('reports')->__('Excel XML'));

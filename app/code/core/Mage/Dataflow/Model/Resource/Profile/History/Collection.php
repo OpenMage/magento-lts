@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert history collection
  *
@@ -45,9 +44,9 @@ class Mage_Dataflow_Model_Resource_Profile_History_Collection extends Mage_Core_
     public function joinAdminUser()
     {
         $this->getSelect()->join(
-            array('u' => $this->getTable('admin/user')),
+            ['u' => $this->getTable('admin/user')],
             'u.user_id=main_table.user_id',
-            array('firstname', 'lastname')
+            ['firstname', 'lastname']
         );
         return $this;
     }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Entity/Attribute/Model - attribute selection source from configuration
  *
@@ -46,7 +45,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
     public function getAllOptions()
     {
         if ($this->_options === null) {
-            $this->_options = array();
+            $this->_options = [];
             $rootNode = null;
             if ($this->_configNodePath) {
                 $rootNode = Mage::getConfig()->getNode($this->_configNodePath);
@@ -59,10 +58,10 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('No options found in config node %s', $this->_configNodePath));
             }
             foreach ($options as $option) {
-                $this->_options[] = array(
+                $this->_options[] = [
                     'value' => (string)$option->value,
                     'label' => Mage::helper('eav')->__((string)$option->label)
-                );
+                ];
             }
         }
 

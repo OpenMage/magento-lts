@@ -28,8 +28,6 @@
 class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
 {
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()
@@ -71,7 +69,7 @@ class Mage_Adminhtml_Block_Template extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        Mage::dispatchEvent('adminhtml_block_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_block_html_before', ['block' => $this]);
         return parent::_toHtml();
     }
 

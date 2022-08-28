@@ -72,7 +72,6 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
        //$this->setChild('order_tracking', $trackingBlock);
           $this->setChild('tracking', $trackingBlock);
 
-
               /*
         $paymentInfoBlock = $this->getLayout()->createBlock('adminhtml/sales_order_payment')
            ->setPayment($this->getInvoice()->getOrder()->getPayment());
@@ -83,7 +82,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
 
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('order_id' => $this->getInvoice()->getOrderId()));
+        return $this->getUrl('*/*/save', ['order_id' => $this->getInvoice()->getOrderId()]);
     }
 
     public function canCreateShipment()

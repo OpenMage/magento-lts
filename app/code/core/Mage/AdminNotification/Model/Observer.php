@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification observer
  *
@@ -37,7 +36,7 @@ class Mage_AdminNotification_Model_Observer
     {
         if (Mage::getSingleton('admin/session')->isLoggedIn()) {
             $feedModel  = Mage::getModel('adminnotification/feed');
-            /* @var Mage_AdminNotification_Model_Feed $feedModel */
+            /** @var Mage_AdminNotification_Model_Feed $feedModel */
 
             $feedModel->checkUpdate();
         }

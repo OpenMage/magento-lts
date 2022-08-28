@@ -34,24 +34,24 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      */
     public static function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_CREATE,
                 'label' => Mage::helper('api2')->__('Create')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
                 'label' => Mage::helper('api2')->__('Retrieve')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_UPDATE,
                 'label' => Mage::helper('api2')->__('Update')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Api2_Model_Resource::OPERATION_DELETE,
                 'label' => Mage::helper('api2')->__('Delete')
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -61,11 +61,11 @@ class Mage_Api2_Model_Acl_Global_Rule_Privilege
      */
     public static function toArray()
     {
-        return array(
+        return [
             Mage_Api2_Model_Resource::OPERATION_CREATE   => Mage::helper('api2')->__('Create'),
             Mage_Api2_Model_Resource::OPERATION_RETRIEVE => Mage::helper('api2')->__('Retrieve'),
             Mage_Api2_Model_Resource::OPERATION_UPDATE   => Mage::helper('api2')->__('Update'),
             Mage_Api2_Model_Resource::OPERATION_DELETE   => Mage::helper('api2')->__('Delete')
-        );
+        ];
     }
 }

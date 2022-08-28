@@ -18,10 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Enter description here ...
- *
  * @method Mage_Core_Model_Resource_Layout _getResource()
  * @method Mage_Core_Model_Resource_Layout getResource()
  * @method string getHandle()

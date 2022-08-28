@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log Cron Backend Model
  *
@@ -46,13 +45,13 @@ class Mage_Adminhtml_Model_System_Config_Backend_Log_Cron extends Mage_Core_Mode
         $frequencyMonthly   = Mage_Adminhtml_Model_System_Config_Source_Cron_Frequency::CRON_MONTHLY;
 
         if ($enabled) {
-            $cronExprArray = array(
+            $cronExprArray = [
                 intval($time[1]),                                   # Minute
                 intval($time[0]),                                   # Hour
                 ($frequency == $frequencyMonthly) ? '1' : '*',          # Day of the Month
                 '*',                                                    # Month of the Year
                 ($frequency == $frequencyWeekly) ? '1' : '*',           # Day of the Week
-            );
+            ];
             $cronExprString = implode(' ', $cronExprArray);
         }
         else {

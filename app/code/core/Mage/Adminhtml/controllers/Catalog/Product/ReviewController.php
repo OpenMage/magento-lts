@@ -33,7 +33,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
      *
      * @var array
      */
-    protected $_publicActions = array('edit');
+    protected $_publicActions = ['edit'];
 
     /**
      * Controller pre-dispatch method
@@ -42,7 +42,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
      */
     public function preDispatch()
     {
-        $this->_setForcedFormKeyActions(array('delete', 'massDelete'));
+        $this->_setForcedFormKeyActions(['delete', 'massDelete']);
         return parent::preDispatch();
     }
 
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                 try {
                     $review->addData($data)->save();
 
-                    $arrRatingId = $this->getRequest()->getParam('ratings', array());
+                    $arrRatingId = $this->getRequest()->getParam('ratings', []);
                     $votes = Mage::getModel('rating/rating_option_vote')
                         ->getResourceCollection()
                         ->setReviewFilter($reviewId)
@@ -193,7 +193,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             $session->addException($e, Mage::helper('catalog')->__('An error occurred while deleting this review.'));
         }
 
-        $this->_redirect('*/*/edit/',array('id'=>$reviewId));
+        $this->_redirect('*/*/edit/', ['id'=>$reviewId]);
     }
 
     public function massDeleteAction()
@@ -230,7 +230,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
         if(!is_array($reviewsIds)) {
              $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
-            /* @var $session Mage_Adminhtml_Model_Session */
+            /** @var Mage_Adminhtml_Model_Session $session */
             try {
                 $status = $this->getRequest()->getParam('status');
                 foreach ($reviewsIds as $reviewId) {
@@ -261,7 +261,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
              $session->addError(Mage::helper('adminhtml')->__('Please select review(s).'));
         } else {
             $session = Mage::getSingleton('adminhtml/session');
-            /* @var $session Mage_Adminhtml_Model_Session */
+            /** @var Mage_Adminhtml_Model_Session $session */
             try {
                 $stores = $this->getRequest()->getParam('stores');
                 foreach ($reviewsIds as $reviewId) {
@@ -317,7 +317,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
 
         if ($data = $this->getRequest()->getPost()) {
             if (Mage::app()->isSingleStoreMode()) {
-                $data['stores'] = array(Mage::app()->getStore(true)->getId());
+                $data['stores'] = [Mage::app()->getStore(true)->getId()];
             } else  if (isset($data['select_stores'])) {
                 $data['stores'] = $data['select_stores'];
             }
@@ -335,7 +335,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
                     ->setCustomerId(null)//null is for administrator only
                     ->save();
 
-                $arrRatingId = $this->getRequest()->getParam('ratings', array());
+                $arrRatingId = $this->getRequest()->getParam('ratings', []);
                 foreach ($arrRatingId as $ratingId=>$optionId) {
                     Mage::getModel('rating/rating')
                        ->setRatingId($ratingId)
@@ -360,7 +360,6 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
             }
         }
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        return;
     }
 
     public function ratingItemsAction()

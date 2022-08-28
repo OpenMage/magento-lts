@@ -27,7 +27,7 @@ if (file_exists($installFile)) {
 $installer = $this;
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
-$memoryTables = array(
+$memoryTables = [
     'catalog/category_anchor_indexer_tmp',
     'catalog/category_anchor_products_indexer_tmp',
     'catalog/category_product_enabled_indexer_tmp',
@@ -40,7 +40,7 @@ $memoryTables = array(
     'catalog/product_price_indexer_option_aggregate_tmp',
     'catalog/product_price_indexer_option_tmp',
     'catalog/product_price_indexer_tmp',
-);
+];
 
 foreach ($memoryTables as $table) {
     $connection->changeTableEngine($installer->getTable($table), Varien_Db_Adapter_Pdo_Mysql::ENGINE_MEMORY);

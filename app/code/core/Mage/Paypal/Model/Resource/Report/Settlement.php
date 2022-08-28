@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report settlement resource model
  *
@@ -60,7 +59,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
             $adapter->beginTransaction();
             try {
                 if ($reportId) {
-                    $adapter->delete($this->_rowsTable, array('report_id = ?' => $reportId));
+                    $adapter->delete($this->_rowsTable, ['report_id = ?' => $reportId]);
                 }
                 /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
@@ -110,7 +109,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
             ->where('account_id = :account_id')
             ->where('report_date = :report_date');
 
-        $data = $adapter->fetchRow($select, array(':account_id' => $accountId, ':report_date' => $reportDate));
+        $data = $adapter->fetchRow($select, [':account_id' => $accountId, ':report_date' => $reportDate]);
         if ($data) {
             $report->addData($data);
         }

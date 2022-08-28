@@ -102,7 +102,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
         }
 
         /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
-        $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', array('length' => self::KEY_LENGTH));
+        $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', ['length' => self::KEY_LENGTH]);
 
         $validatorLength->setName('Consumer Key');
         if (!$validatorLength->isValid($this->getKey())) {

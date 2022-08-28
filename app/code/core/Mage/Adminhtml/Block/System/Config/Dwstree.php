@@ -45,20 +45,20 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
         $websitesConfig = Mage::getConfig()->getNode('websites');
         $storesConfig = Mage::getConfig()->getNode('stores');
 
-        $this->addTab('default', array(
+        $this->addTab('default', [
             'label'  => Mage::helper('adminhtml')->__('Default Config'),
-            'url'    => $this->getUrl('*/*/*', array('section'=>$section)),
+            'url'    => $this->getUrl('*/*/*', ['section'=>$section]),
             'class' => 'default',
-        ));
+        ]);
 
         foreach ($websitesConfig->children() as $wCode=>$wConfig) {
             $wName = (string)$wConfig->descend('system/website/name');
-            $wUrl = $this->getUrl('*/*/*', array('section'=>$section, 'website'=>$wCode));
-            $this->addTab('website_'.$wCode, array(
+            $wUrl = $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode]);
+            $this->addTab('website_'.$wCode, [
                 'label' => $wName,
                 'url'   => $wUrl,
                 'class' => 'website',
-            ));
+            ]);
             if ($curWebsite===$wCode) {
                 if ($curStore) {
                     $this->_addBreadcrumb($wName, '', $wUrl);
@@ -68,11 +68,11 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
             }
             foreach ($wConfig->descend('system/stores')->children() as $sCode=>$sId) {
                 $sName = (string)$storesConfig->descend($sCode.'/system/store/name');
-                $this->addTab('store_'.$sCode, array(
+                $this->addTab('store_'.$sCode, [
                     'label' => $sName,
-                    'url'   => $this->getUrl('*/*/*', array('section'=>$section, 'website'=>$wCode, 'store'=>$sCode)),
+                    'url'   => $this->getUrl('*/*/*', ['section'=>$section, 'website'=>$wCode, 'store'=>$sCode]),
                     'class' => 'store',
-                ));
+                ]);
                 if ($curStore===$sCode) {
                     $this->_addBreadcrumb($sName);
                 }

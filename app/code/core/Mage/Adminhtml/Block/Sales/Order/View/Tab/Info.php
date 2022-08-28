@@ -56,18 +56,18 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
      */
     public function getOrderTotalData()
     {
-        return array(
+        return [
             'can_display_total_due'      => true,
             'can_display_total_paid'     => true,
             'can_display_total_refunded' => true,
-        );
+        ];
     }
 
     public function getOrderInfoData()
     {
-        return array(
+        return [
             'no_use_order_link' => true,
-        );
+        ];
     }
 
     public function getTrackingHtml()
@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Info
 
     public function getViewUrl($orderId)
     {
-        return $this->getUrl('*/*/*', array('order_id'=>$orderId));
+        return $this->getUrl('*/*/*', ['order_id'=>$orderId]);
     }
 
     /**

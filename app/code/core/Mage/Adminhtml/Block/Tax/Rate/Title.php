@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tax Rate Titles Renderer
  *
@@ -36,7 +35,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Title extends Mage_Core_Block_Template
     public function getTitles()
     {
         if (is_null($this->_titles)) {
-            $this->_titles = array();
+            $this->_titles = [];
             $titles = Mage::getSingleton('tax/calculation_rate')->getTitles();
             foreach ($titles as $title) {
                 $this->_titles[$title->getStoreId()] = $title->getValue();

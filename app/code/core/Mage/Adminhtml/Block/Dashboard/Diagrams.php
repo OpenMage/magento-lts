@@ -38,16 +38,16 @@ class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareLayout()
     {
-        $this->addTab('orders', array(
+        $this->addTab('orders', [
             'label'     => $this->__('Orders'),
             'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_orders')->toHtml(),
             'active'    => true
-        ));
+        ]);
 
-        $this->addTab('amounts', array(
+        $this->addTab('amounts', [
             'label'     => $this->__('Amounts'),
             'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_amounts')->toHtml(),
-        ));
+        ]);
         return parent::_prepareLayout();
     }
 }

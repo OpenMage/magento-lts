@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Persistent Observer
  *
@@ -139,7 +138,7 @@ class Mage_Persistent_Model_Observer
             Mage::helper('persistent')->getUnsetCookieUrl(),
             Mage::helper('persistent')->getPersistentName(),
             false,
-            array(),
+            [],
             110
         );
         $block->removeLinkByUrl(Mage::helper('customer')->getRegisterUrl());
@@ -163,10 +162,10 @@ class Mage_Persistent_Model_Observer
      */
     public function emulateQuote($observer)
     {
-        $stopActions = array(
+        $stopActions = [
             'persistent_index_saveMethod',
             'customer_account_createpost'
-        );
+        ];
 
         if (!Mage::helper('persistent')->canProcess($observer)
             || !$this->_getPersistentHelper()->isPersistent() || Mage::getSingleton('customer/session')->isLoggedIn()) {

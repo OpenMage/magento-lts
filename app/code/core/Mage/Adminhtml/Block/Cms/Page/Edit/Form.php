@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml cms page edit form block
  *
@@ -31,7 +30,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Form extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
+        $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
         $form->setUseContainer(true);
         $this->setForm($form);
         return parent::_prepareForm();

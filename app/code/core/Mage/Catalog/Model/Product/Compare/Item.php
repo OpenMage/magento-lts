@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Compare Item Model
  *
@@ -170,7 +169,7 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     public function getDataForSave()
     {
-        $data = array();
+        $data = [];
         $data['customer_id'] = $this->getCustomerId();
         $data['visitor_id']  = $this->getVisitorId();
         $data['product_id']  = $this->getProductId();

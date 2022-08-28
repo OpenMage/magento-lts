@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Report Reviews collection
  *
@@ -45,7 +44,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      */
     public function addProductFilter($productId)
     {
-        $this->addFieldToFilter('entity_pk_value', array('eq' => (int)$productId));
+        $this->addFieldToFilter('entity_pk_value', ['eq' => (int)$productId]);
 
         return $this;
     }
@@ -88,7 +87,7 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      */
     public function setOrder($attribute, $dir = self::SORT_ORDER_DESC)
     {
-        if (in_array($attribute, array('nickname', 'title', 'detail', 'created_at'))) {
+        if (in_array($attribute, ['nickname', 'title', 'detail', 'created_at'])) {
             $this->_select->order($attribute . ' ' . $dir);
         } else {
             parent::setOrder($attribute, $dir);

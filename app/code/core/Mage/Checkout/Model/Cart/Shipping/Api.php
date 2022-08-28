@@ -30,7 +30,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
 {
     public function __construct()
     {
-        $this->_ignoredAttributeCodes['quote_shipping_rate'] = array('address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order');
+        $this->_ignoredAttributeCodes['quote_shipping_rate'] = ['address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order'];
     }
 
     /**
@@ -85,7 +85,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
             $quoteShippingAddress->collectShippingRates()->save();
             $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
 
-            $ratesResult = array();
+            $ratesResult = [];
             foreach ($groupedRates as $carrierCode => $rates) {
                 $carrierName = $carrierCode;
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {

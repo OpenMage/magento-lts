@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist Product Items abstract Block
  *
@@ -47,14 +46,14 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      *
      * @var array
      */
-    protected $_itemPriceBlockTypes = array();
+    protected $_itemPriceBlockTypes = [];
 
     /**
      * List of block instances to render prices for different product types
      *
      * @var array
      */
-    protected $_cachedItemPriceBlocks = array();
+    protected $_cachedItemPriceBlocks = [];
 
     /**
      * Internal constructor, that is called from real constructor
@@ -212,11 +211,10 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         } else {
             $id = $product->getId();
         }
-        $params = array('id' => $id);
+        $params = ['id' => $id];
 
         return $this->getUrl('wishlist/index/configure/', $params);
     }
-
 
     /**
      * Retrieve Escaped Description for Wishlist Item
@@ -315,10 +313,10 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     public function addItemPriceBlockType($type, $block = '', $template = '')
     {
         if ($type) {
-            $this->_itemPriceBlockTypes[$type] = array(
+            $this->_itemPriceBlockTypes[$type] = [
                 'block' => $block,
                 'template' => $template
-            );
+            ];
         }
     }
 
@@ -384,7 +382,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param  array $additional
      * @return string
      */
-    public function getProductUrl($item, $additional = array())
+    public function getProductUrl($item, $additional = [])
     {
         if ($item instanceof Mage_Catalog_Model_Product) {
             $product = $item;
@@ -413,7 +411,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
         if (!$addFormKey) {
-            return $this->_getHelper()->getAddUrlWithCustomParams($product, array(), false);
+            return $this->_getHelper()->getAddUrlWithCustomParams($product, [], false);
         }
         return $this->_getHelper()->getAddUrl($product);
     }

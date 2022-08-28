@@ -50,7 +50,7 @@ class Mage_Sales_Model_Entity_Order_Attribute_Backend_Shipping extends Mage_Eav_
     {
         $shippingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('shipping' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'shipping') {
                 $shippingAddressId = $address->getId();
             }
         }

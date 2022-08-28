@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Product Price Index
  *
@@ -91,10 +90,9 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
      */
     public function addPriceIndexToCollection($collection)
     {
-        $productObjects = array();
-        $productIds     = array();
+        $productObjects = [];
+        $productIds     = [];
         foreach ($collection->getItems() as $product) {
-            /* @var Mage_Catalog_Model_Product $product */
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                 $productIds[] = $product->getEntityId();
                 $productObjects[$product->getEntityId()] = $product;

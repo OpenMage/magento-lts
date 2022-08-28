@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * System config image field backend model for Zend PDF generator
  *
@@ -71,7 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Favicon extends Mage_Admi
      */
     protected function _getAllowedExtensions()
     {
-        return array('ico', 'png', 'gif', 'jpg', 'jpeg', 'apng');
+        return ['ico', 'png', 'gif', 'jpg', 'jpeg', 'apng'];
     }
 
     /**

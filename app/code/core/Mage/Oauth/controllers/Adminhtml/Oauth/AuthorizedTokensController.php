@@ -74,7 +74,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             return;
         }
 
-        if (null === $status) {
+        if ($status === null) {
             // No status selected
             $this->_getSession()->addError($this->__('Please select revoke status.'));
             $this->_redirect('*/*/index');
@@ -170,7 +170,6 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizedTokensController extends Mage_Adminht
             /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
 
-            /** @var Mage_Admin_Model_User $admin */
             $admin = $session->getUser();
 
             if ($admin->getId() == $adminId) { // skip own tokens

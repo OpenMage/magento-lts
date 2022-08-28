@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Log aggregation resource model
  *
@@ -48,7 +47,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         $select     = $adapter->select()
             ->from(
                 $this->getTable('log/summary_table'),
-                array($adapter->quoteIdentifier('date')=>'MAX(add_date)')
+                [$adapter->quoteIdentifier('date')=>'MAX(add_date)']
             );
 
         return $adapter->fetchOne($select);
@@ -65,7 +64,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function getCounts($from, $to, $store)
     {
         $adapter    = $this->_getReadAdapter();
-        $result     = array('customers'=>0, 'visitors'=>0);
+        $result     = ['customers'=>0, 'visitors'=>0];
         $select     = $adapter->select()
             ->from($this->getTable('log/customer'), 'visitor_id')
             ->where('login_at >= ?', $from)
@@ -76,7 +75,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
 
         $customers = $adapter->fetchCol($select);
         $result['customers'] = count($customers);
-
 
         $select = $adapter->select();
         $select->from($this->getTable('log/visitor'), 'COUNT(*)')
@@ -91,7 +89,6 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
         }
 
         $result['visitors'] = $adapter->fetchOne($select);
-
 
         return $result;
     }
@@ -121,11 +118,11 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     public function removeEmpty($date)
     {
         $adapter    = $this->_getWriteAdapter();
-        $condition  = array(
+        $condition  = [
             'add_date < ?' => $date,
             'customer_count = 0',
             'visitor_count = 0'
-        );
+        ];
         $adapter->delete($this->getTable('log/summary_table'), $condition);
     }
 

@@ -43,21 +43,21 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_defaultValues = array();
+    protected $_defaultValues = [];
 
     /**
      * This array contains codes of attributes which have value in current store
      *
      * @var array
      */
-    protected $_storeValuesFlags = array();
+    protected $_storeValuesFlags = [];
 
     /**
      * Locked attributes
      *
      * @var array
      */
-    protected $_lockedAttributes = array();
+    protected $_lockedAttributes = [];
 
     /**
      * Is model deleteable
@@ -72,7 +72,6 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      * @var boolean
      */
     protected $_isReadonly = false;
-
 
     /**
      * Lock attribute
@@ -108,7 +107,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function unlockAttributes()
     {
-        $this->_lockedAttributes = array();
+        $this->_lockedAttributes = [];
         return $this;
     }
 
@@ -200,9 +199,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getResourceCollection()
     {
-        $collection = parent::getResourceCollection()
+        return parent::getResourceCollection()
             ->setStoreId($this->getStoreId());
-        return $collection;
     }
 
     /**

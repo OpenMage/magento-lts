@@ -40,7 +40,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/bundle_product_edit/form', array('_current' => true));
+        return $this->getUrl('*/bundle_product_edit/form', ['_current' => true]);
     }
 
     /**
@@ -61,12 +61,12 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle extends Mage_A
         $this->setChild(
             'add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label' => Mage::helper('bundle')->__('Add New Option'),
                     'class' => 'add',
                     'id'    => 'add_new_option',
                     'on_click' => 'bOption.add()'
-                ))
+                ])
         );
 
         $this->setChild(

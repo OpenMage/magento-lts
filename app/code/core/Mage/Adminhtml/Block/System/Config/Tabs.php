@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widget
 {
-
     /**
      * Tabs
      *
@@ -35,10 +34,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
      */
     protected $_tabs;
 
-    /**
-     * Enter description here...
-     *
-     */
     protected function _construct()
     {
         $this->setId('system_config_tabs');
@@ -47,8 +42,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param unknown_type $a
      * @param unknown_type $b
      * @return int
@@ -58,10 +51,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         return (int)$a->sort_order < (int)$b->sort_order ? -1 : ((int)$a->sort_order > (int)$b->sort_order ? 1 : 0);
     }
 
-    /**
-     * Enter description here...
-     *
-     */
     public function initTabs()
     {
         $current = $this->getRequest()->getParam('section');
@@ -73,7 +62,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         $configFields = Mage::getSingleton('adminhtml/config');
         $sections = $configFields->getSections($current);
         $tabs     = (array)$configFields->getTabs()->children();
-
 
         $sections = (array)$sections;
 
@@ -89,7 +77,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 'class' => (string) $tab->class
             ]);
         }
-
 
         foreach ($sections as $section) {
             Mage::dispatchEvent('adminhtml_block_system_config_init_tab_sections_before', ['section' => $section]);
@@ -205,8 +192,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()
@@ -217,7 +202,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         $curStore   = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
 
         $url = Mage::getModel('adminhtml/url');
 
@@ -279,8 +264,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getStoreButtonsHtml()
@@ -327,8 +310,6 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Enter description here...
-     *
      * @param string $code
      * @return boolean
      */

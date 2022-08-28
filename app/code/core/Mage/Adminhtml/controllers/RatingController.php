@@ -119,7 +119,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setRatingData($this->getRequest()->getPost());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
                 return;
             }
         }
@@ -131,14 +131,14 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
         if( $this->getRequest()->getParam('id') > 0 ) {
             try {
                 $model = Mage::getModel('rating/rating');
-                /* @var $model Mage_Rating_Model_Rating */
+                /** @var Mage_Rating_Model_Rating $model */
                 $model->load($this->getRequest()->getParam('id'))
                     ->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The rating has been deleted.'));
                 $this->_redirect('*/*/');
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
             }
         }
         $this->_redirect('*/*/');

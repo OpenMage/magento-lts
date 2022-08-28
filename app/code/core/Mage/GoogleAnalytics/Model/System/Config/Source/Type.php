@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Google Analytics system config source type
  *
@@ -34,15 +33,15 @@ class Mage_GoogleAnalytics_Model_System_Config_Source_Type
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_GoogleAnalytics_Helper_Data::TYPE_UNIVERSAL,
                 'label' => Mage::helper('googleanalytics')->__('Universal Analytics')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_GoogleAnalytics_Helper_Data::TYPE_ANALYTICS,
                 'label' => Mage::helper('googleanalytics')->__('Google Analytics')
-            )
-        );
+            ]
+        ];
     }
 }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order grid collection
  *
@@ -77,7 +76,7 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
 
             $countSelect = clone $this->getSelect();
             $countSelect->reset();
-            $countSelect->from(array('a' => $unionSelect), 'COUNT(*)');
+            $countSelect->from(['a' => $unionSelect], 'COUNT(*)');
         } else {
             $countSelect = parent::getSelectCountSql();
         }

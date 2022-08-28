@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product image attribute frontend
  *
@@ -31,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image extends Mage_
     const IMAGE_PATH_SEGMENT = 'catalog/product/';
 
     /**
-     * Retreive image url
+     * Retrieve image url
      *
      * @param Varien_Object $object
      * @return string|false

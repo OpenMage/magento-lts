@@ -18,42 +18,41 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$purgeFk = array(
-    $installer->getTable('tag/relation') => array(
+$purgeFk = [
+    $installer->getTable('tag/relation') => [
         'product_id', 'tag_id', 'customer_id', 'store_id'
-    ),
-    $installer->getTable('tag/summary') => array(
+    ],
+    $installer->getTable('tag/summary') => [
         'tag_id'
-    ),
-);
-$purgeIndex = array(
-    array(
+    ],
+];
+$purgeIndex = [
+    [
         $installer->getTable('tag/relation'),
-        array('product_id')
-    ),
-    array(
+        ['product_id']
+    ],
+    [
         $installer->getTable('tag/relation'),
-        array('tag_id')
-    ),
-    array(
+        ['tag_id']
+    ],
+    [
         $installer->getTable('tag/relation'),
-        array('customer_id')
-    ),
-    array(
+        ['customer_id']
+    ],
+    [
         $installer->getTable('tag/relation'),
-        array('store_id')
-    ),
-    array(
+        ['store_id']
+    ],
+    [
         $installer->getTable('tag/summary'),
-        array('tag_id')
-    ),
-);
+        ['tag_id']
+    ],
+];
 foreach ($purgeFk as $tableName => $columns) {
     $foreignKeys = $installer->getConnection()->getForeignKeys($tableName);
     foreach ($foreignKeys as $fkProp) {

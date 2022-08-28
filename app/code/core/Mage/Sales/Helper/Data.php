@@ -164,7 +164,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     {
         $node = Mage::getConfig()->getNode('global/sales/old_fields_map/' . $entityId);
         if ($node === false) {
-            return array();
+            return [];
         }
         return (array) $node;
     }

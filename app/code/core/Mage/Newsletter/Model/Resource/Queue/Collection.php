@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter queue collection.
  *
@@ -62,9 +61,9 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addTemplateInfo()
     {
         $this->getSelect()->joinLeft(
-            array('template'=>$this->getTable('template')),
+            ['template'=>$this->getTable('template')],
             'template.template_id=main_table.template_id',
-            array('template_subject','template_sender_name','template_sender_email')
+            ['template_subject','template_sender_name','template_sender_email']
         );
         $this->_joinedTables['template'] = true;
         return $this;
@@ -79,19 +78,19 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     {
         /** @var Varien_Db_Select $select */
         $select = $this->getConnection()->select()
-            ->from(array('qlt' => $this->getTable('newsletter/queue_link')), 'COUNT(qlt.queue_link_id)')
+            ->from(['qlt' => $this->getTable('newsletter/queue_link')], 'COUNT(qlt.queue_link_id)')
             ->where('qlt.queue_id = main_table.queue_id');
         $totalExpr = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
         $select = $this->getConnection()->select()
-            ->from(array('qls' => $this->getTable('newsletter/queue_link')), 'COUNT(qls.queue_link_id)')
+            ->from(['qls' => $this->getTable('newsletter/queue_link')], 'COUNT(qls.queue_link_id)')
             ->where('qls.queue_id = main_table.queue_id')
             ->where('qls.letter_sent_at IS NOT NULL');
         $sentExpr  = new Zend_Db_Expr(sprintf('(%s)', $select->assemble()));
 
-        $this->getSelect()->columns(array(
+        $this->getSelect()->columns([
             'subscribers_sent'  => $sentExpr,
             'subscribers_total' => $totalExpr
-        ));
+        ]);
         return $this;
     }
 
@@ -127,8 +126,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
      */
     public function addFieldToFilter($field, $condition = null)
     {
-        if (in_array($field, array('subscribers_total', 'subscribers_sent'))) {
-            $this->addFieldToFilter('main_table.queue_id', array('in'=>$this->_getIdsFromLink($field, $condition)));
+        if (in_array($field, ['subscribers_total', 'subscribers_sent'])) {
+            $this->addFieldToFilter('main_table.queue_id', ['in'=>$this->_getIdsFromLink($field, $condition)]);
             return $this;
         } else {
             return parent::addFieldToFilter($field, $condition);
@@ -147,7 +146,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
         $select = $this->getConnection()->select()
             ->from(
                 $this->getTable('newsletter/queue_link'),
-                array('queue_id', 'total' => new Zend_Db_Expr('COUNT(queue_link_id)'))
+                ['queue_id', 'total' => new Zend_Db_Expr('COUNT(queue_link_id)')]
             )
             ->group('queue_id')
             ->having($this->_getConditionSql('total', $condition));
@@ -162,7 +161,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
             return $idList;
         }
 
-        return array(0);
+        return [0];
     }
 
     /**
@@ -174,9 +173,9 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addSubscriberFilter($subscriberId)
     {
         $this->getSelect()->join(
-            array('link'=>$this->getTable('newsletter/queue_link')),
+            ['link'=>$this->getTable('newsletter/queue_link')],
             'main_table.queue_id=link.queue_id',
-            array('letter_sent_at')
+            ['letter_sent_at']
         )
         ->where('link.subscriber_id = ?', $subscriberId);
 
@@ -191,8 +190,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     public function addOnlyForSendingFilter()
     {
         $this->getSelect()
-            ->where('main_table.queue_status in (?)', array(Mage_Newsletter_Model_Queue::STATUS_SENDING,
-                                                            Mage_Newsletter_Model_Queue::STATUS_NEVER))
+            ->where('main_table.queue_status in (?)', [Mage_Newsletter_Model_Queue::STATUS_SENDING,
+                                                            Mage_Newsletter_Model_Queue::STATUS_NEVER])
             ->where('main_table.queue_start_at < ?', Mage::getSingleton('core/date')->gmtDate())
             ->where('main_table.queue_start_at IS NOT NULL');
 
@@ -231,9 +230,9 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     {
         if (!$this->_isStoreFilter) {
             $this->getSelect()->joinInner(
-                array('store_link' => $this->getTable('newsletter/queue_store_link')),
+                ['store_link' => $this->getTable('newsletter/queue_store_link')],
                 'main_table.queue_id = store_link.queue_id',
-                array()
+                []
             )
             ->where('store_link.store_id IN (?)', $storeIds)
             ->group('main_table.queue_id');

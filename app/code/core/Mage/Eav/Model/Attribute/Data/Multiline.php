@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Multiply line Data Model
  *
@@ -40,7 +39,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($value)) {
             $value = false;
         } else {
-            $value = array_map(array($this, '_applyInputFilter'), $value);
+            $value = array_map([$this, '_applyInputFilter'], $value);
         }
         return $value;
     }
@@ -54,7 +53,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
      */
     public function validateValue($value)
     {
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
 
         if ($value === false) {
@@ -66,7 +65,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         }
 
         if (!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
         for ($i = 0; $i < $attribute->getMultilineCount(); $i ++) {
             if (!isset($value[$i])) {
@@ -131,7 +130,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($values)) {
             $values = explode("\n", $values);
         }
-        $values = array_map(array($this, '_applyOutputFilter'), $values);
+        $values = array_map([$this, '_applyOutputFilter'], $values);
         switch ($format) {
             case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY:
                 $output = $values;

@@ -55,7 +55,6 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     protected $_rates;
 
-
     /**
      * Class constructor
      */
@@ -217,7 +216,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param bool $addBrackets
      * @return string
      */
-    public function format($price, $options = array(), $includeContainer = true, $addBrackets = false)
+    public function format($price, $options = [], $includeContainer = true, $addBrackets = false)
     {
         return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
     }
@@ -235,7 +234,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function formatPrecision(
         $price,
         $precision,
-        $options = array(),
+        $options = [],
         $includeContainer = true,
         $addBrackets = false
     ) {
@@ -256,7 +255,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      * @param null|array $options
      * @return string
      */
-    public function formatTxt($price, $options = array())
+    public function formatTxt($price, $options = [])
     {
         if (!is_numeric($price)) {
             $price = Mage::app()->getLocale()->getNumber($price);
@@ -282,7 +281,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     public function getOutputFormat()
     {
         $formated = $this->formatTxt(0);
-        $number = $this->formatTxt(0, array('display' => Zend_Currency::NO_SYMBOL));
+        $number = $this->formatTxt(0, ['display' => Zend_Currency::NO_SYMBOL]);
         return str_replace($number, '%s', $formated);
     }
 
@@ -315,10 +314,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigDefaultCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_DEFAULT);
     }
-
 
     /**
      * Retrieve base currencies according to config
@@ -327,8 +324,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function getConfigBaseCurrencies()
     {
-        $defaultCurrencies = $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
-        return $defaultCurrencies;
+        return $this->_getResource()->getConfigCurrencies($this, self::XML_PATH_CURRENCY_BASE);
     }
 
     /**
@@ -343,8 +339,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
         if ($currency instanceof Mage_Directory_Model_Currency) {
             $currency = $currency->getCode();
         }
-        $data = $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
-        return $data;
+        return $this->_getResource()->getCurrencyRates($currency, $toCurrencies);
     }
 
     /**

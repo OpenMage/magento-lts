@@ -20,7 +20,7 @@
 /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $this */
 $installer = $this;
 
-$fieldList = array(
+$fieldList = [
     'price',
     'special_price',
     'special_from_date',
@@ -28,7 +28,7 @@ $fieldList = array(
     'minimal_price',
     'cost',
     'tier_price'
-);
+];
 
 // make these attributes applicable to downloadable products
 foreach ($fieldList as $field) {

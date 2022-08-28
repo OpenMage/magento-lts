@@ -39,12 +39,12 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
             case 'sku':
                 $block = $this->getLayout()->createBlock(
                     'adminhtml/promo_widget_chooser_sku', 'promo_widget_chooser_sku',
-                    array('js_form_object' => $request->getParam('form'),
-                ));
+                    ['js_form_object' => $request->getParam('form'),
+                    ]);
                 break;
 
             case 'category_ids':
-                $ids = $request->getParam('selected', array());
+                $ids = $request->getParam('selected', []);
                 if (is_array($ids)) {
                     foreach ($ids as $key => &$id) {
                         $id = (int) $id;
@@ -55,13 +55,12 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
 
                     $ids = array_unique($ids);
                 } else {
-                    $ids = array();
+                    $ids = [];
                 }
-
 
                 $block = $this->getLayout()->createBlock(
                         'adminhtml/catalog_category_checkboxes_tree', 'promo_widget_chooser_category_ids',
-                        array('js_form_object' => $request->getParam('form'))
+                        ['js_form_object' => $request->getParam('form')]
                     )
                     ->setCategoryIds($ids)
                 ;
@@ -113,7 +112,7 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
             if ($storeId) {
                 $rootId = Mage::app()->getStore($storeId)->getRootCategoryId();
                 if (!in_array($rootId, $category->getPathIds())) {
-                    $this->_redirect('*/*/', array('_current'=>true, 'id'=>null));
+                    $this->_redirect('*/*/', ['_current'=>true, 'id'=>null]);
                     return false;
                 }
             }

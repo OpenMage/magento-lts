@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogInventory Default Stock Status Indexer Resource Model
  *
@@ -153,21 +152,21 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         $adapter = $this->_getWriteAdapter();
         $qtyExpr = $adapter->getCheckSql('cisi.qty > 0', 'cisi.qty', 0);
         $select  = $adapter->select()
-            ->from(array('e' => $this->getTable('catalog/product')), array('entity_id'));
+            ->from(['e' => $this->getTable('catalog/product')], ['entity_id']);
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
         $select->columns('cw.website_id')
             ->join(
-                array('cis' => $this->getTable('cataloginventory/stock')),
+                ['cis' => $this->getTable('cataloginventory/stock')],
                 '',
-                array('stock_id')
+                ['stock_id']
             )
             ->joinLeft(
-                array('cisi' => $this->getTable('cataloginventory/stock_item')),
+                ['cisi' => $this->getTable('cataloginventory/stock_item')],
                 'cisi.stock_id = cis.stock_id AND cisi.product_id = e.entity_id',
-                array()
+                []
             )
-            ->columns(array('qty' => $qtyExpr))
+            ->columns(['qty' => $qtyExpr])
             ->where('cw.website_id != 0')
             ->where('e.type_id = ?', $this->getTypeId());
 
@@ -190,9 +189,9 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         }
 
         $optExpr = $adapter->getCheckSql($psCondition, 1, 0);
-        $stockStatusExpr = $adapter->getLeastSql(array($optExpr, $statusExpr));
+        $stockStatusExpr = $adapter->getLeastSql([$optExpr, $statusExpr]);
 
-        $select->columns(array('status' => $stockStatusExpr));
+        $select->columns(['status' => $stockStatusExpr]);
 
         if (!is_null($entityIds)) {
             $select->where('e.entity_id IN(?)', $entityIds);
@@ -230,19 +229,19 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         $query   = $adapter->query($select);
 
         $i      = 0;
-        $data   = array();
+        $data   = [];
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $i ++;
-            $data[] = array(
+            $data[] = [
                 'product_id'    => (int)$row['entity_id'],
                 'website_id'    => (int)$row['website_id'],
                 'stock_id'      => (int)$row['stock_id'],
                 'qty'           => (float)$row['qty'],
                 'stock_status'  => (int)$row['status'],
-            );
+            ];
             if (($i % 1000) == 0) {
                 $this->_updateIndexTable($data);
-                $data = array();
+                $data = [];
             }
         }
         $this->_updateIndexTable($data);
@@ -263,7 +262,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         }
 
         $adapter = $this->_getWriteAdapter();
-        $adapter->insertOnDuplicate($this->getMainTable(), $data, array('qty', 'stock_status'));
+        $adapter->insertOnDuplicate($this->getMainTable(), $data, ['qty', 'stock_status']);
 
         return $this;
     }

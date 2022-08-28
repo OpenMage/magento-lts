@@ -51,7 +51,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     }
 
     /**
-     * @return Mage_Sales_Block_Items_Abstract
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -83,6 +83,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      * Get object with payment info posted data
      *
      * @return Varien_Object
+     * @throws Exception
      */
     public function getPayment()
     {
@@ -172,8 +173,8 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     {
         $totals = $address->getTotals();
         foreach ($totals as $total) {
-            if ($total->getCode()=='grand_total') {
-                if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_BILLING) {
+            if ($total->getCode() === 'grand_total') {
+                if ($address->getAddressType() === Mage_Sales_Model_Quote_Address::TYPE_BILLING) {
                     $total->setTitle($this->__('Total'));
                 } else {
                     $total->setTitle($this->__('Total for this address'));
@@ -205,7 +206,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditShippingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editShipping', array('id'=>$address->getCustomerAddressId()));
+        return $this->getUrl('*/multishipping_address/editShipping', ['id'=>$address->getCustomerAddressId()]);
     }
 
     /**
@@ -214,7 +215,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getEditBillingAddressUrl($address)
     {
-        return $this->getUrl('*/multishipping_address/editBilling', array('id'=>$address->getCustomerAddressId()));
+        return $this->getUrl('*/multishipping_address/editBilling', ['id'=>$address->getCustomerAddressId()]);
     }
 
     /**
@@ -266,7 +267,7 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
      */
     public function getVirtualItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getBillingAddress()->getItemsCollection() as $_item) {
             if ($_item->isDeleted()) {
                 continue;
@@ -297,7 +298,6 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
         return $this->getShippingAddressTotals($_address);
     }
 
-
     /**
      * @param Mage_Sales_Model_Order_Total $totals
      * @param null $colspan
@@ -306,7 +306,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     public function renderTotals($totals, $colspan = null)
     {
         if ($colspan === null) {
-            $colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3;
+            /** @var Mage_Tax_Helper_Data $helper */
+            $helper = $this->helper('tax');
+            $colspan = $helper->displayCartBothPrices() ? 5 : 3;
         }
         $totals = $this->getChild('totals')->setTotals($totals)->renderTotals('', $colspan)
             . $this->getChild('totals')->setTotals($totals)->renderTotals('footer', $colspan);

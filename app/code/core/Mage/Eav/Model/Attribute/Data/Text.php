@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Text Data Model
  *
@@ -49,7 +48,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
      */
     public function validateValue($value)
     {
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
         $label      = Mage::helper('eav')->__($attribute->getStoreLabel());
 

@@ -59,17 +59,20 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
     /**
      * Get product thumbnail image
      *
-     * @return Mage_Catalog_Model_Product_Image
+     * @return Mage_Catalog_Helper_Image
      */
     public function getProductThumbnail()
     {
         $product = $this->getChildProduct();
         if (!$product || !$product->getData('thumbnail')
-            || ($product->getData('thumbnail') == 'no_selection')
-            || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)) {
+            || ($product->getData('thumbnail') === 'no_selection')
+            || (Mage::getStoreConfig(self::CONFIGURABLE_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)) {
             $product = $this->getProduct();
         }
-        return $this->helper('catalog/image')->init($product, 'thumbnail');
+
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+        return $helper->init($product, 'thumbnail');
     }
 
     /**
@@ -89,9 +92,8 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      */
     public function getProductAttributes()
     {
-        $attributes = $this->getProduct()->getTypeInstance(true)
+        return $this->getProduct()->getTypeInstance(true)
             ->getSelectedAttributesInfo($this->getProduct());
-        return $attributes;
     }
 
     /**
@@ -101,10 +103,9 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Configurable extends Mage_Checkout_
      */
     public function getOptionList()
     {
-        /* @var Mage_Catalog_Helper_Product_Configuration $helper */
+        /** @var Mage_Catalog_Helper_Product_Configuration $helper */
         $helper = Mage::helper('catalog/product_configuration');
-        $options = $helper->getConfigurableOptions($this->getItem());
-        return $options;
+        return $helper->getConfigurableOptions($this->getItem());
     }
 
     /**

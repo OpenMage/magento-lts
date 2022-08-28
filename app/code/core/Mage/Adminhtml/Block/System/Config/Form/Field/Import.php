@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Custom import CSV file field for shipping table rates
  *
@@ -30,8 +29,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
 {
 
     /**
-     * Enter description here...
-     *
      * @param array $data
      */
     public function __construct($data)
@@ -41,8 +38,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getElementHtml()

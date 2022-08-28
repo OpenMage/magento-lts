@@ -101,7 +101,7 @@ class Mage_ImportExport_Model_Export_Adapter_Csv extends Mage_ImportExport_Model
      */
     public function writeRow(array $rowData)
     {
-        if (null === $this->_headerCols) {
+        if ($this->_headerCols === null) {
             $this->setHeaderCols(array_keys($rowData));
         }
 

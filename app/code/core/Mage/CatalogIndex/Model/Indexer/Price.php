@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog indexer price processor
  *
@@ -48,7 +47,7 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    protected $_customerGroups = array();
+    protected $_customerGroups = [];
     protected $_processChildrenForConfigurable = false;
 
     protected function _construct()
@@ -64,7 +63,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
-        $data = array();
+        $data = [];
 
         $data['store_id'] = $attribute->getStoreId();
         $data['entity_id'] = $object->getId();
@@ -72,7 +71,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         $data['value'] = $object->getData($attribute->getAttributeCode());
 
         if ($attribute->getAttributeCode() == 'price') {
-            $result = array();
+            $result = [];
             foreach ($this->_customerGroups as $group) {
                 $object->setCustomerGroupId($group->getId());
                 $finalPrice = $object->getFinalPrice();
@@ -111,7 +110,6 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "frontend_input = 'price' AND attribute_code <> 'price'";
-        return $conditions;
+        return "frontend_input = 'price' AND attribute_code <> 'price'";
     }
 }

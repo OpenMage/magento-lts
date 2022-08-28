@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Fulltext Index Engine resource model
  *
@@ -48,11 +47,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      */
     public function saveEntityIndex($entityId, $storeId, $index, $entity = 'product')
     {
-        $this->_getWriteAdapter()->insert($this->getMainTable(), array(
+        $this->_getWriteAdapter()->insert($this->getMainTable(), [
             'product_id'    => $entityId,
             'store_id'      => $storeId,
             'data_index'    => $index
-        ));
+        ]);
         return $this;
     }
 
@@ -66,19 +65,20 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      */
     public function saveEntityIndexes($storeId, $entityIndexes, $entity = 'product')
     {
-        $data    = array();
+        $data    = [];
         $storeId = (int)$storeId;
         foreach ($entityIndexes as $entityId => $index) {
-            $data[] = array(
+            $data[] = [
                 'product_id'    => (int)$entityId,
                 'store_id'      => $storeId,
                 'data_index'    => $index
-            );
+            ];
         }
 
         if ($data) {
-            Mage::getResourceHelper('catalogsearch')
-                ->insertOnDuplicate($this->getMainTable(), $data, array('data_index'));
+            /** @var Mage_CatalogSearch_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('catalogsearch');
+            $helper->insertOnDuplicate($this->getMainTable(), $data, ['data_index']);
         }
 
         return $this;
@@ -114,7 +114,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Engine extends Mage_Core_Model_
      */
     public function cleanIndex($storeId = null, $entityId = null, $entity = 'product')
     {
-        $where = array();
+        $where = [];
 
         if (!is_null($storeId)) {
             $where[] = $this->_getWriteAdapter()->quoteInto('store_id=?', $storeId);

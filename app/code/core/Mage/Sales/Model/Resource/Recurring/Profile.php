@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Recurring payment profiles resource model
  *
@@ -36,15 +35,15 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     {
         $this->_init('sales/recurring_profile', 'profile_id');
 
-        $this->_serializableFields = array(
-            'profile_vendor_info'    => array(null, array()),
-            'additional_info' => array(null, array()),
+        $this->_serializableFields = [
+            'profile_vendor_info'    => [null, []],
+            'additional_info' => [null, []],
 
-            'order_info' => array(null, array()),
-            'order_item_info' => array(null, array()),
-            'billing_address_info' => array(null, array()),
-            'shipping_address_info' => array(null, array())
-        );
+            'order_info' => [null, []],
+            'order_item_info' => [null, []],
+            'billing_address_info' => [null, []],
+            'shipping_address_info' => [null, []]
+        ];
     }
 
     /**
@@ -84,11 +83,11 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     public function getChildOrderIds($object)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':profile_id' => $object->getId());
+        $bind    = [':profile_id' => $object->getId()];
         $select  = $adapter->select()
             ->from(
-                array('main_table' => $this->getTable('sales/recurring_profile_order')),
-                array('order_id')
+                ['main_table' => $this->getTable('sales/recurring_profile_order')],
+                ['order_id']
             )
             ->where('profile_id=:profile_id');
 
@@ -106,10 +105,10 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
     {
         $this->_getWriteAdapter()->insert(
             $this->getTable('sales/recurring_profile_order'),
-            array(
+            [
                 'profile_id' => $recurringProfileId,
                 'order_id'   => $orderId
-            )
+            ]
         );
         return $this;
     }

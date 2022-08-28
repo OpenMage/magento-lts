@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Visitor log collection
  *
@@ -97,14 +96,14 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      *
      * @var array
      */
-    protected $_fieldMap = array(
+    protected $_fieldMap = [
         'customer_firstname'  => 'customer_firstname_table.value',
         'customer_middlename' => 'customer_middlename_table.value',
         'customer_lastname'   => 'customer_lastname_table.value',
         'customer_email'      => 'customer_email_table.email',
         'customer_id'         => 'customer_table.customer_id',
         'url'                 => 'url_info_table.url'
-    );
+    ];
 
     /**
      * Collection resource initialization
@@ -193,9 +192,9 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         if ($fieldName == 'type' && is_array($condition) && isset($condition['eq'])) {
             $fieldName = 'customer_id';
             if ($condition['eq'] === Mage_Log_Model_Visitor::VISITOR_TYPE_VISITOR) {
-                $condition = array('null' => 1);
+                $condition = ['null' => 1];
             } else {
-                $condition = array('moreq' => 1);
+                $condition = ['moreq' => 1];
             }
         }
         return parent::addFieldToFilter($this->_getFieldMap($fieldName), $condition);
@@ -228,7 +227,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         if ($this->isLoaded()) {
             return $this;
         }
-        Mage::dispatchEvent('log_visitor_collection_load_before', array('collection' => $this));
+        Mage::dispatchEvent('log_visitor_collection_load_before', ['collection' => $this]);
         return parent::load($printQuery, $logQuery);
     }
 

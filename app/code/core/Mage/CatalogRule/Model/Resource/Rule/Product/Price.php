@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Rule Product Aggregated Price per date Resource Model
  *
@@ -75,13 +74,13 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
             $indexAlias = $indexTable;
         }
 
-        $select->join(array('rp' => $this->getMainTable()), "rp.rule_date = {$websiteDate}", array())
+        $select->join(['rp' => $this->getMainTable()], "rp.rule_date = {$websiteDate}", [])
                ->where("rp.product_id = {$entityId} AND rp.website_id = {$websiteId} AND rp.customer_group_id = {$customerGroupId}");
 
         foreach ($updateFields as $priceField) {
-            $priceCond = $this->_getWriteAdapter()->quoteIdentifier(array($indexAlias, $priceField));
+            $priceCond = $this->_getWriteAdapter()->quoteIdentifier([$indexAlias, $priceField]);
             $priceExpr = $this->_getWriteAdapter()->getCheckSql("rp.rule_price < {$priceCond}", 'rp.rule_price', $priceCond);
-            $select->columns(array($priceField => $priceExpr));
+            $select->columns([$priceField => $priceExpr]);
         }
 
         $query = $select->crossUpdateFromSelect($indexTable);

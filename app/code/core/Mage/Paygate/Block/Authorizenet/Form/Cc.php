@@ -30,7 +30,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     }
 
     /**
-     * Retreive payment method form html
+     * Retrieve payment method form html
      *
      * @return string
      */
@@ -170,11 +170,11 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
     public function getCancelButtonHtml()
     {
         $cancelButton = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'id'      => 'payment_cancel',
                 'label'   => Mage::helper('paygate')->__('Cancel'),
                 'onclick' => 'cancelPaymentAuthorizations()'
-            ));
+            ]);
         return $cancelButton->toHtml();
     }
 }

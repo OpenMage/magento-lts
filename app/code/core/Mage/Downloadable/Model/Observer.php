@@ -138,7 +138,7 @@ class Mage_Downloadable_Model_Observer
             /** @var Mage_Sales_Model_Order $order */
             $order = $observer->getEvent()->getOrder();
             foreach ($order->getAllItems() as $item) {
-                /* @var Mage_Sales_Model_Order_Item $item */
+                /** @var Mage_Sales_Model_Order_Item $item */
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                 || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                 || $item->getProductOptionByCode('is_downloadable')) {
@@ -166,17 +166,17 @@ class Mage_Downloadable_Model_Observer
             return $this;
         }
 
-        /* @var Mage_Sales_Model_Order $order */
+        /** @var Mage_Sales_Model_Order $order */
         $status = '';
-        $linkStatuses = array(
+        $linkStatuses = [
             'pending'         => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING,
             'expired'         => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_EXPIRED,
             'avail'           => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_AVAILABLE,
             'payment_pending' => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PENDING_PAYMENT,
             'payment_review'  => Mage_Downloadable_Model_Link_Purchased_Item::LINK_STATUS_PAYMENT_REVIEW
-        );
+        ];
 
-        $downloadableItemsStatuses = array();
+        $downloadableItemsStatuses = [];
         $orderItemStatusToEnable = Mage::getStoreConfig(
             Mage_Downloadable_Model_Link_Purchased_Item::XML_PATH_ORDER_ITEM_STATUS,
             $order->getStoreId()
@@ -188,10 +188,10 @@ class Mage_Downloadable_Model_Observer
                   || $order->getState() == Mage_Sales_Model_Order::STATE_CLOSED
                   || $order->getState() == Mage_Sales_Model_Order::STATE_COMPLETE
         ) {
-            $expiredStatuses = array(
+            $expiredStatuses = [
                 Mage_Sales_Model_Order_Item::STATUS_CANCELED,
                 Mage_Sales_Model_Order_Item::STATUS_REFUNDED,
-            );
+            ];
             foreach ($order->getAllItems() as $item) {
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                     || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
@@ -208,7 +208,7 @@ class Mage_Downloadable_Model_Observer
         } elseif ($order->getState() == Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
             $status = $linkStatuses['payment_review'];
         } else {
-            $availableStatuses = array($orderItemStatusToEnable, Mage_Sales_Model_Order_Item::STATUS_INVOICED);
+            $availableStatuses = [$orderItemStatusToEnable, Mage_Sales_Model_Order_Item::STATUS_INVOICED];
             foreach ($order->getAllItems() as $item) {
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
                     || $item->getRealProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
@@ -237,7 +237,7 @@ class Mage_Downloadable_Model_Observer
 
         if ($downloadableItemsStatuses) {
             $linkPurchased = Mage::getResourceModel('downloadable/link_purchased_item_collection')
-            ->addFieldToFilter('order_item_id', array('in' => array_keys($downloadableItemsStatuses)));
+            ->addFieldToFilter('order_item_id', ['in' => array_keys($downloadableItemsStatuses)]);
             /** @var Mage_Downloadable_Model_Link_Purchased_Item $link */
             foreach ($linkPurchased as $link) {
                 if ($link->getStatus() != $linkStatuses['expired']
@@ -260,7 +260,7 @@ class Mage_Downloadable_Model_Observer
     public function isAllowedGuestCheckout(Varien_Event_Observer $observer)
     {
         $quote  = $observer->getEvent()->getQuote();
-        /* @var Mage_Sales_Model_Quote $quote */
+        /** @var Mage_Sales_Model_Quote $quote */
         $store  = $observer->getEvent()->getStore();
         $result = $observer->getEvent()->getResult();
 

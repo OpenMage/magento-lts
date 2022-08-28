@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl role registry
  *
@@ -49,7 +48,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
         }
 
         if (!is_array($parents)) {
-            $parents = array($parents);
+            $parents = [$parents];
         }
         foreach ($parents as $parent) {
             try {

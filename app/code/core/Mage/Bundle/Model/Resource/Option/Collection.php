@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bundle Options Resource Collection
  *
@@ -63,11 +62,11 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     {
         $this->getSelect()
             ->joinLeft(
-                array('option_value_default' => $this->getTable('bundle/option_value')),
+                ['option_value_default' => $this->getTable('bundle/option_value')],
                 'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0',
-                array()
+                []
             )
-            ->columns(array('default_title' => 'option_value_default.title'));
+            ->columns(['default_title' => 'option_value_default.title']);
 
         $title = $this->getConnection()->getCheckSql(
             'option_value.title IS NOT NULL',
@@ -76,14 +75,14 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         );
         if ($storeId !== null) {
             $this->getSelect()
-                ->columns(array('title' => $title))
+                ->columns(['title' => $title])
                 ->joinLeft(
-                    array('option_value' => $this->getTable('bundle/option_value')),
+                    ['option_value' => $this->getTable('bundle/option_value')],
                     $this->getConnection()->quoteInto(
                         'main_table.option_id = option_value.option_id and option_value.store_id = ?',
                         $storeId
                     ),
-                    array()
+                    []
                 );
         }
         return $this;
@@ -154,7 +153,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     protected function _stripSelections()
     {
         foreach ($this->getItems() as $option) {
-            $option->setSelections(array());
+            $option->setSelections([]);
         }
         $this->_selectionsAppended = false;
         return $this;
@@ -169,7 +168,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     public function setIdFilter($ids)
     {
         if (is_array($ids)) {
-            $this->addFieldToFilter('main_table.option_id', array('in' => $ids));
+            $this->addFieldToFilter('main_table.option_id', ['in' => $ids]);
         } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }

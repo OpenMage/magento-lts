@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
      */
     protected function _prepareCollection()
     {
-        /* @var $collection Mage_Reports_Model_Resource_Tag_Customer_Collection */
+        /** @var Mage_Reports_Model_Resource_Tag_Customer_Collection $collection */
         $collection = Mage::getResourceModel('reports/tag_customer_collection');
         $collection->addStatusFilter(Mage::getModel('tag/tag')->getApprovedStatus())
             ->addTagFilter($this->getRequest()->getParam('id'))
@@ -60,28 +60,28 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
 
-        $this->addColumn('firstname', array(
+        $this->addColumn('firstname', [
             'header'    =>Mage::helper('reports')->__('First Name'),
             'index'     =>'firstname'
-        ));
+        ]);
 
-        $this->addColumn('lastname', array(
+        $this->addColumn('lastname', [
             'header'    =>Mage::helper('reports')->__('Last Name'),
             'index'     =>'lastname'
-        ));
+        ]);
 
-        $this->addColumn('product', array(
+        $this->addColumn('product', [
             'header'    =>Mage::helper('reports')->__('Product Name'),
             'index'     =>'product_name'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('added_in', array(
+            $this->addColumn('added_in', [
                 'header'    => Mage::helper('reports')->__('Submitted In'),
                 'index'     => 'added_in',
                 'type'      => 'store',
                 'store_view'=> true
-            ));
+            ]);
         }
 
         $this->setFilterVisibility(false);

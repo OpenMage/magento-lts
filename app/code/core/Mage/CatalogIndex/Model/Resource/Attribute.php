@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Attribute index resource model
  *
@@ -28,18 +27,12 @@
  */
 class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model_Resource_Abstract
 {
-    /**
-     * Enter description here ...
-     *
-     */
     protected function _construct()
     {
         $this->_init('catalogindex/eav', 'index_id');
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $filter
      * @param int|array $entityFilter
@@ -61,8 +54,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param Zend_Db_Select $entitySelect
      * @return array
@@ -75,10 +66,10 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
-        $fields = array('count'=>'COUNT(index.entity_id)', 'index.value');
+        $fields = ['count'=>'COUNT(index.entity_id)', 'index.value'];
 
         $select->columns($fields)
-            ->join(array('index'=>$this->getMainTable()), 'index.entity_id=e.entity_id', array())
+            ->join(['index'=>$this->getMainTable()], 'index.entity_id=e.entity_id', [])
             ->where('index.store_id = ?', $this->getStoreId())
             ->where('index.attribute_id = ?', $attribute->getId())
             ->group('index.value');
@@ -86,7 +77,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         $select = $select->__toString();
         $result = $this->_getReadAdapter()->fetchAll($select);
 
-        $counts = array();
+        $counts = [];
         foreach ($result as $row) {
             $counts[$row['value']] = $row['count'];
         }
@@ -94,8 +85,6 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
     }
 
     /**
-     * Enter description here ...
-     *
      * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
      * @param Mage_Eav_Model_Entity_Attribute $attribute
      * @param string $value
@@ -108,9 +97,9 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
          */
         $alias = 'attr_index_'.$attribute->getId();
         $collection->getSelect()->join(
-            array($alias => $this->getMainTable()),
+            [$alias => $this->getMainTable()],
             $alias.'.entity_id=e.entity_id',
-            array()
+            []
         )
         ->where($alias.'.store_id = ?', $this->getStoreId())
         ->where($alias.'.attribute_id = ?', $attribute->getId())

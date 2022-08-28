@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Websites collection
  *
@@ -38,7 +37,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
      *
      * @var array
      */
-    protected $_map = array('fields' => array('website_id' => 'main_table.website_id'));
+    protected $_map = ['fields' => ['website_id' => 'main_table.website_id']];
 
     /**
      * Define resource model
@@ -92,7 +91,6 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         return $this->_toOptionHash('website_id', 'name');
     }
 
-
     /**
      * Add website filter to collection
      *
@@ -105,7 +103,7 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
             if (empty($ids)) {
                 $this->addFieldToFilter('website_id', null);
             } else {
-                $this->addFieldToFilter('website_id', array('in' => $ids));
+                $this->addFieldToFilter('website_id', ['in' => $ids]);
             }
         } else {
             $this->addFieldToFilter('website_id', $ids);
@@ -141,13 +139,13 @@ class Mage_Core_Model_Resource_Website_Collection extends Mage_Core_Model_Resour
         if (!$this->getFlag('groups_and_stores_joined')) {
             $this->_idFieldName = 'website_group_store';
             $this->getSelect()->joinLeft(
-                array('group_table' => $this->getTable('core/store_group')),
+                ['group_table' => $this->getTable('core/store_group')],
                 'main_table.website_id = group_table.website_id',
-                array('group_id' => 'group_id', 'group_title' => 'name')
+                ['group_id' => 'group_id', 'group_title' => 'name']
             )->joinLeft(
-                array('store_table' => $this->getTable('core/store')),
+                ['store_table' => $this->getTable('core/store')],
                 'group_table.group_id = store_table.group_id',
-                array('store_id' => 'store_id', 'store_title' => 'name')
+                ['store_id' => 'store_id', 'store_title' => 'name']
             );
             $this->addOrder('group_table.name', Varien_Db_Select::SQL_ASC)       // store name
                 ->addOrder('CASE WHEN store_table.store_id = 0 THEN 0 ELSE 1 END', Varien_Db_Select::SQL_ASC) // view is admin

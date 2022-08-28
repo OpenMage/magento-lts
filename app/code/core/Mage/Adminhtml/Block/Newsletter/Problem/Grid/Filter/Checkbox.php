@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Newsletter_Problem_Grid_Filter_Checkbox extends Mage_
 {
     public function getCondition()
     {
-        return array();
+        return [];
     }
 
     public function getHtml()

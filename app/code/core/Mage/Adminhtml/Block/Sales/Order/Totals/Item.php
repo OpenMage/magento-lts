@@ -46,12 +46,12 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function initTotals()
     {
-        $total = new Varien_Object(array(
+        $total = new Varien_Object([
             'code'      => $this->getNameInLayout(),
             'block_name'=> $this->getNameInLayout(),
             'area'      => $this->getDisplayArea(),
             'strong'    => $this->getStrong()
-        ));
+        ]);
         if ($this->getBeforeCondition()) {
             $this->getParentBlock()->addTotalBefore($total, $this->getBeforeCondition());
         } else {
@@ -69,7 +69,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPrices($baseAmount, $amount)
     {
-        return $this->helper('adminhtml/sales')->displayPrices($this->getOrder(), $baseAmount, $amount);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPrices($this->getOrder(), $baseAmount, $amount);
     }
 
     /**
@@ -82,7 +84,9 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
     {
-        return $this->helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
+        /** @var Mage_Adminhtml_Helper_Sales $helper */
+        $helper = $this->helper('adminhtml/sales');
+        return $helper->displayPriceAttribute($this->getSource(), $code, $strong, $separator);
     }
 
     /**

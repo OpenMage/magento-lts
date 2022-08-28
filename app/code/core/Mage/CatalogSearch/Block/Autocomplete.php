@@ -23,7 +23,10 @@
  */
 class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
 {
-    protected $_suggestData = null;
+    /**
+     * @var array
+     */
+    protected $_suggestData;
 
     /**
      * @return string
@@ -75,16 +78,18 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
     public function getSuggestData()
     {
         if (!$this->_suggestData) {
-            $collection = $this->helper('catalogsearch')->getSuggestCollection();
-            $query = $this->helper('catalogsearch')->getQueryText();
+            /** @var Mage_CatalogSearch_Helper_Data $helper */
+            $helper = $this->helper('catalogsearch');
+            $collection = $helper->getSuggestCollection();
+            $query = $helper->getQueryText();
             $counter = 0;
-            $data = array();
+            $data = [];
             foreach ($collection as $item) {
-                $_data = array(
+                $_data = [
                     'title' => $item->getQueryText(),
                     'row_class' => (++$counter)%2?'odd':'even',
                     'num_of_results' => $item->getNumResults()
-                );
+                ];
 
                 if ($item->getQueryText() == $query) {
                     array_unshift($data, $_data);
@@ -96,7 +101,4 @@ class Mage_CatalogSearch_Block_Autocomplete extends Mage_Core_Block_Abstract
         }
         return $this->_suggestData;
     }
-/*
- *
-*/
 }

@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $this->startSetup();
@@ -27,14 +26,13 @@ $this->startSetup();
 $orderEntityType = $installer->getEntityType('order');
 $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
-$attributes = array(
+$attributes = [
     $installer->getAttribute($orderEntityTypeId, 'is_virtual'),
     $installer->getAttribute($orderEntityTypeId, 'shipping_description')
-);
+];
 
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[0]['attribute_code'], "tinyint(1) UNSIGNED NOT NULL DEFAULT 0");
 $installer->getConnection()->addColumn($this->getTable('sales_order'), $attributes[1]['attribute_code'], "varchar(255) NOT NULL DEFAULT ''");
-
 
 try {
     $installer->getConnection()->beginTransaction();
@@ -56,7 +54,7 @@ try {
     }
 
     foreach ($attributes as $attribute) {
-        $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
+        $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], ['backend_type' => 'static']);
     }
 
     $installer->getConnection()->commit();

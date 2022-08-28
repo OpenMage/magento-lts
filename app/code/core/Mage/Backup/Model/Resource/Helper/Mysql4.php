@@ -26,7 +26,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      *
      * @var array
      */
-    protected $_foreignKeys    = array();
+    protected $_foreignKeys    = [];
 
     /**
      * Retrieve SQL fragment for drop table
@@ -126,7 +126,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . 'REFERENCES `([^`]*)` \(`([^`]*)`\)'
             . '( ON DELETE (RESTRICT|CASCADE|SET NULL|NO ACTION))?'
             . '( ON UPDATE (RESTRICT|CASCADE|SET NULL|NO ACTION))?/';
-        $matches = array();
+        $matches = [];
         preg_match_all($regExp, $row['Create Table'], $matches, PREG_SET_ORDER);
 
         if (is_array($matches)) {
@@ -163,7 +163,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
         $hostName   = !empty($dbConfig['unix_socket']) ? $dbConfig['unix_socket']
             : (!empty($dbConfig['host']) ? $dbConfig['host'] : 'localhost');
 
-        $header = "-- Magento DB backup\n"
+        return "-- Magento DB backup\n"
             . "--\n"
             . "-- Host: {$hostName}    Database: {$dbConfig['dbname']}\n"
             . "-- ------------------------------------------------------\n"
@@ -176,8 +176,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . "/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n"
             . "/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n"
             . "/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n";
-
-        return $header;
     }
 
     /**
@@ -187,7 +185,7 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
      */
     public function getFooter()
     {
-        $footer = "\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n"
+        return "\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n"
             . "/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */; \n"
             . "/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n"
             . "/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n"
@@ -195,8 +193,6 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
             . "/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n"
             . "/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\n"
             . "\n-- Dump completed on " . Mage::getSingleton('core/date')->gmtDate() . " GMT";
-
-        return $footer;
     }
 
     /**
@@ -282,8 +278,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
     {
         $adapter   = $this->_getReadAdapter();
         $describe  = $adapter->describeTable($tableName);
-        $dataTypes = array('bigint', 'mediumint', 'smallint', 'tinyint');
-        $rowData   = array();
+        $dataTypes = ['bigint', 'mediumint', 'smallint', 'tinyint'];
+        $rowData   = [];
         foreach ($row as $k => $v) {
             if ($v === null) {
                 $value = 'NULL';

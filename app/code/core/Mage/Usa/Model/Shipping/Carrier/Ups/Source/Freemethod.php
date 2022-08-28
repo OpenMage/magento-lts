@@ -18,13 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Freemethod extends Mage_Usa_Model_Shipping_Carrier_Ups_Source_Method
 {
     public function toOptionArray()
     {
         $arr = parent::toOptionArray();
-        array_unshift($arr, array('value'=>'', 'label'=>Mage::helper('shipping')->__('None')));
+        array_unshift($arr, ['value'=>'', 'label'=>Mage::helper('shipping')->__('None')]);
         return $arr;
     }
 }

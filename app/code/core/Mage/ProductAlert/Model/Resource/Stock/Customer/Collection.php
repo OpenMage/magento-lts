@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * ProductAlert Stock Customer collection
  *
@@ -38,9 +37,9 @@ class Mage_ProductAlert_Model_Resource_Stock_Customer_Collection extends Mage_Cu
     public function join($productId, $websiteId)
     {
         $this->getSelect()->join(
-            array('alert' => $this->getTable('productalert/stock')),
+            ['alert' => $this->getTable('productalert/stock')],
             'alert.customer_id=e.entity_id',
-            array('alert_stock_id', 'add_date', 'send_date', 'send_count', 'status')
+            ['alert_stock_id', 'add_date', 'send_date', 'send_count', 'status']
         );
 
         $this->getSelect()->where('alert.product_id=?', $productId);

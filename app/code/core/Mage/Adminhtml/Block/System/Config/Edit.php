@@ -56,11 +56,11 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
     {
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Config'),
                     'onclick'   => 'configForm.submit()',
                     'class' => 'save',
-                ))
+                ])
         );
         return parent::_prepareLayout();
     }
@@ -78,7 +78,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', ['_current'=>true]);
     }
 
     /**

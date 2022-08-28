@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Layer Attribute Filter Resource Model
  *
@@ -50,17 +49,17 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         $attribute  = $filter->getAttributeModel();
         $connection = $this->_getReadAdapter();
         $tableAlias = $attribute->getAttributeCode() . '_idx';
-        $conditions = array(
+        $conditions = [
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
             $connection->quoteInto("{$tableAlias}.store_id = ?", $collection->getStoreId()),
             $connection->quoteInto("{$tableAlias}.value = ?", $value)
-        );
+        ];
 
         $collection->getSelect()->join(
-            array($tableAlias => $this->getMainTable()),
+            [$tableAlias => $this->getMainTable()],
             implode(' AND ', $conditions),
-            array()
+            []
         );
 
         return $this;
@@ -85,17 +84,17 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
         $connection = $this->_getReadAdapter();
         $attribute  = $filter->getAttributeModel();
         $tableAlias = sprintf('%s_idx', $attribute->getAttributeCode());
-        $conditions = array(
+        $conditions = [
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
             $connection->quoteInto("{$tableAlias}.store_id = ?", $filter->getStoreId()),
-        );
+        ];
 
         $select
             ->join(
-                array($tableAlias => $this->getMainTable()),
+                [$tableAlias => $this->getMainTable()],
                 implode(' AND ', $conditions),
-                array('value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)"))
+                ['value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")]
             )
             ->group("{$tableAlias}.value");
 

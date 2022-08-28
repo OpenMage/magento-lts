@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Order items name column renderer
  *
@@ -38,11 +37,9 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Name extends Mage_Adminhtml_Block_
     {
         $_remainder = '';
         $value = Mage::helper('core/string')->truncate($value, 55, '', $_remainder);
-        $result = array(
+        return [
             'value' => nl2br($value),
             'remainder' => nl2br($_remainder)
-        );
-
-        return $result;
+        ];
     }
 }

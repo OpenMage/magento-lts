@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Form Element Resource Collection
  *
@@ -102,9 +101,9 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
     protected function _joinAttributeData()
     {
         $this->getSelect()->join(
-            array('eav_attribute' => $this->getTable('eav/attribute')),
+            ['eav_attribute' => $this->getTable('eav/attribute')],
             'main_table.attribute_id = eav_attribute.attribute_id',
-            array('attribute_code', 'entity_type_id')
+            ['attribute_code', 'entity_type_id']
         );
 
         return $this;

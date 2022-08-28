@@ -27,8 +27,6 @@
 class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 {
     /**
-     * Enter description here...
-     *
      * @param string $var
      * @param string|true $value
      * @return bool
@@ -39,19 +37,17 @@ class Mage_Core_Model_Config_Element extends Varien_Simplexml_Element
 
         if ($value === true) {
             $flag = strtolower((string)$flag);
-            if (!empty($flag) && 'false' !== $flag && 'off' !== $flag) {
+            if (!empty($flag) && $flag !== 'false' && $flag !== 'off') {
                 return true;
             } else {
                 return false;
             }
         }
 
-        return !empty($flag) && (0 === strcasecmp($value, (string)$flag));
+        return !empty($flag) && (strcasecmp($value, (string)$flag) === 0);
     }
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     public function getClassName()

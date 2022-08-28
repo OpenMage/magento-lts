@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Send to a Friend Limit sending by Source
  *
@@ -35,15 +34,15 @@ class Mage_Adminhtml_Model_System_Config_Source_Checktype
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'value' => Mage_Sendfriend_Helper_Data::CHECK_IP,
                 'label' => Mage::helper('adminhtml')->__('IP Address')
-            ),
-            array(
+            ],
+            [
                 'value' => Mage_Sendfriend_Helper_Data::CHECK_COOKIE,
                 'label' => Mage::helper('adminhtml')->__('Cookie (unsafe)')
-            ),
-        );
+            ],
+        ];
     }
 }

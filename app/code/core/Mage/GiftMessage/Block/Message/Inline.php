@@ -100,9 +100,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     protected function _initMessage()
     {
-        $this->_giftMessage = $this->helper('giftmessage/message')->getGiftMessage(
-            $this->getEntity()->getGiftMessageId()
-        );
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        $this->_giftMessage = $helper->getGiftMessage($this->getEntity()->getGiftMessageId());
         return $this;
     }
 
@@ -148,9 +148,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
 
         if ($entity) {
             if (!$entity->getGiftMessage()) {
-                $entity->setGiftMessage(
-                    $this->helper('giftmessage/message')->getGiftMessage($entity->getGiftMessageId())
-                );
+                /** @var Mage_GiftMessage_Helper_Message $helper */
+                $helper = $this->helper('giftmessage/message');
+                $entity->setGiftMessage($helper->getGiftMessage($entity->getGiftMessageId()));
             }
             return $entity->getGiftMessage();
         }
@@ -166,10 +166,10 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     public function getItems()
     {
         if (!$this->getData('items')) {
-            $items = array();
+            $items = [];
 
             $entityItems = $this->getEntity()->getAllItems();
-            Mage::dispatchEvent('gift_options_prepare_items', array('items' => $entityItems));
+            Mage::dispatchEvent('gift_options_prepare_items', ['items' => $entityItems]);
 
             foreach ($entityItems as $item) {
                 if ($item->getParentItem()) {
@@ -269,7 +269,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isItemMessagesAvailable($item)
     {
-        $type = substr($this->getType(), 0, 5) == 'multi' ? 'address_item' : 'item';
+        $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
 }

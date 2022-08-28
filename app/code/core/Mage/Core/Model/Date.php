@@ -105,8 +105,7 @@ class Mage_Core_Model_Date
             return false;
         }
 
-        $result = date($format, $date);
-        return $result;
+        return date($format, $date);
     }
 
     /**
@@ -123,8 +122,7 @@ class Mage_Core_Model_Date
             $format = 'Y-m-d H:i:s';
         }
 
-        $result = date($format, $this->timestamp($input));
-        return $result;
+        return date($format, $this->timestamp($input));
     }
 
     /**
@@ -219,7 +217,7 @@ class Mage_Core_Model_Date
         if (!checkdate($month, $day, $year)) {
             return false;
         }
-        foreach (array('hour' => 23, 'minute' => 59, 'second' => 59) as $var => $maxValue) {
+        foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
             $value = (int)$$var;
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
@@ -240,22 +238,22 @@ class Mage_Core_Model_Date
         // look for supported format
         $isSupportedFormatFound = false;
 
-        $formats = array(
+        $formats = [
             // priority is important!
-            '%m/%d/%y %I:%M' => array(
+            '%m/%d/%y %I:%M' => [
                 '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
-                array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)
-            ),
-            'm/d/y h:i' => array(
+                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5]
+            ],
+            'm/d/y h:i' => [
                 '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})/',
-                array('y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5)
-            ),
-            '%m/%d/%y' => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
-            'm/d/y' => array('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', array('y' => 3, 'm' => 1, 'd' => 2)),
-        );
+                ['y' => 3, 'm' => 1, 'd' => 2, 'h' => 4, 'i' => 5]
+            ],
+            '%m/%d/%y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
+            'm/d/y' => ['/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{1,2})/', ['y' => 3, 'm' => 1, 'd' => 2]],
+        ];
 
         foreach ($formats as $supportedFormat => $regRule) {
-            if (false !== strpos($dateTimeFormat, $supportedFormat, 0)) {
+            if (strpos($dateTimeFormat, $supportedFormat, 0) !== false) {
                 $isSupportedFormatFound = true;
                 break;
             }
@@ -272,8 +270,8 @@ class Mage_Core_Model_Date
         }
 
         // make result
-        $result = array();
-        foreach (array('y', 'm', 'd', 'h', 'i', 's') as $key) {
+        $result = [];
+        foreach (['y', 'm', 'd', 'h', 'i', 's'] as $key) {
             $value = 0;
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
                 $value = (int)$matches[$mask[$key]];

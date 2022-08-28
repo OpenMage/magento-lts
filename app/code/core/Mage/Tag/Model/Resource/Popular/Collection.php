@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Popular tags collection model
  *
@@ -48,11 +47,11 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         $this->getSelect()
             ->reset()
             ->from(
-                array('tag_summary' => $this->getTable('tag/summary')),
-                array('popularity' => 'tag_summary.popularity')
+                ['tag_summary' => $this->getTable('tag/summary')],
+                ['popularity' => 'tag_summary.popularity']
             )
             ->joinInner(
-                array('tag' => $this->getTable('tag/tag')),
+                ['tag' => $this->getTable('tag/tag')],
                 'tag.tag_id = tag_summary.tag_id AND tag.status = ' . Mage_Tag_Model_Tag::STATUS_APPROVED
             )
             ->where('tag_summary.store_id = ?', $storeId)
@@ -116,7 +115,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $countSelect = $this->getConnection()->select();
-        $countSelect->from(array('a' => $select), 'COUNT(popularity)');
+        $countSelect->from(['a' => $select], 'COUNT(popularity)');
         return $countSelect;
     }
 }

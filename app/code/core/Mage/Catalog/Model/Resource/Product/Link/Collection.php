@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product links collection
  *
@@ -112,7 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     public function addLinkTypeIdFilter()
     {
         if ($this->_linkTypeId) {
-            $this->addFieldToFilter('link_type_id', array('eq' => $this->_linkTypeId));
+            $this->addFieldToFilter('link_type_id', ['eq' => $this->_linkTypeId]);
         }
         return $this;
     }
@@ -125,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
     public function addProductIdFilter()
     {
         if ($this->getProduct() && $this->getProduct()->getId()) {
-            $this->addFieldToFilter('product_id', array('eq' => $this->getProduct()->getId()));
+            $this->addFieldToFilter('product_id', ['eq' => $this->getProduct()->getId()]);
         }
         return $this;
     }
@@ -148,10 +147,10 @@ class Mage_Catalog_Model_Resource_Product_Link_Collection extends Mage_Core_Mode
 
             $aliasInCondition = $adapter->quoteColumnAs($alias, null);
             $this->getSelect()->joinLeft(
-                array($alias => $table),
+                [$alias => $table],
                 $aliasInCondition . '.link_id = main_table.link_id AND '
                     . $aliasInCondition . '.product_link_attribute_id = ' . (int) $attribute['id'],
-                array($attribute['code'] => 'value')
+                [$attribute['code'] => 'value']
             );
         }
 

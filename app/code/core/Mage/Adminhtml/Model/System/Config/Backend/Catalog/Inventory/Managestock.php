@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Catalog Inventory Manage Stock Config Backend Model
  *
@@ -34,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Catalog_Inventory_Managestock
      */
     protected $_stockStatusModel;
 
-    public function __construct($parameters = array())
+    public function __construct($parameters = [])
     {
         if (!empty($parameters['stock_status_model'])) {
             $this->_stockStatusModel = $parameters['stock_status_model'];

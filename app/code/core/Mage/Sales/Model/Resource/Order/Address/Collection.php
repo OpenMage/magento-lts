@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order payment collection
  *
@@ -63,9 +62,9 @@ class Mage_Sales_Model_Resource_Order_Address_Collection extends Mage_Sales_Mode
     {
         parent::_afterLoad();
 
-        Mage::dispatchEvent($this->_eventPrefix . '_load_after', array(
+        Mage::dispatchEvent($this->_eventPrefix . '_load_after', [
             $this->_eventObject => $this
-        ));
+        ]);
 
         return $this;
     }

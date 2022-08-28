@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product Downloads Report collection
  *
@@ -51,27 +50,27 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
 
         $this->getSelect()
             ->joinInner(
-                array('d' =>  $this->getTable('downloadable/link_purchased_item')),
+                ['d' =>  $this->getTable('downloadable/link_purchased_item')],
                 'e.entity_id = d.product_id',
-                array(
+                [
                     'purchases' => new Zend_Db_Expr('SUM(d.number_of_downloads_bought)'),
                     'downloads' => new Zend_Db_Expr('SUM(d.number_of_downloads_used)'),
-                )
+                ]
             )
             ->joinInner(
-                array('l' => $this->getTable('downloadable/link_title')),
+                ['l' => $this->getTable('downloadable/link_title')],
                 'd.link_id = l.link_id',
-                array('l.link_id')
+                ['l.link_id']
             )
             ->joinLeft(
-                array('l_store' => $this->getTable('downloadable/link_title')),
+                ['l_store' => $this->getTable('downloadable/link_title')],
                 $adapter->quoteInto('l.link_id = l_store.link_id AND l_store.store_id = ?', (int)$this->getStoreId()),
-                array('link_title' => $linkExpr)
+                ['link_title' => $linkExpr]
             )
-            ->where(implode(' OR ', array(
+            ->where(implode(' OR ', [
                 $adapter->quoteInto('d.number_of_downloads_bought > ?', 0),
                 $adapter->quoteInto('d.number_of_downloads_used > ?', 0),
-            )))
+            ]))
             ->group('d.link_id');
         /**
          * Allow to use analytic function

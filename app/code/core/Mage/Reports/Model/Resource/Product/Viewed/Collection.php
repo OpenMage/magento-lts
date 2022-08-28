@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Products Most Viewed Report collection
  *
@@ -33,7 +32,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
      *
      * @var array
      */
-    protected $_storeIds = array();
+    protected $_storeIds = [];
 
     /**
      * Join fields

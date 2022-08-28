@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Renderer for PayPal banner in System Configuration
  *
@@ -87,6 +86,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Hint
                 });
             });
         ';
-        return $this->toHtml() . $this->helper('adminhtml/js')->getScript($js);
+
+        /** @var Mage_Adminhtml_Helper_Js $helper */
+        $helper = $this->helper('adminhtml/js');
+        return $this->toHtml() . $helper->getScript($js);
     }
 }

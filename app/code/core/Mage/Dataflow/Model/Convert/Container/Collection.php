@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert component collection
  *
@@ -29,7 +28,7 @@
 class Mage_Dataflow_Model_Convert_Container_Collection
 {
 
-    protected $_items = array();
+    protected $_items = [];
 
     protected $_defaultClass = 'Mage_Dataflow_Model_Convert_Container_Generic';
 

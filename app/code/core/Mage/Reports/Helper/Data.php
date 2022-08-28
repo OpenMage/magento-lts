@@ -50,7 +50,7 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
     {
-        $intervals = array();
+        $intervals = [];
         if (!$from && !$to) {
             return $intervals;
         }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Resource Model for Agreement Collection
  *
@@ -28,9 +27,9 @@
  */
 class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected $_map = array('fields' => array(
+    protected $_map = ['fields' => [
         'agreement_id' => 'main_table.agreement_id',
-    ));
+    ]];
 
     /**
      * Is store filter with admin store
@@ -58,9 +57,9 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
     {
         // check and prepare data
         if ($store instanceof Mage_Core_Model_Store) {
-            $store = array($store->getId());
+            $store = [$store->getId()];
         } elseif (is_numeric($store)) {
-            $store = array($store);
+            $store = [$store];
         }
 
         $alias = 'store_table_' . implode('_', $store);
@@ -68,16 +67,16 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
             return $this;
         }
 
-        $storeFilter = array($store);
+        $storeFilter = [$store];
         if ($this->_isStoreFilterWithAdmin) {
             $storeFilter[] = 0;
         }
 
         // add filter
         $this->getSelect()->join(
-            array($alias => $this->getTable('checkout/agreement_store')),
+            [$alias => $this->getTable('checkout/agreement_store')],
             'main_table.agreement_id = ' . $alias . '.agreement_id',
-            array()
+            []
         )
         ->where($alias . '.store_id IN (?)', $storeFilter)
         ->group('main_table.agreement_id');
@@ -88,7 +87,6 @@ class Mage_Checkout_Model_Resource_Agreement_Collection extends Mage_Core_Model_
          * Allow Analytic functions usage
          */
         $this->_useAnalyticFunction = true;
-
 
         return $this;
     }

@@ -181,6 +181,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <comment>Subtotal after discount.</comment>
+                            <validate>validate-number</validate>
                         </amount>
                         <description translate="label comment">
                             <label>Description Message</label>

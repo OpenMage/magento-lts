@@ -25,7 +25,7 @@
 ?>
 
 <?php $_item = $this->getItem() ?>
-<?php $items = array_merge(array($_item->getOrderItem()), $_item->getOrderItem()->getChildrenItems()) ?>
+<?php $items = array_merge([$_item->getOrderItem()], $_item->getOrderItem()->getChildrenItems()) ?>
 <?php $shipItems = $this->getChilds($_item) ?>
 <?php $_count = count ($items) ?>
 <?php $_index = 0 ?>

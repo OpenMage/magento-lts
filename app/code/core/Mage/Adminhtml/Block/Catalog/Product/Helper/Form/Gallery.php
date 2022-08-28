@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product gallery attribute
  *
@@ -31,9 +30,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
 
     public function getElementHtml()
     {
-        $html = $this->getContentHtml();
         //$html.= $this->getAfterElementHtml();
-        return $html;
+        return $this->getContentHtml();
     }
 
     /**
@@ -44,7 +42,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
     public function getContentHtml()
     {
 
-        /* @var $content Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content */
+        /** @var Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content $content */
         $content = Mage::getSingleton('core/layout')
             ->createBlock('adminhtml/catalog_product_helper_form_gallery_content');
 

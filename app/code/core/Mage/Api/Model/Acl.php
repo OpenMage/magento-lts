@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Acl model
  *
@@ -76,7 +75,7 @@ class Mage_Api_Model_Acl extends Zend_Acl
      */
     protected function _getRoleRegistry()
     {
-        if (null === $this->_roleRegistry) {
+        if ($this->_roleRegistry === null) {
             $this->_roleRegistry = Mage::getModel('api/acl_role_registry');
         }
         return $this->_roleRegistry;

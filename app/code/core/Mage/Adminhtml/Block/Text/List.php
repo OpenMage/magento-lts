@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml text list block
  *
@@ -30,8 +29,6 @@ class Mage_Adminhtml_Block_Text_List extends Mage_Core_Block_Text_List
 {
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

@@ -55,14 +55,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             // Initialize product object as form property to use it during elements generation
             $form->setDataObject(Mage::registry('product'));
 
-            $fieldset = $form->addFieldset('group_fields' . $group->getId(), array(
+            $fieldset = $form->addFieldset('group_fields' . $group->getId(), [
                 'legend' => Mage::helper('catalog')->__($group->getAttributeGroupName()),
                 'class' => 'fieldset-wide'
-            ));
+            ]);
 
             $attributes = $this->getGroupAttributes();
 
-            $this->_setFieldset($attributes, $fieldset, array('gallery'));
+            $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
             $urlKey = $form->getElement('url_key');
             if ($urlKey) {
@@ -135,7 +135,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
             $form->addValues($values);
             $form->setFieldNameSuffix('product');
 
-            Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', array('form' => $form));
+            Mage::dispatchEvent('adminhtml_catalog_product_edit_prepare_form', ['form' => $form]);
 
             $this->setForm($form);
         }
@@ -148,18 +148,18 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
      */
     protected function _getAdditionalElementTypes()
     {
-        $result = array(
+        $result = [
             'price'    => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_price'),
             'weight'   => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_weight'),
             'gallery'  => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_gallery'),
             'image'    => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_image'),
             'boolean'  => Mage::getConfig()->getBlockClassName('adminhtml/catalog_product_helper_form_boolean'),
             'textarea' => Mage::getConfig()->getBlockClassName('adminhtml/catalog_helper_form_wysiwyg')
-        );
+        ];
 
         $response = new Varien_Object();
-        $response->setTypes(array());
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', array('response' => $response));
+        $response->setTypes([]);
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response' => $response]);
 
         foreach ($response->getTypes() as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;

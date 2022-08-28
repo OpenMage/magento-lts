@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * AdminNotification Inbox model
  *
@@ -73,14 +72,13 @@ class Mage_AdminNotification_Model_Resource_Inbox extends Mage_Core_Model_Resour
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->getMainTable(), array(
+            ->from($this->getMainTable(), [
                 'severity'     => 'severity',
-                'count_notice' => new Zend_Db_Expr('COUNT(' . $this->getIdFieldName() . ')')))
+                'count_notice' => new Zend_Db_Expr('COUNT(' . $this->getIdFieldName() . ')')])
             ->group('severity')
             ->where('is_remove=?', 0)
             ->where('is_read=?', 0);
-        $return = $adapter->fetchPairs($select);
-        return $return;
+        return $adapter->fetchPairs($select);
     }
 
     /**

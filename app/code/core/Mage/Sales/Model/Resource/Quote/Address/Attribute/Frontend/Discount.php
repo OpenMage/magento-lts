@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote address attribute frontend discount resource model
  *
@@ -43,11 +42,11 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Frontend_Discount extend
             if (strlen($couponCode)) {
                 $title .= sprintf(' (%s)', $couponCode);
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code'  => 'discount',
                 'title' => $title,
                 'value' => -$amount
-            ));
+            ]);
         }
         return $this;
     }

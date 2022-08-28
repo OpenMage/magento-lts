@@ -38,7 +38,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     protected function _prepareLayout()
     {
         $helper = Mage::helper('catalog/category');
-        /* @var Mage_Catalog_Helper_Category $helper */
+        /** @var Mage_Catalog_Helper_Category $helper */
         $collection = $helper->getStoreCategories('name', true, false);
         $this->setCollection($collection);
         return $this;
@@ -53,7 +53,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Category extends Mage_Catalog_Block_Seo_Sit
     public function getItemUrl($category)
     {
         $helper = Mage::helper('catalog/category');
-        /* @var Mage_Catalog_Helper_Category $helper */
+        /** @var Mage_Catalog_Helper_Category $helper */
         return $helper->getCategoryUrl($category);
     }
 }

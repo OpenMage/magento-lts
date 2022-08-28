@@ -40,8 +40,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array $data
      * @param int $storeId
      * @param int $productId
@@ -49,12 +47,10 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
      */
     public function saveIndex($data, $storeId, $productId)
     {
-        return $this->saveIndices(array($data), $storeId, $productId);
+        return $this->saveIndices([$data], $storeId, $productId);
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array $data
      * @param int $storeId
      * @param int $productId
@@ -65,8 +61,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array $data
      * @param int $storeId
      * @param int $productId
@@ -90,8 +84,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here ...
-     *
      * @param int $productId
      * @param int $storeId
      * @param int $attributeId
@@ -113,8 +105,6 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * Enter description here ...
-     *
      * @param array|string $conditions
      * @return array
      */
@@ -122,8 +112,8 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
     {
         $table = $this->getTable('eav/attribute');
         $select = $this->_getReadAdapter()->select();
-        $select->from(array('main_table' => $table), 'attribute_id')
-            ->join(array('additional_table' => $this->getTable('catalog/eav_attribute')), 'additional_table.attribute_id=main_table.attribute_id');
+        $select->from(['main_table' => $table], 'attribute_id')
+            ->join(['additional_table' => $this->getTable('catalog/eav_attribute')], 'additional_table.attribute_id=main_table.attribute_id');
         $select->distinct(true);
 
         if (is_array($conditions)) {

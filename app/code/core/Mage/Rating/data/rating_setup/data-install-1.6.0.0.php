@@ -26,34 +26,34 @@
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-$data = array(
-    Mage_Rating_Model_Rating::ENTITY_PRODUCT_CODE       => array(
-        array(
+$data = [
+    Mage_Rating_Model_Rating::ENTITY_PRODUCT_CODE       => [
+        [
             'rating_code'   => 'Quality',
             'position'      => 0
-        ),
-        array(
+        ],
+        [
             'rating_code'   => 'Value',
             'position'      => 0
-        ),
-        array(
+        ],
+        [
             'rating_code'   => 'Price',
             'position'      => 0
-        ),
-    ),
-    Mage_Rating_Model_Rating::ENTITY_PRODUCT_REVIEW_CODE    => array(
-    ),
-    Mage_Rating_Model_Rating::ENTITY_REVIEW_CODE            => array(
-    ),
-);
+        ],
+    ],
+    Mage_Rating_Model_Rating::ENTITY_PRODUCT_REVIEW_CODE    => [
+    ],
+    Mage_Rating_Model_Rating::ENTITY_REVIEW_CODE            => [
+    ],
+];
 
 foreach ($data as $entityCode => $ratings) {
     //Fill table rating/rating_entity
     $installer->getConnection()
-        ->insert($installer->getTable('rating_entity'), array('entity_code' => $entityCode));
+        ->insert($installer->getTable('rating_entity'), ['entity_code' => $entityCode]);
     $entityId = $installer->getConnection()->lastInsertId($installer->getTable('rating_entity'));
 
     foreach ($ratings as $bind) {
@@ -63,14 +63,14 @@ foreach ($data as $entityCode => $ratings) {
 
         //Fill table rating/rating_option
         $ratingId = $installer->getConnection()->lastInsertId($installer->getTable('rating'));
-        $optionData = array();
+        $optionData = [];
         for ($i = 1; $i <= 5; $i ++) {
-            $optionData[] = array(
+            $optionData[] = [
                 'rating_id' => $ratingId,
                 'code'      => (string)$i,
                 'value'     => $i,
                 'position'  => $i
-            );
+            ];
         }
         $installer->getConnection()->insertMultiple($installer->getTable('rating_option'), $optionData);
     }

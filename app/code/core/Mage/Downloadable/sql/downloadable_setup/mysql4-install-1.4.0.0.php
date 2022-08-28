@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -143,8 +143,7 @@ CREATE TABLE `{$installer->getTable('downloadable_sample_title')}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 
-
-$fieldList = array(
+$fieldList = [
     'price',
     'special_price',
     'special_from_date',
@@ -153,7 +152,7 @@ $fieldList = array(
     'cost',
     'tier_price',
     'tax_class_id'
-);
+];
 
 // make these attributes applicable to downloadable products
 foreach ($fieldList as $field) {
@@ -164,7 +163,7 @@ foreach ($fieldList as $field) {
     }
 }
 
-$installer->addAttribute('catalog_product', 'links_purchased_separately', array(
+$installer->addAttribute('catalog_product', 'links_purchased_separately', [
     'type'              => 'int',
     'backend'           => '',
     'frontend'          => '',
@@ -184,9 +183,9 @@ $installer->addAttribute('catalog_product', 'links_purchased_separately', array(
     'unique'            => false,
     'apply_to'          => 'downloadable',
     'is_configurable'   => false
-));
+]);
 
-$installer->addAttribute('catalog_product', 'samples_title', array(
+$installer->addAttribute('catalog_product', 'samples_title', [
     'type'              => 'varchar',
     'backend'           => '',
     'frontend'          => '',
@@ -206,9 +205,9 @@ $installer->addAttribute('catalog_product', 'samples_title', array(
     'unique'            => false,
     'apply_to'          => 'downloadable',
     'is_configurable'   => false
-));
+]);
 
-$installer->addAttribute('catalog_product', 'links_title', array(
+$installer->addAttribute('catalog_product', 'links_title', [
     'type'              => 'varchar',
     'backend'           => '',
     'frontend'          => '',
@@ -228,9 +227,9 @@ $installer->addAttribute('catalog_product', 'links_title', array(
     'unique'            => false,
     'apply_to'          => 'downloadable',
     'is_configurable'   => false
-));
+]);
 
-$installer->addAttribute('catalog_product', 'links_exist', array(
+$installer->addAttribute('catalog_product', 'links_exist', [
     'type'                      => 'int',
     'backend'                   => '',
     'frontend'                  => '',
@@ -251,6 +250,6 @@ $installer->addAttribute('catalog_product', 'links_exist', array(
     'apply_to'                  => 'downloadable',
     'is_configurable'           => false,
     'used_in_product_listing'   => 1
-));
+]);
 
 $installer->endSetup();

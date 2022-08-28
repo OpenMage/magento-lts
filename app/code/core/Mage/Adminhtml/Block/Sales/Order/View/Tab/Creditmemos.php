@@ -46,7 +46,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
         return 'sales/order_creditmemo_grid_collection';
     }
 
-
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
@@ -68,36 +67,36 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
 
     protected function _prepareColumns()
     {
-        $this->addColumn('increment_id', array(
+        $this->addColumn('increment_id', [
             'header' => Mage::helper('sales')->__('Credit Memo #'),
             'width' => '120px',
             'index' => 'increment_id',
-        ));
+        ]);
 
-        $this->addColumn('billing_name', array(
+        $this->addColumn('billing_name', [
             'header' => Mage::helper('sales')->__('Bill to Name'),
             'index' => 'billing_name',
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header' => Mage::helper('sales')->__('Created At'),
             'index' => 'created_at',
             'type' => 'datetime',
-        ));
+        ]);
 
-        $this->addColumn('state', array(
+        $this->addColumn('state', [
             'header'    => Mage::helper('sales')->__('Status'),
             'index'     => 'state',
             'type'      => 'options',
             'options'   => Mage::getModel('sales/order_creditmemo')->getStates(),
-        ));
+        ]);
 
-        $this->addColumn('base_grand_total', array(
+        $this->addColumn('base_grand_total', [
             'header'    => Mage::helper('customer')->__('Refunded'),
             'index'     => 'base_grand_total',
             'type'      => 'currency',
             'currency'  => 'base_currency_code',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -116,15 +115,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos
     {
         return $this->getUrl(
             '*/sales_order_creditmemo/view',
-            array(
+            [
                 'creditmemo_id'=> $row->getId(),
                 'order_id'  => $row->getOrderId()
-             ));
+            ]);
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/creditmemos', array('_current' => true));
+        return $this->getUrl('*/*/creditmemos', ['_current' => true]);
     }
 
     /**

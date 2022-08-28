@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Order billing address backend
  *
@@ -53,7 +52,7 @@ class Mage_Sales_Model_Resource_Order_Attribute_Backend_Billing extends Mage_Eav
     {
         $billingAddressId = false;
         foreach ($object->getAddressesCollection() as $address) {
-            if ('billing' == $address->getAddressType()) {
+            if ($address->getAddressType() == 'billing') {
                 $billingAddressId = $address->getId();
             }
         }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable samples resource collection
  *
@@ -47,7 +46,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
         if (empty($product)) {
             $this->addFieldToFilter('product_id', '');
         } elseif (is_array($product)) {
-            $this->addFieldToFilter('product_id', array('in' => $product));
+            $this->addFieldToFilter('product_id', ['in' => $product]);
         } else {
             $this->addFieldToFilter('product_id', $product);
         }
@@ -67,14 +66,14 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
             ->getIfNullSql('st.title', 'd.title');
         $this->getSelect()
             ->joinLeft(
-                array('d' => $this->getTable('downloadable/sample_title')),
+                ['d' => $this->getTable('downloadable/sample_title')],
                 'd.sample_id=main_table.sample_id AND d.store_id = 0',
-                array('default_title' => 'title')
+                ['default_title' => 'title']
             )
             ->joinLeft(
-                array('st' => $this->getTable('downloadable/sample_title')),
+                ['st' => $this->getTable('downloadable/sample_title')],
                 'st.sample_id=main_table.sample_id AND st.store_id = ' . (int)$storeId,
-                array('store_title' => 'title','title' => $ifNullDefaultTitle)
+                ['store_title' => 'title','title' => $ifNullDefaultTitle]
             )
             ->order('main_table.sort_order ASC')
             ->order('title ASC');

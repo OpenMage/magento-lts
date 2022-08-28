@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Mysql4_Setup $installer */
 $installer = $this;
 
 $this->startSetup();
@@ -27,23 +26,22 @@ $this->startSetup();
 $orderEntityType = $installer->getEntityType('order');
 $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
-$attributesToModify = array(
+$attributesToModify = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
-);
+];
 
-$attributesToMove = array(
+$attributesToMove = [
     $installer->getAttribute($orderEntityTypeId, 'status'),
     $installer->getAttribute($orderEntityTypeId, 'state')
-);
+];
 
 // modify existing attributes in sales/order table
 foreach ($attributesToModify as $attribute) {
     $installer->getConnection()->modifyColumn($this->getTable('sales_order'), $attribute['attribute_code'], "decimal(12,4) NOT NULL DEFAULT '0'");
 }
-
 
 foreach ($attributesToMove as $attribute) {
     $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribute['attribute_code'], 'varchar(50) NULL');
@@ -66,7 +64,7 @@ foreach ($attributesToMove as $attribute) {
 }
 
 foreach ($attributesToMove as $attribute) {
-    $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
+    $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], ['backend_type' => 'static']);
 }
 
 $installer->run("
@@ -100,6 +98,5 @@ $installer->getConnection()->addConstraint(
     'store_id',
     'SET NULL'
 );
-
 
 $this->endSetup();

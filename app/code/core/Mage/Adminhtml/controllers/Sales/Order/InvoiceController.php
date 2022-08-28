@@ -36,7 +36,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         if (isset($data['items'])) {
             $qtys = $data['items'];
         } else {
-            $qtys = array();
+            $qtys = [];
         }
         return $qtys;
     }
@@ -44,7 +44,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Initialize invoice model instance
      *
-     * @return Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Invoice|false
+     * @throws Mage_Core_Exception
      */
     protected function _initInvoice($update = false)
     {
@@ -90,8 +91,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
     /**
      * Save data for invoice and related order
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
+     * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return  Mage_Adminhtml_Sales_Order_InvoiceController
+     * @throws Exception
      */
     protected function _saveInvoice($invoice)
     {
@@ -108,7 +110,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
      * Prepare shipment
      *
      * @param Mage_Sales_Model_Order_Invoice $invoice
-     * @return Mage_Sales_Model_Order_Shipment
+     * @return Mage_Sales_Model_Order_Shipment|false
+     * @throws Mage_Core_Exception
      */
     protected function _prepareShipment($invoice)
     {
@@ -117,7 +120,6 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         if (!$shipment->getTotalQty()) {
             return false;
         }
-
 
         $shipment->register();
         $tracks = $this->getRequest()->getPost('tracking');
@@ -142,8 +144,11 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
 
             $this->loadLayout()
                 ->_setActiveMenu('sales/order');
-            $this->getLayout()->getBlock('sales_invoice_view')
-                ->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
+            /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_View $block */
+            $block = $this->getLayout()->getBlock('sales_invoice_view');
+            $block->updateBackButtonUrl($this->getRequest()->getParam('come_from'));
+
             $this->renderLayout();
         }
         else {
@@ -160,7 +165,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
          * Clear old values for invoice qty's
          */
         $this->_getSession()->getInvoiceItemQtys(true);
-        $this->_redirect('*/*/new', array('order_id'=>$this->getRequest()->getParam('order_id')));
+        $this->_redirect('*/*/new', ['order_id'=>$this->getRequest()->getParam('order_id')]);
     }
 
     /**
@@ -180,7 +185,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                 ->_setActiveMenu('sales/order')
                 ->renderLayout();
         } else {
-            $this->_redirect('*/sales_order/view', array('order_id'=>$this->getRequest()->getParam('order_id')));
+            $this->_redirect('*/sales_order/view', ['order_id'=>$this->getRequest()->getParam('order_id')]);
         }
     }
 
@@ -199,16 +204,16 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('order_items')->toHtml();
         } catch (Mage_Core_Exception $e) {
-            $response = array(
+            $response = [
                 'error'     => true,
                 'message'   => $e->getMessage()
-            );
+            ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception $e) {
-            $response = array(
+            $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot update item quantity.')
-            );
+            ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
         $this->getResponse()->setBody($response);
@@ -293,9 +298,9 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->getCommentText(true);
-                $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
+                $this->_redirect('*/sales_order/view', ['order_id' => $orderId]);
             } else {
-                $this->_redirect('*/*/new', array('order_id' => $orderId));
+                $this->_redirect('*/*/new', ['order_id' => $orderId]);
             }
             return;
         } catch (Mage_Core_Exception $e) {
@@ -304,9 +309,8 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $this->_getSession()->addError($this->__('Unable to save the invoice.'));
             Mage::logException($e);
         }
-        $this->_redirect('*/*/new', array('order_id' => $orderId));
+        $this->_redirect('*/*/new', ['order_id' => $orderId]);
     }
-
 
     /**
      * Capture invoice action
@@ -323,7 +327,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice capturing error.'));
             }
-            $this->_redirect('*/*/view', array('invoice_id'=>$invoice->getId()));
+            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -344,7 +348,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice canceling error.'));
             }
-            $this->_redirect('*/*/view', array('invoice_id'=>$invoice->getId()));
+            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -365,7 +369,7 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             } catch (Exception $e) {
                 $this->_getSession()->addError($this->__('Invoice voiding error.'));
             }
-            $this->_redirect('*/*/view', array('invoice_id'=>$invoice->getId()));
+            $this->_redirect('*/*/view', ['invoice_id'=>$invoice->getId()]);
         } else {
             $this->_forward('noRoute');
         }
@@ -391,27 +395,20 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
             $this->loadLayout();
             $response = $this->getLayout()->getBlock('invoice_comments')->toHtml();
         } catch (Mage_Core_Exception $e) {
-            $response = array(
+            $response = [
                 'error'     => true,
                 'message'   => $e->getMessage()
-            );
+            ];
             $response = Mage::helper('core')->jsonEncode($response);
         } catch (Exception $e) {
-            $response = array(
+            $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot add new comment.')
-            );
+            ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
         $this->getResponse()->setBody($response);
     }
-
-
-
-
-
-
-
 
     /**
      * Decides if we need to create dummy invoice item or not
@@ -490,5 +487,4 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
         $this->_initInvoice();
         parent::printAction();
     }
-
 }

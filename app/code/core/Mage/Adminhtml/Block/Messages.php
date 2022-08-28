@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml messages block
  *
@@ -30,8 +29,6 @@ class Mage_Adminhtml_Block_Messages extends Mage_Core_Block_Messages
 {
 
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()

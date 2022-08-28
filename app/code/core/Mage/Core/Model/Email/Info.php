@@ -37,29 +37,28 @@ class Mage_Core_Model_Email_Info extends Varien_Object
      *
      * @var array
      */
-    protected $_bccNames = array();
+    protected $_bccNames = [];
 
     /**
      * Email list of "Bcc" recipients
      *
      * @var array
      */
-    protected $_bccEmails = array();
+    protected $_bccEmails = [];
 
     /**
      * Name list of "To" recipients
      *
      * @var array
      */
-    protected $_toNames = array();
+    protected $_toNames = [];
 
     /**
      * Email list of "To" recipients
      *
      * @var array
      */
-    protected $_toEmails = array();
-
+    protected $_toEmails = [];
 
     /**
      * Add new "Bcc" recipient to current email

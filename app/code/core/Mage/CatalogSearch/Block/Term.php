@@ -47,7 +47,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     protected function _loadTerms()
     {
         if (empty($this->_terms)) {
-            $this->_terms = array();
+            $this->_terms = [];
             $terms = Mage::getResourceModel('catalogsearch/query_collection')
                 ->setPopularQueryFilter(Mage::app()->getStore()->getId())
                 ->setPageSize(100)
@@ -57,7 +57,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             if (count($terms) == 0) {
                 return $this;
             }
-
 
             $this->_maxPopularity = reset($terms)->getPopularity();
             $this->_minPopularity = end($terms)->getPopularity();

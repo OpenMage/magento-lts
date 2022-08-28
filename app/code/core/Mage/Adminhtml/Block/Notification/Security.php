@@ -49,7 +49,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
             return true;
         }
         $adminSessionLifetime = (int)Mage::getStoreConfig('admin/security/session_cookie_lifetime');
-        Mage::app()->saveCache(true, self::VERIFICATION_RESULT_CACHE_KEY, array(), $adminSessionLifetime);
+        Mage::app()->saveCache(true, self::VERIFICATION_RESULT_CACHE_KEY, [], $adminSessionLifetime);
         return false;
     }
 
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
         $defaultUnsecureBaseURL = (string) Mage::getConfig()->getNode('default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
 
         $http = new Varien_Http_Adapter_Curl();
-        $http->setConfig(array('timeout' => $this->_verificationTimeOut));
+        $http->setConfig(['timeout' => $this->_verificationTimeOut]);
         $http->write(Zend_Http_Client::POST, $defaultUnsecureBaseURL . $this->_filePath);
         $responseBody = $http->read();
         $responseCode = Zend_Http_Response::extractCode($responseBody);

@@ -55,25 +55,25 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('block_id', array(
+        $this->addColumn('block_id', [
             'header'    => Mage::helper('adminhtml')->__('ID'),
             'width'     => 5,
             'align'     => 'right',
             'sortable'  => true,
             'index'     => 'block_id'
-        ));
+        ]);
 
-        $this->addColumn('block_name', array(
+        $this->addColumn('block_name', [
             'header'    => Mage::helper('adminhtml')->__('Block Name'),
             'index'     => 'block_name'
-        ));
+        ]);
 
-        $this->addColumn('is_allowed', array(
+        $this->addColumn('is_allowed', [
             'header'    => Mage::helper('adminhtml')->__('Status'),
             'index'     => 'is_allowed',
             'type'      => 'options',
-            'options'   => array('1' => Mage::helper('adminhtml')->__('Allowed'), '0' => Mage::helper('adminhtml')->__('Not allowed')),
-        ));
+            'options'   => ['1' => Mage::helper('adminhtml')->__('Allowed'), '0' => Mage::helper('adminhtml')->__('Not allowed')],
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('block_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
     }
 
     /**
@@ -92,6 +92,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Grid extends Mage_Adminhtml_Block_W
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/blockGrid', array());
+        return $this->getUrl('*/*/blockGrid', []);
     }
 }

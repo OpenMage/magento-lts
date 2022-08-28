@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sales Controller
  *
@@ -73,7 +72,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
      */
     protected function _loadValidOrder($orderId = null)
     {
-        if (null === $orderId) {
+        if ($orderId === null) {
             $orderId = (int) $this->getRequest()->getParam('order_id');
         }
         if (!$orderId) {
@@ -133,7 +132,7 @@ abstract class Mage_Sales_Controller_Abstract extends Mage_Core_Controller_Front
             return;
         }
         $order = Mage::registry('current_order');
-        /* @var Mage_Checkout_Model_Cart $cart */
+        /** @var Mage_Checkout_Model_Cart $cart */
         $cart = Mage::getSingleton('checkout/cart');
 
         $items = $order->getItemsCollection();

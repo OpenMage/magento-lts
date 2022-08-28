@@ -36,9 +36,9 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function items($productId, $store = null)
     {
-        $result = array();
+        $result = [];
         // fields list to return
-        $fieldsForResult = array('tag_id', 'name');
+        $fieldsForResult = ['tag_id', 'name'];
 
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
@@ -70,7 +70,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
      */
     public function info($tagId, $store)
     {
-        $result = array();
+        $result = [];
         $storeId = $this->_getStoreId($store);
         /** @var Mage_Tag_Model_Tag $tag */
         $tag = Mage::getModel('tag/tag')->setStoreId($storeId)->setAddBasePopularity()->load($tagId);
@@ -81,7 +81,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         $result['name'] = $tag->getName();
         $result['base_popularity'] = (is_numeric($tag->getBasePopularity())) ? $tag->getBasePopularity() : 0;
         // retrieve array($productId => $popularity, ...)
-        $result['products'] = array();
+        $result['products'] = [];
         $relatedProductsCollection = $tag->getEntityCollection()->addTagFilter($tagId)
             ->addStoreFilter($storeId)->addPopularity($tagId);
         /** @var Mage_Catalog_Model_Product $product */
@@ -167,8 +167,8 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         }
         if (isset($data['status'])) {
             // validate tag status
-            if (!in_array($data['status'], array(
-                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()))) {
+            if (!in_array($data['status'], [
+                $tag->getApprovedStatus(), $tag->getPendingStatus(), $tag->getDisabledStatus()])) {
                 $this->_fault('invalid_data');
             }
             $tag->setStatus($data['status']);

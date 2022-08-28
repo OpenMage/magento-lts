@@ -173,11 +173,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
     {
-        $request = $this->_buildBasicRequest()
+        return $this->_buildBasicRequest()
             ->setOrder($payment->getOrder())
             ->setPaymentMethod($this);
-
-        return $request;
     }
 
     /**
@@ -205,11 +203,11 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected function _buildBasicRequest()
     {
         $request = Mage::getModel('paypal/hostedpro_request');
-        $request->setData(array(
+        $request->setData([
             'METHOD'     => self::BM_BUTTON_METHOD,
             'BUTTONCODE' => self::BM_BUTTON_CODE,
             'BUTTONTYPE' => self::BM_BUTTON_TYPE
-        ));
+        ]);
         return $request;
     }
 
@@ -257,9 +255,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected function _getUrl($path, $storeId, $secure = null)
     {
         $store = Mage::app()->getStore($storeId);
-        return Mage::getUrl($path, array(
+        return Mage::getUrl($path, [
             "_store"   => $store,
             "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
-        ));
+        ]);
     }
 }

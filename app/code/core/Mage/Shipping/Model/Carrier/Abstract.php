@@ -70,7 +70,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_customizableContainerTypes = array();
+    protected $_customizableContainerTypes = [];
 
     const USA_COUNTRY_ID = 'US';
     const CANADA_COUNTRY_ID = 'CA';
@@ -87,7 +87,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_debugReplacePrivateDataKeys = array();
+    protected $_debugReplacePrivateDataKeys = [];
 
     /**
      * Retrieve information from carrier configuration
@@ -160,7 +160,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContainerTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -173,13 +173,13 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     {
         $containersAll = $this->getContainerTypesAll();
         if (empty($containersAll)) {
-            return array();
+            return [];
         }
         if (empty($params)) {
             return $containersAll;
         }
         $containersFilter   = $this->getContainerTypesFilter();
-        $containersFiltered = array();
+        $containersFiltered = [];
         $method             = $params->getMethod();
         $countryShipper     = $params->getCountryShipper();
         $countryRecipient   = $params->getCountryRecipient();
@@ -234,7 +234,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getDeliveryConfirmationTypes(Varien_Object $params = null)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -249,7 +249,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         */
         if ($speCountriesAllow && $speCountriesAllow == 1) {
              $showMethod = $this->getConfigData('showmethod');
-             $availableCountries = array();
+             $availableCountries = [];
             if ($this->getConfigData('specificcountry')) {
                 $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             }
@@ -273,7 +273,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         }
         return $this;
     }
-
 
     /**
      * Processing additional validation to check is carrier applicable.
@@ -587,6 +586,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
      */
     public function getContentTypes(Varien_Object $params)
     {
-        return array();
+        return [];
     }
 }

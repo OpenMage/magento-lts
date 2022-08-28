@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow batch Io model
  *
@@ -129,9 +128,9 @@ class Mage_Dataflow_Model_Batch_Io
     public function open($write = true)
     {
         $mode = $write ? 'w+' : 'r+';
-        $ioConfig = array(
+        $ioConfig = [
             'path' => $this->getPath()
-        );
+        ];
         $this->getIoAdapter()->setAllowCreateFolders(true);
         $this->getIoAdapter()->open($ioConfig);
         $this->getIoAdapter()->streamOpen($this->getFile(), $mode);

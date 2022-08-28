@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  *Rule product condition attribute data model
  *
@@ -82,10 +81,10 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
      */
     public function __construct()
     {
-        $this->_operatorSelectOptionsHash = array(
+        $this->_operatorSelectOptionsHash = [
             self::OPERATOR_ATTRIBUTE_IS_ASSIGNED        => $this->_getHelper()->__('is assigned'),
             self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED    => $this->_getHelper()->__('is not assigned')
-        );
+        ];
 
         parent::__construct();
     }
@@ -97,12 +96,12 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
     public function getOperatorSelectOptions()
     {
         if (is_null($this->_cachedOperatorSelectOptionsCache)) {
-            $this->_cachedOperatorSelectOptionsCache = array();
+            $this->_cachedOperatorSelectOptionsCache = [];
             foreach ($this->_operatorSelectOptionsHash as $operatorValue => $operatorLabel) {
-                $this->_cachedOperatorSelectOptionsCache[] = array(
+                $this->_cachedOperatorSelectOptionsCache[] = [
                     'label' => $operatorLabel,
                     'value' => $operatorValue
-                );
+                ];
             }
         }
 
@@ -136,7 +135,6 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mag
             || $this->getOperator() == self::OPERATOR_ATTRIBUTE_IS_NOT_ASSIGNED
             && !array_key_exists($this->getAttribute(), $attributes);
     }
-
 
     /**
      * Generate a condition html

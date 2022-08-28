@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_Adapter_Abstract
 {
     /**
@@ -28,11 +27,11 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      */
     protected $_store;
 
-    protected $_filter = array();
-    protected $_joinFilter = array();
-    protected $_joinAttr = array();
+    protected $_filter = [];
+    protected $_joinFilter = [];
+    protected $_joinAttr = [];
     protected $_attrToDb;
-    protected $_joinField = array();
+    protected $_joinField = [];
 
     /**
      * Retrieve store Id
@@ -59,7 +58,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     protected function _parseVars()
     {
         $varFilters = $this->getVars();
-        $filters = array();
+        $filters = [];
         foreach ($varFilters as $key => $val) {
             if (substr($key, 0, 6) === 'filter') {
                 $keys = explode('/', $key, 2);
@@ -115,11 +114,11 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             if (isset($exp[1])) {
                 if (isset($filters[$exp[1]])) {
                     $val = $filters[$exp[1]];
-                    $this->setJoinAttr(array(
+                    $this->setJoinAttr([
                        'attribute' => $keyDB,
                        'bind' => $bind,
                        'joinType' => $joinType
-                    ));
+                    ]);
                 } else {
                     $val = null;
                 }
@@ -130,48 +129,48 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             if (is_null($val)) {
                 continue;
             }
-            $attr = array();
+            $attr = [];
             switch ($type) {
                 case 'eq':
-                    $attr = array(
+                    $attr = [
                         'attribute' => $keyDB,
                         'eq'        => $val
-                    );
+                    ];
                     break;
                 case 'like':
-                    $attr = array(
+                    $attr = [
                         'attribute' => $keyDB,
                         'like'      => '%'.$val.'%'
-                    );
+                    ];
                     break;
                 case 'startsWith':
-                     $attr = array(
+                     $attr = [
                          'attribute' => $keyDB,
                          'like'      => $val.'%'
-                     );
+                     ];
                     break;
                 case 'fromTo':
-                    $attr = array(
+                    $attr = [
                         'attribute' => $keyDB,
                         'from'      => $val['from'],
                         'to'        => $val['to']
-                    );
+                    ];
                     break;
                 case 'dateFromTo':
-                    $attr = array(
+                    $attr = [
                         'attribute' => $keyDB,
                         'from'      => $val['from'],
                         'to'        => $val['to'],
                         'date'      => true
-                    );
+                    ];
                     break;
                 case 'datetimeFromTo':
-                    $attr = array(
+                    $attr = [
                         'attribute' => $keyDB,
                         'from'      => isset($val['from']) ? $val['from'] : null,
                         'to'        => isset($val['to']) ? $val['to'] : null,
                         'datetime'  => true
-                    );
+                    ];
                     break;
                 default:
                     break;
@@ -195,9 +194,9 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      * @param string $name
      * @return array|bool
      */
-    protected function getFieldValue($fields = array(), $name = '')
+    protected function getFieldValue($fields = [], $name = '')
     {
-        $result = array();
+        $result = [];
         if ($fields && $name) {
             foreach ($fields as $index => $value) {
                 $exp = explode('/', $index);
@@ -219,7 +218,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     public function setJoinAttr($joinAttr)
     {
         if (is_array($joinAttr)) {
-            $joinArrAttr = array();
+            $joinArrAttr = [];
             $joinArrAttr['attribute'] = isset($joinAttr['attribute']) ? $joinAttr['attribute'] : null;
             $joinArrAttr['alias'] = isset($joinAttr['attribute']) ? str_replace('/', '_', $joinAttr['attribute']):null;
             $joinArrAttr['bind'] = isset($joinAttr['bind']) ? $joinAttr['bind'] : null;
@@ -284,7 +283,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $filterQuery = $this->getFilter();
             if (is_array($filterQuery)) {
                 foreach ($filterQuery as $val) {
-                    $collection->addFieldToFilter(array($val));
+                    $collection->addFieldToFilter([$val]);
                 }
             }
 

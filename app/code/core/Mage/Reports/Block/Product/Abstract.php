@@ -85,7 +85,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
      */
     protected function _getProductsToSkip()
     {
-        return array();
+        return [];
     }
 
     /**

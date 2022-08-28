@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Mysql resource helper model
  *
@@ -33,7 +32,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      *
      * @var array
      */
-    protected $_ddlColumnTypes      = array(
+    protected $_ddlColumnTypes      = [
         Varien_Db_Ddl_Table::TYPE_BOOLEAN       => 'bool',
         Varien_Db_Ddl_Table::TYPE_SMALLINT      => 'smallint',
         Varien_Db_Ddl_Table::TYPE_INTEGER       => 'int',
@@ -47,7 +46,7 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
         Varien_Db_Ddl_Table::TYPE_TEXT          => 'text',
         Varien_Db_Ddl_Table::TYPE_BLOB          => 'blob',
         Varien_Db_Ddl_Table::TYPE_VARBINARY     => 'blob'
-    );
+    ];
 
     /**
      * Returns columns for select
@@ -105,11 +104,11 @@ class Mage_Eav_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_Hel
      */
     public function getLoadAttributesSelectGroups($selects)
     {
-        $mainGroup  = array();
+        $mainGroup  = [];
         foreach ($selects as $eavType => $selectGroup) {
             $mainGroup = array_merge($mainGroup, $selectGroup);
         }
-        return array($mainGroup);
+        return [$mainGroup];
     }
 
     /**

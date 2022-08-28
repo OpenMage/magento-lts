@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Attribute Multiply select Data Model
  *
@@ -38,7 +37,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     {
         $values = $this->_getRequestValue($request);
         if ($values !== false && !is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         return $values;
     }
@@ -76,7 +75,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
                 $output = $values;
                 break;
             default:
-                $output = array();
+                $output = [];
                 foreach ($values as $value) {
                     if (!$value) {
                         continue;

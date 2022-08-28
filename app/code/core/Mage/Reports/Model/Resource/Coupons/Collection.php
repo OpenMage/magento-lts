@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Coupons Report collection
  *
@@ -76,48 +75,48 @@ class Mage_Reports_Model_Resource_Coupons_Collection extends Mage_Sales_Model_En
      * @param string $to
      * @param array $storeIds
      */
-    public function joinFields($from, $to, $storeIds = array())
+    public function joinFields($from, $to, $storeIds = [])
     {
         $this->groupByAttribute('coupon_code')
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true))
-            ->addAttributeToFilter('coupon_code', array('neq' => ''))
-            ->getSelect()->columns(array('uses' => 'COUNT(e.entity_id)'))
+            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true])
+            ->addAttributeToFilter('coupon_code', ['neq' => ''])
+            ->getSelect()->columns(['uses' => 'COUNT(e.entity_id)'])
             ->having('uses > ?', 0)
             ->order('uses ' . self::SORT_ORDER_DESC);
 
         $storeIds = array_values($storeIds);
         if (count($storeIds) >= 1 && $storeIds[0] != '') {
-            $this->addAttributeToFilter('store_id', array('in' => $storeIds));
+            $this->addAttributeToFilter('store_id', ['in' => $storeIds]);
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}})',
-                array('base_subtotal')
+                ['base_subtotal']
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}})',
-                array('base_discount_amount')
+                ['base_discount_amount']
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM({{base_subtotal}}-{{base_discount_amount}})',
-                array('base_subtotal', 'base_discount_amount')
+                ['base_subtotal', 'base_discount_amount']
             );
         } else {
             $this->addExpressionAttributeToSelect(
                 'subtotal',
                 'SUM({{base_subtotal}}*{{base_to_global_rate}})',
-                array('base_subtotal', 'base_to_global_rate')
+                ['base_subtotal', 'base_to_global_rate']
             )
             ->addExpressionAttributeToSelect(
                 'discount',
                 'SUM({{base_discount_amount}}*{{base_to_global_rate}})',
-                array('base_discount_amount', 'base_to_global_rate')
+                ['base_discount_amount', 'base_to_global_rate']
             )
             ->addExpressionAttributeToSelect(
                 'total',
                 'SUM(({{base_subtotal}}-{{base_discount_amount}})*{{base_to_global_rate}})',
-                array('base_subtotal', 'base_discount_amount', 'base_to_global_rate')
+                ['base_subtotal', 'base_discount_amount', 'base_to_global_rate']
             );
         }
     }

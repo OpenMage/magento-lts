@@ -36,17 +36,17 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/view/container.phtml');
 
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'     => Mage::helper('adminhtml')->__('Back'),
             'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
             'class'     => 'back',
-        ));
+        ]);
 
-        $this->_addButton('edit', array(
+        $this->_addButton('edit', [
             'label'     => Mage::helper('adminhtml')->__('Edit'),
             'class'     => 'edit',
             'onclick'   => 'window.location.href=\'' . $this->getEditUrl() . '\'',
-        ));
+        ]);
 
     }
 
@@ -58,7 +58,7 @@ class Mage_Adminhtml_Block_Widget_View_Container extends Mage_Adminhtml_Block_Wi
 
     public function getEditUrl()
     {
-        return $this->getUrl('*/*/edit', array($this->_objectId => $this->getRequest()->getParam($this->_objectId)));
+        return $this->getUrl('*/*/edit', [$this->_objectId => $this->getRequest()->getParam($this->_objectId)]);
     }
 
     public function getViewHtml()

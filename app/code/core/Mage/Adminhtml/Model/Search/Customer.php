@@ -34,7 +34,7 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
      */
     public function load()
     {
-        $arr = array();
+        $arr = [];
 
         if (!$this->hasStart() || !$this->hasLimit() || !$this->hasQuery()) {
             $this->setResults($arr);
@@ -43,22 +43,22 @@ class Mage_Adminhtml_Model_Search_Customer extends Varien_Object
         $collection = Mage::getResourceModel('customer/customer_collection')
             ->addNameToSelect()
             ->joinAttribute('company', 'customer_address/company', 'default_billing', null, 'left')
-            ->addAttributeToFilter(array(
-                array('attribute'=>'firstname', 'like' => $this->getQuery().'%'),
-                array('attribute'=>'lastname', 'like'  => $this->getQuery().'%'),
-                array('attribute'=>'company', 'like'   => $this->getQuery().'%'),
-            ))
+            ->addAttributeToFilter([
+                ['attribute'=>'firstname', 'like' => $this->getQuery().'%'],
+                ['attribute'=>'lastname', 'like'  => $this->getQuery().'%'],
+                ['attribute'=>'company', 'like'   => $this->getQuery().'%'],
+            ])
             ->setPage(1, 10)
             ->load();
 
         foreach ($collection->getItems() as $customer) {
-            $arr[] = array(
+            $arr[] = [
                 'id'            => 'customer/1/'.$customer->getId(),
                 'type'          => Mage::helper('adminhtml')->__('Customer'),
                 'name'          => $customer->getName(),
                 'description'   => $customer->getCompany(),
-                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', array('id'=>$customer->getId())),
-            );
+                'url' => Mage::helper('adminhtml')->getUrl('*/customer/edit', ['id'=>$customer->getId()]),
+            ];
         }
 
         $this->setResults($arr);

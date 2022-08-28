@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
@@ -86,7 +85,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Class constructor
      * @param array $parameters
      */
-    public function __construct($parameters = array())
+    public function __construct($parameters = [])
     {
         $this->_urlPolicy = (!empty($parameters['redirectPolicy'])) ?
             $parameters['redirectPolicy'] : Mage::getModel('admin/redirectpolicy');
@@ -172,7 +171,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 $alternativeUrl = $this->_getRequestUri($request);
                 $redirectUrl = $this->_urlPolicy->getRedirectUrl($user, $request, $alternativeUrl);
                 if ($redirectUrl) {
-                    Mage::dispatchEvent('admin_session_user_login_success', array('user' => $user));
+                    Mage::dispatchEvent('admin_session_user_login_success', ['user' => $user]);
                     $this->_response->clearHeaders()
                         ->setRedirect($redirectUrl)
                         ->sendHeadersAndExit();
@@ -294,7 +293,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _getRequestUri($request = null)
     {
         if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
-            return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', array('_current' => true));
+            return Mage::getSingleton('adminhtml/url')->getUrl('*/*/*', ['_current' => true]);
         } elseif ($request) {
             return $request->getRequestUri();
         } else {
@@ -313,10 +312,10 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     protected function _loginFailed($e, $request, $username, $message)
     {
         try {
-            Mage::dispatchEvent('admin_session_user_login_failed', array(
+            Mage::dispatchEvent('admin_session_user_login_failed', [
                 'user_name' => $username,
                 'exception' => $e
-            ));
+            ]);
         } catch (Exception $e) {
         }
 

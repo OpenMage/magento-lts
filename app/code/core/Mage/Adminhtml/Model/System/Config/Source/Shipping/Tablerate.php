@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Source_Shipping_Tablerate
 {
     public function toOptionArray()
     {
         $tableRate = Mage::getSingleton('shipping/carrier_tablerate');
-        $arr = array();
+        $arr = [];
         foreach ($tableRate->getCode('condition_name') as $k=>$v) {
-            $arr[] = array('value'=>$k, 'label'=>$v);
+            $arr[] = ['value'=>$k, 'label'=>$v];
         }
         return $arr;
     }

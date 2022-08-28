@@ -142,7 +142,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
-                $this->_redirect('*/*/edit', array('block_id' => $id));
+                $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return $this;
             }
             try {
@@ -160,7 +160,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array('block_id' => $id));
+                $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }
@@ -184,7 +184,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
             }
             catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('block_id' => $id));
+                $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }

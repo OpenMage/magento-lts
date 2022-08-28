@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Catalog Product List Sortable allowed sortable attributes source
  *
@@ -35,16 +34,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Catalog_ListSort
      */
     public function toOptionArray()
     {
-        $options = array();
-        $options[] = array(
+        $options = [];
+        $options[] = [
             'label' => Mage::helper('catalog')->__('Best Value'),
             'value' => 'position'
-        );
+        ];
         foreach ($this->_getCatalogConfig()->getAttributesUsedForSortBy() as $attribute) {
-            $options[] = array(
+            $options[] = [
                 'label' => Mage::helper('catalog')->__($attribute['frontend_label']),
                 'value' => $attribute['attribute_code']
-            );
+            ];
         }
         return $options;
     }

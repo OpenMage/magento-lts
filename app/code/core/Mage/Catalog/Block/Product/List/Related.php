@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product related items block
  *
@@ -43,7 +42,7 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')

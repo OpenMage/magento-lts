@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Downloadable links purchased resource collection
  *
@@ -46,7 +45,7 @@ class Mage_Downloadable_Model_Resource_Link_Purchased_Collection extends Mage_Co
     {
         $this->getSelect()
             ->join(
-                array('pi'=>$this->getTable('downloadable/link_purchased_item')),
+                ['pi'=>$this->getTable('downloadable/link_purchased_item')],
                 'pi.purchased_id=main_table.purchased_id'
             );
         return $this;

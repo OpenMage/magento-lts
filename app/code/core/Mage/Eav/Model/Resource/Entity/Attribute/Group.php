@@ -44,10 +44,10 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     public function itemExists($object)
     {
         $adapter   = $this->_getReadAdapter();
-        $bind      = array(
+        $bind      = [
             'attribute_set_id'      => $object->getAttributeSetId(),
             'attribute_group_name'  => $object->getAttributeGroupName()
-        );
+        ];
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('attribute_set_id = :attribute_set_id')
@@ -89,7 +89,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     }
 
     /**
-     * Retreive max sort order
+     * Retrieve max sort order
      *
      * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Entity_Attribute_Group $object
      * @return int
@@ -97,7 +97,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     protected function _getMaxSortOrder($object)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':attribute_set_id' => $object->getAttributeSetId());
+        $bind    = [':attribute_set_id' => $object->getAttributeSetId()];
         $select  = $adapter->select()
             ->from($this->getMainTable(), new Zend_Db_Expr("MAX(sort_order)"))
             ->where('attribute_set_id = :attribute_set_id');
@@ -114,7 +114,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
     public function updateDefaultGroup($attributeSetId)
     {
         $adapter = $this->_getWriteAdapter();
-        $bind    = array(':attribute_set_id' => $attributeSetId);
+        $bind    = [':attribute_set_id' => $attributeSetId];
         $select  = $adapter->select()
             ->from($this->getMainTable(), $this->getIdFieldName())
             ->where('attribute_set_id = :attribute_set_id')
@@ -124,8 +124,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
         $groupId = $adapter->fetchOne($select, $bind);
 
         if ($groupId) {
-            $data  = array('default_id' => 1);
-            $where = array('attribute_group_id =?' => $groupId);
+            $data  = ['default_id' => 1];
+            $where = ['attribute_group_id =?' => $groupId];
             $adapter->update($this->getMainTable(), $data, $where);
         }
 

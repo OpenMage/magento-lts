@@ -37,7 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
             return Mage::getSingleton('cataloginventory/source_backorders')->toOptionArray();
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
             return Mage::getSingleton('cataloginventory/source_stock')->toOptionArray();
         }
 
-        return array();
+        return [];
     }
 
     /**

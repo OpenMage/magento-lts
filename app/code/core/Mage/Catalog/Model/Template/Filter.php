@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Template Filter Model
  *
@@ -80,9 +79,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
         $params = $this->_getIncludeParameters($construction[2]);
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
-        $url = Mage::getDesign()->getSkinUrl($params['url'], $params);
-
-        return $url;
+        return Mage::getDesign()->getSkinUrl($params['url'], $params);
     }
 
     /**
@@ -110,7 +107,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     {
         $params = $this->_getIncludeParameters($construction[2]);
         if (!isset($params['_query'])) {
-            $params['_query'] = array();
+            $params['_query'] = [];
         }
         foreach ($params as $k => $v) {
             if (strpos($k, '_query_') === 0) {

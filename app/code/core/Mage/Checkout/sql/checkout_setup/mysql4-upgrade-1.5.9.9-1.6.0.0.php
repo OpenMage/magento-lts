@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -35,7 +35,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CHECKOUT_AGREEMENT_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -49,79 +48,77 @@ $installer->getConnection()->dropIndex(
     'FK_CHECKOUT_AGREEMENT_STORE'
 );
 
-
 /*
  * Change columns
  */
-$tables = array(
-    $installer->getTable('checkout/agreement') => array(
-        'columns' => array(
-            'agreement_id' => array(
+$tables = [
+    $installer->getTable('checkout/agreement') => [
+        'columns' => [
+            'agreement_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'identity'  => true,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Agreement Id'
-            ),
-            'name' => array(
+            ],
+            'name' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'comment'   => 'Name'
-            ),
-            'content' => array(
+            ],
+            'content' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Content'
-            ),
-            'content_height' => array(
+            ],
+            'content_height' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 25,
                 'comment'   => 'Content Height'
-            ),
-            'checkbox_text' => array(
+            ],
+            'checkbox_text' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
                 'comment'   => 'Checkbox Text'
-            ),
-            'is_active' => array(
+            ],
+            'is_active' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Active'
-            ),
-            'is_html' => array(
+            ],
+            'is_html' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'nullable'  => false,
                 'default'   => '0',
                 'comment'   => 'Is Html'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Checkout Agreement'
-    ),
-    $installer->getTable('checkout/agreement_store') => array(
-        'columns' => array(
-            'agreement_id' => array(
+    ],
+    $installer->getTable('checkout/agreement_store') => [
+        'columns' => [
+            'agreement_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_INTEGER,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Agreement Id'
-            ),
-            'store_id' => array(
+            ],
+            'store_id' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
                 'comment'   => 'Store Id'
-            )
-        ),
+            ]
+        ],
         'comment' => 'Checkout Agreement Store'
-    )
-);
+    ]
+];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes
@@ -129,10 +126,9 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('checkout/agreement_store'),
     'PRIMARY',
-    array('agreement_id','store_id'),
+    ['agreement_id','store_id'],
     Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY
 );
-
 
 /**
  * Add foreign keys

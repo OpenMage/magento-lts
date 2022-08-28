@@ -128,7 +128,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
                 ->addSuccess($this->_getHelperModel('tax')->__('The tax rule has been saved.'));
 
             if ($this->getRequest()->getParam('back')) {
-                return $this->_redirect('*/*/edit', array('rule' => $ruleModel->getId()));
+                return $this->_redirect('*/*/edit', ['rule' => $ruleModel->getId()]);
             }
 
             return $this->_redirect('*/*/');
@@ -145,7 +145,6 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         $this->_redirectReferer();
     }
 
-
     /**
      * Check if this a duplicate rule creation request
      *
@@ -161,7 +160,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
         );
 
         //Remove the current one from the list
-        $existingRules = array_diff($existingRules, array($ruleModel->getOrigData('code')));
+        $existingRules = array_diff($existingRules, [$ruleModel->getOrigData('code')]);
 
         //Verify if a Rule already exists. If not throw an error
         if (count($existingRules) > 0) {
@@ -230,7 +229,7 @@ class Mage_Adminhtml_Tax_RuleController extends Mage_Adminhtml_Controller_Action
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($className, $arguments = array())
+    protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
     }

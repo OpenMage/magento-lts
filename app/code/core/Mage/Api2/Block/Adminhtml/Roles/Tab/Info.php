@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Block for rendering role info tab
  *
@@ -37,17 +36,17 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', array(
+        $fieldset = $form->addFieldset('base_fieldset', [
             'legend'    => Mage::helper('adminhtml')->__('Role Information')
-        ));
+        ]);
 
-        $data = array(
+        $data = [
             'name'  => 'role_name',
             'label' => Mage::helper('adminhtml')->__('Role Name'),
             'id'    => 'role_name',
             'class' => 'required-entry',
             'required' => true,
-        );
+        ];
 
         if ($this->isRoleSystem()) {
             /** @var Mage_Core_Helper_Data $helper */
@@ -61,32 +60,32 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Info extends Mage_Adminhtml_Block_Widg
         $fieldset->addField(
             'entity_id',
             'hidden',
-            array(
+            [
                 'name'  => 'id',
-            )
+            ]
         );
 
         $fieldset->addField(
             'in_role_users',
             'hidden',
-            array(
+            [
                 'name'  => 'in_role_users',
                 'id'    => 'in_role_userz',
-            )
+            ]
         );
 
         $fieldset->addField(
             'current_password',
             'obscure',
-            array(
+            [
                 'name'  => 'current_password',
                 'label' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'title' => Mage::helper('adminhtml')->__('Current Admin Password'),
                 'required' => true
-            )
+            ]
         );
 
-        $fieldset->addField('in_role_users_old', 'hidden', array('name' => 'in_role_users_old'));
+        $fieldset->addField('in_role_users_old', 'hidden', ['name' => 'in_role_users_old']);
 
         if ($this->getRole()) {
             $form->setValues($this->getRole()->getData());

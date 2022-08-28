@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product Alert Abstract Email Block
  *
@@ -33,7 +32,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
      *
      * @var array
      */
-    protected $_products = array();
+    protected $_products = [];
 
     /**
      * Current Store scope object
@@ -94,7 +93,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
      */
     public function reset()
     {
-        $this->_products = array();
+        $this->_products = [];
     }
 
     /**
@@ -124,10 +123,10 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
      */
     protected function _getUrlParams()
     {
-        return array(
+        return [
             '_store'        => $this->getStore(),
             '_store_to_url' => true
-        );
+        ];
     }
 
     /**

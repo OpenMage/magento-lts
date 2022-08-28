@@ -35,7 +35,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     protected function _preparePaymentData($data)
     {
         if (!(is_array($data) && is_null($data[0]))) {
-            return array();
+            return [];
         }
 
         return $data;
@@ -108,7 +108,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
 
         $total = $quote->getBaseSubtotal();
 
-        $methodsResult = array();
+        $methodsResult = [];
         $methods = Mage::helper('payment')->getStoreMethods($store, $quote);
 
         foreach ($methods as $method) {
@@ -117,11 +117,11 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 $isRecurring = $quote->hasRecurringItems() && $method->canManageRecurringProfiles();
 
                 if ($total != 0 || $method->getCode() == 'free' || $isRecurring) {
-                    $methodsResult[] = array(
+                    $methodsResult[] = [
                         'code' => $method->getCode(),
                         'title' => $method->getTitle(),
                         'cc_types' => $this->_getPaymentMethodAvailableCcTypes($method),
-                    );
+                    ];
                 }
             }
         }
@@ -186,7 +186,6 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         try {
             $payment = $quote->getPayment();
             $payment->importData($paymentData);
-
 
             $quote->setTotalsCollectedFlag(false)
                 ->collectTotals()

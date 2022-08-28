@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Adminhtml_Model_System_Config_Source_Shipping_Flatrate
 {
     public function toOptionArray()
     {
-        return array(
-            array('value'=>'', 'label'=> Mage::helper('adminhtml')->__('None')),
-            array('value'=>'O', 'label'=>Mage::helper('adminhtml')->__('Per Order')),
-            array('value'=>'I', 'label'=>Mage::helper('adminhtml')->__('Per Item')),
-        );
+        return [
+            ['value'=>'', 'label'=> Mage::helper('adminhtml')->__('None')],
+            ['value'=>'O', 'label'=>Mage::helper('adminhtml')->__('Per Order')],
+            ['value'=>'I', 'label'=>Mage::helper('adminhtml')->__('Per Item')],
+        ];
     }
 }

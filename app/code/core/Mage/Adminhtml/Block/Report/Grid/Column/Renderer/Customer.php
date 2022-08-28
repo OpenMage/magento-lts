@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml Report Customers Reviews renderer
  *
@@ -44,7 +43,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Customer
         }
 
         return sprintf('<a href="%s">%s</a>',
-            $this->getUrl('*/catalog_product_review', array('customerId' => $id)),
+            $this->getUrl('*/catalog_product_review', ['customerId' => $id]),
             Mage::helper('adminhtml')->__('Show Reviews')
         );
     }
