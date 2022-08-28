@@ -494,7 +494,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             if ($column->getFilterConditionCallback() && $column->getFilterConditionCallback()[0] instanceof self) {
                 call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
             } else {
-                if ($field) {
+                if ($field && $column->getFilter()->getCondition()) {
                     $this->getCollection()->addFieldToFilter($field, $column->getFilter()->getCondition());
                 }
             }
