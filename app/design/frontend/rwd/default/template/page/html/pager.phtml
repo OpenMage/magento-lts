@@ -22,7 +22,7 @@
 /**
  * Pager template
  *
- * @see Mage_Page_Block_Html_Pager
+ * @var Mage_Page_Block_Html_Pager $this
  */
 ?>
 <?php if($this->getCollection()->getSize()): ?>
@@ -45,12 +45,12 @@
             <?php endif ?>
         <?php endif ?>
 
-        <?php $available_limits = $this->getAvailableLimit() ?>
-        <?php if (count($available_limits) > 1): ?>
+        <?php $availableLimits = $this->getAvailableLimit() ?>
+        <?php if (count($availableLimits) > 1): ?>
             <div class="limiter">
                 <label><?php echo $this->__('Show') ?></label>
                 <select onchange="setLocation(this.value)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Results per page')); ?>">
-                <?php foreach ($available_limits as  $_key=>$_limit): ?>
+                <?php foreach ($availableLimits as $_key => $_limit): ?>
                     <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
                         <?php echo $_limit ?>
                     </option>
