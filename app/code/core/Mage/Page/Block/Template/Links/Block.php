@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Simple links list block
  *
@@ -106,7 +105,6 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         $this->setTemplate('page/template/linksblock.phtml');
     }
-
 
     /**
      * Return link position in link list

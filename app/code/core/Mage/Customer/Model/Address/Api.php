@@ -151,7 +151,6 @@ class Mage_Customer_Model_Address_Api extends Mage_Customer_Model_Api_Resource
             $result[$attributeCode] = $address->getData($attributeCode);
         }
 
-
         if ($customer = $address->getCustomer()) {
             $result['is_default_billing']  = $customer->getDefaultBilling() == $address->getId();
             $result['is_default_shipping'] = $customer->getDefaultShipping() == $address->getId();

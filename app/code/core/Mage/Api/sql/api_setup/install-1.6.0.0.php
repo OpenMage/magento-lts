@@ -219,6 +219,4 @@ $table = $installer->getConnection()
     ->setComment('Api Sessions');
 $installer->getConnection()->createTable($table);
 
-
-
 $installer->endSetup();

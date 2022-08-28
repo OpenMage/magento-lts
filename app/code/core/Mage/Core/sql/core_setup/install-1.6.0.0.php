@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
@@ -734,7 +733,6 @@ $table = $installer->getConnection()
     )
     ->setComment('Flag');
 $installer->getConnection()->createTable($table);
-
 
 /**
  * Insert core websites

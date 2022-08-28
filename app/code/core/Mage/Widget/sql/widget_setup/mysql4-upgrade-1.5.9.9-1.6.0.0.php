@@ -40,7 +40,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_WIDGET_WIDGET_INSTANCE_PAGE_ID'
 );
 
-
 /**
  * Drop indexes
  */
@@ -68,7 +67,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('widget/widget_instance_page_layout'),
     'IDX_WIDGET_WIDGET_INSTANCE_LAYOUT_UPDATE_ID'
 );
-
 
 /**
  * Change columns
@@ -260,7 +258,6 @@ $installer->getConnection()->changeColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -298,7 +295,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('widget/widget_instance_page_layout', ['layout_update_id']),
     ['layout_update_id']
 );
-
 
 /**
  * Add foreign keys

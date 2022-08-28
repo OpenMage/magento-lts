@@ -147,7 +147,6 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address
             }
         }
 
-
         $regionElement = $this->_form->getElement('region_id');
         if ($regionElement) {
             $regionElement->setNoDisplay(true);

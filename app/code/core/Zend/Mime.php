@@ -19,7 +19,6 @@
  * @version    $Id: Mime.php 16541 2009-07-07 06:59:03Z bkarwin $
  */
 
-
 /**
  * Support class for MultiPart Mime Messages
  *

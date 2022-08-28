@@ -120,7 +120,6 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $isSatisfied = false;
         }
 
-
         return $isSatisfied;
     }
 

@@ -206,7 +206,6 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         }
 
         $this->_redirect('*/*/editrole', ['rid' => $rid]);
-        return;
     }
 
     public function editrolegridAction()

@@ -106,7 +106,6 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         return $this->_itemRenders[$type]['blockInstance'];
     }
 
-
     /**
      * Get logged in customer
      *

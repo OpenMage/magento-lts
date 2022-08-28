@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog EAV collection resource abstract model
  * Implement using diferent stores for retrieve attribute values
@@ -138,6 +137,7 @@ class Mage_Catalog_Model_Resource_Collection_Abstract extends Mage_Eav_Model_Ent
     {
         $storeId = $this->getStoreId();
         if ($storeId) {
+            /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
             $helper = Mage::getResourceHelper('eav');
             $adapter        = $this->getConnection();
             $valueExpr      = $adapter->getCheckSql(

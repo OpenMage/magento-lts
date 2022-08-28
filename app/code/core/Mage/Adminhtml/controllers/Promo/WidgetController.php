@@ -58,7 +58,6 @@ class Mage_Adminhtml_Promo_WidgetController extends Mage_Adminhtml_Controller_Ac
                     $ids = [];
                 }
 
-
                 $block = $this->getLayout()->createBlock(
                         'adminhtml/catalog_category_checkboxes_tree', 'promo_widget_chooser_category_ids',
                         ['js_form_object' => $request->getParam('form')]

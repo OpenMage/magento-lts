@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product entity resource model
  *
@@ -465,7 +464,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             []
         );
 
-
         $statusJoinCond = [
             't_s.entity_id = t_v_default.entity_id',
             $adapter->quoteInto('t_s.store_id     = ?', $storeId),
@@ -490,7 +488,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
         $adapter->query($adapter->insertFromSelect($select, $indexTable));
 
-
         return $this;
     }
 
@@ -502,7 +499,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      */
     public function getCategoryCollection($product)
     {
-        $collection = Mage::getResourceModel('catalog/category_collection')
+        return Mage::getResourceModel('catalog/category_collection')
             ->joinField(
                 'product_id',
                 'catalog/category_product',
@@ -511,7 +508,6 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 null
             )
             ->addFieldToFilter('product_id', (int)$product->getId());
-        return $collection;
     }
 
     /**
@@ -695,8 +691,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             ->where('store_id IN (?)', $storeIds)
             ->where('attribute_code IN (?)', ['small_image', 'thumbnail', 'image']);
 
-        $images = $read->fetchAll($select);
-        return $images;
+        return $read->fetchAll($select);
     }
 
     /**

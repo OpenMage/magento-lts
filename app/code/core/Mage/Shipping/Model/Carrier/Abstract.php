@@ -274,7 +274,6 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         return $this;
     }
 
-
     /**
      * Processing additional validation to check is carrier applicable.
      *

@@ -722,7 +722,6 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                                         $filter[$code]->where("value >= ?", $values[$code]['from']);
                                     }
 
-
                                     if ($values[$code]['to']) {
                                         if (!is_numeric($values[$code]['to'])) {
                                             $values[$code]['to'] = date("Y-m-d H:i:s", strtotime($values[$code]['to']));

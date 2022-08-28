@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Console installer
  * @category   Mage
@@ -213,9 +212,8 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      */
     protected function _checkFlag($value)
     {
-        $res = ($value == 1)
+        return ($value == 1)
             || preg_match('/^(yes|y|true)$/i', $value);
-        return $res;
     }
 
     /**

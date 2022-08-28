@@ -220,7 +220,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
         }
     }
 
-
     /**
      * Filter and collect blocks into array
      */

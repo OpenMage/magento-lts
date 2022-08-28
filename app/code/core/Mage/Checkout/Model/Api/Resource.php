@@ -51,7 +51,6 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected $_storeIdSessionField   = 'store_id';
 
-
     /**
      * Check if quote already exist with provided quoteId for creating
      *

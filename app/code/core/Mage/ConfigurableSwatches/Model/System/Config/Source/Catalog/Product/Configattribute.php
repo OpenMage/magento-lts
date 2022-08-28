@@ -26,7 +26,6 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
      */
     protected $_attributes = null;
 
-
     /**
      * Retrieve attributes as array
      *

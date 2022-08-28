@@ -50,7 +50,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -98,7 +97,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('cataloginventory/stock_status_indexer_tmp'),
     'FK_CATALOGINVENTORY_STOCK_STATUS_WEBSITE'
 );
-
 
 /*
  * Change columns
@@ -434,7 +432,6 @@ $installer->getConnection()->changeColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -496,7 +493,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('cataloginventory/stock_status_indexer_tmp', ['website_id']),
     ['website_id']
 );
-
 
 /**
  * Add foreign keys

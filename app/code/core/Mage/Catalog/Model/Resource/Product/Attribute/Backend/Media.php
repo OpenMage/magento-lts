@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product media gallery attribute backend resource
  *
@@ -231,7 +230,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
 
         // Select gallery images for product
-        $select = $adapter->select()
+        return $adapter->select()
             ->from(
                 ['main'=>$this->getMainTable()],
                 ['value_id', 'value AS file', 'product_id' => 'entity_id']
@@ -253,8 +252,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)
             ->order($positionCheckSql . ' ' . Varien_Db_Select::SQL_ASC);
-
-        return $select;
     }
 
     /**

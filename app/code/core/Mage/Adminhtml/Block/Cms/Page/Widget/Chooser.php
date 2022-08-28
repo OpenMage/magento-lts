@@ -59,7 +59,6 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             ->setSourceUrl($sourceUrl)
             ->setUniqId($uniqId);
 
-
         if ($element->getValue()) {
             $page = Mage::getModel('cms/page')->load((int)$element->getValue());
             if ($page->getId()) {
@@ -79,7 +78,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
     public function getRowClickCallback()
     {
         $chooserJsObject = $this->getId();
-        $js = '
+        return '
             function (grid, event) {
                 var trElement = Event.findElement(event, "tr");
                 var pageTitle = trElement.down("td").next().innerHTML;
@@ -89,7 +88,6 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
                 '.$chooserJsObject.'.close();
             }
         ';
-        return $js;
     }
 
     /**

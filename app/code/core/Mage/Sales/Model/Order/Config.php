@@ -114,7 +114,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         return $state;
     }
 
-
     /**
      * Retrieve all statuses
      *
@@ -122,9 +121,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      */
     public function getStatuses()
     {
-        $statuses = Mage::getResourceModel('sales/order_status_collection')
+        return Mage::getResourceModel('sales/order_status_collection')
             ->toOptionHash();
-        return $statuses;
     }
 
     /**
@@ -141,7 +139,6 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
         }
         return $states;
     }
-
 
     /**
      * Retrieve statuses available for state

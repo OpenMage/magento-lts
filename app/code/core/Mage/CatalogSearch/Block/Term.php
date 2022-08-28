@@ -58,7 +58,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 return $this;
             }
 
-
             $this->_maxPopularity = reset($terms)->getPopularity();
             $this->_minPopularity = end($terms)->getPopularity();
             $range = $this->_maxPopularity - $this->_minPopularity;

@@ -21,7 +21,6 @@
 /** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 
-
 $installFile = dirname(__FILE__) . DS . 'install-1.6.0.0.php';
 if (file_exists($installFile)) {
     include $installFile;

@@ -67,8 +67,6 @@ class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml
         $dom = dom_import_simplexml($xml)->ownerDocument;
         $dom->formatOutput = true;
 
-        $xmlString = $dom->saveXML();
-
-        return $xmlString;
+        return $dom->saveXML();
     }
 }

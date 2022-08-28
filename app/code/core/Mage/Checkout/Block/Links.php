@@ -39,8 +39,9 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
     {
         $parentBlock = $this->getParentBlock();
         if ($parentBlock && Mage::helper('core')->isModuleOutputEnabled('Mage_Checkout')) {
-            $count = $this->getSummaryQty() ? $this->getSummaryQty()
-                : $this->helper('checkout/cart')->getSummaryCount();
+            /** @var Mage_Checkout_Helper_Cart $helper */
+            $helper = $this->helper('checkout/cart');
+            $count = $this->getSummaryQty() ?: $helper->getSummaryCount();
             if ($count == 1) {
                 $text = $this->__('My Cart (%s item)', $count);
             } elseif ($count > 0) {
@@ -62,7 +63,9 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
      */
     public function addCheckoutLink()
     {
-        if (!$this->helper('checkout')->canOnepageCheckout()) {
+        /** @var Mage_Checkout_Helper_Data $helper */
+        $helper = $this->helper('checkout');
+        if (!$helper->canOnepageCheckout()) {
             return $this;
         }
 

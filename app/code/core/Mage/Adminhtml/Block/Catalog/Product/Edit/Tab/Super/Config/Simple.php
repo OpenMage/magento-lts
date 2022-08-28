@@ -100,7 +100,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                     );
                 }
 
-
                 if ($inputType == 'select' || $inputType == 'multiselect') {
                     $element->setValues($attribute->getFrontend()->getSelectOptions());
                 }
@@ -164,7 +163,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple
                 'value' => $fieldValue
             ]);
         }
-
 
         $fieldset->addField('create_button', 'note', [
             'text' => $this->getButtonHtml(

@@ -991,7 +991,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this->_getData('special_to_date');
     }
 
-
 /*******************************************************************************
  ** Linked products API
  */
@@ -1506,7 +1505,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         return $this;
     }
 
-
     /**
      * Check is product available for sale
      *
@@ -1845,10 +1843,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getProductOptionsCollection()
     {
-        $collection = $this->getOptionInstance()
+        return $this->getOptionInstance()
             ->getProductOptionCollection($this);
-
-        return $collection;
     }
 
     /**

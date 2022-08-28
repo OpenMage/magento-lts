@@ -55,7 +55,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
 
-
 /**
  * Drop indexes
  */
@@ -92,7 +91,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('dataflow/profile_history'),
     'FK_DATAFLOW_PROFILE_HISTORY'
 );
-
 
 /**
  * Change columns
@@ -375,7 +373,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -420,7 +417,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('dataflow/profile_history', ['profile_id']),
     ['profile_id']
 );
-
 
 /**
  * Add foreign keys

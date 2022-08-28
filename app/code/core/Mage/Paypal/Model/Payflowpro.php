@@ -418,8 +418,6 @@ class Mage_Paypal_Model_Payflowpro extends  Mage_Payment_Model_Method_Cc
             throw $e;
         }
 
-
-
         $response = strstr($response->getBody(), 'RESULT');
         $valArray = explode('&', $response);
 

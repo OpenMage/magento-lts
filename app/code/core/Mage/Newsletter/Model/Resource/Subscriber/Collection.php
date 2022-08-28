@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Newsletter subscribers collection
  *
@@ -75,7 +74,6 @@ class Mage_Newsletter_Model_Resource_Subscriber_Collection extends Mage_Core_Mod
         $this->_init('newsletter/subscriber');
         $this->_queueLinkTable = $this->getTable('newsletter/queue_link');
         $this->_storeTable     = $this->getTable('core/store');
-
 
         // defining mapping for fields represented in several tables
         $this->_map['fields']['customer_lastname']   = 'customer_lastname_table.value';

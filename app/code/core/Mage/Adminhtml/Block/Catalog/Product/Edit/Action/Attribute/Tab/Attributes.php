@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml catalog product edit action attributes update tab block
  *
@@ -36,6 +35,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
         $this->setShowGlobalIcon(true);
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareForm()
     {
         $this->setFormExcludedFieldList([
@@ -64,7 +66,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
      */
     public function getAttributes()
     {
-        return $this->helper('adminhtml/catalog_product_edit_action_attribute')->getAttributes()->getItems();
+        /** @var Mage_Adminhtml_Helper_Catalog_Product_Edit_Action_Attribute $helper */
+        $helper = $this->helper('adminhtml/catalog_product_edit_action_attribute');
+        return $helper->getAttributes()->getItems();
     }
 
     /**
@@ -101,23 +105,32 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes
     }
 
     /**
-     * ######################## TAB settings #################################
+     * @return string
      */
     public function getTabLabel()
     {
         return Mage::helper('catalog')->__('Attributes');
     }
 
+    /**
+     * @return string
+     */
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Attributes');
     }
 
+    /**
+     * @return true
+     */
     public function canShowTab()
     {
         return true;
     }
 
+    /**
+     * @return false
+     */
     public function isHidden()
     {
         return false;

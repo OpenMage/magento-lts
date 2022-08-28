@@ -28,7 +28,6 @@ $installer->addAttribute('quote_address', 'discount_description', ['type'=>'varc
 $installer->addAttribute('quote_address', 'shipping_discount_amount', ['type'=>'decimal']);
 $installer->addAttribute('quote_address', 'base_shipping_discount_amount', ['type'=>'decimal']);
 
-
 $installer->addAttribute('order', 'discount_description', ['type'=>'varchar']);
 $installer->addAttribute('order', 'shipping_discount_amount', ['type'=>'decimal']);
 $installer->addAttribute('order', 'base_shipping_discount_amount', ['type'=>'decimal']);

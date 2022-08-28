@@ -40,7 +40,6 @@ $connection = $installer->getConnection()->dropIndex(
     'IDX_IS_REMOVE'
 );
 
-
 /**
  * Change columns
  */
@@ -103,7 +102,6 @@ $tables = [
 ];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes

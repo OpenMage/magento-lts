@@ -35,7 +35,6 @@ $installer->getConnection()->dropIndex(
     'IDX_LOG_TIME'
 );
 
-
 /**
  * Change columns
  */

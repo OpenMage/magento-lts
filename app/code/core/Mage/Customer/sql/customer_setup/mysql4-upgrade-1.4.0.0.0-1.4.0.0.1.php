@@ -32,7 +32,6 @@ $installer->addAttribute('customer', 'gender', [
     'source'        => 'eav/entity_attribute_source_table',
 ]);
 
-
 $tableOptions        = $installer->getTable('eav_attribute_option');
 $tableOptionValues   = $installer->getTable('eav_attribute_option_value');
 

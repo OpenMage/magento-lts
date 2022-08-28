@@ -45,7 +45,6 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      */
     protected $_designConfig;
 
-
     /**
      * Configuration of emulated desing package.
      *

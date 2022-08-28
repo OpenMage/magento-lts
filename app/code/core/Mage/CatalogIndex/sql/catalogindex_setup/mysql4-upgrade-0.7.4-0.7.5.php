@@ -21,7 +21,6 @@
 $installer = $this;
 /** @var Mage_Core_Model_Resource_Setup $installer */
 
-
 $installer->run("
     CREATE TABLE `{$installer->getTable('catalogindex_eav_tmp')}` (
         `store_id` smallint(5) unsigned NOT NULL default '0',

@@ -73,7 +73,6 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     protected $_isReadonly = false;
 
-
     /**
      * Lock attribute
      *
@@ -200,9 +199,8 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
      */
     public function getResourceCollection()
     {
-        $collection = parent::getResourceCollection()
+        return parent::getResourceCollection()
             ->setStoreId($this->getStoreId());
-        return $collection;
     }
 
     /**

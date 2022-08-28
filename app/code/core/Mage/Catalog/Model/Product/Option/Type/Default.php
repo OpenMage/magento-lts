@@ -52,8 +52,6 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     protected $_product;
 
-
-
     /**
      * description
      *

@@ -63,14 +63,13 @@ class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Pro
      */
     public function getTableSelect(array $productIds, $categoryId, $storeId)
     {
-        $select = $this->_connection->select()
+        return $this->_connection->select()
             ->from($this->_resource->getTableName('core/url_rewrite'), ['product_id', 'request_path'])
             ->where('store_id = ?', (int)$storeId)
             ->where('is_system = ?', 1)
             ->where('category_id = ? OR category_id IS NULL', (int)$categoryId)
             ->where('product_id IN(?)', $productIds)
             ->order('category_id ' . Varien_Data_Collection::SORT_ORDER_DESC);
-        return $select;
     }
 
     /**

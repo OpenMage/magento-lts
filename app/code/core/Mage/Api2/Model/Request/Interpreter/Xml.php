@@ -68,8 +68,7 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
             throw new Mage_Api2_Exception('Decoding error.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
 
-        $xml = $this->_toArray($config);
-        return $xml;
+        return $this->_toArray($config);
     }
 
     /**
