@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_SalesRule
@@ -141,7 +135,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected $_labels = array();
+    protected $_labels = [];
 
     /**
      * Rule's primary coupon
@@ -169,7 +163,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected $_validatedAddresses = array();
+    protected $_validatedAddresses = [];
 
     /**
      * Set resource model and Id field name
@@ -278,7 +272,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public static function getCouponCodeGenerator()
     {
         if (!self::$_couponCodeGenerator) {
-            return Mage::getSingleton('salesrule/coupon_codegenerator', array('length' => 16));
+            return Mage::getSingleton('salesrule/coupon_codegenerator', ['length' => 16]);
         }
         return self::$_couponCodeGenerator;
     }
@@ -367,7 +361,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     {
         if ($this->_coupons === null) {
             $collection = Mage::getResourceModel('salesrule/coupon_collection');
-            /** @var Mage_SalesRule_Model_Resource_Coupon_Collection */
             $collection->addRuleToFilter($this);
             $this->_coupons = $collection->getItems();
         }
@@ -382,15 +375,15 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getCouponTypes()
     {
         if ($this->_couponTypes === null) {
-            $this->_couponTypes = array(
+            $this->_couponTypes = [
                 Mage_SalesRule_Model_Rule::COUPON_TYPE_NO_COUPON => Mage::helper('salesrule')->__('No Coupon'),
                 Mage_SalesRule_Model_Rule::COUPON_TYPE_SPECIFIC  => Mage::helper('salesrule')->__('Specific Coupon'),
-            );
-            $transport = new Varien_Object(array(
+            ];
+            $transport = new Varien_Object([
                 'coupon_types'                => $this->_couponTypes,
                 'is_coupon_type_auto_visible' => false
-            ));
-            Mage::dispatchEvent('salesrule_rule_get_coupon_types', array('transport' => $transport));
+            ]);
+            Mage::dispatchEvent('salesrule_rule_get_coupon_types', ['transport' => $transport]);
             $this->_couponTypes = $transport->getCouponTypes();
             if ($transport->getIsCouponTypeAutoVisible()) {
                 $this->_couponTypes[Mage_SalesRule_Model_Rule::COUPON_TYPE_AUTO] = Mage::helper('salesrule')->__('Auto');
@@ -415,7 +408,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($this->getCouponType() == self::COUPON_TYPE_SPECIFIC) {
             return $this->getPrimaryCoupon();
         }
-        /** @var Mage_SalesRule_Model_Coupon $coupon */
         $coupon = Mage::getModel('salesrule/coupon');
         $coupon->setRule($this)
             ->setIsPrimary(false)
@@ -507,10 +499,6 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
         return $address;
     }
 
-
-
-
-
     /**
      * Collect all product attributes used in serialized rule's action or condition
      *
@@ -553,7 +541,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return array
      */
-    public function toArray(array $arrAttributes = array())
+    public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
     }

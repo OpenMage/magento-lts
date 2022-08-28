@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product media gallery attribute backend resource
@@ -36,7 +29,6 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 {
     const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
     const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
-    const GALLERY_IMAGE_TABLE = 'catalog/product_attribute_media_gallery_image';
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
 
@@ -60,20 +52,20 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     public function loadGallery($product, $object)
     {
         $eventObjectWrapper = new Varien_Object(
-            array(
+            [
                 'product' => $product,
                 'backend_attribute' => $object
-            )
+            ]
         );
         Mage::dispatchEvent(
             $this->_eventPrefix . '_load_gallery_before',
-            array('event_object_wrapper' => $eventObjectWrapper)
+            ['event_object_wrapper' => $eventObjectWrapper]
         );
 
         if ($eventObjectWrapper->hasProductIdsOverride()) {
             $productIds = $eventObjectWrapper->getProductIdsOverride();
         } else {
-            $productIds = array($product->getId());
+            $productIds = [$product->getId()];
         }
 
         $select = $this->_getLoadGallerySelect($productIds, $product->getStoreId(), $object->getAttribute()->getId());
@@ -92,7 +84,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      */
     protected function _removeDuplicates(&$result)
     {
-        $fileToId = array();
+        $fileToId = [];
 
         foreach (array_keys($result) as $index) {
             if (!isset($fileToId[$result[$index]['file']])) {
@@ -108,7 +100,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     }
 
     /**
-     * Insert gallery value to db and retrive last id
+     * Insert gallery value to db and retrieve last id
      *
      * @param array $data
      * @return int
@@ -167,10 +159,10 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     {
         $adapter = $this->_getWriteAdapter();
 
-        $conditions = implode(' AND ', array(
+        $conditions = implode(' AND ', [
             $adapter->quoteInto('value_id = ?', (int) $valueId),
             $adapter->quoteInto('store_id = ?', (int) $storeId),
-        ));
+        ]);
 
         $adapter->delete($this->getTable(self::GALLERY_VALUE_TABLE), $conditions);
 
@@ -189,18 +181,18 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
     public function duplicate($object, $newFiles, $originalProductId, $newProductId)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), array('value_id', 'value'))
+            ->from($this->getMainTable(), ['value_id', 'value'])
             ->where('attribute_id = ?', $object->getAttribute()->getId())
             ->where('entity_id = ?', $originalProductId);
 
-        $valueIdMap = array();
+        $valueIdMap = [];
         // Duplicate main entries of gallery
         foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
-            $data = array(
+            $data = [
                 'attribute_id' => $object->getAttribute()->getId(),
                 'entity_id'    => $newProductId,
                 'value'        => (isset($newFiles[$row['value_id']]) ? $newFiles[$row['value_id']] : $row['value'])
-            );
+            ];
 
             $valueIdMap[$row['value_id']] = $this->insertGallery($data);
         }
@@ -238,30 +230,28 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
         $positionCheckSql = $adapter->getCheckSql('value.position IS NULL', 'default_value.position', 'value.position');
 
         // Select gallery images for product
-        $select = $adapter->select()
+        return $adapter->select()
             ->from(
-                array('main'=>$this->getMainTable()),
-                array('value_id', 'value AS file', 'product_id' => 'entity_id')
+                ['main'=>$this->getMainTable()],
+                ['value_id', 'value AS file', 'product_id' => 'entity_id']
             )
             ->joinLeft(
-                array('value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
+                ['value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
                 $adapter->quoteInto('main.value_id = value.value_id AND value.store_id = ?', (int)$storeId),
-                array('label','position','disabled')
+                ['label','position','disabled']
             )
             ->joinLeft( // Joining default values
-                array('default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)),
+                ['default_value' => $this->getTable(self::GALLERY_VALUE_TABLE)],
                 'main.value_id = default_value.value_id AND default_value.store_id = 0',
-                array(
+                [
                     'label_default' => 'label',
                     'position_default' => 'position',
                     'disabled_default' => 'disabled'
-                )
+                ]
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds)
             ->order($positionCheckSql . ' ' . Varien_Db_Select::SQL_ASC);
-
-        return $select;
     }
 
     /**

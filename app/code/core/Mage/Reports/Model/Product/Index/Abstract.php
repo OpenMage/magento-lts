@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Reports
@@ -68,7 +62,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
             $this->setStoreId($this->getStoreId());
         }
         if (!$this->hasAddedAt()) {
-            $this->setAddedAt(now());
+            $this->setAddedAt(Varien_Date::now());
         }
 
         // Thanks to new performance tweaks it is possible to switch off visitor logging
@@ -203,7 +197,7 @@ abstract class Mage_Reports_Model_Product_Index_Abstract extends Mage_Core_Model
      */
     public function getExcludeProductIds()
     {
-        return array();
+        return [];
     }
 
     /**

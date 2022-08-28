@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -36,8 +30,6 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
 {
     /**
      * Add and update buttons
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -49,11 +41,11 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->_updateButton('save', 'label', Mage::helper('tag')->__('Save Tag'));
         $this->_updateButton('delete', 'label', Mage::helper('tag')->__('Delete Tag'));
 
-        $this->addButton('save_and_edit_button', array(
+        $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => "saveAndContinueEdit('" . $this->getSaveAndContinueUrl() . "')",
             'class'   => 'save'
-        ), 1);
+        ], 1);
     }
 
     /**
@@ -102,7 +94,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/*/delete', array('tag_id' => $this->getRequest()->getParam($this->_objectId), 'ret' => $this->getRequest()->getParam('ret', 'index')));
+        return $this->getUrl('*/*/delete', ['tag_id' => $this->getRequest()->getParam($this->_objectId), 'ret' => $this->getRequest()->getParam('ret', 'index')]);
     }
 
     /**
@@ -142,7 +134,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current'=>true));
+        return $this->getUrl('*/*/save', ['_current'=>true]);
     }
 
     /**
@@ -152,7 +144,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
      */
     public function getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()));
+        return $this->getUrl('*/*/save', ['_current' => true, 'ret' => 'edit', 'continue' => $this->getRequest()->getParam('ret', 'index'), 'store' => Mage::registry('current_tag')->getStoreId()]);
     }
 
     /**

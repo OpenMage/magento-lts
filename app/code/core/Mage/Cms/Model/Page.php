@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -148,12 +142,12 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      */
     public function getAvailableStatuses()
     {
-        $statuses = new Varien_Object(array(
+        $statuses = new Varien_Object([
             self::STATUS_ENABLED => Mage::helper('cms')->__('Enabled'),
             self::STATUS_DISABLED => Mage::helper('cms')->__('Disabled'),
-        ));
+        ]);
 
-        Mage::dispatchEvent('cms_page_get_available_statuses', array('statuses' => $statuses));
+        Mage::dispatchEvent('cms_page_get_available_statuses', ['statuses' => $statuses]);
 
         return $statuses->getData();
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -36,8 +30,8 @@ class Mage_Core_Model_Design_Package
      */
     const FALLBACK_THEME  = 'default';
 
-    private static $_regexMatchCache      = array();
-    private static $_customThemeTypeCache = array();
+    private static $_regexMatchCache      = [];
+    private static $_customThemeTypeCache = [];
 
     /**
      * Current Store for generation ofr base_dir and base_url
@@ -104,9 +98,9 @@ class Mage_Core_Model_Design_Package
             $this->_config = Mage::getSingleton('core/design_config');
         }
         if (is_null($this->_fallback)) {
-            $this->_fallback = Mage::getSingleton('core/design_fallback', array(
+            $this->_fallback = Mage::getSingleton('core/design_fallback', [
                 'config' => $this->_config,
-            ));
+            ]);
         }
     }
 
@@ -201,7 +195,7 @@ class Mage_Core_Model_Design_Package
      */
     public function setAllGetOld($storePackageArea)
     {
-        $oldValues = array();
+        $oldValues = [];
         if (array_key_exists('store', $storePackageArea)) {
             $oldValues['store'] = $this->getStore();
             $this->setStore($storePackageArea['store']);
@@ -224,7 +218,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getPackageName()
     {
-        if (null === $this->_name) {
+        if ($this->_name === null) {
             $this->setPackageName();
         }
         return $this->_name;
@@ -252,7 +246,7 @@ class Mage_Core_Model_Design_Package
     {
         switch (func_num_args()) {
             case 1:
-                foreach (array('layout', 'template', 'skin', 'locale') as $type) {
+                foreach (['layout', 'template', 'skin', 'locale'] as $type) {
                     $this->_theme[$type] = func_get_arg(0);
                 }
                 break;
@@ -280,8 +274,6 @@ class Mage_Core_Model_Design_Package
                 if (empty($this->_theme[$type])) {
                     $this->_theme[$type] = self::DEFAULT_THEME;
                 }
-
-                // "locale", "layout", "template"
             }
         }
 
@@ -335,49 +327,45 @@ class Mage_Core_Model_Design_Package
     public function getBaseDir(array $params)
     {
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'].DS.$params['_type'];
-        return $baseDir;
     }
 
     /**
      * @param array $params
      * @return string
      */
-    public function getSkinBaseDir(array $params = array())
+    public function getSkinBaseDir(array $params = [])
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('skin').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('skin').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'];
-        return $baseDir;
     }
 
     /**
      * @param array $params
      * @return string
      */
-    public function getLocaleBaseDir(array $params = array())
+    public function getLocaleBaseDir(array $params = [])
     {
         $params['_type'] = 'locale';
         $this->updateParamDefaults($params);
-        $baseDir = (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
+        return (empty($params['_relative']) ? Mage::getBaseDir('design').DS : '').
             $params['_area'].DS.$params['_package'].DS.$params['_theme'] . DS . 'locale' . DS .
             Mage::app()->getLocale()->getLocaleCode();
-        return $baseDir;
     }
 
     /**
      * @param array $params
      * @return string
      */
-    public function getSkinBaseUrl(array $params = array())
+    public function getSkinBaseUrl(array $params = [])
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        $baseUrl = Mage::getBaseUrl('skin', isset($params['_secure'])?(bool)$params['_secure']:null)
+        return Mage::getBaseUrl('skin', isset($params['_secure'])?(bool)$params['_secure']:null)
             .$params['_area'].'/'.$params['_package'].'/'.$params['_theme'].'/';
-        return $baseUrl;
     }
 
     /**
@@ -441,7 +429,7 @@ class Mage_Core_Model_Design_Package
      * @param array $fallbackScheme
      * @return string
      */
-    protected function _fallback($file, array &$params, array $fallbackScheme = array(array()))
+    protected function _fallback($file, array &$params, array $fallbackScheme = [[]])
     {
         if ($this->_shouldFallback) {
             foreach ($fallbackScheme as $try) {
@@ -496,7 +484,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getLayoutFilename($file, array $params = array())
+    public function getLayoutFilename($file, array $params = [])
     {
         $params['_type'] = 'layout';
         return $this->getFilename($file, $params);
@@ -507,7 +495,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getTemplateFilename($file, array $params = array())
+    public function getTemplateFilename($file, array $params = [])
     {
         $params['_type'] = 'template';
         return $this->getFilename($file, $params);
@@ -518,7 +506,7 @@ class Mage_Core_Model_Design_Package
      * @param array $params
      * @return string
      */
-    public function getLocaleFileName($file, array $params = array())
+    public function getLocaleFileName($file, array $params = [])
     {
         $params['_type'] = 'locale';
         return $this->getFilename($file, $params);
@@ -532,7 +520,7 @@ class Mage_Core_Model_Design_Package
      * @return string
      * @throws Exception
      */
-    public function getSkinUrl($file = null, array $params = array())
+    public function getSkinUrl($file = null, array $params = [])
     {
         Varien_Profiler::start(__METHOD__);
 
@@ -582,7 +570,7 @@ class Mage_Core_Model_Design_Package
      */
     public function getThemeList($package = null)
     {
-        $result = array();
+        $result = [];
 
         if (is_null($package)) {
             foreach ($this->getPackageList() as $package) {
@@ -605,7 +593,7 @@ class Mage_Core_Model_Design_Package
      */
     private function _listDirectories($path, $fullPath = false)
     {
-        $result = array();
+        $result = [];
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
@@ -672,15 +660,16 @@ class Mage_Core_Model_Design_Package
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
         foreach ($rules as $rule) {
-            if (!empty(self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']])) {
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            if (!empty(self::$_regexMatchCache[$rule['regexp']][$userAgent])) {
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
 
             $regexp = '/' . trim($rule['regexp'], '/') . '/';
 
-            if (@preg_match($regexp, $_SERVER['HTTP_USER_AGENT'])) {
-                self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']] = true;
+            if (@preg_match($regexp, $userAgent)) {
+                self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
@@ -728,7 +717,7 @@ class Mage_Core_Model_Design_Package
         $baseMediaUrl = Mage::getBaseUrl('media', $isSecure);
         $hostname = parse_url($baseMediaUrl, PHP_URL_HOST);
         $port = parse_url($baseMediaUrl, PHP_URL_PORT);
-        if (false === $port) {
+        if ($port === false) {
             $port = $isSecure ? 443 : 80;
         }
 
@@ -738,7 +727,7 @@ class Mage_Core_Model_Design_Package
             $files,
             $targetDir . DS . $targetFilename,
             false,
-            array($this, 'beforeMergeCss'),
+            [$this, 'beforeMergeCss'],
             'css'
         );
         if ($mergeFilesResult) {
@@ -763,7 +752,7 @@ class Mage_Core_Model_Design_Package
         $targetFile = false,
         $mustMerge = false,
         $beforeMergeCallback = null,
-        $extensionsFilter = array()
+        $extensionsFilter = []
     ) {
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             if (!file_exists($targetFile)) {
@@ -847,10 +836,10 @@ class Mage_Core_Model_Design_Package
         $this->_setCallbackFileDir($file);
 
         $cssImport = '/@import\\s+([\'"])(.*?)[\'"]/';
-        $contents = preg_replace_callback($cssImport, array($this, '_cssMergerImportCallback'), $contents);
+        $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
-        $contents = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $contents);
+        $contents = preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
 
         return $contents;
     }
@@ -889,7 +878,7 @@ class Mage_Core_Model_Design_Package
     protected function _cssMergerUrlCallback($match)
     {
         $quote = ($match[1][0] == "'" || $match[1][0] == '"') ? $match[1][0] : '';
-        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, strlen($match[1]) - 2);
+        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, -1);
         $uri = $this->_prepareUrl($uri);
 
         return "url({$quote}{$uri}{$quote})";
@@ -918,10 +907,10 @@ class Mage_Core_Model_Design_Package
                 $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
             }
 
-            if ('skin' == $fileDirParts[0]) {
+            if ($fileDirParts[0] == 'skin') {
                 $baseUrl = Mage::getBaseUrl('skin', $secure);
                 $fileDirParts = array_slice($fileDirParts, 1);
-            } elseif ('media' == $fileDirParts[0]) {
+            } elseif ($fileDirParts[0] == 'media') {
                 $baseUrl = Mage::getBaseUrl('media', $secure);
                 $fileDirParts = array_slice($fileDirParts, 1);
             } else {

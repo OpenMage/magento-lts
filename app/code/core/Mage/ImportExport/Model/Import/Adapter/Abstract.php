@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -73,11 +67,10 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @param string $source Source file path.
      * @throws Mage_Core_Exception
-     * @return void
      */
     final public function __construct($source)
     {
-        register_shutdown_function(array($this, 'destruct'));
+        register_shutdown_function([$this, 'destruct']);
 
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
@@ -157,8 +150,8 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      * Seeks to a position.
      *
      * @param int $position The position to seek to.
-     * @return void
      */
+    #[\ReturnTypeWillChange]
     public function seek($position)
     {
         Mage::throwException(Mage::helper('importexport')->__('Not implemented yet'));
@@ -169,6 +162,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return boolean Returns true on success or false on failure.
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return !empty($this->_currentRow);

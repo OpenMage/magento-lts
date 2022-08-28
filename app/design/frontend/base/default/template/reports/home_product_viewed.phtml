@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -33,7 +27,7 @@
 <?php if ($_products = $this->getRecentlyViewedProducts()): ?>
 <h2 class="subtitle"><?php echo $this->__('Your Recently Viewed') ?></h2>
 <?php $_columnCount = $this->getColumnCount(); ?>
-<?php $_params = $this->escapeHtml(json_encode(array('form_key' => $this->getFormKey()))); ?>
+<?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])); ?>
     <?php $i=0; foreach ($_products as $_product): ?>
         <?php if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
@@ -49,7 +43,7 @@
                                 title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>"
                                 class="button btn-cart"
                                 onclick="customFormSubmit(
-                                        '<?php echo $this->getAddToCartUrlCustom($_product, array(), false) ?>',
+                                        '<?php echo $this->getAddToCartUrlCustom($_product, [], false) ?>',
                                         '<?php echo $_params ?>',
                                         'post')">
                             <span><span><?php echo $this->__('Add to Cart') ?></span></span>

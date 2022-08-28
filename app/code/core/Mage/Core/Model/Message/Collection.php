@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -38,7 +32,7 @@ class Mage_Core_Model_Message_Collection
      *
      * @var array
      */
-    protected $_messages = array();
+    protected $_messages = [];
     protected $_lastAddedMessage;
 
     /**
@@ -61,7 +55,7 @@ class Mage_Core_Model_Message_Collection
     public function addMessage(Mage_Core_Model_Message_Abstract $message)
     {
         if (!isset($this->_messages[$message->getType()])) {
-            $this->_messages[$message->getType()] = array();
+            $this->_messages[$message->getType()] = [];
         }
         $this->_messages[$message->getType()][] = $message;
         $this->_lastAddedMessage = $message;
@@ -141,10 +135,10 @@ class Mage_Core_Model_Message_Collection
     public function getItems($type = null)
     {
         if ($type) {
-            return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
+            return isset($this->_messages[$type]) ? $this->_messages[$type] : [];
         }
 
-        $arrRes = array();
+        $arrRes = [];
         foreach ($this->_messages as $messageType => $messages) {
             $arrRes = array_merge($arrRes, $messages);
         }
@@ -160,7 +154,7 @@ class Mage_Core_Model_Message_Collection
      */
     public function getItemsByType($type)
     {
-        return isset($this->_messages[$type]) ? $this->_messages[$type] : array();
+        return isset($this->_messages[$type]) ? $this->_messages[$type] : [];
     }
 
     /**

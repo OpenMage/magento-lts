@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
@@ -48,6 +42,7 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     const SEARCH_TYPE_FULLTEXT          = 2;
     const SEARCH_TYPE_COMBINE           = 3;
     const XML_PATH_CATALOG_SEARCH_TYPE  = 'catalog/search/search_type';
+    const XML_PATH_CATALOG_SEARCH_SEPARATOR  = 'catalog/search/search_separator';
 
     /**
      * Whether table changes are allowed
@@ -78,14 +73,14 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
      */
     public function rebuildIndex($storeId = null, $productIds = null)
     {
-        Mage::dispatchEvent('catalogsearch_index_process_start', array(
+        Mage::dispatchEvent('catalogsearch_index_process_start', [
             'store_id'      => $storeId,
             'product_ids'   => $productIds
-        ));
+        ]);
 
         $this->getResource()->rebuildIndex($storeId, $productIds);
 
-        Mage::dispatchEvent('catalogsearch_index_process_complete', array());
+        Mage::dispatchEvent('catalogsearch_index_process_complete', []);
 
         return $this;
     }
@@ -149,10 +144,6 @@ class Mage_CatalogSearch_Model_Fulltext extends Mage_Core_Model_Abstract
     {
         return Mage::getStoreConfig(self::XML_PATH_CATALOG_SEARCH_TYPE, $storeId);
     }
-
-
-
-
 
     // Deprecated methods
 

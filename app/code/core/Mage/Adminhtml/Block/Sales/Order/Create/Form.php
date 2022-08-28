@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -89,12 +83,12 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form extends Mage_Adminhtml_Block_
 
     public function getOrderDataJson()
     {
-        $data = array();
+        $data = [];
         if (!is_null($this->getCustomerId())) {
             $data['customer_id'] = $this->getCustomerId();
-            $data['addresses'] = array();
+            $data['addresses'] = [];
 
-            /* @var $addressForm Mage_Customer_Model_Form */
+            /** @var Mage_Customer_Model_Form $addressForm */
             $addressForm = Mage::getModel('customer/form')
                 ->setFormCode('adminhtml_customer_address')
                 ->setStore($this->getStore());

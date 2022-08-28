@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -152,7 +146,7 @@ class Mage_Core_Model_Encryption
         }
         // look for salt
         $hashArr = explode(':', $hash, 2);
-        if (1 === count($hashArr)) {
+        if (count($hashArr) === 1) {
             return hash_equals($this->hash($password, $version), $hash);
         }
         list($hash, $salt) = $hashArr;
@@ -168,7 +162,7 @@ class Mage_Core_Model_Encryption
     protected function _getCrypt($key = null)
     {
         if (!$this->_crypt) {
-            if (null === $key) {
+            if ($key === null) {
                 $key = (string)Mage::getConfig()->getNode('global/crypt/key');
             }
             $this->_crypt = Varien_Crypt::factory()->init($key);

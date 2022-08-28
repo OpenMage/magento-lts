@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Wishlist
@@ -40,12 +34,15 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Comment extends Mage_Wis
      */
     public function getJs()
     {
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
+
         return parent::getJs() . "
         function focusComment(obj) {
-            if( obj.value == '" . $this->helper('wishlist')->defaultCommentString() . "' ) {
+            if( obj.value == '" . $helper->defaultCommentString() . "' ) {
                 obj.value = '';
             } else if( obj.value == '' ) {
-                obj.value = '" . $this->helper('wishlist')->defaultCommentString() . "';
+                obj.value = '" . $helper->defaultCommentString() . "';
             }
         }
         ";

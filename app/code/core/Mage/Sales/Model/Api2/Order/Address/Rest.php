@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -69,7 +63,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
         $this->_applyCollectionModifiers($collection);
         $data = $collection->load()->toArray();
 
-        if (0 == count($data['items'])) {
+        if (count($data['items']) == 0) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
 
@@ -83,7 +77,7 @@ abstract class Mage_Sales_Model_Api2_Order_Address_Rest extends Mage_Sales_Model
      */
     protected function _getCollectionForRetrieve()
     {
-        /* @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
+        /** @var Mage_Sales_Model_Resource_Order_Address_Collection $collection */
         $collection = Mage::getResourceModel('sales/order_address_collection');
         $collection->addAttributeToFilter('parent_id', $this->getRequest()->getParam(self::PARAM_ORDER_ID));
 

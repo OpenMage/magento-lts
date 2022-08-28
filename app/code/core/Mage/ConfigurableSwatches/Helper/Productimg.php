@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -35,7 +29,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @var array
      */
-    protected $_productImagesByLabel = array();
+    protected $_productImagesByLabel = [];
 
     /**
      * This array stores all possible labels and swatch labels used for associating gallery
@@ -43,7 +37,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @var array
      */
-    protected $_productImageFilters = array();
+    protected $_productImageFilters = [];
 
     const SWATCH_LABEL_SUFFIX = '-swatch';
     const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
@@ -55,7 +49,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
     const SWATCH_DEFAULT_WIDTH = 21;
     const SWATCH_DEFAULT_HEIGHT = 21;
-
 
     /**
      * Determine if the passed text matches the label of any of the passed product's images
@@ -73,11 +66,11 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         $images = $this->_productImagesByLabel[$product->getId()];
         $text = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($text);
 
-        $resultImages = array(
+        $resultImages = [
             'standard' => isset($images[$text]) ? $images[$text] : null,
             'swatch' => isset($images[$text . self::SWATCH_LABEL_SUFFIX]) ? $images[$text . self::SWATCH_LABEL_SUFFIX]
                 : null,
-        );
+        ];
 
         if (!is_null($type) && array_key_exists($type, $resultImages)) {
             $image = $resultImages[$type];
@@ -93,7 +86,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array|null $preValues
-     * @return void
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -102,8 +94,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImagesByLabel[$product->getId()])) {
-            $images = array();
-            $searchValues = array();
+            $images = [];
+            $searchValues = [];
 
             if (!is_null($preValues) && is_array($preValues)) { // If a pre-defined list of valid values was passed
                 $preValues = array_map('Mage_ConfigurableSwatches_Helper_Data::normalizeKey', $preValues);
@@ -128,7 +120,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             $mediaGalleryImages = $product->getMediaGalleryImages();
 
             if (empty($mediaGallery['images']) || empty($mediaGalleryImages)) {
-                $this->_productImagesByLabel[$product->getId()] = array();
+                $this->_productImagesByLabel[$product->getId()] = [];
                 return; //nothing to do here
             }
 
@@ -137,7 +129,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             }, $mediaGallery['images']);
 
             foreach ($searchValues as $label) {
-                $imageKeys = array();
+                $imageKeys = [];
                 $swatchLabel = $label . self::SWATCH_LABEL_SUFFIX;
 
                 $imageKeys[$label] = array_search($label, $imageHaystack);
@@ -283,13 +275,13 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     protected function _resizeSwatchImage($filename, $tag, $width, $height)
     {
         // Form full path to where we want to cache resized version
-        $destPathArr = array(
+        $destPathArr = [
             self::SWATCH_CACHE_DIR,
             Mage::app()->getStore()->getId(),
             $width . 'x' . $height,
             $tag,
             trim($filename, '/'),
-        );
+        ];
 
         $destPath = implode('/', $destPathArr);
 

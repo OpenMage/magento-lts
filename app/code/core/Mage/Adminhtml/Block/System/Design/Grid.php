@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -69,36 +63,36 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
     protected function _prepareColumns()
     {
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('store_id', array(
+            $this->addColumn('store_id', [
                 'header'        => Mage::helper('catalog')->__('Store'),
                 'width'         => '100px',
                 'type'          => 'store',
                 'store_view'    => true,
                 'sortable'      => false,
                 'index'         => 'store_id',
-            ));
+            ]);
         }
 
-        $this->addColumn('package', array(
+        $this->addColumn('package', [
                 'header'    => Mage::helper('catalog')->__('Design'),
                 'width'     => '150px',
                 'index'     => 'design',
-        ));
-        $this->addColumn('date_from', array(
+        ]);
+        $this->addColumn('date_from', [
             'header'    => Mage::helper('catalogrule')->__('Date From'),
             'align'     => 'left',
             'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_from',
-        ));
+        ]);
 
-        $this->addColumn('date_to', array(
+        $this->addColumn('date_to', [
             'header'    => Mage::helper('catalogrule')->__('Date To'),
             'align'     => 'left',
             'width'     => '100px',
             'type'      => 'date',
             'index'     => 'date_to',
-        ));
+        ]);
 
         return parent::_prepareColumns();
     }
@@ -111,7 +105,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
 
     /**
@@ -121,7 +115,7 @@ class Mage_Adminhtml_Block_System_Design_Grid extends Mage_Adminhtml_Block_Widge
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/*/grid', ['_current' => true]);
     }
 
 }

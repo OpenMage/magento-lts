@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -83,7 +77,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
 
-        $htmlAttibutes = array('value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action)));
+        $htmlAttibutes = ['value'=>$this->escapeHtml(Mage::helper('core')->jsonEncode($action))];
         $actionAttributes->setData($htmlAttibutes);
         return '<option ' . $actionAttributes->serialize() . '>' . $actionCaption . '</option>';
     }
@@ -139,7 +133,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 
                 case 'url':
                     if(is_array($action['url'])) {
-                        $params = array($action['field']=>$this->_getValue($row));
+                        $params = [$action['field']=>$this->_getValue($row)];
                         if(isset($action['url']['params'])) {
                             $params = array_merge($action['url']['params'], $params);
                         }

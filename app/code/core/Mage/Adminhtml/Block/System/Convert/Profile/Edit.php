@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -42,11 +36,11 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
 
         $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Profile'));
         $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Profile'));
-        $this->_addButton('savecontinue', array(
+        $this->_addButton('savecontinue', [
             'label' => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'onclick' => "$('edit_form').action += 'continue/true/'; editForm.submit();",
             'class' => 'save',
-        ), -100);
+        ], -100);
 
     }
 

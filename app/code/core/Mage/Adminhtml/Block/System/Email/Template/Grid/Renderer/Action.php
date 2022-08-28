@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -36,13 +30,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 {
     public function render(Varien_Object $row)
     {
-        $actions = array();
+        $actions = [];
 
-        $actions[] = array(
-            'url'		=>  $this->getUrl('*/*/preview', array('id'=>$row->getId())),
+        $actions[] = [
+            'url'		=>  $this->getUrl('*/*/preview', ['id'=>$row->getId()]),
             'popup'     =>  true,
             'caption'	=>	$this->__('Preview')
-        );
+        ];
 
         $this->getColumn()->setActions($actions);
 
@@ -56,7 +50,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 
     protected function _actionsToHtml(array $actions)
     {
-        $html = array();
+        $html = [];
         $attributesObject = new Varien_Object();
         foreach ($actions as $action) {
             $attributesObject->setData($action['@']);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -205,7 +199,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     protected function _getSelectedNodes()
     {
         if ($this->_selectedNodes === null) {
-            $this->_selectedNodes = array();
+            $this->_selectedNodes = [];
             $root = $this->getRoot();
             foreach ($this->getCategoryIds() as $categoryId) {
                 if ($root) {
@@ -232,7 +226,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
             return '[]';
         }
 
-        $children = array();
+        $children = [];
         foreach ($node->getChildren() as $child) {
             $children[] = $this->_getNodeJson($child);
         }
@@ -248,7 +242,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      */
     public function getLoadTreeUrl($expanded = null)
     {
-        return $this->getUrl('*/*/categoriesJson', array('_current' => true));
+        return $this->getUrl('*/*/categoriesJson', ['_current' => true]);
     }
 
     /**
@@ -259,20 +253,20 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
      */
     public function getSelectedCategoriesPathIds($rootId = false)
     {
-        $ids = array();
+        $ids = [];
         $categoryIds = $this->getCategoryIds();
         if (empty($categoryIds)) {
-            return array();
+            return [];
         }
         $collection = Mage::getResourceModel('catalog/category_collection');
 
         if ($rootId) {
-            $collection->addFieldToFilter(array(
-                array('attribute' => 'parent_id', 'eq' => $rootId),
-                array('attribute' => 'entity_id', 'in' => $categoryIds)
-            ));
+            $collection->addFieldToFilter([
+                ['attribute' => 'parent_id', 'eq' => $rootId],
+                ['attribute' => 'entity_id', 'in' => $categoryIds]
+            ]);
         } else {
-            $collection->addFieldToFilter('entity_id', array('in' => $categoryIds));
+            $collection->addFieldToFilter('entity_id', ['in' => $categoryIds]);
         }
 
         foreach ($collection as $item) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogIndex
@@ -41,7 +35,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
      */
     public function processAfterSave(Mage_Catalog_Model_Product $object, $forceId = null)
     {
-        $associated = array();
+        $associated = [];
         switch ($object->getTypeId()) {
             case Mage_Catalog_Model_Product_Type::TYPE_GROUPED:
                 $associated = $object->getTypeInstance(true)->getAssociatedProducts($object);
@@ -56,7 +50,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
             return;
         }
 
-        $data = array();
+        $data = [];
 
         if ($this->_runOnce) {
             $data = $this->createIndexData($object);
@@ -167,7 +161,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
      */
     protected function _getIndexableAttributeConditions()
     {
-        return array();
+        return [];
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -88,10 +82,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderHtml()
     {
-        $out = '<div id="order-header">'
+        return '<div id="order-header">'
             . $this->getLayout()->createBlock('adminhtml/sales_order_create_header')->toHtml()
             . '</div>';
-        return $out;
     }
 
     /**
@@ -124,9 +117,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     public function getCancelUrl()
     {
         if ($this->_getSession()->getOrder()->getId()) {
-            $url = $this->getUrl('*/sales_order/view', array(
+            $url = $this->getUrl('*/sales_order/view', [
                 'order_id' => Mage::getSingleton('adminhtml/session_quote')->getOrder()->getId()
-            ));
+            ]);
         } else {
             $url = $this->getUrl('*/*/cancel');
         }

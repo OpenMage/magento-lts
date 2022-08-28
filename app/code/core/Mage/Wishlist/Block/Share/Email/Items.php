@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Wishlist block customer items
@@ -51,7 +44,7 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
      * @param array $additional
      * @return string
      */
-    public function getProductUrl($product, $additional = array())
+    public function getProductUrl($product, $additional = [])
     {
         $additional['_store_to_url'] = true;
         return parent::getProductUrl($product, $additional);
@@ -64,7 +57,7 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
      * @param array $additional
      * @return string
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
     }
@@ -92,7 +85,7 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
      * @param bool $addFormKey
      * @return string
      */
-    public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
         $additional['nocookie'] = 1;
         $additional['_store_to_url'] = true;

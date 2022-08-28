@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -45,7 +39,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      *
      * @param  integer|array|Zend_Config $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!is_array($options)) {
             $options     = func_get_args();
@@ -86,11 +80,11 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      *
      * @var array
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'min'  => '_min',
         'max'  => '_max',
         'name' => '_name'
-    );
+    ];
 
     /**
      * Set length

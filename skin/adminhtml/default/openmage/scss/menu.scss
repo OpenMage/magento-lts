@@ -6,7 +6,7 @@
 @import "base";
 
 .nav-bar {
-  background: $color_dorado_approx;
+  background: $openmage_base_blue;
   padding: 0 350px 0 70px;
 
   &:after {
@@ -28,7 +28,7 @@
     float: left;
 
     &.over {
-      z-index: 99;
+      z-index: 999;
 
       a {
         color: $color_geyser_approx;
@@ -61,7 +61,7 @@
     }
 
     &.active {
-      z-index: 100;
+      z-index: 1000;
       margin-left: -1px;
       color: $white;
       font-weight: bold;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rule
@@ -53,7 +47,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
      *
      * @var array
      */
-    protected $_associatedEntitiesMap = array();
+    protected $_associatedEntitiesMap = [];
 
     /**
      * Quote rule environment
@@ -113,7 +107,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             }
 
             $subSelect = $this->getConnection()->select()
-                ->from(array('website' => $this->getTable($entityInfo['associations_table'])), '')
+                ->from(['website' => $this->getTable($entityInfo['associations_table'])], '')
                 ->where('website.' . $entityInfo['entity_id_field'] . ' IN (?)', $websiteId);
             $this->getSelect()->exists(
                 $subSelect,
@@ -171,16 +165,11 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             return $this->_associatedEntitiesMap[$entityType];
         }
 
-        $e = Mage::exception(
+        throw Mage::exception(
             'Mage_Core',
             Mage::helper('rule')->__('There is no information about associated entity type "%s".', $entityType)
         );
-        throw $e;
     }
-
-
-
-
 
     /**
      * Set environment for all rules in collection

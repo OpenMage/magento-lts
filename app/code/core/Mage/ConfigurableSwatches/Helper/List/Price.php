@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -41,12 +35,11 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
      *
      * @param array $products
      * @param int $storeId
-     * @return void
      */
     public function attachConfigurableProductChildrenPricesMapping(array $products, $storeId = null)
     {
         $listSwatchAttrId = Mage::helper('configurableswatches/productlist')->getSwatchAttributeId();
-        $result = array();
+        $result = [];
 
         foreach ($products as $product) {
             /** @var Mage_Catalog_Model_Product $product */
@@ -76,11 +69,11 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                     );
                     Mage::dispatchEvent(
                         'catalog_product_type_configurable_price',
-                        array('product' => $product)
+                        ['product' => $product]
                     );
                     $configurablePrice = $product->getConfigurablePrice();
                     $cofigurableSwatchesHelper = Mage::helper('configurableswatches');
-                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = array(
+                    $result[$cofigurableSwatchesHelper::normalizeKey($attributePrice['store_label'])] = [
                        'price' => $configurablePrice,
                     'oldPrice' => $this->_getHelper()->prepareOldPrice(
                         $product,
@@ -88,7 +81,7 @@ class Mage_ConfigurableSwatches_Helper_List_Price extends Mage_Core_Helper_Abstr
                         $attributePrice['is_percent'],
                         $storeId
                     ),
-                    );
+                    ];
                 }
             }
             $product->setSwatchPrices($result);

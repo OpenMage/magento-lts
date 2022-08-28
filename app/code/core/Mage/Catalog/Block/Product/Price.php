@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -113,11 +107,11 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
         // if our parent is a bundle, then we need to further adjust our tier prices
         if (isset($parent) && $parent->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
-            /* @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
+            /** @var Mage_Bundle_Model_Product_Price $bundlePriceModel */
             $bundlePriceModel = Mage::getModel('bundle/product_price');
         }
 
-        $res = array();
+        $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
                 $price['price_qty'] = $price['price_qty'] * 1;
@@ -135,7 +129,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
 
                 if ($price['price'] < $productPrice) {
                     // use the original prices to determine the percent savings
-                    $price['savePercent'] = ceil(100 - ((100 / $productPrice) * $price['price']));
+                    $price['savePercent'] = ceil(100 - round((100 / $productPrice) * $price['price']));
 
                     // if applicable, adjust the tier prices
                     if (isset($bundlePriceModel)) {
@@ -181,7 +175,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * @param array $additional
      * @return string
      */
-    public function getAddToCartUrl($product, $additional = array())
+    public function getAddToCartUrl($product, $additional = [])
     {
         return $this->getAddToCartUrlCustom($product, $additional);
     }
@@ -227,7 +221,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * If attribute is not found false is returned
      *
      * @param string|integer|Mage_Core_Model_Config_Element $attribute
-     * @return Mage_Eav_Model_Entity_Attribute_Abstract || false
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract | false
      */
     public function getProductAttribute($attribute)
     {
@@ -242,11 +236,14 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
      * @param bool $addFormKey
      * @return string
      */
-    public function getAddToCartUrlCustom($product, $additional = array(), $addFormKey = true)
+    public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+
         if (!$addFormKey) {
-            return $this->helper('checkout/cart')->getAddUrlCustom($product, $additional, false);
+            return $helper->getAddUrlCustom($product, $additional, false);
         }
-        return $this->helper('checkout/cart')->getAddUrl($product, $additional);
+        return $helper->getAddUrl($product, $additional);
     }
 }

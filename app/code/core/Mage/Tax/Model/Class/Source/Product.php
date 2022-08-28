@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -45,9 +39,9 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         }
 
         $options = $this->_options;
-        array_unshift($options, array('value'=>'0', 'label'=>Mage::helper('tax')->__('None')));
+        array_unshift($options, ['value'=>'0', 'label'=>Mage::helper('tax')->__('None')]);
         if ($withEmpty) {
-            array_unshift($options, array('value'=>'', 'label'=>Mage::helper('tax')->__('-- Please Select --')));
+            array_unshift($options, ['value'=>'', 'label'=>Mage::helper('tax')->__('-- Please Select --')]);
         }
         return $options;
     }
@@ -88,11 +82,11 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
     public function getFlatColums()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
-        $column = array(
+        $column = [
             'unsigned'  => true,
             'default'   => null,
             'extra'     => null
-        );
+        ];
 
         if (Mage::helper('core')->useDbCompatibleMode()) {
             $column['type']     = 'int';
@@ -103,7 +97,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
             $column['comment']  = $attributeCode . ' tax column';
         }
 
-        return array($attributeCode => $column);
+        return [$attributeCode => $column];
     }
 
     /**

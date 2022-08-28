@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -89,11 +83,11 @@ class Mage_Payment_Block_Info_Cc extends Mage_Payment_Block_Info
      */
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null !== $this->_paymentSpecificInformation) {
+        if ($this->_paymentSpecificInformation !== null) {
             return $this->_paymentSpecificInformation;
         }
         $transport = parent::_prepareSpecificInformation($transport);
-        $data = array();
+        $data = [];
         if ($ccType = $this->getCcTypeName()) {
             $data[Mage::helper('payment')->__('Credit Card Type')] = $ccType;
         }

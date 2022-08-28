@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -40,20 +34,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
 
     protected function _getOptions()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Mage::helper('adminhtml')->__('Any'),
                 'value' => ''
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('adminhtml')->__('Yes'),
                 'value' => 1
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('adminhtml')->__('No'),
                 'value' => 0
-            ),
-        );
+            ],
+        ];
     }
 
     public function getCondition()
@@ -62,10 +56,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox extends Mage_Admin
             return $this->getColumn()->getValue();
         }
         else {
-            return array(
-                array('neq'=>$this->getColumn()->getValue()),
-                array('is'=>new Zend_Db_Expr('NULL'))
-            );
+            return [
+                ['neq'=>$this->getColumn()->getValue()],
+                ['is'=>new Zend_Db_Expr('NULL')]
+            ];
         }
         //return array('like'=>'%'.$this->getValue().'%');
     }

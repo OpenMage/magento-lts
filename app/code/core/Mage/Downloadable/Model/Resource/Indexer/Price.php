@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Downloadable products Price indexer resource model
@@ -116,36 +109,36 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
 
         $select = $write->select()
             ->from(
-                array('i' => $this->_getDefaultFinalPriceTable()),
-                array('entity_id', 'customer_group_id', 'website_id')
+                ['i' => $this->_getDefaultFinalPriceTable()],
+                ['entity_id', 'customer_group_id', 'website_id']
             )
             ->join(
-                array('dl' => $dlType->getBackend()->getTable()),
+                ['dl' => $dlType->getBackend()->getTable()],
                 "dl.entity_id = i.entity_id AND dl.attribute_id = {$dlType->getAttributeId()}"
                     . " AND dl.store_id = 0",
-                array()
+                []
             )
             ->join(
-                array('dll' => $this->getTable('downloadable/link')),
+                ['dll' => $this->getTable('downloadable/link')],
                 'dll.product_id = i.entity_id',
-                array()
+                []
             )
             ->join(
-                array('dlpd' => $this->getTable('downloadable/link_price')),
+                ['dlpd' => $this->getTable('downloadable/link_price')],
                 'dll.link_id = dlpd.link_id AND dlpd.website_id = 0',
-                array()
+                []
             )
             ->joinLeft(
-                array('dlpw' => $this->getTable('downloadable/link_price')),
+                ['dlpw' => $this->getTable('downloadable/link_price')],
                 'dlpd.link_id = dlpw.link_id AND dlpw.website_id = i.website_id',
-                array()
+                []
             )
             ->where('dl.value = ?', 1)
-            ->group(array('i.entity_id', 'i.customer_group_id', 'i.website_id'))
-            ->columns(array(
+            ->group(['i.entity_id', 'i.customer_group_id', 'i.website_id'])
+            ->columns([
                 'min_price' => new Zend_Db_Expr('MIN('.$ifPrice.')'),
                 'max_price' => new Zend_Db_Expr('SUM('.$ifPrice.')')
-            ));
+            ]);
 
         $query = $select->insertFromSelect($table);
         $write->query($query);
@@ -155,19 +148,19 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
 
         $select = $write->select()
             ->join(
-                array('id' => $table),
+                ['id' => $table],
                 'i.entity_id = id.entity_id AND i.customer_group_id = id.customer_group_id'
                     .' AND i.website_id = id.website_id',
-                array()
+                []
             )
-            ->columns(array(
+            ->columns([
                 'min_price'   => new Zend_Db_Expr('i.min_price + id.min_price'),
                 'max_price'   => new Zend_Db_Expr('i.max_price + id.max_price'),
                 'tier_price'  => new Zend_Db_Expr($ifTierPrice),
                 'group_price' => new Zend_Db_Expr($ifGroupPrice),
-            ));
+            ]);
 
-        $query = $select->crossUpdateFromSelect(array('i' => $this->_getDefaultFinalPriceTable()));
+        $query = $select->crossUpdateFromSelect(['i' => $this->_getDefaultFinalPriceTable()]);
         $write->query($query);
 
         $write->delete($table);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -63,11 +57,11 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     protected function _preparelayout()
     {
-        $this->_addButton('save_and_edit', array(
+        $this->_addButton('save_and_edit', [
             'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'class'     => 'save',
             'onclick'   => 'editForm.submit(\'' . $this->getSaveAndContinueUrl() . '\');'
-        ), 100);
+        ], 100);
         if (!$this->getVariable()->getId()) {
             $this->removeButton('delete');
         }
@@ -112,7 +106,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getValidationUrl()
     {
-        return $this->getUrl('*/*/validate', array('_current'=>true));
+        return $this->getUrl('*/*/validate', ['_current'=>true]);
     }
 
     /**
@@ -122,7 +116,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getSaveUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true, 'back' => null));
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => null]);
     }
 
     /**
@@ -132,6 +126,6 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getSaveAndContinueUrl()
     {
-        return $this->getUrl('*/*/save', array('_current' => true, 'back' => 'edit'));
+        return $this->getUrl('*/*/save', ['_current' => true, 'back' => 'edit']);
     }
 }

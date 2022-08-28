@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -28,9 +22,9 @@ if (version_compare(phpversion(), '7.0.0', '<')===true) {
     echo  '<div style="font:12px/1.35em arial, helvetica, sans-serif;">
 <div style="margin:0 0 25px 0; border-bottom:1px solid #ccc;">
 <h3 style="margin:0; font-size:1.7em; font-weight:normal; text-transform:none; text-align:left; color:#2f2f2f;">
-Whoops, it looks like you have an invalid PHP version.</h3></div><p>Magento supports PHP 7.0.0 or newer.
+Whoops, it looks like you have an invalid PHP version.</h3></div><p>OpenMage supports PHP 7.0.0 or newer.
 <a href="https://www.openmage.org/magento-lts/install.html" target="">Find out</a> how to install</a>
- Magento using PHP-CGI as a work-around.</p></div>';
+ OpenMage using PHP-CGI as a work-around.</p></div>';
     exit;
 }
 

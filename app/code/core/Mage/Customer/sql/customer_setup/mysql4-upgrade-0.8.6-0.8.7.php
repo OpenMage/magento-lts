@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -26,14 +20,14 @@
 
 $installer = $this;
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer->startSetup();
 
-$installer->addAttribute('customer', 'taxvat', array(
+$installer->addAttribute('customer', 'taxvat', [
     'label'        => 'Tax/VAT number',
     'visible'      => 1,
     'required'     => 0,
     'position'     => 1,
-));
+]);
 
 $installer->endSetup();

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -63,29 +57,29 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
     protected function _prepareColumns()
     {
 
-        $this->addColumn('nickname', array(
+        $this->addColumn('nickname', [
             'header'    =>Mage::helper('reports')->__('Customer'),
             'width'     =>'100px',
             'index'     =>'nickname'
-        ));
+        ]);
 
-        $this->addColumn('title', array(
+        $this->addColumn('title', [
             'header'    =>Mage::helper('reports')->__('Title'),
             'width'     =>'150px',
             'index'     =>'title'
-        ));
+        ]);
 
-        $this->addColumn('detail', array(
+        $this->addColumn('detail', [
             'header'    =>Mage::helper('reports')->__('Detail'),
             'index'     =>'detail'
-        ));
+        ]);
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('created_at', [
             'header'    =>Mage::helper('reports')->__('Created At'),
             'index'     =>'created_at',
             'width'     =>'200px',
             'type'      =>'datetime'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
 

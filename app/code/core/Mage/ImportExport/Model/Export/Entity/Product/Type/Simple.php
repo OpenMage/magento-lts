@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -38,24 +32,24 @@ class Mage_ImportExport_Model_Export_Entity_Product_Type_Simple extends Mage_Imp
      *
      * @var array
      */
-    protected $_attributeOverrides = array(
-        'has_options'      => array('source_model' => 'eav/entity_attribute_source_boolean'),
-        'required_options' => array('source_model' => 'eav/entity_attribute_source_boolean'),
-        'created_at'       => array('backend_type' => 'datetime'),
-        'updated_at'       => array('backend_type' => 'datetime')
-    );
+    protected $_attributeOverrides = [
+        'has_options'      => ['source_model' => 'eav/entity_attribute_source_boolean'],
+        'required_options' => ['source_model' => 'eav/entity_attribute_source_boolean'],
+        'created_at'       => ['backend_type' => 'datetime'],
+        'updated_at'       => ['backend_type' => 'datetime']
+    ];
 
     /**
      * Array of attributes codes which are disabled for export.
      *
      * @var array
      */
-    protected $_disabledAttrs = array(
+    protected $_disabledAttrs = [
         'old_id',
         'recurring_profile',
         'is_recurring',
         'tier_price',
         'group_price',
         'category_ids'
-    );
+    ];
 }

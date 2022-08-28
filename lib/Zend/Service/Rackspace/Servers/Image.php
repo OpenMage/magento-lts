@@ -29,44 +29,44 @@ class Zend_Service_Rackspace_Servers_Image
     const ERROR_PARAM_NO_ID     = 'You must pass the image\'s id in the array (id)';
     /**
      * Name of the image
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $name;
     /**
      * Id of the image
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $id;
     /**
      * Server Id of the image
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $serverId;
     /**
      * Updated data
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $updated;
     /**
      * Created data
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $created;
     /**
      * Status
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $status;
     /**
      * Status progress
-     * 
-     * @var integer 
+     *
+     * @var integer
      */
     protected $progress;
     /**
@@ -77,7 +77,7 @@ class Zend_Service_Rackspace_Servers_Image
     protected $service;
     /**
      * Construct
-     * 
+     *
      * @param array $data
      * @return void
      */
@@ -125,8 +125,8 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the image's id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getId()
     {
@@ -134,8 +134,8 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the server's id of the image
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getServerId()
     {
@@ -143,8 +143,8 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the updated data
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUpdated()
     {
@@ -152,8 +152,8 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the created data
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getCreated()
     {
@@ -161,7 +161,7 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the image's status
-     * 
+     *
      * @return string|boolean
      */
     public function getStatus()
@@ -176,7 +176,7 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * Get the progress's status
-     * 
+     *
      * @return integer|boolean
      */
     public function getProgress()
@@ -191,8 +191,8 @@ class Zend_Service_Rackspace_Servers_Image
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {

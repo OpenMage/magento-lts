@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Rule data model
@@ -109,7 +102,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected static $_priceRulesData = array();
+    protected static $_priceRulesData = [];
 
     /**
      * Factory instance
@@ -141,7 +134,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
@@ -202,7 +195,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getNow()
     {
         if (!$this->_now) {
-            return now();
+            return Varien_Date::now();
         }
         return $this->_now;
     }
@@ -225,8 +218,8 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getMatchingProductIds()
     {
         if (is_null($this->_productIds)) {
-            $this->_productIds = array();
-            $this->setCollectedAttributes(array());
+            $this->_productIds = [];
+            $this->setCollectedAttributes([]);
 
             if ($this->getWebsiteIds()) {
                 $productCollection = Mage::getResourceModel('catalog/product_collection');
@@ -238,11 +231,11 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
                 Mage::getSingleton('core/resource_iterator')->walk(
                     $productCollection->getSelect(),
-                    array(array($this, 'callbackValidateProduct')),
-                    array(
+                    [[$this, 'callbackValidateProduct']],
+                    [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
-                    )
+                    ]
                 );
             }
         }
@@ -254,14 +247,13 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Callback function for product matching
      *
      * @param array $args
-     * @return void
      */
     public function callbackValidateProduct($args)
     {
         $product = clone $args['product'];
         $product->setData($args['row']);
 
-        $results = array();
+        $results = [];
         foreach ($this->_getWebsitesMap() as $websiteId => $defaultStoreId) {
             $product->setStoreId($defaultStoreId);
             $results[$websiteId] = (int)$this->getConditions()->validate($product);
@@ -276,7 +268,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      */
     protected function _getWebsitesMap()
     {
-        $map = array();
+        $map = [];
         foreach ($this->_app->getWebsites(true) as $website) {
             if ($website->getDefaultStore()) {
                 $map[$website->getId()] = $website->getDefaultStore()->getId();
@@ -290,8 +282,6 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param int|Mage_Catalog_Model_Product $product
      * @param array|null $websiteIds
-     *
-     * @return void
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -309,12 +299,11 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Apply all price rules, invalidate related cache and refresh price index
      *
-     * @return void
      * @throws Exception
      */
     public function applyAll()
     {
-        $this->getResourceCollection()->walk(array($this->_getResource(), 'updateRuleProductData'));
+        $this->getResourceCollection()->walk([$this->_getResource(), 'updateRuleProductData']);
         $this->_getResource()->applyAllRules();
         $this->_invalidateCache();
         $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
@@ -342,6 +331,9 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         /** @var Mage_CatalogRule_Model_Resource_Rule_Collection $rules */
         $rules = Mage::getModel('catalogrule/rule')->getCollection()
             ->addFieldToFilter('is_active', 1);
+        if ($rules->count() === 0) {
+            return $this;
+        }
         foreach ($rules as $rule) {
             $websiteIds = array_intersect($productWebsiteIds, $rule->getWebsiteIds());
             $this->getResource()->applyToProduct($rule, $product, $websiteIds);
@@ -351,7 +343,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         $this->_invalidateCache();
 
         Mage::getSingleton('index/indexer')->processEntityAction(
-            new Varien_Object(array('id' => $product->getId())),
+            new Varien_Object(['id' => $product->getId()]),
             Mage_Catalog_Model_Product::ENTITY,
             Mage_Catalog_Model_Product_Indexer_Price::EVENT_TYPE_REINDEX_PRICE
         );
@@ -481,7 +473,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return array
      */
-    public function toArray(array $arrAttributes = array())
+    public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -35,6 +29,12 @@ include_once "ProfileController.php";
  */
 class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_Convert_ProfileController
 {
+    /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'admin/system/convert/gui';
+
     /**
      * Profiles list action
      */
@@ -97,7 +97,6 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
 
         $this->_setActiveMenu('system/convert');
 
-
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/system_convert_gui_edit')
         );
@@ -130,25 +129,5 @@ class Mage_Adminhtml_System_Convert_GuiController extends Mage_Adminhtml_System_
         }
         $this->_initProfile();
         $profile = Mage::registry('current_convert_profile');
-    }
-
-    protected function _isAllowed()
-    {
-//        switch ($this->getRequest()->getActionName()) {
-//            case 'index':
-//                $aclResource = 'admin/system/convert/gui';
-//                break;
-//            case 'grid':
-//                $aclResource = 'admin/system/convert/gui';
-//                break;
-//            case 'run':
-//                $aclResource = 'admin/system/convert/gui/run';
-//                break;
-//            default:
-//                $aclResource = 'admin/system/convert/gui/edit';
-//                break;
-//        }
-
-        return Mage::getSingleton('admin/session')->isAllowed('admin/system/convert/gui');
     }
 }

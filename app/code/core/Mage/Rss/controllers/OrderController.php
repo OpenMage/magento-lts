@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rss
@@ -52,7 +46,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
             if (Mage::app()->getStore()->isCurrentlySecure()) {
                 Mage::helper('rss')->authFrontend();
             } else {
-                $this->_redirect('rss/order/customer', array('_secure'=>true));
+                $this->_redirect('rss/order/customer', ['_secure'=>true]);
                 return $this;
             }
         }
@@ -77,7 +71,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
     }
 
     /**
-     * Controller predispatch method to change area for some specific action.
+     * Controller pre-dispatch method to change area for some specific action.
      *
      * @return $this
      */

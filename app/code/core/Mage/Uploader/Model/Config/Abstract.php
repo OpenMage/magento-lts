@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Uploader
@@ -57,16 +51,13 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
         $key = lcfirst($this->_camelize(substr($method,3)));
         switch (substr($method, 0, 3)) {
             case 'get' :
-                $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
-                return $data;
+                return $this->getData($key, isset($args[0]) ? $args[0] : null);
 
             case 'set' :
-                $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
-                return $result;
+                return $this->setData($key, isset($args[0]) ? $args[0] : null);
 
             case 'uns' :
-                $result = $this->unsetData($key);
-                return $result;
+                return $this->unsetData($key);
 
             case 'has' :
                 return isset($this->_data[$key]);

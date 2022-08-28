@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_GiftMessage
@@ -45,14 +39,14 @@ CREATE TABLE {$this->getTable('gift_message')} (
 
 $installer->endSetup();
 
-$installer->addAttribute('quote', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('quote_address_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_id', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('order_item', 'gift_message_available', array('type' => 'int', 'visible' => false, 'required' => false));
-$installer->addAttribute('catalog_product', 'gift_message_available', array(
+$installer->addAttribute('quote', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('quote_address_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('order_item', 'gift_message_available', ['type' => 'int', 'visible' => false, 'required' => false]);
+$installer->addAttribute('catalog_product', 'gift_message_available', [
         'backend'       => 'giftmessage/entity_attribute_backend_boolean_config',
         'frontend'      => '',
         'label'         => 'Allow Gift Message',
@@ -65,4 +59,4 @@ $installer->addAttribute('catalog_product', 'gift_message_available', array(
         'user_defined'  => false,
         'default'       => '2',
         'visible_on_front' => false
-    ));
+]);

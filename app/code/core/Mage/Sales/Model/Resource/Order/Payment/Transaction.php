@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales transaction resource model
@@ -39,9 +32,9 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      *
      * @var array
      */
-    protected $_serializableFields   = array(
-        'additional_information' => array(null, array())
-    );
+    protected $_serializableFields   = [
+        'additional_information' => [null, []]
+    ];
 
     /**
      * Initialize main table and the primary key field name
@@ -92,7 +85,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
 
             // verify such transaction exists, determine payment and order id
             $verificationRow = $adapter->fetchRow(
-                $adapter->select()->from($this->getMainTable(), array('payment_id', 'order_id'))
+                $adapter->select()->from($this->getMainTable(), ['payment_id', 'order_id'])
                     ->where("{$this->getIdFieldName()} = ?", (int)$id)
             );
             if (!$verificationRow) {
@@ -101,16 +94,16 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             list($paymentId, $orderId) = array_values($verificationRow);
 
             // inject
-            $where = array(
+            $where = [
                 $adapter->quoteIdentifier($this->getIdFieldName()) . '!=?' => $id,
                 new Zend_Db_Expr('parent_id IS NULL'),
                 'payment_id = ?'    => (int)$paymentId,
                 'order_id = ?'      => (int)$orderId,
                 'parent_txn_id = ?' => $txnId
-            );
+            ];
             $adapter->update(
                 $this->getMainTable(),
-                array('parent_id' => $id),
+                ['parent_id' => $id],
                 $where
             );
         }
@@ -146,10 +139,10 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
     public function getOrderWebsiteId($orderId)
     {
         $adapter = $this->_getReadAdapter();
-        $bind    = array(':entity_id' => $orderId);
+        $bind    = [':entity_id' => $orderId];
         $select  = $adapter->select()
-            ->from(array('so' => $this->getTable('sales/order')), 'cs.website_id')
-            ->joinInner(array('cs' => $this->getTable('core/store')), 'cs.store_id = so.store_id')
+            ->from(['so' => $this->getTable('sales/order')], 'cs.website_id')
+            ->joinInner(['cs' => $this->getTable('core/store')], 'cs.store_id = so.store_id')
             ->where('so.entity_id = :entity_id');
         return $adapter->fetchOne($select, $bind);
     }
@@ -198,7 +191,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
      * @param int $orderId
      * @param int $paymentId
      * @param string $txnId
-     * @param mixed (array|string|object) $columns
+     * @param array|string|object $columns
      * @param bool $isRow
      * @param string $txnType
      * @return array|string

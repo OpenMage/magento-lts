@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,7 +19,7 @@
  */
 
 /**
- * Bundle product data retreiver
+ * Bundle product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -37,16 +31,16 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      *
      * @var boolean
      */
-    protected $_haveChildren = array(
+    protected $_haveChildren = [
                         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
                         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
                         Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+    ];
 
     protected $_haveParents = false;
 
     /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */
@@ -62,11 +56,11 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      */
     protected function _getLinkSettings()
     {
-        return array(
+        return [
             'table'=>'bundle/selection',
             'parent_field'=>'parent_product_id',
             'child_field'=>'product_id'
-        );
+        ];
     }
 
     /**
@@ -79,7 +73,7 @@ class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model
      * @param int $id
      * @param array $additionalWheres
      */
-    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = array())
+    protected function _prepareLinkFetchSelect($store, $table, $idField, $whereField, $id, $additionalWheres = [])
     {
         $this->_addAttributeFilter($this->_getLinkSelect(), 'required_options', 'l', $idField, $store, 0);
     }

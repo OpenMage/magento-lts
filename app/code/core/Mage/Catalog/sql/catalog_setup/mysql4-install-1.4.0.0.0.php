@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -645,7 +639,6 @@ CREATE TABLE `{$installer->getTable('catalog/product_option_type_title')}` (
 ALTER TABLE `{$installer->getTable('core_url_rewrite')}` ADD INDEX `IDX_CATEGORY_REWRITE` (`category_id`, `is_system`, `product_id`, `store_id`, `id_path`);
 ");
 
-
     $installer->run("
 CREATE TABLE `{$installer->getTable('catalog/eav_attribute')}` (
   `attribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -677,9 +670,6 @@ $installer->endSetup();
 
 $installer->installEntities();
 
-
-
-
 // Create Root Catalog Node
 Mage::getModel('catalog/category')
     ->setStoreId(0)
@@ -689,7 +679,7 @@ Mage::getModel('catalog/category')
     ->setInitialSetupFlag(true)
     ->save();
 
-/* @var Mage_Catalog_Model_Category $category */
+/** @var Mage_Catalog_Model_Category $category */
 $category = Mage::getModel('catalog/category');
 
 $category->setStoreId(0)
@@ -713,18 +703,18 @@ $attributeGroupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attri
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'attribute_group_name', 'General Information');
 $installer->updateAttributeGroup($entityTypeId, $attributeSetId, $attributeGroupId, 'sort_order', '10');
 
-$groups = array(
-    'display'   => array(
+$groups = [
+    'display'   => [
         'name'  => 'Display Settings',
         'sort'  => 20,
         'id'    => null
-    ),
-    'design'    => array(
+    ],
+    'design'    => [
         'name'  => 'Custom Design',
         'sort'  => 30,
         'id'    => null
-    )
-);
+    ]
+];
 
 foreach ($groups as $k => $groupProp) {
     $installer->addAttributeGroup($entityTypeId, $attributeSetId, $groupProp['name'], $groupProp['sort']);
@@ -732,52 +722,52 @@ foreach ($groups as $k => $groupProp) {
 }
 
 // update attributes group and sort
-$attributes = array(
-    'custom_design'         => array(
+$attributes = [
+    'custom_design'         => [
         'group' => 'design',
         'sort'  => 10
-    ),
-    'custom_design_apply'   => array(
+    ],
+    'custom_design_apply'   => [
         'group' => 'design',
         'sort'  => 20
-    ),
-    'custom_design_from'    => array(
+    ],
+    'custom_design_from'    => [
         'group' => 'design',
         'sort'  => 30
-    ),
-    'custom_design_to'      => array(
+    ],
+    'custom_design_to'      => [
         'group' => 'design',
         'sort'  => 40
-    ),
-    'page_layout'           => array(
+    ],
+    'page_layout'           => [
         'group' => 'design',
         'sort'  => 50
-    ),
-    'custom_layout_update'  => array(
+    ],
+    'custom_layout_update'  => [
         'group' => 'design',
         'sort'  => 60
-    ),
-    'display_mode'          => array(
+    ],
+    'display_mode'          => [
         'group' => 'display',
         'sort'  => 10
-    ),
-    'landing_page'          => array(
+    ],
+    'landing_page'          => [
         'group' => 'display',
         'sort'  => 20
-    ),
-    'is_anchor'             => array(
+    ],
+    'is_anchor'             => [
         'group' => 'display',
         'sort'  => 30
-    ),
-    'available_sort_by'     => array(
+    ],
+    'available_sort_by'     => [
         'group' => 'display',
         'sort'  => 40
-    ),
-    'default_sort_by'       => array(
+    ],
+    'default_sort_by'       => [
         'group' => 'display',
         'sort'  => 50
-    ),
-);
+    ],
+];
 
 foreach ($attributes as $attributeCode => $attributeProp) {
     $installer->addAttributeToGroup(

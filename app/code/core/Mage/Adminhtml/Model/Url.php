@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -85,10 +79,10 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         $_action = $this->getActionName() ? $this->getActionName() : $this->getDefaultActionName();
 
         if ($cacheSecretKey) {
-            $secret = array(self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$");
+            $secret = [self::SECRET_KEY_PARAM_NAME => "\${$_controller}/{$_action}\$"];
         }
         else {
-            $secret = array(self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action));
+            $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($_controller, $_action)];
         }
         if (is_array($routeParams)) {
             $routeParams = array_merge($secret, $routeParams);
@@ -164,6 +158,6 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      */
     public function renewSecretUrls()
     {
-        Mage::app()->cleanCache(array(Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS));
+        Mage::app()->cleanCache([Mage_Adminhtml_Block_Page_Menu::CACHE_TAGS]);
     }
 }

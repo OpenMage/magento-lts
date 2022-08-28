@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -72,16 +66,16 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
 
     public function getImportedFiles()
     {
-        $files = array();
+        $files = [];
         $path = Mage::app()->getConfig()->getTempVarDir().'/import';
         if (!is_readable($path)) {
             return $files;
         }
         $dir = dir($path);
-        while (false !== ($entry = $dir->read())) {
+        while (($entry = $dir->read()) !== false) {
             if($entry != '.'
                && $entry != '..'
-               && in_array(strtolower(substr($entry, strrpos($entry, '.')+1)), array($this->getParseType())))
+               && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType())
             {
                 $files[] = $entry;
             }

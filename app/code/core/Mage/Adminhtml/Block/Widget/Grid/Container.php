@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -52,11 +46,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
         $this->setTemplate('widget/grid/container.phtml');
 
-        $this->_addButton('add', array(
+        $this->_addButton('add', [
             'label'     => $this->getAddButtonLabel(),
             'onclick'   => 'setLocation(\'' . $this->getCreateUrl() .'\')',
             'class'     => 'add',
-        ));
+        ]);
     }
 
     protected function _prepareLayout()
@@ -89,11 +83,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Container extends Mage_Adminhtml_Block_Wi
 
     protected function _addBackButton()
     {
-        $this->_addButton('back', array(
+        $this->_addButton('back', [
             'label'     => $this->getBackButtonLabel(),
             'onclick'   => 'setLocation(\'' . $this->getBackUrl() .'\')',
             'class'     => 'back',
-        ));
+        ]);
     }
 
     public function getHeaderCssClass()

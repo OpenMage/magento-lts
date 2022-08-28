@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -30,14 +24,15 @@
     <h1><?php echo $this->__('Tracking Information'); ?></h1>
     <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
 </div>
-<?php if(sizeof($_results)>0): ?>
+<?php if(count($_results) > 0): ?>
 <?php foreach($_results as $shipid => $_result): ?>
     <?php if($shipid): ?>
     <h2 class="sub-title"><?php echo $this->__('Shipment #').$shipid; ?></h2>
     <?php endif ?>
-    <?php if(sizeof($_result)>0): ?>
-        <?php $rowCount = sizeof($_result); $counter = 1; ?>
-        <?php $_id = 0; foreach($_result as $track): ?>
+    <?php if(($rowCount = count($_result)) > 0): ?>
+        <?php $counter = 1;
+        $_id = 0;
+        foreach($_result as $track): ?>
             <table class="tracking-table-popup data-table" id="tracking-table-popup-<?php echo $_id ?>">
                 <col width="15%" />
                 <col />
@@ -128,7 +123,7 @@
                 </tbody>
             </table>
             <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
-            <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+            <?php if (is_object($track) && is_array($track->getProgressdetail()) && count($track->getProgressdetail()) > 0): ?>
                 <br />
                 <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
                     <col />

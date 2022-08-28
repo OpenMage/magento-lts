@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -64,7 +58,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_urlHeaders      = array();
+    protected $_urlHeaders      = [];
 
     /**
      * MIME Content-type for a file
@@ -152,7 +146,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                     if ($str == "\r\n") {
                         break;
                     }
-                    $match = array();
+                    $match = [];
                     if (preg_match('#^([^:]+): (.*)\s+$#', $str, $match)) {
                         $k = strtolower($match[1]);
                         if ($k == 'set-cookie') {
@@ -174,7 +168,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
                 if (!is_file($this->_resourceFile)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($this->_resourceFile);
                 }
-                $this->_handle->open(array('path'=>Mage::getBaseDir('var')));
+                $this->_handle->open(['path'=>Mage::getBaseDir('var')]);
                 if (!$this->_handle->fileExists($this->_resourceFile, true)) {
                     Mage::throwException(Mage::helper('downloadable')->__('The file does not exist.'));
                 }

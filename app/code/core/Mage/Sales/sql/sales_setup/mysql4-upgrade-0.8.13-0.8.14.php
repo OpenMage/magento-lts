@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
@@ -25,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 
@@ -163,52 +157,50 @@ $installer->endSetup();
 
 $orderEntityTypeId = $this->getEntityTypeId('order');
 
-$attributes = array(
-    'customer_id' => array(),
-    'tax_amount' => array(),
-    'shipping_amount' => array(),
-    'discount_amount' => array(),
-    'subtotal' => array(),
-    'grand_total' => array(),
-    'total_paid' => array(),
-    'total_refunded' => array(),
-    'total_qty_ordered' => array(),
-    'total_canceled' => array(),
-    'total_invoiced' => array(),
-    'total_online_refunded' => array(),
-    'total_offline_refunded' => array(),
-    'base_tax_amount' => array(),
-    'base_shipping_amount' => array(),
-    'base_discount_amount' => array(),
-    'base_subtotal' => array(),
-    'base_grand_total' => array(),
-    'base_total_paid' => array(),
-    'base_total_refunded' => array(),
-    'base_total_qty_ordered' => array(),
-    'base_total_canceled' => array(),
-    'base_total_invoiced' => array(),
-    'base_total_online_refunded' => array(),
-    'base_total_offline_refunded' => array()
-);
+$attributes = [
+    'customer_id' => [],
+    'tax_amount' => [],
+    'shipping_amount' => [],
+    'discount_amount' => [],
+    'subtotal' => [],
+    'grand_total' => [],
+    'total_paid' => [],
+    'total_refunded' => [],
+    'total_qty_ordered' => [],
+    'total_canceled' => [],
+    'total_invoiced' => [],
+    'total_online_refunded' => [],
+    'total_offline_refunded' => [],
+    'base_tax_amount' => [],
+    'base_shipping_amount' => [],
+    'base_discount_amount' => [],
+    'base_subtotal' => [],
+    'base_grand_total' => [],
+    'base_total_paid' => [],
+    'base_total_refunded' => [],
+    'base_total_qty_ordered' => [],
+    'base_total_canceled' => [],
+    'base_total_invoiced' => [],
+    'base_total_online_refunded' => [],
+    'base_total_offline_refunded' => []
+];
 
 $select = new Zend_Db_Select($installer->getConnection());
-$select->from(array('e' => $this->getTable('sales_order_entity')));
+$select->from(['e' => $this->getTable('sales_order_entity')]);
 
-
-
-$attributeIds = array();
+$attributeIds = [];
 foreach ($attributes as $code => $params) {
     $attributes[$code] = $installer->getAttribute($orderEntityTypeId, $code);
     if ($attributes[$code]['backend_type'] != 'static') {
         $select->joinLeft(
-            array("_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"),
+            ["_table_{$code}" => "{$this->getTable('sales_order_entity')}_{$attributes[$code]['backend_type']}"],
             "_table_{$code}.attribute_id = {$attributes[$code]['attribute_id']} AND _table_{$code}.entity_id = e.entity_id",
-            array($code => 'value')
+            [$code => 'value']
         );
         $select->join(
-            array("_eav_atr_{$code}" => $this->getTable('eav/attribute')),
+            ["_eav_atr_{$code}" => $this->getTable('eav/attribute')],
             "_eav_atr_{$code}.attribute_id = {$attributes[$code]['attribute_id']}",
-            array()
+            []
         );
         $attributeIds[] = $attributes[$code]['attribute_id'];
     }
@@ -232,9 +224,9 @@ foreach ($orders as $order) {
 
     $installer->run("UPDATE {$this->getTable('sales_order_entity')} SET parent_id={$new_entity_id} WHERE parent_id={$old_entity_id}");
 
-    $tables = array("varchar", "int", "datetime", "text", "decimal");
+    $tables = ["varchar", "int", "datetime", "text", "decimal"];
     foreach ($tables as $table) {
-        $delete = array();
+        $delete = [];
         $attrs = $installer->getConnection()->fetchAll("SELECT tt.* FROM {$this->getTable('sales_order_entity')}_{$table} tt JOIN eav_attribute on eav_attribute.attribute_id = tt.attribute_id  WHERE entity_id={$old_entity_id}");
         foreach ($attrs as $attr) {
             if (!in_array($attr['attribute_id'], $attributeIds)) {

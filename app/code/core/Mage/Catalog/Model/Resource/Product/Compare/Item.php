@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog compare item resource model
@@ -88,7 +81,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      */
     public function getCount($customerId, $visitorId)
     {
-        $bind = array('visitore_id' => (int)$visitorId);
+        $bind = ['visitore_id' => (int)$visitorId];
         $select = $this->_getReadAdapter()->select()->from($this->getMainTable(), 'COUNT(*)')
             ->where('visitor_id = :visitore_id');
         if ($customerId) {
@@ -107,11 +100,11 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     {
         while (true) {
             $select = $this->_getReadAdapter()->select()
-                ->from(array('compare_table' => $this->getMainTable()), array('catalog_compare_item_id'))
+                ->from(['compare_table' => $this->getMainTable()], ['catalog_compare_item_id'])
                 ->joinLeft(
-                    array('visitor_table' => $this->getTable('log/visitor')),
+                    ['visitor_table' => $this->getTable('log/visitor')],
                     'visitor_table.visitor_id=compare_table.visitor_id AND compare_table.customer_id IS NULL',
-                    array()
+                    []
                 )
                 ->where('compare_table.visitor_id > ?', 0)
                 ->where('visitor_table.visitor_id IS NULL')
@@ -144,9 +137,9 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         }
 
         $where  = $this->_getWriteAdapter()->quoteInto('customer_id=?', $object->getCustomerId());
-        $bind   = array(
+        $bind   = [
             'visitor_id' => 0,
-        );
+        ];
 
         $this->_getWriteAdapter()->update($this->getMainTable(), $bind, $where);
 
@@ -179,16 +172,16 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             ->where('visitor_id != ?', $object->getVisitorId());
         $customer = $this->_getWriteAdapter()->fetchAll($select);
 
-        $products   = array();
-        $delete     = array();
-        $update     = array();
+        $products   = [];
+        $delete     = [];
+        $update     = [];
         foreach ($visitor as $row) {
-            $products[$row['product_id']] = array(
+            $products[$row['product_id']] = [
                 'store_id'      => $row['store_id'],
                 'customer_id'   => $object->getCustomerId(),
                 'visitor_id'    => $object->getVisitorId(),
                 'product_id'    => $row['product_id']
-            );
+            ];
             $update[$row[$this->getIdFieldName()]] = $row['product_id'];
         }
 
@@ -196,12 +189,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             if (isset($products[$row['product_id']])) {
                 $delete[] = $row[$this->getIdFieldName()];
             } else {
-                $products[$row['product_id']] = array(
+                $products[$row['product_id']] = [
                     'store_id'      => $row['store_id'],
                     'customer_id'   => $object->getCustomerId(),
                     'visitor_id'    => $object->getVisitorId(),
                     'product_id'    => $row['product_id']
-                );
+                ];
             }
         }
 
@@ -234,7 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      */
     public function clearItems($visitorId = null, $customerId = null)
     {
-        $where = array();
+        $where = [];
         if ($customerId) {
             $customerId = (int)$customerId;
             $where[] = $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);

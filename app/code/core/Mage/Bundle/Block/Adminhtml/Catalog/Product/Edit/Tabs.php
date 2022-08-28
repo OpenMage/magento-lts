@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -43,11 +37,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tabs extends Mage_Adminht
     {
         parent::_prepareLayout();
 
-        $this->addTab('bundle_items', array(
+        $this->addTab('bundle_items', [
             'label'     => Mage::helper('bundle')->__('Bundle Items'),
-            'url'   => $this->getUrl('*/*/bundles', array('_current' => true)),
+            'url'   => $this->getUrl('*/*/bundles', ['_current' => true]),
             'class' => 'ajax',
-        ));
+        ]);
         $this->bindShadowTabs('bundle_items', 'customer_options');
     }
 }

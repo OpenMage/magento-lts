@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Install
@@ -59,7 +53,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
             $resource->setConfig($data);
 
             // check required extensions
-            $absenteeExtensions = array();
+            $absenteeExtensions = [];
             $extensions = $resource->getRequiredExtensions();
             foreach ($extensions as $extName) {
                 if (!extension_loaded($extName)) {
@@ -180,7 +174,6 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
     {
         return (string) Mage::getConfig()->getNode('global/resources/default_setup/connection/type');
     }
-
 
     /**
      * Check database connection

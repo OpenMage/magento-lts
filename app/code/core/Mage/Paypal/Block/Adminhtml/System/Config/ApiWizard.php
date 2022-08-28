@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -84,11 +78,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      */
     protected function _getButtonData($elementHtmlId, $originalData)
     {
-        return array(
+        return [
             'button_label' => Mage::helper('paypal')->__($originalData['button_label']),
             'button_url'   => $originalData['button_url'],
             'html_id' => $elementHtmlId,
-        );
+        ];
     }
 
     /**
@@ -100,10 +94,10 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
      */
     protected function _getSandboxButtonData($elementHtmlId, $originalData)
     {
-        return array(
+        return [
             'sandbox_button_label' => Mage::helper('paypal')->__($originalData['sandbox_button_label']),
             'sandbox_button_url'   => $originalData['sandbox_button_url'],
             'sandbox_html_id' => 'sandbox_' . $elementHtmlId,
-        );
+        ];
     }
 }

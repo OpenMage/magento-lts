@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -74,10 +68,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
         $url = $this->getUrl('*/sales_order_shipment/createLabel', $data);
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'   => Mage::helper('sales')->__('Create Shipping Label...'),
                 'onclick' => 'packaging.showWindow();',
-            ))
+            ])
             ->toHtml();
     }
 
@@ -92,10 +86,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
         $url = $this->getUrl('*/sales_order_shipment/printLabel', $data);
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'   => Mage::helper('sales')->__('Print Shipping Label'),
                 'onclick' => 'setLocation(\'' . $url . '\')'
-            ))
+            ])
             ->toHtml();
     }
 
@@ -108,10 +102,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Form extends Mage_Adminhtml
     {
         return $this->getLayout()
             ->createBlock('adminhtml/widget_button')
-            ->setData(array(
+            ->setData([
                 'label'   => Mage::helper('sales')->__('Show Packages'),
                 'onclick' => 'showPackedWindow();'
-            ))
+            ])
             ->toHtml();
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Oauth
@@ -45,7 +39,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      *
      * @var array
      */
-    public $_publicActions = array('index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple');
+    public $_publicActions = ['index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple'];
 
     /**
      * Disable showing of login form
@@ -66,10 +60,10 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         if ($loginError) {
             Mage::getSingleton('adminhtml/session')
                 ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
-            $params = array('_query' => array('oauth_token' => $this->getRequest()->getParam('oauth_token', null)));
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-            $params = array('_query' => array('oauth_token' => $this->getRequest()->getParam('oauth_token', null)));
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->_redirect('*/*/*', $params);
         }
     }
@@ -302,7 +296,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Check admin permissions for this controller
      *
-     * @return boolean
+     * @return true
      */
     protected function _isAllowed()
     {

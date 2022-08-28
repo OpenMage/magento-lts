@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -231,7 +225,7 @@ class Mage_Customer_Model_Observer
     {
         $resource   = Mage::getSingleton('core/resource');
         $connection = $resource->getConnection('write');
-        $condition  = array('requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day'));
+        $condition  = ['requested_date < ?' => Mage::getModel('core/date')->date(null, '-1 day')];
         $connection->delete($resource->getTableName('customer_flowpassword'), $condition);
     }
 

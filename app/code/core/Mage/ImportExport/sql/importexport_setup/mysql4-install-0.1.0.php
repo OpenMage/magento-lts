@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -48,7 +42,7 @@ ROW_FORMAT=DEFAULT
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_link'),
     'UNQ_product_id_parent_id',
-    array('product_id', 'parent_id'),
+    ['product_id', 'parent_id'],
     'unique'
 );
 
@@ -56,7 +50,7 @@ $installer->getConnection()->addKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute'),
     'UNQ_product_id_attribute_id',
-    array('product_id', 'attribute_id'),
+    ['product_id', 'attribute_id'],
     'unique'
 );
 
@@ -64,7 +58,7 @@ $installer->getConnection()->addKey(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_super_attribute_pricing'),
     'UNQ_product_super_attribute_id_value_index_website_id',
-    array('product_super_attribute_id', 'value_index', 'website_id'),
+    ['product_super_attribute_id', 'value_index', 'website_id'],
     'unique'
 );
 
@@ -87,7 +81,7 @@ $installer->getConnection()->addConstraint(
 $installer->getConnection()->addKey(
     $installer->getTable('catalog/product_link_attribute_int'),
     'UNQ_product_link_attribute_id_link_id',
-    array('product_link_attribute_id', 'link_id'),
+    ['product_link_attribute_id', 'link_id'],
     'unique'
 );
 

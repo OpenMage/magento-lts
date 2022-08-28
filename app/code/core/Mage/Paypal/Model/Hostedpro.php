@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Paypal
@@ -179,11 +173,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      */
     protected function _buildFormUrlRequest(Mage_Payment_Model_Info $payment)
     {
-        $request = $this->_buildBasicRequest()
+        return $this->_buildBasicRequest()
             ->setOrder($payment->getOrder())
             ->setPaymentMethod($this);
-
-        return $request;
     }
 
     /**
@@ -211,11 +203,11 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected function _buildBasicRequest()
     {
         $request = Mage::getModel('paypal/hostedpro_request');
-        $request->setData(array(
+        $request->setData([
             'METHOD'     => self::BM_BUTTON_METHOD,
             'BUTTONCODE' => self::BM_BUTTON_CODE,
             'BUTTONTYPE' => self::BM_BUTTON_TYPE
-        ));
+        ]);
         return $request;
     }
 
@@ -263,9 +255,9 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected function _getUrl($path, $storeId, $secure = null)
     {
         $store = Mage::app()->getStore($storeId);
-        return Mage::getUrl($path, array(
+        return Mage::getUrl($path, [
             "_store"   => $store,
             "_secure"  => is_null($secure) ? $store->isCurrentlySecure() : $secure
-        ));
+        ]);
     }
 }

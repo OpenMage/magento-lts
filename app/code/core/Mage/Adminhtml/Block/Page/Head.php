@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,8 +28,6 @@
 class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
 {
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()
@@ -51,5 +43,15 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();
+    }
+
+    /**
+     * Retrieve Timeout Delay from Config
+     *
+     * @return string
+     */
+    public function getLoadingTimeout()
+    {
+        return (int)Mage::getStoreConfig('admin/design/loading_timeout');
     }
 }

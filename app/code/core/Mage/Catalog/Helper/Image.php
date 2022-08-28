@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -224,7 +218,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param array $position
      * @return $this
      */
-    public function keepFrame($flag, $position = array('center', 'middle'))
+    public function keepFrame($flag, $position = ['center', 'middle'])
     {
         $this->_getModel()->setKeepFrame($flag);
         return $this;
@@ -319,7 +313,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Set placeholder
      *
      * @param string $fileName
-     * @return void
      */
     public function placeholder($fileName)
     {
@@ -575,10 +568,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     {
         $size = explode('x', strtolower($string));
         if (count($size) === 2) {
-            return array(
+            return [
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
-            );
+            ];
         }
         return false;
     }
@@ -622,10 +615,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getOriginalSizeArray()
     {
-        return array(
+        return [
             $this->getOriginalWidth(),
             $this->getOriginalHeight()
-        );
+        ];
     }
 
     /**

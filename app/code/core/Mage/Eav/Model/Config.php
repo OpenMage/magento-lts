@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -51,21 +45,21 @@ class Mage_Eav_Model_Config
      *
      * @var array
      */
-    protected $_preloadedAttributes              = array();
+    protected $_preloadedAttributes              = [];
 
     /**
      * Information about entity types with initialized attributes
      *
      * @var array
      */
-    protected $_initializedAttributes            = array();
+    protected $_initializedAttributes            = [];
 
     /**
      * Attribute codes cache array
      *
      * @var array
      */
-    protected $_attributeCodes                   = array();
+    protected $_attributeCodes                   = [];
 
     /**
      * Initialized objects
@@ -100,7 +94,7 @@ class Mage_Eav_Model_Config
      *
      * @var array
      */
-    protected $_collectionAttributes              = array();
+    protected $_collectionAttributes              = [];
 
     /**
      * Reset object state
@@ -114,8 +108,8 @@ class Mage_Eav_Model_Config
         $this->_attributeData         = null;
         $this->_objects               = null;
         $this->_references            = null;
-        $this->_preloadedAttributes   = array();
-        $this->_initializedAttributes = array();
+        $this->_preloadedAttributes   = [];
+        $this->_initializedAttributes = [];
         return $this;
     }
 
@@ -259,7 +253,7 @@ class Mage_Eav_Model_Config
         }
 
         $entityTypesData = Mage::getModel('eav/entity_type')->getCollection()->getData();
-        $types           = array();
+        $types           = [];
 
         /**
          * prepare entity type data
@@ -282,7 +276,7 @@ class Mage_Eav_Model_Config
             Mage::app()->saveCache(
                 serialize($this->_entityData),
                 self::ENTITIES_CACHE_ID,
-                array('eav', Mage_Eav_Model_Entity_Attribute::CACHE_TAG)
+                ['eav', Mage_Eav_Model_Entity_Attribute::CACHE_TAG]
             );
         }
         Varien_Profiler::stop('EAV: '.__METHOD__);
@@ -315,7 +309,6 @@ class Mage_Eav_Model_Config
             Varien_Profiler::stop('EAV: '.__METHOD__);
             return $entityType;
         }
-
 
         $entityType = Mage::getModel('eav/entity_type');
         if (isset($this->_entityData[$code])) {
@@ -358,7 +351,7 @@ class Mage_Eav_Model_Config
             ->setEntityTypeFilter($entityType)
             ->getData();
 
-        $codes = array();
+        $codes = [];
         foreach ($attributesInfo as $attribute) {
             $this->_createAttribute($entityType, $attribute);
             $codes[] = $attribute['attribute_code'];
@@ -473,7 +466,7 @@ class Mage_Eav_Model_Config
                 ->setAttributeSetFilter($attributeSetId)
                 ->addStoreLabel($storeId)
                 ->getData();
-            $attributes = array();
+            $attributes = [];
             foreach ($attributesInfo as $attributeData) {
                 $attributes[] = $attributeData['attribute_code'];
                 $this->_createAttribute($entityType, $attributeData);
@@ -498,7 +491,7 @@ class Mage_Eav_Model_Config
     public function preloadAttributes($entityType, $attributes)
     {
         if (is_string($attributes)) {
-            $attributes = array($attributes);
+            $attributes = [$attributes];
         }
 
         $entityType     = $this->getEntityType($entityType);
@@ -529,7 +522,7 @@ class Mage_Eav_Model_Config
             return $this;
         }
 
-        $attributesData = $codes = array();
+        $attributesData = $codes = [];
 
         foreach ($attributesInfo as $attribute) {
             if (empty($attribute['attribute_model'])) {
@@ -592,7 +585,7 @@ class Mage_Eav_Model_Config
         $entityTypeCode = $entityType->getEntityTypeCode();
 
         if (!isset($this->_collectionAttributes[$entityTypeCode])) {
-            $this->_collectionAttributes[$entityTypeCode] = array();
+            $this->_collectionAttributes[$entityTypeCode] = [];
         }
         $loadedAttributes = array_keys($this->_collectionAttributes[$entityTypeCode]);
         $attributes = array_diff($attributes, $loadedAttributes);
@@ -676,12 +669,12 @@ class Mage_Eav_Model_Config
         if (!is_array($attributeData)) {
             return false;
         }
-        $requiredKeys = array(
+        $requiredKeys = [
             'attribute_id',
             'attribute_code',
             'entity_type_id',
             'attribute_model'
-        );
+        ];
         foreach ($requiredKeys as $key) {
             if (!array_key_exists($key, $attributeData)) {
                 return false;
