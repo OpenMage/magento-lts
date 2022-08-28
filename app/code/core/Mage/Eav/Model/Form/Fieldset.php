@@ -21,6 +21,7 @@
 /**
  * Eav Form Fieldset Model
  *
+ * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
  * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
  *
  * @method int getTypeId()
@@ -48,21 +49,10 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('eav/form_fieldset');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**

@@ -21,6 +21,7 @@
 /**
  * Eav Form Type Model
  *
+ * @method Mage_Eav_Model_Resource_Form_Type _getResource()
  * @method Mage_Eav_Model_Resource_Form_Type getResource()
  * @method string getCode()
  * @method Mage_Eav_Model_Form_Type setCode(string $value)
@@ -48,21 +49,10 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('eav/form_type');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**

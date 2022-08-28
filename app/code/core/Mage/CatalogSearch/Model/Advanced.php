@@ -165,7 +165,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 $value = trim($value);
             }
 
-            if ($attribute->getAttributeCode() == 'price') {
+            if ($attribute->getAttributeCode() === 'price') {
                 $value['from'] = isset($value['from']) ? trim($value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {

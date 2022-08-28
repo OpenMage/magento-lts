@@ -1496,17 +1496,7 @@ parameters:
 			path: ../app/code/core/Mage/Bundle/Model/Observer.php
 
 		-
-			message: "#^Cannot call method loadPriceIndex\\(\\) on object\\|string\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Bundle/Model/Price/Index.php
-
-		-
-			message: "#^Cannot call method reindex\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Bundle/Model/Price/Index.php
-
-		-
-			message: "#^Cannot call method reindexProduct\\(\\) on object\\|string\\.$#"
+			message: "#^Call to an undefined method Mage_Bundle_Model_Resource_Price_Index\\:\\:reindexProduct\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Bundle/Model/Price/Index.php
 
@@ -1891,56 +1881,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Observer.php
 
 		-
-			message: "#^Cannot call method canBeShowInCategory\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getAvailableInCategories\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getCategoryCollection\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getCategoryIds\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getCategoryIdsWithAnchors\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getIdBySku\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getProductEntitiesInfo\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getProductsSku\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method getWebsiteIds\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method validate\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
 			message: "#^Method Mage_Catalog_Model_Product\\:\\:_afterDeleteCommit\\(\\) should return \\$this\\(Mage_Catalog_Model_Product\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
@@ -1949,11 +1889,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Backend_Abstract\\:\\:addImage\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product.php
-
-		-
-			message: "#^Cannot call method updateAttributes\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Action.php
 
 		-
 			message: "#^Cannot access property \\$additional_attributes on array\\.$#"
@@ -2021,22 +1956,7 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Source/Countryofmanufacture.php
 
 		-
-			message: "#^Cannot call method clean\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
-
-		-
-			message: "#^Cannot call method loadByProduct\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
-
-		-
-			message: "#^Cannot call method purgeVisitorByCustomer\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
-
-		-
-			message: "#^Cannot call method updateCustomerFromVisitor\\(\\) on object\\|string\\.$#"
+			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Compare/Item.php
 
@@ -2086,29 +2006,9 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Product/Status.php
 
 		-
-			message: "#^Cannot call method getProductAttribute\\(\\) on object\\|string\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Product/Status.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
-
-		-
-			message: "#^Cannot call method addProducts\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Website.php
-
-		-
-			message: "#^Cannot call method getWebsites\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Website.php
-
-		-
-			message: "#^Cannot call method removeProducts\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Website.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\\:\\:isScopeStore\\(\\)\\.$#"
@@ -2376,26 +2276,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Abstract.php
 
 		-
-			message: "#^Cannot call method cleanup\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Abstract.php
-
-		-
-			message: "#^Cannot call method loadAttributeCodesByCondition\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Abstract.php
-
-		-
-			message: "#^Cannot call method saveIndex\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Abstract.php
-
-		-
-			message: "#^Cannot call method saveIndices\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Abstract.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAssociatedProducts\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
@@ -2419,11 +2299,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getAssociatedProducts\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Block/Stockqty/Type/Grouped.php
-
-		-
-			message: "#^Cannot call method getProductParentsByChild\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Indexer/Stock.php
 
 		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
@@ -2499,21 +2374,6 @@ parameters:
 			message: "#^Variable \\$termKeys might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/CatalogSearch/Block/Term.php
-
-		-
-			message: "#^Cannot call method addIndexableAttributeModifiedFilter\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Advanced.php
-
-		-
-			message: "#^Cannot call method addRatedPriceFilter\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Advanced.php
-
-		-
-			message: "#^Cannot call method prepareCondition\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogSearch/Model/Advanced.php
 
 		-
 			message: "#^Variable \\$select might not be defined\\.$#"
@@ -2694,46 +2554,6 @@ parameters:
 			message: "#^Variable \\$realModule might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: "#^Cannot call method addCommitCallback\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method beginTransaction\\(\\) on object\\|string\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method commit\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method delete\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method getIdFieldName\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method load\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method rollBack\\(\\) on object\\|string\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
-
-		-
-			message: "#^Cannot call method save\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Abstract.php
 
 		-
 			message: "#^Variable \\$id in isset\\(\\) always exists and is not nullable\\.$#"
@@ -3371,21 +3191,6 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
 
 		-
-			message: "#^Cannot call method describeTable\\(\\) on object\\|string\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
-			message: "#^Cannot call method getFlatUpdateSelect\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
-			message: "#^Cannot call method loadByCode\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Abstract.php
-
-		-
 			message: "#^Variable \\$out in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Entity/Attribute/Frontend/Abstract.php
@@ -3456,18 +3261,8 @@ parameters:
 			path: ../app/code/core/Mage/Eav/Model/Entity/Type.php
 
 		-
-			message: "#^Cannot call method getLabels\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Form/Fieldset.php
-
-		-
 			message: "#^Cannot call method addTypeFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 2
-			path: ../app/code/core/Mage/Eav/Model/Form/Type.php
-
-		-
-			message: "#^Cannot call method getEntityTypes\\(\\) on object\\|string\\.$#"
-			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Form/Type.php
 
 		-
@@ -3741,51 +3536,6 @@ parameters:
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: "#^Cannot call method prepare\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Log/Model/Visitor/Online.php
-
-		-
-			message: "#^Cannot call method destroyResource\\(\\) on object\\|string\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method getDimensions\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method getImage\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method getTmpImage\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method hasSpecialImage\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method resize\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method saveAs\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
-			message: "#^Cannot call method watermark\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Media/Model/Image.php
-
-		-
 			message: "#^Call to an undefined method Mage_Customer_Model_Entity_Attribute\\:\\:getAttributeId\\(\\)\\.$#"
 			count: 3
 			path: ../app/code/core/Mage/Newsletter/Model/Resource/Subscriber/Collection.php
@@ -4019,11 +3769,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Object\\:\\:isNominal\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: "#^Cannot call method loadByWebsite\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Cert.php
 
 		-
 			message: "#^Access to an undefined property Mage_Paypal_Model_Config\\:\\:\\$allow_ba_signup\\.$#"
@@ -4441,22 +4186,7 @@ parameters:
 			path: ../app/code/core/Mage/Reports/Helper/Data.php
 
 		-
-			message: "#^Method Mage_Reports_Model_Product_Index_Abstract\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
-
-		-
-			message: "#^Method Mage_Reports_Model_Product_Index_Abstract\\:\\:purgeVisitorByCustomer\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
-
-		-
-			message: "#^Method Mage_Reports_Model_Product_Index_Abstract\\:\\:registerIds\\(\\) invoked with 2 parameters, 1 required\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
-
-		-
-			message: "#^Method Mage_Reports_Model_Product_Index_Abstract\\:\\:updateCustomerFromVisitor\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			message: "#^Method Mage_Reports_Model_Resource_Product_Index_Abstract\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Product/Index/Abstract.php
 
@@ -4549,11 +4279,6 @@ parameters:
 			message: "#^Parameter \\$orderId of method Mage_Rss_Model_Resource_Order\\:\\:getAllOrderEntityIds\\(\\) has invalid type unknown_type\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Rss/Model/Resource/Order.php
-
-		-
-			message: "#^Cannot call method getWebsiteIds\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Rule/Model/Abstract.php
 
 		-
 			message: "#^Offset 'actions'\\|'conditions' on array\\{\\} in isset\\(\\) does not exist\\.$#"
@@ -5001,31 +4726,6 @@ parameters:
 			path: ../app/code/core/Mage/Tag/Model/Tag.php
 
 		-
-			message: "#^Cannot call method addRelations\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
-			message: "#^Cannot call method deactivate\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
-			message: "#^Cannot call method getProductIds\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
-			message: "#^Cannot call method getRelatedTagIds\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
-			message: "#^Cannot call method loadByTagCustomer\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag/Relation.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:checkDiscountSettings\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Tax/Block/Adminhtml/Notifications.php
@@ -5160,17 +4860,6 @@ parameters:
 			count: 1
 			path: ../app/code/core/Mage/Wishlist/Block/Customer/Wishlist/Item/Column.php
 
-
-		-
-			message: "#^Cannot call method hasDataChanged\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
-			message: "#^Cannot call method loadByProductWishlist\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Model/Item.php
-
 		-
 			message: "#^Method Mage_Wishlist_Model_Item\\:\\:save\\(\\) should return \\$this\\(Mage_Wishlist_Model_Item\\) but return statement is missing\\.$#"
 			count: 1
@@ -5180,11 +4869,6 @@ parameters:
 			message: "#^Variable \\$buyRequest in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
-			message: "#^Cannot call method hasDataChanged\\(\\) on object\\|string\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Wishlist/Model/Item/Option.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isInStock\\(\\)\\.$#"

@@ -127,7 +127,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Resource_Db_Abstract|object|string
+     * @return Mage_Core_Model_Resource_Db_Abstract|object
      */
     protected function _getResource()
     {

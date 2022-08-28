@@ -21,6 +21,7 @@
 /**
  * Bundle Product Price Index
  *
+ * @method Mage_Bundle_Model_Resource_Price_Index _getResource()
  * @method Mage_Bundle_Model_Resource_Price_Index getResource()
  * @method Mage_Bundle_Model_Price_Index setEntityId(int $value)
  * @method int getWebsiteId()
@@ -45,16 +46,6 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('bundle/price_index');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
