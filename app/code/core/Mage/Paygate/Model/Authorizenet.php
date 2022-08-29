@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 {
     /**
@@ -1129,15 +1128,13 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      */
     protected function _getRequest()
     {
-        $request = Mage::getModel('paygate/authorizenet_request')
+        return Mage::getModel('paygate/authorizenet_request')
             ->setXVersion(3.1)
             ->setXDelimData('True')
             ->setXRelayResponse('False')
             ->setXTestRequest($this->getConfigData('test') ? 'TRUE' : 'FALSE')
             ->setXLogin($this->getConfigData('login'))
             ->setXTranKey($this->getConfigData('trans_key'));
-
-        return $request;
     }
 
     /**

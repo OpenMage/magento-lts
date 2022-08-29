@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Category flat model
  *
@@ -587,14 +586,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             foreach ($this->_columns as $fieldName => $fieldProp) {
                 $default = $fieldProp['default'];
                 if ($fieldProp['type'][0] == Varien_Db_Ddl_Table::TYPE_TIMESTAMP
-                    && $default == 'CURRENT_TIMESTAMP') {
+                    && $default === 'CURRENT_TIMESTAMP') {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [
                     'nullable' => $fieldProp['nullable'],
                     'unsigned' => $fieldProp['unsigned'],
                     'default'  => $default,
-                    'primary'  => isset($fieldProp['primary']) ? $fieldProp['primary'] : false,
+                    'primary'  => $fieldProp['primary'] ?? false,
                 ], ($fieldProp['comment'] != '') ?
                     $fieldProp['comment'] :
                     ucwords(str_replace('_', ' ', $fieldName)));
@@ -656,6 +655,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     protected function _getStaticColumns()
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('catalog');
         $columns = [];
         $columnsToSkip = ['entity_type_id', 'attribute_set_id'];
@@ -706,7 +706,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 'type' => [$ddlType, $options],
                 'unsigned' => $_is_unsigned,
                 'nullable' => $column['NULLABLE'],
-                'default' => ($column['DEFAULT'] === null ? false : $column['DEFAULT']),
+                'default' => $column['DEFAULT'] ?? false,
                 'comment' => $column['COLUMN_NAME']
             ];
         }
@@ -730,7 +730,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $columns = [];
         $attributes = $this->_getAttributes();
         foreach ($attributes as $attribute) {
-            if ($attribute['backend_type'] == 'static') {
+            if ($attribute['backend_type'] === 'static') {
                 continue;
             }
             $columns[$attribute['attribute_code']] = [];
@@ -1300,8 +1300,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
      */
     public function getChildrenCategories($category)
     {
-        $categories = $this->_loadNodes($category, 1, $category->getStoreId());
-        return $categories;
+        return $this->_loadNodes($category, 1, $category->getStoreId());
     }
 
     /**

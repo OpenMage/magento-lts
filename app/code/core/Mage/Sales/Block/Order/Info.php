@@ -88,7 +88,6 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
         return $this;
     }
 
-
     /**
      * Remove a link
      *

@@ -34,15 +34,6 @@
 class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
-     * Prepare Quote Item Product URLs
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Prepare cart items URLs
      *
      * @deprecated after 1.7.0.2
@@ -84,7 +75,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
 
     public function chooseTemplate()
     {
-        $itemsCount = $this->getItemsCount() ? $this->getItemsCount() : $this->getQuote()->getItemsCount();
+        $itemsCount = $this->getItemsCount() ?: $this->getQuote()->getItemsCount();
         if ($itemsCount) {
             $this->setTemplate($this->getCartTemplate());
         } else {
@@ -161,7 +152,9 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      */
     public function getIsVirtual()
     {
-        return $this->helper('checkout/cart')->getIsVirtualQuote();
+        /** @var Mage_Checkout_Helper_Cart $helper */
+        $helper = $this->helper('checkout/cart');
+        return $helper->getIsVirtualQuote();
     }
 
     /**
@@ -183,6 +176,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
      *
      * @param string $name Block name in layout
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getMethodHtml($name)
     {

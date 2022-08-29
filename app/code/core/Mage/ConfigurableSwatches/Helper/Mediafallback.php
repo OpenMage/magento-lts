@@ -138,7 +138,6 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                 } // end looping child products
             } // end looping attributes
 
-
             foreach ($mapping as $key => $value) {
                 $mapping[$key]['product_ids'] = array_unique($mapping[$key]['product_ids']);
             }

@@ -65,7 +65,6 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         }
         $quoteStart = $this->char() == "'" || $this->char() == '"';
 
-
         if($quoteStart) {
            $breakSymbol = $this->char();
         } else {

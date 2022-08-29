@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog search query collection
  *
@@ -77,6 +76,9 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
      */
     public function setQueryFilter($query)
     {
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+
         $ifSynonymFor = $this->getConnection()
             ->getIfNullSql('synonym_for', 'query_text');
         $this->getSelect()->reset(Zend_Db_Select::FROM)->distinct(true)
@@ -86,7 +88,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             )
             ->where(
                 'num_results > 0 AND display_in_terms = 1 AND query_text LIKE ?',
-                Mage::getResourceHelper('core')->addLikeEscape($query, ['position' => 'start'])
+                $helper->addLikeEscape($query, ['position' => 'start'])
             )
             ->order('popularity ' . Varien_Db_Select::SQL_DESC);
         if ($this->getStoreId()) {

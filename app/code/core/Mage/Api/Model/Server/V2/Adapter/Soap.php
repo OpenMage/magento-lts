@@ -34,8 +34,7 @@ class Mage_Api_Model_Server_V2_Adapter_Soap extends Mage_Api_Model_Server_Adapte
      */
     protected function _getWsdlConfig()
     {
-        $wsdlConfig = Mage::getModel('api/wsdl_config');
-        return $wsdlConfig;
+        return Mage::getModel('api/wsdl_config');
     }
 
     /**

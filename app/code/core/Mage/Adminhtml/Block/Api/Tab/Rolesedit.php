@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -59,16 +59,13 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
         $rootArray = $this->_getNodeJson($resources,1);
 
-        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
-
-        return $json;
+        return Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : []);
     }
 
     protected function _sortTree($a, $b)
     {
         return $a['sort_order']<$b['sort_order'] ? -1 : ($a['sort_order']>$b['sort_order'] ? 1 : 0);
     }
-
 
     protected function _getNodeJson($node, $level=0)
     {

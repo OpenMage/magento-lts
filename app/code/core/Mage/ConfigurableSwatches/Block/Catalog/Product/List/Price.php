@@ -74,7 +74,10 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
                 }
             }
         }
-        return $this->helper('core')->jsonEncode($config);
+
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = $this->helper('core');
+        return $helper->jsonEncode($config);
     }
 
     /**
@@ -84,7 +87,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
      */
     protected function _toHtml()
     {
-        if (!$this->helper('configurableswatches/list_price')->isEnabled()) {
+        /** @var Mage_ConfigurableSwatches_Helper_List_Price $helper */
+        $helper = $this->helper('configurableswatches/list_price');
+        if (!$helper->isEnabled()) {
             return '';
         }
 

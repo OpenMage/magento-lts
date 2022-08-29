@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer Address Postal/Zip Code Attribute Data Model
  * This Data Model Has to Be Set Up in additional EAV attribute table

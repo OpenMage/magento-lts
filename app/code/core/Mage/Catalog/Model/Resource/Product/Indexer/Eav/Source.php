@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Eav Select and Multiply Select Attributes Indexer resource model
  *
@@ -141,7 +140,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Source extends Mage_Catalo
             )
             ->where('pid.attribute_id IN(?)', $attrIds);
 
-        $select->where(Mage::getResourceHelper('catalog')->getIsNullNotNullCondition('pis.value', 'pid.value'));
+        /** @var Mage_Catalog_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('catalog');
+        $select->where($helper->getIsNullNotNullCondition('pis.value', 'pid.value'));
 
         /**
          * Add additional external limitation

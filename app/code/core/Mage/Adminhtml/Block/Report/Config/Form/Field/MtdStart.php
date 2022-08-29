@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,10 +35,8 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_MtdStart extends Mage_Adminh
             $_days[$i] = $i < 10 ? '0'.$i : $i;
         }
 
-        $_daysHtml = $element->setStyle('width:50px;')
+        return $element->setStyle('width:50px;')
             ->setValues($_days)
             ->getElementHtml();
-
-        return $_daysHtml;
     }
 }

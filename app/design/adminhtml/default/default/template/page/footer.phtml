@@ -17,13 +17,15 @@
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Adminhtml_Block_Page_Footer $this */
 ?>
 <p class="bug-report">
     <?php echo $this->__('Interface Locale: %s', $this->getLanguageSelect()) ?>
 </p>
 <p class="legality">
-    <a href="<?php echo $this->getConnectWithMagentoUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Community') ?></a> |
-    <a href="<?php echo $this->getBugreportUrl() ?>" target="_blank"><?php echo $this->__('Report a Bug') ?></a>
+    <a href="<?php echo $this->getOpenMageProjectUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Project') ?></a> |
+    <a href="<?php echo $this->getReportIssuesUrl() ?>" target="_blank"><?php echo $this->__('Report Issues') ?></a>
 </p>
 <?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion()) ?>
 <script type="text/javascript">

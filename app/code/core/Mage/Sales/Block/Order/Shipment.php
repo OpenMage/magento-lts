@@ -123,7 +123,6 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
 
-
     /**
      * @param Mage_Sales_Model_Order_Shipment $shipment
      * @return string

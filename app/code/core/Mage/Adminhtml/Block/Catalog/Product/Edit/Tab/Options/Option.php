@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -137,10 +137,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
 
     public function getAddButtonId()
     {
-        $buttonId = $this->getLayout()
+        return $this->getLayout()
                 ->getBlock('admin.product.options')
                 ->getChild('add_button')->getId();
-        return $buttonId;
     }
 
     public function getDeleteButtonHtml()
@@ -199,12 +198,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
             ->setCanReadPrice($canReadPrice)
             ->setCanEditPrice($canEditPrice);
 
-        $templates = $this->getChildHtml('text_option_type') . "\n" .
+        return $this->getChildHtml('text_option_type') . "\n" .
             $this->getChildHtml('file_option_type') . "\n" .
             $this->getChildHtml('select_option_type') . "\n" .
             $this->getChildHtml('date_option_type');
-
-        return $templates;
     }
 
     public function getOptionValues()

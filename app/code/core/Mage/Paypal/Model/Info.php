@@ -364,11 +364,10 @@ class Mage_Paypal_Model_Info
             'duplicate'                => Mage::helper('paypal')->__('Buyer claims that a possible duplicate payment was made to the merchant.'),
             'merchandise'              => Mage::helper('paypal')->__('Buyer claims that the received merchandise is unsatisfactory, defective, or damaged.'),
         ];
-        $value = (array_key_exists($code, $comments) && !empty($comments[$code]))
+        return (array_key_exists($code, $comments) && !empty($comments[$code]))
             ? $comments[$code]
             : Mage::helper('paypal')->__('Unknown reason. Please contact PayPal customer service.'
         );
-        return $value;
     }
 
     /**
@@ -486,8 +485,7 @@ class Mage_Paypal_Model_Info
             'complaint'  => Mage::helper('paypal')->__('Complaint'),
             'dispute'    => Mage::helper('paypal')->__('Dispute')
         ];
-        $value = (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
-        return $value;
+        return (array_key_exists($key, $labels) && !empty($labels[$key])) ? $labels[$key] : '';
     }
 
     /**

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * SEO tree Categories Sitemap block
  *
@@ -126,12 +125,11 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      */
     public function getTreeCollection()
     {
-        $collection = Mage::getModel('catalog/category')->getCollection()
+        return Mage::getModel('catalog/category')->getCollection()
             ->addNameToResult()
             ->addUrlRewriteToResult()
             ->addIsActiveFilter()
             ->addOrderField('path');
-        return $collection;
     }
 
     /**

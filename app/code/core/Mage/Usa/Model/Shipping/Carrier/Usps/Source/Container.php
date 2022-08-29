@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Container
 {
     public function toOptionArray()

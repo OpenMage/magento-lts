@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product send to friend block
  *
@@ -28,11 +27,6 @@
  */
 class Mage_Catalog_Block_Product_Send extends Mage_Catalog_Block_Product_Abstract
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Retrieve username for form field
      *

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Checkout_Block_Cart_Coupon extends Mage_Checkout_Block_Cart_Abstract
 {
     /**

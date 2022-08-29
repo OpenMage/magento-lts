@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -65,13 +65,11 @@ class Mage_Adminhtml_Block_Notification_Curl extends Mage_Adminhtml_Block_Templa
      */
     public function getMessage()
     {
-        $message = $this->helper('adminhtml')->__(
+        return $this->helper('adminhtml')->__(
             "Your current version of cURL php5 module is %s, which can prevent services that require TLS v1.2 from working correctly. It is recommended to update your cURL php5 module to version %s or higher.",
             $this->_curlVersion['version'],
             $this::REQUIRED_CURL_VERSION
         );
-
-        return $message;
     }
 
     /**

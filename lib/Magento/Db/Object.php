@@ -70,7 +70,6 @@ abstract class Magento_Db_Object
         return $this->_dbType;
     }
 
-
     /**
      * Returns current schema name
      *

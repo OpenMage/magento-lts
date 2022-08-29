@@ -533,12 +533,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     public function isValueEmpty($value)
     {
         $attrType = $this->getBackend()->getType();
-        $isEmpty = is_array($value)
+        return is_array($value)
             || ($value === null)
-            || $value === false && $attrType != 'int'
-            || $value === '' && ($attrType == 'int' || $attrType == 'decimal' || $attrType == 'datetime');
-
-        return $isEmpty;
+            || $value === false && $attrType !== 'int'
+            || $value === '' && ($attrType === 'int' || $attrType === 'decimal' || $attrType === 'datetime');
     }
 
     /**
@@ -667,6 +665,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
      */
     public function _getFlatColumnsDdlDefinition()
     {
+        /** @var Mage_Eav_Model_Resource_Helper_Mysql4 $helper */
         $helper  = Mage::getResourceHelper('eav');
         $columns = [];
         switch ($this->getBackendType()) {
@@ -677,7 +676,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
-                $size = ($prop['LENGTH'] ? $prop['LENGTH'] : null);
+                $size = $prop['LENGTH'] ?: null;
 
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $helper->getDdlTypeByColumnType($type),
@@ -758,7 +757,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 }
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
-                if (isset($prop['PRECISION']) && isset($prop['SCALE'])) {
+                if (isset($prop['PRECISION'], $prop['SCALE'])) {
                     $type .= "({$prop['PRECISION']},{$prop['SCALE']})";
                 } else {
                     $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : "";
@@ -832,7 +831,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             $condition = $condition || $this->getIsFilterable();
         }
 
-        if ($this->getAttributeCode() == 'status') {
+        if ($this->getAttributeCode() === 'status') {
             $condition = true;
         }
 

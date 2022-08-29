@@ -370,8 +370,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             throw new Zend_Db_Adapter_Exception('pdo_mysql extension is not installed');
         }
 
-
-        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : NULL));
+        $hostInfo = $this->_getHostInfo(isset($this->_config['host']) ? $this->_config['host'] : (isset($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null));
 
         switch ($hostInfo->getAddressType()) {
             case self::ADDRESS_TYPE_UNIX_SOCKET:
@@ -1710,7 +1709,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
              */
             $affected = array('tinyint', 'smallint', 'mediumint', 'int', 'bigint');
             foreach ($ddl as $key => $columnData) {
-                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== FALSE)) {
+                if (($columnData['DEFAULT'] === '') && (array_search($columnData['DATA_TYPE'], $affected) !== false)) {
                     $ddl[$key]['DEFAULT'] = null;
                 }
             }
@@ -2705,7 +2704,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
         return true;
     }
-
 
     /**
      * Add new index to table name
@@ -3989,10 +3987,6 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         return $value;
     }
-
-
-
-
 
     /**
      * Returns date that fits into TYPE_DATETIME range and is suggested to act as default 'zero' value

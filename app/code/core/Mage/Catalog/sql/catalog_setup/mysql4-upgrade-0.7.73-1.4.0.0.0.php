@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
@@ -67,7 +66,6 @@ $table = $installer->getTable('catalog/eav_attribute');
 foreach ($result as $data) {
     $installer->getConnection()->insert($table, $data);
 }
-
 
 $describe = $installer->getConnection()->describeTable($installer->getTable('catalog/eav_attribute'));
 foreach ($describe as $columnData) {

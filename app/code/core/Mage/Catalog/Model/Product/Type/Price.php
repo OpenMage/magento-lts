@@ -60,7 +60,6 @@ class Mage_Catalog_Model_Product_Type_Price
         );
     }
 
-
     /**
      * Retrieve product final price
      *

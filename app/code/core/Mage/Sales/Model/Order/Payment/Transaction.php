@@ -68,7 +68,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected $_paymentObject = null;
 
-
     /**
      * Order instance
      *
@@ -443,7 +442,6 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
         Mage::dispatchEvent($this->_eventPrefix . '_load_by_txn_id_after', $this->_getEventData());
         return $this;
     }
-
 
     /**
      * Additional information setter

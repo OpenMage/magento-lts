@@ -48,7 +48,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
      */
     protected $_configData;
 
-
     /**
      * Return the name of DB model from config
      *
@@ -58,7 +57,6 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
     {
         return $this->_configData['db_model'];
     }
-
 
     /**
      * Return the DB type from config

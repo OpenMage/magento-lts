@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogIndex Data Retriever Abstract Model
  *
@@ -177,11 +176,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             }
         }
 
-        $finalPrice = Mage::getSingleton('catalog/product_type')
+        return Mage::getSingleton('catalog/product_type')
             ->priceFactory($this->getTypeCode())
             ->calculatePrice($basePrice, $specialPrice, $specialPriceFrom, $specialPriceTo, false, $store, $group, $product);
-
-        return $finalPrice;
     }
 
     /**

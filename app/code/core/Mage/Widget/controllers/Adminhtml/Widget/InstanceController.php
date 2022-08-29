@@ -217,7 +217,6 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             }
         }
         $this->_redirect('*/*/');
-        return;
     }
 
     /**

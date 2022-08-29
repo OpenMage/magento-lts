@@ -287,7 +287,6 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
         $update->addHandle('default');
         $this->addActionLayoutHandles();
 
-
         $update->addHandle('PRODUCT_TYPE_'.$product->getTypeId());
 
         if ($product->getPageLayout()) {

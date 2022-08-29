@@ -18,7 +18,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Checkout_Block_Cart_Shipping
+ */
 class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstract
 {
     /**
@@ -184,7 +186,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getShippingPrice($price, $flag)
     {
-        return $this->formatPrice($this->helper('tax')->getShippingPrice(
+        /** @var Mage_Tax_Helper_Data $helper */
+        $helper = $this->helper('tax');
+        return $this->formatPrice($helper->getShippingPrice(
             $price,
             $flag,
             $this->getAddress(),

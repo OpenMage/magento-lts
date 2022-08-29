@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customers Report collection
  *
@@ -225,10 +224,13 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
               ->where('orders.customer_id IN(?)', $customerIds)
               ->group('orders.customer_id');
 
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
+
             /*
              * Analytic functions usage
              */
-            $select = Mage::getResourceHelper('core')->getQueryUsingAnalyticFunction($select);
+            $select = $helper->getQueryUsingAnalyticFunction($select);
 
             foreach ($this->getConnection()->fetchAll($select) as $ordersInfo) {
                 $this->getItemById($ordersInfo['customer_id'])->addData($ordersInfo);

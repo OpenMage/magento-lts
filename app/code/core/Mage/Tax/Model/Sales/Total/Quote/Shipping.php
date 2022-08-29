@@ -232,13 +232,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
      */
     protected function _getAddressTaxRequest($address)
     {
-        $addressTaxRequest = $this->_calculator->getRateRequest(
+        return $this->_calculator->getRateRequest(
             $address,
             $address->getQuote()->getBillingAddress(),
             $address->getQuote()->getCustomerTaxClassId(),
             $address->getQuote()->getStore()
         );
-        return $addressTaxRequest;
     }
 
     /**

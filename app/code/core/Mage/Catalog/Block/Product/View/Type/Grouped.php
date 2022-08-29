@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog grouped product info block
  *
@@ -36,7 +35,6 @@ class Mage_Catalog_Block_Product_View_Type_Grouped extends Mage_Catalog_Block_Pr
         return $this->getProduct()->getTypeInstance(true)
             ->getAssociatedProducts($this->getProduct());
     }
-
 
     /**
      * Set preconfigured values to grouped associated products

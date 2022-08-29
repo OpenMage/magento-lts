@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Wishlist item collection
  *
@@ -100,7 +99,6 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * @var int
      */
     protected $_customerGroupId = null;
-
 
     /**
      * Initialize resource model for collection
@@ -372,6 +370,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
         $adapter = $this->getConnection();
         $dateModel = Mage::getSingleton('core/date');
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $resHelper */
         $resHelper = Mage::getResourceHelper('core');
 
         $offsetFromDb = (int) $dateModel->getGmtOffset();

@@ -67,7 +67,9 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             ->getQuote()
             ->getPayment()
             ->getMethod();
-        if (in_array($paymentCode, $this->helper('paypal/hss')->getHssMethods())) {
+        /** @var Mage_Paypal_Helper_Hss $helper */
+        $helper = $this->helper('paypal/hss');
+        if (in_array($paymentCode, $helper->getHssMethods())) {
             $this->_paymentMethodCode = $paymentCode;
             $templatePath = str_replace('_', '', $paymentCode);
             $templateFile = "paypal/{$templatePath}/iframe.phtml";
@@ -83,6 +85,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get current block instance
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _getBlock()
     {
@@ -147,6 +150,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Render the block if needed
      *
      * @return string
+     * @throws Exception
      */
     protected function _toHtml()
     {
@@ -164,6 +168,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Check whether block is rendering after save payment
      *
      * @return bool
+     * @throws Exception
      */
     protected function _isAfterPaymentSave()
     {
@@ -182,6 +187,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get iframe action URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFrameActionUrl()
     {
@@ -192,6 +198,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get secure token
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSecureToken()
     {
@@ -202,6 +209,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get secure token ID
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getSecureTokenId()
     {
@@ -212,6 +220,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Get payflow transaction URL
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getTransactionUrl()
     {
@@ -222,6 +231,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
      * Check sandbox mode
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isTestMode()
     {

@@ -86,6 +86,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      */
     public function getStoresWithConflictingFptTaxConfigurationSettings()
     {
+        /** @var Mage_Weee_Helper_Data $weeeTaxHelper */
         $weeeTaxHelper = $this->_factory->getHelper('weee');
 
         $storeNames = [];
@@ -106,6 +107,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      */
     public function isDefaultStoreWithConflictingFptTaxConfigurationSettings()
     {
+        /** @var Mage_Weee_Helper_Data $weeeTaxHelper */
         $weeeTaxHelper = $this->_factory->getHelper('weee');
         $defaultStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
 
@@ -163,6 +165,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
      * Get tax management url
      *
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getInfoUrl()
     {

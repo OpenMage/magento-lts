@@ -42,11 +42,9 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Group
             return parent::_getHeaderCommentHtml($element);
         }
 
-        $html = '<div class="comment">' . $element->getComment()
+        return '<div class="comment">' . $element->getComment()
             . ' <a target="_blank" href="' . $groupConfig['help_url'] . '">'
             . Mage::helper('paypal')->__('Help') . '</a></div>';
-
-        return $html;
     }
 
     /**

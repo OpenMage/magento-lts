@@ -83,8 +83,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             return false;
         }
 
-        $newModel = clone $model;
-        return $newModel;
+        return clone $model;
     }
 
     public function __construct()
@@ -95,7 +94,6 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             ->setValue(true)
             ->setConditions([])
             ->setActions([]);
-
 
         $this->loadAggregatorOptions();
         if ($options = $this->getAggregatorOptions()) {
@@ -335,8 +333,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function asString($format = '')
     {
-        $str = Mage::helper('rule')->__("If %s of these conditions are %s:", $this->getAggregatorName(), $this->getValueName());
-        return $str;
+        return Mage::helper('rule')->__("If %s of these conditions are %s:", $this->getAggregatorName(), $this->getValueName());
     }
 
     /**

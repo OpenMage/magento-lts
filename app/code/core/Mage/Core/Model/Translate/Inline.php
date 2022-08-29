@@ -344,7 +344,6 @@ class Mage_Core_Model_Translate_Inline
         return $trArr;
     }
 
-
     /**
      * Prepare tags inline translates
      *

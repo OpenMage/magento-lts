@@ -183,7 +183,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
                     ->load($order->getQuoteId());
                 if ($quote->getId()) {
                     $quote->setIsActive(1)
-                        ->setReservedOrderId(NULL)
+                        ->setReservedOrderId(null)
                         ->save();
                     $this->_getCheckout()->replaceQuote($quote);
                 }

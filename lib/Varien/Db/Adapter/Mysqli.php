@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 {
     const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
@@ -107,7 +106,6 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         return $result;
     }
 
-
     public function convertDate($date)
     {
         if ($date instanceof Zend_Date) {
@@ -123,8 +121,6 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         }
         return strftime('%Y-%m-%d %H:%M:%S', strtotime($datetime));
     }
-
-
 
     public function raw_fetchRow($sql, $field=null)
     {

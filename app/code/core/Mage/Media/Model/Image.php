@@ -58,7 +58,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     protected $_params = [];
 
-
     protected function _construct()
     {
         $this->_init('media/image');
@@ -286,7 +285,6 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
             $this->getDestanationDimensions()
                 ->setWidth($rate*$this->getDimensions()->getWidth())
                 ->setHeight($rate*$this->getDimensions()->getHeight());
-
 
             $this->_getResource()->resize($this);
             $this->_getResource()->watermark($this);

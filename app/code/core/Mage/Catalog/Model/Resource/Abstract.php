@@ -92,8 +92,6 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         return parent::_isCallableAttributeInstance($instance, $method, $args);
     }
 
-
-
     /**
      * Retrieve select object for loading entity attributes values
      * Join attribute store value
@@ -146,8 +144,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      */
     protected function _addLoadAttributesSelectFields($select, $table, $type)
     {
+        /** @var Mage_Catalog_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('catalog');
         $select->columns(
-            Mage::getResourceHelper('catalog')->attributeSelectFields('attr_table', $type)
+            $helper->attributeSelectFields('attr_table', $type)
         );
         return $select;
     }
@@ -561,7 +561,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         $type = $attribute->getBackendType();
-        if (($type == 'int' || $type == 'decimal' || $type == 'datetime') && $value === '') {
+        if (($type === 'int' || $type === 'decimal' || $type === 'datetime') && $value === '') {
             $value = null;
         }
 

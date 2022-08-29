@@ -271,8 +271,6 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
     }
 
-
-
     /**
      * Check if page identifier exist for specific store
      * return page id if page exists

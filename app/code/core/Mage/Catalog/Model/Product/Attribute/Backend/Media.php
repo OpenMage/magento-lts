@@ -116,8 +116,6 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['images'] = [];
         }
 
-
-
         $clearImages = [];
         $newImages   = [];
         $existImages = [];

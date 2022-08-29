@@ -18,13 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Dataflow batch Io model
  *
  * @category   Mage
  * @package    Mage_Dataflow
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Dataflow_Model_Batch_Io
 {
@@ -191,7 +190,7 @@ class Mage_Dataflow_Model_Batch_Io
     /**
      * Get writed file size
      *
-     * @return unknown
+     * @return int
      */
     public function getFileSize()
     {

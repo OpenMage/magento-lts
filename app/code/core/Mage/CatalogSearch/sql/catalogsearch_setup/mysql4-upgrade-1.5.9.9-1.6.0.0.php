@@ -40,7 +40,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_CATALOGSEARCH_RESULT_QUERY'
 );
 
-
 /**
  * Drop indexes
  */
@@ -78,7 +77,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('catalogsearch/result'),
     'IDX_RELEVANCE'
 );
-
 
 /*
  * Change columns
@@ -271,7 +269,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('catalogsearch/result', ['product_id']),
     ['product_id']
 );
-
 
 /**
  * Add foreign keys

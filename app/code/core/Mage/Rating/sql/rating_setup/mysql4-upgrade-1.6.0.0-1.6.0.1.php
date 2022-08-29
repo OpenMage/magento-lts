@@ -22,7 +22,6 @@
 $installer = $this;
 $installer->startSetup();
 
-
 $installer->getConnection()->changeColumn(
     $installer->getTable('rating/rating_option_vote'),
     'remote_ip_long',

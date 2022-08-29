@@ -34,11 +34,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
     protected $_minPopularity;
     protected $_maxPopularity;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Load terms and try to sort it by names
      *
@@ -57,7 +52,6 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
             if (count($terms) == 0) {
                 return $this;
             }
-
 
             $this->_maxPopularity = reset($terms)->getPopularity();
             $this->_minPopularity = end($terms)->getPopularity();
