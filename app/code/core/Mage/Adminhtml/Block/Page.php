@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Page extends Mage_Adminhtml_Block_Template
     /**
      * Get current language
      *
-     * @return unknown
+     * @return string
      */
     public function getLang()
     {

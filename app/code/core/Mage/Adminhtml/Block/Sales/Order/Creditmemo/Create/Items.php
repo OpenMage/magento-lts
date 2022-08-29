@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
     /**
      * Retrieve creditmemo model instance
      *
-     * @return Mage_Sales_Model_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     public function getCreditmemo()
     {

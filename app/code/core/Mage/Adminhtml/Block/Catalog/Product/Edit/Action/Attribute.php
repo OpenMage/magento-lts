@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Adminhtml_Block_Widget
 {
-
     protected function _prepareLayout()
     {
         $this->setChild('back_button',
@@ -61,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute extends Mage_Ad
     /**
      * Retrieve selected products for update
      *
-     * @return unknown
+     * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getProducts()
     {

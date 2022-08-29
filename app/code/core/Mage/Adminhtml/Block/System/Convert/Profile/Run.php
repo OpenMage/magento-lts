@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 $numberOfRecords = $this->getProfile()->getData('gui_data/import/number_of_records');
                 if (!$numberOfRecords) {
                     $batchParams = $batchModel->getParams();
-                    $numberOfRecords = isset($batchParams['number_of_records']) ? $batchParams['number_of_records'] : 1;
+                    $numberOfRecords = $batchParams['number_of_records'] ?? 1;
                 }
                 $this->setNumberOfRecords($numberOfRecords);
                 $this->setShowFinished(false);
