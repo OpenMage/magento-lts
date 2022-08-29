@@ -63,18 +63,20 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_catalog_rule');
 
-        //$form = new Varien_Data_Form(array('id' => 'edit_form1', 'action' => $this->getData('action'), 'method' => 'post'));
         $form = new Varien_Data_Form();
 
         $form->setHtmlIdPrefix('rule_');
@@ -93,32 +95,9 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Conditions
             'title' => Mage::helper('catalogrule')->__('Conditions'),
             'required' => true,
         ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
-/*
-        $fieldset = $form->addFieldset('actions_fieldset', array('legend'=>Mage::helper('catalogrule')->__('Actions')));
 
-        $fieldset->addField('actions', 'text', array(
-            'name' => 'actions',
-            'label' => Mage::helper('catalogrule')->__('Actions'),
-            'title' => Mage::helper('catalogrule')->__('Actions'),
-            'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
-
-        $fieldset = $form->addFieldset('options_fieldset', array('legend'=>Mage::helper('catalogrule')->__('Options')));
-
-        $fieldset->addField('stop_rules_processing', 'select', array(
-            'label'     => Mage::helper('catalogrule')->__('Stop Further Rules Processing'),
-            'title'     => Mage::helper('catalogrule')->__('Stop Further Rules Processing'),
-            'name'      => 'stop_rules_processing',
-            'required' => true,
-            'options'    => array(
-                '1' => Mage::helper('catalogrule')->__('Yes'),
-                '0' => Mage::helper('catalogrule')->__('No'),
-            ),
-        ));
-*/
         $form->setValues($model->getData());
 
-        //$form->setUseContainer(true);
 
         $this->setForm($form);
 

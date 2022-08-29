@@ -62,13 +62,16 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit_Tab_Actions
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_catalog_rule');
