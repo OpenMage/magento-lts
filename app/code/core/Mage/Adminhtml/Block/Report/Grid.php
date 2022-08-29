@@ -200,7 +200,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of store switcher
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setStoreSwitcherVisibility($visible=true)
     {
@@ -210,7 +210,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of store switcher
      *
-     * @return boolean
+     * @return bool
      */
     public function getStoreSwitcherVisibility()
     {
@@ -230,7 +230,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of date filter
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setDateFilterVisibility($visible=true)
     {
@@ -240,7 +240,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of date filter
      *
-     * @return boolean
+     * @return bool
      */
     public function getDateFilterVisibility()
     {
@@ -250,7 +250,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of export action
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setExportVisibility($visible=true)
     {
@@ -260,7 +260,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of export action
      *
-     * @return boolean
+     * @return bool
      */
     public function getExportVisibility()
     {
@@ -270,7 +270,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Set visibility of subtotals
      *
-     * @param boolean $visible
+     * @param bool $visible
      */
     public function setSubtotalVisibility($visible=true)
     {
@@ -280,7 +280,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Return visibility of subtotals
      *
-     * @return boolean
+     * @return bool
      */
     public function getSubtotalVisibility()
     {
@@ -486,7 +486,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Retrieve grid as Excel Xml
      *
-     * @return unknown
+     * @return mixed
      */
     public function getExcel($filename = '')
     {
@@ -545,21 +545,33 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $xmlObj->getData();
     }
 
+    /**
+     * @return string
+     */
     public function getSubtotalText()
     {
         return $this->__('Subtotal');
     }
 
+    /**
+     * @return string
+     */
     public function getTotalText()
     {
         return $this->__('Total');
     }
 
+    /**
+     * @return string
+     */
     public function getEmptyText()
     {
         return $this->__('No records found for this period.');
     }
 
+    /**
+     * @return bool
+     */
     public function getCountTotals()
     {
         $totals = $this->getGrandTotals()->getData();

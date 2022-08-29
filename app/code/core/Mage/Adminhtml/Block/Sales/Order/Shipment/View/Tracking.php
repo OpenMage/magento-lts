@@ -105,7 +105,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
     /**
      * Retrieve
      *
-     * @return unknown
+     * @return array
      */
     public function getCarriers()
     {

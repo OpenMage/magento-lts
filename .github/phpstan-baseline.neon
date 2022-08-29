@@ -91,11 +91,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute\\:\\:getProducts\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Action/Attribute.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
@@ -271,26 +266,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Dashboard/Graph.php
 
 		-
-			message: "#^Call to method getData\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Call to method setImage\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Call to method setParams\\(\\) on an unknown class Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Media_Editor\\:\\:getConfig\\(\\) has invalid return type Varien_Config\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Media/Editor.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:isValidForSend\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php
@@ -321,11 +296,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Window.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Page\\:\\:getLang\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Page.php
-
-		-
 			message: "#^Comparison operation \"\\=\\=\" between \\(Varien_Simplexml_Element\\|null\\) and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Page/Menu.php
@@ -339,11 +309,6 @@ parameters:
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Role/Grid/User.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Permissions_Roles\\:\\:getGridHtml\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Permissions/Roles.php
 
 		-
 			message: "#^Call to an undefined method Mage_Admin_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
@@ -421,11 +386,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Report_Grid\\:\\:getExcel\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid_Abstract\\:\\:\\$_columnGroupBy\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
@@ -491,11 +451,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Create_Data\\:\\:getAvailableCurrencies\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Data.php
-
-		-
 			message: "#^Undefined variable\\: \\$info$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Items/Grid.php
@@ -551,71 +506,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Adjustments.php
 
 		-
-			message: "#^Call to method getOrder\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Form.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Form\\:\\:getCreditmemo\\(\\) has invalid return type Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Form.php
-
-		-
-			message: "#^Call to method canRefund\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Call to method getAllItems\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Call to method getInvoice\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Call to method getOrder\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Call to method getOrderId\\(\\) on an unknown class Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items\\:\\:getCreditmemo\\(\\) has invalid return type Mage_Sales_Model_Creditmemo\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Creditmemo/Create/Items.php
-
-		-
-			message: "#^Call to method getOrder\\(\\) on an unknown class Mage_Sales_Model_Invoice\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create.php
-
-		-
-			message: "#^Call to method getOrderId\\(\\) on an unknown class Mage_Sales_Model_Invoice\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Invoice_Create\\:\\:getInvoice\\(\\) has invalid return type Mage_Sales_Model_Invoice\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Invoice/Create/Tracking.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Create/Tracking.php
-
-		-
 			message: "#^Call to an undefined method Mage_Shipping_Model_Carrier_Abstract\\:\\:isGirthAllowed\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
@@ -634,11 +524,6 @@ parameters:
 			message: "#^Variable \\$itemsOrderItemId might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/Packaging.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking\\:\\:getCarriers\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Shipment/View/Tracking.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:load\\(\\)\\.$#"
@@ -724,11 +609,6 @@ parameters:
 			message: "#^Variable \\$attributes might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Profile/Run.php
 
 		-
 			message: "#^Variable \\$img might not be defined\\.$#"
@@ -901,11 +781,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Action.php
 
 		-
-			message: "#^Method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Datetime\\:\\:_getFormat\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Datetime.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
@@ -984,16 +859,6 @@ parameters:
 			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:save\\(\\) invoked with 0 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:_saveCustomer\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Model_Sales_Order_Create\\:\\:initFromOrder\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
 
 		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
@@ -1147,26 +1012,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:clearAffectedEntityIds\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/controllers/System/Convert/ProfileController.php
 
@@ -1837,21 +1682,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Collection\\:\\:setStoreId\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Convert/Adapter/Product.php
 
@@ -2941,21 +2771,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Model/Api2/Customer/Rest/Customer/V1.php
 
 		-
-			message: "#^Call to method getBatchData\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
-			message: "#^Call to method getIdCollection\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
-			message: "#^Call to method load\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
-
-		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Customer/Model/Convert/Adapter/Customer.php
@@ -3031,11 +2846,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
 
 		-
-			message: "#^Method Mage_Dataflow_Model_Batch\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:deleteCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
@@ -3044,11 +2854,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\\:\\:getIdCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Batch/Abstract.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Batch_Io\\:\\:getFileSize\\(\\) has invalid return type unknown\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Batch/Io.php
 
 		-
 			message: "#^Call to an undefined method Mage_Dataflow_Model_Convert_Action\\:\\:getData\\(\\)\\.$#"
@@ -3084,21 +2889,6 @@ parameters:
 			message: "#^Method Mage_Dataflow_Model_Convert_Mapper_Column\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Dataflow/Model/Convert/Mapper/Column.php
-
-		-
-			message: "#^Method Mage_Dataflow_Model_Convert_Parser_Abstract\\:\\:getBatchImportModel\\(\\) has invalid return type Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Abstract.php
-
-		-
-			message: "#^Call to method setId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Csv.php
-
-		-
-			message: "#^Call to method setId\\(\\) on an unknown class Mage_Dataflow_Model_Import_Export\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Dataflow/Model/Convert/Parser/Xml/Excel.php
 
 		-
 			message: "#^Undefined variable\\: \\$profile$#"
@@ -3701,11 +3491,6 @@ parameters:
 			path: ../app/code/core/Mage/Install/Model/Installer.php
 
 		-
-			message: "#^Method Mage_Install_Model_Installer\\:\\:validateEncryptionKey\\(\\) has invalid return type unknown_type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Installer.php
-
-		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:addError\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Install/Model/Installer/Config.php
@@ -4226,87 +4011,7 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Observer.php
 
 		-
-			message: "#^Call to method getAmt\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getAvsdata\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getCvv2match\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getData\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 5
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getFpsPrexmldata\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getFraudMessage\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getInvnum\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getPnref\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getRespmsg\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getResult\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 5
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getType\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getUser1\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method getUser2\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method setData\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Call to method setFraudMessage\\(\\) on an unknown class Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
 			message: "#^Method Mage_Paypal_Model_Payflowlink\\:\\:_getTrxTokenType\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
-
-		-
-			message: "#^Method Mage_Paypal_Model_Payflowlink\\:\\:getResponse\\(\\) has invalid return type Mage_Mage_Paypal_Model_Payflow_Request\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Payflowlink.php
 

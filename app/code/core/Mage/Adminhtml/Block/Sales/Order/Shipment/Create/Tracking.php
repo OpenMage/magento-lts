@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking extends Mage_Adm
     /**
      * Retrieve
      *
-     * @return unknown
+     * @return array
      */
     public function getCarriers()
     {

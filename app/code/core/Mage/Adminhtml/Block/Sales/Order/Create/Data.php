@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     /**
      * Retrieve avilable currency codes
      *
-     * @return unknown
+     * @return array
      */
     public function getAvailableCurrencies()
     {
