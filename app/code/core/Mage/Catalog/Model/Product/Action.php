@@ -22,6 +22,7 @@
  * Catalog Product Mass Action processing model
  *
  * @method Mage_Catalog_Model_Resource_Product_Action _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Action getResource()
  *
  * @category    Mage
  * @package     Mage_Catalog
