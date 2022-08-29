@@ -23,7 +23,7 @@
  *
  * @method Mage_Eav_Model_Resource_Form_Fieldset _getResource()
  * @method Mage_Eav_Model_Resource_Form_Fieldset getResource()
- *
+ * @method Mage_Eav_Model_Resource_Form_Fieldset_Collection getCollection()
  * @method int getTypeId()
  * @method $this setTypeId(int $value)
  * @method string getCode()
@@ -53,16 +53,6 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('eav/form_fieldset');
-    }
-
-    /**
-     * Retrieve resource collection instance wrapper
-     *
-     * @inheritDoc
-     */
-    public function getCollection()
-    {
-        return parent::getCollection();
     }
 
     /**
