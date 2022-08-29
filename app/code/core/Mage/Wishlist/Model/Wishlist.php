@@ -48,7 +48,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Wishlist item collection
      *
-     * @var Mage_Wishlist_Model_Mysql4_Item_Collection
+     * @var Mage_Wishlist_Model_Resource_Item_Collection
      */
     protected $_itemCollection = null;
 
