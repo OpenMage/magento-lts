@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer install
  *
@@ -271,7 +270,6 @@ CREATE TABLE `{$installer->getTable('customer/eav_attribute')}` (
 ");
 $installer->endSetup();
 $installer->installEntities();
-
 
 $setup = $installer->getConnection();
 

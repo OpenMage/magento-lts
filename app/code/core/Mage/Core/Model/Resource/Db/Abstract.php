@@ -283,7 +283,6 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         return $this->_tables[$cacheName];
     }
 
-
     /**
      * Retrieve table name for the entity separated value
      *

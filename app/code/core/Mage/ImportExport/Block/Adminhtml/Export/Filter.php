@@ -203,7 +203,6 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             $toValue   = $this->_helper->escapeHtml(next($value));
         }
 
-
         return '<strong>' . Mage::helper('importexport')->__('From') . ':</strong>&nbsp;'
             . $dateBlock->setValue($fromValue)->getHtml()
             . '&nbsp;<strong>' . Mage::helper('importexport')->__('To') . ':</strong>&nbsp;'

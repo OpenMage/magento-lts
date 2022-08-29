@@ -751,7 +751,6 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         return $this->getId() == Mage_Core_Model_App::ADMIN_STORE_ID;
     }
 
-
     /**
      * Check if backend URLs should be secure
      *

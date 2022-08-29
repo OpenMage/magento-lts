@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Bestsellers report resource model
  *
@@ -34,7 +33,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
 
     /**
      * Model initialization
-     *
      */
     protected function _construct()
     {
@@ -82,7 +80,8 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 )
             );
 
-            $helper                        = Mage::getResourceHelper('core');
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
             $select = $adapter->select();
 
             $select->group([
@@ -133,7 +132,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                     []
                 )
                 ->where('source_table.state != ?', Mage_Sales_Model_Order::STATE_CANCELED);
-
 
             /** @var Mage_Catalog_Model_Resource_Product $product */
             $product  = Mage::getResourceSingleton('catalog/product');
@@ -210,7 +208,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-
             $select->useStraightJoin();  // important!
             $insertQuery = $helper->getInsertFromSelectUsingAnalytic(
                 $select,
@@ -219,14 +216,12 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             );
             $adapter->query($insertQuery);
 
-
             $this->_aggregateDefault($subSelect);
 
             // update rating
             $this->_updateRatingPos(self::AGGREGATION_DAILY);
             $this->_updateRatingPos(self::AGGREGATION_MONTHLY);
             $this->_updateRatingPos(self::AGGREGATION_YEARLY);
-
 
             $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE);
         } catch (Exception $e) {
@@ -251,6 +246,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
         /** @var Mage_Catalog_Model_Resource_Product $product */
         $product    = Mage::getResourceSingleton('catalog/product');
         $attr       = $product->getAttribute('price');
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper     = Mage::getResourceHelper('core');
 
         $columns = [
@@ -323,13 +319,15 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             'monthly' => self::AGGREGATION_MONTHLY,
             'yearly'  => self::AGGREGATION_YEARLY
         ];
-        Mage::getResourceHelper('sales')
-            ->getBestsellersReportUpdateRatingPos(
-                $aggregation,
-                $aggregationAliases,
-                $this->getMainTable(),
-                $aggregationTable
-            );
+
+        /** @var Mage_Sales_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('sales');
+        $helper->getBestsellersReportUpdateRatingPos(
+            $aggregation,
+            $aggregationAliases,
+            $this->getMainTable(),
+            $aggregationTable
+        );
 
         return $this;
     }

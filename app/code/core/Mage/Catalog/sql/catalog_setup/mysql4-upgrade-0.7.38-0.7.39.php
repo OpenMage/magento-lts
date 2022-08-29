@@ -27,5 +27,4 @@ $installer->run("
     ALTER TABLE `{$this->getTable('catalog/product_option_type_value')}` ADD `sort_order` int(10) unsigned NOT NULL default '0';
 ");
 
-
 $installer->endSetup();

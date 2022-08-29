@@ -290,7 +290,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 'options'     => $this->getAttributeOptions($attribute)
             ];
             $this->_attributes[$attribute->getAttributeCode()] = $attributeArray;
-            if (Mage_ImportExport_Model_Import::getAttributeType($attribute) == 'multiselect') {
+            if (Mage_ImportExport_Model_Import::getAttributeType($attribute) === 'multiselect') {
                 $this->_multiSelectAttributes[$attribute->getAttributeCode()] = $attributeArray;
             }
         }
@@ -368,7 +368,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         $resource       = Mage::getModel('customer/customer');
         $strftimeFormat = Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
         $table = $resource->getResource()->getEntityTable();
-        $nextEntityId   = Mage::getResourceHelper('importexport')->getNextAutoincrement($table);
+        /** @var Mage_ImportExport_Model_Resource_Helper_Mysql4 $helper */
+        $helper         = Mage::getResourceHelper('importexport');
+        $nextEntityId   = $helper->getNextAutoincrement($table);
         $passId         = $resource->getAttribute('password_hash')->getId();
         $passTable      = $resource->getAttribute('password_hash')->getBackend()->getTable();
         $multiSelect    = [];
@@ -421,11 +423,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
-                            if ($attrParams['type'] == 'select') {
+                            if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
-                            } elseif ($attrParams['type'] == 'datetime') {
+                            } elseif ($attrParams['type'] === 'datetime') {
                                 $value = gmstrftime($strftimeFormat, strtotime($value));
-                            } elseif ($attrParams['type'] == 'multiselect') {
+                            } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array)$attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
@@ -448,7 +450,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         $attribute  = $resource->getAttribute($attrCode);
                         $attrParams = $this->_attributes[$attrCode];
-                        if ($attrParams['type'] == 'multiselect') {
+                        if ($attrParams['type'] === 'multiselect') {
                             if (!isset($attrParams['options'][strtolower($value)])) {
                                 continue;
                             }
@@ -605,7 +607,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if (self::SCOPE_DEFAULT == $rowScope) {
             $this->_processedEntitiesCount ++;
         }
-
 
         $email        = $rowData[self::COL_EMAIL];
         $emailToLower = strtolower($rowData[self::COL_EMAIL]);

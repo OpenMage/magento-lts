@@ -35,7 +35,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_PAYPAL_SETTLEMENT_ROW_REPORT'
 );
 
-
 /**
  * Drop indexes
  */
@@ -53,7 +52,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('paypal/settlement_report_row'),
     'IDX_REPORT_ID'
 );
-
 
 /**
  * Change columns
@@ -251,7 +249,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -277,7 +274,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('paypal/settlement_report_row', ['report_id']),
     ['report_id']
 );
-
 
 /**
  * Add foreign keys

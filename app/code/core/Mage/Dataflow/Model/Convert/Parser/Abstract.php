@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert parser abstract
  *
@@ -88,7 +87,7 @@ abstract class Mage_Dataflow_Model_Convert_Parser_Abstract
     /**
      * Retrieve Batch import model
      *
-     * @return Mage_Dataflow_Model_Import_Export
+     * @return Mage_Dataflow_Model_Batch_Import
      */
     public function getBatchImportModel()
     {

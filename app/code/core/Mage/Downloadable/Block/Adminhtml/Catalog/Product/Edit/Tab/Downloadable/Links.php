@@ -306,7 +306,6 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             ->toHtml();
     }
 
-
     /**
      * @param string $type
      * @return string

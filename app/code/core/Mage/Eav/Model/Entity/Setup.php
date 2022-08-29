@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * EAV Entity Setup Model
  *
@@ -109,7 +108,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         return $this;
     }
-
 
 /******************* ENTITY TYPES *****************/
 
@@ -1242,7 +1240,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         return $this;
     }
-
 
 /****************************** CREATE ENTITY TABLES ***********************************/
 

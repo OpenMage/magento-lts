@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,12 +23,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Block_Widget
 {
-
 
     public function __construct()
     {
@@ -49,7 +48,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
@@ -59,7 +57,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     ]
                 )
         );
-
 
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -83,7 +80,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
@@ -106,7 +102,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     ]
                 )
         );
-
 
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
@@ -141,7 +136,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 )
         );
 
-
         $this->setChild('form',
             $this->getLayout()->createBlock('adminhtml/system_email_template_edit_form')
         );
@@ -157,7 +151,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
     {
         return $this->getChildHtml('toggle_button');
     }
-
 
     public function getResetButtonHtml()
     {
@@ -217,7 +210,6 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
 
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
-
 
     /**
      * Return form block HTML

@@ -294,7 +294,6 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         return true;
     }
 
-
     /**
      * Retrieve image types (image, small_image, thumbnail, etc...)
      *
@@ -388,7 +387,6 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
             'types'     => []
         ];
-
 
         foreach ($product->getMediaAttributes() as $attribute) {
             if ($product->getData($attribute->getAttributeCode()) == $image['file']) {

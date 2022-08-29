@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Product Price Indexer Resource Model
  *
@@ -566,7 +565,6 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
                 ['store_id' => 'default_store_id']
             )
             ->where('cw.website_id != 0');
-
 
         $data = [];
         foreach ($write->fetchAll($select) as $item) {

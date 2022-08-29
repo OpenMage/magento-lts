@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog product custom option resource model
  *
@@ -428,7 +427,6 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             'option_title_default.title',
             'option_title_store.title'
         );
-
 
         // retrieve options title
 

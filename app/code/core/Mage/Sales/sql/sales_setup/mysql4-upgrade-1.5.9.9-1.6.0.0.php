@@ -370,7 +370,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_SALES_SHIPPING_AGGREGATED_ORDER_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -1068,7 +1067,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('sales/shipping_aggregated_order'),
     'IDX_STORE_ID'
 );
-
 
 /**
  * Change columns
@@ -6692,7 +6690,6 @@ $installer->getConnection()->changeColumn(
     ]
 );
 
-
 /**
  * Add indexes
  */
@@ -7623,7 +7620,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('sales/shipping_aggregated_order', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

@@ -29,7 +29,6 @@ $imagesAttributesIds = implode(",", [
     (int) $installer->getAttributeId('catalog_product', 'thumbnail')
 ]);
 
-
 $installer->startSetup();
 $installer->run("
 INSERT INTO `{$installer->getTable('catalog_product_entity_media_gallery')}` (attribute_id, entity_id, value)

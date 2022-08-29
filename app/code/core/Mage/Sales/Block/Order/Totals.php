@@ -101,7 +101,6 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
             'label' => $this->__('Subtotal')
         ]);
 
-
         /**
          * Add shipping
          */

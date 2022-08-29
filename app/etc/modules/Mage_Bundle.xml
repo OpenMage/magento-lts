@@ -25,7 +25,7 @@
             <active>true</active>
             <codePool>core</codePool>
             <depends>
-                <Mage_Catalog />
+                <Mage_Catalog/>
             </depends>
         </Mage_Bundle>
     </modules>

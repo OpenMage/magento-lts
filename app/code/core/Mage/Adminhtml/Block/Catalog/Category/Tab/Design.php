@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -40,7 +40,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         $form->setDataObject($this->getCategory());
 
         $fieldset = $form->addFieldset('base_fieldset', ['legend'=>Mage::helper('catalog')->__('Custom Design')]);
-
 
         $this->_setFieldset($this->getCategory()->getDesignAttributes(), $fieldset);
 

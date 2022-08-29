@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Product collection
  *
@@ -1705,7 +1704,9 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             );
         }
         // Avoid column duplication problems
-        Mage::getResourceHelper('core')->prepareColumnsList($this->getSelect());
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('core');
+        $helper->prepareColumnsList($this->getSelect());
 
         $whereCond = implode(' OR ', [
             $this->getConnection()->quoteInto('cat_index.visibility IN(?)', $filters['visibility']),
@@ -1753,6 +1754,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             return $this;
         }
 
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper     = Mage::getResourceHelper('core');
         $connection = $this->getConnection();
         $select     = $this->getSelect();
@@ -1788,7 +1790,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         }
         //Clean duplicated fields
         $helper->prepareColumnsList($select);
-
 
         return $this;
     }
@@ -1944,7 +1945,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $categoryIds[$info['product_id']] = [$info['category_id']];
             }
         }
-
 
         foreach ($this->getItems() as $item) {
             $productId = $item->getId();
@@ -2142,7 +2142,6 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         return $this->_priceStandardDeviation;
     }
-
 
     /**
      * Get count of product prices

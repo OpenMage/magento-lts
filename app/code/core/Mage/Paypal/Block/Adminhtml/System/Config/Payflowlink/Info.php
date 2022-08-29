@@ -47,7 +47,6 @@
         return $this->_decorateRowHtml($element, "<td colspan='$columns'>" . $this->toHtml() . '</td>');
     }
 
-
     /**
      * Get frontend url
      *

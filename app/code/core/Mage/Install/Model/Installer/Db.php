@@ -175,7 +175,6 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         return (string) Mage::getConfig()->getNode('global/resources/default_setup/connection/type');
     }
 
-
     /**
      * Check database connection
      *

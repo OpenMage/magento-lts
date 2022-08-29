@@ -50,7 +50,6 @@ $installer->getConnection()->dropIndex(
     'IDX_VISITOR'
 );
 
-
 /**
  * Change columns
  */
@@ -370,7 +369,6 @@ $tables = [
 ];
 
 $installer->getConnection()->modifyTables($tables);
-
 
 /**
  * Add indexes

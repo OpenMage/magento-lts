@@ -80,7 +80,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_DOWNLOADABLE_SAMPLE_TITLE_STORE'
 );
 
-
 /**
  * Drop indexes
  */
@@ -168,7 +167,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('downloadable/sample_title'),
     'DOWNLOADABLE_SAMPLE_TITLE_STORE'
 );
-
 
 /**
  * Change columns
@@ -634,7 +632,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -749,7 +746,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('downloadable/sample_title', ['store_id']),
     ['store_id']
 );
-
 
 /**
  * Add foreign keys

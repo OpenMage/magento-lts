@@ -164,7 +164,6 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         return $value;
     }
 
-
     public function varDirective($construction)
     {
         if (count($this->_templateVars)==0) {

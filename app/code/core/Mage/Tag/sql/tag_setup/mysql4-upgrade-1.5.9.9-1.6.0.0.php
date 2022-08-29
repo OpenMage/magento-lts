@@ -65,7 +65,6 @@ $installer->getConnection()->dropForeignKey(
     'FK_TAG_SUMMARY_TAG'
 );
 
-
 /**
  * Drop indexes
  */
@@ -108,7 +107,6 @@ $installer->getConnection()->dropIndex(
     $installer->getTable('tag/summary'),
     'IDX_TAG'
 );
-
 
 /**
  * Change columns
@@ -293,7 +291,6 @@ $tables = [
 
 $installer->getConnection()->modifyTables($tables);
 
-
 /**
  * Add indexes
  */
@@ -349,7 +346,6 @@ $installer->getConnection()->addIndex(
     $installer->getIdxName('tag/summary', ['tag_id']),
     ['tag_id']
 );
-
 
 /**
  * Add foreign keys

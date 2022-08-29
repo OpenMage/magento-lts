@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * CatalogSearch Mysql resource helper model
  *
@@ -28,7 +27,6 @@
  */
 class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_Helper_Mysql4
 {
-
     /**
      * Join information for usin full text search
      *
@@ -81,7 +79,7 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     $word = '"'.$word.'"';
                     $words[] = $word;
                 } elseif ($isBracket) {
-                    if ($word == '(') {
+                    if ($word === '(') {
                         $isOpenBracket++;
                     } else {
                         $isOpenBracket--;

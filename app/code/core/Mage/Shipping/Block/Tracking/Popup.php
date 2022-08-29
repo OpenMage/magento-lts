@@ -126,7 +126,6 @@ class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
         return $ship;
     }
 
-
     /**
      * Retrieve array of tracking info
      *
