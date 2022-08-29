@@ -17,7 +17,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-(function(flowFactory, window, document) {
+(function(window, document) {
 'use strict';
     window.Uploader = Class.create({
 
@@ -43,7 +43,7 @@
         elements: [],
 
         /**
-         * @type {(FustyFlow|Flow)} Uploader object instance
+         * @type {(Flow)} Uploader object instance
          */
         uploader: {},
 
@@ -107,8 +107,7 @@
             this.uploaderConfig = config.uploaderConfig;
             this.browseConfig = config.browseConfig;
             this.miscConfig =  config.miscConfig;
-
-            this.uploader = flowFactory(this.uploaderConfig);
+            this.uploader = new Flow(this.uploaderConfig);
 
             this.attachEvents();
 
@@ -433,7 +432,7 @@
          * @private
          */
         _checkFileSize: function (file) {
-            return file.size > this.miscConfig.maxSizeInBytes;
+            return this.miscConfig.maxSizeInBytes && file.size > this.miscConfig.maxSizeInBytes;
         },
 
         /**
@@ -499,4 +498,4 @@
             ;
         }
     });
-})(fustyFlowFactory, window, document);
+})(window, document);

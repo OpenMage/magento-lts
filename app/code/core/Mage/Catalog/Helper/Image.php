@@ -637,7 +637,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         }
 
         if ($imageInfo[0] > $maxDimension || $imageInfo[1] > $maxDimension) {
-            Mage::throwException($this->__('Disalollowed file format.'));
+            Mage::throwException($this->__('Disallowed file format.'));
         }
 
         $_processor = new Varien_Image($filePath);
