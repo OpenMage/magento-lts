@@ -190,7 +190,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     /**
      * Return response model.
      *
-     * @return Mage_Mage_Paypal_Model_Payflow_Request
+     * @return Mage_Paypal_Model_Payflow_Request
      */
     public function getResponse()
     {
