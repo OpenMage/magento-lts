@@ -55,13 +55,16 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $rule = Mage::registry('current_promo_quote_rule');
@@ -76,7 +79,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
             'name'      => 'store_labels[0]',
             'required'  => false,
             'label'     => Mage::helper('salesrule')->__('Default Rule Label for All Store Views'),
-            'value'     => isset($labels[0]) ? $labels[0] : '',
+            'value'     => $labels[0] ?? '',
         ]);
 
         $fieldset = $form->addFieldset('store_labels_fieldset', [
@@ -105,7 +108,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels
                         'name'      => 'store_labels['.$store->getId().']',
                         'required'  => false,
                         'label'     => $store->getName(),
-                        'value'     => isset($labels[$store->getId()]) ? $labels[$store->getId()] : '',
+                        'value'     => $labels[$store->getId()] ?? '',
                         'fieldset_html_class' => 'store',
                     ]);
                 }
