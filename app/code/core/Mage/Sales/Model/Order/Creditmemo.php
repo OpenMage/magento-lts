@@ -24,6 +24,7 @@
  * @method Mage_Sales_Model_Resource_Order_Creditmemo _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getCollection()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getResourceCollection()
  *
  * @method float getAdjustment()
  * @method $this setAdjustment(float $value)
@@ -426,28 +427,11 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     /**
      * Check invice void action availability
      *
-     * @return bool
+     * @return false
      */
     public function canVoid()
     {
-        $canVoid = false;
         return false;
-        if ($this->getState() == self::STATE_REFUNDED) {
-            $canVoid = $this->getCanVoidFlag();
-            /**
-             * If we not retrieve negative answer from payment yet
-             */
-            if (is_null($canVoid)) {
-                $canVoid = $this->getOrder()->getPayment()->canVoid($this);
-                if ($canVoid === false) {
-                    $this->setCanVoidFlag(false);
-                    $this->_saveBeforeDestruct = true;
-                }
-            } else {
-                $canVoid = (bool) $canVoid;
-            }
-        }
-        return $canVoid;
     }
 
     /**
@@ -651,10 +635,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if (is_null(self::$_states)) {
             self::getStates();
         }
-        if (isset(self::$_states[$stateId])) {
-            return self::$_states[$stateId];
-        }
-        return Mage::helper('sales')->__('Unknown State');
+        return self::$_states[$stateId] ?? Mage::helper('sales')->__('Unknown State');
     }
 
     /**
@@ -674,7 +655,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function setAdjustmentPositive($amount)
     {
         $amount = trim($amount);
-        if (substr($amount, -1) == '%') {
+        if (substr($amount, -1) === '%') {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
         }
@@ -696,7 +677,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function setAdjustmentNegative($amount)
     {
         $amount = trim($amount);
-        if (substr($amount, -1) == '%') {
+        if (substr($amount, -1) === '%') {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
         }
@@ -819,7 +800,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if ($copyTo && $copyMethod === 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -829,7 +810,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if ($copyTo && ($copyMethod === 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);
@@ -894,7 +875,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         if ($notifyCustomer) {
             $emailInfo = Mage::getModel('core/email_info');
             $emailInfo->addTo($order->getCustomerEmail(), $customerName);
-            if ($copyTo && $copyMethod == 'bcc') {
+            if ($copyTo && $copyMethod === 'bcc') {
                 // Add bcc to customer email
                 foreach ($copyTo as $email) {
                     $emailInfo->addBcc($email);
@@ -904,7 +885,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
         }
 
         // Email copies are sent as separated emails if their copy method is 'copy' or a customer should not be notified
-        if ($copyTo && ($copyMethod == 'copy' || !$notifyCustomer)) {
+        if ($copyTo && ($copyMethod === 'copy' || !$notifyCustomer)) {
             foreach ($copyTo as $email) {
                 $emailInfo = Mage::getModel('core/email_info');
                 $emailInfo->addTo($email);

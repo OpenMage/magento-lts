@@ -24,6 +24,7 @@
  * @method Mage_Core_Model_Resource_Website _getResource()
  * @method Mage_Core_Model_Resource_Website getResource()
  * @method Mage_Core_Model_Resource_Website_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Website_Collection getResourceCollection()
  *
  * @method $this setCode(string $value)
  * @method string getName()
@@ -178,7 +179,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         }
         if (is_numeric($code)) {
             foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
-                if ((int)$website->system->website->id==$code) {
+                if ((int)$website->system->website->id == $code) {
                     $code = $websiteCode;
                     break;
                 }
@@ -511,9 +512,9 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             == Mage_Core_Model_Store::PRICE_SCOPE_GLOBAL
         ) {
             return Mage::app()->getBaseCurrencyCode();
-        } else {
-            return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
         }
+
+        return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**

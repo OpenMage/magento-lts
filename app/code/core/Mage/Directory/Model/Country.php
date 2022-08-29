@@ -23,6 +23,7 @@
  *
  * @method Mage_Directory_Model_Resource_Country _getResource()
  * @method Mage_Directory_Model_Resource_Country getResource()
+ * @method Mage_Directory_Model_Resource_Country_Collection getResourceCollection()
  * @method string getCode()
  * @method string getCountryId()
  * @method $this setCountryId(string $value)
@@ -133,16 +134,12 @@ T: {{telephone}}";
     {
         if (!isset(self::$_format[$this->getId()]) && $this->getId()) {
             self::$_format[$this->getId()] = Mage::getModel('directory/country_format')
-                                                ->getCollection()
-                                                ->setCountryFilter($this)
-                                                ->load();
+            ->getCollection()
+            ->setCountryFilter($this)
+            ->load();
         }
 
-        if (isset(self::$_format[$this->getId()])) {
-            return self::$_format[$this->getId()];
-        }
-
-        return null;
+        return self::$_format[$this->getId()] ?? null;
     }
 
     /**
@@ -155,7 +152,7 @@ T: {{telephone}}";
     {
         if ($this->getFormats()) {
             foreach ($this->getFormats() as $format) {
-                if ($format->getType()==$type) {
+                if ($format->getType() == $type) {
                     return $format;
                 }
             }

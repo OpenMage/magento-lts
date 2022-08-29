@@ -201,7 +201,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
@@ -209,7 +209,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (empty($this->_resourceCollectionName)) {
             Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined.'));
         }
-        return Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
+
+        $resource = Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
+        if (!$resource) {
+            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceCollectionName));
+        }
+        return $resource;
     }
 
     /**

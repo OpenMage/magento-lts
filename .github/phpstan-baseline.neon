@@ -156,11 +156,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
 
 		-
-			message: "#^Cannot call method addProductFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Tag.php
-
-		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
@@ -561,11 +556,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
 
 		-
-			message: "#^Cannot call method addIdFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Store/Switcher.php
-
-		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Edit.php
@@ -734,11 +724,6 @@ parameters:
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
-			message: "#^Cannot call method setLoadDefault\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Title.php
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addCustomerTaxClassesToResult\\(\\)\\.$#"
@@ -1581,7 +1566,7 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Helper/Product/Flat.php
 
 		-
-			message: "#^Cannot call method setStoreId\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
+			message: "#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\\:\\:setStoreId\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Abstract.php
 
@@ -1774,11 +1759,6 @@ parameters:
 			message: "#^Variable \\$file might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Media/Api.php
-
-		-
-			message: "#^Cannot call method loadByStore\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Product/Attribute/Source/Countryofmanufacture.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item\\:\\:clean\\(\\) invoked with 1 parameter, 0 required\\.$#"
@@ -2221,16 +2201,6 @@ parameters:
 			path: ../app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Configurable.php
 
 		-
-			message: "#^Cannot call method addCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Onepage/Abstract.php
-
-		-
-			message: "#^Cannot call method loadByStore\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Checkout/Block/Onepage/Abstract.php
-
-		-
 			message: "#^Method Mage_Checkout_Block_Onepage_Payment_Methods\\:\\:getMethodLabelAfterHtml\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Checkout/Block/Onepage/Payment/Methods.php
@@ -2556,11 +2526,6 @@ parameters:
 			path: ../app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
 
 		-
-			message: "#^Cannot call method setRealGroupsFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Customer/Helper/Data.php
-
-		-
 			message: "#^Cannot access property \\$is_default_billing on array\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Customer/Model/Address/Api/V2.php
@@ -2726,26 +2691,6 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Cannot call method addCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Directory/Block/Data.php
-
-		-
-			message: "#^Cannot call method loadByStore\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Block/Data.php
-
-		-
-			message: "#^Cannot call method addCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			message: "#^Cannot call method setCountryFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Directory/Model/Country.php
-
-		-
 			message: "#^Binary operation \"\\*\" between float and non\\-empty\\-string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Model/Currency.php
@@ -2869,11 +2814,6 @@ parameters:
 			message: "#^Method Mage_Downloadable_Product_EditController\\:\\:preDispatch\\(\\) should return Mage_Adminhtml_Controller_Action but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Downloadable/controllers/Product/EditController.php
-
-		-
-			message: "#^Cannot call method setLoadDefault\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Block/Adminhtml/Attribute/Edit/Options/Abstract.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Resource_Entity_Attribute\\:\\:getUsedInForms\\(\\)\\.$#"
@@ -4061,11 +4001,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Order/Api.php
 
 		-
-			message: "#^Cannot call method getFiltered\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo.php
-
-		-
 			message: "#^Call to an undefined method Mage_Core_Model_Abstract\\:\\:addComment\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Creditmemo/Api.php
@@ -4109,11 +4044,6 @@ parameters:
 			message: "#^Method Mage_Sales_Model_Order_Payment\\:\\:_addTransaction\\(\\) should return Mage_Sales_Model_Order_Payment_Transaction\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
-			message: "#^Cannot call method setOrderFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
 			message: "#^Variable \\$shippingAddress might not be defined\\.$#"
@@ -4371,11 +4301,6 @@ parameters:
 			path: ../app/code/core/Mage/Tag/Block/Customer/Tags.php
 
 		-
-			message: "#^Cannot call method addPopularity\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Block/Product/List.php
-
-		-
 			message: "#^Variable \\$result might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tag/Model/Api.php
@@ -4391,24 +4316,9 @@ parameters:
 			path: ../app/code/core/Mage/Tag/Model/Resource/Customer/Collection.php
 
 		-
-			message: "#^Cannot call method addPopularity\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Cannot call method addStoreFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Resource/Product/Collection.php
-
-		-
 			message: "#^Method Mage_Tag_Model_Resource_Tag\\:\\:loadByName\\(\\) should return array\\|false but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Tag/Model/Resource/Tag.php
-
-		-
-			message: "#^Cannot call method joinRel\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Tag/Model/Tag.php
 
 		-
 			message: "#^Variable \\$result might not be defined\\.$#"
