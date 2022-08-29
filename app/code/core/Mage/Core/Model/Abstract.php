@@ -137,7 +137,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
 
         $resource = Mage::getResourceSingleton($this->_resourceName);
         if (!$resource) {
-            Mage::throwException(Mage::helper('core')->__('Resource is not found.'));
+            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceName));
         }
 
         return $resource;
