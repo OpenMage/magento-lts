@@ -828,8 +828,8 @@ final class Mage
     /**
      * log facility (??)
      *
-     * @param string $message
-     * @param integer $level
+     * @param array|object|string $message
+     * @param int $level
      * @param string $file
      * @param bool $forceLog
      */
