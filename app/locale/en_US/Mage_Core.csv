@@ -296,6 +296,7 @@
 "Request path length exceeds allowed %s symbols.","Request path length exceeds allowed %s symbols."
 "Requested file may not include parent directory traversal (""../"", ""..\\ notation)""","Requested file may not include parent directory traversal (""../"", ""..\\ notation)"""
 "Requested invalid store ""%s""","Requested invalid store ""%s"""
+"Resource is not found.","Resource is not found."
 "Resource is not set.","Resource is not set."
 "Retrieve info about current Magento installation","Retrieve info about current Magento installation"
 "Retrieve store data","Retrieve store data"

@@ -127,7 +127,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Resource_Db_Abstract|object|false
+     * @return Mage_Core_Model_Resource_Db_Abstract|object
      */
     protected function _getResource()
     {
@@ -135,7 +135,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
         }
 
-        return Mage::getResourceSingleton($this->_resourceName);
+        $resource = Mage::getResourceSingleton($this->_resourceName);
+        if (!$resource) {
+            Mage::throwException(Mage::helper('core')->__('Resource is not found.'));
+        }
+
+        return $resource;
     }
 
     /**
