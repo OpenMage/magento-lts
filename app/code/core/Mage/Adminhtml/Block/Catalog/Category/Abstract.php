@@ -27,12 +27,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Block_Template
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Retrieve current category instance
      *

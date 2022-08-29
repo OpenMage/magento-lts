@@ -27,11 +27,6 @@
  */
 class Mage_Adminhtml_Block_Widget_Button extends Mage_Adminhtml_Block_Widget
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function getType()
     {
         return ($type=$this->getData('type')) ? $type : 'button';

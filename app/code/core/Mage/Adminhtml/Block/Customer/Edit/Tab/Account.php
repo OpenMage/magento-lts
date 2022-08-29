@@ -28,14 +28,6 @@
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
-     * Initialize block
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Initialize form
      *
      * @return $this

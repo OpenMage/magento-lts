@@ -29,11 +29,6 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
 {
     protected $_accordion;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function setAccordion($accordion)
     {
         $this->_accordion = $accordion;

@@ -28,11 +28,6 @@
 
 class Mage_Adminhtml_Block_Customer_Online_Filter extends Mage_Adminhtml_Block_Widget_Form
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
