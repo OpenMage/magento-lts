@@ -21,10 +21,10 @@
 /**
  * description
  *
- * @category    Mage
+ * @category   Mage
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
     extends Mage_Adminhtml_Block_Widget_Form
@@ -63,18 +63,20 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
         return false;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_promo_quote_rule');
 
-        //$form = new Varien_Data_Form(array('id' => 'edit_form1', 'action' => $this->getData('action'), 'method' => 'post'));
         $form = new Varien_Data_Form();
 
         $form->setHtmlIdPrefix('rule_');
@@ -92,21 +94,8 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Conditions
             'label' => Mage::helper('salesrule')->__('Conditions'),
             'title' => Mage::helper('salesrule')->__('Conditions'),
         ])->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
-/*
-        $fieldset = $form->addFieldset('actions_fieldset', array(
-            'legend'=>Mage::helper('salesrule')->__('Apply the rule to cart items matching the following conditions')
-        ))->setRenderer($renderer);
 
-        $fieldset->addField('actions', 'text', array(
-            'name' => 'actions',
-            'label' => Mage::helper('salesrule')->__('Apply To'),
-            'title' => Mage::helper('salesrule')->__('Apply To'),
-            'required' => true,
-        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/actions'));
-*/
         $form->setValues($model->getData());
-
-        //$form->setUseContainer(true);
 
         $this->setForm($form);
 

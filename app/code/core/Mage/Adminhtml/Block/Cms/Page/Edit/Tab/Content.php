@@ -42,6 +42,9 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         /** @var Mage_Cms_Model_Page $model */
@@ -127,7 +130,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content
     /**
      * Returns status flag about this tab hidden or not
      *
-     * @return true
+     * @return false
      */
     public function isHidden()
     {
