@@ -38,7 +38,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
      /**
      * Order shipments collection
      *
-     * @var array|Mage_Sales_Model_Mysql4_Order_Shipment_Collection
+     * @var array|Mage_Sales_Model_Resource_Order_Shipment_Collection
      */
     protected $_shipmentsCollection;
 
