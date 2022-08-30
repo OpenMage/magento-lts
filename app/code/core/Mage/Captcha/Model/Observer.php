@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Captcha
+ * @category   Mage
+ * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,9 @@
 /**
  * Captcha Observer
  *
- * @category    Mage
- * @package     Mage_Captcha
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Observer
 {

@@ -48,14 +48,6 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     ];
 
     /**
-     * Constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-    }
-
-    /**
      * Add not allowed layout handle pattern
      *
      * @param string $pattern

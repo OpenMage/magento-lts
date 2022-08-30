@@ -21,17 +21,18 @@
 /**
  * CatalogInventory Stock Status Indexer Model
  *
+ * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Indexer_Stock getResource()
  * @method int getProductId()
- * @method Mage_CatalogInventory_Model_Indexer_Stock setProductId(int $value)
+ * @method $this setProductId(int $value)
  * @method int getWebsiteId()
- * @method Mage_CatalogInventory_Model_Indexer_Stock setWebsiteId(int $value)
+ * @method $this setWebsiteId(int $value)
  * @method int getStockId()
- * @method Mage_CatalogInventory_Model_Indexer_Stock setStockId(int $value)
+ * @method $this setStockId(int $value)
  * @method float getQty()
- * @method Mage_CatalogInventory_Model_Indexer_Stock setQty(float $value)
+ * @method $this setQty(float $value)
  * @method int getStockStatus()
- * @method Mage_CatalogInventory_Model_Indexer_Stock setStockStatus(int $value)
+ * @method $this setStockStatus(int $value)
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -90,16 +91,6 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
     }
 
     /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
-    }
-
-    /**
      * Retrieve Indexer name
      *
      * @return string
@@ -128,7 +119,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        $data       = $event->getNewData();
+        $data = $event->getNewData();
         if (isset($data[self::EVENT_MATCH_RESULT_KEY])) {
             return $data[self::EVENT_MATCH_RESULT_KEY];
         }
