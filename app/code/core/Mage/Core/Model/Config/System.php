@@ -28,14 +28,6 @@
 class Mage_Core_Model_Config_System extends Mage_Core_Model_Config_Base
 {
     /**
-     * @param string|null $sourceData
-     */
-    public function __construct($sourceData = null)
-    {
-        parent::__construct($sourceData);
-    }
-
-    /**
      * @param string $module
      * @return $this
      */
