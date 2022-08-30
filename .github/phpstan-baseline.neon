@@ -336,42 +336,12 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Sku.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Customer/Accounts/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Customer/Orders/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Customer/Totals/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid\\:\\:\\$_filterValues\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid\\:\\:\\$_locale\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:getIntervals\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:getPeriods\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:getReport\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
 
@@ -414,16 +384,6 @@ parameters:
 			message: "#^Method Mage_Reports_Model_Totals\\:\\:countTotals\\(\\) invoked with 1 parameter, 3 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Ordered/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:initReport\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Product/Sold/Grid.php
 
 		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addRuleFilter\\(\\)\\.$#"
@@ -3874,11 +3834,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:setStore\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Wishlist/Product/Collection.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:getReportFull\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Totals.php
 
 		-
 			message: "#^Comparison operation \"\\=\\=\" between array\\|null and 1 results in an error\\.$#"
