@@ -19,10 +19,13 @@
  */
 ?>
 <?php
-/** @var Mage_Page_Block_Html_Pager $this */
-$collectionSize = $this->getCollection()->getSize();
+/**
+ * Pager template
+ *
+ * @var Mage_Page_Block_Html_Pager $this
+ */
 ?>
-<?php if($collectionSize): ?>
+<?php if($this->getCollection()->getSize()): ?>
 
     <?php if($this->getUseContainer()): ?>
     <div class="pager">
@@ -39,7 +42,7 @@ $collectionSize = $this->getCollection()->getSize();
     <?php endif ?>
 
     <?php $availableLimits = $this->getAvailableLimit() ?>
-    <?php if (count($availableLimits) > 1 && $collectionSize > array_values($availableLimits)[0]): ?>
+    <?php if (count($availableLimits) > 1): ?>
         <div class="limiter">
             <label><?php echo $this->__('Show') ?></label>
             <select onchange="setLocation(this.value)">
