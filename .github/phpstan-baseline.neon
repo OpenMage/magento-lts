@@ -767,7 +767,7 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
+			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
 
 		-
