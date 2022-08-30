@@ -168,12 +168,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $config = Mage::getSingleton('eav/config');
 
             if ($config->getAttribute('customer', 'prefix')->getIsVisible()
-                && (
-                    $object->getPrefix()
-                    || $object->getCustomerPrefix()
-                    )
-                ) {
-                    $name .= ($object->getPrefix() ?: $object->getCustomerPrefix()) . ' ';
+                && ($object->getPrefix() || $object->getCustomerPrefix())
+            ) {
+                $name .= ($object->getPrefix() ?: $object->getCustomerPrefix()) . ' ';
             }
 
             $name .= $object->getFirstname() ?: $object->getCustomerFirstname();
