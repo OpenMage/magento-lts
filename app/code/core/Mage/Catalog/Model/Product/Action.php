@@ -21,6 +21,9 @@
 /**
  * Catalog Product Mass Action processing model
  *
+ * @method Mage_Catalog_Model_Resource_Product_Action _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Action getResource()
+ *
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
@@ -34,16 +37,6 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
     protected function _construct()
     {
         $this->_init('catalog/product_action');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -102,9 +95,9 @@ class Mage_Catalog_Model_Product_Action extends Mage_Core_Model_Abstract
             'action'        => $type
         ]);
 
-        if ($type == 'add') {
+        if ($type === 'add') {
             Mage::getModel('catalog/product_website')->addProducts($websiteIds, $productIds);
-        } elseif ($type == 'remove') {
+        } elseif ($type === 'remove') {
             Mage::getModel('catalog/product_website')->removeProducts($websiteIds, $productIds);
         }
 

@@ -109,7 +109,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
     {
         $attributeType = $this->getAttributeObject()->getFrontendInput();
         $defaultValues = $this->getAttributeObject()->getDefaultValue();
-        if ($attributeType == 'select' || $attributeType == 'multiselect') {
+        if ($attributeType === 'select' || $attributeType === 'multiselect') {
             $defaultValues = explode(',', $defaultValues);
         } else {
             $defaultValues = [];
@@ -177,7 +177,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
             if ($store->getId() != 0) {
-                $values[$store->getId()] = isset($storeLabels[$store->getId()]) ? $storeLabels[$store->getId()] : '';
+                $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
         return $values;

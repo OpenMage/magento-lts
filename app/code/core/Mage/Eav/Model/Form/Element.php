@@ -21,7 +21,9 @@
 /**
  * Eav Form Element Model
  *
+ * @method Mage_Eav_Model_Resource_Form_Element _getResource()
  * @method Mage_Eav_Model_Resource_Form_Element getResource()
+ * @method Mage_Eav_Model_Resource_Form_Element_Collection getCollection()
  * @method int getTypeId()
  * @method $this setTypeId(int $value)
  * @method int getFieldsetId()
@@ -47,31 +49,10 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('eav/form_element');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
-    }
-
-    /**
-     * Retrieve resource collection instance wrapper
-     *
-     * @inheritDoc
-     */
-    public function getCollection()
-    {
-        return parent::getCollection();
     }
 
     /**
