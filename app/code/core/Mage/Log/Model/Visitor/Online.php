@@ -21,6 +21,7 @@
 /**
  * Prepare Log Online Visitors Model
  *
+ * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
  * @method string getVisitorType()
  * @method $this setVisitorType(string $value)
@@ -46,21 +47,10 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('log/visitor_online');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**

@@ -22,7 +22,7 @@
 /**
  * Pager template
  *
- * @see Mage_Page_Block_Html_Pager
+ * @var Mage_Page_Block_Html_Pager $this
  */
 ?>
 <?php if($this->getCollection()->getSize()): ?>
@@ -41,17 +41,18 @@
     </p>
     <?php endif ?>
 
-    <?php if($this->getShowPerPage()): ?>
-    <div class="limiter">
-        <label><?php echo $this->__('Show') ?></label>
-        <select onchange="setLocation(this.value)">
-        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
-            <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
-                <?php echo $_limit ?>
-            </option>
-        <?php endforeach ?>
-        </select> <?php echo $this->__('per page') ?>
-    </div>
+    <?php $availableLimits = $this->getAvailableLimit() ?>
+    <?php if (count($availableLimits) > 1): ?>
+        <div class="limiter">
+            <label><?php echo $this->__('Show') ?></label>
+            <select onchange="setLocation(this.value)">
+            <?php foreach ($availableLimits as $_key => $_limit): ?>
+                <option value="<?php echo $this->getLimitUrl($_key) ?>"<?php if($this->isLimitCurrent($_key)): ?> selected="selected"<?php endif ?>>
+                    <?php echo $_limit ?>
+                </option>
+            <?php endforeach ?>
+            </select> <?php echo $this->__('per page') ?>
+        </div>
     <?php endif ?>
 
     <?php if($this->getLastPageNum()>1): ?>
@@ -86,7 +87,6 @@
             <?php endif ?>
         <?php endforeach ?>
 
-
         <?php if ($this->canShowNextJump()): ?>
             <li><a class="next_jump" title="" href="<?php echo $this->getNextJumpUrl() ?>">...</a></li>
         <?php endif ?>
@@ -107,7 +107,6 @@
             </li>
         <?php endif ?>
         </ol>
-
     </div>
     <?php endif ?>
 

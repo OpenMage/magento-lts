@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -21,9 +21,14 @@
 /**
  * Eav attribute set model
  *
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
  *
  * @method int getAttributeSetId(string $value)
  * @method string getAttributeSetName()
@@ -38,10 +43,6 @@
  * @method $this setRemoveAttributes(Mage_Eav_Model_Entity_Attribute[] $value)
  * @method Mage_Eav_Model_Entity_Attribute_Group[] getRemoveGroups()
  * @method $this setRemoveGroups(Mage_Eav_Model_Entity_Attribute_Group[] $value)
- *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 {
