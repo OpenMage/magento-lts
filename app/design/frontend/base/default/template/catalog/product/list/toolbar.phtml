@@ -19,13 +19,10 @@
  */
 ?>
 <?php
-/**
- * Product list toolbar
- *
- * @var Mage_Catalog_Block_Product_List_Toolbar $this
- */
+/** @var Mage_Catalog_Block_Product_List_Toolbar $this */
+$collectionSize = $this->getCollection()->getSize();
 ?>
-<?php if($this->getCollection()->getSize()): ?>
+<?php if($collectionSize): ?>
 <div class="toolbar">
     <div class="pager">
         <p class="amount">
@@ -37,7 +34,7 @@
         </p>
 
         <?php $availableLimits = $this->getAvailableLimit() ?>
-        <?php if (count($availableLimits) > 1): ?>
+        <?php if (count($availableLimits) > 1 && $collectionSize > array_values($availableLimits)[0]): ?>
             <div class="limiter">
                 <label><?php echo $this->__('Show') ?></label>
                 <select onchange="setLocation(this.value)">
