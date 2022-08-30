@@ -134,9 +134,9 @@ T: {{telephone}}";
     {
         if (!isset(self::$_format[$this->getId()]) && $this->getId()) {
             self::$_format[$this->getId()] = Mage::getModel('directory/country_format')
-            ->getCollection()
-            ->setCountryFilter($this)
-            ->load();
+                ->getCollection()
+                ->setCountryFilter($this)
+                ->load();
         }
 
         return self::$_format[$this->getId()] ?? null;

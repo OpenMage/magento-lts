@@ -179,23 +179,17 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $name .= $object->getFirstname() ?: $object->getCustomerFirstname();
 
             if ($config->getAttribute('customer', 'middlename')->getIsVisible()
-                && (
-                    $object->getMiddlename()
-                    || $object->getCustomerMiddlename()
-                    )
-                ) {
-                    $name .= ' ' . ($object->getMiddlename() ?: $object->getCustomerMiddlename());
+                && ($object->getMiddlename() || $object->getCustomerMiddlename())
+            ) {
+                $name .= ' ' . ($object->getMiddlename() ?: $object->getCustomerMiddlename());
             }
 
             $name .= ' ' . ($object->getLastname() ?: $object->getCustomerLastname());
 
             if ($config->getAttribute('customer', 'suffix')->getIsVisible()
-                && (
-                    $object->getSuffix()
-                    || $object->getCustomerSuffix()
-                    )
-                ) {
-                    $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
+                && ($object->getSuffix() || $object->getCustomerSuffix())
+            ) {
+                $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
             }
         }
         return $name;
