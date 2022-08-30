@@ -24,6 +24,7 @@
  * @method Mage_Tag_Model_Resource_Tag _getResource()
  * @method Mage_Tag_Model_Resource_Tag getResource()
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
+ * @method Mage_Tag_Model_Resource_Tag_Collection getResourceCollection()
  *
  * @method bool hasBasePopularity()
  * @method int getBasePopularity()
@@ -133,10 +134,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
     protected function _getProductEventTagsCollection(Varien_Event_Observer $observer)
     {
         return $this->getResourceCollection()
-                        ->joinRel()
-                        ->addProductFilter($observer->getEvent()->getProduct()->getId())
-                        ->addTagGroup()
-                        ->load();
+            ->joinRel()
+            ->addProductFilter($observer->getEvent()->getProduct()->getId())
+            ->addTagGroup()
+            ->load();
     }
 
     /**

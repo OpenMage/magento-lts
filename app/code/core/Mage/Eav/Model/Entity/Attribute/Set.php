@@ -24,6 +24,7 @@
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getCollection()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Set_Collection getResourceCollection()
  *
  * @method int getAttributeSetId(string $value)
  * @method string getAttributeSetName()

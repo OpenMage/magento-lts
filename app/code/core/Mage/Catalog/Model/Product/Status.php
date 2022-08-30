@@ -21,6 +21,7 @@
 /**
  * Product status functionality model
  *
+ * @method Mage_Catalog_Model_Resource_Product_Status _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Status getResource()
  * @method int getProductId()
  * @method Mage_Catalog_Model_Product_Status setProductId(int $value)
@@ -47,21 +48,10 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('catalog/product_status');
-    }
-
-    /**
-     * Retrieve resource model wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -84,7 +74,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function addVisibleFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
-        //$collection->addAttributeToFilter('status', array('in'=>$this->getVisibleStatusIds()));
         return $this;
     }
 
@@ -97,7 +86,6 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
      */
     public function addSaleableFilterToCollection(Mage_Eav_Model_Entity_Collection_Abstract $collection)
     {
-        //$collection->addAttributeToFilter('status', array('in'=>$this->getSaleableStatusIds()));
         return $this;
     }
 
@@ -188,7 +176,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**

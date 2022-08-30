@@ -168,46 +168,25 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $config = Mage::getSingleton('eav/config');
 
             if ($config->getAttribute('customer', 'prefix')->getIsVisible()
-                && (
-                    $object->getPrefix()
-                    || $object->getCustomerPrefix()
-                    )
-                ) {
-                    $name .= ($object->getPrefix() ? $object->getPrefix() : $object->getCustomerPrefix()) . ' ';
+                && ($object->getPrefix() || $object->getCustomerPrefix())
+            ) {
+                $name .= ($object->getPrefix() ?: $object->getCustomerPrefix()) . ' ';
             }
 
-            $name .= $object->getFirstname() ? $object->getFirstname() : $object->getCustomerFirstname();
+            $name .= $object->getFirstname() ?: $object->getCustomerFirstname();
 
             if ($config->getAttribute('customer', 'middlename')->getIsVisible()
-                && (
-                    $object->getMiddlename()
-                    || $object->getCustomerMiddlename()
-                    )
-                ) {
-                    $name .= ' ' . (
-                        $object->getMiddlename()
-                        ? $object->getMiddlename()
-                        : $object->getCustomerMiddlename()
-                    );
+                && ($object->getMiddlename() || $object->getCustomerMiddlename())
+            ) {
+                $name .= ' ' . ($object->getMiddlename() ?: $object->getCustomerMiddlename());
             }
 
-            $name .= ' ' . (
-                $object->getLastname()
-                ? $object->getLastname()
-                : $object->getCustomerLastname()
-            );
+            $name .= ' ' . ($object->getLastname() ?: $object->getCustomerLastname());
 
             if ($config->getAttribute('customer', 'suffix')->getIsVisible()
-                && (
-                    $object->getSuffix()
-                    || $object->getCustomerSuffix()
-                    )
-                ) {
-                    $name .= ' ' . (
-                        $object->getSuffix()
-                        ? $object->getSuffix()
-                        : $object->getCustomerSuffix()
-                    );
+                && ($object->getSuffix() || $object->getCustomerSuffix())
+            ) {
+                $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
             }
         }
         return $name;

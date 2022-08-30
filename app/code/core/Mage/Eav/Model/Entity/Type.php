@@ -223,7 +223,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityIdField()
     {
-        return isset($this->_data['entity_id_field']) ? $this->_data['entity_id_field'] : null;
+        return $this->_data['entity_id_field'] ?? null;
     }
 
     /**
@@ -233,7 +233,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTable()
     {
-        return isset($this->_data['entity_table']) ? $this->_data['entity_table'] : null;
+        return $this->_data['entity_table'] ?? null;
     }
 
     /**
@@ -274,7 +274,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getDefaultAttributeSetId()
     {
-        return isset($this->_data['default_attribute_set_id']) ? $this->_data['default_attribute_set_id'] : null;
+        return $this->_data['default_attribute_set_id'] ?? null;
     }
 
     /**
@@ -284,7 +284,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeId()
     {
-        return isset($this->_data['entity_type_id']) ? $this->_data['entity_type_id'] : null;
+        return $this->_data['entity_type_id'] ?? null;
     }
 
     /**
@@ -294,7 +294,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getEntityTypeCode()
     {
-        return isset($this->_data['entity_type_code']) ? $this->_data['entity_type_code'] : null;
+        return $this->_data['entity_type_code'] ?? null;
     }
 
     /**
@@ -304,7 +304,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     public function getAttributeCodes()
     {
-        return isset($this->_data['attribute_codes']) ? $this->_data['attribute_codes'] : null;
+        return $this->_data['attribute_codes'] ?? null;
     }
 
     /**

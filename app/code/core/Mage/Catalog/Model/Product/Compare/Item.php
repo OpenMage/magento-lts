@@ -21,6 +21,7 @@
 /**
  * Catalog Compare Item Model
  *
+ * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
  *
  * @method $this setVisitorId(int $value)
@@ -64,21 +65,10 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('catalog/product_compare_item');
-    }
-
-    /**
-     * Retrieve Resource instance
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
