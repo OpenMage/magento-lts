@@ -21,6 +21,7 @@
 /**
  * Catalog Product Website Model
  *
+ * @method Mage_Catalog_Model_Resource_Product_Website _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Website getResource()
  * @method int getWebsiteId()
  * @method Mage_Catalog_Model_Product_Website setWebsiteId(int $value)
@@ -33,21 +34,10 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
 {
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('catalog/product_website');
-    }
-
-    /**
-     * Retrieve Resource instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
