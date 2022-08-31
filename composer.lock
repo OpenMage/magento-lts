@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6abd692a6dafc5ad931ae80cfb8d1fe2",
+    "content-hash": "071353345c1123b7b122fbda517f76c3",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -289,7 +289,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sreichel/bc-mysql4-casses.git",
+                "url": "https://github.com/sreichel/bc-mysql4-classes.git",
                 "reference": "18fab889f245b84c9ab726156a76ed47f0727025"
             },
             "require": {

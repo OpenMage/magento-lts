@@ -34,7 +34,7 @@
   },
   "repositories": [
     {
-      "url": "https://github.com/sreichel/bc-mysql4-casses.git",
+      "url": "https://github.com/sreichel/bc-mysql4-classes.git",
       "type": "git"
     }
   ],
