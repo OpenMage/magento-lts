@@ -112,6 +112,7 @@ Do not use 20.x.x if you need IE support.
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
 - added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
 - removed module `Mage_PageCache`
+- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
