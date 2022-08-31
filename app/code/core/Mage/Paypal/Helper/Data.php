@@ -43,7 +43,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const MERCHANT_PAYLATER_CLIENTID_CONFIG_PATH = 'paypal/general/sdk_client_id';
 
-
     /**
      * Cache for shouldAskToCreateBillingAgreement()
      *
