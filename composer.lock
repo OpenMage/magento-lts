@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "352ba7f9f9aced0e041e11b99d0ef7b1",
+    "content-hash": "6abd692a6dafc5ad931ae80cfb8d1fe2",
     "packages": [
         {
             "name": "eloquent/enumeration",
@@ -283,6 +283,28 @@
                 }
             ],
             "time": "2022-04-20T19:23:22+00:00"
+        },
+        {
+            "name": "openmage/bc-mysql4-classes",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sreichel/bc-mysql4-casses.git",
+                "reference": "18fab889f245b84c9ab726156a76ed47f0727025"
+            },
+            "require": {
+                "magento-hackathon/magento-composer-installer": "*"
+            },
+            "default-branch": true,
+            "type": "magento-module",
+            "authors": [
+                {
+                    "name": "Sven Reichel",
+                    "homepage": "https://github.com/sreichel"
+                }
+            ],
+            "description": "Mysql4-classes for backward compatibility.",
+            "time": "2022-08-31T07:45:23+00:00"
         },
         {
             "name": "psr/container",
@@ -3030,7 +3052,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "openmage/bc-mysql4-classes": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

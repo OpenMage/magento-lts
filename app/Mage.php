@@ -47,6 +47,14 @@ include_once "Varien/Autoload.php";
 
 Varien_Autoload::register();
 
+/** AUTOLOADER PATCH **/
+if (file_exists($autoloaderPath = BP . DS . 'vendor/autoload.php') ||
+    file_exists($autoloaderPath = BP . DS . '../vendor/autoload.php')
+) {
+    require $autoloaderPath;
+}
+/** AUTOLOADER PATCH **/
+
 include_once "phpseclib/bootstrap.php";
 include_once "mcryptcompat/mcrypt.php";
 
@@ -67,7 +75,7 @@ final class Mage
      *
      * @var array
      */
-    static private $_registry                   = [];
+    static private $_registry = [];
 
     /**
      * Application root absolute path
@@ -109,14 +117,14 @@ final class Mage
      *
      * @var bool
      */
-    static private $_isDeveloperMode            = false;
+    static private $_isDeveloperMode = false;
 
     /**
      * Is allow throw Exception about headers already sent
      *
      * @var bool
      */
-    public static $headersSentThrowsException   = true;
+    public static $headersSentThrowsException = true;
 
     /**
      * Is installed flag
@@ -181,9 +189,9 @@ final class Mage
     {
         $i = self::getOpenMageVersionInfo();
         $versionString = "{$i['major']}.{$i['minor']}.{$i['patch']}";
-        if ( $i['stability'] || $i['number'] ) {
+        if ($i['stability'] || $i['number']) {
             $versionString .= "-";
-            if ( $i['stability'] && $i['number'] ) {
+            if ($i['stability'] && $i['number']) {
                 $versionString .= implode('.', [$i['stability'], $i['number']]);
             } else {
                 $versionString .= implode('', [$i['stability'], $i['number']]);
@@ -273,7 +281,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "'.$key.'" already exists');
+            self::throwException('Mage registry key "'. $key. '" already exists');
         }
         self::$_registry[$key] = $value;
     }
@@ -496,9 +504,9 @@ final class Mage
      */
     public static function dispatchEvent($name, array $data = [])
     {
-        Varien_Profiler::start('DISPATCH EVENT:'.$name);
+        Varien_Profiler::start('DISPATCH EVENT:'. $name);
         $result = self::app()->dispatchEvent($name, $data);
-        Varien_Profiler::stop('DISPATCH EVENT:'.$name);
+        Varien_Profiler::stop('DISPATCH EVENT:'. $name);
         return $result;
     }
 
@@ -682,7 +690,7 @@ final class Mage
     {
         try {
             self::setRoot();
-            self::$_app     = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             self::_setIsInstalled($options);
             self::_setConfigModel($options);
 
@@ -718,7 +726,7 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
-            self::$_app    = new Mage_Core_Model_App();
+            self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
@@ -844,8 +852,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $logActive = true;
         }
 
@@ -861,14 +868,13 @@ final class Mage
             $maxLogLevel = Zend_Log::DEBUG;
         }
 
-        $level  = is_null($level) ? Zend_Log::DEBUG : $level;
+        $level = is_null($level) ? Zend_Log::DEBUG : $level;
 
         if (!self::$_isDeveloperMode && $level > $maxLogLevel) {
             return;
         }
 
-        $file = empty($file) ?
-            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+        $file = empty($file) ? (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
 
         try {
             if (!isset($loggers[$file])) {
@@ -877,7 +883,7 @@ final class Mage
                     ',',
                     (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
                 );
-                if ( ! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
+                if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
                 }
 
@@ -899,8 +905,7 @@ final class Mage
                 $writerModel = (string)self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
                     $writer = new Zend_Log_Writer_Stream($logFile);
-                }
-                else {
+                } else {
                     $writer = new $writerModel($logFile);
                 }
                 $writer->setFormatter($formatter);
@@ -913,8 +918,7 @@ final class Mage
 
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
         }
     }
 
@@ -972,7 +976,6 @@ final class Mage
             print $e->getTraceAsString();
             print '</pre>';
         } else {
-
             $reportData = [
                 (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
                 $e->getTraceAsString()
@@ -992,8 +995,7 @@ final class Mage
             try {
                 $storeCode = self::app()->getStore()->getCode();
                 $reportData['skin'] = $storeCode;
-            }
-            catch (Exception $e) {}
+            } catch (Exception $e) {}
 
             require_once(self::getBaseDir() . DS . 'errors' . DS . 'report.php');
         }
@@ -1014,15 +1016,15 @@ final class Mage
         $runDirUrl  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
         $runDir     = rtrim(dirname($_SERVER['SCRIPT_FILENAME']), DS);
 
-        $baseUrl    = null;
-        if (is_dir($runDir.'/'.$folder)) {
+        $baseUrl = null;
+        if (is_dir($runDir. '/'. $folder)) {
             $baseUrl = str_replace(DS, '/', $runDirUrl);
         } else {
             $runDirUrlArray = explode('/', $runDirUrl);
             $runDirArray    = explode('/', $runDir);
             $count          = count($runDirArray);
 
-            for ($i=0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 array_pop($runDirUrlArray);
                 array_pop($runDirArray);
                 $_runDir = implode('/', $runDirArray);
@@ -1030,7 +1032,7 @@ final class Mage
                     $_runDir .= '/';
                 }
 
-                if (is_dir($_runDir.$folder)) {
+                if (is_dir($_runDir. $folder)) {
                     $_runDirUrl = implode('/', $runDirUrlArray);
                     $baseUrl    = str_replace(DS, '/', $_runDirUrl);
                     break;
@@ -1058,6 +1060,7 @@ final class Mage
      */
     public static function setIsDownloader()
     {
-
     }
+
+
 }
