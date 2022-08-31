@@ -25,7 +25,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Report_Shopcart_Abandoned extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
