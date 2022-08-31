@@ -1072,6 +1072,7 @@ a.button:hover {
     float: none;
   }
 }
+
 /* -------------------------------------------- *
  * PayPal pay later
  */
@@ -1084,7 +1085,6 @@ a.button:hover {
 .checkout-onepage-index .paypal-paylater-message{
   margin-top: 40px;
 }
-
 
 /* -------------------------------------------- *
  * Button Sets
