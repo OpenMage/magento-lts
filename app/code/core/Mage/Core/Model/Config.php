@@ -59,7 +59,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         'crontab'   => 0,
         'install'   => 0,
         'stores'    => 1,
-        'websites'  => 0
+        'websites'  => 1
     );
 
     /**
