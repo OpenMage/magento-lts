@@ -98,8 +98,8 @@ class Mage_Adminhtml_Block_Cms_Block_Widget_Chooser extends Mage_Adminhtml_Block
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Cms_Model_Resource_Block_Collection $collection */
         $collection = Mage::getModel('cms/block')->getCollection();
-        /** @var Mage_Cms_Model_Mysql4_Block_Collection $collection */
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }

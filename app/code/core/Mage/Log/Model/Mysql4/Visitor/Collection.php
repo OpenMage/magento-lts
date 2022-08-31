@@ -19,8 +19,6 @@
  */
 
 /**
- * Mage_Log_Model_Mysql4_Customers_Collection
- *
  * @category    Mage
  * @package     Mage_Log
  * @author      Magento Core Team <core@magentocommerce.com>
