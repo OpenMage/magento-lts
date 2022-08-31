@@ -8,7 +8,6 @@
  */
 class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
 {
-
     /**
      * AU country code
      */
@@ -75,7 +74,6 @@ class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
         return Mage::getStoreConfig(Mage_Paypal_Helper_Data::MERCHANT_PAYLATER_CLIENTID_CONFIG_PATH);
     }
 
-
     /**
      * Get the current quote object
      *
@@ -98,5 +96,4 @@ class Mage_Paypal_Block_Paylater_Message extends Mage_Core_Block_Template
         }
         return false;
     }
-
 }
