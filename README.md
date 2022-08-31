@@ -98,8 +98,9 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 
 ### Between Magento 1.9.4.5 and OpenMage 19.x
 
-- bug fixes and PHP 7.x and 8.0 compatibility
+- bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
+- search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
 
 ### Between OpenMage 19.x and 20.x
 
