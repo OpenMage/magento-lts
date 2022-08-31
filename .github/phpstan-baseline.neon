@@ -31,29 +31,14 @@ parameters:
 			path: ../app/code/core/Mage/Admin/Model/Session.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Api/Role/Grid/User.php
-
-		-
 			message: "#^Call to an undefined method Mage_Api_Model_Resource_Roles_User_Collection\\:\\:setUserFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Api/Tab/Userroles.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Api/User/Edit/Tab/Roles.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Catalog_Category_Tab_Design\\:\\:\\$_category\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Design.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Category/Tab/Product.php
 
 		-
 			message: "#^Cannot call method addAttributeToSelect\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
@@ -84,16 +69,6 @@ parameters:
 			message: "#^Variable \\$superAttributes might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Crosssell.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Related.php
 
 		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getConfigurableAttributes\\(\\)\\.$#"
@@ -131,11 +106,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Grid.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Grid.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:getUsedProductAttributeIds\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
@@ -146,29 +116,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config/Simple.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Group.php
-
-		-
 			message: "#^Call to an undefined method Mage_Catalog_Model_Product_Type_Abstract\\:\\:canUseAttribute\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Settings.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Edit/Tab/Upsell.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addWebsiteNamesToResult\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:joinField\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Grid.php
 
 		-
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Attribute\\:\\:isScopeGlobal\\(\\)\\.$#"
@@ -186,39 +136,14 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Helper/Form/Gallery.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser\\:\\:getCheckboxCheckCallback\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
-
-		-
-			message: "#^Method Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser\\:\\:getRowClickCallback\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Catalog/Product/Widget/Chooser.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Customer_Edit_Tab_Cart\\:\\:\\$_parentTemplate\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Cart.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addProductName\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Tag.php
-
-		-
 			message: "#^Method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addDaysInWishlist\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View/Wishlist.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:setOrderByProductName\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Wishlist.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Dashboard_Bar\\:\\:\\$_currency\\.$#"
@@ -326,16 +251,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Answer/Edit.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreData\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Poll/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Promo/Widget/Chooser/Sku.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Report_Grid\\:\\:\\$_filterValues\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid.php
@@ -352,16 +267,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Reports_Model_Resource_Report_Collection_Abstract\\:\\:addOrderStatusFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:setColumnGroupBy\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:setResourceCollection\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
@@ -391,11 +296,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Report/Sales/Coupons/Grid.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addCartInfo\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Customer/Grid.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Block_Review_Grid_Renderer_Type\\:\\:render\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Review/Grid/Renderer/Type.php
@@ -409,16 +309,6 @@ parameters:
 			message: "#^Call to method getIsOldCustomer\\(\\) on an unknown class Mage_Adminhtml_Model_Quote\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Newsletter.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Search/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addOptionsToResult\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Search/Grid.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:canConfigure\\(\\)\\.$#"
@@ -499,21 +389,6 @@ parameters:
 			message: "#^Cannot call method getId\\(\\) on string\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Shipment/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addOrderIdFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addOrderInformation\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addPaymentInformation\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Grid.php
 
 		-
 			message: "#^Cannot call method initForm\\(\\) on Mage_Core_Block_Abstract\\|false\\.$#"
@@ -626,44 +501,14 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Store/Edit/Form.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addFieldToFilter\\(\\)\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Assigned/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addWebsiteNamesToResult\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Assigned/Grid.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Tag_Customer\\:\\:\\$_block\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Customer.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addProductName\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Customer/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
+			message: "#^Call to an undefined method Mage_Tag_Model_Resource_Tag_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/All.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addAttributeToFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Customers.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Grid/Pending.php
 
 		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_Tag_Product\\:\\:\\$_block\\.$#"
@@ -671,29 +516,9 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Product.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addPopularityFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Product/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addStoreFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tag/Tag/Grid.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addCustomerTaxClassesToResult\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:joinCalculationData\\(\\)\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
 
 		-
 			message: "#^Variable \\$category in empty\\(\\) always exists and is not falsy\\.$#"
@@ -1201,11 +1026,6 @@ parameters:
 			path: ../app/code/core/Mage/Backup/Model/Backup.php
 
 		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addTargetDir\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Backup/Model/Fs/Collection.php
-
-		-
 			message: "#^Call to an undefined method Mage_Backup_Interface\\:\\:setRootDir\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Backup/Model/Observer.php
@@ -1544,11 +1364,6 @@ parameters:
 			message: "#^Variable \\$storeId might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Api/Resource.php
-
-		-
-			message: "#^Call to an undefined method Varien_Data_Collection\\:\\:addIsActiveFilter\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Model/Api2/Product/Category/Rest.php
 
 		-
 			message: "#^Method Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1\\:\\:_create\\(\\) should return string but return statement is missing\\.$#"

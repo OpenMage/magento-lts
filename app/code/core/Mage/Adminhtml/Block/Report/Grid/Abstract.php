@@ -18,6 +18,9 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+/**
+ * Class Mage_Adminhtml_Block_Report_Grid_Abstract
+ */
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_resourceCollectionName  = '';
@@ -25,6 +28,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
     protected $_storeIds                = [];
     protected $_aggregatedColumns       = null;
 
+    /**
+     * Mage_Adminhtml_Block_Report_Grid_Abstract constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -37,11 +43,17 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
+    /**
+     * @return string
+     */
     public function getResourceCollectionName()
     {
         return $this->_resourceCollectionName;
     }
 
+    /**
+     * @return Mage_Reports_Model_Grouped_Collection
+     */
     public function getCollection()
     {
         if (is_null($this->_collection)) {
@@ -50,6 +62,9 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         return $this->_collection;
     }
 
+    /**
+     * @return array
+     */
     protected function _getAggregatedColumns()
     {
         if (is_null($this->_aggregatedColumns)) {

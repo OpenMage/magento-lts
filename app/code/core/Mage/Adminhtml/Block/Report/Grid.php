@@ -21,11 +21,11 @@
 /**
  * Adminhtml report grid block
  *
- * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
- *
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Report_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
