@@ -186,16 +186,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Newsletter/Template/Grid/Renderer/Action.php
 
 		-
-			message: "#^Cannot call method addValueFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Baseurl.php
-
-		-
-			message: "#^Cannot call method addRemoveFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid.php
-
-		-
 			message: "#^Variable \\$class might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Notification/Grid/Renderer/Severity.php
@@ -329,11 +319,6 @@ parameters:
 			message: "#^Method Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\\:\\:useProductItem\\(\\) invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pcompared.php
-
-		-
-			message: "#^Cannot call method addStoreFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Sidebar/Pviewed.php
 
 		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments\\:\\:addTotal\\(\\)\\.$#"
@@ -581,11 +566,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Tabs.php
 
 		-
-			message: "#^Cannot call method addValueFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Controller/Action.php
-
-		-
 			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderConfigureResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
@@ -607,11 +587,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Mage_Adminhtml_Model_Config_Data\\:\\:__\\(\\)\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Config/Data.php
-
-		-
-			message: "#^Cannot call method addScopeFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/Config/Data.php
 
@@ -659,11 +634,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Encrypted\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Encrypted.php
-
-		-
-			message: "#^Cannot call method addPathFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/System/Config/Backend/Locale.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_System_Config_Backend_Serialized\\:\\:_afterLoad\\(\\) should return \\$this\\(Mage_Adminhtml_Model_System_Config_Backend_Serialized\\) but return statement is missing\\.$#"
@@ -2176,11 +2146,6 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Design/Package.php
 
 		-
-			message: "#^Cannot call method addOnlyForSendingFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Core/Model/Email/Queue.php
-
-		-
 			message: "#^Method Zend_Mail\\:\\:addBcc\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Email/Queue.php
@@ -2607,16 +2572,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method loadByCode\\(\\) on Mage_Core_Model_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Cannot call method setEntityTypeFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 3
-			path: ../app/code/core/Mage/Eav/Model/Config.php
-
-		-
-			message: "#^Cannot call method useLoadDataFields\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Eav/Model/Config.php
 
@@ -3796,11 +3751,6 @@ parameters:
 			path: ../app/code/core/Mage/Sales/Model/Order/Item.php
 
 		-
-			message: "#^Cannot call method setOrderFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Order/Payment.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Order_Payment\\:\\:_addTransaction\\(\\) should return Mage_Sales_Model_Order_Payment_Transaction\\|null but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Payment.php
@@ -3829,11 +3779,6 @@ parameters:
 			message: "#^Call to an undefined method Mage_Eav_Model_Entity_Abstract\\:\\:getStoreId\\(\\)\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: "#^Cannot call method setQuoteFilter\\(\\) on Mage_Core_Model_Resource_Db_Collection_Abstract\\|false\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Sales/Model/Quote.php
 
 		-
 			message: "#^Variable \\$item might not be defined\\.$#"

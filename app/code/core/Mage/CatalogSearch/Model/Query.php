@@ -24,7 +24,7 @@
  * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
- * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()()
+ * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
  *
  * @method int getDisplayInTerms()
  * @method $this setDisplayInTerms(int $value)
