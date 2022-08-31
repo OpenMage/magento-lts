@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -188,12 +182,12 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             )
             ->join(
                 array('website' => $this->getTable('catalog/product_website')),
-                join(' AND ', $websiteConds),
+                implode(' AND ', $websiteConds),
                 array()
             )
             ->join(
                 array('compare' => $this->getTable('catalog/compare_item')),
-                join(' AND ', $compareConds),
+                implode(' AND ', $compareConds),
                 array()
             );
         return $this->getConnection()->fetchCol($select);
@@ -225,8 +219,6 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
             $this->_comparableAttributes = array();
             $setIds = $this->_getAttributeSetIds();
             if ($setIds) {
-                $attributeIds = $this->_getAttributeIdsBySetIds($setIds);
-
                 $select = $this->getConnection()->select()
                     ->from(array('main_table' => $this->getTable('eav/attribute')))
                     ->join(
@@ -236,10 +228,15 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                     ->joinLeft(
                         array('al' => $this->getTable('eav/attribute_label')),
                         'al.attribute_id = main_table.attribute_id AND al.store_id = ' . (int) $this->getStoreId(),
-                        array('store_label' => $this->getConnection()->getCheckSql('al.value IS NULL', 'main_table.frontend_label', 'al.value'))
+                        array('store_label' => new Zend_Db_Expr('IFNULL(al.value, main_table.frontend_label)'))
+                    )
+                    ->joinLeft(
+                        array('ai' => $this->getTable('eav/entity_attribute')),
+                        'ai.attribute_id = main_table.attribute_id'
                     )
                     ->where('additional_table.is_comparable=?', 1)
-                    ->where('main_table.attribute_id IN(?)', $attributeIds);
+                    ->where('ai.attribute_set_id IN(?)', $setIds)
+                    ->order(array('ai.attribute_group_id ASC', 'ai.sort_order ASC'));
                 $attributesData = $this->getConnection()->fetchAll($select);
                 if ($attributesData) {
                     $entityType = Mage_Catalog_Model_Product::ENTITY;

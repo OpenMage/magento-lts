@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -38,7 +32,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::__construct();
         $this->setId('attributeGrid');
-        $this->setDefaultSort('attribute_code');
+        $this->setDefaultSort('frontend_label');
         $this->setDefaultDir('ASC');
     }
 
@@ -51,16 +45,16 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract extends Mage_Adm
     {
         parent::_prepareColumns();
 
-        $this->addColumn('attribute_code', array(
-            'header'=>Mage::helper('eav')->__('Attribute Code'),
-            'sortable'=>true,
-            'index'=>'attribute_code'
-        ));
-
         $this->addColumn('frontend_label', array(
             'header'=>Mage::helper('eav')->__('Attribute Label'),
             'sortable'=>true,
             'index'=>'frontend_label'
+        ));
+
+        $this->addColumn('attribute_code', array(
+            'header'=>Mage::helper('eav')->__('Attribute Code'),
+            'sortable'=>true,
+            'index'=>'attribute_code'
         ));
 
         $this->addColumn('is_required', array(

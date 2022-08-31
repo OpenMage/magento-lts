@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -55,15 +49,13 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
     }
 
     /**
-     * @param $resource
-     * @param $resourceType
+     * @param string $resource
+     * @param string $resourceType
      * @throws Zend_Controller_Response_Exception
      */
     protected function _processDownload($resource, $resourceType)
     {
         $helper = Mage::helper('downloadable/download');
-        /* @var Mage_Downloadable_Helper_Download $helper */
-
         $helper->setResource($resource, $resourceType);
 
         $fileName       = $helper->getFilename();

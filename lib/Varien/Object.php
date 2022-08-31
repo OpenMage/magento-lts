@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Object
@@ -45,13 +39,6 @@ class Varien_Object implements ArrayAccess
      * @var bool $_hasDataChange
      */
     protected $_hasDataChanges = false;
-
-    /**
-    * Original data that was loaded
-    *
-    * @var array
-    */
-    protected $_origData;
 
     /**
      * Name of object id field
@@ -708,7 +695,7 @@ class Varien_Object implements ArrayAccess
             return self::$_underscoreCache[$name];
         }
         #Varien_Profiler::start('underscore');
-        $result = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
+        $result = strtolower(preg_replace('/([A-Z])/', "_$1", lcfirst($name)));
         #Varien_Profiler::stop('underscore');
         self::$_underscoreCache[$name] = $result;
         return $result;
@@ -747,50 +734,6 @@ class Varien_Object implements ArrayAccess
         }
         $res = implode($fieldSeparator, $data);
         return $res;
-    }
-
-    /**
-     * Get object loaded data (original data)
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function getOrigData($key=null)
-    {
-        if (is_null($key)) {
-            return $this->_origData;
-        }
-        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
-    }
-
-    /**
-     * Initialize object original data
-     *
-     * @param string $key
-     * @param mixed $data
-     * @return $this
-     */
-    public function setOrigData($key=null, $data=null)
-    {
-        if (is_null($key)) {
-            $this->_origData = $this->_data;
-        } else {
-            $this->_origData[$key] = $data;
-        }
-        return $this;
-    }
-
-    /**
-     * Compare object data with original data
-     *
-     * @param string $field
-     * @return boolean
-     */
-    public function dataHasChangedFor($field)
-    {
-        $newData = $this->getData($field);
-        $origData = $this->getOrigData($field);
-        return $newData!=$origData;
     }
 
     /**
@@ -842,6 +785,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @param mixed $value
      */
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $this->_data[$offset] = $value;
@@ -854,6 +798,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @return boolean
      */
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->_data[$offset]);
@@ -865,6 +810,7 @@ class Varien_Object implements ArrayAccess
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
      * @param string $offset
      */
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->_data[$offset]);
@@ -877,6 +823,7 @@ class Varien_Object implements ArrayAccess
      * @param string $offset
      * @return mixed
      */
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->_data[$offset]) ? $this->_data[$offset] : null;

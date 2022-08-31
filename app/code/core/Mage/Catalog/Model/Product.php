@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -223,9 +217,6 @@
  * @method $this setStoreId(int $store)
  * @method bool hasStoreIds()
  * @method $this setStoreIds(array $storeIds)
- * @method Mage_CatalogInventory_Model_Stock_Item getStockItem()
- * @method bool hasStockItem()
- * @method $this setStockItem(Mage_CatalogInventory_Model_Stock_Item $value)
  * @method array getSwatchPrices()
  *
  * @method int getTaxClassId()
@@ -345,6 +336,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
+     * @var Mage_CatalogInventory_Model_Stock_Item
+     */
+    protected $_stockItem;
+
+    /**
      * Initialize resources
      */
     protected function _construct()
@@ -360,7 +356,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('catalog')->getOldFieldMap();
         return $this;
     }
 
@@ -415,11 +410,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function validate()
     {
-//        $this->getAttributes();
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
-//        $result = $this->_getResource()->validate($this);
-//        Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
-//        return $result;
         Mage::dispatchEvent($this->_eventPrefix.'_validate_before', array($this->_eventObject=>$this));
         $this->_getResource()->validate($this);
         Mage::dispatchEvent($this->_eventPrefix.'_validate_after', array($this->_eventObject=>$this));
@@ -454,7 +444,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Set Price calculation flag
      *
      * @param bool $calculate
-     * @return void
      */
     public function setPriceCalculation($calculate = true)
     {
@@ -540,7 +529,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product id by sku
+     * Retrieve product id by sku
      *
      * @param   string $sku
      * @return  integer
@@ -581,22 +570,19 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Set assigned category IDs array to product
      *
-     * @param array|string $ids
+     * @param array|int|string $ids the ID(s) as int, comma-separated string or array of ints
      * @return $this
      */
     public function setCategoryIds($ids)
     {
         if (is_string($ids)) {
             $ids = explode(',', $ids);
+        } elseif (is_int($ids)) {
+            $ids = (array) $ids;
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
-        foreach ($ids as $i => $v) {
-            if (empty($v)) {
-                unset($ids[$i]);
-            }
-        }
-
+        $ids = array_filter(array_map('\intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
     }
@@ -695,6 +681,32 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
+    public function getStockItem()
+    {
+        return $this->_stockItem;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasStockItem()
+    {
+        return !!$this->_stockItem;
+    }
+
+    /**
+     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @return $this
+     */
+    public function setStockItem($stockItem)
+    {
+        $this->_stockItem = $stockItem;
+        return $this;
+    }
+
+    /**
      * Check product options and type options and save them, too
      *
      * @throws Mage_Core_Exception
@@ -756,7 +768,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
-        parent::_beforeSave();
+        return parent::_beforeSave();
     }
 
     /**
@@ -908,7 +920,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Get formated by currency tier price
      *
      * @param   double $qty
-     * @return  array || double
+     * @return  array | double
      */
     public function getFormatedTierPrice($qty = null)
     {
@@ -1223,7 +1235,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
  ** Media API
  */
     /**
-     * Retrive attributes for media gallery
+     * Retrieve attributes for media gallery
      *
      * @return Mage_Catalog_Model_Resource_Eav_Attribute[]
      */
@@ -1242,7 +1254,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive media gallery images
+     * Retrieve media gallery images
      *
      * @return Varien_Data_Collection
      */
@@ -1288,7 +1300,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     }
 
     /**
-     * Retrive product media config
+     * Retrieve product media config
      *
      * @return Mage_Catalog_Model_Product_Media_Config
      */
@@ -1694,7 +1706,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * @param string $code  Attribute code
      * @param mixed  $value New attribute value
      * @param int    $store Store ID
-     * @return void
      */
     public function addAttributeUpdate($code, $value, $store)
     {
@@ -1940,7 +1951,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Sets custom options for the product
      *
      * @param array $options Array of options
-     * @return void
      */
     public function setCustomOptions(array $options)
     {
@@ -2272,6 +2282,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->_options             = array();
         $this->_canAffectOptions    = false;
         $this->_errors              = array();
+        $this->_defaultValues       = array();
+        $this->_storeValuesFlags    = array();
+        $this->_lockedAttributes    = array();
 
         return $this;
     }

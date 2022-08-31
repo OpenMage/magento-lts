@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,6 +28,12 @@
 class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'system/cache';
+
+    /**
      * Retrieve session model
      *
      * @return Mage_Adminhtml_Model_Session
@@ -48,9 +48,11 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
      */
     public function indexAction()
     {
+        /** @var Mage_Adminhtml_Block_System_Cache_Edit $block */
+        $block = $this->getLayout()->createBlock('adminhtml/system_cache_edit');
         $this->loadLayout()
             ->_setActiveMenu('system/cache')
-            ->_addContent($this->getLayout()->createBlock('adminhtml/system_cache_edit')->initForm())
+            ->_addContent($block->initForm())
             ->renderLayout();
     }
 
@@ -332,10 +334,5 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
         }
 
         $this->_redirect('*/*');
-    }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('system/cache');
     }
 }

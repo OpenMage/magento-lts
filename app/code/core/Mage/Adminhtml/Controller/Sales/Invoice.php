@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -32,8 +26,13 @@
 class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * ACL resource
+     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+     */
+    const ADMIN_RESOURCE = 'sales/invoice';
+
+    /**
      * Additional initialization
-     *
      */
     protected function _construct()
     {
@@ -43,7 +42,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
     /**
      * Init layout, menu and breadcrumb
      *
-     * @return Mage_Adminhtml_Sales_InvoiceController
+     * @return $this
      */
     protected function _initAction()
     {
@@ -120,35 +119,24 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
                 $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
                     '.pdf', $pdf->render(), 'application/pdf');
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
 
-    public function pdfinvoicesAction(){
+    public function pdfinvoicesAction()
+    {
         $invoicesIds = $this->getRequest()->getPost('invoice_ids');
         if (!empty($invoicesIds)) {
             $invoices = Mage::getResourceModel('sales/order_invoice_collection')
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('entity_id', array('in' => $invoicesIds))
                 ->load();
-            if (!isset($pdf)){
-                $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
-            } else {
-                $pages = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
-                $pdf->pages = array_merge ($pdf->pages, $pages->pages);
-            }
+            $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf($invoices);
 
             return $this->_prepareDownloadResponse('invoice'.Mage::getSingleton('core/date')->date('Y-m-d_H-i-s').
                 '.pdf', $pdf->render(), 'application/pdf');
         }
         $this->_redirect('*/*/');
     }
-
-    protected function _isAllowed()
-    {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/invoice');
-    }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -142,7 +136,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $backendClass = 'core/config_data';
                 }
 
-                /** @var $dataObject Mage_Core_Model_Config_Data */
+                /** @var Mage_Core_Model_Config_Data $dataObject */
                 $dataObject = Mage::getModel($backendClass);
                 if (!$dataObject instanceof Mage_Core_Model_Config_Data) {
                     Mage::throwException('Invalid config field backend model: '.$backendClass);
@@ -435,7 +429,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     }
                 }
                 if (($groupConfig ? !$groupConfig->dynamic_group : true) && !$this->_isValidField($fieldConfig)) {
-                    Mage::throwException(Mage::helper('adminhtml')->__('Wrong field specified.'));
+                    $message = Mage::helper('adminhtml')->__('Wrong field specified.') . ' ' . Mage::helper('adminhtml')->__('(%s/%s/%s)', $section, $group, $field);
+                    Mage::throwException($message);
                 }
                 $groupsSecure[$group]['fields'][$fieldName] = $fieldData;
             }

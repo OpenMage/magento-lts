@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Payment
@@ -115,7 +109,6 @@ class Mage_Payment_Model_Observer
      * Sets current instructions for bank transfer account
      *
      * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function beforeOrderPaymentSave(Varien_Event_Observer $observer)
     {
@@ -124,7 +117,7 @@ class Mage_Payment_Model_Observer
         if ($payment->getMethod() === Mage_Payment_Model_Method_Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE) {
             $payment->setAdditionalInformation(
                 'instructions',
-                $payment->getMethodInstance()->getInstructions()
+                $payment->getMethodInstance()->setStore($payment->getOrder()->getStoreId())->getInstructions()
             );
         }
     }
@@ -170,7 +163,7 @@ class Mage_Payment_Model_Observer
                 $methods = '';
                 $spacer  = '';
                 foreach ($titles as $key => $values) {
-                    $methods = $methods . $spacer . $key . ' [' . join(', ', $values) . ']';
+                    $methods = $methods . $spacer . $key . ' [' . implode(', ', $values) . ']';
                     $spacer = ', ';
                 }
                 throw new Mage_Core_Exception(Mage::helper('sales')->__(

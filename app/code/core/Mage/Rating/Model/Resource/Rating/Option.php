@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rating
@@ -125,7 +119,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
         if (!$option->getDoUpdate()) {
             $data['remote_ip']       = Mage::helper('core/http')->getRemoteAddr();
             $data['remote_ip_long']  = Mage::helper('core/http')->getRemoteAddr(true);
-            $data['customer_id']     = Mage::getSingleton('customer/session')->getCustomerId();
+            $data['customer_id']     = $option->getCustomerId() ?? Mage::getSingleton('customer/session')->getCustomerId();
             $data['entity_pk_value'] = $option->getEntityPkValue();
             $data['rating_id']       = $option->getRatingId();
         }

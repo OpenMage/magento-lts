@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Centinel
@@ -34,7 +28,7 @@ include_once '3Dsecure/CentinelClient.php';
  */
 class Mage_Centinel_Model_Api_Client extends CentinelClient
 {
-    public function sendHttp($url, $connectTimeout = "", $timeout)
+    public function sendHttp($url, $connectTimeout, $timeout)
     {
         // verify that the URL uses a supported protocol.
         if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
@@ -55,7 +49,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
 
             // Execute the request.
             $result = curl_exec($ch);
-            $succeeded = curl_errno($ch) == 0 ? true : false;
+            $succeeded = curl_errno($ch) == 0;
 
             // close cURL resource, and free up system resources
             curl_close($ch);

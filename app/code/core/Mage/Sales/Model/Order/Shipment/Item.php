@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -104,7 +98,9 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
         $this->_orderItem = $item;
-        $this->setOrderItemId($item->getId());
+        if ($this->getOrderItemId() != $item->getId()) {
+            $this->setOrderItemId($item->getId());
+        }
         return $this;
     }
 

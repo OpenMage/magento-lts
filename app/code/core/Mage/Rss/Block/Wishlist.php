@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rss
@@ -109,7 +103,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
      */
     protected function _toHtml()
     {
-        /* @var $rssObj Mage_Rss_Model_Rss */
+        /* @var Mage_Rss_Model_Rss $rssObj */
         $rssObj = Mage::getModel('rss/rss');
 
         if ($this->_getWishlist()->getId()) {
@@ -128,9 +122,8 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 'language'      => $lang
             ));
 
-            /** @var $wishlistItem Mage_Wishlist_Model_Item*/
+            /** @var Mage_Wishlist_Model_Item $wishlistItem */
             foreach ($this->getWishlistItems() as $wishlistItem) {
-                /* @var $product Mage_Catalog_Model_Product */
                 $product = $wishlistItem->getProduct();
                 $productUrl = $this->getProductUrl($product);
                 $product->setAllowedInRss(true);

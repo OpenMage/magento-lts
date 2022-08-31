@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -330,7 +324,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
      * Auto-redirect to base url (without SID) if the requested url doesn't match it.
      * By default this feature is enabled in configuration.
      *
-     * @param Zend_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http $request
      */
     protected function _checkBaseUrl($request)
     {
@@ -396,7 +390,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         if (is_array($adminFrontNameNodes)) {
             foreach ($adminFrontNameNodes as $frontNameNode) {
                 /** @var SimpleXMLElement $frontNameNode */
-                array_push($adminFrontNames, (string)$frontNameNode);
+                $adminFrontNames[] = (string)$frontNameNode;
             }
         }
 

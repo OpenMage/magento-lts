@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Tax
@@ -261,13 +255,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
 
     protected function _initDiscount()
     {
-//        $store  = $this->getStore();
-//        $parent = $this->getParentBlock();
-//        if ($this->_config->displaySales) {
-//
-//        } elseif ($this->_config->displaySales) {
-//
-//        }
     }
 
     /**

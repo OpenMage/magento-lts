@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,14 +27,17 @@
  */
 class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
+        $this->setId('reviewProductGrid');
         $this->setRowClickCallback('review.gridRowClick');
         $this->setUseAjax(true);
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
@@ -105,16 +102,26 @@ class Mage_Adminhtml_Block_Review_Product_Grid extends Mage_Adminhtml_Block_Cata
         }
     }
 
+    /**
+     * @return string
+     */
     public function getGridUrl()
     {
         return $this->getUrl('*/*/productGrid', array('_current'=>true));
     }
 
+    /**
+     * @param Varien_Object $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/jsonProductInfo', array('id' => $row->getId()));
     }
 
+    /**
+     * @return $this
+     */
     protected function _prepareMassaction()
     {
         return $this;

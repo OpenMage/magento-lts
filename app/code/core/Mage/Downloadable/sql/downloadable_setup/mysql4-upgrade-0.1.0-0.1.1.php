@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -37,9 +31,9 @@ if (in_array('downloadable', $applyTo)) {
             $newApplyTo[] = $value;
         }
     }
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $newApplyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $newApplyTo));
 } else {
-    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', join(',', $applyTo));
+    $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $applyTo));
 }
 
 // remove 'weight' values for downloadable products if there were any created

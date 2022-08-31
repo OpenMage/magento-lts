@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Log
@@ -193,7 +187,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getFirstVisitAt()
     {
         if (!$this->hasData('first_visit_at')) {
-            $this->setData('first_visit_at', now());
+            $this->setData('first_visit_at', Varien_Date::now());
         }
         return $this->getData('first_visit_at');
     }
@@ -204,7 +198,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getLastVisitAt()
     {
         if (!$this->hasData('last_visit_at')) {
-            $this->setData('last_visit_at', now());
+            $this->setData('last_visit_at', Varien_Date::now());
         }
         return $this->getData('last_visit_at');
     }
@@ -228,7 +222,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         $visitorId = $this->getId();
         if (!$visitorId) {
             $this->initServerData();
-            $this->setFirstVisitAt(now());
+            $this->setFirstVisitAt(Varien_Date::now());
             $this->setIsNewVisitor(true);
             $this->save();
         }
@@ -268,7 +262,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         }
 
         try {
-            $this->setLastVisitAt(now());
+            $this->setLastVisitAt(Varien_Date::now());
             $this->save();
             $this->_session->setVisitorData($this->getData());
         } catch (Exception $e) {
@@ -288,7 +282,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindCustomerLogin($observer)
     {
         /** @var Mage_Customer_Model_Customer $customer */
-        if ($customer = $observer->getEvent()->getCustomer()) {
+        $customer = $observer->getEvent()->getCustomer();
+        if ($customer) {
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
@@ -318,7 +313,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteCreate($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             if ($quote->getIsCheckoutCart()) {
                 $this->setQuoteId($quote->getId());
                 $this->setDoQuoteCreate(true);
@@ -334,7 +330,8 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function bindQuoteDestroy($observer)
     {
         /** @var Mage_Sales_Model_Quote $quote */
-        if ($quote = $observer->getEvent()->getQuote()) {
+        $quote = $observer->getEvent()->getQuote();
+        if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
         return $this;

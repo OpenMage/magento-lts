@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Eav
@@ -201,7 +195,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      * @param string $name
      * @return array|bool
      */
-    protected function getFieldValue($fields = array(), $name)
+    protected function getFieldValue($fields = array(), $name = '')
     {
         $result = array();
         if ($fields && $name) {
@@ -253,7 +247,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
      *            'joinType'  => 'LEFT'
      *         )
      *     NOTE: Optional key must be have NULL at least
-     * @return void
      */
     public function setJoinField($joinField)
     {
@@ -277,7 +270,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             if (isset($this->_joinAttr) && is_array($this->_joinAttr)) {
                 foreach ($this->_joinAttr as $val) {
-//                    print_r($val);
                     $collection->joinAttribute(
                         $val['alias'],
                         $val['attribute'],
@@ -299,7 +291,6 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
             $joinFields = $this->_joinField;
             if (isset($joinFields) && is_array($joinFields)) {
                 foreach ($joinFields as $field) {
-//                  print_r($field);
                     $collection->joinField(
                         $field['alias'],
                         $field['attribute'],

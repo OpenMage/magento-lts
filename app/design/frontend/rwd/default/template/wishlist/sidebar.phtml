@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     rwd_default
@@ -55,11 +49,11 @@
                        onclick="customFormSubmit('<?php echo $this->getItemAddToCartUrlCustom($_item, false) ?>', '<?php echo $_params ?>', 'post')">
                         <?php echo $this->__('Add to Cart') ?>
                     </a>
-                <?php endif; ?>
+                <?php endif ?>
                 <?php echo $this->getPriceHtml($product, false, '-wishlist') ?>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ol>
     <script type="text/javascript">decorateList('wishlist-sidebar');</script>
     <div class="actions">

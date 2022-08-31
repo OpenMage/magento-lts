@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -290,7 +284,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      * Check is product available for sale
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return bool
+     * @return bool|null
      */
     public function isSalable($product = null)
     {
@@ -298,7 +292,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($salable && $this->getProduct($product)->hasData('is_salable')) {
             $salable = $this->getProduct($product)->getData('is_salable');
         } elseif ($salable && $this->isComposite()) {
-            $salable = null;
+            return null;
         }
 
         return (boolean) (int) $salable;
@@ -828,7 +822,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     }
 
     /**
-     * Retrive store filter for associated products
+     * Retrieve store filter for associated products
      *
      * @param null $product
      * @return int|Mage_Core_Model_Store

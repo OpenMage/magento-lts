@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -34,7 +28,7 @@
 class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Controller predispatch method
+     * Controller pre-dispatch method
      *
      * @return Mage_Adminhtml_Controller_Action
      */
@@ -315,7 +309,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
             return $this->_redirect('*/*/index');
         }
 
-        /** @var $backupModel Mage_Backup_Model_Backup */
+        /** @var Mage_Backup_Model_Backup $backupModel */
         $backupModel = Mage::getModel('backup/backup');
         $resultData = new Varien_Object();
         $resultData->setIsSuccess(false);
@@ -363,9 +357,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Check Permissions for all actions
-     *
-     * @return bool
+     * @inheritDoc
      */
     protected function _isAllowed()
     {
@@ -375,7 +367,7 @@ class Mage_Adminhtml_System_BackupController extends Mage_Adminhtml_Controller_A
     }
 
     /**
-     * Retrive adminhtml session model
+     * Retrieve adminhtml session model
      *
      * @return Mage_Adminhtml_Model_Session
      */

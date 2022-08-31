@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Image
@@ -54,7 +48,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      */
     public function destruct()
     {
-        @imagedestroy($this->_imageHandler);
+        if (is_resource($this->_imageHandler) || $this->_imageHandler instanceof \GdImage) {
+            @imagedestroy($this->_imageHandler);
+        }
     }
 
     /**
@@ -205,14 +201,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         // set quality param for PNG file type
         if (!is_null($this->quality()) && $this->_fileType == IMAGETYPE_PNG)
         {
-            $quality = round(($this->quality() / 100) * 10);
-            if ($quality < 1) {
-                $quality = 1;
-            } elseif ($quality > 10) {
-                $quality = 10;
-            }
-            $quality = 10 - $quality;
-            $functionParameters[] = $quality;
+            $functionParameters[] = 9;
         }
 
         call_user_func_array($this->_getCallback('output'), $functionParameters);
@@ -275,7 +264,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fill image with indexed non-alpha transparency
                 elseif (false !== $transparentIndex) {
                     $transparentColor = false;
-                    if ($transparentIndex >=0 && $transparentIndex <= imagecolorstotal($this->_imageHandler)) {
+                    if ($transparentIndex >=0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
                         list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, $r, $g, $b);
                     }

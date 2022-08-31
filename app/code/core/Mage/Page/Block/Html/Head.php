@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Page
@@ -53,11 +47,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addCss($name, $params = "")
+    public function addCss($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('skin_css', $name, $params);
+        $this->addItem('skin_css', $name, $params, null, null, $referenceName, $before);
         return $this;
     }
 
@@ -66,11 +62,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
      */
-    public function addJs($name, $params = "")
+    public function addJs($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('js', $name, $params);
+        $this->addItem('js', $name, $params, null, null, $referenceName, $before);
         return $this;
     }
 
@@ -79,11 +77,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
+     * @deprecated
      */
-    public function addCssIe($name, $params = "")
+    public function addCssIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('skin_css', $name, $params, 'IE');
         return $this;
     }
 
@@ -92,11 +92,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *
      * @param string $name
      * @param string $params
+     * @param string $referenceName
+     * @param bool $before
      * @return $this
+     * @deprecated
      */
-    public function addJsIe($name, $params = "")
+    public function addJsIe($name, $params = "", $referenceName = "*", $before = null)
     {
-        $this->addItem('js', $name, $params, 'IE');
         return $this;
     }
 
@@ -128,20 +130,41 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * @param string $params
      * @param string $if
      * @param string $cond
+     * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
+     * @param bool $before If true insert before the $referenceName instead of after
      * @return $this
      */
-    public function addItem($type, $name, $params = null, $if = null, $cond = null)
+    public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = "*", $before = false)
     {
-        if ($type==='skin_css' && empty($params)) {
+        // allow skipping of parameters in the layout XML files via empty-string
+        if ($params === '') {
+            $params = null;
+        }
+        if ($if === '') {
+            $if = null;
+        }
+        if ($cond === '') {
+            $cond = null;
+        }
+
+        if ($type === 'skin_css' && empty($params)) {
             $params = 'media="all"';
         }
-        $this->_data['items'][$type.'/'.$name] = array(
-            'type'   => $type,
-            'name'   => $name,
+        $this->_data['items'][$type . '/' . $name] = array(
+            'type' => $type,
+            'name' => $name,
             'params' => $params,
-            'if'     => $if,
-            'cond'   => $cond,
+            'if' => $if,
+            'cond' => $cond,
         );
+
+        // that is the standard behaviour
+        if ($referenceName === '*' && $before === false) {
+            return $this;
+        }
+
+        $this->_sortItems($referenceName, $before, $type);
+
         return $this;
     }
 
@@ -196,12 +219,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 continue;
             }
             if (!empty($if)) {
-                // open !IE conditional using raw value
-                if (strpos($if, "><!-->") !== false) {
-                    $html .= $if . "\n";
-                } else {
-                    $html .= '<!--[if '.$if.']>' . "\n";
-                }
+                // @deprecated
+                continue;
             }
 
             // static and skin css
@@ -223,15 +242,6 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             // other stuff
             if (!empty($items['other'])) {
                 $html .= $this->_prepareOtherHtmlHeadElements($items['other']) . "\n";
-            }
-
-            if (!empty($if)) {
-                // close !IE conditional comments correctly
-                if (strpos($if, "><!-->") !== false) {
-                    $html .= '<!--<![endif]-->' . "\n";
-                } else {
-                    $html .= '<![endif]-->' . "\n";
-                }
             }
         }
         return $html;
@@ -535,5 +545,44 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             Mage::helper('core/file_storage_database')->saveFileToFilesystem($filename);
         }
         return is_file($filename);
+    }
+
+    /**
+     * @param string $referenceName
+     * @param string $before
+     * @param string $type
+     */
+    protected function _sortItems($referenceName, $before, $type)
+    {
+        $items = $this->_data['items'];
+
+        // get newly inserted item so we do not have to reproduce the functionality of the parent
+        end($items);
+        $newKey = key($items);
+        $newVal = array_pop($items);
+
+        $newItems = array();
+
+        if ($referenceName === '*' && $before === true) {
+            $newItems[$newKey] = $newVal;
+        }
+
+        $referenceName = $type . '/' . $referenceName;
+        foreach ($items as $key => $value) {
+            if ($key === $referenceName && $before === true) {
+                $newItems[$newKey] = $newVal;
+            }
+
+            $newItems[$key] = $value;
+
+            if ($key === $referenceName && $before === false) {
+                $newItems[$newKey] = $newVal;
+            }
+        }
+
+        // replace items only if the reference was found (otherwise insert as last item)
+        if (isset($newItems[$newKey])) {
+            $this->_data['items'] = $newItems;
+        }
     }
 }

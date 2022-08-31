@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Api2
@@ -124,9 +118,9 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
         }
 
         $this->getChild('deleteButton')->setData('onclick', sprintf(
-            "deleteConfirm('%s', '%s')",
+            "if(confirm('%s')) roleForm.submit('%s'); return false;",
             Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Are you sure you want to do this?')),
-            $this->getUrlSecure('*/*/delete', array('id' => $this->getRole()->getId()))
+            $this->getUrl('*/*/delete')
         ));
 
         return $this->getChildHtml('deleteButton');

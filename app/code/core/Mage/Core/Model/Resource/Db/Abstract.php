@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -248,13 +242,13 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get table name for the entity, validated by db adapter
      *
-     * @param string $entityName
+     * @param string|array $entityName
      * @return string
      */
     public function getTable($entityName)
     {
         if (is_array($entityName)) {
-            $cacheName    = join('@', $entityName);
+            $cacheName = implode('@', $entityName);
             list($entityName, $entitySuffix) = $entityName;
         } else {
             $cacheName    = $entityName;
@@ -325,17 +319,29 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
+     * @param string $connectionName
+     * @return bool
+     */
+    public function hasConnection($connectionName)
+    {
+        return isset($this->_connections[$connectionName]);
+    }
+
+    /**
      * Retrieve connection for read data
      *
      * @return Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getReadAdapter()
     {
-        $writeAdapter = $this->_getWriteAdapter();
-        if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
-            // if transaction is started we should use write connection for reading
-            return $writeAdapter;
+        if ($this->hasConnection('write')) {
+            $writeAdapter = $this->_getWriteAdapter();
+            if ($writeAdapter && $writeAdapter->getTransactionLevel() > 0) {
+                // if transaction is started we should use write connection for reading
+                return $writeAdapter;
+            }
         }
+
         return $this->_getConnection('read');
     }
 
@@ -396,10 +402,16 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * @param mixed $value
      * @param Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
+     * @throws Exception
      */
     protected function _getLoadSelect($field, $value, $object)
     {
         $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
+
+        if (!isset($fields[$field])) {
+            throw new Exception("Column \"{$field}\" does not exist in table \"{$this->getMainTable()}\"");
+        }
+
         $value  = $this->_getReadAdapter()->prepareColumnValue($fields[$field], $value);
         $field  = $this->_getReadAdapter()->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
         $select = $this->_getReadAdapter()->select()
@@ -600,7 +612,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             return true;
         }
 
-        $fields = $this->_getWriteAdapter()->describeTable($this->getMainTable());
+        $fields = $this->_getReadAdapter()->describeTable($this->getMainTable());
         foreach (array_keys($fields) as $field) {
             if ($object->getOrigData($field) != $object->getData($field)) {
                 return true;

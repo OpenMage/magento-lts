@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -67,7 +61,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
+     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     protected function _addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -92,7 +86,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $placement area, that button should be displayed in ('header', 'footer', null)
+     * @param string|null $area area, that button should be displayed in ('header', 'footer', null)
      * @return $this
      */
     public function addButton($id, $data, $level = 0, $sortOrder = 0, $area = 'header')
@@ -131,11 +125,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Update specified button property
      *
      * @param string $id
-     * @param string|null $key
+     * @param string $key
      * @param mixed $data
      * @return $this
      */
-    protected function _updateButton($id, $key=null, $data)
+    protected function _updateButton($id, $key, $data)
     {
         foreach ($this->_buttons as $level => $buttons) {
             if (isset($buttons[$id])) {
@@ -162,11 +156,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      * Public wrapper for protected _updateButton method
      *
      * @param string $id
-     * @param string|null $key
+     * @param string $key
      * @param mixed $data
      * @return $this
      */
-    public function updateButton($id, $key=null, $data)
+    public function updateButton($id, $key, $data)
     {
         return $this->_updateButton($id, $key, $data);
     }

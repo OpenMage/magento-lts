@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Downloadable
@@ -50,29 +44,8 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable ex
     public function __construct()
     {
         parent::__construct();
-//        $this->setSkipGenerateContent(true);
         $this->setTemplate('downloadable/product/edit/downloadable.phtml');
     }
-
-    /**
-     * Get tab URL
-     *
-     * @return string
-     */
-//    public function getTabUrl()
-//    {
-//        return $this->getUrl('downloadable/product_edit/form', array('_current' => true));
-//    }
-
-    /**
-     * Get tab class
-     *
-     * @return string
-     */
-//    public function getTabClass()
-//    {
-//        return 'ajax';
-//    }
 
     /**
      * Check is readonly block

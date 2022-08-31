@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -63,7 +57,7 @@
                                 <?php echo $this->__('Add to Wishlist') ?>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                     <?php if ($_compareUrl = $this->getAddToCompareUrlCustom($_item, false)) : ?>
                         <li>
                             <span class="separator">|</span>
@@ -76,12 +70,12 @@
                                 <?php echo $this->__('Add to Compare') ?>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif ?>
                 </ul>
             </div>
         </li>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </ul>
     <script type="text/javascript">decorateList('crosssell-products-list', 'none-recursive')</script>
 </div>
-<?php endif; ?>
+<?php endif ?>

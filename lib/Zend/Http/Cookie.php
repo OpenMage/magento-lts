@@ -395,7 +395,7 @@ class Zend_Http_Cookie
 
         // Check for either exact match or suffix match
         return ($cookieDomain == $host ||
-                preg_match('/\.' . preg_quote($cookieDomain) . '$/', $host));
+                preg_match('/\.' . preg_quote($cookieDomain, '/') . '$/', $host));
     }
 
     /**

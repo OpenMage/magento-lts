@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -404,11 +398,14 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     }
 
     /**
-     * Get prduct Id from sku or from product id
+     * Get the product ID from a product ID or SKU. When $identifierType is left empty the helper will try to
+     * automatically parse the given $productId and determine if it is a SKU or ID value
      *
-     * @param int|string $productId
-     * @param  string $identifierType
+     * @param int|string  $productId      The product ID or SKU
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
+     *
      * @return int
+     * @throws Mage_Api_Exception
      */
     protected function _getProductId($productId, $identifierType = null)
     {
@@ -456,7 +453,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
      * @param int $categoryId
      * @param int $productId
      * @param int $position
-     * @param null $identifierType
+     * @param null|string $identifierType Should be 'sku' when working with SKU's. Leave null when using ID's
      * @return boolean
      * @throws Mage_Api_Exception
      */
@@ -464,7 +461,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
     {
         $category = $this->_initCategory($categoryId);
         $positions = $category->getProductsPosition();
-        $productId = $this->_getProductId($productId);
+        $productId = $this->_getProductId($productId, $identifierType);
         $positions[$productId] = $position;
         $category->setPostedProducts($positions);
 
@@ -537,4 +534,4 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
 
         return true;
     }
-} // Class Mage_Catalog_Model_Category_Api End
+}

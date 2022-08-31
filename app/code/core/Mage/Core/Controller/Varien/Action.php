@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -496,7 +490,7 @@ abstract class Mage_Core_Controller_Varien_Action
 
         // Prohibit disabled store actions
         if (Mage::isInstalled() && !Mage::app()->getStore()->getIsActive()) {
-            Mage::app()->throwStoreException();
+            Mage::app()->throwStoreException(Mage::helper('core')->__('The store view #%d is disabled.', Mage::app()->getStore()->getId()));
         }
 
         if ($this->_rewrite()) {

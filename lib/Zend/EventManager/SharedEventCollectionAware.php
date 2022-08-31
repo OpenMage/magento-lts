@@ -34,8 +34,8 @@ interface Zend_EventManager_SharedEventCollectionAware
 {
     /**
      * Inject an EventManager instance
-     * 
-     * @param  Zend_EventManager_SharedEventCollection $sharedEventCollection 
+     *
+     * @param  Zend_EventManager_SharedEventCollection $sharedEventCollection
      * @return Zend_EventManager_SharedEventCollectionAware
      */
     public function setSharedCollections(Zend_EventManager_SharedEventCollection $sharedEventCollection);

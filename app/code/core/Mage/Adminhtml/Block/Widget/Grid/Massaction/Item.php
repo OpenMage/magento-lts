@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -50,7 +44,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive parent massaction block
+     * Retrieve parent massaction block
      *
      * @return Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract
      */
@@ -81,20 +75,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
 
     protected function _createFromConfig(array $config)
     {
-        $type = isset($config['type']) ? $config['type'] : 'default';
-        switch($type) {
-            default:
-                $blockClass = 'adminhtml/widget_grid_massaction_item_additional_default';
-                break;
-        }
-
-        $block = $this->getLayout()->createBlock($blockClass);
+        $block = $this->getLayout()->createBlock('adminhtml/widget_grid_massaction_item_additional_default');
         $block->createFromConfiguration(isset($config['type']) ? $config['config'] : $config);
         return $block;
     }
 
     /**
-     * Retrive additional action block for this item
+     * Retrieve additional action block for this item
      *
      * @return Mage_Core_Block_Abstract
      */
@@ -104,7 +91,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Massaction_Item extends Mage_Adminhtml_Bl
     }
 
     /**
-     * Retrive additional action block HTML for this item
+     * Retrieve additional action block HTML for this item
      *
      * @return string
      */

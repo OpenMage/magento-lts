@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -601,6 +595,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $typedAttributes    = array();
         $staticTable        = null;
         $adapter            = $this->_getReadAdapter();
+        $getPerStore        = false;
 
         foreach ($attribute as $_attribute) {
             /* @var Mage_Catalog_Model_Entity_Attribute $attribute */
@@ -611,6 +606,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             $attributeCode = $_attribute->getAttributeCode();
             $attrTable     = $_attribute->getBackend()->getTable();
             $isStatic      = $_attribute->getBackend()->isStatic();
+
+            if (!$getPerStore && $_attribute->getIsGlobal() != Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL) {
+                $getPerStore = true;
+            }
 
             if ($isStatic) {
                 $staticAttributes[] = $attributeCode;
@@ -629,7 +628,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if ($staticAttributes) {
             $select = $adapter->select()->from($staticTable, $staticAttributes)
                 ->where($this->getEntityIdField() . ' = :entity_id');
-            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId));
+            $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId)) ?: [];
         }
 
         /**
@@ -641,7 +640,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             }
 
             $store = (int)$store;
-            
+
             foreach ($typedAttributes as $table => $_attributes) {
                 $select = $adapter->select()
                     ->from(array('default_value' => $table), array('attribute_id'))
@@ -654,7 +653,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                     'entity_id'      => $entityId,
                 );
 
-                if ($store != $this->getDefaultStoreId()) {
+                if ($getPerStore && $store != $this->getDefaultStoreId()) {
                     $valueExpr = $adapter->getCheckSql(
                         'store_value.value IS NULL',
                         'default_value.value',
@@ -692,6 +691,45 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         }
 
         return $attributesData ? $attributesData : false;
+    }
+
+    /**
+     * Retrieve attribute's raw value from DB using its source model if available.
+     *
+     * @param int $entityId
+     * @param int|string|array $attribute atrribute's ids or codes
+     * @param int|Mage_Core_Model_Store $store
+     * @return bool|string|array
+     */
+    public function getAttributeRawText($entityId, $attribute, $store)
+    {
+        if (!$entityId || empty($attribute)) {
+            return false;
+        }
+
+        if ($store instanceof Mage_Core_Model_Store) {
+            $store = $store->getId();
+        }
+
+        $store = (int)$store;
+        $attribute = is_array($attribute) ? $attribute : [$attribute];
+        $value = $this->getAttributeRawValue($entityId, $attribute, $store);
+
+        if (!$value) {
+            return false;
+        }
+
+        // Ensure we have an associative array of attribute => values
+        $values = is_array($value) ? $value : array_combine($attribute, [$value]);
+
+        foreach ($values as $_attribute => &$_value) {
+            $_attribute = (clone $this->getAttribute($_attribute))->setStoreId($store);
+            if ($_attribute->getSourceModel() || $_attribute->getFrontendInput() === 'select' || $_attribute->getFrontendInput() === 'multiselect') {
+                $_value = $_attribute->getSource()->getOptionText($_value);
+            }
+        }
+
+        return count($values) === 1 ? reset($values) : $values;
     }
 
     /**

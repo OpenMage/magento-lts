@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,11 +27,6 @@
  */
 class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
 {
-    /**
-     * Key in config for store switcher hint
-     */
-    const XPATH_HINT_KEY = 'store_switcher';
-
     /**
      * @var array
      */
@@ -222,39 +211,5 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
             $this->_hasDefaultOption = $hasDefaultOption;
         }
         return $this->_hasDefaultOption;
-    }
-
-    /**
-     * Return url for store switcher hint
-     *
-     * @return string
-     */
-    public function getHintUrl()
-    {
-        if (null === $this->_hintUrl) {
-            $this->_hintUrl = Mage::helper('core/hint')->getHintByCode(self::XPATH_HINT_KEY);
-        }
-        return $this->_hintUrl;
-    }
-
-    /**
-     * Return store switcher hint html
-     *
-     * @return string
-     */
-    public function getHintHtml()
-    {
-        $html = '';
-        $url = $this->getHintUrl();
-        if ($url) {
-            $html = '<a'
-                . ' href="'. $this->escapeUrl($url) . '"'
-                . ' onclick="this.target=\'_blank\'"'
-                . ' title="' . Mage::helper('core')->quoteEscape($this->__('What is this?')) . '"'
-                . ' class="link-store-scope">'
-                . $this->__('What is this?')
-                . '</a>';
-        }
-        return $html;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -134,8 +128,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
-        $defaultBillingId   = $customer->getData('default_billing');
-        $defaultShippingId  = $customer->getData('default_shipping');
+        $defaultBillingId  = $customer->getData('default_billing');
+        $defaultShippingId = $customer->getData('default_shipping');
         foreach ($customer->getAddresses() as $address) {
             if ($address->getData('_deleted')) {
                 if ($address->getId() == $defaultBillingId) {
@@ -146,10 +140,19 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
                 $address->delete();
             } else {
-                $address->setParentId($customer->getId())
-                    ->setStoreId($customer->getStoreId())
-                    ->setIsCustomerSaveTransaction(true)
-                    ->save();
+                if ($address->getParentId() != $customer->getId()) {
+                    $address->setParentId($customer->getId());
+                }
+
+                if ($address->hasDataChanges()) {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true)
+                        ->save();
+                } else {
+                    $address->setStoreId($customer->getStoreId())
+                        ->setIsCustomerSaveTransaction(true);
+                }
+
                 if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
                     && $address->getId() != $defaultBillingId
                 ) {
@@ -355,5 +358,37 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $this->saveAttribute($customer, 'rp_customer_id');
         }
         return $this;
+    }
+
+    /**
+     * Get password created at timestamp for a customer by id
+     * If attribute password_created_at is empty, return created_at timestamp
+     *
+     * @param int $customerId
+     * @return int|false
+     */
+    public function getPasswordTimestamp($customerId)
+    {
+        $field = $this->_getReadAdapter()->getIfNullSql('t2.value', 't0.created_at');
+        $select = $this->_getReadAdapter()->select()
+            ->from(['t0' => $this->getEntityTable()], ['password_created_at' => $field])
+            ->joinLeft(
+                ['t1' => $this->getTable('eav/attribute')],
+                't0.entity_type_id = t1.entity_type_id',
+                []
+            )
+            ->joinLeft(
+                ['t2' => $this->getTable(['customer/entity', 'datetime'])],
+                't1.attribute_id = t2.attribute_id',
+                []
+            )
+            ->where('t0.entity_id = ?', $customerId)
+            ->where('t1.attribute_code = ?', 'password_created_at');
+
+        $value = $this->_getReadAdapter()->fetchOne($select);
+        if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
+            $value = Varien_Date::toTimestamp($value);
+        }
+        return $value;
     }
 }

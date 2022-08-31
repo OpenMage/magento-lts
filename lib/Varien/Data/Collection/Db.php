@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Data
@@ -242,8 +236,17 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $countSelect->reset(Zend_Db_Select::LIMIT_OFFSET);
         $countSelect->reset(Zend_Db_Select::COLUMNS);
 
-        $countSelect->columns('COUNT(*)');
-
+        if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
+            $countSelect->reset(Zend_Db_Select::GROUP);
+            $countSelect->distinct(true);
+            $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
+            $group = array_map(function($token) {
+                return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
+            }, $group);
+            $countSelect->columns("COUNT(DISTINCT " . implode(", ", $group) . ")");
+        } else {
+            $countSelect->columns('COUNT(*)');
+        }
         return $countSelect;
     }
 
@@ -251,7 +254,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * Get sql select string or object
      *
      * @param   bool $stringMode
-     * @return  string || Zend_Db_Select
+     * @return  string|Zend_Db_Select
      */
     function getSelectSql($stringMode = false)
     {
@@ -391,7 +394,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 );
             }
 
-            $resultCondition = '(' . join(') ' . Zend_Db_Select::SQL_OR . ' (', $conditions) . ')';
+            $resultCondition = '(' . implode(') ' . Zend_Db_Select::SQL_OR . ' (', $conditions) . ')';
         }
 
         $this->_select->where($resultCondition);
@@ -853,5 +856,17 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_map[$group][$filter] = $alias;
 
         return $this;
+    }
+
+    /**
+     * Magic clone function
+     *
+     * Clone also Zend_Db_Select
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->_select = clone $this->_select;
     }
 }

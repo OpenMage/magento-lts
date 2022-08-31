@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -60,16 +54,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
         $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('catalog')->__('General Information')));
 
         if (!$this->getCategory()->getId()) {
-//            $fieldset->addField('path', 'select', array(
-//                'name'  => 'path',
-//                'label' => Mage::helper('catalog')->__('Parent Category'),
-//                'value' => base64_decode($this->getRequest()->getParam('parent')),
-//                'values'=> $this->_getParentCategoryOptions(),
-//                //'required' => true,
-//                //'class' => 'required-entry'
-//                ),
-//                'name'
-//            );
             $parentId = $this->getRequest()->getParam('parent');
             if (!$parentId) {
                 $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
@@ -105,6 +89,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_General extends Mage_Adminhtml_B
 
         $form->setFieldNameSuffix('general');
         $this->setForm($form);
+        return $this;
     }
 
     protected function _getAdditionalElementTypes()

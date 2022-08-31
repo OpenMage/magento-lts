@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -63,11 +57,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     public function getLimit()
     {
         $limits = $this->getAvailableLimit();
-//        if ($limit = $this->getRequest()->getParam($this->getLimitVarName())) {
-//            if (isset($limits[$limit])) {
-//                return $limit;
-//            }
-//        }
         $limits = array_keys($limits);
         return $limits[0];
     }
@@ -79,12 +68,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     public function setCollection($collection)
     {
         $this->_collection = $collection;
-//            ->setCurPage($this->getCurrentPage());
-        // If not int - then not limit
-//        if ((int) $this->getLimit()) {
-//            $this->_collection->setPageSize($this->getLimit());
-//        }
-
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Dataflow
@@ -91,7 +85,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         }
         $this->setGuiData($guiData);
 
-        parent::_afterLoad();
+        return parent::_afterLoad();
     }
 
     protected function _beforeSave()
@@ -121,9 +115,9 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 //validate export available path
                 $path = rtrim($guiData['file']['path'], '\\/')
                       . DS . $guiData['file']['filename'];
-                /** @var $validator Mage_Core_Model_File_Validator_AvailablePath */
+                /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                 $validator = Mage::getModel('core/file_validator_availablePath');
-                /** @var $helperImportExport Mage_ImportExport_Helper_Data */
+                /** @var Mage_ImportExport_Helper_Data $helperImportExport */
                 $helperImportExport = Mage::helper('importexport');
                 $validator->setPaths($helperImportExport->getLocalValidPaths());
                 if (!$validator->isValid($path)) {
@@ -142,11 +136,12 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         if ($this->_getResource()->isProfileExists($this->getName(), $this->getId())) {
             Mage::throwException(Mage::helper('dataflow')->__("Profile with the same name already exists."));
         }
+        return $this;
     }
 
     protected function _afterSave()
     {
-        if (is_string($this->getGuiData())) {
+        if ($this->getGuiData() && is_string($this->getGuiData())) {
             try {
                 $guiData = Mage::helper('core/unserializeArray')
                     ->unserialize($this->getGuiData());
@@ -294,10 +289,6 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             echo $e;
         }
 
-//        if ($batch) {
-//            $batch->delete();
-//        }
-
         $this->setExceptions($profile->getExceptions());
         return $this;
     }
@@ -309,13 +300,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         $p = $this->getGuiData();
 
         if ($this->getDataTransfer()==='interactive') {
-//            $p['file']['type'] = 'file';
-//            $p['file']['filename'] = $p['interactive']['filename'];
-//            $p['file']['path'] = 'var/export';
-
             $interactiveXml = '<action type="dataflow/convert_adapter_http" method="'
                 . ($import ? 'load' : 'save') . '">' . $nl;
-            #$interactiveXml .= '    <var name="filename"><![CDATA['.$p['interactive']['filename'].']]></var>'.$nl;
             $interactiveXml .= '</action>';
 
             $fileXml = '';
@@ -418,16 +404,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
         );
 
         if ($import) {
-//            if ($this->getDataTransfer()==='interactive') {
-                $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-//            } else {
-//                $parseDataXml = '<action type="' . $parsers[$this->getEntityType()] . '" method="parse">' . $nl;
-//                $parseDataXml = '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
-//                $parseDataXml .= '</action>'.$nl.$nl;
-//            }
-//            $parseDataXml = '<action type="'.$parsers[$this->getEntityType()].'" method="parse">'.$nl;
-//            $parseDataXml .= '    <var name="store"><![CDATA['.$this->getStoreId().']]></var>'.$nl;
-//            $parseDataXml .= '</action>'.$nl.$nl;
+            $parseFileXmlInter .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;
         } else {
             $parseDataXml = '<action type="' . $parsers[$this->getEntityType()] . '" method="unparse">' . $nl;
             $parseDataXml .= '    <var name="store"><![CDATA[' . $this->getStoreId() . ']]></var>' . $nl;

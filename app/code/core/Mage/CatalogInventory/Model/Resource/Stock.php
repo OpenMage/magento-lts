@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_CatalogInventory
@@ -217,7 +211,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'cataloginventory/stock_item',
             'is_in_stock',
             'product_id=entity_id',
-            '(' . join(') OR (', $cond) . ')'
+            '(' . implode(') OR (', $cond) . ')'
         );
         return $this;
     }
@@ -379,12 +373,12 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
         $where = array();
         foreach ($conditions as $k => $part) {
-            $where[$k] = join(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
+            $where[$k] = implode(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
         }
 
         $where = $adapter->prepareSqlCondition('invtr.low_stock_date', array('notnull' => true))
             . ' ' . Zend_Db_Select::SQL_AND . ' (('
-            .  join(') ' . Zend_Db_Select::SQL_OR .' (', $where)
+            . implode(') ' . Zend_Db_Select::SQL_OR . ' (', $where)
             . '))';
 
         $collection->joinTable(

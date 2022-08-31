@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -113,8 +107,8 @@ class Mage_Customer_Model_Address_Config extends Mage_Core_Model_Config_Base
                 $path = sprintf('%s%s', self::XML_PATH_ADDRESS_TEMPLATE, $typeCode);
                 $type = new Varien_Object();
                 $htmlEscape = strtolower($typeConfig->htmlEscape);
-                $htmlEscape = $htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
-                        || !strlen($typeConfig->htmlEscape) ? false : true;
+                $htmlEscape = !($htmlEscape == 'false' || $htmlEscape == '0' || $htmlEscape == 'no'
+                    || !strlen($typeConfig->htmlEscape));
                 $type->setCode($typeCode)
                     ->setTitle((string)$typeConfig->title)
                     ->setDefaultFormat(Mage::getStoreConfig($path, $store))

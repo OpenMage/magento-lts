@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Install
@@ -45,19 +39,5 @@ class Mage_Install_Block_End extends Mage_Install_Block_Abstract
             $this->setData('encryption_key', $key);
         }
         return $key;
-    }
-
-    /**
-     * Return url for iframe source
-     *
-     * @return string
-     */
-    public function getIframeSourceUrl()
-    {
-        if (!Mage_AdminNotification_Model_Survey::isSurveyUrlValid()
-            || Mage::getSingleton('install/installer')->getHideIframe()) {
-            return null;
-        }
-        return Mage_AdminNotification_Model_Survey::getSurveyUrl();
     }
 }

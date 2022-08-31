@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,12 +12,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Captcha
@@ -31,7 +25,6 @@
             <groups>
                 <captcha translate="label">
                     <label>CAPTCHA</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -78,7 +71,6 @@
                         </mode>
                         <failed_attempts_login translate="label comment">
                             <label>Number of Unsuccessful Attempts to Login</label>
-                            <frontend_type>text</frontend_type>
                             <comment>If 0 is specified, CAPTCHA on the Login form will be always available.</comment>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -92,7 +84,6 @@
                         </failed_attempts_login>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -102,7 +93,6 @@
                         </timeout>
                         <length translate="label comment">
                             <label>Number of Symbols</label>
-                            <frontend_type>text</frontend_type>
                             <comment>Please specify 8 symbols at the most. Range allowed (e.g. 3-5)</comment>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
@@ -113,7 +103,6 @@
                         </length>
                         <symbols translate="label comment">
                             <label>Symbols Used in CAPTCHA</label>
-                            <frontend_type>text</frontend_type>
                             <comment><![CDATA[Please use only letters (a-z or A-Z) or numbers (0-9) in this field. No spaces or other characters are allowed.<br />Similar looking characters (e.g. "i", "l", "1") decrease chance of correct recognition by customer.]]></comment>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>
@@ -140,7 +129,6 @@
             <groups>
                 <captcha translate="label">
                     <label>CAPTCHA</label>
-                    <frontend_type>text</frontend_type>
                     <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -188,7 +176,6 @@
                         </mode>
                         <failed_attempts_login translate="label comment">
                             <label>Number of Unsuccessful Attempts to Login</label>
-                            <frontend_type>text</frontend_type>
                             <comment>If 0 is specified, CAPTCHA on the Login form will be always available.</comment>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -202,7 +189,6 @@
                         </failed_attempts_login>
                         <timeout translate="label">
                             <label>CAPTCHA Timeout (minutes)</label>
-                            <frontend_type>text</frontend_type>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -212,7 +198,6 @@
                         </timeout>
                         <length translate="label comment">
                             <label>Number of Symbols</label>
-                            <frontend_type>text</frontend_type>
                             <comment>Please specify 8 symbols at the most. Range allowed (e.g. 3-5)</comment>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
@@ -223,7 +208,6 @@
                         </length>
                         <symbols translate="label comment">
                             <label>Symbols Used in CAPTCHA</label>
-                            <frontend_type>text</frontend_type>
                             <comment><![CDATA[Please use only letters (a-z or A-Z) or numbers (0-9) in this field. No spaces or other characters are allowed.<br />Similar looking characters (e.g. "i", "l", "1") decrease chance of correct recognition by customer.]]></comment>
                             <sort_order>8</sort_order>
                             <show_in_default>1</show_in_default>

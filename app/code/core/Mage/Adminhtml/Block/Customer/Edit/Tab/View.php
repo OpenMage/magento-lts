@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -78,11 +72,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        if ( ! $this->getCustomer()->getCreatedAt()) {
-            return null;
-        }
-        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        return ($date = $this->getCustomer()->getCreatedAt())
+            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
+            : null;
     }
 
     public function getStoreCreateDate()
@@ -111,11 +103,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getLastLoginDate()
     {
-        $date = $this->getCustomerLog()->getLoginAtTimestamp();
-        if ($date) {
-            return Mage::helper('core')->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
-        }
-        return Mage::helper('customer')->__('Never');
+        return ($date = $this->getCustomerLog()->getLoginAtTimestamp())
+            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
+            : Mage::helper('customer')->__('Never');
     }
 
     public function getStoreLastLoginDate()
@@ -140,8 +130,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     public function getCurrentStatus()
     {
         $log = $this->getCustomerLog();
-        if ($log->getLogoutAt() ||
-            strtotime(now())-strtotime($log->getLastVisitAt())>Mage_Log_Model_Visitor::getOnlineMinutesInterval()*60) {
+        if ($log->getLogoutAt()
+            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+        ) {
             return Mage::helper('customer')->__('Offline');
         }
         return Mage::helper('customer')->__('Online');
@@ -218,6 +209,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     }
 
     /**
+     * @deprecated
      * Return instance of core helper
      *
      * @return Mage_Core_Helper_Data

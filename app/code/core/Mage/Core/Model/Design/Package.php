@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Core
@@ -280,8 +274,6 @@ class Mage_Core_Model_Design_Package
                 if (empty($this->_theme[$type])) {
                     $this->_theme[$type] = self::DEFAULT_THEME;
                 }
-
-                // "locale", "layout", "template"
             }
         }
 
@@ -672,15 +664,16 @@ class Mage_Core_Model_Design_Package
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
         foreach ($rules as $rule) {
-            if (!empty(self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']])) {
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            if (!empty(self::$_regexMatchCache[$rule['regexp']][$userAgent])) {
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
 
             $regexp = '/' . trim($rule['regexp'], '/') . '/';
 
-            if (@preg_match($regexp, $_SERVER['HTTP_USER_AGENT'])) {
-                self::$_regexMatchCache[$rule['regexp']][$_SERVER['HTTP_USER_AGENT']] = true;
+            if (@preg_match($regexp, $userAgent)) {
+                self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
             }
@@ -828,7 +821,7 @@ class Mage_Core_Model_Design_Package
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
-            return is_writeable($dir) ? $dir : false;
+            return is_writable($dir) ? $dir : false;
         } catch (Exception $e) {
             Mage::logException($e);
         }
@@ -889,7 +882,7 @@ class Mage_Core_Model_Design_Package
     protected function _cssMergerUrlCallback($match)
     {
         $quote = ($match[1][0] == "'" || $match[1][0] == '"') ? $match[1][0] : '';
-        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, strlen($match[1]) - 2);
+        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, -1);
         $uri = $this->_prepareUrl($uri);
 
         return "url({$quote}{$uri}{$quote})";

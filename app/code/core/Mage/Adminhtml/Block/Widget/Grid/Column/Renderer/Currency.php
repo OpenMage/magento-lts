@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -45,8 +39,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
     /**
      * Renders grid column
      *
-     * @param   Varien_Object $row
-     * @return  string
+     * @param Varien_Object $row
+     * @return string
      */
     public function render(Varien_Object $row)
     {
@@ -69,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
     /**
      * Returns currency code, false on error
      *
-     * @param $row
+     * @param Varien_Object $row
      * @return string|false
      */
     protected function _getCurrencyCode($row)
@@ -86,7 +80,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency
     /**
      * Get rate for current row, 1 by default
      *
-     * @param $row
+     * @param Varien_Object $row
      * @return float|int
      */
     protected function _getRate($row)

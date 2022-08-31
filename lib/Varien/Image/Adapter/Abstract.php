@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Varien
  * @package     Varien_Image
@@ -154,13 +148,18 @@ abstract class Varien_Image_Adapter_Abstract
 
     public function getMimeType()
     {
-        if( $this->_fileType ) {
-            return $this->_fileType;
-        } else {
-            list($this->_imageSrcWidth, $this->_imageSrcHeight, $this->_fileType, ) = getimagesize($this->_fileName);
-            $this->_fileMimeType = image_type_to_mime_type($this->_fileType);
+        if($this->_fileMimeType){
             return $this->_fileMimeType;
         }
+        $imageInfo = @getimagesize($this->_fileName);
+        if($imageInfo === false){
+            throw new RuntimeException('Failed to read image at ' . $this->_fileName);
+        }
+        $this->_imageSrcWidth = $imageInfo[0];
+        $this->_imageSrcHeight = $imageInfo[1];
+        $this->_fileType = $imageInfo[2];
+        $this->_fileMimeType = $imageInfo['mime'];
+        return $this->_fileMimeType;
     }
 
     /**

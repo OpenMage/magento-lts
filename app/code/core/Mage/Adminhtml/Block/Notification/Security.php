@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -33,20 +27,20 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      * File path for verification
      * @var string
      */
-    private $_filePath = 'app/etc/local.xml';
+    protected $_filePath = 'app/etc/local.xml';
 
     /**
      * Time out for HTTP verification request
      * @var int
      */
-    private $_verificationTimeOut  = 2;
+    protected $_verificationTimeOut  = 2;
 
     /**
      * Check verification result and return true if system must to show notification message
      *
      * @return bool
      */
-    private function _canShowNotification()
+    protected function _canShowNotification()
     {
         if (Mage::app()->loadCache(self::VERIFICATION_RESULT_CACHE_KEY)) {
             return false;
@@ -64,7 +58,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
      *
      * @return bool
      */
-    private function _isFileAccessible()
+    protected function _isFileAccessible()
     {
         $defaultUnsecureBaseURL = (string) Mage::getConfig()->getNode('default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL);
 

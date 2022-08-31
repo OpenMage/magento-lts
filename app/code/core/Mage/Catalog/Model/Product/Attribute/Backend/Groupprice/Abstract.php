@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -55,14 +49,23 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
     /**
      * Retrieve websites currency rates and base currency codes
      *
+     * @param int|null $websiteId
      * @return array
      */
-    protected function _getWebsiteCurrencyRates()
+    protected function _getWebsiteCurrencyRates($websiteId = null)
     {
         if (is_null($this->_rates)) {
             $this->_rates = array();
             $baseCurrency = Mage::app()->getBaseCurrencyCode();
-            foreach (Mage::app()->getWebsites() as $website) {
+
+            if (is_numeric($websiteId)) {
+                $website = Mage::app()->getWebsite($websiteId);
+                $websites = [$website];
+            } else {
+                $websites = Mage::app()->getWebsites();
+            }
+
+            foreach ($websites as $website) {
                 /* @var Mage_Core_Model_Website $website */
                 if ($website->getBaseCurrencyCode() != $baseCurrency) {
                     $rate = Mage::getModel('directory/currency')
@@ -129,7 +132,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if (!empty($priceRow['delete'])) {
                 continue;
             }
-            $compare = join('-', array_merge(
+            $compare = implode('-', array_merge(
                 array($priceRow['website_id'], $priceRow['cust_group']),
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
@@ -145,7 +148,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             $origGroupPrices = $object->getOrigData($attribute->getName());
             foreach ($origGroupPrices as $price) {
                 if ($price['website_id'] == 0) {
-                    $compare = join('-', array_merge(
+                    $compare = implode('-', array_merge(
                         array($price['website_id'], $price['cust_group']),
                         $this->_getAdditionalUniqueFields($price)
                     ));
@@ -165,7 +168,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 continue;
             }
 
-            $globalCompare = join('-', array_merge(
+            $globalCompare = implode('-', array_merge(
                 array(0, $priceRow['cust_group']),
                 $this->_getAdditionalUniqueFields($priceRow)
             ));
@@ -189,11 +192,11 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
      */
     public function preparePriceData(array $priceData, $productTypeId, $websiteId)
     {
-        $rates  = $this->_getWebsiteCurrencyRates();
+        $rates  = $this->_getWebsiteCurrencyRates($websiteId);
         $data   = array();
         $price  = Mage::getSingleton('catalog/product_type')->priceFactory($productTypeId);
         foreach ($priceData as $v) {
-            $key = join('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
+            $key = implode('-', array_merge(array($v['cust_group']), $this->_getAdditionalUniqueFields($v)));
             if ($v['website_id'] == $websiteId) {
                 $data[$key] = $v;
                 $data[$key]['website_price'] = $v['price'];
@@ -280,7 +283,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         }
         foreach ($origGroupPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
-                $key = join('-', array_merge(
+                $key = implode('-', array_merge(
                     array($data['website_id'], $data['cust_group']),
                     $this->_getAdditionalUniqueFields($data)
                 ));
@@ -308,7 +311,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 continue;
             }
 
-            $key = join('-', array_merge(
+            $key = implode('-', array_merge(
                 array($data['website_id'], $data['cust_group']),
                 $this->_getAdditionalUniqueFields($data)
             ));

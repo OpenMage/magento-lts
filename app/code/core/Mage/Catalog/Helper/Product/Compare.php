@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -165,7 +159,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to wishlist url
+     * Retrieve add to wishlist url
      *
      * @param Mage_Catalog_Model_Product $product
      * @return string
@@ -176,7 +170,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to cart url
+     * Retrieve add to cart url
      *
      * @param Mage_Catalog_Model_Product $product
      * @return string
@@ -222,9 +216,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     public function getItemCollection()
     {
         if (!$this->_itemCollection) {
-            /** @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection _itemCollection */
             $this->_itemCollection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true)
+                ->useProductItem()
                 ->setStoreId(Mage::app()->getStore()->getId());
 
             if ($this->_customerSession->isLoggedIn()) {
@@ -263,9 +256,8 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         if (!$this->_catalogSession->hasCatalogCompareItemsCount() && !$this->_customerId) {
             $count = 0;
         } else {
-            /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection $collection */
             $collection = Mage::getResourceModel('catalog/product_compare_item_collection')
-                ->useProductItem(true);
+                ->useProductItem();
             if (!$logout && $this->_customerSession->isLoggedIn()) {
                 $collection->setCustomerId($this->_customerSession->getCustomerId());
             } elseif ($this->_customerId) {
@@ -361,7 +353,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to wishlist url with or without Form Key
+     * Retrieve add to wishlist url with or without Form Key
      *
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey
@@ -376,7 +368,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
     }
 
     /**
-     * Retrive add to cart url with or without Form Key
+     * Retrieve add to cart url with or without Form Key
      *
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey

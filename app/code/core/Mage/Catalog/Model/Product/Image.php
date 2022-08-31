@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -76,7 +70,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_backgroundColor  = array(255, 255, 255);
+    protected $_backgroundColor    = array(255, 255, 255);
+    protected $_backgroundColorStr = 'ffffff';
 
     /**
      * Absolute path to and original (full resolution) image
@@ -107,6 +102,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     protected $_watermarkWidth;
     protected $_watermarkHeigth;
     protected $_watermarkImageOpacity = 70;
+
+    /**
+     * @var string directory
+     */
+    protected static $_baseMediaPath;
 
     /**
      * @param int $width
@@ -213,6 +213,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function setBackgroundColor(array $rgbArray)
     {
         $this->_backgroundColor = $rgbArray;
+        $this->_backgroundColorStr = $this->_rgbToString($rgbArray);
         return $this;
     }
 
@@ -243,10 +244,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
      */
     protected function _checkMemory($file = null)
     {
-//        print '$this->_getMemoryLimit() = '.$this->_getMemoryLimit();
-//        print '$this->_getMemoryUsage() = '.$this->_getMemoryUsage();
-//        print '$this->_getNeedMemoryForBaseFile() = '.$this->_getNeedMemoryForBaseFile();
-
         return $this->_getMemoryLimit() > ($this->_getMemoryUsage() + $this->_getNeedMemoryForFile($file)) || $this->_getMemoryLimit() == -1;
     }
 
@@ -347,7 +344,11 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if (($file) && (0 !== strpos($file, '/', 0))) {
             $file = '/' . $file;
         }
-        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+
+        if (empty(self::$_baseMediaPath)) {
+            self::$_baseMediaPath = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+        }
+        $baseDir = self::$_baseMediaPath;
 
         if ('/no_selection' == $file) {
             $file = null;
@@ -390,7 +391,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         // build new filename (most important params)
         $path = array(
-            Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath(),
+            self::$_baseMediaPath,
             'cache',
             Mage::app()->getStore()->getId(),
             $path[] = $this->getDestinationSubdir()
@@ -405,7 +406,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 ($this->_keepFrame        ? '' : 'no')  . 'frame',
                 ($this->_keepTransparency ? '' : 'no')  . 'transparency',
                 ($this->_constrainOnly ? 'do' : 'not')  . 'constrainonly',
-                $this->_rgbToString($this->_backgroundColor),
+                $this->_backgroundColorStr,
                 'angle' . $this->_angle,
                 'quality' . $this->_quality
         );
@@ -459,10 +460,6 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function getImageProcessor()
     {
         if (!$this->_processor) {
-//            var_dump($this->_checkMemory());
-//            if (!$this->_checkMemory()) {
-//                $this->_baseFile = null;
-//            }
             $this->_processor = new Varien_Image($this->getBaseFile());
         }
         $this->_processor->keepAspectRatio($this->_keepAspectRatio);

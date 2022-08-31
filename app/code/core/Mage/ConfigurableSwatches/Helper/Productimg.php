@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
@@ -93,7 +87,6 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
      *
      * @param Mage_Catalog_Model_Product $product
      * @param array|null $preValues
-     * @return void
      */
     public function indexProductImages($product, $preValues = null)
     {
@@ -178,8 +171,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     public function getSwatchUrl(
         $product,
         $value,
-        $width = self::SWATCH_DEFAULT_WIDTH,
-        $height = self::SWATCH_DEFAULT_HEIGHT,
+        $width,
+        $height,
         &$swatchType,
         $fallbackFileExt = null
     ) {
@@ -343,7 +336,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         if (!isset($this->_productImageFilters[$product->getId()])) {
-            $mapping = call_user_func_array("array_merge_recursive", $product->getChildAttributeLabelMapping());
+            $mapping = call_user_func_array("array_merge_recursive", array_values($product->getChildAttributeLabelMapping()));
             $filters = array_unique($mapping['labels']);
             $filters = array_merge($filters, array_map(function ($label) {
                 return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;

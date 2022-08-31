@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Review
@@ -249,6 +243,25 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      */
     public function afterDeleteCommit(Mage_Core_Model_Abstract $object)
     {
+        $read_adapter = $this->_getReadAdapter();
+        $select = $read_adapter->select()
+            ->from(
+                $this->_reviewTable,
+                array(
+                    'review_count' => new Zend_Db_Expr('COUNT(*)')
+                )
+            )
+            ->where("entity_id = ?", $object->getEntityId())
+            ->where("entity_pk_value = ?", $object->getEntityPkValue());
+        $total_reviews = $read_adapter->fetchOne($select);
+        if ($total_reviews == 0) {
+            $this->_getWriteAdapter()->delete($this->_aggregateTable, array(
+                'entity_type = ?'   => $object->getEntityId(),
+                'entity_pk_value = ?' => $object->getEntityPkValue()
+            ));
+            return $this;
+        }
+
         $this->aggregate($object);
 
         // reaggregate ratings, that depended on this review

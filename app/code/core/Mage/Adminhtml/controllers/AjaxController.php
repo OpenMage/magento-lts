@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Adminhtml
@@ -43,7 +37,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
         $area = $this->getRequest()->getPost('area');
 
         //filtering
-        /** @var $filter Mage_Core_Model_Input_Filter_MaliciousCode */
+        /** @var Mage_Core_Model_Input_Filter_MaliciousCode $filter */
         $filter = Mage::getModel('core/input_filter_maliciousCode');
         foreach ($translation as &$item) {
             $item['custom'] = $filter->filter($item['custom']);
@@ -56,7 +50,7 @@ class Mage_Adminhtml_AjaxController extends Mage_Adminhtml_Controller_Action
     /**
      * Check is allowed access to action
      *
-     * @return bool
+     * @return true
      */
     protected function _isAllowed()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -272,7 +266,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
-        return (is_array($result) && count($result) > 0) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
@@ -294,7 +288,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
-        return (is_array($result) && count($result) > 0) ? true : false;
+        return is_array($result) && count($result) > 0;
     }
 
     /**
@@ -563,7 +557,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         $startupPage = Mage::getStoreConfig(self::XML_PATH_STARTUP_PAGE);
         $aclResource = 'admin/' . $startupPage;
         if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
-            $nodePath = 'menu/' . join('/children/', explode('/', $startupPage)) . '/action';
+            $nodePath = 'menu/' . implode('/children/', explode('/', $startupPage)) . '/action';
             $url = (string)Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode($nodePath);
             if ($url) {
                 return $url;
@@ -733,7 +727,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getDateNow($dayOnly = false)
     {
-        return now($dayOnly);
+        return Varien_Date::now($dayOnly);
     }
 
     /**

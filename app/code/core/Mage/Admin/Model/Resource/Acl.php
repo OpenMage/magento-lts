@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Admin
@@ -145,26 +139,8 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Exception $e) {
-                //$m = $e->getMessage();
-                //if ( eregi("^Resource '(.*)' not found", $m) ) {
-                    // Deleting non existent resource rule from rules table
-                    //$cond = $this->_write->quoteInto('resource_id = ?', $resource);
-                    //$this->_write->delete(Mage::getSingleton('core/resource')->getTableName('admin/rule'), $cond);
-                //} else {
-                    //TODO: We need to log such exceptions to somewhere like a system/errors.log
-                //}
+                Mage::logException($e);
             }
-            /*
-            switch ($rule['permission']) {
-                case Mage_Admin_Model_Acl::RULE_PERM_ALLOW:
-                    $acl->allow($role, $resource, $privileges, $assert);
-                    break;
-
-                case Mage_Admin_Model_Acl::RULE_PERM_DENY:
-                    $acl->deny($role, $resource, $privileges, $assert);
-                    break;
-            }
-            */
         }
         return $this;
     }

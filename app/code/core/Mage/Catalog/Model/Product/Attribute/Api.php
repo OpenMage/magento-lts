@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -111,6 +105,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
         $options = array();
         if ($attribute->usesSource()) {
+            $attribute->setStoreId($storeId);
             foreach ($attribute->getSource()->getAllOptions() as $optionId => $optionValue) {
                 if (is_array($optionValue)) {
                     $options[] = $optionValue;
@@ -169,7 +164,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         $data['source_model'] = $helper->getAttributeSourceModelByInputType($data['frontend_input']);
         $data['backend_model'] = $helper->getAttributeBackendModelByInputType($data['frontend_input']);
-        if (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0) {
+        if (!$model->getBackendType() && (is_null($model->getIsUserDefined()) || $model->getIsUserDefined() != 0)) {
             $data['backend_type'] = $model->getBackendTypeByInput($data['frontend_input']);
         }
 
@@ -216,10 +211,10 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
             $model->save();
             // clear translation cache because attribute labels are stored in translation
             Mage::app()->cleanCache(array(Mage_Core_Model_Translate::CACHE_TAG));
-            return true;
         } catch (Exception $e) {
             $this->_fault('unable_to_save', $e->getMessage());
         }
+        return true;
     }
 
     /**
@@ -455,7 +450,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      * Prepare request input data for saving
      *
      * @param array $data input data
-     * @return void
      */
     protected function _prepareDataForSave(&$data)
     {
@@ -525,4 +519,4 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
 
         return $model;
     }
-} // Class Mage_Catalog_Model_Product_Attribute_Api End
+}

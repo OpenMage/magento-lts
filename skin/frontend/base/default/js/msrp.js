@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -10,12 +10,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
  * @package     base_default
@@ -116,8 +110,7 @@ Catalog.Map = {
     },
 
     showHelp: function(event) {
-        var helpBox = $('map-popup'),
-            isIE6 = typeof document.body.style.maxHeight === "undefined";
+        var helpBox = $('map-popup');
         if (!helpBox) {
             return;
         }
@@ -189,7 +182,7 @@ Catalog.Map = {
                     }
                     cartButton.stopObserving('click');
                     cartButton.href = this.cartLink;
-                    Event.observe(cartButton, 'click', function(event) {
+                    Event.observe(cartButton, 'click', function () {
                         productAddToCartForm.action = this.href;
                         productAddToCartForm.submit(this);
                     });
@@ -224,9 +217,6 @@ Catalog.Map = {
             }
 
             $(helpBox).show();
-            if (isIE6) {
-                Catalog.Map.hideSelects();
-            }
             var closeButton = $('map-popup-close');
             if (closeButton) {
                 $(closeButton).stopObserving('click');
@@ -235,9 +225,6 @@ Catalog.Map = {
             }
         } else {
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
 
@@ -247,11 +234,7 @@ Catalog.Map = {
     hideHelp: function(){
         var helpBox = $('map-popup');
         if (helpBox) {
-            var isIE6 = typeof document.body.style.maxHeight === "undefined";
             $(helpBox).hide();
-            if (isIE6) {
-                Catalog.Map.showSelects();
-            }
             Catalog.Map.active = false;
         }
     },
@@ -282,7 +265,7 @@ Catalog.Map = {
                 var parentButton = button;
                 new Ajax.Request(this.form.action, {
                     parameters: {isAjax: 1, method: 'GET'},
-                    onSuccess: function(transport) {
+                    onSuccess: function () {
                         window.opener.focus();
                         if (parentButton && parentButton.href) {
                             setPLocation(parentButton.href, true);

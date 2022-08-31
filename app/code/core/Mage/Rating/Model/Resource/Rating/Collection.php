@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Rating
@@ -116,9 +110,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                     array('store'=>$this->getTable('rating_store')),
                     'main_table.rating_id = store.rating_id',
                     array()
-                )
-        //        ->group('main_table.rating_id')
-                ;
+                );
             $this->_isStoreJoined = true;
         }
         $inCond = $adapter->prepareSqlCondition('store.store_id', array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -144,7 +138,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
         $select->joinLeft(
             array($priceTypeAlias => $priceType->getBackend()->getTable()),
-            join(' AND ', $joinConds),
+            implode(' AND ', $joinConds),
             array('price_type' => $priceTypeAlias . '.value')
         );
 
@@ -396,7 +390,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $query = $read->query($select, $bind);
         while ($row = $query->fetch()) {
             $salable = isset($row['salable']) ? $row['salable'] : true;
-            $website = $row['website_id'] > 0 ? true : false;
+            $website = $row['website_id'] > 0;
             $status  = $row['status'];
 
             $productsData[$row['entity_id']] = $salable && $status && $website;
@@ -770,7 +764,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
 
                 // calculate selection price
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
-                    $priceIndexKey = join('-', array(
+                    $priceIndexKey = implode('-', array(
                         $selection['product_id'],
                         $website->getId(),
                         $group->getId()

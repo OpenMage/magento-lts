@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Cms
@@ -85,8 +79,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'enabled'                       => $this->isEnabled(),
             'hidden'                        => $this->isHidden(),
             'use_container'                 => false,
-            'add_variables'                 => true,
-            'add_widgets'                   => true,
+            'add_variables'                 => Mage::getSingleton('admin/session')->isAllowed('system/variable'),
+            'add_widgets'                   => Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance'),
             'no_display'                    => false,
             'translator'                    => Mage::helper('cms'),
             'encode_directives'             => true,

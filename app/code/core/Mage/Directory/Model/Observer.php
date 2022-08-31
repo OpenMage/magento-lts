@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Directory
@@ -40,10 +34,9 @@ class Mage_Directory_Model_Observer
     const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
 
     /**
-     * @param $schedule
      * @throws Mage_Core_Exception
      */
-    public function scheduledUpdateCurrencyRates($schedule)
+    public function scheduledUpdateCurrencyRates()
     {
         $importWarnings = array();
         if (!Mage::getStoreConfig(self::IMPORT_ENABLE) || !Mage::getStoreConfig(self::CRON_STRING_PATH)) {
@@ -88,7 +81,7 @@ class Mage_Directory_Model_Observer
                 Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
                 null,
                 array(
-                    'warnings'    => join("\n", $importWarnings),
+                    'warnings' => implode("\n", $importWarnings),
                 )
             );
 

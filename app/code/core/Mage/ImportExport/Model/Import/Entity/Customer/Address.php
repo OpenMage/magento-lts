@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_ImportExport
@@ -137,7 +131,6 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      * Constructor.
      *
      * @param Mage_ImportExport_Model_Import_Entity_Customer $customer
-     * @return void
      */
     public function __construct(Mage_ImportExport_Model_Import_Entity_Customer $customer)
     {
@@ -230,12 +223,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     || $rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS
                 ) {
                     // entity table data
+                    $now = Varien_Date::now();
                     $entityRows[] = array(
                         'entity_id'      => $entityId,
                         'entity_type_id' => $this->_entityTypeId,
                         'parent_id'      => $customerId,
-                        'created_at'     => now(),
-                        'updated_at'     => now()
+                        'created_at'     => $now,
+                        'updated_at'     => $now
                     );
                     // attribute values
                     foreach ($this->_attributes as $attrAlias => $attrParams) {
@@ -298,9 +292,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             ->addExcludeHiddenFrontendFilter();
 
         foreach ($addrCollection as $attribute) {
-            $this->_attributes[self::getColNameForAttrCode($attribute->getAttributeCode())] = array(
+            $attributeCode = $attribute->getAttributeCode();
+            $this->_attributes[self::getColNameForAttrCode($attributeCode)] = array(
                 'id'          => $attribute->getId(),
-                'code'        => $attribute->getAttributeCode(),
+                'code'        => $attributeCode,
                 'table'       => $attribute->getBackend()->getTable(),
                 'is_required' => $attribute->getIsRequired(),
                 'rules'       => $attribute->getValidateRules()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,12 +11,6 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
  *
  * @category    Mage
  * @package     Mage_Sales
@@ -45,7 +39,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     }
 
     /**
-     * Retrive invoices list. Filtration could be applied
+     * Retrieve invoices list. Filtration could be applied
      *
      * @param null|object|array $filters
      * @return array
@@ -98,6 +92,10 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
 
         $result = $this->_getAttributes($invoice, 'invoice');
         $result['order_increment_id'] = $invoice->getOrderIncrementId();
+        $result['order_created_at'] = $invoice->getOrder()->getCreatedAt();
+        $result['billing_firstname'] = $invoice->getBillingAddress()->getFirstname();
+        $result['billing_middlename'] = $invoice->getBillingAddress()->getMiddlename();
+        $result['billing_lastname'] = $invoice->getBillingAddress()->getLastname();
 
         $result['items'] = array();
         foreach ($invoice->getAllItems() as $item) {
