@@ -297,7 +297,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * set collection object
      *
-     * @param Varien_Data_Collection $collection
+     * @param Varien_Data_Collection|Varien_Data_Collection_Db $collection
      */
     public function setCollection($collection)
     {
@@ -307,7 +307,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * get collection object
      *
-     * @return Varien_Data_Collection
+     * @return Varien_Data_Collection|Varien_Data_Collection_Db
      */
     public function getCollection()
     {
