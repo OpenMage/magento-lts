@@ -3356,11 +3356,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Property Mage_Paypal_Model_Express_Checkout\\:\\:\\$_order has unknown class Mage_Sales_Model_QuoteMage_Sales_Model_Quote as its type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Variable \\$address might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
