@@ -1706,11 +1706,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
 
 		-
-			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
@@ -1806,11 +1801,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
 
 		-
-			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Data/Grouped.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
@@ -1832,11 +1822,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
-			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
@@ -3540,11 +3525,6 @@ parameters:
 			message: "#^Variable \\$productViewEvent might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
