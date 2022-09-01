@@ -464,7 +464,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         }
 
         // Stop store emulation process
-        if (isset($appEmulation) && isset($initialEnvironmentInfo)) {
+        if (isset($appEmulation, $initialEnvironmentInfo)) {
             $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
         }
 
