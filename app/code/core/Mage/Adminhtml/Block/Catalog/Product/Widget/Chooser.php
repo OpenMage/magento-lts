@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -66,10 +68,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
         if ($element->getValue()) {
             $value = explode('/', $element->getValue());
             $productId = false;
-            if (isset($value[0]) && isset($value[1]) && $value[0] == 'product') {
+            if (isset($value[0], $value[1]) && $value[0] === 'product') {
                 $productId = $value[1];
             }
-            $categoryId = isset($value[2]) ? $value[2] : false;
+            $categoryId = $value[2] ?? false;
             $label = '';
             if ($categoryId) {
                 $label = Mage::getResourceSingleton('catalog/category')
@@ -98,6 +100,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 $(grid.containerId).fire('product:changed', {element: element});
             }";
         }
+        return '';
     }
 
     /**
@@ -128,6 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
                 }
             ';
         }
+        return '';
     }
 
     /**
@@ -157,12 +161,12 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      */
     protected function _addColumnFilterToCollection($column)
     {
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $selected = $this->getSelectedProducts();
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$selected]);
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $selected]);
             } else {
-                $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$selected]);
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $selected]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -177,7 +181,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Widget_Chooser extends Mage_Adminhtml
      */
     protected function _prepareCollection()
     {
-        /** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection */
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->setStoreId(0)
             ->addAttributeToSelect('name');

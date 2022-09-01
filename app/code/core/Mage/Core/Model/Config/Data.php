@@ -27,6 +27,7 @@
  *
  * @method Mage_Core_Model_Resource_Config_Data _getResource()
  * @method Mage_Core_Model_Resource_Config_Data getResource()
+ * @method Mage_Core_Model_Resource_Config_Data_Collection getCollection()
  * @method string getScope()
  * @method $this setScope(string $value)
  * @method int getScopeId()

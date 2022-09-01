@@ -23,26 +23,27 @@
  * Tracks transaction history, allows to build transactions hierarchy
  * By default transactions are saved as closed.
  *
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method $this setOrderId(int $value)
- * @method int getPaymentId()
- * @method $this setPaymentId(int $value)
- * @method string getTxnId()
- * @method string getParentTxnId()
- * @method string getTxnType()
- * @method int getIsClosed()
- * @method $this setIsClosed(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method $this setOrderUrl(string $value)
- *
  * @category    Mage
  * @package     Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getResourceCollection()
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $value)
+ * @method int getIsClosed()
+ * @method $this setIsClosed(int $value)
+ * @method $this setOrderId(int $value)
+ * @method $this setOrderUrl(string $value)
+ * @method int getParentId()
+ * @method $this setParentId(int $value)
+ * @method string getParentTxnId()
+ * @method int getPaymentId()
+ * @method $this setPaymentId(int $value)
+ * @method string getTxnId()
+ * @method string getTxnType()
  */
 class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstract
 {

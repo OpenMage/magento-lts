@@ -23,7 +23,7 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
- * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()()
+ * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
  *
  * @method string getAccountStatus()
  * @method $this setAccountStatus(string $value)

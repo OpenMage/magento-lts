@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Tag_Model_Resource_Customer_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -128,5 +130,4 @@ class Mage_Adminhtml_Block_Tag_Customer_Grid extends Mage_Adminhtml_Block_Widget
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);
     }
-
 }
