@@ -111,7 +111,10 @@ Do not use 20.x.x if you need IE support.
 - removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
 - added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
-- removed module `Mage_PageCache`
+- reduce needless saves by avoiding setting `_hasDataChanges` flag [#2066](https://github.com/OpenMage/magento-lts/pull/2066)
+- removed support for `global/sales/old_fields_map` defined in XML [#921](https://github.com/OpenMage/magento-lts/pull/921)
+- removed module `Mage_PageCache` [#2258](https://github.com/OpenMage/magento-lts/pull/2258)
+- removed lib/flex containing unused ActionScript "file uploader" files [#2271](https://github.com/OpenMage/magento-lts/pull/2271)
 - enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
