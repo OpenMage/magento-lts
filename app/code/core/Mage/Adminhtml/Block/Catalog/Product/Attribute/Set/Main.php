@@ -166,7 +166,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         $items = [];
         $setId = $this->_getSetId();
 
-        /** @var Mage_Eav_Model_Mysql4_Entity_Attribute_Group_Collection $groups */
+        /** @var Mage_Eav_Model_Resource_Entity_Attribute_Group_Collection $groups */
         $groups = Mage::getModel('eav/entity_attribute_group')
             ->getResourceCollection()
             ->setAttributeSetFilter($setId)

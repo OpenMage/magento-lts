@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -58,10 +60,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return Mage::registry('current_product');
     }
 
+    /**
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @return $this
+     * @throws Exception
+     */
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
 
             if (empty($productIds)) {
@@ -72,8 +79,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
 
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
-            if(count($createdProducts)>0) {
-                if(!is_array($existsProducts)) {
+            if (count($createdProducts) > 0) {
+                if (!is_array($existsProducts)) {
                     $existsProducts = $createdProducts;
                 } else {
                     $existsProducts = array_merge($createdProducts);
@@ -81,12 +88,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
             }
 
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$existsProducts]);
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $existsProducts]);
             }
-            else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-                }
+            elseif ($productIds) {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
         }
         else {
@@ -95,6 +100,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $this;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     protected function _getCreatedProducts()
     {
         $products = $this->getRequest()->getPost('new_products', null);
@@ -160,7 +169,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     /**
      * Check block is readonly
      *
-     * @return boolean
+     * @return bool
      */
     public function isReadonly()
     {
@@ -170,6 +179,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return $this->_getProduct()->getCompositeReadonly();
     }
 
+    /**
+     * @inheritDoc
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareColumns()
     {
         $product = $this->_getProduct();
@@ -264,6 +277,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
         return parent::_prepareColumns();
     }
 
+    /**
+     * @return array
+     */
     public function getEditParamsForAssociated()
     {
         return [
@@ -298,7 +314,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid extends Ma
     public function getOptions($attribute) {
         $result = [];
         foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
-            if($option['value']!='') {
+            if ($option['value'] != '') {
                 $result[$option['value']] = $option['label'];
             }
         }

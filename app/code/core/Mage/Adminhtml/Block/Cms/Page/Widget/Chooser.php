@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -97,8 +97,8 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
      */
     protected function _prepareCollection()
     {
+        /** @var Mage_Cms_Model_Resource_Page_Collection $collection */
         $collection = Mage::getModel('cms/page')->getCollection();
-        /** @var Mage_Cms_Model_Mysql4_Page_Collection $collection */
         $collection->setFirstStoreFlag(true);
         $this->setCollection($collection);
 

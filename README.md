@@ -101,6 +101,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 - bug fixes and PHP 7.x, 8.0 and 8.1 compatibility
 - added config cache for system.xml [#1916](https://github.com/OpenMage/magento-lts/pull/1916)
 - search for "NULL" in backend grids [#1203](https://github.com/OpenMage/magento-lts/pull/1203)
+- removed modules `Mage_Compiler`, `Mage_GoogleBase`, `Mage_Xmlconnect`, `Phoenix_Moneybookers`
 
 ### Between OpenMage 19.x and 20.x
 
@@ -109,7 +110,9 @@ Do not use 20.x.x if you need IE support.
 - removed IE conditional comments, IE styles, IE scripts and IE eot files [#1073](https://github.com/OpenMage/magento-lts/pull/1073)
 - removed frontend default themes (default, modern, iphone, german, french, blank, blue) [#1600](https://github.com/OpenMage/magento-lts/pull/1600)
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) [#1525](https://github.com/OpenMage/magento-lts/pull/1525)
-- add redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- added redis as a valid option for `global/session_save` [#1513](https://github.com/OpenMage/magento-lts/pull/1513)
+- removed module `Mage_PageCache`
+- enabled website level config cache [#2355](https://github.com/OpenMage/magento-lts/pull/2355)
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -136,13 +139,6 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 - `sitemap_urlset_generating_before`
 
 [Full list of events](docs/EVENTS.md)
-
-### Removed Modules
-
-- `Mage_Compiler`
-- `Mage_GoogleBase`
-- `Mage_Xmlconnect`
-- `Phoenix_Moneybookers`
 
 ## Development Environment with ddev
 
