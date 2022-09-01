@@ -24,6 +24,7 @@
  * @method Mage_Core_Model_Resource_Store _getResource()
  * @method Mage_Core_Model_Resource_Store getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
+ * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
  *
  * @method $this setCode(string $value)
  * @method $this setGroupId(int $value)

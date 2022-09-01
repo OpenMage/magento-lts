@@ -24,6 +24,7 @@
  * @method Mage_Customer_Model_Resource_Group _getResource()
  * @method Mage_Customer_Model_Resource_Group getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
+ * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
  *
  * @method string getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
