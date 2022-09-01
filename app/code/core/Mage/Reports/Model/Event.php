@@ -21,24 +21,25 @@
 /**
  * Events model
  *
- * @method Mage_Reports_Model_Resource_Event _getResource()
- * @method Mage_Reports_Model_Resource_Event getResource()
- * @method string getLoggedAt()
- * @method Mage_Reports_Model_Event setLoggedAt(string $value)
- * @method int getEventTypeId()
- * @method Mage_Reports_Model_Event setEventTypeId(int $value)
- * @method int getObjectId()
- * @method Mage_Reports_Model_Event setObjectId(int $value)
- * @method int getSubjectId()
- * @method Mage_Reports_Model_Event setSubjectId(int $value)
- * @method int getSubtype()
- * @method Mage_Reports_Model_Event setSubtype(int $value)
- * @method int getStoreId()
- * @method Mage_Reports_Model_Event setStoreId(int $value)
- *
  * @category    Mage
  * @package     Mage_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Reports_Model_Resource_Event _getResource()
+ * @method Mage_Reports_Model_Resource_Event getResource()
+ * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
+ * @method string getLoggedAt()
+ * @method $this setLoggedAt(string $value)
+ * @method int getEventTypeId()
+ * @method $this setEventTypeId(int $value)
+ * @method int getObjectId()
+ * @method $this setObjectId(int $value)
+ * @method int getSubjectId()
+ * @method $this setSubjectId(int $value)
+ * @method int getSubtype()
+ * @method $this setSubtype(int $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {
