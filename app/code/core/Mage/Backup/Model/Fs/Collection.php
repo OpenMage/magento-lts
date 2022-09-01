@@ -63,8 +63,7 @@ class Mage_Backup_Model_Fs_Collection extends Varien_Data_Collection_Filesystem
             ->setOrder('time', self::SORT_ORDER_DESC)
             ->addTargetDir($this->_baseDir)
             ->setFilesFilter('/^[a-z0-9\-\_]+\.' . $extensions . '$/')
-            ->setCollectRecursively(false)
-        ;
+            ->setCollectRecursively(false);
     }
 
     /**

@@ -24,10 +24,14 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Poll_Model_Resource_Poll_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Poll_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -37,6 +41,10 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
         $this->setSaveParametersInSession(true);
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('poll/poll')->getCollection();
@@ -50,6 +58,10 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('poll_id', [
@@ -101,19 +113,6 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
             ]);
         }
 
-        /*
-        $this->addColumn('active', array(
-            'header'    => Mage::helper('poll')->__('Status'),
-            'align'     => 'left',
-            'width'     => '80px',
-            'index'     => 'active',
-            'type'      => 'options',
-            'options'   => array(
-                1 => 'Active',
-                0 => 'Inactive',
-            ),
-        ));
-        */
         $this->addColumn('closed', [
             'header'    => Mage::helper('poll')->__('Status'),
             'align'     => 'left',
@@ -129,9 +128,12 @@ class Mage_Adminhtml_Block_Poll_Grid extends Mage_Adminhtml_Block_Widget_Grid
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Poll_Model_Poll $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
     }
-
 }

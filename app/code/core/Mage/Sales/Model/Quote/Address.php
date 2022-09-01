@@ -27,6 +27,7 @@
  *
  * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Address_Collection getCollection()()
  *
  * @method $this unsAddressId()
  * @method string getAddressType()
