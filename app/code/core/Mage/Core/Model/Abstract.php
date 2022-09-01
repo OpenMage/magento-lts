@@ -68,7 +68,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Resource model instance
      *
-     * @var Mage_Core_Model_Mysql4_Abstract
+     * @var Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_resource;
 
