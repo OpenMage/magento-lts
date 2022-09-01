@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -140,7 +134,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param mixed $imageFile
      * @return $this
      */
-    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile=null)
+    public function init(Mage_Catalog_Model_Product $product, $attributeName, $imageFile = null)
     {
         $this->_reset();
         $this->_setModel(Mage::getModel('catalog/product_image'));
@@ -224,7 +218,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param array $position
      * @return $this
      */
-    public function keepFrame($flag, $position = array('center', 'middle'))
+    public function keepFrame($flag, $position = ['center', 'middle'])
     {
         $this->_getModel()->setKeepFrame($flag);
         return $this;
@@ -306,7 +300,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @param int $imageOpacity
      * @return $this
      */
-    public function watermark($fileName, $position, $size=null, $imageOpacity=null)
+    public function watermark($fileName, $position, $size = null, $imageOpacity = null)
     {
         $this->setWatermark($fileName)
             ->setWatermarkPosition($position)
@@ -319,7 +313,6 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * Set placeholder
      *
      * @param string $fileName
-     * @return void
      */
     public function placeholder($fileName)
     {
@@ -374,6 +367,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
                 $url = $model->saveFile()->getUrl();
             }
         } catch (Exception $e) {
+            Mage::logException($e);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
         return $url;
@@ -573,11 +567,11 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
     protected function parseSize($string)
     {
         $size = explode('x', strtolower($string));
-        if (sizeof($size) == 2) {
-            return array(
+        if (count($size) === 2) {
+            return [
                 'width' => ($size[0] > 0) ? $size[0] : null,
                 'heigth' => ($size[1] > 0) ? $size[1] : null,
-            );
+            ];
         }
         return false;
     }
@@ -621,10 +615,10 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function getOriginalSizeArray()
     {
-        return array(
+        return [
             $this->getOriginalWidth(),
             $this->getOriginalHeight()
-        );
+        ];
     }
 
     /**
@@ -634,7 +628,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
      * @return bool
      * @throws Mage_Core_Exception
      */
-    public function validateUploadFile($filePath) {
+    public function validateUploadFile($filePath)
+    {
         $maxDimension = Mage::getStoreConfig(self::XML_NODE_PRODUCT_MAX_DIMENSION);
         $imageInfo = getimagesize($filePath);
         if (!$imageInfo) {
@@ -653,5 +648,4 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
         return $mimeType !== null;
     }
-
 }

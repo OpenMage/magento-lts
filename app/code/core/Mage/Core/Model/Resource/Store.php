@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Store Resource Model
@@ -50,24 +43,25 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
+        $this->_uniqueFields = [[
             'field' => 'code',
             'title' => Mage::helper('core')->__('Store with the same code')
-        ));
+        ]];
         return $this;
     }
 
     /**
      * Check store code before save
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return $this
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $model)
     {
-        if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $model->getCode())) {
+        if (!preg_match('/^[a-z]+[a-z0-9_\-]*$/', $model->getCode())) {
             Mage::throwException(
-                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9) or underscore(_), the first character must be a letter'));
+                Mage::helper('core')->__('The store code may contain only letters (a-z), numbers (0-9), underscore(_) or dash(-), the first character must be a letter')
+            );
         }
 
         return $this;
@@ -76,8 +70,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Update Store Group data after save store
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @return $this
+     * @param Mage_Core_Model_Store $object
+     * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
     {
@@ -91,15 +85,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Remove core configuration data after delete store
      *
-     * @param Mage_Core_Model_Abstract $model
-     * @return $this
+     * @param Mage_Core_Model_Store $model
+     * @inheritDoc
      */
     protected function _afterDelete(Mage_Core_Model_Abstract $model)
     {
-        $where = array(
+        $where = [
             'scope = ?'    => 'stores',
             'scope_id = ?' => $model->getStoreId()
-        );
+        ];
 
         $this->_getWriteAdapter()->delete(
             $this->getTable('core/config_data'),
@@ -119,15 +113,15 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     {
         $adapter    = $this->_getWriteAdapter();
 
-        $bindValues = array('group_id' => (int)$groupId);
+        $bindValues = ['group_id' => (int)$groupId];
         $select = $adapter->select()
-            ->from($this->getMainTable(), array('count' => 'COUNT(*)'))
+            ->from($this->getMainTable(), ['count' => 'COUNT(*)'])
             ->where('group_id = :group_id');
         $count  = $adapter->fetchOne($select, $bindValues);
 
         if ($count == 1) {
-            $bind  = array('default_store_id' => (int)$storeId);
-            $where = array('group_id = ?' => (int)$groupId);
+            $bind  = ['default_store_id' => (int)$storeId];
+            $where = ['group_id = ?' => (int)$groupId];
             $adapter->update($this->getTable('core/store_group'), $bind, $where);
         }
 
@@ -137,7 +131,7 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
     /**
      * Change store group for store
      *
-     * @param Mage_Core_Model_Abstract $model
+     * @param Mage_Core_Model_Abstract|Mage_Core_Model_Store_Group $model
      * @return $this
      */
     protected function _changeGroup(Mage_Core_Model_Abstract $model)
@@ -150,8 +144,8 @@ class Mage_Core_Model_Resource_Store extends Mage_Core_Model_Resource_Db_Abstrac
             $storeId = $adapter->fetchOne($select, 'default_store_id');
 
             if ($storeId == $model->getId()) {
-                $bind = array('default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID);
-                $where = array('group_id = ?' => $model->getOriginalGroupId());
+                $bind = ['default_store_id' => Mage_Core_Model_App::ADMIN_STORE_ID];
+                $where = ['group_id = ?' => $model->getOriginalGroupId()];
                 $this->_getWriteAdapter()->update($this->getTable('core/store_group'), $bind, $where);
             }
         }

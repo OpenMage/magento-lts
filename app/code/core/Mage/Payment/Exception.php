@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Payment exception
@@ -36,12 +29,20 @@ class Mage_Payment_Exception extends Exception
 {
     protected $_code = null;
 
+    /**
+     * Mage_Payment_Exception constructor.
+     * @param null $message
+     * @param int $code
+     */
     public function __construct($message = null, $code = 0)
     {
         $this->_code = $code;
         parent::__construct($message, 0);
     }
 
+    /**
+     * @return int|null
+     */
     public function getFields()
     {
         return $this->_code;

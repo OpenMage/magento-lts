@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer log resource
@@ -32,7 +25,6 @@
  * @package    Mage_Log
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
@@ -94,7 +86,7 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
 
     /**
      * Retrieve select object for load object data
-     * 
+     *
      * @param string $field
      * @param mixed $value
      * @param Mage_Log_Model_Customer $object
@@ -108,17 +100,20 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
             $table  = $this->getMainTable();
             $select
                 ->joinInner(
-                    array('lvt' => $this->_visitorTable),
+                    ['lvt' => $this->_visitorTable],
                     "lvt.visitor_id = {$table}.visitor_id",
-                    array('last_visit_at'))
+                    ['last_visit_at']
+                )
                 ->joinInner(
-                    array('lvit' => $this->_visitorInfoTable),
+                    ['lvit' => $this->_visitorInfoTable],
                     'lvt.visitor_id = lvit.visitor_id',
-                    array('http_referer', 'remote_addr'))
+                    ['http_referer', 'remote_addr']
+                )
                 ->joinInner(
-                    array('luit' => $this->_urlInfoTable),
+                    ['luit' => $this->_urlInfoTable],
                     'luit.url_id = lvt.last_url_id',
-                    array('url'))
+                    ['url']
+                )
                 ->order("{$table}.login_at DESC")
                 ->limit(1);
         }

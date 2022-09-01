@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,14 @@
  * @category    Mage
  * @package     Mage_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getCount()
+ * @method $this setCount(int $value)
+ * @method string getLabel()
+ * @method $this setLabel(string $value)
+ * @method string getValue()
+ * @method $this setValue(string $value)
+ * @method $this setFilter(Mage_Catalog_Model_Layer_Filter_Abstract $value)
  */
 class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
 {
@@ -56,11 +58,11 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getUrl()
     {
-        $query = array(
+        $query = [
             $this->getFilter()->getRequestVar()=>$this->getValue(),
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
-        );
-        return Mage::getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true, '_query'=>$query));
+        ];
+        return Mage::getUrl('*/*/*', ['_current'=>true, '_use_rewrite'=>true, '_query'=>$query]);
     }
 
     /**
@@ -70,7 +72,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
      */
     public function getRemoveUrl()
     {
-        $query = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+        $query = [$this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue()];
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;
@@ -90,12 +92,12 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
             return false;
         }
 
-        $urlParams = array(
+        $urlParams = [
             '_current' => true,
             '_use_rewrite' => true,
-            '_query' => array($this->getFilter()->getRequestVar() => null),
+            '_query' => [$this->getFilter()->getRequestVar() => null],
             '_escape' => true,
-        );
+        ];
         return Mage::getUrl('*/*/*', $urlParams);
     }
 

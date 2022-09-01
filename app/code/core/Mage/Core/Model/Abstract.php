@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,26 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract model class
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method string getCreatedAt()
+ * @method $this setCreatedAt(string $currentTime)
+ * @method $this setUpdatedAt(string $currentTime)
+ * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
+ * @method bool hasErrors()
+ * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
+ * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -60,7 +61,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Resource model instance
      *
-     * @var Mage_Core_Model_Mysql4_Abstract
+     * @var Mage_Core_Model_Resource_Db_Abstract
      */
     protected $_resource;
 
@@ -76,7 +77,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string || true
+     * @var string|true
      */
     protected $_cacheTag    = false;
 
@@ -114,7 +115,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param string $resourceName
      * @param string|null $resourceCollectionName
      */
-    protected function _setResourceModel($resourceName, $resourceCollectionName=null)
+    protected function _setResourceModel($resourceName, $resourceCollectionName = null)
     {
         $this->_resourceName = $resourceName;
         if (is_null($resourceCollectionName)) {
@@ -126,7 +127,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get resource instance
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract|object
      */
     protected function _getResource()
     {
@@ -134,9 +135,13 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
         }
 
-        return Mage::getResourceSingleton($this->_resourceName);
-    }
+        $resource = Mage::getResourceSingleton($this->_resourceName);
+        if (!$resource) {
+            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceName));
+        }
 
+        return $resource;
+    }
 
     /**
      * Retrieve identifier field name for model
@@ -171,7 +176,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Declare model object identifier value
      *
      * @param   mixed $id
-     * @return  Mage_Core_Model_Abstract
+     * @return  $this
      */
     public function setId($id)
     {
@@ -196,16 +201,26 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get collection instance
      *
-     * @return object
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getResourceCollection()
     {
         if (empty($this->_resourceCollectionName)) {
             Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined.'));
         }
-        return Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
+
+        $resource = Mage::getResourceModel($this->_resourceCollectionName, $this->_getResource());
+        if (!$resource) {
+            Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceCollectionName));
+        }
+        return $resource;
     }
 
+    /**
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @throws Mage_Core_Exception
+     */
     public function getCollection()
     {
         return $this->getResourceCollection();
@@ -214,10 +229,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param   integer $id
-     * @return  Mage_Core_Model_Abstract
+     * @param string|integer $id
+     * @param string|null $field
+     * @return $this
      */
-    public function load($id, $field=null)
+    public function load($id, $field = null)
     {
         $this->_beforeLoad($id, $field);
         $this->_getResource()->load($this, $id, $field);
@@ -234,20 +250,22 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _getEventData()
     {
-        return array(
+        return [
             'data_object'       => $this,
             $this->_eventObject => $this,
-        );
+        ];
     }
 
     /**
      * Processing object before load data
      *
-     * @return Mage_Core_Model_Abstract
+     * @param int $id
+     * @param string|null $field
+     * @return $this
      */
     protected function _beforeLoad($id, $field = null)
     {
-        $params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        $params = ['object' => $this, 'field' => $field, 'value'=> $id];
         Mage::dispatchEvent('model_load_before', $params);
         $params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_load_before', $params);
@@ -257,21 +275,19 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after load data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterLoad()
     {
-        Mage::dispatchEvent('model_load_after', array('object'=>$this));
+        Mage::dispatchEvent('model_load_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_load_after', $this->_getEventData());
         return $this;
     }
 
-
-
     /**
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterLoad()
     {
@@ -295,7 +311,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Save object data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
+     * @throws Throwable
      */
     public function save()
     {
@@ -316,11 +333,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_getResource()->save($this);
                 $this->_afterSave();
             }
-            $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
+            $this->_getResource()->addCommitCallback([$this, 'afterCommitCallback'])
                 ->commit();
             $this->_hasDataChanges = false;
             $dataCommited = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
@@ -334,12 +351,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Callback function which called after transaction commit in resource model
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function afterCommitCallback()
     {
         $this->cleanModelCache();
-        Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
+        Mage::dispatchEvent('model_save_commit_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
         return $this;
     }
@@ -349,7 +366,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * When method is called we don't have garantee what transaction was really commited
      *
      * @deprecated after 1.4.0.0 - please use afterCommitCallback instead
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterSaveCommit()
     {
@@ -365,7 +382,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * @param bool $flag
      * @return bool
      */
-    public function isObjectNew($flag=null)
+    public function isObjectNew($flag = null)
     {
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
@@ -379,14 +396,14 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeSave()
     {
         if (!$this->getId()) {
             $this->isObjectNew(true);
         }
-        Mage::dispatchEvent('model_save_before', array('object'=>$this));
+        Mage::dispatchEvent('model_save_before', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_before', $this->_getEventData());
         return $this;
     }
@@ -402,12 +419,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $tags = false;
         if ($this->_cacheTag) {
             if ($this->_cacheTag === true) {
-                $tags = array();
+                $tags = [];
             } else {
                 if (is_array($this->_cacheTag)) {
                     $tags = $this->_cacheTag;
                 } else {
-                    $tags = array($this->_cacheTag);
+                    $tags = [$this->_cacheTag];
                 }
                 $idTags = $this->getCacheIdTags();
                 if ($idTags) {
@@ -427,7 +444,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     {
         $tags = false;
         if ($this->getId() && $this->_cacheTag) {
-            $tags = array();
+            $tags = [];
             if (is_array($this->_cacheTag)) {
                 foreach ($this->_cacheTag as $_tag) {
                     $tags[] = $_tag.'_'.$this->getId();
@@ -442,7 +459,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Remove model onject related cache
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     public function cleanModelCache()
     {
@@ -456,11 +473,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after save data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterSave()
     {
-        Mage::dispatchEvent('model_save_after', array('object'=>$this));
+        Mage::dispatchEvent('model_save_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_save_after', $this->_getEventData());
         return $this;
     }
@@ -468,7 +485,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Delete object from database
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
+     * @throws Throwable
      */
     public function delete()
     {
@@ -479,8 +497,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        }
-        catch (Exception $e){
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
@@ -491,11 +508,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _beforeDelete()
     {
-        Mage::dispatchEvent('model_delete_before', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_before', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_before', $this->_getEventData());
         $this->cleanModelCache();
         return $this;
@@ -519,11 +536,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object after delete data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDelete()
     {
-        Mage::dispatchEvent('model_delete_after', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_after', $this->_getEventData());
         return $this;
     }
@@ -531,11 +548,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing manipulation after main transaction commit
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _afterDeleteCommit()
     {
-        Mage::dispatchEvent('model_delete_commit_after', array('object'=>$this));
+        Mage::dispatchEvent('model_delete_commit_after', ['object'=>$this]);
         Mage::dispatchEvent($this->_eventPrefix.'_delete_commit_after', $this->_getEventData());
          return $this;
     }
@@ -543,13 +560,16 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Retrieve model resource
      *
-     * @return Mage_Core_Model_Mysql4_Abstract
+     * @return Mage_Core_Model_Resource_Db_Abstract
      */
     public function getResource()
     {
         return $this->_getResource();
     }
 
+    /**
+     * @return int
+     */
     public function getEntityId()
     {
         return $this->_getData('entity_id');
@@ -558,7 +578,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing object for correct deleting by garbage collector
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     final public function clearInstance()
     {
@@ -571,7 +591,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing cyclic references
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _clearReferences()
     {
@@ -581,11 +601,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Clearing object's data
      *
-     * @return Mage_Core_Model_Abstract
+     * @return $this
      */
     protected function _clearData()
     {
         return $this;
     }
-
 }

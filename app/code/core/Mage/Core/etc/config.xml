@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -13,15 +13,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -122,7 +116,7 @@
             <types>
                 <config translate="label,description" module="core">
                     <label>Configuration</label>
-                    <description>System(config.xml, local.xml) and modules configuration files(config.xml).</description>
+                    <description>System (config.xml, local.xml) and modules configuration files (config.xml, system.xml).</description>
                     <tags>CONFIG</tags>
                 </config>
                 <layout translate="label,description" module="core">
@@ -314,6 +308,7 @@
             </translate_inline>
             <log>
                 <active>0</active>
+                <max_level>7</max_level>
                 <file>system.log</file>
                 <exception_file>exception.log</exception_file>
             </log>
@@ -325,6 +320,9 @@
             <csrf>
                 <use_form_key>1</use_form_key>
             </csrf>
+            <cache>
+                <flush_cron_expr>30 2 * * *</flush_cron_expr>
+            </cache>
             <smtp>
                 <disable>0</disable>
                 <host>localhost</host>
@@ -407,6 +405,7 @@
             <cookie>
                 <cookie_lifetime>3600</cookie_lifetime>
                 <cookie_httponly>1</cookie_httponly>
+                <cookie_samesite>None</cookie_samesite>
                 <cookie_restriction>0</cookie_restriction>
                 <cookie_restriction_lifetime>31536000</cookie_restriction_lifetime>
             </cookie>
@@ -416,6 +415,7 @@
                 <use_http_x_forwarded_for>0</use_http_x_forwarded_for>
                 <use_http_user_agent>0</use_http_user_agent>
                 <use_frontend_sid>1</use_frontend_sid>
+                <use_admin_sid>0</use_admin_sid>
             </session>
             <browser_capabilities>
                 <cookies>1</cookies>
@@ -423,6 +423,9 @@
             </browser_capabilities>
         </web>
         <admin>
+            <design>
+                <loading_timeout>200</loading_timeout>
+            </design>
             <startup>
                 <page>dashboard</page>
             </startup>
@@ -441,7 +444,7 @@
         </admin>
         <general>
             <country>
-                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB</eu_countries>
+                <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,GB,HR</eu_countries>
             </country>
             <locale>
                 <firstday>0</firstday>
@@ -532,7 +535,7 @@
         <jobs>
             <core_clean_cache>
                 <schedule>
-                    <cron_expr>30 2 * * *</cron_expr>
+                    <config_path>system/cache/flush_cron_expr</config_path>
                 </schedule>
                 <run>
                     <model>core/observer::cleanCache</model>

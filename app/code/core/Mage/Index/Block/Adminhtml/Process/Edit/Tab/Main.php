@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
+    /**
+     * @inheritDoc
+     */
     protected function _prepareForm()
     {
         $model = Mage::registry('current_index_process');
@@ -35,30 +30,30 @@ class Mage_Index_Block_Adminhtml_Process_Edit_Tab_Main
         $form->setHtmlIdPrefix('index_process_');
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            array('legend'=>Mage::helper('index')->__('General'), 'class'=>'fieldset-wide')
+            ['legend'=>Mage::helper('index')->__('General'), 'class'=>'fieldset-wide']
         );
 
-        $fieldset->addField('process_id', 'hidden', array('name' => 'process', 'value'=>$model->getId()));
+        $fieldset->addField('process_id', 'hidden', ['name' => 'process', 'value'=>$model->getId()]);
 
-        $fieldset->addField('name', 'note', array(
+        $fieldset->addField('name', 'note', [
             'label' => Mage::helper('index')->__('Index Name'),
             'title' => Mage::helper('index')->__('Index Name'),
             'text'  => '<strong>'.$model->getIndexer()->getName().'</strong>'
-        ));
+        ]);
 
-        $fieldset->addField('description', 'note', array(
+        $fieldset->addField('description', 'note', [
             'label' => Mage::helper('index')->__('Index Description'),
             'title' => Mage::helper('index')->__('Index Description'),
             'text'  => $model->getIndexer()->getDescription()
-        ));
+        ]);
 
-        $fieldset->addField('mode', 'select', array(
+        $fieldset->addField('mode', 'select', [
             'label' => Mage::helper('index')->__('Index Mode'),
             'title' => Mage::helper('index')->__('Index Mode'),
             'name'  => 'mode',
             'value' => $model->getMode(),
             'values'=> $model->getModesOptions()
-        ));
+        ]);
 
         //$form->setValues($model->getData());
         $this->setForm($form);

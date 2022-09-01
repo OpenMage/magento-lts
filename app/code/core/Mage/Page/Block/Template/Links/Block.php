@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Page
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Page
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Simple links list block
  *
  * @category   Mage
  * @package    Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
 {
@@ -113,11 +106,10 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
         $this->setTemplate('page/template/linksblock.phtml');
     }
 
-
     /**
      * Return link position in link list
      *
-     * @return in
+     * @return int
      */
     public function getPosition()
     {
@@ -139,6 +131,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      *
      * @param bool $value
      * return Mage_Page_Block_Template_Links_Block
+     * @return Mage_Page_Block_Template_Links_Block
      */
     public function setIsFirst($value)
     {
@@ -161,6 +154,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
      *
      * @param bool $value
      * return Mage_Page_Block_Template_Links_Block
+     * @return Mage_Page_Block_Template_Links_Block
      */
     public function setIsLast($value)
     {
@@ -197,7 +191,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_url;
     }
-    
+
     /**
      * Prepare tag attributes
      *
@@ -210,14 +204,14 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
             return $params;
         } elseif (is_array($params)) {
             $result = '';
-            foreach ($params as $key=>$value) {
+            foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
             return $result;
         }
         return '';
     }
-    
+
      /**
      * Return Li Params
      *
@@ -227,7 +221,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_prepareParams($this->_liParams);
     }
-    
+
      /**
      * Return Link Tag Params
      *
@@ -237,5 +231,4 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     {
         return $this->_prepareParams($this->_aParams);
     }
-    
 }

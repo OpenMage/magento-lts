@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Stock resource model
@@ -125,12 +118,12 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     public function getProductsStock($stock, $productIds, $lockRows = false)
     {
         if (empty($productIds)) {
-            return array();
+            return [];
         }
         $itemTable = $this->getTable('cataloginventory/stock_item');
         $productTable = $this->getTable('catalog/product');
         $select = $this->_getWriteAdapter()->select()
-            ->from(array('si' => $itemTable))
+            ->from(['si' => $itemTable])
             ->where('stock_id=?', $stock->getId())
             ->where('product_id IN(?)', $productIds)
             ->forUpdate($lockRows);
@@ -142,7 +135,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         // so using a separate query here significantly reduces the number of
         // unnecessarily locked rows in other tables, thereby avoiding deadlocks.
         $select = $this->_getWriteAdapter()->select()
-            ->from($productTable, array('entity_id', 'type_id'))
+            ->from($productTable, ['entity_id', 'type_id'])
             ->where('entity_id IN(?)', $productIds);
         $typeIds = $this->_getWriteAdapter()->fetchPairs($select);
         foreach ($rows as &$row) {
@@ -166,7 +159,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         }
 
         $adapter = $this->_getWriteAdapter();
-        $conditions = array();
+        $conditions = [];
         foreach ($productQtys as $productId => $qty) {
             $case = $adapter->quoteInto('?', $productId);
             $result = $adapter->quoteInto("qty{$operator}?", $qty);
@@ -175,14 +168,14 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
         $value = $adapter->getCaseSql('product_id', $conditions, 'qty');
 
-        $where = array(
+        $where = [
             'product_id IN (?)' => array_keys($productQtys),
             'stock_id = ?'      => $stock->getId()
-        );
+        ];
 
         $adapter->beginTransaction();
         try {
-            $adapter->update($this->getTable('cataloginventory/stock_item'), array('qty' => $value), $where);
+            $adapter->update($this->getTable('cataloginventory/stock_item'), ['qty' => $value], $where);
             $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollBack();
@@ -201,10 +194,10 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     public function setInStockFilterToCollection($collection)
     {
         $manageStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK);
-        $cond = array(
+        $cond = [
             '{{table}}.use_config_manage_stock = 0 AND {{table}}.manage_stock=1 AND {{table}}.is_in_stock=1',
             '{{table}}.use_config_manage_stock = 0 AND {{table}}.manage_stock=0',
-        );
+        ];
 
         if ($manageStock) {
             $cond[] = '{{table}}.use_config_manage_stock = 1 AND {{table}}.is_in_stock=1';
@@ -217,7 +210,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             'cataloginventory/stock_item',
             'is_in_stock',
             'product_id=entity_id',
-            '(' . join(') OR (', $cond) . ')'
+            '(' . implode(') OR (', $cond) . ')'
         );
         return $this;
     }
@@ -229,12 +222,12 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     protected function _initConfig()
     {
         if (!$this->_isConfig) {
-            $configMap = array(
+            $configMap = [
                 '_isConfigManageStock'  => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MANAGE_STOCK,
                 '_isConfigBackorders'   => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_BACKORDERS,
                 '_configMinQty'         => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_MIN_QTY,
                 '_configNotifyStockQty' => Mage_CatalogInventory_Model_Stock_Item::XML_PATH_NOTIFY_STOCK_QTY
-            );
+            ];
 
             foreach ($configMap as $field => $const) {
                 $this->$field = (int)Mage::getStoreConfig($const);
@@ -242,7 +235,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
 
             $this->_isConfig = true;
             $this->_stock = Mage::getModel('cataloginventory/stock');
-            $this->_configTypeIds = array_keys(Mage::helper('catalogInventory')->getIsQtyTypeIds(true));
+            $this->_configTypeIds = array_keys(Mage::helper('cataloginventory')->getIsQtyTypeIds(true));
         }
     }
 
@@ -254,16 +247,17 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     {
         $this->_initConfig();
         $adapter = $this->_getWriteAdapter();
-        $values  = array(
+        $values  = [
             'is_in_stock'                  => 0,
             'stock_status_changed_auto'    => 1
-        );
+        ];
 
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), 'entity_id')
             ->where('type_id IN(?)', $this->_configTypeIds);
 
-        $where = sprintf('stock_id = %1$d'
+        $where = sprintf(
+            'stock_id = %1$d'
             . ' AND is_in_stock = 1'
             . ' AND ((use_config_manage_stock = 1 AND 1 = %2$d) OR (use_config_manage_stock = 0 AND manage_stock = 1))'
             . ' AND ((use_config_backorders = 1 AND %3$d = %4$d) OR (use_config_backorders = 0 AND backorders = %3$d))'
@@ -288,15 +282,16 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     {
         $this->_initConfig();
         $adapter = $this->_getWriteAdapter();
-        $values  = array(
+        $values  = [
             'is_in_stock'   => 1,
-        );
+        ];
 
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), 'entity_id')
             ->where('type_id IN(?)', $this->_configTypeIds);
 
-        $where = sprintf('stock_id = %1$d'
+        $where = sprintf(
+            'stock_id = %1$d'
             . ' AND is_in_stock = 0'
             . ' AND stock_status_changed_auto = 1'
             . ' AND ((use_config_manage_stock = 1 AND 1 = %2$d) OR (use_config_manage_stock = 0 AND manage_stock = 1))'
@@ -320,20 +315,23 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         $this->_initConfig();
 
         $adapter = $this->_getWriteAdapter();
-        $condition = $adapter->quoteInto('(use_config_notify_stock_qty = 1 AND qty < ?)',
-            $this->_configNotifyStockQty) . ' OR (use_config_notify_stock_qty = 0 AND qty < notify_stock_qty)';
+        $condition = $adapter->quoteInto(
+            '(use_config_notify_stock_qty = 1 AND qty < ?)',
+            $this->_configNotifyStockQty
+        ) . ' OR (use_config_notify_stock_qty = 0 AND qty < notify_stock_qty)';
         $currentDbTime = $adapter->quoteInto('?', $this->formatDate(true));
         $conditionalDate = $adapter->getCheckSql($condition, $currentDbTime, 'NULL');
 
-        $value  = array(
+        $value  = [
             'low_stock_date' => new Zend_Db_Expr($conditionalDate),
-        );
+        ];
 
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), 'entity_id')
             ->where('type_id IN(?)', $this->_configTypeIds);
 
-        $where = sprintf('stock_id = %1$d'
+        $where = sprintf(
+            'stock_id = %1$d'
             . ' AND ((use_config_manage_stock = 1 AND 1 = %2$d) OR (use_config_manage_stock = 0 AND manage_stock = 1))'
             . ' AND product_id IN (%3$s)',
             $this->_stock->getId(),
@@ -360,29 +358,30 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
             $this->_configNotifyStockQty,
             'invtr.notify_stock_qty'
         );
-        $conditions = array(
-            array(
+        $conditions = [
+            [
                 $adapter->prepareSqlCondition('invtr.use_config_manage_stock', 1),
                 $adapter->prepareSqlCondition($this->_isConfigManageStock, 1),
-                $adapter->prepareSqlCondition('invtr.qty', array('lt' => $qtyIf))
-            ),
-            array(
+                $adapter->prepareSqlCondition('invtr.qty', ['lt' => $qtyIf])
+            ],
+            [
                 $adapter->prepareSqlCondition('invtr.use_config_manage_stock', 0),
                 $adapter->prepareSqlCondition('invtr.manage_stock', 1)
-            )
-        );
+            ]
+        ];
 
-        $where = array();
+        $where = [];
         foreach ($conditions as $k => $part) {
-            $where[$k] = join(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
+            $where[$k] = implode(' ' . Zend_Db_Select::SQL_AND . ' ', $part);
         }
 
-        $where = $adapter->prepareSqlCondition('invtr.low_stock_date', array('notnull' => true))
+        $where = $adapter->prepareSqlCondition('invtr.low_stock_date', ['notnull' => true])
             . ' ' . Zend_Db_Select::SQL_AND . ' (('
-            .  join(') ' . Zend_Db_Select::SQL_OR .' (', $where)
+            . implode(') ' . Zend_Db_Select::SQL_OR . ' (', $where)
             . '))';
 
-        $collection->joinTable(array('invtr' => 'cataloginventory/stock_item'),
+        $collection->joinTable(
+            ['invtr' => 'cataloginventory/stock_item'],
             'product_id = entity_id',
             $fields,
             $where

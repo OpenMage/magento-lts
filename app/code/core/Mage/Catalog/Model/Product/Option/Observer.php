@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +35,7 @@ class Mage_Catalog_Model_Product_Option_Observer
      */
     public function copyQuoteFilesToOrderFiles($observer)
     {
-        /* @var $quoteItem Mage_Sales_Model_Quote_Item */
+        /** @var Mage_Sales_Model_Quote_Item $quoteItem */
         $quoteItem = $observer->getEvent()->getItem();
 
         if (is_array($quoteItem->getOptions())) {
@@ -49,12 +43,11 @@ class Mage_Catalog_Model_Product_Option_Observer
                 $code = explode('_', $itemOption->getCode());
                 if (isset($code[1]) && is_numeric($code[1]) && ($option = $quoteItem->getProduct()->getOptionById($code[1]))) {
                     if ($option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE) {
-                        /* @var $_option Mage_Catalog_Model_Product_Option */
+                        /** @var Mage_Catalog_Model_Product_Option $option */
                         try {
                             $group = $option->groupFactory($option->getType())
                                 ->setQuoteItemOption($itemOption)
                                 ->copyQuoteToOrder();
-
                         } catch (Exception $e) {
                             continue;
                         }

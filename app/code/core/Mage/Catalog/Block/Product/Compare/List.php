@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog products compare block
@@ -37,7 +30,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Product Compare items collection
      *
-     * @var Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @var Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     protected $_items;
 
@@ -83,7 +76,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Preparing layout
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -97,7 +90,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     /**
      * Retrieve Product Compare items collection
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Compare_Item_Collection
      */
     public function getItems()
     {
@@ -157,7 +150,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         }
 
         if ($attribute->getSourceModel()
-            || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))
+            || in_array($attribute->getFrontendInput(), ['select','boolean','multiselect'])
         ) {
             //$value = $attribute->getSource()->getOptionText($product->getData($attribute->getAttributeCode()));
             $value = $attribute->getFrontend()->getValue($product);
@@ -174,7 +167,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/*', array('_current'=>true, 'print'=>1));
+        return $this->getUrl('*/*/*', ['_current'=>true, 'print'=>1]);
     }
 
     /**
@@ -199,15 +192,18 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
         $continueUrl = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
-        $params = array(
+        $params = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
-        );
+        ];
+
+        /** @var Mage_Wishlist_Helper_Data $helper */
+        $helper = $this->helper('wishlist');
 
         if (!$addFormKey) {
-            return $this->helper('wishlist')->getAddUrlWithCustomParams($product, $params, false);
+            return $helper->getAddUrlWithCustomParams($product, $params, false);
         }
 
-        return $this->helper('wishlist')->getAddUrlWithParams($product, $params);
+        return $helper->getAddUrlWithParams($product, $params);
     }
 
 }

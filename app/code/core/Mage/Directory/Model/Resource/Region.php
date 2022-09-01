@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Directory Region Resource Model
@@ -57,7 +50,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param string $field
      * @param mixed $value
      * @param Mage_Core_Model_Abstract $object
-     * 
+     *
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -72,19 +65,21 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
 
         $condition = $adapter->quoteInto('lrn.locale = ?', $locale);
         $select->joinLeft(
-            array('lrn' => $this->_regionNameTable),
+            ['lrn' => $this->_regionNameTable],
             "{$regionField} = lrn.region_id AND {$condition}",
-            array());
+            []
+        );
 
         if ($locale != $systemLocale) {
             $nameExpr  = $adapter->getCheckSql('lrn.region_id is null', 'srn.name', 'lrn.name');
             $condition = $adapter->quoteInto('srn.locale = ?', $systemLocale);
             $select->joinLeft(
-                array('srn' => $this->_regionNameTable),
+                ['srn' => $this->_regionNameTable],
                 "{$regionField} = srn.region_id AND {$condition}",
-                array('name' => $nameExpr));
+                ['name' => $nameExpr]
+            );
         } else {
-            $select->columns(array('name'), 'lrn');
+            $select->columns(['name'], 'lrn');
         }
 
         return $select;
@@ -97,7 +92,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param int $countryId
      * @param string $value
      * @param string $field
-     * 
+     *
      * @return $this
      */
     protected function _loadByCountry($object, $countryId, $value, $field)
@@ -106,11 +101,12 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
         $locale         = Mage::app()->getLocale()->getLocaleCode();
         $joinCondition  = $adapter->quoteInto('rname.region_id = region.region_id AND rname.locale = ?', $locale);
         $select         = $adapter->select()
-            ->from(array('region' => $this->getMainTable()))
+            ->from(['region' => $this->getMainTable()])
             ->joinLeft(
-                array('rname' => $this->_regionNameTable),
+                ['rname' => $this->_regionNameTable],
                 $joinCondition,
-                array('name'))
+                ['name']
+            )
             ->where('region.country_id = ?', $countryId)
             ->where("region.{$field} = ?", $value);
 
@@ -144,7 +140,7 @@ class Mage_Directory_Model_Resource_Region extends Mage_Core_Model_Resource_Db_A
      * @param Mage_Directory_Model_Region $region
      * @param string $regionName
      * @param string $countryId
-     * 
+     *
      * @return $this
      */
     public function loadByName(Mage_Directory_Model_Region $region, $regionName, $countryId)

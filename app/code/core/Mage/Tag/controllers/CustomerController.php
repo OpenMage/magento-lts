@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,6 +28,10 @@
 
 class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return int|false
+     * @throws Mage_Core_Exception
+     */
     protected function _getTagId()
     {
         $tagId = (int) $this->getRequest()->getParam('tagId');
@@ -49,7 +47,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -74,7 +72,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function viewAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -93,8 +91,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             $this->_initLayoutMessages('checkout/session');
             $this->getLayout()->getBlock('head')->setTitle(Mage::helper('tag')->__('My Tags'));
             $this->renderLayout();
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }
@@ -111,7 +108,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
 
     public function removeAction()
     {
-        if( !Mage::getSingleton('customer/session')->isLoggedIn() ) {
+        if (!Mage::getSingleton('customer/session')->isLoggedIn()) {
             Mage::getSingleton('customer/session')->authenticate($this);
             return;
         }
@@ -123,15 +120,14 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
                 $model->deactivate();
                 $tag = Mage::getModel('tag/tag')->load($tagId)->aggregate();
                 Mage::getSingleton('tag/session')->addSuccess(Mage::helper('tag')->__('The tag has been deleted.'));
-                $this->getResponse()->setRedirect(Mage::getUrl('*/*/', array(
+                $this->getResponse()->setRedirect(Mage::getUrl('*/*/', [
                     self::PARAM_NAME_URL_ENCODED => Mage::helper('core')->urlEncode(Mage::getUrl('customer/account/'))
-                )));
+                ]));
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('tag/session')->addError(Mage::helper('tag')->__('Unable to remove tag. Please, try again later.'));
             }
-        }
-        else {
+        } else {
             $this->_forward('noRoute');
         }
     }

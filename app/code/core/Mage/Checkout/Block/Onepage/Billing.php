@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout status
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Abstract
 {
@@ -54,10 +47,10 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      */
     protected function _construct()
     {
-        $this->getCheckout()->setStepData('billing', array(
+        $this->getCheckout()->setStepData('billing', [
             'label'     => Mage::helper('checkout')->__('Billing Information'),
             'is_show'   => $this->isShow()
-        ));
+        ]);
 
         if ($this->isCustomerLoggedIn()) {
             $this->getCheckout()->setStepData('billing', 'allow', true);
@@ -65,6 +58,9 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         parent::_construct();
     }
 
+    /**
+     * @return bool
+     */
     public function isUseBillingAddressForShipping()
     {
         if (($this->getQuote()->getIsVirtual())
@@ -77,7 +73,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     /**
      * Return country collection
      *
-     * @return Mage_Directory_Model_Mysql4_Country_Collection
+     * @return Mage_Directory_Model_Resource_Country_Collection
      */
     public function getCountries()
     {
@@ -114,7 +110,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
                     $this->_address->setLastname($this->getQuote()->getCustomer()->getLastname());
                 }
             } else {
-                $this->_address = Mage::getModel('sales/quote_address');
+                $this->_address = $this->getQuote()->getBillingAddress();
             }
         }
 
@@ -155,7 +151,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
      * Return Customer Address Middle Name
      * If Sales Quote Address Middle Name is not defined - return Customer Middle Name
      *
-     * @return string | NULL
+     * @return string|null
      */
     public function getMiddlename()
     {
@@ -204,6 +200,9 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         return $this->_getTaxvat()->isEnabled();
     }
 
+    /**
+     * @return string
+     */
     public function getTaxvatHtml()
     {
         return $this->_getTaxvat()

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Product Flat observer
@@ -49,7 +42,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
      *
      * @return Mage_Catalog_Model_Product_Flat_Indexer
      */
-    protected function _getIndexer() {
+    protected function _getIndexer()
+    {
         return Mage::getSingleton('catalog/product_flat_indexer');
     }
 
@@ -66,7 +60,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $attribute = $observer->getEvent()->getAttribute();
-        /* @var $attribute Mage_Catalog_Model_Entity_Attribute */
+        /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
 
         $enableBefore   = ($attribute->getOrigData('backend_type') == 'static')
             || ($this->_getHelper()->isAddFilterableAttributes() && $attribute->getOrigData('is_filterable') > 0)
@@ -84,8 +78,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         if ($enableBefore && !$enableAfter) {
             // delete attribute data from flat
             $this->_getIndexer()->prepareDataStorage();
-        }
-        else {
+        } else {
             $this->_getIndexer()->updateAttribute($attribute->getAttributeCode());
         }
 
@@ -134,8 +127,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
             foreach ($website->getStores() as $store) {
                 if ($observer->getEvent()->getAction() == 'remove') {
                     $this->_getIndexer()->removeProduct($productIds, $store->getId());
-                }
-                else {
+                } else {
                     $this->_getIndexer()->updateProduct($productIds, $store->getId());
                 }
             }
@@ -150,7 +142,8 @@ class Mage_Catalog_Model_Product_Flat_Observer
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function catalogProductSaveAfter(Varien_Event_Observer $observer) {
+    public function catalogProductSaveAfter(Varien_Event_Observer $observer)
+    {
         if (!$this->_getHelper()->isAvailable() || !$this->_getHelper()->isBuilt()) {
             return $this;
         }
@@ -176,7 +169,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Store $store */
         $this->_getIndexer()->rebuild($store->getId());
 
         return $this;
@@ -195,7 +188,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Store $store */
         if ($store->dataHasChangedFor('group_id')) {
             $this->_getIndexer()->rebuild($store->getId());
         }
@@ -216,7 +209,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $store = $observer->getEvent()->getStore();
-        /* @var $store Mage_Core_Model_Store */
+        /** @var Mage_Core_Model_Store $store */
 
         $this->_getIndexer()->deleteStore($store->getId());
 
@@ -236,11 +229,11 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $group = $observer->getEvent()->getGroup();
-        /* @var $group Mage_Core_Model_Store_Group */
+        /** @var Mage_Core_Model_Store_Group $group */
 
         if ($group->dataHasChangedFor('website_id')) {
             foreach ($group->getStores() as $store) {
-                /* @var $store Mage_Core_Model_Store */
+                /** @var Mage_Core_Model_Store $store */
                 $this->_getIndexer()->rebuild($store->getId());
             }
         }
@@ -268,7 +261,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
     /**
      * Customer Group save after process
      *
-     * @param Varien_Event_Observer_Collection $observer
+     * @param Varien_Event_Observer $observer
      * @return $this
      */
     public function customerGroupSaveAfter(Varien_Event_Observer $observer)
@@ -278,7 +271,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         }
 
         $customerGroup = $observer->getEvent()->getObject();
-        /* @var $customerGroup Mage_Customer_Model_Group */
+        /** @var Mage_Customer_Model_Group $customerGroup */
         if ($customerGroup->dataHasChangedFor($customerGroup->getIdFieldName())
             || $customerGroup->dataHasChangedFor('tax_class_id')) {
             $this->_getIndexer()->updateEventAttributes();

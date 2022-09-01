@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Widget
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,24 +35,25 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     {
         $form = new Varien_Data_Form();
 
-        $fieldset = $form->addFieldset('base_fieldset', array(
+        $fieldset = $form->addFieldset('base_fieldset', [
             'legend'    => $this->helper('widget')->__('Widget')
-        ));
+        ]);
 
-        $select = $fieldset->addField('select_widget_type', 'select', array(
+        $select = $fieldset->addField('select_widget_type', 'select', [
             'label'                 => $this->helper('widget')->__('Widget Type'),
             'title'                 => $this->helper('widget')->__('Widget Type'),
             'name'                  => 'widget_type',
             'required'              => true,
             'options'               => $this->_getWidgetSelectOptions(),
             'after_element_html'    => $this->_getWidgetSelectAfterHtml(),
-        ));
+        ]);
 
         $form->setUseContainer(true);
         $form->setId('widget_options_form');
         $form->setMethod('post');
         $form->setAction($this->getUrl('*/*/buildWidget'));
         $this->setForm($form);
+        return $this;
     }
 
     /**
@@ -93,12 +88,13 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Return array of available widgets based on configuration
      *
+     * @param bool $withEmptyElement
      * @return array
      */
     protected function _getAvailableWidgets($withEmptyElement = false)
     {
         if (!$this->hasData('available_widgets')) {
-            $result = array();
+            $result = [];
             $allWidgets = Mage::getModel('widget/widget')->getWidgetsArray();
             $skipped = $this->_getSkippedWidgets();
             foreach ($allWidgets as $widget) {
@@ -108,11 +104,11 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
                 $result[] = $widget;
             }
             if ($withEmptyElement) {
-                array_unshift($result, array(
+                array_unshift($result, [
                     'type'        => '',
                     'name'        => $this->helper('adminhtml')->__('-- Please Select --'),
                     'description' => '',
-                ));
+                ]);
             }
             $this->setData('available_widgets', $result);
         }

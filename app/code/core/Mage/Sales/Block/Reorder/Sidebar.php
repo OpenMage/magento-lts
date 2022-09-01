@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Sales order view block
  *
- * @method int|null getCustomerId()
+ * @method int getCustomerId()
+ * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
+ * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  *
  * @category   Mage
  * @package    Mage_Sales
@@ -58,11 +54,12 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
 
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToFilter('customer_id', $customerId)
-            ->addAttributeToFilter('state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+            ->addAttributeToFilter(
+                'state',
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
-            ->setPage(1,1);
+            ->setPage(1, 1);
         //TODO: add filter by current website
 
         $this->setOrders($orders);
@@ -75,7 +72,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getItems()
     {
-        $items = array();
+        $items = [];
         $order = $this->getLastOrder();
         $limit = 5;
 
@@ -113,7 +110,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function getFormActionUrl()
     {
-        return $this->getUrl('checkout/cart/addgroup', array('_secure' => true));
+        return $this->getUrl('checkout/cart/addgroup', ['_secure' => true]);
     }
 
     /**
@@ -173,7 +170,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     protected function _getItemProducts()
     {
-        $products =  array();
+        $products =  [];
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }

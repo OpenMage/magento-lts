@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog indexer price processor
@@ -54,7 +47,7 @@
  */
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
-    protected $_customerGroups = array();
+    protected $_customerGroups = [];
     protected $_processChildrenForConfigurable = false;
 
     protected function _construct()
@@ -63,9 +56,14 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $object
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract|null $attribute
+     * @return array|mixed
+     */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
-        $data = array();
+        $data = [];
 
         $data['store_id'] = $attribute->getStoreId();
         $data['entity_id'] = $object->getId();
@@ -73,7 +71,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         $data['value'] = $object->getData($attribute->getAttributeCode());
 
         if ($attribute->getAttributeCode() == 'price') {
-            $result = array();
+            $result = [];
             foreach ($this->_customerGroups as $group) {
                 $object->setCustomerGroupId($group->getId());
                 $finalPrice = $object->getFinalPrice();
@@ -88,6 +86,10 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         return $data;
     }
 
+    /**
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @return bool
+     */
     protected function _isAttributeIndexable(Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         if ($attribute->getFrontendInput() != 'price') {
@@ -103,9 +105,11 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         return true;
     }
 
+    /**
+     * @return array|string
+     */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = "frontend_input = 'price' AND attribute_code <> 'price'";
-        return $conditions;
+        return "frontend_input = 'price' AND attribute_code <> 'price'";
     }
 }

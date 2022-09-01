@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bundle Selections Resource Collection
  *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Bundle
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -55,7 +48,7 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     /**
      * Set store id for each collection item when collection was loaded
      *
-     * @return void
+     * @return Mage_Bundle_Model_Resource_Selection_Collection
      */
     public function _afterLoad()
     {
@@ -75,9 +68,10 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->getSelect()->join(array('selection' => $this->_selectionTable),
+        $this->getSelect()->join(
+            ['selection' => $this->_selectionTable],
             'selection.product_id = e.entity_id',
-            array('*')
+            ['*']
         );
     }
 
@@ -100,13 +94,14 @@ class Mage_Bundle_Model_Resource_Selection_Collection extends Mage_Catalog_Model
             'price.selection_price_value',
             'selection.selection_price_value'
         );
-        $this->getSelect()->joinLeft(array('price' => $this->getTable('bundle/selection_price')),
+        $this->getSelect()->joinLeft(
+            ['price' => $this->getTable('bundle/selection_price')],
             'selection.selection_id = price.selection_id AND price.website_id = ' . (int)$websiteId,
-            array(
+            [
                 'selection_price_type' => $priceType,
                 'selection_price_value' => $priceValue,
                 'price_scope' => 'price.website_id'
-            )
+            ]
         );
         return $this;
     }

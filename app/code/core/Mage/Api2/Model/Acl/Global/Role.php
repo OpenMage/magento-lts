@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -67,8 +61,6 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -82,7 +74,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     protected function _beforeSave()
     {
-        if ($this->isObjectNew() && null === $this->getCreatedAt()) {
+        if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         } else {
             $this->setUpdatedAt(Varien_Date::now());
@@ -92,7 +84,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
         if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)
             && $this->getRoleName() != $this->getOrigData('role_name')) {
 
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
             Mage::throwException(
@@ -112,7 +104,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     protected function _beforeDelete()
     {
         if (Mage_Api2_Model_Acl_Global_Role::isSystemRole($this)) {
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
 
             Mage::throwException(
@@ -131,7 +123,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      */
     public function getPermissionModel()
     {
-        if (null == $this->_permissionModel) {
+        if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_global_rule_resourcePermission');
         }
         return $this->_permissionModel;
@@ -142,12 +134,12 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
      *
      * @return array
      */
-    static public function getSystemRoles()
+    public static function getSystemRoles()
     {
-        return array(
+        return [
             self::ROLE_GUEST_ID,
             self::ROLE_CUSTOMER_ID
-        );
+        ];
     }
 
     /**

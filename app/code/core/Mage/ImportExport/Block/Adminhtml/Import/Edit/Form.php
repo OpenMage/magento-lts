@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,37 +30,37 @@ class Mage_ImportExport_Block_Adminhtml_Import_Edit_Form extends Mage_Adminhtml_
     /**
      * Add fieldset
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
             'id'      => 'edit_form',
             'action'  => $this->getUrl('*/*/validate'),
             'method'  => 'post',
             'enctype' => 'multipart/form-data'
-        ));
-        $fieldset = $form->addFieldset('base_fieldset', array('legend' => Mage::helper('importexport')->__('Import Settings')));
-        $fieldset->addField('entity', 'select', array(
+        ]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => Mage::helper('importexport')->__('Import Settings')]);
+        $fieldset->addField('entity', 'select', [
             'name'     => 'entity',
             'title'    => Mage::helper('importexport')->__('Entity Type'),
             'label'    => Mage::helper('importexport')->__('Entity Type'),
             'required' => true,
             'values'   => Mage::getModel('importexport/source_import_entity')->toOptionArray()
-        ));
-        $fieldset->addField('behavior', 'select', array(
+        ]);
+        $fieldset->addField('behavior', 'select', [
             'name'     => 'behavior',
             'title'    => Mage::helper('importexport')->__('Import Behavior'),
             'label'    => Mage::helper('importexport')->__('Import Behavior'),
             'required' => true,
             'values'   => Mage::getModel('importexport/source_import_behavior')->toOptionArray()
-        ));
-        $fieldset->addField(Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE, 'file', array(
+        ]);
+        $fieldset->addField(Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE, 'file', [
             'name'     => Mage_ImportExport_Model_Import::FIELD_NAME_SOURCE_FILE,
             'label'    => Mage::helper('importexport')->__('Select File to Import'),
             'title'    => Mage::helper('importexport')->__('Select File to Import'),
             'required' => true
-        ));
+        ]);
 
         $form->setUseContainer(true);
         $this->setForm($form);

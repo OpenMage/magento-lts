@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,39 +12,32 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping cart api
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Resource
 {
     public function __construct()
     {
-        $this->_ignoredAttributeCodes['quote_shipping_rate'] = array('address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order');
+        $this->_ignoredAttributeCodes['quote_shipping_rate'] = ['address_id', 'created_at', 'updated_at', 'rate_id', 'carrier_sort_order'];
     }
 
     /**
      * Set an Shipping Method for Shopping Cart
      *
-     * @param  $quoteId
-     * @param  $shippingMethod
-     * @param  $store
+     * @param  int $quoteId
+     * @param  string $shippingMethod
+     * @param  string|int $store
      * @return bool
      */
     public function setShippingMethod($quoteId, $shippingMethod, $store = null)
@@ -52,7 +45,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         $quote = $this->_getQuote($quoteId, $store);
 
         $quoteShippingAddress = $quote->getShippingAddress();
-        if(is_null($quoteShippingAddress->getId()) ) {
+        if (is_null($quoteShippingAddress->getId())) {
             $this->_fault("shipping_address_is_not_set");
         }
 
@@ -64,7 +57,7 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
         try {
             $quote->getShippingAddress()->setShippingMethod($shippingMethod);
             $quote->collectTotals()->save();
-        } catch(Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             $this->_fault('shipping_method_is_not_set', $e->getMessage());
         }
 
@@ -74,11 +67,11 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
     /**
      * Get list of available shipping methods
      *
-     * @param  $quoteId
-     * @param  $store
+     * @param  int $quoteId
+     * @param  int|string $store
      * @return array
      */
-    public function getShippingMethodsList($quoteId, $store=null)
+    public function getShippingMethodsList($quoteId, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
 
@@ -91,8 +84,8 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
             $quoteShippingAddress->collectShippingRates()->save();
             $groupedRates = $quoteShippingAddress->getGroupedAllShippingRates();
 
-            $ratesResult = array();
-            foreach ($groupedRates as $carrierCode => $rates ) {
+            $ratesResult = [];
+            foreach ($groupedRates as $carrierCode => $rates) {
                 $carrierName = $carrierCode;
                 if (!is_null(Mage::getStoreConfig('carriers/'.$carrierCode.'/title'))) {
                     $carrierName = Mage::getStoreConfig('carriers/'.$carrierCode.'/title');
@@ -106,11 +99,9 @@ class Mage_Checkout_Model_Cart_Shipping_Api extends Mage_Checkout_Model_Api_Reso
                 }
             }
         } catch (Mage_Core_Exception $e) {
-            $this->_fault('shipping_methods_list_could_not_be_retrived', $e->getMessage());
+            $this->_fault('shipping_methods_list_could_not_be_retrieved', $e->getMessage());
         }
 
         return $ratesResult;
     }
-
-
 }

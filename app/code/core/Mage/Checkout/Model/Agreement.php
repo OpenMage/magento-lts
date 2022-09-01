@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,39 +12,34 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Checkout_Model_Resource_Agreement _getResource()
  * @method Mage_Checkout_Model_Resource_Agreement getResource()
- * @method string getName()
- * @method Mage_Checkout_Model_Agreement setName(string $value)
- * @method string getContent()
- * @method Mage_Checkout_Model_Agreement setContent(string $value)
- * @method string getContentHeight()
- * @method Mage_Checkout_Model_Agreement setContentHeight(string $value)
- * @method string getCheckboxText()
- * @method Mage_Checkout_Model_Agreement setCheckboxText(string $value)
- * @method int getIsActive()
- * @method Mage_Checkout_Model_Agreement setIsActive(int $value)
- * @method int getIsHtml()
- * @method Mage_Checkout_Model_Agreement setIsHtml(int $value)
+ * @method Mage_Checkout_Model_Resource_Agreement_Collection getCollection()
  *
- * @category    Mage
- * @package     Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method string getName()
+ * @method $this setName(string $value)
+ * @method string getContent()
+ * @method $this setContent(string $value)
+ * @method string getContentHeight()
+ * @method $this setContentHeight(string $value)
+ * @method string getCheckboxText()
+ * @method $this setCheckboxText(string $value)
+ * @method int getIsActive()
+ * @method $this setIsActive(int $value)
+ * @method int getIsHtml()
+ * @method $this setIsHtml(int $value)
+ * @method int getStoreId()
  */
 class Mage_Checkout_Model_Agreement extends Mage_Core_Model_Abstract
 {

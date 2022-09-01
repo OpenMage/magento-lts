@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * CMS Page Helper
@@ -44,7 +37,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     * Call from controller action
     *
     * @param Mage_Core_Controller_Front_Action $action
-    * @param integer $pageId
+    * @param string $pageId
     * @return boolean
     */
     public function renderPage(Mage_Core_Controller_Front_Action $action, $pageId = null)
@@ -55,14 +48,13 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
    /**
     * Renders CMS page
     *
-    * @param Mage_Core_Controller_Front_Action $action
-    * @param integer $pageId
+    * @param Mage_Core_Controller_Varien_Action $action
+    * @param string $pageId
     * @param bool $renderLayout
     * @return boolean
     */
     protected function _renderPage(Mage_Core_Controller_Varien_Action  $action, $pageId = null, $renderLayout = true)
     {
-
         $page = Mage::getSingleton('cms/page');
         if (!is_null($pageId) && $pageId!==$page->getId()) {
             $delimeterPosition = strrpos($pageId, '|');
@@ -104,7 +96,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             $action->getLayout()->helper('page/layout')->applyHandle($handle);
         }
 
-        Mage::dispatchEvent('cms_page_render', array('page' => $page, 'controller_action' => $action));
+        Mage::dispatchEvent('cms_page_render', ['page' => $page, 'controller_action' => $action]);
 
         $action->loadLayoutUpdates();
         $layoutUpdate = ($page->getCustomLayoutUpdateXml() && $inRange)
@@ -125,7 +117,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         /* @TODO: Move catalog and checkout storage types to appropriate modules */
         $messageBlock = $action->getLayout()->getMessagesBlock();
-        foreach (array('catalog/session', 'checkout/session', 'customer/session') as $storageType) {
+        foreach (['catalog/session', 'checkout/session', 'customer/session'] as $storageType) {
             $storage = Mage::getSingleton($storageType);
             if ($storage) {
                 $messageBlock->addStorageType($storageType);
@@ -146,8 +138,8 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Also takes third parameter which allows not run renderLayout method.
      *
      * @param Mage_Core_Controller_Varien_Action $action
-     * @param $pageId
-     * @param $renderLayout
+     * @param string $pageId
+     * @param bool $renderLayout
      * @return bool
      */
     public function renderPageExtended(Mage_Core_Controller_Varien_Action $action, $pageId = null, $renderLayout = true)
@@ -159,7 +151,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * Retrieve page direct URL
      *
      * @param string $pageId
-     * @return string
+     * @return string|null
      */
     public function getPageUrl($pageId = null)
     {
@@ -175,6 +167,6 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
             return null;
         }
 
-        return Mage::getUrl(null, array('_direct' => $page->getIdentifier()));
+        return Mage::getUrl(null, ['_direct' => $page->getIdentifier()]);
     }
 }

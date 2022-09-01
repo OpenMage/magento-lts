@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core file uploader model
@@ -60,14 +53,14 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
             return $this;
         }
 
-        /** @var $helper Mage_Core_Helper_File_Storage */
+        /** @var Mage_Core_Helper_File_Storage $helper */
         $helper = Mage::helper('core/file_storage');
 
         if ($helper->isInternalStorage() || $this->skipDbProcessing()) {
             return $this;
         }
 
-        /** @var $dbHelper Mage_Core_Helper_File_Storage_Database */
+        /** @var Mage_Core_Helper_File_Storage_Database $dbHelper */
         $dbHelper = Mage::helper('core/file_storage_database');
         $this->_result['file'] = $dbHelper->saveUploadedFile($result);
 
@@ -98,7 +91,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
     public function checkAllowedExtension($extension)
     {
         //validate with protected file types
-        /** @var $validator Mage_Core_Model_File_Validator_NotProtectedExtension */
+        /** @var Mage_Core_Model_File_Validator_NotProtectedExtension $validator */
         $validator = Mage::getSingleton('core/file_validator_notProtectedExtension');
         if (!$validator->isValid($extension)) {
             return false;

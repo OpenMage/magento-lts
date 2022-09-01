@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -172,7 +166,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
         if ($url = $this->getData('switch_url')) {
             return $url;
         }
-        return $this->getUrl('*/*/*', array('_current' => true, $this->_storeVarName => null));
+        return $this->getUrl('*/*/*', ['_current' => true, $this->_storeVarName => null]);
     }
 
     public function setStoreVarName($varName)
@@ -218,7 +212,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     public function hasDefaultOption($hasDefaultOption = null)
     {
-        if (null !== $hasDefaultOption) {
+        if ($hasDefaultOption !== null) {
             $this->_hasDefaultOption = $hasDefaultOption;
         }
         return $this->_hasDefaultOption;
@@ -231,7 +225,7 @@ class Mage_Adminhtml_Block_Store_Switcher extends Mage_Adminhtml_Block_Template
      */
     public function getHintUrl()
     {
-        if (null === $this->_hintUrl) {
+        if ($this->_hintUrl === null) {
             $this->_hintUrl = Mage::helper('core/hint')->getHintByCode(self::XPATH_HINT_KEY);
         }
         return $this->_hintUrl;

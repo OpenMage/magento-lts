@@ -1,5 +1,5 @@
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -11,15 +11,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     js
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 function popWin(url,win,para) {
@@ -36,41 +30,6 @@ function setPLocation(url, setFocus){
         window.opener.focus();
     }
     window.opener.location.href = encodeURI(url);
-}
-
-/**
- * @deprecated
- */
-function setLanguageCode(code, fromCode){
-    //TODO: javascript cookies have different domain and path than php cookies
-    var href = window.location.href;
-    var after = '', dash;
-    if (dash = href.match(/\#(.*)$/)) {
-        href = href.replace(/\#(.*)$/, '');
-        after = dash[0];
-    }
-
-    if (href.match(/[?]/)) {
-        var re = /([?&]store=)[a-z0-9_]*/;
-        if (href.match(re)) {
-            href = href.replace(re, '$1'+code);
-        } else {
-            href += '&store='+code;
-        }
-
-        var re = /([?&]from_store=)[a-z0-9_]*/;
-        if (href.match(re)) {
-            href = href.replace(re, '');
-        }
-    } else {
-        href += '?store='+code;
-    }
-    if (typeof(fromCode) != 'undefined') {
-        href += '&from_store='+fromCode;
-    }
-    href += after;
-
-    setLocation(href);
 }
 
 /**
@@ -768,5 +727,12 @@ function customFormSubmitToParent(url, parametersArray, method) {
             window.opener.focus();
             window.opener.location.href = response.transport.responseURL;
         }
+    });
+}
+
+function buttonDisabler() {
+    var buttons = document.querySelectorAll('button.save');
+    buttons.forEach(function(button) {
+        button.disabled = true;
     });
 }

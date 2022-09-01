@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,28 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Checkout
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * One page checkout status
  *
  * @category   Mage
- * @category   Mage
  * @package    Mage_Checkout
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkout_Block_Onepage_Abstract
 {
     protected $_rates;
     protected $_address;
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function getShippingRates()
     {
 
@@ -61,6 +58,9 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         return $this->_rates;
     }
 
+    /**
+     * @return Mage_Sales_Model_Quote_Address
+     */
     public function getAddress()
     {
         if (empty($this->_address)) {
@@ -69,6 +69,10 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         return $this->_address;
     }
 
+    /**
+     * @param string $carrierCode
+     * @return mixed
+     */
     public function getCarrierName($carrierCode)
     {
         if ($name = Mage::getStoreConfig('carriers/'.$carrierCode.'/title')) {
@@ -77,11 +81,19 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         return $carrierCode;
     }
 
+    /**
+     * @return string
+     */
     public function getAddressShippingMethod()
     {
         return $this->getAddress()->getShippingMethod();
     }
 
+    /**
+     * @param float $price
+     * @param bool $flag
+     * @return float
+     */
     public function getShippingPrice($price, $flag)
     {
         return $this->getQuote()->getStore()->convertPrice(Mage::helper('tax')->getShippingPrice($price, $flag, $this->getAddress()), true);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,39 +12,37 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Admin
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Admin
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Admin Roles Model
  *
+ * @category   Mage
+ * @package    Mage_Admin
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Admin_Model_Resource_Roles _getResource()
  * @method Mage_Admin_Model_Resource_Roles getResource()
- * @method int getParentId()
- * @method Mage_Admin_Model_Roles setParentId(int $value)
- * @method int getTreeLevel()
- * @method Mage_Admin_Model_Roles setTreeLevel(int $value)
- * @method int getSortOrder()
- * @method Mage_Admin_Model_Roles setSortOrder(int $value)
- * @method string getRoleType()
- * @method Mage_Admin_Model_Roles setRoleType(string $value)
- * @method int getUserId()
- * @method Mage_Admin_Model_Roles setUserId(int $value)
- * @method string getRoleName()
- * @method Mage_Admin_Model_Roles setRoleName(string $value)
+ * @method Mage_Admin_Model_Resource_Roles_Collection getResourceCollection()
  *
- * @category    Mage
- * @package     Mage_Admin
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method int getParentId()
+ * @method $this setParentId(int $value)
+ * @method int getTreeLevel()
+ * @method $this setTreeLevel(int $value)
+ * @method int getSortOrder()
+ * @method $this setSortOrder(int $value)
+ * @method string getRoleType()
+ * @method $this setRoleType(string $value)
+ * @method int getUserId()
+ * @method $this setUserId(int $value)
+ * @method string getRoleName()
+ * @method $this setRoleName(string $value)
+ * @method string getName()
+ * @method int getPid()
  */
 class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -85,7 +83,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return tree of acl resources
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesTree()
     {
@@ -95,7 +93,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesList()
     {
@@ -105,7 +103,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
     /**
      * Return list of acl resources in 2D format
      *
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|array
      */
     public function getResourcesList2D()
     {
@@ -126,16 +124,21 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
      * Build resources array process
      *
      * @param  null|Varien_Simplexml_Element $resource
-     * @param  null $parentName
-     * @param  int $level
-     * @param  null $represent2Darray
+     * @param  null|string $parentName
+     * @param  null|int $level
+     * @param  null|mixed $represent2Darray
      * @param  bool $rawNodes
      * @param  string $module
-     * @return array|null|Varien_Simplexml_Element
+     * @return Varien_Simplexml_Element|false|array
      */
-    protected function _buildResourcesArray(Varien_Simplexml_Element $resource = null,
-        $parentName = null, $level = 0, $represent2Darray = null, $rawNodes = false, $module = 'adminhtml')
-    {
+    protected function _buildResourcesArray(
+        Varien_Simplexml_Element $resource = null,
+        $parentName = null,
+        $level = 0,
+        $represent2Darray = null,
+        $rawNodes = false,
+        $module = 'adminhtml'
+    ) {
         static $result;
         if (is_null($resource)) {
             $resource = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('acl/resources');
@@ -143,7 +146,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
             $level = -1;
         } else {
             $resourceName = $parentName;
-            if (!in_array($resource->getName(), array('title', 'sort_order', 'children', 'disabled'))) {
+            if (!in_array($resource->getName(), ['title', 'sort_order', 'children', 'disabled'])) {
                 $resourceName = (is_null($parentName) ? '' : $parentName . '/') . $resource->getName();
 
                 //assigning module for its' children nodes
@@ -156,7 +159,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                     $resource->addAttribute("module_c", $module);
                 }
 
-                if ( is_null($represent2Darray) ) {
+                if (is_null($represent2Darray)) {
                     $result[$resourceName]['name']  = Mage::helper($module)->__((string)$resource->title);
                     $result[$resourceName]['level'] = $level;
                 } else {
@@ -168,7 +171,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
         //check children and run recursion if they exists
         $children = $resource->children();
         foreach ($children as $key => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 $resource->{$key} = null;
                 continue;
             }

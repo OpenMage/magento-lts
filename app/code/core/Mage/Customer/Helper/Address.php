@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Customer
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer address helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 {
@@ -52,42 +48,42 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_config          = array();
+    protected $_config          = [];
 
     /**
      * Customer Number of Lines in a Street Address per website
      *
      * @var array
      */
-    protected $_streetLines     = array();
-    protected $_formatTemplate  = array();
+    protected $_streetLines     = [];
+    protected $_formatTemplate  = [];
 
     /**
      * Addresses url
      */
     public function getBookUrl()
     {
-
     }
 
     public function getEditUrl()
     {
-
     }
 
     public function getDeleteUrl()
     {
-
     }
 
     public function getCreateUrl()
     {
-
     }
 
+    /**
+     * @param mixed $renderer
+     * @return mixed
+     */
     public function getRenderer($renderer)
     {
-        if(is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
+        if (is_string($renderer) && $className = Mage::getConfig()->getBlockClassName($renderer)) {
             return new $className();
         } else {
             return $renderer;
@@ -121,9 +117,10 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     {
         $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         if (!isset($this->_streetLines[$websiteId])) {
+            /** @var Mage_Eav_Model_Attribute $attribute */
             $attribute = Mage::getSingleton('eav/config')->getAttribute('customer_address', 'street');
             $lines = (int)$attribute->getMultilineCount();
-            if($lines <= 0) {
+            if ($lines <= 0) {
                 $lines = 2;
             }
             $this->_streetLines[$websiteId] = min(20, $lines);
@@ -132,6 +129,10 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         return $this->_streetLines[$websiteId];
     }
 
+    /**
+     * @param string $code
+     * @return string
+     */
     public function getFormat($code)
     {
         $format = Mage::getSingleton('customer/address_config')->getFormatByCode($code);
@@ -157,8 +158,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getAttributes()
     {
         if (is_null($this->_attributes)) {
-            $this->_attributes = array();
-            /* @var $config Mage_Eav_Model_Config */
+            $this->_attributes = [];
+            /** @var Mage_Eav_Model_Config $config */
             $config = Mage::getSingleton('eav/config');
             foreach ($config->getEntityAttributeCodes('customer_address') as $attributeCode) {
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);
@@ -175,17 +176,17 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function getAttributeValidationClass($attributeCode)
     {
-        /** @var $attribute Mage_Customer_Model_Attribute */
+        /** @var Mage_Customer_Model_Attribute $attribute */
         $attribute = isset($this->_attributes[$attributeCode]) ? $this->_attributes[$attributeCode]
             : Mage::getSingleton('eav/config')->getAttribute('customer_address', $attributeCode);
         $class = $attribute ? $attribute->getFrontend()->getClass() : '';
 
-        if (in_array($attributeCode, array('firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'))) {
+        if (in_array($attributeCode, ['firstname', 'middlename', 'lastname', 'prefix', 'suffix', 'taxvat'])) {
             if ($class && !$attribute->getIsVisible()) {
                 $class = ''; // address attribute is not visible thus its validation rules are not applied
             }
 
-            /** @var $customerAttribute Mage_Customer_Model_Attribute */
+            /** @var Mage_Customer_Model_Attribute $customerAttribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
             $class .= $customerAttribute && $customerAttribute->getIsVisible()
                 ? $customerAttribute->getFrontend()->getClass() : '';
@@ -212,7 +213,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      */
     public function convertStreetLines($origStreets, $toCount)
     {
-        $lines = array();
+        $lines = [];
         if (!empty($origStreets) && $toCount > 0) {
             $countArgs = (int)floor(count($origStreets)/$toCount);
             $modulo = count($origStreets) % $toCount;

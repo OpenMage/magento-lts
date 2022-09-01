@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Rss
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,17 +36,20 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
         $this->setCacheLifetime(600);
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         $rssObj = Mage::getModel('rss/rss');
         $order = Mage::registry('current_order');
         $title = Mage::helper('rss')->__('Order # %s Notification(s)',$order->getIncrementId());
-        $newurl = Mage::getUrl('sales/order/view',array('order_id' => $order->getId()));
-        $data = array('title' => $title,
+        $newurl = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
+        $data = ['title' => $title,
                 'description' => $title,
                 'link'        => $newurl,
                 'charset'     => 'UTF-8',
-                );
+        ];
         $rssObj->_addHeader($data);
         $resourceModel = Mage::getResourceModel('rss/order');
         $results = $resourceModel->getAllCommentCollection($order->getId());
@@ -71,27 +68,27 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
                 Mage::helper('rss')->__('Comment: %s<br/>',$result['comment']).
                 '</p>'
                 ;
-                $url = Mage::getUrl('sales/order/'.$urlAppend,array('order_id' => $order->getId()));
-                $data = array(
+                $url = Mage::getUrl('sales/order/'.$urlAppend, ['order_id' => $order->getId()]);
+                $data = [
                     'title'         => $title,
                     'link'          => $url,
                     'description'   => $description,
-                );
+                ];
                 $rssObj->_addEntry($data);
             }
         }
         $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
-        $url = Mage::getUrl('sales/order/view',array('order_id' => $order->getId()));
+        $url = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
         $description = '<p>'.
             Mage::helper('rss')->__('Current Status: %s<br/>',$order->getStatusLabel()).
             Mage::helper('rss')->__('Total: %s<br/>',$order->formatPrice($order->getGrandTotal())).
             '</p>'
         ;
-        $data = array(
+        $data = [
                     'title'         => $title,
                     'link'          => $url,
                     'description'   => $description,
-        );
+        ];
         $rssObj->_addEntry($data);
         return $rssObj->createRssXml();
     }

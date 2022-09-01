@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,9 +37,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     {
         parent::preDispatch();
 
-        /* @var $helper Mage_Sendfriend_Helper_Data */
+        /** @var Mage_Sendfriend_Helper_Data $helper */
         $helper = Mage::helper('sendfriend');
-        /* @var $session Mage_Customer_Model_Session */
+        /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
 
         if (!$helper->isEnabled()) {
@@ -56,9 +50,9 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         if (!$helper->isAllowForGuest() && !$session->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             if ($this->getRequest()->getActionName() == 'sendemail') {
-                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', array(
+                $session->setBeforeAuthUrl(Mage::getUrl('*/*/send', [
                     '_current' => true
-                )));
+                ]));
                 Mage::getSingleton('catalog/session')
                     ->setSendfriendFormData($this->getRequest()->getPost());
             }
@@ -70,7 +64,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     /**
      * Initialize Product Instance
      *
-     * @return Mage_Catalog_Model_Product
+     * @return Mage_Catalog_Model_Product|false
      */
     protected function _initProduct()
     {
@@ -128,7 +122,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         $this->loadLayout();
         $this->_initLayoutMessages('catalog/session');
 
-        Mage::dispatchEvent('sendfriend_product', array('product' => $product));
+        Mage::dispatchEvent('sendfriend_product', ['product' => $product]);
         $data = Mage::getSingleton('catalog/session')->getSendfriendFormData();
         if ($data) {
             Mage::getSingleton('catalog/session')->setSendfriendFormData(true);
@@ -148,7 +142,7 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
     public function sendmailAction()
     {
         if (!$this->_validateFormKey()) {
-            return $this->_redirect('*/*/send', array('_current' => true));
+            return $this->_redirect('*/*/send', ['_current' => true]);
         }
 
         $product    = $this->_initProduct();
@@ -179,22 +173,18 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
                 Mage::getSingleton('catalog/session')->addSuccess($this->__('The link to a friend was sent.'));
                 $this->_redirectSuccess($product->getProductUrl());
                 return;
-            }
-            else {
+            } else {
                 if (is_array($validate)) {
                     foreach ($validate as $errorMessage) {
                         Mage::getSingleton('catalog/session')->addError($errorMessage);
                     }
-                }
-                else {
+                } else {
                     Mage::getSingleton('catalog/session')->addError($this->__('There were some problems with the data.'));
                 }
             }
-        }
-        catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('catalog/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Mage::getSingleton('catalog/session')
                 ->addException($e, $this->__('Some emails were not sent.'));
         }
@@ -202,6 +192,6 @@ class Mage_Sendfriend_ProductController extends Mage_Core_Controller_Front_Actio
         // save form data
         Mage::getSingleton('catalog/session')->setSendfriendFormData($data);
 
-        $this->_redirectError(Mage::getUrl('*/*/send', array('_current' => true)));
+        $this->_redirectError(Mage::getUrl('*/*/send', ['_current' => true]));
     }
 }

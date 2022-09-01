@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Product options text type block
@@ -31,10 +24,11 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method bool getSkipJsReloadPrice()
  */
 class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Block_Product_View_Options_Abstract
 {
-
     /**
      * Fill date and time options with leading zeros or not
      *
@@ -42,6 +36,9 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      */
     protected $_fillLeadingZeros = true;
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         if ($head = $this->getLayout()->getBlock('head')) {
@@ -124,11 +121,11 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         $yearEnd = Mage::getSingleton('catalog/product_option_type_date')->getYearEnd();
         $yearsHtml = $this->_getSelectFromToHtml('year', $yearStart, $yearEnd);
 
-        $translations = array(
+        $translations = [
             'd' => $daysHtml,
             'm' => $monthsHtml,
             'y' => $yearsHtml
-        );
+        ];
         return strtr($fieldsOrder, $translations);
     }
 
@@ -147,10 +144,10 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
             $hourStart = 1;
             $hourEnd = 12;
             $dayPartHtml = $this->_getHtmlSelect('day_part')
-                ->setOptions(array(
+                ->setOptions([
                     'am' => Mage::helper('catalog')->__('AM'),
                     'pm' => Mage::helper('catalog')->__('PM')
-                ))
+                ])
                 ->getHtml();
         }
         $hoursHtml = $this->_getSelectFromToHtml('hour', $hourStart, $hourEnd);
@@ -170,11 +167,11 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      */
     protected function _getSelectFromToHtml($name, $from, $to, $value = null)
     {
-        $options = array(
-            array('value' => '', 'label' => '-')
-        );
+        $options = [
+            ['value' => '', 'label' => '-']
+        ];
         for ($i = $from; $i <= $to; $i++) {
-            $options[] = array('value' => $i, 'label' => $this->_getValueWithLeadingZeros($i));
+            $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
         return $this->_getHtmlSelect($name, $value)
             ->setOptions($options)
@@ -185,6 +182,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      * HTML select element
      *
      * @param string $name Id/name of html select element
+     * @param null $value
      * @return Mage_Core_Block_Html_Select
      */
     protected function _getHtmlSelect($name, $value = null)
@@ -218,7 +216,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
     /**
      * Add Leading Zeros to number less than 10
      *
-     * @param int
+     * @param int $value
      * @return string
      */
     protected function _getValueWithLeadingZeros($value)

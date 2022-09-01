@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,7 +42,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @var array
      */
-    protected $_renderers = array();
+    protected $_renderers = [];
 
     /**
      * Predefined constants
@@ -98,15 +92,13 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             iconv('UTF-8', 'UTF-16BE//IGNORE', $string) :
             @iconv('UTF-8', 'UTF-16BE', $string);
 
-        $characters = array();
+        $characters = [];
         for ($i = 0; $i < strlen($drawingString); $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
-        $stringWidth = (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
-        return $stringWidth;
-
+        return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
     }
 
     /**
@@ -201,14 +193,16 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $page->setLineWidth(0);
         $this->y = $this->y ? $this->y : 815;
         $top = 815;
-        foreach (explode("\n", Mage::getStoreConfig('sales/identity/address', $store)) as $value){
+        foreach (explode("\n", Mage::getStoreConfig('sales/identity/address', $store)) as $value) {
             if ($value !== '') {
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                    $page->drawText(trim(strip_tags($_value)),
+                    $page->drawText(
+                        trim(strip_tags($_value)),
                         $this->getAlignRight($_value, 130, 440, $font, 10),
                         $top,
-                        'UTF-8');
+                        'UTF-8'
+                    );
                     $top -= 10;
                 }
             }
@@ -224,7 +218,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected function _formatAddress($address)
     {
-        $return = array();
+        $return = [];
         foreach (explode('|', $address) as $str) {
             foreach (Mage::helper('core/string')->str_split($str, 45, true, true) as $part) {
                 if (empty($part)) {
@@ -245,9 +239,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _calcAddressHeight($address)
     {
         $y = 0;
-        foreach ($address as $value){
+        foreach ($address as $value) {
             if ($value !== '') {
-                $text = array();
+                $text = [];
                 foreach (Mage::helper('core/string')->str_split($value, 55, true, true) as $_value) {
                     $text[] = $_value;
                 }
@@ -283,17 +277,22 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.45));
         $page->drawRectangle(25, $top, 570, $top - 55);
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
-        $this->setDocHeaderCoordinates(array(25, $top, 570, $top - 55));
+        $this->setDocHeaderCoordinates([25, $top, 570, $top - 55]);
         $this->_setFontRegular($page, 10);
 
         if ($putOrderId) {
             $page->drawText(
-                Mage::helper('sales')->__('Order # ') . $order->getRealOrderId(), 35, ($top -= 30), 'UTF-8'
+                Mage::helper('sales')->__('Order # ') . $order->getRealOrderId(),
+                35,
+                ($top -= 30),
+                'UTF-8'
             );
         }
         $page->drawText(
             Mage::helper('sales')->__('Order Date: ') . Mage::helper('core')->formatDate(
-                $order->getCreatedAtStoreDate(), 'medium', false
+                $order->getCreatedAtStoreDate(),
+                'medium',
+                false
             ),
             35,
             ($top -= 15),
@@ -318,7 +317,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             ->toPdf();
         $paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
-        foreach ($payment as $key=>$value){
+        foreach ($payment as $key => $value) {
             if (strip_tags(trim($value)) == '') {
                 unset($payment[$key]);
             }
@@ -354,9 +353,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $this->y = $top - 40;
         $addressesStartY = $this->y;
 
-        foreach ($billingAddress as $value){
+        foreach ($billingAddress as $value) {
             if ($value !== '') {
-                $text = array();
+                $text = [];
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
                     $text[] = $_value;
                 }
@@ -371,9 +370,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         if (!$order->getIsVirtual()) {
             $this->y = $addressesStartY;
-            foreach ($shippingAddress as $value){
+            foreach ($shippingAddress as $value) {
                 if ($value!=='') {
-                    $text = array();
+                    $text = [];
                     foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
                         $text[] = $_value;
                     }
@@ -396,7 +395,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $this->_setFontBold($page, 12);
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
             $page->drawText(Mage::helper('sales')->__('Payment Method'), 35, $this->y, 'UTF-8');
-            $page->drawText(Mage::helper('sales')->__('Shipping Method:'), 285, $this->y , 'UTF-8');
+            $page->drawText(Mage::helper('sales')->__('Shipping Method:'), 285, $this->y, 'UTF-8');
 
             $this->y -=10;
             $page->setFillColor(new Zend_Pdf_Color_GrayScale(1));
@@ -406,13 +405,12 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
             $paymentLeft = 35;
             $yPayments   = $this->y - 15;
-        }
-        else {
+        } else {
             $yPayments   = $addressesStartY;
             $paymentLeft = 285;
         }
 
-        foreach ($payment as $value){
+        foreach ($payment as $value) {
             if (trim($value) != '') {
                 //Printing "Payment Method" lines
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
@@ -426,9 +424,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if ($order->getIsVirtual()) {
             // replacement of Shipments-Payments rectangle block
             $yPayments = min($addressesEndY, $yPayments);
-            $page->drawLine(25,  ($top - 25), 25,  $yPayments);
+            $page->drawLine(25, ($top - 25), 25, $yPayments);
             $page->drawLine(570, ($top - 25), 570, $yPayments);
-            $page->drawLine(25,  $yPayments,  570, $yPayments);
+            $page->drawLine(25, $yPayments, 570, $yPayments);
 
             $this->y = $yPayments - 15;
         } else {
@@ -448,7 +446,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $page->drawText($totalShippingChargesText, 285, $yShipments - $topMargin, 'UTF-8');
             $yShipments -= $topMargin + 10;
 
-            $tracks = array();
+            $tracks = [];
             if ($shipment) {
                 $tracks = $shipment->getAllTracks();
             }
@@ -457,18 +455,15 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $page->setLineWidth(0.5);
                 $page->drawRectangle(285, $yShipments, 510, $yShipments - 10);
                 $page->drawLine(400, $yShipments, 400, $yShipments - 10);
-                //$page->drawLine(510, $yShipments, 510, $yShipments - 10);
 
                 $this->_setFontRegular($page, 9);
                 $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-                //$page->drawText(Mage::helper('sales')->__('Carrier'), 290, $yShipments - 7 , 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Title'), 290, $yShipments - 7, 'UTF-8');
                 $page->drawText(Mage::helper('sales')->__('Number'), 410, $yShipments - 7, 'UTF-8');
 
                 $yShipments -= 20;
                 $this->_setFontRegular($page, 8);
                 foreach ($tracks as $track) {
-
                     $CarrierCode = $track->getCarrierCode();
                     if ($CarrierCode != 'custom') {
                         $carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($CarrierCode);
@@ -482,8 +477,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $endOfTitle = strlen($track->getTitle()) > $maxTitleLen ? '...' : '';
                     $truncatedTitle = substr($track->getTitle(), 0, $maxTitleLen) . $endOfTitle;
                     //$page->drawText($truncatedCarrierTitle, 285, $yShipments , 'UTF-8');
-                    $page->drawText($truncatedTitle, 292, $yShipments , 'UTF-8');
-                    $page->drawText($track->getNumber(), 410, $yShipments , 'UTF-8');
+                    $page->drawText($truncatedTitle, 292, $yShipments, 'UTF-8');
+                    $page->drawText($track->getNumber(), 410, $yShipments, 'UTF-8');
                     $yShipments -= $topMargin - 5;
                 }
             } else {
@@ -493,9 +488,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $currentY = min($yPayments, $yShipments);
 
             // replacement of Shipments-Payments rectangle block
-            $page->drawLine(25,  $methodStartY, 25,  $currentY); //left
-            $page->drawLine(25,  $currentY,     570, $currentY); //bottom
-            $page->drawLine(570, $currentY,     570, $methodStartY); //right
+            $page->drawLine(25, $methodStartY, 25, $currentY); //left
+            $page->drawLine(25, $currentY, 570, $currentY); //bottom
+            $page->drawLine(570, $currentY, 570, $methodStartY); //right
 
             $this->y = $currentY;
             $this->y -= 15;
@@ -507,7 +502,6 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * @param  Zend_Pdf_Page $page
      * @param  string $text
-     * @return void
      */
     public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
     {
@@ -524,7 +518,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  array $b
      * @return int
      */
-    protected function _sortTotalsList($a, $b) {
+    protected function _sortTotalsList($a, $b)
+    {
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
@@ -545,8 +540,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     protected function _getTotalsList($source)
     {
         $totals = Mage::getConfig()->getNode('global/pdf/totals')->asArray();
-        usort($totals, array($this, '_sortTotalsList'));
-        $totalModels = array();
+        usort($totals, [$this, '_sortTotalsList']);
+        $totalModels = [];
         foreach ($totals as $index => $totalInfo) {
             if (!empty($totalInfo['model'])) {
                 $totalModel = Mage::getModel($totalInfo['model']);
@@ -574,13 +569,14 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  Mage_Sales_Model_Abstract $source
      * @return Zend_Pdf_Page
      */
-    protected function insertTotals($page, $source){
+    protected function insertTotals($page, $source)
+    {
         $order = $source->getOrder();
         $totals = $this->_getTotalsList($source);
-        $lineBlock = array(
-            'lines'  => array(),
+        $lineBlock = [
+            'lines'  => [],
             'height' => 15
-        );
+        ];
         foreach ($totals as $total) {
             $total->setOrder($order)
                 ->setSource($source);
@@ -588,28 +584,28 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             if ($total->canDisplay()) {
                 $total->setFontSize(10);
                 foreach ($total->getTotalsForDisplay() as $totalData) {
-                    $lineBlock['lines'][] = array(
-                        array(
+                    $lineBlock['lines'][] = [
+                        [
                             'text'      => $totalData['label'],
                             'feed'      => 475,
                             'align'     => 'right',
                             'font_size' => $totalData['font_size'],
                             'font'      => 'bold'
-                        ),
-                        array(
+                        ],
+                        [
                             'text'      => $totalData['amount'],
                             'feed'      => 565,
                             'align'     => 'right',
                             'font_size' => $totalData['font_size'],
                             'font'      => 'bold'
-                        ),
-                    );
+                        ],
+                    ];
                 }
             }
         }
 
         $this->y -= 20;
-        $page = $this->drawLineBlocks($page, array($lineBlock));
+        $page = $this->drawLineBlocks($page, [$lineBlock]);
         return $page;
     }
 
@@ -621,30 +617,32 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected function _parseItemDescription($item)
     {
-        $matches = array();
+        $matches = [];
         $description = $item->getDescription();
         if (preg_match_all('/<li.*?>(.*?)<\/li>/i', $description, $matches)) {
             return $matches[1];
         }
 
-        return array($description);
+        return [$description];
     }
 
     /**
      * Before getPdf processing
      */
-    protected function _beforeGetPdf() {
+    protected function _beforeGetPdf()
+    {
         $translate = Mage::getSingleton('core/translate');
-        /* @var $translate Mage_Core_Model_Translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
     }
 
     /**
      * After getPdf processing
      */
-    protected function _afterGetPdf() {
+    protected function _afterGetPdf()
+    {
         $translate = Mage::getSingleton('core/translate');
-        /* @var $translate Mage_Core_Model_Translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(true);
     }
 
@@ -683,10 +681,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $node = Mage::getConfig()->getNode('global/pdf/' . $type);
         foreach ($node->children() as $renderer) {
-            $this->_renderers[$renderer->getName()] = array(
+            $this->_renderers[$renderer->getName()] = [
                 'model'     => (string)$renderer,
                 'renderer'  => null
-            );
+            ];
         }
     }
 
@@ -765,11 +763,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
         $this->renderItem($item, $page, $order, $renderer);
 
-        $transportObject = new Varien_Object(array('renderer_type_list' => array()));
-        Mage::dispatchEvent('pdf_item_draw_after', array(
+        $transportObject = new Varien_Object(['renderer_type_list' => []]);
+        Mage::dispatchEvent('pdf_item_draw_after', [
             'transport_object' => $transportObject,
             'entity_item'      => $item
-        ));
+        ]);
 
         foreach ($transportObject->getRendererTypeList() as $type) {
             $renderer = $this->_getRenderer($type);
@@ -856,7 +854,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  array $settings
      * @return Zend_Pdf_Page
      */
-    public function newPage(array $settings = array())
+    public function newPage(array $settings = [])
     {
         $pageSize = !empty($settings['page_size']) ? $settings['page_size'] : Zend_Pdf_Page::SIZE_A4;
         $page = $this->_getPdf()->newPage($pageSize);
@@ -891,7 +889,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @throws Mage_Core_Exception
      * @return Zend_Pdf_Page
      */
-    public function drawLineBlocks(Zend_Pdf_Page $page, array $draw, array $pageSettings = array())
+    public function drawLineBlocks(Zend_Pdf_Page $page, array $draw, array $pageSettings = [])
     {
         foreach ($draw as $itemsProp) {
             if (!isset($itemsProp['lines']) || !is_array($itemsProp['lines'])) {
@@ -907,7 +905,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     foreach ($line as $column) {
                         $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
                         if (!is_array($column['text'])) {
-                            $column['text'] = array($column['text']);
+                            $column['text'] = [$column['text']];
                         }
                         $top = 0;
                         foreach ($column['text'] as $part) {
@@ -948,7 +946,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     }
 
                     if (!is_array($column['text'])) {
-                        $column['text'] = array($column['text']);
+                        $column['text'] = [$column['text']];
                     }
 
                     $lineSpacing = !empty($column['height']) ? $column['height'] : $height;
@@ -965,8 +963,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                             case 'right':
                                 if ($width) {
                                     $feed = $this->getAlignRight($part, $feed, $width, $font, $fontSize);
-                                }
-                                else {
+                                } else {
                                     $feed = $feed - $this->widthForStringUsingFontSize($part, $font, $fontSize);
                                 }
                                 break;

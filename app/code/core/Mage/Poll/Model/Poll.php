@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Poll
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,21 +23,28 @@
  *
  * @method Mage_Poll_Model_Resource_Poll _getResource()
  * @method Mage_Poll_Model_Resource_Poll getResource()
- * @method string getPollTitle()
- * @method Mage_Poll_Model_Poll setPollTitle(string $value)
- * @method Mage_Poll_Model_Poll setVotesCount(int $value)
- * @method int getStoreId()
- * @method Mage_Poll_Model_Poll setStoreId(int $value)
- * @method string getDatePosted()
- * @method Mage_Poll_Model_Poll setDatePosted(string $value)
- * @method string getDateClosed()
- * @method Mage_Poll_Model_Poll setDateClosed(string $value)
+ * @method Mage_Poll_Model_Resource_Poll_Collection getCollection()
+ *
  * @method int getActive()
- * @method Mage_Poll_Model_Poll setActive(int $value)
- * @method int getClosed()
- * @method Mage_Poll_Model_Poll setClosed(int $value)
+ * @method $this setActive(int $value)
  * @method int getAnswersDisplay()
- * @method Mage_Poll_Model_Poll setAnswersDisplay(int $value)
+ * @method $this setAnswersDisplay(int $value)
+ * @method int getClosed()
+ * @method $this setClosed(int $value)
+ * @method string getDateClosed()
+ * @method $this setDateClosed(string $value)
+ * @method string getDatePosted()
+ * @method $this setDatePosted(string $value)
+ * @method array getExcludeFilter()
+ * @method $this setExcludeFilter(array $value)
+ * @method string getPollTitle()
+ * @method $this setPollTitle(string $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method $this setStoreIds(array $value)
+ * @method int getStoreFilter()
+ * @method $this setStoreFilter(int $value)
+ * @method $this setVotesCount(int $value)
  *
  * @category    Mage
  * @package     Mage_Poll
@@ -55,8 +56,12 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     const XML_PATH_POLL_CHECK_BY_IP = 'web/polls/poll_check_by_ip';
 
     protected $_pollCookieDefaultName = 'poll';
-    protected $_answersCollection   = array();
-    protected $_storeCollection     = array();
+
+    /**
+     * @var Mage_Poll_Model_Poll_Answer[]
+     */
+    protected $_answersCollection   = [];
+    protected $_storeCollection     = [];
 
     protected function _construct()
     {
@@ -99,8 +104,8 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Retrieve defined or current Id
      *
-     * @param int|null $pollId
-     * @return int
+     * @param string $pollId
+     * @return string
      */
     public function getPollId($pollId = null)
     {
@@ -117,16 +122,16 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      */
     public function isValidationByIp()
     {
-        return (1 == Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP));
+        return (Mage::getStoreConfig(self::XML_PATH_POLL_CHECK_BY_IP) == 1);
     }
 
     /**
      * Declare poll as voted
      *
      * @param   int $pollId
-     * @return  Mage_Poll_Model_Poll
+     * @return  $this
      */
-    public function setVoted($pollId=null)
+    public function setVoted($pollId = null)
     {
         $this->getCookie()->set($this->getCookieName($pollId), $this->getPollId($pollId));
 
@@ -145,7 +150,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
 
         // check if it is in cookie
         $cookie = $this->getCookie()->get($this->getCookieName($pollId));
-        if (false !== $cookie) {
+        if ($cookie !== false) {
             return true;
         }
 
@@ -160,7 +165,7 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Get random active pool identifier
      *
-     * @return int
+     * @return string
      */
     public function getRandomId()
     {
@@ -180,7 +185,9 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
     /**
      * Add vote to poll
      *
-     * @return unknown
+     * @param Mage_Poll_Model_Poll_Vote $vote
+     * @return $this
+     * @throws Exception
      */
     public function addVote(Mage_Poll_Model_Poll_Vote $vote)
     {
@@ -196,15 +203,14 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
      * Check answer existing for poll
      *
      * @param   mixed $answer
-     * @return  boll
+     * @return  bool
      */
     public function hasAnswer($answer)
     {
         $answerId = false;
         if (is_numeric($answer)) {
             $answerId = $answer;
-        }
-        elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
+        } elseif ($answer instanceof Mage_Poll_Model_Poll_Answer) {
             $answerId = $answer->getId();
         }
 
@@ -214,20 +220,25 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return false;
     }
 
+    /**
+     * @return $this
+     */
     public function resetVotesCount()
     {
         $this->_getResource()->resetVotesCount($this);
         return $this;
     }
 
-
+    /**
+     * @return array
+     */
     public function getVotedPollsIds()
     {
-        $idsArray = array();
+        $idsArray = [];
 
         foreach ($this->getCookie()->get() as $cookieName => $cookieValue) {
             $pattern = '#^' . preg_quote($this->_pollCookieDefaultName, '#') . '(\d+)$#';
-            $match   = array();
+            $match   = [];
             if (preg_match($pattern, $cookieName, $match)) {
                 if ($match[1] != Mage::getSingleton('core/session')->getJustVotedPoll()) {
                     $idsArray[$match[1]] = $match[1];
@@ -243,17 +254,28 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return $idsArray;
     }
 
+    /**
+     * @param Mage_Poll_Model_Poll_Answer $object
+     * @return $this
+     */
     public function addAnswer($object)
     {
         $this->_answersCollection[] = $object;
         return $this;
     }
 
+    /**
+     * @return Mage_Poll_Model_Poll_Answer[]
+     */
     public function getAnswers()
     {
         return $this->_answersCollection;
     }
 
+    /**
+     * @param int $storeId
+     * @return $this
+     */
     public function addStoreId($storeId)
     {
         $ids = $this->getStoreIds();
@@ -264,6 +286,9 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getStoreIds()
     {
         $ids = $this->_getData('store_ids');
@@ -279,9 +304,11 @@ class Mage_Poll_Model_Poll extends Mage_Core_Model_Abstract
         $this->_getResource()->loadStoreIds($this);
     }
 
+    /**
+     * @return int
+     */
     public function getVotesCount()
     {
         return $this->_getData('votes_count');
     }
-
 }

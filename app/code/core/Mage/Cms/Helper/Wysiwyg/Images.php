@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +23,9 @@
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 {
-
     /**
      * Current directory path
-     * @var string
+     * @var string|false
      */
     protected $_currentPath;
 
@@ -51,14 +44,15 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
 
     /**
      * Image Storage root directory
-     * @var string
+     * @var string|false
      */
     protected $_storageRoot;
 
     /**
      * Set a specified store ID value
      *
-     * @param <type> $store
+     * @param int $store
+     * @return $this
      */
     public function setStoreId($store)
     {
@@ -170,10 +164,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         $checkResult = new stdClass;
         $checkResult->isAllowed = false;
-        Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', array(
+        Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', [
             'result'   => $checkResult,
             'store_id' => $this->_storeId
-        ));
+        ]);
         return $checkResult->isAllowed;
     }
 
@@ -196,7 +190,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                 $html = $fileurl; // $mediaPath;
             } else {
                 $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', array('___directive' => $directive));
+                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
             }
         }
         return $html;
@@ -207,7 +201,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Try to create target directory if it doesn't exist
      *
      * @throws Mage_Core_Exception
-     * @return string
+     * @return string|false
      */
     public function getCurrentPath()
     {
@@ -216,14 +210,16 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
                 $path = realpath($this->convertIdToPath($node));
-                if (is_dir($path) && false !== stripos($path, $currentPath)) {
+                if (is_dir($path) && stripos($path, $currentPath) !== false) {
                     $currentPath = $path;
                 }
             }
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
-                $message = Mage::helper('cms')->__('The directory %s is not writable by server.',
-                    $io->getFilteredPath($currentPath));
+                $message = Mage::helper('cms')->__(
+                    'The directory %s is not writable by server.',
+                    $io->getFilteredPath($currentPath)
+                );
                 Mage::throwException($message);
             }
             $this->_currentPath = $currentPath;
@@ -251,7 +247,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     /**
      * Storage model singleton
      *
-     * @return Mage_Cms_Model_Page_Wysiwyg_Images_Storage
+     * @return Mage_Cms_Model_Wysiwyg_Images_Storage
      */
     public function getStorage()
     {
@@ -273,7 +269,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      * Revert opration to idEncode
      *
      * @param string $string
-     * @return string
+     * @return string|false
      */
     public function idDecode($string)
     {

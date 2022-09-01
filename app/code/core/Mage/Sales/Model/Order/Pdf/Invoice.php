@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,61 +31,60 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      * Draw header for item table
      *
      * @param Zend_Pdf_Page $page
-     * @return void
      */
     protected function _drawHeader(Zend_Pdf_Page $page)
     {
         /* Add table head */
         $this->_setFontRegular($page, 10);
-        $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
+        $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
         $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
         $page->setLineWidth(0.5);
         $page->drawRectangle(25, $this->y, 570, $this->y -15);
         $this->y -= 10;
-        $page->setFillColor(new Zend_Pdf_Color_RGB(0, 0, 0));
+        $page->setFillColor(new Zend_Pdf_Color_Rgb(0, 0, 0));
 
         //columns headers
-        $lines[0][] = array(
+        $lines[0][] = [
             'text' => Mage::helper('sales')->__('Products'),
             'feed' => 35
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('SKU'),
             'feed'  => 290,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Qty'),
             'feed'  => 435,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Price'),
             'feed'  => 360,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Tax'),
             'feed'  => 495,
             'align' => 'right'
-        );
+        ];
 
-        $lines[0][] = array(
+        $lines[0][] = [
             'text'  => Mage::helper('sales')->__('Subtotal'),
             'feed'  => 565,
             'align' => 'right'
-        );
+        ];
 
-        $lineBlock = array(
+        $lineBlock = [
             'lines'  => $lines,
             'height' => 5
-        );
+        ];
 
-        $this->drawLineBlocks($page, array($lineBlock), array('table_header' => true));
+        $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
     }
@@ -99,10 +92,10 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
     /**
      * Return PDF document
      *
-     * @param  array $invoices
+     * @param  Mage_Sales_Model_Order_Invoice[] $invoices
      * @return Zend_Pdf
      */
-    public function getPdf($invoices = array())
+    public function getPdf($invoices = [])
     {
         $this->_beforeGetPdf();
         $this->_initRenderer('invoice');
@@ -137,7 +130,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
             /* Add table */
             $this->_drawHeader($page);
             /* Add body */
-            foreach ($invoice->getAllItems() as $item){
+            foreach ($invoice->getAllItems() as $item) {
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
@@ -161,7 +154,7 @@ class Mage_Sales_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abst
      * @param  array $settings
      * @return Zend_Pdf_Page
      */
-    public function newPage(array $settings = array())
+    public function newPage(array $settings = [])
     {
         /* Add new table head */
         $page = $this->_getPdf()->newPage(Zend_Pdf_Page::SIZE_A4);

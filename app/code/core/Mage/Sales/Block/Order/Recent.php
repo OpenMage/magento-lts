@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,11 +24,12 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
+ * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $orders)
  */
-
 class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -69,7 +64,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
             )
             ->addAttributeToFilter(
                 'state',
-                array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates())
+                ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()]
             )
             ->addAttributeToSort('created_at', 'desc')
             ->setPageSize('5')
@@ -79,16 +74,27 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
         $this->setOrders($orders);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
-        return $this->getUrl('sales/order/view', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/view', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getTrackUrl($order)
     {
-        return $this->getUrl('sales/order/track', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/track', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         if ($this->getOrders()->getSize() > 0) {
@@ -97,8 +103,12 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
         return '';
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('sales/order/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product related items block
@@ -43,10 +36,13 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
 
     protected $_itemCollection;
 
+    /**
+     * @return $this
+     */
     protected function _prepareData()
     {
         $product = Mage::registry('product');
-        /* @var $product Mage_Catalog_Model_Product */
+        /** @var Mage_Catalog_Model_Product $product */
 
         $this->_itemCollection = $product->getRelatedProductCollection()
             ->addAttributeToSelect('required_options')
@@ -55,12 +51,12 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         ;
 
         if (Mage::helper('catalog')->isModuleEnabled('Mage_Checkout')) {
-            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter($this->_itemCollection,
+            Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
+                $this->_itemCollection,
                 Mage::getSingleton('checkout/session')->getQuoteId()
             );
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-//        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         $this->_itemCollection->load();
@@ -72,12 +68,18 @@ class Mage_Catalog_Block_Product_List_Related extends Mage_Catalog_Block_Product
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Block_Product_Abstract
+     */
     protected function _beforeToHtml()
     {
         $this->_prepareData();
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return mixed
+     */
     public function getItems()
     {
         return $this->_itemCollection;

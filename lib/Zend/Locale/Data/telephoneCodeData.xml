@@ -14,11 +14,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 		1.	International Telecommunication Union: List Of ITU Recommendation E.164 Assigned Country Codes (Position on 15 September 2007)
 			available at <http://www.itu.int/opb/publications.aspx?parent=T-SP&view=T-SP2>
 		2.	World Telephone Numbering Guide <http://www.wtng.info/>
-		
+
 		Special cases below: 001, AC, AQ, AS, GU, PS, VA, XK, YT
 		Unknown telephoneCountryCode for territories: BV, HM
 		-->
-	
+
 		<codesByTerritory territory="001">
 			<telephoneCountryCode code="388"/>	<!-- CountryGroup = Code for groups of countries, shared code -->
 				<!-- +388 3	CountryGroup (European Telephony Numbering Space) -->
@@ -75,7 +75,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<telephoneCountryCode code="991"/>	<!-- trial of proposed new International Telecom Public Correspondence service -->
 			<!-- telephoneCountryCode code="999" -->	<!-- Reserved for future global service (proposed Disaster Relief Service, or is that just +888?) -->
 		</codesByTerritory>
-		
+
 		<codesByTerritory territory="AC">	<!-- Ascension Island; in ISO 3166, code AC is "exceptionally reserved" for it but not officially assigned -->
 			<telephoneCountryCode code="247"/>
 			<!-- Ascension is administered by SH Saint Helena, 800 miles away with a different telephoneCountryCode +290 -->
@@ -836,7 +836,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 		<codesByTerritory territory="ZW">	<!-- Zimbabwe -->
 			<telephoneCountryCode code="263"/>
 		</codesByTerritory>
-		
+
 		<!-- currently spare or otherwise unused telephoneCountryCode codes:
 			+210 (reserved for Morocco?)
 			+211 (reserved for Morocco?)

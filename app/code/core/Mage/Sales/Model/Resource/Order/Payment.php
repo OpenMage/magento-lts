@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Flat sales order payment resource
@@ -39,9 +32,9 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
      *
      * @var array
      */
-    protected $_serializableFields   = array(
-        'additional_information' => array(null, array())
-    );
+    protected $_serializableFields   = [
+        'additional_information' => [null, []]
+    ];
 
     /**
      * Event prefix
@@ -62,7 +55,7 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
     /**
      * Unserialize Varien_Object field in an object
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param Varien_Object $object
      * @param string $field
      * @param mixed $defaultValue
      */

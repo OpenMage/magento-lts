@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,22 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Core
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract helper
  *
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Core_Helper_Abstract
 {
@@ -55,7 +51,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Retrieve request object
      *
-     * @return Zend_Controller_Request_Http
+     * @return Mage_Core_Controller_Request_Http
      */
     protected function _getRequest()
     {
@@ -79,12 +75,13 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Saving cache
      *
-     * @param   mixed $data
-     * @param   string $id
-     * @param   array $tags
+     * @param mixed $data
+     * @param string $id
+     * @param array $tags
+     * @param null|false|int $lifeTime
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _saveCache($data, $id, $tags=array(), $lifeTime=false)
+    protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
     {
         Mage::app()->saveCache($data, $id, $tags, $lifeTime);
         return $this;
@@ -108,7 +105,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $tags
      * @return  Mage_Core_Helper_Abstract
      */
-    protected function _cleanCache($tags=array())
+    protected function _cleanCache($tags = [])
     {
         Mage::app()->cleanCache($tags);
         return $this;
@@ -167,7 +164,7 @@ abstract class Mage_Core_Helper_Abstract
         }
 
         $isActive = Mage::getConfig()->getNode('modules/' . $moduleName . '/active');
-        if (!$isActive || !in_array((string)$isActive, array('true', '1'))) {
+        if (!$isActive || !in_array((string)$isActive, ['true', '1'])) {
             return false;
         }
         return true;
@@ -187,8 +184,11 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @deprecated after 1.4.0.0-rc1
+     * @param array $data
+     * @param array $allowedTags
+     * @return mixed
      * @see self::escapeHtml()
+     * @deprecated after 1.4.0.0-rc1
      */
     public function htmlEscape($data, $allowedTags = null)
     {
@@ -198,21 +198,21 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param   mixed $data
+     * @param   string|array $data
      * @param   array $allowedTags
      * @return  mixed
      */
     public function escapeHtml($data, $allowedTags = null)
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
         } else {
             // process single item
             if (strlen($data)) {
-                if (is_array($allowedTags) and !empty($allowedTags)) {
+                if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
                     $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
@@ -261,6 +261,8 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param string $data
+     * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeHtml()
      */
@@ -325,10 +327,10 @@ abstract class Mage_Core_Helper_Abstract
      * @param string $quote
      * @return mixed
      */
-    public function jsQuoteEscape($data, $quote='\'')
+    public function jsQuoteEscape($data, $quote = '\'')
     {
         if (is_array($data)) {
-            $result = array();
+            $result = [];
             foreach ($data as $item) {
                 $result[] = str_replace($quote, '\\'.$quote, $item);
             }
@@ -360,7 +362,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param   array $params
      * @return  string
      */
-    protected function _getUrl($route, $params = array())
+    protected function _getUrl($route, $params = [])
     {
         return Mage::getUrl($route, $params);
     }
@@ -419,8 +421,8 @@ abstract class Mage_Core_Helper_Abstract
     public function urlDecodeAndEscape($url)
     {
         $url = $this->urlDecode($url);
-        $quote = array ('\'', '"');
-        $replace = array('%27', '%22');
+        $quote = ['\'', '"'];
+        $replace = ['%27', '%22'];
         $url = str_replace($quote, $replace, $url);
         return $url;
     }
@@ -431,7 +433,7 @@ abstract class Mage_Core_Helper_Abstract
      *  @param    array $arr
      *  @return   array
      */
-    public function translateArray($arr = array())
+    public function translateArray($arr = [])
     {
         foreach ($arr as $k => $v) {
             if (is_array($v)) {
@@ -452,7 +454,7 @@ abstract class Mage_Core_Helper_Abstract
      * @param bool $skipTags skip transferred array keys, if false then check only them
      * @return bool
      */
-    public function hasTags($data, array $arrayKeys = array(), $skipTags = true)
+    public function hasTags($data, array $arrayKeys = [], $skipTags = true)
     {
         if (is_array($data)) {
             foreach ($data as $key => $item) {

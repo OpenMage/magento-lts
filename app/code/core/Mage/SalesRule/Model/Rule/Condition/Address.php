@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,29 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_SalesRule
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_SalesRule_Model_Rule_Condition_Address
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method $this setAttributeOption(array $attributes)
+ */
 class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condition_Abstract
 {
+    /**
+     * @return $this|Mage_Rule_Model_Condition_Abstract
+     */
     public function loadAttributeOptions()
     {
-        $attributes = array(
+        $attributes = [
             'base_subtotal' => Mage::helper('salesrule')->__('Subtotal'),
             'total_qty' => Mage::helper('salesrule')->__('Total Items Quantity'),
             'weight' => Mage::helper('salesrule')->__('Total Weight'),
@@ -39,13 +44,16 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             'region' => Mage::helper('salesrule')->__('Shipping Region'),
             'region_id' => Mage::helper('salesrule')->__('Shipping State/Province'),
             'country_id' => Mage::helper('salesrule')->__('Shipping Country'),
-        );
+        ];
 
         $this->setAttributeOption($attributes);
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAttributeElement()
     {
         $element = parent::getAttributeElement();
@@ -53,27 +61,44 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         return $element;
     }
 
+    /**
+     * @return string
+     */
     public function getInputType()
     {
         switch ($this->getAttribute()) {
-            case 'base_subtotal': case 'weight': case 'total_qty':
+            case 'base_subtotal':
+            case 'weight':
+            case 'total_qty':
                 return 'numeric';
 
-            case 'shipping_method': case 'payment_method': case 'country_id': case 'region_id':
+            case 'shipping_method':
+            case 'payment_method':
+            case 'country_id':
+            case 'region_id':
                 return 'select';
         }
         return 'string';
     }
 
+    /**
+     * @return string
+     */
     public function getValueElementType()
     {
         switch ($this->getAttribute()) {
-            case 'shipping_method': case 'payment_method': case 'country_id': case 'region_id':
+            case 'shipping_method':
+            case 'payment_method':
+            case 'country_id':
+            case 'region_id':
                 return 'select';
         }
         return 'text';
     }
 
+    /**
+     * @return array|mixed
+     */
     public function getValueSelectOptions()
     {
         if (!$this->hasData('value_select_options')) {
@@ -99,7 +124,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
                     break;
 
                 default:
-                    $options = array();
+                    $options = [];
             }
             $this->setData('value_select_options', $options);
         }
@@ -109,8 +134,8 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
     /**
      * Validate Address Rule Condition
      *
-     * @param Varien_Object $object
-     * @return bool
+     * @param Mage_Sales_Model_Quote_Address $object
+     * @inheritDoc
      */
     public function validate(Varien_Object $object)
     {
@@ -118,13 +143,12 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
         if (!$address instanceof Mage_Sales_Model_Quote_Address) {
             if ($object->getQuote()->isVirtual()) {
                 $address = $object->getQuote()->getBillingAddress();
-            }
-            else {
+            } else {
                 $address = $object->getQuote()->getShippingAddress();
             }
         }
 
-        if ('payment_method' == $this->getAttribute() && ! $address->hasPaymentMethod()) {
+        if ($this->getAttribute() == 'payment_method' && ! $address->hasPaymentMethod()) {
             $address->setPaymentMethod($object->getQuote()->getPayment()->getMethod());
         }
 

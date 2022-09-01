@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * Class Mage_Sales_Model_Quote_Address_Total_Subtotal
+ */
 class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
     /**
@@ -53,8 +49,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
                     $virtualAmount += $item->getRowTotal();
                     $baseVirtualAmount += $item->getBaseRowTotal();
                 }
-            }
-            else {
+            } else {
                 $this->_removeItem($address, $item);
             }
         }
@@ -81,8 +76,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     {
         if ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $quoteItem = $item->getAddress()->getQuote()->getItemById($item->getQuoteItemId());
-        }
-        else {
+        } else {
             $quoteItem = $item;
         }
         $product = $quoteItem->getProduct();
@@ -95,8 +89,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             if (!$product) {
                 return false;
             }
-        }
-        else {
+        } else {
             if (!$product || !$product->isVisibleInCatalog()) {
                 return false;
             }
@@ -104,15 +97,15 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
 
         if ($quoteItem->getParentItem() && $quoteItem->isChildrenCalculated()) {
             $finalPrice = $quoteItem->getParentItem()->getProduct()->getPriceModel()->getChildFinalPrice(
-               $quoteItem->getParentItem()->getProduct(),
-               $quoteItem->getParentItem()->getQty(),
-               $quoteItem->getProduct(),
-               $quoteItem->getQty()
+                $quoteItem->getParentItem()->getProduct(),
+                $quoteItem->getParentItem()->getQty(),
+                $quoteItem->getProduct(),
+                $quoteItem->getQty()
             );
             $item->setPrice($finalPrice)
                 ->setBaseOriginalPrice($finalPrice);
             $item->calcRowTotal();
-        } else if (!$quoteItem->getParentItem() && !$item->getHasError()) {
+        } elseif (!$quoteItem->getParentItem()) {
             $finalPrice = $product->getFinalPrice($quoteItem->getQty());
             $item->setPrice($finalPrice)
                 ->setBaseOriginalPrice($finalPrice);
@@ -128,8 +121,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Remove item
      *
-     * @param  $address
-     * @param  $item
+     * @param  Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Core_Model_Abstract $item
      * @return $this
      */
     protected function _removeItem($address, $item)
@@ -139,8 +132,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             if ($address->getQuote()) {
                 $address->getQuote()->removeItem($item->getId());
             }
-        }
-        elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
+        } elseif ($item instanceof Mage_Sales_Model_Quote_Address_Item) {
             $address->removeItem($item->getId());
             if ($address->getQuote()) {
                 $address->getQuote()->removeItem($item->getQuoteItemId());
@@ -153,16 +145,16 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
     /**
      * Assign subtotal amount and label to address object
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address $address
      * @return  Mage_Sales_Model_Quote_Address_Total_Subtotal
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
-        $address->addTotal(array(
+        $address->addTotal([
             'code'  => $this->getCode(),
             'title' => Mage::helper('sales')->__('Subtotal'),
             'value' => $address->getSubtotal()
-        ));
+        ]);
         return $this;
     }
 

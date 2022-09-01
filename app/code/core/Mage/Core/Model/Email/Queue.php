@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,38 +12,36 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Email Template Mailer Model
  *
- * @method Mage_Core_Model_Email_Queue setEntityId(int $value)
- * @method Mage_Core_Model_Email_Queue setEntityType(string $value)
- * @method Mage_Core_Model_Email_Queue setEventType(string $value)
- * @method Mage_Core_Model_Email_Queue setIsForceCheck(int $value)
- * @method int getIsForceCheck()
- * @method int getEntityId()
- * @method string getEntityType()
- * @method string getEventType()
- * @method string getMessageBodyHash()
- * @method string getMessageBody()
- * @method Mage_Core_Model_Email_Queue setMessageBody(string $value)
- * @method Mage_Core_Model_Email_Queue setMessageParameters(array $value)
- * @method Mage_Core_Model_Email_Queue setProcessedAt(string $value)
- * @method array getMessageParameters()
- *
  * @category    Mage
  * @package     Mage_Core
+ *
+ * @method Mage_Core_Model_Resource_Email_Queue _getResource()
+ * @method Mage_Core_Model_Resource_Email_Queue_Collection getCollection()
+ * @method $this setCreatedAt(string $value)
+ * @method int getEntityId()
+ * @method $this setEntityId(int $value)
+ * @method string getEntityType()
+ * @method $this setEntityType(string $value)
+ * @method string getEventType()
+ * @method $this setEventType(string $value)
+ * @method int getIsForceCheck()
+ * @method $this setIsForceCheck(int $value)
+ * @method string getMessageBodyHash()
+ * @method string getMessageBody()
+ * @method $this setMessageBody(string $value)
+ * @method $this setMessageBodyHash(array $value)
+ * @method array getMessageParameters()
+ * @method $this setMessageParameters(array $value)
+ * @method $this setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 {
@@ -64,7 +62,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_recipients = array();
+    protected $_recipients = [];
 
     /**
      * Initialize object
@@ -77,7 +75,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Save bind recipients to message
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _afterSave()
     {
@@ -88,11 +86,11 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     /**
      * Validate recipients before saving
      *
-     * @return $this
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
-        if (empty($this->_recipients) || !is_array($this->_recipients)) {
+        if (empty($this->_recipients) || !is_array($this->_recipients) || empty($this->_recipients[0])) { // additional check of recipients information (email address)
             Mage::throwException(Mage::helper('core')->__('Message recipients data must be set.'));
         }
         return parent::_beforeSave();
@@ -129,17 +127,17 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function addRecipients($emails, $names = null, $type = self::EMAIL_TYPE_TO)
     {
-        $_supportedEmailTypes = array(
+        $_supportedEmailTypes = [
             self::EMAIL_TYPE_TO,
             self::EMAIL_TYPE_CC,
             self::EMAIL_TYPE_BCC
-        );
+        ];
         $type = !in_array($type, $_supportedEmailTypes) ? self::EMAIL_TYPE_TO : $type;
         $emails = array_values((array)$emails);
         $names = is_array($names) ? $names : (array)$names;
         $names = array_values($names);
         foreach ($emails as $key => $email) {
-            $this->_recipients[] = array($email, isset($names[$key]) ? $names[$key] : '', $type);
+            $this->_recipients[] = [$email, $names[$key] ?? '', $type];
         }
         return $this;
     }
@@ -151,7 +149,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function clearRecipients()
     {
-        $this->_recipients = array();
+        $this->_recipients = [];
         return $this;
     }
 
@@ -185,18 +183,16 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      */
     public function send()
     {
-        /** @var $collection Mage_Core_Model_Resource_Email_Queue_Collection */
         $collection = Mage::getModel('core/email_queue')->getCollection()
             ->addOnlyForSendingFilter()
             ->setPageSize(self::MESSAGES_LIMIT_PER_CRON_RUN)
             ->setCurPage(1)
             ->load();
 
-
         ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
         ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
 
-        /** @var $message Mage_Core_Model_Email_Queue */
+        /** @var Mage_Core_Model_Email_Queue $message */
         foreach ($collection as $message) {
             if ($message->getId()) {
                 $parameters = new Varien_Object($message->getMessageParameters());
@@ -237,13 +233,13 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 try {
                     $mailer->send();
+                    unset($mailer);
+                    $message->setProcessedAt(Varien_Date::formatDate(true));
+                    $message->save(); // save() is throwing exception when recipient is not set
                 } catch (Exception $e) {
                     Mage::logException($e);
                 }
 
-                unset($mailer);
-                $message->setProcessedAt(Varien_Date::formatDate(true));
-                $message->save();
             }
         }
 

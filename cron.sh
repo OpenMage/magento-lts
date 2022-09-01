@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Magento
+# OpenMage
 #
 # NOTICE OF LICENSE
 #
@@ -12,15 +12,9 @@
 # obtain it through the world-wide-web, please send an email
 # to license@magento.com so we can send you a copy immediately.
 #
-# DISCLAIMER
-#
-# Do not edit or add to this file if you wish to upgrade Magento to newer
-# versions in the future. If you wish to customize Magento for your
-# needs please refer to http://www.magento.com for more information.
-#
 # @category    Mage
 # @package     Mage
-# @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+# @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 #
 
@@ -41,7 +35,7 @@ PHP_BIN=`which php`
 # absolute path to magento installation
 INSTALLDIR=`echo $0 | sed 's/cron\.sh//g'`
 
-#	prepend the intallation path if not given an absolute path
+# prepend the installation path if not given an absolute path
 if [ "$INSTALLDIR" != "" -a "`expr index $CRONSCRIPT /`" != "1" ];then
     if ! ps auxwww | grep "$INSTALLDIR$CRONSCRIPT$MODE" | grep -v grep 1>/dev/null 2>/dev/null ; then
     	$PHP_BIN $INSTALLDIR$CRONSCRIPT$MODE &

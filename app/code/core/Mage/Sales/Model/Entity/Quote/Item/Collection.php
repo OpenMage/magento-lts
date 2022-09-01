@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,27 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Quote addresses collection
  *
  * @category   Mage
  * @package    Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entity_Collection_Abstract
 {
     /**
@@ -47,11 +39,18 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         $this->_init('sales/quote_item');
     }
 
+    /**
+     * @return int
+     */
     public function getStoreId()
     {
         return $this->_quote->getStoreId();
     }
 
+    /**
+     * @param Mage_Sales_Model_Quote $quote
+     * @return $this
+     */
     public function setQuote($quote)
     {
         $this->_quote = $quote;
@@ -59,6 +58,9 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function _afterLoad()
     {
         Varien_Profiler::start('TEST1: '.__METHOD__);
@@ -88,8 +90,7 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
                     $recollectQuote = true;
                     continue;
                 }
-            }
-            else {
+            } else {
                 $superProduct = null;
             }
 
@@ -109,11 +110,15 @@ class Mage_Sales_Model_Entity_Quote_Item_Collection extends Mage_Eav_Model_Entit
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     protected function _getProductCollection()
     {
-        $productIds = array();
+        $productIds = [];
         foreach ($this as $item) {
-            $productIds[$item->getProductId()] = $item->getProductId();
+            $productId = $item->getProductId();
+            $productIds[$productId] = $productId;
             if ($item->getSuperProductId()) {
                 $productIds[$item->getSuperProductId()] = $item->getSuperProductId();
             }

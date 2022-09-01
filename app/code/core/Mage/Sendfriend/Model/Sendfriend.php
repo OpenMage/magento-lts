@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sendfriend
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,10 +23,12 @@
  *
  * @method Mage_Sendfriend_Model_Resource_Sendfriend _getResource()
  * @method Mage_Sendfriend_Model_Resource_Sendfriend getResource()
+ * @method Mage_Sendfriend_Model_Resource_Sendfriend_Collection getCollection()
+ *
  * @method int getIp()
- * @method Mage_Sendfriend_Model_Sendfriend setIp(int $value)
+ * @method $this setIp(int $value)
  * @method int getTime()
- * @method Mage_Sendfriend_Model_Sendfriend setTime(int $value)
+ * @method $this setTime(int $value)
  *
  * @category    Mage
  * @package     Mage_Sendfriend
@@ -45,21 +41,21 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_names   = array();
+    protected $_names   = [];
 
     /**
      * Recipient Emails
      *
      * @var array
      */
-    protected $_emails  = array();
+    protected $_emails  = [];
 
     /**
      * Sender data array
      *
      * @var array
      */
-    protected $_sender  = array();
+    protected $_sender  = [];
 
     /**
      * Product Instance
@@ -78,9 +74,9 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Last values for Cookie
      *
-     * @var string
+     * @var array
      */
-    protected $_lastCookieValue = array();
+    protected $_lastCookieValue = [];
 
     /**
      * Initialize resource model
@@ -108,32 +104,38 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      * @return array
      */
     public function toOptionArray()
-    {        return array();
+    {
+        return [];
     }
 
+    /**
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function send()
     {
-        if ($this->isExceedLimit()){
+        if ($this->isExceedLimit()) {
             Mage::throwException(Mage::helper('sendfriend')->__('You have exceeded limit of %d sends in an hour', $this->getMaxSendsToFriend()));
         }
 
-        /* @var $translate Mage_Core_Model_Translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 
-        /* @var $mailTemplate Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $message = nl2br(htmlspecialchars($this->getSender()->getMessage()));
-        $sender  = array(
+        $sender  = [
             'name'  => $this->_getHelper()->escapeHtml($this->getSender()->getName()),
             'email' => $this->_getHelper()->escapeHtml($this->getSender()->getEmail())
-        );
+        ];
 
-        $mailTemplate->setDesignConfig(array(
+        $mailTemplate->setDesignConfig([
             'area'  => 'frontend',
             'store' => Mage::app()->getStore()->getId()
-        ));
+        ]);
 
         foreach ($this->getRecipients()->getEmails() as $k => $email) {
             $name = $this->getRecipients()->getNames($k);
@@ -142,7 +144,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                 $sender,
                 $email,
                 $name,
-                array(
+                [
                     'name'          => $name,
                     'email'         => $email,
                     'product_name'  => $this->getProduct()->getName(),
@@ -150,9 +152,11 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
                     'message'       => $message,
                     'sender_name'   => $sender['name'],
                     'sender_email'  => $sender['email'],
-                    'product_image' => Mage::helper('catalog/image')->init($this->getProduct(),
-                        'small_image')->resize(75),
-                )
+                    'product_image' => Mage::helper('catalog/image')->init(
+                        $this->getProduct(),
+                        'small_image'
+                    )->resize(75),
+                ]
             );
         }
 
@@ -169,7 +173,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         $name = $this->getSender()->getName();
         if (empty($name)) {
@@ -177,7 +181,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         }
 
         $email = $this->getSender()->getEmail();
-        if (empty($email) OR !Zend_Validate::is($email, 'EmailAddress')) {
+        if (empty($email) || !Zend_Validate::is($email, 'EmailAddress')) {
             $errors[] = Mage::helper('sendfriend')->__('Invalid sender email.');
         }
 
@@ -213,7 +217,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     /**
      * Set cookie instance
      *
-     * @param Mage_Core_Model_Cookie $product
+     * @param Mage_Core_Model_Cookie $cookie
      * @return $this
      */
     public function setCookie($cookie)
@@ -289,14 +293,14 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     public function setRecipients($recipients)
     {
         // validate array
-        if (!is_array($recipients) OR !isset($recipients['email'])
-            OR !isset($recipients['name']) OR !is_array($recipients['email'])
-            OR !is_array($recipients['name'])) {
+        if (!is_array($recipients) || !isset($recipients['email'])
+            || !isset($recipients['name']) || !is_array($recipients['email'])
+            || !is_array($recipients['name'])) {
             return $this;
         }
 
-        $emails = array();
-        $names  = array();
+        $emails = [];
+        $names  = [];
         foreach ($recipients['email'] as $k => $email) {
             if (!isset($emails[$email]) && isset($recipients['name'][$k])) {
                 $emails[$email] = true;
@@ -308,10 +312,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $emails = array_keys($emails);
         }
 
-        return $this->setData('_recipients', new Varien_Object(array(
+        return $this->setData('_recipients', new Varien_Object([
             'emails' => $emails,
             'names'  => $names
-        )));
+        ]));
     }
 
     /**
@@ -323,10 +327,10 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $recipients = $this->_getData('_recipients');
         if (!$recipients instanceof Varien_Object) {
-            $recipients =  new Varien_Object(array(
-                'emails' => array(),
-                'names'  => array()
-            ));
+            $recipients =  new Varien_Object([
+                'emails' => [],
+                'names'  => []
+            ]);
             $this->setData('_recipients', $recipients);
         }
         return $recipients;
@@ -508,7 +512,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
     {
         $cookie   = $this->_getHelper()->getCookieName();
         $time     = time();
-        $newTimes = array();
+        $newTimes = [];
 
         if (isset($this->_lastCookieValue[$cookie])) {
             $oldTimes = $this->_lastCookieValue[$cookie];
@@ -520,7 +524,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
             $oldTimes = explode(',', $oldTimes);
             foreach ($oldTimes as $oldTime) {
                 $periodTime = $time - $this->_getHelper()->getPeriod();
-                if (is_numeric($oldTime) AND $oldTime >= $periodTime) {
+                if (is_numeric($oldTime) && $oldTime >= $periodTime) {
                     $newTimes[] = $oldTime;
                 }
             }

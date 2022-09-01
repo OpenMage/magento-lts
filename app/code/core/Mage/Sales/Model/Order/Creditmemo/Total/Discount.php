@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return $this
+     */
     public function collect(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
         $creditmemo->setDiscountAmount(0);
@@ -49,7 +46,7 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
             $baseTotalDiscountAmount = $baseTotalDiscountAmount + $baseShippingDiscount;
         }
 
-        /** @var $item Mage_Sales_Model_Order_Invoice_Item */
+        /** @var Mage_Sales_Model_Order_Invoice_Item $item */
         foreach ($creditmemo->getAllItems() as $item) {
             $orderItem = $item->getOrderItem();
 
@@ -67,10 +64,14 @@ class Mage_Sales_Model_Order_Creditmemo_Total_Discount extends Mage_Sales_Model_
                 if (!$item->isLast()) {
                     $availableQty = $orderItemQty - $orderItem->getQtyRefunded();
                     $discount = $creditmemo->roundPrice(
-                        $discount / $availableQty * $item->getQty(), 'regular', true
+                        $discount / $availableQty * $item->getQty(),
+                        'regular',
+                        true
                     );
                     $baseDiscount = $creditmemo->roundPrice(
-                        $baseDiscount / $availableQty * $item->getQty(), 'base', true
+                        $baseDiscount / $availableQty * $item->getQty(),
+                        'base',
+                        true
                     );
                 }
 

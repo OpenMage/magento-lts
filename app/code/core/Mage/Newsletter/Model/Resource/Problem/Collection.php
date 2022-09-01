@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Newsletter problems collection
  *
- * @category    Mage
- * @package     Mage_Newsletter
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Newsletter
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Newsletter_Model_Problem[] getItems()
+ * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
+ * @method $this setCustomerFirstName(string $value)
+ * @method $this setCustomerLastName(string $value)
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -64,9 +62,10 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addSubscriberInfo()
     {
-        $this->getSelect()->joinLeft(array('subscriber'=>$this->getTable('newsletter/subscriber')),
+        $this->getSelect()->joinLeft(
+            ['subscriber'=>$this->getTable('newsletter/subscriber')],
             'main_table.subscriber_id = subscriber.subscriber_id',
-            array('subscriber_email','customer_id','subscriber_status')
+            ['subscriber_email','customer_id','subscriber_status']
         );
         $this->addFilterToMap('subscriber_id', 'main_table.subscriber_id');
         $this->_subscribersInfoJoinedFlag = true;
@@ -81,12 +80,15 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     public function addQueueInfo()
     {
-        $this->getSelect()->joinLeft(array('queue'=>$this->getTable('newsletter/queue')),
+        $this->getSelect()->joinLeft(
+            ['queue'=>$this->getTable('newsletter/queue')],
             'main_table.queue_id = queue.queue_id',
-            array('queue_start_at', 'queue_finish_at')
+            ['queue_start_at', 'queue_finish_at']
         )
-        ->joinLeft(array('template'=>$this->getTable('newsletter/template')), 'queue.template_id = template.template_id',
-            array('template_subject','template_code','template_sender_name','template_sender_email')
+        ->joinLeft(
+            ['template'=>$this->getTable('newsletter/template')],
+            'queue.template_id = template.template_id',
+            ['template_subject','template_code','template_sender_name','template_sender_email']
         );
         return $this;
     }
@@ -97,7 +99,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
      */
     protected function _addCustomersData()
     {
-        $customersIds = array();
+        $customersIds = [];
 
         foreach ($this->getItems() as $item) {
             if ($item->getCustomerId()) {
@@ -111,7 +113,7 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
 
         $customers = Mage::getResourceModel('customer/customer_collection')
             ->addNameToSelect()
-            ->addAttributeToFilter('entity_id', array("in"=>$customersIds));
+            ->addAttributeToFilter('entity_id', ["in"=>$customersIds]);
 
         $customers->load();
 

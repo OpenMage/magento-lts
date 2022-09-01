@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Bestsellers report resource model
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Resource_Report_Abstract
 {
@@ -40,7 +33,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
 
     /**
      * Model initialization
-     *
      */
     protected function _construct()
     {
@@ -68,7 +60,10 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             if ($from !== null || $to !== null) {
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
-                    'created_at', 'updated_at', $from, $to
+                    'created_at',
+                    'updated_at',
+                    $from,
+                    $to
                 );
             } else {
                 $subSelect = null;
@@ -78,139 +73,148 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             // convert dates from UTC to current admin timezone
             $periodExpr = $adapter->getDatePartSql(
                 $this->getStoreTZOffsetQuery(
-                    array('source_table' => $this->getTable('sales/order')),
-                    'source_table.created_at', $from, $to
+                    ['source_table' => $this->getTable('sales/order')],
+                    'source_table.created_at',
+                    $from,
+                    $to
                 )
             );
 
-            $helper                        = Mage::getResourceHelper('core');
+            /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
+            $helper = Mage::getResourceHelper('core');
             $select = $adapter->select();
 
-            $select->group(array(
+            $select->group([
                 $periodExpr,
                 'source_table.store_id',
                 'order_item.product_id'
-            ));
+            ]);
 
-            $columns = array(
+            $columns = [
                 'period'                 => $periodExpr,
                 'store_id'               => 'source_table.store_id',
                 'product_id'             => 'order_item.product_id',
                 'product_type_id'        => 'product.type_id',
                 'product_name'           => new Zend_Db_Expr(
-                    sprintf('MIN(%s)',
-                        $adapter->getIfNullSql('product_name.value','product_default_name.value')
+                    sprintf(
+                        'MIN(%s)',
+                        $adapter->getIfNullSql('product_name.value', 'product_default_name.value')
                     )
                 ),
                 'product_price'          => new Zend_Db_Expr(
-                    sprintf('%s',
-                            $helper->prepareColumn(
-                                sprintf('MIN(%s)',
-                                    $adapter->getIfNullSql(
-                                        $adapter->getIfNullSql('product_price.value','product_default_price.value'), 0)
-                                ),
-                                $select->getPart(Zend_Db_Select::GROUP)
+                    sprintf(
+                        '%s',
+                        $helper->prepareColumn(
+                            sprintf(
+                                'MIN(%s)',
+                                $adapter->getIfNullSql(
+                                    $adapter->getIfNullSql('product_price.value', 'product_default_price.value'),
+                                    0
+                                )
+                            ),
+                            $select->getPart(Zend_Db_Select::GROUP)
                         )
                     )
                 ),
                 'qty_ordered'            => new Zend_Db_Expr('SUM(order_item.qty_ordered)')
-            );
+            ];
 
             $select
                 ->from(
-                    array(
-                        'source_table' => $this->getTable('sales/order')),
-                    $columns)
+                    [
+                        'source_table' => $this->getTable('sales/order')],
+                    $columns
+                )
                 ->joinInner(
-                    array(
-                        'order_item' => $this->getTable('sales/order_item')),
+                    [
+                        'order_item' => $this->getTable('sales/order_item')],
                     'order_item.order_id = source_table.entity_id',
-                    array()
+                    []
                 )
                 ->where('source_table.state != ?', Mage_Sales_Model_Order::STATE_CANCELED);
-
 
             /** @var Mage_Catalog_Model_Resource_Product $product */
             $product  = Mage::getResourceSingleton('catalog/product');
 
-            $joinExpr = array(
+            $joinExpr = [
                 'product.entity_id = order_item.product_id',
                 $adapter->quoteInto('product.entity_type_id = ?', $product->getTypeId())
-            );
+            ];
 
             $joinExpr = implode(' AND ', $joinExpr);
             $select->joinInner(
-                array(
-                    'product' => $this->getTable('catalog/product')),
+                [
+                    'product' => $this->getTable('catalog/product')],
                 $joinExpr,
-                array()
+                []
             );
 
             // join product attributes Name & Price
             $attr     = $product->getAttribute('name');
-            $joinExprProductName       = array(
+            $joinExprProductName       = [
                 'product_name.entity_id = product.entity_id',
                 'product_name.store_id = source_table.store_id',
                 $adapter->quoteInto('product_name.entity_type_id = ?', $product->getTypeId()),
                 $adapter->quoteInto('product_name.attribute_id = ?', $attr->getAttributeId())
-            );
+            ];
             $joinExprProductName        = implode(' AND ', $joinExprProductName);
-            $joinExprProductDefaultName = array(
+            $joinExprProductDefaultName = [
                 'product_default_name.entity_id = product.entity_id',
                 'product_default_name.store_id = 0',
                 $adapter->quoteInto('product_default_name.entity_type_id = ?', $product->getTypeId()),
                 $adapter->quoteInto('product_default_name.attribute_id = ?', $attr->getAttributeId())
-            );
+            ];
             $joinExprProductDefaultName = implode(' AND ', $joinExprProductDefaultName);
             $select->joinLeft(
-                array(
-                    'product_name' => $attr->getBackend()->getTable()),
+                [
+                    'product_name' => $attr->getBackend()->getTable()],
                 $joinExprProductName,
-                array()
+                []
             )
             ->joinLeft(
-                array(
-                    'product_default_name' => $attr->getBackend()->getTable()),
+                [
+                    'product_default_name' => $attr->getBackend()->getTable()],
                 $joinExprProductDefaultName,
-                array()
+                []
             );
             $attr                    = $product->getAttribute('price');
-            $joinExprProductPrice    = array(
+            $joinExprProductPrice    = [
                 'product_price.entity_id = product.entity_id',
                 'product_price.store_id = source_table.store_id',
                 $adapter->quoteInto('product_price.entity_type_id = ?', $product->getTypeId()),
                 $adapter->quoteInto('product_price.attribute_id = ?', $attr->getAttributeId())
-            );
+            ];
             $joinExprProductPrice    = implode(' AND ', $joinExprProductPrice);
 
-            $joinExprProductDefPrice = array(
+            $joinExprProductDefPrice = [
                 'product_default_price.entity_id = product.entity_id',
                 'product_default_price.store_id = 0',
                 $adapter->quoteInto('product_default_price.entity_type_id = ?', $product->getTypeId()),
                 $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId())
-            );
+            ];
             $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
             $select->joinLeft(
-                array('product_price' => $attr->getBackend()->getTable()),
+                ['product_price' => $attr->getBackend()->getTable()],
                 $joinExprProductPrice,
-                array()
+                []
             )
             ->joinLeft(
-                array('product_default_price' => $attr->getBackend()->getTable()),
+                ['product_default_price' => $attr->getBackend()->getTable()],
                 $joinExprProductDefPrice,
-                array()
+                []
             );
 
             if ($subSelect !== null) {
                 $select->having($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
             }
 
-
             $select->useStraightJoin();  // important!
-            $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(),
-                array_keys($columns));
+            $insertQuery = $helper->getInsertFromSelectUsingAnalytic(
+                $select,
+                $this->getMainTable(),
+                array_keys($columns)
+            );
             $adapter->query($insertQuery);
-
 
             $this->_aggregateDefault($subSelect);
 
@@ -218,7 +222,6 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $this->_updateRatingPos(self::AGGREGATION_DAILY);
             $this->_updateRatingPos(self::AGGREGATION_MONTHLY);
             $this->_updateRatingPos(self::AGGREGATION_YEARLY);
-
 
             $this->_setFlagData(Mage_Reports_Model_Flag::REPORT_BESTSELLERS_FLAG_CODE);
         } catch (Exception $e) {
@@ -233,7 +236,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     /**
      * Aggregate Orders data for default store
      *
-     * @param object Varien_Db_Select|null $subSelect
+     * @param Varien_Db_Select|null $subSelect
      * @return $this
      */
     protected function _aggregateDefault($subSelect = null)
@@ -243,18 +246,21 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
         /** @var Mage_Catalog_Model_Resource_Product $product */
         $product    = Mage::getResourceSingleton('catalog/product');
         $attr       = $product->getAttribute('price');
+        /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper     = Mage::getResourceHelper('core');
 
-        $columns = array(
+        $columns = [
             'period'            => 'period',
             'store_id'          => new Zend_Db_Expr(Mage_Core_Model_App::ADMIN_STORE_ID),
             'product_id'        => 'product_id',
             'product_type_id'   => 'product_type_id',
             'product_name'      => new Zend_Db_Expr('MIN(product_name)'),
             'product_price'     => new Zend_Db_Expr(
-                sprintf('%s',
+                sprintf(
+                    '%s',
                     $helper->prepareColumn(
-                        sprintf('MIN(%s)',
+                        sprintf(
+                            'MIN(%s)',
                             $adapter->getIfNullSql('product_default_price.value', 0)
                         ),
                         $select->getPart(Zend_Db_Select::GROUP)
@@ -262,34 +268,37 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
                 )
             ),
             'qty_ordered'       => new Zend_Db_Expr('SUM(qty_ordered)'),
-        );
+        ];
 
         $select->from($this->getMainTable(), $columns)
             ->where($this->getMainTable() . '.store_id <> ?', 0);
-        $joinExprProductDefPrice = array(
+        $joinExprProductDefPrice = [
             'product_default_price.entity_id = ' . $this->getMainTable() . '.product_id',
             'product_default_price.store_id = 0',
             $adapter->quoteInto('product_default_price.entity_type_id = ?', $product->getTypeId()),
             $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId())
-        );
+        ];
         $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
         $select->joinLeft(
-            array('product_default_price' => $attr->getBackend()->getTable()),
+            ['product_default_price' => $attr->getBackend()->getTable()],
             $joinExprProductDefPrice,
-            array()
+            []
         );
 
         if ($subSelect !== null) {
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
         }
 
-        $select->group(array(
+        $select->group([
             'period',
             'product_id'
-        ));
+        ]);
 
-        $insertQuery = $helper->getInsertFromSelectUsingAnalytic($select, $this->getMainTable(),
-            array_keys($columns));
+        $insertQuery = $helper->getInsertFromSelectUsingAnalytic(
+            $select,
+            $this->getMainTable(),
+            array_keys($columns)
+        );
         $adapter->query($insertQuery);
 
         return $this;
@@ -305,14 +314,20 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
     {
         $aggregationTable   = $this->getTable('sales/bestsellers_aggregated_' . $aggregation);
 
-        $aggregationAliases = array(
+        $aggregationAliases = [
             'daily'   => self::AGGREGATION_DAILY,
             'monthly' => self::AGGREGATION_MONTHLY,
             'yearly'  => self::AGGREGATION_YEARLY
+        ];
+
+        /** @var Mage_Sales_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('sales');
+        $helper->getBestsellersReportUpdateRatingPos(
+            $aggregation,
+            $aggregationAliases,
+            $this->getMainTable(),
+            $aggregationTable
         );
-        Mage::getResourceHelper('sales')
-            ->getBestsellersReportUpdateRatingPos($aggregation, $aggregationAliases,
-                $this->getMainTable(), $aggregationTable);
 
         return $this;
     }

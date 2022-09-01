@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * EAV Attribute Abstract Data Model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -75,7 +68,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      *
      * @var array
      */
-    protected $_extractedData       = array();
+    protected $_extractedData       = [];
 
     /**
      * Mage_Core_Model_Locale FORMAT
@@ -243,7 +236,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $this->_dateFilterFormat = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT;
             }
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
-        } else if ($format === false) {
+        } elseif ($format === false) {
             // reset value
             $this->_dateFilterFormat = null;
             return $this;
@@ -273,7 +266,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
      * Validate value by attribute input validation rule
      *
      * @param string $value
-     * @return string
+     * @return string|array|true
      */
     protected function _validateInputRule($value)
     {
@@ -431,11 +424,11 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
-                        return array(Mage::helper('eav')->__('"%s" is not a valid URL.', $label));
+                        return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
                     break;
                 case 'date':
@@ -453,7 +446,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                         Zend_Validate_Date::FALSEFORMAT
                     );
                     if (!$validator->isValid($value)) {
-                       return array_unique($validator->getMessages());
+                        return array_unique($validator->getMessages());
                     }
 
                     break;
@@ -501,7 +494,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (isset($params[$part])) {
                         $params = $params[$part];
                     } else {
-                        $params = array();
+                        $params = [];
                     }
                 }
             } else {

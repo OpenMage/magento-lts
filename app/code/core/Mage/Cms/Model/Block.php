@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,41 +12,39 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * CMS block model
  *
+ * @category   Mage
+ * @package    Mage_Cms
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Cms_Model_Resource_Block _getResource()
  * @method Mage_Cms_Model_Resource_Block getResource()
- * @method string getTitle()
- * @method Mage_Cms_Model_Block setTitle(string $value)
- * @method string getIdentifier()
- * @method Mage_Cms_Model_Block setIdentifier(string $value)
- * @method string getContent()
- * @method Mage_Cms_Model_Block setContent(string $value)
- * @method string getCreationTime()
- * @method Mage_Cms_Model_Block setCreationTime(string $value)
- * @method string getUpdateTime()
- * @method Mage_Cms_Model_Block setUpdateTime(string $value)
- * @method int getIsActive()
- * @method Mage_Cms_Model_Block setIsActive(int $value)
+ * @method Mage_Cms_Model_Resource_Block_Collection getCollection()
  *
- * @category    Mage
- * @package     Mage_Cms
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method string getTitle()
+ * @method $this setTitle(string $value)
+ * @method string getIdentifier()
+ * @method $this setIdentifier(string $value)
+ * @method string getContent()
+ * @method $this setContent(string $value)
+ * @method string getCreationTime()
+ * @method $this setCreationTime(string $value)
+ * @method string getUpdateTime()
+ * @method $this setUpdateTime(string $value)
+ * @method int getIsActive()
+ * @method $this setIsActive(int $value)
+ * @method $this setStoreId(int $storeId)
+ * @method int getStoreId()
+ * @method int getBlockId()
  */
-
 class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 {
     const CACHE_TAG     = 'cms_block';
@@ -66,7 +64,7 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $needle = 'block_id="' . $this->getBlockId() . '"';
-        if (false == strstr($this->getContent(), $needle)) {
+        if (strstr($this->getContent(), $needle) == false) {
             return parent::_beforeSave();
         }
         Mage::throwException(

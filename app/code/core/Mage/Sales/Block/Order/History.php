@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,8 +24,10 @@
  * @category   Mage
  * @package    Mage_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Resource_Order_Collection getOrders()
+ * @method $this setOrders(Mage_Sales_Model_Resource_Order_Collection $value)
  */
-
 class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
 {
 
@@ -43,7 +39,7 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addFieldToSelect('*')
             ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomer()->getId())
-            ->addFieldToFilter('state', array('in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()))
+            ->addFieldToFilter('state', ['in' => Mage::getSingleton('sales/order_config')->getVisibleOnFrontStates()])
             ->setOrder('created_at', 'desc')
         ;
 
@@ -52,6 +48,9 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('root')->setHeaderTitle(Mage::helper('sales')->__('My Orders'));
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -63,26 +62,44 @@ class Mage_Sales_Block_Order_History extends Mage_Core_Block_Template
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPagerHtml()
     {
         return $this->getChildHtml('pager');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
-        return $this->getUrl('*/*/view', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getTrackUrl($order)
     {
-        return $this->getUrl('*/*/track', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/track', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getReorderUrl($order)
     {
-        return $this->getUrl('*/*/reorder', array('order_id' => $order->getId()));
+        return $this->getUrl('*/*/reorder', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @return string
+     */
     public function getBackUrl()
     {
         return $this->getUrl('customer/account/');

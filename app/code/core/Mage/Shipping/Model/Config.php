@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 class Mage_Shipping_Model_Config extends Varien_Object
 {
@@ -45,7 +38,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      */
     public function getActiveCarriers($store = null)
     {
-        $carriers = array();
+        $carriers = [];
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             if (Mage::getStoreConfigFlag('carriers/'.$code.'/active', $store)) {
@@ -62,11 +55,11 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * Retrieve all system carriers
      *
      * @param   mixed $store
-     * @return  array
+     * @return  Mage_Shipping_Model_Carrier_Abstract[]
      */
     public function getAllCarriers($store = null)
     {
-        $carriers = array();
+        $carriers = [];
         $config = Mage::getStoreConfig('carriers', $store);
         foreach ($config as $code => $carrierConfig) {
             $model = $this->_getCarrier($code, $carrierConfig, $store);
@@ -82,7 +75,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      *
      * @param   string $carrierCode
      * @param   mixed $store
-     * @return  Mage_Usa_Model_Shipping_Carrier_Abstract
+     * @return  Mage_Usa_Model_Shipping_Carrier_Abstract|false
      */
     public function getCarrierInstance($carrierCode, $store = null)
     {
@@ -99,7 +92,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * @param string $code
      * @param array $config
      * @param mixed $store
-     * @return Mage_Shipping_Model_Carrier_Abstract
+     * @return Mage_Shipping_Model_Carrier_Abstract|false
      */
     protected function _getCarrier($code, $config, $store = null)
     {
@@ -113,6 +106,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
          * Related with module uninstall process
          */
         try {
+            /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
             $carrier = Mage::getModel($modelName);
         } catch (Exception $e) {
             Mage::logException($e);

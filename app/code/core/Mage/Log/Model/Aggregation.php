@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,31 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Log Aggregation Model
  *
- * @method Mage_Log_Model_Resource_Aggregation getResource()
- * @method Mage_Log_Model_Resource_Aggregation _getResource()
- *
  * @category   Mage
  * @package    Mage_Log
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Log_Model_Resource_Aggregation getResource()
+ * @method Mage_Log_Model_Resource_Aggregation _getResource()
  */
 class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
 {
-
     /**
      * Last record data
      *
@@ -67,7 +60,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
      * Remove empty records before $lastDate
      *
      * @param  string $lastDate
-     * @return void
+     * @return Mage_Log_Model_Resource_Aggregation
      */
     private function _removeEmpty($lastDate)
     {
@@ -90,19 +83,19 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         while ($date < $end) {
             $to = $date + 3600;
             $counts = $this->_getCounts($this->_date($date), $this->_date($to), $store);
-            $data = array(
+            $data = [
                 'store_id'=>$store,
                 'visitor_count'=>$counts['visitors'],
                 'customer_count'=>$counts['customers'],
                 'add_date'=>$this->_date($date)
-                );
+            ];
 
             if ($counts['visitors'] || $counts['customers']) {
                 $this->_save($data, $this->_date($date), $this->_date($to));
             }
 
             $lastDateRecord = $date;
-            $date = $to; 
+            $date = $to;
         }
         return $lastDateRecord;
     }
@@ -123,48 +116,77 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         }
     }
 
+    /**
+     * @param int $id
+     * @param array $data
+     */
     private function _update($id, $data)
     {
         return $this->_getResource()->saveLog($data, $id);
     }
 
+    /**
+     * @param array $data
+     */
     private function _insert($data)
     {
         return $this->_getResource()->saveLog($data);
     }
 
+    /**
+     * @param string $from
+     * @param string $to
+     * @param int $store
+     * @return array
+     */
     private function _getCounts($from, $to, $store)
     {
         return $this->_getResource()->getCounts($from, $to, $store);
     }
 
+    /**
+     * @return false|string
+     */
     public function getLastRecordDate()
     {
         $result = $this->_getResource()->getLastRecordDate();
-        if (!$result)
+        if (!$result) {
             $result = $this->_date(strtotime('now - 2 months'));
+        }
 
         return $result;
     }
 
+    /**
+     * @param string|int $in
+     * @param null $offset
+     * @return false|string
+     */
     private function _date($in, $offset = null)
     {
         $out = $in;
-        if (is_numeric($in))
+        if (is_numeric($in)) {
             $out = date("Y-m-d H:i:s", $in);
-        return $out;
-    }
-
-    private function _timestamp($in, $offset = null)
-    {
-        $out = $in;
-        if (!is_numeric($in))
-            $out = strtotime($in);
+        }
         return $out;
     }
 
     /**
-     * @param  $in
+     * @param string|int $in
+     * @param null $offset
+     * @return false|int
+     */
+    private function _timestamp($in, $offset = null)
+    {
+        $out = $in;
+        if (!is_numeric($in)) {
+            $out = strtotime($in);
+        }
+        return $out;
+    }
+
+    /**
+     * @param  string|int $in
      * @return string
      */
     private function _round($in)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,17 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Payment
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
+/**
+ * @category   Mage
+ * @package    Mage_Payment
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
     protected $_formBlockType = 'payment/form_cc';
@@ -34,8 +32,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Assign data to info model instance
      *
-     * @param   mixed $data
-     * @return  Mage_Payment_Model_Info
+     * @param mixed $data
+     * @return $this
      */
     public function assignData($data)
     {
@@ -60,7 +58,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Prepare info instance for save
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return $this
      */
     public function prepareSave()
     {
@@ -77,8 +75,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate payment method information object
      *
-     * @param   Mage_Payment_Model_Info $info
-     * @return  Mage_Payment_Model_Abstract
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
      */
     public function validate()
     {
@@ -89,7 +88,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $info = $this->getInfoInstance();
         $errorMsg = false;
-        $availableTypes = explode(',',$this->getConfigData('cctypes'));
+        $availableTypes = explode(',', $this->getConfigData('cctypes'));
 
         $ccNumber = $info->getCcNumber();
 
@@ -99,24 +98,17 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         $ccType = '';
 
-        if (in_array($info->getCcType(), $availableTypes)){
+        if (in_array($info->getCcType(), $availableTypes)) {
             if ($this->validateCcNum($ccNumber)
                 // Other credit card type number validation
                 || ($this->OtherCcType($info->getCcType()) && $this->validateCcNumOther($ccNumber))) {
-
                 $ccType = 'OT';
                 $discoverNetworkRegexp = '/^(30[0-5]\d{13}|3095\d{12}|35(2[8-9]\d{12}|[3-8]\d{13})|36\d{12}'
                     . '|3[8-9]\d{14}|6011(0\d{11}|[2-4]\d{11}|74\d{10}|7[7-9]\d{10}|8[6-9]\d{10}|9\d{11})'
                     . '|62(2(12[6-9]\d{10}|1[3-9]\d{11}|[2-8]\d{12}|9[0-1]\d{11}|92[0-5]\d{10})|[4-6]\d{13}'
                     . '|8[2-8]\d{12})|6(4[4-9]\d{13}|5\d{14}))$/';
-                $ccTypeRegExpList = array(
+                $ccTypeRegExpList = [
                     //Solo, Switch or Maestro. International safe
-                    /*
-                    // Maestro / Solo
-                    'SS'  => '/^((6759[0-9]{12})|(6334|6767[0-9]{12})|(6334|6767[0-9]{14,15})'
-                               . '|(5018|5020|5038|6304|6759|6761|6763[0-9]{12,19})|(49[013][1356][0-9]{12})'
-                               . '|(633[34][0-9]{12})|(633110[0-9]{10})|(564182[0-9]{10}))([0-9]{2,3})?$/',
-                    */
                     // Solo only
                     'SO' => '/(^(6334)[5-9](\d{11}$|\d{13,14}$))|(^(6767)(\d{12}$|\d{14,15}$))/',
                     // Visa
@@ -138,7 +130,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                     . '|(^(49030)[2-9](\d{10}$|\d{12,13}$))|(^(49033)[5-9](\d{10}$|\d{12,13}$))'
                     . '|(^(49110)[1-2](\d{10}$|\d{12,13}$))|(^(49117)[4-9](\d{10}$|\d{12,13}$))'
                     . '|(^(49118)[0-2](\d{10}$|\d{12,13}$))|(^(4936)(\d{12}$|\d{14,15}$))/'
-                );
+                ];
 
                 $specifiedCCType = $info->getCcType();
                 if (array_key_exists($specifiedCCType, $ccTypeRegExpList)) {
@@ -147,13 +139,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
                         $errorMsg = Mage::helper('payment')->__('Credit card number mismatch with credit card type.');
                     }
                 }
-            }
-            else {
+            } else {
                 $errorMsg = Mage::helper('payment')->__('Invalid Credit Card Number');
             }
-
-        }
-        else {
+        } else {
             $errorMsg = Mage::helper('payment')->__('Credit card type is not allowed for this payment method.');
         }
 
@@ -161,7 +150,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if ($errorMsg === false && $this->hasVerification()) {
             $verifcationRegEx = $this->getVerificationRegEx();
             $regExp = isset($verifcationRegEx[$info->getCcType()]) ? $verifcationRegEx[$info->getCcType()] : '';
-            if (!$info->getCcCid() || !$regExp || !preg_match($regExp ,$info->getCcCid())){
+            if (!$info->getCcCid() || !$regExp || !preg_match($regExp, $info->getCcCid())) {
                 $errorMsg = Mage::helper('payment')->__('Please enter a valid credit card verification number.');
             }
         }
@@ -170,7 +159,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             $errorMsg = Mage::helper('payment')->__('Incorrect credit card expiration date.');
         }
 
-        if($errorMsg){
+        if ($errorMsg) {
             Mage::throwException($errorMsg);
         }
 
@@ -182,18 +171,24 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function hasVerification()
     {
         $configData = $this->getConfigData('useccv');
-        if(is_null($configData)){
+        if (is_null($configData)) {
             return true;
         }
         return (bool) $configData;
     }
 
+    /**
+     * @return array
+     */
     public function getVerificationRegEx()
     {
-        $verificationExpList = array(
+        return [
             'VI' => '/^[0-9]{3}$/', // Visa
             'MC' => '/^[0-9]{3}$/',       // Master Card
             'AE' => '/^[0-9]{4}$/',        // American Express
@@ -203,10 +198,15 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             'SO' => '/^[0-9]{3,4}$/', // Solo
             'OT' => '/^[0-9]{3,4}$/',
             'JCB' => '/^[0-9]{3,4}$/' //JCB
-        );
-        return $verificationExpList;
+        ];
     }
 
+    /**
+     * @param string $expYear
+     * @param string $expMonth
+     * @return bool
+     * @throws Zend_Date_Exception
+     */
     protected function _validateExpDate($expYear, $expMonth)
     {
         $date = Mage::app()->getLocale()->date();
@@ -218,6 +218,10 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         return true;
     }
 
+    /**
+     * @param string $type
+     * @return bool
+     */
     public function OtherCcType($type)
     {
         return $type=='OT';
@@ -226,7 +230,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate credit card number
      *
-     * @param   string $cc_number
+     * @param string $ccNumber
      * @return  bool
      */
     public function validateCcNum($ccNumber)
@@ -292,7 +296,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
      */
     public function getIsCentinelValidationEnabled()
     {
-        return false !== Mage::getConfig()->getNode('modules/Mage_Centinel') && 1 == $this->getConfigData('centinel');
+        return Mage::getConfig()->getNode('modules/Mage_Centinel') !== false && $this->getConfigData('centinel') == 1;
     }
 
     /**
@@ -376,9 +380,9 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         $info = $this->getInfoInstance();
 
         if ($this->_isPlaceOrder()) {
-        return $info->getOrder()->getBaseCurrencyCode();
+            return $info->getOrder()->getBaseCurrencyCode();
         } else {
-        return $info->getQuote()->getBaseCurrencyCode();
+            return $info->getQuote()->getBaseCurrencyCode();
         }
     }
 

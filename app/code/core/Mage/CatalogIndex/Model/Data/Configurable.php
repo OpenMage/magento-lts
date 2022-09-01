@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogIndex
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Configurable product data retreiver
+ * Configurable product data retriever
  *
  * @author Magento Core Team <core@magentocommerce.com>
  */
@@ -34,13 +28,13 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Defines when product type has children
      *
-     * @var boolean
+     * @var int[]|bool[]
      */
-    protected $_haveChildren = array(
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
-                        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
-                        );
+    protected $_haveChildren = [
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_TIERS=>false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_PRICES=>false,
+        Mage_CatalogIndex_Model_Retreiver::CHILDREN_FOR_ATTRIBUTES=>true,
+    ];
 
     /**
      * Defines when product type has parents
@@ -55,7 +49,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     }
 
    /**
-     * Retreive product type code
+     * Retrieve product type code
      *
      * @return string
      */
@@ -71,10 +65,10 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected function _getLinkSettings()
     {
-        return array(
+        return [
                     'table'=>'catalog/product_super_link',
                     'parent_field'=>'parent_id',
                     'child_field'=>'product_id',
-                    );
+        ];
     }
 }

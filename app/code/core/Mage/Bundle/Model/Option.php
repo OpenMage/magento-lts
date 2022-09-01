@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Bundle
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,14 +23,24 @@
  *
  * @method Mage_Bundle_Model_Resource_Option _getResource()
  * @method Mage_Bundle_Model_Resource_Option getResource()
+ * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
+ * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
+ *
+ * @method string getDefaultTitle()
+ * @method int getOptionId()
  * @method int getParentId()
- * @method Mage_Bundle_Model_Option setParentId(int $value)
- * @method int getRequired()
- * @method Mage_Bundle_Model_Option setRequired(int $value)
+ * @method $this setParentId(int $value)
  * @method int getPosition()
- * @method Mage_Bundle_Model_Option setPosition(int $value)
+ * @method $this setPosition(int $value)
+ * @method int getRequired()
+ * @method $this setRequired(int $value)
+ * @method Mage_Catalog_Model_Product[] getSelections()
+ * @method $this setSelections(array $value)
+ * @method int getStoreId()
+ * @method $this setStoreId(int $value)
+ * @method string getTitle()
  * @method string getType()
- * @method Mage_Bundle_Model_Option setType(string $value)
+ * @method $this setType(string $value)
  *
  * @category    Mage
  * @package     Mage_Bundle
@@ -65,7 +69,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      * Add selection to option
      *
      * @param Mage_Bundle_Model_Selection $selection
-     * @return $this
+     * @return $this|false
      */
     public function addSelection($selection)
     {
@@ -73,9 +77,9 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
             return false;
         }
         if (!$selections = $this->getData('selections')) {
-            $selections = array();
+            $selections = [];
         }
-        array_push($selections, $selection);
+        $selections[] = $selection;
         $this->setSelections($selections);
         return $this;
     }
@@ -95,8 +99,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
                 }
             }
             return (bool)$saleable;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -166,14 +169,15 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
      * Return selection by it's id
      *
      * @param int $selectionId
-     * @return Mage_Bundle_Model_Selection
+     * @return Mage_Catalog_Model_Product|false
      */
     public function getSelectionById($selectionId)
     {
         $selections = $this->getSelections();
         $i = count($selections);
 
-        while ($i-- && $selections[$i]->getSelectionId() != $selectionId);
+        while ($i-- && $selections[$i]->getSelectionId() != $selectionId) {
+        }
 
         return $i == -1 ? false : $selections[$i];
     }

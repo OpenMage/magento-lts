@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Contacts
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,17 +27,19 @@
  */
 class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 {
-
     const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
     const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
     const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
     const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
 
+    /**
+     * @return Mage_Core_Controller_Front_Action|void
+     */
     public function preDispatch()
     {
         parent::preDispatch();
 
-        if( !Mage::getStoreConfigFlag(self::XML_PATH_ENABLED) ) {
+        if (!Mage::getStoreConfigFlag(self::XML_PATH_ENABLED)) {
             $this->norouteAction();
         }
     }
@@ -52,7 +48,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->getLayout()->getBlock('contactForm')
-            ->setFormAction( Mage::getUrl('*/*/post', array('_secure' => $this->getRequest()->isSecure())) );
+            ->setFormAction(Mage::getUrl('*/*/post', ['_secure' => $this->getRequest()->isSecure()]));
 
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
@@ -62,9 +58,9 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
     public function postAction()
     {
         $post = $this->getRequest()->getPost();
-        if ( $post ) {
+        if ($post) {
             $translate = Mage::getSingleton('core/translate');
-            /* @var $translate Mage_Core_Model_Translate */
+            /** @var Mage_Core_Model_Translate $translate */
             $translate->setTranslateInline(false);
             try {
                 $postObject = new Varien_Object();
@@ -72,11 +68,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 $error = false;
 
-                if (!Zend_Validate::is(trim($post['name']) , 'NotEmpty')) {
+                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
                     $error = true;
                 }
 
-                if (!Zend_Validate::is(trim($post['comment']) , 'NotEmpty')) {
+                if (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
                     $error = true;
                 }
 
@@ -84,23 +80,19 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     $error = true;
                 }
 
-                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
-                    $error = true;
-                }
-
                 if ($error) {
                     throw new Exception();
                 }
                 $mailTemplate = Mage::getModel('core/email_template');
-                /* @var $mailTemplate Mage_Core_Model_Email_Template */
-                $mailTemplate->setDesignConfig(array('area' => 'frontend'))
+                /** @var Mage_Core_Model_Email_Template $mailTemplate */
+                $mailTemplate->setDesignConfig(['area' => 'frontend'])
                     ->setReplyTo($post['email'])
                     ->sendTransactional(
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
                         Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT),
                         null,
-                        array('data' => $postObject)
+                        ['data' => $postObject]
                     );
 
                 if (!$mailTemplate->getSentSuccess()) {
@@ -120,10 +112,8 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $this->_redirect('*/*/');
                 return;
             }
-
         } else {
             $this->_redirect('*/*/');
         }
     }
-
 }

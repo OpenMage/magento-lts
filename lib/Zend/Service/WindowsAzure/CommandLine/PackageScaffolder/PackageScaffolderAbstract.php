@@ -24,7 +24,7 @@
  * @package    Zend_Service_WindowsAzure_CommandLine
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageScaffolderAbstract
 {
 	/**
@@ -35,10 +35,10 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
 	 * @param array $options Options array (key/value).
 	 */
 	abstract public function invoke(Phar $phar, $rootPath, $options = array());
-	
+
 	/**
 	 * Writes output to STDERR, followed by a newline (optional)
-	 * 
+	 *
 	 * @param string $message
 	 * @param string $newLine
 	 */
@@ -49,10 +49,10 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
 		}
 		file_put_contents('php://stderr', $message . ($newLine ? "\r\n" : ''));
 	}
-	
+
 	/**
 	 * Extract resources to a file system path
-	 * 
+	 *
 	 * @param Phar $phar Phar archive.
 	 * @param string $path Output path root.
 	 */
@@ -65,10 +65,10 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
 		$this->copyDirectory($path . '/resources', $path, false);
 		$this->deleteDirectory($path . '/resources');
 	}
-	
+
 	/**
 	 * Apply file transforms.
-	 * 
+	 *
 	 * @param string $rootPath Root path.
 	 * @param array $values Key/value array.
 	 */
@@ -77,15 +77,15 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
         if (is_null($rootPath) || !is_string($rootPath) || empty($rootPath)) {
             throw new InvalidArgumentException("Undefined \"rootPath\"");
         }
-                        
+
         if (is_dir($rootPath)) {
             $d = dir($rootPath);
             while ( false !== ( $entry = $d->read() ) ) {
                 if ( $entry == '.' || $entry == '..' ) {
                     continue;
                 }
-                $entry = $rootPath . '/' . $entry; 
-                
+                $entry = $rootPath . '/' . $entry;
+
                 $this->applyTransforms($entry, $values);
             }
             $d->close();
@@ -96,50 +96,50 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
         	}
             file_put_contents($rootPath, $contents);
         }
-        
+
         return true;
 	}
-	
+
 	/**
      * Create directory
-     * 
+     *
      * @param string  $path           Path of directory to create.
      * @param boolean $abortIfExists  Abort if directory exists.
      * @param boolean $recursive      Create parent directories if not exist.
-     * 
+     *
      * @return boolean
      */
     protected function createDirectory($path, $abortIfExists = true, $recursive = true) {
         if (is_null($path) || !is_string($path) || empty($path)) {
-            throw new InvalidArgumentException ("Undefined \"path\"" );        
+            throw new InvalidArgumentException ("Undefined \"path\"" );
         }
-                
+
         if (is_dir($path) && $abortIfExists) {
-            return false;       
+            return false;
         }
-        
+
         if (is_dir($path) ) {
             @chmod($path, '0775');
             if (!self::deleteDirectory($path) ) {
                 throw new RuntimeException("Failed to delete \"{$path}\".");
             }
         }
-            
+
         if (!mkdir($path, '0775', $recursive) || !is_dir($path)) {
             throw new RuntimeException( "Failed to create directory \"{$path}\"." );
         }
 
         return true;
     }
-    
+
     /**
      * Fully copy a source directory to a target directory.
-     * 
+     *
      * @param string  $sourcePath   Source directory
      * @param string  $destinationPath   Target directory
      * @param boolean $abortIfExists Query re-creating target directory if exists
      * @param octal   $mode           Changes access mode
-     * 
+     *
      * @return boolean
      */
     protected function copyDirectory($sourcePath, $destinationPath, $abortIfExists = true, $mode = '0775') {
@@ -148,15 +148,15 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
         if (is_null($sourcePath) || !is_string($sourcePath) || empty($sourcePath)) {
             throw new InvalidArgumentException("Undefined \"sourcePath\"");
         }
-        
+
         if (is_null($destinationPath) || !is_string($destinationPath) || empty($destinationPath)) {
         	throw new InvalidArgumentException("Undefined \"destinationPath\"");
         }
-                    
+
         if (is_dir($destinationPath) && $abortIfExists) {
             return false;
         }
-                        
+
         if (is_dir($sourcePath)) {
             if (!is_dir($destinationPath) && !mkdir($destinationPath, $mode)) {
                 throw new RuntimeException("Failed to create target directory \"{$destinationPath}\"" );
@@ -166,13 +166,13 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
                 if ( $entry == '.' || $entry == '..' ) {
                     continue;
                 }
-                $strSourceEntry = $sourcePath . '/' . $entry; 
+                $strSourceEntry = $sourcePath . '/' . $entry;
                 $strTargetEntry = $destinationPath . '/' . $entry;
                 if (is_dir($strSourceEntry) ) {
                     $this->copyDirectory(
-                    	$strSourceEntry, 
-                    	$strTargetEntry, 
-                    	false, 
+                    	$strSourceEntry,
+                    	$strTargetEntry,
+                    	false,
                     	$mode
                     );
                     continue;
@@ -181,7 +181,7 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
                     throw new RuntimeException (
                         "Failed to copy"
                         . " file \"{$strSourceEntry}\""
-                        . " to \"{$strTargetEntry}\"" 
+                        . " to \"{$strTargetEntry}\""
                     );
                 }
             }
@@ -191,29 +191,29 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
                 throw new RuntimeException (
                     "Failed to copy"
                     . " file \"{$sourcePath}\""
-                    . " to \"{$destinationPath}\"" 
-                    
+                    . " to \"{$destinationPath}\""
+
                 );
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * Delete directory and all of its contents;
-     * 
+     *
      * @param string $path Directory path
      * @return boolean
      */
-    protected function deleteDirectory($path) 
+    protected function deleteDirectory($path)
     {
         if (is_null($path) || !is_string($path) || empty($path)) {
-            throw new InvalidArgumentException( "Undefined \"path\"" );        
+            throw new InvalidArgumentException( "Undefined \"path\"" );
         }
-        
+
         $handleDir = false;
-        if (is_dir($path) ) {    
+        if (is_dir($path) ) {
             $handleDir = @opendir($path);
         }
         if (!$handleDir) {
@@ -224,28 +224,28 @@ abstract class Zend_Service_WindowsAzure_CommandLine_PackageScaffolder_PackageSc
             if ($file == '.' || $file == '..') {
                 continue;
             }
-            
+
             $fsEntity = $path . "/" . $file;
-            
+
             if (is_dir($fsEntity)) {
                 $this->deleteDirectory($fsEntity);
                 continue;
             }
-            
+
             if (is_file($fsEntity)) {
                 @unlink($fsEntity);
                 continue;
             }
-            
+
             throw new LogicException (
-                "Unexpected file type: \"{$fsEntity}\"" 
+                "Unexpected file type: \"{$fsEntity}\""
             );
         }
-        
-        @chmod($path, 0775);        
+
+        @chmod($path, 0775);
         closedir($handleDir);
         @rmdir($path);
-                     
+
         return true;
     }
 }

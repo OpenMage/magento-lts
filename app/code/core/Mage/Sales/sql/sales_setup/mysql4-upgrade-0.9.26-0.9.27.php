@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,33 +22,39 @@
 set_time_limit(0);
 
 $installer = $this;
-/* @var $installer Mage_Sales_Model_Mysql4_Setup */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'global_currency_code', 'varchar(255) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'global_currency_code',
+    'varchar(255) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_quote_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'base_to_quote_rate',
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 $installer->getConnection()->addColumn(
-    $this->getTable('sales/quote'), 'base_to_global_rate', 'decimal(12,4) NULL AFTER `store_to_quote_rate`'
+    $this->getTable('sales/quote'),
+    'base_to_global_rate',
+    'decimal(12,4) NULL AFTER `store_to_quote_rate`'
 );
 
-$installer->addAttribute('quote', 'global_currency_code', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_global_rate', array('type'=>'static'));
-$installer->addAttribute('quote', 'base_to_quote_rate', array('type'=>'static'));
+$installer->addAttribute('quote', 'global_currency_code', ['type'=>'static']);
+$installer->addAttribute('quote', 'base_to_global_rate', ['type'=>'static']);
+$installer->addAttribute('quote', 'base_to_quote_rate', ['type'=>'static']);
 
-$installer->addAttribute('order', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('order', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('order', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('order', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('order', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('order', 'base_to_order_rate', ['type'=>'decimal']);
 
-$installer->addAttribute('invoice', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('invoice', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('invoice', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('invoice', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('invoice', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('invoice', 'base_to_order_rate', ['type'=>'decimal']);
 
-$installer->addAttribute('creditmemo', 'global_currency_code', array('type'=>'varchar'));
-$installer->addAttribute('creditmemo', 'base_to_global_rate', array('type'=>'decimal'));
-$installer->addAttribute('creditmemo', 'base_to_order_rate', array('type'=>'decimal'));
+$installer->addAttribute('creditmemo', 'global_currency_code', ['type'=>'varchar']);
+$installer->addAttribute('creditmemo', 'base_to_global_rate', ['type'=>'decimal']);
+$installer->addAttribute('creditmemo', 'base_to_order_rate', ['type'=>'decimal']);
 
 /*
  * getting all base currency codes and placing them in newly created attribute
@@ -67,15 +67,14 @@ $invoiceEntityType['entity_table'] = 'sales_order_entity';
 $creditmemoEntityType = $installer->getEntityType('creditmemo');
 $creditmemoEntityType['entity_table'] = 'sales_order_entity';
 
-$entityTypes = array($orderEntityType['entity_type_id'] => $orderEntityType,
+$entityTypes = [$orderEntityType['entity_type_id'] => $orderEntityType,
     $invoiceEntityType['entity_type_id'] => $invoiceEntityType,
-    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType);
+    $creditmemoEntityType['entity_type_id'] => $creditmemoEntityType];
 
 try {
     $installer->getConnection()->beginTransaction();
 
     foreach ($entityTypes as $typeId => $entity) {
-
         $globalCurrencyCode = $installer->getAttribute($typeId, 'global_currency_code');
         if ($globalCurrencyCode['backend_type'] == 'static') {
             $globalCurrencyCodeTable = $this->getTable($entity['entity_table']);
@@ -174,7 +173,7 @@ try {
     }
 
     $installer->getConnection()->commit();
-} catch(Exception $e) {
+} catch (Exception $e) {
     $installer->getConnection()->rollBack();
     throw $e;
 }

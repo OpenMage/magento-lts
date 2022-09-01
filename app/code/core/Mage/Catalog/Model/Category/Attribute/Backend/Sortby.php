@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Category Attribute Default and Available Sort By Backend Model
@@ -32,8 +25,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
-    extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Validate process
@@ -49,7 +41,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
             $isUseConfig = in_array($attributeCode, $postDataConfig);
         } else {
             $isUseConfig = false;
-            $postDataConfig = array();
+            $postDataConfig = [];
         }
 
         if ($this->getAttribute()->getIsRequired()) {
@@ -57,7 +49,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
             if ($this->getAttribute()->isValueEmpty($attributeValue)) {
                 if (is_array($attributeValue) && count($attributeValue)>0) {
                 } else {
-                    if(!$isUseConfig) {
+                    if (!$isUseConfig) {
                         return false;
                     }
                 }
@@ -97,14 +89,15 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
      * @param Varien_Object $object
      * @return $this
      */
-    public function beforeSave($object) {
+    public function beforeSave($object)
+    {
         $attributeCode = $this->getAttribute()->getName();
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
             if (!is_array($data)) {
-                $data = array();
+                $data = [];
             }
-            $object->setData($attributeCode, join(',', $data));
+            $object->setData($attributeCode, implode(',', $data));
         }
         if (is_null($object->getData($attributeCode))) {
             $object->setData($attributeCode, false);
@@ -112,7 +105,12 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby
         return $this;
     }
 
-    public function afterLoad($object) {
+    /**
+     * @param Varien_Object $object
+     * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+     */
+    public function afterLoad($object)
+    {
         $attributeCode = $this->getAttribute()->getName();
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);

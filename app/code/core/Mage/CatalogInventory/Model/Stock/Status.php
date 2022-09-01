@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_CatalogInventory
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -81,7 +75,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     public function getProductTypeInstances()
     {
         if (is_null($this->_productTypes)) {
-            $this->_productTypes = array();
+            $this->_productTypes = [];
             $productEmulator     = new Varien_Object();
 
             foreach (array_keys(Mage_Catalog_Model_Product_Type::getTypes()) as $typeId) {
@@ -97,7 +91,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Retrieve Product Type Instance By Product Type
      *
      * @param string $productType
-     * @return Mage_Catalog_Model_Product_Type_Abstract
+     * @return Mage_Catalog_Model_Product_Type_Abstract|false
      */
     public function getProductTypeInstance($productType)
     {
@@ -111,6 +105,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve website models
      *
+     * @param null $websiteId
      * @return array
      */
     public function getWebsites($websiteId = null)
@@ -121,7 +116,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         $websites = $this->_websites;
         if (!is_null($websiteId) && isset($this->_websites[$websiteId])) {
-            $websites = array($websiteId => $this->_websites[$websiteId]);
+            $websites = [$websiteId => $this->_websites[$websiteId]];
         }
 
         return $websites;
@@ -273,26 +268,30 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param string $productType
-     * @param float $qty
+     * @param int|float $qty
      * @param int $status
      * @param int $stockId
      * @param int $websiteId
      *
      * @return $this
      */
-    protected function _processChildren($productId, $productType, $qty = 0, $status = self::STATUS_IN_STOCK,
-        $stockId = 1, $websiteId = null
+    protected function _processChildren(
+        $productId,
+        $productType,
+        $qty = 0,
+        $status = self::STATUS_IN_STOCK,
+        $stockId = 1,
+        $websiteId = null
     ) {
         if ($status == self::STATUS_OUT_OF_STOCK) {
             $this->saveProductStatus($productId, $status, $qty, $stockId, $websiteId);
             return $this;
         }
 
-        $statuses   = array();
+        $statuses   = [];
         $websites   = $this->getWebsites($websiteId);
 
         foreach (array_keys($websites) as $websiteId) {
-            /* @var $website Mage_Core_Model_Website */
             $statuses[$websiteId] = $status;
         }
 
@@ -302,7 +301,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         $requiredChildrenIds = $typeInstance->getChildrenIds($productId, true);
         if ($requiredChildrenIds) {
-            $childrenIds = array();
+            $childrenIds = [];
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }
@@ -350,9 +349,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      */
     protected function _processParents($productId, $stockId = 1, $websiteId = null)
     {
-        $parentIds = array();
+        $parentIds = [];
         foreach ($this->getProductTypeInstances() as $typeInstance) {
-            /* @var $typeInstance Mage_Catalog_Model_Product_Type_Abstract */
+            /** @var Mage_Catalog_Model_Product_Type_Abstract $typeInstance */
             $parentIds = array_merge($parentIds, $typeInstance->getParentIdsByChild($productId));
         }
 
@@ -365,7 +364,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         foreach ($parentIds as $parentId) {
             $parentType = isset($productTypes[$parentId]) ? $productTypes[$parentId] : null;
-            $item->setData(array('stock_id' => $stockId))
+            $item->setData(['stock_id' => $stockId])
                 ->setOrigData()
                 ->loadByProduct($parentId);
             $status  = self::STATUS_IN_STOCK;
@@ -387,7 +386,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      *
      * @param int $productId
      * @param int $status
-     * @param float $qty
+     * @param int|float $qty
      * @param int $stockId
      * @param int|null $websiteId
      * @return $this
@@ -454,7 +453,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Add information about stock status to product collection
      *
-     * @param   Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $productCollection
+     * @param   Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @param   int|null $websiteId
      * @param   int|null $stockId
      * @return  Mage_CatalogInventory_Model_Stock_Status
@@ -470,7 +469,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                 $websiteId = Mage::app()->getStore($productCollection->getStoreId())->getWebsiteId();
             }
         }
-        $productIds = array();
+        $productIds = [];
+        /** @var Mage_Catalog_Model_Product $product */
         foreach ($productCollection as $product) {
             $productIds[] = $product->getId();
         }
@@ -486,7 +486,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 
         /* back compatible stock item */
         foreach ($productCollection as $product) {
-            $object = new Varien_Object(array('is_in_stock' => $product->getData('is_salable')));
+            $object = new Varien_Object(['is_in_stock' => $product->getData('is_salable')]);
             $product->setStockItem($object);
         }
 
@@ -528,7 +528,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Add only is in stock products filter to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addIsInStockFilterToCollection($collection)

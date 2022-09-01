@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,40 +12,34 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Log
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Prepare Log Online Visitors Model
  *
+ * @category   Mage
+ * @package    Mage_Log
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
  * @method string getVisitorType()
- * @method Mage_Log_Model_Visitor_Online setVisitorType(string $value)
+ * @method $this setVisitorType(string $value)
  * @method int getRemoteAddr()
- * @method Mage_Log_Model_Visitor_Online setRemoteAddr(int $value)
+ * @method $this setRemoteAddr(int $value)
  * @method string getFirstVisitAt()
- * @method Mage_Log_Model_Visitor_Online setFirstVisitAt(string $value)
+ * @method $this setFirstVisitAt(string $value)
  * @method string getLastVisitAt()
- * @method Mage_Log_Model_Visitor_Online setLastVisitAt(string $value)
+ * @method $this setLastVisitAt(string $value)
  * @method int getCustomerId()
- * @method Mage_Log_Model_Visitor_Online setCustomerId(int $value)
+ * @method $this setCustomerId(int $value)
  * @method string getLastUrl()
- * @method Mage_Log_Model_Visitor_Online setLastUrl(string $value)
+ * @method $this setLastUrl(string $value)
  *
- * @category    Mage
- * @package     Mage_Log
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
@@ -54,21 +48,10 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('log/visitor_online');
-    }
-
-    /**
-     * Retrieve resource instance wrapper
-     *
-     * @return Mage_Log_Model_Mysql4_Visitor_Online
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -96,7 +79,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
      * Set Prepare at timestamp (if time is null, set current timestamp)
      *
      * @param int $time
-     * @return Mage_Log_Model_Mysql4_Visitor_Online
+     * @return $this
      */
     public function setPrepareAt($time = null)
     {

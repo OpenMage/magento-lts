@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +63,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $canUserCache = Mage::app()->useCache('config');
         if ($canUserCache) {
             $this->setCacheId(self::CACHE_ID)
-                ->setCacheTags(array(self::CACHE_TAG))
+                ->setCacheTags([self::CACHE_TAG])
                 ->setCacheChecksum(null)
                 ->setCache(Mage::app()->getCache());
 
@@ -96,29 +90,31 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getRoutes($apiType)
     {
-        /** @var $helper Mage_Api2_Helper_Data */
+        /** @var Mage_Api2_Helper_Data $helper */
         $helper = Mage::helper('api2');
         if (!$helper->isApiTypeSupported($apiType)) {
-            throw new Mage_Api2_Exception(sprintf('API type "%s" is not supported', $apiType),
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            throw new Mage_Api2_Exception(
+                sprintf('API type "%s" is not supported', $apiType),
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+            );
         }
 
-        $routes = array();
+        $routes = [];
         foreach ($this->getResources() as $resourceKey => $resource) {
             if (!$resource->routes) {
                 continue;
             }
 
-            /** @var $routes Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $route */
             foreach ($resource->routes->children() as $route) {
-                $arguments = array(
+                $arguments = [
                     Mage_Api2_Model_Route_Abstract::PARAM_ROUTE    => (string)$route->route,
-                    Mage_Api2_Model_Route_Abstract::PARAM_DEFAULTS => array(
+                    Mage_Api2_Model_Route_Abstract::PARAM_DEFAULTS => [
                         'model'       => (string)$resource->model,
                         'type'        => (string)$resourceKey,
                         'action_type' => (string)$route->action_type
-                    )
-                );
+                    ]
+                ];
 
                 $routes[] = Mage::getModel('api2/route_' . $apiType, $arguments);
             }
@@ -129,7 +125,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve all resources from config files api2.xml
      *
-     * @return Varien_Simplexml_Element
+     * @return SimpleXMLElement|Varien_Simplexml_Element
      */
     public function getResources()
     {
@@ -143,7 +139,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      */
     public function getResourcesTypes()
     {
-        $list = array();
+        $list = [];
 
         foreach ($this->getResources() as $resourceType => $resourceCfg) {
             $list[] = (string) $resourceType;
@@ -154,7 +150,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Retrieve all resource groups from config files api2.xml
      *
-     * @return Varien_Simplexml_Element|boolean
+     * @return Varien_Simplexml_Element|false
      */
     public function getResourceGroups()
     {
@@ -163,11 +159,11 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
             return false;
         }
 
-        /** @var $groups Varien_Simplexml_Element */
+        /** @var Varien_Simplexml_Element $groups */
         $groups = $groups[0];
 
         if (!$this->_resourcesGrouped) {
-            /** @var $node Varien_Simplexml_Element */
+            /** @var Varien_Simplexml_Element $node */
             foreach ($this->getResources() as $node) {
                 $result = $node->xpath('group');
                 if (!$result) {
@@ -180,7 +176,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                         continue;
                     }
 
-                    /** @var $group Varien_Simplexml_Element */
+                    /** @var Varien_Simplexml_Element $group */
                     $group = $result[0];
 
                     if (!isset($group->children)) {
@@ -232,7 +228,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceAttributes($node)
     {
         $attributes = $this->getNode('resources/' . $node . '/attributes');
-        return $attributes ? $attributes->asCanonicalArray() : array();
+        return $attributes ? $attributes->asCanonicalArray() : [];
     }
 
     /**
@@ -246,7 +242,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceExcludedAttributes($resource, $userType, $operation)
     {
         $node = $this->getNode('resources/' . $resource . '/exclude_attributes/' . $userType . '/' . $operation);
-        $exclAttributes = array();
+        $exclAttributes = [];
 
         if ($node) {
             foreach ($node->children() as $attribute => $status) {
@@ -268,7 +264,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceForcedAttributes($resource, $userType)
     {
         $node = $this->getNode('resources/' . $resource . '/force_attributes/' . $userType);
-        $forcedAttributes = array();
+        $forcedAttributes = [];
 
         if ($node) {
             foreach ($node->children() as $attribute => $status) {
@@ -291,7 +287,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceIncludedAttributes($resource, $userType, $operationType)
     {
         $node = $this->getNode('resources/' . $resource . '/include_attributes/' . $userType . '/' . $operationType);
-        $inclAttributes = array();
+        $inclAttributes = [];
 
         if ($node) {
             foreach ($node->children() as $attribute => $status) {
@@ -315,7 +311,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     {
         $node = $this->getNode('resources/' . $resource . '/entity_only_attributes/' . $userType . '/' .
             $operationType);
-        $entityOnlyAttributes = array();
+        $entityOnlyAttributes = [];
 
         if ($node) {
             foreach ($node->children() as $attribute => $status) {
@@ -385,7 +381,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceUserPrivileges($resource, $userType)
     {
         $attributes = $this->getNode('resources/' . $resource . '/privileges/' . $userType);
-        return $attributes ? $attributes->asCanonicalArray() : array();
+        return $attributes ? $attributes->asCanonicalArray() : [];
     }
 
     /**
@@ -397,7 +393,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getResourceSubresources($node)
     {
         $subresources = $this->getNode('resources/' . $node . '/subresources');
-        return $subresources ? $subresources->asCanonicalArray() : array();
+        return $subresources ? $subresources->asCanonicalArray() : [];
     }
 
     /**
@@ -410,7 +406,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     public function getValidationConfig($resourceType, $validatorType)
     {
         $config = $this->getNode('resources/' . $resourceType . '/validators/' . $validatorType);
-        return $config ? $config->asCanonicalArray() : array();
+        return $config ? $config->asCanonicalArray() : [];
     }
 
     /**
@@ -425,7 +421,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         $availVersions = $this->getVersions($resourceType); // already ordered in reverse order
         $useVersion    = reset($availVersions);
 
-        if (null !== $lowerOrEqualsTo) {
+        if ($lowerOrEqualsTo !== null) {
             foreach ($availVersions as $availVersion) {
                 if ($availVersion <= $lowerOrEqualsTo) {
                     $useVersion = $availVersion;

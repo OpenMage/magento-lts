@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api2
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -112,20 +106,22 @@ class Mage_Api2_Model_Multicall
                 throw new Mage_Api2_Exception('Invalid data format', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
             $subresourceIdKey = (string)$subresource->id_param_name;
-            /** @var $server Mage_Api2_Model_Server */
+            /** @var Mage_Api2_Model_Server $server */
             $server = Mage::getSingleton('api2/server');
 
             // create subresource item before linking it to main resource
             if (!array_key_exists($subresourceIdKey, $requestData)) {
                 $subresourceCreateResourceName = (string)$subresource->create_resource_name;
                 $internalRequest = $this->_prepareRequest($subresourceCreateResourceName, $requestData);
-                /** @var $internalCreateResponse Mage_Api2_Model_Response */
+                /** @var Mage_Api2_Model_Response $internalCreateResponse */
                 $internalCreateResponse = Mage::getModel('api2/response');
                 $server->internalCall($internalRequest, $internalCreateResponse);
                 $createdSubresourceInstanceId = $this->_getCreatedResourceId($internalCreateResponse);
                 if (empty($createdSubresourceInstanceId)) {
-                    throw new Mage_Api2_Exception('Error during subresource creation',
-                        Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+                    throw new Mage_Api2_Exception(
+                        'Error during subresource creation',
+                        Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+                    );
                 }
                 $requestData[$subresourceIdKey] = $createdSubresourceInstanceId;
             }
@@ -135,7 +131,7 @@ class Mage_Api2_Model_Multicall
             $parentResourceIdFieldName = (string)$subresource->parent_resource_id_field_name;
             $internalRequest = $this->_prepareRequest($subresourceName, $requestData, $parentResourceIdFieldName);
 
-            /** @var $internalResponse Mage_Api2_Model_Response */
+            /** @var Mage_Api2_Model_Response $internalResponse */
             $internalResponse = Mage::getModel('api2/response');
             $server->internalCall($internalRequest, $internalResponse);
         } catch (Exception $e) {
@@ -167,7 +163,7 @@ class Mage_Api2_Model_Multicall
     protected function _prepareRequest($subresourceName, $data, $parentResourceIdFieldName = null)
     {
         $subresourceUri = $this->_createSubresourceUri($subresourceName, $parentResourceIdFieldName);
-        /** @var $internalRequest Mage_Api2_Model_Request_Internal */
+        /** @var Mage_Api2_Model_Request_Internal $internalRequest */
         $internalRequest = Mage::getModel('api2/request_internal');
         $internalRequest->setRequestUri($subresourceUri);
         $internalRequest->setBodyParams($data);
@@ -184,15 +180,15 @@ class Mage_Api2_Model_Multicall
      */
     protected function _createSubresourceUri($subresourceName, $parentResourceIdFieldName = null)
     {
-        /** @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        /** @var Mage_Api2_Model_Route_ApiType $apiTypeRoute */
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
             new Zend_Controller_Router_Route($this->_getConfig()->getMainRoute($subresourceName))
         );
-        $params = array();
+        $params = [];
         $params['api_type'] = 'rest';
-        if (null !== $parentResourceIdFieldName) {
+        if ($parentResourceIdFieldName !== null) {
             $params[$parentResourceIdFieldName] = $this->_parentResourceId;
         }
         $uri = $chain->assemble($params);

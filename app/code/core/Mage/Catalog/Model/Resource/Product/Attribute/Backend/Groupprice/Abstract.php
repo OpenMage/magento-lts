@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,28 +12,20 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog product abstract price backend attribute model with customer group specific
  *
- * @category    Mage
- * @package     Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract
-    extends Mage_Core_Model_Resource_Db_Abstract
+abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
     /**
      * Load Tier Prices for product
@@ -46,13 +38,13 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     {
         $adapter = $this->_getReadAdapter();
 
-        $columns = array(
+        $columns = [
             'price_id'      => $this->getIdFieldName(),
             'website_id'    => 'website_id',
             'all_groups'    => 'all_groups',
             'cust_group'    => 'customer_group_id',
             'price'         => 'value',
-        );
+        ];
 
         $columns = $this->_loadPriceDataColumns($columns);
 
@@ -66,7 +58,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
             if ($websiteId == '0') {
                 $select->where('website_id = ?', $websiteId);
             } else {
-                $select->where('website_id IN(?)', array(0, $websiteId));
+                $select->where('website_id IN(?)', [0, $websiteId]);
             }
         }
 
@@ -107,9 +99,9 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
     {
         $adapter = $this->_getWriteAdapter();
 
-        $conds   = array(
+        $conds   = [
             $adapter->quoteInto('entity_id = ?', $productId)
-        );
+        ];
 
         if (!is_null($websiteId)) {
             $conds[] = $adapter->quoteInto('website_id = ?', $websiteId);
@@ -128,7 +120,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice_
      * Save tier price object
      *
      * @param Varien_Object $priceObject
-     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice
+     * @return $this
      */
     public function savePriceData(Varien_Object $priceObject)
     {

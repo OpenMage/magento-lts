@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customer Data Helper
@@ -71,7 +64,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * WSDL of VAT validation service
      *
      */
-    const VAT_VALIDATION_WSDL_URL = 'http://ec.europa.eu/taxation_customs/vies/services/checkVatService?wsdl';
+    const VAT_VALIDATION_WSDL_URL = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl';
 
     /**
      * Configuration path to expiration period of reset password link
@@ -99,6 +92,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     const VAT_CLASS_INTRA_UNION = 'intra_union';
     const VAT_CLASS_INVALID     = 'invalid';
     const VAT_CLASS_ERROR       = 'error';
+
+    /**
+     * @var Mage_Customer_Model_Customer
+     */
+    protected $_customer;
 
     /**
      * Customer groups collection
@@ -158,7 +156,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve full customer name from provided object
      *
-     * @param Varien_Object $object
+     * @param Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
      * @return string
      */
     public function getFullCustomerName($object = null)
@@ -169,48 +167,26 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $config = Mage::getSingleton('eav/config');
 
-            if (
-                $config->getAttribute('customer', 'prefix')->getIsVisible()
-                && (
-                    $object->getPrefix()
-                    || $object->getCustomerPrefix()
-                    )
-                ) {
-                    $name .= ($object->getPrefix() ? $object->getPrefix() : $object->getCustomerPrefix()) . ' ';
+            if ($config->getAttribute('customer', 'prefix')->getIsVisible()
+                && ($object->getPrefix() || $object->getCustomerPrefix())
+            ) {
+                $name .= ($object->getPrefix() ?: $object->getCustomerPrefix()) . ' ';
             }
 
-            $name .= $object->getFirstname() ? $object->getFirstname() : $object->getCustomerFirstname();
+            $name .= $object->getFirstname() ?: $object->getCustomerFirstname();
 
             if ($config->getAttribute('customer', 'middlename')->getIsVisible()
-                && (
-                    $object->getMiddlename()
-                    || $object->getCustomerMiddlename()
-                    )
-                ) {
-                    $name .= ' ' . (
-                        $object->getMiddlename()
-                        ? $object->getMiddlename()
-                        : $object->getCustomerMiddlename()
-                    );
+                && ($object->getMiddlename() || $object->getCustomerMiddlename())
+            ) {
+                $name .= ' ' . ($object->getMiddlename() ?: $object->getCustomerMiddlename());
             }
 
-            $name .= ' ' . (
-                $object->getLastname()
-                ? $object->getLastname()
-                : $object->getCustomerLastname()
-            );
+            $name .= ' ' . ($object->getLastname() ?: $object->getCustomerLastname());
 
             if ($config->getAttribute('customer', 'suffix')->getIsVisible()
-                && (
-                    $object->getSuffix()
-                    || $object->getCustomerSuffix()
-                    )
-                ) {
-                    $name .= ' ' . (
-                        $object->getSuffix()
-                        ? $object->getSuffix()
-                        : $object->getCustomerSuffix()
-                    );
+                && ($object->getSuffix() || $object->getCustomerSuffix())
+            ) {
+                $name .= ' ' . ($object->getSuffix() ?: $object->getCustomerSuffix());
             }
         }
         return $name;
@@ -257,19 +233,19 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginUrlParams()
     {
-        $params = array();
+        $params = [];
 
         $referer = $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME);
 
         if (!$referer && !Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD)
             && !Mage::getSingleton('customer/session')->getNoReferer()
         ) {
-            $referer = Mage::getUrl('*/*/*', array('_current' => true, '_use_rewrite' => true));
+            $referer = Mage::getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
             $referer = Mage::helper('core')->urlEncode($referer);
         }
 
         if ($referer) {
-            $params = array(self::REFERER_QUERY_PARAM_NAME => $referer);
+            $params = [self::REFERER_QUERY_PARAM_NAME => $referer];
         }
 
         return $params;
@@ -282,11 +258,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLoginPostUrl()
     {
-        $params = array();
+        $params = [];
         if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
-            $params = array(
+            $params = [
                 self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)
-            );
+            ];
         }
         return $this->_getUrl('customer/account/loginPost', $params);
     }
@@ -389,7 +365,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getEmailConfirmationUrl($email = null)
     {
-        return $this->_getUrl('customer/account/confirmation', array('email' => $email));
+        return $this->_getUrl('customer/account/confirmation', ['email' => $email]);
     }
 
     /**
@@ -399,14 +375,15 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isRegistrationAllowed()
     {
-        $result = new Varien_Object(array('is_allowed' => true));
-        Mage::dispatchEvent('customer_registration_is_allowed', array('result' => $result));
+        $result = new Varien_Object(['is_allowed' => true]);
+        Mage::dispatchEvent('customer_registration_is_allowed', ['result' => $result]);
         return $result->getIsAllowed();
     }
 
     /**
      * Retrieve name prefix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -419,6 +396,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
+     * @param Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -440,7 +418,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         if (empty($options)) {
             return false;
         }
-        $result = array();
+        $result = [];
         $options = explode(';', $options);
         foreach ($options as $value) {
             $value = $this->escapeHtml(trim($value));
@@ -462,7 +440,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate unique token based on customer Id for reset password confirmation link
      *
-     * @param $customerId
+     * @param int $customerId
      * @return string
      */
     public function generateResetPasswordLinkCustomerId($customerId)
@@ -545,12 +523,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
 
         $vatClass = $this->getCustomerVatClass($customerCountryCode, $vatValidationResult, $store);
 
-        $vatClassToGroupXmlPathMap = array(
+        $vatClassToGroupXmlPathMap = [
             self::VAT_CLASS_DOMESTIC => self::XML_PATH_CUSTOMER_VIV_DOMESTIC_GROUP,
             self::VAT_CLASS_INTRA_UNION => self::XML_PATH_CUSTOMER_VIV_INTRA_UNION_GROUP,
             self::VAT_CLASS_INVALID => self::XML_PATH_CUSTOMER_VIV_INVALID_GROUP,
             self::VAT_CLASS_ERROR => self::XML_PATH_CUSTOMER_VIV_ERROR_GROUP
-        );
+        ];
 
         if (isset($vatClassToGroupXmlPathMap[$vatClass])) {
             $groupId = (int)Mage::getStoreConfig($vatClassToGroupXmlPathMap[$vatClass], $store);
@@ -572,16 +550,18 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function checkVatNumber($countryCode, $vatNumber, $requesterCountryCode = '', $requesterVatNumber = '')
     {
         // Default response
-        $gatewayResponse = new Varien_Object(array(
+        $gatewayResponse = new Varien_Object([
             'is_valid' => false,
             'request_date' => '',
             'request_identifier' => '',
             'request_success' => false
-        ));
+        ]);
 
         if (!extension_loaded('soap')) {
-            Mage::logException(Mage::exception('Mage_Core',
-                Mage::helper('core')->__('PHP SOAP extension is required.')));
+            Mage::logException(Mage::exception(
+                'Mage_Core',
+                Mage::helper('core')->__('PHP SOAP extension is required.')
+            ));
             return $gatewayResponse;
         }
 
@@ -592,11 +572,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
         try {
             $soapClient = $this->_createVatNumberValidationSoapClient();
 
-            $requestParams = array();
+            $requestParams = [];
             $requestParams['countryCode'] = $countryCode;
-            $requestParams['vatNumber'] = str_replace(array(' ', '-'), array('', ''), $vatNumber);
+            $requestParams['vatNumber'] = str_replace([' ', '-'], ['', ''], $vatNumber);
             $requestParams['requesterCountryCode'] = $requesterCountryCode;
-            $requestParams['requesterVatNumber'] = str_replace(array(' ', '-'), array('', ''), $requesterVatNumber);
+            $requestParams['requesterVatNumber'] = str_replace([' ', '-'], ['', ''], $requesterVatNumber);
 
             // Send request to service
             $result = $soapClient->checkVatApprox($requestParams);
@@ -627,7 +607,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     public function canCheckVatNumber($countryCode, $vatNumber, $requesterCountryCode, $requesterVatNumber)
     {
         $result = true;
-        /** @var $coreHelper Mage_Core_Helper_Data */
+        /** @var Mage_Core_Helper_Data $coreHelper */
         $coreHelper = Mage::helper('core');
 
         if (!is_string($countryCode)
@@ -707,7 +687,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
                     ? $willChargeTaxMessage
                     : $willNotChargeTaxMessage);
             }
-        } else if ($validationResult->getRequestSuccess()) {
+        } elseif ($validationResult->getRequestSuccess()) {
             $message = sprintf(
                 $this->__('The VAT ID entered (%s) is not a valid VAT ID.') . ' ',
                 $this->escapeHtml($customerAddress->getVatId())
@@ -715,10 +695,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$groupAutoAssignDisabled && !$customerGroupAutoAssignDisabled) {
                 $message .= $willChargeTaxMessage;
             }
-        }
-        else {
-            $contactUsMessage = sprintf($this->__('If you believe this is an error, please contact us at %s'),
-                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL));
+        } else {
+            $contactUsMessage = sprintf(
+                $this->__('If you believe this is an error, please contact us at %s'),
+                Mage::getStoreConfig(self::XML_PATH_SUPPORT_EMAIL)
+            );
 
             $message = $this->__('Your Tax ID cannot be validated.') . ' '
                 . (!$groupAutoAssignDisabled && !$customerGroupAutoAssignDisabled
@@ -736,18 +717,12 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get customer password creation timestamp or customer account creation timestamp
      *
-     * @param $customerId
+     * @param int $customerId
      * @return int
      */
     public function getPasswordTimestamp($customerId)
     {
-        /** @var $customer Mage_Customer_Model_Customer */
-        $customer = Mage::getModel('customer/customer')
-            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
-            ->load((int)$customerId);
-        $passwordCreatedAt = $customer->getPasswordCreatedAt();
-
-        return is_null($passwordCreatedAt) ? $customer->getCreatedAtTimestamp() : $passwordCreatedAt;
+        return Mage::getResourceModel('customer/customer')->getPasswordTimestamp($customerId);
     }
 
     /**
@@ -758,6 +733,6 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _createVatNumberValidationSoapClient($trace = false)
     {
-        return new SoapClient(self::VAT_VALIDATION_WSDL_URL, array('trace' => $trace));
+        return new SoapClient(self::VAT_VALIDATION_WSDL_URL, ['trace' => $trace]);
     }
 }

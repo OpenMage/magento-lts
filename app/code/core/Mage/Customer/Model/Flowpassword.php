@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,21 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Customer flow password info Model
+ *
+ * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
+ * @method $this setEmail(string $value)
+ * @method $this setIp(string $value)
+ * @method $this setRequestedDate(string $value)
  *
  * @category    Mage
  * @package     Mage_Customer
@@ -40,9 +38,7 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Prepare data before save
-     *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
     protected function _beforeSave()
     {
@@ -72,16 +68,18 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
     public function checkCustomerForgotPasswordFlowEmail($email)
     {
         $helper = Mage::helper('customer');
-        $checkForgotPasswordFlowTypes = array(
+        $checkForgotPasswordFlowTypes = [
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP_EMAIL,
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_EMAIL
-        );
+        ];
 
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes)) {
             $forgotPassword = $this->getCollection()
-                ->addFieldToFilter('email', array('eq' => $email))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 day')));
+                ->addFieldToFilter('email', ['eq' => $email])
+                ->addFieldToFilter(
+                    'requested_date',
+                    ['gt' => Mage::getModel('core/date')->date(null, '-1 day')]
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordEmailTimes()) {
                 return false;
@@ -100,16 +98,18 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         $helper        = Mage::helper('customer');
         $validatorData = Mage::getSingleton('customer/session')->getValidatorData();
         $remoteAddr    = $validatorData[Mage_Customer_Model_Session::VALIDATOR_REMOTE_ADDR_KEY];
-        $checkForgotPasswordFlowTypes = array(
+        $checkForgotPasswordFlowTypes = [
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP_EMAIL,
             Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword::FORGOTPASS_FLOW_IP
-        );
+        ];
 
         if (in_array($helper->getCustomerForgotPasswordFlowSecure(), $checkForgotPasswordFlowTypes) && $remoteAddr) {
             $forgotPassword = $this->getCollection()
-                ->addFieldToFilter('ip', array('eq' => $remoteAddr))
-                ->addFieldToFilter('requested_date',
-                    array('gt' => Mage::getModel('core/date')->date(null, '-1 hour')));
+                ->addFieldToFilter('ip', ['eq' => $remoteAddr])
+                ->addFieldToFilter(
+                    'requested_date',
+                    ['gt' => Mage::getModel('core/date')->date(null, '-1 hour')]
+                );
 
             if ($forgotPassword->getSize() > $helper->getCustomerForgotPasswordIpTimes()) {
                 return false;
@@ -118,4 +118,3 @@ class Mage_Customer_Model_Flowpassword extends Mage_Core_Model_Abstract
         return true;
     }
 }
-

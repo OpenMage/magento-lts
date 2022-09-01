@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Cms
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Cms
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Cms Static Block Widget
@@ -31,13 +24,14 @@
  * @category   Mage
  * @package    Mage_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method int getBlockId()
+ * @method $this setText(string $value)
  */
 class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface
 {
     /**
      * Initialize cache
-     *
-     * @return null
      */
     protected function _construct()
     {
@@ -45,7 +39,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         /*
         * setting cache to save the cms block
         */
-        $this->setCacheTags(array(Mage_Cms_Model_Block::CACHE_TAG));
+        $this->setCacheTags([Mage_Cms_Model_Block::CACHE_TAG]);
         $this->setCacheLifetime(false);
     }
 
@@ -54,7 +48,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
      *
      * @var array
      */
-    static protected $_widgetUsageMap = array();
+    static protected $_widgetUsageMap = [];
 
     /**
      * Prepare block text and determine whether block output enabled or not
@@ -78,7 +72,6 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->load($blockId);
             if ($block->getIsActive()) {
-                /* @var $helper Mage_Cms_Helper_Data */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
                 if ($this->isRequestFromAdminArea()) {

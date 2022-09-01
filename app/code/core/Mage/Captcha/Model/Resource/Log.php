@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Captcha
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Log Attempts resource
  *
- * @category    Mage
- * @package     Mage_Captcha
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Captcha
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -61,25 +54,25 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      */
     public function logAttempt($login)
     {
-        if ($login != null){
+        if ($login != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
-                array(
+                [
                      'type' => self::TYPE_LOGIN, 'value' => $login, 'count' => 1,
                      'updated_at' => Mage::getSingleton('core/date')->gmtDate()
-                ),
-                array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
+                ],
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->insertOnDuplicate(
                 $this->getMainTable(),
-                array(
+                [
                      'type' => self::TYPE_REMOTE_ADDRESS, 'value' => $ip, 'count' => 1,
                      'updated_at' => Mage::getSingleton('core/date')->gmtDate()
-                ),
-                array('count' => new Zend_Db_Expr('count+1'), 'updated_at')
+                ],
+                ['count' => new Zend_Db_Expr('count+1'), 'updated_at']
             );
         }
         return $this;
@@ -96,13 +89,14 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
         if ($login != null) {
             $this->_getWriteAdapter()->delete(
                 $this->getMainTable(),
-                array('type = ?' => self::TYPE_LOGIN, 'value = ?' => $login)
+                ['type = ?' => self::TYPE_LOGIN, 'value = ?' => $login]
             );
         }
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if ($ip != null) {
             $this->_getWriteAdapter()->delete(
-                $this->getMainTable(), array('type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip)
+                $this->getMainTable(),
+                ['type = ?' => self::TYPE_REMOTE_ADDRESS, 'value = ?' => $ip]
             );
         }
 
@@ -112,7 +106,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Get count attempts by ip
      *
-     * @return null|int
+     * @return string|int
      */
     public function countAttemptsByRemoteAddress()
     {
@@ -130,7 +124,7 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
      * Get count attempts by user login
      *
      * @param string $login
-     * @return null|int
+     * @return string|int
      */
     public function countAttemptsByUserLogin($login)
     {
@@ -145,14 +139,12 @@ class Mage_Captcha_Model_Resource_Log extends Mage_Core_Model_Resource_Db_Abstra
 
     /**
      * Delete attempts with expired in update_at time
-     *
-     * @return void
      */
     public function deleteOldAttempts()
     {
         $this->_getWriteAdapter()->delete(
             $this->getMainTable(),
-            array('updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60*30))
+            ['updated_at < ?' => Mage::getSingleton('core/date')->gmtDate(null, time() - 60*30)]
         );
     }
 }

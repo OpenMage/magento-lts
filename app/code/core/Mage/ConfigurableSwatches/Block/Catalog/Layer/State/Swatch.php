@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,16 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ConfigurableSwatches
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch
+ *
+ * @method $this setJsonConfig(string $value)
+ * @method int getSwatchInnerHeight()
+ * @method $this setSwatchInnerHeight(int $value)
+ * @method int getSwatchInnerWidth()
+ * @method $this setSwatchInnerWidth(int $value)
+ * @method $this setSwatchOuterHeight(int $value)
+ * @method $this setSwatchOuterWidth(int $value)
+ * @method string getSwatchUrl()
+ * @method $this setSwatchUrl(string $value)
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Core_Block_Template
 {
@@ -57,13 +65,17 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
         if (!$this->_initDone) {
             $dimHelper = Mage::helper('configurableswatches/swatchdimensions');
             $this->setSwatchInnerWidth(
-                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER));
+                $dimHelper->getInnerWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+            );
             $this->setSwatchInnerHeight(
-                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER));
+                $dimHelper->getInnerHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+            );
             $this->setSwatchOuterWidth(
-                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER));
+                $dimHelper->getOuterWidth(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+            );
             $this->setSwatchOuterHeight(
-                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER));
+                $dimHelper->getOuterHeight(Mage_ConfigurableSwatches_Helper_Swatchdimensions::AREA_LAYER)
+            );
 
             $swatchUrl = Mage::helper('configurableswatches/productimg')
                 ->getGlobalSwatchUrl(

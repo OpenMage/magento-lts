@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Catalog Category Flat Indexer Model
@@ -44,18 +37,18 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      *
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Category::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Category::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Core_Model_Store::ENTITY => array(
+        ],
+        Mage_Core_Model_Store::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE
-        ),
-        Mage_Core_Model_Store_Group::ENTITY => array(
+        ],
+        Mage_Core_Model_Store_Group::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-    );
+        ],
+    ];
 
     /**
      * Whether the indexer should be displayed on process/list page
@@ -64,7 +57,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     public function isVisible()
     {
-        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
         return $categoryFlatHelper->isEnabled() || !$categoryFlatHelper->isBuilt();
     }
@@ -92,7 +85,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     /**
      * Retrieve Catalog Category Flat Indexer model
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Flat
+     * @return Mage_Catalog_Model_Resource_Category_Flat
      */
     protected function _getIndexer()
     {
@@ -109,7 +102,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     public function matchEvent(Mage_Index_Model_Event $event)
     {
-        /** @var $categoryFlatHelper Mage_Catalog_Helper_Category_Flat */
+        /** @var Mage_Catalog_Helper_Category_Flat $categoryFlatHelper */
         $categoryFlatHelper = Mage::helper('catalog/category_flat');
         if (!$categoryFlatHelper->isAccessible() || !$categoryFlatHelper->isBuilt()) {
             return false;
@@ -125,7 +118,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
                 $result = true;
             } elseif ($event->getType() == Mage_Index_Model_Event::TYPE_SAVE) {
-                /** @var $store Mage_Core_Model_Store */
+                /** @var Mage_Core_Model_Store $store */
                 $store = $event->getDataObject();
                 if ($store && ($store->isObjectNew()
                     || $store->dataHasChangedFor('group_id')
@@ -139,7 +132,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
                 $result = false;
             }
         } elseif ($entity == Mage_Core_Model_Store_Group::ENTITY) {
-            /** @var $storeGroup Mage_Core_Model_Store_Group */
+            /** @var Mage_Core_Model_Store_Group $storeGroup */
             $storeGroup = $event->getDataObject();
             if ($storeGroup
                 && ($storeGroup->dataHasChangedFor('website_id') || $storeGroup->dataHasChangedFor('root_category_id'))
@@ -193,7 +186,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     {
         switch ($event->getType()) {
             case Mage_Index_Model_Event::TYPE_SAVE:
-                /* @var $category Mage_Catalog_Model_Category */
+                /** @var Mage_Catalog_Model_Category $category */
                 $category = $event->getDataObject();
 
                 /**
@@ -220,7 +213,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
     protected function _registerCoreStoreEvent(Mage_Index_Model_Event $event)
     {
         if ($event->getType() == Mage_Index_Model_Event::TYPE_DELETE) {
-            /* @var $store Mage_Core_Model_Store */
+            /** @var Mage_Core_Model_Store $store */
             $store = $event->getDataObject();
             $event->addNewData('catalog_category_flat_delete_store_id', $store->getId());
         }
@@ -238,14 +231,14 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
 
         if (!empty($data['catalog_category_flat_reindex_all'])) {
             $this->reindexAll();
-        } else if (!empty($data['catalog_category_flat_category_id'])) {
+        } elseif (!empty($data['catalog_category_flat_category_id'])) {
             // catalog_product save
             $categoryId = $data['catalog_category_flat_category_id'];
             $this->_getIndexer()->synchronize($categoryId);
-        } else if (!empty($data['catalog_category_flat_affected_category_ids'])) {
+        } elseif (!empty($data['catalog_category_flat_affected_category_ids'])) {
             $categoryIds = $data['catalog_category_flat_affected_category_ids'];
             $this->_getIndexer()->move($categoryIds);
-        } else if (!empty($data['catalog_category_flat_delete_store_id'])) {
+        } elseif (!empty($data['catalog_category_flat_delete_store_id'])) {
             $storeId = $data['catalog_category_flat_delete_store_id'];
             $this->_getIndexer()->deleteStores($storeId);
         }

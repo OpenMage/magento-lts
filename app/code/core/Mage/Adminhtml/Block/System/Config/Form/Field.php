@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Adminhtml
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract config form element renderer
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field
     extends Mage_Adminhtml_Block_Abstract
@@ -38,8 +31,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
 {
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -49,8 +40,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -92,7 +81,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
         } else {
             $html .= '<td class="value">';
             $html .= $this->_getElementHtml($element);
-        };
+        }
         if ($element->getComment()) {
             $html.= '<p class="note"><span>'.$element->getComment().'</span></p>';
         }
@@ -102,7 +91,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
 
             $defText = $element->getDefaultValue();
             if ($options) {
-                $defTextArr = array();
+                $defTextArr = [];
                 foreach ($options as $k=>$v) {
                     if ($isMultiple) {
                         if (is_array($v['value']) && in_array($k, $v['value'])) {
@@ -120,7 +109,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
                         }
                     }
                 }
-                $defText = join(', ', $defTextArr);
+                $defText = implode(', ', $defTextArr);
             }
 
             // default value

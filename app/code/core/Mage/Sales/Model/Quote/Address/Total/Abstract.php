@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Quote Address Total  abstract model
@@ -40,6 +33,10 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * @var string
      */
     protected $_code;
+
+    /**
+     * @var Mage_Sales_Model_Quote_Address
+     */
     protected $_address = null;
 
     /**
@@ -71,7 +68,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     /**
      * Retrieve total code name
      *
-     * @return unknown
+     * @return string
      */
     public function getCode()
     {
@@ -92,7 +89,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * Collect totals process.
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return Mage_Sales_Model_Quote_Address_Total_Abstract
+     * @return $this
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -114,7 +111,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $this->_setAddress($address);
-        return array();
+        return [];
     }
 
     /**
@@ -182,7 +179,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
     protected function _addAmount($amount)
     {
         if ($this->_canAddAmountToAddress) {
-            $this->_getAddress()->addTotalAmount($this->getCode(),$amount);
+            $this->_getAddress()->addTotalAmount($this->getCode(), $amount);
         }
         return $this;
     }
@@ -205,7 +202,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * Get all items except nominals
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @return array
+     * @return Mage_Sales_Model_Quote_Address_Item[]
      */
     protected function _getAddressItems(Mage_Sales_Model_Quote_Address $address)
     {
@@ -259,7 +256,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Abstract
      * This method can be used for changing models apply sort order
      *
      * @param   array $config
-     * @param   store $store
+     * @param   Mage_Core_Model_Store $store
      * @return  array
      */
     public function processConfigArray($config, $store)

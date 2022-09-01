@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,17 +33,28 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
         $this->setTemplate('sales/order/creditmemo.phtml');
     }
 
+    /**
+     * @return void
+     */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentInfoHtml()
     {
         return $this->getChildHtml('payment_info');
@@ -91,26 +96,48 @@ class Mage_Sales_Block_Order_Creditmemo extends Mage_Sales_Block_Order_Creditmem
         return Mage::helper('sales')->__('View Another Order');
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getInvoiceUrl($order)
     {
-        return Mage::getUrl('*/*/invoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/invoice', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getShipmentUrl($order)
     {
-        return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/shipment', ['order_id' => $order->getId()]);
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
     public function getViewUrl($order)
     {
-        return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
-    public function getPrintCreditmemoUrl($creditmemo){
-        return Mage::getUrl('*/*/printCreditmemo', array('creditmemo_id' => $creditmemo->getId()));
+    /**
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @return string
+     */
+    public function getPrintCreditmemoUrl($creditmemo)
+    {
+        return Mage::getUrl('*/*/printCreditmemo', ['creditmemo_id' => $creditmemo->getId()]);
     }
 
-    public function getPrintAllCreditmemosUrl($order){
-        return Mage::getUrl('*/*/printCreditmemo', array('order_id' => $order->getId()));
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @return string
+     */
+    public function getPrintAllCreditmemosUrl($order)
+    {
+        return Mage::getUrl('*/*/printCreditmemo', ['order_id' => $order->getId()]);
     }
 }

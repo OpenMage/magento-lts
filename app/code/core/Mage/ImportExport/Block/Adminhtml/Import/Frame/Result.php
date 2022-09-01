@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_ImportExport
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,26 +32,26 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      *
      * @var array
      */
-    protected $_actions = array(
-        'clear'           => array(), // remove element from DOM
-        'innerHTML'       => array(), // set innerHTML property (use: elementID => new content)
-        'value'           => array(), // set value for form element (use: elementID => new value)
-        'show'            => array(), // show specified element
-        'hide'            => array(), // hide specified element
-        'removeClassName' => array(), // remove specified class name from element
-        'addClassName'    => array()  // add specified class name to element
-    );
+    protected $_actions = [
+        'clear'           => [], // remove element from DOM
+        'innerHTML'       => [], // set innerHTML property (use: elementID => new content)
+        'value'           => [], // set value for form element (use: elementID => new value)
+        'show'            => [], // show specified element
+        'hide'            => [], // hide specified element
+        'removeClassName' => [], // remove specified class name from element
+        'addClassName'    => []  // add specified class name to element
+    ];
 
     /**
      * Validation messages.
      *
      * @var array
      */
-    protected $_messages = array(
-        'error'   => array(),
-        'success' => array(),
-        'notice'  => array()
-    );
+    protected $_messages = [
+        'error'   => [],
+        'success' => [],
+        'notice'  => []
+    ];
 
     /**
      * Add action for response.
@@ -70,7 +64,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
     public function addAction($actionName, $elementId, $value = null)
     {
         if (isset($this->_actions[$actionName])) {
-            if (null === $value) {
+            if ($value === null) {
                 if (is_array($elementId)) {
                     foreach ($elementId as $oneId) {
                         $this->_actions[$actionName][] = $oneId;
@@ -180,7 +174,7 @@ class Mage_ImportExport_Block_Adminhtml_Import_Frame_Result extends Mage_Adminht
      */
     public function getMessagesHtml()
     {
-        /** @var $messagesBlock Mage_Core_Block_Messages */
+        /** @var Mage_Core_Block_Messages $messagesBlock */
         $messagesBlock = $this->_layout->createBlock('core/messages');
 
         foreach ($this->_messages as $priority => $messages) {

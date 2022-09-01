@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,6 +24,8 @@
  * @category    Mage
  * @package     Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method \Mage_Checkout_Block_Cart_Sidebar getRenderedBlock()
  */
 class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block_Cart_Item_Renderer
 {
@@ -53,17 +49,20 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
     /**
      * Get product thumbnail image
      *
-     * @return Mage_Catalog_Model_Product_Image
+     * @return Mage_Catalog_Helper_Image
      */
     public function getProductThumbnail()
     {
         $product = $this->getProduct();
         if (!$product->getData('thumbnail')
-            ||($product->getData('thumbnail') == 'no_selection')
-            || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) == self::USE_PARENT_IMAGE)) {
+            ||($product->getData('thumbnail') === 'no_selection')
+            || (Mage::getStoreConfig(self::GROUPED_PRODUCT_IMAGE) === self::USE_PARENT_IMAGE)) {
             $product = $this->getGroupedProduct();
         }
-        return $this->helper('catalog/image')->init($product, 'thumbnail');
+
+        /** @var Mage_Catalog_Helper_Image $helper */
+        $helper = $this->helper('catalog/image');
+        return $helper->init($product, 'thumbnail');
     }
 
     /**
@@ -75,12 +74,11 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
      */
     protected function _toHtml()
     {
+        /** @var Mage_Checkout_Block_Cart_Item_Renderer $renderer */
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
-//        $renderer->overrideProductUrl($this->getProductUrl());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
         $rendererHtml = $renderer->toHtml();
-//        $renderer->overrideProductUrl(null);
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Order Email items default renderer
@@ -44,9 +37,12 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         return $this->getItem()->getOrder();
     }
 
+    /**
+     * @return array
+     */
     public function getItemOptions()
     {
-        $result = array();
+        $result = [];
         if ($options = $this->getItem()->getProductOptions()) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
@@ -62,6 +58,10 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         return $result;
     }
 
+    /**
+     * @param array|string $value
+     * @return string
+     */
     public function getValueHtml($value)
     {
         if (is_array($value)) {
@@ -72,12 +72,17 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         }
     }
 
+    /**
+     * @param Mage_Sales_Model_Order_Item $item
+     * @return array|string
+     */
     public function getSku($item)
     {
-        if ($item->getProductOptionByCode('simple_sku'))
+        if ($item->getProductOptionByCode('simple_sku')) {
             return $item->getProductOptionByCode('simple_sku');
-        else
+        } else {
             return $item->getSku();
+        }
     }
 
     /**

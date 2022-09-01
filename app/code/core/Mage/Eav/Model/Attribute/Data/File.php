@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Eav
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @category   Mage
+ * @package    Mage_Eav
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute File Data Model
  *
- * @category    Mage
- * @package     Mage_Eav
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Eav
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_Abstract
 {
@@ -56,13 +50,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
 
         $attrCode  = $this->getAttribute()->getAttributeCode();
         if ($this->_requestScope) {
-            $value  = array();
+            $value  = [];
             if (strpos($this->_requestScope, '/') !== false) {
                 $scopes = explode('/', $this->_requestScope);
                 $mainScope  = array_shift($scopes);
             } else {
                 $mainScope  = $this->_requestScope;
-                $scopes     = array();
+                $scopes     = [];
             }
 
             if (!empty($_FILES[$mainScope])) {
@@ -71,7 +65,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                         if (isset($scopeData[$scopeName])) {
                             $scopeData = $scopeData[$scopeName];
                         } else {
-                            $scopeData[$scopeName] = array();
+                            $scopeData[$scopeName] = [];
                         }
                     }
 
@@ -80,13 +74,13 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                     }
                 }
             } else {
-                $value = array();
+                $value = [];
             }
         } else {
             if (isset($_FILES[$attrCode])) {
                 $value = $_FILES[$attrCode];
             } else {
-                $value = array();
+                $value = [];
             }
         }
 
@@ -114,37 +108,37 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             $extensions = explode(',', $rules['file_extensions']);
             $extensions = array_map('trim', $extensions);
             if (!in_array($extension, $extensions)) {
-                return array(
+                return [
                     Mage::helper('eav')->__('"%s" is not a valid file extension.', $label)
-                );
+                ];
             }
         }
 
         /**
          * Check protected file extension
          */
-        /** @var $validator Mage_Core_Model_File_Validator_NotProtectedExtension */
+        /** @var Mage_Core_Model_File_Validator_NotProtectedExtension $validator */
         $validator = Mage::getSingleton('core/file_validator_notProtectedExtension');
         if (!$validator->isValid($extension)) {
             return $validator->getMessages();
         }
 
         if (!is_uploaded_file($value['tmp_name'])) {
-            return array(
+            return [
                 Mage::helper('eav')->__('"%s" is not a valid file.', $label)
-            );
+            ];
         }
 
         if (!empty($rules['max_file_size'])) {
             $size = $value['size'];
             if ($rules['max_file_size'] < $size) {
-                return array(
+                return [
                     Mage::helper('eav')->__('"%s" exceeds the allowed file size.', $label)
-                );
-            };
+                ];
+            }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -152,7 +146,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      *
      * @param array|string $value
      * @throws Mage_Core_Exception
-     * @return boolean
+     * @return true|array
      */
     public function validateValue($value)
     {
@@ -160,7 +154,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             return true;
         }
 
-        $errors     = array();
+        $errors     = [];
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
@@ -172,6 +166,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         }
 
         if (!$attribute->getIsRequired() && !$toUpload) {
+            if ($toDelete) {
+                $attribute->setAttributeValidationAsPassed();
+            }
             return true;
         }
 
@@ -194,9 +191,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param Mage_Core_Model_Abstract $entity
      * @param array|string $value
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function compactValue($value)
     {
@@ -263,7 +260,9 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formated attribute value from entity model
      *
+     * @param string $format
      * @return string|array
+     * @throws Mage_Core_Exception
      */
     public function outputValue($format = Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_TEXT)
     {
@@ -272,10 +271,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
         if ($value) {
             switch ($format) {
                 case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                    $output = array(
+                    $output = [
                         'value'     => $value,
                         'url_key'   => Mage::helper('core')->urlEncode($value)
-                    );
+                    ];
                     break;
             }
         }

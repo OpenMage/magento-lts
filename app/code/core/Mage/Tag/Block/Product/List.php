@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Tag
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,16 +29,27 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      */
     protected $_uniqueHtmlId = null;
 
+    /**
+     * @return int
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getCount()
     {
         return count($this->getTags());
     }
 
+    /**
+     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getTags()
     {
         return $this->_getCollection()->getItems();
     }
 
+    /**
+     * @return bool
+     */
     public function getProductId()
     {
         if ($product = Mage::registry('current_product')) {
@@ -53,10 +58,13 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return false;
     }
 
+    /**
+     * @return mixed
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _getCollection()
     {
-        if( !$this->_collection && $this->getProductId() ) {
-
+        if (!$this->_collection && $this->getProductId()) {
             $model = Mage::getModel('tag/tag');
             $this->_collection = $model->getResourceCollection()
                 ->addPopularity()
@@ -70,6 +78,9 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return $this->_collection;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _beforeToHtml()
     {
         if (!$this->getProductId()) {
@@ -79,13 +90,16 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         return parent::_beforeToHtml();
     }
 
+    /**
+     * @return string
+     */
     public function getFormAction()
     {
-        return Mage::getUrl('tag/index/save', array(
+        return Mage::getUrl('tag/index/save', [
             'product' => $this->getProductId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => Mage::helper('core/url')->getEncodedUrl(),
             '_secure' => $this->_isSecure()
-        ));
+        ]);
     }
 
     /**
@@ -94,16 +108,20 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
      * @param string $pattern
      * @param string $glue
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function renderTags($pattern, $glue = ' ')
     {
-        $out = array();
+        $out = [];
         foreach ($this->getTags() as $tag) {
-            $out[] = sprintf($pattern,
-                $tag->getTaggedProductsUrl(), $this->escapeHtml($tag->getName()), $tag->getProducts()
+            $out[] = sprintf(
+                $pattern,
+                $tag->getTaggedProductsUrl(),
+                $this->escapeHtml($tag->getName()),
+                $tag->getProducts()
             );
         }
-        return implode($out, $glue);
+        return implode($glue, $out);
     }
 
     /**

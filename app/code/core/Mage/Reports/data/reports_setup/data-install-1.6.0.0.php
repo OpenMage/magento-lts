@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,19 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Reports
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 /*
  * Prepare database for data upgrade
@@ -33,32 +27,32 @@ $installer->startSetup();
 /*
  * Report Event Types default data
  */
-$eventTypeData = array(
-    array(
+$eventTypeData = [
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_VIEW,
         'event_name'    => 'catalog_product_view'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_SEND,
         'event_name'    => 'sendfriend_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_COMPARE,
         'event_name'    => 'catalog_product_compare_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_CART,
         'event_name'    => 'checkout_cart_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_PRODUCT_TO_WISHLIST,
         'event_name'    => 'wishlist_add_product'
-    ),
-    array(
+    ],
+    [
         'event_type_id' => Mage_Reports_Model_Event::EVENT_WISHLIST_SHARE,
         'event_name'    => 'wishlist_share'
-    )
-);
+    ]
+];
 
 foreach ($eventTypeData as $row) {
     $installer->getConnection()->insertForce($installer->getTable('reports/event_type'), $row);
@@ -72,7 +66,7 @@ $installer->endSetup();
 /**
  * Cms Page  with 'home' identifier page modification for report pages
  */
-/** @var $cms Mage_Cms_Model_Page */
+/** @var Mage_Cms_Model_Page $cms */
 $cms = Mage::getModel('cms/page')->load('home', 'identifier');
 
 $reportLayoutUpdate    = '<!--<reference name="content">

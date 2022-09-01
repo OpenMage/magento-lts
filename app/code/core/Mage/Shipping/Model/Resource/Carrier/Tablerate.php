@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Shipping
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +39,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      *
      * @var array
      */
-    protected $_importErrors        = array();
+    protected $_importErrors        = [];
 
     /**
      * Count of imported table rates
@@ -59,7 +53,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      *
      * @var array
      */
-    protected $_importUniqueHash    = array();
+    protected $_importUniqueHash    = [];
 
     /**
      * Array of countries keyed by iso2 code
@@ -95,12 +89,10 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      *
      * @var array
      */
-    protected $_conditionFullNames  = array();
+    protected $_conditionFullNames  = [];
 
     /**
      * Define main table and id field name
-     *
-     * @return void
      */
     protected function _construct()
     {
@@ -116,20 +108,20 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     public function getRate(Mage_Shipping_Model_Rate_Request $request)
     {
         $adapter = $this->_getReadAdapter();
-        $bind = array(
+        $bind = [
             ':website_id' => (int) $request->getWebsiteId(),
             ':country_id' => $request->getDestCountryId(),
             ':region_id' => (int) $request->getDestRegionId(),
             ':postcode' => $request->getDestPostcode()
-        );
+        ];
         $select = $adapter->select()
             ->from($this->getMainTable())
             ->where('website_id = :website_id')
-            ->order(array('dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'))
+            ->order(['dest_country_id DESC', 'dest_region_id DESC', 'dest_zip DESC', 'condition_value DESC'])
             ->limit(1);
 
         // Render destination condition
-        $orWhere = '(' . implode(') OR (', array(
+        $orWhere = '(' . implode(') OR (', [
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = :postcode",
             "dest_country_id = :country_id AND dest_region_id = :region_id AND dest_zip = ''",
 
@@ -142,12 +134,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = ''",
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = :postcode",
             "dest_country_id = :country_id AND dest_region_id = 0 AND dest_zip = '*'",
-        )) . ')';
+            ]) . ')';
         $select->where($orWhere);
 
         // Render condition by condition name
         if (is_array($request->getConditionName())) {
-            $orWhere = array();
+            $orWhere = [];
             $i = 0;
             foreach ($request->getConditionName() as $conditionName) {
                 $bindNameKey  = sprintf(':condition_name_%d', $i);
@@ -180,7 +172,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Upload table rate file and import data from it
      *
-     * @param Varien_Object $object
+     * @param Varien_Object|Mage_Adminhtml_Block_System_Config_Form $object
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -194,13 +186,13 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $website = Mage::app()->getWebsite($object->getScopeId());
 
         $this->_importWebsiteId     = (int)$website->getId();
-        $this->_importUniqueHash    = array();
-        $this->_importErrors        = array();
+        $this->_importUniqueHash    = [];
+        $this->_importErrors        = [];
         $this->_importedRows        = 0;
 
         $io     = new Varien_Io_File();
         $info   = pathinfo($csvFile);
-        $io->open(array('path' => $info['dirname']));
+        $io->open(['path' => $info['dirname']]);
         $io->streamOpen($info['basename'], 'r');
 
         // check and skip headers
@@ -222,19 +214,19 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         try {
             $rowNumber  = 1;
-            $importData = array();
+            $importData = [];
 
             $this->_loadDirectoryCountries();
             $this->_loadDirectoryRegions();
 
             // delete old data by website and condition name
-            $condition = array(
+            $condition = [
                 'website_id = ?'     => $this->_importWebsiteId,
                 'condition_name = ?' => $this->_importConditionName
-            );
+            ];
             $adapter->delete($this->getMainTable(), $condition);
 
-            while (false !== ($csvLine = $io->streamReadCsv())) {
+            while (($csvLine = $io->streamReadCsv()) !== false) {
                 $rowNumber ++;
 
                 if (empty($csvLine)) {
@@ -248,7 +240,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
                 if (count($importData) == 5000) {
                     $this->_saveImportData($importData);
-                    $importData = array();
+                    $importData = [];
                 }
             }
             $this->_saveImportData($importData);
@@ -284,10 +276,10 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             return $this;
         }
 
-        $this->_importIso2Countries = array();
-        $this->_importIso3Countries = array();
+        $this->_importIso2Countries = [];
+        $this->_importIso3Countries = [];
 
-        /** @var $collection Mage_Directory_Model_Resource_Country_Collection */
+        /** @var Mage_Directory_Model_Resource_Country_Collection $collection */
         $collection = Mage::getResourceModel('directory/country_collection');
         foreach ($collection->getData() as $row) {
             $this->_importIso2Countries[$row['iso2_code']] = $row['country_id'];
@@ -308,9 +300,9 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             return $this;
         }
 
-        $this->_importRegions = array();
+        $this->_importRegions = [];
 
-        /** @var $collection Mage_Directory_Model_Resource_Region_Collection */
+        /** @var Mage_Directory_Model_Resource_Region_Collection $collection */
         $collection = Mage::getResourceModel('directory/region_collection');
         foreach ($collection->getData() as $row) {
             $this->_importRegions[$row['country_id']][$row['code']] = (int)$row['region_id'];
@@ -407,7 +399,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         }
         $this->_importUniqueHash[$hash] = true;
 
-        return array(
+        return [
             $this->_importWebsiteId,    // website_id
             $countryId,                 // dest_country_id
             $regionId,                  // dest_region_id,
@@ -415,7 +407,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $this->_importConditionName,// condition_name,
             $value,                     // condition_value
             $price                      // price
-        );
+        ];
     }
 
     /**
@@ -427,8 +419,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     protected function _saveImportData(array $data)
     {
         if (!empty($data)) {
-            $columns = array('website_id', 'dest_country_id', 'dest_region_id', 'dest_zip',
-                'condition_name', 'condition_value', 'price');
+            $columns = ['website_id', 'dest_country_id', 'dest_region_id', 'dest_zip',
+                'condition_name', 'condition_value', 'price'];
             $this->_getWriteAdapter()->insertArray($this->getMainTable(), $columns, $data);
             $this->_importedRows += count($data);
         }

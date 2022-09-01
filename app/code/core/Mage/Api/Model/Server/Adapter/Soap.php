@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,9 +25,7 @@
  * @package    Mage_Api
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Api_Model_Server_Adapter_Soap
-    extends Varien_Object
-    implements Mage_Api_Model_Server_Adapter_Interface
+class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
 {
     /**
      * Wsdl config
@@ -70,7 +62,7 @@ class Mage_Api_Model_Server_Adapter_Soap
             unset($queryParams['wsdl']);
         }
 
-        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', array('_query' => $queryParams), true));
+        $wsdlConfig->setUrl(Mage::helper('api')->getServiceUrl('*/*/*', ['_query' => $queryParams], true));
         $wsdlConfig->setName('Magento');
         $wsdlConfig->setHandler($this->getHandler());
         return $wsdlConfig;
@@ -89,7 +81,7 @@ class Mage_Api_Model_Server_Adapter_Soap
     }
 
     /**
-     * Retrive handler class name for webservice
+     * Retrieve handler class name for webservice
      *
      * @return string
      */
@@ -111,17 +103,17 @@ class Mage_Api_Model_Server_Adapter_Soap
     }
 
     /**
-     * Retrive webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
+     * Retrieve webservice api controller. If no controller have been set - emulate it by the use of Varien_Object
      *
-     * @return Mage_Api_Controller_Action|Varien_Object
+     * @return Varien_Object
      */
     public function getController()
     {
         $controller = $this->getData('controller');
 
-        if (null === $controller) {
+        if ($controller === null) {
             $controller = new Varien_Object(
-                array('request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse())
+                ['request' => Mage::app()->getRequest(), 'response' => Mage::app()->getResponse()]
             );
 
             $this->setData('controller', $controller);
@@ -132,8 +124,8 @@ class Mage_Api_Model_Server_Adapter_Soap
     /**
      * Run webservice
      *
-     * @param Mage_Api_Controller_Action $controller
      * @return $this
+     * @throws SoapFault
      */
     public function run()
     {
@@ -142,17 +134,17 @@ class Mage_Api_Model_Server_Adapter_Soap
         if ($this->getController()->getRequest()->getParam('wsdl') !== null) {
             // Generating wsdl content from template
             $io = new Varien_Io_File();
-            $io->open(array('path'=>Mage::getModuleDir('etc', 'Mage_Api')));
+            $io->open(['path'=>Mage::getModuleDir('etc', 'Mage_Api')]);
 
             $wsdlContent = $io->read('wsdl.xml');
 
             $template = Mage::getModel('core/email_template_filter');
 
-            $template->setVariables(array('wsdl' => $this->wsdlConfig));
+            $template->setVariables(['wsdl' => $this->wsdlConfig]);
 
             $this->getController()->getResponse()
                 ->clearHeaders()
-                ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+                ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
                 ->setBody(
                     preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
@@ -166,18 +158,18 @@ class Mage_Api_Model_Server_Adapter_Soap
 
                 $this->getController()->getResponse()
                     ->clearHeaders()
-                    ->setHeader('Content-Type','text/xml; charset='.$apiConfigCharset)
+                    ->setHeader('Content-Type', 'text/xml; charset='.$apiConfigCharset)
                     ->setBody(
-                            preg_replace(
-                                '/<\?xml version="([^\"]+)"([^\>]+)>/i',
-                                '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
-                                $this->_soap->handle()
-                            )
+                        preg_replace(
+                            '/<\?xml version="([^\"]+)"([^\>]+)>/i',
+                            '<?xml version="$1" encoding="'.$apiConfigCharset.'"?>',
+                            $this->_soap->handle()
+                        )
                     );
-            } catch( Zend_Soap_Server_Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
-            } catch( Exception $e ) {
-                $this->fault( $e->getCode(), $e->getMessage() );
+            } catch (Zend_Soap_Server_Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
+            } catch (Exception $e) {
+                $this->fault($e->getCode(), $e->getMessage());
             }
         }
 
@@ -204,7 +196,6 @@ class Mage_Api_Model_Server_Adapter_Soap
                 </SOAP-ENV:Body>
                 </SOAP-ENV:Envelope>');
         }
-
     }
 
     /**
@@ -220,8 +211,10 @@ class Mage_Api_Model_Server_Adapter_Soap
     /**
      * Transform wsdl url if $_SERVER["PHP_AUTH_USER"] is set
      *
-     * @param array
-     * @return String
+     * @param array $params
+     * @param bool $withAuth
+     * @return string
+     * @throws Zend_Uri_Exception
      */
     protected function getWsdlUrl($params = null, $withAuth = true)
     {
@@ -229,17 +222,22 @@ class Mage_Api_Model_Server_Adapter_Soap
             ->setUseSession(false);
 
         $wsdlUrl = $params !== null
-            ? Mage::helper('api')->getServiceUrl('*/*/*', array('_current' => true, '_query' => $params))
+            ? Mage::helper('api')->getServiceUrl('*/*/*', ['_current' => true, '_query' => $params])
             : Mage::helper('api')->getServiceUrl('*/*/*');
 
-        if ( $withAuth ) {
+        if ($withAuth) {
             $phpAuthUser = rawurlencode($this->getController()->getRequest()->getServer('PHP_AUTH_USER', false));
             $phpAuthPw = rawurlencode($this->getController()->getRequest()->getServer('PHP_AUTH_PW', false));
             $scheme = rawurlencode($this->getController()->getRequest()->getScheme());
 
             if ($phpAuthUser && $phpAuthPw) {
-                $wsdlUrl = sprintf("%s://%s:%s@%s", $scheme, $phpAuthUser, $phpAuthPw,
-                    str_replace($scheme . '://', '', $wsdlUrl));
+                $wsdlUrl = sprintf(
+                    "%s://%s:%s@%s",
+                    $scheme,
+                    $phpAuthUser,
+                    $phpAuthPw,
+                    str_replace($scheme . '://', '', $wsdlUrl)
+                );
             }
         }
 
@@ -267,11 +265,15 @@ class Mage_Api_Model_Server_Adapter_Soap
         do {
             $retry = false;
             try {
-                $this->_soap = new Zend_Soap_Server($this->getWsdlUrl(array("wsdl" => 1)),
-                    array('encoding' => $apiConfigCharset));
+                $this->_soap = new Zend_Soap_Server(
+                    $this->getWsdlUrl(["wsdl" => 1]),
+                    ['encoding' => $apiConfigCharset]
+                );
             } catch (SoapFault $e) {
-                if (false !== strpos($e->getMessage(),
-                    "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")
+                if (strpos(
+                    $e->getMessage(),
+                    "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'"
+                ) !== false
                 ) {
                     $retry = true;
                     sleep(1);

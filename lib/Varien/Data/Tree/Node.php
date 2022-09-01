@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,20 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Varien
  * @package     Varien_Data
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Data tree node
+ *
+ * @method int getLevel()
+ * @method string getClass()
+ * @method string getPositionClass()
+ * @method string getOutermostClass()
+ * @method Varien_Data_Tree_Node setOutermostClass(string $class)
+ * @method Varien_Data_Tree_Node setChildrenWrapClass(string $class)
+ * @method bool getIsFirst()
+ * @method bool getIsLast()
  *
  * @category   Varien
  * @package    Varien_Data
@@ -92,7 +95,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Set node id field name
      *
      * @param   string $idField
-     * @return  this
+     * @return  $this
      */
     public function setIdField($idField)
     {
@@ -114,7 +117,7 @@ class Varien_Data_Tree_Node extends Varien_Object
      * Set node tree object
      *
      * @param   Varien_Data_Tree $tree
-     * @return  this
+     * @return  $this
      */
     public function setTree(Varien_Data_Tree $tree)
     {
@@ -147,7 +150,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Retrieve node parent
      *
-     * @return Varien_Data_Tree
+     * @return Varien_Data_Tree_Node
      */
     public function getParent()
     {
@@ -164,18 +167,30 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this->_childNodes->count() > 0;
     }
 
+    /**
+     * @param int $level
+     * @return $this
+     */
     public function setLevel($level)
     {
         $this->setData('level', $level);
         return $this;
     }
 
+    /**
+     * @param int $path
+     * @return $this
+     */
     public function setPathId($path)
     {
         $this->setData('path_id', $path);
         return $this;
     }
 
+    /**
+     * @param Varien_Data_Tree_Node $node
+     * @todo LTS implement
+     */
     public function isChildOf($node)
     {
 
@@ -203,6 +218,10 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this->_childNodes;
     }
 
+    /**
+     * @param array $nodes
+     * @return Varien_Data_Tree_Node[]
+     */
     public function getAllChildNodes(&$nodes = array())
     {
         foreach ($this->_childNodes as $node) {
@@ -212,6 +231,9 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $nodes;
     }
 
+    /**
+     * @return Varien_Data_Tree_Node
+     */
     public function getLastChild()
     {
         return $this->_childNodes->lastNode();
@@ -229,30 +251,52 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $this;
     }
 
-    public function appendChild($prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function appendChild($prevNode = null)
     {
         $this->_tree->appendChild($this, $prevNode);
         return $this;
     }
 
-    public function moveTo($parentNode, $prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function moveTo($parentNode, $prevNode = null)
     {
         $this->_tree->moveNodeTo($this, $parentNode, $prevNode);
         return $this;
     }
 
-    public function copyTo($parentNode, $prevNode=null)
+    /**
+     * @param Varien_Data_Tree_Node $parentNode
+     * @param Varien_Data_Tree_Node|null $prevNode
+     * @return $this
+     */
+    public function copyTo($parentNode, $prevNode = null)
     {
         $this->_tree->copyNodeTo($this, $parentNode, $prevNode);
         return $this;
     }
 
+    /**
+     * @param Varien_Data_Tree_Node $childNode
+     * @return $this
+     */
     public function removeChild($childNode)
     {
         $this->_childNodes->delete($childNode);
         return $this;
     }
 
+    /**
+     * @param array $prevNodes
+     * @return array
+     */
     public function getPath(&$prevNodes = array())
     {
         if ($this->_parent) {
@@ -262,11 +306,17 @@ class Varien_Data_Tree_Node extends Varien_Object
         return $prevNodes;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsActive()
     {
         return $this->_getData('is_active');
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->_getData('name');

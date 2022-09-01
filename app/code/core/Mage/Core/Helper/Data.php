@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,13 +59,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected $_encryptor = null;
 
-    protected $_allowedFormats = array(
+    protected $_allowedFormats = [
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-    );
-
+    ];
 
     /**
      * @return Mage_Core_Model_Encryption
@@ -121,8 +114,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             $value = $e->getMessage();
         }
 
@@ -138,7 +130,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatCurrency($value, $includeContainer = true)
     {
-        return $this->currency($value, true, $includeContainer);
+        return self::currency($value, true, $includeContainer);
     }
 
     /**
@@ -156,7 +148,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format date using current locale options and time zone.
      *
-     * @param   date|Zend_Date|null $date
+     * @param   string|Zend_Date|null $date
      * @param   string              $format   See Mage_Core_Model_Locale::FORMAT_TYPE_* constants
      * @param   bool                $showTime Whether to include time
      * @return  string
@@ -171,7 +163,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
         if (is_null($date)) {
             $date = Mage::app()->getLocale()->date(Mage::getSingleton('core/date')->gmtTimestamp(), null, null);
-        } else if (!$date instanceof Zend_Date) {
+        } elseif (!$date instanceof Zend_Date) {
             $date = Mage::app()->getLocale()->date(strtotime($date), null, null);
         }
 
@@ -187,7 +179,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Format time using current locale options
      *
-     * @param   date|Zend_Date|null $time
+     * @param   string|Zend_Date|null $time
      * @param   string              $format
      * @param   bool                $showDate
      * @return  string
@@ -200,7 +192,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
         if (is_null($time)) {
             $date = Mage::app()->getLocale()->date(time());
-        } else if ($time instanceof Zend_Date) {
+        } elseif ($time instanceof Zend_Date) {
             $date = $time;
         } else {
             $date = Mage::app()->getLocale()->date(strtotime($time));
@@ -243,11 +235,20 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->getEncryptor()->decrypt($data);
     }
 
+    /**
+     * @param string $key
+     * @return Varien_Crypt_Mcrypt
+     */
     public function validateKey($key)
     {
         return $this->getEncryptor()->validateKey($key);
     }
 
+    /**
+     * @param int $len
+     * @param string|null $chars
+     * @return string
+     */
     public function getRandomString($len, $chars = null)
     {
         if (is_null($chars)) {
@@ -264,6 +265,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $password
      * @param string|integer|boolean $salt
+     * @return string
      */
     public function getHash($password, $salt = false)
     {
@@ -271,7 +273,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     *  Generate password hash for user
+     * Generate password hash for user
      *
      * @param string $password
      * @param mixed $salt
@@ -287,6 +289,12 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->getEncryptor()->getHashPassword($password, Mage_Admin_Model_User::HASH_SALT_EMPTY);
     }
 
+    /**
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     * @throws Exception
+     */
     public function validateHash($password, $hash)
     {
         return $this->getEncryptor()->validateHash($password, $hash);
@@ -311,17 +319,22 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   mixed $store
      * @return  int
      */
-    public function getStoreId($store=null)
+    public function getStoreId($store = null)
     {
         return Mage::app()->getStore($store)->getId();
     }
 
-    public function removeAccents($string, $german=false)
+    /**
+     * @param string $string
+     * @param bool $german
+     * @return false|string
+     */
+    public function removeAccents($string, $german = false)
     {
         static $replacements;
 
         if (empty($replacements[$german])) {
-            $subst = array(
+            $subst = [
                 // single ISO-8859-1 letters
                 192=>'A', 193=>'A', 194=>'A', 195=>'A', 196=>'A', 197=>'A', 199=>'C',
                 208=>'D', 200=>'E', 201=>'E', 202=>'E', 203=>'E', 204=>'I', 205=>'I',
@@ -343,17 +356,17 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 369=>'u', 378=>'z', 380=>'z',
                 // ligatures
                 198=>'Ae', 230=>'ae', 140=>'Oe', 156=>'oe', 223=>'ss',
-            );
+            ];
 
             if ($german) {
                 // umlauts
-                $subst = array(
+                $subst = [
                     196=>'Ae', 228=>'ae', 214=>'Oe', 246=>'oe', 220=>'Ue', 252=>'ue'
-                ) + $subst;
+                    ] + $subst;
             }
 
-            $replacements[$german] = array();
-            foreach ($subst as $k=>$v) {
+            $replacements[$german] = [];
+            foreach ($subst as $k => $v) {
                 $replacements[$german][$k<256 ? chr($k) : '&#'.$k.';'] = $v;
             }
         }
@@ -370,7 +383,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $string;
     }
 
-    public function isDevAllowed($storeId=null)
+    /**
+     * @param int|null $storeId
+     * @return bool
+     */
+    public function isDevAllowed($storeId = null)
     {
         $allow = true;
 
@@ -394,9 +411,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
-        foreach ($config->children() as $type=>$node) {
+        foreach ($config->children() as $type => $node) {
             $types[$type] = (string)$node->label;
         }
         return $types;
@@ -409,10 +426,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCacheBetaTypes()
     {
-        $types = array();
+        $types = [];
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
-            foreach ($config->children() as $type=>$node) {
+            foreach ($config->children() as $type => $node) {
                 $types[$type] = (string)$node->label;
             }
         }
@@ -433,11 +450,10 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $root
      * @return boolean
      */
-    public function copyFieldset($fieldset, $aspect, $source, $target, $root='global')
+    public function copyFieldset($fieldset, $aspect, $source, $target, $root = 'global')
     {
         if (!(is_array($source) || $source instanceof Varien_Object)
             || !(is_array($target) || $target instanceof Varien_Object)) {
-
             return false;
         }
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);
@@ -449,7 +465,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $targetIsArray = is_array($target);
 
         $result = false;
-        foreach ($fields as $code=>$node) {
+        foreach ($fields as $code => $node) {
             if (empty($node->$aspect)) {
                 continue;
             }
@@ -473,11 +489,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $eventName = sprintf('core_copy_fieldset_%s_%s', $fieldset, $aspect);
-        Mage::dispatchEvent($eventName, array(
+        Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
             'root'   => $root
-        ));
+        ]);
 
         return $result;
     }
@@ -497,7 +513,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * $forceSetAll true will cause to set all possible values for all elements.
      * When false (default), only non-empty values will be set.
      *
-     * @param mixed $array
+     * @param Varien_Object[] $array
      * @param string $prefix
      * @param bool $forceSetAll
      * @return mixed
@@ -519,16 +535,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
-                $this->_decorateArrayObject($element, $keyIsFirst, (0 === $i), $forceSetAll || (0 === $i));
+                $this->_decorateArrayObject($element, $keyIsFirst, ($i === 0), $forceSetAll || ($i === 0));
                 $this->_decorateArrayObject($element, $keyIsOdd, !$isEven, $forceSetAll || !$isEven);
                 $this->_decorateArrayObject($element, $keyIsEven, $isEven, $forceSetAll || $isEven);
                 $isEven = !$isEven;
                 $i++;
                 $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
-            }
-            elseif (is_array($element)) {
-                if ($forceSetAll || (0 === $i)) {
-                    $array[$key][$keyIsFirst] = (0 === $i);
+            } elseif (is_array($element)) {
+                if ($forceSetAll || ($i === 0)) {
+                    $array[$key][$keyIsFirst] = ($i === 0);
                 }
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
@@ -547,12 +562,18 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         return $array;
     }
 
-    private function _decorateArrayObject($element, $key, $value, $dontSkip) {
+    /**
+     * @param Varien_Object $element
+     * @param string $key
+     * @param mixed $value
+     * @param bool $dontSkip
+     */
+    private function _decorateArrayObject($element, $key, $value, $dontSkip)
+    {
         if ($dontSkip) {
             if ($element instanceof Varien_Object) {
                 $element->setData($key, $value);
-            }
-            else {
+            } else {
                 $element->$key = $value;
             }
         }
@@ -607,13 +628,11 @@ XML;
                     }
                     $hasStringKey = true;
                     $xml->$key = $value;
-                }
-                elseif (is_int($key)) {
+                } elseif (is_int($key)) {
                     $hasNumericKey = true;
                     $xml->{$rootName}[$key] = $value;
                 }
-            }
-            else {
+            } else {
                 self::_assocToXml($value, $key, $xml->$key);
             }
         }
@@ -632,21 +651,19 @@ XML;
      */
     public function xmlToAssoc(SimpleXMLElement $xml)
     {
-        $array = array();
+        $array = [];
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
                     $array[$key][$i++] = (string)$v;
                 }
-            }
-            else {
+            } else {
                 // try to transform it into string value, trimming spaces between elements
                 $array[$key] = trim((string)$value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
-                }
-                // untrim strings values
+                } // untrim strings values
                 else {
                     $array[$key] = (string)$value;
                 }
@@ -663,10 +680,10 @@ XML;
      * @param  array $options Additional options used during encoding
      * @return string
      */
-    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = array())
+    public function jsonEncode($valueToEncode, $cycleCheck = false, $options = [])
     {
         $json = Zend_Json::encode($valueToEncode, $cycleCheck, $options);
-        /* @var $inline Mage_Core_Model_Translate_Inline */
+        /** @var Mage_Core_Model_Translate_Inline $inline */
         $inline = Mage::getSingleton('core/translate_inline');
         if ($inline->isAllowed()) {
             $inline->setIsJson(true);
@@ -684,21 +701,23 @@ XML;
      * switch added to prevent exceptions in json_decode
      *
      * @param string $encodedValue
+     * @param int $objectDecodeType
      * @return mixed
+     * @throws Zend_Json_Exception
      */
     public function jsonDecode($encodedValue, $objectDecodeType = Zend_Json::TYPE_ARRAY)
     {
         switch (true) {
-            case (null === $encodedValue):
+            case ($encodedValue === null):
                 $encodedValue = 'null';
                 break;
-            case (true === $encodedValue):
+            case ($encodedValue === true):
                 $encodedValue = 'true';
                 break;
-            case (false === $encodedValue):
+            case ($encodedValue === false):
                 $encodedValue = 'false';
                 break;
-            case ('' === $encodedValue):
+            case ($encodedValue === ''):
                 $encodedValue = '""';
                 break;
             default:
@@ -710,7 +729,7 @@ XML;
 
     /**
      * Generate a hash from unique ID
-     * @param $prefix
+     * @param string $prefix
      * @return string
      */
     public function uniqHash($prefix = '')
@@ -733,13 +752,17 @@ XML;
      * @param array $srcFiles
      * @param string|false $targetFile - file path to be written
      * @param bool $mustMerge
-     * @param callback $beforeMergeCallback
+     * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
      */
-    public function mergeFiles(array $srcFiles, $targetFile = false, $mustMerge = false,
-        $beforeMergeCallback = null, $extensionsFilter = array())
-    {
+    public function mergeFiles(
+        array $srcFiles,
+        $targetFile = false,
+        $mustMerge = false,
+        $beforeMergeCallback = null,
+        $extensionsFilter = []
+    ) {
         try {
             // check whether merger is required
             $shouldMerge = $mustMerge || !$targetFile;
@@ -759,7 +782,7 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
-                if ($targetFile && !is_writeable(dirname($targetFile))) {
+                if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
@@ -767,9 +790,9 @@ XML;
                 // filter by extensions
                 if ($extensionsFilter) {
                     if (!is_array($extensionsFilter)) {
-                        $extensionsFilter = array($extensionsFilter);
+                        $extensionsFilter = [$extensionsFilter];
                     }
-                    if (!empty($srcFiles)){
+                    if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
@@ -932,7 +955,7 @@ XML;
      * Security enchancement for CSV data processing by Excel-like applications.
      * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1054702
      *
-     * @param $data
+     * @param array $data
      * @return array
      */
     public function getEscapedCSVData(array $data)
@@ -942,7 +965,7 @@ XML;
                 $value = (string)$value;
 
                 $firstLetter = substr($value, 0, 1);
-                if ($firstLetter !== false and in_array($firstLetter, array("=", "+", "-"))) {
+                if ($firstLetter !== false && in_array($firstLetter, ["=", "+", "-"])) {
                     $data[$key] = ' ' . $value;
                 }
             }
@@ -958,8 +981,7 @@ XML;
      */
     public function unEscapeCSVData($data)
     {
-        if (is_array($data) and Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
-
+        if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
                 $value = (string)$value;
 

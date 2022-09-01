@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Session Model
@@ -31,6 +24,15 @@
  * @category   Mage
  * @package    Mage_Persistent
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Persistent_Model_Resource_Session getResource()
+ * @method int getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method string getInfo()
+ * @method $this setInfo(string $value)
+ * @method string getKey()
+ * @method $this setKey(string $value)
+ * @method $this setWebsiteId(int|string|null $value)
  */
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
@@ -42,7 +44,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_unserializableFields = array('persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at');
+    protected $_unserializableFields = ['persistent_id', 'key', 'customer_id', 'website_id', 'info', 'updated_at'];
 
     /**
      * If model loads expired sessions
@@ -103,7 +105,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         parent::_beforeSave();
 
         // Setting info
-        $info = array();
+        $info = [];
         foreach ($this->getData() as $index => $value) {
             if (!in_array($index, $this->_unserializableFields)) {
                 $info[$index] = $value;
@@ -198,7 +200,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete expired persistent sessions for the website
      *
-     * @param null|int $websiteId
+     * @param int|null $websiteId
      * @return $this
      */
     public function deleteExpired($websiteId = null)
@@ -226,9 +228,10 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Delete 'persistent' cookie
      *
-     * @return Mage_Core_Model_Abstract
+     * @inheritDoc
      */
-    protected function _afterDeleteCommit() {
+    protected function _afterDeleteCommit()
+    {
         Mage::getSingleton('core/cookie')->delete(Mage_Persistent_Model_Session::COOKIE_NAME);
         return parent::_afterDeleteCommit();
     }
@@ -236,7 +239,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     /**
      * Set `updated_at` to be always changed
      *
-     * @return $this
+     * @inheritDoc
      */
     public function save()
     {

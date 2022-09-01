@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -71,14 +65,14 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_endpoints = array(
+    protected $_endpoints = [
         self::ENDPOINT_AUTHORIZE_CUSTOMER,
         self::ENDPOINT_AUTHORIZE_ADMIN,
         self::ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE,
         self::ENDPOINT_AUTHORIZE_ADMIN_SIMPLE,
         self::ENDPOINT_INITIATE,
         self::ENDPOINT_TOKEN
-    );
+    ];
 
     /**
      * Generate random string for token or secret or verifier
@@ -95,10 +89,11 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             $randomString = substr($hex, 0, $length); // we truncate at most 1 char if length parameter is an odd number
         } else {
             // fallback to mt_rand() if openssl is not installed
-            /** @var $helper Mage_Core_Helper_Data */
+            /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $randomString = $helper->getRandomString(
-                $length, Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
+                $length,
+                Mage_Core_Helper_Data::CHARS_DIGITS . Mage_Core_Helper_Data::CHARS_LOWERS
             );
         }
 
@@ -170,7 +165,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
         if ($rejected) {
-            /** @var $consumer Mage_Oauth_Model_Consumer */
+            /** @var Mage_Oauth_Model_Consumer $consumer */
             $consumer = Mage::getModel('oauth/consumer')->load($token->getConsumerId());
 
             if ($consumer->getId() && $consumer->getRejectedCallbackUrl()) {
@@ -179,7 +174,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (false === strpos($callbackUrl, '?') ? '?' : '&');
+        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
         $callbackUrl .= $rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier();
 
@@ -210,7 +205,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
     {
         // Safe get cleanup probability value from system configuration
         $configValue = (int) Mage::getStoreConfig(self::XML_PATH_CLEANUP_PROBABILITY);
-        return $configValue > 0 ? 1 == mt_rand(1, $configValue) : false;
+        return $configValue > 0 ? mt_rand(1, $configValue) == 1 : false;
     }
 
     /**
@@ -234,7 +229,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function sendNotificationOnTokenStatusChange($userEmail, $userName, $applicationName, $status)
     {
-        /* @var $mailTemplate Mage_Core_Model_Email_Template */
+        /** @var Mage_Core_Model_Email_Template $mailTemplate */
         $mailTemplate = Mage::getModel('core/email_template');
 
         $mailTemplate->sendTransactional(
@@ -242,13 +237,13 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getStoreConfig(self::XML_PATH_EMAIL_IDENTITY),
             $userEmail,
             $userName,
-            array(
+            [
                 'name'              => $userName,
                 'email'             => $userEmail,
                 'applicationName'   => $applicationName,
                 'status'            => $status,
 
-            )
+            ]
         );
     }
 
@@ -295,7 +290,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
             throw new Exception('Invalid user type.');
         }
 
-        return $this->_getUrl($route, array('_query' => array('oauth_token' => $this->getOauthToken())));
+        return $this->_getUrl($route, ['_query' => ['oauth_token' => $this->getOauthToken()]]);
     }
 
     /**

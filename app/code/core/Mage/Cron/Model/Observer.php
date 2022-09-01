@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Cron
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +54,7 @@ class Mage_Cron_Model_Observer
         $jobsRoot = Mage::getConfig()->getNode('crontab/jobs');
         $defaultJobsRoot = Mage::getConfig()->getNode('default/crontab/jobs');
 
-        /** @var $schedule Mage_Cron_Model_Schedule */
+        /** @var Mage_Cron_Model_Schedule $schedule */
         foreach ($schedules->getIterator() as $schedule) {
             $jobConfig = $jobsRoot->{$schedule->getJobCode()};
             if (!$jobConfig || !$jobConfig->run) {
@@ -98,6 +92,9 @@ class Mage_Cron_Model_Observer
         }
     }
 
+    /**
+     * @return Mage_Cron_Model_Resource_Schedule_Collection
+     */
     public function getPendingSchedules()
     {
         if (!$this->_pendingSchedules) {
@@ -125,7 +122,7 @@ class Mage_Cron_Model_Observer
         }
 
         $schedules = $this->getPendingSchedules();
-        $exists = array();
+        $exists = [];
         foreach ($schedules->getIterator() as $schedule) {
             $exists[$schedule->getJobCode().'/'.$schedule->getScheduledAt()] = 1;
         }
@@ -149,7 +146,7 @@ class Mage_Cron_Model_Observer
         /**
          * save time schedules generation was ran with no expiration
          */
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, array('crontab'), null);
+        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT, ['crontab'], null);
 
         return $this;
     }
@@ -157,9 +154,9 @@ class Mage_Cron_Model_Observer
     /**
      * Generate jobs for config information
      *
-     * @param   $jobs
+     * @param   SimpleXMLElement $jobs
      * @param   array $exists
-     * @return  Mage_Cron_Model_Observer
+     * @return  $this
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -214,18 +211,18 @@ class Mage_Cron_Model_Observer
         }
 
         $history = Mage::getModel('cron/schedule')->getCollection()
-            ->addFieldToFilter('status', array('in'=>array(
+            ->addFieldToFilter('status', ['in'=> [
                 Mage_Cron_Model_Schedule::STATUS_SUCCESS,
                 Mage_Cron_Model_Schedule::STATUS_MISSED,
                 Mage_Cron_Model_Schedule::STATUS_ERROR,
-            )))
+            ]])
             ->load();
 
-        $historyLifetimes = array(
+        $historyLifetimes = [
             Mage_Cron_Model_Schedule::STATUS_SUCCESS => Mage::getStoreConfig(self::XML_PATH_HISTORY_SUCCESS)*60,
             Mage_Cron_Model_Schedule::STATUS_MISSED => Mage::getStoreConfig(self::XML_PATH_HISTORY_FAILURE)*60,
             Mage_Cron_Model_Schedule::STATUS_ERROR => Mage::getStoreConfig(self::XML_PATH_HISTORY_FAILURE)*60,
-        );
+        ];
 
         $now = time();
         foreach ($history->getIterator() as $record) {
@@ -235,7 +232,7 @@ class Mage_Cron_Model_Observer
         }
 
         // save time history cleanup was ran with no expiration
-        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, array('crontab'), null);
+        Mage::app()->saveCache(time(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, ['crontab'], null);
 
         return $this;
     }
@@ -243,9 +240,9 @@ class Mage_Cron_Model_Observer
     /**
      * Processing cron task which is marked as always
      *
-     * @param $jobCode
-     * @param $jobConfig
-     * @return $this
+     * @param string $jobCode
+     * @param SimpleXMLElement $jobConfig
+     * @return $this|void
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
     {
@@ -270,9 +267,9 @@ class Mage_Cron_Model_Observer
      * Process cron task
      *
      * @param Mage_Cron_Model_Schedule $schedule
-     * @param $jobConfig
+     * @param SimpleXMLElement $jobConfig
      * @param bool $isAlways
-     * @return $this
+     * @return $this|void
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
     {
@@ -301,8 +298,8 @@ class Mage_Cron_Model_Observer
                 if (!($model = Mage::getModel($run[1])) || !method_exists($model, $run[2])) {
                     Mage::throwException(Mage::helper('cron')->__('Invalid callback: %s::%s does not exist', $run[1], $run[2]));
                 }
-                $callback = array($model, $run[2]);
-                $arguments = array($schedule);
+                $callback = [$model, $run[2]];
+                $arguments = [$schedule];
             }
             if (empty($callback)) {
                 Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
@@ -329,7 +326,6 @@ class Mage_Cron_Model_Observer
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
                 ->setFinishedAt(strftime('%Y-%m-%d %H:%M:%S', time()));
-
         } catch (Exception $e) {
             $schedule->setStatus($errorStatus)
                 ->setMessages($e->__toString());
@@ -342,12 +338,12 @@ class Mage_Cron_Model_Observer
     /**
      * Get job for task marked as always
      *
-     * @param $jobCode
-     * @return bool|Mage_Cron_Model_Schedule
+     * @param string $jobCode
+     * @return Mage_Cron_Model_Schedule
      */
     protected function _getAlwaysJobSchedule($jobCode)
     {
-        /** @var $schedule Mage_Cron_Model_Schedule */
+        /** @var Mage_Cron_Model_Schedule $schedule */
         $schedule = Mage::getModel('cron/schedule')->load($jobCode, 'job_code');
         if ($schedule->getId() === null) {
             $ts = strftime('%Y-%m-%d %H:%M:00', time());
@@ -357,6 +353,5 @@ class Mage_Cron_Model_Observer
         }
         $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();
         return $schedule;
-
     }
 }

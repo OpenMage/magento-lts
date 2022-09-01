@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Persistent
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Persistent Shopping Cart Data Helper
@@ -37,21 +30,21 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Instance of Session Model
      *
-     * @var null|Mage_Persistent_Model_Session
+     * @var Mage_Persistent_Model_Session|null
      */
     protected $_sessionModel;
 
     /**
      * Persistent customer
      *
-     * @var null|Mage_Customer_Model_Customer
+     * @var Mage_Customer_Model_Customer|null
      */
     protected $_customer;
 
     /**
      * Is "Remember Me" checked
      *
-     * @var null|bool
+     * @var bool|null
      */
     protected $_isRememberMeChecked;
 
@@ -72,8 +65,8 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Force setting session model
      *
-     * @param Mage_Persistent_Model_Session $sessionModel
-     * @return Mage_Persistent_Model_Session
+     * @param Mage_Persistent_Model_Session|null $sessionModel null to unset session
+     * @return Mage_Persistent_Model_Session|null
      */
     public function setSession($sessionModel)
     {
@@ -107,7 +100,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
                 return $isRememberMeChecked;
             }
 
-            /** @var $helper Mage_Persistent_Helper_Data */
+            /** @var Mage_Persistent_Helper_Data $helper */
             $helper = Mage::helper('persistent');
             return $helper->isEnabled() && $helper->isRememberMeEnabled() && $helper->isRememberMeCheckedDefault();
         }
@@ -128,7 +121,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
     /**
      * Return persistent customer
      *
-     * @return Mage_Customer_Model_Customer|bool
+     * @return Mage_Customer_Model_Customer
      */
     public function getCustomer()
     {

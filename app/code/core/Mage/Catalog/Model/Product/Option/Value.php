@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,11 +24,17 @@
  * @method Mage_Catalog_Model_Resource_Product_Option_Value _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Value getResource()
  * @method int getOptionId()
- * @method Mage_Catalog_Model_Product_Option_Value setOptionId(int $value)
+ * @method $this setOptionId(int $value)
+ * @method int getOptionTypeId()
+ * @method $this setOptionTypeId(int $value)
+ * @method string getPriceType()
  * @method string getSku()
- * @method Mage_Catalog_Model_Product_Option_Value setSku(string $value)
+ * @method $this setSku(string $value)
  * @method int getSortOrder()
- * @method Mage_Catalog_Model_Product_Option_Value setSortOrder(int $value)
+ * @method $this setSortOrder(int $value)
+ * @method float getStorePrice()
+ * @method string getStoreTitle()
+ * @method string getTitle()
  *
  * @category    Mage
  * @package     Mage_Catalog
@@ -42,7 +42,7 @@
  */
 class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
 {
-    protected $_values = array();
+    protected $_values = [];
 
     protected $_product;
 
@@ -53,35 +53,56 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         $this->_init('catalog/product_option_value');
     }
 
+    /**
+     * @param string $value
+     * @return $this
+     */
     public function addValue($value)
     {
         $this->_values[] = $value;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getValues()
     {
         return $this->_values;
     }
 
+    /**
+     * @param array $values
+     * @return $this
+     */
     public function setValues($values)
     {
         $this->_values = $values;
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function unsetValues()
     {
-        $this->_values = array();
+        $this->_values = [];
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product_Option $option
+     * @return $this
+     */
     public function setOption(Mage_Catalog_Model_Product_Option $option)
     {
         $this->_option = $option;
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function unsetOption()
     {
         $this->_option = null;
@@ -89,8 +110,6 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @return Mage_Catalog_Model_Product_Option
      */
     public function getOption()
@@ -98,12 +117,19 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         return $this->_option;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
     public function setProduct($product)
     {
         $this->_product = $product;
         return $this;
     }
 
+    /**
+     * @return Mage_Catalog_Model_Product
+     */
     public function getProduct()
     {
         if (is_null($this->_product)) {
@@ -112,6 +138,10 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         return $this->_product;
     }
 
+    /**
+     * @return $this
+     * @throws Exception
+     */
     public function saveValues()
     {
         foreach ($this->getValues() as $value) {
@@ -144,46 +174,53 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
      * @param bool $flag
      * @return float|int
      */
-    public function getPrice($flag=false)
+    public function getPrice($flag = false)
     {
         if ($flag && $this->getPriceType() == 'percent') {
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
-            $price = $basePrice*($this->_getData('price')/100);
-            return $price;
+            return $basePrice*($this->_getData('price')/100);
         }
         return $this->_getData('price');
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Catalog_Model_Product_Option $option
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Option_Value_Collection
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getValuesCollection(Mage_Catalog_Model_Product_Option $option)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option->getId())
             ->getValues($option->getStoreId());
-
-        return $collection;
     }
 
+    /**
+     * @param array $optionIds
+     * @param int $option_id
+     * @param int $store_id
+     * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
+     */
     public function getValuesByOption($optionIds, $option_id, $store_id)
     {
-        $collection = Mage::getResourceModel('catalog/product_option_value_collection')
+        return Mage::getResourceModel('catalog/product_option_value_collection')
             ->addFieldToFilter('option_id', $option_id)
             ->getValuesByOption($optionIds, $store_id);
-
-        return $collection;
     }
 
+    /**
+     * @param int $option_id
+     * @return $this
+     */
     public function deleteValue($option_id)
     {
         $this->getResource()->deleteValue($option_id);
         return $this;
     }
 
+    /**
+     * @param int $option_type_id
+     * @return $this
+     */
     public function deleteValues($option_type_id)
     {
         $this->getResource()->deleteValues($option_type_id);

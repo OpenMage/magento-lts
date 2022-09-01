@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Review
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,13 +23,26 @@
  *
  * @method Mage_Review_Model_Resource_Review _getResource()
  * @method Mage_Review_Model_Resource_Review getResource()
+ * @method Mage_Review_Model_Resource_Review_Collection getCollection()
+ *
  * @method string getCreatedAt()
- * @method Mage_Review_Model_Review setCreatedAt(string $value)
- * @method Mage_Review_Model_Review setEntityId(int $value)
+ * @method $this setCreatedAt(string $value)
+ * @method array getCustomerId()
+ * @method $this setCustomerId(int $value)
+ * @method string getDetail()
+ * @method $this setEntityId(int $value)
  * @method int getEntityPkValue()
- * @method Mage_Review_Model_Review setEntityPkValue(int $value)
+ * @method $this setEntityPkValue(int $value)
+ * @method string getNickname()
+ * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $collection)
+ * @method int getReviewId()
  * @method int getStatusId()
- * @method Mage_Review_Model_Review setStatusId(int $value)
+ * @method $this setStatusId(int $value)
+ * @method $this setStoreId(int $value)
+ * @method int getStoreId()
+ * @method array getStores()
+ * @method $this setStores(array $value)
+ * @method string getTitle()
  *
  * @category    Mage
  * @package     Mage_Review
@@ -43,7 +50,6 @@
  */
 class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 {
-
     /**
      * Event prefix for observer
      *
@@ -74,28 +80,47 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         $this->_init('review/review');
     }
 
+    /**
+     * @return Mage_Review_Model_Resource_Review_Product_Collection
+     */
     public function getProductCollection()
     {
         return Mage::getResourceModel('review/review_product_collection');
     }
 
+    /**
+     * @return Mage_Review_Model_Resource_Review_Status_Collection
+     */
     public function getStatusCollection()
     {
         return Mage::getResourceModel('review/review_status_collection');
     }
 
-    public function getTotalReviews($entityPkValue, $approvedOnly=false, $storeId=0)
+    /**
+     * @param int $entityPkValue
+     * @param bool $approvedOnly
+     * @param int $storeId
+     * @return int
+     */
+    public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
     {
         return $this->getResource()->getTotalReviews($entityPkValue, $approvedOnly, $storeId);
     }
 
+    /**
+     * @return $this
+     */
     public function aggregate()
     {
         $this->getResource()->aggregate($this);
         return $this;
     }
 
-    public function getEntitySummary($product, $storeId=0)
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @param int $storeId
+     */
+    public function getEntitySummary($product, $storeId = 0)
     {
         $summaryData = Mage::getModel('review/review_summary')
             ->setStoreId($storeId)
@@ -105,19 +130,29 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         $product->setRatingSummary($summary);
     }
 
+    /**
+     * @return int
+     */
     public function getPendingStatus()
     {
         return self::STATUS_PENDING;
     }
 
+    /**
+     * @return string
+     */
     public function getReviewUrl()
     {
-        return Mage::getUrl('review/product/view', array('id' => $this->getReviewId()));
+        return Mage::getUrl('review/product/view', ['id' => $this->getReviewId()]);
     }
 
+    /**
+     * @return array|bool
+     * @throws Zend_Validate_Exception
+     */
     public function validate()
     {
-        $errors = array();
+        $errors = [];
 
         if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
             $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
@@ -151,17 +186,17 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     /**
      * Append review summary to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection $collection
+     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function appendSummary($collection)
     {
-        $entityIds = array();
+        $entityIds = [];
         foreach ($collection->getItems() as $_itemId => $_item) {
             $entityIds[] = $_item->getId();
         }
 
-        if (sizeof($entityIds) == 0) {
+        if (!count($entityIds)) {
             return $this;
         }
 
@@ -170,6 +205,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             ->addStoreFilter(Mage::app()->getStore()->getId())
             ->load();
 
+        /** @var Mage_Review_Model_Review_Summary $_summary */
         foreach ($summaryData as $_summary) {
             if (($_item = $collection->getItemById($_summary->getEntityPkValue()))) {
                 $_item->setRatingSummary($_summary);
@@ -179,6 +215,10 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
         return $this;
     }
 
+    /**
+     * @return Mage_Core_Model_Abstract
+     * @throws Mage_Core_Exception
+     */
     protected function _beforeDelete()
     {
         $this->_protectFromNonAdmin();

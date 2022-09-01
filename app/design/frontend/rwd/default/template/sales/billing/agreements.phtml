@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -62,13 +56,13 @@
                     <td class="payment-method" data-rwd-label="Payment method"><?php echo $this->getItemValue($item, 'payment_method_label') ?></td>
                     <td class="actions"><a href="<?php echo $this->getItemValue($item, 'edit_url') ?>"><?php echo $this->__('View') ?></a></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach ?>
             </tbody>
         </table>
         <script type="text/javascript">decorateTable('billing-agreements')</script>
     <?php else: ?>
         <p><?php echo $this->__('There are no billing agreements yet.')?></p>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php $paymentMethods = $this->getWizardPaymentMethodOptions() ?>
     <?php if ($paymentMethods): ?>
@@ -83,7 +77,7 @@
                                 <option value=""><?php echo $this->__('-- Please Select --') ?></option>
                                 <?php foreach ($paymentMethods as $code => $title): ?>
                                     <option value="<?php echo $code ?>"><?php echo $title ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach ?>
                             </select>
                             <button type="submit" class="button"><span><span><?php echo $this->__('Create...') ?></span></span></button>
                         </li>
@@ -91,7 +85,7 @@
                 </div>
             </form>
         </div>
-    <?php endif; ?>
+    <?php endif ?>
 
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->escapeHtml($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>

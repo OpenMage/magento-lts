@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Core Design Resource Model
@@ -44,11 +37,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     }
 
     /**
-     * Perform actions before object save
-     *
-     * @param Mage_Core_Model_Abstract $object
-     * @return Mage_Core_Model_Resource_Db_Abstract
-     * @throws Mage_Core_Exception
+     * @param Mage_Core_Model_Design $object
+     * @inheritDoc
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -73,31 +63,31 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
 
         if ($check) {
             Mage::throwException(
-                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.'));
+                Mage::helper('core')->__('Your design change for the specified store intersects with another one, please specify another date range.')
+            );
         }
 
-        parent::_beforeSave($object);
+        return parent::_beforeSave($object);
     }
-
 
     /**
      * Check intersections
      *
      * @param int $storeId
-     * @param date $dateFrom
-     * @param date $dateTo
+     * @param string $dateFrom
+     * @param string $dateTo
      * @param int $currentId
-     * @return Array
+     * @return string
      */
     protected function _checkIntersection($storeId, $dateFrom, $dateTo, $currentId)
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from(array('main_table'=>$this->getTable('design_change')))
+            ->from(['main_table'=>$this->getTable('design_change')])
             ->where('main_table.store_id = :store_id')
             ->where('main_table.design_change_id <> :current_id');
 
-        $dateConditions = array('date_to IS NULL AND date_from IS NULL');
+        $dateConditions = ['date_to IS NULL AND date_from IS NULL'];
 
         if (!empty($dateFrom)) {
             $dateConditions[] = ':date_from BETWEEN date_from AND date_to';
@@ -127,7 +117,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $dateConditions[] = 'date_from BETWEEN :date_from AND :date_to';
             $dateConditions[] = 'date_to BETWEEN :date_from AND :date_to';
         } elseif (empty($dateFrom) && empty($dateTo)) {
-            $dateConditions = array();
+            $dateConditions = [];
         }
 
         $condition = '';
@@ -136,10 +126,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $select->where($condition);
         }
 
-        $bind = array(
+        $bind = [
             'store_id'   => (int)$storeId,
             'current_id' => (int)$currentId,
-        );
+        ];
 
         if (!empty($dateTo)) {
             $bind['date_to'] = $dateTo;
@@ -148,8 +138,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             $bind['date_from'] = $dateFrom;
         }
 
-        $result = $adapter->fetchOne($select, $bind);
-        return $result;
+        return $adapter->fetchOne($select, $bind);
     }
 
     /**
@@ -166,15 +155,15 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         }
 
         $select = $this->_getReadAdapter()->select()
-            ->from(array('main_table' => $this->getTable('design_change')))
+            ->from(['main_table' => $this->getTable('design_change')])
             ->where('store_id = :store_id')
             ->where('date_from <= :required_date or date_from IS NULL')
             ->where('date_to >= :required_date or date_to IS NULL');
 
-        $bind = array(
+        $bind = [
             'store_id'      => (int)$storeId,
             'required_date' => $date
-        );
+        ];
 
         return $this->_getReadAdapter()->fetchRow($select, $bind);
     }

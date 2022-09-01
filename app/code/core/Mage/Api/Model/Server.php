@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Api
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +49,7 @@ class Mage_Api_Model_Server
      */
     public function getAdapterCodeByAlias($alias)
     {
-        /** @var $config Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $config */
         $config  = Mage::getSingleton('api/config');
         $aliases = $config->getAdapterAliases();
 
@@ -97,12 +91,12 @@ class Mage_Api_Model_Server
      */
     public function initialize($adapterCode, $handler = null)
     {
-        /** @var $helper Mage_Api_Model_Config */
+        /** @var Mage_Api_Model_Config $helper */
         $helper   = Mage::getSingleton('api/config');
         $adapters = $helper->getActiveAdapters();
 
         if (isset($adapters[$adapterCode])) {
-            /** @var $adapterModel Mage_Api_Model_Server_Adapter_Interface */
+            /** @var Mage_Api_Model_Server_Adapter_Interface $adapterModel */
             $adapterModel = Mage::getModel((string) $adapters[$adapterCode]->model);
 
             if (!($adapterModel instanceof Mage_Api_Model_Server_Adapter_Interface)) {
@@ -112,7 +106,7 @@ class Mage_Api_Model_Server
             $this->_api     = $adapterCode;
 
             // get handler code from config if no handler passed as argument
-            if (null === $handler && !empty($adapters[$adapterCode]->handler)) {
+            if ($handler === null && !empty($adapters[$adapterCode]->handler)) {
                 $handler = (string) $adapters[$adapterCode]->handler;
             }
             $handlers = $helper->getHandlers();
@@ -156,6 +150,4 @@ class Mage_Api_Model_Server
     {
         return $this->_adapter;
     }
-
-
-} // Class Mage_Api_Model_Server_Abstract End
+}

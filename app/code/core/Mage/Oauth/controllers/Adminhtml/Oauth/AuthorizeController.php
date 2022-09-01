@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,24 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Oauth
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * oAuth authorize controller
  *
- * @category    Mage
- * @package     Mage_Oauth
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Oauth
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Controller_Action
 {
@@ -45,7 +39,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      *
      * @var array
      */
-    public $_publicActions = array('index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple');
+    public $_publicActions = ['index', 'simple', 'confirm', 'confirmSimple','reject', 'rejectSimple'];
 
     /**
      * Disable showing of login form
@@ -66,10 +60,10 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         if ($loginError) {
             Mage::getSingleton('adminhtml/session')
                 ->addError(Mage::helper('adminhtml')->__('Invalid User Name or Password.'));
-            $params = array('_query' => array('oauth_token' => $this->getRequest()->getParam('oauth_token', null)));
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
-            $params = array('_query' => array('oauth_token' => $this->getRequest()->getParam('oauth_token', null)));
+            $params = ['_query' => ['oauth_token' => $this->getRequest()->getParam('oauth_token', null)]];
             $this->_redirect('*/*/*', $params);
         }
     }
@@ -107,9 +101,9 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      */
     protected function _initForm($simple = false)
     {
-        /** @var $server Mage_Oauth_Model_Server */
+        /** @var Mage_Oauth_Model_Server $server */
         $server = Mage::getModel('oauth/server');
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
 
         $isException = false;
@@ -132,11 +126,11 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
         $contentBlock = $layout->getBlock('content');
         if ($logged) {
             $contentBlock->unsetChild('oauth.authorize.form');
-            /** @var $block Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button */
+            /** @var Mage_Oauth_Block_Adminhtml_Oauth_Authorize_Button $block */
             $block = $contentBlock->getChild('oauth.authorize.button');
         } else {
             $contentBlock->unsetChild('oauth.authorize.button');
-            /** @var $block Mage_Oauth_Block_Adminhtml_Oauth_Authorize */
+            /** @var Mage_Oauth_Block_Adminhtml_Oauth_Authorize $block */
             $block = $contentBlock->getChild('oauth.authorize.form');
         }
 
@@ -154,13 +148,13 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      */
     protected function _initConfirmPage($simple = false)
     {
-        /** @var $helper Mage_Oauth_Helper_Data */
+        /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
 
-        /** @var $user Mage_Admin_Model_User */
+        /** @var Mage_Admin_Model_User $user */
         $user = $session->getData('user');
         if (!$user) {
             $session->addError($this->__('Please login to proceed authorization.'));
@@ -171,12 +165,12 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
 
         $this->loadLayout();
 
-        /** @var $block Mage_Oauth_Block_Adminhtml_Oauth_Authorize */
+        /** @var Mage_Oauth_Block_Adminhtml_Oauth_Authorize $block */
         $block = $this->getLayout()->getBlock('content')->getChild('oauth.authorize.confirm');
         $block->setIsSimple($simple);
 
         try {
-            /** @var $server Mage_Oauth_Model_Server */
+            /** @var Mage_Oauth_Model_Server $server */
             $server = Mage::getModel('oauth/server');
 
             $token = $server->authorizeToken($user->getId(), Mage_Oauth_Model_Token::USER_TYPE_ADMIN);
@@ -206,25 +200,25 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
      * Init reject page
      *
      * @param bool $simple
-     * @return Mage_Oauth_AuthorizeController
+     * @return Mage_Oauth_Adminhtml_Oauth_AuthorizeController
      */
     protected function _initRejectPage($simple = false)
     {
-        /** @var $server Mage_Oauth_Model_Server */
+        /** @var Mage_Oauth_Model_Server $server */
         $server = Mage::getModel('oauth/server');
 
-        /** @var $session Mage_Admin_Model_Session */
+        /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton($this->_sessionName);
 
         $this->loadLayout();
 
-        /** @var $block Mage_Oauth_Block_Authorize */
+        /** @var Mage_Oauth_Block_Authorize $block */
         $block = $this->getLayout()->getBlock('oauth.authorize.reject');
         $block->setIsSimple($simple);
 
         try {
             $token = $server->checkAuthorizeRequest();
-            /** @var $helper Mage_Oauth_Helper_Data */
+            /** @var Mage_Oauth_Helper_Data $helper */
             $helper = Mage::helper('oauth');
 
             if (($callback = $helper->getFullCallbackUrl($token, true))) {
@@ -302,7 +296,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
     /**
      * Check admin permissions for this controller
      *
-     * @return boolean
+     * @return true
      */
     protected function _isAllowed()
     {

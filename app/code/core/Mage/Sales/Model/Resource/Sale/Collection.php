@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,25 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Sales
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @category   Mage
+ * @package    Mage_Sales
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Sales Collection
  *
- * @category    Mage
- * @package     Mage_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Sales
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_Db
 {
@@ -40,9 +33,8 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      *
      * @var array
      */
-    protected $_totals = array(
-        'lifetime' => 0, 'base_lifetime' => 0, 'base_avgsale' => 0, 'num_orders' => 0);
-
+    protected $_totals = [
+        'lifetime' => 0, 'base_lifetime' => 0, 'base_avgsale' => 0, 'num_orders' => 0];
 
     /**
      * Customer model
@@ -95,24 +87,23 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
      */
     public function addStoreFilter($storeIds)
     {
-        return $this->addFieldToFilter('store_id', array('in' => $storeIds));
+        return $this->addFieldToFilter('store_id', ['in' => $storeIds]);
     }
 
     /**
      * Set filter by order state
      *
      * @param string|array $state
-     * @param bool_type $exclude
+     * @param bool $exclude
      * @return $this
      */
     public function setOrderStateFilter($state, $exclude = false)
     {
         $this->_orderStateCondition = ($exclude) ? 'NOT IN' : 'IN';
-        $this->_orderStateValue     = (!is_array($state)) ? array($state) : $state;
+        $this->_orderStateValue     = (!is_array($state)) ? [$state] : $state;
         return $this;
     }
-    
-    
+
     /**
      * Before load action
      *
@@ -122,15 +113,15 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
     {
         $this->getSelect()
             ->from(
-                array('sales' => Mage::getResourceSingleton('sales/order')->getMainTable()),
-                array(
+                ['sales' => Mage::getResourceSingleton('sales/order')->getMainTable()],
+                [
                     'store_id',
                     'lifetime'      => new Zend_Db_Expr('SUM(sales.base_grand_total)'),
                     'base_lifetime' => new Zend_Db_Expr('SUM(sales.base_grand_total * sales.base_to_global_rate)'),
                     'avgsale'       => new Zend_Db_Expr('AVG(sales.base_grand_total)'),
                     'base_avgsale'  => new Zend_Db_Expr('AVG(sales.base_grand_total * sales.base_to_global_rate)'),
                     'num_orders'    => new Zend_Db_Expr('COUNT(sales.base_grand_total)')
-                )
+                ]
             )
             ->group('sales.store_id');
 
@@ -141,24 +132,27 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         if (!is_null($this->_orderStateValue)) {
             $condition = '';
             switch ($this->_orderStateCondition) {
-                case 'IN' : 
+                case 'IN':
                     $condition = 'in';
                     break;
-                case 'NOT IN' : 
+                case 'NOT IN':
                     $condition = 'nin';
                     break;
             }
-            $this->addFieldToFilter('state', array($condition => $this->_orderStateValue));
+            $this->addFieldToFilter('state', [$condition => $this->_orderStateValue]);
         }
 
-        Mage::dispatchEvent('sales_sale_collection_query_before', array('collection' => $this));
+        Mage::dispatchEvent('sales_sale_collection_query_before', ['collection' => $this]);
         return $this;
     }
 
     /**
      * Load data
      *
+     * @param bool $printQuery
+     * @param bool $logQuery
      * @return  Varien_Data_Collection_Db
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function load($printQuery = false, $logQuery = false)
     {
@@ -181,7 +175,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
             ->setWithoutDefaultFilter()
             ->load()
             ->toOptionHash();
-        $this->_items = array();
+        $this->_items = [];
         foreach ($data as $v) {
             $storeObject = new Varien_Object($v);
             $storeId     = $v['store_id'];
@@ -194,7 +188,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                 $this->_totals[$key] += $storeObject->getData($key);
             }
         }
-        
+
         if ($this->_totals['num_orders']) {
             $this->_totals['avgsale'] = $this->_totals['base_lifetime'] / $this->_totals['num_orders'];
         }

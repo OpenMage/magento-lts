@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Light.ttf") format("truetype"), /* Safari, Android, iOS */
+  url("fonts/opensans/OpenSans-Light.woff") format("woff"), /* Modern Browsers */
+  url("fonts/opensans/OpenSans-Light.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+  url("fonts/opensans/OpenSans-Regular.woff") format("woff"), /* Modern Browsers */
+  url("fonts/opensans/OpenSans-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-Bold.ttf") format("truetype"), /* Safari, Android, iOS */
+  url("fonts/opensans/OpenSans-Bold.woff") format("woff"), /* Modern Browsers */
+  url("fonts/opensans/OpenSans-Bold.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/opensans/OpenSans-SemiBold.ttf") format("truetype"), /* Safari, Android, iOS */
+  url("fonts/opensans/OpenSans-SemiBold.woff") format("woff"), /* Modern Browsers */
+  url("fonts/opensans/OpenSans-SemiBold.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: 600;
+  font-style: normal;
+}

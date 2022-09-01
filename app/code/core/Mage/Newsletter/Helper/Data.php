@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,18 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Newsletter
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Newsletter Data Helper
@@ -46,11 +39,11 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('core/url')
             ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/confirm', array(
+            ->getUrl('newsletter/subscriber/confirm', [
                 'id'     => $subscriber->getId(),
                 'code'   => $subscriber->getCode(),
                 '_nosid' => true
-            ));
+            ]);
     }
 
     /**
@@ -63,17 +56,17 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('core/url')
             ->setStore($subscriber->getStoreId())
-            ->getUrl('newsletter/subscriber/unsubscribe', array(
+            ->getUrl('newsletter/subscriber/unsubscribe', [
                 'id'     => $subscriber->getId(),
                 'code'   => $subscriber->getCode(),
                 '_nosid' => true
-            ));
+            ]);
     }
 
     /**
      * Retrieve Template processor for Newsletter template
      *
-     * @return Varien_Filter_Template
+     * @return false|Mage_Core_Model_Abstract|Varien_Filter_Template
      */
     public function getTemplateProcessor()
     {
@@ -81,4 +74,3 @@ class Mage_Newsletter_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getModel($model);
     }
 }
-

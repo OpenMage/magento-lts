@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,15 +12,9 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Payment
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,31 +24,62 @@
  * @category   Mage
  * @package    Mage_Payment
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Sales_Model_Order getOrder()
+ * @method Mage_Sales_Model_Quote getQuote()
+ *
+ * @method string getAdditionalData()
+ * @method $this setAdditionalData(string $value)
+ * @method string getCcCid()
+ * @method $this setCcCid(string $value)
+ * @method string getCcCidEnc()
+ * @method string getCcExpMonth()
+ * @method $this setCcExpMonth(string $value)
+ * @method string getCcExpYear()
+ * @method $this setCcExpYear(string $value)
+ * @method string getCcLast4()
+ * @method $this setCcLast4(string $value)
+ * @method string getCcNumber()
+ * @method $this setCcNumber(string $value)
+ * @method string getCcNumberEnc()
+ * @method $this setCcNumberEnc(string $value)
+ * @method string getCcOwner()
+ * @method $this setCcOwner(string $value)
+ * @method string getCcSsIssue()
+ * @method $this setCcSsIssue(string $value)
+ * @method string getCcSsStartMonth()
+ * @method $this setCcSsStartMonth(string $value)
+ * @method string getCcSsStartYear()
+ * @method $this setCcSsStartYear(string $value)
+ * @method string getCcType()
+ * @method $this setCcType(string $value)
+ * @method string getMethod()
+ * @method bool hasMethodInstance()
+ * @method $this setMethodInstance(false|Mage_Payment_Model_Method_Abstract $value)
+ * @method $this setPoNumber(string $value)
  */
 class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
 {
     /**
      * Additional information container
      *
-     * @var array
+     * @var array|int
      */
     protected $_additionalInformation = -1;
 
     /**
      * Retrieve data
      *
-     * @param   string $key
-     * @param   mixed $index
-     * @return unknown
+     * @inheritDoc
      */
-    public function getData($key='', $index=null)
+    public function getData($key = '', $index = null)
     {
-        if ('cc_number'===$key) {
+        if ($key === 'cc_number') {
             if (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc'])) {
                 $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
             }
         }
-        if ('cc_cid'===$key) {
+        if ($key === 'cc_cid') {
             if (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc'])) {
                 $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
             }
@@ -146,7 +171,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     public function getAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        if (null === $key) {
+        if ($key === null) {
             return $this->_additionalInformation;
         }
         return isset($this->_additionalInformation[$key]) ? $this->_additionalInformation[$key] : null;
@@ -171,13 +196,13 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
     /**
      * Check whether there is additional information by specified key
      *
-     * @param $key
+     * @param string $key
      * @return bool
      */
     public function hasAdditionalInformation($key = null)
     {
         $this->_initAdditionalInformation();
-        return null === $key
+        return $key === null
             ? !empty($this->_additionalInformation)
             : array_key_exists($key, $this->_additionalInformation);
     }
@@ -187,11 +212,11 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      */
     protected function _initAdditionalInformation()
     {
-        if (-1 === $this->_additionalInformation) {
+        if ($this->_additionalInformation === -1) {
             $this->_additionalInformation = $this->_getData('additional_information');
         }
-        if (null === $this->_additionalInformation) {
-            $this->_additionalInformation = array();
+        if ($this->_additionalInformation === null) {
+            $this->_additionalInformation = [];
         }
     }
 }

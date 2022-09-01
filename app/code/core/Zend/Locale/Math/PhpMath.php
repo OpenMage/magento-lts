@@ -19,7 +19,6 @@
  * @version    $Id$
  */
 
-
 /**
  * This class replaces default Zend_Locale_Math_PhpMath because of issues described in MPERF-10261 and MPERF-10262
  * The only difference between current class and original one is overwritten implementation of Sub method
@@ -56,7 +55,6 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
     public static $defaultScale;
     public static $defaultPrecision;
 
-
     public static function Add($op1, $op2, $scale = null)
     {
         if ($scale === null) {
@@ -72,7 +70,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op1 = self::normalize($op1);
         $op2 = self::normalize($op2);
         $result = $op1 + $op2;
-        if (is_infinite($result)  or  (abs($result - $op2 - $op1) > $precision)) {
+        if (is_infinite($result)  ||  (abs($result - $op2 - $op1) > $precision)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception("addition overflow: $op1 + $op2 != $result", $op1, $op2, $result);
         }
@@ -98,7 +96,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op1  = self::normalize($op1);
         $op2  = self::normalize($op2);
         $result = $op1 - $op2;
-        if (is_infinite($result)  or  (abs($result + $op2 - $op1) > $precision)) {
+        if (is_infinite($result)  ||  (abs($result + $op2 - $op1) > $precision)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception("subtraction overflow: $op1 - $op2 != $result", $op1, $op2, $result);
         }
@@ -120,7 +118,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op2 = ($op2 > 0) ? floor($op2) : ceil($op2);
 
         $result = pow($op1, $op2);
-        if (is_infinite($result)  or  is_nan($result)) {
+        if (is_infinite($result)  ||  is_nan($result)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception("power overflow: $op1 ^ $op2", $op1, $op2, $result);
         }
@@ -140,7 +138,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op1 = self::normalize($op1);
         $op2 = self::normalize($op2);
         $result = $op1 * $op2;
-        if (is_infinite($result)  or  is_nan($result)) {
+        if (is_infinite($result)  ||  is_nan($result)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception("multiplication overflow: $op1 * $op2 != $result", $op1, $op2, $result);
         }
@@ -164,7 +162,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op1 = self::normalize($op1);
         $op2 = self::normalize($op2);
         $result = $op1 / $op2;
-        if (is_infinite($result)  or  is_nan($result)) {
+        if (is_infinite($result)  ||  is_nan($result)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception("division overflow: $op1 / $op2 != $result", $op1, $op2, $result);
         }
@@ -184,7 +182,7 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         $op1 = self::normalize($op1);
         $result = sqrt($op1);
         if (is_nan($result)) {
-            return NULL;
+            return null;
         }
 
         return self::round(self::normalize($result), $scale);
@@ -196,15 +194,15 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
             $op1 = 0;
         }
         if (empty($op2)) {
-            return NULL;
+            return null;
         }
         $op1 = self::normalize($op1);
         $op2 = self::normalize($op2);
         if ((int)$op2 == 0) {
-            return NULL;
+            return null;
         }
         $result = $op1 % $op2;
-        if (is_nan($result)  or  (($op1 - $result) % $op2 != 0)) {
+        if (is_nan($result)  ||  (($op1 - $result) % $op2 != 0)) {
             #require_once 'Zend/Locale/Math/Exception.php';
             throw new Zend_Locale_Math_Exception(
                 "modulus calculation error: $op1 % $op2 != $result", $op1, $op2, $result);

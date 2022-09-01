@@ -1,6 +1,6 @@
 <?php
 /**
- * Magento
+ * OpenMage
  *
  * NOTICE OF LICENSE
  *
@@ -12,33 +12,28 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Index_Model_Resource_Process _getResource()
  * @method Mage_Index_Model_Resource_Process getResource()
+ * @method string getIndexCode()
  * @method string getIndexerCode()
- * @method Mage_Index_Model_Process setIndexerCode(string $value)
+ * @method $this setIndexerCode(string $value)
  * @method string getStatus()
- * @method Mage_Index_Model_Process setStatus(string $value)
+ * @method $this setStatus(string $value)
  * @method string getStartedAt()
- * @method Mage_Index_Model_Process setStartedAt(string $value)
+ * @method $this setStartedAt(string $value)
  * @method string getEndedAt()
- * @method Mage_Index_Model_Process setEndedAt(string $value)
+ * @method $this setEndedAt(string $value)
  * @method string getMode()
- * @method Mage_Index_Model_Process setMode(string $value)
+ * @method $this setMode(string $value)
+ * @method bool getForcePartialReindex()
+ * @method $this setForcePartialReindex(bool $value)
  *
  * @category    Mage
  * @package     Mage_Index
@@ -105,7 +100,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Set indexer class name as data namespace for event object
      *
      * @param   Mage_Index_Model_Event $event
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
@@ -146,7 +141,6 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             }
         }
         return $this;
-
     }
 
     /**
@@ -192,7 +186,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         try {
             $eventsCollection = $this->getUnprocessedEventsCollection();
 
-            /** @var $eventResource Mage_Index_Model_Resource_Event */
+            /** @var Mage_Index_Model_Resource_Event $eventResource */
             $eventResource = Mage::getResourceSingleton('index/event');
 
             if ($eventsCollection->count() > 0 && $processStatus == self::STATUS_PENDING
@@ -240,13 +234,13 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        /** @var $eventResource Mage_Index_Model_Resource_Event */
+        /** @var Mage_Index_Model_Resource_Event $eventResource */
         $eventResource = Mage::getResourceSingleton('index/event');
         $unprocessedEvents = $eventResource->getUnprocessedEvents($this);
         $this->setForcePartialReindex(count($unprocessedEvents) > 0 && $this->getStatus() == self::STATUS_PENDING);
 
         if ($this->getDepends()) {
-            /** @var $indexer Mage_Index_Model_Indexer */
+            /** @var Mage_Index_Model_Indexer $indexer */
             $indexer = Mage::getSingleton('index/indexer');
             foreach ($this->getDepends() as $code) {
                 $process = $indexer->getProcessByCode($code);
@@ -325,9 +319,9 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param   null|string $entity
      * @param   null|string $type
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
-    public function indexEvents($entity=null, $type=null)
+    public function indexEvents($entity = null, $type = null)
     {
         /**
          * Check if process indexer can match entity code and action type
@@ -380,8 +374,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         $skipUnmatched = true
     ) {
         // We can't reload the collection because of transaction
-        /** @var $event Mage_Index_Model_Event */
         while ($event = $eventsCollection->fetchItem()) {
+            /** @var Mage_Index_Model_Event $event */
             try {
                 $this->processEvent($event);
                 if (!$skipUnmatched) {
@@ -403,7 +397,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      *
      * @param   Mage_Index_Model_Event $event
      * @param   string $status
-     * @return  Mage_Index_Model_Process
+     * @return  $this
      */
     public function updateEventStatus(Mage_Index_Model_Event $event, $status)
     {
@@ -488,10 +482,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function changeStatus($status)
     {
-        Mage::dispatchEvent('index_process_change_status', array(
+        Mage::dispatchEvent('index_process_change_status', [
             'process' => $this,
             'status' => $status
-        ));
+        ]);
         $this->_getResource()->updateStatus($this, $status);
         return $this;
     }
@@ -503,10 +497,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getModesOptions()
     {
-        return array(
+        return [
             self::MODE_REAL_TIME => Mage::helper('index')->__('Update on Save'),
             self::MODE_MANUAL => Mage::helper('index')->__('Manual Update')
-        );
+        ];
     }
 
     /**
@@ -516,11 +510,11 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getStatusesOptions()
     {
-        return array(
+        return [
             self::STATUS_PENDING            => Mage::helper('index')->__('Ready'),
             self::STATUS_RUNNING            => Mage::helper('index')->__('Processing'),
             self::STATUS_REQUIRE_REINDEX    => Mage::helper('index')->__('Reindex Required'),
-        );
+        ];
     }
 
     /**
@@ -530,10 +524,10 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getUpdateRequiredOptions()
     {
-        return array(
+        return [
             0 => Mage::helper('index')->__('No'),
             1 => Mage::helper('index')->__('Yes'),
-        );
+        ];
     }
 
     /**
@@ -545,7 +539,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
     {
         $depends = $this->getData('depends');
         if (is_null($depends)) {
-            $depends = array();
+            $depends = [];
             $path = self::XML_PATH_INDEXER_DATA . '/' . $this->getIndexerCode();
             $node = Mage::getConfig()->getNode($path);
             if ($node) {
@@ -634,7 +628,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     public function getUnprocessedEventsCollection()
     {
-        /** @var $eventsCollection Mage_Index_Model_Resource_Event_Collection */
+        /** @var Mage_Index_Model_Resource_Event_Collection $eventsCollection */
         $eventsCollection = Mage::getResourceModel('index/event_collection');
         $eventsCollection->addProcessFilter($this, self::EVENT_STATUS_NEW);
         return $eventsCollection;
