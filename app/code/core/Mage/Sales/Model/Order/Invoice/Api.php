@@ -47,7 +47,7 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     public function items($filters = null)
     {
         $invoices = [];
-        /** @var Mage_Sales_Model_Mysql4_Order_Invoice_Collection $invoiceCollection */
+        /** @var Mage_Sales_Model_Resource_Order_Invoice_Collection $invoiceCollection */
         $invoiceCollection = Mage::getResourceModel('sales/order_invoice_collection');
         $invoiceCollection->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('order_id')

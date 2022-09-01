@@ -84,7 +84,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pviewed extends Mage_Admin
     /**
      * Retrieve availability removing items in block
      *
-     * @return bool
+     * @return false
      */
     public function canRemoveItems()
     {

@@ -24,6 +24,8 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_Catalog_Model_Resource_Product_Link_Product_Collection getCollection()
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtml_Block_Widget_Grid
 {
@@ -65,17 +67,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
+        if ($column->getId() === 'in_products') {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in'=>$productIds]);
-            } else {
-                if($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin'=>$productIds]);
-                }
+                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+            } elseif ($productIds) {
+                $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -218,7 +218,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
      */
     public function getGridUrl()
     {
-        return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/upsellGrid', ['_current'=>true]);
+        return $this->_getData('grid_url') ?: $this->getUrl('*/*/upsellGrid', ['_current' => true]);
     }
 
     /**
@@ -248,5 +248,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
         }
         return $products;
     }
-
 }

@@ -21,26 +21,27 @@
 /**
  * AdminNotification Inbox model
  *
- * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
- * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
- * @method int getSeverity()
- * @method Mage_AdminNotification_Model_Inbox setSeverity(int $value)
- * @method string getDateAdded()
- * @method Mage_AdminNotification_Model_Inbox setDateAdded(string $value)
- * @method string getTitle()
- * @method Mage_AdminNotification_Model_Inbox setTitle(string $value)
- * @method string getDescription()
- * @method Mage_AdminNotification_Model_Inbox setDescription(string $value)
- * @method string getUrl()
- * @method Mage_AdminNotification_Model_Inbox setUrl(string $value)
- * @method int getIsRead()
- * @method Mage_AdminNotification_Model_Inbox setIsRead(int $value)
- * @method int getIsRemove()
- * @method Mage_AdminNotification_Model_Inbox setIsRemove(int $value)
- *
  * @category    Mage
  * @package     Mage_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @method Mage_AdminNotification_Model_Resource_Inbox _getResource()
+ * @method Mage_AdminNotification_Model_Resource_Inbox getResource()
+ * @method Mage_AdminNotification_Model_Resource_Inbox_Collection getCollection()
+ * @method string getDateAdded()
+ * @method $this setDateAdded(string $value)
+ * @method string getDescription()
+ * @method $this setDescription(string $value)
+ * @method int getIsRead()
+ * @method $this setIsRead(int $value)
+ * @method int getIsRemove()
+ * @method $this setIsRemove(int $value)
+ * @method int getSeverity()
+ * @method $this setSeverity(int $value)
+ * @method string getTitle()
+ * @method $this setTitle(string $value)
+ * @method string getUrl()
+ * @method $this setUrl(string $value)
  */
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {

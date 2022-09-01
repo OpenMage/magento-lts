@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
+ * @category   Mage
+ * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,10 +23,10 @@
  * Deprecated because after Magento 1.4.2.0 it's impossible
  * to use product collection in wishlist
  *
- * @deprecated after 1.4.2.0
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
+ * @deprecated after 1.4.2.0
  */
 class Mage_Wishlist_Model_Resource_Product_Collection extends Mage_Catalog_Model_Resource_Product_Collection
 {

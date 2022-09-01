@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 $installer = $this;
-/** @var Mage_Paypal_Model_Mysql4_Setup $installer */
+/** @var Mage_Paypal_Model_Resource_Setup $installer */
 $installer->startSetup();
 $installer->addAttribute('order', 'paypal_ipn_customer_notified', ['type'=>'int', 'visible' => false, 'default' => 0]);
 $installer->endSetup();

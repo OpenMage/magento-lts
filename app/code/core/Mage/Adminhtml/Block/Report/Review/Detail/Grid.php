@@ -27,7 +27,9 @@
  */
 class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
+    /**
+     * Mage_Adminhtml_Block_Report_Review_Detail_Grid constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -36,24 +38,17 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
     protected function _prepareCollection()
     {
-
-        //$collection = Mage::getModel('review/review')->getProductCollection();
-
-        //$collection->getSelect()
-        //    ->where('rt.entity_pk_value='.(int)$this->getRequest()->getParam('id'));
-
-        //$collection->getEntity()->setStore(0);
-
         $collection = Mage::getResourceModel('reports/review_collection')
             ->addProductFilter((int)$this->getRequest()->getParam('id'));
-
         $this->setCollection($collection);
-
         parent::_prepareCollection();
-
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
 
@@ -88,6 +83,5 @@ class Mage_Adminhtml_Block_Report_Review_Detail_Grid extends Mage_Adminhtml_Bloc
 
         return parent::_prepareColumns();
     }
-
 }
 
