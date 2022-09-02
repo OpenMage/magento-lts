@@ -571,11 +571,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
 
 		-
-			message: "#^Method Mage_Eav_Model_Entity_Abstract\\:\\:save\\(\\) invoked with 0 parameters, 1 required\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Model/Giftmessage/Save.php
-
-		-
 			message: "#^Variable \\$billingAddress might not be defined\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Adminhtml/Model/Sales/Order/Create.php
@@ -1221,16 +1216,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Block/Product/Gallery.php
 
 		-
-			message: "#^Variable \\$class might not be defined\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
-
-		-
-			message: "#^Variable \\$type might not be defined\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Select.php
-
-		-
 			message: "#^Method Mage_Catalog_Block_Product_View_Tabs\\:\\:addTab\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Block/Product/View/Tabs.php
@@ -1641,12 +1626,12 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Category/Tree.php
 
 		-
-			message: "#^Binary operation \"\\-\" between int and non\\-empty\\-string results in an error\\.$#"
+			message: "#^Binary operation \"\\-\" between int and non-falsy-string results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
 		-
-			message: "#^Binary operation \"\\-\" between non\\-empty\\-string and 1 results in an error\\.$#"
+			message: "#^Binary operation \"\\-\" between non-falsy-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
@@ -2101,7 +2086,7 @@ parameters:
 			path: ../app/code/core/Mage/Core/Model/Design.php
 
 		-
-			message: "#^Binary operation \"\\.\" between non\\-empty\\-string and array results in an error\\.$#"
+			message: "#^Binary operation \"\\.\" between non-falsy-string and array results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Core/Model/Design/Package.php
 
@@ -2391,7 +2376,7 @@ parameters:
 			path: ../app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: "#^Binary operation \"\\*\" between float and non\\-empty\\-string results in an error\\.$#"
+			message: "#^Binary operation \"\\*\" between float and non-falsy-string results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Directory/Model/Currency.php
 
@@ -2927,7 +2912,7 @@ parameters:
 			path: ../app/code/core/Mage/Install/controllers/WizardController.php
 
 		-
-			message: "#^Binary operation \"\\+\" between non\\-empty\\-string and 1 results in an error\\.$#"
+			message: "#^Binary operation \"\\+\" between non-falsy-string and 1 results in an error\\.$#"
 			count: 2
 			path: ../app/code/core/Mage/Log/Model/Resource/Log.php
 
