@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
     /**
      * Render single action as dropdown option html
      *
-     * @param unknown_type $action
+     * @param array $action
      * @param Varien_Object $row
      * @return string
      */
