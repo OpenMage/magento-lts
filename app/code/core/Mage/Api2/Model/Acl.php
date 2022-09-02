@@ -56,8 +56,6 @@ class Mage_Api2_Model_Acl extends Zend_Acl
     protected $_operation;
 
     /**
-     * Constructor
-     *
      * @param array $options
      */
     public function __construct($options)
