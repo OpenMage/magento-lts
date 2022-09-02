@@ -134,5 +134,4 @@ class Mage_Adminhtml_Block_Promo_Catalog_Grid extends Mage_Adminhtml_Block_Widge
     {
         return $this->getUrl('*/*/edit', ['id' => $row->getRuleId()]);
     }
-
 }

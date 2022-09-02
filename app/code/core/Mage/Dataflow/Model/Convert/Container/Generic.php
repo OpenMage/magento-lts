@@ -27,5 +27,4 @@
  */
 class Mage_Dataflow_Model_Convert_Container_Generic extends Mage_Dataflow_Model_Convert_Container_Abstract
 {
-
 }

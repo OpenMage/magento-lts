@@ -302,5 +302,4 @@ class Mage_Core_Model_Resource_File_Storage_File
             @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
         }
     }
-
 }

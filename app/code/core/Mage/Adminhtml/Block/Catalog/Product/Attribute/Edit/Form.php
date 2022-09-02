@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form(['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']);
@@ -35,5 +34,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Form extends Mage_Admi
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 }

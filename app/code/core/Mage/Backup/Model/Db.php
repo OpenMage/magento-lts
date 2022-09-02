@@ -27,7 +27,6 @@
  */
 class Mage_Backup_Model_Db
 {
-
     /**
      * Buffer length for multi rows
      * default 100 Kb

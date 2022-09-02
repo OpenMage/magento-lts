@@ -103,5 +103,4 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
     {
         return $this->getUrl('*/*/fetchRates');
     }
-
 }

@@ -68,5 +68,4 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
             return Mage::helper('catalogrule')->__('New Rule');
         }
     }
-
 }

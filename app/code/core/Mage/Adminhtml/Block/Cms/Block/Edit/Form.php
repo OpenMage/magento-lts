@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
-
     /**
      * Init form
      */
@@ -134,5 +133,4 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
 
         return parent::_prepareForm();
     }
-
 }

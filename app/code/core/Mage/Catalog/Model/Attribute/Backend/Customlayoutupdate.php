@@ -27,7 +27,6 @@
  */
 class Mage_Catalog_Model_Attribute_Backend_Customlayoutupdate extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
     /**
      * Product custom layout update attribute validate function.
      * In case invalid data throws exception.

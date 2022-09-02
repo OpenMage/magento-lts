@@ -29,7 +29,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
     extends Mage_Adminhtml_Block_Abstract
     implements Varien_Data_Form_Element_Renderer_Interface
 {
-
     /**
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string

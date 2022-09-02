@@ -25,7 +25,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Filename extends Mage_Core_Model_Config_Data
 {
-
     /**
      * Config path for system log file.
      */

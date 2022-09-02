@@ -26,7 +26,6 @@
  */
 class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_Abstract
 {
-
     /**
      * Available options
      *
@@ -471,5 +470,4 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         header('Location: ' . $url);
         return false;
     }
-
 }

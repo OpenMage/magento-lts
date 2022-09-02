@@ -36,5 +36,4 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Select_Flatcatalog
         }
         return parent::_getElementHtml($element);
     }
-
 }

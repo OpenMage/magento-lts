@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -80,5 +79,4 @@ class Mage_Adminhtml_Block_Customer_Group_Grid extends Mage_Adminhtml_Block_Widg
     {
         return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
     }
-
 }

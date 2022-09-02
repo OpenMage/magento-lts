@@ -82,5 +82,4 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit_Form extends Mage_Adminhtml_Block_Widget
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 }

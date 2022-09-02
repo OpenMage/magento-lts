@@ -54,5 +54,4 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         $this->setForm($form);
         return $this;
     }
-
 }

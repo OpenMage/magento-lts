@@ -25,7 +25,6 @@
  */
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable extends Mage_Catalog_Model_Resource_Product_Type_Configurable
 {
-
     /**
      * Retrieve Required children ids
      * Grouped by parent id.

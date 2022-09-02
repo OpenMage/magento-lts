@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Template
 {
-
     /**
      * So called "container controller" to specify group of blocks participating in some action
      *

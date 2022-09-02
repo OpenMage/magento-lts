@@ -131,5 +131,4 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     {
         return $this->getUrl('*/*/edit', ['block_id' => $row->getId()]);
     }
-
 }

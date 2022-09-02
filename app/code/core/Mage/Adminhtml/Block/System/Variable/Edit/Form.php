@@ -109,5 +109,4 @@ class Mage_Adminhtml_Block_System_Variable_Edit_Form extends Mage_Adminhtml_Bloc
         $this->setForm($form);
         return parent::_prepareForm();
     }
-
 }

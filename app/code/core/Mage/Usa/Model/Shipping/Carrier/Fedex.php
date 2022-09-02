@@ -29,7 +29,6 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex
     extends Mage_Usa_Model_Shipping_Carrier_Abstract
     implements Mage_Shipping_Model_Carrier_Interface
 {
-
     /**
      * Code of the carrier
      *

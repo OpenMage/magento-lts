@@ -27,7 +27,6 @@
  */
 class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 {
-
     /**
      * @var string
      */

@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Model_System_Config_Backend_Encrypted extends Mage_Core_Model_Config_Data
 {
-
     /**
      * Decrypt value after loading
      *

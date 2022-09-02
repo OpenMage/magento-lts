@@ -29,5 +29,4 @@
  */
 class Mage_Customer_Block_Account_Forgotpassword extends Mage_Core_Block_Template
 {
-
 }

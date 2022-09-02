@@ -27,7 +27,6 @@
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Frontend_Abstract implements Mage_Eav_Model_Entity_Attribute_Frontend_Interface
 {
-
     /**
      * Reference to the attribute instance
      *

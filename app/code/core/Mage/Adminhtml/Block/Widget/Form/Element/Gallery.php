@@ -85,6 +85,5 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
     {
         return str_replace('#image#', $image, $this->getChildHtml('delete_button'));
     }
-
 }
 

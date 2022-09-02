@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -119,6 +118,5 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Grid extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/edit', ['id'=>$row->getId()]);
     }
-
 }
 

@@ -72,5 +72,4 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
             return Mage::helper('cms')->__('New Block');
         }
     }
-
 }

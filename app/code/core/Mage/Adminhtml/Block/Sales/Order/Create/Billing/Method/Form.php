@@ -97,5 +97,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
         }
         return false;
     }
-
 }
