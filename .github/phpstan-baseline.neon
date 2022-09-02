@@ -391,21 +391,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Form.php
 
 		-
-			message: "#^Access to property \\$sort_order on an unknown class unknown_type\\.$#"
-			count: 4
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
-
-		-
-			message: "#^Parameter \\$a of method Mage_Adminhtml_Block_System_Config_Tabs\\:\\:_sort\\(\\) has invalid type unknown_type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
-
-		-
-			message: "#^Parameter \\$b of method Mage_Adminhtml_Block_System_Config_Tabs\\:\\:_sort\\(\\) has invalid type unknown_type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/System/Config/Tabs.php
-
-		-
 			message: "#^Access to an undefined property Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard\\:\\:\\$_filterStores\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
@@ -526,11 +511,6 @@ parameters:
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid.php
 
 		-
-			message: "#^Parameter \\$action of method Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action\\:\\:_toOptionHtml\\(\\) has invalid type unknown_type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Action.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 1 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
@@ -574,11 +554,6 @@ parameters:
 			message: "#^Method Mage_Adminhtml_Helper_Catalog_Product_Composite\\:\\:renderUpdateResult\\(\\) should return \\$this\\(Mage_Adminhtml_Helper_Catalog_Product_Composite\\) but return statement is missing\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Adminhtml/Helper/Catalog/Product/Composite.php
-
-		-
-			message: "#^Property Mage_Adminhtml_Helper_Dashboard_Abstract\\:\\:\\$_collection has unknown class Mage_Core_Model_Mysql_Collection_Abstract as its type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Adminhtml/Helper/Dashboard/Abstract.php
 
 		-
 			message: "#^Method Mage_Adminhtml_Model_Config\\:\\:getSection\\(\\) should return Varien_Simplexml_Element but return statement is missing\\.$#"
@@ -1726,11 +1701,6 @@ parameters:
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Flat/Indexer.php
 
 		-
-			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 2
-			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and 0\\.3 results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
@@ -1826,11 +1796,6 @@ parameters:
 			path: ../app/code/core/Mage/CatalogIndex/Model/Indexer/Minimalprice.php
 
 		-
-			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Data/Grouped.php
-
-		-
 			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogIndex/Model/Resource/Price.php
@@ -1852,11 +1817,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\+\" between int\\<0, max\\> and string results in an error\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
-
-		-
-			message: "#^Call to method fetch\\(\\) on an unknown class PDO_Statement\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/CatalogInventory/Model/Resource/Indexer/Stock.php
 
@@ -2945,10 +2905,6 @@ parameters:
 			count: 1
 			path: ../app/code/core/Mage/Install/Model/Installer/Db.php
 
-		-
-			message: "#^Property Mage_Install_Model_Installer_Db\\:\\:\\$_dbResource has unknown class database as its type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Install/Model/Installer/Db.php
 
 		-
 			message: "#^Call to an undefined method Varien_Object\\:\\:addError\\(\\)\\.$#"
@@ -3351,11 +3307,6 @@ parameters:
 			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
 		-
-			message: "#^Property Mage_Paypal_Model_Express_Checkout\\:\\:\\$_order has unknown class Mage_Sales_Model_QuoteMage_Sales_Model_Quote as its type\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
 			message: "#^Variable \\$address might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Paypal/Model/Express/Checkout.php
@@ -3569,11 +3520,6 @@ parameters:
 			message: "#^Variable \\$productViewEvent might not be defined\\.$#"
 			count: 1
 			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
-
-		-
-			message: "#^Call to method fetchAll\\(\\) on an unknown class PDO_Statement\\.$#"
-			count: 1
-			path: ../app/code/core/Mage/Reports/Model/Resource/Product/Index/Abstract.php
 
 		-
 			message: "#^Comparison operation \"\\!\\=\" between array\\|int and 0 results in an error\\.$#"
