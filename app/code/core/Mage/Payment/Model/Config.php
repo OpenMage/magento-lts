@@ -88,13 +88,10 @@ class Mage_Payment_Model_Config
             return false;
         }
         $modelName = $config['model'];
-
-        $className = Mage::getConfig()->getModelClassName($modelName);
-        if (!mageFindClassFile($className)) {
+        $method = Mage::getModel($modelName);
+        if (!$method) {
             return false;
         }
-
-        $method = Mage::getModel($modelName);
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
