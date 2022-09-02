@@ -42,8 +42,8 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param object $a
-     * @param object $b
+     * @param Mage_Core_Model_Config_Element $a
+     * @param Mage_Core_Model_Config_Element $b
      * @return int
      */
     protected function _sort($a, $b)
