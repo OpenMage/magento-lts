@@ -769,11 +769,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups
             return $codes[$type];
         }
 
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**

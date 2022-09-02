@@ -239,7 +239,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
      */
     protected function _prepareCreateData($data)
     {
-        $data = isset($data) ? $data : [];
+        $data = $data ?? [];
 
         if (isset($data['qtys']) && count($data['qtys'])) {
             $qtysArray = [];

@@ -274,7 +274,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
      */
     public function getCustomizedView($optionInfo)
     {
-        return isset($optionInfo['value']) ? $optionInfo['value'] : $optionInfo;
+        return $optionInfo['value'] ?? $optionInfo;
     }
 
     /**
@@ -374,10 +374,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                 }
             }
         }
-        if (isset($this->_productOptions[$this->getProduct()->getId()])) {
-            return $this->_productOptions[$this->getProduct()->getId()];
-        }
-        return [];
+        return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 
     /**

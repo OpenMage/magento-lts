@@ -468,10 +468,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function getAttribute($attributeCode)
     {
         $this->getAttributes();
-        if (isset($this->_attributes[$attributeCode])) {
-            return $this->_attributes[$attributeCode];
-        }
-        return null;
+        return $this->_attributes[$attributeCode] ?? null;
     }
 
     /**

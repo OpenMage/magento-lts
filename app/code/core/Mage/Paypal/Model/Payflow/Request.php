@@ -43,10 +43,10 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
         }
         switch (substr($method, 0, 3)) {
             case 'get' :
-                return $this->getData($key, isset($args[0]) ? $args[0] : null);
+                return $this->getData($key, $args[0] ?? null);
 
             case 'set' :
-                return $this->setData($key, isset($args[0]) ? $args[0] : null);
+                return $this->setData($key, $args[0] ?? null);
 
             case 'uns' :
                 return $this->unsetData($key);

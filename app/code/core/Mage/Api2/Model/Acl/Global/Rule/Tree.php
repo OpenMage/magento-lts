@@ -257,7 +257,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     {
         $this->_init();
         $root = $this->_getTreeNode($this->_resourcesConfig, 1);
-        return isset($root[self::NAME_CHILDREN]) ? $root[self::NAME_CHILDREN] : [];
+        return $root[self::NAME_CHILDREN] ?? [];
     }
 
     /**

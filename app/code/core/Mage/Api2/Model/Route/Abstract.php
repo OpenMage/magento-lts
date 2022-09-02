@@ -75,7 +75,7 @@ abstract class Mage_Api2_Model_Route_Abstract extends Zend_Controller_Router_Rou
      */
     protected function _getArgumentValue($name, array $arguments)
     {
-        return isset($arguments[$name]) ? $arguments[$name] : $this->_paramsDefaultValues[$name];
+        return $arguments[$name] ?? $this->_paramsDefaultValues[$name];
     }
 
     /**

@@ -358,11 +358,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             }
 
             foreach ($this->_data as &$attributeData) {
-                $setInfo = [];
-                if (isset($attributeToSetInfo[$attributeData['attribute_id']])) {
-                    $setInfo = $attributeToSetInfo[$attributeData['attribute_id']];
-                }
-
+                $setInfo = $attributeToSetInfo[$attributeData['attribute_id']] ?? [];
                 $attributeData['attribute_set_info'] = $setInfo;
             }
 

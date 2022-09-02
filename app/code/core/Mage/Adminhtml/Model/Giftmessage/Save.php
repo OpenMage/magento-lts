@@ -324,11 +324,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             'order_item'    =>  'order_item'
         ];
 
-        if (isset($map[$type])) {
-            return $map[$type];
-        }
-
-        return null;
+        return $map[$type] ?? null;
     }
 
     /**

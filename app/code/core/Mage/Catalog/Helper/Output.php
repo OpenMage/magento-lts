@@ -85,7 +85,7 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     public function getHandlers($method)
     {
         $method = strtolower($method);
-        return isset($this->_handlers[$method]) ? $this->_handlers[$method] : [];
+        return $this->_handlers[$method] ?? [];
     }
 
     /**

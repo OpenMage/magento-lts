@@ -174,7 +174,7 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
         if ($key === null) {
             return $this->_additionalInformation;
         }
-        return isset($this->_additionalInformation[$key]) ? $this->_additionalInformation[$key] : null;
+        return $this->_additionalInformation[$key] ?? null;
     }
 
     /**

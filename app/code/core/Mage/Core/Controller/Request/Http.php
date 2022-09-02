@@ -160,7 +160,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
                     $stores = Mage::app()->getStores(true, true);
                     if ($storeCode!=='' && isset($stores[$storeCode])) {
                         Mage::app()->setCurrentStore($storeCode);
-                        $pathInfo = '/'.(isset($pathParts[1]) ? $pathParts[1] : '');
+                        $pathInfo = '/'.($pathParts[1] ?? '');
                     } elseif ($storeCode !== '') {
                         $this->setActionName('noRoute');
                     }
@@ -422,10 +422,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     public function getAlias($name)
     {
         $aliases = $this->getAliases();
-        if (isset($aliases[$name])) {
-            return $aliases[$name];
-        }
-        return null;
+        return $aliases[$name] ?? null;
     }
 
     /**
@@ -435,10 +432,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
      */
     public function getAliases()
     {
-        if (isset($this->_routingInfo['aliases'])) {
-            return $this->_routingInfo['aliases'];
-        }
-        return parent::getAliases();
+        return $this->_routingInfo['aliases'] ?? parent::getAliases();
     }
 
     /**

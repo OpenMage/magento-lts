@@ -321,11 +321,7 @@ class Mage_Core_Model_Resource
      */
     public function getMappedTableName($tableName)
     {
-        if (isset($this->_mappedTableNames[$tableName])) {
-            return $this->_mappedTableNames[$tableName];
-        } else {
-            return false;
-        }
+        return $this->_mappedTableNames[$tableName] ?? false;
     }
 
     /**

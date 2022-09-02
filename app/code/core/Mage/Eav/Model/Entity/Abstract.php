@@ -1240,11 +1240,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 ->describeTable($this->getEntityTable());
         }
 
-        if (isset($this->_describeTable[$this->getEntityTable()][$field])) {
-            return $this->_describeTable[$this->getEntityTable()][$field];
-        }
-
-        return false;
+        return $this->_describeTable[$this->getEntityTable()][$field] ?? false;
     }
 
     /**

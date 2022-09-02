@@ -104,11 +104,9 @@ class Mage_Eav_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstrac
         $this->_loadTypes();
 
         if (is_numeric($entityType)) {
-            $info = isset(self::$_entityTypes['by_id'][$entityType])
-                ? self::$_entityTypes['by_id'][$entityType] : null;
+            $info = self::$_entityTypes['by_id'][$entityType] ?? null;
         } else {
-            $info = isset(self::$_entityTypes['by_code'][$entityType])
-                ? self::$_entityTypes['by_code'][$entityType] : null;
+            $info = self::$_entityTypes['by_code'][$entityType] ?? null;
         }
 
         $data = [];

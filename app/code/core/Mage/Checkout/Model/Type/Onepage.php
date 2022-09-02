@@ -86,10 +86,7 @@ class Mage_Checkout_Model_Type_Onepage
      */
     public function getQuote()
     {
-        if ($this->_quote === null) {
-            return $this->_checkoutSession->getQuote();
-        }
-        return $this->_quote;
+        return $this->_quote ?? $this->_checkoutSession->getQuote();
     }
 
     /**
@@ -637,9 +634,9 @@ class Mage_Checkout_Model_Type_Onepage
         }
         $quote = $this->getQuote();
         if ($quote->isVirtual()) {
-            $quote->getBillingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
+            $quote->getBillingAddress()->setPaymentMethod($data['method'] ?? null);
         } else {
-            $quote->getShippingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
+            $quote->getShippingAddress()->setPaymentMethod($data['method'] ?? null);
         }
 
         // shipping totals may be affected by payment method

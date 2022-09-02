@@ -186,9 +186,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
                     if ($option['value']) {
                         $text = [];
-                        $_printValue = isset($option['print_value'])
-                            ? $option['print_value']
-                            : strip_tags($option['value']);
+                        $_printValue = $option['print_value'] ?? strip_tags($option['value']);
                         $values = explode(', ', $_printValue);
                         foreach ($values as $value) {
                             foreach (Mage::helper('core/string')->str_split($value, 30, true, true) as $_value) {

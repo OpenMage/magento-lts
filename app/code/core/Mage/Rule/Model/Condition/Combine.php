@@ -255,10 +255,8 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
      */
     public function loadArray($arr, $key = 'conditions')
     {
-        $this->setAggregator(isset($arr['aggregator']) ? $arr['aggregator']
-                : (isset($arr['attribute']) ? $arr['attribute'] : null))
-            ->setValue(isset($arr['value']) ? $arr['value']
-                : (isset($arr['operator']) ? $arr['operator'] : null));
+        $this->setAggregator($arr['aggregator'] ?? ($arr['attribute'] ?? null))
+            ->setValue($arr['value'] ?? ($arr['operator'] ?? null));
 
         if (!empty($arr[$key]) && is_array($arr[$key])) {
             foreach ($arr[$key] as $condArr) {

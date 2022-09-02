@@ -169,7 +169,7 @@ class Mage_Catalog_Model_Product_Type
     public static function getOptionText($optionId)
     {
         $options = self::getOptionArray();
-        return isset($options[$optionId]) ? $options[$optionId] : null;
+        return $options[$optionId] ?? null;
     }
 
     /**
@@ -180,10 +180,7 @@ class Mage_Catalog_Model_Product_Type
         if (is_null(self::$_types)) {
             $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
             foreach ($productTypes as $productKey => $productConfig) {
-                $moduleName = 'catalog';
-                if (isset($productConfig['@']['module'])) {
-                    $moduleName = $productConfig['@']['module'];
-                }
+                $moduleName = $productConfig['@']['module'] ?? 'catalog';
                 $translatedLabel = Mage::helper($moduleName)->__($productConfig['label']);
                 $productTypes[$productKey]['label'] = $translatedLabel;
             }

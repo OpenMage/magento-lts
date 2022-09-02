@@ -56,11 +56,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             }
         }
 
-        if (isset($_itemsArray[$item->getOrderItem()->getId()])) {
-            return $_itemsArray[$item->getOrderItem()->getId()];
-        } else {
-            return null;
-        }
+        return $_itemsArray[$item->getOrderItem()->getId()] ?? null;
     }
 
     /**

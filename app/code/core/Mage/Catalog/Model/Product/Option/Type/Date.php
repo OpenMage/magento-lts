@@ -65,14 +65,14 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if ($isValid) {
             $this->setUserValue(
                 [
-                    'date' => isset($value['date']) ? $value['date'] : '',
+                    'date' => $value['date'] ?? '',
                     'year' => isset($value['year']) ? intval($value['year']) : 0,
                     'month' => isset($value['month']) ? intval($value['month']) : 0,
                     'day' => isset($value['day']) ? intval($value['day']) : 0,
                     'hour' => isset($value['hour']) ? intval($value['hour']) : 0,
                     'minute' => isset($value['minute']) ? intval($value['minute']) : 0,
-                    'day_part' => isset($value['day_part']) ? $value['day_part'] : '',
-                    'date_internal' => isset($value['date_internal']) ? $value['date_internal'] : '',
+                    'day_part' => $value['day_part'] ?? '',
+                    'date_internal' => $value['date_internal'] ?? '',
                 ]
             );
         } elseif (!$isValid && $option->getIsRequire() && !$this->getSkipCheckRequiredOption()) {

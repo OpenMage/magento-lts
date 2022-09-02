@@ -184,11 +184,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     public function getValueById($valueId)
     {
-        if (isset($this->_values[$valueId])) {
-            return $this->_values[$valueId];
-        }
-
-        return null;
+        return $this->_values[$valueId] ?? null;
     }
 
     /**
@@ -305,7 +301,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             self::OPTION_TYPE_TIME => self::OPTION_GROUP_DATE,
         ];
 
-        return isset($optionGroupsToTypes[$type])?$optionGroupsToTypes[$type]:'';
+        return $optionGroupsToTypes[$type] ?? '';
     }
 
     /**

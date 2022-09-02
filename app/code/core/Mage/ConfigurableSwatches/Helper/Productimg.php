@@ -67,9 +67,8 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         $text = Mage_ConfigurableSwatches_Helper_Data::normalizeKey($text);
 
         $resultImages = [
-            'standard' => isset($images[$text]) ? $images[$text] : null,
-            'swatch' => isset($images[$text . self::SWATCH_LABEL_SUFFIX]) ? $images[$text . self::SWATCH_LABEL_SUFFIX]
-                : null,
+            'standard' => $images[$text] ?? null,
+            'swatch' => $images[$text . self::SWATCH_LABEL_SUFFIX] ?? null,
         ];
 
         if (!is_null($type) && array_key_exists($type, $resultImages)) {

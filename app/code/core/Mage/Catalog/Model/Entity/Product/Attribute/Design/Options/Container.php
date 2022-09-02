@@ -50,9 +50,6 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
                 }
             }
         }
-        if (isset($options[$value])) {
-            return $options[$value];
-        }
-        return false;
+        return $options[$value] ?? false;
     }
 }

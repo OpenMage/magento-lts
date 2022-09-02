@@ -482,7 +482,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
-        return isset($this->_validatedAddresses[$addressId]) ? $this->_validatedAddresses[$addressId] : false;
+        return $this->_validatedAddresses[$addressId] ?? false;
     }
 
     /**

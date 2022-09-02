@@ -70,10 +70,7 @@ class Mage_Catalog_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abs
      */
     public function getStoreId()
     {
-        if ($this->_storeId === null) {
-            return Mage::app()->getStore()->getId();
-        }
-        return $this->_storeId;
+        return $this->_storeId ?? Mage::app()->getStore()->getId();
     }
 
     /**

@@ -84,11 +84,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItem($itemId)
     {
-        if(isset($this->_items[$itemId])) {
-            return $this->_items[$itemId];
-        }
-
-        return null;
+        return $this->_items[$itemId] ?? null;
     }
 
     /**

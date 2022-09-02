@@ -222,11 +222,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
      */
     public function getParam($param)
     {
-        if (isset($this->_params[$param])) {
-            return $this->_params[$param];
-        }
-
-        return null;
+        return $this->_params[$param] ?? null;
     }
 
     /**

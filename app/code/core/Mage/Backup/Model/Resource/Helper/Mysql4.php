@@ -136,8 +136,8 @@ class Mage_Backup_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_
                     $adapter->quoteIdentifier($match[2]),
                     $adapter->quoteIdentifier($match[3]),
                     $adapter->quoteIdentifier($match[4]),
-                    isset($match[5]) ? $match[5] : '',
-                    isset($match[7]) ? $match[7] : ''
+                    $match[5] ?? '',
+                    $match[7] ?? ''
                 );
             }
         }

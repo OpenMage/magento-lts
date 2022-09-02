@@ -630,11 +630,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             $entity = $attribute->getEntity();
         } elseif (is_string($entity)) {
             // retrieve cached entity if possible
-            if (isset($this->_joinEntities[$entity])) {
-                $entity = $this->_joinEntities[$entity];
-            } else {
-                $entity = Mage::getModel('eav/entity')->setType($attrArr[0]);
-            }
+            $entity = $this->_joinEntities[$entity] ?? Mage::getModel('eav/entity')->setType($attrArr[0]);
         }
         if (!$entity || !$entity->getTypeId()) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity type'));
@@ -1404,12 +1400,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
             );
         } else {
             $this->_addAttributeJoin($attribute, $joinType);
-            if (isset($this->_joinAttributes[$attribute]['condition_alias'])) {
-                $field = $this->_joinAttributes[$attribute]['condition_alias'];
-            } else {
-                $field = $this->_getAttributeTableAlias($attribute) . '.value';
-            }
-
+            $field = $this->_joinAttributes[$attribute]['condition_alias'] ?? ($this->_getAttributeTableAlias($attribute) . '.value');
             $conditionSql = $this->_getConditionSql($field, $condition);
         }
 

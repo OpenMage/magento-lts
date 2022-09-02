@@ -87,11 +87,7 @@ class Mage_Bundle_Model_Observer
         $collection = $observer->getEvent()->getCollection();
         $limit      = $observer->getEvent()->getLimit();
         if (is_array($limit)) {
-            if (isset($limit['upsell'])) {
-                $limit = $limit['upsell'];
-            } else {
-                $limit = 0;
-            }
+            $limit = $limit['upsell'] ?? 0;
         }
 
         /** @var Mage_Bundle_Model_Resource_Selection $resource */

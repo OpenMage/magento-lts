@@ -56,7 +56,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
         $originalData = $fieldset->getOriginalData();
         $this->addData([
             'fieldset_label' => $fieldset->getLegend(),
-            'fieldset_help_url' => isset($originalData['help_url']) ? $originalData['help_url'] : '',
+            'fieldset_help_url' => $originalData['help_url'] ?? '',
         ]);
         return $this->toHtml();
     }
@@ -79,10 +79,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
      */
     public function getElement($elementId)
     {
-        if (isset($this->_elements[$elementId])) {
-            return $this->_elements[$elementId];
-        }
-        return false;
+        return $this->_elements[$elementId] ?? false;
     }
 
     /**
@@ -155,7 +152,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global
     public function getElementOriginalData(Varien_Data_Form_Element_Abstract $element, $key)
     {
         $data = $element->getOriginalData();
-        return isset($data[$key]) ? $data[$key] : '';
+        return $data[$key] ?? '';
     }
 
     /**

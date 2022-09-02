@@ -125,7 +125,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             $data = $customer->toArray();
             $row  = [];
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
-                $row[$attributeAlias] = (isset($data[$attributeCode]) ? $data[$attributeCode] : null);
+                $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
             foreach ($this->getAllowedAttributes($customer) as $attributeCode => $attribute) {
                 if (isset($data[$attributeCode])) {

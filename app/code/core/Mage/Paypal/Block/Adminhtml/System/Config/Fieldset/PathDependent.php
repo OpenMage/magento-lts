@@ -36,7 +36,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_PathDependent
      */
     public function hasActivePathDependencies($groupConfig)
     {
-        $activityPath = isset($groupConfig['hide_case_path']) ? $groupConfig['hide_case_path'] : '';
+        $activityPath = $groupConfig['hide_case_path'] ?? '';
         return !empty($activityPath) && (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($activityPath);
     }
 

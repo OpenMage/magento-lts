@@ -476,7 +476,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
      */
     public function loadArray($arr)
     {
-        $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
+        $this->setAttribute($arr['attribute'] ?? false);
         $attribute = $this->getAttributeObject();
 
         $isContainsOperator = !empty($arr['operator']) && in_array($arr['operator'], ['{}', '!{}']);

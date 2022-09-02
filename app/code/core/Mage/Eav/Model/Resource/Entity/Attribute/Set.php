@@ -139,9 +139,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
         }
 
         foreach ($attributeIds as $atttibuteId) {
-            $setInfo[$atttibuteId] = isset($attributeToSetInfo[$atttibuteId])
-                ? $attributeToSetInfo[$atttibuteId]
-                : [];
+            $setInfo[$atttibuteId] = $attributeToSetInfo[$atttibuteId] ?? [];
         }
 
         return $setInfo;

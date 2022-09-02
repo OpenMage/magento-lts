@@ -71,10 +71,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         ];
 
         if (!is_null($severity)) {
-            if (isset($severities[$severity])) {
-                return $severities[$severity];
-            }
-            return null;
+            return $severities[$severity] ?? null;
         }
 
         return $severities;

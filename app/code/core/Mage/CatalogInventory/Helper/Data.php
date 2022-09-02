@@ -54,10 +54,7 @@ class Mage_CatalogInventory_Helper_Data extends Mage_Core_Helper_Abstract
     public function isQty($productTypeId)
     {
         $this->getIsQtyTypeIds();
-        if (!isset(self::$_isQtyTypeIds[$productTypeId])) {
-            return false;
-        }
-        return self::$_isQtyTypeIds[$productTypeId];
+        return self::$_isQtyTypeIds[$productTypeId] ?? false;
     }
 
     /**

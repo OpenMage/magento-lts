@@ -179,7 +179,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
         foreach ($data as $v) {
             $storeObject = new Varien_Object($v);
             $storeId     = $v['store_id'];
-            $storeName   = isset($stores[$storeId]) ? $stores[$storeId] : null;
+            $storeName   = $stores[$storeId] ?? null;
             $storeObject->setStoreName($storeName)
                 ->setWebsiteId(Mage::app()->getStore($storeId)->getWebsiteId())
                 ->setAvgNormalized($v['avgsale'] * $v['num_orders']);

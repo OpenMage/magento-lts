@@ -514,11 +514,7 @@ class Mage_Sendfriend_Model_Sendfriend extends Mage_Core_Model_Abstract
         $time     = time();
         $newTimes = [];
 
-        if (isset($this->_lastCookieValue[$cookie])) {
-            $oldTimes = $this->_lastCookieValue[$cookie];
-        } else {
-            $oldTimes = $this->getCookie()->get($cookie);
-        }
+        $oldTimes = $this->_lastCookieValue[$cookie] ?? $this->getCookie()->get($cookie);
 
         if ($oldTimes) {
             $oldTimes = explode(',', $oldTimes);

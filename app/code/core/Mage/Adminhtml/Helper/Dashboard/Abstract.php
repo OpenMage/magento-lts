@@ -97,11 +97,7 @@
 
         public function getParam($name)
         {
-            if(isset($this->_params[$name])) {
-                return $this->_params[$name];
-            }
-
-            return null;
+            return $this->_params[$name] ?? null;
         }
 
         public function getParams()

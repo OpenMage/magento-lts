@@ -128,7 +128,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
         $countedRates = count($rates);
         for ($i = 0; $i < $countedRates; $i++) {
             $rate = $rates[$i];
-            $value = (isset($rate['value']) ? $rate['value'] : $rate['percent']) * 1;
+            $value = ($rate['value'] ?? $rate['percent']) * 1;
 
             $oneRate = [
                 'code' => $rate['code'],

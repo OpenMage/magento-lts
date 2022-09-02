@@ -125,7 +125,7 @@ class Mage_Eav_Model_Config
      */
     protected function _load($id)
     {
-        return isset($this->_objects[$id]) ? $this->_objects[$id] : null;
+        return $this->_objects[$id] ?? null;
     }
 
     /**
@@ -162,7 +162,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getEntityTypeReference($id)
     {
-        return isset($this->_references['entity'][$id]) ? $this->_references['entity'][$id] : null;
+        return $this->_references['entity'][$id] ?? null;
     }
 
     /**
@@ -188,10 +188,7 @@ class Mage_Eav_Model_Config
      */
     protected function _getAttributeReference($id, $entityTypeCode)
     {
-        if (isset($this->_references['attribute'][$entityTypeCode][$id])) {
-            return $this->_references['attribute'][$entityTypeCode][$id];
-        }
-        return null;
+        return $this->_references['attribute'][$entityTypeCode][$id] ?? null;
     }
 
     /**

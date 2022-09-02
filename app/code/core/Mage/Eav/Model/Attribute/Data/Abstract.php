@@ -174,10 +174,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     public function getExtractedData($index = null)
     {
         if (!is_null($index)) {
-            if (isset($this->_extractedData[$index])) {
-                return $this->_extractedData[$index];
-            }
-            return null;
+            return $this->_extractedData[$index] ?? null;
         }
         return $this->_extractedData;
     }
@@ -491,21 +488,13 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                 $params = $request->getParams();
                 $parts = explode('/', $this->_requestScope);
                 foreach ($parts as $part) {
-                    if (isset($params[$part])) {
-                        $params = $params[$part];
-                    } else {
-                        $params = [];
-                    }
+                    $params = $params[$part] ?? [];
                 }
             } else {
                 $params = $request->getParam($this->_requestScope);
             }
 
-            if (isset($params[$attrCode])) {
-                $value = $params[$attrCode];
-            } else {
-                $value = false;
-            }
+            $value = $params[$attrCode] ?? false;
 
             if (!$this->_requestScopeOnly && $value === false) {
                 $value = $request->getParam($attrCode, false);

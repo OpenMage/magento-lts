@@ -67,10 +67,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function getParam($key, $default=null)
     {
-        if (!isset($this->_params[$key])) {
-            return $default;
-        }
-        return $this->_params[$key];
+        return $this->_params[$key] ?? $default;
     }
 
     /**

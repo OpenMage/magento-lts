@@ -52,12 +52,12 @@ class Mage_Adminhtml_Block_Report_Config_Form_Field_YtdStart extends Mage_Adminh
 
         $_monthsHtml = $element->setStyle('width:100px;')
             ->setValues($_months)
-            ->setValue(isset($values[0]) ? $values[0] : null)
+            ->setValue($values[0] ?? null)
             ->getElementHtml();
 
         $_daysHtml = $element->setStyle('width:50px;')
             ->setValues($_days)
-            ->setValue(isset($values[1]) ? $values[1] : null)
+            ->setValue($values[1] ?? null)
             ->getElementHtml();
 
         return sprintf('%s %s', $_monthsHtml, $_daysHtml);

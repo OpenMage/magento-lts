@@ -191,7 +191,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
 
         $month = strlen($data->getCardExpMonth()) == 1 ? '0' . $data->getCardExpMonth() : $data->getCardExpMonth();
         $currencyCode = $data->getCurrencyCode();
-        $currencyNumber = isset(self::$_iso4217Currencies[$currencyCode]) ? self::$_iso4217Currencies[$currencyCode] : '';
+        $currencyNumber = self::$_iso4217Currencies[$currencyCode] ?? '';
         if (!$currencyNumber) {
             return $result->setErrorNo(1)->setErrorDesc(
                 Mage::helper('payment')->__('Unsupported currency code: %s.', $currencyCode)

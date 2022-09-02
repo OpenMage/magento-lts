@@ -353,7 +353,7 @@ class Mage_Core_Model_App
      */
     public function run($params)
     {
-        $options = isset($params['options']) ? $params['options'] : [];
+        $options = $params['options'] ?? [];
         $this->baseInit($options);
         Mage::register('application_params', $params);
 
@@ -364,8 +364,8 @@ class Mage_Core_Model_App
             $this->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
 
             if ($this->_config->isLocalConfigLoaded()) {
-                $scopeCode = isset($params['scope_code']) ? $params['scope_code'] : '';
-                $scopeType = isset($params['scope_type']) ? $params['scope_type'] : 'store';
+                $scopeCode = $params['scope_code'] ?? '';
+                $scopeType = $params['scope_type'] ?? 'store';
                 $this->_initCurrentStore($scopeCode, $scopeType);
                 $this->_initRequest();
                 Mage_Core_Model_Resource_Setup::applyAllDataUpdates();

@@ -102,7 +102,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
                 $model = Mage::getModel('core/file_storage_file');
                 break;
             case self::STORAGE_MEDIA_DATABASE:
-                $connection = (isset($params['connection'])) ? $params['connection'] : null;
+                $connection = $params['connection'] ?? null;
                 $model = Mage::getModel('core/file_storage_database', ['connection' => $connection]);
                 break;
             default:
@@ -130,7 +130,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
     {
         if (is_array($storage) && isset($storage['type'])) {
             $storageDest    = (int) $storage['type'];
-            $connection     = (isset($storage['connection'])) ? $storage['connection'] : null;
+            $connection     = $storage['connection'] ?? null;
             $helper         = Mage::helper('core/file_storage');
 
             // if unable to sync to internal storage from itself

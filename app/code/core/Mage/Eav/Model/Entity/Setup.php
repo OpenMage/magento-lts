@@ -613,7 +613,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (isset($array[$key]) && is_bool($array[$key])) {
             $array[$key] = (int) $array[$key];
         }
-        return isset($array[$key]) ? $array[$key] : $default;
+        return $array[$key] ?? $default;
     }
 
     /**
@@ -687,7 +687,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $this->_validateAttributeData($data);
 
-        $sortOrder = isset($attr['sort_order']) ? $attr['sort_order'] : null;
+        $sortOrder = $attr['sort_order'] ?? null;
         $attributeId = $this->getAttribute($entityTypeId, $code, 'attribute_id');
         if ($attributeId) {
             $this->updateAttribute($entityTypeId, $attributeId, $data, null, $sortOrder);
@@ -759,13 +759,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 if (!$intOptionId) {
                     $data = [
                         'attribute_id'  => $option['attribute_id'],
-                        'sort_order'    => isset($option['order'][$optionId]) ? $option['order'][$optionId] : 0,
+                        'sort_order'    => $option['order'][$optionId] ?? 0,
                     ];
                     $this->_conn->insert($optionTable, $data);
                     $intOptionId = $this->_conn->lastInsertId($optionTable);
                 } else {
                     $data = [
-                        'sort_order'    => isset($option['order'][$optionId]) ? $option['order'][$optionId] : 0,
+                        'sort_order'    => $option['order'][$optionId] ?? 0,
                     ];
                     $this->_conn->update($optionTable, $data, ['option_id=?' => $intOptionId]);
                 }
@@ -965,7 +965,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $row = $this->_setupCache[$mainTable][$entityTypeId][$id];
         if ($field !== null) {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
 
         return $row;
@@ -1206,9 +1206,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         foreach ($entities as $entityName => $entity) {
             $this->addEntityType($entityName, $entity);
 
-            $frontendPrefix = isset($entity['frontend_prefix']) ? $entity['frontend_prefix'] : '';
-            $backendPrefix  = isset($entity['backend_prefix']) ? $entity['backend_prefix'] : '';
-            $sourcePrefix   = isset($entity['source_prefix']) ? $entity['source_prefix'] : '';
+            $frontendPrefix = $entity['frontend_prefix'] ?? '';
+            $backendPrefix  = $entity['backend_prefix'] ?? '';
+            $sourcePrefix   = $entity['source_prefix'] ?? '';
 
             foreach ($entity['attributes'] as $attrCode => $attr) {
                 if (!empty($attr['backend'])) {

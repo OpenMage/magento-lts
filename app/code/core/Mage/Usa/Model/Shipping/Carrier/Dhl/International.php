@@ -452,11 +452,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         }
 
         $code = strtoupper($code);
-        if (!isset($codes[$type][$code])) {
-            return false;
-        } else {
-            return $codes[$type][$code];
-        }
+        return $codes[$type][$code] ?? false;
     }
 
     /**
@@ -528,7 +524,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
     {
         $contentType = $this->getConfigData('content_type');
         $dhlProducts = $this->getDhlProducts($contentType);
-        return isset($dhlProducts[$code]) ? $dhlProducts[$code] : false;
+        return $dhlProducts[$code] ?? false;
     }
 
     /**
@@ -926,11 +922,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
                     ) {
                         $code = null;
                         $data = null;
-                        if (isset($xml->Response->Status->Condition)) {
-                            $nodeCondition = $xml->Response->Status->Condition;
-                        } else {
-                            $nodeCondition = $xml->GetQuoteResponse->Note->Condition;
-                        }
+                        $nodeCondition = $xml->Response->Status->Condition ?? $xml->GetQuoteResponse->Note->Condition;
 
                         if ($this->_isShippingLabelFlag) {
                             foreach ($nodeCondition as $condition) {
@@ -1112,7 +1104,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International
         if (isset($this->_countryParams->$countryCode)) {
             $countryParams = new Varien_Object($this->_countryParams->$countryCode->asArray());
         }
-        return isset($countryParams) ? $countryParams : new Varien_Object();
+        return $countryParams ?? new Varien_Object();
     }
 
     /**

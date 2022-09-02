@@ -207,11 +207,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getFieldMap($fieldName)
     {
-        if (isset($this->_fieldMap[$fieldName])) {
-            return $this->_fieldMap[$fieldName];
-        } else {
-            return 'main_table.' . $fieldName;
-        }
+        return $this->_fieldMap[$fieldName] ?? ('main_table.' . $fieldName);
     }
 
     /**

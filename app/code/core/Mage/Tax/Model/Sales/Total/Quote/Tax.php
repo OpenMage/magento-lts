@@ -1275,15 +1275,15 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $weeeAmountExclTax = 0;
 
             if ($base) {
-                $weeeAmountInclTax = isset($tax['base_amount_incl_tax']) ? $tax['base_amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['base_amount']) ? $tax['base_amount'] : 0;
-                $weeeRowAmountInclTax = isset($tax['base_row_amount_incl_tax']) ? $tax['base_row_amount_incl_tax'] : 0;
-                $weeeRowAmountExclTax = isset($tax['base_row_amount']) ? $tax['base_row_amount'] : 0;
+                $weeeAmountInclTax = $tax['base_amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['base_amount'] ?? 0;
+                $weeeRowAmountInclTax = $tax['base_row_amount_incl_tax'] ?? 0;
+                $weeeRowAmountExclTax = $tax['base_row_amount'] ?? 0;
             } else {
-                $weeeAmountInclTax = isset($tax['amount_incl_tax']) ? $tax['amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['amount']) ? $tax['amount'] : 0;
-                $weeeRowAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
-                $weeeRowAmountExclTax = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
+                $weeeAmountInclTax = $tax['amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['amount'] ?? 0;
+                $weeeRowAmountInclTax = $tax['row_amount_incl_tax'] ?? 0;
+                $weeeRowAmountExclTax = $tax['row_amount'] ?? 0;
             }
 
             $weeeTax = [];
@@ -1352,11 +1352,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $weeeAmountExclTax = 0;
 
             if ($base) {
-                $weeeAmountInclTax = isset($tax['base_amount_incl_tax']) ? $tax['base_amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['base_amount']) ? $tax['base_amount'] : 0;
+                $weeeAmountInclTax = $tax['base_amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['base_amount'] ?? 0;
             } else {
-                $weeeAmountInclTax = isset($tax['amount_incl_tax']) ? $tax['amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['amount']) ? $tax['amount'] : 0;
+                $weeeAmountInclTax = $tax['amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['amount'] ?? 0;
             }
 
             $weeeTaxWithOutDiscount = $this->_getWeeeTax($rate, $item, 0, $weeeAmountInclTax, $weeeAmountExclTax);
@@ -1408,11 +1408,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $weeeAmountExclTax = 0;
 
             if ($base) {
-                $weeeAmountInclTax = isset($tax['base_row_amount_incl_tax']) ? $tax['base_row_amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['base_row_amount']) ? $tax['base_row_amount'] : 0;
+                $weeeAmountInclTax = $tax['base_row_amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['base_row_amount'] ?? 0;
             } else {
-                $weeeAmountInclTax = isset($tax['row_amount_incl_tax']) ? $tax['row_amount_incl_tax'] : 0;
-                $weeeAmountExclTax = isset($tax['row_amount']) ? $tax['row_amount'] : 0;
+                $weeeAmountInclTax = $tax['row_amount_incl_tax'] ?? 0;
+                $weeeAmountExclTax = $tax['row_amount'] ?? 0;
             }
 
             $weeeTaxWithOutDiscount = $this->_getWeeeTax($rate, $item, 0, $weeeAmountInclTax, $weeeAmountExclTax);
@@ -1486,7 +1486,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $rate = (string)$rate;
             $type = $type . $direction;
             // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
-            $delta = isset($this->_roundingDeltas[$type][$rate]) ? $this->_roundingDeltas[$type][$rate] : 0.000001;
+            $delta = $this->_roundingDeltas[$type][$rate] ?? 0.000001;
             $price += $delta;
             $this->_roundingDeltas[$type][$rate] = $price - $this->_calculator->round($price);
             $price = $this->_calculator->round($price);

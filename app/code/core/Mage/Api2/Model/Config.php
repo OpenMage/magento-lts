@@ -179,11 +179,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                     /** @var Varien_Simplexml_Element $group */
                     $group = $result[0];
 
-                    if (!isset($group->children)) {
-                        $children = new Varien_Simplexml_Element('<children />');
-                    } else {
-                        $children = $group->children;
-                    }
+                    $children = $group->children ?? new Varien_Simplexml_Element('<children />');
                     $node->resource = 1;
                     $children->appendChild($node);
                     $group->appendChild($children);

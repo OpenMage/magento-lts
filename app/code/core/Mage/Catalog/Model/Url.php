@@ -222,10 +222,7 @@ class Mage_Catalog_Model_Url
      */
     public function getShouldSaveRewritesHistory($storeId = null)
     {
-        if ($this->_saveRewritesHistory !== null) {
-            return $this->_saveRewritesHistory;
-        }
-        return Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
+        return $this->_saveRewritesHistory ?? Mage::helper('catalog')->shouldSaveUrlRewritesHistory($storeId);
     }
 
     /**
@@ -658,7 +655,7 @@ class Mage_Catalog_Model_Url
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }
             $match['prefix'] = $match['prefix'] . '-';
-            $match['suffix'] = isset($match['suffix']) ? $match['suffix'] : '';
+            $match['suffix'] = $match['suffix'] ?? '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);

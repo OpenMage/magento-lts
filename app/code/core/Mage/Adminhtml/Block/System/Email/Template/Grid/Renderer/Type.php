@@ -35,13 +35,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Type
     ];
     public function render(Varien_Object $row)
     {
-
-        $str = Mage::helper('adminhtml')->__('Unknown');
-
-        if(isset(self::$_types[$row->getTemplateType()])) {
-            $str = self::$_types[$row->getTemplateType()];
-        }
-
+        $str = self::$_types[$row->getTemplateType()] ?? Mage::helper('adminhtml')->__('Unknown');
         return Mage::helper('adminhtml')->__($str);
     }
 }

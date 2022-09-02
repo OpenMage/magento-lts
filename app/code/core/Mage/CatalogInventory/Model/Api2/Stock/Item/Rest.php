@@ -47,7 +47,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
     protected function _retrieveCollection()
     {
         $data = $this->_getCollectionForRetrieve()->load()->toArray();
-        return isset($data['items']) ? $data['items'] : $data;
+        return $data['items'] ?? $data;
     }
 
     /**
@@ -117,7 +117,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 if (!$validator->isValidSingleItemDataForMultiUpdate($itemData)) {
                     foreach ($validator->getErrors() as $error) {
                         $this->_errorMessage($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST, [
-                            'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                            'item_id' => $itemData['item_id'] ?? null
                         ]);
                     }
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
@@ -137,7 +137,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                 // pre-validation errors are already added
                 if ($e->getMessage() != self::RESOURCE_DATA_PRE_VALIDATION_ERROR) {
                     $this->_errorMessage($e->getMessage(), $e->getCode(), [
-                        'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                        'item_id' => $itemData['item_id'] ?? null
                     ]);
                 }
             } catch (Exception $e) {
@@ -145,7 +145,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     [
-                        'item_id' => isset($itemData['item_id']) ? $itemData['item_id'] : null
+                        'item_id' => $itemData['item_id'] ?? null
                     ]
                 );
             }

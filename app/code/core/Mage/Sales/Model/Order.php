@@ -547,10 +547,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      */
     public function getActionFlag($action)
     {
-        if (isset($this->_actionFlag[$action])) {
-            return $this->_actionFlag[$action];
-        }
-        return null;
+        return $this->_actionFlag[$action] ?? null;
     }
 
     /**

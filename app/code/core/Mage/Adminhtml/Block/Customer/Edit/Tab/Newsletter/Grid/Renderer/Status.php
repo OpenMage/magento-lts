@@ -49,11 +49,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter_Grid_Renderer_Status ext
 
     public static function  getStatus($status)
     {
-        if(isset(self::$_statuses[$status])) {
-            return self::$_statuses[$status];
-        }
-
-        return Mage::helper('customer')->__('Unknown');
+        return self::$_statuses[$status] ?? Mage::helper('customer')->__('Unknown');
     }
 
 }

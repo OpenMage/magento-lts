@@ -95,7 +95,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_New_Form extends Mage_Adminhtml_Bl
                         'name'      => 'store_labels['.$store->getId().']',
                         'required'  => false,
                         'label'     => $store->getName(),
-                        'value'     => isset($labels[$store->getId()]) ? $labels[$store->getId()] : '',
+                        'value'     => $labels[$store->getId()] ?? '',
                         'fieldset_html_class' => 'store',
                     ]);
                 }

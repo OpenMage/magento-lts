@@ -371,10 +371,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getModuleByFrontName($frontName)
     {
-        if (isset($this->_modules[$frontName])) {
-            return $this->_modules[$frontName];
-        }
-        return false;
+        return $this->_modules[$frontName] ?? false;
     }
 
     /**
@@ -399,10 +396,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     public function getFrontNameByRoute($routeName)
     {
-        if (isset($this->_routes[$routeName])) {
-            return $this->_routes[$routeName];
-        }
-        return false;
+        return $this->_routes[$routeName] ?? false;
     }
 
     /**

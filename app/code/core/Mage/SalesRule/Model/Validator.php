@@ -871,10 +871,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     public function getCartFixedRuleUsedForAddress($ruleId)
     {
-        if (isset($this->_cartFixedRuleUsedForAddress[$ruleId])) {
-            return $this->_cartFixedRuleUsedForAddress[$ruleId];
-        }
-        return null;
+        return $this->_cartFixedRuleUsedForAddress[$ruleId] ?? null;
     }
 
     /**
@@ -983,7 +980,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
     {
         $price = $item->getDiscountCalculationPrice();
         $calcPrice = $item->getCalculationPrice();
-        return ($price !== null) ? $price : $calcPrice;
+        return $price ?? $calcPrice;
     }
 
     /**

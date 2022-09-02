@@ -200,10 +200,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
     public function loadArray($arr)
     {
         $this->setType($arr['type']);
-        $this->setAttribute(isset($arr['attribute']) ? $arr['attribute'] : false);
-        $this->setOperator(isset($arr['operator']) ? $arr['operator'] : false);
-        $this->setValue(isset($arr['value']) ? $arr['value'] : false);
-        $this->setIsValueParsed(isset($arr['is_value_parsed']) ? $arr['is_value_parsed'] : false);
+        $this->setAttribute($arr['attribute'] ?? false);
+        $this->setOperator($arr['operator'] ?? false);
+        $this->setValue($arr['value'] ?? false);
+        $this->setIsValueParsed($arr['is_value_parsed'] ?? false);
 
         return $this;
     }
@@ -277,10 +277,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
      */
     public function getInputType()
     {
-        if ($this->_inputType === null) {
-            return 'string';
-        }
-        return $this->_inputType;
+        return $this->_inputType ?? 'string';
     }
 
     /**

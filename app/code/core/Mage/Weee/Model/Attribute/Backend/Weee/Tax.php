@@ -56,7 +56,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
                 continue;
             }
 
-            $state = isset($tax['state']) ? $tax['state'] : '*';
+            $state = $tax['state'] ?? '*';
             $key1 = implode('-', [$tax['website_id'], $tax['country'], $state]);
 
             if (!empty($dup[$key1])) {

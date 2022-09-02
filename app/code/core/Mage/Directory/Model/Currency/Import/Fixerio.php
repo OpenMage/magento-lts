@@ -212,9 +212,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
                     ->__('One or more invalid symbols have been specified.'),
             ];
 
-            $this->_messages[] = isset($errorCodes[$response['error']['code']])
-                ? $errorCodes[$response['error']['code']]
-                : Mage::helper('directory')->__('Currency rates can\'t be retrieved.');
+            $this->_messages[] = $errorCodes[$response['error']['code']] ?? Mage::helper('directory')->__('Currency rates can\'t be retrieved.');
 
             return false;
         }

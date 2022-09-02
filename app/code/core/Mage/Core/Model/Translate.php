@@ -193,10 +193,7 @@ class Mage_Core_Model_Translate
      */
     public function getConfig($key)
     {
-        if (isset($this->_config[$key])) {
-            return $this->_config[$key];
-        }
-        return null;
+        return $this->_config[$key] ?? null;
     }
 
     /**

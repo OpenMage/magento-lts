@@ -196,8 +196,8 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
         $street = Mage::helper('customer/address')
             ->convertStreetLines($address->getStreet(), 2);
 
-        $request['address1'] = isset($street[0]) ? $street[0]: '';
-        $request['address2'] = isset($street[1]) ? $street[1]: '';
+        $request['address1'] = $street[0] ?? '';
+        $request['address2'] = $street[1] ?? '';
 
         return $request;
     }
@@ -223,8 +223,8 @@ class Mage_Paypal_Model_Hostedpro_Request extends Varien_Object
         $street = Mage::helper('customer/address')
             ->convertStreetLines($address->getStreet(), 2);
 
-        $request['billing_address1'] = isset($street[0]) ? $street[0]: '';
-        $request['billing_address2'] = isset($street[1]) ? $street[1]: '';
+        $request['billing_address1'] = $street[0] ?? '';
+        $request['billing_address2'] = $street[1] ?? '';
 
         return $request;
     }

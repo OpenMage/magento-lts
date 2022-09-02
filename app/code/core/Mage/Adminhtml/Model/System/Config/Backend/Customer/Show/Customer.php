@@ -66,11 +66,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
         ];
 
         $value = $this->getValue();
-        if (isset($valueConfig[$value])) {
-            $data = $valueConfig[$value];
-        } else {
-            $data = $valueConfig[''];
-        }
+        $data = $valueConfig[$value] ?? $valueConfig[''];
 
         if ($this->getScope() == 'websites') {
             $website = Mage::app()->getWebsite($this->getWebsiteCode());

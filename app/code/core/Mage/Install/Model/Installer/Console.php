@@ -163,7 +163,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          * Set args values
          */
         foreach ($this->_getOptions() as $name => $option) {
-            $this->_args[$name] = isset($args[$name]) ? $args[$name] : '';
+            $this->_args[$name] = $args[$name] ?? '';
         }
 
         return true;

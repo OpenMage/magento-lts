@@ -109,7 +109,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
     public function getExtensionByType($type)
     {
         $extensions = $this->getExtensions();
-        return isset($extensions[$type]) ? $extensions[$type] : '';
+        return $extensions[$type] ?? '';
     }
 
     /**

@@ -113,10 +113,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                     }
 
                     // using default value as key unless store-specific label is present
-                    $optionLabel = $optionLabels[$optionId][0];
-                    if (isset($optionLabels[$optionId][$storeId])) {
-                        $optionLabel = $optionLabels[$optionId][$storeId];
-                    }
+                    $optionLabel = $optionLabels[$optionId][$storeId] ?? $optionLabels[$optionId][0];
 
                     // initialize arrays if not present
                     if (!isset($mapping[$optionLabel])) {
