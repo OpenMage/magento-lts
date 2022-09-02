@@ -15,7 +15,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -29,7 +29,6 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
 {
     /**
      * Get fields prefixes
-     *
      * @return array
      */
     public function getPrefixes()
@@ -54,5 +53,4 @@ class Mage_Adminhtml_Model_System_Config_Clone_Media_Image extends Mage_Core_Mod
 
         return $prefixes;
     }
-
 }

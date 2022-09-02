@@ -12,17 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Oauth
+ * @category   Mage
+ * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-/**
- * Installation of OAuth module tables
- */
+
 /** @var Mage_Oauth_Model_Resource_Setup $this */
 $installer = $this;
-
 $installer->startSetup();
 
 /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
