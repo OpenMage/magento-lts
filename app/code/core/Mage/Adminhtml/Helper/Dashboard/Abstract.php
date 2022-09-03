@@ -104,4 +104,4 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
     {
         return $this->_params;
     }
- }
+}
