@@ -605,5 +605,4 @@ class  Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Te
         }
         return true;
     }
-
 }

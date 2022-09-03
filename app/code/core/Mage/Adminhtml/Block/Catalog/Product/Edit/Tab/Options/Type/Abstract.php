@@ -58,5 +58,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
         }
         return $this->getChildHtml('option_price_type');
     }
-
 }

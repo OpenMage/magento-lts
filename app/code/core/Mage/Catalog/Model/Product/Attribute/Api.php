@@ -34,9 +34,6 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
      */
     protected $_entityTypeId;
 
-    /**
-     * Constructor. Initializes default values.
-     */
     public function __construct()
     {
         $this->_storeIdSessionField = 'product_store_id';

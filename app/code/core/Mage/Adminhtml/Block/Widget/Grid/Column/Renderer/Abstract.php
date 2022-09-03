@@ -169,5 +169,4 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
     {
         return $this->getColumn()->getCssClass();
     }
-
 }

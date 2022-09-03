@@ -27,7 +27,6 @@
  */
 class Mage_Bundle_Model_CatalogIndex_Data_Bundle extends Mage_CatalogIndex_Model_Data_Simple
 {
-
     /**
      * Defines when product type has children
      *

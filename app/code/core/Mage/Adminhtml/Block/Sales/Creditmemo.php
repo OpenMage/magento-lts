@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Creditmemo extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
-
     public function __construct()
     {
         $this->_controller = 'sales_creditmemo';
@@ -35,5 +34,4 @@ class Mage_Adminhtml_Block_Sales_Creditmemo extends Mage_Adminhtml_Block_Widget_
         parent::__construct();
         $this->_removeButton('add');
     }
-
 }

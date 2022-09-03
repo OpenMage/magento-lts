@@ -130,5 +130,4 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         return $this;
     }
-
 }

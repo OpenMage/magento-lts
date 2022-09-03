@@ -27,7 +27,6 @@
  */
 class Mage_Api_Model_Resource_Abstract
 {
-
     /**
      * Resource configuration
      *

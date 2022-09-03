@@ -186,5 +186,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
     {
         return Mage::helper('core')->jsonEncode($this->getImageTypes());
     }
-
 }
