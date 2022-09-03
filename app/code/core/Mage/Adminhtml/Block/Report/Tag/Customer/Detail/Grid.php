@@ -81,7 +81,6 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
 
         $this->addColumn('created_at', [
             'header'    =>Mage::helper('reports')->__('Submitted On'),
-            'width'     => '140px',
             'type'      => 'datetime',
             'index'     => 'created_at'
         ]);

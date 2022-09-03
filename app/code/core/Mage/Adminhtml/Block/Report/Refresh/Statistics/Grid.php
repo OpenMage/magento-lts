@@ -132,7 +132,6 @@ class Mage_Adminhtml_Block_Report_Refresh_Statistics_Grid extends Mage_Adminhtml
             'header'    => Mage::helper('reports')->__('Updated At'),
             'index'     => 'updated_at',
             'type'      => 'datetime',
-            'width'     => 200,
             'default'   => Mage::helper('reports')->__('undefined'),
             'sortable'  => false
         ]);

@@ -144,7 +144,6 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $this->addColumn('ended_at', [
             'header'    => Mage::helper('index')->__('Updated At'),
             'type'      => 'datetime',
-            'width'     => '180',
             'align'     => 'left',
             'index'     => 'ended_at',
             'frame_callback' => [$this, 'decorateDate']
