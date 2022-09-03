@@ -116,6 +116,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return array_combine(
@@ -141,6 +142,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
      *
      * @return int More than 0 integer on success, integer 0 on failure.
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->_currentKey;
