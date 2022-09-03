@@ -82,5 +82,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     {
         return $this->getStore()->getCurrentCurrencyCode();
     }
-
 }

@@ -180,5 +180,4 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         $this->getChild('form')->setDataObject($object);
         return $this->setData('data_object', $object);
     }
-
 }

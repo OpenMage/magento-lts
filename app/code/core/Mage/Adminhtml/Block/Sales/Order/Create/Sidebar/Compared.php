@@ -27,7 +27,6 @@
  */
 class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract
 {
-
     protected function _construct()
     {
         parent::_construct();
@@ -70,5 +69,4 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
     {
         return $item->getCatalogCompareItemId();
     }
-
 }

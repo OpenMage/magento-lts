@@ -29,7 +29,6 @@ abstract class Mage_Dataflow_Model_Convert_Adapter_Abstract
     extends Mage_Dataflow_Model_Convert_Container_Abstract
     implements Mage_Dataflow_Model_Convert_Adapter_Interface
 {
-
     /**
      * Adapter resource instance
      *

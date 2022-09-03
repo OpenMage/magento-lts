@@ -27,7 +27,6 @@
  */
 class Mage_Dataflow_Model_Convert_Profile_Collection
 {
-
     protected $_xml;
 
     protected $_containers;
@@ -192,5 +191,4 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
         return $this;
     }
-
 }

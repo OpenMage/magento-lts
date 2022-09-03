@@ -27,7 +27,6 @@
  */
 class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Action
 {
-
     /**
      * Check customer authentication
      */

@@ -28,7 +28,6 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Adminhtml_Block_Abstract
     implements Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Interface
 {
-
     /**
      * Column related to filter
      *
@@ -122,5 +121,4 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract extends Mage_Admin
     {
         return '';
     }
-
 }

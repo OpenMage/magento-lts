@@ -27,7 +27,6 @@
  */
 class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model_Resource_Customer_Collection
 {
-
     /**
      * Join created_at and accounts fields
      *

@@ -27,7 +27,6 @@
  */
 class Mage_Eav_Model_Entity_Attribute_Backend_Time_Created extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
-
     /**
      * Returns date format if it matches a certain mask.
      * @param string $date

@@ -27,7 +27,6 @@
  */
 class Mage_Dataflow_Model_Convert
 {
-
     static public function convert($class, $method, $data, array $vars= [])
     {
         if (is_string($class)) {
@@ -42,5 +41,4 @@ class Mage_Dataflow_Model_Convert
         $action->run();
         return $action->getData();
     }
-
 }
