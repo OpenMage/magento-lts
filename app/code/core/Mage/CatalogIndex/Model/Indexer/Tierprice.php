@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tier Price indexer
  *
@@ -70,13 +69,13 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
      */
     public function createIndexData(Mage_Catalog_Model_Product $object, Mage_Eav_Model_Entity_Attribute_Abstract $attribute = null)
     {
-        $data = array();
+        $data = [];
 
         $data['store_id'] = $attribute->getStoreId();
         $data['entity_id'] = $object->getId();
         $data['attribute_id'] = $attribute->getId();
 
-        $result = array();
+        $result = [];
         $values = $object->getData($attribute->getAttributeCode());
 
         if (!is_array($values)) {
@@ -122,7 +121,7 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = array();
+        $conditions = [];
         $conditions['attribute_code'] = 'tier_price';
 
         return $conditions;

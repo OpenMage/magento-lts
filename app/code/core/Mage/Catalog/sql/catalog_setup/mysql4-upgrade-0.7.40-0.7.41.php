@@ -19,13 +19,13 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
 $defaultValue = 'container2';
 
-$installer->addAttribute('catalog_product', 'options_container', array(
+$installer->addAttribute('catalog_product', 'options_container', [
     'group'             => 'Design',
     'type'              => 'varchar',
     'backend'           => '',
@@ -45,7 +45,7 @@ $installer->addAttribute('catalog_product', 'options_container', array(
     'visible_on_front'  => false,
     'visible_in_advanced_search' => false,
     'unique'            => false,
-    ));
+]);
 
 $newAttributeId = $installer->getAttributeId('catalog_product', 'options_container');
 

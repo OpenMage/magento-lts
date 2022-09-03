@@ -18,12 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $configDataTable = $installer->getTable('core/config_data');
 $connection = $installer->getConnection();
 
-$oldToNewMethodCodesMap = array(
+$oldToNewMethodCodesMap = [
     'First-Class'                                               => '0_FCLE',
     'First-Class Mail International Large Envelope'             => 'INT_14',
     'First-Class Mail International Letter'                     => 'INT_13',
@@ -65,15 +65,15 @@ $oldToNewMethodCodesMap = array(
     'Priority Mail International Small Flat Rate Box'           => 'INT_16',
     'Priority Mail International Medium Flat Rate Box'          => 'INT_9',
     'Priority Mail International Large Flat Rate Box'           => 'INT_11',
-);
+];
 
 $select = $connection->select()
         ->from($configDataTable)
         ->where('path IN (?)',
-                array(
+                [
                     'carriers/usps/free_method',
                     'carriers/usps/allowed_methods'
-               )
+                ]
         );
 $oldConfigValues = $connection->fetchAll($select);
 
@@ -81,7 +81,7 @@ foreach ($oldConfigValues as $oldValue) {
     if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
     } else if (stripos($oldValue['path'], 'allowed_methods')) {
-        $newValue = array();
+        $newValue = [];
         foreach (explode(',', $oldValue['value']) as $shippingMethod) {
             if (isset($oldToNewMethodCodesMap[$shippingMethod])) {
                 $newValue[] = $oldToNewMethodCodesMap[$shippingMethod];
@@ -95,7 +95,7 @@ foreach ($oldConfigValues as $oldValue) {
     if (!empty($newValue) && $newValue != $oldValue['value']) {
         $whereConfigId = $connection->quoteInto('config_id = ?', $oldValue['config_id']);
         $connection->update($configDataTable,
-                      array('value' => $newValue),
+                      ['value' => $newValue],
                       $whereConfigId
         );
     }

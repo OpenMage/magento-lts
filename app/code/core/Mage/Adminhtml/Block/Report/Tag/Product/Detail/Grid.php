@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -54,25 +53,25 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
     protected function _prepareColumns()
     {
 
-        $this->addColumn('tag_name', array(
+        $this->addColumn('tag_name', [
             'header'    =>Mage::helper('reports')->__('Tag Name'),
             'index'     =>'tag_name'
-        ));
+        ]);
 
-        $this->addColumn('taged', array(
+        $this->addColumn('taged', [
             'header'    =>Mage::helper('reports')->__('Tag Use'),
             'index'     =>'taged',
             'align'     => 'right'
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $this->addColumn('visible', array(
+            $this->addColumn('visible', [
                 'header'    => Mage::helper('reports')->__('Visible In'),
                 'sortable'  => false,
                 'index'     => 'stores',
                 'type'      => 'store',
                 'store_view'=> true
-            ));
+            ]);
         }
 
         $this->addExportType('*/*/exportProductDetailCsv', Mage::helper('reports')->__('CSV'));
@@ -82,6 +81,5 @@ class Mage_Adminhtml_Block_Report_Tag_Product_Detail_Grid extends Mage_Adminhtml
 
         return parent::_prepareColumns();
     }
-
 }
 

@@ -110,7 +110,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     /**
      * @var array
      */
-    private $_minSaleQtyCache = array();
+    private $_minSaleQtyCache = [];
 
     /**
      * @var float|false
@@ -172,10 +172,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     protected function _initOldFieldsMap()
     {
         // pre 1.6 fields names, old => new
-        $this->_oldFieldsMap = array(
+        $this->_oldFieldsMap = [
             'stock_status_changed_automatically' => 'stock_status_changed_auto',
             'use_config_enable_qty_increments'   => 'use_config_enable_qty_inc'
-        );
+        ];
     }
 
     /**
@@ -553,7 +553,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         if ($this->getIsChildItem() && !empty($parentItem)) {
             $typeInstance = $parentItem->getProduct()->getTypeInstance(true);
             $requiredChildrenIds = $typeInstance->getChildrenIds($parentItem->getProductId(), true);
-            $childrenIds = array();
+            $childrenIds = [];
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }

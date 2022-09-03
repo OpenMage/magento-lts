@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
     extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
@@ -34,19 +33,19 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
      *
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     public function render(Varien_Object $row)
     {
-        $this->_actions = array();
+        $this->_actions = [];
         if (Mage::helper('sales/reorder')->canReorder($row)) {
-            $reorderAction = array(
-                '@' => array('href' => $this->getUrl('*/sales_order_create/reorder', array('order_id'=>$row->getId()))),
+            $reorderAction = [
+                '@' => ['href' => $this->getUrl('*/sales_order_create/reorder', ['order_id'=>$row->getId()])],
                 '#' =>  Mage::helper('sales')->__('Reorder')
-            );
+            ];
             $this->addToActions($reorderAction);
         }
-        Mage::dispatchEvent('adminhtml_customer_orders_add_action_renderer', array('renderer' => $this, 'row' => $row));
+        Mage::dispatchEvent('adminhtml_customer_orders_add_action_renderer', ['renderer' => $this, 'row' => $row]);
         return $this->_actionsToHtml();
     }
 
@@ -61,9 +60,9 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action
      * @param array $actions
      * @return string
      */
-    protected function _actionsToHtml(array $actions = array())
+    protected function _actionsToHtml(array $actions = [])
     {
-        $html = array();
+        $html = [];
         $attributesObject = new Varien_Object();
 
         if (empty($actions)) {

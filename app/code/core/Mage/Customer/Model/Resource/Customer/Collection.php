@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Customer
+ * @category   Mage
+ * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customers collection
  *
- * @category    Mage
- * @package     Mage_Customer
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Customer
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_Customer_Model_Customer[] getItems()
  */
@@ -46,8 +46,8 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
     {
         $this->getSelect()
             ->from(
-                array('email' => $this->getEntity()->getEntityTable()),
-                array('email_count' => new Zend_Db_Expr('COUNT(email.entity_id)'))
+                ['email' => $this->getEntity()->getEntityTable()],
+                ['email_count' => new Zend_Db_Expr('COUNT(email.entity_id)')]
             )
             ->where('email.entity_id = e.entity_id')
             ->group('email.email');
@@ -62,7 +62,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
      */
     public function addNameToSelect()
     {
-        $fields = array();
+        $fields = [];
         $customerAccount = Mage::getConfig()->getFieldset('customer_account');
         foreach ($customerAccount as $code => $node) {
             if ($node->is('name')) {
@@ -71,11 +71,11 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         }
 
         $adapter = $this->getConnection();
-        $concatenate = array();
+        $concatenate = [];
         if (isset($fields['prefix'])) {
             $concatenate[] = $adapter->getCheckSql(
                 '{{prefix}} IS NOT NULL AND {{prefix}} != \'\'',
-                $adapter->getConcatSql(array('LTRIM(RTRIM({{prefix}}))', '\' \'')),
+                $adapter->getConcatSql(['LTRIM(RTRIM({{prefix}}))', '\' \'']),
                 '\'\''
             );
         }
@@ -84,7 +84,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
         if (isset($fields['middlename'])) {
             $concatenate[] = $adapter->getCheckSql(
                 '{{middlename}} IS NOT NULL AND {{middlename}} != \'\'',
-                $adapter->getConcatSql(array('LTRIM(RTRIM({{middlename}}))', '\' \'')),
+                $adapter->getConcatSql(['LTRIM(RTRIM({{middlename}}))', '\' \'']),
                 '\'\''
             );
         }
@@ -93,7 +93,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
             $concatenate[] = $adapter
                     ->getCheckSql(
                         '{{suffix}} IS NOT NULL AND {{suffix}} != \'\'',
-                        $adapter->getConcatSql(array('\' \'', 'LTRIM(RTRIM({{suffix}}))')),
+                        $adapter->getConcatSql(['\' \'', 'LTRIM(RTRIM({{suffix}}))']),
                         '\'\''
                     );
         }

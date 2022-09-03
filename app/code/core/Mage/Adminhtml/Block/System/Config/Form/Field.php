@@ -12,28 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Abstract config form element renderer
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field
     extends Mage_Adminhtml_Block_Abstract
     implements Varien_Data_Form_Element_Renderer_Interface
 {
-
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -43,8 +39,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
     }
 
     /**
-     * Enter description here...
-     *
      * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
@@ -96,7 +90,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field
 
             $defText = $element->getDefaultValue();
             if ($options) {
-                $defTextArr = array();
+                $defTextArr = [];
                 foreach ($options as $k=>$v) {
                     if ($isMultiple) {
                         if (is_array($v['value']) && in_array($k, $v['value'])) {

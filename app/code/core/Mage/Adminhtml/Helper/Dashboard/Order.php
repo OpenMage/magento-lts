@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashboard_Abstract
 {
@@ -39,17 +39,15 @@ class Mage_Adminhtml_Helper_Dashboard_Order extends Mage_Adminhtml_Helper_Dashbo
             $this->_collection->addFieldToFilter('store_id', $this->getParam('store'));
         } else if ($this->getParam('website')){
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
-            $this->_collection->addFieldToFilter('store_id', array('in' => implode(',', $storeIds)));
+            $this->_collection->addFieldToFilter('store_id', ['in' => implode(',', $storeIds)]);
         } else if ($this->getParam('group')){
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
-            $this->_collection->addFieldToFilter('store_id', array('in' => implode(',', $storeIds)));
+            $this->_collection->addFieldToFilter('store_id', ['in' => implode(',', $storeIds)]);
         } elseif (!$this->_collection->isLive()) {
             $this->_collection->addFieldToFilter('store_id',
-                array('eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId())
+                ['eq' => Mage::app()->getStore(Mage_Core_Model_Store::ADMIN_CODE)->getId()]
             );
         }
-
-
 
         $this->_collection->load();
     }

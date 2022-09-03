@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->run("
 CREATE TABLE `{$installer->getTable('sales_flat_order_item')}` (
@@ -148,10 +148,10 @@ foreach ($items as $itemData) {
         }
     }
 
-    $newItemData = array(
+    $newItemData = [
         'item_id'   => $itemData['entity_id'],
         'order_id'  => $itemData['parent_id'],
-    );
+    ];
 
     foreach ($itemData as $key => $value) {
         if (isset($itemFields[$key])) {

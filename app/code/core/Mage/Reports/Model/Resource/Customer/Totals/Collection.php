@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Customers by totals Report collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Reports_Model_Resource_Order_Collection
 {
@@ -45,7 +44,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
         $this->joinCustomerName()
             ->groupByCustomer()
             ->addOrdersCount()
-            ->addAttributeToFilter('created_at', array('from' => $from, 'to' => $to, 'datetime' => true));
+            ->addAttributeToFilter('created_at', ['from' => $from, 'to' => $to, 'datetime' => true]);
         return $this;
     }
 
@@ -72,7 +71,7 @@ class Mage_Reports_Model_Resource_Customer_Totals_Collection extends Mage_Report
     public function setStoreIds($storeIds)
     {
         if ($storeIds) {
-            $this->addAttributeToFilter('store_id', array('in' => (array)$storeIds));
+            $this->addAttributeToFilter('store_id', ['in' => (array)$storeIds]);
             $this->addSumAvgTotals(1)
                 ->orderByTotalAmount();
         } else {

@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Method
 {
     public function toOptionArray()
     {
         $ups = Mage::getSingleton('usa/shipping_carrier_ups');
-        $arr = array();
+        $arr = [];
         foreach ($ups->getCode('method') as $k=>$v) {
-            $arr[] = array('value'=>$k, 'label'=>Mage::helper('usa')->__($v));
+            $arr[] = ['value'=>$k, 'label'=>Mage::helper('usa')->__($v)];
         }
         return $arr;
     }

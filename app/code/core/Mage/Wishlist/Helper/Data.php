@@ -12,16 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Wishlist
+ * @category   Mage
+ * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
- * Wishlist Data Helper
- *
  * @category   Mage
  * @package    Mage_Wishlist
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -55,7 +52,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Wishlist Product Items Collection
      *
-     * @var Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @var Mage_Wishlist_Model_Resource_Product_Collection
      */
     protected $_productCollection = null;
 
@@ -67,7 +64,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_wishlistItemCollection = null;
 
     /**
-     * Retreive customer session
+     * Retrieve customer session
      *
      * @return Mage_Customer_Model_Session
      */
@@ -184,7 +181,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      *
-     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getItemCollection()
     {
@@ -220,7 +217,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @deprecated after 1.4.2.0
      * @see Mage_Wishlist_Model_Wishlist::getItemCollection()
      *
-     * @return Mage_Wishlist_Model_Mysql4_Product_Collection
+     * @return Mage_Wishlist_Model_Resource_Product_Collection
      */
     public function getProductCollection()
     {
@@ -278,9 +275,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getConfigureUrl($item)
     {
-        return $this->_getUrl('wishlist/index/configure', array(
+        return $this->_getUrl('wishlist/index/configure', [
             'item' => $item->getWishlistItemId()
-        ));
+        ]);
     }
 
     /**
@@ -304,7 +301,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMoveFromCartUrl($itemId)
     {
-        return $this->_getUrl('wishlist/index/fromcart', array('item' => $itemId));
+        return $this->_getUrl('wishlist/index/fromcart', ['item' => $itemId]);
     }
 
     /**
@@ -325,7 +322,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($itemId) {
-            return $this->_getUrl('wishlist/index/updateItemOptions', array('id' => $itemId));
+            return $this->_getUrl('wishlist/index/updateItemOptions', ['id' => $itemId]);
         }
 
         return false;
@@ -339,7 +336,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return  string|bool
      */
-    public function getAddUrlWithParams($item, array $params = array())
+    public function getAddUrlWithParams($item, array $params = [])
     {
         return $this->getAddUrlWithCustomParams($item, $params);
     }
@@ -373,7 +370,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array $arguments
      * @return Mage_Core_Model_Abstract
      */
-    protected function _getSingletonModel($className, $arguments = array())
+    protected function _getSingletonModel($className, $arguments = [])
     {
         return Mage::getSingleton($className, $arguments);
     }
@@ -386,17 +383,17 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getSharedAddToCartUrl($item)
     {
-        $continueUrl  = Mage::helper('core')->urlEncode(Mage::getUrl('*/*/*', array(
+        $continueUrl  = Mage::helper('core')->urlEncode(Mage::getUrl('*/*/*', [
             '_current'      => true,
             '_use_rewrite'  => true,
             '_store_to_url' => true,
-        )));
+        ]));
 
-        $params = array(
+        $params = [
             'item' => is_string($item) ? $item : $item->getWishlistItemId(),
             'code' => $this->getWishlist()->getSharingCode(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
-        );
+        ];
         return $this->_getUrlStore($item)->getUrl('wishlist/shared/cart', $params);
     }
 
@@ -420,7 +417,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getListUrl($wishlistId = null)
     {
-        $params = array();
+        $params = [];
         if ($wishlistId) {
             $params['wishlist_id'] = $wishlistId;
         }
@@ -474,10 +471,10 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         $customer = $this->_getCurrentCustomer();
         if ($customer) {
             $key = $customer->getId() . ',' . $customer->getEmail();
-            $params = array(
+            $params = [
                 'data' => Mage::helper('core')->urlEncode($key),
                 '_secure' => false,
-            );
+            ];
         }
         if ($wishlistId) {
             $params['wishlist_id'] = $wishlistId;
@@ -564,7 +561,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $addFormKey
      * @return string|bool
      */
-    public function getAddUrlWithCustomParams($item, array $params = array(), $addFormKey = true)
+    public function getAddUrlWithCustomParams($item, array $params = [], $addFormKey = true)
     {
         $productId = null;
         if ($item instanceof Mage_Catalog_Model_Product) {
@@ -594,9 +591,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRemoveUrlCustom($item, $addFormKey = true)
     {
-        $params = array(
+        $params = [
             'item' => $item->getWishlistItemId()
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }
@@ -614,16 +611,16 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     public function getAddToCartUrlCustom($item, $addFormKey = true)
     {
         $continueUrl  = $this->_getHelperInstance('core')->urlEncode(
-            $this->_getUrl('*/*/*', array(
+            $this->_getUrl('*/*/*', [
                 '_current'      => true,
                 '_use_rewrite'  => true,
                 '_store_to_url' => true,
-            ))
+            ])
         );
-        $params = array(
+        $params = [
             'item' => is_string($item) ? $item : $item->getWishlistItemId(),
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl,
-        );
+        ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }

@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Shipmenttype
 {
     public function toOptionArray()
     {
         $fedex = Mage::getSingleton('usa/shipping_carrier_dhl');
-        $arr = array();
+        $arr = [];
         foreach ($fedex->getCode('shipment_type') as $k=>$v) {
-            $arr[] = array('value'=>$k, 'label'=>$v);
+            $arr[] = ['value'=>$k, 'label'=>$v];
         }
         return $arr;
     }

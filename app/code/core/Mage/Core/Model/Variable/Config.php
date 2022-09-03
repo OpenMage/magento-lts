@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Core
+ * @category   Mage
+ * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Variable Wysiwyg Plugin Config
  *
- * @category    Mage
- * @package     Mage_Core
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Core
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Core_Model_Variable_Config
 {
@@ -35,19 +35,19 @@ class Mage_Core_Model_Variable_Config
      */
     public function getWysiwygPluginSettings($config)
     {
-        $variableConfig = array();
-        $onclickParts = array(
-            'search' => array('html_id'),
+        $variableConfig = [];
+        $onclickParts = [
+            'search' => ['html_id'],
             'subject' => 'MagentovariablePlugin.loadChooser(\''.$this->getVariablesWysiwygActionUrl().'\', \'{{html_id}}\');'
-        );
-        $variableWysiwygPlugin = array(array('name' => 'magentovariable',
+        ];
+        $variableWysiwygPlugin = [['name' => 'magentovariable',
             'src' => $this->getWysiwygJsPluginSrc(),
-            'options' => array(
+            'options' => [
                 'title' => Mage::helper('adminhtml')->__('Insert Variable...'),
                 'url' => $this->getVariablesWysiwygActionUrl(),
                 'onclick' => $onclickParts,
                 'class'   => 'add-variable plugin'
-        )));
+            ]]];
         $configPlugins = $config->getData('plugins');
         $variableConfig['plugins'] = array_merge($configPlugins, $variableWysiwygPlugin);
         return $variableConfig;

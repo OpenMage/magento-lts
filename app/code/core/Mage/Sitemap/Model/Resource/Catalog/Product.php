@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Sitemap resource product collection model
  *
@@ -44,24 +43,22 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
      */
     public function getCollection($storeId)
     {
-        /* @var Mage_Core_Model_Store $store */
         $store = Mage::app()->getStore($storeId);
         if (!$store) {
             return false;
         }
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
+            ->from(['main_table' => $this->getMainTable()], [$this->getIdFieldName()])
             ->join(
-                array('w' => $this->getTable('catalog/product_website')),
+                ['w' => $this->getTable('catalog/product_website')],
                 'main_table.entity_id = w.product_id',
-                array()
+                []
             )
             ->where('w.website_id=?', $store->getWebsiteId());
 
         $storeId = (int)$store->getId();
 
-        /** @var Mage_Catalog_Helper_Product_Url_Rewrite_Interface $urlRewrite */
         $urlRewrite = $this->_factory->getProductUrlRewriteHelper();
         $urlRewrite->joinTableToSelect($this->_select, $storeId);
 
@@ -116,13 +113,13 @@ class Mage_Sitemap_Model_Resource_Catalog_Product extends Mage_Sitemap_Model_Res
     {
         $attribute = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attributeCode);
 
-        $this->_attributesCache[$attributeCode] = array(
+        $this->_attributesCache[$attributeCode] = [
             'entity_type_id' => $attribute->getEntityTypeId(),
             'attribute_id'   => $attribute->getId(),
             'table'          => $attribute->getBackend()->getTable(),
             'is_global'      => $attribute->getIsGlobal() == Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
             'backend_type'   => $attribute->getBackendType()
-        );
+        ];
         return $this;
     }
 }

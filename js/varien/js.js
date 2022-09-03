@@ -33,41 +33,6 @@ function setPLocation(url, setFocus){
 }
 
 /**
- * @deprecated
- */
-function setLanguageCode(code, fromCode){
-    //TODO: javascript cookies have different domain and path than php cookies
-    var href = window.location.href;
-    var after = '', dash;
-    if (dash = href.match(/\#(.*)$/)) {
-        href = href.replace(/\#(.*)$/, '');
-        after = dash[0];
-    }
-
-    if (href.match(/[?]/)) {
-        var re = /([?&]store=)[a-z0-9_]*/;
-        if (href.match(re)) {
-            href = href.replace(re, '$1'+code);
-        } else {
-            href += '&store='+code;
-        }
-
-        var re = /([?&]from_store=)[a-z0-9_]*/;
-        if (href.match(re)) {
-            href = href.replace(re, '');
-        }
-    } else {
-        href += '?store='+code;
-    }
-    if (typeof(fromCode) != 'undefined') {
-        href += '&from_store='+fromCode;
-    }
-    href += after;
-
-    setLocation(href);
-}
-
-/**
  * Add classes to specified elements.
  * Supported classes are: 'odd', 'even', 'first', 'last'
  *

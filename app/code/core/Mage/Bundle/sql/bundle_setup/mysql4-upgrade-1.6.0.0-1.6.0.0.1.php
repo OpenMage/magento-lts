@@ -27,11 +27,11 @@ if (file_exists($installFile)) {
 $installer = $this;
 /** @var Varien_Db_Adapter_Pdo_Mysql $connection */
 $connection = $installer->getConnection();
-$memoryTables = array(
+$memoryTables = [
     'bundle/option_indexer_tmp',
     'bundle/selection_indexer_tmp',
     'bundle/price_indexer_tmp',
-);
+];
 
 foreach ($memoryTables as $table) {
     $connection->changeTableEngine($installer->getTable($table), Varien_Db_Adapter_Pdo_Mysql::ENGINE_MEMORY);

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,13 +23,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
 {
     /**
-     * Enter description here...
-     *
      * @return string
      */
     protected function _getUrlModelClass()
@@ -45,5 +43,15 @@ class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
     public function getFormKey()
     {
         return Mage::getSingleton('core/session')->getFormKey();
+    }
+
+    /**
+     * Retrieve Timeout Delay from Config
+     *
+     * @return string
+     */
+    public function getLoadingTimeout()
+    {
+        return (int)Mage::getStoreConfig('admin/design/loading_timeout');
     }
 }

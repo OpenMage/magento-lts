@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->run("
     ALTER TABLE {$this->getTable('catalogsearch_query')} ADD `display_in_terms` TINYINT( 1 ) NOT NULL DEFAULT '0';

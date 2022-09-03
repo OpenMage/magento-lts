@@ -12,15 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_CatalogIndex
+ * @category   Mage
+ * @package    Mage_CatalogIndex
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Attribute index model
+ *
+ * @category   Mage
+ * @package    Mage_CatalogIndex
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @method Mage_CatalogIndex_Model_Resource_Attribute _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Attribute getResource()
@@ -31,10 +34,6 @@
  * @method Mage_CatalogIndex_Model_Attribute setStoreId(int $value)
  * @method int getValue()
  * @method Mage_CatalogIndex_Model_Attribute setValue(int $value)
- *
- * @category    Mage
- * @package     Mage_CatalogIndex
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_CatalogIndex_Model_Attribute extends Mage_Core_Model_Abstract
 {

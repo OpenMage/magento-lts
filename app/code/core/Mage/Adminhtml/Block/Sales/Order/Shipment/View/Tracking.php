@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Adminhtml_Block_Template
 {
@@ -37,11 +37,11 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
         $onclick = "submitAndReloadArea($('shipment_tracking_info').parentNode, '".$this->getSubmitUrl()."')";
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'   => Mage::helper('sales')->__('Add'),
                     'class'   => 'save',
                     'onclick' => $onclick
-                ))
+                ])
         );
         return $this;
     }
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     public function getSubmitUrl()
     {
-        return $this->getUrl('*/*/addTrack/', array('shipment_id'=>$this->getShipment()->getId()));
+        return $this->getUrl('*/*/addTrack/', ['shipment_id'=>$this->getShipment()->getId()]);
     }
 
     /**
@@ -83,10 +83,10 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     public function getRemoveUrl($track)
     {
-        return $this->getUrl('*/*/removeTrack/', array(
+        return $this->getUrl('*/*/removeTrack/', [
             'shipment_id' => $this->getShipment()->getId(),
             'track_id' => $track->getId()
-        ));
+        ]);
     }
 
     /**
@@ -96,20 +96,20 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      */
     public function getTrackInfoUrl($track)
     {
-        return $this->getUrl('*/*/viewTrack/', array(
+        return $this->getUrl('*/*/viewTrack/', [
             'shipment_id' => $this->getShipment()->getId(),
             'track_id' => $track->getId()
-        ));
+        ]);
     }
 
     /**
      * Retrieve
      *
-     * @return unknown
+     * @return array
      */
     public function getCarriers()
     {
-        $carriers = array();
+        $carriers = [];
         $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers(
             $this->getShipment()->getStoreId()
         );

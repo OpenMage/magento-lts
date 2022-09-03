@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,11 +23,10 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Block_Template implements Varien_Data_Form_Element_Renderer_Interface
 {
-
     protected $_element = null;
 
     public function __construct()
@@ -61,19 +60,19 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
     {
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete'),
                     'onclick'   => "deleteImage(#image#)",
                     'class' => 'delete'
-                )));
+                ]));
 
         $this->setChild('add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Add New Image'),
                     'onclick'   => 'addNewImage()',
                     'class' => 'add'
-                )));
+                ]));
         return parent::_prepareLayout();
     }
 
@@ -86,6 +85,5 @@ class Mage_Adminhtml_Block_Widget_Form_Element_Gallery extends Mage_Adminhtml_Bl
     {
         return str_replace('#image#', $image, $this->getChildHtml('delete_button'));
     }
-
 }
 

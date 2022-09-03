@@ -26,7 +26,6 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
      */
     const DEFAULT_UPLOAD_BUTTON_ID_SUFFIX = 'upload';
 
-
     /**
      * Prepare layout, create upload button
      *
@@ -39,16 +38,16 @@ class Mage_Uploader_Block_Multiple extends Mage_Uploader_Block_Abstract
         $this->setChild(
             'upload_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->addData(array(
+                ->addData([
                     'id'      => $this->getElementId(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX),
                     'label'   => Mage::helper('uploader')->__('Upload Files'),
                     'type'    => 'button',
-                ))
+                ])
         );
 
-        $this->_addElementIdsMapping(array(
-            'upload' => $this->_prepareElementsIds(array(self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX))
-        ));
+        $this->_addElementIdsMapping([
+            'upload' => $this->_prepareElementsIds([self::DEFAULT_UPLOAD_BUTTON_ID_SUFFIX])
+        ]);
 
         return $this;
     }

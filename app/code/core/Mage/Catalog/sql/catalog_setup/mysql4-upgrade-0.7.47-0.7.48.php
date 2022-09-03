@@ -19,18 +19,18 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer->startSetup();
 
 $installer->run("
     ALTER TABLE `{$installer->getTable('catalog/product')}` ADD `has_options` SMALLINT(1) NOT NULL DEFAULT '0';
 ");
 
-$installer->addAttribute('catalog_product', 'has_options', array(
+$installer->addAttribute('catalog_product', 'has_options', [
     'type' => 'static',
     'visible'=>false,
     'default' => false
-));
+]);
 $installer->run("
     UPDATE `{$installer->getTable('catalog/product')}` SET `has_options` = '1'
     WHERE (entity_id IN (

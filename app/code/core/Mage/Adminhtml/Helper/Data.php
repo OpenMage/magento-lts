@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
 {
@@ -64,7 +64,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         return $this;
     }
 
-    public static function getUrl($route='', $params=array())
+    public static function getUrl($route='', $params= [])
     {
         return Mage::getModel('adminhtml/url')->getUrl($route, $params);
     }
@@ -85,10 +85,10 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
      */
     public function prepareFilterString($filterString)
     {
-        $data = array();
+        $data = [];
         $filterString = base64_decode($filterString);
         parse_str($filterString, $data);
-        array_walk_recursive($data, array($this, 'decodeFilter'));
+        array_walk_recursive($data, [$this, 'decodeFilter']);
         return $data;
     }
 

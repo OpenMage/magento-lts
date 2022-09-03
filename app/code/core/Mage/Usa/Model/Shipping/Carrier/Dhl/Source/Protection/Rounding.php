@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Protection_Rounding
 {
     public function toOptionArray()
     {
         $carrier = Mage::getSingleton('usa/shipping_carrier_dhl');
-        $arr = array();
+        $arr = [];
         foreach ($carrier->getAdditionalProtectionRoundingTypes() as $k=>$v) {
-            $arr[] = array('value'=>$k, 'label'=>$v);
+            $arr[] = ['value'=>$k, 'label'=>$v];
         }
         return $arr;
     }

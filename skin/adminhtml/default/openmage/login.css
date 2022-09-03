@@ -57,12 +57,12 @@ body {
   background: #e6e6e6;
   color: #2f2f2f;
   font: 400 12px/1.33 Open Sans, sans-serif;
-  background: #ebedef;
+  background: hsl(205deg, 11%, 93%);
   font-size: 13px;
   overflow-x: hidden;
 }
 body#page-login {
-  background-color: #3d4f5c;
+  background-color: hsl(205deg, 20%, 30%);
   background-image: url(images/login_background.jpg);
   background-repeat: no-repeat;
   background-position: center top;
@@ -185,7 +185,7 @@ input.input-text:disabled {
   bottom: 30px;
   left: 0;
   width: 100%;
-  color: white;
+  color: hsl(0deg, 0%, 100%);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -193,7 +193,7 @@ input.input-text:disabled {
   padding: 27px 57px 35px;
   background: url(images/icon-error.png) no-repeat;
   text-align: left;
-  background: white;
+  background: hsl(0deg, 0%, 100%);
   border: none;
   padding: 40px 50px;
   box-shadow: 0 30px 150px rgba(0, 0, 0, 0.5);

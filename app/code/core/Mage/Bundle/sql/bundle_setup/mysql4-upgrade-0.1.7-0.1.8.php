@@ -18,15 +18,14 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
 $installer->getConnection()->addKey(
     $installer->getTable('bundle/option_value'),
     'UNQ_OPTION_STORE',
-    array('option_id', 'store_id'),
+    ['option_id', 'store_id'],
     'unique'
 );
 $installer->endSetup();

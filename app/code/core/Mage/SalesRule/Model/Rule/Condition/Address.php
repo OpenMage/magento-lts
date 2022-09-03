@@ -12,14 +12,19 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_SalesRule
+ * @category   Mage
+ * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_SalesRule_Model_Rule_Condition_Address
+ *
+ * @category   Mage
+ * @package    Mage_SalesRule
+ * @author     Magento Core Team <core@magentocommerce.com>
+ *
  * @method $this setAttributeOption(array $attributes)
  */
 class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condition_Abstract
@@ -29,7 +34,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
      */
     public function loadAttributeOptions()
     {
-        $attributes = array(
+        $attributes = [
             'base_subtotal' => Mage::helper('salesrule')->__('Subtotal'),
             'total_qty' => Mage::helper('salesrule')->__('Total Items Quantity'),
             'weight' => Mage::helper('salesrule')->__('Total Weight'),
@@ -39,7 +44,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             'region' => Mage::helper('salesrule')->__('Shipping Region'),
             'region_id' => Mage::helper('salesrule')->__('Shipping State/Province'),
             'country_id' => Mage::helper('salesrule')->__('Shipping Country'),
-        );
+        ];
 
         $this->setAttributeOption($attributes);
 
@@ -119,7 +124,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
                     break;
 
                 default:
-                    $options = array();
+                    $options = [];
             }
             $this->setData('value_select_options', $options);
         }
@@ -143,7 +148,7 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
             }
         }
 
-        if ('payment_method' == $this->getAttribute() && ! $address->hasPaymentMethod()) {
+        if ($this->getAttribute() == 'payment_method' && ! $address->hasPaymentMethod()) {
             $address->setPaymentMethod($object->getQuote()->getPayment()->getMethod());
         }
 

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Convert profile resource model
  *
@@ -60,7 +59,7 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
      */
     public function isProfileExists($name, $id = null)
     {
-        $bind = array('name' => $name);
+        $bind = ['name' => $name];
         $select = $this->_getReadAdapter()->select();
         $select
             ->from($this->getMainTable(), 'count(1)')
@@ -69,7 +68,6 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
             $select->where("{$this->getIdFieldName()} != :id");
             $bind['id'] = $id;
         }
-        $result = $this->_getReadAdapter()->fetchOne($select, $bind) ? true : false;
-        return $result;
+        return $this->_getReadAdapter()->fetchOne($select, $bind) ? true : false;
     }
 }

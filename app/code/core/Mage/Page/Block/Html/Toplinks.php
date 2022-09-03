@@ -40,7 +40,7 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
      *
      * @var array
      */
-    protected $_toplinks = array();
+    protected $_toplinks = [];
 
     public function __construct()
     {
@@ -82,9 +82,9 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
         $toplinkInfo['innerText'] = $innerText;
         $toplinkInfo['beforeText'] = $beforeText;
         $toplinkInfo['afterText'] = $afterText;
-        $this->_prepareArray($toplinkInfo, array('liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first', 'last'));
+        $this->_prepareArray($toplinkInfo, ['liParams', 'aParams', 'innerText', 'beforeText', 'afterText', 'first', 'last']);
         if (is_numeric($position)) {
-            array_splice($this->_toplinks, $position, 0, array($toplinkInfo));
+            array_splice($this->_toplinks, $position, 0, [$toplinkInfo]);
         } else {
             $this->_toplinks[] = $toplinkInfo;
         }

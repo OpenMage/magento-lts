@@ -19,5 +19,5 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
-$installer->addAttribute('order_payment', 'last_trans_id', array());
+/** @var Mage_Sales_Model_Entity_Setup $installer */
+$installer->addAttribute('order_payment', 'last_trans_id', []);

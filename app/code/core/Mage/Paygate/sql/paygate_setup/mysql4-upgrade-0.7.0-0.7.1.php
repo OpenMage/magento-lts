@@ -19,16 +19,16 @@
  */
 
 $installer = $this;
-/* @var $installer Mage_Core_Model_Resource_Setup */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
 // replace transaction URLs - see http://integrationwizard.x.com/sdkupdate/step3.php
-foreach (array(
+foreach ([
         'pilot-payflowpro.verisign.com' => 'pilot-payflowpro.paypal.com',
         'test-payflow.verisign.com'     => 'pilot-payflowpro.paypal.com',
         'payflow.verisign.com'          => 'payflowpro.paypal.com',
-    ) as $from => $to) {
+         ] as $from => $to) {
     $installer->run("
     UPDATE {$installer->getTable('core/config_data')} SET `value` = REPLACE(`value`, '{$from}', '{$to}')
     WHERE `path` = 'payment/verisign/url'

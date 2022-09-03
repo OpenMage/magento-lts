@@ -21,6 +21,7 @@
 /**
  * Tag relation model
  *
+ * @method Mage_Tag_Model_Resource_Tag_Relation _getResource()
  * @method Mage_Tag_Model_Resource_Tag_Relation getResource()
  * @method int getActive()
  * @method $this setActive(int $value)
@@ -61,21 +62,10 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
 
     /**
      * Initialize resource model
-     *
      */
     protected function _construct()
     {
         $this->_init('tag/tag_relation');
-    }
-
-    /**
-     * Retrieve Resource Instance wrapper
-     *
-     * @inheritDoc
-     */
-    protected function _getResource()
-    {
-        return parent::_getResource();
     }
 
     /**
@@ -161,7 +151,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * @param array $productIds
      * @return $this
      */
-    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = array())
+    public function addRelations(Mage_Tag_Model_Tag $model, $productIds = [])
     {
         $this->setAddedProductIds($productIds);
         $this->setTagId($model->getTagId());

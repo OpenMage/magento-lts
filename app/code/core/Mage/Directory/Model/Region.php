@@ -24,6 +24,7 @@
  * @method Mage_Directory_Model_Resource_Region _getResource()
  * @method Mage_Directory_Model_Resource_Region getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
+ * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
  *
  * @method string getCode()
  * @method $this setCode(string $value)

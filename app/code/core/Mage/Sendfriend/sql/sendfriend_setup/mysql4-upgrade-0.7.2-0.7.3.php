@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Sendfriend_Model_Mysql4_Setup $installer */
+/** @var Mage_Sendfriend_Model_Resource_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -43,11 +42,11 @@ $installer->getConnection()->modifyColumn(
 $installer->getConnection()->addKey(
     $installer->getTable('sendfriend/sendfriend'),
     'IDX_REMOTE_ADDR',
-    array('ip')
+    ['ip']
 );
 $installer->getConnection()->addKey(
     $installer->getTable('sendfriend/sendfriend'),
     'IDX_LOG_TIME',
-    array('time')
+    ['time']
 );
 $installer->endSetup();

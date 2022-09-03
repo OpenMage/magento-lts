@@ -33,27 +33,19 @@
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
-    protected $_layoutHandles = array();
+    protected $_layoutHandles = [];
 
     /**
      * layout handles wildcar patterns
      *
      * @var array
      */
-    protected $_layoutHandlePatterns = array(
+    protected $_layoutHandlePatterns = [
         '^default$',
         '^catalog_category_*',
         '^catalog_product_*',
         '^PRODUCT_*'
-    );
-
-    /**
-     * Constructor
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-    }
+    ];
 
     /**
      * Add not allowed layout handle pattern
@@ -148,7 +140,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     public function getLayoutHandles($area, $package, $theme)
     {
         if (empty($this->_layoutHandles)) {
-            /* @var Mage_Core_Model_Layout_Update $update */
+            /** @var Mage_Core_Model_Layout_Update $update */
             $update = Mage::getModel('core/layout')->getUpdate();
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Mage_Adminhtml_Block_Widget_Button
 {
@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
         $this->getConfig()
             ->setUrl($this->getUrl(
                 '*/catalog_product_attribute/new',
-                array(
+                [
                     'group'     => $this->getConfig()->getGroupId(),
                     'tab'       => $this->getConfig()->getTabId(),
                     'store'     => $this->getConfig()->getStoreId(),
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
                     'set'       => $this->getConfig()->getAttributeSetId(),
                     'type'      => $this->getConfig()->getTypeId(),
                     'popup'     => 1
-                )
+                ]
             ));
 
         return parent::_beforeToHtml();
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes_Create extends Ma
     protected function _toHtml()
     {
         $this->setCanShow(true);
-        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', array('block' => $this));
+        Mage::dispatchEvent('adminhtml_catalog_product_edit_tab_attributes_create_html_before', ['block' => $this]);
         if (!$this->getCanShow()) {
             return '';
         }

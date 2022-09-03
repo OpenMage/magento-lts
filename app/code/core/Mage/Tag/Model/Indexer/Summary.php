@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Tag Indexer Model
  *
@@ -50,19 +49,19 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
     /**
      * @var array
      */
-    protected $_matchedEntities = array(
-        Mage_Catalog_Model_Product::ENTITY => array(
+    protected $_matchedEntities = [
+        Mage_Catalog_Model_Product::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE,
             Mage_Index_Model_Event::TYPE_DELETE,
             Mage_Index_Model_Event::TYPE_MASS_ACTION,
-        ),
-        Mage_Tag_Model_Tag::ENTITY => array(
+        ],
+        Mage_Tag_Model_Tag::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        ),
-        Mage_Tag_Model_Tag_Relation::ENTITY => array(
+        ],
+        Mage_Tag_Model_Tag_Relation::ENTITY => [
             Mage_Index_Model_Event::TYPE_SAVE
-        )
-    );
+        ]
+    ];
 
     /**
      * Initialize resource model
@@ -100,11 +99,11 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _getProductAttributesDependOn()
     {
-        return array(
+        return [
             'visibility',
             'status',
             'website_ids'
-        );
+        ];
     }
 
     /**
@@ -130,7 +129,7 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductSaveEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = $event->getDataObject();
         $reindexTag = $product->getForceReindexRequired();
 
@@ -165,7 +164,6 @@ class Mage_Tag_Model_Indexer_Summary extends Mage_Index_Model_Indexer_Abstract
      */
     protected function _registerCatalogProductMassActionEvent(Mage_Index_Model_Event $event)
     {
-        /* @var Varien_Object $actionObject */
         $actionObject = $event->getDataObject();
         $attributes   = $this->_getProductAttributesDependOn();
         $reindexTags  = false;

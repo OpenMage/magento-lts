@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml_Block_Dashboard_Grid
@@ -63,29 +63,29 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
     protected function _prepareColumns()
     {
 
-        $this->addColumn('name', array(
+        $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'sortable'  => false,
             'index'     => 'product_name'
-        ));
+        ]);
 
-        $this->addColumn('price', array(
+        $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
             'width'     => '120px',
             'type'      => 'currency',
             'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
             'index'     => 'product_price'
-        ));
+        ]);
 
-        $this->addColumn('ordered_qty', array(
+        $this->addColumn('ordered_qty', [
             'header'    => Mage::helper('sales')->__('Quantity Ordered'),
             'width'     => '120px',
             'align'     => 'right',
             'sortable'  => false,
             'index'     => 'qty_ordered',
             'type'      => 'number'
-        ));
+        ]);
 
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
@@ -110,7 +110,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             return '';
         }
 
-        $params = array('id' => $productId);
+        $params = ['id' => $productId];
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }

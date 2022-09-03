@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Flat sales order invoice resource
  *
@@ -77,31 +76,31 @@ class Mage_Sales_Model_Resource_Order_Invoice extends Mage_Sales_Model_Resource_
         $checkedFirstname  = $adapter->getIfNullSql('{{table}}.firstname', $adapter->quote(''));
         $checkedMiddlename = $adapter->getIfNullSql('{{table}}.middlename', $adapter->quote(''));
         $checkedLastname   = $adapter->getIfNullSql('{{table}}.lastname', $adapter->quote(''));
-        $concatName = $adapter->getConcatSql(array(
+        $concatName = $adapter->getConcatSql([
             $checkedFirstname,
             $adapter->quote(' '),
             $checkedMiddlename,
             $adapter->quote(' '),
             $checkedLastname
-        ));
+        ]);
         $concatName = new Zend_Db_Expr("TRIM(REPLACE($concatName,'  ', ' '))");
 
         $this->addVirtualGridColumn(
             'billing_name',
             'sales/order_address',
-            array('billing_address_id' => 'entity_id'),
+            ['billing_address_id' => 'entity_id'],
             $concatName
         )
         ->addVirtualGridColumn(
             'order_increment_id',
             'sales/order',
-            array('order_id' => 'entity_id'),
+            ['order_id' => 'entity_id'],
             'increment_id'
         )
         ->addVirtualGridColumn(
             'order_created_at',
             'sales/order',
-            array('order_id' => 'entity_id'),
+            ['order_id' => 'entity_id'],
             'created_at'
         );
 

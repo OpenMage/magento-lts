@@ -178,11 +178,11 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             if ($address->getShippingDescription()) {
                 $title .= ' (' . $address->getShippingDescription() . ')';
             }
-            $address->addTotal(array(
+            $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
                 'value' => $address->getShippingAmount()
-            ));
+            ]);
         }
         return $this;
     }

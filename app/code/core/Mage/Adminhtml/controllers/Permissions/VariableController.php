@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -141,7 +141,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return $this;
             }
             try {
@@ -159,7 +159,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 // save data in session
                 Mage::getSingleton('adminhtml/session')->setFormData($data);
                 // redirect to edit form
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return;
             }
         }
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 return;
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('variable_id' => $id));
+                $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return;
             }
         }

@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 
 $installer->startSetup();
 $installer->run("

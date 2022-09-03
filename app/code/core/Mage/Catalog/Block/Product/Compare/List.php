@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog products compare block
  *
@@ -151,7 +150,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         }
 
         if ($attribute->getSourceModel()
-            || in_array($attribute->getFrontendInput(), array('select','boolean','multiselect'))
+            || in_array($attribute->getFrontendInput(), ['select','boolean','multiselect'])
         ) {
             //$value = $attribute->getSource()->getOptionText($product->getData($attribute->getAttributeCode()));
             $value = $attribute->getFrontend()->getValue($product);
@@ -168,7 +167,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
      */
     public function getPrintUrl()
     {
-        return $this->getUrl('*/*/*', array('_current'=>true, 'print'=>1));
+        return $this->getUrl('*/*/*', ['_current'=>true, 'print'=>1]);
     }
 
     /**
@@ -193,9 +192,9 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
         $continueUrl = Mage::helper('core')->urlEncode($this->getUrl('customer/account'));
-        $params = array(
+        $params = [
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
-        );
+        ];
 
         /** @var Mage_Wishlist_Helper_Data $helper */
         $helper = $this->helper('wishlist');

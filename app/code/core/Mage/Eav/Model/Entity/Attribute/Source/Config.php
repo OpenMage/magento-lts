@@ -12,17 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Eav
+ * @category   Mage
+ * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Entity/Attribute/Model - attribute selection source from configuration
  *
- * this class should be abstract, but kept usual for legacy purposes
+ * This class should be abstract, but kept usual for legacy purposes
  *
  * @category   Mage
  * @package    Mage_Eav
@@ -46,7 +45,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
     public function getAllOptions()
     {
         if ($this->_options === null) {
-            $this->_options = array();
+            $this->_options = [];
             $rootNode = null;
             if ($this->_configNodePath) {
                 $rootNode = Mage::getConfig()->getNode($this->_configNodePath);
@@ -59,10 +58,10 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('No options found in config node %s', $this->_configNodePath));
             }
             foreach ($options as $option) {
-                $this->_options[] = array(
+                $this->_options[] = [
                     'value' => (string)$option->value,
                     'label' => Mage::helper('eav')->__((string)$option->label)
-                );
+                ];
             }
         }
 

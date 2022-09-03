@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Adminhtml_Block_Template
 {
@@ -66,13 +66,13 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Run extends Mage_Admi
 
     public function getImportedFiles()
     {
-        $files = array();
+        $files = [];
         $path = Mage::app()->getConfig()->getTempVarDir().'/import';
         if (!is_readable($path)) {
             return $files;
         }
         $dir = dir($path);
-        while (false !== ($entry = $dir->read())) {
+        while (($entry = $dir->read()) !== false) {
             if($entry != '.'
                && $entry != '..'
                && strtolower(substr($entry, strrpos($entry, '.') + 1)) == $this->getParseType())

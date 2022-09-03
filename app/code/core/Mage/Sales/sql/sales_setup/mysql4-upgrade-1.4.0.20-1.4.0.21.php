@@ -18,30 +18,30 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
 // Setup data to configure
-$frequencies = array(
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_DAILY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_MONTHLY,
-    Mage_Sales_Model_Mysql4_Report_Bestsellers::AGGREGATION_YEARLY
-);
+$frequencies = [
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_DAILY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_MONTHLY,
+    Mage_Sales_Model_Resource_Report_Bestsellers::AGGREGATION_YEARLY
+];
 
-$foreignKeys = array(
-    array(
+$foreignKeys = [
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_STORE_ID',
         'column' => 'store_id',
         'refTable' => 'core/store',
         'refColumn' => 'store_id'
-    ),
-    array(
+    ],
+    [
         'name' => 'FK_PRODUCT_ORDERED_AGGREGATED_%s_PRODUCT_ID',
         'column' => 'product_id',
         'refTable' => 'catalog/product',
         'refColumn' => 'entity_id'
-    )
-);
+    ]
+];
 
 /*
  * Alter foreign keys to add 'CASCADE' instead of 'SET_NULL' action

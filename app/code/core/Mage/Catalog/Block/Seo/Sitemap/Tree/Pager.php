@@ -72,7 +72,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
     }
 
     /**
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function getCollection()
     {
@@ -172,7 +172,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
      */
     public function getPages()
     {
-        $pages = array();
+        $pages = [];
         if ($this->getLastPageNum() <= $this->_displayPages) {
             $pages = range(1, $this->getLastPageNum());
         } else {

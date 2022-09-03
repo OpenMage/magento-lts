@@ -19,10 +19,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->removeAttribute('order', 'ext_order_item_id');
-$installer->addAttribute('order_item', 'ext_order_item_id', array('type' => 'varchar'));
+$installer->addAttribute('order_item', 'ext_order_item_id', ['type' => 'varchar']);
 
 $installer->endSetup();

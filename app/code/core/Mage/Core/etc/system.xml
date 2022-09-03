@@ -1060,6 +1060,15 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </use_legacy_theme>
+                        <loading_timeout translate="label comment">
+                            <label>Loading Indicator Timeout</label>
+                            <comment>Number of milliseconds to delay showing the loading indicator. The default value is "200". An empty value disables the delay.</comment>
+                            <validate>validate-number validate-zero-or-greater</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </loading_timeout>
                     </fields>
                 </design>
 

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog Rule data model
  *
@@ -103,7 +102,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @var array
      */
-    protected static $_priceRulesData = array();
+    protected static $_priceRulesData = [];
 
     /**
      * Factory instance
@@ -135,7 +134,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @param array $args
      */
-    public function __construct(array $args = array())
+    public function __construct(array $args = [])
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
         $this->_config  = !empty($args['config']) ? $args['config'] : Mage::getConfig();
@@ -219,8 +218,8 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     public function getMatchingProductIds()
     {
         if (is_null($this->_productIds)) {
-            $this->_productIds = array();
-            $this->setCollectedAttributes(array());
+            $this->_productIds = [];
+            $this->setCollectedAttributes([]);
 
             if ($this->getWebsiteIds()) {
                 $productCollection = Mage::getResourceModel('catalog/product_collection');
@@ -232,11 +231,11 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
                 Mage::getSingleton('core/resource_iterator')->walk(
                     $productCollection->getSelect(),
-                    array(array($this, 'callbackValidateProduct')),
-                    array(
+                    [[$this, 'callbackValidateProduct']],
+                    [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
-                    )
+                    ]
                 );
             }
         }
@@ -254,7 +253,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         $product = clone $args['product'];
         $product->setData($args['row']);
 
-        $results = array();
+        $results = [];
         foreach ($this->_getWebsitesMap() as $websiteId => $defaultStoreId) {
             $product->setStoreId($defaultStoreId);
             $results[$websiteId] = (int)$this->getConditions()->validate($product);
@@ -269,7 +268,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      */
     protected function _getWebsitesMap()
     {
-        $map = array();
+        $map = [];
         foreach ($this->_app->getWebsites(true) as $website) {
             if ($website->getDefaultStore()) {
                 $map[$website->getId()] = $website->getDefaultStore()->getId();
@@ -304,7 +303,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      */
     public function applyAll()
     {
-        $this->getResourceCollection()->walk(array($this->_getResource(), 'updateRuleProductData'));
+        $this->getResourceCollection()->walk([$this->_getResource(), 'updateRuleProductData']);
         $this->_getResource()->applyAllRules();
         $this->_invalidateCache();
         $indexProcess = Mage::getSingleton('index/indexer')->getProcessByCode('catalog_product_price');
@@ -344,7 +343,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         $this->_invalidateCache();
 
         Mage::getSingleton('index/indexer')->processEntityAction(
-            new Varien_Object(array('id' => $product->getId())),
+            new Varien_Object(['id' => $product->getId()]),
             Mage_Catalog_Model_Product::ENTITY,
             Mage_Catalog_Model_Product_Indexer_Price::EVENT_TYPE_REINDEX_PRICE
         );
@@ -474,7 +473,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      *
      * @return array
      */
-    public function toArray(array $arrAttributes = array())
+    public function toArray(array $arrAttributes = [])
     {
         return parent::toArray($arrAttributes);
     }

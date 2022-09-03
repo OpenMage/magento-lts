@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_GiftMessage_Model_Mysql4_Setup $this */
+/** @var Mage_GiftMessage_Model_Resource_Setup $this */
 $installer = $this;
 
 $installer->updateAttribute(
@@ -57,10 +57,10 @@ $attributeId  = $installer->getAttributeId($entityTypeId, 'gift_message_availabl
 
 $installer->getConnection()->update(
     $installer->getTable('catalog_product_entity_varchar'),
-    array('value' => ''),
-    array(
+    ['value' => ''],
+    [
         'entity_type_id =?' => $entityTypeId,
         'attribute_id =?' => $attributeId,
         'value =?' => '2'
-    )
+    ]
 );

@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Tax
+ * @category   Mage
+ * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Tax class resource
  *
- * @category    Mage
- * @package     Mage_Tax
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Tax
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -44,10 +43,10 @@ class Mage_Tax_Model_Resource_Class extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _initUniqueFields()
     {
-        $this->_uniqueFields = array(array(
-            'field' => array('class_type', 'class_name'),
+        $this->_uniqueFields = [[
+            'field' => ['class_type', 'class_name'],
             'title' => Mage::helper('tax')->__('An error occurred while saving this tax class. A class with the same name'),
-        ));
+        ]];
         return $this;
     }
 }

@@ -30,10 +30,10 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
             parent::toOptionArray();
             array_unshift(
                 $this->_attributes,
-                array(
+                [
                     'value' => '',
                     'label' => Mage::helper('configurableswatches')->__('-- Please Select --'),
-                )
+                ]
             );
         }
         return $this->_attributes;

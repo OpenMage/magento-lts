@@ -18,9 +18,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 $installer->getConnection()->addColumn($this->getTable('cataloginventory_stock_item'), 'manage_stock', 'tinyint(1) unsigned NOT NULL DEFAULT 0');

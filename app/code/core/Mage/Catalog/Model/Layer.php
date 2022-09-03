@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog view layer model
  *
@@ -35,7 +34,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      *
      * @var array
      */
-    protected $_productCollections = array();
+    protected $_productCollections = [];
 
     /**
      * Key which can be used for load/save aggregation data
@@ -76,11 +75,11 @@ class Mage_Catalog_Model_Layer extends Varien_Object
      * @param   array $additionalTags
      * @return  array
      */
-    public function getStateTags(array $additionalTags = array())
+    public function getStateTags(array $additionalTags = [])
     {
-        $additionalTags = array_merge($additionalTags, array(
+        $additionalTags = array_merge($additionalTags, [
             Mage_Catalog_Model_Category::CACHE_TAG.$this->getCurrentCategory()->getId()
-        ));
+        ]);
 
         return $additionalTags;
     }
@@ -210,7 +209,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
     {
         $setIds = $this->_getSetIds();
         if (!$setIds) {
-            return array();
+            return [];
         }
         /** @var Mage_Catalog_Model_Resource_Product_Attribute_Collection $collection */
         $collection = Mage::getResourceModel('catalog/product_attribute_collection');

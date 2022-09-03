@@ -18,13 +18,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/** @var Mage_GiftMessage_Model_Mysql4_Setup $this */
+/** @var Mage_GiftMessage_Model_Resource_Setup $this */
 $installer = $this;
 
-$pathesForReplace = array(
+$pathesForReplace = [
     'sales/gift_messages/allow_order' => 'sales/gift_options/allow_order',
     'sales/gift_messages/allow_items' => 'sales/gift_options/allow_items'
-);
+];
 
 foreach ($pathesForReplace as $from => $to) {
     $installer->run(sprintf(

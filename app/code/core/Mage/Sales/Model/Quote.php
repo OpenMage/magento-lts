@@ -231,7 +231,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * @var array
      */
-    protected $_errorInfoGroups = array();
+    protected $_errorInfoGroups = [];
 
     /**
      * Whether quote should not be saved
@@ -380,15 +380,15 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         parent::_afterSave();
 
-        if (null !== $this->_addresses) {
+        if ($this->_addresses !== null) {
             $this->getAddressesCollection()->save();
         }
 
-        if (null !== $this->_items) {
+        if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
 
-        if (null !== $this->_payments) {
+        if ($this->_payments !== null) {
             $this->getPaymentsCollection()->save();
         }
         return $this;
@@ -627,9 +627,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getAllShippingAddresses()
     {
-        $addresses = array();
+        $addresses = [];
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getAddressType()==Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
+            if ($address->getAddressType() == Mage_Sales_Model_Quote_Address::TYPE_SHIPPING
                 && !$address->isDeleted()) {
                 $addresses[] = $address;
             }
@@ -642,7 +642,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getAllAddresses()
     {
-        $addresses = array();
+        $addresses = [];
         foreach ($this->getAddressesCollection() as $address) {
             if (!$address->isDeleted()) {
                 $addresses[] = $address;
@@ -659,7 +659,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function getAddressById($addressId)
     {
         foreach ($this->getAddressesCollection() as $address) {
-            if ($address->getId()==$addressId) {
+            if ($address->getId() == $addressId) {
                 return $address;
             }
         }
@@ -717,7 +717,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function removeAllAddresses()
     {
-        $addressByType = array();
+        $addressByType = [];
         $addressesCollection = $this->getAddressesCollection();
 
         // mark all addresses as deleted
@@ -762,8 +762,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
@@ -780,8 +778,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Enter description here...
-     *
      * @param Mage_Sales_Model_Quote_Address $address
      * @return $this
      */
@@ -836,7 +832,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getAllItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted()) {
                 $items[] =  $item;
@@ -852,7 +848,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getAllVisibleItems()
     {
-        $items = array();
+        $items = [];
         foreach ($this->getItemsCollection() as $item) {
             if (!$item->isDeleted() && !$item->getParentItemId()) {
                 $items[] =  $item;
@@ -938,7 +934,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->removeItem($item->getId());
         } else {
             $quoteItems = $this->getItemsCollection();
-            $items = array($item);
+            $items = [$item];
             if ($item->getHasChildren()) {
                 foreach ($item->getChildren() as $child) {
                     $items[] = $child;
@@ -984,7 +980,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $parent->isDeleted(true);
             }
 
-            Mage::dispatchEvent('sales_quote_remove_item', array('quote_item' => $item));
+            Mage::dispatchEvent('sales_quote_remove_item', ['quote_item' => $item]);
         }
 
         return $this;
@@ -1032,7 +1028,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $item->setQuote($this);
         if (!$item->getId()) {
             $this->getItemsCollection()->addItem($item);
-            Mage::dispatchEvent('sales_quote_add_item', array('quote_item' => $item));
+            Mage::dispatchEvent('sales_quote_add_item', ['quote_item' => $item]);
         }
         return $this;
     }
@@ -1052,7 +1048,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $request = 1;
         }
         if (is_numeric($request)) {
-            $request = new Varien_Object(array('qty'=>$request));
+            $request = new Varien_Object(['qty'=>$request]);
         }
         if (!($request instanceof Varien_Object)) {
             Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote.'));
@@ -1072,12 +1068,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          * If prepare process return one object
          */
         if (!is_array($cartCandidates)) {
-            $cartCandidates = array($cartCandidates);
+            $cartCandidates = [$cartCandidates];
         }
 
         $parentItem = null;
-        $errors = array();
-        $items = array();
+        $errors = [];
+        $items = [];
         foreach ($cartCandidates as $candidate) {
             // Child items can be sticked together only within their parent
             $stickWithinParent = $candidate->getParentProductId() ? $parentItem : null;
@@ -1115,11 +1111,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             Mage::throwException(implode("\n", $errors));
         }
 
-        Mage::dispatchEvent('sales_quote_product_add_after', array('items' => $items));
+        Mage::dispatchEvent('sales_quote_product_add_after', ['items' => $items]);
 
         return $item;
     }
-
 
     /**
      * Add product to quote
@@ -1430,7 +1425,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->getTotalsCollectedFlag()) {
             return $this;
         }
-        Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_before', array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_before', [$this->_eventObject => $this]);
 
         $this->setSubtotal(0);
         $this->setBaseSubtotal(0);
@@ -1495,7 +1490,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $this->setData('trigger_recollect', 0);
         $this->_validateCouponCode();
 
-        Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_after', array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_after', [$this->_eventObject => $this]);
 
         $this->setTotalsCollectedFlag(true);
         return $this;
@@ -1533,9 +1528,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         }
 
-        $sortedTotals = array();
+        $sortedTotals = [];
         foreach ($this->getBillingAddress()->getTotalModels() as $total) {
-            /* @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
+            /** @var Mage_Sales_Model_Quote_Address_Total_Abstract $total */
             if (isset($totals[$total->getCode()])) {
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
             }
@@ -1552,7 +1547,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $messages = $this->getData('messages');
         if (is_null($messages)) {
-            $messages = array();
+            $messages = [];
         }
 
         if (isset($messages[$index])) {
@@ -1577,7 +1572,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $messages = $this->getData('messages');
         if (is_null($messages)) {
-            $messages = array();
+            $messages = [];
             $this->setData('messages', $messages);
         }
         return $messages;
@@ -1590,9 +1585,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function getErrors()
     {
-        $errors = array();
+        $errors = [];
         foreach ($this->getMessages() as $message) {
-            /* @var Mage_Core_Model_Message_Abstract $error */
             if ($message->getType() == Mage_Core_Model_Message::ERROR) {
                 $errors[] = $message;
             }
@@ -1639,7 +1633,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _clearErrorInfo()
     {
-        $this->_errorInfoGroups = array();
+        $this->_errorInfoGroups = [];
         $this->_setHasError(false);
         return $this;
     }
@@ -1686,7 +1680,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             return $this;
         }
 
-        $errorLists = array();
+        $errorLists = [];
         if ($type) {
             $errorLists[] = $this->_errorInfoGroups[$type];
         } else {
@@ -1727,7 +1721,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $messages = $this->getData('messages');
         if (is_null($messages)) {
-            $messages = array();
+            $messages = [];
         }
 
         if (!isset($messages[$type])) {
@@ -1796,7 +1790,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $baseTotal = 0;
                 foreach ($addresses as $address) {
-                    /* @var Mage_Sales_Model_Quote_Address $address */
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
                 if ($baseTotal < $minAmount) {
@@ -1805,7 +1798,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             }
         } else {
             foreach ($addresses as $address) {
-                /* @var Mage_Sales_Model_Quote_Address $address */
                 if (!$address->validateMinimumAmount()) {
                     return false;
                 }
@@ -1824,7 +1816,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $isVirtual = true;
         $countItems = 0;
         foreach ($this->getItemsCollection() as $_item) {
-            /* @var Mage_Sales_Model_Quote_Item $_item */
+            /** @var Mage_Sales_Model_Quote_Item $_item */
             if ($_item->isDeleted() || $_item->getParentItemId()) {
                 continue;
             }
@@ -1876,10 +1868,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
-            array(
+            [
                  $this->_eventObject=>$this,
                  'source'=>$quote
-            )
+            ]
         );
 
         foreach ($quote->getAllVisibleItems() as $item) {
@@ -1919,10 +1911,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
-            array(
+            [
                  $this->_eventObject=>$this,
                  'source'=>$quote
-            )
+            ]
         );
 
         return $this;
@@ -1990,7 +1982,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             throw new Exception('Quote totals must be collected before this operation.');
         }
 
-        $result = array();
+        $result = [];
         foreach ($this->getAllVisibleItems() as $item) {
             $product = $item->getProduct();
             if (is_object($product) && ($product->isRecurring())
@@ -2035,7 +2027,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     protected function _afterLoad()
     {
         // collect totals and save me, if required
-        if (1 == $this->getData('trigger_recollect')) {
+        if ($this->getData('trigger_recollect') == 1) {
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }

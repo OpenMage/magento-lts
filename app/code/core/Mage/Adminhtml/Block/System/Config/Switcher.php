@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +30,6 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
     }
 
     /**
-     * Enter description here...
-     *
      * @return array
      */
     public function getStoreSelectOptions()
@@ -42,7 +40,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
         $curStore   = $this->getRequest()->getParam('store');
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
-        /* @var $storeModel Mage_Adminhtml_Model_System_Store */
+        /** @var Mage_Adminhtml_Model_System_Store $storeModel */
 
         $url = Mage::getModel('adminhtml/url');
 

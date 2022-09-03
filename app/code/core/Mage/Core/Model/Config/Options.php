@@ -38,7 +38,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
      *
      * @var array
      */
-    protected $_dirExists = array();
+    protected $_dirExists = [];
 
     /**
      * Initialize default values of the options

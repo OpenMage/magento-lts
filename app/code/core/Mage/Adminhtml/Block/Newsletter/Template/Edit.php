@@ -12,12 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Adminhtml Newsletter Template Edit Block
@@ -59,76 +58,76 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
 
         $this->setChild('back_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Back'),
                     'onclick'   => "window.location.href = '" . $this->getUrl('*/*') . "'",
                     'class'     => 'back'
-                ))
+                ])
         );
 
         $this->setChild('reset_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
                     'onclick'   => 'window.location.href = window.location.href'
-                ))
+                ])
         );
 
         $this->setChild('to_plain_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Convert to Plain Text'),
                     'onclick'   => 'templateControl.stripTags();',
                     'id'        => 'convert_button',
                     'class'     => 'task'
-                ))
+                ])
         );
 
         $this->setChild('to_html_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Return HTML Version'),
                     'onclick'   => 'templateControl.unStripTags();',
                     'id'        => 'convert_button_back',
                     'style'     => 'display:none',
                     'class'     => 'task'
-                ))
+                ])
         );
 
         $this->setChild('save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save Template'),
                     'onclick'   => 'templateControl.save();',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('save_as_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Save As'),
                     'onclick'   => 'templateControl.saveAs();',
                     'class'     => 'save'
-                ))
+                ])
         );
 
         $this->setChild('preview_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'templateControl.preview();',
                     'class'     => 'task'
-                ))
+                ])
         );
 
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
+                ->setData([
                     'label'     => Mage::helper('newsletter')->__('Delete Template'),
                     'onclick'   => 'templateControl.deleteTemplate();',
                     'class'     => 'delete'
-                ))
+                ])
         );
 
         return parent::_prepareLayout();
@@ -309,7 +308,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
      */
     public function getDeleteUrl()
     {
-        return $this->getUrlSecure('*/*/delete', array('id' => $this->getRequest()->getParam('id')));
+        return $this->getUrlSecure('*/*/delete', ['id' => $this->getRequest()->getParam('id')]);
     }
 
     /**

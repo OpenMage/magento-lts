@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -39,7 +39,6 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('salesrule/coupon'),
     'coupon_id'
 );
-
 
 $installer->getConnection()->addConstraint(
     'FK_SALESRULE_CPN_CUST_CUST_ID_CUST_ENTITY',

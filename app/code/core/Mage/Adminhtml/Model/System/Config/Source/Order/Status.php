@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -24,14 +24,14 @@
 class Mage_Adminhtml_Model_System_Config_Source_Order_Status
 {
     // set null to enable all possible
-    protected $_stateStatuses = array(
+    protected $_stateStatuses = [
         Mage_Sales_Model_Order::STATE_NEW,
         Mage_Sales_Model_Order::STATE_PROCESSING,
         Mage_Sales_Model_Order::STATE_COMPLETE,
         Mage_Sales_Model_Order::STATE_CLOSED,
         Mage_Sales_Model_Order::STATE_CANCELED,
         Mage_Sales_Model_Order::STATE_HOLDED,
-    );
+    ];
 
     public function toOptionArray()
     {
@@ -41,16 +41,16 @@ class Mage_Adminhtml_Model_System_Config_Source_Order_Status
         else {
             $statuses = Mage::getSingleton('sales/order_config')->getStatuses();
         }
-        $options = array();
-        $options[] = array(
+        $options = [];
+        $options[] = [
                'value' => '',
                'label' => Mage::helper('adminhtml')->__('-- Please Select --')
-            );
+        ];
         foreach ($statuses as $code=>$label) {
-            $options[] = array(
+            $options[] = [
                'value' => $code,
                'label' => $label
-            );
+            ];
         }
         return $options;
     }

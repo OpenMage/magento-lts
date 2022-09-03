@@ -19,16 +19,16 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
-$attributes = array(
+$attributes = [
     $installer->getAttributeId('catalog_product', 'price'),
     $installer->getAttributeId('catalog_product', 'special_price'),
     $installer->getAttributeId('catalog_product', 'special_from_date'),
     $installer->getAttributeId('catalog_product', 'special_to_date'),
     $installer->getAttributeId('catalog_product', 'cost'),
     $installer->getAttributeId('catalog_product', 'tier_price'),
-);
+];
 
 $sql    = $installer->getConnection()->quoteInto("SELECT * FROM `{$installer->getTable('eav_attribute')}` WHERE attribute_id IN (?)", $attributes);
 $data   = $installer->getConnection()->fetchAll($sql);

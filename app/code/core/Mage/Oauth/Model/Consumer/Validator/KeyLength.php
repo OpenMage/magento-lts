@@ -39,7 +39,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      *
      * @param  integer|array|Zend_Config $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!is_array($options)) {
             $options     = func_get_args();
@@ -80,11 +80,11 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      *
      * @var array
      */
-    protected $_messageVariables = array(
+    protected $_messageVariables = [
         'min'  => '_min',
         'max'  => '_max',
         'name' => '_name'
-    );
+    ];
 
     /**
      * Set length

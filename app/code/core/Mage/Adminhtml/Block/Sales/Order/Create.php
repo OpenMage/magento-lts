@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,9 +23,8 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     public function __construct()
@@ -82,10 +81,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
      */
     public function getHeaderHtml()
     {
-        $out = '<div id="order-header">'
+        return '<div id="order-header">'
             . $this->getLayout()->createBlock('adminhtml/sales_order_create_header')->toHtml()
             . '</div>';
-        return $out;
     }
 
     /**
@@ -118,9 +116,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create extends Mage_Adminhtml_Block_Widge
     public function getCancelUrl()
     {
         if ($this->_getSession()->getOrder()->getId()) {
-            $url = $this->getUrl('*/sales_order/view', array(
+            $url = $this->getUrl('*/sales_order/view', [
                 'order_id' => Mage::getSingleton('adminhtml/session_quote')->getOrder()->getId()
-            ));
+            ]);
         } else {
             $url = $this->getUrl('*/*/cancel');
         }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Schedule mysql4 resource
  *
@@ -52,8 +51,8 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
         $write = $this->_getWriteAdapter();
         $result = $write->update(
             $this->getTable('cron/schedule'),
-            array('status' => $newStatus),
-            array('schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus)
+            ['status' => $newStatus],
+            ['schedule_id = ?' => $scheduleId, 'status = ?' => $currentStatus]
         );
         if ($result == 1) {
             return true;

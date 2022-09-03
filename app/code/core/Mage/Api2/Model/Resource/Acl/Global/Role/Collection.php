@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 global ACL role resource collection model
  *
- * @category    Mage
- * @package     Mage_Api2
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Api2
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -45,9 +45,9 @@ class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Mode
     {
         $this->getSelect()
             ->joinInner(
-                array('user' => $this->getTable('api2/acl_user')),
+                ['user' => $this->getTable('api2/acl_user')],
                 'main_table.entity_id = user.role_id',
-                array('admin_id' => 'user.admin_id')
+                ['admin_id' => 'user.admin_id']
             )
             ->where('user.admin_id = ?', $id, Zend_Db::INT_TYPE);
 

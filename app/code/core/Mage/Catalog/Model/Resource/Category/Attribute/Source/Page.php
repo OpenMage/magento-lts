@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Catalog category landing page attribute source
  *
@@ -39,7 +38,7 @@ class Mage_Catalog_Model_Resource_Category_Attribute_Source_Page extends Mage_Ea
             $this->_options = Mage::getResourceModel('cms/block_collection')
                 ->load()
                 ->toOptionArray();
-            array_unshift($this->_options, array('value' => '', 'label' => Mage::helper('catalog')->__('Please select a static block ...')));
+            array_unshift($this->_options, ['value' => '', 'label' => Mage::helper('catalog')->__('Please select a static block ...')]);
         }
         return $this->_options;
     }

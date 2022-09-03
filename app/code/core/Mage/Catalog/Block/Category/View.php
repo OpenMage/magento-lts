@@ -92,10 +92,10 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     {
         return Mage::getUrl(
             'rss/catalog/category',
-            array(
+            [
                 'cid' => $this->getCurrentCategory()->getId(),
                 'store_id' => Mage::app()->getStore()->getId()
-            )
+            ]
         );
     }
 

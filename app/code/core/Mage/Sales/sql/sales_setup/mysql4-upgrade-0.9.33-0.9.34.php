@@ -19,10 +19,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('quote', 'ext_shipping_info', array('type' => 'text'));
+$installer->addAttribute('quote', 'ext_shipping_info', ['type' => 'text']);
 
 $installer->endSetup();

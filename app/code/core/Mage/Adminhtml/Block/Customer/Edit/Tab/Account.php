@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,22 +23,15 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
 {
     /**
-     * Initialize block
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Initialize form
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function initForm()
     {
@@ -54,20 +47,20 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             ->setFormCode('adminhtml_customer')
             ->initDefaultValues();
 
-        $fieldset = $form->addFieldset('base_fieldset', array(
+        $fieldset = $form->addFieldset('base_fieldset', [
             'legend' => Mage::helper('customer')->__('Account Information')
-        ));
+        ]);
 
         $attributes = $customerForm->getAttributes();
         foreach ($attributes as $attribute) {
-            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->setNote(Mage::helper('customer')->__($attribute->getNote()));
             $attribute->unsIsVisible();
         }
 
         $disableAutoGroupChangeAttributeName = 'disable_auto_group_change';
-        $this->_setFieldset($attributes, $fieldset, array($disableAutoGroupChangeAttributeName));
+        $this->_setFieldset($attributes, $fieldset, [$disableAutoGroupChangeAttributeName]);
 
         $form->getElement('group_id')->setRenderer($this->getLayout()
             ->createBlock('adminhtml/customer_edit_renderer_attribute_group')
@@ -81,7 +74,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             $fieldset->removeField('created_in');
             $form->getElement('website_id')->addClass('validate-website-has-store');
 
-            $websites = array();
+            $websites = [];
             foreach (Mage::app()->getWebsites(true) as $website) {
                 $websites[$website->getId()] = !is_null($website->getDefaultStore());
             }
@@ -117,7 +110,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $prefixElement = $form->getElement('prefix');
         if ($prefixElement) {
-            $prefixOptions = $this->helper('customer')->getNamePrefixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $prefixOptions = $helper->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
                 $fieldset->removeField($prefixElement->getId());
                 $prefixField = $fieldset->addField($prefixElement->getId(),
@@ -135,7 +130,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
 
         $suffixElement = $form->getElement('suffix');
         if ($suffixElement) {
-            $suffixOptions = $this->helper('customer')->getNameSuffixOptions($customerStoreId);
+            /** @var Mage_Customer_Helper_Data $helper */
+            $helper = $this->helper('customer');
+            $suffixOptions = $helper->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
                 $fieldset->removeField($suffixElement->getId());
                 $suffixField = $fieldset->addField($suffixElement->getId(),
@@ -156,17 +153,17 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                 // Add password management fieldset
                 $newFieldset = $form->addFieldset(
                     'password_fieldset',
-                    array('legend' => Mage::helper('customer')->__('Password Management'))
+                    ['legend' => Mage::helper('customer')->__('Password Management')]
                 );
                 // New customer password
                 $field = $newFieldset->addField('new_password', 'text',
-                    array(
+                    [
                         'label' => Mage::helper('customer')->__('New Password'),
                         'name'  => 'new_password',
                         'class' => 'validate-new-password min-pass-length-' . $minPasswordLength,
                         'note' => Mage::helper('adminhtml')
                             ->__('Password must be at least of %d characters.', $minPasswordLength),
-                    )
+                    ]
                 );
                 $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
 
@@ -177,31 +174,31 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     if (!$confirmationKey) {
                         $confirmationKey = $customer->getRandomConfirmationKey();
                     }
-                    $element = $fieldset->addField('confirmation', 'select', array(
+                    $element = $fieldset->addField('confirmation', 'select', [
                         'name'  => 'confirmation',
                         'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
-                    ))->setEntityAttribute($confirmationAttribute)
-                        ->setValues(array('' => 'Confirmed', $confirmationKey => 'Not confirmed'));
+                    ])->setEntityAttribute($confirmationAttribute)
+                        ->setValues(['' => 'Confirmed', $confirmationKey => 'Not confirmed']);
 
                     // Prepare send welcome email checkbox if customer is not confirmed
                     // no need to add it, if website ID is empty
                     if ($customer->getConfirmation() && $customer->getWebsiteId()) {
-                        $fieldset->addField('sendemail', 'checkbox', array(
+                        $fieldset->addField('sendemail', 'checkbox', [
                             'name'  => 'sendemail',
                             'label' => Mage::helper('customer')->__('Send Welcome Email after Confirmation')
-                        ));
+                        ]);
                         $customer->setData('sendemail', '1');
                     }
                 }
 
                 if (Mage::helper('customer')->getIsRequireAdminUserToChangeUserPassword()) {
                     $field = $newFieldset->addField('current_password', 'obscure',
-                        array(
+                        [
                             'name'  => 'current_password',
                             'label' => Mage::helper('customer')->__('Current Admin Password'),
                             'title' => Mage::helper('customer')->__('Current Admin Password'),
                             'required' => true
-                        )
+                        ]
                     );
                     $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass'));
                 }
@@ -209,33 +206,33 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
         } else {
             $newFieldset = $form->addFieldset(
                 'password_fieldset',
-                array('legend'=>Mage::helper('customer')->__('Password Management'))
+                ['legend'=>Mage::helper('customer')->__('Password Management')]
             );
             $field = $newFieldset->addField('password', 'text',
-                array(
+                [
                     'label' => Mage::helper('customer')->__('Password'),
                     'class' => 'input-text required-entry validate-password min-pass-length-' . $minPasswordLength,
                     'name'  => 'password',
                     'required' => true,
                     'note' => Mage::helper('adminhtml')
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
-                )
+                ]
             );
             $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
 
             // Prepare send welcome email checkbox
-            $fieldset->addField('sendemail', 'checkbox', array(
+            $fieldset->addField('sendemail', 'checkbox', [
                 'label' => Mage::helper('customer')->__('Send Welcome Email'),
                 'name'  => 'sendemail',
                 'id'    => 'sendemail',
-            ));
+            ]);
             $customer->setData('sendemail', '1');
             if (!Mage::app()->isSingleStoreMode()) {
-                $fieldset->addField('sendemail_store_id', 'select', array(
+                $fieldset->addField('sendemail_store_id', 'select', [
                     'label' => $this->helper('customer')->__('Send From'),
                     'name' => 'sendemail_store_id',
                     'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm()
-                ));
+                ]);
             }
         }
 
@@ -285,10 +282,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
      */
     protected function _getAdditionalElementTypes()
     {
-        return array(
+        return [
             'file'      => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_file'),
             'image'     => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_image'),
             'boolean'   => Mage::getConfig()->getBlockClassName('adminhtml/customer_form_element_boolean'),
-        );
+        ];
     }
 }

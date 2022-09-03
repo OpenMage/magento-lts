@@ -12,10 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_ConfigurableSwatches
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Mage
+ * @package    Mage_ConfigurableSwatches
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable_Product_Collection extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection
 {
@@ -48,7 +54,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
         try {
             /**
              * Prepare select query
-             * @var string $query
+             *
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
@@ -62,12 +68,12 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
             if (!isset($this->_items[$v['entity_id']])) {
                 $object = $this->getNewEmptyItem()
                     ->setData($v)
-                    ->setParentIds(array($v['parent_id']));
+                    ->setParentIds([$v['parent_id']]);
                 $this->addItem($object);
                 if (isset($this->_itemsById[$object->getId()])) {
                     $this->_itemsById[$object->getId()][] = $object;
                 } else {
-                    $this->_itemsById[$object->getId()] = array($object);
+                    $this->_itemsById[$object->getId()] = [$object];
                 }
             } else {
                 $parents = $this->_items[$v['entity_id']]->getParentIds();

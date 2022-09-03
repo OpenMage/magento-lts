@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -29,11 +29,11 @@ $websites = $conn->fetchPairs("SELECT store_id, website_id FROM {$this->getTable
 $conn->addColumn($this->getTable('salesrule'), 'website_ids', 'text');
 
 $select = $conn->select()
-    ->from($this->getTable('salesrule'), array('rule_id', 'store_ids'));
+    ->from($this->getTable('salesrule'), ['rule_id', 'store_ids']);
 $rows = $conn->fetchAll($select);
 
 foreach ($rows as $r) {
-    $websiteIds = array();
+    $websiteIds = [];
     foreach (explode(',', $r['store_ids']) as $storeId) {
         if ($storeId!=='') {
             $websiteIds[$websites[$storeId]] = true;
@@ -41,7 +41,7 @@ foreach ($rows as $r) {
     }
     $conn->update(
         $this->getTable('salesrule'),
-        array('website_ids' => implode(',', array_keys($websiteIds))),
+        ['website_ids' => implode(',', array_keys($websiteIds))],
         "rule_id=" . $r['rule_id']
     );
 }

@@ -76,12 +76,12 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
         if ($orderData) {
             $sendConfirmationFlag = (!empty($orderData['send_confirmation'])) ? 1 : 0;
         } else {
-            $orderData = array();
+            $orderData = [];
         }
 
         if (isset($paymentParam['method'])) {
 
-            $result = array();
+            $result = [];
 
             //create order partially
             $this->_getOrderCreateModel()->setPaymentData($paymentParam);
@@ -118,7 +118,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
                             $adminUrl->getSecretKey('authorizenet_directpost_payment','redirect')
                         );
                     }
-                    $result['directpost'] = array('fields' => $requestToPaygate->getData());
+                    $result['directpost'] = ['fields' => $requestToPaygate->getData()];
                 }
 
                 $result['success'] = 1;
@@ -145,9 +145,9 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
         else {
-            $result = array(
+            $result = [
                 'error_messages' => $this->__('Please, choose payment method')
-            );
+            ];
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
         }
     }
@@ -159,7 +159,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
     public function redirectAction()
     {
         $redirectParams = $this->getRequest()->getParams();
-        $params = array();
+        $params = [];
         if (!empty($redirectParams['success'])
             && isset($redirectParams['x_invoice_num'])
             && isset($redirectParams['controller_action_name'])
@@ -169,7 +169,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             //cancel old order
             $oldOrder = $this->_getOrderCreateModel()->getSession()->getOrder();
             if ($oldOrder->getId()) {
-                /* @var $order Mage_Sales_Model_Order */
+                /** @var Mage_Sales_Model_Order $order */
                 $order = Mage::getModel('sales/order')->loadByIncrementId($redirectParams['x_invoice_num']);
                 if ($order->getId()) {
                     $oldOrder->cancel()
@@ -203,7 +203,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
     public function returnQuoteAction()
     {
         $this->_returnQuote();
-        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('success' => 1)));
+        $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(['success' => 1]));
     }
 
     /**
@@ -219,7 +219,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController
             $this->_getDirectPostSession()
                 ->isCheckoutOrderIncrementIdExist($incrementId)
         ) {
-            /* @var $order Mage_Sales_Model_Order */
+            /** @var Mage_Sales_Model_Order $order */
             $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
             if ($order->getId()) {
                 $this->_getDirectPostSession()->removeCheckoutOrderIncrementId($order->getIncrementId());

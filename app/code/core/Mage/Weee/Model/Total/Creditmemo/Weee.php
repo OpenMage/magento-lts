@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Creditmemo_Total_Abstract
 {
     /**
@@ -69,7 +68,7 @@ class Mage_Weee_Model_Total_Creditmemo_Weee extends Mage_Sales_Model_Order_Credi
             $weeeTaxAmount += (Mage::helper('weee')->getWeeeTaxInclTax($item)) * $item->getQty();
             $baseWeeeTaxAmount += (Mage::helper('weee')->getBaseWeeeTaxInclTax($item)) * $item->getQty();
 
-            $newApplied = array();
+            $newApplied = [];
             $applied = Mage::helper('weee')->getApplied($item);
             foreach ($applied as $one) {
                 $one['base_row_amount'] = $one['base_amount'] * $item->getQty();

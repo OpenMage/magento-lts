@@ -18,15 +18,15 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
-$installer->addAttribute('customer', 'password_created_at', array(
+$installer->addAttribute('customer', 'password_created_at', [
     'label'    => 'Password created at',
     'visible'  => false,
     'required' => false,
     'type'     => 'int'
-));
+]);
 
 $installer->endSetup();

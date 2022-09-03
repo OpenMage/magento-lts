@@ -19,10 +19,10 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
-$installer->addAttribute('quote', 'subtotal', array('type'=>'decimal'));
-$installer->addAttribute('quote', 'base_subtotal', array('type'=>'decimal'));
+$installer->addAttribute('quote', 'subtotal', ['type'=>'decimal']);
+$installer->addAttribute('quote', 'base_subtotal', ['type'=>'decimal']);
 
-$installer->addAttribute('quote', 'subtotal_with_discount', array('type'=>'decimal'));
-$installer->addAttribute('quote', 'base_subtotal_with_discount', array('type'=>'decimal'));
+$installer->addAttribute('quote', 'subtotal_with_discount', ['type'=>'decimal']);
+$installer->addAttribute('quote', 'base_subtotal_with_discount', ['type'=>'decimal']);

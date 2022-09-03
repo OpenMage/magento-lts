@@ -18,8 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Eav_Model_Entity_Setup $installer */
+/** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -30,7 +29,7 @@ $designAttributeId = $installer->getAttributeId($entityTypeId, 'custom_design');
 $catalogCategoryEntityIntTable = $installer->getAttributeTable($entityTypeId, $designApplyAttributeId);
 $eavAttributeTable = $installer->getTable('eav/attribute');
 
-$installer->addAttribute($entityTypeId, 'custom_use_parent_settings', array(
+$installer->addAttribute($entityTypeId, 'custom_use_parent_settings', [
     'type'          => 'int',
     'input'         => 'select',
     'label'         => 'Use Parent Category Settings',
@@ -39,8 +38,8 @@ $installer->addAttribute($entityTypeId, 'custom_use_parent_settings', array(
     'group'         => 'Custom Design',
     'sort_order'    => '5',
     'global'        => 0
-));
-$installer->addAttribute($entityTypeId, 'custom_apply_to_products', array(
+]);
+$installer->addAttribute($entityTypeId, 'custom_apply_to_products', [
     'type'          => 'int',
     'input'         => 'select',
     'label'         => 'Apply To Products',
@@ -49,11 +48,9 @@ $installer->addAttribute($entityTypeId, 'custom_apply_to_products', array(
     'group'         => 'Custom Design',
     'sort_order'    => '6',
     'global'        => 0
-));
+]);
 $useParentSettingsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_use_parent_settings');
 $applyToProductsAttributeId = $installer->getAttributeId($entityTypeId, 'custom_apply_to_products');
-
-
 
 $attributeIdExpr = new Zend_Db_Expr(
     'IF (e_a.attribute_id = e.attribute_id,'.
@@ -64,30 +61,30 @@ $productValueExpr = new Zend_Db_Expr('IF (e.value IN (1,3), 1, 0)');
 $valueExpr = new Zend_Db_Expr('IF (e_a.attribute_id = e.attribute_id, 1, '. $productValueExpr .')');
 $select = $installer->getConnection()->select()
     ->from(
-        array('e' => $catalogCategoryEntityIntTable),
-        array(
+        ['e' => $catalogCategoryEntityIntTable],
+        [
             'entity_type_id',
             'attribute_id' => $attributeIdExpr,
             'store_id',
             'entity_id',
             'value' => $valueExpr
-        )
+        ]
     )
     ->joinCross(
-        array('e_a' => $eavAttributeTable),
-        array()
+        ['e_a' => $eavAttributeTable],
+        []
     )
-    ->where('e_a.attribute_id IN (?)', array($designApplyAttributeId, $designAttributeId))
+    ->where('e_a.attribute_id IN (?)', [$designApplyAttributeId, $designAttributeId])
     ->where('e.attribute_id = ?', $designApplyAttributeId)
-    ->order(array('e.entity_id', 'attribute_id'));
+    ->order(['e.entity_id', 'attribute_id']);
 
-$insertArray = array(
+$insertArray = [
     'entity_type_id',
     'attribute_id',
     'store_id',
     'entity_id',
     'value'
-);
+];
 
 $sqlQuery = $select->insertFromSelect($catalogCategoryEntityIntTable, $insertArray, false);
 $installer->getConnection()->query($sqlQuery);

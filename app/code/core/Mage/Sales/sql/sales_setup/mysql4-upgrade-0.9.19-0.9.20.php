@@ -19,11 +19,11 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('order', 'can_ship_partially', array('type'=>'int'));
-$installer->addAttribute('order', 'can_ship_partially_item', array('type'=>'int'));
+$installer->addAttribute('order', 'can_ship_partially', ['type'=>'int']);
+$installer->addAttribute('order', 'can_ship_partially_item', ['type'=>'int']);
 
 $installer->endSetup();

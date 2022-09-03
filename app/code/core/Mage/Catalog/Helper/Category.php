@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Catalog
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
@@ -36,14 +36,14 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
      *
      * @var array
      */
-    protected $_storeCategories = array();
+    protected $_storeCategories = [];
 
     /**
      * Cache for category rewrite suffix
      *
      * @var array
      */
-    protected $_categoryUrlSuffix = array();
+    protected $_categoryUrlSuffix = [];
 
     /**
      * Retrieve current store categories
@@ -66,12 +66,12 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
          * Check if parent node of the store still exists
          */
         $category = Mage::getModel('catalog/category');
-        /* @var Mage_Catalog_Model_Category $category */
+        /** @var Mage_Catalog_Model_Category $category */
         if (!$category->checkId($parent)) {
             if ($asCollection) {
                 return new Varien_Data_Collection();
             }
-            return array();
+            return [];
         }
 
         $recursionLevel  = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));

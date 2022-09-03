@@ -52,9 +52,9 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      */
     public function add($data)
     {
-        $result = array();
+        $result = [];
         foreach (parent::add($data) as $key => $value) {
-            $result[] = array('key' => $key, 'value' => $value);
+            $result[] = ['key' => $key, 'value' => $value];
         }
 
         return $result;
@@ -72,7 +72,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         $result = parent::info($tagId, $store);
         $result = Mage::helper('api')->wsiArrayPacker($result);
         foreach ($result->products as $key => $value) {
-            $result->products[$key] = array('key' => $key, 'value' => $value);
+            $result->products[$key] = ['key' => $key, 'value' => $value];
         }
         return $result;
     }

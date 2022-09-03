@@ -19,8 +19,6 @@
  */
 
 /**
- * Enter description here ...
- *
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
  * @method int getParentId()
@@ -51,7 +49,6 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $_filters;
-
 
     protected function _construct()
     {

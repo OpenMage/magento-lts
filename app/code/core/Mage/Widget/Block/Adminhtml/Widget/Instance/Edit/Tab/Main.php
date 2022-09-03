@@ -95,81 +95,81 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main extends Mage_Adm
     protected function _prepareForm()
     {
         $widgetInstance = $this->getWidgetInstance();
-        $form = new Varien_Data_Form(array(
+        $form = new Varien_Data_Form([
             'id' => 'edit_form',
             'action' => $this->getData('action'),
             'method' => 'post'
-        ));
+        ]);
 
         $fieldset = $form->addFieldset(
             'base_fieldset',
-            array('legend' => Mage::helper('widget')->__('Frontend Properties'))
+            ['legend' => Mage::helper('widget')->__('Frontend Properties')]
         );
 
         if ($widgetInstance->getId()) {
-            $fieldset->addField('instance_id', 'hidden', array(
+            $fieldset->addField('instance_id', 'hidden', [
                 'name' => 'isntance_id',
-            ));
+            ]);
         }
 
         $this->_addElementTypes($fieldset);
 
-        $fieldset->addField('type', 'select', array(
+        $fieldset->addField('type', 'select', [
             'name'  => 'type',
             'label' => Mage::helper('widget')->__('Type'),
             'title' => Mage::helper('widget')->__('Type'),
             'class' => '',
             'values' => $this->getTypesOptionsArray(),
             'disabled' => true
-        ));
+        ]);
 
-        $fieldset->addField('package_theme', 'select', array(
+        $fieldset->addField('package_theme', 'select', [
             'name'  => 'package_theme',
             'label' => Mage::helper('widget')->__('Design Package/Theme'),
             'title' => Mage::helper('widget')->__('Design Package/Theme'),
             'required' => false,
             'values'   => $this->getPackegeThemeOptionsArray(),
             'disabled' => true
-        ));
+        ]);
 
-        $fieldset->addField('title', 'text', array(
+        $fieldset->addField('title', 'text', [
             'name'  => 'title',
             'label' => Mage::helper('widget')->__('Widget Instance Title'),
             'title' => Mage::helper('widget')->__('Widget Instance Title'),
             'class' => '',
             'required' => true,
-        ));
+        ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
-            $field = $fieldset->addField('store_ids', 'multiselect', array(
+            $field = $fieldset->addField('store_ids', 'multiselect', [
                 'name'      => 'store_ids[]',
                 'label'     => Mage::helper('widget')->__('Assign to Store Views'),
                 'title'     => Mage::helper('widget')->__('Assign to Store Views'),
                 'required'  => true,
                 'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-            ));
+            ]);
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             $field->setRenderer($renderer);
         }
 
-        $fieldset->addField('sort_order', 'text', array(
+        $fieldset->addField('sort_order', 'text', [
             'name'  => 'sort_order',
             'label' => Mage::helper('widget')->__('Sort Order'),
             'title' => Mage::helper('widget')->__('Sort Order'),
             'class' => '',
             'required' => false,
             'note' => Mage::helper('widget')->__('Sort Order of widget instances in the same block reference')
-        ));
+        ]);
 
         $layoutBlock = $this->getLayout()
             ->createBlock('widget/adminhtml_widget_instance_edit_tab_main_layout')
             ->setWidgetInstance($widgetInstance);
         $fieldset = $form->addFieldset(
             'layout_updates_fieldset',
-            array('legend' => Mage::helper('widget')->__('Layout Updates'))
+            ['legend' => Mage::helper('widget')->__('Layout Updates')]
         );
-        $fieldset->addField('layout_updates', 'note', array(
-        ));
+        $fieldset->addField('layout_updates', 'note', [
+        ]);
         $form->getElement('layout_updates_fieldset')->setRenderer($layoutBlock);
         $this->setForm($form);
 

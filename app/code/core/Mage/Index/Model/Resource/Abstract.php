@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Index
+ * @category   Mage
+ * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract resource model. Can be used as base for indexer resources
  *
- * @category    Mage
- * @package     Mage_Index
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Index
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resource_Db_Abstract
 {
@@ -144,7 +144,9 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
         }
         $select = $this->_getIndexAdapter()->select()->from($sourceTable, $sourceColumns);
 
-        Mage::getResourceHelper('index')->insertData($this, $select, $destTable, $targetColumns, $readToIndex);
+        /** @var Mage_Index_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('index');
+        $helper->insertData($this, $select, $destTable, $targetColumns, $readToIndex);
         return $this;
     }
 
@@ -173,14 +175,14 @@ abstract class Mage_Index_Model_Resource_Abstract extends Mage_Core_Model_Resour
             $to->query($query);
         } else {
             $stmt = $from->query($select);
-            $data = array();
+            $data = [];
             $counter = 0;
             while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $data[] = $row;
                 $counter++;
                 if ($counter>2000) {
                     $to->insertArray($destTable, $columns, $data);
-                    $data = array();
+                    $data = [];
                     $counter = 0;
                 }
             }

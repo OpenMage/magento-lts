@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
@@ -30,18 +30,18 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
     // catalogrule
     $conn->addColumn($ruleTable, 'website_ids', 'text');
     $select = $conn->select()
-        ->from($ruleTable, array('rule_id', 'store_ids'));
+        ->from($ruleTable, ['rule_id', 'store_ids']);
     $rows = $conn->fetchAll($select);
 
     foreach ($rows as $r) {
-        $websiteIds = array();
+        $websiteIds = [];
         foreach (explode(',', $r['store_ids']) as $storeId) {
             if (($storeId!=='') && isset($websites[$storeId])) {
                 $websiteIds[$websites[$storeId]] = true;
             }
         }
 
-        $conn->update($ruleTable, array('website_ids' => implode(',', array_keys($websiteIds))), "rule_id=" . $r['rule_id']);
+        $conn->update($ruleTable, ['website_ids' => implode(',', array_keys($websiteIds))], "rule_id=" . $r['rule_id']);
     }
     $conn->dropColumn($ruleTable, 'store_ids');
 }
@@ -50,7 +50,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
 $ruleProductTable = $this->getTable('catalogrule_product');
 if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     $conn->addColumn($ruleProductTable, 'website_id', 'smallint unsigned not null');
-    $unique = array();
+    $unique = [];
 
     $select = $conn->select()
         ->from($ruleProductTable);
@@ -63,7 +63,7 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
         if (isset($unique[$key])) {
             $conn->delete($ruleProductTable, $conn->quoteInto("rule_product_id=?", $r['rule_product_id']));
         } else {
-            $conn->update($ruleProductTable, array('website_id'=>$websiteId), "rule_product_id=".$r['rule_product_id']);
+            $conn->update($ruleProductTable, ['website_id'=>$websiteId], "rule_product_id=".$r['rule_product_id']);
             $unique[$key] = true;
         }
     }
@@ -76,7 +76,6 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
     $conn->dropForeignKey($ruleProductTable, 'FK_catalogrule_product_website');
     $conn->raw_query("ALTER TABLE `$ruleProductTable` ADD CONSTRAINT `FK_catalogrule_product_website` FOREIGN KEY (`website_id`) REFERENCES `{$this->getTable('core_website')}` (`website_id`) ON DELETE CASCADE ON UPDATE CASCADE");
 }
-
 
 // catalogrule_product_price
 $ruleProductPriceTable = $this->getTable('catalogrule_product_price');

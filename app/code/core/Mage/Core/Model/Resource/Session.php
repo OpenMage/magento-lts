@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Mysql4 session save handler
  *
@@ -144,12 +143,12 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     {
         if ($this->hasConnection()) {
             session_set_save_handler(
-                array($this, 'open'),
-                array($this, 'close'),
-                array($this, 'read'),
-                array($this, 'write'),
-                array($this, 'destroy'),
-                array($this, 'gc')
+                [$this, 'open'],
+                [$this, 'close'],
+                [$this, 'read'],
+                [$this, 'write'],
+                [$this, 'destroy'],
+                [$this, 'gc']
             );
         } else {
             session_save_path(Mage::getBaseDir('session'));
@@ -199,13 +198,13 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
     public function read($sessId)
     {
         $select = $this->_read->select()
-                ->from($this->_sessionTable, array('session_data'))
+                ->from($this->_sessionTable, ['session_data'])
                 ->where('session_id = :session_id')
                 ->where('session_expires > :session_expires');
-        $bind = array(
+        $bind = [
             'session_id'      => $sessId,
             'session_expires' => Varien_Date::toTimestamp(true)
-        );
+        ];
 
         $data = $this->_read->fetchOne($select, $bind);
 
@@ -221,22 +220,22 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      */
     public function write($sessId, $sessData)
     {
-        $bindValues = array(
+        $bindValues = [
             'session_id'      => $sessId
-        );
+        ];
         $select = $this->_write->select()
                 ->from($this->_sessionTable)
                 ->where('session_id = :session_id');
         $exists = $this->_read->fetchOne($select, $bindValues);
 
-        $bind = array(
+        $bind = [
             'session_expires' => Varien_Date::toTimestamp(true) + $this->getLifeTime(),
             'session_data' => $sessData
-        );
+        ];
         if ($exists) {
-            $where = array(
+            $where = [
                 'session_id=?' => $sessId
-            );
+            ];
             $this->_write->update($this->_sessionTable, $bind, $where);
         } else {
             $bind['session_id'] = $sessId;
@@ -254,7 +253,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
      */
     public function destroy($sessId)
     {
-        $where = array('session_id = ?' => $sessId);
+        $where = ['session_id = ?' => $sessId];
         $this->_write->delete($this->_sessionTable, $where);
         return true;
     }
@@ -270,7 +269,7 @@ class Mage_Core_Model_Resource_Session implements Zend_Session_SaveHandler_Inter
         if ($this->_automaticCleaningFactor > 0) {
             if ($this->_automaticCleaningFactor == 1 ||
                 rand(1, $this->_automaticCleaningFactor) == 1) {
-                $where = array('session_expires < ?' => Varien_Date::toTimestamp(true));
+                $where = ['session_expires < ?' => Varien_Date::toTimestamp(true)];
                 $this->_write->delete($this->_sessionTable, $where);
             }
         }

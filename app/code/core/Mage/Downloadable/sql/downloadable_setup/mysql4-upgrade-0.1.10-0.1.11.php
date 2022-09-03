@@ -19,7 +19,7 @@
  */
 
 $installer = $this;
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 
 $installer->startSetup();
 
@@ -29,7 +29,6 @@ $installer->getConnection()->addColumn($installer->getTable('downloadable/link')
 
 $conn->dropForeignKey($installer->getTable('downloadable/link_purchased'), 'FK_DOWNLOADABLE_ORDER_ITEM_ID');
 $conn->dropKey($installer->getTable('downloadable/link_purchased'), 'DOWNLOADABLE_ORDER_ITEM_ID');
-
 
 $installer->run("
 CREATE TABLE `{$installer->getTable('downloadable/link_purchased_item')}`(

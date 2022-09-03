@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Eav Mysql resource helper model
  *
@@ -61,7 +60,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
         $precision  = null;
         $scale      = null;
 
-        $matches = array();
+        $matches = [];
         if (preg_match('/^((?:var)?char)\((\d+)\)/', $type, $matches)) {
             $type       = $matches[1];
             $length     = $matches[2];

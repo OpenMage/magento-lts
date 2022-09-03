@@ -45,16 +45,16 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         $product = $this->_getProduct($productId, $store, $identifierType);
 
-        $result = array( // Basic product data
+        $result = [ // Basic product data
             'product_id' => $product->getId(),
             'sku'        => $product->getSku(),
             'set'        => $product->getAttributeSetId(),
             'type'       => $product->getTypeId(),
             'categories' => $product->getCategoryIds(),
             'websites'   => $product->getWebsiteIds()
-        );
+        ];
 
-        $allAttributes = array();
+        $allAttributes = [];
         if (!empty($attributes->attributes)) {
             $allAttributes = array_merge($allAttributes, $attributes->attributes);
         } else {
@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
             }
         }
 
-        $_additionalAttributeCodes = array();
+        $_additionalAttributeCodes = [];
         if (!empty($attributes->additional_attributes)) {
             foreach ($attributes->additional_attributes as $k => $_attributeCode) {
                 $allAttributes[] = $_attributeCode;
@@ -118,7 +118,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         if (!property_exists($productData, 'stock_data')) {
             //Set default stock_data if not exist in product data
-            $_stockData = array('use_config_manage_stock' => 0);
+            $_stockData = ['use_config_manage_stock' => 0];
             $product->setStockData($_stockData);
         }
 
@@ -135,7 +135,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
              * @todo see Mage_Catalog_Model_Product::validate()
              */
             if (is_array($errors = $product->validate())) {
-                $strErrors = array();
+                $strErrors = [];
                 foreach ($errors as $code => $error) {
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
@@ -176,7 +176,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
              * @todo see Mage_Catalog_Model_Product::validate()
              */
             if (is_array($errors = $product->validate())) {
-                $strErrors = array();
+                $strErrors = [];
                 foreach ($errors as $code => $error) {
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid.', $code);
@@ -212,7 +212,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         }
 
         $productData = (array)$productData;
-        $failMessages = array();
+        $failMessages = [];
 
         foreach ($productIds as $index => $productId) {
             try {
@@ -300,11 +300,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         }
 
         if (Mage::app()->isSingleStoreMode()) {
-            $product->setWebsiteIds(array(Mage::app()->getStore(true)->getWebsite()->getId()));
+            $product->setWebsiteIds([Mage::app()->getStore(true)->getWebsite()->getId()]);
         }
 
         if (property_exists($productData, 'stock_data')) {
-            $_stockData = array();
+            $_stockData = [];
             foreach ($productData->stock_data as $key => $value) {
                 $_stockData[$key] = $value;
             }

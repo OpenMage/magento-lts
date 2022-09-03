@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Bundle
+ * @category   Mage
+ * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -35,7 +35,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getChilds($item)
     {
-        $_itemsArray = array();
+        $_itemsArray = [];
 
         if ($item instanceof Mage_Sales_Model_Order_Invoice_Item) {
             $_items = $item->getInvoice()->getAllItems();
@@ -173,7 +173,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return $options['bundle_options'];
             }
         }
-        return array();
+        return [];
     }
 
     /**
@@ -203,7 +203,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
      */
     public function getOrderOptions($item = null)
     {
-        $result = array();
+        $result = [];
 
         $options = $this->getOrderItem()->getProductOptions();
         if ($options) {

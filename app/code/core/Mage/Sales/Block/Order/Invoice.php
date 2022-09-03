@@ -38,12 +38,17 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
+        /** @var Mage_Page_Block_Html_Head $headBlock */
+        $headBlock = $this->getLayout()->getBlock('head');
+        if ($headBlock) {
             $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
+
+        /** @var Mage_Payment_Helper_Data $helper */
+        $helper = $this->helper('payment');
         $this->setChild(
             'payment_info',
-            $this->helper('payment')->getInfoBlock($this->getOrder()->getPayment())
+            $helper->getInfoBlock($this->getOrder()->getPayment())
         );
     }
 
@@ -97,7 +102,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     public function getViewUrl($order)
     {
-        return Mage::getUrl('*/*/view', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/view', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -106,7 +111,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     public function getShipmentUrl($order)
     {
-        return Mage::getUrl('*/*/shipment', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/shipment', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -115,7 +120,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     public function getCreditmemoUrl($order)
     {
-        return Mage::getUrl('*/*/creditmemo', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/creditmemo', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -124,7 +129,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     public function getPrintInvoiceUrl($invoice)
     {
-        return Mage::getUrl('*/*/printInvoice', array('invoice_id' => $invoice->getId()));
+        return Mage::getUrl('*/*/printInvoice', ['invoice_id' => $invoice->getId()]);
     }
 
     /**
@@ -133,6 +138,6 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
      */
     public function getPrintAllInvoicesUrl($order)
     {
-        return Mage::getUrl('*/*/printInvoice', array('order_id' => $order->getId()));
+        return Mage::getUrl('*/*/printInvoice', ['order_id' => $order->getId()]);
     }
 }

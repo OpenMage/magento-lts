@@ -18,19 +18,18 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Sales_Model_Mysql4_Setup $installer */
+/** @var Mage_Sales_Model_Resource_Setup $installer */
 $installer = $this;
 
 $orderEntityType = $installer->getEntityType('order');
 $orderEntityTypeId = $orderEntityType['entity_type_id'];
 
-$attributes = array(
+$attributes = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
-);
+];
 
 foreach ($attributes as $attribute) {
     $installer->getConnection()->addColumn($this->getTable('sales_order'), $attribute['attribute_code'], 'decimal(12,4) NULL');
@@ -56,7 +55,7 @@ try {
     }
 
     foreach ($attributes as $attribute) {
-        $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], array('backend_type' => 'static'));
+        $installer->updateAttribute($orderEntityTypeId, $attribute['attribute_code'], ['backend_type' => 'static']);
     }
 
     $installer->getConnection()->commit();

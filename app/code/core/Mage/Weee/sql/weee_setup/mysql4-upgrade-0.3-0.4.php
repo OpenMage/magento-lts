@@ -19,11 +19,11 @@
  */
 
 $installer = $this;
-/* @var Mage_Weee_Model_Mysql4_Setup $installer */
+/** @var Mage_Weee_Model_Resource_Setup $installer */
 
 $installer->startSetup();
 
-$installer->addAttribute('quote_item', 'weee_tax_applied', array('type'=>'text'));
-$installer->addAttribute('order_item', 'weee_tax_applied', array('type'=>'text'));
+$installer->addAttribute('quote_item', 'weee_tax_applied', ['type'=>'text']);
+$installer->addAttribute('order_item', 'weee_tax_applied', ['type'=>'text']);
 
 $installer->endSetup();

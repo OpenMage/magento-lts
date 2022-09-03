@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Quote payment resource model
  *
@@ -33,9 +32,9 @@ class Mage_Sales_Model_Resource_Quote_Payment extends Mage_Sales_Model_Resource_
      *
      * @var array
      */
-    protected $_serializableFields   = array(
-        'additional_information' => array(null, array())
-    );
+    protected $_serializableFields   = [
+        'additional_information' => [null, []]
+    ];
 
     /**
      * Main table and field initialization

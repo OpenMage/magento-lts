@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         parent::_construct();
         $this->setTemplate('page/menu.phtml');
         $this->_url = Mage::getModel('adminhtml/url');
-        $this->setCacheTags(array(self::CACHE_TAGS));
+        $this->setCacheTags([self::CACHE_TAGS]);
     }
 
     /**
@@ -68,12 +68,12 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     public function getCacheKeyInfo()
     {
-        $cacheKeyInfo = array(
+        $cacheKeyInfo = [
             'admin_top_nav',
             $this->getActive(),
             Mage::getSingleton('admin/session')->getUser()->getId(),
             Mage::app()->getLocale()->getLocaleCode()
-        );
+        ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
         if (is_array($additionalCacheKeyInfo) && !empty($additionalCacheKeyInfo)) {
@@ -122,10 +122,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path='', $level=0)
     {
-        $parentArr = array();
+        $parentArr = [];
         $sortOrder = 0;
         foreach ($parent->children() as $childName => $child) {
-            if (1 == $child->disabled) {
+            if ($child->disabled == 1) {
                 continue;
             }
 
@@ -138,14 +138,14 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 continue;
             }
 
-            $menuArr = array();
+            $menuArr = [];
 
             $menuArr['label'] = $this->_getHelperValue($child);
 
             $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = $this->_url->getUrl((string)$child->action, array('_cache_secret_key' => true));
+                $menuArr['url'] = $this->_url->getUrl((string)$child->action, ['_cache_secret_key' => true]);
             } else {
                 $menuArr['url'] = '#';
                 $menuArr['click'] = 'return false';
@@ -168,7 +168,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             $sortOrder++;
         }
 
-        uasort($parentArr, array($this, '_sortMenu'));
+        uasort($parentArr, [$this, '_sortMenu']);
 
         foreach($parentArr as $key => $value) {
             $last = $key;
@@ -252,7 +252,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', array($this, '_callbackSecretKey'), $html);
+        $html = preg_replace_callback('#'.Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME.'/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
 
         return $html;
     }

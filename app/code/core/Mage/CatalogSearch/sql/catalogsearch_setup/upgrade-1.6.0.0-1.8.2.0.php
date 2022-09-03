@@ -23,5 +23,5 @@ $installer = $this;
 $connection = $installer->getConnection();
 
 $tableName = $installer->getTable('catalogsearch/search_query');
-$indexNameToCreate = $installer->getIdxName($tableName, array('synonym_for'));
-$connection->addIndex($tableName, $indexNameToCreate, array('synonym_for'));
+$indexNameToCreate = $installer->getIdxName($tableName, ['synonym_for']);
+$connection->addIndex($tableName, $indexNameToCreate, ['synonym_for']);

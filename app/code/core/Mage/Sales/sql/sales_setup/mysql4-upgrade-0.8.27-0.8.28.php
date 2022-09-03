@@ -19,12 +19,12 @@
  */
 
 $installer = $this;
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 
-$installer->addAttribute('quote', 'customer_prefix', array('type'=>'static'));
-$installer->addAttribute('quote', 'customer_middlename', array('type'=>'static'));
-$installer->addAttribute('quote', 'customer_suffix', array('type'=>'static'));
+$installer->addAttribute('quote', 'customer_prefix', ['type'=>'static']);
+$installer->addAttribute('quote', 'customer_middlename', ['type'=>'static']);
+$installer->addAttribute('quote', 'customer_suffix', ['type'=>'static']);
 
-$installer->addAttribute('quote_address', 'prefix', array('type'=>'static'));
-$installer->addAttribute('quote_address', 'middlename', array('type'=>'static'));
-$installer->addAttribute('quote_address', 'suffix', array('type'=>'static'));
+$installer->addAttribute('quote_address', 'prefix', ['type'=>'static']);
+$installer->addAttribute('quote_address', 'middlename', ['type'=>'static']);
+$installer->addAttribute('quote_address', 'suffix', ['type'=>'static']);

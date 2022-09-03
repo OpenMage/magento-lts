@@ -18,33 +18,31 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
-/* @var Mage_Customer_Model_Entity_Setup $installer */
+/** @var Mage_Customer_Model_Entity_Setup $installer */
 $installer = $this;
 
-/* @var Mage_Customer_Helper_Address $addressHelper */
+/** @var Mage_Customer_Helper_Address $addressHelper */
 $addressHelper = Mage::helper('customer/address');
 
-/* @var Mage_Eav_Model_Config $eavConfig */
+/** @var Mage_Eav_Model_Config $eavConfig */
 $eavConfig = Mage::getSingleton('eav/config');
 
 $websites  = Mage::app()->getWebsites(false);
 foreach ($websites as $website) {
-    /* @var Mage_Core_Model_Website $website */
     $store = $website->getDefaultStore();
     if (!$store) {
         continue;
     }
 
     // customer attributes
-    $attributes = array(
+    $attributes = [
         'prefix',
         'middlename',
         'suffix',
         'dob',
         'taxvat',
         'gender'
-    );
+    ];
 
     foreach ($attributes as $attributeCode) {
         /** @var Mage_Customer_Model_Attribute $attribute */
@@ -73,11 +71,11 @@ foreach ($websites as $website) {
     }
 
     // customer address attributes
-    $attributes = array(
+    $attributes = [
         'prefix',
         'middlename',
         'suffix',
-    );
+    ];
 
     foreach ($attributes as $attributeCode) {
         $attribute      = $eavConfig->getAttribute('customer_address', $attributeCode);

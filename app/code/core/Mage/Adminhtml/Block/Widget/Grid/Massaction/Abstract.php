@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,7 +25,7 @@
  * @method boolean getHideFormElement()
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
@@ -34,7 +34,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      *
      * @var array
      */
-    protected $_items = array();
+    protected $_items = [];
 
     /**
      * Sets Massaction template
@@ -108,7 +108,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getItemsJson()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getItems() as $itemId=>$item) {
             $result[$itemId] = $item->toArray();
         }
@@ -202,7 +202,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
             $selected = explode(',', $this->quoteEscape($selected));
             return $selected;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -306,5 +306,4 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
         return $groupedItems;
     }
-
 }

@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Reports Event observer model
  *
@@ -285,7 +284,7 @@ class Mage_Reports_Model_Event_Observer
      */
     public function eventClean(Varien_Event_Observer $observer)
     {
-        /* @var Mage_Reports_Model_Event $event */
+        /** @var Mage_Reports_Model_Event $event */
         $event = Mage::getModel('reports/event');
         $event->clean();
 

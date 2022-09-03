@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,15 +37,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
     {
         $options = $this->getOptions();
         if ($this->getColumn()->getWithEmpty()) {
-            array_unshift($options, array(
+            array_unshift($options, [
                 'value' => '',
                 'label' => ''
-            ));
+            ]);
         }
-        $html = sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
+        return sprintf('<select name="%s" id="%s" class="no-changes">', $this->_getHtmlName(), $this->_getHtmlId())
             . $this->_drawOptions($options)
             . '</select>';
-        return $html;
     }
 
     /**
@@ -110,6 +109,6 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme
         if ($value == 'all') {
             $value = '';
         }
-        return array('eq' => $value);
+        return ['eq' => $value];
     }
 }

@@ -12,14 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Backup
+ * @category   Mage
+ * @package    Mage_Backup
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Backup data helper
+ * @category    Mage
+ * @package     Mage_Backup
+ * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -55,12 +57,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupTypes()
     {
-        return array(
+        return [
             self::TYPE_DB                     => $this->__('Database'),
             self::TYPE_MEDIA                  => $this->__('Database and Media'),
             self::TYPE_SYSTEM_SNAPSHOT        => $this->__('System'),
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('System (excluding Media)')
-        );
+        ];
     }
 
     /**
@@ -70,12 +72,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupTypesList()
     {
-        return array(
+        return [
             self::TYPE_DB,
             self::TYPE_SYSTEM_SNAPSHOT,
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA,
             self::TYPE_MEDIA
-        );
+        ];
     }
 
     /**
@@ -117,12 +119,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getExtensions()
     {
-        return array(
+        return [
             self::TYPE_SYSTEM_SNAPSHOT => 'tgz',
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => 'tgz',
             self::TYPE_MEDIA => 'tgz',
             self::TYPE_DB => 'gz'
-        );
+        ];
     }
 
     /**
@@ -154,7 +156,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBackupIgnorePaths()
     {
-        return array(
+        return [
             '.svn',
             'maintenance.flag',
             Mage::getBaseDir('var') . DS . 'session',
@@ -163,7 +165,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getBaseDir('var') . DS . 'locks',
             Mage::getBaseDir('var') . DS . 'log',
             Mage::getBaseDir('var') . DS . 'report'
-        );
+        ];
     }
 
     /**
@@ -173,7 +175,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRollbackIgnorePaths()
     {
-        return array(
+        return [
             '.svn',
             'maintenance.flag',
             Mage::getBaseDir('var') . DS . 'session',
@@ -183,7 +185,7 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getBaseDir('app') . DS . 'Mage.php',
             Mage::getBaseDir() . DS . 'errors',
             Mage::getBaseDir() . DS . 'index.php'
-        );
+        ];
     }
 
     /**
@@ -216,12 +218,12 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCreateSuccessMessageByType($type)
     {
-        $messagesMap = array(
+        $messagesMap = [
             self::TYPE_SYSTEM_SNAPSHOT => $this->__('The system backup has been created.'),
             self::TYPE_SNAPSHOT_WITHOUT_MEDIA => $this->__('The system (excluding Media) backup has been created.'),
             self::TYPE_MEDIA => $this->__('The database and media backup has been created.'),
             self::TYPE_DB => $this->__('The database backup has been created.')
-        );
+        ];
 
         if (!isset($messagesMap[$type])) {
             return;
@@ -306,11 +308,11 @@ class Mage_Backup_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $result = new Varien_Object();
-        $result->addData(array(
+        $result->addData([
             'name' => $name,
             'type' => $type,
             'time' => $time
-        ));
+        ]);
 
         return $result;
     }

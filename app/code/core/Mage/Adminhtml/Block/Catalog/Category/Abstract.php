@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -27,12 +27,6 @@
  */
 class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Block_Template
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Retrieve current category instance
      *
@@ -133,7 +127,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     public function getRootByIds($ids)
     {
         $root = Mage::registry('root');
-        if (null === $root) {
+        if ($root === null) {
             $categoryTreeResource = Mage::getResourceSingleton('catalog/category_tree');
             $ids    = $categoryTreeResource->getExistingCategoryIdsBySpecifiedIds($ids);
             $tree   = $categoryTreeResource->loadByIds($ids);
@@ -172,16 +166,16 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         return $node;
     }
 
-    public function getSaveUrl(array $args = array())
+    public function getSaveUrl(array $args = [])
     {
-        $params = array('_current'=>true);
+        $params = ['_current'=>true];
         $params = array_merge($params, $args);
         return $this->getUrl('*/*/save', $params);
     }
 
     public function getEditUrl()
     {
-        return $this->getUrl("*/catalog_category/edit", array('_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null));
+        return $this->getUrl("*/catalog_category/edit", ['_current'=>true, 'store'=>null, '_query'=>false, 'id'=>null, 'parent'=>null]);
     }
 
     /**
@@ -193,7 +187,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
     {
         $ids = $this->getData('root_ids');
         if (is_null($ids)) {
-            $ids = array();
+            $ids = [];
             foreach (Mage::app()->getGroups() as $store) {
                 $ids[] = $store->getRootCategoryId();
             }

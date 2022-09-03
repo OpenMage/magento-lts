@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
+/** @var Mage_Catalog_Model_Resource_Eav_Mysql4_Setup $installer */
 $installer = $this;
 
 $installer->startSetup();
@@ -38,6 +38,5 @@ $installer->getConnection()->dropForeignKey(
     $installer->getTable('downloadable_link_purchased_item'),
     'FK_DOWNLOADABLE_ORDER_ITEM_ID'
 );
-
 
 $installer->endSetup();

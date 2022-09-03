@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Api2
+ * @category   Mage
+ * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -39,13 +39,13 @@ class Mage_Api2_Model_Acl_Global
     public function isAllowed(Mage_Api2_Model_Auth_User_Abstract $apiUser, $resourceType, $operation)
     {
         // skip user without role, e.g. Customer
-        if (null === $apiUser->getRole()) {
+        if ($apiUser->getRole() === null) {
             return true;
         }
         /** @var Mage_Api2_Model_Acl $aclInstance */
         $aclInstance = Mage::getSingleton(
             'api2/acl',
-            array('resource_type' => $resourceType, 'operation' => $operation)
+            ['resource_type' => $resourceType, 'operation' => $operation]
         );
 
         if (!$aclInstance->hasRole($apiUser->getRole())) {

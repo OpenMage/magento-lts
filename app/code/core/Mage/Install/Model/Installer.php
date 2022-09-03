@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Installer model
  *
@@ -153,7 +152,6 @@ class Mage_Install_Model_Installer extends Varien_Object
             $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 0);
         }
 
-
         $unsecureBaseUrl = Mage::getBaseUrl('web');
         if (!empty($data['unsecure_base_url'])) {
             $unsecureBaseUrl = $data['unsecure_base_url'];
@@ -241,7 +239,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         $data->setForceNewPassword(true);
 
         $data->save();
-        $data->setRoleIds(array(1))->saveRelations();
+        $data->setRoleIds([1])->saveRelations();
 
         /*Mage::getModel("permissions/user")->setRoleId(1)
             ->setUserId($user->getId())
@@ -256,11 +254,11 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Returns TRUE or array of error messages.
      *
      * @param string $key
-     * @return unknown_type
+     * @return string[]|true
      */
     public function validateEncryptionKey($key)
     {
-        $errors = array();
+        $errors = [];
 
         try {
             if ($key) {
@@ -298,7 +296,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         Mage::getSingleton('install/installer_config')->replaceTmpInstallDate();
         Mage::app()->cleanCache();
 
-        $cacheData = array();
+        $cacheData = [];
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }

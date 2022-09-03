@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Adminhtml sales order item renderer
  *
@@ -130,7 +129,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
      */
     public function getOrderOptions()
     {
-        $result = array();
+        $result = [];
         if ($options = $this->getItem()->getProductOptions()) {
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);

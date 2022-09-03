@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -25,7 +25,6 @@
  * @package    Mage_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extends Mage_Adminhtml_Block_Widget
 {
     protected $_name = 'abstract';
@@ -34,10 +33,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
     {
         $this->setChild('option_price_type',
             $this->getLayout()->createBlock('adminhtml/html_select')
-                ->setData(array(
+                ->setData([
                     'id' => 'product_option_{{option_id}}_price_type',
                     'class' => 'select product-option-price-type'
-                ))
+                ])
         );
 
         $this->getChild('option_price_type')->setName('product[options][{{option_id}}][price_type]')
@@ -59,5 +58,4 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract extend
         }
         return $this->getChildHtml('option_price_type');
     }
-
 }

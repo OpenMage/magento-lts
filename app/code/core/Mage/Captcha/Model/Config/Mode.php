@@ -12,8 +12,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Captcha
+ * @category   Mage
+ * @package    Mage_Captcha
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,15 +34,15 @@ class Mage_Captcha_Model_Config_Mode
      */
     public function toOptionArray()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => Mage::helper('captcha')->__('Always'),
                 'value' => Mage_Captcha_Helper_Data::MODE_ALWAYS
-            ),
-            array(
+            ],
+            [
                 'label' => Mage::helper('captcha')->__('After number of attempts to login'),
                 'value' => Mage_Captcha_Helper_Data::MODE_AFTER_FAIL
-            ),
-        );
+            ],
+        ];
     }
 }

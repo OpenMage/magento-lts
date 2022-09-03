@@ -35,7 +35,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
     protected function _construct()
     {
         parent::_construct();
-        $this->setTagParams(array());
+        $this->setTagParams([]);
     }
 
     /**

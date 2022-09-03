@@ -132,23 +132,23 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function getVariablesOptionArray($withGroup = false)
     {
-        /* @var Mage_Core_Model_Mysql4_Variable_Collection $collection */
+        /** @var Mage_Core_Model_Resource_Variable_Collection $collection */
         $collection = $this->getCollection();
-        $variables = array();
+        $variables = [];
         foreach ($collection->toOptionArray() as $variable) {
-            $variables[] = array(
+            $variables[] = [
                 'value' => '{{customVar code=' . $variable['value'] . '}}',
                 'label' => Mage::helper('core')->__(
                     '%s',
                     Mage::helper('core')->escapeHtml($variable['label'])
                 )
-            );
+            ];
         }
         if ($withGroup && $variables) {
-            $variables = array(
+            $variables = [
                 'label' => Mage::helper('core')->__('Custom Variables'),
                 'value' => $variables
-            );
+            ];
         }
         return $variables;
     }

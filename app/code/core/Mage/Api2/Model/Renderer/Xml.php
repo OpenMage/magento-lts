@@ -42,22 +42,22 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      *
      * @var array
      */
-    protected $_replacementInTagName = array(
+    protected $_replacementInTagName = [
         '!' => '', '"' => '', '#' => '', '$' => '', '%' => '', '&' => '', '\'' => '',
         '(' => '', ')' => '', '*' => '', '+' => '', ',' => '', '/' => '', ';' => '',
         '<' => '', '=' => '', '>' => '', '?' => '', '@' => '', '[' => '', '\\' => '',
         ']' => '', '^' => '', '`' => '', '{' => '', '|' => '', '}' => '', '~' => '',
         ' ' => '_', ':' => '_'
-    );
+    ];
 
     /**
      * Chars for replacement in the tag value
      *
      * @var array
      */
-    protected $_replacementInTagValue = array(
+    protected $_replacementInTagValue = [
         '&' => '&amp;' // replace "&" with HTML entity, because by default not replaced
-    );
+    ];
 
     /**
      * Protected pattern for check chars in the begin of tag name
@@ -74,10 +74,10 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
      */
     public function render($data)
     {
-        /* @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
-        $writer = Mage::getModel('api2/renderer_xml_writer', array(
+        /** @var Mage_Api2_Model_Renderer_Xml_Writer $writer */
+        $writer = Mage::getModel('api2/renderer_xml_writer', [
             'config' => new Zend_Config($this->_prepareData($data, true))
-        ));
+        ]);
         return $writer->render();
     }
 
@@ -93,7 +93,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
     {
         if (!is_array($data) && !is_object($data)) {
             if ($root) {
-                $data = array($data);
+                $data = [$data];
             } else {
                 throw new Exception('Prepare data must be an object or an array.');
             }
@@ -101,7 +101,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         $data = $data instanceof Varien_Object ? $data->toArray() : (array)$data;
         $isAssoc = !preg_match('/^\d+$/', implode('', array_keys($data)));
 
-        $preparedData = array();
+        $preparedData = [];
         foreach ($data as $key => $value) {
             $value = is_array($value) || is_object($value) ? $this->_prepareData($value) : $this->_prepareValue($value);
             if ($isAssoc) {

@@ -12,10 +12,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Adminhtml
+ * @category   Mage
+ * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_Catalog_Product_Grid
 {
@@ -45,32 +45,32 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('ID'),
                 'width' => 50,
                 'index' => 'entity_id',
-        ));
+            ]);
 
         $this->addColumn('name',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('Name'),
                 'index' => 'name',
-        ));
+            ]);
 
         $this->addColumn('sku',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('SKU'),
                 'width' => 80,
                 'index' => 'sku',
-        ));
+            ]);
         $this->addColumn('status',
-            array(
+            [
                 'header'=> Mage::helper('adminhtml')->__('Status'),
                 'width' => 50,
                 'index' => 'status',
                 'type'  => 'options',
                 'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
-        ));
+            ]);
         return $this;
     }
 
@@ -81,7 +81,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/productGrid', array('_current' => true));
+        return $this->getUrl('*/*/productGrid', ['_current' => true]);
     }
 
     /**
@@ -91,6 +91,6 @@ class Mage_Adminhtml_Block_Urlrewrite_Product_Grid extends Mage_Adminhtml_Block_
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('product' => $row->getId())) . 'category';
+        return $this->getUrl('*/*/edit', ['product' => $row->getId()]) . 'category';
     }
 }

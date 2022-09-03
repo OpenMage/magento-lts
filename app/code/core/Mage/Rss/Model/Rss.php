@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Auth session model
  *
@@ -28,13 +27,13 @@
  */
 class Mage_Rss_Model_Rss
 {
-    protected $_feedArray = array();
+    protected $_feedArray = [];
 
     /**
      * @param array $data
      * @return $this
      */
-    public function _addHeader($data = array())
+    public function _addHeader($data = [])
     {
         $this->_feedArray = $data;
         return $this;

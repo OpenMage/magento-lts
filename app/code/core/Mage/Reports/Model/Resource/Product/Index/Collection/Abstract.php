@@ -12,19 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Reports
+ * @category   Mage
+ * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Reports Product Index Abstract Product Resource Collection
  *
- * @category    Mage
- * @package     Mage_Reports
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @category   Mage
+ * @package    Mage_Reports
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract extends Mage_Catalog_Model_Resource_Product_Collection
 {
@@ -41,7 +40,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      *
      * @var array
      */
-    protected $_sortIds = array();
+    protected $_sortIds = [];
 
     /**
      * Retrieve Product Index table name
@@ -58,13 +57,13 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     {
         if (!$this->getFlag('is_idx_table_joined')) {
             $this->joinTable(
-                array('idx_table' => $this->_getTableName()),
+                ['idx_table' => $this->_getTableName()],
                 'product_id=entity_id',
-                array(
+                [
                     'product_id'    => 'product_id',
                     'item_store_id' => 'store_id',
                     'added_at'      => 'added_at'
-                ),
+                ],
                 $this->_getWhereCondition()
             );
             $this->setFlag('is_idx_table_joined', true);
@@ -109,7 +108,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
      */
     protected function _getWhereCondition()
     {
-        $condition = array();
+        $condition = [];
 
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             $condition['customer_id'] = Mage::getSingleton('customer/session')->getCustomerId();
@@ -168,7 +167,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     protected function _sort()
     {
         if (!empty($this->_sortIds)) {
-            $orderedItems = array();
+            $orderedItems = [];
             foreach ($this->_sortIds as $id) {
                 if (isset($this->_items[$id])) {
                     $orderedItems[$id] = $this->_items[$id];
@@ -190,7 +189,6 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         $this->_sort();
         return $result;
     }
-
 
     /**
      * Add exclude Product Ids

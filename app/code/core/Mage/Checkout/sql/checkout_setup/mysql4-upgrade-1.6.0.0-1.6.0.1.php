@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 $installer = $this;
 $installer->startSetup();
 
@@ -30,13 +30,13 @@ if (!$connection->tableColumnExists($table, $column)) {
     $connection->addColumn(
         $table,
         $column,
-        array(
+        [
             'type'      => Varien_Db_Ddl_Table::TYPE_SMALLINT,
             'length'    => 2,
             'nullable'  => false,
             'default'   => 0,
             'comment'   => 'Agreement Position'
-        )
+        ]
     );
 }
 

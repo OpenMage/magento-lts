@@ -12,17 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Uploader Config Instance Abstract Model
  *
- * @category    Mage
- * @package     Mage_Uploader
+ * @category   Mage
+ * @package    Mage_Uploader
+ * @author     Magento Core Team <core@magentocommerce.com>
  */
 
 abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
@@ -51,16 +52,13 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
         $key = lcfirst($this->_camelize(substr($method,3)));
         switch (substr($method, 0, 3)) {
             case 'get' :
-                $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
-                return $data;
+                return $this->getData($key, isset($args[0]) ? $args[0] : null);
 
             case 'set' :
-                $result = $this->setData($key, isset($args[0]) ? $args[0] : null);
-                return $result;
+                return $this->setData($key, isset($args[0]) ? $args[0] : null);
 
             case 'uns' :
-                $result = $this->unsetData($key);
-                return $result;
+                return $this->unsetData($key);
 
             case 'has' :
                 return isset($this->_data[$key]);

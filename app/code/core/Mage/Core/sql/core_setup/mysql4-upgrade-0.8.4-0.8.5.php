@@ -18,9 +18,8 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-/* @var Mage_Core_Model_Resource_Setup $installer */
+/** @var Mage_Core_Model_Resource_Setup $installer */
 
 $conn = $installer->getConnection();
 $table = $this->getTable('design_change');

@@ -18,12 +18,12 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var Mage_Sales_Model_Entity_Setup $installer */
+/** @var Mage_Sales_Model_Entity_Setup $installer */
 $installer = $this;
 
 //$installer->getConnection()->addKey($installer->getTable('sales/order_item'), 'IDX_PRODUCT_ID', 'product_id');
 
-foreach (array('daily', 'monthly', 'yearly') as $frequency) {
+foreach (['daily', 'monthly', 'yearly'] as $frequency) {
     $tableName = $installer->getTable('sales/bestsellers_aggregated_' . $frequency);
 
     $installer->run("

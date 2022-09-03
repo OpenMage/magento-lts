@@ -12,14 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category    Mage
- * @package     Mage_Catalog
+ * @category   Mage
+ * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Catalog_Model_Config
+ *
+ * @category   Mage
+ * @package    Mage_Catalog
+ * @author     Magento Core Team <core@magentocommerce.com>
  *
  * @property array $_productTypesByName
  */
@@ -106,8 +110,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_set_collection')
             ->load();
 
-        $this->_attributeSetsById = array();
-        $this->_attributeSetsByName = array();
+        $this->_attributeSetsById = [];
+        $this->_attributeSetsByName = [];
         foreach ($attributeSetCollection as $id => $attributeSet) {
             $entityTypeId = $attributeSet->getEntityTypeId();
             $name = $attributeSet->getAttributeSetName();
@@ -166,8 +170,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $attributeSetCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
             ->load();
 
-        $this->_attributeGroupsById = array();
-        $this->_attributeGroupsByName = array();
+        $this->_attributeGroupsById = [];
+        $this->_attributeGroupsByName = [];
         foreach ($attributeSetCollection as $id => $attributeGroup) {
             $attributeSetId = $attributeGroup->getAttributeSetId();
             $name = $attributeGroup->getAttributeGroupName();
@@ -232,8 +236,8 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         $productTypeCollection = Mage::getModel('catalog/product_type')
             ->getOptionArray();
 
-        $this->_productTypesById = array();
-        $this->_productTypesByName = array();
+        $this->_productTypesById = [];
+        $this->_productTypesByName = [];
         foreach ($productTypeCollection as $id => $type) {
             //$name = $type->getCode();
             $name = $type;
@@ -334,7 +338,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedInProductListing()
     {
         if (is_null($this->_usedInProductListing)) {
-            $this->_usedInProductListing = array();
+            $this->_usedInProductListing = [];
             $entityType = Mage_Catalog_Model_Product::ENTITY;
             $attributesData = $this->_getResource()
                 ->setStoreId($this->getStoreId())
@@ -358,7 +362,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getAttributesUsedForSortBy()
     {
         if (is_null($this->_usedForSortBy)) {
-            $this->_usedForSortBy = array();
+            $this->_usedForSortBy = [];
             $entityType     = Mage_Catalog_Model_Product::ENTITY;
             $attributesData = $this->_getResource()
                 ->getAttributesUsedForSortBy();
@@ -381,11 +385,11 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
      */
     public function getAttributeUsedForSortByArray()
     {
-        $options = array(
+        $options = [
             'position'  => Mage::helper('catalog')->__('Position')
-        );
+        ];
         foreach ($this->getAttributesUsedForSortBy() as $attribute) {
-            /* @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
+            /** @var Mage_Eav_Model_Entity_Attribute_Abstract $attribute */
             $options[$attribute->getAttributeCode()] = $attribute->getStoreLabel();
         }
 

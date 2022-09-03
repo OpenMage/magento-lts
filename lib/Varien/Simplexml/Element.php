@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-
 /**
  * Extends SimpleXML to add valuable functionality to SimpleXMLElement class
  *
@@ -69,8 +68,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @return boolean
      */
     #[ReturnTypeWillChange]
@@ -295,8 +292,6 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * Enter description here...
-     *
      * @param int $level
      * @return string
      */
@@ -610,6 +605,5 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         return $this;
     }
 */
-
 
 }

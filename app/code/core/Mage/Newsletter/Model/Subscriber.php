@@ -255,7 +255,6 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         return false;
     }
 
-
     /**
      * Load subscriber data from resource model by email
      *
@@ -298,7 +297,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     public function randomSequence($length = 32)
     {
         $id = '';
-        $par = array();
+        $par = [];
         $char = array_merge(range('a', 'z'), range(0, 9));
         $charLen = count($char)-1;
         for ($i=0; $i<$length; $i++) {
@@ -523,18 +522,18 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        $email->setDesignConfig(array('area' => 'frontend', 'store' => $this->getStoreId()));
+        $email->setDesignConfig(['area' => 'frontend', 'store' => $this->getStoreId()]);
 
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_CONFIRM_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            array('subscriber'=>$this)
+            ['subscriber'=>$this]
         );
 
         $translate->setTranslateInline(true);
@@ -560,18 +559,18 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        $email->setDesignConfig(array('area' => 'frontend', 'store' => $this->getStoreId()));
+        $email->setDesignConfig(['area' => 'frontend', 'store' => $this->getStoreId()]);
 
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            array('subscriber'=>$this)
+            ['subscriber'=>$this]
         );
 
         $translate->setTranslateInline(true);
@@ -596,18 +595,18 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         }
 
         $translate = Mage::getSingleton('core/translate');
-        /* @var Mage_Core_Model_Translate $translate */
+        /** @var Mage_Core_Model_Translate $translate */
         $translate->setTranslateInline(false);
 
         $email = Mage::getModel('core/email_template');
-        $email->setDesignConfig(array('area' => 'frontend', 'store' => $this->getStoreId()));
+        $email->setDesignConfig(['area' => 'frontend', 'store' => $this->getStoreId()]);
 
         $email->sendTransactional(
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE),
             Mage::getStoreConfig(self::XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY),
             $this->getEmail(),
             $this->getName(),
-            array('subscriber'=>$this)
+            ['subscriber'=>$this]
         );
 
         $translate->setTranslateInline(true);
